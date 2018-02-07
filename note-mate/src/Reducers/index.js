@@ -1,4 +1,4 @@
-import { NOTEADDED, NOTEUPDATED, NOTEDELETED } from '../Actions'
+import { NOTEADDED, NOTEUPDATED, NOTEDELETED, LOGGEDIN, LOGGEDOUT } from '../Actions'
 // import { GETTINGNOTES, NOTESRECEIVED, ADDINGNOTE, UPDATINGNOTE, NOTEUPDATED, DELETINGNOTE, NOTEDELETED, ERROR } from '../Actions';
 let id = 0;
 const initialState = {
@@ -15,6 +15,8 @@ const initialState = {
     noteUpdated: false,
     deletingNote: false,
     noteDeleted: false,
+    loggedIn: false,
+    loggedOut: false,
     error: false
 }
 
@@ -29,9 +31,13 @@ const noteReducer = (state = initialState, action) => {
                 if (note.ID === action.payload.ID) {
                     return action.payload
                 } return note;
-            })}
+            })};
         case NOTEDELETED:
             return {...state, notes: state.notes.filter(note => note.ID !== action.payload)};
+        case LOGGEDIN:
+            return {...state, loggedIn: true};
+        case LOGGEDOUT:
+            return {...state, loggedIn: false, loggedOut: true};
         default:
             return state;
     }

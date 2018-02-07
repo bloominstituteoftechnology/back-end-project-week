@@ -4,6 +4,9 @@ export const NOTEADDED = 'NOTEADDED';
 export const NOTEUPDATED = 'NOTEUPDATED';
 export const NOTEDELETED = 'NOTEDELETED';
 
+export const LOGGEDIN = 'LOGGEDIN';
+export const LOGGEDOUT = 'LOGGEDOUT';
+
 
 export const addNote = note => {
     return {
@@ -26,6 +29,17 @@ export const deleteNote = id => {
     }
 }
 
+export const loggedIn = () => {
+    return {
+        type: LOGGEDIN
+    }
+}
+
+export const loggedOut = () => {
+    return {
+        type: LOGGEDOUT
+    }
+}
 // export const GETTINGNOTES = 'GETTINGNOTES';
 // export const NOTESRECEIVED = 'NOTESRECEIVED';
 
