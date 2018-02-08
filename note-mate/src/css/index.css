@@ -138,6 +138,12 @@ html,
 body {
   background: #03A9F4;
   font-size: 62.5%;
+  height: 100%;
+}
+.HomePage {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 .Navigation {
   background: #0288D1;
@@ -145,8 +151,8 @@ body {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 40px;
-  font-size: 2.6rem;
+  height: 8vh;
+  font-size: 2.8rem;
   color: #212121;
 }
 .Navigation .Navigation--LogOut {
@@ -158,8 +164,7 @@ body {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
-  min-height: 500px;
+  height: 92vh;
 }
 .Login form {
   background: white;
@@ -189,4 +194,33 @@ body {
   -moz-transform: scale(1.1);
   -ms-transform: scale(1.1);
   -o-transform: scale(1.1);
+}
+html,
+body {
+  height: 100%;
+}
+.App {
+  display: flex;
+  flex-direction: column;
+}
+.App .Navigation {
+  height: 8vh;
+}
+.App .DashBoard {
+  height: 92vh;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  border-radius: 20px;
+  font-size: 1.6rem;
+}
+.App .DashBoard .Notes {
+  width: 30%;
+  padding: 10px;
+  margin: 0;
+}
+.App .DashBoard .ViewNote {
+  background: white;
+  width: 70%;
+  padding: 10px;
 }
