@@ -4,14 +4,15 @@ import {connect} from 'react-redux';
 class Notes extends Component {
     render() {
         return (
-            <div className='Notes'>
+            <ul className='Notes'>
                 {this.props.notes.map((note, index) => {
-                return <div className='note' onClick={() => {this.props.previewNote(note.Title, note.Text, note.ID)}} key={note.ID}>
-                    <div>{note.Title}</div>
-                    <div>{note.Text}</div>
-                </div>
+                return <li className='note' onClick={() => {this.props.previewNote(note.Title, note.Text, note.ID)}} key={note.ID}>
+                    <div className="note--title">{note.Title}</div>
+                    <br/>
+                    {note.Text.length > 100 ? note.Text.substring(0,100).concat('...') : note.Text}
+                </li>
                 })}
-            </div>
+            </ul>
         );
     }
 }

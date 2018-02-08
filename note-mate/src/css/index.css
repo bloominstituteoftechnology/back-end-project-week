@@ -216,8 +216,20 @@ body {
 }
 .App .DashBoard .Notes {
   width: 30%;
-  padding: 10px;
   margin: 0;
+}
+.App .DashBoard .Notes li {
+  border-bottom: 1px solid #448AFF;
+  padding: 10px;
+}
+.App .DashBoard .Notes li:hover {
+  -webkit-opacity: 0.5;
+  -moz-opacity: 0.5;
+  opacity: 0.5;
+}
+.App .DashBoard .Notes li .note--title {
+  font-weight: bold;
+  font-size: 1.8rem;
 }
 .App .DashBoard .ViewNote {
   background: white;

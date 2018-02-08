@@ -17,8 +17,19 @@ html, body {
         font-size: 1.6rem;
         .Notes {
             width: 30%;
-            padding: 10px;
+            // padding: 10px;
             margin: 0;
+            li {
+                border-bottom: 1px solid @accent-color;
+                padding: 10px;
+                &:hover {
+                    .opacity(0.5);
+                }
+                .note--title {
+                    font-weight: bold;
+                    font-size: 1.8rem;
+                }
+            }
         }
         .ViewNote {
             background: white;
