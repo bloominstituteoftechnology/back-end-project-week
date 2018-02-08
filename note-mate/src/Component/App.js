@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import './App.css';
 import { connect } from 'react-redux';
 import {Route, Redirect, withRouter} from 'react-router-dom';
 
-import ViewNotes from './Component/ViewNotes';
-import Navigation from './Component/Navigation';
-import LogIn from './Component/LogIn';
+import ViewNotes from './ViewNotes';
+import Navigation from './Navigation';
+import LogIn from './LogIn';
 
 class App extends Component {
  
@@ -31,7 +30,6 @@ class App extends Component {
             <Redirect to='/' />
           ) : <Route to='/notes' />  
         )} />
-
       </div>
     );
   }

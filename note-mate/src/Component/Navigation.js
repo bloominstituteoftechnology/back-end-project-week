@@ -12,11 +12,11 @@ class Navigation extends Component {
 
     render() {
         return (
-            <div>
-                <h3>
+            <div className='Navigation'>
+                <div className='Navigation--Brand'>
                     Note Mate
-                </h3>
-                <div onClick={this.logOut} >
+                </div>
+                <div onClick={this.logOut} className='Navigation--LogOut'>
                     Log Out
                 </div>
             </div>
