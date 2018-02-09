@@ -28,7 +28,7 @@ class Notes extends Component {
                 {filter.map((note, index) => {
                 return <li className='note' onClick={() => {this.props.previewNote(note.Title, note.Text, note.ID)}} key={note.ID}>
                     <div className="note--title">
-                    {note.Title.length > 30 ? note.Title.substring(0,30).concat('...'): note.Title}
+                    {note.Title.length > 30 ? note.Title.substring(0,30).concat('...') : note.Title}
                     </div>
                     <br/>
                     {note.Text.length > 100 ? note.Text.substring(0,100).concat('...') : note.Text}

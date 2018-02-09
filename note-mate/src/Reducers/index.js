@@ -7,6 +7,7 @@ const initialState = {
         Title: 'First Note',
         Text: 'Here is your first note. Feel free to edit or delete this note.'
     }],
+    id: id,
     gettingNotes: false,
     notesReceived: false,
     addingNote: false,
@@ -25,7 +26,7 @@ const noteReducer = (state = initialState, action) => {
     switch(action.type) {
         case NOTEADDED:
             ++id;
-            return {...state, notes: [...state.notes, {...action.payload, ID: id}], noteAdded: true};
+            return {...state, notes: [...state.notes, {...action.payload, ID: id}], id: id, noteAdded: true};
         case NOTEUPDATED:
             return {...state, notes: state.notes.map(note => {
                 if (note.ID === action.payload.ID) {

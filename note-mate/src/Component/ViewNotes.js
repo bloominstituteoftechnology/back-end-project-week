@@ -57,9 +57,7 @@ class ViewNotes extends Component {
       this.props.updateNote(editNote);
     } else if (this.state.id === -1 && this.state.text.length > 0 && this.state.title.length > 0) {
       this.props.addNote(note);
-      this.setState({
-        id: this.props.notes.length
-      });
+      this.setState({id: this.props.id + 1});
     }
   }
 
@@ -119,7 +117,7 @@ class ViewNotes extends Component {
 const mapStateToProps = state => {
     return {
         notes: state.notes,
-        noteAdded: state.noteAdded
+        id: state.id
     }
 }
 
