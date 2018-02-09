@@ -17,8 +17,17 @@ html, body {
         font-size: 1.6rem;
         .Notes {
             width: 30%;
-            // padding: 10px;
+            overflow: scroll;
             margin: 0;
+            .Notes--Search {
+                display: flex;
+                justify-content: center;
+                input {
+                    border: 2px solid @accent-color;
+                    border-radius: 5px; 
+                    font-size: @font-size;
+                }
+            }
             li {
                 border-bottom: 1px solid @accent-color;
                 padding: 10px;
@@ -34,7 +43,48 @@ html, body {
         .ViewNote {
             background: white;
             width: 70%;
-            padding: 10px; 
+            height: 100%;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            .ViewNote--addNote {
+                display: flex;
+                justify-content: flex-end;
+                button {
+                    font-size: @font-size;
+                    background: @accent-color;
+                    padding: 10px;
+                    border-radius: 10px;
+                }
+            }
+            form {
+                display: flex;
+                flex-direction: column;
+                height: 95%;
+                input {
+                    border: 2px solid @accent-color;
+                    border-radius: 5px; 
+                    font-size: @font-size;
+                }
+                textarea {
+                    height: 100%;
+                    width: 100%;
+                    border: 2px solid @accent-color;
+                    border-radius: 5px;
+                    font-size: @font-size;
+                }
+            }
+            .ViewNote--update {
+                display: flex;
+                justify-content: center;
+                button {
+                    margin-right: 10px;
+                    font-size: @font-size;
+                    background: @accent-color;
+                    padding: 10px;
+                    border-radius: 10px;
+                }
+            }
         }
     }
 }

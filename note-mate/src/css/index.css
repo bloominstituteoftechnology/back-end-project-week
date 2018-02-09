@@ -216,7 +216,17 @@ body {
 }
 .App .DashBoard .Notes {
   width: 30%;
+  overflow: scroll;
   margin: 0;
+}
+.App .DashBoard .Notes .Notes--Search {
+  display: flex;
+  justify-content: center;
+}
+.App .DashBoard .Notes .Notes--Search input {
+  border: 2px solid #448AFF;
+  border-radius: 5px;
+  font-size: 1.6rem;
 }
 .App .DashBoard .Notes li {
   border-bottom: 1px solid #448AFF;
@@ -234,5 +244,46 @@ body {
 .App .DashBoard .ViewNote {
   background: white;
   width: 70%;
+  height: 100%;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.App .DashBoard .ViewNote .ViewNote--addNote {
+  display: flex;
+  justify-content: flex-end;
+}
+.App .DashBoard .ViewNote .ViewNote--addNote button {
+  font-size: 1.6rem;
+  background: #448AFF;
+  padding: 10px;
+  border-radius: 10px;
+}
+.App .DashBoard .ViewNote form {
+  display: flex;
+  flex-direction: column;
+  height: 95%;
+}
+.App .DashBoard .ViewNote form input {
+  border: 2px solid #448AFF;
+  border-radius: 5px;
+  font-size: 1.6rem;
+}
+.App .DashBoard .ViewNote form textarea {
+  height: 100%;
+  width: 100%;
+  border: 2px solid #448AFF;
+  border-radius: 5px;
+  font-size: 1.6rem;
+}
+.App .DashBoard .ViewNote .ViewNote--update {
+  display: flex;
+  justify-content: center;
+}
+.App .DashBoard .ViewNote .ViewNote--update button {
+  margin-right: 10px;
+  font-size: 1.6rem;
+  background: #448AFF;
+  padding: 10px;
+  border-radius: 10px;
 }

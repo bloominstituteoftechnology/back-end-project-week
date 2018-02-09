@@ -103,14 +103,21 @@ class ViewNotes extends Component {
         <div className="DashBoard">
             <Notes previewNote={this.previewNote} />                
             <div className='ViewNote'>
-                <h2>Note Section</h2>
+              <div className='ViewNote--addNote'>
                 <button onClick={this.addNoteToggle}>Add New Note</button>
-                <form>
-                    <input name='title' onChange={this.noteChangeHandler} value={this.state.title} type='text' placeholder="Title" required />
-                    <input className='ViewNote--text' name='text' onChange={this.noteChangeHandler} value={this.state.text} type='text' placeholder="Add Notes" required />
-                    <button onClick={this.newNote}>Save</button>
-                    <button onClick={this.deleteNote}>Delete Note</button>
-                </form>
+              </div>
+              <form onSubmit={this.newNote}>
+                <label>Title: </label>
+                <input name='title' onChange={this.noteChangeHandler} value={this.state.title} type='text' placeholder="Title" required />
+                <br />
+                <label>Body: </label>
+                <textarea className='ViewNote--text' name='text' onChange={this.noteChangeHandler} value={this.state.text} type='text' placeholder="Add Notes" required />
+                <br />
+              </form>
+              <div className='ViewNote--update'>
+                <button onClick={this.newNote}>Save</button>
+                <button onClick={this.deleteNote}>Delete</button>
+              </div>
             </div>
         </div>
     );

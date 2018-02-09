@@ -40,6 +40,8 @@ export const loggedOut = () => {
         type: LOGGEDOUT
     }
 }
+
+
 // export const GETTINGNOTES = 'GETTINGNOTES';
 // export const NOTESRECEIVED = 'NOTESRECEIVED';
 
