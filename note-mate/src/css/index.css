@@ -134,6 +134,11 @@ table {
   justify-content: center;
   align-items: center;
 }
+.box-shadow {
+  -webkit-box-shadow: 0 5px 10px #777;
+  -moz-box-shadow: 0 5px 10px #777;
+  box-shadow: 0 5px 10px #777;
+}
 html,
 body {
   background: #03A9F4;
@@ -170,6 +175,9 @@ body {
   background: white;
   padding: 40px;
   border-radius: 20px;
+  -webkit-box-shadow: 0 5px 10px #777;
+  -moz-box-shadow: 0 5px 10px #777;
+  box-shadow: 0 5px 10px #777;
 }
 .Login form div {
   font-size: 3rem;
@@ -228,6 +236,9 @@ body {
   border: 2px solid #448AFF;
   border-radius: 5px;
   font-size: 1.6rem;
+  -webkit-box-shadow: 0 5px 10px #777;
+  -moz-box-shadow: 0 5px 10px #777;
+  box-shadow: 0 5px 10px #777;
 }
 .App .DashBoard .Notes li {
   border-bottom: 1px solid #0288D1;
@@ -244,6 +255,8 @@ body {
 }
 .App .DashBoard .Notes li .note--text {
   font-size: 1.6rem;
+  display: flex;
+  justify-content: space-between;
 }
 .App .DashBoard .ViewNote {
   background: white;
@@ -262,6 +275,15 @@ body {
   background: #448AFF;
   padding: 10px;
   border-radius: 10px;
+  -webkit-box-shadow: 0 5px 10px #777;
+  -moz-box-shadow: 0 5px 10px #777;
+  box-shadow: 0 5px 10px #777;
+}
+.App .DashBoard .ViewNote .ViewNote--addNote button:hover {
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
 }
 .App .DashBoard .ViewNote form {
   display: flex;
@@ -269,16 +291,20 @@ body {
   height: 95%;
 }
 .App .DashBoard .ViewNote form input {
-  border: 2px solid #448AFF;
   border-radius: 5px;
   font-size: 1.6rem;
+  -webkit-box-shadow: 0 5px 10px #777;
+  -moz-box-shadow: 0 5px 10px #777;
+  box-shadow: 0 5px 10px #777;
 }
 .App .DashBoard .ViewNote form textarea {
   height: 100%;
   width: 100%;
-  border: 2px solid #448AFF;
   border-radius: 5px;
   font-size: 1.6rem;
+  -webkit-box-shadow: 0 5px 10px #777;
+  -moz-box-shadow: 0 5px 10px #777;
+  box-shadow: 0 5px 10px #777;
 }
 .App .DashBoard .ViewNote .ViewNote--update {
   display: flex;
@@ -290,4 +316,13 @@ body {
   background: #448AFF;
   padding: 10px;
   border-radius: 10px;
+  -webkit-box-shadow: 0 5px 10px #777;
+  -moz-box-shadow: 0 5px 10px #777;
+  box-shadow: 0 5px 10px #777;
+}
+.App .DashBoard .ViewNote .ViewNote--update button:hover {
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
 }

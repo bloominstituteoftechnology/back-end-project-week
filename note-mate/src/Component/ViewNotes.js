@@ -52,7 +52,7 @@ class ViewNotes extends Component {
     }
 
     if (this.state.text.length === 0 || this.state.title.length === 0) {
-      alert('You need to have a Title and Text in your note before you can save');
+      alert('You need to have a Title and Body in your note before you can save');
     } else if (this.state.text.length > 0 && this.state.title.length > 0 && this.state.id > -1) {
       this.props.updateNote(editNote);
     } else if (this.state.id === -1 && this.state.text.length > 0 && this.state.title.length > 0) {
