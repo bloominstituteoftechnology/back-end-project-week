@@ -22,6 +22,7 @@ html, body {
             .Notes--Search {
                 display: flex;
                 justify-content: center;
+                margin: 10px;
                 input {
                     border: 2px solid @accent-color;
                     border-radius: 5px; 
@@ -29,14 +30,17 @@ html, body {
                 }
             }
             li {
-                border-bottom: 1px solid @accent-color;
+                border-bottom: 1px solid @primary-color;
                 padding: 10px;
                 &:hover {
                     .opacity(0.5);
                 }
                 .note--title {
                     font-weight: bold;
-                    font-size: 1.8rem;
+                    font-size: @font-size;
+                }
+                .note--text {
+                    font-size: @font-size;
                 }
             }
         }

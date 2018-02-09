@@ -25,15 +25,15 @@ const noteReducer = (state = initialState, action) => {
     switch(action.type) {
         case NOTEADDED:
             ++id;
-            return {...state, notes: [...state.notes, {...action.payload, ID: id}]};
+            return {...state, notes: [...state.notes, {...action.payload, ID: id}], noteAdded: true};
         case NOTEUPDATED:
             return {...state, notes: state.notes.map(note => {
                 if (note.ID === action.payload.ID) {
                     return action.payload
                 } return note;
-            })};
+            }), noteUpdated: true};
         case NOTEDELETED:
-            return {...state, notes: state.notes.filter(note => note.ID !== action.payload)};
+            return {...state, notes: state.notes.filter(note => note.ID !== action.payload), noteDeleted: true};
         case LOGGEDIN:
             return {...state, loggedIn: true};
         case LOGGEDOUT:

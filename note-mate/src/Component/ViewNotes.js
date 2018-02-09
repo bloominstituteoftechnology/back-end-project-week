@@ -39,35 +39,26 @@ class ViewNotes extends Component {
     });
   }
 
-  newNote = event => {
+  updateNote = event => {
     event.preventDefault();
-    const note = {
-      Title: this.state.title,
-      Text: this.state.text
-    }
-
     const editNote = {
       ID: this.state.id,
       Title: this.state.title,
       Text: this.state.text
     }
+    const note = {
+      Title: this.state.title,
+      Text: this.state.text
+    }
 
-    if (this.state.id > -1) {
-      this.props.updateNote(editNote);
-      this.setState({
-        title: '',
-        text: '',
-        id: -1,
-      });
-    } 
-    else if (this.state.text.length === 0 || this.state.title.length === 0) {
+    if (this.state.text.length === 0 || this.state.title.length === 0) {
       alert('You need to have a Title and Text in your note before you can save');
-    } else {
+    } else if (this.state.text.length > 0 && this.state.title.length > 0 && this.state.id > -1) {
+      this.props.updateNote(editNote);
+    } else if (this.state.id === -1 && this.state.text.length > 0 && this.state.title.length > 0) {
       this.props.addNote(note);
       this.setState({
-        title: '',
-        text: '',
-        id: -1,
+        id: this.props.notes.length
       });
     }
   }
@@ -106,7 +97,7 @@ class ViewNotes extends Component {
               <div className='ViewNote--addNote'>
                 <button onClick={this.addNoteToggle}>Add New Note</button>
               </div>
-              <form onSubmit={this.newNote}>
+              <form onSubmit={this.updateNote}>
                 <label>Title: </label>
                 <input name='title' onChange={this.noteChangeHandler} value={this.state.title} type='text' placeholder="Title" required />
                 <br />
@@ -114,10 +105,10 @@ class ViewNotes extends Component {
                 <textarea className='ViewNote--text' name='text' onChange={this.noteChangeHandler} value={this.state.text} type='text' placeholder="Add Notes" required />
                 <br />
               </form>
-              <div className='ViewNote--update'>
-                <button onClick={this.newNote}>Save</button>
-                <button onClick={this.deleteNote}>Delete</button>
-              </div>
+                <div className='ViewNote--update'>
+                  <button onClick={this.updateNote}>Save</button>
+                  <button onClick={this.deleteNote}>Delete</button>
+                </div>
             </div>
         </div>
     );
@@ -127,7 +118,8 @@ class ViewNotes extends Component {
 
 const mapStateToProps = state => {
     return {
-        notes: state.notes
+        notes: state.notes,
+        noteAdded: state.noteAdded
     }
 }
 

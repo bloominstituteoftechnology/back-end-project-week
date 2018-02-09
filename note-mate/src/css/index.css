@@ -222,6 +222,7 @@ body {
 .App .DashBoard .Notes .Notes--Search {
   display: flex;
   justify-content: center;
+  margin: 10px;
 }
 .App .DashBoard .Notes .Notes--Search input {
   border: 2px solid #448AFF;
@@ -229,7 +230,7 @@ body {
   font-size: 1.6rem;
 }
 .App .DashBoard .Notes li {
-  border-bottom: 1px solid #448AFF;
+  border-bottom: 1px solid #0288D1;
   padding: 10px;
 }
 .App .DashBoard .Notes li:hover {
@@ -239,7 +240,10 @@ body {
 }
 .App .DashBoard .Notes li .note--title {
   font-weight: bold;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
+}
+.App .DashBoard .Notes li .note--text {
+  font-size: 1.6rem;
 }
 .App .DashBoard .ViewNote {
   background: white;
