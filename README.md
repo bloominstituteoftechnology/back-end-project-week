@@ -23,6 +23,7 @@ The main objective of this week is to develop a backend to support the LambdaNot
 * [ ] Store these User Accounts in your Database
 * [ ] Add a Sign In Page
 * [ ] Store Notes in your Database
+* [ ] Deploy your application to the web
 
 Build an API Endpoint for each of the following, and connect it to your React App
 * [ ] Display a list of notes
@@ -50,6 +51,7 @@ Upon your first commit, please submit a Pull Request and add _both_ the **Trello
 * [ ] Store these User Accounts in your Database
 * [ ] Add a Sign In Page
 * [ ] Store Notes in your Database
+* [ ] Deploy your application to the web
 
 Build an API Endpoint in your Node App for each of the following, and connect them to your React App. These should all be read from your Database and scoped to the logged in user.
 * [ ] Display a list of notes
