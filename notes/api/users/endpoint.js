@@ -23,7 +23,9 @@ router
   .post(validate.user, (req, res) => {
     controller
       .create(req.body)
-      .then(savedUser => send(res, success.created, savedUser))
+      .then(savedUser =>
+        send(res, success.created, { ...savedUser._doc, password: undefined }),
+      )
       .catch(err => send(res, error.server, message.createdError, err));
   });
 
