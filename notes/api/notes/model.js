@@ -31,13 +31,10 @@ const NoteSchema = new Schema({
 
 NoteSchema.statics.getAllNotes = cb => {
   Note.find({}, (err, notes) => {
-    console.log('model err', err);
     if (err) {
       cb({ err: err });
       return;
     }
-
-    console.log('notes model', notes);
 
     cb(notes);
   });
