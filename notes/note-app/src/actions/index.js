@@ -1,6 +1,11 @@
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
+export const AUTH_USER_AUTHENTICATED = 'AUTH_USER_AUTHENTICATED';
+export const AUTH_USER_UNAUTHENTICATED = 'AUTH_USER_UNAUTHENTICATED';
+export const AUTH_ERROR = 'AUTH_ERROR';
+export const AUTH_CHECK = 'AUTH_CHECK';
+
 // sign up user
 export const SIGNUP_USER_START = 'SIGNUP_USER_START';
 export const SIGNUP_USER_SUCCESS = 'SIGNUP_USER_SUCCESS';
