@@ -5,15 +5,15 @@ module.exports = {
     return new User(user).save();
   },
   // request: cb => {
-  //   return Note.getAllNotes(cb);
+  //   return User.getAllNotes(cb);
   // },
-  // requestBy: _id => {
-  //   return Note.findOne({ _id });
-  // },
-  // update: (_id, note) => {
-  //   return Note.findByIdAndUpdate(_id, note, { new: true });
-  // },
-  // del: _id => {
-  //   return Note.findByIdAndRemove({ _id });
-  // },
+  requestBy: _id => {
+    return User.findOne({ _id });
+  },
+  update: (_id, user) => {
+    return User.findByIdAndUpdate(_id, user, { new: true });
+  },
+  del: _id => {
+    return User.findByIdAndRemove({ _id });
+  },
 };

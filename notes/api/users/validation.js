@@ -1,6 +1,7 @@
 const { error } = require('../../config').status;
-const { send, message } = require('../helper');
+const { send } = require('../helper');
 
+const message = require('./messages');
 const controller = require('./controller');
 
 module.exports = {
@@ -14,31 +15,31 @@ module.exports = {
 
     next();
   },
-  // id: (req, res, next) => {
-  //   const { id } = req.params;
+  id: (req, res, next) => {
+    const { id } = req.params;
 
-  //   controller
-  //     .requestBy(req.params.id)
-  //     .then(note => {
-  //       if (!note) {
-  //         send(res, error.miss, {
-  //           message: message.requestIdError,
-  //           note: note,
-  //         });
+    controller
+      .requestBy(req.params.id)
+      .then(user => {
+        if (!user) {
+          send(res, error.miss, {
+            message: message.requestIdError,
+            user: user,
+          });
 
-  //         return;
-  //       }
+          return;
+        }
 
-  //       req.note = note;
-  //       next();
-  //     })
-  //     .catch(err => send(res, error.server, message.requestIdServerError, err));
-  // },
+        req.user = user;
+        next();
+      })
+      .catch(err => send(res, error.server, message.requestIdServerError, err));
+  },
   // update: (req, res, next) => {
-  //   const { title, content } = req.body;
+  //   const { username, password } = req.body;
 
-  //   if (!title && !content) {
-  //     send(res, error.inp, { message: message.noTitleNoText });
+  //   if (!username && !password) {
+  //     send(res, error.inp, { message: message.noUsernameNoPass });
   //     return;
   //   }
 

@@ -4,7 +4,6 @@ const { error, success } = require('../../config').status;
 const { send } = require('../helper');
 
 const message = require('./messages');
-
 const validate = require('./validation');
 const controller = require('./controller');
 
@@ -24,32 +23,32 @@ router
   .post(validate.user, (req, res) => {
     controller
       .create(req.body)
-      .then(savedUser => send(res, success.created, { savedUser }))
+      .then(savedUser => send(res, success.created, savedUser))
       .catch(err => send(res, error.server, message.createdError, err));
   });
 
-// router
-//   .route('/:id')
-//   .get(validate.id, (req, res) => {
-//     res.status(success.ok).json(req.note);
-//   })
-//   .put(validate.update, validate.id, (req, res) => {
-//     const { title, content } = req.body;
-//     const updatedNote = {
-//       title: title || req.note.title,
-//       content: content || req.note.content,
-//     };
+router
+  .route('/:id')
+  .get(validate.id, (req, res) => {
+    res.status(success.ok).json(req.user);
+  })
+  // .put(validate.update, validate.id, (req, res) => {
+  //   const { username, password } = req.body;
+  //   const updatedUser = {
+  //     username: username || req.user.username,
+  //     password: password || req.user.password,
+  //   };
 
-//     controller
-//       .update(req.params.id, updatedNote)
-//       .then(updatedNote => send(res, success.ok, updatedNote))
-//       .catch(err => send(res, error.server, message.updateError, err));
-//   })
-//   .delete(validate.id, (req, res) => {
-//     controller
-//       .del(req.params.id)
-//       .then(deletedNote => send(res, success.ok, deletedNote))
-//       .catch(err => send(res, error.server, message.deleteError, err));
-//   });
+  //   controller
+  //     .update(req.params.id, updatedUser)
+  //     .then(updatedUser => send(res, success.ok, updatedUser))
+  //     .catch(err => send(res, error.server, message.updateError, err));
+  // })
+  .delete(validate.id, (req, res) => {
+    controller
+      .del(req.params.id)
+      .then(deletedNote => send(res, success.ok, deletedNote))
+      .catch(err => send(res, error.server, message.deleteError, err));
+  });
 
 module.exports = router;
