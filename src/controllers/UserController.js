@@ -23,7 +23,7 @@ const createUser = (req, res) => {
 const login = (req, res) => {
 	const { email, password } = req.body;
 	User.findOne({ email }, (err, user) => {
-		if (err) {
+		if (err || !user) {
 			res.status(500).json({ error: 'Invalid username or password' });
 			return;
 		}
@@ -31,14 +31,12 @@ const login = (req, res) => {
 			res.status(422).json({ error: 'No user with that email in our DB' });
 			return;
 		}
-		user.checkPassword(password, (nonMatch, hashMatch) => {
-			if (nonMatch !== null) {
-				res.status(422).json({ error: 'passwords dont match' });
-				return;
-			}
-			if (hashMatch) {
+		user.checkPassword(password, (isMatch) => {
+			if (isMatch) {
 				const token = getTokenForUser({ email: user.email });
-				res.json({ token });
+				res.json({ success: true });
+			} else {
+				res.status(422).json({ error: 'Invalid username or password' });
 			}
 		});
 	});

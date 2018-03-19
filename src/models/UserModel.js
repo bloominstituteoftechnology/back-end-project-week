@@ -18,24 +18,24 @@ const UserSchema = new mongoose.Schema({
 			required: true,
 			unique: true
 		},
-		passwordHash: {
+		password: {
 			type: String,
 			required: true
 		}
 });
 
 UserSchema.pre('save', function(next) {
-	bcrypt.hash(this.passwordHash, 11, (err, hash) => {
+	bcrypt.hash(this.password, 11, (err, hash) => {
 		if (err) return next(err);
-		this.passwordHash = hash;
+		this.password = hash;
 		next();
 	});
 });
 
 UserSchema.methods.checkPassword = function(potentialPass, cb) {
-	bcrypt.compare(potentialPass, this.passwordHash, (err, isMatch) => {
+	bcrypt.compare(potentialPass, this.password, (err, isMatch) => {
 		if (err) return cb(err);
-		cb(null, isMatch);
+		cb(isMatch);
 	});
 }
 
