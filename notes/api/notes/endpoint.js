@@ -22,11 +22,25 @@ router
     controller
       .create(req.body)
       .then(savedNote => send(res, success.created, savedNote))
-      .catch(error => send(res, error.server, message.createdError));
+      .catch(err => send(res, error.server, message.createdError));
   });
 
-router.route('/:id').get(validate.id, (req, res) => {
-  res.status(success.ok).json(req.note);
-});
+router
+  .route('/:id')
+  .get(validate.id, (req, res) => {
+    res.status(success.ok).json(req.note);
+  })
+  .put(validate.update, validate.id, (req, res) => {
+    const { title, content } = req.body;
+    const updatedNote = {
+      title: title || req.note.title,
+      content: content || req.note.content,
+    };
+
+    controller
+      .update(req.params.id, updatedNote)
+      .then(updatedNote => send(res, success.ok, updatedNote))
+      .catch(err => send(res, error.server, message.updatedError));
+  });
 
 module.exports = router;

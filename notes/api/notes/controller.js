@@ -10,4 +10,7 @@ module.exports = {
   requestBy: _id => {
     return Note.findOne({ _id });
   },
+  update: (_id, note) => {
+    return Note.findByIdAndUpdate(_id, note, { new: true });
+  },
 };

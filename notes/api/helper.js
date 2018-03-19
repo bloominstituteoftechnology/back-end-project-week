@@ -11,6 +11,7 @@ const message = {
   requestError: 'Server error requesting notes.',
   requestIdError: 'Note with id not found.',
   requestIdServerError: 'Server error requesting note with id.',
+  updateError: 'Server error updating note.',
   serverError: 'Server error.',
 };
 

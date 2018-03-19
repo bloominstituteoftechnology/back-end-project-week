@@ -8,8 +8,7 @@ module.exports = {
     const { title, content } = req.body;
 
     if (!title || !content) {
-      return send(res, error.inp, message.noTitleNoTex);
-      next();
+      send(res, error.inp, message.noTitleNoTex);
       return;
     }
 
@@ -34,5 +33,15 @@ module.exports = {
         next();
       })
       .catch(err => send(res, error.server, message.requestIdServerError, err));
+  },
+  update: (req, res, next) => {
+    const { title, content } = req.body;
+
+    if (!title && !content) {
+      send(res, error.inp, message.noTitleNoTex);
+      return;
+    }
+
+    next();
   },
 };
