@@ -1,0 +1,6 @@
+.hidden {
+  display: none;
+}
+.hidden .hidden--text {
+  color: red;
+}

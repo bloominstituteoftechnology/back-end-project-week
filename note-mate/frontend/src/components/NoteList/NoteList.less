@@ -1,0 +1,43 @@
+.NoteList {
+  display: flex;
+  justify-content: space-around;
+  flex-flow: row wrap;
+  .work {
+    background: blue;
+  }
+  .NoteCard {
+    min-width: 30vw;
+    min-height: 75px;
+    box-shadow: 5px 5px #27566b;
+    margin-bottom: 10px;
+
+    &:hover {
+      background: #467386;
+
+      .card-title {
+        color: #aa8a39;
+      }
+
+      .card-body {
+        a .btn {
+          background: #aa4f39;
+        }
+      }
+    }
+
+    .card-body {
+      .card-title {
+        color: #aa8a39;
+      }
+
+      a .btn {
+        background: #27566b;
+        color: white;
+      }
+
+      span {
+        margin-left: 20px;
+      }
+    }
+  }
+}
