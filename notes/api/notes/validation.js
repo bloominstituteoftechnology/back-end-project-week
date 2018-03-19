@@ -8,7 +8,7 @@ module.exports = {
     const { title, content } = req.body;
 
     if (!title || !content) {
-      send(res, error.inp, message.noTitleNoTex);
+      send(res, error.inp, message.noTitleNoText);
       return;
     }
 
@@ -38,7 +38,7 @@ module.exports = {
     const { title, content } = req.body;
 
     if (!title && !content) {
-      send(res, error.inp, message.noTitleNoTex);
+      send(res, error.inp, { message: message.noTitleNoText });
       return;
     }
 

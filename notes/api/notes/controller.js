@@ -13,4 +13,7 @@ module.exports = {
   update: (_id, note) => {
     return Note.findByIdAndUpdate(_id, note, { new: true });
   },
+  del: _id => {
+    return Note.findByIdAndRemove({ _id });
+  },
 };

@@ -22,7 +22,7 @@ router
     controller
       .create(req.body)
       .then(savedNote => send(res, success.created, savedNote))
-      .catch(err => send(res, error.server, message.createdError));
+      .catch(err => send(res, error.server, message.createdError, err));
   });
 
 router
@@ -40,7 +40,13 @@ router
     controller
       .update(req.params.id, updatedNote)
       .then(updatedNote => send(res, success.ok, updatedNote))
-      .catch(err => send(res, error.server, message.updatedError));
+      .catch(err => send(res, error.server, message.updateError, err));
+  })
+  .delete(validate.id, (req, res) => {
+    controller
+      .del(req.params.id)
+      .then(deletedNote => send(res, success.ok, deletedNote))
+      .catch(err => send(res, error.server, message.deleteError, err));
   });
 
 module.exports = router;
