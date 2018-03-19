@@ -1,12 +1,14 @@
 const express = require('express');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const app = express();
 const userRouter = require('./users/userRoutes');
 
 app.use(express.json());
 app.use(helmet());
+app.use(cors());
 
 app.get('/', (req, res) => {
   res.send('Working');
