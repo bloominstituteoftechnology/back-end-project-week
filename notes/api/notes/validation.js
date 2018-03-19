@@ -1,5 +1,6 @@
 const { error } = require('../../config').status;
-const { send, message } = require('../helper');
+const { send } = require('../helper');
+const message = require('./messages');
 
 const controller = require('./controller');
 

@@ -1,7 +1,8 @@
 const router = require('express').Router();
 
 const { error, success } = require('../../config').status;
-const { send, message } = require('../helper');
+const { send } = require('../helper');
+const message = require('./messages');
 
 const validate = require('./validation');
 const controller = require('./controller');

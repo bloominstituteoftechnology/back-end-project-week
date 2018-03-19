@@ -4,19 +4,6 @@ const send = (res, code, message, err) => {
     : res.status(code).json({ message, err });
 };
 
-const message = {
-  noTitleNoText: 'Please provide a title and/or content.',
-  created: 'Note created successfully.',
-  createdError: 'Server error creating note.',
-  requestError: 'Server error requesting notes.',
-  requestIdError: 'Note with id not found.',
-  requestIdServerError: 'Server error requesting note with id.',
-  updateError: 'Server error updating note.',
-  deleteError: 'Server error deleting note.',
-  serverError: 'Server error.',
-};
-
 module.exports = {
   send,
-  message,
 };
