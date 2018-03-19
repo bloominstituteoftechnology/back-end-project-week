@@ -39,4 +39,4 @@ const NoteSchema = new Schema({
 
 const Note = mongoose.model('Note', NoteSchema);
 
-module.exports = Ama;
+module.exports = Note;
