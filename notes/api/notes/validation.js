@@ -3,9 +3,9 @@ const { send, message } = require('../helper');
 
 module.exports = {
   note: (req, res, next) => {
-    const { title, text } = req.body;
+    const { title, content } = req.body;
 
-    if (!title || !text) {
+    if (!title || !content) {
       return send(res, error.inp, message.noTitleNoTex);
       next();
       return;
