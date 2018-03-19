@@ -1,7 +1,7 @@
 const { error } = require('../../config').status;
 const { send } = require('../helper');
-const message = require('./messages');
 
+const message = require('./messages');
 const controller = require('./controller');
 
 module.exports = {
