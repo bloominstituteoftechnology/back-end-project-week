@@ -74,6 +74,7 @@ Once your MVP has been approved, you have been given a feature list that the cli
 * [ ] Allow users to clone notes
 * [ ] Allow users to attach images to notes
 * [ ] Allow users to create Lists and assign notes to a list
+* [ ] Setup Auto-Deploy on Heroku
 
 ## Super Duper Extra Credit Bonus Features
 * [ ] Add a payment form integrating with Stripe that allows Users to buy a "Premium" version of LambdaNotes.
