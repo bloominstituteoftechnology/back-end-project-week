@@ -3,14 +3,14 @@
 _An Example Note App_
 
 ```
-Legend: 
-- : In Progress 
+Legend:
+- : In Progress
 x : Complete
 ```
-***
+
+---
 
 ```markdown
-
 ## Trello Set Up: https://trello.com/invite/b/c8dp2Hxn/00c7dc2b3b1c71b90f38ac4b3ab4ef61/lambda-notesbackend-calum-groover
 
 *   [x] Create a Trello account
@@ -23,10 +23,10 @@ x : Complete
 
 ## Backend MVP Features:
 
-*   [-] Create a Database for your app
-*   [ ] Create a Node app and connect it to your database
-*   [ ] Create a Registration Page that allows users to create accounts for your app and sign in with email/password.
-*   [ ] Store these User Accounts in your Database
+*   [x] Create a Database for your app
+*   [x] Create a Node app and connect it to your database
+*   [-] Create a Registration Page that allows users to create accounts for your app and sign in with email/password.
+*   [-] Store these User Accounts in your Database
 *   [ ] Add a Sign In Page
 *   [ ] Store Notes in your Database
 *   [ ] Deploy your application to the web
