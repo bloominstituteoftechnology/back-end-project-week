@@ -1,4 +1,4 @@
-const send = (res, code, msg, err = null) => {
+const send = (res, code, msg, err = undefined) => {
   res.status(code).json({ msg, err });
 };
 
