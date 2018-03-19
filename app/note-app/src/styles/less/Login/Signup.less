@@ -1,0 +1,58 @@
+@bott-height: 120px;
+
+.Signup {
+	height: 100vh;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+
+	.Signup__title {
+		margin-bottom: 7px;
+
+		font-size: 5rem;
+	}
+
+	.Signup__form {
+		height: @bott-height;
+
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		.SignupDescription {
+			margin-bottom: 24px;
+
+			font-size: 1.2rem;
+		}
+
+		.SignupForm {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+
+			.InputFields {
+				display: flex;
+				flex-direction: column;
+
+				input {
+					text-align: center;
+					margin: 2px 0;
+				}
+			}
+
+			.SignupForm__button {
+				.button(@height: 20px);
+
+				font-size: 0.7rem;
+
+				margin-top: 7px;
+
+				&:hover {
+					cursor: pointer;
+				}
+			}
+		}
+	}
+}
