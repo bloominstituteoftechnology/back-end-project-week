@@ -15,7 +15,7 @@ router
     controller
       .create(req.body)
       .then(savedNote => send(res, success.created, savedNote))
-      .catch(error => send(res, error.server, message.serverErroror));
+      .catch(error => send(res, error.server, message.createdError));
   });
 
 module.exports = router;
