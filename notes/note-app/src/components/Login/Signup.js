@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { reduxForm, Field } from 'redux-form';
+// import { reduxForm, Field } from 'redux-form';
 
 import { resetError, checkSignUp, signUpUser } from '../../actions';
 
-import '../../styles/css/index.css';
+// import '../../styles/css/index.css';
 
 class Signup extends Component {
   state = {
