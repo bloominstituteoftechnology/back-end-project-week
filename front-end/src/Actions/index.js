@@ -1,46 +1,46 @@
-// import axios from 'axios';
+import axios from "axios";
 
-export const NOTEADDED = 'NOTEADDED';
-export const NOTEUPDATED = 'NOTEUPDATED';
-export const NOTEDELETED = 'NOTEDELETED';
+export const NOTEADDED = "NOTEADDED";
+export const NOTEUPDATED = "NOTEUPDATED";
+export const NOTEDELETED = "NOTEDELETED";
 
-export const LOGGEDIN = 'LOGGEDIN';
-export const LOGGEDOUT = 'LOGGEDOUT';
-
+export const LOGGEDIN = "LOGGEDIN";
+export const LOGGEDOUT = "LOGGEDOUT";
 
 export const addNote = note => {
-    return {
-        type: NOTEADDED,
-        payload: note
-    }
-}
+  return {
+    type: NOTEADDED,
+    payload: note
+  };
+};
 
 export const updateNote = note => {
-    return {
-        type: NOTEUPDATED,
-        payload: note
-    }
-}
+  return {
+    type: NOTEUPDATED,
+    payload: note
+  };
+};
 
 export const deleteNote = id => {
-    return {
-        type: NOTEDELETED,
-        payload: id
-    }
-}
+  return {
+    type: NOTEDELETED,
+    payload: id
+  };
+};
 
 export const loggedIn = () => {
-    return {
-        type: LOGGEDIN
-    }
-}
+  return {
+    type: LOGGEDIN
+  };
+};
 
 export const loggedOut = () => {
-    return {
-        type: LOGGEDOUT
-    }
-}
+  return {
+    type: LOGGEDOUT
+  };
+};
 
+export const signUp = (email, password) => {};
 
 // export const GETTINGNOTES = 'GETTINGNOTES';
 // export const NOTESRECEIVED = 'NOTESRECEIVED';
@@ -52,7 +52,6 @@ export const loggedOut = () => {
 // export const DELETINGNOTE = 'DELETINGNOTE';
 
 // export const ERROR = 'ERROR';
-
 
 // actions for when the server is set up
 
@@ -82,7 +81,7 @@ export const loggedOut = () => {
 //         axios.put(`${url}/${id}`)
 //         .then(response => {dispatch({type: NOTEUPDATED, payload: response.data})})
 //         .catch(error => {dispatch({type: ERROR, payload: error})});
-        
+
 //     }
 // }
 
