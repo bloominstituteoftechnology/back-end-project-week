@@ -1,12 +1,16 @@
 const express = require('express');
 const cors = require('cors');
+const mongoose= require('mongoose');
+const routes = require('./routes/routes');
 
 const PORT = 5000;
 const server = express();
 server.use(express.json());
 server.use(cors());
 
+mongoose.connect('mongodb://localhost/notesapp');
 
+routes(server)
 
 
 server.get('/started', (req, res) => {

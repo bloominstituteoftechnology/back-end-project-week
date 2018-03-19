@@ -10,8 +10,10 @@
   "author": "Clara Andrew-Wani",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "cors": "^2.8.4",
     "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.0",
     "mongoose": "^5.0.10"
   }
 }
