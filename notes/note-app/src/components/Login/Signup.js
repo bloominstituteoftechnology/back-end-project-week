@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 // import { reduxForm, Field } from 'redux-form';
 
-import { resetError, checkSignUp, signUpUser } from '../../actions';
+import { resetError, signUpUser } from '../../actions';
 
 // import '../../styles/css/index.css';
 
@@ -24,7 +24,7 @@ class Signup extends Component {
   checkSignUpHandler = _ => {
     if (this.props.error !== '') this.props.resetError();
 
-    this.props.checkSignUp({ ...this.state });
+    this.props.signUpUser({ ...this.state }, this.props.history);
   };
 
   checkIfEnter = e => {
@@ -34,7 +34,7 @@ class Signup extends Component {
   };
 
   signUpHandler = _ => {
-    this.props.signUpUser(this.state);
+    this.props.signUpUser(this.state, this.props.history);
   };
 
   render() {
@@ -114,6 +114,5 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, {
   resetError,
-  checkSignUp,
   signUpUser,
 })(Signup);

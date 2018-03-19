@@ -7,7 +7,7 @@ import * as actionType from '../actions';
 // 			password: '',
 // 		},
 // 	],
-// 	usersCurrentlyLoggedIn: [],
+// 	user: [],
 // 	isLoggedIn: false,
 // 	notes: [],
 // 	error: '',
@@ -15,7 +15,7 @@ import * as actionType from '../actions';
 
 const initialState = {
   id: 5,
-  usersCurrentlyLoggedIn: [],
+  user: '',
   isLoggedIn: false,
   isAuthenticating: false,
   isSigningUp: false,
@@ -31,36 +31,36 @@ const rootReducer = (state = initialState, action) => {
         isSigningUp: true,
       };
 
-    case actionType.SIGNUP_USER:
+    case actionType.SIGNUP_USER_SUCCESS:
       // check if user exists (in database)
-      if (action.payload.username === '')
-        return {
-          ...state,
-          isSigningUp: false,
-          error: 'Please enter a username',
-        };
+      // if (action.payload.username === '')
+      //   return {
+      //     ...state,
+      //     isSigningUp: false,
+      //     error: 'Please enter a username',
+      //   };
 
-      if (action.payload.password === '')
-        return {
-          ...state,
-          isSigningUp: false,
-          error: 'Please enter a password',
-        };
+      // if (action.payload.password === '')
+      //   return {
+      //     ...state,
+      //     isSigningUp: false,
+      //     error: 'Please enter a password',
+      //   };
 
-      // ******************************************
-      // ** DO NOT STORE PASSWORDS AS PLAIN TEXT **
-      // ******************************************
-      localStorage.setItem(
-        'notes-app-id-1941293123912',
-        JSON.stringify(action.payload),
-      );
-      // ******************************************
-      // ** DO NOT STORE PASSWORDS AS PLAIN TEXT **
-      // ******************************************
+      // // ******************************************
+      // // ** DO NOT STORE PASSWORDS AS PLAIN TEXT **
+      // // ******************************************
+      // localStorage.setItem(
+      //   'notes-app-id-1941293123912',
+      //   JSON.stringify(action.payload),
+      // );
+      // // ******************************************
+      // // ** DO NOT STORE PASSWORDS AS PLAIN TEXT **
+      // // ******************************************
 
       return {
         ...state,
-        users: [...state.users, action.payload],
+        user: action.payload,
         isLoggedIn: true,
       };
 
@@ -122,10 +122,7 @@ const rootReducer = (state = initialState, action) => {
       if (isLoggedIn)
         return {
           ...state,
-          usersCurrentlyLoggedIn: [
-            ...state.usersCurrentlyLoggedIn,
-            addUserToLoggedIn,
-          ],
+          user: [...state.user, addUserToLoggedIn],
           isLoggedIn: isLoggedIn,
           error: error,
         };
@@ -152,9 +149,7 @@ const rootReducer = (state = initialState, action) => {
     case actionType.SIGN_OUT:
       return {
         ...state,
-        usersCurrentlyLoggedIn: state.usersCurrentlyLoggedIn.filter(
-          user => user.username === action.payload,
-        ),
+        user: state.user.filter(user => user.username === action.payload),
         isLoggedIn: false,
       };
 
