@@ -7,4 +7,7 @@ module.exports = {
   request: cb => {
     return Note.getAllNotes(cb);
   },
+  requestBy: _id => {
+    return Note.findOne({ _id });
+  },
 };

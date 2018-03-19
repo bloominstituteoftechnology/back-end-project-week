@@ -25,4 +25,8 @@ router
       .catch(error => send(res, error.server, message.createdError));
   });
 
+router.route('/:id').get(validate.id, (req, res) => {
+  res.status(success.ok).json(req.note);
+});
+
 module.exports = router;
