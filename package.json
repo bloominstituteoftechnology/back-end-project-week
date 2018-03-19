@@ -1,0 +1,25 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "[Trello board](https://trello.com/b/hLl7VMxo/lambda-notes-backend-troy-williams)",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tdwilliams7/back-end-project-week.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tdwilliams7/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/tdwilliams7/back-end-project-week#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "helmet": "^3.12.0",
+    "mongoose": "^5.0.10"
+  }
+}
