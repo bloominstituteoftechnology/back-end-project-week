@@ -1,4 +1,4 @@
-const { createUser, login } = require('../controllers');
+const { createUser, login } = require('../controllers/UserController');
 const { validateToken } = require('../services/auth');
 
 module.exports = server => {

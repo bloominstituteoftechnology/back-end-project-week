@@ -16,3 +16,6 @@ server.use(bodyParser.json());
 server.use(cors(corsOptions));
 
 routes(server);
+
+module.exports = { server };
+
