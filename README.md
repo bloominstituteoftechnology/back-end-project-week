@@ -17,6 +17,7 @@ The main objective of this week is to develop a backend to support the LambdaNot
 * [ ] Share your board with the project manager that has been assigned to you.  If you have not been assigned yet, reach out to your lead TA for guidance
 * [ ] Add your Trello URL to your project's README.md file.  Commit the change, push it to your repository & submit a pull request
 
+    * [Trello Board](https://trello.com/b/NM4pD9xY/lambda-notesbackend-julian-kohlman)
 ## Backend MVP Features:
 * [ ] Create a Database for your app
 * [ ] Create a Registration Page that allows users to create accounts for your app and sign in with email/password.
