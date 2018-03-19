@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node server.js",
     "client": "cd note-mate/frontend && yarn start",
-    "server": "nodemon server.js",
+    "server": "node server.js",
     "start":
       "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
