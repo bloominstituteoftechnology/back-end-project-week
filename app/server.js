@@ -1,7 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 
-//  const apiRouter = require('./api/apiRouter');
+const router = require('./router');
 
 const server = express();
 const debug = false;
@@ -9,10 +9,10 @@ const debug = false;
 debug ? server.use(morgan('combined')) : null;
 
 server.use(express.json());
-// server.use('/api', apiRouter);
+server.use('/api', router);
 
 server.get('/', (req, res) => {
-  res.send({ api: `running` });
+  res.send({ server: `running` });
 });
 
 module.exports = server;
