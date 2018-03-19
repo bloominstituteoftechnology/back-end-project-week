@@ -22,19 +22,20 @@ import './styles/css/index.css';
 const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
 ReactDOM.render(
-	<Provider store={store}>
-		<Router>
-			<div>
-				<Switch>
-					<Route path="/notes/:username" component={App} />
-					<Route path="/signup" component={Signup} />
-					<Route path="/login/:username" component={Login} />
-					<Route path="/login" component={Login} />
-					<Route path="/home" component={Home} />
-					<Route exact path="/" component={Root} />
-				</Switch>
-			</div>
-		</Router>
-	</Provider>,
-	document.getElementById('root'),
+  <Provider store={store}>
+    <Router>
+      <div>
+        <Switch>
+          <Route path="/notes" component={App} />
+          {/* <Route path="/notes/:username" component={App} /> */}
+          <Route path="/signup" component={Signup} />
+          <Route path="/login/:username" component={Login} />
+          <Route path="/login" component={Login} />
+          <Route path="/home" component={Home} />
+          <Route exact path="/" component={Root} />
+        </Switch>
+      </div>
+    </Router>
+  </Provider>,
+  document.getElementById('root'),
 );

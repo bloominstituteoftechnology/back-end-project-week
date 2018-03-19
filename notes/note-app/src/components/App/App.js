@@ -9,7 +9,7 @@ import AppLoggedIn from './AppLoggedIn';
 
 // import logo from '../assets/logo.svg';
 
-import '../../styles/css/index.css';
+// import '../../styles/css/index.css';
 
 class App extends Component {
   state = {
