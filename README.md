@@ -1,12 +1,7 @@
 # Back End Project Week
-This week you will be building a backend for a note taking app called "Lambda Notes."
 
-You are to treat this week as if you are working at a company and the instructor is your client.  The teaching assistants are acting as your project managers and will be your main support throughout the week.
-
-The main objective of this week is to develop a backend to support the LambdaNotes app you built during the Front End project week, connect the two projects together, and add some additional features. You will use NodeJS, MongoDB and any other technologies you have learned here at Lambda School.
-
-## Git Commits
-* You are required to showcase progress with at least 1 commit a day.  This will let your project manager know where you are and if you need help.  This also allows the client to get progress reports from the company in a real world setting. This also protects you from losing your work if your computer blows up.
+#Trello Board Link
+https://trello.com/b/pMmvS9QC/lambda-notesbackend-ben-campbell
 
 ## Trello Set Up:
 * [ ] Create a Trello account
