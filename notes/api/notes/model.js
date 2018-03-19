@@ -29,13 +29,19 @@ const NoteSchema = new Schema({
 //   return this.answer || 'Question not answered yet.';
 // };
 
-// NoteSchema.statics.getAllAmas = cb => {
-//   Ama.find({}, (err, amas) => {
-//     if (err) console.log(err);
+NoteSchema.statics.getAllNotes = cb => {
+  Note.find({}, (err, notes) => {
+    console.log('model err', err);
+    if (err) {
+      cb({ err: err });
+      return;
+    }
 
-//     cb(amas);
-//   });
-// };
+    console.log('notes model', notes);
+
+    cb(notes);
+  });
+};
 
 const Note = mongoose.model('Note', NoteSchema);
 

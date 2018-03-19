@@ -9,7 +9,14 @@ const controller = require('./controller');
 router
   .route('/')
   .get((req, res) => {
-    res.json({ notes: 'running' });
+    controller.request(notes => {
+      if (notes.err) {
+        send(res, error.server, message.requestError, notes.err);
+        return;
+      }
+
+      send(res, success.ok, notes);
+    });
   })
   .post(validate.note, (req, res) => {
     controller
