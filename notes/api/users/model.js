@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const mongodAuth = require('../../config').mongodAuth;
+const secret = require('../../config').secret;
 
 const bcrypt = require('bcrypt');
 const salt = 11;
@@ -28,7 +29,7 @@ const UserSchema = new Schema({
 });
 
 UserSchema.pre('save', function(next) {
-  bcrypt.hash(this.password, salt, (err, hash) => {
+  bcrypt.hash(this.password + secret, salt, (err, hash) => {
     if (err) {
       send(res, error.server, hashingError, err);
       return;
