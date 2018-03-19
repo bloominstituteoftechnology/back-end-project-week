@@ -1,28 +1,32 @@
 const router = require('express').Router();
 
 const { error, success } = require('../../config').status;
-const { send, message } = require('../helper');
+const { send } = require('../helper');
 
-// const validate = require('./validation');
-// const controller = require('./controller');
+const message = require('./messages');
 
-router.route('/').get((req, res) => {
-  send(res, success.ok, { users: 'running' });
-  // controller.request(notes => {
-  //   if (notes.err) {
-  //     send(res, error.server, message.requestError, notes.err);
-  //     return;
-  //   }
+const validate = require('./validation');
+const controller = require('./controller');
 
-  //   send(res, success.ok, notes);
-  // });
-});
-//   .post(validate.note, (req, res) => {
-//     controller
-//       .create(req.body)
-//       .then(savedNote => send(res, success.created, savedNote))
-//       .catch(err => send(res, error.server, message.createdError, err));
-//   });
+router
+  .route('/')
+  .get((req, res) => {
+    send(res, success.ok, { users: 'running' });
+    // controller.request(notes => {
+    //   if (notes.err) {
+    //     send(res, error.server, message.requestError, notes.err);
+    //     return;
+    //   }
+
+    //   send(res, success.ok, notes);
+    // });
+  })
+  .post(validate.user, (req, res) => {
+    controller
+      .create(req.body)
+      .then(savedUser => send(res, success.created, { savedUser }))
+      .catch(err => send(res, error.server, message.createdError, err));
+  });
 
 // router
 //   .route('/:id')
