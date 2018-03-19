@@ -48,7 +48,8 @@ class Notes extends Component {
                     </div>
                     <br/>
                     <div className='note--text'>
-                    {note.Text.length > 100 ? note.Text.substring(0,100).concat('...') : note.Text}
+                    {note.Text.length > 70 ? note.Text.substring(0,70).concat('...') : note.Text}
+                    </div>
                     {/* <div className='note--tags' style={this.state.tags ? {display: 'inline'} : {display: 'none'}} onClick={this.addTags}>
                         +
                     </div>
@@ -56,7 +57,6 @@ class Notes extends Component {
                     <li>Blue</li>
                     <li>Red</li>
                     </ul> */}
-                    </div>
                 </li>
                 })}
             </ul>

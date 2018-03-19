@@ -257,6 +257,7 @@ body {
   font-size: 1.6rem;
   display: flex;
   justify-content: space-between;
+  overflow: scroll;
 }
 .App .DashBoard .ViewNote {
   background: white;
