@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { err, success } = require('../../config').status;
+const { error, success } = require('../../config').status;
 const { send, message } = require('../helper');
 
 const validate = require('./validation');
@@ -15,7 +15,7 @@ router
     controller
       .create(req.body)
       .then(savedNote => send(res, success.created, savedNote))
-      .catch(err => err.name === send(res, err.serv, message.serverError));
+      .catch(error => send(res, error.server, message.serverErroror));
   });
 
 module.exports = router;
