@@ -49,7 +49,7 @@ router
   .delete(validate.id, (req, res) => {
     controller
       .del(req.params.id)
-      .then(deletedNote => send(res, success.ok, deletedNote))
+      .then(deletedUser => send(res, success.ok, deletedUser))
       .catch(err => send(res, error.server, message.deleteError, err));
   });
 
