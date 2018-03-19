@@ -1,0 +1,60 @@
+html, body {
+  background: @secondary-color;
+  font-size: 62.5%;
+  height: 100%;
+}
+
+.HomePage {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.Navigation {
+  background: @primary-color;
+  .center-items();
+  width: 100%;
+  height: 8vh;
+  font-size: 2.8rem;
+  color: #212121;
+  .Navigation--LogOut {
+      display: none;
+  }
+
+}    
+.Login {
+  font-size: @font-size;
+  .center-items();
+  width: 100%;
+  height: 92vh;        
+
+  form {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      .box-shadow();
+
+      div {
+          font-size: 3rem;
+          padding: 10px;
+          text-align: center;
+      }
+
+      input {
+          font-size: @font-size;
+          text-align: center;
+          border: none;
+          padding: 10px;
+      }
+      button {
+          background: @accent-color;
+          font-size: @font-size;
+          width: stretch;
+          padding: 10px;
+          border-radius: 20px;
+          &:hover {
+              .scale(1.1);
+          }
+      }
+  }
+}
