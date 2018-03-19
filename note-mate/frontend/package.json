@@ -29,7 +29,7 @@
     "watch-css": "node-less-chokidar src --watch"
   },
   "devDependencies": {
-    "node-less-chokidar": "^0.1.0",
+    "node-less-chokidar": "^0.1.2",
     "npm-run-all": "^4.0.2"
   },
   "proxy": "http://localhost:5000/"
