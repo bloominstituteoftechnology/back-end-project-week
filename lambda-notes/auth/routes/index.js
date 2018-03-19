@@ -2,7 +2,10 @@ const { createUser, getUsers, login } = require('../controllers');
 const { validateToken } = require('../services/auth');
 module.exports = server => {
 	server.post('/login', login);
-	server.route('/users')
-		  .post(createUser)
-		  .get(validateToken, getUsers);
+	server.post('/users', createUser)
+	server.route('/notes')
+		  .get(validateToken, getNotes);
+ 	server.post('/notes/create', createNote);
+    server.put('/update');
+    server.delete('/notes/delete', deleteNote);
 };
