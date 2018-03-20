@@ -1,17 +1,24 @@
-const express = require('express');
-const mongoose = require('mongoose');
-
-const server = express();
+const express = require('express'),
+      server = express(),
+      config = require('./config'),
+      mongoose = require('mongoose'),
+      routes = require('./routes/router');
+// TODO ADD cors package
+// const corsOptions = {
+//   origin: 'http://localhost:3333',
+//   credentials: true
+// };
+// morgan...if needed
 
 // db connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/lambdaNotes');
+mongoose.connect(config.database);
+
+server.listen(config.port, () => {
+  console.log(`Listening on port ${config.port}.`);
+});
 
 server.use(express.json());
-
-const routes = require('./routes/routes');
 routes(server);
 
-server.listen(3000, () => {
-  console.log('Listening on port 3000');
-});
+// enable CORS from client-side here lines 7 - 10
