@@ -5,7 +5,7 @@ import { appK } from '../../config';
 export default ComposedComponent => {
   class CheckAuthentication extends Component {
     componentWillMount() {
-      if (!localStorage.getItem(appK)) {
+      if (!this.props.authenticated) {
         window.alert('Please log in first');
         this.props.history.push('/login');
       }
@@ -14,7 +14,7 @@ export default ComposedComponent => {
     render() {
       return (
         <div className="CheckAuthentication">
-          {localStorage.getItem(appK) ? (
+          {this.props.authenticated ? (
             <ComposedComponent history={this.props.history} />
           ) : null}
         </div>
@@ -24,7 +24,7 @@ export default ComposedComponent => {
 
   const mapStateToProps = state => {
     return {
-      // authenticated: state.auth.authenticated,
+      authenticated: state.auth.authenticated,
     };
   };
 

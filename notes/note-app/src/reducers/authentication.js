@@ -19,7 +19,7 @@ import {
 } from '../actions';
 
 const initialState = {
-  // authenticated: false,
+  authenticated: false,
   authenticating: false,
   error: '',
 };
@@ -63,7 +63,7 @@ export default (auth = initialState, action) => {
     case AUTH_LOGIN_SUCCESS:
       return {
         ...auth,
-        // authenticated: true,
+        authenticated: true,
       };
 
     case AUTH_LOGIN_ERROR:
