@@ -1,18 +1,26 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import { NavLink } from 'react-router-dom';
 
 const StatusBar = props => {
-	return (
-		<div className="StatusBar">
-			<NavLink to="/" className="StatusBar__goToHomeButton">
-				&#x2302;
-			</NavLink>
+  return (
+    <div className="StatusBar">
+      <NavLink to="/" className="StatusBar__goToHomeButton">
+        &#x2302;
+      </NavLink>
 
-			<div className="StatusBar__signOutButton" onClick={props.signOutHandler}>
-				{!props.appIsLoggedIn ? 'Sign In' : 'Sign out'}
-			</div>
-		</div>
-	);
+      <div className="StatusBar__signOutButton" onClick={props.signOutHandler}>
+        {!props.authenticated ? 'Sign In' : 'Sign out'}
+      </div>
+    </div>
+  );
 };
 
-export default StatusBar;
+const mapStateToProps = state => {
+  return {
+    authenticated: state.auth.authenticated,
+  };
+};
+
+export default connect(mapStateToProps, {})(StatusBar);

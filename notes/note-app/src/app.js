@@ -14,9 +14,9 @@ import Notes from './components/notes/notes';
 // import '../../styles/css/index.css';
 
 class App extends Component {
-  state = {
-    username: '',
-  };
+  // state = {
+  //   username: '',
+  // };
 
   componentDidMount() {
     // this.resetError();
@@ -40,10 +40,7 @@ class App extends Component {
       <div className="App">
         <Header />
 
-        <StatusBar
-          appIsLoggedIn={this.props.isLoggedIn}
-          signOutHandler={this.signOutHandler}
-        />
+        <StatusBar signOutHandler={this.signOutHandler} />
 
         <Notes history={this.props.history} />
 
@@ -59,7 +56,7 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    isLoggedIn: state.isLoggedIn,
+    authenticated: state.auth.authenticated,
   };
 };
 

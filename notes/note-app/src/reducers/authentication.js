@@ -19,7 +19,7 @@ import {
 } from '../actions';
 
 const initialState = {
-  authenticated: false,
+  // authenticated: false,
   authenticating: false,
   error: '',
 };
@@ -30,6 +30,12 @@ export default (auth = initialState, action) => {
       return {
         ...auth,
         authenticating: true,
+      };
+
+    case AUTH_SIGNUP_SUCCESS:
+      return {
+        ...auth,
+        // authenticating: false,
       };
 
     case AUTH_SIGNUP_ERROR:
@@ -46,14 +52,6 @@ export default (auth = initialState, action) => {
 
     //
 
-    case AUTH_SIGNUP_SUCCESS:
-      return {
-        ...auth,
-        // authenticating: false,
-      };
-
-    //
-
     case AUTH_LOGIN_START:
       return {
         ...auth,
@@ -63,7 +61,7 @@ export default (auth = initialState, action) => {
     case AUTH_LOGIN_SUCCESS:
       return {
         ...auth,
-        authenticated: true,
+        // authenticated: true,
       };
 
     case AUTH_LOGIN_ERROR:

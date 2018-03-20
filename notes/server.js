@@ -4,6 +4,8 @@ const cors = require('cors');
 
 const router = require('./router');
 
+// const { validateToken } = require('./services/auth');
+
 const server = express();
 const debug = false;
 
@@ -17,5 +19,9 @@ server.use('/api', router);
 server.get('/', (req, res) => {
   res.send({ server: `running` });
 });
+
+// server.post('/validate', validateToken, (req, res) => {
+//   res.send({ decoded: req.decoded });
+// });
 
 module.exports = server;

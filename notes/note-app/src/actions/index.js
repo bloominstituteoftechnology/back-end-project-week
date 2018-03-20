@@ -146,6 +146,22 @@ export const login = (username, password, history) => {
   };
 };
 
+// export const validateToken = _ => {
+//   return dispatch => {
+//     dispatch({ type: TOKEN_VALIDATE_START });
+
+//     axios.post('http://localhost:5000/validate', {
+//       headers: { authorization: localStorage.getItem(appK) },
+//     }).then(({data}) => {
+
+//     })
+//   };
+// };
+
+export const logout = _ => {
+  localStorage.removeItem(appK);
+};
+
 export const getNotes = _ => {
   return dispatch => {
     dispatch({ type: NOTES_FETCH_START });
