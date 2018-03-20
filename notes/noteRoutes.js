@@ -5,7 +5,7 @@ const noteRouter = express();
 
 noteRouter.get('/', (req, res) => {
   const { userId } = req.decoded;
-  console.log('decoded: ', userId);
+  console.log(userId);
   Note.find()
     .where({ userId })
     .then(notes => {
@@ -80,7 +80,6 @@ noteRouter.delete('/delete/:id', (req, res) => {
             res.status(200).json({ msg: 'note deleted' });
           })
           .catch(err => {
-            console.log(err);
             res.status(500).json({ err });
           });
       } else {
@@ -88,7 +87,6 @@ noteRouter.delete('/delete/:id', (req, res) => {
       }
     })
     .catch(err => {
-      console.log(err);
       res.status(500).json({ err });
     });
 });

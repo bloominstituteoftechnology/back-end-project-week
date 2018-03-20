@@ -26,6 +26,10 @@ class App extends Component {
     user: ''
   };
 
+  componentDidMount() {
+    this.props.login();
+  }
+
   inputChangeHandler = ({ target }) => {
     this.setState({
       [target.name]: target.value

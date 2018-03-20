@@ -2,6 +2,7 @@ const express = require('express');
 const User = require('./usersSchema');
 const jwt = require('jsonwebtoken');
 const { secret } = require('../config');
+const { authenticate } = require('../utils/middleware');
 
 const userRouter = express.Router();
 
@@ -10,34 +11,44 @@ userRouter.get('/', (req, res) => {
 });
 
 userRouter.post('/login', (req, res) => {
-  const { email, password } = req.body;
-  User.findOne({ email })
-    .then(user => {
-      if (user !== null) {
-        user.comparePass(password, (err, match) => {
-          if (err) {
-            res.send(422).json({ err });
-          }
-          if (match) {
-            const payload = {
-              email: user.email,
-              userId: user._id
-            };
-            console.log(user.id);
-            res
-              .status(200)
-              .json({ token: jwt.sign(payload, secret), _id: user._id });
-          } else {
-            res.status(422).json({ error: 'email or password is not correct' });
-          }
-        });
-      } else {
-        res.status(422).json({ error: 'email or password is not correct' });
-      }
-    })
-    .catch(err => {
-      console.log(err);
+  const { email, password, token } = req.body;
+  console.log(token);
+  if (token) {
+    jwt.verify(token, secret, (err, decoded) => {
+      if (err) res.status(422).json({ err });
+      req.decoded = decoded;
+      res.status(200).json({ _id: req.decoded.userId });
     });
+  } else {
+    User.findOne({ email })
+      .then(user => {
+        if (user !== null) {
+          user.comparePass(password, (err, match) => {
+            if (err) {
+              res.send(422).json({ err });
+            }
+            if (match) {
+              const payload = {
+                email: user.email,
+                userId: user._id
+              };
+              res
+                .status(200)
+                .json({ token: jwt.sign(payload, secret), _id: user._id });
+            } else {
+              res
+                .status(422)
+                .json({ error: 'email or password is not correct' });
+            }
+          });
+        } else {
+          res.status(422).json({ error: 'email or password is not correct' });
+        }
+      })
+      .catch(err => {
+        res.status(500);
+      });
+  }
 });
 
 userRouter.post('/new', (req, res) => {

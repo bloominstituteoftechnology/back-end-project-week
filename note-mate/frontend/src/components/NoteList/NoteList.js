@@ -25,7 +25,6 @@ class NoteList extends Component {
     this.setState({
       userId: this.props.user
     });
-    console.log(this.props.user);
     this.props.getNotes(this.props.userId);
     this.setState({
       notes: this.props.notes

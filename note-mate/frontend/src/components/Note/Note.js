@@ -45,7 +45,6 @@ class Note extends Component {
   };
 
   deleteNoteHandler = (id, history) => {
-    console.log(id);
     this.props.deleteNote(id);
     this.props.history.push('/notes');
   };

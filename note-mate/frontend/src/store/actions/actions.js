@@ -151,21 +151,34 @@ export const addUser = (email, password) => {
 
 export const login = (email, password) => {
   const checkUserUrl = 'http://localhost:8080/user/login';
+  const token = localStorage.getItem('Authorization');
   return dispatch => {
-    axios
-      .post(checkUserUrl, { email, password })
-      .then(({ data }) => {
-        window.localStorage.setItem('Authorization', data.token);
-        dispatch({ type: VALIDATE, payload: data._id });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    if (token) {
+      axios
+        .post(checkUserUrl, { token })
+        .then(({ data }) => {
+          dispatch({ type: VALIDATE, payload: data._id });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    } else {
+      axios
+        .post(checkUserUrl, { email, password })
+        .then(({ data }) => {
+          window.localStorage.setItem('Authorization', data.token);
+          dispatch({ type: VALIDATE, payload: data._id });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   };
 };
 
 export const signout = () => {
   return dispatch => {
+    config = {};
     window.localStorage.removeItem('Authorization');
     dispatch({ type: SIGNOUT });
   };
