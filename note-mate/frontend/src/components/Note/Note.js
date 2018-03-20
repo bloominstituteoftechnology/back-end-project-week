@@ -7,6 +7,7 @@ import {
   updateNote
 } from '../../store/actions/actions';
 import { Row, Col, Input } from 'reactstrap';
+import { withRouter } from 'react-router-dom';
 import './Note.css';
 
 class Note extends Component {
@@ -22,7 +23,7 @@ class Note extends Component {
     const id = this.props.match.params.id;
     this.props.getSingleNote(id);
     this.props.notes.filter(note => {
-      if (note.id === Number(id)) {
+      if (note._id === id) {
         return this.setState({
           title: note.title,
           text: note.text,
@@ -57,9 +58,9 @@ class Note extends Component {
   render() {
     return (
       <div>
-        {this.props.notes.map((note, i) => {
+        {this.props.notes.map(note => {
           return (
-            <Row key={i}>
+            <Row key={note._id}>
               <Col md="3">
                 <form onSubmit={this.updateNoteHandler}>
                   <Input
@@ -125,8 +126,10 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {
-  getSingleNote,
-  deleteNote,
-  updateNote
-})(Note);
+export default withRouter(
+  connect(mapStateToProps, {
+    getSingleNote,
+    deleteNote,
+    updateNote
+  })(Note)
+);

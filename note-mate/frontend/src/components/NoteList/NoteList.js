@@ -22,7 +22,11 @@ class NoteList extends Component {
   };
 
   componentDidMount() {
-    this.props.getNotes();
+    this.setState({
+      userId: this.props.user
+    });
+    console.log(this.props.user);
+    this.props.getNotes(this.props.userId);
     this.setState({
       notes: this.props.notes
     });
@@ -69,9 +73,9 @@ class NoteList extends Component {
           <NoteInput />
         </Col>
         <Col xs="9">
-          <Button onClick={this.props.getNotes}>Get all</Button>
-          <Button onClick={this.sortLowHigh}>Sort low to high</Button>
-          <Button onClick={this.sortHighLow}>Sort High to low</Button>
+          <Button onClick={() => this.props.getNotes}>Get all</Button>
+          <Button onClick={() => this.sortLowHigh}>Sort low to high</Button>
+          <Button onClick={() => this.sortHighLow}>Sort High to low</Button>
           <div>
             <label htmlFor="tagSearch">Search by tag</label>
             <Input type="select" name="tag" onChange={this.inputChangeHandler}>
@@ -80,10 +84,10 @@ class NoteList extends Component {
               <option>School</option>
               <option>Home</option>
             </Input>
-            <Button onClick={this.searchByTag}>Search</Button>
+            <Button onClick={() => this.searchByTag}>Search</Button>
           </div>
           <div>
-            <form onSubmit={this.searchByText}>
+            <form onSubmit={() => this.searchByText}>
               <input
                 value={this.state.searchText}
                 name="searchText"
@@ -130,7 +134,8 @@ const NoteCard = props => {
 
 const mapStateToProps = state => {
   return {
-    notes: state.reducer.notes
+    notes: state.reducer.notes,
+    userId: state.reducer.user
   };
 };
 

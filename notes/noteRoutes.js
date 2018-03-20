@@ -4,7 +4,10 @@ const Note = require('./noteSchema');
 const noteRouter = express();
 
 noteRouter.get('/', (req, res) => {
-  Note.find({})
+  const { userId } = req.decoded;
+  console.log('decoded: ', userId);
+  Note.find()
+    .where({ userId })
     .then(notes => {
       res.status(200).json(notes);
     })
@@ -19,7 +22,7 @@ noteRouter.post('/', (req, res) => {
   note
     .save()
     .then(note => {
-      Note.find()
+      Note.find({ userId })
         .then(notes => {
           res.status(200).json(notes);
         })
@@ -34,9 +37,8 @@ noteRouter.post('/', (req, res) => {
 
 noteRouter.get('/:id', (req, res) => {
   const { id } = req.params;
-  Note.findOne({ _id: id })
+  Note.find({ _id: id })
     .then(note => {
-      console.log(note);
       res.status(200).json(note);
     })
     .catch(err => {

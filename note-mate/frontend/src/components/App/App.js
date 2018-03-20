@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect
+  withRouter
 } from 'react-router-dom';
 import { Button, Container } from 'reactstrap';
 import { addUser, login, signout } from '../../store/actions/actions';
@@ -72,7 +72,7 @@ class App extends Component {
           </header>
           <Router>
             <Switch>
-              <Route path="/notes" component={NoteList} />
+              <Route exact path="/notes" component={NoteList} />
               <Route path="/notes/:id" component={Note} />
             </Switch>
           </Router>
@@ -84,7 +84,6 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.reducer.user,
     authenticated: state.reducer.authenticated
   };
 };

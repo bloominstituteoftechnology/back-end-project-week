@@ -47,14 +47,9 @@ export const reducer = (state = initialState, action) => {
     case ADD_USER:
       return { ...state, user: action.payload };
     case VALIDATE:
-      return { ...state, user: action.payload._id, authenticated: true };
+      return { ...state, user: action.payload, authenticated: true };
     case SIGNOUT:
-      return {
-        ...state,
-        authenticated: false,
-        user: null,
-        authenticated: false
-      };
+      return { authenticated: false, user: null, notes: [] };
     default:
       return state;
   }

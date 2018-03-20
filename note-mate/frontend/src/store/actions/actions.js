@@ -16,12 +16,13 @@ export const SIGNOUT = 'SIGNOUT';
 const getUrl = 'http://localhost:8080/notes';
 const postUrl = 'http://localhost:8080/notes';
 const deleteUrl = 'http://localhost:8080/notes';
-const config = {
+let config = {
   headers: { Authorization: localStorage.getItem('Authorization') }
 };
 
-export const getNotes = _id => {
+export const getNotes = id => {
   return dispatch => {
+    config = { ...config, params: { id } };
     dispatch({ type: GETTING_NOTES });
     axios
       .get(getUrl, config)
@@ -38,7 +39,7 @@ export const addNote = newNote => {
   return dispatch => {
     dispatch({ type: ADDING_NOTE });
     axios
-      .post(postUrl, newNote)
+      .post(postUrl, newNote, config)
       .then(({ data }) => {
         dispatch({ type: NOTE_ADDED, payload: data });
       })
@@ -66,7 +67,7 @@ export const getSingleNote = id => {
   const url = `http://localhost:8080/notes/${id}`;
   return dispatch => {
     axios
-      .get(url)
+      .get(url, config)
       .then(({ data }) => {
         dispatch({ type: RECEIVED_NOTES, payload: data });
       })
@@ -153,7 +154,7 @@ export const login = (email, password) => {
       .post(checkUserUrl, { email, password })
       .then(({ data }) => {
         window.localStorage.setItem('Authorization', data.token);
-        dispatch({ type: VALIDATE, payload: data });
+        dispatch({ type: VALIDATE, payload: data._id });
       })
       .catch(err => {
         console.log(err);
@@ -163,6 +164,7 @@ export const login = (email, password) => {
 
 export const signout = () => {
   return dispatch => {
-    dispatch({ type: SIGNOUT, user: null, authenticated: false });
+    window.localStorage.removeItem('Authorization');
+    dispatch({ type: SIGNOUT });
   };
 };

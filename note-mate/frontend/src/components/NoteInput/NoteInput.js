@@ -40,7 +40,7 @@ class NoteInput extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.submitHandler}>
+        <form onSubmit={event => this.submitHandler(event)}>
           <label htmlFor="title">Title</label>
           <input
             onChange={this.inputChangeHandler}

@@ -23,6 +23,7 @@ userRouter.post('/login', (req, res) => {
               email: user.email,
               userId: user._id
             };
+            console.log(user.id);
             res
               .status(200)
               .json({ token: jwt.sign(payload, secret), _id: user._id });
