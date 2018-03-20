@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { appK } from '../../config';
 
 export default ComposedComponent => {
   class CheckAuthentication extends Component {
