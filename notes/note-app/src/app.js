@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { resetError, signOut } from '../../actions';
-import { Redirect } from 'react-router-dom';
+import { resetError, signOut } from './actions';
+// import { Redirect } from 'react-router-dom';
 
-import StatusBar from './StatusBar';
-import AppLoggedIn from './AppLoggedIn';
+import StatusBar from './components/app/statusBar';
+// import AppLoggedIn from './AppLoggedIn';
 // import NotLoggedIn from './NotLoggedIn';
 
 // import logo from '../assets/logo.svg';
@@ -41,11 +41,11 @@ class App extends Component {
           signOutHandler={this.signOutHandler}
         />
 
-        {this.props.isLoggedIn ? (
-          <AppLoggedIn signOutHandler={this.state.signOutHandler} />
-        ) : (
-          <Redirect to="/" />
-        )}
+        {/* // {this.props.isLoggedIn ? ( */}
+        {/* //   <AppLoggedIn signOutHandler={this.state.signOutHandler} /> */}
+        {/* // ) : ( */}
+        {/* //   <Redirect to="/" /> */}
+        {/* // )} */}
       </div>
     );
   }
