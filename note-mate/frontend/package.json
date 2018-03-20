@@ -18,7 +18,8 @@
     "run-all": "^1.0.1"
   },
   "scripts": {
-    "start": "npm run build-css && run-p -ncr watch-css start-js",
+    "start": "react-scripts start",
+    "start-choke": "npm run build-css && run-p -ncr watch-css start-js",
     "start-js": "react-scripts start",
     "build": "run-s -n build-css build-js",
     "build-js": "react-scripts build",
