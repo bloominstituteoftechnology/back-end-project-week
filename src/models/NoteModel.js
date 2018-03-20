@@ -2,17 +2,17 @@ const mongoose = require('mongoose');
 
 require('./UserModel');
 
-const NoteSchema = new mongoose.Shcema({
+const NoteSchema = new mongoose.Schema({
 
 	title: {
 		type: String,
 		required: true,
 		index: true
 	},
-	body: {
+	text: {
 		type: String
 	},
-	users: [{ type: mongoose.Shcema.Types.ObjectId, ref: 'User'}],
+	users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
 	cretedOn: { type: Date, default: Date.now }
 });
 
