@@ -15,7 +15,7 @@ export default ComposedComponent => {
       return (
         <div className="CheckAuthentication">
           {this.props.authenticated || localStorage.getItem(appK) ? (
-            <ComposedComponent />
+            <ComposedComponent history={this.props.history} />
           ) : null}
         </div>
       );

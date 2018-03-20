@@ -1,9 +1,4 @@
 import {
-  AUTH_USER_AUTHENTICATED,
-  AUTH_USER_UNAUTHENTICATED,
-  AUTH_ERROR,
-  AUTH_CHECK,
-  //
   AUTH_LOGIN_START,
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGIN_ERROR,
@@ -13,6 +8,13 @@ import {
   AUTH_SIGNUP_SUCCESS,
   AUTH_SIGNUP_ERROR,
   AUTH_SIGNUP_FINISH,
+  //
+  AUTH_NOTES_ERROR,
+  //
+  AUTH_USER_AUTHENTICATED,
+  AUTH_USER_UNAUTHENTICATED,
+  AUTH_ERROR,
+  AUTH_CHECK,
 } from '../actions';
 
 const initialState = {
@@ -76,6 +78,12 @@ export default (auth = initialState, action) => {
       };
 
     //
+
+    case AUTH_NOTES_ERROR:
+      return {
+        ...auth,
+        error: action.payload
+      }
 
     case AUTH_USER_UNAUTHENTICATED:
       return {

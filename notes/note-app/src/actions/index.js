@@ -26,6 +26,8 @@ export const NOTES_FETCH_SUCCESS = 'NOTES_FETCH_SUCCESS';
 export const NOTES_FETCH_ERROR = 'NOTES_FETCH_ERROR';
 export const NOTES_FETCH_FINISH = 'NOTES_FETCH_FINISH';
 
+export const AUTH_NOTES_ERROR = 'AUTH_NOTES_ERROR';
+
 // reset error
 export const RESET_ERROR = 'RESET_ERROR';
 // reset sign up
@@ -121,7 +123,7 @@ export const login = (username, password, history) => {
       .catch(err => {
         dispatch({
           type: AUTH_LOGIN_ERROR,
-          payload: err.response.data.message,
+          payload: err.response.data.error,
         });
         dispatch({ type: AUTH_LOGIN_FINISH });
       });
@@ -153,7 +155,7 @@ export const getNotes = _ => {
         dispatch({ type: NOTES_FETCH_FINISH });
       })
       .catch(err => {
-        dispatch({ type: NOTES_FETCH_ERROR, payload: err });
+        dispatch({ type: AUTH_NOTES_ERROR, payload: err.response.data.error });
         dispatch({ type: NOTES_FETCH_FINISH });
       });
   };

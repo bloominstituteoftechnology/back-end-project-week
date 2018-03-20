@@ -27,6 +27,12 @@ class Notes extends Component {
   //   if (nextProps.notes.length !== this.props.notes)
   //     this.setState({ notes: nextProps.notes, displayNotes: nextProps.notes });
   // }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.error) {
+      window.alert(nextProps.error);
+      this.props.history.push('/login');
+    }
+  }
 
   detailedNoteView = note => {
     this.setState({ displayNotes: [note], isViewingSingleNote: true });
@@ -211,6 +217,7 @@ class Notes extends Component {
 const mapStateToProps = state => {
   return {
     notes: state.notes,
+    error: state.auth.error,
   };
 };
 
