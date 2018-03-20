@@ -11,7 +11,7 @@ const noteRouter = require('./notes/noteRoutes');
 const { authenticate } = require('./utils/middleware');
 const { dbuser, dbpass } = require('./config');
 
-app.use(express.static(path.join(__dirname, "client/build"))
+app.use(express.static(path.join(__dirname, 'note-mate/frontend/build')));
 
 app.use(express.json());
 app.use(helmet());
