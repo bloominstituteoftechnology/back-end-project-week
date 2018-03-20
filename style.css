@@ -1,0 +1,154 @@
+body {
+	background-color: #fff;
+	background: url('img/bg.jpg') no-repeat center top;
+}
+
+.brand {
+	float: left;
+	padding: 0;
+}
+.brand a {
+	padding: 0;
+	line-height: 130%;
+	margin-left: 50px;	
+	text-decoration: none;
+	outline: 0;
+	font-size: 2.75em;
+	font-weight: 900;
+	color: #444;
+	border-bottom: 3px dotted;
+	transition: .25s ease;
+}
+.brand a:hover {
+	color: #db5353;
+	border-bottom: 3px dotted;
+	transition: 0.0s;
+}
+
+.search {
+	position: relative;
+	text-align: center;
+	margin: 20px auto;
+	width: 50%;
+
+}
+
+.search input {
+	text-indent: 32px;
+	font-size: 1.5em;
+	background: #fff;
+	width: 90%;
+	margin: 0 auto;
+	outline: 0;
+	border: 1px solid #fdfdfd;
+	border-radius: 1px;
+	padding: 10px;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
+}
+
+.search input:hover, .search input:focus {
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.search .glyphicon-search { 
+  left: 30px;
+  top: -1px;
+  color: #777;
+}
+
+.search input::-webkit-input-placeholder {
+	font-weight: 300;
+	color: #e2e2e2;
+}
+
+.search input::-moz-placeholder {
+	font-weight: 300;
+	color: #e2e2e2;
+}
+
+.search input::input-placeholder {
+	font-weight: 300;
+	color: #e2e2e2;
+}
+
+
+.notes-container {
+	padding-right: 20px;
+}
+
+.m-item {
+	background: #f9f9f9;
+	border-radius: 0;
+	word-wrap: break-word;
+	padding-top: 0.75em;
+}
+
+/* .note-title {
+
+} */ 
+
+.note-content {
+	white-space: pre;
+	white-space: pre-wrap;
+}
+
+.remove-btn {
+	float: right;
+	margin: 0 -0.7em 0 0;
+	padding: 0;
+	background: transparent;
+	border: 0;
+	outline: 0;
+	color: #333;
+	color: #636363;
+}
+
+.remove-btn:hover {
+	color: #222;
+}
+
+
+.add-btn {
+	display: block;
+	height: 50px;
+	width: 50px;
+	padding: 10px;
+	background: #dd3131;
+	border: 0;
+	border-radius: 100px;
+	outline: 0;
+	color: #fff;
+	font-size: 1.75em;
+	position: fixed;
+    top: 90%;
+    right: 10px;
+	transition: 0.2s;
+}
+
+.add-btn:hover {
+	background: #000;
+	transition: 0.2s;
+}
+
+.add-note-model .model-content {
+	border-radius: 0;
+	padding: 20px;
+}
+
+.add-note-form .form-control {
+	border-radius: 0;
+	border: 0;
+	outline: 0;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
+}
+
+.add-note-form .form-control:hover, .add-note-form .form-control:focus {
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.add-note-form .btn {
+	border-radius: 0;
+	outline: 0;
+	background: #000;
+	color: #fff;
+}
