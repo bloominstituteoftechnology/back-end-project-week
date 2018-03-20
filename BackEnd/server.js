@@ -3,10 +3,15 @@ const morgan = require('morgan');
 
 const server = express();
 
+const usersRoutes = require('./routes/users');
+const notesRoutes = require('./routes/notes');
+
 // Middleware
 app.use(morgan('dev'));
 
 // Routes
+
+app.use('/users', usersRoutes);
 
 // 404 Errors
 
