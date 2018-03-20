@@ -1,4 +1,5 @@
 const Note = require('../models/NoteModel');
+const User = require('../models/UserModel');
 
 const createNote = (req, res) => {
 	const { title, text, userId } = req.body;
@@ -10,7 +11,8 @@ const createNote = (req, res) => {
 };
 
 const getNotes = (req, res) => {
-	Note.find({}, (err, notes) => {
+	const { userId } = req.params;
+	Note.find({ userId }, (err, notes) => {
 		if (err) return res.send(err);
 		res.send(notes);
 	});

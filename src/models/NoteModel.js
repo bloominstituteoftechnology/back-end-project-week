@@ -12,7 +12,11 @@ const NoteSchema = new mongoose.Schema({
 	text: {
 		type: String
 	},
-	users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+	userId: {
+		type: mongoose.Schema.Types.ObjectId,
+		required: true,
+		ref: 'User'
+	},
 	cretedOn: { type: Date, default: Date.now }
 });
 

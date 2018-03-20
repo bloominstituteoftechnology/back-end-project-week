@@ -11,11 +11,8 @@ const { validateToken } = require('../services/auth');
 module.exports = server => {
 	server.post('/api/login', login);
 	server.post('/api/user', createUser);
-	server
-		.route('/api/notes')
-		.post(createNote)
-		.get(validateToken, getNotes);
-
+	server.post('/api/notes', createNote)
+	server.get('/api/user-notes/:userId', validateToken, getNotes)
 	server
 		.route('/api/notes/:id')
 		.get(getNoteById)
