@@ -17,9 +17,19 @@ module.exports = {
   },
   id: (req, res, next) => {
     const { id } = req.params;
+    let query = { _id: id };
+
+    if (!id && req.body.username) {
+      query = { username: req.body.username };
+    }
+
+    if (!id && !req.body.username) {
+      send(res, error.inp, message.noIdNoUsername, message.requestIdError);
+      return;
+    }
 
     controller
-      .requestBy(req.params.id)
+      .requestBy(query)
       .then(user => {
         if (!user) {
           send(res, error.miss, {
@@ -45,4 +55,22 @@ module.exports = {
 
   //   next();
   // },
+  login: (req, res, next) => {
+    const user = req.user;
+
+    user.checkPassword(req.body.password, (isValid, err) => {
+      if (err) {
+        send(res, error.server, message.checkingError, err);
+        return;
+      }
+
+      if (isValid) {
+        req.userId = user._id;
+        next();
+        return;
+      }
+
+      send(res, error.server, message.passwordMismatch, message.loginError);
+    });
+  },
 };

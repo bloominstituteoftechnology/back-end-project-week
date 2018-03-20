@@ -60,9 +60,22 @@ UserSchema.pre('save', function(next) {
 //   });
 // });
 
-// UserSchema.methods.checkPassword = function(password, cb) {
-//   bcrypt.compare(password)
-// };
+UserSchema.methods.checkPassword = function(password, cb) {
+  bcrypt.compare(password + secret, this.password, (isValid, err) => {
+    err ? cb(err) : cb(isValid);
+  });
+};
+
+UserSchema.statics.getAllUsers = cb => {
+  User.find({}, (err, users) => {
+    if (err) {
+      cb({ err: err });
+      return;
+    }
+
+    cb(users);
+  });
+};
 
 const User = mongoose.model('User', UserSchema);
 

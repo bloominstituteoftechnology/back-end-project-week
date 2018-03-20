@@ -11,6 +11,7 @@ debug ? server.use(morgan('combined')) : null;
 
 server.use(express.json());
 server.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+
 server.use('/api', router);
 
 server.get('/', (req, res) => {

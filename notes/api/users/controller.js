@@ -4,11 +4,11 @@ module.exports = {
   create: user => {
     return new User(user).save();
   },
-  // request: cb => {
-  //   return User.getAllNotes(cb);
-  // },
-  requestBy: _id => {
-    return User.findOne({ _id });
+  request: cb => {
+    return User.getAllUsers(cb);
+  },
+  requestBy: query => {
+    return User.findOne(query);
   },
   update: (_id, user) => {
     return User.findByIdAndUpdate(_id, user, { new: true });

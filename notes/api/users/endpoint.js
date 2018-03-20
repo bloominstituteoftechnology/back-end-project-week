@@ -1,5 +1,24 @@
 const router = require('express').Router();
 
+const session = require('express-session');
+const mongoose = require('mongoose');
+const MongoStore = require('connect-mongo')(session);
+
+const secret = require('../../config').secret;
+
+router.use(
+  session({
+    secret,
+    saveUninitialized: true,
+    resave: true,
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection,
+      autoRemove: 'interval',
+      autoRemoveInterval: 10,
+    }),
+  }),
+);
+
 const { error, success } = require('../../config').status;
 const { send } = require('../helper');
 
@@ -11,14 +30,6 @@ router
   .route('/')
   .get((req, res) => {
     send(res, success.ok, { users: 'running' });
-    // controller.request(notes => {
-    //   if (notes.err) {
-    //     send(res, error.server, message.requestError, notes.err);
-    //     return;
-    //   }
-
-    //   send(res, success.ok, notes);
-    // });
   })
   .post(validate.user, (req, res) => {
     controller
@@ -28,6 +39,17 @@ router
       )
       .catch(err => send(res, error.server, message.createdError, err));
   });
+
+router.route('/all').get((req, res) => {
+  controller.request(users => {
+    if (users.err) {
+      send(res, error.server, message.requestError, users.err);
+      return;
+    }
+
+    send(res, success.ok, users);
+  });
+});
 
 router
   .route('/:id')
@@ -52,5 +74,17 @@ router
       .then(deletedUser => send(res, success.ok, deletedUser))
       .catch(err => send(res, error.server, message.deleteError, err));
   });
+
+router.route('/login').post(validate.id, validate.login, (req, res) => {
+  const userId = req.userId;
+
+  if (req.session.userId === userId.toString()) {
+    send(res, error.server, message.loginInstanceFound, message.loginError);
+    return;
+  }
+
+  req.session.userId = userId;
+  send(res, success.ok, { message: message.loginSuccess });
+});
 
 module.exports = router;
