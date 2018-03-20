@@ -21,6 +21,12 @@ export const AUTH_LOGIN_SUCCESS = 'AUTH_LOGIN_SUCCESS';
 export const AUTH_LOGIN_ERROR = 'AUTH_LOGIN_ERROR';
 export const AUTH_LOGIN_FINISH = 'AUTH_LOGIN_FINISH';
 
+// logout
+export const AUTH_LOGOUT_START = 'AUTH_LOGOUT_START';
+export const AUTH_LOGOUT_SUCCESS = 'AUTH_LOGOUT_SUCCESS';
+export const AUTH_LOGOUT_ERROR = 'AUTH_LOGOUT_ERROR';
+export const AUTH_LOGOUT_FINISH = 'AUTH_LOGOUT_FINISH';
+
 // notes
 export const NOTES_FETCH_START = 'NOTES_FETCH_START';
 export const NOTES_FETCH_SUCCESS = 'NOTES_FETCH_SUCCESS';
@@ -158,8 +164,16 @@ export const login = (username, password, history) => {
 //   };
 // };
 
-export const logout = _ => {
-  localStorage.removeItem(appK);
+export const logout = history => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOGOUT_START });
+
+    localStorage.removeItem(appK);
+    dispatch({ type: AUTH_LOGOUT_SUCCESS });
+    dispatch({ type: AUTH_LOGOUT_FINISH });
+
+    history.push('/login');
+  };
 };
 
 export const getNotes = _ => {
