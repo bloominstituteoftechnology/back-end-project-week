@@ -3,12 +3,15 @@ const helmet = require('helmet');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const morgan = require('morgan');
+const path = require('path');
 
 const app = express();
 const userRouter = require('./users/userRoutes');
 const noteRouter = require('./notes/noteRoutes');
 const { authenticate } = require('./utils/middleware');
 const { dbuser, dbpass } = require('./config');
+
+app.use(express.static(path.join(__dirname, "client/build"))
 
 app.use(express.json());
 app.use(helmet());
