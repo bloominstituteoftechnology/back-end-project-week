@@ -1,53 +1,27 @@
 const express = require('express');
-const morgan = require('morgan');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const server = express();
+
+server.use(express.json())
+server.use(cors());
 
 const usersRoutes = require('./routes/users');
 // const notesRoutes = require('./routes/notes');
 
 // DB
 
-mongoose.connect('mongodb://localhost/notesapp');
+mongoose.connect('mongodb://localhost/notetaking');
 
-// Middleware
-server.use(morgan('dev'));
 
 // Routes
 
-server.use('/users', usersRoutes);
+server.use('/', usersRoutes);
 
-// 404 Errors
-
-server.use((req, res, next) => {
-    const err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
-
-// Error Handler
-
-server.use((err, req, res, next) => {
-    const error = server.get('env') === 'development' ? err : {};
-    const status = err.status || 500;
-
-
-    // Server Output
-
-    console.error(err);
-
-    // Client Output
-
-    res.status(status).json({
-        error: {
-            message: err.message
-        }
-    });
-});
 
 // Initialize Server
 const port = server.get('port') || 5050;
-server.listen(port, () => {
+server.listen(port, (req, res) => {
     console.log(`Server is listening on port ${port}`)
 });
