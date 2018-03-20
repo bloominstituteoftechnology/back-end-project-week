@@ -14,8 +14,8 @@ import rootReducer from './reducers';
 import Root from './Root';
 import Home from './components/Home/Home';
 import Notes from './components/notes/notes';
-import signup from './components/login/signup';
-import login from './components/login/login';
+import Signup from './components/login/signup';
+import Login from './components/login/login';
 
 import Gatekeeper from './components/gatekeeper/gatekeeper';
 
@@ -32,9 +32,9 @@ ReactDOM.render(
         <Switch>
           <Route path="/notes" component={Gatekeeper(Notes)} />
           {/* <Route path="/notes/:username" component={App} /> */}
-          <Route path="/signup" component={signup} />
+          <Route path="/signup" component={Signup} />
           {/* <Route path="/login/:username" component={login} /> */}
-          <Route path="/login" component={login} />
+          <Route path="/login" component={Login} />
           {/* <Route path="/home" component={Home} /> */}
           {/* <Route exact path="/" component={Root} /> */}
           <Route exact path="/" component={App} />
