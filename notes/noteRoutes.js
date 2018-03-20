@@ -5,7 +5,6 @@ const noteRouter = express();
 
 noteRouter.get('/', (req, res) => {
   const { userId } = req.decoded;
-  console.log(userId);
   Note.find()
     .where({ userId })
     .then(notes => {

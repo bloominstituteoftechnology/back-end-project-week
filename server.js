@@ -8,6 +8,7 @@ const app = express();
 const userRouter = require('./users/userRoutes');
 const noteRouter = require('./notes/noteRoutes');
 const { authenticate } = require('./utils/middleware');
+const { dbuser, dbpass } = require('./config');
 
 app.use(express.json());
 app.use(helmet());
@@ -22,7 +23,7 @@ app.use('/user', userRouter);
 app.use('/notes', authenticate, noteRouter);
 
 mongoose
-  .connect('mongodb://localhost/lambdanotes')
+  .connect(`mongodb://${dbuser}:${dbpass}@ds119449.mlab.com:19449/lambdanotes`)
   .then(() => {
     const port = process.env.PORT || 8080;
     app.listen(port, () => console.log(`Running on port: ${port}`));
