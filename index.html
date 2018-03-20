@@ -1,0 +1,88 @@
+<!DOCTYPE htlm>
+<html lang="un-US">
+    <head>
+        <!-- AngularJS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+        <!-- jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <!-- CSS Masonry -->
+        <link rel="stylesheet" href="assets/css-masonry/css-masonry.css">
+
+        <!-- Custom CSS and JS -->
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="note-style.css">
+        <script src="notes-app.js"></script>
+        <script src="script.js"></script>
+
+    </head>
+
+    <body lad-app="notesApp" lad-controller="notesController">
+        <div class="brand">
+            <a href="">LadNote</a>
+        </div>
+
+        <!-- Search -->
+        <div class="search">
+            <span class="glyphicon glyphicon-search"></span>
+            <input type="text" class="searchbox" placeholder="Search notes..." lad-model="searchString" autofocus />
+        </div>
+        <!-- /.Search -->
+
+        <!-- Notes Container -->
+        <div class="container notes-container">
+            <div class="masonry">
+                
+                <div class="m-item note" lad-class="note.class" lad-repeat="note in notes | searchFor:searchString">
+                    <button class="glyphicon glyphicon-remove remove-btn" lad-click="removeNote(note);"></button>
+                    <h3 class="note-title">{{ note.title }}</h3>
+                    <p class="note-content">{{ note.content }}</p>
+                </div>
+
+            </div>
+        </div>
+        <!-- /.Notes Container -->
+
+        <!-- Add New Note -->
+
+        <!-- Button for addNoteModel -->
+        <button title="Add New Note" class="glyphicon glyhicon-plus add-btn" data-toggle="model" data-target="#addNoteModel"></button>
+
+        <!-- addNoteModel -->
+        <div id="addNoteModel" class="model fade add-note-model" role="dialog">
+            <div class="model-dialog model-lg">
+                <!-- model Content -->
+                <div class="model-content">
+                    <div class="model-header">
+                        <button type="button" class="close" data-dismiss="model">&times;</button>
+                        <h4 class="model-title">Add a New Note</h4>
+                    </div>
+                    <div class="model-body">
+
+                        <form class="add-note-form">
+                            <div class="form-group">
+                                <label class="sr-only" for="title">Title:</label>
+                                <input type="text" class="form-control" id="newtitle" placeholder="Title" lad-model="note.title">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="sr-only" for="content">Content:</label>
+                                <textarea class="form-control" rows="10" id="newcontent" placeholder="Content" lad-model="note.content"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-default" ng-click="addNote();">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- /.Add New Note -->
+
+    </body>
+</html>
