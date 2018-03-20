@@ -17,9 +17,8 @@ app.use(express.json());
 app.use(helmet());
 app.use(cors());
 // app.use(morgan('combined'));
-
-app.get('/', (req, res) => {
-  res.send('Working');
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + 'note-mate/frontend/build/index.html'));
 });
 
 app.use('/user', userRouter);
