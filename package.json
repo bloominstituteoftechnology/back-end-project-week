@@ -10,7 +10,7 @@
     "client": "cd note-mate/frontend && yarn start",
     "server": "node server.js",
     "start": "yarn server",
-    "heroku-postbuild": "cd note-mate/frontend && yarn start"
+    "heroku-postbuild": "cd note-mate/frontend && yarn && yarn start"
   },
   "repository": {
     "type": "git",
