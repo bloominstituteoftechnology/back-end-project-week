@@ -16,12 +16,15 @@ export const SIGNOUT = 'SIGNOUT';
 const getUrl = 'http://localhost:8080/notes';
 const postUrl = 'http://localhost:8080/notes';
 const deleteUrl = 'http://localhost:8080/notes';
+const config = {
+  headers: { Authorization: localStorage.getItem('Authorization') }
+};
 
 export const getNotes = _id => {
   return dispatch => {
     dispatch({ type: GETTING_NOTES });
     axios
-      .get(getUrl)
+      .get(getUrl, config)
       .then(({ data }) => {
         dispatch({ type: RECEIVED_NOTES, payload: data });
       })
@@ -91,7 +94,6 @@ export const updateNote = note => {
 
 export const filterByText = text => {
   return dispatch => {
-    console.log(text);
     axios
       .get(getUrl)
       .then(({ data }) => {
@@ -145,11 +147,12 @@ export const addUser = (email, password) => {
 };
 
 export const login = (email, password) => {
-  const checkUserUrl = 'http://localhost:8080/user';
+  const checkUserUrl = 'http://localhost:8080/user/login';
   return dispatch => {
     axios
       .post(checkUserUrl, { email, password })
       .then(({ data }) => {
+        window.localStorage.setItem('Authorization', data.token);
         dispatch({ type: VALIDATE, payload: data });
       })
       .catch(err => {

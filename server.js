@@ -6,6 +6,7 @@ const cors = require('cors');
 const app = express();
 const userRouter = require('./users/userRoutes');
 const noteRouter = require('./notes/noteRoutes');
+const { authenticate } = require('./utils/middleware');
 
 app.use(express.json());
 app.use(helmet());
@@ -16,7 +17,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/user', userRouter);
-app.use('/notes', noteRouter);
+app.use('/notes', authenticate, noteRouter);
 
 mongoose
   .connect('mongodb://localhost/lambdanotes')

@@ -19,9 +19,8 @@ noteRouter.post('/', (req, res) => {
   note
     .save()
     .then(note => {
-      Note.find({ userId })
+      Note.find()
         .then(notes => {
-          console.log(notes);
           res.status(200).json(notes);
         })
         .catch(err => {

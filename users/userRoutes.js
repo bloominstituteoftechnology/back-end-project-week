@@ -1,5 +1,7 @@
 const express = require('express');
 const User = require('./usersSchema');
+const jwt = require('jsonwebtoken');
+const { secret } = require('../config');
 
 const userRouter = express.Router();
 
@@ -7,7 +9,7 @@ userRouter.get('/', (req, res) => {
   res.send('user routes working');
 });
 
-userRouter.post('/', (req, res) => {
+userRouter.post('/login', (req, res) => {
   const { email, password } = req.body;
   User.findOne({ email })
     .then(user => {
@@ -17,7 +19,13 @@ userRouter.post('/', (req, res) => {
             res.send(422).json({ err });
           }
           if (match) {
-            res.status(200).json(user._id);
+            const payload = {
+              email: user.email,
+              userId: user._id
+            };
+            res
+              .status(200)
+              .json({ token: jwt.sign(payload, secret), _id: user._id });
           } else {
             res.status(422).json({ error: 'email or password is not correct' });
           }
