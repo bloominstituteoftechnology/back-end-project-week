@@ -7,14 +7,17 @@ export const AUTH_ERROR = 'AUTH_ERROR';
 export const AUTH_CHECK = 'AUTH_CHECK';
 
 // sign up user
-export const SIGNUP_USER_START = 'SIGNUP_USER_START';
-export const SIGNUP_USER_SUCCESS = 'SIGNUP_USER_SUCCESS';
-export const SIGNUP_USER_ERROR = 'SIGNUP_USER_ERROR';
-export const SIGNUP_USER_FINISH = 'SIGNUP_USER_FINISH';
+export const AUTH_SIGNUP_START = 'AUTH_SIGNUP_START';
+export const AUTH_SIGNUP_SUCCESS = 'AUTH_SIGNUP_SUCCESS';
+export const AUTH_SIGNUP_ERROR = 'AUTH_SIGNUP_ERROR';
+export const AUTH_SIGNUP_FINISH = 'AUTH_SIGNUP_FINISH';
+
 // check login
-export const CHECK_LOGIN_START = 'CHECK_LOGIN_START';
-export const CHECK_LOGIN = 'CHECK_LOGIN';
-export const CHECK_LOGIN_FINISH = 'CHECK_LOGIN_FINISH';
+export const AUTH_LOGIN_START = 'AUTH_LOGIN_START';
+export const AUTH_LOGIN_SUCCESS = 'AUTH_LOGIN_SUCCESS';
+export const AUTH_LOGIN_ERROR = 'AUTH_LOGIN_ERROR';
+export const AUTH_LOGIN_FINISH = 'AUTH_LOGIN_FINISH';
+
 // reset error
 export const RESET_ERROR = 'RESET_ERROR';
 // reset sign up
@@ -30,41 +33,84 @@ export const DELETE_NOTES_ALL = 'DELETE_NOTES_ALL';
 
 const SERVER_ROOT = 'http://localhost:5000/api';
 
-export const signUpUser = (user, history) => {
+export const register = (username, password, confirmPassword, history) => {
   return dispatch => {
-    dispatch({ type: SIGNUP_USER_START });
+    dispatch({ type: AUTH_SIGNUP_START });
+
+    if (!username || !password || !confirmPassword) {
+      dispatch({
+        type: AUTH_SIGNUP_ERROR,
+        payload: 'Please provide all fields.',
+      });
+
+      dispatch({ type: AUTH_SIGNUP_FINISH });
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      dispatch({ type: AUTH_SIGNUP_ERROR, payload: 'Passwords do not match.' });
+
+      dispatch({ type: AUTH_SIGNUP_FINISH });
+      return;
+    }
 
     axios
-      .post(`${SERVER_ROOT}/users`, user)
+      .post(`${SERVER_ROOT}/users`, { username, password })
       .then(({ data }) => {
-        dispatch({ type: SIGNUP_USER_SUCCESS, payload: data.username });
-        dispatch({ type: SIGNUP_USER_FINISH });
-        history.push('/notes');
+        dispatch({ type: AUTH_SIGNUP_SUCCESS, payload: data });
+
+        dispatch({ type: AUTH_LOGIN_START });
+
+        axios
+          .post(`${SERVER_ROOT}/users/login`, { username, password })
+          .then(({ data }) => {
+            dispatch({ type: AUTH_LOGIN_SUCCESS, payload: data });
+            dispatch({ type: AUTH_LOGIN_FINISH });
+
+            dispatch({ type: AUTH_SIGNUP_FINISH });
+
+            history.push('/notes');
+          })
+          .catch(err => {
+            dispatch({ type: AUTH_LOGIN_ERROR, payload: err });
+            dispatch({ type: AUTH_LOGIN_FINISH });
+
+            dispatch({ type: AUTH_SIGNUP_ERROR });
+            dispatch({ type: AUTH_SIGNUP_FINISH });
+          });
       })
       .catch(err => {
-        dispatch({ type: SIGNUP_USER_ERROR });
-        dispatch({ type: SIGNUP_USER_FINISH });
+        dispatch({ type: AUTH_SIGNUP_ERROR, payload: err });
+        dispatch({ type: AUTH_SIGNUP_FINISH });
       });
   };
 };
 
 // export const checkSignUp = newUser => {
 //   return dispatch => {
-//     dispatch({ type: SIGNUP_USER_START });
+//     dispatch({ type: AUTH_SIGNUP_START });
 //     setTimeout(_ => {
-//       dispatch({ type: SIGNUP_USER_SUCCESS, payload: newUser });
-//       dispatch({ type: SIGNUP_USER_FINISH });
+//       dispatch({ type: AUTH_SIGNUP_SUCCESS, payload: newUser });
+//       dispatch({ type: AUTH_SIGNUP_FINISH });
 //     }, 500);
 //   };
 // };
 
-export const checkLogin = credentials => {
+export const login = (credentials, history) => {
   return dispatch => {
-    dispatch({ type: CHECK_LOGIN_START });
-    setTimeout(_ => {
-      dispatch({ type: CHECK_LOGIN, payload: credentials });
-      dispatch({ type: CHECK_LOGIN_FINISH });
-    }, 500);
+    dispatch({ type: AUTH_LOGIN_START });
+
+    axios
+      .post(`${SERVER_ROOT}/login`, credentials)
+      .then(({ data }) => {
+        dispatch({ type: AUTH_LOGIN_SUCCESS, payload: data });
+        dispatch({ type: AUTH_LOGIN_FINISH });
+        history.push('/notes');
+      })
+      .catch(err => {
+        dispatch({ type: AUTH_LOGIN_ERROR, payload: err });
+        dispatch({ type: AUTH_LOGIN_FINISH });
+      });
   };
 };
 

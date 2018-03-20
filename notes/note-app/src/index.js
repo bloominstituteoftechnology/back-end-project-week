@@ -13,8 +13,8 @@ import rootReducer from './reducers';
 
 import Root from './Root';
 import Home from './components/Home/Home';
-import Signup from './components/Login/Signup';
-import Login from './components/Login/Login';
+import signup from './components/login/signup';
+import login from './components/login/login';
 import App from './components/App/App';
 
 import './styles/css/index.css';
@@ -28,9 +28,9 @@ ReactDOM.render(
         <Switch>
           <Route path="/notes" component={App} />
           {/* <Route path="/notes/:username" component={App} /> */}
-          <Route path="/signup" component={Signup} />
-          <Route path="/login/:username" component={Login} />
-          <Route path="/login" component={Login} />
+          <Route path="/signup" component={signup} />
+          {/* <Route path="/login/:username" component={login} /> */}
+          <Route path="/login" component={login} />
           <Route path="/home" component={Home} />
           <Route exact path="/" component={Root} />
         </Switch>

@@ -339,11 +339,11 @@ body p {
   align-items: center;
 }
 .Signup .Signup__title {
-  margin-bottom: 7px;
+  margin: 7px 0;
   font-size: 5rem;
 }
 .Signup .Signup__form {
-  height: 120px;
+  height: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -360,10 +360,8 @@ body p {
 .Signup .Signup__form .SignupForm .InputFields {
   display: flex;
   flex-direction: column;
-}
-.Signup .Signup__form .SignupForm .InputFields input {
-  text-align: center;
   margin: 2px 0;
+  text-align: center;
 }
 .Signup .Signup__form .SignupForm .SignupForm__button {
   width: 80%;
