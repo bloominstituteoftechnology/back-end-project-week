@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 
 import { reduxForm, Field } from 'redux-form';
 
-import { login, resetError } from '../../actions';
+import { login } from '../../actions';
+
+import Header from '../app/header';
 
 // import '../../styles/css/index.css';
 
@@ -16,7 +18,7 @@ class Login extends Component {
   render() {
     return (
       <div className="Signup">
-        <div className="Signup__title">Notes&reg;</div>
+        <Header />
 
         <form
           className="Signup__form"
