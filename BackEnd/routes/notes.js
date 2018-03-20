@@ -1,4 +1,4 @@
-const { authenticate, addNote, getNotes, updateNote, deleteNote };
+const { authenticate, addNote, getNotes, updateNote, deleteNote } = require('../controllers/notes');
 
 module.exports = server => {
 
