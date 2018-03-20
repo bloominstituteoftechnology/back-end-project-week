@@ -80,7 +80,7 @@ export const register = (username, password, confirmPassword, history) => {
 
             dispatch({ type: AUTH_SIGNUP_FINISH });
 
-            history.push('/notes');
+            history.push('/');
           })
           .catch(err => {
             dispatch({ type: AUTH_LOGIN_ERROR, payload: err });
@@ -122,7 +122,7 @@ export const login = (username, password, history) => {
         dispatch({ type: AUTH_LOGIN_SUCCESS });
         dispatch({ type: AUTH_LOGIN_FINISH });
 
-        history.push('/notes');
+        history.push('/');
       })
       .catch(err => {
         dispatch({

@@ -30,14 +30,14 @@ ReactDOM.render(
     <Router>
       <div>
         <Switch>
-          <Route path="/notes" component={Gatekeeper(Notes)} />
+          {/* <Route path="/notes" component={Gatekeeper(Notes)} /> */}
           {/* <Route path="/notes/:username" component={App} /> */}
           <Route path="/signup" component={Signup} />
           {/* <Route path="/login/:username" component={login} /> */}
           <Route path="/login" component={Login} />
           {/* <Route path="/home" component={Home} /> */}
           {/* <Route exact path="/" component={Root} /> */}
-          <Route exact path="/" component={App} />
+          <Route exact path="/" component={Gatekeeper(App)} />
         </Switch>
       </div>
     </Router>

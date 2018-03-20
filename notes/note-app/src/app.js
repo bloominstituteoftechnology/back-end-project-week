@@ -4,6 +4,7 @@ import { resetError, signOut } from './actions';
 // import { Redirect } from 'react-router-dom';
 
 import StatusBar from './components/app/statusBar';
+import Notes from './components/notes/notes';
 // import AppLoggedIn from './AppLoggedIn';
 // import NotLoggedIn from './NotLoggedIn';
 
@@ -18,7 +19,7 @@ class App extends Component {
 
   componentDidMount() {
     this.resetError();
-    this.setState({ username: this.props.match.params.username });
+    // this.setState({ username: this.props.match.params.username });
   }
 
   resetError = _ => {
@@ -40,6 +41,8 @@ class App extends Component {
           appIsLoggedIn={this.props.isLoggedIn}
           signOutHandler={this.signOutHandler}
         />
+
+        <Notes history={this.props.history} />
 
         {/* // {this.props.isLoggedIn ? ( */}
         {/* //   <AppLoggedIn signOutHandler={this.state.signOutHandler} /> */}
