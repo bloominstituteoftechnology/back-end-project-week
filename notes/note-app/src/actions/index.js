@@ -6,17 +6,23 @@ export const AUTH_USER_UNAUTHENTICATED = 'AUTH_USER_UNAUTHENTICATED';
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const AUTH_CHECK = 'AUTH_CHECK';
 
-// sign up user
+// signup
 export const AUTH_SIGNUP_START = 'AUTH_SIGNUP_START';
 export const AUTH_SIGNUP_SUCCESS = 'AUTH_SIGNUP_SUCCESS';
 export const AUTH_SIGNUP_ERROR = 'AUTH_SIGNUP_ERROR';
 export const AUTH_SIGNUP_FINISH = 'AUTH_SIGNUP_FINISH';
 
-// check login
+// login
 export const AUTH_LOGIN_START = 'AUTH_LOGIN_START';
 export const AUTH_LOGIN_SUCCESS = 'AUTH_LOGIN_SUCCESS';
 export const AUTH_LOGIN_ERROR = 'AUTH_LOGIN_ERROR';
 export const AUTH_LOGIN_FINISH = 'AUTH_LOGIN_FINISH';
+
+// notes
+export const NOTES_FETCH_START = 'NOTES_FETCH_START';
+export const NOTES_FETCH_SUCCESS = 'NOTES_FETCH_SUCCESS';
+export const NOTES_FETCH_ERROR = 'NOTES_FETCH_ERROR';
+export const NOTES_FETCH_FINISH = 'NOTES_FETCH_FINISH';
 
 // reset error
 export const RESET_ERROR = 'RESET_ERROR';
@@ -31,7 +37,7 @@ export const EDIT_NOTE = 'EDIT_NOTE';
 export const DELETE_NOTE = 'DELETE_NOTE';
 export const DELETE_NOTES_ALL = 'DELETE_NOTES_ALL';
 
-const SERVER_ROOT = 'http://localhost:5000/api';
+const ROOT = 'http://localhost:5000/api';
 
 export const register = (username, password, confirmPassword, history) => {
   return dispatch => {
@@ -55,14 +61,14 @@ export const register = (username, password, confirmPassword, history) => {
     }
 
     axios
-      .post(`${SERVER_ROOT}/users`, { username, password })
+      .post(`${ROOT}/users`, { username, password })
       .then(({ data }) => {
         dispatch({ type: AUTH_SIGNUP_SUCCESS, payload: data });
 
         dispatch({ type: AUTH_LOGIN_START });
 
         axios
-          .post(`${SERVER_ROOT}/users/login`, { username, password })
+          .post(`${ROOT}/users/login`, { username, password })
           .then(({ data }) => {
             dispatch({ type: AUTH_LOGIN_SUCCESS, payload: data });
             dispatch({ type: AUTH_LOGIN_FINISH });
@@ -101,7 +107,7 @@ export const login = (username, password, history) => {
     dispatch({ type: AUTH_LOGIN_START });
 
     axios
-      .post(`${SERVER_ROOT}/users/login`, { username, password })
+      .post(`${ROOT}/users/login`, { username, password })
       .then(({ data }) => {
         dispatch({ type: AUTH_LOGIN_SUCCESS, payload: data });
         dispatch({ type: AUTH_LOGIN_FINISH });
@@ -117,7 +123,7 @@ export const login = (username, password, history) => {
       });
 
     // axios
-    //   .post(`${SERVER_ROOT}/login`, credentials)
+    //   .post(`${ROOT}/login`, credentials)
     //   .then(({ data }) => {
     //     dispatch({ type: AUTH_LOGIN_SUCCESS, payload: data });
     //     dispatch({ type: AUTH_LOGIN_FINISH });
@@ -127,6 +133,23 @@ export const login = (username, password, history) => {
     //     dispatch({ type: AUTH_LOGIN_ERROR, payload: err });
     //     dispatch({ type: AUTH_LOGIN_FINISH });
     //   });
+  };
+};
+
+export const getNotes = _ => {
+  return dispatch => {
+    dispatch({ type: NOTES_FETCH_START });
+
+    axios
+      .get(`${ROOT}/notes`)
+      .then(({ data }) => {
+        dispatch({ type: NOTES_FETCH_SUCCESS, payload: data });
+        dispatch({ type: NOTES_FETCH_FINISH });
+      })
+      .catch(err => {
+        dispatch({ type: NOTES_FETCH_ERROR, payload: err });
+        dispatch({ type: NOTES_FETCH_FINISH });
+      });
   };
 };
 

@@ -18,7 +18,7 @@ class Note extends Component {
   componentDidMount() {
     this.setState({
       id: this.props.note.id,
-      title: this.props.note.title,
+      title: this.props.note.content,
       text: this.props.note.text,
     });
   }
@@ -97,7 +97,7 @@ class Note extends Component {
         />
 
         <NoteText
-          text={this.props.note.text}
+          text={this.props.note.content}
           editTextHandler={this.editText}
           style={
             this.props.colorClicked === null
