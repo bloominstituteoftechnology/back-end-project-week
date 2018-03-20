@@ -6,7 +6,7 @@ export default ComposedComponent => {
   class CheckAuthentication extends Component {
     componentWillMount() {
       if (!this.props.authenticated) {
-        window.alert('Please log in first.');
+        window.alert('Please log in first');
         this.props.history.push('/login');
       }
     }
