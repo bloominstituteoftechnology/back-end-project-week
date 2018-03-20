@@ -13,11 +13,13 @@ import rootReducer from './reducers';
 
 import Root from './Root';
 import Home from './components/Home/Home';
-import notes from './components/notes/notes';
+import Notes from './components/notes/notes';
 import signup from './components/login/signup';
 import login from './components/login/login';
 
-import app from './app';
+import Gatekeeper from './components/gatekeeper/gatekeeper';
+
+import App from './app';
 
 import './styles/css/index.css';
 
@@ -28,14 +30,14 @@ ReactDOM.render(
     <Router>
       <div>
         <Switch>
-          <Route path="/notes" component={notes} />
+          <Route path="/notes" component={Gatekeeper(Notes)} />
           {/* <Route path="/notes/:username" component={App} /> */}
           <Route path="/signup" component={signup} />
           {/* <Route path="/login/:username" component={login} /> */}
           <Route path="/login" component={login} />
           {/* <Route path="/home" component={Home} /> */}
           {/* <Route exact path="/" component={Root} /> */}
-          <Route exact path="/" component={app} />
+          <Route exact path="/" component={App} />
         </Switch>
       </div>
     </Router>
