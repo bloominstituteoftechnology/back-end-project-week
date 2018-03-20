@@ -44,7 +44,6 @@ export default (auth = initialState, action) => {
     //
 
     case AUTH_SIGNUP_SUCCESS:
-      console.log('auth sign up sucess serv resp:', action.payload);
       return {
         ...auth,
         // authenticating: false,
