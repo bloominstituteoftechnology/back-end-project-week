@@ -23,19 +23,19 @@ const initialState = {
 
 export default (auth = initialState, action) => {
   switch (action.type) {
-    case AUTH_SIGNUP_START || AUTH_LOGIN_START:
+    case AUTH_SIGNUP_START:
       return {
         ...auth,
         authenticating: true,
       };
 
-    case AUTH_SIGNUP_ERROR || AUTH_LOGIN_ERROR:
+    case AUTH_SIGNUP_ERROR:
       return {
         ...auth,
         error: action.payload,
       };
 
-    case AUTH_SIGNUP_FINISH || AUTH_LOGIN_FINISH:
+    case AUTH_SIGNUP_FINISH:
       return {
         ...auth,
         authenticating: false,
@@ -51,11 +51,31 @@ export default (auth = initialState, action) => {
 
     //
 
+    case AUTH_LOGIN_START:
+      return {
+        ...auth,
+        authenticating: true,
+      };
+
     case AUTH_LOGIN_SUCCESS:
       return {
         ...auth,
         authenticated: true,
       };
+
+    case AUTH_LOGIN_ERROR:
+      return {
+        ...auth,
+        error: action.payload,
+      };
+
+    case AUTH_LOGIN_FINISH:
+      return {
+        ...auth,
+        authenticating: false,
+      };
+
+    //
 
     case AUTH_USER_UNAUTHENTICATED:
       return {
