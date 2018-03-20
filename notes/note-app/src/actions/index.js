@@ -7,6 +7,7 @@ export const AUTH_USER_AUTHENTICATED = 'AUTH_USER_AUTHENTICATED';
 export const AUTH_USER_UNAUTHENTICATED = 'AUTH_USER_UNAUTHENTICATED';
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const AUTH_CHECK = 'AUTH_CHECK';
+export const AUTH_ERROR_RESET = 'AUTH_ERROR_RESET';
 
 // signup
 export const AUTH_SIGNUP_START = 'AUTH_SIGNUP_START';
@@ -113,9 +114,12 @@ export const login = (username, password, history) => {
     axios
       .post(`${ROOT}/users/login`, { username, password })
       .then(({ data }) => {
+        // console.log(data.token);
+        dispatch({ type: AUTH_ERROR_RESET });
+
         localStorage.setItem(appK, data.token);
 
-        dispatch({ type: AUTH_LOGIN_SUCCESS, payload: data });
+        dispatch({ type: AUTH_LOGIN_SUCCESS });
         dispatch({ type: AUTH_LOGIN_FINISH });
 
         history.push('/notes');

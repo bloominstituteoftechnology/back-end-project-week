@@ -15,6 +15,7 @@ import {
   AUTH_USER_UNAUTHENTICATED,
   AUTH_ERROR,
   AUTH_CHECK,
+  AUTH_ERROR_RESET,
 } from '../actions';
 
 const initialState = {
@@ -82,13 +83,19 @@ export default (auth = initialState, action) => {
     case AUTH_NOTES_ERROR:
       return {
         ...auth,
-        error: action.payload
-      }
+        error: action.payload,
+      };
 
     case AUTH_USER_UNAUTHENTICATED:
       return {
         ...auth,
         authenticated: false,
+      };
+
+    case AUTH_ERROR_RESET:
+      return {
+        ...auth,
+        error: '',
       };
 
     default:
