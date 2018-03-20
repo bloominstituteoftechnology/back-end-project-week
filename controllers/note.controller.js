@@ -47,15 +47,22 @@ const editNote = (req, res) => {
   Note.findOneAndUpdate({ _id: req.body.id }, req.body, { new: true }, (err, note) => {
     if (err) {
       res.status(422);
-      res.json({ error: 'Erro updating the note' });
+      res.json({ error: 'Error updating the note' });
       return;
     }
     res.json(note);
   });
 };
 
-// const deleteNote = (req, res) => {
+const deleteNote = (req, res) => {
+  Note.findByIdAndRemove(req.params.id, (err, note) => {
+    if (err) {
+      res.status(422);
+      res.json({ error: 'Error deleting the note'});
+      return;
+    }
+    res.json({ success: `Note titled ${note.title} has been deleted from the database.`})
+  })
+}
 
-// }
-
-module.exports = { getNotes, addNote, viewNote, editNote };
+module.exports = { getNotes, addNote, viewNote, editNote, deleteNote };

@@ -12,4 +12,7 @@ module.exports = (app) => {
 
   app.route('/edit-note')
     .put(noteController.editNote);
+
+  app.route('/notes/:id')
+    .delete(noteController.deleteNote);
 }
