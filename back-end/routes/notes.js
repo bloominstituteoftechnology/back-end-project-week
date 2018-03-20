@@ -6,7 +6,7 @@ mongoose.models = {};
 mongoose.modelSchemas = {};
 
 mongoose.Promise = Promise;
-mongoose.connect('mongodb://localhost/notes', { useMongoClient: true });
+mongoose.connect('mongodb://localhost/users', { useMongoClient: true });
 
 const NoteSchema = new mongoose.Schema({
     // TODO: fill in this schema

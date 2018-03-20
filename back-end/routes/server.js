@@ -60,7 +60,7 @@ server.post('/logout', (req, res) => {
     req.session.username = null;
     res.json(req.session);
 });
-
+// restrict to logged in later
 server.post('/notes', (req, res) => {
     const { title, text } = req.body;
 

@@ -1,0 +1,31 @@
+.note-container {
+  display: flex;
+  margin-top: 200px;
+  justify-content: center;
+  align-self: center;
+  height: auto;
+  width: 80%;
+}
+
+.display-list {
+  display: flex;
+  margin: 0;
+  justify-content: center;
+  height: 1000px;
+  width: 80%;
+}
+
+.Notes {
+  justify-content: space-between;
+  background: slategray;
+  height: 10%;
+  width: 30%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 30px;
+  border: 2px solid black;
+}
+
+.text {
+  font-weight: bold;
+}

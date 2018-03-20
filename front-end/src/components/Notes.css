@@ -1,0 +1,11 @@
+.Notes {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.Note-box {
+  
+  height: 100%;
+  width: 100%;
+}
