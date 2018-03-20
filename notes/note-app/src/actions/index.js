@@ -127,7 +127,7 @@ export const login = (username, password, history) => {
       .catch(err => {
         dispatch({
           type: AUTH_LOGIN_ERROR,
-          payload: err.response.data.error,
+          payload: err.response.data.message,
         });
         dispatch({ type: AUTH_LOGIN_FINISH });
       });
