@@ -73,7 +73,7 @@ module.exports = {
       send(res, error.server, message.passwordMismatch, message.loginError);
     });
   },
-  user: (req, res, next) => {
+  admin: (req, res, next) => {
     if (!req.session.userId) {
       send(res, error.unauth, message.notLoggedIn, message.restricted);
       return;
