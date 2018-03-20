@@ -9,7 +9,8 @@
     "dev": "node server.js",
     "client": "cd note-mate/frontend && yarn start",
     "server": "node server.js",
-    "start": "yarn server && cd note-mate/frontend && yarn && yarn start"
+    "start":
+      "concurrently \"yarn server\" && \"cd note-mate/frontend\" && \"yarn start\""
   },
   "repository": {
     "type": "git",

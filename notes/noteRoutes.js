@@ -54,7 +54,15 @@ noteRouter.put('/:id', (req, res) => {
         Note.find({ _id: id })
           .update(req.body.data.note)
           .then(note => {
-            res.status(200).json(note);
+            const { userId } = req.decoded;
+            Note.find()
+              .where({ userId })
+              .then(notes => {
+                res.status(200).json(notes);
+              })
+              .catch(err => {
+                res.status(500).json({ err: 'cannot get notes' });
+              });
           })
           .catch(err => {
             res.status(500).json({ err });
@@ -76,7 +84,15 @@ noteRouter.delete('/delete/:id', (req, res) => {
         Note.findOne({ _id: id })
           .remove()
           .then(success => {
-            res.status(200).json({ msg: 'note deleted' });
+            const { userId } = req.decoded;
+            Note.find()
+              .where({ userId })
+              .then(notes => {
+                res.status(200).json(notes);
+              })
+              .catch(err => {
+                res.status(500).json({ err: 'cannot get notes' });
+              });
           })
           .catch(err => {
             res.status(500).json({ err });

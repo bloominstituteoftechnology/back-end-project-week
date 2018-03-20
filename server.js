@@ -3,7 +3,6 @@ const helmet = require('helmet');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const morgan = require('morgan');
-const path = require('path');
 
 const app = express();
 const userRouter = require('./users/userRoutes');
@@ -11,14 +10,13 @@ const noteRouter = require('./notes/noteRoutes');
 const { authenticate } = require('./utils/middleware');
 const { dbuser, dbpass } = require('./config');
 
-app.use(express.static(path.join(__dirname, '/note-mate/frontend/build')));
-
 app.use(express.json());
 app.use(helmet());
 app.use(cors());
 // app.use(morgan('combined'));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/note-mate/frontend/build/index.html'));
+
+app.get('/', (req, res) => {
+  res.send('Working');
 });
 
 app.use('/user', userRouter);

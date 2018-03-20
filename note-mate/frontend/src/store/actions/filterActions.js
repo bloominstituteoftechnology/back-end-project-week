@@ -1,8 +1,8 @@
-import axios from "axios";
-export const BY_TAG = "BY_TAG";
-export const BY_TEXT = "BY_TEXT";
+import axios from 'axios';
+export const BY_TAG = 'BY_TAG';
+export const BY_TEXT = 'BY_TEXT';
 
-const getUrl = "http://localhost:8080/notes";
+const getUrl = 'http://localhost:8080/notes';
 
 export const filterByTag = tag => {
   return dispatch => {
