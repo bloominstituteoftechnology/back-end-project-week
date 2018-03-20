@@ -24,34 +24,36 @@ class Login extends Component {
         >
           {/* <div className="Signup__form"> */}
           <div className="SignupDescription">
-            {this.props.isSigningUp
+            {this.props.authenticating
               ? 'Signing up..'
-              : this.props.error === ''
-                ? 'Sign up for an account'
-                : this.props.error}
+              : this.props.error === '' ? 'Log in' : this.props.error}
           </div>
 
-          <fieldset>
-            <Field
-              className="InputFields"
-              name="username"
-              component="input"
-              type="text"
-            />
-          </fieldset>
+          <div className="SignupForm">
+            <fieldset>
+              <Field
+                className="InputFields"
+                name="username"
+                component="input"
+                type="text"
+                placeholder="username"
+              />
+            </fieldset>
 
-          <fieldset>
-            <Field
-              className="InputFields"
-              name="password"
-              component="input"
-              type="password"
-            />
-          </fieldset>
+            <fieldset>
+              <Field
+                className="InputFields"
+                name="password"
+                component="input"
+                type="password"
+                placeholder="password"
+              />
+            </fieldset>
 
-          <button className="SignupForm__button" action="submit">
-            Sign up
-          </button>
+            <button className="SignupForm__button" action="submit">
+              Log in
+            </button>
+          </div>
         </form>
       </div>
 
@@ -311,9 +313,10 @@ class Login extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticating: state.isAuthenticating,
-    isLoggedIn: state.isLoggedIn,
-    error: state.error,
+    // isAuthenticating: state.isAuthenticating,
+    // isLoggedIn: state.isLoggedIn,
+    authenticating: state.auth.authenticating,
+    error: state.auth.error,
   };
 };
 

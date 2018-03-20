@@ -96,21 +96,34 @@ export const register = (username, password, confirmPassword, history) => {
 //   };
 // };
 
-export const login = (credentials, history) => {
+export const login = (username, password, history) => {
   return dispatch => {
     dispatch({ type: AUTH_LOGIN_START });
 
     axios
-      .post(`${SERVER_ROOT}/login`, credentials)
+      .post(`${SERVER_ROOT}/users/login`, { username, password })
       .then(({ data }) => {
         dispatch({ type: AUTH_LOGIN_SUCCESS, payload: data });
         dispatch({ type: AUTH_LOGIN_FINISH });
+
         history.push('/notes');
       })
       .catch(err => {
         dispatch({ type: AUTH_LOGIN_ERROR, payload: err });
         dispatch({ type: AUTH_LOGIN_FINISH });
       });
+
+    // axios
+    //   .post(`${SERVER_ROOT}/login`, credentials)
+    //   .then(({ data }) => {
+    //     dispatch({ type: AUTH_LOGIN_SUCCESS, payload: data });
+    //     dispatch({ type: AUTH_LOGIN_FINISH });
+    //     history.push('/notes');
+    //   })
+    //   .catch(err => {
+    //     dispatch({ type: AUTH_LOGIN_ERROR, payload: err });
+    //     dispatch({ type: AUTH_LOGIN_FINISH });
+    //   });
   };
 };
 
