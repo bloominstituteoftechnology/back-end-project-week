@@ -798,27 +798,6 @@ body p {
 .Notes .NotesNoSearchResults {
   font-size: 2rem;
 }
-.NoteTitle {
-  border-bottom: solid 1px;
-  margin-bottom: 7px;
-}
-.NoteTitle .NoteTitle__input {
-  background: #ffff7e;
-  width: 100%;
-  border: none;
-  outline: none;
-  font-size: 1.25rem;
-  text-align: center;
-}
-.NoteText .NoteText__input {
-  width: 100%;
-  margin: 0 auto;
-  background: #ffff7e;
-  border: none;
-  outline: none;
-  resize: none;
-  font-size: 0.9rem;
-}
 .Note {
   background: #ffff7e;
   padding: 20px;
@@ -848,4 +827,25 @@ body p {
 }
 .Note .SingleNoteViewButtons:hover {
   cursor: pointer;
+}
+.NoteTitle {
+  border-bottom: solid 1px;
+  margin-bottom: 7px;
+}
+.NoteTitle .NoteTitle__input {
+  background: #ffff7e;
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 1.25rem;
+  text-align: center;
+}
+.NoteText .NoteText__input {
+  width: 100%;
+  margin: 0 auto;
+  background: #ffff7e;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 0.9rem;
 }
