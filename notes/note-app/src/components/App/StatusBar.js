@@ -11,7 +11,8 @@ const StatusBar = props => {
       </NavLink>
 
       <div className="StatusBar__signOutButton" onClick={props.signOutHandler}>
-        {!props.authenticated ? 'Sign In' : 'Sign out'}
+        {/* {!props.authenticated ? 'Sign In' : 'Sign out'} */}
+        Sign out
       </div>
     </div>
   );
@@ -19,7 +20,7 @@ const StatusBar = props => {
 
 const mapStateToProps = state => {
   return {
-    authenticated: state.auth.authenticated,
+    // authenticated: state.auth.authenticated,
   };
 };
 

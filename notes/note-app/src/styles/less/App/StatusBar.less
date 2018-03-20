@@ -1,37 +1,39 @@
 .StatusBar {
-	width: 100%;
+  width: 100%;
 
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
+  margin: 7px 0;
 
-	.StatusBar__goToHomeButton {
-		.button(@height: 20px);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 
-		width: 20px;
+  .StatusBar__goToHomeButton {
+    .button(@height: 20px);
 
-		border: none;
+    width: 20px;
 
-		margin: 7px 30px 0 7px;
+    border: none;
 
-		font-size: 1.2rem;
+    margin: 7px 30px 0 7px;
 
-		&:hover {
-			cursor: pointer;
-		}
-	}
+    font-size: 1.2rem;
 
-	.StatusBar__signOutButton {
-		.button(@height: 20px);
+    &:hover {
+      cursor: pointer;
+    }
+  }
 
-		width: 50px;
+  .StatusBar__signOutButton {
+    .button(@height: 20px);
 
-		margin: 7px 7px 0 0;
+    width: 50px;
 
-		font-size: 0.7rem;
+    margin: 7px 7px 0 0;
 
-		&:hover {
-			cursor: pointer;
-		}
-	}
+    font-size: 0.7rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
