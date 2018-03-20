@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-require('./user');
 
 const NoteSchema = new Schema({
     title: {

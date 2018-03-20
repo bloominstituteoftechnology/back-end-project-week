@@ -7,22 +7,15 @@ const server = express();
 server.use(express.json())
 server.use(cors());
 
+mongoose.connect('mongodb://localhost/note-mate-db3');
+
 const usersRoutes = require('./routes/authUsers');
 const notesRoutes = require('./routes/notes');
 
-// DB
+usersRoutes(authUsers);
+notesRoutes(notes);
 
-mongoose.connect('mongodb://localhost/notetaking');
-
-
-// Routes
-
-server.use('/login', usersRoutes);
-server.use('/signup', usersRoutes);
-server.use('/notes', notesRoutes);
-
-
-server.get('/APIrunner', (req, res) => {
+server.get('/', (req, res) => {
     res.json({ success: 'API is running' });
 })
 

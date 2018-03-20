@@ -1,9 +1,8 @@
 const { authenticate, addNote, getNotes, updateNote, deleteNote } = require('../controllers/notes');
 
-module.exports = server => {
-
-    server.post('/notes', authenticate, addNote);
-    server.get('/notes', authenticate, getNotes);
-    server.put('/notes', authenticate, updateNote);
-    server.delete('/notes', authenticate, deleteNote);
+module.exports = notes => {
+    notes.post('/notes', authenticate, addNote);
+    notes.get('/notes', authenticate, getNotes);
+    notes.put('/notes', authenticate, updateNote);
+    notes.delete('/notes', authenticate, deleteNote);
 };
