@@ -1,0 +1,38 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Back End of Full Stack Notes Application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brcampbell001/back-end-project-week.git"
+  },
+  "keywords": [
+    "express",
+    "mongo",
+    "mongoose",
+    "bcrypt",
+    "jwt"
+  ],
+  "author": "Ben Campbell",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brcampbell001/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/brcampbell001/back-end-project-week#readme",
+  "devDependencies": {
+    "nodemon": "^1.17.2"
+  },
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.0",
+    "mongoose": "^5.0.11",
+    "morgan": "^1.9.0"
+  }
+}
