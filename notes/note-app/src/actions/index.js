@@ -109,7 +109,10 @@ export const login = (username, password, history) => {
         history.push('/notes');
       })
       .catch(err => {
-        dispatch({ type: AUTH_LOGIN_ERROR, payload: err });
+        dispatch({
+          type: AUTH_LOGIN_ERROR,
+          payload: err.response.data.message,
+        });
         dispatch({ type: AUTH_LOGIN_FINISH });
       });
 
