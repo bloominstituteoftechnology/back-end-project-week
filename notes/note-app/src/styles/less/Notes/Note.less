@@ -1,20 +1,58 @@
 .Note {
-	background: #ffff7e;
+  background: #ffff7e;
 
-	padding: 20px;
+  padding: 20px;
 
-	border: solid 1px;
+  margin: 12px;
 
-	.SingleNoteViewButtons {
-		.button(@height: 25px);
+  border: solid 1px;
 
-		margin: 0 auto;
-		margin-top: 12px;
+  font-size: @NoteTextSize;
 
-		font-size: 0.9rem;
+  .NoteContent {
+    .NoteContent__input {
+      width: 100%;
 
-		&:hover {
-			cursor: pointer;
-		}
-	}
+      margin: 0 auto;
+
+      background: #ffff7e;
+
+      border: none;
+      outline: none;
+
+      resize: none;
+    }
+  }
+
+  .NoteTitle {
+    border-bottom: solid 1px;
+
+    margin-bottom: 7px;
+
+    font-size: @NoteTitleSize;
+
+    .NoteTitle__input {
+      background: #ffff7e;
+
+      width: 100%;
+
+      border: none;
+      outline: none;
+
+      text-align: center;
+    }
+  }
+
+  .SingleNoteViewButtons {
+    .button(@height: 25px);
+
+    margin: 0 auto;
+    margin-top: 12px;
+
+    font-size: 0.9rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }

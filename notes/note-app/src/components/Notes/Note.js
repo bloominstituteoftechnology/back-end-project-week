@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+// import { reduxForm, Field } from 'redux-form';
+
 import { editNote, deleteNote } from '../../actions';
 
-import NoteTitle from './NoteTitle';
-import NoteText from './NoteText';
+// import NoteTitle from './NoteTitle';
+// import NoteText from './NoteText';
 
 // import '../../styles/css/index.css';
 
@@ -12,14 +14,14 @@ class Note extends Component {
   state = {
     id: -1,
     title: '',
-    text: '',
+    content: '',
   };
 
   componentDidMount() {
     this.setState({
-      id: this.props.note.id,
-      title: this.props.note.content,
-      text: this.props.note.text,
+      id: this.props.note._id,
+      title: this.props.note.title,
+      content: this.props.note.content,
     });
   }
 
@@ -78,20 +80,22 @@ class Note extends Component {
 					</div>
 				) : null}
 				*/
+  // {/* style={
+  // 	// this.props.isViewingSingleNote
+  // 	//   ? this.props.colorClicked === null
+  // 	//     ? { width: '100%%' }
+  // 	//     : { background: `${this.props.colorClicked}`, width: '100%' }
+  // 	//   : null
+  // } */}
 
   render() {
     return (
-      <div
-        className="Note"
-        style={
-          this.props.isViewingSingleNote
-            ? this.props.colorClicked === null
-              ? { width: '100%%' }
-              : { background: `${this.props.colorClicked}`, width: '100%' }
-            : null
-        }
-      >
-        <NoteTitle
+      <div className="Note">
+        <div className="NoteTitle">{this.state.title}</div>
+
+        <div className="NoteContent">{this.state.content}</div>
+
+        {/* <NoteTitle
           title={this.props.note.title}
           editTitleHandler={this.editTitle}
         />
@@ -104,18 +108,18 @@ class Note extends Component {
               ? null
               : { setBackgroundColor: `${this.props.colorClicked}` }
           }
-        />
+        /> */}
 
-        {this.props.isViewingSingleNote ? (
+        {/* {this.props.isViewingSingleNote ? (
           <div
             className="SingleNoteViewButtons"
             onClick={this.confirmEditButtonClickedHandler}
           >
             confirm edit
           </div>
-        ) : null}
+        ) : null} */}
 
-        {this.props.isViewingSingleNote ? (
+        {/* {this.props.isViewingSingleNote ? (
           <div
             className="SingleNoteViewButtons"
             onClick={this.cancelEditSingleNoteButtonClickHandler}
@@ -128,7 +132,7 @@ class Note extends Component {
           >
             cancel edit
           </div>
-        ) : null}
+        ) : null} */}
       </div>
     );
   }
