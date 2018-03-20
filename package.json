@@ -2,13 +2,13 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "description": "Lambda Notes backend",
-  "main": "app.js",
+  "main": "server.js",
   "repository": "https://github.com/juliankohlman/back-end-project-week.git",
   "author": "Julian Kohlman <juliankohlman@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node app",
-    "watch": "nodemon app"
+    "start": "node server",
+    "watch": "nodemon server"
   },
   "dependencies": {
     "bcrypt": "^1.0.3",
