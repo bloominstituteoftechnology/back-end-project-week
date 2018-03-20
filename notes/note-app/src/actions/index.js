@@ -1,6 +1,8 @@
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
+const { appK, secret } = require('../config');
+
 export const AUTH_USER_AUTHENTICATED = 'AUTH_USER_AUTHENTICATED';
 export const AUTH_USER_UNAUTHENTICATED = 'AUTH_USER_UNAUTHENTICATED';
 export const AUTH_ERROR = 'AUTH_ERROR';
@@ -109,6 +111,8 @@ export const login = (username, password, history) => {
     axios
       .post(`${ROOT}/users/login`, { username, password })
       .then(({ data }) => {
+        localStorage.setItem(appK, data.token);
+
         dispatch({ type: AUTH_LOGIN_SUCCESS, payload: data });
         dispatch({ type: AUTH_LOGIN_FINISH });
 
@@ -141,7 +145,9 @@ export const getNotes = _ => {
     dispatch({ type: NOTES_FETCH_START });
 
     axios
-      .get(`${ROOT}/notes`)
+      .get(`${ROOT}/notes`, {
+        headers: { authorization: localStorage.getItem(appK) },
+      })
       .then(({ data }) => {
         dispatch({ type: NOTES_FETCH_SUCCESS, payload: data });
         dispatch({ type: NOTES_FETCH_FINISH });

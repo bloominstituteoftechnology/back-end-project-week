@@ -1,23 +1,25 @@
 const router = require('express').Router();
 
-const session = require('express-session');
-const mongoose = require('mongoose');
-const MongoStore = require('connect-mongo')(session);
+// const session = require('express-session');
+// const mongoose = require('mongoose');
+// const MongoStore = require('connect-mongo')(session);
 
 const secret = require('../../config').secret;
 
-router.use(
-  session({
-    secret,
-    saveUninitialized: true,
-    resave: true,
-    store: new MongoStore({
-      mongooseConnection: mongoose.connection,
-      autoRemove: 'interval',
-      autoRemoveInterval: 10,
-    }),
-  }),
-);
+const { getToken, validateToken } = require('../../services/auth');
+
+// router.use(
+//   session({
+//     secret,
+//     saveUninitialized: true,
+//     resave: true,
+//     store: new MongoStore({
+//       mongooseConnection: mongoose.connection,
+//       autoRemove: 'interval',
+//       autoRemoveInterval: 10,
+//     }),
+//   }),
+// );
 
 const { error, success } = require('../../config').status;
 const { send } = require('../helper');
@@ -75,16 +77,21 @@ router
       .catch(err => send(res, error.server, message.deleteError, err));
   });
 
+// router.route('/login').post(validate.id, validate.login, (req, res) => {
 router.route('/login').post(validate.id, validate.login, (req, res) => {
   const userId = req.userId;
+
+  const token = getToken({ username: userId });
+
+  send(res, success.ok, { token });
 
   // if (req.session.userId === userId.toString()) {
   //   send(res, error.server, message.loginInstanceFound, message.loginError);
   //   return;
   // }
 
-  req.session.userId = userId;
-  send(res, success.ok, { message: message.loginSuccess });
+  // req.session.userId = userId;
+  // send(res, success.ok, { message: message.loginSuccess });
 });
 
 module.exports = router;

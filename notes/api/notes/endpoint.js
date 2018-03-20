@@ -7,9 +7,11 @@ const message = require('./messages');
 const validate = require('./validation');
 const controller = require('./controller');
 
+const { validateToken } = require('../../services/auth');
+
 router
   .route('/')
-  .get((req, res) => {
+  .get(validateToken, (req, res) => {
     controller.request(notes => {
       if (notes.err) {
         send(res, error.server, message.requestError, notes.err);

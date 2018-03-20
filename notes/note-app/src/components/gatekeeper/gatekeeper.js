@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// appKey ?
+import { appK } from '../../config';
 
 export default ComposedComponent => {
   class CheckAuthentication extends Component {
     componentWillMount() {
-      if (!this.props.authenticated) {
+      if (!this.props.authenticated && !localStorage.getItem(appK)) {
         window.alert('Please log in first');
         this.props.history.push('/login');
       }
@@ -14,7 +14,9 @@ export default ComposedComponent => {
     render() {
       return (
         <div className="CheckAuthentication">
-          {this.props.authenticated ? <ComposedComponent /> : null}
+          {this.props.authenticated || localStorage.getItem(appK) ? (
+            <ComposedComponent />
+          ) : null}
         </div>
       );
     }
