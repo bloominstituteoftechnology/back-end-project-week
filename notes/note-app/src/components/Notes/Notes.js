@@ -17,6 +17,11 @@ class Notes extends Component {
 
   componentDidMount() {
     this.props.getNotes();
+
+    if (this.props.error) {
+      window.alert(this.props.error);
+      this.props.history.push('/login');
+    }
   }
 
   // componentDidMount() {
