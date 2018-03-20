@@ -15,17 +15,16 @@ export const SIGNOUT = 'SIGNOUT';
 
 const getUrl = 'http://localhost:8080/notes';
 const postUrl = 'http://localhost:8080/notes';
-const deleteUrl = 'http://localhost:8080/notes';
 let config = {
   headers: { Authorization: localStorage.getItem('Authorization') }
 };
 
 export const getNotes = id => {
   return dispatch => {
-    config = { ...config, params: { id } };
+    const getConfig = { ...config, params: { id } };
     dispatch({ type: GETTING_NOTES });
     axios
-      .get(getUrl, config)
+      .get(getUrl, getConfig)
       .then(({ data }) => {
         dispatch({ type: RECEIVED_NOTES, payload: data });
       })
@@ -50,10 +49,12 @@ export const addNote = newNote => {
 };
 
 export const deleteNote = id => {
+  const deleteUrl = `http://localhost:8080/notes/delete/${id}`;
+  console.log({ deleteUrl });
   return dispatch => {
     dispatch({ type: DELETING_NOTE });
     axios
-      .delete(deleteUrl, { data: { id: id } })
+      .delete(deleteUrl, config)
       .then(({ data }) => {
         dispatch({ type: NOTE_DELETED, payload: data });
       })
@@ -78,12 +79,13 @@ export const getSingleNote = id => {
 };
 
 export const updateNote = note => {
-  const id = note.id;
-  const url = `http://localhost:8080/note/${id}`;
+  const id = note._id;
+  const url = `http://localhost:8080/notes/${id}`;
   return dispatch => {
     dispatch({ type: UPDATING_NOTE });
+    console.log({ FrontNote: note });
     axios
-      .put(url, { data: { note } })
+      .put(url, { data: { note } }, config)
       .then(({ data }) => {
         dispatch({ type: UPDATED_NOTE, payload: data });
       })

@@ -27,9 +27,10 @@ class Note extends Component {
         return this.setState({
           title: note.title,
           text: note.text,
-          id,
+          _id: note._id,
           checklist: note.checklist,
-          rank: note.rank
+          rank: note.rank,
+          userId: note.userId
         });
       }
       return note;
@@ -92,11 +93,11 @@ class Note extends Component {
                 </form>
               </Col>
               <Col md="6">
-                <div key={note.id} className="Note">
+                <div key={note._id} className="Note">
                   <h2>{this.state.title}</h2>
                   <div>{this.state.text}</div>
                   <div>{this.state.rank}</div>
-                  <button onClick={() => this.deleteNoteHandler(note.id)}>
+                  <button onClick={() => this.deleteNoteHandler(note._id)}>
                     Delete
                   </button>
                 </div>

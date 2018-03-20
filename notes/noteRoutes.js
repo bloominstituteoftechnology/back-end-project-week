@@ -46,4 +46,51 @@ noteRouter.get('/:id', (req, res) => {
     });
 });
 
+noteRouter.put('/:id', (req, res) => {
+  const { id } = req.params;
+  const { userId } = req.body.data.note;
+  Note.find({ _id: id })
+    .then(note => {
+      if (note.length) {
+        Note.find({ _id: id })
+          .update(req.body.data.note)
+          .then(note => {
+            res.status(200).json(note);
+          })
+          .catch(err => {
+            res.status(500).json({ err });
+          });
+      } else {
+        res.status(404).json({ msg: 'Note not found.' });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ err });
+    });
+});
+
+noteRouter.delete('/delete/:id', (req, res) => {
+  const { id } = req.params;
+  Note.findOne({ _id: id })
+    .then(note => {
+      if (note) {
+        Note.findOne({ _id: id })
+          .remove()
+          .then(success => {
+            res.status(200).json({ msg: 'note deleted' });
+          })
+          .catch(err => {
+            console.log(err);
+            res.status(500).json({ err });
+          });
+      } else {
+        res.status(404).json({ msg: 'Note not found.' });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ err });
+    });
+});
+
 module.exports = noteRouter;
