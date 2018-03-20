@@ -1,14 +1,16 @@
 {
   "name": "back-end-project-week",
   "version": "1.0.0",
-  "description": "[Trello board](https://trello.com/b/hLl7VMxo/lambda-notes-backend-troy-williams)",
+  "description":
+    "[Trello board](https://trello.com/b/hLl7VMxo/lambda-notes-backend-troy-williams)",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node server.js",
     "client": "cd note-mate/frontend && yarn start",
     "server": "node server.js",
-    "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+    "start": "yarn server",
+    "heroku-postbuild": "cd notemate/frontend && yarn start"
   },
   "repository": {
     "type": "git",
