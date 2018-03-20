@@ -19,7 +19,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start-choke": "npm run build-css && run-p -ncr watch-css start-js",
+    "start-cho": "npm run build-css && run-p -ncr watch-css start-js",
     "start-js": "react-scripts start",
     "build": "run-s -n build-css build-js",
     "build-js": "react-scripts build",
