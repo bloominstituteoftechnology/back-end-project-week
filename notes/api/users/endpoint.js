@@ -42,7 +42,7 @@ router
       .catch(err => send(res, error.server, message.createdError, err));
   });
 
-router.route('/all').get(validate.admin, (req, res) => {
+router.route('/all').get(validateToken, (req, res) => {
   controller.request(users => {
     if (users.err) {
       send(res, error.server, message.requestError, users.err);
