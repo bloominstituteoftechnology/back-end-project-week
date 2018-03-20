@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { loggedIn } from "../Actions";
+import { loggedIn, signUp } from "../Actions";
 import Navigation from "./Navigation";
 
 class LogIn extends Component {
@@ -23,23 +23,23 @@ class LogIn extends Component {
     event.preventDefault();
     const username = this.state.username;
     const password = this.state.password;
-    const confirmPassword = this.state.confirmPassword;
 
     if (password.length > 0 && username.length > 0) {
-      return this.props.loggedIn();
+      return this.props.loggedIn(username, password);
     }
-    return alert("Must include botht the password and username");
+    return alert("Must include both a password and username");
   };
+
   signUpAuth = event => {
     event.preventDefault();
     const username = this.state.username;
     const password = this.state.password;
     const confirmPassword = this.state.confirmPassword;
 
-    if (confirmPassword === password) {
-      return this.props.loggedIn();
+    if (confirmPassword === password && username.length > 0) {
+      return this.props.signUp(username, password);
     }
-    return alert("Password does not match");
+    return alert("Make sure to include a username and a matching password.");
   };
 
   signUpToggle = event => {
@@ -55,6 +55,11 @@ class LogIn extends Component {
         <div className="Login">
           <form style={this.state.newAccount ? { display: "none" } : null}>
             <div>Sign In</div>
+            <br />
+            {this.props.error ? (
+              <h3 className="LogInError">Incorrect username/password</h3>
+            ) : null}
+            <br />
             <input
               type="text"
               placeholder="username"
@@ -111,7 +116,7 @@ class LogIn extends Component {
             <input
               type="text"
               placeholder="confirm password"
-              value={this.state.password}
+              value={this.state.confirmPassword}
               onChange={this.loginChangeHandler}
               name="confirmPassword"
               required
@@ -137,8 +142,10 @@ class LogIn extends Component {
 
 const mapStateToProps = state => {
   return {
-    loggedIn: state.loggedIn
+    loggedIn: state.loggedIn,
+    error: state.error,
+    signedUp: state.signedUp
   };
 };
 
-export default connect(mapStateToProps, { loggedIn })(LogIn);
+export default connect(mapStateToProps, { loggedIn, signUp })(LogIn);

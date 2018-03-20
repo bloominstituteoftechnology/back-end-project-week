@@ -141,7 +141,7 @@ table {
 }
 html,
 body {
-  background: #03A9F4;
+  background: #03a9f4;
   font-size: 62.5%;
   height: 100%;
 }
@@ -151,7 +151,7 @@ body {
   flex-direction: column;
 }
 .Navigation {
-  background: #0288D1;
+  background: #0288d1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -184,6 +184,9 @@ body {
   padding: 10px;
   text-align: center;
 }
+.Login form .LogInError {
+  background-color: red;
+}
 .Login form input {
   font-size: 1.6rem;
   text-align: center;
@@ -191,7 +194,7 @@ body {
   padding: 10px;
 }
 .Login form button {
-  background: #448AFF;
+  background: #448aff;
   font-size: 1.6rem;
   width: stretch;
   padding: 10px;
@@ -233,7 +236,7 @@ body {
   margin: 10px;
 }
 .App .DashBoard .Notes .Notes--Search input {
-  border: 2px solid #448AFF;
+  border: 2px solid #448aff;
   border-radius: 5px;
   font-size: 1.6rem;
   -webkit-box-shadow: 0 5px 10px #777;
@@ -241,7 +244,7 @@ body {
   box-shadow: 0 5px 10px #777;
 }
 .App .DashBoard .Notes li {
-  border-bottom: 1px solid #0288D1;
+  border-bottom: 1px solid #0288d1;
   padding: 10px;
 }
 .App .DashBoard .Notes li:hover {
@@ -273,7 +276,7 @@ body {
 }
 .App .DashBoard .ViewNote .ViewNote--addNote button {
   font-size: 1.6rem;
-  background: #448AFF;
+  background: #448aff;
   padding: 10px;
   border-radius: 10px;
   -webkit-box-shadow: 0 5px 10px #777;
@@ -314,7 +317,7 @@ body {
 .App .DashBoard .ViewNote .ViewNote--update button {
   margin-right: 10px;
   font-size: 1.6rem;
-  background: #448AFF;
+  background: #448aff;
   padding: 10px;
   border-radius: 10px;
   -webkit-box-shadow: 0 5px 10px #777;
