@@ -488,6 +488,15 @@ body p {
   font-size: 2rem;
   text-align: center;
 }
+.Header {
+  margin: 7px 0;
+  font-size: 5rem;
+  text-decoration: none;
+  color: black;
+}
+.Header:hover {
+  text-decoration: underline;
+}
 .StatusBar {
   width: 100%;
   display: flex;

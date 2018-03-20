@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { resetError, signOut } from './actions';
 // import { Redirect } from 'react-router-dom';
 
+import Header from './components/app/header';
 import StatusBar from './components/app/statusBar';
 import Notes from './components/notes/notes';
 // import AppLoggedIn from './AppLoggedIn';
@@ -37,6 +38,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Header />
+
         <StatusBar
           appIsLoggedIn={this.props.isLoggedIn}
           signOutHandler={this.signOutHandler}
