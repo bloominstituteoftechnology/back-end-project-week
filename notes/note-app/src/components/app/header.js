@@ -18,9 +18,9 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {};
-};
+// const mapStateToProps = state => {
+//   return {};
+// };
 
 // export default connect(mapStateToProps, { headerClicked })(Header);
 export default Header;

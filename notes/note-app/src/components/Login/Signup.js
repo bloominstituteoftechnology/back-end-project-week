@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 // import { Redirect } from 'react-router-dom';
 import { reduxForm, Field } from 'redux-form';
 
-import { resetError, register } from '../../actions';
+import { register } from '../../actions';
+
+import Header from '../app/header';
 
 // import '../../styles/css/index.css';
 
@@ -25,7 +27,7 @@ class Signup extends Component {
   render() {
     return (
       <div className="Signup">
-        <div className="Signup__title">Notes&reg;</div>
+        <Header />
 
         <form
           className="Signup__form"

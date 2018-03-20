@@ -11,9 +11,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import rootReducer from './reducers';
 
-import Root from './Root';
-import Home from './components/Home/Home';
-import Notes from './components/notes/notes';
+// import Root from './Root';
+// import Home from './components/Home/Home';
+// import Notes from './components/notes/notes';
 import Signup from './components/login/signup';
 import Login from './components/login/login';
 

@@ -19,7 +19,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.resetError();
+    // this.resetError();
     // this.setState({ username: this.props.match.params.username });
   }
 
