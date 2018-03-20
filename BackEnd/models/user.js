@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const SALT = 11;
 
-const UserSchema = new Schema({
+const UsersSchema = new Schema({
     email: {
         type: String,
         required: true,
@@ -14,18 +14,18 @@ const UserSchema = new Schema({
     },
 });
 
-userSchema.pre('save', next => {
+UsersSchema.pre('save', next => {
     bcrypt.hash(this.password, SALT).then(hashedPass => {
         this.password = hashedPass;
         next();
     });
 });
 
-userSchema.methods.comparePass = (unencryptPass, match) => {
+UsersSchema.methods.comparePass = (unencryptPass, match) => {
     bcrypt.compare(unencryptPass, this.password, (err, isMatch) => {
         if (err) return err;
         match(null, isMatch);
     });
 };
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UsersSchema);
