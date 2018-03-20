@@ -13,4 +13,7 @@ module.exports = {
   loginSuccess: 'Login to server successful.',
   loginInstanceFound: 'User already logged in.',
   loginError: 'Server error logging in to server.',
+  notLoggedIn: 'Not logged in.',
+  noAccess: 'No access privileges.',
+  restricted: 'Restricted resources.',
 };
