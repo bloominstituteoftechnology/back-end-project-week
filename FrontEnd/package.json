@@ -1,0 +1,37 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "Front End of Notes Project",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brcampbell001/back-end-project-week.git"
+  },
+  "keywords": [
+    "react",
+    "redux",
+    "react-router",
+    "axios"
+  ],
+  "author": "Ben Campbell",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brcampbell001/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/brcampbell001/back-end-project-week#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.2.0",
+    "react-scripts": "^1.1.1",
+    "redux": "^3.7.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
