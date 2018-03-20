@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { Redirect } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { reduxForm, Field } from 'redux-form';
 
 import { register } from '../../actions';
@@ -75,6 +75,10 @@ class Signup extends Component {
             <button className="SignupForm__button" action="submit">
               Sign up
             </button>
+
+            <NavLink className="SignupForm__NavLink" to="/login">
+              Log in
+            </NavLink>
           </div>
         </form>
       </div>

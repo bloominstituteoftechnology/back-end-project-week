@@ -386,6 +386,31 @@ body p {
 .Signup .Signup__form .SignupForm .SignupForm__button:hover {
   cursor: pointer;
 }
+.Signup .Signup__form .SignupForm .SignupForm__NavLink {
+  width: 80%;
+  height: 20px;
+  border: solid 1px black;
+  color: black;
+  font-size: 1.8rem;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.7rem;
+  margin-top: 7px;
+  background: white;
+}
+.Signup .Signup__form .SignupForm .SignupForm__NavLink:hover {
+  background: black;
+  color: white;
+}
+.Signup .Signup__form .SignupForm .SignupForm__NavLink:active {
+  background: #228b22;
+  color: white;
+}
+.Signup .Signup__form .SignupForm .SignupForm__NavLink:hover {
+  cursor: pointer;
+}
 .App {
   height: 100vh;
   display: flex;
