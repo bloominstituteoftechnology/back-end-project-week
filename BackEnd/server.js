@@ -1,17 +1,22 @@
 const express = require('express');
 const morgan = require('morgan');
+const mongoose = require('mongoose');
 
 const server = express();
 
 const usersRoutes = require('./routes/users');
-const notesRoutes = require('./routes/notes');
+// const notesRoutes = require('./routes/notes');
+
+// DB
+
+mongoose.connect('mongodb://localhost/notesapp');
 
 // Middleware
-app.use(morgan('dev'));
+server.use(morgan('dev'));
 
 // Routes
 
-app.use('/users', usersRoutes);
+server.use('/users', usersRoutes);
 
 // 404 Errors
 
@@ -23,7 +28,7 @@ server.use((req, res, next) => {
 
 // Error Handler
 
-app.use((err, req, res, next) => {
+server.use((err, req, res, next) => {
     const error = server.get('env') === 'development' ? err : {};
     const status = err.status || 500;
 
