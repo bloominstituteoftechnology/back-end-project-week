@@ -25,7 +25,7 @@ class Login extends Component {
           {/* <div className="Signup__form"> */}
           <div className="SignupDescription">
             {this.props.authenticating
-              ? 'Signing up..'
+              ? 'Logging in..'
               : this.props.error === '' ? 'Log in' : this.props.error}
           </div>
 

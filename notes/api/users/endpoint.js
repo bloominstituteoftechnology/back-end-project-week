@@ -78,10 +78,10 @@ router
 router.route('/login').post(validate.id, validate.login, (req, res) => {
   const userId = req.userId;
 
-  if (req.session.userId === userId.toString()) {
-    send(res, error.server, message.loginInstanceFound, message.loginError);
-    return;
-  }
+  // if (req.session.userId === userId.toString()) {
+  //   send(res, error.server, message.loginInstanceFound, message.loginError);
+  //   return;
+  // }
 
   req.session.userId = userId;
   send(res, success.ok, { message: message.loginSuccess });
