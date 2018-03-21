@@ -17,7 +17,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/notesapp');
 
 routes(server);
 
-server.get("*", (req, res) => {  
+server.get("/*", (req, res) => {  
   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
