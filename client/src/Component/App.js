@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {Route, Redirect, withRouter} from 'react-router-dom';
 import { persistLogIn } from '../Actions/index';
+import axios from 'axios';
 
 import ViewNotes from './ViewNotes';
 import Navigation from './Navigation';
@@ -10,9 +11,15 @@ import LogIn from './LogIn';
 class App extends Component {
 
   componentDidMount() {
-    if (window.localStorage.getItem('token')) {
-      this.props.persistLogIn();
-    }
+    if (localStorage.getItem('token')) {
+      axios.get('/deployed')
+        .then(response => {
+          window.location.replace('/');
+        })
+        .catch(err => {
+          this.props.persistLogIn();
+        })
+    } 
   }
  
   render() {
