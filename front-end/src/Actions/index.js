@@ -23,6 +23,12 @@ export const ERROR = "ERROR";
 
 const url = "http://localhost:5000";
 
+export const persistLogIn = () => {
+  return dispatch => {
+    dispatch({type: LOGGEDIN});
+  }
+}
+
 export const loggedIn = (email, password) => {
   return dispatch => {
     dispatch({ type: LOGGINGIN });
@@ -63,7 +69,6 @@ export const signUp = (email, password) => {
 
 export const getNotes = () => {
   return dispatch => {
-    console.log(window.localStorage.getItem("token"));
     dispatch({ type: GETTINGNOTES });
     axios
       .get(`${url}/notes`, {

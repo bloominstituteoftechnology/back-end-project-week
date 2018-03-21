@@ -42,7 +42,7 @@ class Notes extends Component {
     
     const filter = this.props.notesReceived ? this.props.notes.filter(note =>
       note.title.toLowerCase().includes(this.state.search.toLowerCase())
-    ) : [{title: 'test', content:'test content', id: '1'}];
+    ) : [{title: 'test', content:'test content', _id: '1'}];
     return (
       <div className="Notes">
         <div className="Notes--Search">
@@ -56,10 +56,7 @@ class Notes extends Component {
         <ul>
           {filter.map((note, index) => {
             return (
-              <li
-                key={note._id}
-                className="note"
-                onClick={() => {
+              <li key={note._id} className="note" onClick={() => {
                   this.props.previewNote(note.title, note.content, note._id);
                 }}
                 onMouseOver={this.hoverToggle}
@@ -76,13 +73,6 @@ class Notes extends Component {
                     ? note.content.substring(0, 70).concat("...")
                     : note.content}
                 </div>
-                {/* <div className='note--tags' style={this.state.tags ? {display: 'inline'} : {display: 'none'}} onClick={this.addTags}>
-                        +
-                    </div>
-                    <ul style={this.state.addTags ? {display: 'inline'} : {display: 'none'}}>
-                    <li>Blue</li>
-                    <li>Red</li>
-                    </ul> */}
               </li>
             );
           })}

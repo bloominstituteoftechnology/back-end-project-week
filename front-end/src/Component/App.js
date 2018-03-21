@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {Route, Redirect, withRouter} from 'react-router-dom';
+import { persistLogIn } from '../Actions/index';
 
 import ViewNotes from './ViewNotes';
 import Navigation from './Navigation';
 import LogIn from './LogIn';
 
 class App extends Component {
+
+  componentDidMount() {
+    if (window.localStorage.getItem('token')) {
+      this.props.persistLogIn();
+    }
+  }
  
   render() {
     const App = () => {
@@ -48,4 +55,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(App));
+export default withRouter(connect(mapStateToProps, {persistLogIn})(App));
