@@ -195,6 +195,7 @@ class Note extends Component {
           value={this.state.content}
           onBlur={this.checkIfTextChanged}
           rows={5}
+          maxRows={15}
         />
       </div>
     );
