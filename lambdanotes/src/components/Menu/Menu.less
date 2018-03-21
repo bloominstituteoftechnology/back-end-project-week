@@ -1,0 +1,49 @@
+.menu {
+  display: block;
+
+  @menu-width: 250px;
+
+  > div {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    width: @menu-width;
+    height: 100%;
+    .border-box;
+    .transition(-webkit-transform ease 250ms);
+    .transition(transform ease 250ms);
+
+    &.left {
+      background: #273d7a;
+      left: @menu-width*-1;
+    }
+
+    &.visible.left {
+      .transform(translate3d(@menu-width, 0, 0));
+    }
+
+    &.right {
+      background: #6b1919;
+      right: @menu-width*-1;
+    }
+
+    &.visible.right {
+      .transform(translate3d(@menu-width*-1, 0, 0));
+    }
+
+    > .menu-item {
+      float: left;
+      width: 100%;
+      margin: 0;
+      padding: 10px 15px;
+      border-bottom: solid 1px #555;
+      cursor: pointer;
+      .border-box;
+      color: #b0b0b0;
+
+      &:hover {
+        color: #f0f0f0;
+      }
+    }
+  }
+}
