@@ -1,31 +1,16 @@
 .container {
   display: inline-block;
   cursor: pointer;
+  margin-top: 10px;
+  margin-right: 20px;
 }
 
 .ln1,
 .ln2,
 .ln3 {
-  width: 35px;
+  width: 25px;
   height: 5px;
-  background-color: #333;
+  background-color: #ffffff;
   margin: 6px 0;
   transition: 0.4s;
-}
-
-/* Rotate first bar */
-.change .ln1 {
-  -webkit-transform: rotate(-45deg) translate(-9px, 6px);
-  transform: rotate(-45deg) translate(-9px, 6px);
-}
-
-/* Fade out the second bar */
-.change .ln2 {
-  opacity: 0;
-}
-
-/* Rotate last bar */
-.change .ln3 {
-  -webkit-transform: rotate(45deg) translate(-8px, -8px);
-  transform: rotate(45deg) translate(-8px, -8px);
 }
