@@ -1,87 +1,94 @@
 .Notes {
-	width: 100%;
+  width: 100%;
 
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
 
-	.NotesNoteContainer {
-		width: 29%;
-		min-width: 350px;
+  .NoteContainer {
+    width: 500px;
 
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
 
-		.NoteStatusBar {
-			width: 100%;
-			height: 20px;
+  // .NotesNoteContainer {
+  // 	width: 29%;
+  // 	min-width: 350px;
 
-			padding: 0 24px;
+  // 	display: flex;
+  // 	flex-direction: column;
+  // 	justify-content: center;
+  // 	align-items: center;
 
-			display: flex;
-			flex-direction: row;
-			justify-content: space-between;
-			align-items: center;
+  // 	.NoteStatusBar {
+  // 		width: 100%;
+  // 		height: 20px;
 
-			.NoteDeleteButton {
-				.button(@height: 18px);
-				width: 18px;
+  // 		padding: 0 24px;
 
-				padding: 4px;
+  // 		display: flex;
+  // 		flex-direction: row;
+  // 		justify-content: space-between;
+  // 		align-items: center;
 
-				font-size: 0.9rem;
+  // 		.NoteDeleteButton {
+  // 			.button(@height: 18px);
+  // 			width: 18px;
 
-				&:hover {
-					cursor: pointer;
-				}
-			}
+  // 			padding: 4px;
 
-			.ChangeColorButtons {
-				display: flex;
-				flex-direction: row;
+  // 			font-size: 0.9rem;
 
-				.ChangeColorButton {
-					.button(@height: 18px);
+  // 			&:hover {
+  // 				cursor: pointer;
+  // 			}
+  // 		}
 
-					.border-radius(50%);
+  // 		.ChangeColorButtons {
+  // 			display: flex;
+  // 			flex-direction: row;
 
-					width: 18px;
+  // 			.ChangeColorButton {
+  // 				.button(@height: 18px);
 
-					margin: 0 2px;
-					padding: 4px;
+  // 				.border-radius(50%);
 
-					font-size: 0.9rem;
+  // 				width: 18px;
 
-					&:hover {
-						cursor: pointer;
-					}
-				}
-			}
+  // 				margin: 0 2px;
+  // 				padding: 4px;
 
-			.NoteEditSingleButton {
-				margin-right: 4px;
+  // 				font-size: 0.9rem;
 
-				&:hover {
-					cursor: pointer;
-				}
-			}
-		}
+  // 				&:hover {
+  // 					cursor: pointer;
+  // 				}
+  // 			}
+  // 		}
 
-		.NoteContainer {
-			width: 100%;
+  // 		.NoteEditSingleButton {
+  // 			margin-right: 4px;
 
-			margin: 24px;
-			margin-top: 0;
+  // 			&:hover {
+  // 				cursor: pointer;
+  // 			}
+  // 		}
+  // 	}
 
-			padding: 0 24px;
-		}
-	}
+  // 	.NoteContainer {
+  // 		width: 100%;
 
-	.NotesNoSearchResults {
-		font-size: 2rem;
-	}
+  // 		margin: 24px;
+  // 		margin-top: 0;
+
+  // 		padding: 0 24px;
+  // 	}
+  // }
+
+  // .NotesNoSearchResults {
+  // 	font-size: 2rem;
+  // }
 }

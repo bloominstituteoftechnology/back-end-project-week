@@ -520,7 +520,7 @@ body p {
   color: black;
 }
 .Header:hover {
-  text-decoration: underline;
+  color: blue;
 }
 .StatusBar {
   width: 95%;
@@ -666,7 +666,7 @@ body p {
   border: none;
   border-bottom: solid 1px;
   outline: none;
-  font-size: 1.25rem;
+  font-size: 1.55rem;
   text-align: center;
 }
 .AddNewNote .IsAddingNewNote .NewNote__text {
@@ -676,7 +676,7 @@ body p {
   border: none;
   outline: none;
   resize: none;
-  font-size: 0.9rem;
+  font-size: 1.25rem;
   text-align: left;
 }
 .AddNewNote .IsAddingNewNote .NewNote__button {
@@ -744,102 +744,27 @@ body p {
   justify-content: center;
   align-items: flex-start;
 }
-.Notes .NotesNoteContainer {
-  width: 29%;
-  min-width: 350px;
+.Notes .NoteContainer {
+  width: 500px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.Notes .NotesNoteContainer .NoteStatusBar {
-  width: 100%;
-  height: 20px;
-  padding: 0 24px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-.Notes .NotesNoteContainer .NoteStatusBar .NoteDeleteButton {
-  width: 80%;
-  height: 18px;
-  border: solid 1px black;
-  color: black;
-  font-size: 1.8rem;
-  text-decoration: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 18px;
-  padding: 4px;
-  font-size: 0.9rem;
-}
-.Notes .NotesNoteContainer .NoteStatusBar .NoteDeleteButton:hover {
-  background: black;
-  color: white;
-}
-.Notes .NotesNoteContainer .NoteStatusBar .NoteDeleteButton:active {
-  background: #228b22;
-  color: white;
-}
-.Notes .NotesNoteContainer .NoteStatusBar .NoteDeleteButton:hover {
-  cursor: pointer;
-}
-.Notes .NotesNoteContainer .NoteStatusBar .ChangeColorButtons {
-  display: flex;
-  flex-direction: row;
-}
-.Notes .NotesNoteContainer .NoteStatusBar .ChangeColorButtons .ChangeColorButton {
-  width: 80%;
-  height: 18px;
-  border: solid 1px black;
-  color: black;
-  font-size: 1.8rem;
-  text-decoration: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
-  width: 18px;
-  margin: 0 2px;
-  padding: 4px;
-  font-size: 0.9rem;
-}
-.Notes .NotesNoteContainer .NoteStatusBar .ChangeColorButtons .ChangeColorButton:hover {
-  background: black;
-  color: white;
-}
-.Notes .NotesNoteContainer .NoteStatusBar .ChangeColorButtons .ChangeColorButton:active {
-  background: #228b22;
-  color: white;
-}
-.Notes .NotesNoteContainer .NoteStatusBar .ChangeColorButtons .ChangeColorButton:hover {
-  cursor: pointer;
-}
-.Notes .NotesNoteContainer .NoteStatusBar .NoteEditSingleButton {
-  margin-right: 4px;
-}
-.Notes .NotesNoteContainer .NoteStatusBar .NoteEditSingleButton:hover {
-  cursor: pointer;
-}
-.Notes .NotesNoteContainer .NoteContainer {
-  width: 100%;
-  margin: 24px;
-  margin-top: 0;
-  padding: 0 24px;
-}
-.Notes .NotesNoSearchResults {
-  font-size: 2rem;
 }
 .Note {
   background: #ffff7e;
   padding: 20px;
   margin: 12px;
   border: solid 1px;
-  font-size: 0.9rem;
+  font-size: 1.25rem;
+}
+.Note .NoteTitle {
+  border: none;
+  border-bottom: solid 1px;
+  margin-bottom: 7px;
+  font-size: 1.55rem;
+  text-align: center;
+  background: #ffff7e;
+  width: 100%;
+  outline: none;
 }
 .Note .NoteContent .NoteContent__input {
   width: 100%;
@@ -848,18 +773,6 @@ body p {
   border: none;
   outline: none;
   resize: none;
-}
-.Note .NoteTitle {
-  border-bottom: solid 1px;
-  margin-bottom: 7px;
-  font-size: 1.25rem;
-}
-.Note .NoteTitle .NoteTitle__input {
-  background: #ffff7e;
-  width: 100%;
-  border: none;
-  outline: none;
-  text-align: center;
 }
 .Note .SingleNoteViewButtons {
   width: 80%;

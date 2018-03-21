@@ -9,6 +9,23 @@
 
   font-size: @NoteTextSize;
 
+  .NoteTitle {
+    border: none;
+    border-bottom: solid 1px;
+
+    margin-bottom: 7px;
+
+    font-size: @NoteTitleSize;
+
+    text-align: center;
+
+    background: #ffff7e;
+
+    width: 100%;
+
+    outline: none;
+  }
+
   .NoteContent {
     .NoteContent__input {
       width: 100%;
@@ -21,25 +38,6 @@
       outline: none;
 
       resize: none;
-    }
-  }
-
-  .NoteTitle {
-    border-bottom: solid 1px;
-
-    margin-bottom: 7px;
-
-    font-size: @NoteTitleSize;
-
-    .NoteTitle__input {
-      background: #ffff7e;
-
-      width: 100%;
-
-      border: none;
-      outline: none;
-
-      text-align: center;
     }
   }
 
