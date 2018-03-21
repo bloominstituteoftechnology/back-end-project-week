@@ -1,8 +1,8 @@
 import React from 'react';
 
-import './button.css';
+import './NavButton.css';
 
-class Button extends React.Component {
+class NavButton extends React.Component {
   render() {
     return (
       <div className="wrapper">
@@ -17,4 +17,4 @@ class Button extends React.Component {
   }
 }
 
-export default Button;
+export default NavButton;

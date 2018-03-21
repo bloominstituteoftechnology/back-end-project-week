@@ -1,5 +1,7 @@
 .App {
-  text-align: center;
+  text-align: left;
+  padding: 0px;
+  margin: 0px;
 }
 
 .App-header {
@@ -7,6 +9,8 @@
   height: 150px;
   padding: 20px;
   color: white;
+  top: 0px;
+  flex: 1 1 5%;
 }
 
 .button--aliRight {

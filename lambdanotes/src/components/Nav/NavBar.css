@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script');
+
+.navbar {
+  display: flex;
+  flex: 1 1 5%;
+  min-height: 1em;
+  max-height: 1.5em;
+  font-size: 3em;
+  color: #ffffff;
+  font-family: 'Dancing Script', cursive;
+  padding: 0px;
+  background-color: #b71c1c;
+  flex-wrap: wrap;
+  margin: 0px;
+}
