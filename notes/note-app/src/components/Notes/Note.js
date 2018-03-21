@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import TextAreaReact from 'react-autosize-textarea';
 
 // import { reduxForm, Field } from 'redux-form';
 
-import { editNote } from '../../actions';
+import { editNote, deleteNote } from '../../actions';
 
 // import NoteTitle from './NoteTitle';
 // import NoteText from './NoteText';
@@ -160,13 +161,11 @@ class Note extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  checkIfEnter = e => {
-    if (e.keyCode === 13) {
-      this.checkIfTextChanged();
-    }
-  };
-
   checkIfTextChanged = _ => {
+    if (this.state.title === '' && this.state.content === '') {
+      this.props.deleteNote(this.state.id);
+    }
+
     if (
       this.state.title !== this.props.note.title ||
       this.state.content !== this.props.note.content
@@ -184,11 +183,18 @@ class Note extends Component {
           name="title"
           type="text"
           value={this.state.title}
-          onKeyUp={this.checkIfReturn}
           onBlur={this.checkIfTextChanged}
         />
 
-        <div className="NoteContent">{this.state.content}</div>
+        <TextAreaReact
+          className="NoteContent"
+          onChange={this.handleInputChange}
+          name="content"
+          type="text"
+          value={this.state.content}
+          onBlur={this.checkIfTextChanged}
+          rows={5}
+        />
       </div>
     );
   }
@@ -207,4 +213,4 @@ const mapStateToProps = state => {
 //   fields: ['title', 'content'],
 // })(Note);
 
-export default connect(mapStateToProps, { editNote })(Note);
+export default connect(mapStateToProps, { editNote, deleteNote })(Note);

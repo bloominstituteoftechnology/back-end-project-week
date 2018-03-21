@@ -33,13 +33,18 @@ export const NOTES_FETCH_SUCCESS = 'NOTES_FETCH_SUCCESS';
 export const NOTES_FETCH_ERROR = 'NOTES_FETCH_ERROR';
 export const NOTES_FETCH_FINISH = 'NOTES_FETCH_FINISH';
 
+export const AUTH_NOTES_ERROR = 'AUTH_NOTES_ERROR';
+
 // note
 export const NOTE_EDIT_START = 'NOTE_EDIT_START';
 export const NOTE_EDIT_SUCCESS = 'NOTE_EDIT_SUCCESS';
 export const NOTE_EDIT_ERROR = 'NOTE_EDIT_ERROR';
 export const NOTE_EDIT_FINISH = 'NOTE_EDIT_FINISH';
 
-export const AUTH_NOTES_ERROR = 'AUTH_NOTES_ERROR';
+export const NOTE_DELETE_START = 'NOTE_DELETE_START';
+export const NOTE_DELETE_SUCCESS = 'NOTE_DELETE_SUCCESS';
+export const NOTE_DELETE_ERROR = 'NOTE_DELETE_ERROR';
+export const NOTE_DELETE_FINISH = 'NOTE_ DELETE_FINISH';
 
 // reset error
 export const RESET_ERROR = 'RESET_ERROR';
@@ -230,7 +235,6 @@ export const addNote = note => {
 export const editNote = note => {
   return dispatch => {
     dispatch({ type: NOTE_EDIT_START });
-    console.log(note._id);
 
     axios
       .put(`${ROOT}/notes/${note.id}`, {
@@ -248,12 +252,29 @@ export const editNote = note => {
   };
 };
 
-export const deleteNote = noteId => {
-  return {
-    type: DELETE_NOTE,
-    payload: noteId,
+export const deleteNote = id => {
+  return dispatch => {
+    dispatch({ type: NOTE_DELETE_START });
+
+    axios
+      .delete(`${ROOT}/notes/${id}`)
+      .then(({ data }) => {
+        dispatch({ type: NOTE_DELETE_SUCCESS, payload: data });
+        dispatch({ type: NOTE_DELETE_FINISH });
+      })
+      .catch(err => {
+        dispatch({ type: NOTE_DELETE_ERROR, payload: err });
+        dispatch({ type: NOTE_DELETE_FINISH });
+      });
   };
 };
+
+// export const deleteNote = noteId => {
+//   return {
+//     type: DELETE_NOTE,
+//     payload: noteId,
+//   };
+// };
 
 export const deleteAllNotes = _ => {
   return {
