@@ -13,7 +13,7 @@ export default function (state = {}, action) {
             return { ...state, authenticated: false };
         case AUTH_ERROR:
             return { ...state, error: action.payload };
-        case FETCH_MESSAGE:
+        case FETCH_NOTES:
             return { ...state, message: action.payload };
     }
     return state;
