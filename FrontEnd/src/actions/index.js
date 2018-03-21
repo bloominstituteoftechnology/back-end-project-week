@@ -53,7 +53,7 @@ export function logoutUser() {
 
 export function fetchMessage() {
     return function (dispatch) {
-        axios.get(ROOT_URL, {
+        axios.get(`${ROOT_URL}/notes`, {
             headers: { authorization: localStorage.getItem('token') }
         })
             .then(response => {
