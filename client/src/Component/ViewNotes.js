@@ -62,7 +62,6 @@ class ViewNotes extends Component {
       this.state.title.length > 0 &&
       this.state.id !== -1
     ) {
-      console.log(editNote);
       this.props.updateNote(editNote);
     } else if (
       this.state.id === -1 &&
@@ -82,7 +81,6 @@ class ViewNotes extends Component {
     const notetitle = title;
     const notecontent = content;
     const noteId = id;
-    console.log(notetitle, notecontent, noteId);
     this.setState({ title: notetitle, content: notecontent, id: noteId });
   };
 
