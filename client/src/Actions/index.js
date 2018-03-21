@@ -26,11 +26,7 @@ export const ERROR = "ERROR";
 
 export const persistLogIn = () => {
   return dispatch => {
-    if(localStorage.getItem('heroku')) {
-      window.location.replace('/');
-    } else {
-      dispatch({type: LOGGEDIN});
-    }
+    dispatch({type: LOGGEDIN});
   }
 }
 

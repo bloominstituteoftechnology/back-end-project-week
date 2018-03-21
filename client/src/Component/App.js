@@ -14,7 +14,7 @@ class App extends Component {
     if (localStorage.getItem('token')) {
       axios.get('/deployed')
         .then(response => {
-          window.location.replace('/');
+          return <Redirect to="/" />;
         })
         .catch(err => {
           this.props.persistLogIn();
