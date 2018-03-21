@@ -4,13 +4,15 @@ import { NavLink } from 'react-router-dom';
 
 import { reduxForm, Field } from 'redux-form';
 
-import { login } from '../../actions';
+import { login, resetErrors } from '../../actions';
 
 import Header from '../app/header';
 
-// import '../../styles/css/index.css';
-
 class Login extends Component {
+  componentWillMount() {
+    this.props.resetErrors();
+  }
+
   submitFormHandler = ({ username, password }) => {
     this.props.login(username, password, this.props.history);
   };
@@ -326,7 +328,7 @@ const mapStateToProps = state => {
   };
 };
 
-Login = connect(mapStateToProps, { login })(Login);
+Login = connect(mapStateToProps, { login, resetErrors })(Login);
 
 export default reduxForm({
   form: 'login',

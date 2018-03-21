@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { reduxForm, Field } from 'redux-form';
 
-import { register } from '../../actions';
+import { register, resetErrors } from '../../actions';
 
 import Header from '../app/header';
 
@@ -14,6 +14,10 @@ class Signup extends Component {
   //   username: '',
   //   password: '',
   // };
+
+  componentWillMount() {
+    this.props.resetErrors();
+  }
 
   submitFormHandler = ({ username, password, confirmPassword }) => {
     this.props.register(
@@ -230,7 +234,7 @@ const mapStateToProps = state => {
   };
 };
 
-Signup = connect(mapStateToProps, { register })(Signup);
+Signup = connect(mapStateToProps, { register, resetErrors })(Signup);
 
 export default reduxForm({
   form: 'signup',

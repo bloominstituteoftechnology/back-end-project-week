@@ -70,6 +70,12 @@ export const DELETE_NOTES_ALL = 'DELETE_NOTES_ALL';
 
 const ROOT = 'http://localhost:5000/api';
 
+export const resetErrors = _ => {
+  return dispatch => {
+    dispatch({ type: AUTH_ERROR_RESET });
+  };
+};
+
 export const register = (username, password, confirmPassword, history) => {
   return dispatch => {
     dispatch({ type: AUTH_SIGNUP_START });
@@ -102,6 +108,9 @@ export const register = (username, password, confirmPassword, history) => {
           .post(`${ROOT}/users/login`, { username, password })
           .then(({ data }) => {
             dispatch({ type: AUTH_LOGIN_SUCCESS, payload: data });
+
+            localStorage.setItem(appK, data.token);
+
             dispatch({ type: AUTH_LOGIN_FINISH });
 
             dispatch({ type: AUTH_SIGNUP_FINISH });
