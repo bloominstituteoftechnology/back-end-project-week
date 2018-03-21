@@ -1,6 +1,7 @@
 const express = require('express'),
       server = express(),
       config = require('./config'),
+      passport = require('passport'),
       mongoose = require('mongoose'),
       router = require('./routes/router');
 // TODO ADD cors package

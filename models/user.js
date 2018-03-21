@@ -19,11 +19,12 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: true
-  },
-  passwordConf: { // check against password inside post route
-    type: String,
-    required: true
   }
+  // ,
+  // passwordConf: { // check against password inside post route
+  //   type: String,
+  //   required: true
+  // }
   // array of notes ??
   // populate
 })
