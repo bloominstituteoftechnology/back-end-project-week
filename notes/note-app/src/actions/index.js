@@ -206,17 +206,17 @@ export const getNotes = _ => {
   };
 };
 
-export const resetError = _ => {
-  return {
-    type: RESET_ERROR,
-  };
-};
+// export const resetError = _ => {
+//   return {
+//     type: RESET_ERROR,
+//   };
+// };
 
-export const resetSignUp = _ => {
-  return {
-    type: RESET_SIGN_UP,
-  };
-};
+// export const resetSignUp = _ => {
+//   return {
+//     type: RESET_SIGN_UP,
+//   };
+// };
 
 export const signOut = username => {
   return {
@@ -225,12 +225,12 @@ export const signOut = username => {
   };
 };
 
-export const addNote = note => {
-  return {
-    type: ADD_NOTE,
-    payload: note,
-  };
-};
+// export const addNote = note => {
+//   return {
+//     type: ADD_NOTE,
+//     payload: note,
+//   };
+// };
 
 export const editNote = note => {
   return dispatch => {

@@ -60,14 +60,14 @@ class Note extends Component {
   //   this.props.returnToAllNotes();
   // };
 
-  cancelEditSingleNoteButtonClickHandler = _ => {
-    // this.props.editNote({
-    // 	...this.state,
-    // 	title: this.props.note.title,
-    // 	text: this.props.note.text,
-    // });
-    // this.props.returnToAllNotes();
-  };
+  // cancelEditSingleNoteButtonClickHandler = _ => {
+  // this.props.editNote({
+  // 	...this.state,
+  // 	title: this.props.note.title,
+  // 	text: this.props.note.text,
+  // });
+  // this.props.returnToAllNotes();
+  // };
   /*
 
 
@@ -153,9 +153,9 @@ class Note extends Component {
 
   //   // </form>
 
-  editNoteHandler = _ => {
-    this.props.editNote(this.state.title, this.state.content);
-  };
+  // editNoteHandler = _ => {
+  //   this.props.editNote(this.state.title, this.state.content);
+  // };
 
   handleInputChange = e => {
     this.setState({ [e.target.name]: e.target.value });

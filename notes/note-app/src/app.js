@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { resetError, logout } from './actions';
+import { logout } from './actions';
 // import { Redirect } from 'react-router-dom';
 
 import Header from './components/app/header';
@@ -23,9 +23,9 @@ class App extends Component {
     // this.setState({ username: this.props.match.params.username });
   }
 
-  resetError = _ => {
-    this.props.resetError();
-  };
+  // resetError = _ => {
+  //   this.props.resetError();
+  // };
 
   signOutHandler = _ => {
     this.props.logout(this.props.history);
@@ -60,4 +60,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { resetError, logout })(App);
+export default connect(mapStateToProps, { logout })(App);

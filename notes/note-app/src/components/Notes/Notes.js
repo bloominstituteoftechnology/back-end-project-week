@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getNotes, addNote, deleteNote } from '../../actions';
+// import { getNotes, addNote, deleteNote } from '../../actions';
+import { getNotes } from '../../actions';
 
 import Note from './note';
+import NoteStatusBar from './noteStatusBar';
 
 // import '../../styles/css/index.css';
 
 class Notes extends Component {
   state = {
     notes: [],
-    displayNotes: [],
-    isEditingAllNotes: false,
-    isViewingSingleNote: false,
-    colorClicked: { id: -1, color: '' },
+    // displayNotes: [],
+    // isEditingAllNotes: false,
+    // isViewingSingleNote: false,
+    // colorClicked: { id: -1, color: '' },
   };
 
   componentDidMount() {
@@ -39,32 +41,32 @@ class Notes extends Component {
     }
   }
 
-  detailedNoteView = note => {
-    this.setState({ displayNotes: [note], isViewingSingleNote: true });
-    this.props.disableStatusBarButtonsHandler();
-  };
+  // detailedNoteView = note => {
+  //   this.setState({ displayNotes: [note], isViewingSingleNote: true });
+  //   this.props.disableStatusBarButtonsHandler();
+  // };
 
-  returnToAllNotes = _ => {
-    this.setState({
-      displayNotes: [...this.state.notes],
-      isViewingSingleNote: false,
-    });
-    this.props.disableStatusBarButtonsHandler();
-  };
+  // returnToAllNotes = _ => {
+  //   this.setState({
+  //     displayNotes: [...this.state.notes],
+  //     isViewingSingleNote: false,
+  //   });
+  //   this.props.disableStatusBarButtonsHandler();
+  // };
 
-  deleteNoteButtonClickedHandler = noteId => {
-    this.setState({ isViewingSingleNote: false });
-    this.props.disableStatusBarButtonsHandler();
-    this.props.deleteNote(noteId);
-  };
+  // deleteNoteButtonClickedHandler = noteId => {
+  //   this.setState({ isViewingSingleNote: false });
+  //   this.props.disableStatusBarButtonsHandler();
+  //   this.props.deleteNote(noteId);
+  // };
 
-  addSelf = note => {
-    // this.props.addNote(note);
-  };
+  // addSelf = note => {
+  //   // this.props.addNote(note);
+  // };
 
-  colorClickedHandler = (noteId, colorClicked) => {
-    this.setState({ id: noteId, color: colorClicked });
-  };
+  // colorClickedHandler = (noteId, colorClicked) => {
+  //   this.setState({ id: noteId, color: colorClicked });
+  // };
 
   render() {
     // console.log(this.props);
@@ -74,16 +76,9 @@ class Notes extends Component {
           // console.log(note);
           return (
             <div className="NoteContainer" key={note._id}>
-              <Note
-                note={note}
-                colorClicked={
-                  this.state.colorClicked.id === note.id
-                    ? this.state.colorClicked.color
-                    : null
-                }
-                isViewingSingleNote={this.state.isViewingSingleNote}
-                returnToAllNotes={this.returnToAllNotes}
-              />
+              <NoteStatusBar id={note._id} />
+
+              <Note note={note} />
             </div>
           );
         })}
@@ -226,6 +221,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { getNotes, addNote, deleteNote })(
-  Notes,
-);
+export default connect(mapStateToProps, { getNotes })(Notes);
