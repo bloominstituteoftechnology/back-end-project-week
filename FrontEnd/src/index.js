@@ -6,6 +6,7 @@ import { browserHistory as Router, Route } from 'react-router';
 import { BrowserRouter as Router } from 'react-router-dom';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
+import history from './helpers/history'
 
 
 import rootReducer from './reducers'
@@ -23,7 +24,7 @@ if (token) {
 
 ReactDOM.render(
     <Provider store={store}>
-        <Router>
+        <Router history={history}>
             <App />
         </Router>
     </Provider>, document.getElementById('root'));
