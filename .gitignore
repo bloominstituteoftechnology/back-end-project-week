@@ -1,1 +1,6 @@
+node_modules/
+config.js
 .DS_Store
+*.orig
+.idea/
+.vscode/

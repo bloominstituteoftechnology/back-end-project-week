@@ -2,7 +2,7 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const saltRounds = 11;
-const { secret } = require("../config");
+const secret = process.env.SECRET || "Four for you Glen Coco, you go Glen Coco! And none for Gretchen Weiners. Bye.";
 
 const comparePassword = (req, res, next) => {
   const { email, password } = req.body;

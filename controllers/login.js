@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { secret } = require('../config');
+const secret = process.env.SECRET || "Four for you Glen Coco, you go Glen Coco! And none for Gretchen Weiners. Bye.";
 
 const login = (req, res) => {
   if(req.email) {

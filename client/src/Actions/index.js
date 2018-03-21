@@ -21,7 +21,7 @@ export const SIGNEDUP = "SIGNEDUP";
 
 export const ERROR = "ERROR";
 
-const url = "http://localhost:5000";
+// const url = "http://localhost:5000";
 
 export const persistLogIn = () => {
   return dispatch => {
@@ -33,7 +33,7 @@ export const loggedIn = (email, password) => {
   return dispatch => {
     dispatch({ type: LOGGINGIN });
     axios
-      .post(`${url}/login`, { email, password })
+      .post(`/login`, { email, password })
       .then(response => {
         window.localStorage.setItem("token", response.data.token);
         dispatch({ type: LOGGEDIN, payload: response });
@@ -56,7 +56,7 @@ export const signUp = (email, password) => {
   return dispatch => {
     dispatch({ type: SIGNNINGUP });
     axios
-      .post(`${url}/signup`, { email, password })
+      .post(`/signup`, { email, password })
       .then(response => {
         dispatch({ type: SIGNEDUP, payload: response });
         window.location.reload();
@@ -71,7 +71,7 @@ export const getNotes = () => {
   return dispatch => {
     dispatch({ type: GETTINGNOTES });
     axios
-      .get(`${url}/notes`, {
+      .get(`/notes`, {
         headers: { Authorization: window.localStorage.getItem("token") }
       })
       .then(response => {
@@ -87,7 +87,7 @@ export const addNote = note => {
   return dispatch => {
     dispatch({ type: ADDINGNOTE });
     axios
-      .post(`${url}/notes`, note, {
+      .post(`/notes`, note, {
         headers: { Authorization: window.localStorage.getItem("token") }
       })
       .then(response => {
@@ -103,7 +103,7 @@ export const updateNote = note => {
   return dispatch => {
     dispatch({ type: UPDATINGNOTE });
     axios
-      .put(`${url}/notes`, note, {
+      .put(`/notes`, note, {
         headers: { Authorization: window.localStorage.getItem("token") }
       })
       .then(response => {
@@ -119,7 +119,7 @@ export const deleteNote = id => {
   return dispatch => {
     dispatch({ type: DELETINGNOTE });
     axios({
-      url: `${url}/notes`,
+      url: `/notes`,
       method: "delete",
       data: { id },
       headers: { Authorization: window.localStorage.getItem("token") }
