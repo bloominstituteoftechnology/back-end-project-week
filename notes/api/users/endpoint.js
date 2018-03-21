@@ -43,14 +43,28 @@ router
   });
 
 router.route('/all').get(validateToken, (req, res) => {
-  controller.request(users => {
-    if (users.err) {
-      send(res, error.server, message.requestError, users.err);
-      return;
-    }
+  controller
+    .request(users => {
+      if (users.err) {
+        send(res, error.server, message.requestError, users.err);
+        return;
+      }
 
-    send(res, success.ok, users);
-  });
+      send(res, success.ok, users);
+    })
+    .catch(err => send(res, error.server, message.requestError, err));
+});
+
+router.route('/notes').get(validateToken, (req, res) => {
+  const { userId } = req.decoded;
+
+  controller
+    .requestBy({ id: userId })
+    .populate('notes')
+    .then(user => res.json(user))
+    .catch(err => send(res, error.server, message.requestError, err));
+
+  // res.json({ dec: req.decoded });
 });
 
 router

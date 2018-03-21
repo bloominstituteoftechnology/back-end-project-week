@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+const { ObjectId } = mongoose.Schema.Types;
+const Note = require('../notes/model');
+
 const mongodAuth = require('../../config').mongodAuth;
 const secret = require('../../config').secret;
 
@@ -21,6 +24,7 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  notes: [{ type: ObjectId, ref: 'Note' }],
   createdOn: {
     required: true,
     type: Date,
