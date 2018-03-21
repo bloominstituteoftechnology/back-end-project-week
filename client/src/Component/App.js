@@ -11,7 +11,9 @@ import LogIn from './LogIn';
 class App extends Component {
 
   componentDidMount() {
-    this.props.persistLogIn()
+    if(localStorage.getItem('token')) {
+      this.props.persistLogIn()
+    }
   }
  
   render() {
