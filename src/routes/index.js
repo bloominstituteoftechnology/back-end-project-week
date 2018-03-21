@@ -13,7 +13,7 @@ module.exports = server => {
 	server.post('/api/user', createUser);
 	server
 		.route('/api/notes')
-		.post(createNote)
+		.post(validateToken, createNote)
 		.get(validateToken, getNotes)
 	server
 		.route('/api/notes/:id')

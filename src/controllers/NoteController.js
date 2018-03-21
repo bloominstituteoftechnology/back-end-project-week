@@ -2,12 +2,20 @@ const Note = require('../models/NoteModel');
 const User = require('../models/UserModel');
 
 const createNote = (req, res) => {
-	const { title, text, userId } = req.body;
-	const note = new Note({ title, text, userId });
-	note.save((err, note) => {
-		if (err) return res.send(err);
-		res.json({ success: true });
-	});
+	const { title, text } = req.body;
+	const { email } = req.decoded;
+	User.findOne({ email })
+		.then((user) => {
+			const userId = user.id
+			const note = new Note({ title, text, userId });
+			note.save((err, note) => {
+				if (err) return res.send(err);
+				res.json({ success: true });
+			});
+		})
+		.catch((err) => {
+			res.status(500).json({ error: `Could not retreive user: ${err}` });
+		});
 };
 
 const getNotes = (req, res) => {
