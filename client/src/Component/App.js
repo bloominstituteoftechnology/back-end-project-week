@@ -11,15 +11,7 @@ import LogIn from './LogIn';
 class App extends Component {
 
   componentDidMount() {
-    if (localStorage.getItem('token')) {
-      axios.get('/deployed')
-        .then(response => {
-          return <Redirect to="/" />;
-        })
-        .catch(err => {
-          this.props.persistLogIn();
-        })
-    } 
+    this.props.persistLogIn()
   }
  
   render() {
