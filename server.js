@@ -2,7 +2,7 @@ const express = require('express'),
       server = express(),
       config = require('./config'),
       mongoose = require('mongoose'),
-      routes = require('./routes/router');
+      router = require('./routes/router');
 // TODO ADD cors package
 // const corsOptions = {
 //   origin: 'http://localhost:3333',
@@ -19,6 +19,6 @@ server.listen(config.port, () => {
 });
 
 server.use(express.json());
-routes(server);
+router(server);
 
 // enable CORS from client-side here lines 7 - 10

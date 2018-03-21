@@ -1,4 +1,5 @@
 const AuthController = require('../controllers/auth.controller');
+const NoteController = require('../controllers/note.controller');
 const express = require('express');
 const passport = require('passport');
 
