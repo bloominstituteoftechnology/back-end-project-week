@@ -36,8 +36,8 @@ router
   .put(validate.update, validate.id, (req, res) => {
     const { title, content } = req.body;
     const updatedNote = {
-      title: title || req.note.title,
-      content: content || req.note.content,
+      title: title !== undefined ? title : req.note.title,
+      content: content !== undefined ? content : req.note.content,
     };
 
     controller
