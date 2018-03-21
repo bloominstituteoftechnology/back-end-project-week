@@ -5,6 +5,7 @@ import { logout } from './actions';
 
 import Header from './components/app/header';
 import StatusBar from './components/app/statusBar';
+import Line from './components/app/line';
 import Notes from './components/notes/notes';
 // import AppLoggedIn from './AppLoggedIn';
 // import NotLoggedIn from './NotLoggedIn';
@@ -24,6 +25,8 @@ class App extends Component {
         <Header />
 
         <StatusBar />
+
+        <Line />
 
         <Notes history={this.props.history} />
       </div>
