@@ -35,13 +35,13 @@ router
   })
   .put(validate.update, validate.id, (req, res) => {
     const { title, content } = req.body;
-    const updatedNote = {
-      title: title !== undefined ? title : req.note.title,
-      content: content !== undefined ? content : req.note.content,
-    };
+    // const updatedNote = {
+    //   title: title !== undefined ? title : req.note.title,
+    //   content: content !== undefined ? content : req.note.content,
+    // };
 
     controller
-      .update(req.params.id, updatedNote)
+      .update(req.params.id, { title, content })
       .then(updatedNote => send(res, success.ok, updatedNote))
       .catch(err => send(res, error.server, message.updateError, err));
   })
