@@ -46,6 +46,11 @@ export const NOTE_DELETE_SUCCESS = 'NOTE_DELETE_SUCCESS';
 export const NOTE_DELETE_ERROR = 'NOTE_DELETE_ERROR';
 export const NOTE_DELETE_FINISH = 'NOTE_ DELETE_FINISH';
 
+export const NOTE_ADD_START = 'NOTE_ADD_START';
+export const NOTE_ADD_SUCCESS = 'NOTE_ADD_SUCCESS';
+export const NOTE_ADD_ERROR = 'NOTE_ADD_ERROR';
+export const NOTE_ADD_FINISH = 'NOTE_ADDE_FINISH';
+
 // reset error
 export const RESET_ERROR = 'RESET_ERROR';
 // reset sign up
@@ -265,6 +270,24 @@ export const deleteNote = id => {
       .catch(err => {
         dispatch({ type: NOTE_DELETE_ERROR, payload: err });
         dispatch({ type: NOTE_DELETE_FINISH });
+      });
+  };
+};
+
+export const addNote = note => {
+  console.log(note);
+  return dispatch => {
+    dispatch({ type: NOTE_ADD_START });
+
+    axios
+      .post(`${ROOT}/notes`, note)
+      .then(({ data }) => {
+        dispatch({ type: NOTE_ADD_SUCCESS, payload: data });
+        dispatch({ type: NOTE_ADD_FINISH });
+      })
+      .catch(err => {
+        dispatch({ type: NOTE_ADD_ERROR, payload: err });
+        dispatch({ type: NOTE_ADD_FINISH });
       });
   };
 };

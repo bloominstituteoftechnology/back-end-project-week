@@ -541,10 +541,9 @@ body p {
   justify-content: space-between;
   border-bottom: 1px solid;
 }
-.StatusBar .StatusBar__goToHomeButton {
+.StatusBar .StatusBar__addNoteButton {
   width: 80%;
   height: 20px;
-  border: solid 1px black;
   color: black;
   font-size: 1.8rem;
   text-decoration: none;
@@ -552,20 +551,20 @@ body p {
   justify-content: center;
   align-items: center;
   width: 20px;
-  border: none;
-  margin: 7px 30px 0 7px;
+  border: solid 1px black;
+  margin: 7px 30px 0 0;
   font-size: 1.2rem;
 }
-.StatusBar .StatusBar__goToHomeButton:hover {
+.StatusBar .StatusBar__addNoteButton:hover {
   background: black;
   color: white;
   cursor: pointer;
 }
-.StatusBar .StatusBar__goToHomeButton:active {
+.StatusBar .StatusBar__addNoteButton:active {
   background: #228b22;
   color: white;
 }
-.StatusBar .StatusBar__goToHomeButton:hover {
+.StatusBar .StatusBar__addNoteButton:hover {
   cursor: pointer;
 }
 .StatusBar .StatusBar__signOutButton {
@@ -579,7 +578,7 @@ body p {
   justify-content: center;
   align-items: center;
   width: 50px;
-  margin: 7px 7px 0 0;
+  margin: 7px 0 0 0;
   font-size: 0.7rem;
 }
 .StatusBar .StatusBar__signOutButton:hover {

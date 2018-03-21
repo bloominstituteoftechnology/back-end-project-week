@@ -3,6 +3,7 @@ import {
   NOTES_FETCH_SUCCESS,
   NOTE_EDIT_SUCCESS,
   NOTE_DELETE_SUCCESS,
+  NOTE_ADD_SUCCESS,
   // NOTES_FETCH_ERROR,
   // NOTES_FETCH_FINISH,
 } from '../actions';
@@ -22,6 +23,9 @@ export default (notes = initialState, action) => {
 
     case NOTE_DELETE_SUCCESS:
       return notes.filter(note => note._id !== action.payload._id);
+
+    case NOTE_ADD_SUCCESS:
+      return [...notes, action.payload];
 
     default:
       return notes;

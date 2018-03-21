@@ -14,41 +14,18 @@ import Notes from './components/notes/notes';
 // import '../../styles/css/index.css';
 
 class App extends Component {
-  // state = {
-  //   username: '',
-  // };
-
-  componentDidMount() {
-    // this.resetError();
-    // this.setState({ username: this.props.match.params.username });
-  }
-
-  // resetError = _ => {
-  //   this.props.resetError();
-  // };
-
   signOutHandler = _ => {
     this.props.logout(this.props.history);
   };
-
-  //   <div className="AppNotLoggedIn">
-  //   <NotLoggedIn />
-  // </div>
 
   render() {
     return (
       <div className="App">
         <Header />
 
-        <StatusBar signOutHandler={this.signOutHandler} />
+        <StatusBar />
 
         <Notes history={this.props.history} />
-
-        {/* // {this.props.isLoggedIn ? ( */}
-        {/* //   <AppLoggedIn signOutHandler={this.state.signOutHandler} /> */}
-        {/* // ) : ( */}
-        {/* //   <Redirect to="/" /> */}
-        {/* // )} */}
       </div>
     );
   }
@@ -56,7 +33,7 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    authenticated: state.auth.authenticated,
+    //
   };
 };
 
