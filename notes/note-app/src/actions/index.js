@@ -33,6 +33,10 @@ export const NOTES_FETCH_SUCCESS = 'NOTES_FETCH_SUCCESS';
 export const NOTES_FETCH_ERROR = 'NOTES_FETCH_ERROR';
 export const NOTES_FETCH_FINISH = 'NOTES_FETCH_FINISH';
 
+export const NOTES_DELETE_START = 'NOTES_DELETE_START';
+export const NOTES_DELETE_SUCCESS = 'NOTES_DELETE_SUCCESS';
+export const NOTES_DELETE_FINISH = 'NOTES_DELETE_FINISH';
+
 export const AUTH_NOTES_ERROR = 'AUTH_NOTES_ERROR';
 
 // note
@@ -186,6 +190,11 @@ export const logout = history => {
 
     localStorage.removeItem(appK);
     dispatch({ type: AUTH_LOGOUT_SUCCESS });
+
+    // dispatch({ type: NOTES_DELETE_START });
+    // dispatch({ type: NOTES_DELETE_SUCCESS });
+    // dispatch({ type: NOTES_DELETE_FINISH });
+
     dispatch({ type: AUTH_LOGOUT_FINISH });
 
     history.push('/login');
@@ -197,7 +206,7 @@ export const getNotes = _ => {
     dispatch({ type: NOTES_FETCH_START });
 
     axios
-      .get(`${ROOT}/notes`, {
+      .get(`${ROOT}/users/notes`, {
         headers: { authorization: localStorage.getItem(appK) },
       })
       .then(({ data }) => {
@@ -223,12 +232,12 @@ export const getNotes = _ => {
 //   };
 // };
 
-export const signOut = username => {
-  return {
-    type: SIGN_OUT,
-    payload: username,
-  };
-};
+// export const signOut = username => {
+//   return {
+//     type: SIGN_OUT,
+//     payload: username,
+//   };
+// };
 
 // export const addNote = note => {
 //   return {
@@ -275,12 +284,13 @@ export const deleteNote = id => {
 };
 
 export const addNote = note => {
-  console.log(note);
   return dispatch => {
     dispatch({ type: NOTE_ADD_START });
 
     axios
-      .post(`${ROOT}/notes`, note)
+      .post(`${ROOT}/notes`, note, {
+        headers: { authorization: localStorage.getItem(appK) },
+      })
       .then(({ data }) => {
         dispatch({ type: NOTE_ADD_SUCCESS, payload: data });
         dispatch({ type: NOTE_ADD_FINISH });

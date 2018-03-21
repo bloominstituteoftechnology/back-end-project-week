@@ -4,6 +4,7 @@ import {
   NOTE_EDIT_SUCCESS,
   NOTE_DELETE_SUCCESS,
   NOTE_ADD_SUCCESS,
+  AUTH_LOGOUT_SUCCESS,
   // NOTES_FETCH_ERROR,
   // NOTES_FETCH_FINISH,
 } from '../actions';
@@ -26,6 +27,9 @@ export default (notes = initialState, action) => {
 
     case NOTE_ADD_SUCCESS:
       return [...notes, action.payload];
+
+    case AUTH_LOGOUT_SUCCESS:
+      return [];
 
     default:
       return notes;

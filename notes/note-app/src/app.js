@@ -24,7 +24,7 @@ class App extends Component {
       <div className="App">
         <Header />
 
-        <StatusBar />
+        <StatusBar history={this.props.history} />
 
         <Line />
 

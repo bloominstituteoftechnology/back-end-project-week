@@ -61,7 +61,7 @@ router.route('/notes').get(validateToken, (req, res) => {
   controller
     .requestBy({ _id: userId })
     .populate('notes')
-    .then(user => res.json(user))
+    .then(user => send(res, success.ok, user.notes))
     .catch(err => send(res, error.server, message.requestError, err));
 
   // res.json({ dec: req.decoded });

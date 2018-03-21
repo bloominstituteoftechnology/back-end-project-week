@@ -10,6 +10,10 @@ const StatusBar = props => {
     props.addNote({ title: 'hello', content: 'world' });
   };
 
+  const signOutHandler = _ => {
+    props.logout(props.history);
+  };
+
   return (
     <div className="StatusBar">
       {/* <NavLink to="/" className="StatusBar__goToHomeButton">
@@ -24,7 +28,7 @@ const StatusBar = props => {
       </div>
       {/* <div className="StatusBar__addNoteButton">+</div> */}
 
-      <div className="StatusBar__signOutButton" onClick={props.signOutHandler}>
+      <div className="StatusBar__signOutButton" onClick={signOutHandler}>
         {/* {!props.authenticated ? 'Sign In' : 'Sign out'} */}
         Sign out
       </div>

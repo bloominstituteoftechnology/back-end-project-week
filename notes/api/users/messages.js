@@ -4,7 +4,7 @@ module.exports = {
   passwordMismatch: 'Passwords did not match',
   //
   noUsernameNoPass: 'Please provide a username and/or password.',
-  noIdNoUsername: 'No id nor username provided.',
+  noIdNoUsername: 'Please provide a username.',
   requestError: 'Server error requesting users.',
   requestIdError: 'User not found',
   createdError: 'Server error creating user.',

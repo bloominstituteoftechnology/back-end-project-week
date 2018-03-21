@@ -25,7 +25,7 @@ router
     });
   })
   .post(validate.note, validateToken, (req, res) => {
-    const { userId } = req.decoded;
+    const userId = req.decoded.username;
 
     controller
       .create(req.body)
@@ -33,7 +33,7 @@ router
         const noteId = savedNote._id;
 
         userController
-          .requestBy({ id: userId })
+          .requestBy({ _id: userId })
           .then(user => {
             const notes = user.notes.slice(0);
             notes.push(noteId);
@@ -42,8 +42,8 @@ router
               .update(user._id, { notes })
               .then(updatedUser => {
                 // console.log('upated user', updatedUser);
-                send(res, success.created, updatedUser);
-                // send(res, success.created, savedNote)
+                // send(res, success.created, updatedUser);
+                send(res, success.created, savedNote);
               })
               .catch(err =>
                 send(res, server.error, userMessages.updateError, err),
