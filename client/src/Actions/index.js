@@ -25,7 +25,7 @@ export const ERROR = "ERROR";
 
 export const persistLogIn = () => {
   return dispatch => {
-    if(process.env.PORT) {
+    if(process.env.SECRET) {
       window.location.replace('/');
     } else {
       dispatch({type: LOGGEDIN});
