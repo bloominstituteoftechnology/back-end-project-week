@@ -5,12 +5,10 @@ const mongoose = require('mongoose');
 const getNotes = (req, res) => {
   Note.find({}, (err, notes) => {
     if (err) {
-      res.status(422);
-      res.json({ error: 'Error finding all the notes:' });
+      res.status(422).json({ error: 'Error finding all the notes:' });
       return;
     }
-    res.status(200);
-    res.json(notes);
+    res.status(200).json(notes);
   });
 
 };
@@ -20,11 +18,10 @@ const addNote = (req, res) => {
   const newNote = new Note({ title, content });
   newNote.save(newNote, (err, note) => {
     if (err) {
-      res.status(422);
-      res.json({ error: 'Error creating a new note' });
+      res.status(422).json({ error: 'Error creating a new note' });
       return;
     }
-    res.json(note);
+    res.status(201).json(note);
   });
 }
 
@@ -35,19 +32,17 @@ const viewNote = (req, res) => {
   Note.findById(id)
     .exec((err, note) => {
       if (err) {
-        res.status(422);
-        res.json({ error: 'Error accessing note.' });
+        res.status(422).json({ error: 'Error accessing note.' });
         return;
       }
-      res.json(note);
+      res.status(200).json(note);
     });
 };
 
 const editNote = (req, res) => {
   Note.findOneAndUpdate({ _id: req.body.id }, req.body, { new: true }, (err, note) => {
     if (err) {
-      res.status(422);
-      res.json({ error: 'Error updating the note' });
+      res.status(422).json({ error: 'Error updating the note' });
       return;
     }
     res.json(note);
@@ -57,8 +52,7 @@ const editNote = (req, res) => {
 const deleteNote = (req, res) => {
   Note.findByIdAndRemove(req.params.id, (err, note) => {
     if (err) {
-      res.status(422);
-      res.json({ error: 'Error deleting the note'});
+      res.status(422).json({ error: 'Error deleting the note'});
       return;
     }
     res.json({ success: `Note titled ${note.title} has been deleted from the database.`})

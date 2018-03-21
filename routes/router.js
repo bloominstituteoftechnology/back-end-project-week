@@ -1,6 +1,5 @@
 module.exports = (app) => {
   const noteController = require('../controllers/note.controller');
-
   app.route('/notes')
     .get(noteController.getNotes);
 
