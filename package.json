@@ -1,0 +1,22 @@
+{
+	"name": "relationapifull",
+	"version": "1.0.0",
+	"description": "RDBMS API Full Sprint",
+	"main": "server.js",
+	"scripts": {
+		"start": "nodemon server.js"
+	},
+	"author": "Lambda School",
+	"license": "ISC",
+	"dependencies": {
+		"body-parser": "^1.18.2",
+		"cors": "^2.8.4",
+		"express": "^4.16.2",
+		"knex": "^0.14.4",
+		"mysql": "^2.15.0",
+		"sqlite3": "^3.1.13"
+	},
+	"devDependencies": {
+		"nodemon": "^1.17.1"
+	}
+}

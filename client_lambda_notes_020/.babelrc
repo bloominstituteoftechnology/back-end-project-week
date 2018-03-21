@@ -1,0 +1,30 @@
+{
+  "presets": [
+    "env",
+    "react",
+    "babel-preset-stage-0"
+  ],
+  "plugins": [
+    "react-hot-loader/babel",
+    "syntax-dynamic-import",
+    "lodash",
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "src": "./src"
+        }
+      }
+    ]
+  ],
+  "env": {
+    "dev": {
+      "plugins": []
+    },
+    "test": {
+      "plugins": [
+        "istanbul"
+      ]
+    }
+  }
+}
