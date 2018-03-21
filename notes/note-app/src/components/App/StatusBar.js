@@ -28,6 +28,8 @@ const StatusBar = props => {
       </div>
       {/* <div className="StatusBar__addNoteButton">+</div> */}
 
+      <div className="StatusBar__user">{props.user}</div>
+
       <div className="StatusBar__signOutButton" onClick={signOutHandler}>
         {/* {!props.authenticated ? 'Sign In' : 'Sign out'} */}
         Sign out
@@ -38,7 +40,7 @@ const StatusBar = props => {
 
 const mapStateToProps = state => {
   return {
-    // authenticated: state.auth.authenticated,
+    user: state.auth.user,
   };
 };
 

@@ -67,6 +67,30 @@ router.route('/notes').get(validateToken, (req, res) => {
   // res.json({ dec: req.decoded });
 });
 
+// router.route('/login').post(validate.id, validate.login, (req, res) => {
+router.route('/login').post(validate.id, validate.login, (req, res) => {
+  const userId = req.userId;
+
+  const token = getToken({ username: userId });
+
+  send(res, success.ok, { token });
+
+  // if (req.session.userId === userId.toString()) {
+  //   send(res, error.server, message.loginInstanceFound, message.loginError);
+  //   return;
+  // }
+
+  // req.session.userId = userId;
+  // send(res, success.ok, { message: message.loginSuccess });
+});
+
+router.route('/validate').get(validateToken, (req, res) => {
+  controller
+    .requestBy({ _id: req.decoded.username })
+    .then(user => send(res, success.ok, user))
+    .catch(err => send(res, error.server, message.requestIdError, err));
+});
+
 router
   .route('/:id')
   .get(validate.id, (req, res) => {
@@ -90,22 +114,5 @@ router
       .then(deletedUser => send(res, success.ok, deletedUser))
       .catch(err => send(res, error.server, message.deleteError, err));
   });
-
-// router.route('/login').post(validate.id, validate.login, (req, res) => {
-router.route('/login').post(validate.id, validate.login, (req, res) => {
-  const userId = req.userId;
-
-  const token = getToken({ username: userId });
-
-  send(res, success.ok, { token });
-
-  // if (req.session.userId === userId.toString()) {
-  //   send(res, error.server, message.loginInstanceFound, message.loginError);
-  //   return;
-  // }
-
-  // req.session.userId = userId;
-  // send(res, success.ok, { message: message.loginSuccess });
-});
 
 module.exports = router;

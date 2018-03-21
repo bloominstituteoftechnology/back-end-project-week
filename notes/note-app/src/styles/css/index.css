@@ -393,6 +393,13 @@ body p {
 .StatusBar .StatusBar__addNoteButton:hover {
   cursor: pointer;
 }
+.StatusBar .StatusBar__user {
+  font-size: 1.35rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .StatusBar .StatusBar__signOutButton {
   width: 80%;
   height: 20px;

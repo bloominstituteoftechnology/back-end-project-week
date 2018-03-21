@@ -76,6 +76,25 @@ export const resetErrors = _ => {
   };
 };
 
+export const authenticateUser = _ => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOGIN_START });
+
+    axios
+      .get(`${ROOT}/users/validate`, {
+        headers: { authorization: localStorage.getItem(appK) },
+      })
+      .then(({ data }) => {
+        dispatch({ type: AUTH_LOGIN_SUCCESS, payload: data.username });
+        dispatch({ type: AUTH_LOGIN_FINISH });
+      })
+      .catch(err => {
+        dispatch({ type: AUTH_LOGIN_ERROR, payload: err });
+        dispatch({ type: AUTH_LOGIN_FINISH });
+      });
+  };
+};
+
 export const register = (username, password, confirmPassword, history) => {
   return dispatch => {
     dispatch({ type: AUTH_SIGNUP_START });
@@ -107,9 +126,9 @@ export const register = (username, password, confirmPassword, history) => {
         axios
           .post(`${ROOT}/users/login`, { username, password })
           .then(({ data }) => {
-            dispatch({ type: AUTH_LOGIN_SUCCESS, payload: data });
-
             localStorage.setItem(appK, data.token);
+
+            dispatch({ type: AUTH_LOGIN_SUCCESS, payload: username });
 
             dispatch({ type: AUTH_LOGIN_FINISH });
 
@@ -154,7 +173,7 @@ export const login = (username, password, history) => {
 
         localStorage.setItem(appK, data.token);
 
-        dispatch({ type: AUTH_LOGIN_SUCCESS });
+        dispatch({ type: AUTH_LOGIN_SUCCESS, payload: username });
         dispatch({ type: AUTH_LOGIN_FINISH });
 
         history.push('/');

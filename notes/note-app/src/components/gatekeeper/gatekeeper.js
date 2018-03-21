@@ -3,12 +3,18 @@ import { connect } from 'react-redux';
 
 import { appK } from '../../config';
 
+import { authenticateUser } from '../../actions';
+
 export default ComposedComponent => {
   class CheckAuthentication extends Component {
     componentWillMount() {
       if (!localStorage.getItem(appK)) {
         window.alert('Please log in first');
         this.props.history.push('/login');
+      }
+
+      if (!this.props.user) {
+        this.props.authenticateUser();
       }
     }
 
@@ -25,9 +31,9 @@ export default ComposedComponent => {
 
   const mapStateToProps = state => {
     return {
-      // authenticated: state.auth.authenticated,
+      user: state.auth.user,
     };
   };
 
-  return connect(mapStateToProps)(CheckAuthentication);
+  return connect(mapStateToProps, { authenticateUser })(CheckAuthentication);
 };
