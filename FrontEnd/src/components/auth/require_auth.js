@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-export default function (ComposedComponent) {
-    class Auth extends Component {
+export default function (Component) {
+    class Auth extends React.Component {
         static contextTypes = {
-            router: React.PropTypes.object
+            router: PropTypes.object
         }
 
         componentWillMount() {
@@ -20,7 +21,7 @@ export default function (ComposedComponent) {
         }
 
         render() {
-            return <ComposedComponent {...this.props} />
+            return <Component {...this.props} />
         }
     }
 

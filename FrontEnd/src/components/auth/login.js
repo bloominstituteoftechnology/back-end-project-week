@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import * as actions from '../../actions/'
 
-class Login extends component {
+class Login extends Component {
     handleFormSubmit({ email, password }) {
         this.props.loginUser({ email, password });
     }

@@ -10,18 +10,17 @@ const initialState = {
 };
 
 const authReducer = (state = initialState, action) => {
-    {
-        switch (action.type) {
-            case AUTH_USER:
-                return { ...state, error: '', authenticated: true };
-            case UNAUTH_USER:
-                return { ...state, authenticated: false };
-            case AUTH_ERROR:
-                return { ...state, error: action.payload };
-            case FETCH_MESSAGE:
-                return { ...state, message: action.payload };
-        }
-        return state;
+    switch (action.type) {
+        case AUTH_USER:
+            return { ...state, error: '', authenticated: true };
+        case UNAUTH_USER:
+            return { ...state, authenticated: false };
+        case AUTH_ERROR:
+            return { ...state, error: action.payload };
+        case FETCH_MESSAGE:
+            return { ...state, message: action.payload };
+        default:
+            return state;
     }
 }
 

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { browserHistory } from 'react-router';
+import history from '../helpers/history';
 import {
     ADD_NOTE,
     EDIT_NOTE,
@@ -8,7 +8,6 @@ import {
     UNAUTH_USER,
     AUTH_ERROR,
     FETCH_MESSAGE,
-
 } from './types';
 
 const ROOT_URL = 'http://localhost:3000';
@@ -19,7 +18,7 @@ export function loginUser({ email, password }) {
             .then(response => {
                 dispatch({ type: AUTH_USER });
                 localStorage.setItem('token', response.data.token);
-                browserHistory.push('/notes');
+                history.push('/');
             })
             .catch(() => {
                 dispatch(authError('This is not a correct login. Please try again.'));
@@ -33,7 +32,7 @@ export function signupUser({ email, password }) {
             .then(response => {
                 dispatch({ type: AUTH_USER });
                 localStorage.setItem('token', response.data.token);
-                browserHistory.push('/notes');
+                history.push('/');
             })
             .catch(response => dispatch(authError(response.data.error)));
     };
