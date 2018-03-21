@@ -56,10 +56,10 @@ router.route('/all').get(validateToken, (req, res) => {
 });
 
 router.route('/notes').get(validateToken, (req, res) => {
-  const { userId } = req.decoded;
+  const userId = req.decoded.username;
 
   controller
-    .requestBy({ id: userId })
+    .requestBy({ _id: userId })
     .populate('notes')
     .then(user => res.json(user))
     .catch(err => send(res, error.server, message.requestError, err));

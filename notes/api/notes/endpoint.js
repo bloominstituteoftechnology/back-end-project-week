@@ -7,6 +7,9 @@ const message = require('./messages');
 const validate = require('./validation');
 const controller = require('./controller');
 
+const userController = require('../users/controller');
+const userMessages = require('../users/messages');
+
 const { validateToken } = require('../../services/auth');
 
 router
@@ -21,10 +24,35 @@ router
       send(res, success.ok, notes);
     });
   })
-  .post(validate.note, (req, res) => {
+  .post(validate.note, validateToken, (req, res) => {
+    const { userId } = req.decoded;
+
     controller
       .create(req.body)
-      .then(savedNote => send(res, success.created, savedNote))
+      .then(savedNote => {
+        const noteId = savedNote._id;
+
+        userController
+          .requestBy({ id: userId })
+          .then(user => {
+            const notes = user.notes.slice(0);
+            notes.push(noteId);
+
+            userController
+              .update(user._id, { notes })
+              .then(updatedUser => {
+                // console.log('upated user', updatedUser);
+                send(res, success.created, updatedUser);
+                // send(res, success.created, savedNote)
+              })
+              .catch(err =>
+                send(res, server.error, userMessages.updateError, err),
+              );
+          })
+          .catch(err =>
+            send(res, error.server, userMessages.requestIdError, err),
+          );
+      })
       .catch(err => send(res, error.server, message.createdError, err));
   });
 
