@@ -179,6 +179,7 @@ body p {
 .Home .HomeLocalStorageUserExists .Home__redirectButton:hover {
   background: black;
   color: white;
+  cursor: pointer;
 }
 .Home .HomeLocalStorageUserExists .Home__redirectButton:active {
   background: #228b22;
@@ -202,6 +203,7 @@ body p {
 .Home .HomeLocalStorageUserExists .Home__notUserButton:hover {
   background: black;
   color: white;
+  cursor: pointer;
 }
 .Home .HomeLocalStorageUserExists .Home__notUserButton:active {
   background: #228b22;
@@ -221,6 +223,7 @@ body p {
 .Home .HomeToLogin:hover {
   background: black;
   color: white;
+  cursor: pointer;
 }
 .Home .HomeToLogin:active {
   background: #228b22;
@@ -251,6 +254,7 @@ body p {
 .Login .LoginSignUpButton:hover {
   background: black;
   color: white;
+  cursor: pointer;
 }
 .Login .LoginSignUpButton:active {
   background: #228b22;
@@ -302,6 +306,7 @@ body p {
 .Login .LoginNotLoggedIn .LoginLogin .LoginLoginButton__button:hover {
   background: black;
   color: white;
+  cursor: pointer;
 }
 .Login .LoginNotLoggedIn .LoginLogin .LoginLoginButton__button:active {
   background: #228b22;
@@ -322,6 +327,7 @@ body p {
 .Login .LoginToApp:hover {
   background: black;
   color: white;
+  cursor: pointer;
 }
 .Login .LoginToApp:active {
   background: #228b22;
@@ -378,6 +384,7 @@ body p {
 .Signup .Signup__form .SignupForm .SignupForm__button:hover {
   background: black;
   color: white;
+  cursor: pointer;
 }
 .Signup .Signup__form .SignupForm .SignupForm__button:active {
   background: #228b22;
@@ -403,6 +410,7 @@ body p {
 .Signup .Signup__form .SignupForm .SignupForm__NavLink:hover {
   background: black;
   color: white;
+  cursor: pointer;
 }
 .Signup .Signup__form .SignupForm .SignupForm__NavLink:active {
   background: #228b22;
@@ -465,6 +473,7 @@ body p {
 .AppLoggedIn .AppLoggedInMidStatusBar .AppLoggedInMidStatusBar__addNewNoteButton:hover {
   background: black;
   color: white;
+  cursor: pointer;
 }
 .AppLoggedIn .AppLoggedInMidStatusBar .AppLoggedInMidStatusBar__addNewNoteButton:active {
   background: #228b22;
@@ -500,6 +509,7 @@ body p {
 .AppLoggedIn .AppLoggedInMidStatusBar .AppLoggedInMidStatusBar__rightItem:hover {
   background: black;
   color: white;
+  cursor: pointer;
 }
 .AppLoggedIn .AppLoggedInMidStatusBar .AppLoggedInMidStatusBar__rightItem:active {
   background: #228b22;
@@ -549,6 +559,7 @@ body p {
 .StatusBar .StatusBar__goToHomeButton:hover {
   background: black;
   color: white;
+  cursor: pointer;
 }
 .StatusBar .StatusBar__goToHomeButton:active {
   background: #228b22;
@@ -574,6 +585,7 @@ body p {
 .StatusBar .StatusBar__signOutButton:hover {
   background: black;
   color: white;
+  cursor: pointer;
 }
 .StatusBar .StatusBar__signOutButton:active {
   background: #228b22;
@@ -610,6 +622,7 @@ body p {
 .AddNewNote .NotAddingNewNote:hover {
   background: black;
   color: white;
+  cursor: pointer;
 }
 .AddNewNote .NotAddingNewNote:active {
   background: #228b22;
@@ -643,6 +656,7 @@ body p {
 .AddNewNote .IsAddingNewNote .NewNote__cancelButton:hover {
   background: black;
   color: white;
+  cursor: pointer;
 }
 .AddNewNote .IsAddingNewNote .NewNote__cancelButton:active {
   background: #228b22;
@@ -697,6 +711,7 @@ body p {
 .AddNewNote .IsAddingNewNote .NewNote__button:hover {
   background: black;
   color: white;
+  cursor: pointer;
 }
 .AddNewNote .IsAddingNewNote .NewNote__button:active {
   background: #228b22;
@@ -731,6 +746,7 @@ body p {
 .NotLoggedIn .ReturnToLogin:hover {
   background: black;
   color: white;
+  cursor: pointer;
 }
 .NotLoggedIn .ReturnToLogin:active {
   background: #228b22;
@@ -745,14 +761,14 @@ body p {
   align-items: flex-start;
 }
 .Notes .NoteContainer {
-  width: 500px;
+  width: 450px;
   display: flex;
   flex-direction: column;
 }
 .Note {
   background: #ffff7e;
   padding: 20px;
-  margin: 12px;
+  margin: 4px 12px 12px 12px;
   border: solid 1px;
 }
 .Note .NoteTitle {
@@ -791,6 +807,7 @@ body p {
 .Note .SingleNoteViewButtons:hover {
   background: black;
   color: white;
+  cursor: pointer;
 }
 .Note .SingleNoteViewButtons:active {
   background: #228b22;
@@ -798,4 +815,58 @@ body p {
 }
 .Note .SingleNoteViewButtons:hover {
   cursor: pointer;
+}
+.NoteStatusBar {
+  height: 24px;
+  margin: 0 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+}
+.NoteStatusBar .DeleteButton {
+  width: 80%;
+  height: 80px;
+  border: solid 1px black;
+  color: black;
+  font-size: 1.8rem;
+  text-decoration: none;
+  width: 20px;
+  height: 20px;
+  font-size: 0.95rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.NoteStatusBar .DeleteButton:hover {
+  background: black;
+  color: white;
+  cursor: pointer;
+}
+.NoteStatusBar .DeleteButton:active {
+  background: #228b22;
+  color: white;
+}
+.NoteStatusBar .ViewButton {
+  width: 80%;
+  height: 80px;
+  border: solid 1px black;
+  color: black;
+  font-size: 1.8rem;
+  text-decoration: none;
+  width: 20px;
+  height: 20px;
+  font-size: 0.95rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.NoteStatusBar .ViewButton:hover {
+  background: black;
+  color: white;
+  cursor: pointer;
+}
+.NoteStatusBar .ViewButton:active {
+  background: #228b22;
+  color: white;
 }
