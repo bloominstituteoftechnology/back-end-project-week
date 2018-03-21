@@ -33,6 +33,12 @@ export const NOTES_FETCH_SUCCESS = 'NOTES_FETCH_SUCCESS';
 export const NOTES_FETCH_ERROR = 'NOTES_FETCH_ERROR';
 export const NOTES_FETCH_FINISH = 'NOTES_FETCH_FINISH';
 
+// note
+export const NOTE_EDIT_START = 'NOTE_EDIT_START';
+export const NOTE_EDIT_SUCCESS = 'NOTE_EDIT_SUCCESS';
+export const NOTE_EDIT_ERROR = 'NOTE_EDIT_ERROR';
+export const NOTE_EDIT_FINISH = 'NOTE_EDIT_FINISH';
+
 export const AUTH_NOTES_ERROR = 'AUTH_NOTES_ERROR';
 
 // reset error
@@ -222,9 +228,23 @@ export const addNote = note => {
 };
 
 export const editNote = note => {
-  return {
-    type: EDIT_NOTE,
-    payload: note,
+  return dispatch => {
+    dispatch({ type: NOTE_EDIT_START });
+    console.log(note._id);
+
+    axios
+      .put(`${ROOT}/notes/${note.id}`, {
+        title: note.title,
+        content: note.content,
+      })
+      .then(({ data }) => {
+        dispatch({ type: NOTE_EDIT_SUCCESS, payload: data });
+        dispatch({ type: NOTE_EDIT_FINISH });
+      })
+      .catch(err => {
+        dispatch({ type: NOTE_EDIT_ERROR, payload: err });
+        dispatch({ type: NOTE_EDIT_FINISH });
+      });
   };
 };
 

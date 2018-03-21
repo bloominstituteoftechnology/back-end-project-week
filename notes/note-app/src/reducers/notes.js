@@ -1,6 +1,7 @@
 import {
   // NOTES_FETCH_START,
   NOTES_FETCH_SUCCESS,
+  NOTE_EDIT_SUCCESS,
   // NOTES_FETCH_ERROR,
   // NOTES_FETCH_FINISH,
 } from '../actions';
@@ -13,6 +14,10 @@ export default (notes = initialState, action) => {
       return action.payload;
 
     // case NOTES_FETCH_ERROR:
+    case NOTE_EDIT_SUCCESS:
+      return notes.map(
+        note => (note._id === action.payload._id ? action.payload : note),
+      );
 
     default:
       return notes;

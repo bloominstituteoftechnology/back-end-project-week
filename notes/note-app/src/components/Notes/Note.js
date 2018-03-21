@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 // import { reduxForm, Field } from 'redux-form';
 
-import { editNote, deleteNote } from '../../actions';
+import { editNote } from '../../actions';
 
 // import NoteTitle from './NoteTitle';
 // import NoteText from './NoteText';
@@ -36,28 +36,28 @@ class Note extends Component {
   // 	console.log(this.state);
   // }
 
-  editTitle = editedTitle => {
-    if (!this.props.isViewingSingleNote)
-      this.props.editNote({ ...this.state, title: editedTitle });
+  // editTitle = editedTitle => {
+  //   if (!this.props.isViewingSingleNote)
+  //     this.props.editNote({ ...this.state, title: editedTitle });
 
-    this.setState({ title: editedTitle });
-  };
+  //   this.setState({ title: editedTitle });
+  // };
 
-  editText = editedText => {
-    if (!this.props.isViewingSingleNote)
-      this.props.editNote({ ...this.state, text: editedText });
+  // editText = editedText => {
+  //   if (!this.props.isViewingSingleNote)
+  //     this.props.editNote({ ...this.state, text: editedText });
 
-    this.setState({ text: editedText });
-  };
+  //   this.setState({ text: editedText });
+  // };
 
-  deleteNoteButtonClickedHandler = _ => {
-    this.props.deleteNote(this.state.id);
-  };
+  // deleteNoteButtonClickedHandler = _ => {
+  //   this.props.deleteNote(this.state.id);
+  // };
 
-  confirmEditButtonClickedHandler = _ => {
-    this.props.editNote({ ...this.state });
-    this.props.returnToAllNotes();
-  };
+  // confirmEditButtonClickedHandler = _ => {
+  //   this.props.editNote({ ...this.state });
+  //   this.props.returnToAllNotes();
+  // };
 
   cancelEditSingleNoteButtonClickHandler = _ => {
     // this.props.editNote({
@@ -88,51 +88,107 @@ class Note extends Component {
   // 	//   : null
   // } */}
 
+  // // <form
+  //   //   className="Note"
+  //   //   onBlur={this.props.handleSubmit(this.submitFormHandler)}
+  //   // >
+  //   //   <fieldset>
+  //   //     <Field
+  //   //       className="NoteTitle"
+  //   //       name="title"
+  //   //       component="input"
+  //   //       type="text"
+  //   //       value={this.state.title}
+  //   //     />
+  //   //   </fieldset>
+
+  //   //   <fieldset className="NoteContent">
+  //   //     <Field
+  //   //       name="content"
+  //   //       component="textarea"
+  //   //       type="text"
+  //   //       value={this.state.content}
+  //   //     />
+  //   //   </fieldset>
+
+  //     {/* <NoteTitle
+  //       title={this.props.note.title}
+  //       editTitleHandler={this.editTitle}
+  //     />
+
+  //     <NoteText
+  //       text={this.props.note.content}
+  //       editTextHandler={this.editText}
+  //       style={
+  //         this.props.colorClicked === null
+  //           ? null
+  //           : { setBackgroundColor: `${this.props.colorClicked}` }
+  //       }
+  //     /> */}
+
+  //     {/* {this.props.isViewingSingleNote ? (
+  //       <div
+  //         className="SingleNoteViewButtons"
+  //         onClick={this.confirmEditButtonClickedHandler}
+  //       >
+  //         confirm edit
+  //       </div>
+  //     ) : null} */}
+
+  //     {/* {this.props.isViewingSingleNote ? (
+  //       <div
+  //         className="SingleNoteViewButtons"
+  //         onClick={this.cancelEditSingleNoteButtonClickHandler}
+  //         style={{
+  //           background: 'white',
+  //           color: 'black',
+  //           opacity: '0.2',
+  //           cursor: 'not-allowed',
+  //         }}
+  //       >
+  //         cancel edit
+  //       </div>
+  //     ) : null} */}
+
+  //   // </form>
+
+  editNoteHandler = _ => {
+    this.props.editNote(this.state.title, this.state.content);
+  };
+
+  handleInputChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  checkIfEnter = e => {
+    if (e.keyCode === 13) {
+      this.checkIfTextChanged();
+    }
+  };
+
+  checkIfTextChanged = _ => {
+    if (
+      this.state.title !== this.props.note.title ||
+      this.state.content !== this.props.note.content
+    ) {
+      this.props.editNote(this.state);
+    }
+  };
+
   render() {
     return (
       <div className="Note">
-        <div className="NoteTitle">{this.state.title}</div>
-
-        <div className="NoteContent">{this.state.content}</div>
-
-        {/* <NoteTitle
-          title={this.props.note.title}
-          editTitleHandler={this.editTitle}
+        <input
+          className="NoteTitle"
+          onChange={this.handleInputChange}
+          name="title"
+          type="text"
+          value={this.state.title}
+          onKeyUp={this.checkIfReturn}
+          onBlur={this.checkIfTextChanged}
         />
 
-        <NoteText
-          text={this.props.note.content}
-          editTextHandler={this.editText}
-          style={
-            this.props.colorClicked === null
-              ? null
-              : { setBackgroundColor: `${this.props.colorClicked}` }
-          }
-        /> */}
-
-        {/* {this.props.isViewingSingleNote ? (
-          <div
-            className="SingleNoteViewButtons"
-            onClick={this.confirmEditButtonClickedHandler}
-          >
-            confirm edit
-          </div>
-        ) : null} */}
-
-        {/* {this.props.isViewingSingleNote ? (
-          <div
-            className="SingleNoteViewButtons"
-            onClick={this.cancelEditSingleNoteButtonClickHandler}
-            style={{
-              background: 'white',
-              color: 'black',
-              opacity: '0.2',
-              cursor: 'not-allowed',
-            }}
-          >
-            cancel edit
-          </div>
-        ) : null} */}
+        <div className="NoteContent">{this.state.content}</div>
       </div>
     );
   }
@@ -144,4 +200,11 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { editNote, deleteNote })(Note);
+// Note = connect(mapStateToProps, { editNote })(Note);
+
+// export default reduxForm({
+//   form: 'note',
+//   fields: ['title', 'content'],
+// })(Note);
+
+export default connect(mapStateToProps, { editNote })(Note);
