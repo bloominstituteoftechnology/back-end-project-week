@@ -754,7 +754,6 @@ body p {
   padding: 20px;
   margin: 12px;
   border: solid 1px;
-  font-size: 1.25rem;
 }
 .Note .NoteTitle {
   border: none;
@@ -766,13 +765,14 @@ body p {
   width: 100%;
   outline: none;
 }
-.Note .NoteContent .NoteContent__input {
+.Note .NoteContent {
   width: 100%;
   margin: 0 auto;
   background: #ffff7e;
   border: none;
   outline: none;
   resize: none;
+  font-size: 1.25rem;
 }
 .Note .SingleNoteViewButtons {
   width: 80%;
