@@ -1,24 +1,28 @@
 import axios from 'axios';
 import history from '../helpers/history';
 import {
+    FETCH_NOTE,
+    NOTES_RETRIEVED,
     ADD_NOTE,
+    NOTE_ADDED,
     EDIT_NOTE,
+    NOTE_EDITED,
     DELETE_NOTE,
+    NOTE_DELETED,
     AUTH_USER,
     UNAUTH_USER,
     AUTH_ERROR,
-    FETCH_MESSAGE,
 } from './types';
 
 const ROOT_URL = 'http://localhost:3000';
 
-export function loginUser({ email, password }) {
-    return function (dispatch) {
+export const loginUser = (email, password) => {
+    return dispatch => {
         axios.post(`${ROOT_URL}/login`, { email, password })
             .then(response => {
                 dispatch({ type: AUTH_USER });
                 localStorage.setItem('token', response.data.token);
-                history.push('/');
+                history.push('/notes');
             })
             .catch(() => {
                 dispatch(authError('This is not a correct login. Please try again.'));
@@ -26,61 +30,88 @@ export function loginUser({ email, password }) {
     }
 }
 
-export function signupUser({ email, password }) {
-    return function (dispatch) {
+export const signupUser = (email, password) => {
+    return dispatch => {
         axios.post(`${ROOT_URL}/signup`, { email, password })
             .then(response => {
                 dispatch({ type: AUTH_USER });
                 localStorage.setItem('token', response.data.token);
-                history.push('/');
+                history.push('/notes');
             })
             .catch(response => dispatch(authError(response.data.error)));
     };
 };
 
-export function authError(error) {
+export const authError = error => {
     return {
         type: AUTH_ERROR,
         payload: error
     };
 }
 
-export function logoutUser() {
+export const logoutUser = () => {
     localStorage.removeItem('token');
     return { type: UNAUTH_USER };
 };
 
-export function fetchMessage() {
-    return function (dispatch) {
-        axios.get(`${ROOT_URL}/notes`, {
-            headers: { authorization: localStorage.getItem('token') }
+export const getNotes = () => {
+    return dispatch => {
+        axios.get(`/notes`, {
+            headers: { Authorization: window.localStorage.getItem("token") }
         })
             .then(response => {
-                dispatch({
-                    type: FETCH_MESSAGE,
-                    payload: response.data.message
-                });
+                dispatch({ type: NOTES_RETRIEVED, payload: response.data });
+            })
+            .catch(error => {
+                dispatch({ type: ERROR, payload: error });
             });
     };
 };
 
 export const addNote = note => {
-    return {
-        type: ADD_NOTE,
-        payload: note
+    return dispatch => {
+        dispatch({ type: ADD_NOTE });
+        axios.post(`/notes`, note, {
+            headers: { Authorization: window.localStorage.getItem("token") }
+        })
+            .then(response => {
+                dispatch({ type: NOTE_ADDED, payload: response.data });
+            })
+            .catch(error => {
+                dispatch({ type: ERROR, payload: error });
+            });
     };
 };
 
-export const editNote = note => {
-    return {
-        type: EDIT_NOTE,
-        payload: note
-    }
-}
+export const updateNote = note => {
+    return dispatch => {
+        dispatch({ type: EDIT_NOTE });
+        axios.put(`/notes`, note, {
+            headers: { Authorization: window.localStorage.getItem("token") }
+        })
+            .then(response => {
+                dispatch({ type: NOTE_EDITED, payload: response.data });
+            })
+            .catch(error => {
+                dispatch({ type: ERROR, payload: error });
+            });
+    };
+};
 
 export const deleteNote = id => {
-    return {
-        type: DELETE_NOTE,
-        payload: id
-    }
-}
+    return dispatch => {
+        dispatch({ type: DELETE_NOTE });
+        axios({
+            url: `/notes`,
+            method: "delete",
+            data: { id },
+            headers: { Authorization: window.localStorage.getItem("token") }
+        })
+            .then(response => {
+                dispatch({ type: NOTE_DELETED, payload: id });
+            })
+            .catch(error => {
+                dispatch({ type: ERROR, payload: error });
+            });
+    };
+};

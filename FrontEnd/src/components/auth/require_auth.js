@@ -10,13 +10,13 @@ export default function (Component) {
 
         componentWillMount() {
             if (!this.props.authenticated) {
-                this.context.router.push('/');
+                this.context.router.push('/notes');
             }
         }
 
         componentWillUpdate(nextProps) {
             if (!nextProps.authenticated) {
-                this.context.router.push('/');
+                this.context.router.push('/notes');
             }
         }
 
