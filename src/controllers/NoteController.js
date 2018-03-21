@@ -11,11 +11,18 @@ const createNote = (req, res) => {
 };
 
 const getNotes = (req, res) => {
-	const { userId } = req.params;
-	Note.find({ userId }, (err, notes) => {
-		if (err) return res.send(err);
-		res.send(notes);
-	});
+	const { email } = req.decoded;
+	User.findOne({ email })
+		.then((user) => {
+			const userId = user.id;
+			Note.find({ userId }, (err, notes) => {
+				if (err) return res.send(err);
+				res.send(notes);
+			});
+		})
+		.catch((err) => {
+			res.status(500).json({ error: `Could not retreive user: ${err}` });
+		});
 }
 
 const getNoteById = (req, res) => {
