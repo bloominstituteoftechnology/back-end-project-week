@@ -10,7 +10,7 @@ const createNote = (req, res) => {
 			const note = new Note({ title, text, userId });
 			note.save((err, note) => {
 				if (err) return res.send(err);
-				res.json({ success: true });
+				res.send(note);
 			});
 		})
 		.catch((err) => {
