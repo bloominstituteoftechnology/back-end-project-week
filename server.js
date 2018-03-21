@@ -15,7 +15,9 @@ server.use(express.static(path.join(__dirname, "client", "build")));
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/notesapp');
 
-routes(server)
+routes(server);
+
+if (process.env.MONGODB_URI) localStorage.setItem('heroku', 'true');
 
 
 server.get("*", (req, res) => {  
