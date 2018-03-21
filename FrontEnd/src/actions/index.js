@@ -9,6 +9,7 @@ import {
     NOTE_EDITED,
     DELETE_NOTE,
     NOTE_DELETED,
+    ERROR,
     AUTH_USER,
     UNAUTH_USER,
     AUTH_ERROR,
@@ -56,6 +57,7 @@ export const logoutUser = () => {
 
 export const getNotes = () => {
     return dispatch => {
+        dispatch({ type: FETCH_NOTE });
         axios.get(`/notes`, {
             headers: { Authorization: window.localStorage.getItem("token") }
         })
@@ -83,7 +85,7 @@ export const addNote = note => {
     };
 };
 
-export const updateNote = note => {
+export const editNote = note => {
     return dispatch => {
         dispatch({ type: EDIT_NOTE });
         axios.put(`/notes`, note, {

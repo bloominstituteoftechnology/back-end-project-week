@@ -7,6 +7,7 @@ export const EDIT_NOTE = 'EDIT_NOTE'
 export const NOTE_EDITED = 'NOTE_EDITED'
 export const DELETE_NOTE = 'DELETE_NOTE'
 export const NOTE_DELETED = 'NOTE_DELETED'
+export const ERROR = 'ERROR'
 
 /***********AUTHORIZATION TYPES ****************/
 
