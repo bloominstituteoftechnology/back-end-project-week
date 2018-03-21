@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-// import NavButton from './components/Misc/NavButton/NavButton';
+import NavButton from './components/Misc/NavButton/NavButton';
 import NavDrawer from './components/NavDrawer/NavDrawer';
 import MenuItem from './components/NavDrawer/MenuItem/MenuItem';
 import NavBar from './components/Nav/NavBar';
@@ -14,7 +14,7 @@ class App extends Component {
         <NavBar className="App-Header" />
         <NavDrawer />
         <div /*className="App"*/>
-          {/* <NavButton className="button--aliRight" /> */}
+          <NavButton className="button--aliRight" />
         </div>
       </div>
     );

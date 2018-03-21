@@ -1,9 +1,5 @@
 /*bruh, you gotta bring back that position from wrapper...*/
 body {
-  display: flex;
-  width: 100%;
-  height: 100vh;
-  /* background: #f2f2f2; */
   --l: 3.5em;
 }
 
