@@ -113,13 +113,13 @@ class ViewNotes extends Component {
             <button onClick={this.addNoteToggle}>Add New Note</button>
           </div>
           <form onSubmit={this.updateNote}>
-            <label>title: </label>
+            <label>Title: </label>
             <input
               name="title"
               onChange={this.noteChangeHandler}
               value={this.state.title}
               type="text"
-              placeholder="title"
+              placeholder="Title"
               required
             />
             <br />

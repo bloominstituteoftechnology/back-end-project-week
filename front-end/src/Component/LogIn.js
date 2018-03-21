@@ -71,7 +71,7 @@ class LogIn extends Component {
             <br />
             <br />
             <input
-              type="text"
+              type="password"
               placeholder="password"
               value={this.state.password}
               onChange={this.loginChangeHandler}
@@ -104,7 +104,7 @@ class LogIn extends Component {
             <br />
             <br />
             <input
-              type="text"
+              type="password"
               placeholder="password"
               value={this.state.password}
               onChange={this.loginChangeHandler}
@@ -114,7 +114,7 @@ class LogIn extends Component {
             <br />
             <br />
             <input
-              type="text"
+              type="password"
               placeholder="confirm password"
               value={this.state.confirmPassword}
               onChange={this.loginChangeHandler}

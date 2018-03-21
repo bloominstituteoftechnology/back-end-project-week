@@ -235,19 +235,21 @@ body {
   font-size: 1.6rem;
 }
 .App .DashBoard .Notes {
-  width: 30%;
+  width: 25%;
   overflow: scroll;
   margin: 0;
 }
 .App .DashBoard .Notes .Notes--Search {
   display: flex;
   justify-content: center;
-  margin: 10px;
+  margin: 20px;
+  flex: 1;
 }
 .App .DashBoard .Notes .Notes--Search input {
   border: 2px solid #448aff;
   border-radius: 5px;
   font-size: 1.6rem;
+  width: 70%;
   -webkit-box-shadow: 0 5px 10px #777;
   -moz-box-shadow: 0 5px 10px #777;
   box-shadow: 0 5px 10px #777;
@@ -273,9 +275,9 @@ body {
 }
 .App .DashBoard .ViewNote {
   background: #02b7f4;
-  width: 70%;
+  width: 75%;
   height: 100%;
-  padding: 10px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
 }
@@ -302,6 +304,9 @@ body {
   display: flex;
   flex-direction: column;
   height: 95%;
+}
+.App .DashBoard .ViewNote form label {
+  font-size: 1.9rem;
 }
 .App .DashBoard .ViewNote form input {
   border-radius: 5px;

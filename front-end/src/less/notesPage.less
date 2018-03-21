@@ -17,17 +17,19 @@ body {
     border-radius: 20px;
     font-size: 1.6rem;
     .Notes {
-      width: 30%;
+      width: 25%;
       overflow: scroll;
       margin: 0;
       .Notes--Search {
         display: flex;
         justify-content: center;
-        margin: 10px;
+        margin: 20px;
+        flex: 1;
         input {
           border: 2px solid @accent-color;
           border-radius: 5px;
           font-size: @font-size;
+          width: 70%;
           .box-shadow();
         }
       }
@@ -51,9 +53,9 @@ body {
     }
     .ViewNote {
       background: #02b7f4;
-      width: 70%;
+      width: 75%;
       height: 100%;
-      padding: 10px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       .ViewNote--addNote {
@@ -74,6 +76,9 @@ body {
         display: flex;
         flex-direction: column;
         height: 95%;
+        label {
+          font-size: 1.9rem;
+        }
         input {
           border-radius: 5px;
           font-size: @font-size;
