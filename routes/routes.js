@@ -5,7 +5,6 @@ const {
 } = require("../controllers/AuthControllers");
 const { login } = require("../controllers/login");
 const { signup } = require("../controllers/signup");
-const { deployed } = require("../controllers/deployed");
 const {
   getNotes,
   addNote,
@@ -20,5 +19,4 @@ module.exports = server => {
   server.get("/notes", authenticate, getNotes);
   server.put("/notes", authenticate, updateNote);
   server.delete("/notes", authenticate, deleteNote);
-  server.get("/deployed", deployed)
 };

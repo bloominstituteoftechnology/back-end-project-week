@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {Route, Redirect, withRouter} from 'react-router-dom';
 import { persistLogIn } from '../Actions/index';
-import axios from 'axios';
 
 import ViewNotes from './ViewNotes';
 import Navigation from './Navigation';

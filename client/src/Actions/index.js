@@ -22,7 +22,6 @@ export const SIGNEDUP = "SIGNEDUP";
 
 export const ERROR = "ERROR";
 
-// const url = "http://localhost:5000";
 
 export const persistLogIn = () => {
   return dispatch => {
