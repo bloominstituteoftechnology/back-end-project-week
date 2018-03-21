@@ -35,7 +35,7 @@ const login = (req, res) => {
 			if (isMatch) {
 				const token = getTokenForUser({ email: user.email });
 				// res.json({ success: true });
-				res.json(token);
+				res.json({ token });
 			} else {
 				res.status(422).json({ error: 'Invalid username or password' });
 			}
