@@ -6,7 +6,6 @@ import { addNote, logout } from '../../actions';
 // import { NavLink } from 'react-router-dom';
 
 const StatusBar = props => {
-  console.log(props);
   const addNewNoteButtonClickedHandler = _ => {
     props.addNote({ title: 'hello', content: 'world' });
   };
@@ -21,8 +20,7 @@ const StatusBar = props => {
         className="StatusBar__addNoteButton"
         onClick={addNewNoteButtonClickedHandler}
       >
-        {' '}
-        &#65291;{' '}
+        &#65291;
       </div>
       {/* <div className="StatusBar__addNoteButton">+</div> */}
 
