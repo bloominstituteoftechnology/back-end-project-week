@@ -164,6 +164,7 @@ class Note extends Component {
   checkIfTextChanged = _ => {
     if (this.state.title === '' && this.state.content === '') {
       this.props.deleteNote(this.state.id);
+      return;
     }
 
     if (
