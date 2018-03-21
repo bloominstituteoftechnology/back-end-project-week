@@ -11,18 +11,13 @@ import {
   LOGGEDIN,
   LOGGINGIN,
   SIGNNINGUP,
-  SIGNEDUP
+  SIGNEDUP,
+  LOGGEDOUT
 } from "../Actions";
-let id = 0;
+let _id = -1;
 const initialState = {
-  notes: [
-    {
-      ID: id,
-      Title: "First Note",
-      Text: "Here is your first note. Feel free to edit or delete this note."
-    }
-  ],
-  id: id,
+  notes: [],
+  id: _id,
   gettingNotes: false,
   notesReceived: false,
   addingNote: false,
@@ -36,7 +31,7 @@ const initialState = {
   signningUp: false,
   signedUp: false,
   loggedOut: false,
-  error: false
+  error: null
 };
 
 const noteReducer = (state = initialState, action) => {
@@ -48,7 +43,7 @@ const noteReducer = (state = initialState, action) => {
         ...state,
         gettingNotes: false,
         notesReceived: true,
-        notes: [...state.notes, action.payload]
+        notes: [...state.notes, ...action.payload]
       };
     case ADDINGNOTE:
       return { ...state, addingNote: true };
@@ -66,7 +61,13 @@ const noteReducer = (state = initialState, action) => {
         ...state,
         updatingNote: false,
         noteUpdated: true,
-        notes: action.payload
+        notes: [...state.notes].map(note => {
+          if (note._id === action.payload._id) {
+            return action.payload;
+          } else {
+            return note;
+          }
+        })
       };
     case DELETINGNOTE:
       return { ...state, deletingNote: true };
@@ -75,7 +76,7 @@ const noteReducer = (state = initialState, action) => {
         ...state,
         deletingNote: false,
         noteDeleted: true,
-        notes: action.payload
+        notes: [...state.notes].filter(note => note._id !== action.payload)
       };
     case LOGGINGIN:
       return { ...state, loggingIn: true };
@@ -85,6 +86,8 @@ const noteReducer = (state = initialState, action) => {
       return { ...state, signningUp: true };
     case SIGNEDUP:
       return { ...state, signningUp: false, signedUp: true };
+    case LOGGEDOUT:
+      return { ...state, loggedIn: false, loggedOut: true };
     case ERROR:
       return {
         ...state,

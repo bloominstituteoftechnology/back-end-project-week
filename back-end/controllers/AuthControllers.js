@@ -1,9 +1,8 @@
-const User = require('../models/User');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const User = require("../models/User");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const saltRounds = 11;
-const secret = require('../config');
-
+const { secret } = require("../config");
 
 const comparePassword = (req, res, next) => {
   const { email, password } = req.body;
@@ -11,26 +10,29 @@ const comparePassword = (req, res, next) => {
     .then(user => {
       if (user) {
         bcrypt.compare(password, user.password, (err, isValid) => {
-          if (err) console.error(err);
+          if (err) {
+            res.json(err);
+          }
           if (isValid) {
             req.email = user.email;
             next();
           }
-        }) 
+        });
       } else {
-        res.status(404).json({error: 'Incorrect username/passord'});
+        res.status(404).json({ error: "Incorrect username/passord" });
       }
     })
     .catch(err => {
-      res.status(500).json(`There seems to be an error accessing the database.`)
-    })
+      res
+        .status(500)
+        .json(`There seems to be an error accessing the database.`);
+    });
 };
-
 
 const encryptPassword = (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    res.json({error: 'Must provide email and password'});
+    res.json({ error: "Must provide email and password" });
   } else {
     bcrypt.hash(password, saltRounds, (err, hash) => {
       if (err) console.error(err);
@@ -38,7 +40,7 @@ const encryptPassword = (req, res, next) => {
         user = {
           email,
           password: hash
-        }
+        };
         req.user = user;
         next();
       }
@@ -47,18 +49,21 @@ const encryptPassword = (req, res, next) => {
 };
 
 const authenticate = (req, res, next) => {
-  const token = req.get('Authorization');
+  const token = req.get("Authorization");
   if (token) {
     jwt.verify(token, secret, (err, decoded) => {
-      if (err) res.status(422).json(err);
-      req.decoded = decoded;
-      req.email = decoded.email;
-      next();
-    })
+      if (err) {
+        res.status(422).json(err);
+      } else {
+        req.decoded = decoded;
+        req.email = decoded.email;
+        next();
+      }
+    });
   } else {
     res.status(403).json({
-      error: 'Must provide token in the header'
-    })
+      error: "Must provide token in the header"
+    });
   }
 };
 
@@ -66,4 +71,4 @@ module.exports = {
   comparePassword,
   encryptPassword,
   authenticate
-}
+};

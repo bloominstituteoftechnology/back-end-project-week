@@ -13,9 +13,9 @@ class Navigation extends Component {
     return (
       <div className="Navigation">
         <div className="Navigation--Brand">Note Mate</div>
-        <div onClick={this.logOut} className="Navigation--LogOut">
+        <p style={this.props.loggedIn ? {color: 'black'} : {display: 'none'}} onClick={this.logOut} className="Navigation--LogOut">
           Log Out
-        </div>
+        </p>
       </div>
     );
   }
@@ -23,7 +23,7 @@ class Navigation extends Component {
 
 const mapStateToProps = state => {
   return {
-    state
+    loggedIn: state.loggedIn
   };
 };
 

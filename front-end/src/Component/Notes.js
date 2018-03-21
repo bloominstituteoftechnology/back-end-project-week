@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { getNotes } from '../Actions';
 
 class Notes extends Component {
   constructor(props) {
@@ -9,6 +10,10 @@ class Notes extends Component {
       tags: false,
       addTags: false
     };
+  }
+
+  componentDidMount() {
+    this.props.getNotes();
   }
 
   searchChangeHandler = event => {
@@ -34,9 +39,10 @@ class Notes extends Component {
   };
 
   render() {
-    const filter = this.props.notes.filter(note =>
-      note.Title.toLowerCase().includes(this.state.search.toLowerCase())
-    );
+    
+    const filter = this.props.notesReceived ? this.props.notes.filter(note =>
+      note.title.toLowerCase().includes(this.state.search.toLowerCase())
+    ) : [{title: 'test', content:'test content', id: '1'}];
     return (
       <div className="Notes">
         <div className="Notes--Search">
@@ -51,24 +57,24 @@ class Notes extends Component {
           {filter.map((note, index) => {
             return (
               <li
+                key={note._id}
                 className="note"
                 onClick={() => {
-                  this.props.previewNote(note.Title, note.Text, note.ID);
+                  this.props.previewNote(note.title, note.content, note._id);
                 }}
-                key={note.ID}
                 onMouseOver={this.hoverToggle}
                 onMouseOut={this.mouseOut}
               >
                 <div className="note--title">
-                  {note.Title.length > 30
-                    ? note.Title.substring(0, 30).concat("...")
-                    : note.Title}
+                  {note.title.length > 30
+                    ? note.title.substring(0, 30).concat("...")
+                    : note.title}
                 </div>
                 <br />
                 <div className="note--text">
-                  {note.Text.length > 70
-                    ? note.Text.substring(0, 70).concat("...")
-                    : note.Text}
+                  {note.content.length > 70
+                    ? note.content.substring(0, 70).concat("...")
+                    : note.content}
                 </div>
                 {/* <div className='note--tags' style={this.state.tags ? {display: 'inline'} : {display: 'none'}} onClick={this.addTags}>
                         +
@@ -88,8 +94,9 @@ class Notes extends Component {
 
 const mapStateToProps = state => {
   return {
-    notes: state.notes
+    notes: state.notes, 
+    notesReceived: state.notesReceived
   };
 };
 
-export default connect(mapStateToProps)(Notes);
+export default connect(mapStateToProps, {getNotes})(Notes);

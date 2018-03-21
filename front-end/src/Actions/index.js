@@ -29,8 +29,8 @@ export const loggedIn = (email, password) => {
     axios
       .post(`${url}/login`, { email, password })
       .then(response => {
+        window.localStorage.setItem("token", response.data.token);
         dispatch({ type: LOGGEDIN, payload: response });
-        localStorage.setItem("token", response.data.token);
       })
       .catch(err => {
         dispatch({ type: ERROR, payload: err });
@@ -40,7 +40,9 @@ export const loggedIn = (email, password) => {
 
 export const loggedOut = () => {
   return dispatch => {
-    dispatch({ type: LOGGINGIN });
+    window.localStorage.removeItem("token");
+    dispatch({ type: LOGGEDOUT });
+    window.location.reload();
   };
 };
 
@@ -61,9 +63,12 @@ export const signUp = (email, password) => {
 
 export const getNotes = () => {
   return dispatch => {
+    console.log(window.localStorage.getItem("token"));
     dispatch({ type: GETTINGNOTES });
     axios
-      .get(url)
+      .get(`${url}/notes`, {
+        headers: { Authorization: window.localStorage.getItem("token") }
+      })
       .then(response => {
         dispatch({ type: NOTESRECEIVED, payload: response.data });
       })
@@ -77,7 +82,9 @@ export const addNote = note => {
   return dispatch => {
     dispatch({ type: ADDINGNOTE });
     axios
-      .post(url, note)
+      .post(`${url}/notes`, note, {
+        headers: { Authorization: window.localStorage.getItem("token") }
+      })
       .then(response => {
         dispatch({ type: NOTEADDED, payload: response.data });
       })
@@ -87,11 +94,13 @@ export const addNote = note => {
   };
 };
 
-export const updateNote = (note, id) => {
+export const updateNote = note => {
   return dispatch => {
     dispatch({ type: UPDATINGNOTE });
     axios
-      .put(`${url}/${id}`)
+      .put(`${url}/notes`, note, {
+        headers: { Authorization: window.localStorage.getItem("token") }
+      })
       .then(response => {
         dispatch({ type: NOTEUPDATED, payload: response.data });
       })
@@ -101,13 +110,17 @@ export const updateNote = (note, id) => {
   };
 };
 
-export const deleteNote = (note, id) => {
+export const deleteNote = id => {
   return dispatch => {
     dispatch({ type: DELETINGNOTE });
-    axios
-      .delete(`${url}/${id}`)
+    axios({
+      url: `${url}/notes`,
+      method: "delete",
+      data: { id },
+      headers: { Authorization: window.localStorage.getItem("token") }
+    })
       .then(response => {
-        dispatch({ type: NOTEDELETED, payload: response.data });
+        dispatch({ type: NOTEDELETED, payload: id });
       })
       .catch(error => {
         dispatch({ type: ERROR, payload: error });

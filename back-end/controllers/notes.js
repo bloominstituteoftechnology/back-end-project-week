@@ -1,25 +1,24 @@
-const Note = require('../models/Note');
-const User = require('../models/User');
-
+const Note = require("../models/Note");
+const User = require("../models/User");
 
 const getNotes = (req, res) => {
   if (!req.decoded) {
-    res.status(404).json({error: 'Must log in first to view notes'});
+    res.status(404).json({ error: "Must log in first to view notes" });
   } else {
     User.findOne({ email: req.email })
-    .then(user => {
-      id = user._id;
-      Note.find({ author: id })
-        .then(notes => {
-          res.json(notes);
-        })
-        .catch(err => {
-          res.status(500).json(err);
-        })
-    })
-    .catch(err => {
-      res.status(500).json(err);
-    })
+      .then(user => {
+        id = user._id;
+        Note.find({ author: id })
+          .then(notes => {
+            res.json(notes);
+          })
+          .catch(err => {
+            res.status(500).json(err);
+          });
+      })
+      .catch(err => {
+        res.status(500).json(err);
+      });
   }
 };
 
@@ -29,7 +28,7 @@ const addNote = (req, res) => {
   const email = req.email;
 
   if (!req.decoded) {
-    res.status(404).json({error: 'Must log in first to view notes'});
+    res.status(404).json({ error: "Must log in first to view notes" });
   } else {
     User.findOne({ email })
       .then(user => {
@@ -38,37 +37,38 @@ const addNote = (req, res) => {
           content,
           author: user._id
         });
-        newNote.save()
+        newNote
+          .save()
           .then(note => {
-            res.status(201).json({ success: 'Note successfully added'});
+            res.status(201).json(note);
           })
           .catch(err => {
             res.status(500).json(err);
-          })
+          });
       })
       .catch(err => {
         res.status(500).json(err);
-      })
+      });
   }
 };
 
 const updateNote = (req, res) => {
   const { id, title, content } = req.body;
   const updateNote = {
-    title, 
-    content,
-  }
+    title,
+    content
+  };
 
   if (!req.decoded) {
-    res.status(404).json({error: 'Must log in first to view notes'});
+    res.status(404).json({ error: "Must log in first to view notes" });
   } else {
-    Note.findByIdAndUpdate(id, updateNote)
+    Note.findByIdAndUpdate(id, updateNote, { new: true })
       .then(note => {
-        res.status(201).json({ success: 'Note succesfully updated'});
+        res.json(note);
       })
       .catch(err => {
         res.status(500).json(err);
-      })
+      });
   }
 };
 
@@ -76,21 +76,21 @@ const deleteNote = (req, res) => {
   const { id } = req.body;
 
   if (!req.decoded) {
-    res.status(404).json({error: 'Must log in first to view notes'});
+    res.status(404).json({ error: "Must log in first to view notes" });
   } else {
     Note.findByIdAndRemove(id)
       .then(note => {
-        res.json({ success: 'Note successfully deleted'});
+        res.json({ success: "Note successfully deleted" });
       })
       .catch(err => {
         res.status(500).json(err);
-      })
+      });
   }
 };
 
 module.exports = {
   getNotes,
   addNote,
-  updateNote, 
+  updateNote,
   deleteNote
-}
+};

@@ -152,7 +152,9 @@ body {
 }
 .Navigation {
   background: #0288d1;
+  position: relative;
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -160,8 +162,15 @@ body {
   font-size: 2.8rem;
   color: #212121;
 }
+.Navigation .Navigation--Brand {
+  display: flex;
+}
 .Navigation .Navigation--LogOut {
-  display: none;
+  position: absolute;
+  font-size: 1.8rem;
+  padding: 10px;
+  right: 0;
+  cursor: pointer;
 }
 .Login {
   font-size: 1.6rem;
@@ -263,7 +272,7 @@ body {
   overflow: scroll;
 }
 .App .DashBoard .ViewNote {
-  background: white;
+  background: #02b7f4;
   width: 70%;
   height: 100%;
   padding: 10px;

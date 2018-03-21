@@ -17,9 +17,15 @@ class App extends Component {
       </div>
       );
     }
+    const PrivateRoute = ({ component: Component, ...rest}) => (
+      <Route
+      {...rest}
+      render={props => this.props.loggedIn ? (<Component {...props} />) : (<Redirect to='/' />)}
+      />
+    )
     return (
       <div>
-        <Route path='/notes' component={App} />
+        <PrivateRoute path='/notes' component={App} />
         <Route exact path='/' render={() => (
           this.props.loggedIn ? (
             <Redirect to='/notes' />
