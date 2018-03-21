@@ -144,91 +144,6 @@ body input {
 body p {
   font-size: 1.2rem;
 }
-.Home {
-  width: 100%;
-  height: 100vh;
-  font-size: 5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.Home .Home__message {
-  margin: 24px;
-}
-.Home .HomeLocalStorageUserExists {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.Home .HomeLocalStorageUserExists .Home__redirectButton {
-  width: 80%;
-  height: 80px;
-  border: solid 1px black;
-  color: black;
-  font-size: 1.8rem;
-  text-decoration: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 390px;
-  margin: 5px;
-}
-.Home .HomeLocalStorageUserExists .Home__redirectButton:hover {
-  background: black;
-  color: white;
-  cursor: pointer;
-}
-.Home .HomeLocalStorageUserExists .Home__redirectButton:active {
-  background: #228b22;
-  color: white;
-}
-.Home .HomeLocalStorageUserExists .Home__notUserButton {
-  width: 80%;
-  height: 35px;
-  border: solid 1px black;
-  color: black;
-  font-size: 1.8rem;
-  text-decoration: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 25%;
-  min-width: 200px;
-  margin: 5px;
-  font-size: 0.7rem;
-}
-.Home .HomeLocalStorageUserExists .Home__notUserButton:hover {
-  background: black;
-  color: white;
-  cursor: pointer;
-}
-.Home .HomeLocalStorageUserExists .Home__notUserButton:active {
-  background: #228b22;
-  color: white;
-}
-.Home .HomeToLogin {
-  width: 80%;
-  height: 80px;
-  border: solid 1px black;
-  color: black;
-  font-size: 1.8rem;
-  text-decoration: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.Home .HomeToLogin:hover {
-  background: black;
-  color: white;
-  cursor: pointer;
-}
-.Home .HomeToLogin:active {
-  background: #228b22;
-  color: white;
-}
 .Login {
   height: 100vh;
   display: flex;
@@ -420,7 +335,6 @@ body p {
   cursor: pointer;
 }
 .App {
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -432,97 +346,6 @@ body p {
   display: flex;
   align-items: center;
 }
-.AppLoggedIn {
-  width: 100%;
-}
-.AppLoggedIn .AppLoggedInHeader {
-  margin: 12px 0 10px 0;
-  width: 100%;
-  text-align: center;
-}
-.AppLoggedIn .AppLoggedInHeader .AppLoggedInHeader__title {
-  font-size: 5rem;
-}
-.AppLoggedIn .AppLoggedInMidStatusBar {
-  width: 100%;
-  height: 20px;
-  margin: 12px 0;
-  margin-bottom: 24px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-.AppLoggedIn .AppLoggedInMidStatusBar .AppLoggedInMidStatusBar__addNewNoteButton {
-  width: 80%;
-  height: 18px;
-  border: solid 1px black;
-  color: black;
-  font-size: 1.8rem;
-  text-decoration: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
-  width: 18px;
-  margin-left: 7px;
-  font-size: 0.9rem;
-}
-.AppLoggedIn .AppLoggedInMidStatusBar .AppLoggedInMidStatusBar__addNewNoteButton:hover {
-  background: black;
-  color: white;
-  cursor: pointer;
-}
-.AppLoggedIn .AppLoggedInMidStatusBar .AppLoggedInMidStatusBar__addNewNoteButton:active {
-  background: #228b22;
-  color: white;
-}
-.AppLoggedIn .AppLoggedInMidStatusBar .AppLoggedInMidStatusBar__addNewNoteButton:hover {
-  cursor: pointer;
-}
-.AppLoggedIn .AppLoggedInMidStatusBar .AppLoggedInMiddleItems {
-  width: 50%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-.AppLoggedIn .AppLoggedInMidStatusBar .AppLoggedInMidStatusBar__rightItem {
-  width: 80%;
-  height: 18px;
-  border: solid 1px black;
-  color: black;
-  font-size: 1.8rem;
-  text-decoration: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
-  width: 18px;
-  margin-right: 7px;
-  font-size: 0.7rem;
-}
-.AppLoggedIn .AppLoggedInMidStatusBar .AppLoggedInMidStatusBar__rightItem:hover {
-  background: black;
-  color: white;
-  cursor: pointer;
-}
-.AppLoggedIn .AppLoggedInMidStatusBar .AppLoggedInMidStatusBar__rightItem:active {
-  background: #228b22;
-  color: white;
-}
-.AppLoggedIn .AppLoggedInMidStatusBar .AppLoggedInMidStatusBar__rightItem:hover {
-  cursor: pointer;
-}
-.AppLoggedIn .AppLoggedInNoNotesInState {
-  margin-top: 12px;
-  font-size: 2rem;
-  text-align: center;
-}
 .Header {
   margin: 12px 0 0 0;
   font-size: 5rem;
@@ -532,14 +355,17 @@ body p {
 .Header:hover {
   color: blue;
 }
+.Line {
+  width: 100%;
+  border: solid 0.5px black;
+}
 .StatusBar {
-  width: 95%;
-  margin: 0 0 24px 0;
-  padding: 4px 0;
+  width: 100%;
+  height: 35px;
+  padding: 0 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border-bottom: 1px solid;
 }
 .StatusBar .StatusBar__addNoteButton {
   width: 80%;
@@ -601,156 +427,6 @@ body p {
   outline: none;
   text-align: center;
 }
-.AddNewNote .NotAddingNewNote {
-  width: 80%;
-  height: 20px;
-  border: solid 1px black;
-  color: black;
-  font-size: 1.8rem;
-  text-decoration: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
-  margin: 0 0 0 7px;
-  width: 20px;
-  font-size: 1rem;
-}
-.AddNewNote .NotAddingNewNote:hover {
-  background: black;
-  color: white;
-  cursor: pointer;
-}
-.AddNewNote .NotAddingNewNote:active {
-  background: #228b22;
-  color: white;
-}
-.AddNewNote .NotAddingNewNote:hover {
-  cursor: pointer;
-}
-.AddNewNote .IsAddingNewNote {
-  margin: 25px auto 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-}
-.AddNewNote .IsAddingNewNote .NewNote__cancelButton {
-  width: 80%;
-  height: 35px;
-  border: solid 1px black;
-  color: black;
-  font-size: 1.8rem;
-  text-decoration: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 35%;
-  min-width: 200px;
-  margin-bottom: 10px;
-  font-size: 0.95rem;
-}
-.AddNewNote .IsAddingNewNote .NewNote__cancelButton:hover {
-  background: black;
-  color: white;
-  cursor: pointer;
-}
-.AddNewNote .IsAddingNewNote .NewNote__cancelButton:active {
-  background: #228b22;
-  color: white;
-}
-.AddNewNote .IsAddingNewNote .NewNote__cancelButton:hover {
-  cursor: pointer;
-}
-.AddNewNote .IsAddingNewNote .NewNote {
-  width: 35%;
-  min-height: 300px;
-  min-width: 200px;
-  border: solid 1px;
-  display: flex;
-  flex-direction: column;
-}
-.AddNewNote .IsAddingNewNote .NewNote .NewNote__title {
-  height: 35px;
-  padding: 7px 0;
-  background: #ffff7e;
-  border: none;
-  border-bottom: solid 1px;
-  outline: none;
-  font-size: 1.55rem;
-  text-align: center;
-}
-.AddNewNote .IsAddingNewNote .NewNote__text {
-  min-height: 265px;
-  padding: 4px;
-  background: #ffff7e;
-  border: none;
-  outline: none;
-  resize: none;
-  font-size: 1.25rem;
-  text-align: left;
-}
-.AddNewNote .IsAddingNewNote .NewNote__button {
-  width: 80%;
-  height: 35px;
-  border: solid 1px black;
-  color: black;
-  font-size: 1.8rem;
-  text-decoration: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 35%;
-  min-width: 200px;
-  margin-top: 10px;
-  font-size: 0.95rem;
-}
-.AddNewNote .IsAddingNewNote .NewNote__button:hover {
-  background: black;
-  color: white;
-  cursor: pointer;
-}
-.AddNewNote .IsAddingNewNote .NewNote__button:active {
-  background: #228b22;
-  color: white;
-}
-.AddNewNote .IsAddingNewNote .NewNote__button:hover {
-  cursor: pointer;
-}
-.NotLoggedIn {
-  width: 100%;
-  height: 250px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.NotLoggedIn .NotLoggedInDescription {
-  margin: 0 0 24px 0;
-  font-size: 2.5rem;
-}
-.NotLoggedIn .ReturnToLogin {
-  width: 80%;
-  height: 80px;
-  border: solid 1px black;
-  color: black;
-  font-size: 1.8rem;
-  text-decoration: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.NotLoggedIn .ReturnToLogin:hover {
-  background: black;
-  color: white;
-  cursor: pointer;
-}
-.NotLoggedIn .ReturnToLogin:active {
-  background: #228b22;
-  color: white;
-}
 .Notes {
   width: 100%;
   display: flex;
@@ -760,7 +436,8 @@ body p {
   align-items: flex-start;
 }
 .Notes .NoteContainer {
-  width: 450px;
+  width: 500px;
+  margin: 25px;
   display: flex;
   flex-direction: column;
 }
