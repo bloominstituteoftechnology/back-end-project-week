@@ -17,7 +17,11 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/notesapp');
 
 routes(server);
 
-if (process.env.MONGODB_URI) localStorage.setItem('heroku', 'true');
+if (process.env.MONGODB_URI) {
+  return localStorage.setItem('heroku', 'true');
+} else {
+  return;
+}
 
 
 server.get("*", (req, res) => {  
