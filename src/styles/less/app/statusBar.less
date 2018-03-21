@@ -1,0 +1,48 @@
+.StatusBar {
+  width: 100%;
+
+  height: 35px;
+
+  padding: 0 10px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .StatusBar__addNoteButton {
+    .button(@height: 20px);
+
+    width: 20px;
+
+    border: solid 1px black;
+
+    margin: 7px 30px 0 0;
+
+    font-size: 1.2rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .StatusBar__user {
+    font-size: 1.35rem;
+    font-weight: bold;
+
+    .flexCenter();
+  }
+
+  .StatusBar__signOutButton {
+    .button(@height: 20px);
+
+    width: 50px;
+
+    margin: 7px 0 0 0;
+
+    font-size: 0.7rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
