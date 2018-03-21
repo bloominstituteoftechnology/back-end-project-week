@@ -25,7 +25,11 @@ export const ERROR = "ERROR";
 
 export const persistLogIn = () => {
   return dispatch => {
-    dispatch({type: LOGGEDIN});
+    if(process.env.PORT) {
+      window.location.replace('/');
+    } else {
+      dispatch({type: LOGGEDIN});
+    }
   }
 }
 
