@@ -1,8 +1,12 @@
 const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const NoteSchema = new Schema({
+  writtenBy: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
   title: {
     type: String,
     required: true
@@ -11,10 +15,8 @@ const NoteSchema = new Schema({
     type: String,
     required: true
   },
-  writtenBy: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-  }
+  createdAt: Date,
+  lastUpdate: Date
 });
 
 /*
@@ -32,4 +34,4 @@ Note.find().populate({
 })
 */
 
-module.exports = mongoose.model('Note', NoteSchema);
+mongoose.model('Note', NoteSchema);

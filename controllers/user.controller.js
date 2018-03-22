@@ -1,12 +1,11 @@
-const User = require('../models/user');
-const requireAuth = require('../config/passport').requireAuth;
-const getTokenForUser = require('../config/token');
+const User = require('../models/User');
 
-function setUserInfo(request) {
+
+function setUserInfo(req) {
   const getUserInfo = {
-    _id: request._id,
-    username: request.username,
-    email: request.email,
+    _id: req._id,
+    username: req.username,
+    email: req.email,
   };
 
   return getUserInfo;
@@ -17,7 +16,7 @@ function validateEmail(email) {
   return re.test(email);
 };
 
-const createUser = (req, res, next) => {
+exports.createUser = (req, res, next) => {
   const { username, email, password } = req.body;
 
   console.log(validateEmail(email));

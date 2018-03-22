@@ -21,23 +21,6 @@ const UserSchema = new Schema({
   }
 });
 
-// Check database for user with email and authenticate
-// UserSchema.statics.authenticate = function (email, password, cb) {
-//   User.findOne({ email: email })
-//     .exec((err, user) => {
-//       if (err) {
-//         return cb(err)
-//       } else if (!user) {
-//         let err = new Error('User not found.');
-//         err.status(401);
-//         return cb(err);
-//       }
-//       bcrypt.compare(password, user.password, (err, isMatch) => {
-//         if (err) return cb(err);
-//         return cb(null, isMatch);
-//       });
-//     })
-// }
 // hash & salt password b/f saving
 UserSchema.pre('save', function(next) {
   const user = this;
