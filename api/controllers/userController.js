@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-const { mySecret } = require('../config');
+const mySecret = process.env.SECRET || 'No, thank you! We don\'t want any more visitors, well-wishers or distant relations!';;
 
 const User = require('../models/userModel');
 
 const logIn = function(req, res, next) {
   if (!req.username) {
-    return res.status(403).send({ message: 'You must supply a username' });
+    return res.status(403).send({ message: 'You must supply a username to log in' });
   }
   const payload = { username: req.username };
   const token = jwt.sign(payload, mySecret);

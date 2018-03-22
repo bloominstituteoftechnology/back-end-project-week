@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 const Note = require('../models/noteModel');
 
 const getNotes = function(req, res) {
-  // console.log(req.decoded);
-  // if (req.decoded) {
+  if (req.decoded) {
     Note.find()
       .then(notes => {
         if (notes.length === 0 || !notes) {
@@ -18,13 +17,13 @@ const getNotes = function(req, res) {
           .status(500)
           .send({ error: `There was an error finding notes: ${err}` });
       });
-  // } else {
-  //   res.status(422).json({ error: 'You must be logged in to use this function' });
-  // }
+  } else {
+    res.status(422).json({ error: 'You must be logged in to use this function' });
+  }
 };
 
 const newNote = function(req, res) {
-  // if(req.decoded) {
+  if(req.decoded) {
     const { title, name, noteText } = req.body;
     const note = new Note({ title, name, noteText });
   
@@ -45,13 +44,13 @@ const newNote = function(req, res) {
             .send({ error: `There was an error creating a new note: ${err}` });
         });
     }
-  // } else {
-  //   res.status(422).json({ error: 'You must be logged in to use this function' });
-  // }
+  } else {
+    res.status(422).json({ error: 'You must be logged in to use this function' });
+  }
 };
 
 const getNoteById = function(req, res) {
-  // if(req.decoded) {
+  if(req.decoded) {
     const { id } = req.params;
   
     Note.findById({ id })
@@ -69,13 +68,13 @@ const getNoteById = function(req, res) {
           .status(500)
           .send({ error: `There was an error retrieving that note: ${err}` });
       });
-  // } else {
-  //   res.status(422).json({ error: 'You must be logged in to use this function' });
-  // }
+  } else {
+    res.status(422).json({ error: 'You must be logged in to use this function' });
+  }
 };
 
 const editNote = function(req, res) {
-  // if(req.decoded) {
+  if(req.decoded) {
     const { id } = req.params;
     const updateNote = req.body;
   
@@ -94,13 +93,13 @@ const editNote = function(req, res) {
             .send({ error: `There was an error updating that note: ${err}` });
         });
     }
-  // } else {
-  //   res.status(422).json({ error: 'You must be logged in to use this function' });
-  // }
+  } else {
+    res.status(422).json({ error: 'You must be logged in to use this function' });
+  }
 };
 
 const deleteNote = function(req, res) {
-  // if(req.decoded) {
+  if(req.decoded) {
     const { id } = req.params;
   
     Note.findByIdAndRemove(id)
@@ -118,9 +117,9 @@ const deleteNote = function(req, res) {
           .status(500)
           .send({ error: `There was an error deleting that note: ${err}` });
       });
-  // } else {
-  //   res.status(422).json({ error: 'You must be logged in to use this function' });
-  // }
+  } else {
+    res.status(422).json({ error: 'You must be logged in to use this function' });
+  }
 };
 
 module.exports = {

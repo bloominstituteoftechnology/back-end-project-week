@@ -1,19 +1,20 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const mySecret = require('../config');
+const mySecret = process.env.SECRET || 'No, thank you! We don\'t want any more visitors, well-wishers or distant relations!';
 
 const User = require('../models/userModel');
 
 const authenticate = (req, res, next) => {
-  const token = req.get('Authentication');
+  const token = req.get('Authorization');
   if(token) {
     jwt.verify(token, mySecret, (err, decoded) => {
       if (err) return res.status(422).send(err);
       req.decoded = decoded;
+      req.username = decoded.username;
       next();
     });
   } else {
-    return res.status(403).send({ error: 'No token provided, must be set on Authentication Header' });
+    return res.status(403).send({ error: 'No token provided, must be set on Authorization Header' });
   }
 };
 

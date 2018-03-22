@@ -14,7 +14,7 @@ server.use(routes);
 
 mongoose.Promise = global.Promise;
 mongoose
-  .connect('mongodb://gakko:1234@ds121099.mlab.com:21099/notes')
+  .connect(process.env.MONGODB_URI || 'mongodb://gakko:1234@ds121099.mlab.com:21099/notes')
   .then(r => {
     console.log('Successfully connected to the notes database');
   })
