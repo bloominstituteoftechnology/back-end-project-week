@@ -20,7 +20,7 @@ import App from './app';
 
 import './styles/css/index.css';
 
-// const store = createStore(rootReducer, applyMiddleware());
+// const store = createStore(rootReducer, applyMiddleware(thunk));
 const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
 ReactDOM.render(
@@ -30,7 +30,7 @@ ReactDOM.render(
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
-          {/* <Route exact path="/" component={Gatekeeper(App)} /> */}
+          <Route exact path="/" component={Gatekeeper(App)} />
         </Switch>
       </div>
     </Router>
