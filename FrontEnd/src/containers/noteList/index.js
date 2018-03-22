@@ -22,7 +22,7 @@ class NoteList extends Component {
     };
 
     delete_note(_id) {
-        this.props.dispatch(actions.deletenoteRequest(_id));
+        this.props.dispatch(actions.delete_note(_id));
     };
 
     render() {
