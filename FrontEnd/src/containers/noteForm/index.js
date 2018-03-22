@@ -7,7 +7,7 @@ class NoteForm extends Component {
 
     constructor() {
         super();
-    }
+    };
 
     edit_Note(prop, event) {
         this.props.dispatch(
@@ -15,15 +15,15 @@ class NoteForm extends Component {
                 [prop]: event.target.value
             })
         );
-    }
+    };
 
     add_Note() {
         this.props.dispatch(actions.addNoteRequest(Object.assign({}, this.props.noteForm, this.props.userInfo)));
-    }
+    };
 
     update_Note() {
         this.props.dispatch(actions.updateNoteRequest(this.props.noteForm));
-    }
+    };
 
     render() {
         return (
@@ -37,8 +37,8 @@ class NoteForm extends Component {
                 </button>
             </li>
         );
-    }
-}
+    };
+};
 
 mapStateToProps = store => {
     return {
@@ -47,7 +47,7 @@ mapStateToProps = store => {
             email: store.user && store.user.email,
         }
     };
-}
+};
 
 noteForm.propTypes = {
     noteForm: PropTypes.shape({

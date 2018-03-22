@@ -9,7 +9,7 @@ class NoteList extends Component {
 
     constructor() {
         super();
-    }
+    };
 
     edit_Note(note, index) {
         this.props.dispatch(actions.edit_note({
@@ -19,11 +19,11 @@ class NoteList extends Component {
             edit_Index: index,
             edit_Id: note._id
         }));
-    }
+    };
 
     delete_note(_id) {
         this.props.dispatch(actions.deletenoteRequest(_id));
-    }
+    };
 
     render() {
         return (
@@ -39,15 +39,15 @@ class NoteList extends Component {
                 }
             </ul>
         );
-    }
-}
+    };
+};
 
 mapStateToProps = store => {
     return {
         notes: store.notes,
         email: store.user && store.user.email
     };
-}
+};
 
 noteList.propTypes = {
     notes: PropTypes.arrayOf(PropTypes.shape({

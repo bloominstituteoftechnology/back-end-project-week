@@ -16,6 +16,6 @@ const Notes = (props) => {
       }
     </li>
   );
-}
+};
 
 export default Notes;
