@@ -55,7 +55,9 @@ export const NOTE_ADD_SUCCESS = 'NOTE_ADD_SUCCESS';
 export const NOTE_ADD_ERROR = 'NOTE_ADD_ERROR';
 export const NOTE_ADD_FINISH = 'NOTE_ADDE_FINISH';
 
-const ROOT = 'http://localhost:5000/api';
+const ROOT = `http://localhost:${process.env.PORT}/api`;
+
+console.log(ROOT);
 
 export const resetErrors = _ => {
   return dispatch => {
