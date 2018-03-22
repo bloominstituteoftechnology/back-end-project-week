@@ -1,21 +1,35 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { connect } from 'react-redux';
+import logout from './actions';
+
+import Header from './components/display/header';
+import StatusBar from './components/display/statusBar';
+import Notes  from'./components/display/notes';
+import Line from './components/display/line';
 
 class App extends Component {
+  signOutHandler = _ => {
+    this.props.logout(this.props.history);
+  };
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Header />
+
+        <StatusBar history={this.props.history} />
+
+        <Line />
+
+        <Notes history={this.props.history} />
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    //
+  };
+};
+
+export default connect(mapStateToProps, { logout })(App);

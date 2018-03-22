@@ -1,19 +1,14 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const session = require('express-session');
-const bcrypt = require('bcrypt');
 const cors = require('cors');
-
-const BCRYPT_COST = 11
+const morgan = require('morgan')
+const router = require('./router')
 
 const server = express();
+const debug = false;
 
-server.use(bodyParser.json());
-server.use(
-    session({
-        secret: 'aQU1DALYsUniWbkS3L8OWBOWgzEKEtBj0oWTkFyXBe6hWzIJlK'
-    })
-);
+debug ? server.use(morgan('combined')) : null;
+
+server.use(express.json());
 
 const corsOptions = {
     "origin": "http://localhost:3000",
@@ -21,3 +16,10 @@ const corsOptions = {
 };
 
 server.use(cors(corsOptions));
+server.use('/api', router);
+
+server.get('/', (req, res) => {
+    res.send(200).json({ message: 'It feels good to be alive!' })
+});
+
+module.exports = server;
