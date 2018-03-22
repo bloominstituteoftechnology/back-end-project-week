@@ -1,0 +1,16 @@
+{
+  "include": [
+    "index.js",
+    "src/**/*.js"
+  ],
+  "exclude": [
+    ".tmp"
+  ],
+  "reporter": [
+    "lcov",
+    "text-summary"
+  ],
+  "cache": false,
+  "sourceMap": false,
+  "instrument": true
+}
