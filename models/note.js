@@ -11,11 +11,25 @@ const NoteSchema = new Schema({
     type: String,
     required: true
   },
-  scribe: {
+  writtenBy: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'User',
   }
-  // tags / category ????
+});
+
+/*
+Note.findOne({_id: 123})
+.populate('postedBy')
+.exec(function(err, post) {
+    // do stuff with post
+});
+
+Note.find().populate({
+  path: 'writtenBy',
+  select: 'username'
+}).exec(function (err, notes) {
+  console.log(notes[0].writtenBy.username) // Zoopa
 })
+*/
 
 module.exports = mongoose.model('Note', NoteSchema);

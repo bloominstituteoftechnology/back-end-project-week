@@ -2,6 +2,7 @@ const Note = require('../models/note');
 const mongoose = require('mongoose');
 
 const getNotes = (req, res) => {
+  console.log(req.user);
   Note.find({}, (err, notes) => {
     if (err) {
       res.status(422).json({ error: 'Error finding all the notes:' });
@@ -15,6 +16,7 @@ const getNotes = (req, res) => {
 const addNote = (req, res) => {
   const { title, content } = req.body;
   const newNote = new Note({ title, content });
+
   newNote.save(newNote, (err, note) => {
     if (err) {
       res.status(422).json({ error: 'Error creating a new note' });
@@ -26,7 +28,7 @@ const addNote = (req, res) => {
 
 const viewNote = (req, res) => {
   // once you have user working this route
-  // will use populate and ref the notes 'scribe'
+  // will use populate and ref the notes 'writtenBy'
   const { id } = req.params;
   Note.findById(id)
     .exec((err, note) => {
