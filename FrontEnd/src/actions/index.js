@@ -1,5 +1,5 @@
 import axios from 'axios';
-import history from '../helpers/history';
+import { BrowserRouter as Router } from 'react-router-dom';
 import {
     FETCH_NOTE,
     NOTES_RETRIEVED,
@@ -23,7 +23,7 @@ export const loginUser = (email, password) => {
             .then(response => {
                 dispatch({ type: AUTH_USER });
                 localStorage.setItem('token', response.data.token);
-                history.push('/notes');
+                this.props.history.push('/notes');
             })
             .catch(() => {
                 dispatch(authError('This is not a correct login. Please try again.'));
@@ -37,7 +37,7 @@ export const signupUser = (email, password) => {
             .then(response => {
                 dispatch({ type: AUTH_USER });
                 localStorage.setItem('token', response.data.token);
-                history.push('/notes');
+                this.props.history.push('/notes');
             })
             .catch(response => dispatch(authError(response.data.error)));
     };
@@ -58,7 +58,7 @@ export const logoutUser = () => {
 export const getNotes = () => {
     return dispatch => {
         dispatch({ type: FETCH_NOTE });
-        axios.get(`/notes`, {
+        axios.get(`${ROOT_URL}/notes`, {
             headers: { Authorization: window.localStorage.getItem("token") }
         })
             .then(response => {
@@ -73,7 +73,7 @@ export const getNotes = () => {
 export const addNote = note => {
     return dispatch => {
         dispatch({ type: ADD_NOTE });
-        axios.post(`/notes`, note, {
+        axios.post(`${ROOT_URL}/notes`, note, {
             headers: { Authorization: window.localStorage.getItem("token") }
         })
             .then(response => {
@@ -88,7 +88,7 @@ export const addNote = note => {
 export const editNote = note => {
     return dispatch => {
         dispatch({ type: EDIT_NOTE });
-        axios.put(`/notes`, note, {
+        axios.put(`${ROOT_URL}/notes`, note, {
             headers: { Authorization: window.localStorage.getItem("token") }
         })
             .then(response => {
@@ -104,7 +104,7 @@ export const deleteNote = id => {
     return dispatch => {
         dispatch({ type: DELETE_NOTE });
         axios({
-            url: `/notes`,
+            url: `${ROOT_URL}/notes`,
             method: "delete",
             data: { id },
             headers: { Authorization: window.localStorage.getItem("token") }

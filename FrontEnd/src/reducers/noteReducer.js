@@ -1,71 +1,77 @@
 import {
+    FETCH_NOTE,
+    NOTES_RETRIEVED,
     ADD_NOTE,
+    NOTE_ADDED,
     EDIT_NOTE,
-    DELETE_NOTE
-} from '../actions/types'
+    NOTE_EDITED,
+    DELETE_NOTE,
+    NOTE_DELETED,
+    ERROR,
+} from "../Actions";
 
-let id = 0;
+let id = -1;
 const initialState = {
-    notes: [{
-        id: id,
-        title: '',
-        content: ''
-    }],
-}
-
+    notes: [],
+    id: id,
+    get_Notes: false,
+    notes_Retrieved: false,
+    add_Note: false,
+    note_Added: false,
+    edit_Note: false,
+    note_Edited: false,
+    delete_Note: false,
+    note_Deleted: false,
+    error: null
+};
 
 const noteReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_NOTE:
-            ++id;
+        case get_Notes:
+            return { ...state, getNotes: true };
+        case notes_Retrieved:
             return {
                 ...state,
-                notes: [...state.notes,
-                { ...action.payload, id: id }
-                ]
+                get_Notes: false,
+                notes_Retrieved: true,
+                notes: [...state.notes, ...action.payload]
             };
-        case EDIT_NOTE:
+        case add_Note:
+            return { ...state, add_Note: true };
+        case note_Added:
             return {
                 ...state,
-                notes: state.notes.map(note => {
-                    if (note.id === action.payload.id) {
-                        return action.payload
-                    } return note;
-                })
+                notes: [...state.notes, action.payload],
+                addNote: false,
+                note_Added: true
+            };
+        case edit_Note:
+            return { ...state, edit_Note: true };
+        case note_Edited:
+            return {
+                ...state,
+                edit_Note: false,
+                note_Edited: true,
+                notes: [...state.notes]
+                    .map(note => {
+                        if (note._id === action.payload._id) {
+                            return action.payload;
+                        } else {
+                            return note;
+                        }
+                    })
+            };
+        case delete_Note:
+            return { ...state, delete_Note: true };
+        case note_Deleted:
+            return {
+                ...state,
+                delete_Note: false,
+                note_Deleted: true,
+                notes: [...state.notes]
+                    .filter(note => note._id !== action.payload)
             }
-        case DELETE_NOTE:
-            return {
-                ...state,
-                notes: state.notes.filter(note =>
-                    note.id !== action.payload)
-            };
-
-        default:
-            return state;
     }
-}
+};
 
 export default noteReducer;
-
-/* export default (state = [], action) => {
-    switch (action.type) {
-        case actionTypes.ADD_NOTE:
-        ++id;
-        return [
-            ...state,
-            Object.assign({}, action.note)
-        ];
-
-        case actionTypes.DELETE_NOTE:
-        return state.filter((data, i) => i !== action.id);
-
-        case actionTypes.EDIT_NOTE:
-        return [
-            ...state,
-            note: state.note.map(note => {})
-        ]
-
-        default:
-            return state;
-    }
-} */
