@@ -1,7 +1,7 @@
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
-const appK = process.env.APPKEY;
+const appK = 'com.herokuapp.notes-fwcdga47i';
 
 export const AUTH_USER_AUTHENTICATED = 'AUTH_USER_AUTHENTICATED';
 export const AUTH_USER_UNAUTHENTICATED = 'AUTH_USER_UNAUTHENTICATED';
@@ -55,9 +55,7 @@ export const NOTE_ADD_SUCCESS = 'NOTE_ADD_SUCCESS';
 export const NOTE_ADD_ERROR = 'NOTE_ADD_ERROR';
 export const NOTE_ADD_FINISH = 'NOTE_ADDE_FINISH';
 
-const ROOT = `http://localhost:${process.env.PORT}/api`;
-
-console.log(ROOT);
+const ROOT = `http://localhost:5000/api`;
 
 export const resetErrors = _ => {
   return dispatch => {

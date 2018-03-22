@@ -3,8 +3,9 @@ const router = require('express').Router();
 // const session = require('express-session');
 // const mongoose = require('mongoose');
 // const MongoStore = require('connect-mongo')(session);
+const secret = JSON.parse(process.env.CONFIG).secret;
 
-const secret = require('../../config').secret;
+// const secret = require('../../config').secret;
 
 const { getToken, validateToken } = require('../../services/auth');
 
@@ -21,7 +22,8 @@ const { getToken, validateToken } = require('../../services/auth');
 //   }),
 // );
 
-const { error, success } = require('../../config').status;
+const { error, success } = JSON.parse(process.env.CONFIG).status;
+// const { error, success } = require('../../config').status;
 const { send } = require('../helper');
 
 const message = require('./messages');

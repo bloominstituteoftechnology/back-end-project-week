@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-const mongodAuth = require('../../config').mongodAuth;
-const { mLabUser, mLabPass, mLabUri } = require('../../config').mLab;
+// const mongodAuth = require('../../config').mongodAuth;
+// const { mLabUser, mLabPass, mLabUri } = require('../../config').mLab;
+const { mLabUser, mLabPass, mLabUri } = JSON.parse(process.env.CONFIG).mLab;
 
 mongoose.connect(`mongodb://${mLabUser}:${mLabPass}@${mLabUri}`);
 // mongoose.connect('mongodb://localhost/notes_db', mongodAuth);

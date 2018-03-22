@@ -3,9 +3,12 @@ const { Schema } = mongoose;
 const { ObjectId } = mongoose.Schema.Types;
 const Note = require('../notes/model');
 
-const mongodAuth = require('../../config').mongodAuth;
-const { mLabUser, mLabPass, mLabUri } = require('../../config').mLab;
-const secret = require('../../config').secret;
+// const mongodAuth = require('../../config').mongodAuth;
+// const { mLabUser, mLabPass, mLabUri } = require('../../config').mLab;
+const { mLabUser, mLabPass, mLabUri } = JSON.parse(process.env.CONFIG).mLab;
+const secret = JSON.parse(process.env.CONFIG).secret;
+
+// const secret = require('../../config').secret;
 
 const bcrypt = require('bcrypt');
 const salt = 11;

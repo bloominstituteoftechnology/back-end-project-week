@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
-const { secret, expiresIn } = require('../config');
+// const { secret, expiresIn } = require('../config');
+const { secret, expiresIn } = JSON.parse(process.env.CONFIG);
 
 const getToken = userObject => {
   return jwt.sign(userObject, secret, { expiresIn });

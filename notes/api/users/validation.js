@@ -1,4 +1,5 @@
-const { error } = require('../../config').status;
+const { error } = JSON.parse(process.env.CONFIG).status;
+// const { error } = require('../../config').status;
 const { send } = require('../helper');
 
 const message = require('./messages');
