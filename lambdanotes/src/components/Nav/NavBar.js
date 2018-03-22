@@ -8,8 +8,9 @@ class NavBar extends React.Component {
   render() {
     return (
       <div className="navbar">
-        <AniButton />
-        <div>LambdaNotes</div>
+        {/* <AniButton /> */}
+        {/* <div>LambdaNotes</div> */}
+        {this.props.children}
       </div>
     );
   }

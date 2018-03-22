@@ -1,54 +1,36 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import "./Menu.css";
 
-import AniButton from '../Misc/AniButton/AniButton';
 
-import './Menu.css';
 
-class Menu extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = { visible: false };
-    this.handleMouseDown = this.handleMouseDown.bind(this);
-    this.toggleMenu = this.toggleMenu.bind(this);
-  }
-  toggleMenu = () => {
-    this.setState({ visible: !this.state.visible });
-  };
-
-  handleMouseDown = e => {
-    this.toggleMenu();
-
-    console.log('clicked');
-    e.stopPropagation();
-  };
-
+class Menu extends Component {
   render() {
-    let visibility = 'hide';
-    if (this.props.menuVisibility) {
-      visibility = 'show';
-    }
-
     return (
-      <div
-        className="flyOut"
-        onMouseDown={this.props.handleMouseDown}
-        className={visibility}
-      >
-        <h2>
-          <a href="#">test</a>
-        </h2>
-        <h2>
-          <a href="#">test</a>
-        </h2>
-        <h2>
-          <a href="#">test</a>
-        </h2>
-        <h2>
-          <a href="#">test</a>
-        </h2>
+      <div>
+        <div className="header">
+          <h1 className="title">LambdaNotes</h1>
+        </div>
+        <input type="checkbox" className="openSidebarMenu" id="openSidebarMenu" />
+        <label for="openSidebarMenu" className="sidebarIconToggle">
+          <div className="spinner diagonal part-1"></div>
+          <div className="spinner horizontal"></div>
+          <div className="spinner diagonal part-2"></div>
+        </label>
+        <div id="sidebarMenu">
+          <ul className="sidebarMenuInner">
+            <li> {this.username}</li>
+            <li><a href="#" target="_blank">test</a></li>
+            <li><a href="#" target="_blank">test</a></li>
+            <li><a href="#" target="_blank">test</a></li>
+            <li><a href="#" target="_blank">test</a></li>
+            <li><a href="#" target="_blank">test</a></li>
+          </ul>
+        </div>
       </div>
     );
   }
 }
+
+
 
 export default Menu;
