@@ -20,6 +20,7 @@ import App from './app';
 
 import './styles/css/index.css';
 
+// const store = createStore(rootReducer, applyMiddleware());
 const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
 ReactDOM.render(
