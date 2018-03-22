@@ -70,7 +70,7 @@ export const getNotes = () => {
     };
 };
 
-export const addNote = note => {
+export const add_Note = note => {
     return dispatch => {
         dispatch({ type: ADD_NOTE });
         axios.post(`${ROOT_URL}/notes`, note, {
@@ -85,7 +85,7 @@ export const addNote = note => {
     };
 };
 
-export const editNote = note => {
+export const edit_Note = note => {
     return dispatch => {
         dispatch({ type: EDIT_NOTE });
         axios.put(`${ROOT_URL}/notes`, note, {
@@ -100,7 +100,7 @@ export const editNote = note => {
     };
 };
 
-export const deleteNote = id => {
+export const delete_Note = id => {
     return dispatch => {
         dispatch({ type: DELETE_NOTE });
         axios({
