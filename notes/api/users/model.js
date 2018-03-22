@@ -4,6 +4,7 @@ const { ObjectId } = mongoose.Schema.Types;
 const Note = require('../notes/model');
 
 const mongodAuth = require('../../config').mongodAuth;
+const { mLabUser, mLabPass, mLabUri } = require('../../config').mLab;
 const secret = require('../../config').secret;
 
 const bcrypt = require('bcrypt');
@@ -11,7 +12,9 @@ const salt = 11;
 
 const { send, message } = require('../helper');
 
-mongoose.connect('mongodb://localhost/notes_db', mongodAuth);
+mongoose.connect(`mongodb://${mLabUser}:${mLabPass}@${mLabUri}`);
+
+// mongoose.connect('mongodb://localhost/notes_db', mongodAuth);
 // mongoose.connect('mongodb://localhost/notes_db');
 
 const UserSchema = new Schema({

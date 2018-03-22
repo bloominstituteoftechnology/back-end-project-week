@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const mongodAuth = require('../../config').mongodAuth;
+const { mLabUser, mLabPass, mLabUri } = require('../../config').mLab;
 
-mongoose.connect('mongodb://localhost/notes_db', mongodAuth);
+mongoose.connect(`mongodb://${mLabUser}:${mLabPass}@${mLabUri}`);
+// mongoose.connect('mongodb://localhost/notes_db', mongodAuth);
 // mongoose.connect('mongodb://localhost/notes_db');
 
 const NoteSchema = new Schema({
