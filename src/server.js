@@ -3,9 +3,9 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const routes = require('./routes');
-const { dburl } = require('./config');
+const config = require('./config');
 mongoose.Promise = global.Promise;
-mongoose.connect(dburl);
+mongoose.connect(config.dburl);
 
 const corsOptions = {
 	origin: 'http://localhost:3000',
