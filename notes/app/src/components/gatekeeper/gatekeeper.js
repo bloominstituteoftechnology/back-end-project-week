@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { appK } from '../../config';
+import { appK } from process.env.APPKEY
 
 import { authenticateUser } from '../../actions';
 

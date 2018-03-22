@@ -1,7 +1,7 @@
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
-const { appK } = require('../config');
+const { appK } = process.env.APPKEY;
 
 export const AUTH_USER_AUTHENTICATED = 'AUTH_USER_AUTHENTICATED';
 export const AUTH_USER_UNAUTHENTICATED = 'AUTH_USER_UNAUTHENTICATED';
