@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script');
+
+.flyOut {
+  width: 15vw;
+  height: 100vh;
+  background-color: #b71c1c;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
+  overflow: scroll;
+  z-index: 1000;
+}
+
+.flyOut.hide {
+  transform: translate3d(-100vw, 0, 0);
+}
+
+.flyOut.show {
+  transform: translate3d(0vw, 0, 0);
+  overflow: hidden;
+}
+
+.flyOut h2 a {
+  color: #ffffff;
+  margin-left: 15px;
+  font-family: 'Dancing Script', cursive;
+}
+
+.flyOut h2 a:hover {
+  text-decoration: underline;
+}

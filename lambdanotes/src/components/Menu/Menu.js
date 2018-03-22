@@ -1,23 +1,51 @@
 import React, { Component } from 'react';
-import { PropTypes } from 'react';
+
+import AniButton from '../Misc/AniButton/AniButton';
 
 import './Menu.css';
 
 class Menu extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { open: false };
+  constructor(props, context) {
+    super(props, context);
+    this.state = { visible: false };
+    this.handleMouseDown = this.handleMouseDown.bind(this);
+    this.toggleMenu = this.toggleMenu.bind(this);
   }
+  toggleMenu = () => {
+    this.setState({ visible: !this.state.visible });
+  };
 
-  handleToggle = () => this.setState({ open: !this.state.open });
-  handleClose = () => this.setState({ open: false });
+  handleMouseDown = e => {
+    this.toggleMenu();
+
+    console.log('clicked');
+    e.stopPropagation();
+  };
 
   render() {
+    let visibility = 'hide';
+    if (this.props.menuVisibility) {
+      visibility = 'show';
+    }
+
     return (
-      <div>
-        <div className={this.state.open ? 'open' : ''}>
-          {this.props.children}
-        </div>
+      <div
+        className="flyOut"
+        onMouseDown={this.props.handleMouseDown}
+        className={visibility}
+      >
+        <h2>
+          <a href="#">test</a>
+        </h2>
+        <h2>
+          <a href="#">test</a>
+        </h2>
+        <h2>
+          <a href="#">test</a>
+        </h2>
+        <h2>
+          <a href="#">test</a>
+        </h2>
       </div>
     );
   }

@@ -10,10 +10,11 @@ class App extends Component {
     return (
       <div>
         <NavBar className="App-Header" />
-        <Menu />
-        <div /*className="App"*/>
-          <NavButton className="button--aliRight" />
-        </div>
+        <Menu
+          handleMouseDown={this.handleMouseDown}
+          menuVisibility={this.state.visible}
+        />
+        <NavButton className="button--aliRight" />
       </div>
     );
   }
