@@ -11,15 +11,17 @@ const comparePassword = (req, res, next) => {
       if (user) {
         bcrypt.compare(password, user.password, (err, isValid) => {
           if (err) {
-            res.json(err);
+            res.status(400).json(err);
           }
           if (isValid) {
             req.email = user.email;
             next();
+          } else {
+            res.status(404).json({ error: "Incorrect username/password"})
           }
         });
       } else {
-        res.status(404).json({ error: "Incorrect username/passord" });
+        res.status(404).json({ error: "Incorrect username/password" });
       }
     })
     .catch(err => {
