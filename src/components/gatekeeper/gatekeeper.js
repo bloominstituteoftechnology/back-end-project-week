@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { authenticateUser } from '../../actions';
+
 const appK = process.env.APPKEY;
 console.log('from src gatekeeper', appK);
-
-import { authenticateUser } from '../../actions';
 
 export default ComposedComponent => {
   class CheckAuthentication extends Component {
