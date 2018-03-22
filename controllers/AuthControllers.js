@@ -34,7 +34,7 @@ const comparePassword = (req, res, next) => {
 const encryptPassword = (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    res.json({ error: "Must provide email and password" });
+    res.status(404).json({ error: "Must provide email and password" });
   } else {
     bcrypt.hash(password, saltRounds, (err, hash) => {
       if (err) console.error(err);

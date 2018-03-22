@@ -4,7 +4,7 @@
   "description": "back-end for note-mate",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha server.test.js -R nyan --exit",
     "start": "node server.js",
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
@@ -12,11 +12,15 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^1.0.3",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
     "cors": "^2.8.4",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.2.0",
-    "mongoose": "^5.0.10"
+    "mocha": "^5.0.4",
+    "mongoose": "^5.0.10",
+    "morgan": "^1.9.0"
   },
   "engines": {
     "node": "9.2.1"
