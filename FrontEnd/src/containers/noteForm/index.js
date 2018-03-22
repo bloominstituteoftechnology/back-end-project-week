@@ -9,20 +9,12 @@ class NoteForm extends Component {
         super();
     };
 
-    edit_Note(prop, event) {
-        this.props.dispatch(
-            actions.edit_Note({
-                [prop]: event.target.value
-            })
-        );
-    };
-
     add_Note() {
-        this.props.dispatch(actions.addNoteRequest(Object.assign({}, this.props.noteForm, this.props.userInfo)));
+        this.props.dispatch(actions.add_Note(Object.assign({}, this.props.noteForm, this.props.user)));
     };
 
-    update_Note() {
-        this.props.dispatch(actions.updateNoteRequest(this.props.noteForm));
+    edit_Note() {
+        this.props.dispatch(actions.edit_Note(this.props.noteForm));
     };
 
     render() {

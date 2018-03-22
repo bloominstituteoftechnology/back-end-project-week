@@ -9,17 +9,17 @@ class LoginNav extends Component {
         super();
     };
 
-    handleLocalAuth() {
+    loginUser() {
         const email = this.refs.email && this.refs.email.value;
         const password = this.refs.password && this.refs.password.value;
         this.props.dispatch(
-            actions.localAuthRequest(email, password)
+            actions.loginUser(email, password)
         );
     };
 
     logout() {
         this.props.dispatch(
-            actions.logoutRequest()
+            actions.logoutUser()
         );
     };
 
