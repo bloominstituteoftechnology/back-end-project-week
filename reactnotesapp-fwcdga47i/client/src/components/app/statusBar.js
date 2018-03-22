@@ -5,7 +5,10 @@ import { addNote, logout } from '../../actions';
 
 const StatusBar = props => {
   const addNewNoteButtonClickedHandler = _ => {
-    props.addNote({ title: 'hello', content: 'world' });
+    const title = 'Put your title here';
+    const content = 'Edits are saved everytime you change your focus.';
+
+    props.addNote({ title, content });
   };
 
   const signOutHandler = _ => {
