@@ -50,7 +50,7 @@ const getNoteById = (req, res) => {
 
 const updateNote = (req, res) => {
 	const { id } = req.params;
-	Friend.findByIdAndUpdate(id, req.body)
+	Note.findByIdAndUpdate(id, req.body)
 		.then((updatedNote) => {
 			if (updatedNote) {
 				res.status(200).json(updatedNote);
