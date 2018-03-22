@@ -1,4 +1,6 @@
 const User = require('../models/user');
+const requireAuth = require('../config/passport').requireAuth;
+const getTokenForUser = require('../config/token');
 
 function setUserInfo(request) {
   const getUserInfo = {
@@ -10,22 +12,49 @@ function setUserInfo(request) {
   return getUserInfo;
 }
 
-const viewProfile = (req, res) => {
-  const userId = req.params.userId;
+function validateEmail(email) {
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+};
 
-  if (req.user._id.toString() !== userId) {
-    return res.status(401).json({ error: 'You are not to view this user profile.' });
+const createUser = (req, res, next) => {
+  const { username, email, password } = req.body;
+
+  console.log(validateEmail(email));
+
+  if (!email) {
+    return res.status(422).json({ error: 'You must enter an email address.' });
   }
-  User.findById(userId, (err, user) => {
-    if (err) {
-      res.status(400).json({ error: 'No user could be found for this ID.' });
-      return next(err);
-    }
 
-    const userToReturn = setUserInfo(user);
+  if (!validateEmail(email)) {
+    return res.status(422).json({ error: 'You must enter a valid email address.' });
+  }
 
-    return res.status(200).json({ user: userToReturn });
+  if (!username) {
+    return res.status(422).json({ error: 'You must enter a username.' });
+  }
+
+  if (!password) {
+    return res.status(422).json({ error: 'You must enter a password.' });
+  }
+
+  const user = new User({ username, email, password });
+
+  user.save((error, newUser) => {
+    if (error) return res.send(error);
+    const userInfo = setUserInfo(newUser);
+    res.status(201).json({
+      token: getTokenForUser(userInfo),
+      user: userInfo,
+    });
   });
 };
 
-module.exports = { viewProfile };
+const getUsers = (req, res) => {
+  User.find({}, (err, users) => {
+    if (err) return res.send(err);
+    res.send(users);
+  });
+};
+
+module.exports = { createUser, getUsers };

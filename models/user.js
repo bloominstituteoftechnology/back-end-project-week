@@ -1,14 +1,13 @@
 const mongoose = require('mongoose'),
-      Schema = mongoose.Schema,
-      bcrypt = require('bcrypt');
+  Schema = mongoose.Schema,
+  bcrypt = require('bcrypt');
 
 const UserSchema = new Schema({
   email: {
     type: String,
     unique: true,
     required: true,
-    lowercase: true // maybe add trim property
-    // may need to run match to ensure email is valid
+    lowercase: true,
   },
   username: {
     type: String,
@@ -20,14 +19,7 @@ const UserSchema = new Schema({
     type: String,
     required: true
   }
-  // ,
-  // passwordConf: { // check against password inside post route
-  //   type: String,
-  //   required: true
-  // }
-  // array of notes ??
-  // populate
-})
+});
 
 // Check database for user with email and authenticate
 // UserSchema.statics.authenticate = function (email, password, cb) {
@@ -46,16 +38,8 @@ const UserSchema = new Schema({
 //       });
 //     })
 // }
-
-UserSchema.methods.comparePassword = function (attemptedPassword, cb) {
-  bcrypt.compare(attemptedPassword, this.password, (err, isMatch) => {
-    if (err) return cb(err);
-    cb(null, isMatch);
-  });
-};
-
 // hash & salt password b/f saving
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save', function(next) {
   const user = this;
   bcrypt.hash(user.password, 10, (err, hash) => {
     if (err) return next(err);
@@ -63,6 +47,13 @@ UserSchema.pre('save', function (next) {
     next();
   });
 });
+
+UserSchema.methods.comparePassword = function(attemptedPassword, cb) {
+  bcrypt.compare(attemptedPassword, this.password, (err, isMatch) => {
+    if (err) return cb(err);
+    cb(null, isMatch);
+  });
+};
 
 const User = mongoose.model('User', UserSchema);
 

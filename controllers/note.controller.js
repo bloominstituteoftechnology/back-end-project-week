@@ -1,5 +1,4 @@
 const Note = require('../models/note');
-
 const mongoose = require('mongoose');
 
 const getNotes = (req, res) => {
