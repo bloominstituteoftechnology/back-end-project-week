@@ -14,7 +14,7 @@ const {
 
 module.exports = server => {
   server.post("/login", comparePassword, login);
-  server.post("/signup", encryptPassword, signup);
+  server.post("/signup", encryptPassword, signup, login);
   server.post("/notes", authenticate, addNote);
   server.get("/notes", authenticate, getNotes);
   server.put("/notes", authenticate, updateNote);

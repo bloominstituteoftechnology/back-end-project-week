@@ -27,6 +27,19 @@ class ViewNotes extends Component {
   }
 
   addNoteToggle = () => {
+
+    if (this.state.title.length > 0 || this.state.content.length > 0) {
+      let check = window.confirm("This action will delete your current note.\n\nTo save current note press CANCEL and then SAVE at bottom of page.")
+      if (check) {
+        this.setState({
+          title: "",
+          content: "",
+          id: -1
+        });
+      } else {
+        return;
+      }
+    }
     this.setState({
       title: "",
       content: "",
@@ -55,7 +68,7 @@ class ViewNotes extends Component {
 
     if (this.state.content.length === 0 || this.state.title.length === 0) {
       alert(
-        "You need to have a title and Body in your note before you can save"
+        "You need to have a Title and Body in your note before you can save"
       );
     } else if (
       this.state.content.length > 0 &&
