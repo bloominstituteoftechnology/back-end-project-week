@@ -22,12 +22,11 @@ export const SIGNEDUP = "SIGNEDUP";
 
 export const ERROR = "ERROR";
 
-
 export const persistLogIn = () => {
   return dispatch => {
-    dispatch({type: LOGGEDIN});
-  }
-}
+    dispatch({ type: LOGGEDIN });
+  };
+};
 
 export const loggedIn = (email, password) => {
   return dispatch => {
@@ -58,8 +57,8 @@ export const signUp = (email, password) => {
     axios
       .post(`/signup`, { email, password })
       .then(response => {
-        dispatch({ type: SIGNEDUP, payload: response });
-        window.location.reload();
+        window.localStorage.setItem("token", response.data.token);
+        dispatch({ type: LOGGEDIN, payload: response });
       })
       .catch(err => {
         dispatch({ type: ERROR, payload: err });
