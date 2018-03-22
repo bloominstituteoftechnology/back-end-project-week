@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { appK } from process.env.APPKEY
+import appK from process.env.APPKEY
+console.log('from notes/app/src gatekeeper', appK);
 
 import { authenticateUser } from '../../actions';
 
