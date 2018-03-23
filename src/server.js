@@ -10,7 +10,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect(config.dburl);
 
 const corsOptions = {
-	origin: 'http://localhost:3000',
+	origin: 'https://murmuring-temple-25569.herokuapp.com/',
 	credentials: true
 }
 
