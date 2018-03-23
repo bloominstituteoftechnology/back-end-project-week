@@ -26,9 +26,9 @@ mongoose
     console.error(err);
   });
 
-// server.get('/', (req, res) => {
-//   res.send({ message: 'API running' })
-// })
+server.get('/', (req, res) => {
+  res.send({ message: 'API running' })
+})
 
 server.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
