@@ -13,7 +13,6 @@ server.use(express.json());
 server.use(cors());
 
 server.use(express.static(path.join(__dirname, 'client/build')));
-server.get('*', (req, res) => res.sendFile(path.resolve('build', 'index.html')));
 
 server.use(routes);
 
