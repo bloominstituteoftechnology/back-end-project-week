@@ -19,7 +19,6 @@ const authenticate = (req, res, next) => {
 
 const login = (req, res, next) => {
   const { email, password, token } = req.body;
-  console.log(token);
   if (token) {
     jwt.verify(token, secret, (err, decoded) => {
       if (err) res.status(422).json({ err });

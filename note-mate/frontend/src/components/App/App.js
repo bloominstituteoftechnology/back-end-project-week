@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  withRouter,
+  Redirect
+} from 'react-router-dom';
 import { Button, Container } from 'reactstrap';
 import { addUser, login, signout } from '../../store/actions/actions';
 import { connect } from 'react-redux';
@@ -21,47 +27,27 @@ class App extends Component {
     user: ''
   };
 
-  componentDidMount() {
-    this.props.login();
-  }
+  // inputChangeHandler = ({ target }) => {
+  //   this.setState({
+  //     [target.name]: target.value
+  //   });
+  // };
 
-  inputChangeHandler = ({ target }) => {
-    this.setState({
-      [target.name]: target.value
-    });
-  };
-
-  checkAuthorization = event => {
-    event.preventDefault();
-    this.props.login(this.state.username, this.state.password);
-    this.setState({
-      username: '',
-      password: '',
-      attempted: true
-    });
-  };
+  // checkAuthorization = event => {
+  //   event.preventDefault();
+  //   this.props.login(this.state.username, this.state.password);
+  //   this.setState({
+  //     username: '',
+  //     password: '',
+  //     attempted: true
+  //   });
+  // };
 
   signOutHandler = () => {
     this.props.signout();
   };
 
   render() {
-    if (!this.props.authenticated) {
-      return (
-        <div className="App">
-          <header className="App-header">
-            <h1>Troy's Note List Project</h1>
-            Sign in to do stuff
-          </header>
-          <Auth
-            state={this.state}
-            addNewUser={this.addNewUser}
-            checkAuthorization={this.checkAuthorization}
-            inputChangeHandler={this.inputChangeHandler}
-          />
-        </div>
-      );
-    }
     return (
       <div className="App">
         <Container>
@@ -73,6 +59,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/notes" component={NoteList} />
               <Route path="/notes/:id" component={Note} />
+              <Route path="/" component={Auth} />
             </Switch>
           </Router>
         </Container>

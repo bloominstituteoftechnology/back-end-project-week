@@ -157,8 +157,14 @@ export const login = (email, password) => {
       axios
         .post(checkUserUrl, { token })
         .then(({ data }) => {
+          config = {
+            headers: { Authorization: localStorage.getItem('Authorization') }
+          };
           dispatch({ type: VALIDATE, payload: data._id });
         })
+        // .then(reload => {
+        //   window.location.reload();
+        // })
         .catch(err => {
           console.log(err);
         });
@@ -167,8 +173,14 @@ export const login = (email, password) => {
         .post(checkUserUrl, { email, password })
         .then(({ data }) => {
           window.localStorage.setItem('Authorization', data.token);
+          config = {
+            headers: { Authorization: localStorage.getItem('Authorization') }
+          };
           dispatch({ type: VALIDATE, payload: data._id });
         })
+        // .then(reload => {
+        //   window.location.reload();
+        // })
         .catch(err => {
           console.log(err);
         });
@@ -181,5 +193,9 @@ export const signout = () => {
     config = {};
     window.localStorage.removeItem('Authorization');
     dispatch({ type: SIGNOUT });
+
+    setTimeout(function() {
+      window.location.href = '/';
+    }, 500);
   };
 };

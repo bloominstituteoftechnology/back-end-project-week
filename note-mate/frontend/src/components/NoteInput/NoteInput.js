@@ -13,6 +13,7 @@ class NoteInput extends Component {
   };
 
   componentDidMount() {
+    console.log(this.props.user);
     this.setState({
       userId: this.props.user
     });

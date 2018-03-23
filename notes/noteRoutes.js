@@ -16,7 +16,8 @@ noteRouter.get('/', (req, res) => {
 });
 
 noteRouter.post('/', (req, res) => {
-  const { title, text, userId } = req.body;
+  const { title, text } = req.body;
+  const { userId } = req.decoded;
   const note = new Note(req.body);
   note
     .save()
@@ -30,6 +31,7 @@ noteRouter.post('/', (req, res) => {
         });
     })
     .catch(err => {
+      console.log(err);
       res.status(500).json({ Error: err });
     });
 });

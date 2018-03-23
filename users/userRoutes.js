@@ -18,7 +18,7 @@ userRouter.post('/login', (req, res) => {
       req.decoded = decoded;
       res.status(200).json({ _id: req.decoded.userId });
     });
-  } else {
+  } else if (email && password) {
     User.findOne({ email })
       .then(user => {
         if (user !== null) {
@@ -47,6 +47,8 @@ userRouter.post('/login', (req, res) => {
       .catch(err => {
         res.status(500);
       });
+  } else {
+    return;
   }
 });
 
