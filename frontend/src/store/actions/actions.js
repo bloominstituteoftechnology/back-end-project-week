@@ -78,11 +78,10 @@ export const getSingleNote = id => {
 
 export const updateNote = note => {
   const id = note._id;
-  const url = `http://localhost:8080/notes/${id}`;
   return dispatch => {
     dispatch({ type: UPDATING_NOTE });
     axios
-      .put('/notes/${id}', { data: { note } }, config)
+      .put(`/notes/${id}`, { data: { note } }, config)
       .then(({ data }) => {
         dispatch({ type: UPDATED_NOTE, payload: data });
       })
