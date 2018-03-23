@@ -24,7 +24,7 @@ export const getNotes = id => {
     const getConfig = { ...config, params: { id } };
     dispatch({ type: GETTING_NOTES });
     axios
-      .get(getUrl, getConfig)
+      .get('/notes', getConfig)
       .then(({ data }) => {
         dispatch({ type: RECEIVED_NOTES, payload: data });
       })
@@ -38,7 +38,7 @@ export const addNote = newNote => {
   return dispatch => {
     dispatch({ type: ADDING_NOTE });
     axios
-      .post(postUrl, newNote, config)
+      .post('/notes', newNote, config)
       .then(({ data }) => {
         dispatch({ type: NOTE_ADDED, payload: data });
       })
@@ -54,7 +54,7 @@ export const deleteNote = id => {
   return dispatch => {
     dispatch({ type: DELETING_NOTE });
     axios
-      .delete(deleteUrl, config)
+      .delete(`/notes/delete/${id}`, config)
       .then(({ data }) => {
         dispatch({ type: NOTE_DELETED, payload: data });
       })
@@ -68,7 +68,7 @@ export const getSingleNote = id => {
   const url = `http://localhost:8080/notes/${id}`;
   return dispatch => {
     axios
-      .get(url, config)
+      .get(`/notes/${id}`, config)
       .then(({ data }) => {
         dispatch({ type: RECEIVED_NOTES, payload: data });
       })
@@ -85,7 +85,7 @@ export const updateNote = note => {
     dispatch({ type: UPDATING_NOTE });
     console.log({ FrontNote: note });
     axios
-      .put(url, { data: { note } }, config)
+      .put('/notes/${id}', { data: { note } }, config)
       .then(({ data }) => {
         dispatch({ type: UPDATED_NOTE, payload: data });
       })
@@ -139,7 +139,7 @@ export const addUser = (email, password) => {
   const addUserUrl = 'http://localhost:8080/user/new';
   return dispatch => {
     axios
-      .post(addUserUrl, { email, password })
+      .post('/user/new', { email, password })
       .then(({ data }) => {
         dispatch({ type: ADD_USER, payload: data._id });
       })
@@ -155,7 +155,7 @@ export const login = (email, password) => {
   return dispatch => {
     if (token) {
       axios
-        .post(checkUserUrl, { token })
+        .post('/user/login', { token })
         .then(({ data }) => {
           config = {
             headers: { Authorization: localStorage.getItem('Authorization') }
@@ -170,7 +170,7 @@ export const login = (email, password) => {
         });
     } else {
       axios
-        .post(checkUserUrl, { email, password })
+        .post('/user/login', { email, password })
         .then(({ data }) => {
           window.localStorage.setItem('Authorization', data.token);
           config = {
