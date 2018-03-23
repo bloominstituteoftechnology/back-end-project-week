@@ -1,33 +1,10 @@
 const router = require('express').Router();
 
-// const session = require('express-session');
-// const mongoose = require('mongoose');
-// const MongoStore = require('connect-mongo')(session);
-// const secret =
-//   require('../../config').secret || JSON.parse(process.env.CONFIG).secret;
 const secret = JSON.parse(process.env.CONFIG).secret;
 
 const { getToken, validateToken } = require('../../services/auth');
 
-// const secret = require('../../config').secret;
-
-// router.use(
-//   session({
-//     secret,
-//     saveUninitialized: true,
-//     resave: true,
-//     store: new MongoStore({
-//       mongooseConnection: mongoose.connection,
-//       autoRemove: 'interval',
-//       autoRemoveInterval: 10,
-//     }),
-//   }),
-// );
-
-// const { error, success } =
-//   require('../../config').status || JSON.parse(process.env.CONFIG).status;
 const { error, success } = JSON.parse(process.env.CONFIG).status;
-// const { error, success } = require('../../config').status;
 const { send } = require('../helper');
 
 const message = require('./messages');
@@ -69,25 +46,14 @@ router.route('/notes').get(validateToken, (req, res) => {
     .populate('notes')
     .then(user => send(res, success.ok, user.notes))
     .catch(err => send(res, error.server, message.requestError, err));
-
-  // res.json({ dec: req.decoded });
 });
 
-// router.route('/login').post(validate.id, validate.login, (req, res) => {
 router.route('/login').post(validate.id, validate.login, (req, res) => {
   const userId = req.userId;
 
   const token = getToken({ username: userId });
 
   send(res, success.ok, { token });
-
-  // if (req.session.userId === userId.toString()) {
-  //   send(res, error.server, message.loginInstanceFound, message.loginError);
-  //   return;
-  // }
-
-  // req.session.userId = userId;
-  // send(res, success.ok, { message: message.loginSuccess });
 });
 
 router.route('/validate').get(validateToken, (req, res) => {
@@ -102,18 +68,6 @@ router
   .get(validate.id, (req, res) => {
     res.status(success.ok).json(req.user);
   })
-  // .put(validate.update, validate.id, (req, res) => {
-  //   const { username, password } = req.body;
-  //   const updatedUser = {
-  //     username: username || req.user.username,
-  //     password: password || req.user.password,
-  //   };
-
-  //   controller
-  //     .update(req.params.id, updatedUser)
-  //     .then(updatedUser => send(res, success.ok, updatedUser))
-  //     .catch(err => send(res, error.server, message.updateError, err));
-  // })
   .delete(validate.id, (req, res) => {
     controller
       .del(req.params.id)

@@ -9,7 +9,7 @@ export default ComposedComponent => {
   class CheckAuthentication extends Component {
     componentWillMount() {
       if (!localStorage.getItem(appK)) {
-        window.alert('Please log in first');
+        // window.alert('Please log in first');
         this.props.history.push('/login');
       }
 

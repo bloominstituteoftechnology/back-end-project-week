@@ -89,7 +89,7 @@ export const register = (username, password, confirmPassword, history) => {
     if (!username || !password || !confirmPassword) {
       dispatch({
         type: AUTH_SIGNUP_ERROR,
-        payload: 'Please provide all fields.',
+        payload: 'Please provide all fields',
       });
 
       dispatch({ type: AUTH_SIGNUP_FINISH });
@@ -97,7 +97,7 @@ export const register = (username, password, confirmPassword, history) => {
     }
 
     if (password !== confirmPassword) {
-      dispatch({ type: AUTH_SIGNUP_ERROR, payload: 'Passwords do not match.' });
+      dispatch({ type: AUTH_SIGNUP_ERROR, payload: 'Passwords do not match' });
 
       dispatch({ type: AUTH_SIGNUP_FINISH });
       return;
@@ -126,7 +126,7 @@ export const register = (username, password, confirmPassword, history) => {
           .catch(err => {
             dispatch({
               type: AUTH_LOGIN_ERROR,
-              payload: err.response.data.error,
+              payload: err.response.data.message,
             });
             dispatch({ type: AUTH_LOGIN_FINISH });
 
@@ -135,7 +135,10 @@ export const register = (username, password, confirmPassword, history) => {
           });
       })
       .catch(err => {
-        dispatch({ type: AUTH_SIGNUP_ERROR, payload: err });
+        dispatch({
+          type: AUTH_SIGNUP_ERROR,
+          payload: err.response.data.message,
+        });
         dispatch({ type: AUTH_SIGNUP_FINISH });
       });
   };
@@ -148,7 +151,6 @@ export const login = (username, password, history) => {
     axios
       .post(`${ROOT}/users/login`, { username, password })
       .then(({ data }) => {
-        // console.log(data.token);
         dispatch({ type: AUTH_ERROR_RESET });
 
         localStorage.setItem(appK, data.token);

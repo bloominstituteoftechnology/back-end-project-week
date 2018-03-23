@@ -5,8 +5,9 @@ import { addNote, logout } from '../../actions';
 
 const StatusBar = props => {
   const addNewNoteButtonClickedHandler = _ => {
-    const title = 'Put your title here';
-    const content = 'Edits are saved everytime you change your focus.';
+    const title = 'Your title goes here';
+    const content =
+      'Edits are saved every time focus is changed (this also works with the title).';
 
     props.addNote({ title, content });
   };

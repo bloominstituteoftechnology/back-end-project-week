@@ -5,6 +5,7 @@ module.exports = {
   //
   noUsernameNoPass: 'Please provide a username and/or password.',
   noIdNoUsername: 'Please provide a username.',
+  usernameExists: 'Username exists already',
   requestError: 'Server error requesting users.',
   requestIdError: 'User not found',
   createdError: 'Server error creating user.',

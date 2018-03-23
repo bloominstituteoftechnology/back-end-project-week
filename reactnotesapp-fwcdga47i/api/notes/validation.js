@@ -1,8 +1,4 @@
 const { error } = JSON.parse(process.env.CONFIG).status;
-// const { error } = require('../../config').status;
-// const { error } =
-//   require('../../config').status || JSON.parse(process.env.CONFIG).status;
-
 const { send } = require('../helper');
 
 const message = require('./messages');

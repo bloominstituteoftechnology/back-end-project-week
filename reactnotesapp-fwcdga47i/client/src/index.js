@@ -11,8 +11,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import rootReducer from './reducers';
 
-import Signup from './components/login/signup';
-import Login from './components/login/login';
+import Signup from './components/passport/signup';
+import Login from './components/passport/login';
 
 import Gatekeeper from './components/gatekeeper/gatekeeper';
 
@@ -20,8 +20,8 @@ import App from './app';
 
 import './styles/css/index.css';
 
-// const store = createStore(rootReducer, applyMiddleware(thunk));
-const store = createStore(rootReducer, applyMiddleware(thunk, logger));
+const store = createStore(rootReducer, applyMiddleware(thunk));
+// const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
 ReactDOM.render(
   <Provider store={store}>

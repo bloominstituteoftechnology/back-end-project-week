@@ -1,7 +1,4 @@
-// const { error } =
-// require('../../config').status || JSON.parse(process.env.CONFIG).status;
 const { error } = JSON.parse(process.env.CONFIG).status;
-// const { error } = require('../../config').status;
 const { send } = require('../helper');
 
 const message = require('./messages');
@@ -76,12 +73,4 @@ module.exports = {
       send(res, error.server, message.passwordMismatch, message.loginError);
     });
   },
-  // admin: (req, res, next) => {
-  //   // if (!req.session.userId) {
-  //   //   send(res, error.unauth, message.notLoggedIn, message.restricted);
-  //   //   return;
-  //   // }
-
-  //   next();
-  // },
 };

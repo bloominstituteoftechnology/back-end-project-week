@@ -1,24 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+
 import { reduxForm, Field } from 'redux-form';
 
-import { register, resetErrors } from '../../actions';
+import { login, resetErrors } from '../../actions';
 
 import Header from '../app/header';
 
-class Signup extends Component {
+class Login extends Component {
   componentWillMount() {
     this.props.resetErrors();
   }
 
-  submitFormHandler = ({ username, password, confirmPassword }) => {
-    this.props.register(
-      username,
-      password,
-      confirmPassword,
-      this.props.history,
-    );
+  submitFormHandler = ({ username, password }) => {
+    this.props.login(username, password, this.props.history);
   };
 
   render() {
@@ -33,10 +29,8 @@ class Signup extends Component {
           {/* <div className="Signup__form"> */}
           <div className="SignupDescription">
             {this.props.authenticating
-              ? 'Signing up..'
-              : this.props.error === ''
-                ? 'Sign up for an account'
-                : this.props.error}
+              ? 'Logging in..'
+              : this.props.error === '' ? 'Log in' : this.props.error}
           </div>
 
           <div className="SignupForm">
@@ -59,22 +53,13 @@ class Signup extends Component {
                 placeholder="password"
               />
             </fieldset>
-            <fieldset>
-              <Field
-                className="InputFields"
-                name="confirmPassword"
-                component="input"
-                type="password"
-                placeholder="confirm password"
-              />
-            </fieldset>
 
             <button className="SignupForm__button" action="submit">
-              Sign up
+              Log in
             </button>
 
-            <NavLink className="SignupForm__NavLink" to="/login">
-              Log in
+            <NavLink className="SignupForm__NavLink" to="/signup">
+              Don't have an account? Sign up
             </NavLink>
           </div>
         </form>
@@ -90,9 +75,9 @@ const mapStateToProps = state => {
   };
 };
 
-Signup = connect(mapStateToProps, { register, resetErrors })(Signup);
+Login = connect(mapStateToProps, { login, resetErrors })(Login);
 
 export default reduxForm({
-  form: 'signup',
-  fields: ['username', 'password', 'confirmPassword'],
-})(Signup);
+  form: 'login',
+  fields: ['username', 'password'],
+})(Login);

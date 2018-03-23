@@ -144,113 +144,6 @@ body input {
 body p {
   font-size: 1.2rem;
 }
-.Login {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-}
-.Login .LoginSignUpButton {
-  width: 80%;
-  height: 20px;
-  border: solid 1px black;
-  color: black;
-  font-size: 1.8rem;
-  text-decoration: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 150px;
-  margin-top: 14px;
-  margin-bottom: 35vh;
-  font-size: 0.7rem;
-}
-.Login .LoginSignUpButton:hover {
-  background: black;
-  color: white;
-  cursor: pointer;
-}
-.Login .LoginSignUpButton:active {
-  background: #228b22;
-  color: white;
-}
-.Login .LoginSignUpButton:hover {
-  cursor: pointer;
-}
-.Login .LoginTitle {
-  margin-bottom: 7px;
-  font-size: 5rem;
-}
-.Login .LoginNotLoggedIn {
-  height: 120px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.Login .LoginNotLoggedIn .LoginDescription {
-  margin-bottom: 24px;
-  font-size: 1.2rem;
-}
-.Login .LoginNotLoggedIn .LoginLogin {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.Login .LoginNotLoggedIn .LoginLogin .InputFields {
-  display: flex;
-  flex-direction: column;
-}
-.Login .LoginNotLoggedIn .LoginLogin .InputFields input {
-  text-align: center;
-  margin: 2px 0;
-}
-.Login .LoginNotLoggedIn .LoginLogin .LoginLoginButton__button {
-  width: 80%;
-  height: 20px;
-  border: solid 1px black;
-  color: black;
-  font-size: 1.8rem;
-  text-decoration: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.7rem;
-  margin-top: 7px;
-}
-.Login .LoginNotLoggedIn .LoginLogin .LoginLoginButton__button:hover {
-  background: black;
-  color: white;
-  cursor: pointer;
-}
-.Login .LoginNotLoggedIn .LoginLogin .LoginLoginButton__button:active {
-  background: #228b22;
-  color: white;
-}
-.Login .LoginToApp {
-  width: 80%;
-  height: 80px;
-  border: solid 1px black;
-  color: black;
-  font-size: 1.8rem;
-  text-decoration: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 120px;
-}
-.Login .LoginToApp:hover {
-  background: black;
-  color: white;
-  cursor: pointer;
-}
-.Login .LoginToApp:active {
-  background: #228b22;
-  color: white;
-}
-.Login .LoginToApp p {
-  font-size: 2.6rem;
-}
 .Signup {
   height: 100vh;
   display: flex;
@@ -293,6 +186,7 @@ body p {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 131px;
   font-size: 0.7rem;
   margin-top: 7px;
 }
@@ -309,30 +203,13 @@ body p {
   cursor: pointer;
 }
 .Signup .Signup__form .SignupForm .SignupForm__NavLink {
-  width: 80%;
-  height: 20px;
-  border: solid 1px black;
-  color: black;
-  font-size: 1.8rem;
+  font-size: 1.05rem;
+  margin-top: 20px;
   text-decoration: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.7rem;
-  margin-top: 7px;
-  background: white;
-}
-.Signup .Signup__form .SignupForm .SignupForm__NavLink:hover {
-  background: black;
-  color: white;
-  cursor: pointer;
-}
-.Signup .Signup__form .SignupForm .SignupForm__NavLink:active {
-  background: #228b22;
-  color: white;
 }
 .Signup .Signup__form .SignupForm .SignupForm__NavLink:hover {
   cursor: pointer;
+  text-decoration: underline;
 }
 .App {
   display: flex;
@@ -351,6 +228,7 @@ body p {
   font-size: 5rem;
   text-decoration: none;
   color: black;
+  display: inline;
 }
 .Header:hover {
   color: blue;

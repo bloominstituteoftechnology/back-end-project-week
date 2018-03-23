@@ -1,11 +1,6 @@
 const router = require('express').Router();
 
-// const { error, success } =
-//   require('../../config').status || JSON.parse(process.env.CONFIG).status;
-// const { error, success } = require('../../config').status;
-
 const { error, success } = JSON.parse(process.env.CONFIG).status;
-
 const { send } = require('../helper');
 
 const message = require('./messages');
@@ -46,8 +41,6 @@ router
             userController
               .update(user._id, { notes })
               .then(updatedUser => {
-                // console.log('upated user', updatedUser);
-                // send(res, success.created, updatedUser);
                 send(res, success.created, savedNote);
               })
               .catch(err =>
@@ -68,10 +61,6 @@ router
   })
   .put(validate.update, validate.id, (req, res) => {
     const { title, content } = req.body;
-    // const updatedNote = {
-    //   title: title !== undefined ? title : req.note.title,
-    //   content: content !== undefined ? content : req.note.content,
-    // };
 
     controller
       .update(req.params.id, { title, content })
