@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import { Route } from 'react-router-dom';
 import NoteForm from './NoteForm';
 import NoteContainer from './NoteContainer';
 import { getNotes, loggedOut } from '../actions';
@@ -17,15 +18,17 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.props.loggedIn ? null : <LogIn />}
-        {this.props.loggedIn ? (
-          <div className="NotesLoggedIn">
-            <button id="LogOutButton" onClick={this.props.loggedOut}>Log Out</button>
-            <h1>{window.localStorage.getItem('username')}'s Notes</h1>
-            <NoteForm />
-            <NoteContainer notes={this.props.notes} />
-          </div>
-        ) : null}
+        <Route exact route='/' render= {() => {
+          {this.props.loggedIn ? null : <LogIn />}
+          {this.props.loggedIn ? (
+            <div className="NotesLoggedIn">
+              <button id="LogOutButton" onClick={this.props.loggedOut}>Log Out</button>
+              <h1>{window.localStorage.getItem('username')}'s Notes</h1>
+              <NoteForm />
+              <NoteContainer notes={this.props.notes} />
+            </div>
+          ) : null}
+        }} />
       </div>
     );
   }
