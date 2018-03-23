@@ -49,8 +49,6 @@ export const addNote = newNote => {
 };
 
 export const deleteNote = id => {
-  const deleteUrl = `http://localhost:8080/notes/delete/${id}`;
-  console.log({ deleteUrl });
   return dispatch => {
     dispatch({ type: DELETING_NOTE });
     axios
@@ -83,7 +81,6 @@ export const updateNote = note => {
   const url = `http://localhost:8080/notes/${id}`;
   return dispatch => {
     dispatch({ type: UPDATING_NOTE });
-    console.log({ FrontNote: note });
     axios
       .put('/notes/${id}', { data: { note } }, config)
       .then(({ data }) => {
@@ -98,7 +95,7 @@ export const updateNote = note => {
 export const filterByText = text => {
   return dispatch => {
     axios
-      .get(getUrl)
+      .get('/notes')
       .then(({ data }) => {
         data = data.filter(note => {
           const newLength = text.length;
@@ -119,7 +116,7 @@ export const filterByText = text => {
 export const filterByTag = tag => {
   return dispatch => {
     axios
-      .get(getUrl)
+      .get('/notes')
       .then(({ data }) => {
         data = data.filter(note => {
           if (note.tag.toString() === tag) {
