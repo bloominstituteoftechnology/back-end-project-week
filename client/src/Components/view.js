@@ -126,6 +126,8 @@ class ViewNotes extends Component {
                         <Button color="primary" onClick={this.addNoteToggle}>
                             Add New Note
                         </Button>
+                        <br />
+                        <br />
 
                         <Form>
                             <FormGroup onSubmit={this.updateNote}>

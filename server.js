@@ -13,7 +13,7 @@ server.use(express.static(path.join(__dirname, 'client', 'build')));
 
 mongoose.connect(
     process.env.MONGODB_URI ||
-        'mongodb://<dbuser>:<dbpassword>@ds121999.mlab.com:21999/lambdanotes'
+        'mongodb://<dbuser>:<dbpassword>@ds123129.mlab.com:23129/heroku_lz76kll3'
 );
 
 routes(server);

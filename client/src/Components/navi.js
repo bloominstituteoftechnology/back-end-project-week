@@ -44,7 +44,11 @@ class Navi extends Component {
                         className="mr-2"
                     />
                     <Collapse isOpen={!this.state.collapsed} navbar>
-                        <Nav navbar>
+                        <Nav
+                            className="text-right
+                                    mr-2"
+                            navbar
+                        >
                             <NavItem>
                                 <NavLink href="https://github.com/groov1234/lambda-notes">
                                     Github

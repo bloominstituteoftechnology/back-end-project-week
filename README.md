@@ -26,18 +26,18 @@ https://trello.com/b/Pwhb2pCe/lambda-notesfrontend-calum-groover https://trello.
 ## Backend MVP Features:
 
 *   [-] Create a Database for your app
-*   [ ] Create a Node app and connect it to your database
-*   [ ] Create a Registration Page that allows users to create accounts for your app and sign in with email/password.
-*   [ ] Store these User Accounts in your Database
-*   [ ] Add a Sign In Page
-*   [ ] Store Notes in your Database
-*   [ ] Deploy your application to the web
+*   [x] Create a Node app and connect it to your database
+*   [x] Create a Registration Page that allows users to create accounts for your app and sign in with email/password.
+*   [x] Store these User Accounts in your Database
+*   [x] Add a Sign In Page
+*   [x] Store Notes in your Database
+*   [x] Deploy your application to the web
 
 ## Build an API Endpoint in your Node App for each of the following, and connect them to your React App. These should all be read from your Database and scoped to the logged in user.
 
-*   [ ] Display a list of notes
-*   [ ] Create a note with a title and content
-*   [ ] View an existing note
-*   [ ] Edit an existing note
-*   [ ] Delete an existing note
+*   [x] Display a list of notes
+*   [x] Create a note with a title and content
+*   [x] View an existing note
+*   [x] Edit an existing note
+*   [x] Delete an existing note
 ```
