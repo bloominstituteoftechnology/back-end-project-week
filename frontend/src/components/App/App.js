@@ -53,7 +53,9 @@ class App extends Component {
         <Container>
           <header className="App-header">
             <h1>Troy's Note List Project</h1>
-            <Button onClick={this.signOutHandler}>Sign out</Button>
+            {this.props.authenticated ? (
+              <Button onClick={this.signOutHandler}>Sign out</Button>
+            ) : null}
           </header>
           <Router>
             <Switch>
