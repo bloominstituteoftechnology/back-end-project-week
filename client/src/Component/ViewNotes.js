@@ -29,7 +29,7 @@ class ViewNotes extends Component {
   addNoteToggle = () => {
 
     if ((this.state.title.length > 0 || this.state.content.length > 0) && this.state.id === -1 ) {
-      let check = window.confirm("This action will delete your current note.\n\nTo save current note press CANCEL and then SAVE at bottom of page.")
+      let check = window.confirm("This action will delete all changes to your current note.\n\nTo save current note press CANCEL and then SAVE at bottom of page.")
       if (check) {
         this.setState({
           title: "",
