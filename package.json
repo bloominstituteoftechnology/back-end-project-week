@@ -14,7 +14,8 @@
 		"express": "^4.16.2",
 		"knex": "^0.14.4",
 		"mysql": "^2.15.0",
-		"sqlite3": "^3.1.13"
+		"sqlite3": "^3.1.13",
+		"node": "<9.0.0"
 	},
 	"devDependencies": {
 		"nodemon": "^1.17.1"
