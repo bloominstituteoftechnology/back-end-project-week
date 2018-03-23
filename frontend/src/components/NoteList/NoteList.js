@@ -72,7 +72,7 @@ class NoteList extends Component {
           <NoteInput />
         </Col>
         <Col xs="9">
-          <Button onClick={() => this.props.getNotes}>Get all</Button>
+          {/* <Button onClick={() => this.props.getNotes}>Get all</Button>
           <Button onClick={() => this.sortLowHigh}>Sort low to high</Button>
           <Button onClick={() => this.sortHighLow}>Sort High to low</Button>
           <div>
@@ -95,7 +95,7 @@ class NoteList extends Component {
               <button>Search</button>
             </form>
             <label>Search by title</label>
-          </div>
+          </div> */}
 
           <div className="NoteList">
             {this.props.notes.length > 0 ? (
