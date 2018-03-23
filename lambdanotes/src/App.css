@@ -1,16 +1,50 @@
-.App {
-  text-align: left;
-  padding: 0px;
-  margin: 0px;
+
+/* * {
+  height: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+} */
+
+.note-wrapper {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  height: 100%;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-  top: 0px;
+.note-header {
+  display: flex;
   flex: 1 1 5%;
+  min-height: 2.5em;
+  max-height: 2em;
+  font-size: 3.2em;
+  color: #F4B350;
+  font-family: sans-serif;
+  text-align: center;
+  align-content: center;
+  padding:20px 0px 20px 0px;
+  margin-bottom: 6px;
+  background-color: rgba(0,0,0,0.5);
+  text-shadow: 3px 3px 10px #000;
+  display: block;
+}
+
+.note-body {
+  padding-top: 24px;
+  display: flex;
+  flex: 1 1 85%;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+  overflow: auto;
+}
+
+.note-footer {
+  display: flex;
+  flex: 1 1 5%;
+  background-color: rgba(0,0,0,0.5);
 }
 
 .button--aliRight {

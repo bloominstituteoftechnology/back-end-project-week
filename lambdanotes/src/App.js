@@ -2,43 +2,45 @@ import React, { Component } from 'react';
 import './App.css';
 import NavButton from './components/Misc/NavButton/NavButton';
 import Menu from './components/Menu/Menu';
-import NavBar from './components/Nav/NavBar';
-import AniButton from './components/Misc/AniButton/AniButton';
+import Note from './components/Note-main/Note-main';
+import NoteForm from './components/Note-form/Note-form';
+
 
 class App extends Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = { visible: false };
-    this.handleMouseDown = this.handleMouseDown.bind(this);
-    this.toggleMenu = this.toggleMenu.bind(this);
+  constructor(props) {
+    super(props);
+    this.addNote = this.addNote.bind(this);
+    this.state = { notes: [], }
   }
 
-  handleMouseDown(e) {
-    this.toggleMenu();
-
-    console.log("clicked");
-    e.stopPropagation();
-  }
-
-  toggleMenu() {
-    this.setState(
-      {
-        visible: !this.state.visible
-      }
-    )
+  addNote(note) {
+    const prevNote = this.state.notes;
+    prevNote.push({ id: prevNote.length + 1, noteContent: note });
+    this.setState({
+      notes: prevNote
+    });
   }
 
   render() {
     return (
       <div>
-        {/* <NavBar>
-          <AniButton handleMouseDown={this.handleMouseDown} />
-          LambdaNotes
-        </NavBar> */}
-        <Menu
-          handleMouseDown={this.handleMouseDown}
-          menuVisibility={this.state.visible}
-        />
+        <Menu />
+        <div className='note-wrapper'>
+          <div className='note-header'>
+          </div>
+          <div className='note-body'>
+            {
+              this.state.notes.map((note) => {
+                return (
+                  <Note noteContent={note.noteContent} noteId={note.id} key={note.id} />
+                )
+              })
+            }
+          </div>
+          <div className='note-footer'>
+            <NoteForm addNote={this.addNote} />
+          </div>
+        </div>
         <NavButton className="button--aliRight" />
       </div>
     );
