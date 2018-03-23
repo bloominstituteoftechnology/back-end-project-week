@@ -29,7 +29,7 @@ export const getNotes = () => {
   return dispatch => {
     dispatch({ type: FETCHING_NOTES });
     axios
-      .get('http://localhost:3333/notes', {
+      .get('/notes', {
         headers: { Authorization: window.localStorage.getItem('token') }
       })
       .then(({ data }) => {
@@ -45,7 +45,7 @@ export const createNote = note => {
   return dispatch => {
     dispatch({ type: CREATING_NOTE });
     axios
-      .post('http://localhost:3333/notes', note, {
+      .post('/notes', note, {
         headers: { Authorization: window.localStorage.getItem('token') }
       })
       .then(({ data }) => {
@@ -54,7 +54,7 @@ export const createNote = note => {
       .then(() => {
         dispatch({ type: FETCHING_NOTES });
         axios
-          .get('http://localhost:3333/notes', {
+          .get('/notes', {
             headers: { Authorization: window.localStorage.getItem('token') }
           })
           .then(({ data }) => {
@@ -74,7 +74,7 @@ export const deleteNote = id => {
   return dispatch => {
     dispatch({ type: DELETING_NOTE });
     axios({
-      url: 'http://localhost:3333/notes',
+      url: '/notes',
       method: 'delete',
       data: { id },
       headers: { Authorization: window.localStorage.getItem('token') }
@@ -83,7 +83,7 @@ export const deleteNote = id => {
         dispatch({ type: NOTE_DELETED, payload: data });
         dispatch({ type: SINGLE_NOTE, payload: {} });
         axios
-          .get('http://localhost:3333/notes', {
+          .get('/notes', {
             headers: { Authorization: window.localStorage.getItem('token') }
           })
           .then(({ data }) => {
@@ -117,14 +117,14 @@ export const editNote = ({ id, name, title, noteText }) => {
     dispatch({ type: EDITING_NOTE });
     axios
       .put(
-        `http://localhost:3333/notes/${id}`,
+        `/notes/${id}`,
         { title, noteText },
         { headers: { Authorization: window.localStorage.getItem('token') } }
       )
       .then(({ data }) => {
         dispatch({ type: NOTE_EDITED, payload: data });
         axios
-          .get('http://localhost:3333/notes', {
+          .get('/notes', {
             headers: { Authorization: window.localStorage.getItem('token') }
           })
           .then(({ data }) => {
@@ -150,7 +150,7 @@ export const loggedIn = (username, password) => {
   return dispatch => {
     dispatch({ type: LOGGING_IN });
     axios
-      .post('http://localhost:3333/users/signin', { username, password })
+      .post('/users/signin', { username, password })
       .then(res => {
         window.localStorage.setItem('token', res.data.token);
         window.localStorage.setItem('username', username);
@@ -174,7 +174,7 @@ export const register = (username, password) => {
   return dispatch => {
     dispatch({ type: SIGNING_UP });
     axios
-      .post('http://localhost:3333/users/signup', { username, password })
+      .post('/users/signup', { username, password })
       .then(res => {
         dispatch({ type: SIGNED_UP, payload: res });
         window.location.reload();
