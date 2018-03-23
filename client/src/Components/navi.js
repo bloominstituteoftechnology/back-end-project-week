@@ -8,10 +8,16 @@ import {
     NavItem,
     NavLink
 } from 'reactstrap';
-import Test from './test';
-import Greeting from './greeting';
+import { connect } from 'react-redux';
 
-export default class NavBar extends Component {
+import { loggedOut } from '../Actions';
+
+class Navi extends Component {
+    logOut = event => {
+        event.preventDefault();
+        this.props.loggedOut();
+    };
+
     constructor(props) {
         super(props);
 
@@ -31,7 +37,7 @@ export default class NavBar extends Component {
             <div>
                 <Navbar color="faded" light>
                     <NavbarBrand href="/" className="mr-auto">
-                        Lambda-Notes
+                        <h3>Lambda-Notes</h3>
                     </NavbarBrand>
                     <NavbarToggler
                         onClick={this.toggleNavbar}
@@ -40,18 +46,27 @@ export default class NavBar extends Component {
                     <Collapse isOpen={!this.state.collapsed} navbar>
                         <Nav navbar>
                             <NavItem>
-                                <Test />
-                            </NavItem>
-                            <NavItem>
                                 <NavLink href="https://github.com/groov1234/lambda-notes">
                                     Github
+                                </NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink href="/" onClick={this.logOut}>
+                                    Sign Out
                                 </NavLink>
                             </NavItem>
                         </Nav>
                     </Collapse>
                 </Navbar>
-                <Greeting />
             </div>
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        loggedIn: state.loggedIn
+    };
+};
+
+export default connect(mapStateToProps, { loggedOut })(Navi);
