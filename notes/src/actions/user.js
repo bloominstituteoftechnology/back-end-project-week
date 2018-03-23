@@ -31,7 +31,7 @@ export const register = (values) => {
 			return;
 		}
 		axios
-			.post(`${ROOT_URL}/api/user`, { firstName, lastName, email, password })
+			.post(`/api/user`, { firstName, lastName, email, password })
 			.then(() => {
 				dispatch({
 					type: USER_REGISTERED
@@ -48,7 +48,7 @@ export const login = (values) => {
 	const { email, password, history } = values;
 	return dispatch => {
 		axios
-			.post(`${ROOT_URL}/api/login`, { email, password })
+			.post(`/api/login`, { email, password })
 			.then((response) => {
 				dispatch({
 					type: USER_AUTHENTICATED
