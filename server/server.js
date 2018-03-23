@@ -10,9 +10,7 @@ const server = express();
 server.use(express.json());
 server.use(cors());
 
-if(process.env.NODE_ENV === 'production') {
-  server.use(express.static('client/build'));
-}
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 server.use(routes);
 
