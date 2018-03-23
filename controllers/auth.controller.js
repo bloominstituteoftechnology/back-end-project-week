@@ -16,20 +16,3 @@ exports.logout = (req, res) => {
 exports.currentUser = (req, res) => {
   res.send(req.user);
 };
-// requireLogIn: passport.authenticate('local')
-
-// const requireLogIn = require('../config/passport').requireLogIn;
-// const getTokenForUser = require('../config/token');
-
-// const logIn = (req, res) => {
-//   res.send({
-//     token: getTokenForUser(req.user),
-//   });
-// };
-
-
-// logout
-
-// current user
-
-// module.exports = { logIn };

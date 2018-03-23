@@ -1,4 +1,3 @@
-/* eslint-disable */
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -6,8 +5,8 @@ const cors = require('cors');
 const session = require('express-session');
 const passport = require('passport');
 // require models
-require('./models/User');
-require('./models/Note');
+require('./models/user');
+require('./models/note');
 require('./services/passport');
 
 const routes = require('./routes');
@@ -29,6 +28,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(express.json());
 app.use('/api', routes) // api/notes
 app.use(handleErrors);
 
@@ -40,7 +40,3 @@ const corsOptions = {
 app.listen(config.port, () => {
   console.log(`Listening on port ${config.port}.`);
 });
-
-
-
-

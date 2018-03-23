@@ -13,42 +13,14 @@ function setUserInfo(req) {
   return getUserInfo;
 }
 
-// function validateEmail(email) {
-//   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-//   return re.test(email);
-// };
-
-exports.createUser = (req, res) => {
+exports.createUser = (req, res, next) => {
   const { email, password } = req.body;
-
-  const user = new User({ email, password });
-  // console.log(validateEmail(email));
-
-  // if (!email) {
-  //   return res.status(422).json({ error: 'You must enter an email address.' });
-  // }
-
-  // if (!validateEmail(email)) {
-  //   return res.status(422).json({ error: 'You must enter a valid email address.' });
-  // }
-
-  // // if (!username) {
-  // //   return res.status(422).json({ error: 'You must enter a username.' });
-  // // }
-
-  // if (!password) {
-  //   return res.status(422).json({ error: 'You must enter a password.' });
-  // }
-
-
-  user.save((error, newUser) => {
-    if (error) return res.send(error);
-    const userInfo = setUserInfo(newUser);
-    res.status(201).json({
-      token: getTokenForUser(userInfo),
-      user: userInfo,
-    });
+  User.findOne({ email }, (err, user) => {
+    if (err) return (err)
+    if (user) return (null, false, { error: 'That email is already in use.' });
+    let newUser = new User({ email, password }).save();
   });
+  next();
 };
 
 exports.getUsers = (req, res) => {

@@ -4,15 +4,15 @@ function validateEmail(email) {
 };
 
 module.exports = (req, res, next) => {
-  if (!req.email) {
+  if (!req.body.email) {
     return res.status(422).send({ error: 'You must enter an email address.' });
   }
 
-  if (!validateEmail(req.email)) {
+  if (!validateEmail(req.body.email)) {
     return res.status(422).send({ error: 'You must enter a valid email address.' });
   }
 
-  if (!req.password) {
+  if (!req.body.password) {
     return res.status(422).send({ error: 'You must enter a password.' });
   }
   return next();

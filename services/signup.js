@@ -22,7 +22,13 @@ const localOptions = {
 };
 
 const localSignup = new LocalStrategy(localOptions,
-
+  (req, email, password, done) => {
+    User.findOne({ email }, (err, user) => {
+      if (err) return done(err)
+      if (user) return done(null, false, { error: 'That email is already in use.'});
+      let newUser = new User({ email, password }).save();
+    })
+  }
 
 )
 
