@@ -10,6 +10,10 @@ const server = express();
 server.use(express.json());
 server.use(cors());
 
+if(process.env.NODE_ENV === 'production') {
+  server.use(express.static('client/build'));
+}
+
 server.use(routes);
 
 mongoose.Promise = global.Promise;
