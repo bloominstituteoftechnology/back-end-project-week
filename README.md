@@ -1,3 +1,5 @@
+Trello: https://trello.com/b/HWemIKC5/lambda-notesbackend-troy-bradley-cs6
+
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
@@ -9,6 +11,7 @@ The main objective of this week is to develop a backend to support the LambdaNot
 * You are required to showcase progress with at least 1 commit a day.  This will let your project manager know where you are and if you need help.  This also allows the client to get progress reports from the company in a real world setting. This also protects you from losing your work if your computer blows up.
 
 ## Trello Set Up:
+https://trello.com/b/HWemIKC5/lambda-notesbackend-troy-bradley-cs6
 * [ ] Create a Trello account
 * [ ] Create a new board called "Lambda Notes(Backend) - {Your Name}"
 * [ ] Create lists titled `backlog`,`To Do`, `In Progress`, and `Done`
