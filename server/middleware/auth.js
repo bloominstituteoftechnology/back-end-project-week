@@ -34,9 +34,13 @@ const comparePW = (req, res, next) => {
     .then(user => {
       const checkPW = user.password;
       bcrypt.compare(password, checkPW, (err, compared) => {
-        if(err) return next(err);
-        req.username = user.username;
-        next();
+        if(err) {
+          return res.send(err);
+        }
+        if(compared) {
+          req.username = user.username;
+          next();
+        }
       })
     }).catch(err => {
       res.status(500).send(err);

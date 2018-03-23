@@ -16,5 +16,9 @@
     "url": "https://github.com/gakko1/back-end-project-week/issues"
   },
   "homepage": "https://github.com/gakko1/back-end-project-week#readme",
-  "cacheDirectories": ["client/note-proj/note/node_modules", "api/node_modules"]
+  "cacheDirectories": [
+    "client/note-proj/note/node_modules",
+    "api/node_modules"
+  ],
+  "dependencies": {}
 }

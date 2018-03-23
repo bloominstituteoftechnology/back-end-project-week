@@ -4,7 +4,8 @@ const Note = require('../models/noteModel');
 
 const getNotes = function(req, res) {
   if (req.decoded) {
-    Note.find()
+    const username = req.username;
+    Note.find({ name: username })
       .then(notes => {
         if (notes.length === 0 || !notes) {
           res.status(404).send({ message: 'Unable to find any notes' });
@@ -78,9 +79,9 @@ const editNote = function(req, res) {
     const { id } = req.params;
     const updateNote = req.body;
   
-    if (!updateNote.title || !updateNote.name || !updateNote.noteText) {
+    if (!updateNote.title || !updateNote.noteText) {
       res.status(400).send({
-        message: 'Must include title, name, and note text to be updated'
+        message: 'Must include title and note text to be updated'
       });
     } else {
       Note.findByIdAndUpdate(id, updateNote, { new: true })
@@ -100,11 +101,11 @@ const editNote = function(req, res) {
 
 const deleteNote = function(req, res) {
   if(req.decoded) {
-    const { id } = req.params;
+    const { id } = req.body;
   
     Note.findByIdAndRemove(id)
       .then(deleted => {
-        if (!deleted) {
+        if (deleted.length === 0) {
           res
             .status(404)
             .send({ message: "There doesn't seem to be a note with that ID" });
