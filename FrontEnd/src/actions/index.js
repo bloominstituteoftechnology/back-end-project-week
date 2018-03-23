@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import {
+    
     FETCH_NOTE,
     NOTES_RETRIEVED,
     ADD_NOTE,
@@ -13,11 +14,12 @@ import {
     AUTH_USER,
     UNAUTH_USER,
     AUTH_ERROR,
+
 } from './types';
 
 const ROOT_URL = 'http://localhost:3000';
 
-export const loginUser = (email, password) => {
+export const login_User = (email, password) => {
     return dispatch => {
         axios.post(`${ROOT_URL}/login`, { email, password })
             .then(response => {
@@ -31,7 +33,7 @@ export const loginUser = (email, password) => {
     }
 }
 
-export const signupUser = (email, password) => {
+export const signup_User = (email, password) => {
     return dispatch => {
         axios.post(`${ROOT_URL}/signup`, { email, password })
             .then(response => {
@@ -43,23 +45,23 @@ export const signupUser = (email, password) => {
     };
 };
 
-export const authError = error => {
+export const auth_Error = error => {
     return {
         type: AUTH_ERROR,
         payload: error
     };
 }
 
-export const logoutUser = () => {
+export const logout_User = () => {
     localStorage.removeItem('token');
     return { type: UNAUTH_USER };
 };
 
-export const getNotes = () => {
+export const get_Notes = () => {
     return dispatch => {
         dispatch({ type: FETCH_NOTE });
         axios.get(`${ROOT_URL}/notes`, {
-            headers: { Authorization: window.localStorage.getItem("token") }
+            headers: { Authorization: window.localStorage.getItem('token') }
         })
             .then(response => {
                 dispatch({ type: NOTES_RETRIEVED, payload: response.data });
@@ -74,7 +76,7 @@ export const add_Note = note => {
     return dispatch => {
         dispatch({ type: ADD_NOTE });
         axios.post(`${ROOT_URL}/notes`, note, {
-            headers: { Authorization: window.localStorage.getItem("token") }
+            headers: { Authorization: window.localStorage.getItem('token') }
         })
             .then(response => {
                 dispatch({ type: NOTE_ADDED, payload: response.data });
@@ -89,7 +91,7 @@ export const edit_Note = note => {
     return dispatch => {
         dispatch({ type: EDIT_NOTE });
         axios.put(`${ROOT_URL}/notes`, note, {
-            headers: { Authorization: window.localStorage.getItem("token") }
+            headers: { Authorization: window.localStorage.getItem('token') }
         })
             .then(response => {
                 dispatch({ type: NOTE_EDITED, payload: response.data });
@@ -107,13 +109,13 @@ export const delete_Note = id => {
             url: `${ROOT_URL}/notes`,
             method: "delete",
             data: { id },
-            headers: { Authorization: window.localStorage.getItem("token") }
-        })
+            headers: { Authorization: window.localStorage.getItem('token') }
+        });
             .then(response => {
-                dispatch({ type: NOTE_DELETED, payload: id });
-            })
-            .catch(error => {
-                dispatch({ type: ERROR, payload: error });
-            });
+    dispatch({ type: NOTE_DELETED, payload: id });
+});
+            .catch (error => {
+    dispatch({ type: ERROR, payload: error });
+});
     };
 };
