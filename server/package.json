@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "install": "cd ../client/note && npm run build && cd ../.."
+    "install": "cd ../client/note && npm install && npm run build && cd ../.."
   },
   "repository": {
     "type": "git",
