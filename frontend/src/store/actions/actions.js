@@ -94,7 +94,7 @@ export const updateNote = note => {
 export const filterByText = text => {
   return dispatch => {
     axios
-      .get('/notes')
+      .get('/notes', config)
       .then(({ data }) => {
         data = data.filter(note => {
           const newLength = text.length;
@@ -113,9 +113,10 @@ export const filterByText = text => {
 };
 
 export const filterByTag = tag => {
+  console.log(tag);
   return dispatch => {
     axios
-      .get('/notes')
+      .get('/notes', config)
       .then(({ data }) => {
         data = data.filter(note => {
           if (note.tag.toString() === tag) {

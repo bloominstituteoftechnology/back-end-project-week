@@ -59,8 +59,7 @@ class NoteList extends Component {
     this.props.filterByTag(this.state.tag);
   };
 
-  searchByText = event => {
-    event.preventDefault();
+  searchByText = () => {
     const target = this.state.searchText.toLowerCase();
     this.props.filterByText(target);
   };
@@ -72,10 +71,10 @@ class NoteList extends Component {
           <NoteInput />
         </Col>
         <Col xs="9">
-          <Button onClick={() => this.props.getNotes}>Get all</Button>
-          <Button onClick={() => this.sortLowHigh}>Sort low to high</Button>
-          <Button onClick={() => this.sortHighLow}>Sort High to low</Button>
-          <div>
+          <Button onClick={() => this.props.getNotes()}>Get all</Button>
+          {/* <Button onClick={() => this.sortLowHigh()}>Sort low to high</Button>
+          <Button onClick={() => this.sortHighLow()}>Sort High to low</Button> */}
+          {/* <div>
             <label htmlFor="tagSearch">Search by tag</label>
             <Input type="select" name="tag" onChange={this.inputChangeHandler}>
               <option defaultValue>Work</option>
@@ -83,18 +82,16 @@ class NoteList extends Component {
               <option>School</option>
               <option>Home</option>
             </Input>
-            <Button onClick={() => this.searchByTag}>Search</Button>
-          </div>
+            <Button onClick={() => this.searchByTag()}>Search</Button>
+          </div> */}
           <div>
-            <form onSubmit={() => this.searchByText}>
-              <input
-                value={this.state.searchText}
-                name="searchText"
-                onChange={this.inputChangeHandler}
-              />
-              <button>Search</button>
-            </form>
             <label>Search by title</label>
+            <input
+              value={this.state.searchText}
+              name="searchText"
+              onChange={this.inputChangeHandler}
+            />
+            <button onClick={() => this.searchByText()}>Search</button>
           </div>
 
           <div className="NoteList">
