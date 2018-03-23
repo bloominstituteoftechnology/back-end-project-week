@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "heroku-postbuild": "cd notes && npm install --only=dev && npm install && npm run build"
   },
   "repository": {
     "type": "git",
@@ -25,7 +25,8 @@
     "express": "^4.16.2",
     "helmet": "^3.11.0",
     "jsonwebtoken": "^8.2.0",
-    "mongoose": "^5.0.6"
+    "mongoose": "^5.0.6",
+    "path": "^0.12.7"
   },
   "engines": {
     "node": "8.1.2"

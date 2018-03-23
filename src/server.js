@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const routes = require('./routes');
 const config = require('./config');
+const path = require('path');
+
 mongoose.Promise = global.Promise;
 mongoose.connect(config.dburl);
 
@@ -15,6 +17,7 @@ const corsOptions = {
 const server = express();
 server.use(bodyParser.json());
 server.use(cors(corsOptions));
+server.use(express.static(path.join(__dirname, 'notes/build')));
 
 routes(server);
 
