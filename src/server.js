@@ -19,6 +19,10 @@ server.use(bodyParser.json());
 server.use(cors(corsOptions));
 server.use(express.static(path.join(__dirname, 'notes/build')));
 
+server.get('/', (req, res) => {
+	res.sendFile(path.join(__dirname+'/notes/build/index.html'));
+});
+
 routes(server);
 
 module.exports = { server };
