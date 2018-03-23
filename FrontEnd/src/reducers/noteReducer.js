@@ -8,50 +8,50 @@ import {
     DELETE_NOTE,
     NOTE_DELETED,
     ERROR,
-} from "../Actions";
+} from '../actions/types';
 
 let id = -1;
 const initialState = {
-    notes: [],
+    notes: [{_id: 1, title: 'Boo', body: 'Double Booness' }],
     id: id,
-    get_Notes: false,
-    notes_Retrieved: false,
-    add_Note: false,
-    note_Added: false,
-    edit_Note: false,
-    note_Edited: false,
-    delete_Note: false,
-    note_Deleted: false,
+    get_notes: false,
+    notes_retrieved: false,
+    add_note: false,
+    note_added: false,
+    edit_note: false,
+    note_edited: false,
+    delete_note: false,
+    note_deleted: false,
     error: null
 };
 
 const noteReducer = (state = initialState, action) => {
     switch (action.type) {
-        case get_Notes:
-            return { ...state, getNotes: true };
-        case notes_Retrieved:
+        case FETCH_NOTE:
+            return { ...state, get_notes: true };
+        case NOTES_RETRIEVED:
             return {
                 ...state,
-                get_Notes: false,
-                notes_Retrieved: true,
+                get_notes: false,
+                notes_retrieved: true,
                 notes: [...state.notes, ...action.payload]
             };
-        case add_Note:
-            return { ...state, add_Note: true };
-        case note_Added:
+        case ADD_NOTE:
+            return { ...state, add_note: true };
+        case NOTE_ADDED:
             return {
                 ...state,
                 notes: [...state.notes, action.payload],
-                addNote: false,
-                note_Added: true
+                add_note: false,
+                note_added: true
             };
-        case edit_Note:
-            return { ...state, edit_Note: true };
-        case note_Edited:
+        case EDIT_NOTE:
+            return { ...state, edit_note: true };
+        case NOTE_EDITED:
             return {
                 ...state,
-                edit_Note: false,
-                note_Edited: true,
+                edit_note: false,
+                note_edited: true,
                 notes: [...state.notes]
                     .map(note => {
                         if (note._id === action.payload._id) {
@@ -61,17 +61,19 @@ const noteReducer = (state = initialState, action) => {
                         }
                     })
             };
-        case delete_Note:
-            return { ...state, delete_Note: true };
-        case note_Deleted:
+        case DELETE_NOTE:
+            return { ...state, delete_note: true };
+        case NOTE_DELETED:
             return {
                 ...state,
-                delete_Note: false,
-                note_Deleted: true,
+                delete_note: false,
+                note_deleted: true,
                 notes: [...state.notes]
                     .filter(note => note._id !== action.payload)
-            }
-    }
+            };
+        default:
+            return state
+    };
 };
 
 export default noteReducer;

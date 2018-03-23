@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-const Notes = (props) => {
+const Notes = props => {
   return (
     <li className="note-post">
       <h3 className="note-title">{props.note.title}</h3>

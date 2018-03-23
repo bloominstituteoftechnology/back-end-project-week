@@ -1,7 +1,9 @@
 import axios from 'axios';
+
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 import {
-    
+
     FETCH_NOTE,
     NOTES_RETRIEVED,
     ADD_NOTE,
@@ -17,9 +19,9 @@ import {
 
 } from './types';
 
-const ROOT_URL = 'http://localhost:3000';
+const ROOT_URL = 'http://localhost:5050';
 
-export const login_User = (email, password) => {
+export const login_user = (email, password) => {
     return dispatch => {
         axios.post(`${ROOT_URL}/login`, { email, password })
             .then(response => {
@@ -28,12 +30,12 @@ export const login_User = (email, password) => {
                 this.props.history.push('/notes');
             })
             .catch(() => {
-                dispatch(authError('This is not a correct login. Please try again.'));
+                dispatch(auth_error('This is not a correct login. Please try again.'));
             });
-    }
-}
+    };
+};
 
-export const signup_User = (email, password) => {
+export const signup_user = (email, password) => {
     return dispatch => {
         axios.post(`${ROOT_URL}/signup`, { email, password })
             .then(response => {
@@ -41,23 +43,23 @@ export const signup_User = (email, password) => {
                 localStorage.setItem('token', response.data.token);
                 this.props.history.push('/notes');
             })
-            .catch(response => dispatch(authError(response.data.error)));
+            .catch(response => dispatch(auth_error(response.data.error)));
     };
 };
 
-export const auth_Error = error => {
+export const auth_error = error => {
     return {
         type: AUTH_ERROR,
         payload: error
     };
-}
+};
 
-export const logout_User = () => {
+export const logout_user = () => {
     localStorage.removeItem('token');
     return { type: UNAUTH_USER };
 };
 
-export const get_Notes = () => {
+export const get_notes = () => {
     return dispatch => {
         dispatch({ type: FETCH_NOTE });
         axios.get(`${ROOT_URL}/notes`, {
@@ -72,7 +74,7 @@ export const get_Notes = () => {
     };
 };
 
-export const add_Note = note => {
+export const add_note = note => {
     return dispatch => {
         dispatch({ type: ADD_NOTE });
         axios.post(`${ROOT_URL}/notes`, note, {
@@ -87,7 +89,7 @@ export const add_Note = note => {
     };
 };
 
-export const edit_Note = note => {
+export const edit_note = note => {
     return dispatch => {
         dispatch({ type: EDIT_NOTE });
         axios.put(`${ROOT_URL}/notes`, note, {
@@ -102,7 +104,7 @@ export const edit_Note = note => {
     };
 };
 
-export const delete_Note = id => {
+export const delete_note = id => {
     return dispatch => {
         dispatch({ type: DELETE_NOTE });
         axios({
@@ -110,12 +112,12 @@ export const delete_Note = id => {
             method: "delete",
             data: { id },
             headers: { Authorization: window.localStorage.getItem('token') }
-        });
+        })
             .then(response => {
-    dispatch({ type: NOTE_DELETED, payload: id });
-});
-            .catch (error => {
-    dispatch({ type: ERROR, payload: error });
-});
+                dispatch({ type: NOTE_DELETED, payload: id });
+            })
+            .catch(error => {
+                dispatch({ type: ERROR, payload: error });
+            });
     };
 };

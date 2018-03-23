@@ -1,55 +1,58 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Notes from '../../components/notes/notes';
 
 import * as actions from '../../actions/index';
 
-class NoteList extends Component {
+class NoteList extends React.Component {
 
     constructor() {
         super();
     };
 
-    edit_Note(note, index) {
+    edit_note(note, index) {
         this.props.dispatch(actions.edit_note({
             updating: true,
             title: note.title,
             body: note.body,
             edit_Index: index,
-            edit_Id: note._id
+            edit_Id: note.id
         }));
     };
 
-    delete_note(_id) {
-        this.props.dispatch(actions.delete_note(_id));
+    delete_note(id) {
+        this.props.dispatch(actions.delete_note(id));
     };
 
     render() {
+        console.log(this.props.notes);
         return (
             <ul className="notemate-note-list">
-                {
+
+                {/* {
                     this.props.notes.map((note, index) =>
-                        <ListNote note={note}
+                        <NoteList note={note}
                             index={index}
-                            key={note._id}
+                            key={note.id}
                             delete={this.delete_note.bind(this)}
                             edit={this.edit_note.bind(this)}
                             email={this.props.email} />)
-                }
+                } */}
             </ul>
         );
     };
 };
 
-mapStateToProps = store => {
+const mapStateToProps = store => {
     return {
-        notes: store.notes,
+        notes: store,
         email: store.user && store.user.email
     };
 };
 
-noteList.propTypes = {
+NoteList.propTypes = {
     notes: PropTypes.arrayOf(PropTypes.shape({
         title: PropTypes.string.isRequired,
         body: PropTypes.string.isRequired,
