@@ -1,0 +1,42 @@
+.button(@height: 80px) {
+  width: 80%;
+  height: @height;
+
+  border: solid 1px black;
+  color: black;
+
+  font-size: 1.8rem;
+  text-decoration: none;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background: black;
+    color: white;
+    cursor: pointer;
+  }
+
+  &:active {
+    background: #228b22;
+    color: white;
+  }
+}
+
+.border-radius(@radius) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.flexCenter() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@phone: ~'(min-width: 400px)';
+@tablet: ~'(min-width: 768px)';
+@laptop: ~'(min-width: 1400px)';
+@ultra: ~'(min-width: 2500px)';
