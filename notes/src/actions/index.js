@@ -27,7 +27,7 @@ const url = ' http://localhost:5000';
 
 export const getNotes = () => {
 	const auth = {headers: { authorization: localStorage.getItem('authorization')}};
-	const notes = axios.get(`${url}/api/notes`, auth);
+	const notes = axios.get(`/api/notes`, auth);
 	return dispatch => {
 		dispatch({ type: FETCHING_NOTES });
 		notes
@@ -45,7 +45,7 @@ export const createNote = (values) => {
 	return (dispatch) => {
 		dispatch ({ type: CREATING_NOTE });
 		axios
-			.post(`${url}/api/notes`, values, auth)
+			.post(`/api/notes`, values, auth)
 			.then(({ data }) => {
 				dispatch({ type: CREATE_NOTE_SUCCESS, payload: data });
 			})
@@ -60,10 +60,10 @@ export const deleteNote = (id) => {
 	return (dispatch) => {
 		dispatch({ type: DELETING_NOTE });
 		axios
-			.delete(`${url}/api/notes/${id}`)
+			.delete(`/api/notes/${id}`)
 			.then(({ data }) => {
 				return axios
-								.get(`${url}/api/notes`, auth)
+								.get(`/api/notes`, auth)
 								.then(({ data }) => {
 									dispatch({ type: DELETE_NOTE_SUCCESS, payload: data });
 								})
@@ -76,13 +76,13 @@ export const deleteNote = (id) => {
 
 export const updateNote = (id, newInfo) => {
 	const auth = {headers: { authorization: localStorage.getItem('authorization')}};
-	const updatedNote = axios.put(`${url}/api/notes/${id}`, newInfo);
+	const updatedNote = axios.put(`/api/notes/${id}`, newInfo);
 	return (dispatch) => {
 		dispatch({ type: UPDATING_NOTE });
 		updatedNote
 			.then(({ data }) => {
 				return axios
-									.get(`${url}/api/notes`, auth)
+									.get(`/api/notes`, auth)
 									.then(({ data }) => {
 										dispatch({ type: UPDATE_NOTE_SUCCESS, payload: data });
 									})
