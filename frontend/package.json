@@ -1,0 +1,36 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bootstrap": "^4.0.0",
+    "moment": "^2.20.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.0",
+    "reactstrap": "^5.0.0-beta",
+    "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0",
+    "run-all": "^1.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "start-cho": "npm run build-css && run-p -ncr watch-css start-js",
+    "start-js": "react-scripts start",
+    "build": "run-s -n build-css build-js",
+    "build-js": "react-scripts build",
+    "test": "run-s -n build-css test-js",
+    "test-js": "react-scripts test --env=jsdom",
+    "build-css": "node-less-chokidar src",
+    "watch-css": "node-less-chokidar src --watch"
+  },
+  "devDependencies": {
+    "node-less-chokidar": "^0.1.2",
+    "npm-run-all": "^4.0.2"
+  }
+}
