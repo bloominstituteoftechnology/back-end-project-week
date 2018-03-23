@@ -2,6 +2,8 @@
 
 [Trello board](https://trello.com/b/hLl7VMxo/lambda-notes-backend-troy-williams)
 
+[Hosted on Heroku](https://immense-brushlands-42332.herokuapp.com)
+
 * [ ] Create a Trello account
 * [ ] Create a new board called "Lambda Notes(Backend) - {Your Name}"
 * [ ] Create lists titled `backlog`,`To Do`, `In Progress`, and `Done`
