@@ -24,6 +24,7 @@ module.exports = {
 	production: {
 		client: 'MySQL',
 		connection: {
+			host: 'mongodb://user1:pass1@ds119129.mlab.com:19129/notes',
 			database: 'notes',
 			user: 'user1',
 			password: 'user1'
