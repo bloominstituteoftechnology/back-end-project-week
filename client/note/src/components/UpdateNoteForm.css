@@ -1,0 +1,45 @@
+.UpdateNoteForm {
+  border: 1px solid black;
+  width: 35%;
+  margin: auto;
+  background: rgba(0, 0, 168, 0.089);
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 203.14px;
+}
+
+.UpdateNoteForm input {
+  width: 50%;
+  align-self: center;
+}
+
+.UpdateNoteForm input:focus {
+  background: rgba(0, 0, 0, 0.055);
+}
+
+span {
+  width: 12.67px;
+}
+
+span:hover {
+  font-weight: bold;
+  filter: invert(35%);
+}
+
+.updateButton {
+  margin-left: auto;
+}
+
+button:hover {
+  box-shadow: 0.5px 0.5px black;
+}
+
+.UpdateNoteForm h4 {
+  margin-top: -6px;
+}
+
+.UpdateNoteForm button {
+  width: auto;
+  margin: auto;
+}

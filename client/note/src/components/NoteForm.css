@@ -1,0 +1,28 @@
+.noteForm {
+  border: 1px black solid;
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+  margin: 0 auto 30px auto;
+  background: rgba(69, 0, 87, 0.096);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.noteForm form input {
+  transition: width 0.5s height 0.5s ease-in-out;
+  border: none;
+}
+
+.noteForm form input:focus {
+  background: rgba(35, 0, 161, 0.11);
+  color: white;
+  border: 1px solid black;
+  width: 40%;
+  height: 30px;
+}
+
+button {
+  border: none;
+}
