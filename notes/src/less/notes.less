@@ -1,0 +1,120 @@
+.notes {
+
+	.logout {
+		display: flex;
+		justify-content: flex-end;
+		margin-right: 30px;
+	}
+
+	.loading-msg {
+		display: flex;
+		justify-content: center;
+		font-size: 1.5rem;
+		margin: 40px;
+	}
+
+	.notes__add-form {
+		text-align: center;
+
+		h1 {
+			padding: 10px;
+			font-size: 1.5rem;
+		}
+
+		.add-form-input {
+			width: 100%;
+			max-width: 300px;
+			margin: auto;
+
+			input {
+				.input-box;
+			}
+
+			textarea {
+				.textarea-box;
+			}
+
+			button {
+				.primary-button;
+			}
+		}
+	}
+
+	.notes-grid {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+
+		.note {
+		  background: #FCF0CC;
+		  color: rgba(0,0,0,0.7);
+		  box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.24);
+		  margin: 1rem;
+		  padding: 1rem;
+		  min-width: 15rem;
+		  max-width: 15rem;
+		  display: flex;
+		  flex-direction: column;
+		  justify-content: space-between;
+
+		  .note-title {
+		  	margin-bottom: 7px;
+		  	font-weight: 900;
+		 		font-family: cursive;
+		  }
+
+		  .note-text {
+		  	font-family: cursive;
+		  	margin-bottom: 15px;
+		  }
+
+		  .notes_update-form {
+				display: none;
+
+				.update-form-input {
+					width: 100%;
+					max-width: 300px;
+
+					input {
+						.input-box;
+					}
+
+					textarea {
+						.textarea-box;
+					}
+
+					button {
+						.primary-button;
+					}
+				}
+		  }
+
+		  .note-buttons {
+				display: flex;
+				justify-content: space-between;
+
+				.update-button {
+					.secondary-button;
+					max-width: 35px;
+					border: none;
+
+					&:hover {
+						cursor: pointer;
+					}
+				}
+
+				.delete-button {
+					display: none;
+					.primary-button;
+					background: @delete-color;
+					order: 1;
+				}
+
+			  .done-button {
+			  	display: none;
+			  	.secondary-button;
+			  }
+		  }
+		}
+	}
+}
