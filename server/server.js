@@ -12,7 +12,7 @@ const server = express();
 server.use(express.json());
 server.use(cors());
 
-server.use(express.static(path.join(__dirname, '../client/note/build')));
+server.use(express.static(path.join(__dirname, '/client/note/build')));
 
 server.use(routes);
 
@@ -26,9 +26,9 @@ mongoose
     console.error(err);
   });
 
-server.get('/', (req, res) => {
-  res.send({ message: 'API running' })
-})
+server.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, "client/note/build/index.html"));
+});
 
 server.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
