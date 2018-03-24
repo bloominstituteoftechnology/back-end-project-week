@@ -12,7 +12,7 @@ const server = express();
 server.use(express.json());
 server.use(cors());
 
-server.use(express.static(path.join(__dirname, 'client/build')));
+server.use(express.static(path.join(__dirname, 'client/note/build')));
 
 server.use(routes);
 
