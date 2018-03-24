@@ -27,7 +27,7 @@ mongoose
   });
 
 server.get('*', (req, res) => {
-  res.sendFile("index.html");
+  res.sendFile(path.resolve(__dirname, "../client/note/build/index.html"));
 });
 
 server.listen(PORT, () => {
