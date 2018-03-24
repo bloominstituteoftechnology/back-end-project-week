@@ -1,0 +1,25 @@
+{
+  "name": "note-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "cd server && npm start",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "cd server && npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gakko1/back-end-project-week.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gakko1/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/gakko1/back-end-project-week#readme"
+}

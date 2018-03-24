@@ -1,0 +1,41 @@
+div span, button{
+  cursor: pointer;
+}
+
+div span {
+  border: 1px black solid;
+  box-shadow: 1px 1px black;
+  margin: 3px;
+}
+
+.deleteButton {
+  float: right;
+}
+
+.SelectedNote {
+  border: 1px black solid;
+  width: 35%;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 0;
+  background: rgba(151, 0, 211, 0.096);
+}
+
+.SelectedNote__contents {
+  border: 1px solid black;
+  box-shadow: 1px 1px black;
+  width: 50%;
+  margin: 5px auto 5px auto;
+  border-radius: 3%;
+  overflow: hidden; 
+  white-space: nowrap;
+}
+
+.SelectedNote__contents--title {
+  text-decoration: underline;
+}
+
+.SelectedNote__contents--body {
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}

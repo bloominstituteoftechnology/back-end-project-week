@@ -1,0 +1,37 @@
+.Home form {
+  border: 1px black solid;
+  margin: 200px auto;
+  width: 30rem;
+  border-radius: 15px;
+  box-shadow: 1px 1px black; 
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  background: white;
+}
+
+.Home form button {
+  border: none;
+}
+
+.Home form button:hover {
+  color: rgb(16, 9, 48);
+  box-shadow: 1px 1px black
+}
+
+.Home form input {
+  text-align: center;
+  border: none;
+  width: 15%;
+  transition: width 0.2s ease-in-out;
+}
+
+.Home form input:focus {
+  background: rgba(163, 163, 163, 0.253);
+  border: 1px solid black;
+  width: 30%;
+}
+
+html {
+  background: rgba(255, 3, 3, 0.038);
+}
