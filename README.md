@@ -36,7 +36,7 @@ Upon your first commit, please submit a Pull Request and add _both_ the **Trello
 
 ```markdown
 ## Trello Set Up:
-* [ ] Create a Trello account
+* [ ] Use your existing Trello account from the Front End Project, or create a new one.
 * [ ] Create a new board called "Lambda Notes(Backend) - {Your Name}"
 * [ ] Create lists titled `backlog`,`To Do`, `In Progress`, and `Done`
 * [ ] Fill in the `To Do` list with the MVP features listed below
