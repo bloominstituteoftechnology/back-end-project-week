@@ -25,7 +25,7 @@ The main objective of this week is to develop a backend to support the LambdaNot
 * [ ] Store Notes in your Database
 * [ ] Deploy your application to the web
 
-Build an API Endpoint for each of the following, and connect it to your React App
+Build an API Endpoint for each of the following, and connect it to your React App. These should all be read from your Database and scoped to the logged in user. Write tests for your endpoints.
 * [ ] Display a list of notes
 * [ ] Create a note with a title and content
 * [ ] View an existing note
