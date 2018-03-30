@@ -53,7 +53,7 @@ Upon your first commit, please submit a Pull Request and add _both_ the **Trello
 * [ ] Store Notes in your Database
 * [ ] Deploy your application to the web
 
-Build an API Endpoint in your Node App for each of the following, and connect them to your React App. These should all be read from your Database and scoped to the logged in user.
+Build an API Endpoint in your Node App for each of the following, and connect them to your React App. These should all be read from your Database and scoped to the logged in user. Write tests for your endpoints.
 * [ ] Display a list of notes
 * [ ] Create a note with a title and content
 * [ ] View an existing note
