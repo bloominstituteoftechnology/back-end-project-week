@@ -1,0 +1,346 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+* {
+  box-sizing: border-box;
+}
+.center-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.box-shadow {
+  -webkit-box-shadow: 0 5px 10px #777;
+  -moz-box-shadow: 0 5px 10px #777;
+  box-shadow: 0 5px 10px #777;
+}
+html,
+body {
+  background: #03a9f4;
+  font-size: 62.5%;
+  height: 100%;
+}
+.HomePage {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.Navigation {
+  background: #0288d1;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 8vh;
+  font-size: 2.8rem;
+  color: #212121;
+}
+.Navigation .Navigation--Brand {
+  display: flex;
+}
+.Navigation .Navigation--LogOut {
+  position: absolute;
+  font-size: 1.8rem;
+  padding: 10px;
+  right: 0;
+  cursor: pointer;
+}
+.Login {
+  font-size: 1.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 92vh;
+}
+.Login form {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  -webkit-box-shadow: 0 5px 10px #777;
+  -moz-box-shadow: 0 5px 10px #777;
+  box-shadow: 0 5px 10px #777;
+}
+.Login form div {
+  font-size: 3rem;
+  padding: 10px;
+  text-align: center;
+}
+.Login form .LogInError {
+  background-color: red;
+}
+.Login form input {
+  font-size: 1.6rem;
+  text-align: center;
+  border: none;
+  padding: 10px;
+}
+.Login form button {
+  background: #448aff;
+  font-size: 1.6rem;
+  width: stretch;
+  padding: 10px;
+  border-radius: 20px;
+}
+.Login form button:hover {
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+}
+html,
+body {
+  height: 100%;
+}
+.App {
+  display: flex;
+  flex-direction: column;
+}
+.App .Navigation {
+  height: 8vh;
+}
+.App .DashBoard {
+  height: 92vh;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  border-radius: 20px;
+  font-size: 1.6rem;
+}
+.App .DashBoard .Notes {
+  width: 25%;
+  overflow: scroll;
+  margin: 0;
+}
+.App .DashBoard .Notes .Notes--Search {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+  flex: 1;
+}
+.App .DashBoard .Notes .Notes--Search input {
+  border: 2px solid #448aff;
+  border-radius: 5px;
+  font-size: 1.6rem;
+  width: 70%;
+  -webkit-box-shadow: 0 5px 10px #777;
+  -moz-box-shadow: 0 5px 10px #777;
+  box-shadow: 0 5px 10px #777;
+}
+.App .DashBoard .Notes li {
+  border-bottom: 1px solid #0288d1;
+  padding: 10px;
+}
+.App .DashBoard .Notes li:hover {
+  -webkit-opacity: 0.5;
+  -moz-opacity: 0.5;
+  opacity: 0.5;
+}
+.App .DashBoard .Notes li .note--title {
+  font-weight: bold;
+  font-size: 1.6rem;
+}
+.App .DashBoard .Notes li .note--text {
+  font-size: 1.6rem;
+  display: flex;
+  justify-content: space-between;
+  overflow: scroll;
+}
+.App .DashBoard .ViewNote {
+  background: #02b7f4;
+  width: 75%;
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.App .DashBoard .ViewNote .ViewNote--addNote {
+  display: flex;
+  justify-content: flex-end;
+}
+.App .DashBoard .ViewNote .ViewNote--addNote button {
+  font-size: 1.6rem;
+  background: #448aff;
+  padding: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 5px 10px #777;
+  -moz-box-shadow: 0 5px 10px #777;
+  box-shadow: 0 5px 10px #777;
+}
+.App .DashBoard .ViewNote .ViewNote--addNote button:hover {
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+}
+.App .DashBoard .ViewNote form {
+  display: flex;
+  flex-direction: column;
+  height: 95%;
+}
+.App .DashBoard .ViewNote form label {
+  font-size: 1.9rem;
+}
+.App .DashBoard .ViewNote form input {
+  border-radius: 5px;
+  font-size: 1.6rem;
+  -webkit-box-shadow: 0 5px 10px #777;
+  -moz-box-shadow: 0 5px 10px #777;
+  box-shadow: 0 5px 10px #777;
+}
+.App .DashBoard .ViewNote form textarea {
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  font-size: 1.6rem;
+  -webkit-box-shadow: 0 5px 10px #777;
+  -moz-box-shadow: 0 5px 10px #777;
+  box-shadow: 0 5px 10px #777;
+}
+.App .DashBoard .ViewNote .ViewNote--update {
+  display: flex;
+  justify-content: center;
+}
+.App .DashBoard .ViewNote .ViewNote--update button {
+  margin-right: 10px;
+  font-size: 1.6rem;
+  background: #448aff;
+  padding: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 5px 10px #777;
+  -moz-box-shadow: 0 5px 10px #777;
+  box-shadow: 0 5px 10px #777;
+}
+.App .DashBoard .ViewNote .ViewNote--update button:hover {
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+}
