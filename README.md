@@ -9,17 +9,17 @@ The main objective of this week is to develop a backend to support the LambdaNot
 * You are required to showcase progress with at least 1 commit a day.  This will let your project manager know where you are and if you need help.  This also allows the client to get progress reports from the company in a real world setting. This also protects you from losing your work if your computer blows up.
 
 ## Trello Set Up:
-* [ ] Use your existing Trello account from the Front End Project, or create a new one.
+* [ ] Use your existing Trello account from the Front End Project, or create a new one
 * [ ] Create a new board called "Lambda Notes(Backend) - {Your Name}"
 * [ ] Create lists titled `backlog`,`To Do`, `In Progress`, and `Done`
 * [ ] Fill in the `To Do` list with the Backend MVP features listed below
 * [ ] Fill in the `backlog` list with all the extra features listed below
-* [ ] Share your board with the project manager that has been assigned to you.  If you have not been assigned yet, reach out to your lead TA for guidance
+* [ ] Share your board with the project manager that has been assigned to you.  If you have not been assigned yet, reach out to your Section Lead for guidance
 * [ ] Add your Trello URL to your project's README.md file.  Commit the change, push it to your repository & submit a pull request
 
 ## Backend MVP Features:
 * [ ] Create a Database for your app
-* [ ] Create a Registration Page that allows users to create accounts for your app and sign in with email/password.
+* [ ] Create a Registration Page that allows users to create accounts for your app and sign in with email/password
 * [ ] Store these User Accounts in your Database
 * [ ] Add a Sign In Page
 * [ ] Store Notes in your Database
@@ -36,18 +36,18 @@ Upon your first commit, please submit a Pull Request and add _both_ the **Trello
 
 ```markdown
 ## Trello Set Up:
-* [ ] Use your existing Trello account from the Front End Project, or create a new one.
+* [ ] Use your existing Trello account from the Front End Project, or create a new one
 * [ ] Create a new board called "Lambda Notes(Backend) - {Your Name}"
 * [ ] Create lists titled `backlog`,`To Do`, `In Progress`, and `Done`
 * [ ] Fill in the `To Do` list with the MVP features listed below
 * [ ] Fill in the `backlog` list with all the extra features listed below
-* [ ] Share your board with the project manager that has been assigned to you.  If you have not been assigned yet, reach out to your lead TA for guidance
+* [ ] Share your board with the project manager that has been assigned to you.  If you have not been assigned yet, reach out to your Section Lead for guidance
 * [ ] Add your Trello URL to your project's README.md file.  Commit the change, push it to your repository & submit a pull request
 
 ## Backend MVP Features:
 * [ ] Create a Database for your app
 * [ ] Create a Node app and connect it to your database
-* [ ] Create a Registration Page that allows users to create accounts for your app and sign in with email/password.
+* [ ] Create a Registration Page that allows users to create accounts for your app and sign in with email/password
 * [ ] Store these User Accounts in your Database
 * [ ] Add a Sign In Page
 * [ ] Store Notes in your Database
@@ -61,7 +61,7 @@ Build an API Endpoint in your Node App for each of the following, and connect th
 * [ ] Delete an existing note
 ```
 ***
-## Once you have completed the Backend Minimum Viable Product requirements, direct message your project manager for approval.  If approved, you may continue working on the Extra Features.
+## Once you have completed the Backend Minimum Viable Product requirements, direct message your project manager for approval.  If approved, you may continue working on the Extra Features. Please add the Extra Features to your Task List in the first comment on your PR.
 
 Once your MVP has been approved, you have been given a feature list that the client would love to have completed.  Your goal would be to finish MVP as soon as you can and get working the list of features.
 
