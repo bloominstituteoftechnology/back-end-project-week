@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+// will replace this later with something more secure
+const secret = 11;
 
 const UserSchema = mongoose.Schema({
   username: {
@@ -16,7 +18,7 @@ const UserSchema = mongoose.Schema({
 
 UserSchema.pre("save", function(next) {
   // generate the salt and hash the pw
-  bcrypt.hash(this.password, 11, (err, hash) => {
+  bcrypt.hash(this.password, secret, (err, hash) => {
     if (err) return next(err);
     this.password = hash;
     next();
