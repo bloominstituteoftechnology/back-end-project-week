@@ -7,6 +7,10 @@ const Note = new mongoose.Schema({
     },
     entry: {
         type: String,
+    },
+    timeStamp: {
+        type: String,
+        default: new Date(),
     }
 });
 
