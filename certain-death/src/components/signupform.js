@@ -10,7 +10,7 @@ const StyledSignUpForm = styled.div`
 
   form {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;    
   }
 
   input {
@@ -41,22 +41,24 @@ class SignUpForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: this.props.notes.find(val => val.id.toString() === this.props.id).title,
-      body: this.props.notes.find(val => val.id.toString() === this.props.id).body,
+      email: '',
+      password: '',
+      confirmPassword: '',
       redirect: false,
     };
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.updateNote({
-      id: this.props.id,
-      title: this.state.title,
-      body: this.state.body,
+    this.props.signup({
+      email: this.state.email,
+      password: this.state.password,
+      confirmPassword: this.state.confirmPassword,
     });
     this.setState({
-      title: '',
-      body: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
       redirect: true,
     });
   }
@@ -69,21 +71,21 @@ class SignUpForm extends React.Component {
 
   render() {
     return (
-      <StyledUpdateForm>
+      <StyledSignUpForm>
         <form onSubmit={this.handleSubmit}>
           <input
             className='form__input'
-            type='text'
-            name='username'
-            placeholder='Username (required, 20 chars max)...'
-            maxLength='20'
+            type='email'
+            name='email'
+            placeholder='Email (required, 30 chars max)...'
+            maxLength='30'
             required
             onChange={this.handleChange}
-            value={this.state.username}
+            value={this.state.email}
           />
           <input
             className='form__input'
-            type='text'
+            type='password'
             name='password'
             placeholder='Password (required, 15 chars max)...'
             maxLength='15'
@@ -93,17 +95,18 @@ class SignUpForm extends React.Component {
           />
           <input
             className='form__input'
-            type='text'
+            type='password'
             name='confirmPassword'
-            placeholder='Confirm Password (required for signup)...'
+            placeholder='Confirm Password (required)...'
             maxLength='15'
+            required
             onChange={this.handleChange}
             value={this.state.confirmPassword}
           />
-          <Button type='submit' backgroundColor='rgb(34, 170, 61)' title='Update' />
+          <Button type='submit' backgroundColor='rgb(34, 170, 61)' title='Register' />
         </form>
-        {this.state.redirect ? <Redirect to={`/fullnote/${this.props.id}`} /> : null}
-      </StyledUpdateForm>
+        {this.state.redirect ? <Redirect to={'/list'} /> : null}
+      </StyledSignUpForm>
     );
   }
 }
@@ -114,4 +117,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { updateNote })(UpdateForm);
+export default connect(mapStateToProps, { signup })(SignUpForm);

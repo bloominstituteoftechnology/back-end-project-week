@@ -90,6 +90,14 @@ export default (state = initialState, action) => {
           return { ...val, filtered: false };
         }),
       };
+    case SIGN_UP:
+      return {
+        ...state
+      };
+    case LOGIN:
+      return {
+        ...state
+      };
     default:
       return state;
   }

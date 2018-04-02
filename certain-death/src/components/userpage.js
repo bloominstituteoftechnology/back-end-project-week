@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import UserRail from './userrail';
 import SectionTitle from './sectiontitle';
+import SignUpForm from './signupform';
+import LoginForm from './loginform';
 
 const StyledUser = styled.div`
   display: flex;
@@ -22,7 +24,9 @@ const UserPage = () => (
   <StyledUser>
     <UserRail />
     <div className='user-page__right'>
-      <SectionTitle name='Please Select A User Option On The Left'/>
+      <SectionTitle name='Please Register Or Login Below'/>
+      <SignUpForm />
+      <LoginForm />
     </div>
   </StyledUser>
 );
