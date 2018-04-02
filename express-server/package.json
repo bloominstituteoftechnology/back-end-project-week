@@ -1,0 +1,21 @@
+{
+  "name": "punit",
+  "version": "1.0.0",
+  "main": "app.js",
+  "author": "Punit Rawal",
+  "license": "MIT",
+  "dependencies": {
+    "babel-preset-es2015-node6": "^0.4.0",
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "cors": "^2.8.4",
+    "jsonwebtoken": "^8.2.0",
+    "mongoose": "^5.0.12",
+    "morgan": "^1.9.0",
+    "sinon": "^4.5.0",
+    "source-map-support": "^0.5.4"
+  },
+  "test": "nodemon server.js"
+}
