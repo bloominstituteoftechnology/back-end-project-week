@@ -1,4 +1,9 @@
 # Back End Project Week
+
+## Trello URL:
+https://trello.com/b/aK5pmfG2/lambda-notesbackend-german-go
+
+
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
 You are to treat this week as if you are working at a company and the instructor is your client.  The teaching assistants are acting as your project managers and will be your main support throughout the week.
