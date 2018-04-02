@@ -3,6 +3,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const port = process.env.PORT || 5000;
 
+const routes = require('./api/routes');
+
 const server = express();
 const corsOptions = {
   origin: 'http://localhost:3000',
@@ -12,6 +14,8 @@ const corsOptions = {
 
 server.use(express.json());
 server.use(cors(corsOptions));
+
+routes(server);
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/lambda-notes', {}, err => {
