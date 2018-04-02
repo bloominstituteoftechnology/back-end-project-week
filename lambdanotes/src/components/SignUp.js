@@ -13,7 +13,7 @@ class SignUp extends Component {
 
   handleSubmit = _ => {
     const { username, password } = this.state;
-    this.props.createAccount(username, password, this.props.history);
+    this.props.handleNewUser(username, password);
     this.setState({ title: '', body: '', });
   };
 
@@ -31,8 +31,8 @@ class SignUp extends Component {
           type="text"
           placeholder="Username"
           onChange={this.handleInputChange}
-          maxLength="32"
           minLength="4"
+          maxLength="32"
           required
         />
         <br />
@@ -43,8 +43,8 @@ class SignUp extends Component {
           type="password"
           placeholder="Password"
           onChange={this.handleInputChange}
-          maxLength="32"
           minLength="4"
+          maxLength="32"
           required
         />
         <br />

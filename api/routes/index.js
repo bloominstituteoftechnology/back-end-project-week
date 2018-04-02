@@ -1,4 +1,4 @@
-const { authenticate } = require('../utils/middleware');
+const { authenticate } = require('../services/auth');
 
 const { createUser } = require('../controllers');
 
