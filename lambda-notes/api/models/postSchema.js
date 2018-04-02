@@ -15,7 +15,11 @@ const PostSchema = new mongoose.Schema({
     type: String,
     validate: contentSize
   },
-  comments: []
+  createdOn: {
+    type: Date,
+    required: true,
+    default: Date.now
+  }
 });
 
 function contentSize(content) {

@@ -1,0 +1,22 @@
+[
+    {
+        "firstName": "Dixie",
+        "lastName": "Korley",
+        "username": "dk574",
+        "pasword": "abcd",
+        "createdOn": {
+            "$date": "2014-12-10T15:11:50.376Z"
+        },
+        "posts": ["School"]
+    },
+    {
+        "firstName": "Johnathan",
+        "lastName": "Matthews",
+        "username": "jm2018",
+        "pasword": "abcd",
+        "createdOn": {
+            "$date": "2014-12-10T15:11:50.376Z"
+        },
+        "posts": ["Fire Ball"]
+    }
+]
