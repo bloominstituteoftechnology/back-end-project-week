@@ -6,3 +6,11 @@ const path = require("path");
 const server = express();
 mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://localhost/notes");
+
+server.use(bodyParser.json());
+
+const port = 8000;
+
+server.listen(port, () => {
+  console.log(`Server is now listening on port ${port}`);
+});
