@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Note = new mongoose.Schema({
     title: {
         type: String,
-        required: true
+        required: [true, 'Please provide a title for the note'],
     },
     entry: {
         type: String,
@@ -11,6 +11,10 @@ const Note = new mongoose.Schema({
     timeStamp: {
         type: String,
         default: new Date(),
+    },
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
 });
 
