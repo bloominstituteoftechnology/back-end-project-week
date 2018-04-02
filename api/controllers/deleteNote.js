@@ -1,7 +1,7 @@
-const Notes = require('../models/noteModel');
+const Note = require('../models/noteModel');
 
 const deleteNote = (req, res) => {
-  const { id, title, content } = req.body;
+  const { id } = req.body;
   Note.findByIdAndRemove(id)
     .then(note => {
       if (note === null) {
