@@ -1,0 +1,17 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/PeterGrayCreative/back-end-project-week.git",
+  "author": "Peter Gray <peter@petergraycreative.com>",
+  "license": "MIT",
+  "dependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "express": "^4.16.3",
+    "mocha": "^5.0.5",
+    "mongodb": "^3.0.5",
+    "mongoose": "^5.0.12",
+    "sinon": "^4.5.0"
+  }
+}
