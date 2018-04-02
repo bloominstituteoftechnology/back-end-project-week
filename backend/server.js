@@ -22,10 +22,10 @@ server.get('/notes', (req, res) => {
 });
 
 server.post('/notes', (req, res) => {
-  const { title, content } = req.body;
+  const { title, content, createdBy } = req.body;
   if (!title || !content)
     res.status(422).json('You need to enter a title and content!');
-  const newNote = new Note({ title, content });
+  const newNote = new Note({ title, content, createdBy });
   newNote
     .save()
     .then(savedNote => res.status(200).json(savedNote))
@@ -34,6 +34,7 @@ server.post('/notes', (req, res) => {
 
 // User endpoints
 server.post('/users', (req, res) => {
+  console.log(req.body)
   let { username, password } = req.body;
   username = username.toLowerCase();
   if (!username || !password)
