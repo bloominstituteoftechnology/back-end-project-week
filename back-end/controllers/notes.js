@@ -39,7 +39,7 @@ const getNotes = (req, res) => {
 
 const getNote = (req, res) => {
   const {userId, noteId} = req.params;
-  User.findById(userId).then(note => {
+  User.findById(userId).then(user => {
     Note.findById(noteId)
     .then((foundNote) => {
       res.status(200).json({ message: 'The Note You Requested', foundNote });
@@ -51,13 +51,16 @@ const getNote = (req, res) => {
 };
 
 const updateNote = (req, res) => {
-  Note.findByIdAndUpdate(req.params.id, req.body, { new: true })
+  const {userId,noteId} = req.params;
+  User.findById(userId).then(user => {
+    Note.findByIdAndUpdate(noteId, req.body, { new: true })
     .then((updatedNote) => {
       res.status(200).json({ message: 'Note Has Been Updated', updatedNote });
     })
     .catch((error) => {
       res.status(422).json({ message: 'Error Updating Note', error });
     });
+  })
 };
 
 const deleteNote = (req, res) => {
