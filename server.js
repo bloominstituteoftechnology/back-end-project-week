@@ -1,6 +1,6 @@
 const express = require('express');
 const helmet = require('helmet');
-const routes = require('./api/routes');
+const routes = require('./api/routes/routes');
 
 const server = express();
 server.use(helmet());
