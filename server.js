@@ -18,11 +18,10 @@ server.use(session({
 }));
 
 server.use('/users', userRouter);
-server.use('/notes', notesRouter);
+server.use('/notes', authUser, notesRouter);
 
 server.get('/', (req, res) => {
     res.send('works');
 });
-const test = 'this is a test';
 
 module.exports = { server };
