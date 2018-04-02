@@ -1,46 +1,66 @@
-import { GET_NOTES, ADD_NOTE, DELETE_NOTE, EDIT_NOTE } from '../actions';
+import { combineReducers } from 'redux';
+import { reducer as FormReducer } from 'redux-form';
 
-const initialState = {
-  notes: [],
-};
+import {
+  AUTHENTICATION_ERROR,
+  USER_CREATE,
+  LOGIN,
+  LOGOUT,
+  GET_NOTES,
+  ADD_NOTE,
+  EDIT_NOTE,
+  DELETE_NOTE,
+} from '../actions';
 
-export const reducer = (state = initialState, action) => {
+const AuthReducer = (auth = {}, action) => {
   switch (action.type) {
-    case GET_NOTES:
-      return {
-        ...state,
-        notes: action.payload,
-      };
-    case ADD_NOTE:
-      return {
-        ...state,
-        notes: [
-          ...state.notes,
-          {
-            title: action.payload.title,
-            content: action.payload.content,
-            id: action.payload.id,
-          },
-        ],
-      };
-    case DELETE_NOTE:
-      return {
-        ...state,
-        notes: state.notes.filter(each => {
-          return each.id !== action.payload.id;
-        }),
-      };
-    case EDIT_NOTE:
-      return {
-        ...state,
-        notes: state.notes.map(each => {
-          if(each.id !== action.payload.id) return each;
-          return action.payload;
-        }),
-      };
+    case AUTHENTICATION_ERROR:
+      return { ...auth, message: action.payload };
+    case USER_CREATE:
+      return { ...auth, message: 'Registered' };
+    case LOGIN:
+      return { ...auth, authenticated: true, user: action.payload };
+    case LOGOUT:
+      return { ...auth, authenticated: false };
     default:
-      return state;
+      return auth;
   }
 };
 
-export default reducer;
+const NoteReducer = (notes = [], action) => {
+  switch (action.type) {
+    // case GET_NOTES:
+    //   return {
+    //     ...state,
+    //     notes: action.payload,
+    //   };
+    case ADD_NOTE:
+      return [
+        ...notes,
+        {
+          title: action.payload.title,
+          content: action.payload.content,
+          id: action.payload.id,
+        },
+      ];
+    case EDIT_NOTE:
+      return notes.map(each => {
+          if (each.id !== action.payload.id) return each;
+          return action.payload;
+        });
+    case DELETE_NOTE:
+      return notes.filter(each => {
+          return each.id !== action.payload.id;
+        });
+    default:
+      return notes;
+  }
+};
+
+const rootReducer = combineReducers({
+  auth: AuthReducer,
+  notes: NoteReducer,
+  form: FormReducer,
+});
+
+export default rootReducer;

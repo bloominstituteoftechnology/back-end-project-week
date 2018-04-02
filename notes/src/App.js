@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import AllNotes from './AllNotes/AllNotes';
 import SingleNote from './SingleNote/SingleNote';
 import NewNote from './NewNote/NewNote';
+import UserCreate from './UserCreate/userCreate'
 import './App.css';
 
 class App extends Component {
@@ -13,6 +14,7 @@ class App extends Component {
           <Route path="/" component={AllNotes} exact />
           <Route path="/new-note" component={NewNote} />
           <Route path="/notes/:id" component={SingleNote} />
+          <Route path="/register" component={UserCreate} />
         </div>
       </Router>
     );
