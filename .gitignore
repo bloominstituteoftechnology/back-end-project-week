@@ -1,1 +1,3 @@
 .DS_Store
+.vscode
+/note-front/node_modules
