@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
 const port = process.env.PORT || 3030;
+
 const Note = require('./api/models/NoteSchema');
+const User = require('./api/models/UserSchema');
 
 const corsOptions = {
   origin: `http://localhost:3000`,
@@ -74,6 +76,45 @@ server.delete('/notes', (req, res) => {
         .status(500)
         .json({ msg: 'There was an error deleting the note.', error: err });
     });
+});
+
+server.post('/register', (req, res) => {
+  const newUser = req.body;
+  if (!newUser.username || !newUser.password) {
+    res
+      .status(400)
+      .json({ msg: 'Please provide a username and a password.', error: err });
+  }
+  const user = new User(newUser);
+  user
+    .save()
+    .then(savedUser => {
+      res.status(200).json(savedUser);
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ msg: 'There was an error saving the user.', error: err });
+    });
+});
+
+server.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    res
+      .status(400)
+      .json({ msg: 'Please enter both a username and a password.', error: err });
+  }
+  User.findOne({ username }).then(foundUser => {
+    if (!foundUser) res.status(404).json({ msg: 'User does not exist' });
+    foundUser
+      .checkPassword(password, res)
+      .then(isValid => {
+        if (isValid) res.json(foundUser);
+        else res.json({ msg: 'Incorrect username or password' });
+      })
+      .catch(err => res.error(err));
+  });
 });
 
 server.listen(port, () => console.log(`Server is listening on port ${port}`));
