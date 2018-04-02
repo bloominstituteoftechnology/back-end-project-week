@@ -3,12 +3,16 @@ const cors = require('cors');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 
+const routes = require('./api/routes/routes');
+
 const server = express();
 const corsOptions = {};
 
 server.use(helmet());
 server.use(express.json());
 server.use(cors());
+
+routes(server);
 
 mongoose
   .connect('mongodb://localhost/lambda-notes')
