@@ -9,7 +9,7 @@ const createUser = (res, req) => {
       res.status(200).json({ message: 'User successfully created.'});
     })
     .catch(err => {
-      res.status(422).json(err);
+      res.status(422).json({ message: 'User could not be created because of an error', err});
     });
 };
 
