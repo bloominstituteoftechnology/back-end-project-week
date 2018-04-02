@@ -22,7 +22,7 @@ const UserPage = () => (
   <StyledUser>
     <UserRail />
     <div className='user-page__right'>
-      <SectionTitle name='Sign Up or Login:'/>
+      <SectionTitle name='Please Select A User Option On The Left'/>
     </div>
   </StyledUser>
 );
