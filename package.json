@@ -1,0 +1,21 @@
+{
+  "name": "lambdanotes",
+  "version": "1.0.0",
+  "description": "Note taking app",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "Lo Saephan",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "helmet": "^3.11.0",
+    "jsonwebtoken": "^8.2.0",
+    "mongoose": "^5.0.12",
+    "nodemon": "^1.15.0"
+  }
+}
