@@ -59,6 +59,6 @@ module.exports = {
   createNote,
   getNote,
   getNotes,
-  updatedNote,
+  updateNote,
   deleteNote,
 };
