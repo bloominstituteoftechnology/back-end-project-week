@@ -36,7 +36,9 @@ Upon your first commit, please submit a Pull Request and add _both_ the **Trello
 
 ***
 # Trello Board Link
-`https://trello.com/b/1BI5xT2N`
+[Trello Link](https://trello.com/b/1BI5xT2N)
+
+
 ***
 ## Once you have completed the Backend Minimum Viable Product requirements, direct message your project manager for approval.  If approved, you may continue working on the Extra Features. Please add the Extra Features to your Task List in the first comment on your PR.
 
