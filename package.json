@@ -9,6 +9,7 @@
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "global": "^4.3.2",
+    "mongoose": "^5.0.12",
     "nodemon": "^1.17.3"
   },
   "scripts": {
