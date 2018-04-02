@@ -1,3 +1,8 @@
+# Project Trello URL
+https://trello.com/b/J0AZpMy1/lambda-notes-backend-kevin-chan
+
+---
+
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
