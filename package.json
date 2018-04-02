@@ -5,13 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": ""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jonbrunt/Operation-Certain-Death.git"
   },
-  "author": "",
+  "author": "Jonathan M. Brunt",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jonbrunt/Operation-Certain-Death/issues"

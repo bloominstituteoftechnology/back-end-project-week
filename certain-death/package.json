@@ -1,7 +1,7 @@
 {
-  "name": "babylon",
+  "name": "certain-death",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "ajv": "^6.1.1",
     "axios": "^0.18.0",
