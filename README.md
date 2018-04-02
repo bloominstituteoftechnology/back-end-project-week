@@ -1,8 +1,4 @@
-# Trello board URL = https://trello.com/b/xFgzbxoI/lambda-notesbackend-mike-streltsoff
-
-
-
-
+# [Click here to look at my awesome Trello board URL - wOOt!](https://trello.com/b/xFgzbxoI/lambda-notesbackend-mike-streltsoff)
 
 
 # Back End Project Week
