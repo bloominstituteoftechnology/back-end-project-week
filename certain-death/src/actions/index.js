@@ -9,6 +9,8 @@ export const NEWEST_SORT = 'NEWEST_SORT';
 export const OLDEST_SORT = 'OLDEST_SORT';
 export const UPDATE_SEARCH = 'UPDATE_SEARCH';
 export const SHOW_NOTES = 'SHOW_NOTES';
+export const LOGIN = 'LOGIN';
+export const SIGN_UP = 'SIGN_UP';
 
 export const addNote = data => ({
   type: ADD_NOTE,
@@ -54,4 +56,12 @@ export const updateSearch = data => ({
 
 export const showNotes = data => ({
   type: SHOW_NOTES,
+});
+
+export const signup = data => ({
+  type: SIGN_UP,
+});
+
+export const login = data => ({
+  type: LOGIN,
 });

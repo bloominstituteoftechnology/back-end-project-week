@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import styled from 'styled-components';
+import UserPage from './userpage';
 import List from './list';
 import NewNote from './newnote';
 import FullNote from './fullnote';
 import UpdateNote from './updatenote';
-// import NotFound from './notfound';
 
 const StyledApp = styled.div`
   width: 830px;
@@ -19,7 +19,8 @@ class App extends Component {
     return (
       <Router>
         <StyledApp>
-          <Route path='/' component={List} exact />
+          <Route path='/' component={UserPage} exact />
+          {/* <Route path='/' component={List} exact /> */}
           <Route path='/fullnote/:id' component={FullNote} />
           <Route path='/newnote' component={NewNote} />
           <Route path='/updatenote/:id' component={UpdateNote} />
