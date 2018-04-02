@@ -1,3 +1,5 @@
+## Trello Add Link:
+https://trello.com/invite/b/OKfkgt1b/ba3dea186405182ace277c86b1e21fbf/lambda-notes-backend-charlie-sparks
 
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
