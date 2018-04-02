@@ -5,10 +5,15 @@
   "repository": "https://github.com/PeterGrayCreative/back-end-project-week.git",
   "author": "Peter Gray <peter@petergraycreative.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "mocha *.test.js --exit"
+  },
   "dependencies": {
     "bcrypt": "^1.0.3",
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
+    "cors": "^2.8.4",
     "express": "^4.16.3",
     "mocha": "^5.0.5",
     "mongodb": "^3.0.5",

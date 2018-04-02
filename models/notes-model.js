@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const NoteSchema = new Schema({
   noteTitle: {
@@ -10,8 +11,8 @@ const NoteSchema = new Schema({
     required: true,
     type: String,
   },
-  timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
-});
+  // user: { type: ObjectId, ref: 'User' },
+}, {timestamps: true});
 
 NoteSchema.methods.getNoteByTitle = function() {
   return this.noteTitle;
@@ -24,6 +25,6 @@ NoteSchema.statics.getAllNotes = (cb) => {
   });
 };
 
-const Record = mongoose.model('Note', NoteSchema);
+const Note = mongoose.model('Note', NoteSchema);
 
 module.exports = Note;
