@@ -27,7 +27,7 @@ mongoose
 });
 
 server.use('/api/user', userRoutes);
-server.use('/api/notes', noteRoutes);
+server.use('/api/note', noteRoutes);
 
 const port = process.env.PORT || 5000;
 server.listen(port, () => {

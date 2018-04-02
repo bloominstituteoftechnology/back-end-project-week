@@ -7,16 +7,18 @@ const Note = require('./noteModel');
 const User = require('../user/userModel');
 
 const validateToken = (req, res, next) => {
-  console.log(req.headers);
   const token = req.headers.authorization;
+  console.log(req.body);
+  console.log('validate token', token);
   if (!token) {
     res
       .status(422)
       .json({ error: 'User not authorized' });
   }
   jwt.verify(token, 'TOKEN_SECRET' , (authError, decoded) => {
+    console.log(decoded);
     if (authError) {
-      console.log('user authorized!!');
+      console.log('user not authorized!!');
       res
         .status(403)
         .json({ error: 'Token invalid, please login', message: authError });
@@ -24,19 +26,22 @@ const validateToken = (req, res, next) => {
     }
     // sets the decoded JWT/user object on the request object for use in next middleware.
     req.decoded = decoded;
+    console.log('decoded', decoded);
     next();
   });
 };
 
 noteRouter.post('/', validateToken, function(req, res){
-	console.log('dsklfj');
-	Note.create(req.body).then(post => {
+  let note = req.body;
+  note.user = req.decoded.userId;
+	Note.create(note).then(post => {
 		res.json(post);
 	});
 });
 
 noteRouter.get('/', validateToken, function(req, res){
-	Note.find({}).then(notes => {
+  const { userId } = req.decoded;
+	Note.find({user: userId}).then(notes => {
 		res.json(notes);
 	}).catch(err => {
 		res.send(err);
