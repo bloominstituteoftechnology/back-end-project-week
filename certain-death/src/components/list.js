@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import NoteCard from './notecard';
 import HomeLeftRail from './homeleftrail';
@@ -7,6 +8,19 @@ import SectionTitle from './sectiontitle';
 
 const StyledList = styled.div`
   display: flex;
+
+  .list__links {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    a {
+      margin: 0 5px;
+      font-family: Raleway, sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #4a494a;      
+    }
+  }
 
   .list__right {
     display: flex;
@@ -24,6 +38,10 @@ const List = props => (
   <StyledList>
     <HomeLeftRail />
     <div className='list__right'>
+      <div className='list__links'>
+        <Link to={'/newnote'}>sign up</Link>
+        <Link to={'/newnote'}>login</Link>
+      </div>
       <SectionTitle name={`Your Notes (${props.sortStatus}):`}/>
       {props.notes.map((note, index) => {
         return (
