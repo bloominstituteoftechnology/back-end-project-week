@@ -14,7 +14,7 @@ const UserSchema = mongoose.Schema({
     required: true
   },
 
-  comments: [ObjectId]
+  notes: [ObjectId]
 });
 
 
