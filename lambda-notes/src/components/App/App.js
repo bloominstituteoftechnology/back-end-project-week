@@ -4,7 +4,13 @@ import NotesList from '../NotesList/NotesList';
 import { connect } from 'react-redux';
 import './App.css';
 
+import { getAllNotes } from '../../actions';
+
 class App extends Component {
+  componentDidMount() {
+    this.props.getAllNotes();
+  }
+
   render() {
     const props = this.props;
     console.log('App props', this.props)
@@ -28,4 +34,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, { getAllNotes })(App);

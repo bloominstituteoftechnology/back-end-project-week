@@ -6,11 +6,15 @@ import Note from './components/Note/Note';
 import EditNote from './components/EditNote/EditNote';
 import CreateNewNote from './components/CreateNewNote/CreateNewNote';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducers from './reducers';
 
-const store = createStore(rootReducers);
+import ReduxThunk from 'redux-thunk';
+
+const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
+
+const store = createStoreWithMiddleware(rootReducers);
 
 ReactDOM.render(
 <Provider store={store}>
