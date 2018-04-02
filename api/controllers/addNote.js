@@ -2,8 +2,8 @@ const Note = require('../models/noteModel');
 const User = require('../models/userModel');
 
 const addNote = (req, res) => {
-  const { id, title, content } = req.body;
-  const newNote = new Note({ author: id, title, content });
+  const { author, title, content } = req.body;
+  const newNote = new Note({ author, title, content });
 
   newNote
     .save()
