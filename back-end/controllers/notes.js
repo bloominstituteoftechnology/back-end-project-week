@@ -38,13 +38,16 @@ const getNotes = (req, res) => {
 };
 
 const getNote = (req, res) => {
-  Note.findById(req.params.id)
+  const {userId, noteId} = req.params;
+  User.findById(userId).then(note => {
+    Note.findById(noteId)
     .then((foundNote) => {
       res.status(200).json({ message: 'The Note You Requested', foundNote });
     })
     .catch((error) => {
       res.status(422).json({ message: 'Error Retrieving Note', error });
     });
+  })
 };
 
 const updateNote = (req, res) => {
