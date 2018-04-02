@@ -1,0 +1,23 @@
+{
+  "name": "lambda-notes-server",
+  "version": "1.0.0",
+  "description": "server-side for lambda notes app",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Christopher Beards",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.0",
+    "mongoose": "^5.0.12",
+    "nodemon": "^1.17.3",
+    "passport": "^0.4.0"
+  }
+}
