@@ -3,7 +3,8 @@ const User = require('../models/user');
 
 const createNote = (req, res) => {
   const { userId } = req.params;
-  const newNote = new Note(req.body);
+  const note = req.body;
+  const newNote = new Note(note);
 
   User.findById(userId).then((user) => {
     Note.find({user: userId})
@@ -52,8 +53,9 @@ const getNote = (req, res) => {
 
 const updateNote = (req, res) => {
   const {userId,noteId} = req.params;
+  const updates = req.body;
   User.findById(userId).then(user => {
-    Note.findByIdAndUpdate(noteId, req.body, { new: true })
+    Note.findByIdAndUpdate(noteId, updates, { new: true })
     .then((updatedNote) => {
       res.status(200).json({ message: 'Note Has Been Updated', updatedNote });
     })
@@ -64,7 +66,9 @@ const updateNote = (req, res) => {
 };
 
 const deleteNote = (req, res) => {
-  Note.findByIdAndRemove(req.params.id)
+  const {userId,noteId} = req.params;
+  User.findById(userId).then(user => {
+    Note.findByIdAndRemove(noteId)
     .then((deletedNote) => {
       res
         .status(200)
@@ -73,6 +77,7 @@ const deleteNote = (req, res) => {
     .catch((error) => {
       res.status(422).json({ message: 'Error Deleting Note', error });
     });
+  })
 };
 
 module.exports = {
