@@ -6,23 +6,23 @@ module.exports = (app) => {
   app.route('/notes/createuser').post(userController.createUser);
 
   //login user
-  app.route('/notes/login').post(userController.loginUser);
+  app.route('/notes/login/').post(userController.loginUser);
 
   //logout user
-  app.route('/notes/logout').post(userController.logoutUser);
+  app.route('/notes/logout/').post(userController.logoutUser);
 
   //create note
-  app.route('/notes/').post(noteController.createNote);
+  app.route('/notes/:userId').post(noteController.createNote);
 
   //update note
-  app.route('/notes/:id').put(noteController.updateNote);
+  app.route('/notes/:userId/:noteId').put(noteController.updateNote);
 
   //delete note
-  app.route('/notes/:id').delete(noteController.deleteNote);
+  app.route('/notes/:userId/:noteId').delete(noteController.deleteNote);
 
   //get note
-  app.route('/notes/:id').get(noteController.getNote);
+  app.route('/notes/:userId/:noteId').get(noteController.getNote);
 
   //get notes
-  app.route('/notes').get(noteController.getNotes);
+  app.route('/notes/:userId').get(noteController.getNotes);
 };

@@ -23,6 +23,10 @@ const NoteSchema = new mongoose.Schema({
     required: true,
     default: '...',
   },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
 });
 
 const Note = mongoose.model("Note", NoteSchema);

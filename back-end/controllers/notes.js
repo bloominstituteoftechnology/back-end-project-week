@@ -1,26 +1,42 @@
 const Note = require('../models/note');
+const User = require('../models/user');
 
 const createNote = (req, res) => {
+  const { userId } = req.params;
   const newNote = new Note(req.body);
 
-  newNote
-    .save()
-    .then((savedNote) => {
-      res.status(201).json({ message: 'New Note Created', savedNote });
+  User.findById(userId).then((user) => {
+    console.log("User: ", user)
+    Note.find({user: userId})
+    .populate('notes')
+    .then(notes => {
+      console.log("Notes: ", notes)
+      newNote
+      .save()
+      .then((savedNote) => {
+        res.status(201).json({ message: 'New Note Created', savedNote });
+      })
+      .catch((error) => {
+        res.status(422).json({ message: 'Error Creating Note', error });
+      });
     })
-    .catch((error) => {
+    .catch(error => {
       res.status(422).json({ message: 'Error Creating Note', error });
-    });
+    })
+  });
 };
 
 const getNotes = (req, res) => {
-  Note.find({})
+  const { userId } = req.params;
+  User.findById(userId).then(user => {
+    Note.find({})
     .then((foundNotes) => {
       res.status(200).json({ message: 'Your Notes', foundNotes });
     })
     .catch((error) => {
       res.status(422).json({ message: 'Error Retrieving Notes', error });
     });
+  })
 };
 
 const getNote = (req, res) => {

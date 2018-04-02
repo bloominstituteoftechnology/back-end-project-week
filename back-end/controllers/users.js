@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Note = require('../models/note')
 
 const createUser = (req, res) => {
   const newUser = new User(req.body);
