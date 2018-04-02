@@ -46,8 +46,7 @@ class CreateNewNote extends React.Component {
     this.setState({content: event.target.value});
   }
   handleSubmit = (event) => {
-    event.preventDefault();
-    this.props.createNote(this.state);
+    this.props.createNote(this.state.title, this.state.content);
     this.setState({title: '', content: ''});
     this.props.history.push('/');
   }

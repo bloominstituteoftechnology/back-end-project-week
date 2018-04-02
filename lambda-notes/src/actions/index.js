@@ -4,6 +4,7 @@ const ROOT_URL = 'http://localhost:5000/api';
 
 // export const GET_NOTE = 'GET_NOTE'
 export const GET_ALL_NOTES = 'GET_ALL_NOTES';
+export const GET_NOTE = 'GET_NOTE';
 export const CREATE_NOTE = 'CREATE_NOTE';
 export const DELETE_NOTE = 'DELETE_NOTE';
 export const EDIT_NOTE = 'EDIT_NOTE';
@@ -40,6 +41,7 @@ export const getAllNotes = () => {
     axios
       .get(`${ROOT_URL}/notes`)
       .then(response => {
+        console.log('getAllNotes response', response);
         dispatch({
           type: GET_ALL_NOTES,
           payload: response.data
@@ -50,6 +52,23 @@ export const getAllNotes = () => {
       });
   };
 };
+
+export const getNote = (id) => {
+  return dispatch => {
+    axios
+      .get(`${ROOT_URL}/notes/${id}`)
+      .then((response) => {
+        console.log('getNote response', response);
+        dispatch({
+          type: GET_NOTE,
+          payload: response.data
+        });
+      })
+      .catch(() => {
+        dispatch(error('Failed to retrieve note'));
+      })
+  }
+}
 
 export const createNote = (title, content) => {
   return dispatch => {
@@ -66,24 +85,47 @@ export const createNote = (title, content) => {
   };
 };
 
-// export const createNote = (note) => {
+export const deleteNote = (id) => {
+  return dispatch => {
+    axios
+      .delete(`${ROOT_URL}/notes/${id}`)
+      .then(() => {
+        dispatch({
+          type: DELETE_NOTE,
+        })
+      })
+      .catch(() => {
+        dispatch(error('Failed to delete note'))
+      });
+  };
+};
+
+export const editNote = (updatedNote, id) => {
+  return dispatch => {
+    axios
+      .put(`${ROOT_URL}/notes/${id}`, updatedNote)
+      .then(() => {
+        dispatch({
+          type: EDIT_NOTE,
+        })
+      })
+      .catch(() => {
+        dispatch(error('Failed to update note'))
+      })
+  };
+};
+
+// export const deleteNote = (id) => {
 //   return {
-//     type: CREATE_NOTE,
-//     payload: note,
+//     type: DELETE_NOTE,
+//     payload: id,
 //   }
 // }
 
-export const deleteNote = (id) => {
-  return {
-    type: DELETE_NOTE,
-    payload: id,
-  }
-}
-
-export const editNote = (updatedNote, id) => {
-  return {
-    type: EDIT_NOTE,
-    payload: updatedNote,
-    id,
-  }
-}
+// export const editNote = (updatedNote, id) => {
+//   return {
+//     type: EDIT_NOTE,
+//     payload: updatedNote,
+//     id,
+//   }
+// }

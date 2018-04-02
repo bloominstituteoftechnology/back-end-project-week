@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { deleteNote } from '../../actions';
+import { deleteNote, getAllNotes } from '../../actions';
 import Sidebar from '../Sidebar/Sidebar';
 import Modal from '../Modal/Modal';
 import '../Note/Note.css';
@@ -14,7 +14,13 @@ class Note extends React.Component {
   state = {
     isModalOpen: false,
   }
+  componentDidMount() {
+    this.props.getAllNotes();
+  }
   render() {
+    console.log('NOTE PROPS', this.props)
+    console.log('NOTEARRID', this.props.match.params.id)
+    console.log('NOTEID', this.props.state.notes[0]);
     return (
       <div className="Container">
         <div className="Sidebar-Container">
@@ -56,7 +62,7 @@ class Note extends React.Component {
     this.setState({ isModalOpen: false })
   }
   handleDelete = () => {
-    this.props.deleteNote(this.props.match.params.id);
+    this.props.deleteNote(this.props.state.notes[this.props.match.params.id]._id);
     this.props.history.push('/');
   }
 }
@@ -67,4 +73,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { deleteNote })(Note);
+export default connect(mapStateToProps, { deleteNote, getAllNotes })(Note);
