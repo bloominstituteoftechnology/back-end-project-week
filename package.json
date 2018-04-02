@@ -1,5 +1,5 @@
 {
-  "name": "operation-babylon",
+  "name": "operation-certain-death",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,16 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jonbrunt/Operation-Babylon.git"
+    "url": "git+https://github.com/jonbrunt/Operation-Certain-Death.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jonbrunt/Operation-Babylon/issues"
+    "url": "https://github.com/jonbrunt/Operation-Certain-Death/issues"
   },
-  "homepage": "https://github.com/jonbrunt/Operation-Babylon#readme",
+  "homepage": "https://github.com/jonbrunt/Operation-Certain-Death#readme",
   "dependencies": {
-    "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2"
   }
