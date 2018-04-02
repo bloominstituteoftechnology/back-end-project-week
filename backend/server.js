@@ -1,20 +1,24 @@
 const express = require('express');
+const helmet = require('helmet');
+const mongoose = require('mongoose');
 
 const server = express();
-const PORT = 5000;
-const STATUS_SUCCESS = 200;
-const STATUS_USER_ERROR = 422;
-
-server.use((req, res, next) => {
-    next();
-});
+const noteRouter = require('./routes/noteRoutes');
 
 server.use(express.json());
+server.use(helmet());
 
-server.listen(PORT, (err) => {
-    if (err) {
-        console.log(`There was an error starting the server: ${err}`);
-    } else {
-        console.log(`Server is listening on port ${PORT}`)
-    }
+// server.use((req, res, next) => {
+//     next();
+// }); // middleware if I need to add it later
+
+server.use('/api/notes', noteRouter);
+
+
+
+server.get('/', function(req, res) {
+  res.status(200).json({ api: 'running...' })
 });
+
+
+module.exports = { server };
