@@ -3,6 +3,7 @@ const { requireAuth, getTokenForUser } = require('../services/auth');
 
 const createNote = (req, res) => {
   const { title, content } = req.body;
+//   console.log(req.body);
   const user = new Note({ title, content });
   user.save((err, note) => {
     if (err) return res.send(err);
