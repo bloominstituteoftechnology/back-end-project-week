@@ -17,7 +17,7 @@ server.use(helmet());
 // }); // middleware if I need to add it later
 
 server.use('/api/notes', noteRouter);
-server.use('/api/users', userRouter);
+userRouter(server);
 
 server.get('/', function(req, res) {
   res.status(success).json({ api: 'running...' });
