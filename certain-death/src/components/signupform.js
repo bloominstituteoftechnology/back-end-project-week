@@ -14,6 +14,10 @@ const StyledSignUpForm = styled.div`
   }
 
   input {
+    width: 340px;
+    height: 40px;
+    margin-top: 15px;
+    padding: 8px;
     margin-left: 10px;
     border-radius: 2px;
     border: 1px solid #bfbfc0;
@@ -22,13 +26,6 @@ const StyledSignUpForm = styled.div`
     &:focus {
       outline: none;
     }
-  }
-
-  .form__input {
-    width: 340px;
-    height: 40px;
-    margin-top: 20px;
-    padding: 8px;
   }
 
   button {

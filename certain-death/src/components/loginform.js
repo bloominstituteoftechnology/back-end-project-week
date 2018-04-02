@@ -7,13 +7,17 @@ import Button from './button';
 
 const StyledLoginForm = styled.div`
   display: flex;
-
+  margin-top: 20px;
   form {
     display: flex;
     flex-direction: column;
   }
 
   input {
+    width: 340px;
+    height: 40px;
+    margin-top: 15px;
+    padding: 8px;
     margin-left: 10px;
     border-radius: 2px;
     border: 1px solid #bfbfc0;
@@ -24,16 +28,8 @@ const StyledLoginForm = styled.div`
     }
   }
 
-  .form__input {
-    width: 340px;
-    height: 40px;
-    margin-top: 20px;
-    padding: 8px;
-  }
-
   button {
     margin-left: 10px;
-    
   }
 
 `;
@@ -72,7 +68,6 @@ class LoginForm extends React.Component {
       <StyledLoginForm>
         <form onSubmit={this.handleSubmit}>
           <input
-            className='form__input'
             type='email'
             name='email'
             placeholder='Email (required)...'
@@ -82,7 +77,6 @@ class LoginForm extends React.Component {
             value={this.state.email}
           />
           <input
-            className='form__input'
             type='password'
             name='password'
             placeholder='Password (required)...'
