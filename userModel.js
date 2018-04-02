@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 const ObjectId = mongoose.Schema.Types.ObjectId;
+
+const SALT = 11;
 
 const UserSchema = mongoose.Schema({
   name: {
@@ -14,8 +17,22 @@ const UserSchema = mongoose.Schema({
     required: true
   },
 
-  notes: [ObjectId]
+  notes: [{type: ObjectId, ref: 'Note'}]
 });
+
+UserSchema.pre('save', function(next) {
+  bcrypt.hash(this.password, SALT, (err, hash) => {
+    if (err) return next(error);
+    this.password = hash;
+  });
+});
+
+UserSchema.methods.checkPassword = function(password, callBack) {
+  bcrypt.compare(password, this.password, (err, isMatch) => {
+    if (err) return callBack(err);
+    callBack(null, isMatch);
+  });
+};
 
 
 
