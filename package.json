@@ -1,0 +1,29 @@
+{
+  "name": "lambda-notes-back-end",
+  "version": "0.1.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: not test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LambdaSchool/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "Terrie B. Kim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LambdaSchool/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/LambdaSchool/back-end-project-week#readme",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.0",
+    "mongoose": "^5.0.12",
+    "node-fetch": "^2.1.2"
+  }
+}
