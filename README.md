@@ -25,12 +25,13 @@ The main objective of this week is to develop a backend to support the LambdaNot
 * [ ] Store Notes in your Database
 * [ ] Deploy your application to the web
 
-Build an API Endpoint for each of the following, and connect it to your React App. These should all be read from your Database and scoped to the logged in user. Write tests for your endpoints.
+Build an API Endpoint for each of the following, and connect it to your React App. These should all be read from your Database and scoped to the logged in user. Write tests for your endpoints which adequately cover use cases and errors.
 * [ ] Display a list of notes
 * [ ] Create a note with a title and content
 * [ ] View an existing note
 * [ ] Edit an existing note
 * [ ] Delete an existing note
+* [ ] Write tests for your endpoints
 
 Upon your first commit, please submit a Pull Request and add _both_ the **Trello Set Up** and **Backend MVP Features** Task lists to your first Pull Request comment:
 
