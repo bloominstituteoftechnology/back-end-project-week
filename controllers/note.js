@@ -24,14 +24,14 @@ const getNotes = (req, res) => {
 };
 
 // const login = (req, res) => {
-//   const { username, password } = req.body;
+//   const { email, password } = req.body;
 //   User.findOne({ username }, (err, user) => {
 //     if (err) {
-//       res.status(500).json({ error: 'Invalid Username/Password' });
+//       res.status(500).json({ error: 'Invalid Email/Password' });
 //       return;
 //     }
 //     if (user === null) {
-//       res.status(422).json({ error: 'No user with that username in our DB' });
+//       res.status(422).json({ error: 'No user with that email in our DB' });
 //       return;
 //     }
 //     user.checkPassword(password, (nonMatch, hashMatch) => {
@@ -41,7 +41,7 @@ const getNotes = (req, res) => {
 //         return;
 //       }
 //       if (hashMatch) {
-//         const token = getTokenForUser({ username: user.username });
+//         const token = getTokenForUser({ email: user.email });
 //         res.json({ token });
 //       }
 //     });

@@ -2,8 +2,8 @@ const User = require('../models');
 const { requireAuth, getTokenForUser } = require('../services/auth');
 
 const createUser = (req, res) => {
-  const { username, password } = req.body;
-  const user = new User({ username, password });
+  const { email, password } = req.body;
+  const user = new User({ email, password });
   user.save((err, user) => {
     if (err) return res.send(err);
     res.json({
@@ -23,14 +23,14 @@ const getUsers = (req, res) => {
 };
 
 const login = (req, res) => {
-  const { username, password } = req.body;
-  User.findOne({ username }, (err, user) => {
+  const { email, password } = req.body;
+  User.findOne({ email }, (err, user) => {
     if (err) {
-      res.status(500).json({ error: 'Invalid Username/Password' });
+      res.status(500).json({ error: 'Invalid Email/Password' });
       return;
     }
     if (user === null) {
-      res.status(422).json({ error: 'No user with that username in our DB' });
+      res.status(422).json({ error: 'No user with that email in our DB' });
       return;
     }
     user.checkPassword(password, (nonMatch, hashMatch) => {
@@ -40,7 +40,7 @@ const login = (req, res) => {
         return;
       }
       if (hashMatch) {
-        const token = getTokenForUser({ username: user.username });
+        const token = getTokenForUser({ email: user.email });
         res.json({ token });
       }
     });
