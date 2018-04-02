@@ -5,6 +5,8 @@ You are to treat this week as if you are working at a company and the instructor
 
 The main objective of this week is to develop a backend to support the LambdaNotes app you built during the Front End project week, connect the two projects together, and add some additional features. You will use NodeJS, MongoDB and any other technologies you have learned here at Lambda School.
 
+### Trello Board: https://trello.com/b/WIMDx4ra/lambda-notesbackend-richard-reis
+
 ## Git Commits
 * You are required to showcase progress with at least 1 commit a day.  This will let your project manager know where you are and if you need help.  This also allows the client to get progress reports from the company in a real world setting. This also protects you from losing your work if your computer blows up.
 
@@ -31,6 +33,7 @@ Build an API Endpoint for each of the following, and connect it to your React Ap
 * [ ] View an existing note
 * [ ] Edit an existing note
 * [ ] Delete an existing note
+* [ ] Write tests for your endpoints
 
 Upon your first commit, please submit a Pull Request and add _both_ the **Trello Set Up** and **Backend MVP Features** Task lists to your first Pull Request comment:
 
