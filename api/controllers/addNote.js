@@ -1,7 +1,7 @@
 const User = require('../models/userModel');
 const Note = require('../models/noteModel');
 
-const saveNote = (req, res) => {
+const addNote = (req, res) => {
   const { title, content, userId } = req.body;
   const note = { title, content };
   const newNote = new Note(note);
@@ -20,5 +20,5 @@ const saveNote = (req, res) => {
 };
 
 module.exports = {
-  saveNote,
+  addNote,
 };

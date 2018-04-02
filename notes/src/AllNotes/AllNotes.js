@@ -13,11 +13,11 @@ class AllNotes extends Component {
   };
 
   componentDidMount() {
-    this.props.getNotes();
+    this.props.getNotes(this.props.userId);
   }
 
   componentWillReceiveProps() {
-    this.props.getNotes();
+    this.props.getNotes(this.props.userId);
   }
 
   getCSV = () => {
@@ -172,6 +172,7 @@ class AllNotes extends Component {
 const mapStateToProps = state => {
   return {
     notes: state.notes,
+    userId: state.auth.user,
   };
 };
 

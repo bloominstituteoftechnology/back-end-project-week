@@ -19,9 +19,9 @@ export const authError = error => {
 };
 
 //
+//
 // ─── USER ACTIONS ───────────────────────────────────────────────────────────────
 //
-
 export const userCreate = (username, password, confirmPassword, history) => {
   return dispatch => {
     if (password !== confirmPassword) {
@@ -68,8 +68,8 @@ export const logout = () => {
 //
 // ─── NOTE ACTIONS ───────────────────────────────────────────────────────────────
 //
-export const getNotes = () => {
-  const notes = axios.get(APIroot);
+export const getNotes = (id) => {
+  const notes = axios.get(`${APIroot}/api/notes`, id);
   return dispatch => {
     notes
       .then(payload => {
@@ -85,14 +85,11 @@ export const getNotes = () => {
 };
 
 export const addNote = newNote => {
-  const notes = axios.post(APIroot, newNote);
+  const notes = axios.post(`${APIroot}/api/notes`, newNote);
   return dispatch => {
     notes
       .then(newNote => {
-        dispatch({
-          type: ADD_NOTE,
-          payload: newNote.data,
-        });
+        dispatch(getNotes());
       })
       .catch(error => {
         console.log('In actions: There was an error adding the note: ', error);

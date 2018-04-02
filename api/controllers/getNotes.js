@@ -1,8 +1,8 @@
-const User = require('../models/userModels');
+const User = require('../models/userModel');
 
 const getNotes = (req, res) => {
   const { username } = req.body;
-  User.findOne({ username })
+  User.findById(userId)
     .populate('notes')
     .then(finalData => {
       res.send(finalData);

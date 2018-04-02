@@ -1,6 +1,6 @@
 // const jwt = require('jsonwebtoken');
 // const { mysecret } = require('../../config');
-// const User = require('../models/userModels');
+// const User = require('../models/userModel');
 
 // const userLogin = (req, res) => {
 //   const { username, password } = req.body;

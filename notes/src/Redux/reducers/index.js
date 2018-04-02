@@ -7,7 +7,6 @@ import {
   LOGIN,
   LOGOUT,
   GET_NOTES,
-  ADD_NOTE,
   EDIT_NOTE,
   DELETE_NOTE,
 } from '../actions';
@@ -29,29 +28,26 @@ const AuthReducer = (auth = {}, action) => {
 
 const NoteReducer = (notes = [], action) => {
   switch (action.type) {
-    // case GET_NOTES:
-    //   return {
-    //     ...state,
-    //     notes: action.payload,
-    //   };
-    case ADD_NOTE:
-      return [
-        ...notes,
-        {
-          title: action.payload.title,
-          content: action.payload.content,
-          id: action.payload.id,
-        },
-      ];
+    case GET_NOTES:
+      return action.payload;
+    // case ADD_NOTE:
+    //   return [
+    //     ...notes,
+    //     {
+    //       title: action.payload.title,
+    //       content: action.payload.content,
+    //       id: action.payload._id,
+    //     },
+    //   ];
     case EDIT_NOTE:
       return notes.map(each => {
-          if (each.id !== action.payload.id) return each;
-          return action.payload;
-        });
+        if (each.id !== action.payload.id) return each;
+        return action.payload;
+      });
     case DELETE_NOTE:
       return notes.filter(each => {
-          return each.id !== action.payload.id;
-        });
+        return each.id !== action.payload.id;
+      });
     default:
       return notes;
   }

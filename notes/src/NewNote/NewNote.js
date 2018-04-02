@@ -21,6 +21,7 @@ class NewNote extends Component {
     const completedNote = {
       title: this.state.title,
       content: this.state.content,
+      userId: this.props.userId,
     };
 
     this.props.addNote(completedNote);
@@ -70,4 +71,8 @@ class NewNote extends Component {
   }
 }
 
-export default connect(null, { addNote })(NewNote);
+const mapStateToProps = state => {
+  return { userId: state.auth.user };
+};
+
+export default connect(mapStateToProps, { addNote })(NewNote);
