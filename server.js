@@ -5,6 +5,7 @@ const session = require('express-session');
 const config = require('./config.json');
 
 const userRouter = require('./routes/users');
+const notesRouter = require('./routes/notes');
 
 const { authUser, sendUserError } = require('./middleware');
 
@@ -17,7 +18,7 @@ server.use(session({
 }));
 
 server.use('/users', userRouter);
-
+server.use('/notes', notesRouter);
 
 server.get('/', (req, res) => {
     res.send('works');

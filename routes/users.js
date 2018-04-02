@@ -10,6 +10,7 @@ const router = express.Router();
 
 router.get('/', authUser, (req, res) => {
     User.find()
+        .populate('Notes')
         .then(users => {
             res.send(users);
         })
