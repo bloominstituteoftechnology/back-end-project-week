@@ -9,6 +9,10 @@ const NoteSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  id: {
+    type: Number,
+    required: true,
+  }
 });
 
 module.exports = mongoose.model('Note', NoteSchema);
