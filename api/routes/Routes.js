@@ -1,5 +1,5 @@
 const { validateToken } = require('../services/auth');
-const { createUser, login, getUsers, newNote, deleteNote, getNotes } = require('../controllers');
+const { createUser, login, getUsers, newNote, deleteNote, getNotes, singleNote } = require('../controllers');
 
 module.exports = server => {
   server.route('/api/users').post(createUser);
@@ -8,4 +8,5 @@ module.exports = server => {
   server.route('/api/new-note').post(validateToken, newNote);
   server.route('/api/note/delete/:id').delete(validateToken, deleteNote);
   server.route('/api/notes').get(validateToken, getNotes);
+  server.route('/api/note/:id').get(validateToken, singleNote);
 };

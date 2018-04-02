@@ -4,6 +4,7 @@ const { getUsers } = require('./GetUsers');
 const { newNote } = require('./NewNote');
 const { deleteNote } = require('./DeleteNote');
 const { getNotes } = require('./GetNotes');
+const { singleNote } = require('./SingleNote');
 
 
 module.exports = {
@@ -13,4 +14,5 @@ module.exports = {
   newNote,
   deleteNote,
   getNotes,
+  singleNote,
 };
