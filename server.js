@@ -1,5 +1,5 @@
 const express = require('express');
-// const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const port = process.env.PORT || 5000;
@@ -13,9 +13,9 @@ const corsOptions = {
 };
 
 const server = express();
-// server.use(bodyParser.json());
+server.use(bodyParser.json());
 server.use(cors(corsOptions));
-server.use(express.json());
+// server.use(express.json());
 
 routes(server);
 

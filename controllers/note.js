@@ -1,5 +1,5 @@
 const Note = require('../models/note');
-// const { requireAuth, getTokenForUser } = require('../services/auth');
+const { requireAuth, getTokenForUser } = require('../services/auth');
 
 const createNote = (req, res) => {
   const { title, content } = req.body;
