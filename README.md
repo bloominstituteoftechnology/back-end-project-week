@@ -1,3 +1,6 @@
+# Trello Board
+https://trello.com/b/d0iQstgB/lambda-notesbackend-cody-windeknecht
+
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
