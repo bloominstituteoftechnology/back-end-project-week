@@ -1,4 +1,4 @@
-[My Trello - LambdaNotesBackEnd-Sergey Nam](https://trello.com/b/SyMmlQIG/lambdanotesbackend-sergey-nam)
+[My Trello](https://trello.com/b/SyMmlQIG/lambdanotesbackend-sergey-nam)
 
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
