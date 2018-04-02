@@ -1,0 +1,18 @@
+{
+  "name": "lambda-notes-db",
+  "version": "1.0.0",
+  "description": "This is the back-end project for the LambdaNotes app.",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": "https://github.com/astacy-phillips/back-end-project-week.git",
+  "author": "Amanda Phillips <amanda@phillipsdev.org>",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "helmet": "^3.12.0",
+    "mongoose": "^5.0.12"
+  }
+}
