@@ -1,5 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import axios from 'axios';
+
+import SignIn from './SignIn';
+import SignUp from './SignUp';
 import Sidebar from './Sidebar';
 import NoteList from './NoteList';
 import CreateNote from './CreateNote';
@@ -8,6 +12,7 @@ import EditNote from './EditNote';
 
 import './App.css';
 
+axios.defaults.withCredentials = true;
 
 export default class App extends React.Component {
   nextId = 0;
@@ -15,6 +20,7 @@ export default class App extends React.Component {
 
   state = {
     notes: [],
+    authenticated: false,
   };
 
   handleNoteViewIndex = inputId => {
@@ -66,11 +72,12 @@ export default class App extends React.Component {
     return (
       <Router>
         <div className="App">
-          <Sidebar />
-          <Route exact path={"/"} render={() => <NoteList notes={this.state.notes} handleNoteViewIndex={this.handleNoteViewIndex} updateSortedNotes={this.updateSortedNotes} />} />
-          <Route exact path={"/create"} render={() => <CreateNote createNote={this.handleCreateNote} />} />
-          <Route exact path={"/view"} render={() => <NoteView note={this.state.notes[this.noteIndex]} toggleModal={this.toggleModal} handleDeleteNote={this.handleDeleteNote} />} />
-          <Route exact path={"/edit"} render={() => <EditNote note={this.state.notes[this.noteIndex]} handleEditNote={this.handleEditNote} />} />
+          {this.state.authenticated ? (<Sidebar />) : null}
+          <Route exact path={"/signup"} render={() => <SignUp />} />
+          <Route exact path={"/"} render={() => (this.state.authenticated ? (<NoteList notes={this.state.notes} handleNoteViewIndex={this.handleNoteViewIndex} updateSortedNotes={this.updateSortedNotes} />) : (<SignIn />))} />
+          <Route exact path={"/create"} render={() => (this.state.authenticated ? (<CreateNote createNote={this.handleCreateNote} />) : (<SignIn />))} />
+          <Route exact path={"/view"} render={() => (this.state.authenticated ? (<NoteView note={this.state.notes[this.noteIndex]} toggleModal={this.toggleModal} handleDeleteNote={this.handleDeleteNote} />) : (<SignIn />))} />
+          <Route exact path={"/edit"} render={() => (this.state.authenticated ? (<EditNote note={this.state.notes[this.noteIndex]} handleEditNote={this.handleEditNote} />) : (<SignIn />))} />
         </div>
       </Router>
     );

@@ -3,6 +3,10 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 const { secret } = require('../../config');
 
+const tokenGenerator = userObject => {
+  return jwt.sign(userObject, secret, { expiresIn: '1h'});
+};
+
 const authenticate = async function(req, res, next) {
   const token = req.get('Authorization');
   try {
@@ -19,4 +23,7 @@ const authenticate = async function(req, res, next) {
   };
 };
 
-module.exports = { authenticate };
+module.exports = { 
+  tokenGenerator,
+  authenticate,
+};
