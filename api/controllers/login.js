@@ -7,7 +7,9 @@ const login = (req, res) => {
   User.findOne({ name: name.toLowerCase() })
     .then(user => {
       user.checkPassword(password, (nonMatch, hashMatch) => {
-        if (nonMatch !== null) {
+        console.log('callback has been reached', nonMatch);
+        if (nonMatch !== null || !hashMatch) {
+          console.log('nonMatch is not null');
           res.status(422).json({ message: 'Invalid Username and/or Password' });
           return;
         }
