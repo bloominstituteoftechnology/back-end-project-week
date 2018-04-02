@@ -1,0 +1,61 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.note__container {
+  background-color: #5A6F7F;
+  display: flex;
+  flex-flow: wrap;
+  border-radius: 5px;
+  margin: 0px auto 5% auto;
+  width: 80%;
+  padding: 10px;
+}
+
+.note__card {
+  background-color: #FEFFEA;
+  color: #929648;
+  margin: 10px auto;
+  padding: 10px;
+  border-radius: 7px;
+  width: 250px;
+  min-width: 250px;
+  min-height: 300px;
+}
+.note__card__title {
+  font-size: 24px;
+  padding: 0 0 5px 0;
+  
+}
+.note__card__text {
+  color: #374E54;
+  font-size: 15px;
+  text-align: left;
+
+}
+.note__card__user {
+  color: #374E54;
+  font-size: 10px;
+  text-align: right;
+}
+
+.app__title {
+  
+}
+
+.note__editbox {
+  background-color: #FEFFEA;
+  color: #929648;
+  border-radius: 7px;
+  width: 100%;
+}

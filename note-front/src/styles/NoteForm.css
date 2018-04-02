@@ -1,0 +1,15 @@
+.input__form {
+    margin: 5px auto;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+}
+
+.input {
+    border-radius: 4px;
+    padding: 12px 20px;
+    margin: 2px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
