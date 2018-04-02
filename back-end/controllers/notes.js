@@ -6,11 +6,9 @@ const createNote = (req, res) => {
   const newNote = new Note(req.body);
 
   User.findById(userId).then((user) => {
-    console.log("User: ", user)
     Note.find({user: userId})
     .populate('notes')
     .then(notes => {
-      console.log("Notes: ", notes)
       newNote
       .save()
       .then((savedNote) => {
