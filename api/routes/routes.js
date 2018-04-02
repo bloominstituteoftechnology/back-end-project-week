@@ -1,6 +1,7 @@
 const createUser = require('../controllers/createUser');
 const addNote = require('../controllers/addNote');
 const login = require('../controllers/login');
+const getNotes = require('../')
 
 
 module.exports = server => {
