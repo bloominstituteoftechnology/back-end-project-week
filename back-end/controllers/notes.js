@@ -34,7 +34,7 @@ const getNote = (req, res) => {
 };
 
 const updateNote = (req, res) => {
-  Band.findbyIdAndUpdate(req.params.id, req.body, { new: true })
+  Note.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then((updatedNote) => {
       res.status(200).json({ message: 'Note Has Been Updated', updatedNote });
     })
@@ -44,7 +44,7 @@ const updateNote = (req, res) => {
 };
 
 const deleteNote = (req, res) => {
-  Band.findByIdAndRemove(req.params.id)
+  Note.findByIdAndRemove(req.params.id)
     .then((deletedNote) => {
       res
         .status(200)

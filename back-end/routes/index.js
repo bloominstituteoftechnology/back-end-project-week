@@ -3,26 +3,26 @@ module.exports = (app) => {
   const noteController = require('../controllers/notes');
 
   //create user
-  app.route('/').post(userController.createUser);
+  app.route('/notes/createuser').post(userController.createUser);
 
   //login user
-  app.route('/').post(userController.loginUser);
+  app.route('/notes/login').post(userController.loginUser);
 
   //logout user
-  app.route('/').post(userController.logoutUser);
+  app.route('/notes/logout').post(userController.logoutUser);
 
   //create note
-  app.route('/').post(noteController.createNote);
+  app.route('/notes/').post(noteController.createNote);
 
   //update note
-  app.route('/').put(noteController.updateNote);
+  app.route('/notes/:id').put(noteController.updateNote);
 
   //delete note
-  app.route('/').delete(noteController.deleteNote);
+  app.route('/notes/:id').delete(noteController.deleteNote);
 
   //get note
-  app.route('/').get(noteController.getNote);
+  app.route('/notes/:id').get(noteController.getNote);
 
   //get notes
-  app.route('/').get(noteController.getNotes);
+  app.route('/notes').get(noteController.getNotes);
 };
