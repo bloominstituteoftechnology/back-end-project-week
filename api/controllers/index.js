@@ -3,6 +3,7 @@ const { login } = require('./Login');
 const { getUsers } = require('./GetUsers');
 const { newNote } = require('./NewNote');
 const { deleteNote } = require('./DeleteNote');
+const { getNotes } = require('./GetNotes');
 
 
 module.exports = {
@@ -11,4 +12,5 @@ module.exports = {
   getUsers,
   newNote,
   deleteNote,
+  getNotes,
 };
