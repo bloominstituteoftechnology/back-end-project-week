@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 const mysecret = require('../../config');
 
+const STATUS_USER_ERROR = 422;
+
 const authenticate = (req, res, next) => {
   const token = req.get('Authorization');
   if (token) {
@@ -17,4 +19,16 @@ const authenticate = (req, res, next) => {
   }
 };
 
-module.exports = authenticate;
+const sendUserError = (err, res) => {
+  res.status(STATUS_USER_ERROR);
+  if (err && err.message) {
+    res.json({ message: err.message, stack: err.stack });
+  } else {
+    res.json({ error: err });
+  }
+};
+
+module.exports = {
+  authenticate,
+  sendUserError,
+};
