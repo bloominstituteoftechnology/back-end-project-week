@@ -1,0 +1,26 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "Note taking app",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JohnJohnx4/back-end-project-week.git"
+  },
+  "author": "John Correia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JohnJohnx4/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/JohnJohnx4/back-end-project-week#readme",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.0",
+    "mongoose": "^5.0.12"
+  }
+}
