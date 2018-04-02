@@ -1,0 +1,14 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "Back end Project",
+  "main": "index.js",
+  "repository": "https://github.com/Nate152/back-end-project-week.git",
+  "author": "Nate152 <35231160+Nate152@users.noreply.github.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3",
+    "mongoose": "^5.0.12",
+    "nodemon": "^1.17.3"
+  }
+}
