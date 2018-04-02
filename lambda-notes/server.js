@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const port = process.env.PORT || 5000;
-const noteRouter = require('./routes/NoteRoutes');
+const noteRouter = require('./api/routes/NoteRoutes');
 
 const corsOptions = {
   origin: 'http://localhost:3000',
