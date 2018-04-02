@@ -11,6 +11,10 @@ import ListView from './components/ListView';
 import NavBar from './components/NavBar';
 import NewNote from './components/NewNote';
 import DeleteModal from './components/DeleteModal';
+import SignUp from './components/SignUp';
+import SignIn from './components/SignIn';
+import SignOut from './components/SignOut';
+import RequireAuth from './components/HOC/RequireAuth';
 
 class App extends Component {
   render() {
@@ -22,10 +26,14 @@ class App extends Component {
             <NavBar />
           </div>
           <div className='Right'>
-            <Route exact path='/' component={ListView} />
+            <Route exact path='/' component={SignUp} />
+            <Route path='/notes' component={RequireAuth(ListView)} />
             <Route path='/create' component={NewNote} />
             <Route path='/edit' component={EditNote} />
             <Route path='/notes/:id' component={FullView} />
+            <Route path='/signup' component={SignUp} />
+            <Route path='/signin' component={SignIn} />
+            <Route path='/signout' component={SignOut} />
           </div>
         </div>
       </Router>

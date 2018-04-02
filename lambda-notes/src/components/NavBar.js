@@ -6,7 +6,7 @@ class NavBar extends Component {
   getLinks() {
     return [
       <li key={1}>
-        <Link to="/"><button>View Your Notes</button></Link>
+        <Link to="/notes"><button>View Your Notes</button></Link>
       </li>,
       <li key={2}>
         <Link to={{ pathname: '/create', lastId: this.props.lastId }}><button>+ Create New Note</button></Link>

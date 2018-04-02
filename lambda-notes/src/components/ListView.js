@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { getNotes } from '../actions';
 
 class ListView extends Component {
+  componentDidMount() {
+    this.props.getNotes();
+  }
+
   render() {
     return (
       <div>
@@ -36,4 +41,4 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps)(ListView);
+export default connect(mapStateToProps, { getNotes })(ListView);

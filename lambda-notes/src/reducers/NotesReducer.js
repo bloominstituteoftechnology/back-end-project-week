@@ -1,5 +1,6 @@
 import { CREATE_NOTE, EDIT_NOTE, DELETE_NOTE, TOGGLE_DELETE } from '../actions';
-import testerNotes from '../dummyData';
+import { GET_NOTES } from '../actions';
+// import testerNotes from '../dummyData';
 
 // const initialState = {
 //   modal: { 
@@ -12,13 +13,13 @@ import testerNotes from '../dummyData';
 //     id: 0 }]
 // };
 
-export const notes = (state = testerNotes, action) => {
+export const notes = (state = [], action) => {
   switch (action.type) {
     case CREATE_NOTE:
       return  [ ...state, action.payload ];
     case EDIT_NOTE:
       const newState = state.map((note) => {
-        if (note.id === action.payload.id) {
+        if (note._id === action.payload._id) {
           return action.payload;
         }
         return note;
@@ -26,8 +27,10 @@ export const notes = (state = testerNotes, action) => {
       return newState;
     case DELETE_NOTE:
       return state.filter((note) => {
-        return note.id !== action.payload;
+        return note._id !== action.payload;
       });
+    case GET_NOTES:
+      return action.payload;
     default:
       return state;
   }

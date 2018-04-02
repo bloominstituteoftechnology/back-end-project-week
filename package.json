@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "nodemon app.js",
     "test": "echo \"Error: not test specified\" && exit 1"
   },
   "repository": {
