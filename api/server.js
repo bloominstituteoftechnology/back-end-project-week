@@ -4,13 +4,13 @@ const bodyParser = require('body-parser');
 
 const server = express();
 
-// const routes = require('./routes/Routes');
+const routes = require('./routes/Routes');
 
 // server.use(bodyParser.json());
 server.use(express.json());
 server.use(cors());
 
-// routes(server);
+routes(server);
 
 module.exports = {
   server
