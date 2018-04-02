@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Back end for front-end-project: Lambda Notes",
   "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
   "repository": "https://github.com/EricHech/back-end-project-week.git",
   "author": "Eric <erichech@gmail.com>",
   "license": "MIT",
