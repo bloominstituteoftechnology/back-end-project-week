@@ -1,6 +1,7 @@
 const express = require('express');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const User = require('./Users/user');
 
 const server = express();
@@ -12,6 +13,7 @@ mongoose
 
 server.use(express.json());
 server.use(helmet());
+server.use(cors());
 
 server.get('/', (req, res) => {
   res.status(200).json({ status: 'API running' });
