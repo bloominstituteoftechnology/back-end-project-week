@@ -20,6 +20,6 @@ module.exports = server => {
   server.post('/signup', createUser);
   server.post('/login', login);
   server.post('/new', authenticate, createNote);
-  server.put('/edit/:id', authenticate, editNote);
+  server.put('/edit/', authenticate, editNote);
   server.delete('/delete/:id', authenticate, deleteNote);
 };

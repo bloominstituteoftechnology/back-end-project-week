@@ -4,7 +4,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test": "echo \"Error: not test specified\" && exit 1"
+    "test": "mocha *.test.js --exit"
   },
   "repository": {
     "type": "git",

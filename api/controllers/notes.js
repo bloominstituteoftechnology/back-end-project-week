@@ -27,13 +27,15 @@ const getNotes = (req, res) => {
 const createNote = (req, res) => {
   const { title, content } = req.body;
   const username = req.username;
+  const author = req.author;
 
   if (req.decoded) {
     User.findOne({ username })
       .then(user => {
         const newNote = new Note({
           title,
-          content
+          content,
+          author: user._id
         });
         newNote
           .save()
