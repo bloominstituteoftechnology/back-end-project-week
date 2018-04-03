@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
 const port = process.env.PORT || 3030;
+const session = require('express-session');
 
 const Note = require('./api/models/NoteSchema');
 const User = require('./api/models/UserSchema');
@@ -24,8 +25,25 @@ mongoose
 
 server.use(cors(corsOptions));
 server.use(express.json());
+server.use(
+  session({
+    secret: 'rigby is a bird',
+    resave: false,
+    saveUninitialized: true,
+    auth: false,
+  })
+);
 
-server.get('/notes', (req, res) => {
+const RequireAuthMW = (req, res, next) => {
+  const session = req.session;
+  if (session.username) {
+    next();
+  } else {
+    res.status(400).json({ error: 'Not logged in' });
+  }
+};
+
+server.get('/notes', RequireAuthMW, (req, res) => {
   Note.find({})
     .then(notes => {
       res.status(200).json(notes);
@@ -37,7 +55,7 @@ server.get('/notes', (req, res) => {
     });
 });
 
-server.get('/notes/:id', (req, res) => {
+server.get('/notes/:id', RequireAuthMW, (req, res) => {
   Note.findById(req.params.id)
     .then(note => res.status(200).json(note))
     .catch(err =>
@@ -47,7 +65,7 @@ server.get('/notes/:id', (req, res) => {
     );
 });
 
-server.post('/notes', (req, res) => {
+server.post('/notes', RequireAuthMW, (req, res) => {
   const noteInfo = req.body;
   const note = new Note(noteInfo);
   note
@@ -62,7 +80,7 @@ server.post('/notes', (req, res) => {
     });
 });
 
-server.put('/notes', (req, res) => {
+server.put('/notes', RequireAuthMW, (req, res) => {
   const note = req.body;
   Note.findOneAndUpdate({ id: note.id }, note, { new: true })
     .then(updatedNote => {
@@ -75,7 +93,7 @@ server.put('/notes', (req, res) => {
     });
 });
 
-server.delete('/notes', (req, res) => {
+server.delete('/notes', RequireAuthMW, (req, res) => {
   const { id } = req.body;
   Note.findOneAndRemove({ id })
     .then(deletedNote => {
@@ -109,25 +127,36 @@ server.post('/register', (req, res) => {
 });
 
 server.post('/login', (req, res) => {
+  const session = req.session;
   const { username, password } = req.body;
   if (!username || !password) {
-    res
-      .status(400)
-      .json({
-        msg: 'Please enter both a username and a password.',
-        error: err,
-      });
+    res.status(400).json({
+      msg: 'Please enter both a username and a password.',
+      error: err,
+    });
   }
-  User.findOne({ username }).then(foundUser => {
-    if (!foundUser) res.status(404).json({ msg: 'User does not exist' });
-    foundUser
-      .checkPassword(password, res)
-      .then(isValid => {
-        if (isValid) res.json(foundUser);
-        else res.json({ msg: 'Incorrect username or password' });
-      })
-      .catch(err => res.error(err));
-  });
+  User.findOne({ username })
+    .populate('notes')
+    .then(foundUser => {
+      if (!foundUser) res.status(404).json({ msg: 'User does not exist' });
+      foundUser
+        .checkPassword(password, res)
+        .then(isValid => {
+          if (isValid) {
+            session.username = username;
+            res
+              .status(200)
+              .json({ username: foundUser.username, notes: foundUser.notes, id: foundUser._id });
+          } else
+            res.status(400).json({ msg: 'Incorrect username or password' });
+        })
+        .catch(err => res.error(err));
+    });
+});
+
+server.post('/logout', (req, res) => {
+  delete req.session.username;
+  res.status(200).json({ msg: 'Logged out.' });
 });
 
 server.listen(port, () => console.log(`Server is listening on port ${port}`));
