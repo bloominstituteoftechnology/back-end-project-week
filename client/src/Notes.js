@@ -1,13 +1,15 @@
-import React, { Component } from "react";
-import DummyData from "./DummyData";
-import "./Notes.css";
-import CreateNote from "./Components/CreateNote";
-import SingleNote from "./Components/SingleNote";
-import NoteList from "./Components/NoteList";
-import EditNote from "./Components/EditNote";
+import React, { Component } from 'react';
+import DummyData from './DummyData';
+import './Notes.css';
+import CreateNote from './Components/CreateNote';
+import SingleNote from './Components/SingleNote';
+import NoteList from './Components/NoteList';
+import EditNote from './Components/EditNote';
+import Login from './Components/Login';
 
 class Notes extends Component {
   state = {
+    login: false,
     notes: DummyData,
     view: {
       notes: false,
@@ -16,7 +18,7 @@ class Notes extends Component {
       singleNote: false,
       results: false
     },
-    keyword: ""
+    keyword: ''
   };
   target = null;
 
@@ -25,49 +27,59 @@ class Notes extends Component {
   }
   render() {
     return (
-      <div className="container">
-        <div className="leftPanel">
-          <h1 className="leftHeader">Lambda notes</h1>
-          <button onClick={() => this.SetViewNotes()}>View Your Notes</button>
-          <button onClick={() => this.SetViewCreate()}>
-            + Create New Note
-          </button>
-        </div>
-        {this.state.view.notes ? (
-          <div className="rightPanel">
-            <h1 className="header">Your Notes:</h1>
-            <form className="search">
-              <input
-                type="text"
-                name="keyword"
-                value={this.state.keyword}
-                onChange={this.onSearch}
-                placeholder="Search for a note..."
+      <div>
+        {!this.state.login ? (
+          <Login />
+        ) : (
+          <div className="container">
+            <div className="leftPanel">
+              <h1 className="leftHeader">Lambda notes</h1>
+              <button onClick={() => this.SetViewNotes()}>
+                View Your Notes
+              </button>
+              <button onClick={() => this.SetViewCreate()}>
+                + Create New Note
+              </button>
+            </div>
+            {this.state.view.notes ? (
+              <div className="rightPanel">
+                <h1 className="header">Your Notes:</h1>
+                <form className="search">
+                  <input
+                    type="text"
+                    name="keyword"
+                    value={this.state.keyword}
+                    onChange={this.onSearch}
+                    placeholder="Search for a note..."
+                  />
+                </form>
+                <NoteList
+                  notes={this.state.notes}
+                  keyword={this.state.keyword}
+                  results={this.state.view.results}
+                  target={this.handleTarget}
+                />
+              </div>
+            ) : null}
+            {this.state.view.create ? (
+              <CreateNote addNote={this.addNote} />
+            ) : null}
+            {this.state.view.singleNote ? (
+              <SingleNote
+                notes={this.state.notes}
+                target={this.target}
+                deleteNote={this.deleteNote}
+                edit={this.editNote}
               />
-            </form>
-            <NoteList
-              notes={this.state.notes}
-              keyword={this.state.keyword}
-              results={this.state.view.results}
-              target={this.handleTarget}
-            />
+            ) : null}
+            {this.state.view.edit ? (
+              <EditNote
+                note={this.state.notes[this.target]}
+                updateNote={this.updateNote}
+              />
+            ) : null}
           </div>
-        ) : null}
-        {this.state.view.create ? <CreateNote addNote={this.addNote} /> : null}
-        {this.state.view.singleNote ? (
-          <SingleNote
-            notes={this.state.notes}
-            target={this.target}
-            deleteNote={this.deleteNote}
-            edit={this.editNote}
-          />
-        ) : null}
-        {this.state.view.edit ? (
-          <EditNote
-            note={this.state.notes[this.target]}
-            updateNote={this.updateNote}
-          />
-        ) : null}
+        )}
       </div>
     );
   }
@@ -92,7 +104,7 @@ class Notes extends Component {
     this.setState({
       ...this.state,
       notes: mirror,
-      keyword: "",
+      keyword: '',
       view: {
         notes: true,
         edit: false,
@@ -129,7 +141,7 @@ class Notes extends Component {
         singleNote: false,
         results: false
       },
-      keyword: ""
+      keyword: ''
     });
   };
 
@@ -158,7 +170,7 @@ class Notes extends Component {
         singleNote: false,
         results: false
       },
-      keyword: ""
+      keyword: ''
     });
   };
 
@@ -173,7 +185,7 @@ class Notes extends Component {
         singleNote: false,
         results: false
       },
-      keyword: ""
+      keyword: ''
     });
   }
 
