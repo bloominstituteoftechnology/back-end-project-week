@@ -9,9 +9,7 @@ import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 
 
 const CoreRail = (props) => {
-  console.log('Props in the CoreRail: ', props)
     return (
-      props.authenticated ?
       <div className="core-rail">
         <Router onUpdate={() => window.scrollTo(0, 0)}>
           <ScrollToTop>
@@ -40,8 +38,7 @@ const CoreRail = (props) => {
             </div>
           </ScrollToTop>
         </Router>
-      </div> :
-      <div />
+      </div>
     )
 }
 
