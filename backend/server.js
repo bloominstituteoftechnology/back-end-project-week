@@ -1,19 +1,12 @@
 /* eslint-disable no-console */
 const express = require('express');
-// const mongoose = require('mongoose');
+const cors = require('cors');
 const Note = require('./models/NoteModel.js');
 const User = require('./models/UserModel.js');
-const cors = require('cors');
 
 const server = express();
 server.use(cors());
 server.use(express.json());
-
-// Connect to MongoDB
-// mongoose
-//   .connect('mongodb://localhost/lambdanotes')
-//   .then(() => console.log('Successfully connected to MongoDB!'))
-//   .catch(err => console.error('Failed to connect to MongoDB!', err));
 
 // NOTES ENDPOINTS
 //// Get all notes
@@ -22,6 +15,18 @@ server.get('/notes', (req, res) => {
     if (err) res.status(500).json('Failed to get notes: ', err);
     res.status(200).json(notes);
   });
+});
+
+// Get note by ID
+server.get('/notes/:id', (req, res) => {
+  const id = req.params.id;
+  Note.findById(id)
+    .then(note => {
+      res.status(200).json(note);
+    })
+    .catch(err => {
+      res.status(500).json({ message: 'Cannot find note', error: err });
+    });
 });
 
 //// Save new note
@@ -90,9 +95,5 @@ server.get('/test', (req, res) => {
   res.status(200);
   res.send('Bada Bing Bada Boom!');
 });
-
-// server.listen(PORT, () => {
-//   console.log(`Server is listening on port ${PORT}`);
-// });
 
 module.exports = server;
