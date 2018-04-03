@@ -35,30 +35,7 @@ app.use(session({
 app.use(cors(corsOptions))
 mongoose.Promise = global.Promise;
 
-//scoping middleware that checks for user login status
-// const loginCheck = (req, res, next) => {
-//     if (req.session.loggedIn === undefined){
-//         req.session.loggedIn = false;
-//       }
-
-//       const path = req.path.split("/");
-//       if (path[1] === "restricted"){
-//         if (req.session.loggedIn){
-//           console.log(`The user is logged in and can access the restricted content`);
-//           res.status(200);
-//           next();
-//         } else {
-//           console.log(`The user is not logged in and cannot access the restricted content`);
-//           res.status(401);
-//           res.send(`This content is restricted, please log in to access.`);
-//         }
-//       } else {
-//         next();
-//       }
-// }
-// app.use(loginCheck)
-
-
+//local middleware that scopes routes for logged in users only
 const loginMid = (req, res, next) => {
     console.log(req.session.loggedIn);
     if (!req.session.loggedIn){
@@ -70,10 +47,10 @@ const loginMid = (req, res, next) => {
 
     console.log(`The user is logged in and can view the content`);
     next();
-}
+};
 
 //test route handler
-app.get("/", loginMid, (req, res) => {
+app.get("/", (req, res) => {
     res.json(`it's alive!`);
 });
 
@@ -151,8 +128,10 @@ app.post("/api/login", (req, res) => {
 })
 
 //get handler for accessing restricted content
-app.get("/api/restricted", (req, res) => {
-
+app.get("/api/restricted", loginMid, (req, res) => {
+    console.log(`The user is logged in and can access the restricted content!`)
+    res.status(200)
+    .json(`Welcome to the dark side! We have cookies =]`)
 })
 
 //get handler for all notes
