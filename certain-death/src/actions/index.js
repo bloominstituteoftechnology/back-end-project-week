@@ -44,7 +44,7 @@ export const login = (data) => {
     dispatch({ type: LOGGING_IN });
     user
       .then((res) => {
-        dispatch({ type: LOGGED_IN, payload: res.data.token });
+        dispatch({ type: LOGGED_IN, payload: res.data.jwtObj });
       })
       .catch((err) => {
         dispatch({ type: ERROR, payload: err });
