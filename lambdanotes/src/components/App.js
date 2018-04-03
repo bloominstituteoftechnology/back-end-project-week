@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import axios from 'axios';
 
 import SignIn from './SignIn';
 import SignUp from './SignUp';
@@ -12,27 +11,12 @@ import EditNote from './EditNote';
 
 import './App.css';
 
-axios.defaults.withCredentials = true;
-
-const ROOT_URL = 'http://localhost:5000/api';
-
 export default class App extends React.Component {
   nextId = 0;
   noteIndex = 0;
 
   state = {
     notes: [],
-    authenticated: false,
-  };
-
-  handleNewUser = async function(username, password) {
-    try {
-      const res = await axios.post(`${ROOT_URL}/users`, { username, password });
-      console.log(res.data.savedUser);
-      if (res.data.status.code === 11000) console.log("TODO: Use me for duplicate user name handling!")
-    } catch (err) {
-      console.error(err);
-    }
   };
 
   handleNoteViewIndex = inputId => {
