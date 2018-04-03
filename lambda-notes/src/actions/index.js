@@ -64,7 +64,7 @@ export const getUsers = () => {
   }
   return dispatch => {
     axios
-      .get(`${ROOT_URL}/api/users`, {headers})
+      .get(`${ROOT_URL}/api/get`, {headers})
       .then(response => {
         dispatch({
           type: GET_USERS,
@@ -81,12 +81,31 @@ export const getUsers = () => {
 //            UI Actions
 //=====================================
 
-export const addNote = (added) => {
-  return {
-    type: ADD_NOTE,
-    payload: added,
+// export const addNote = (added) => {
+//   return {
+//     type: ADD_NOTE,
+//     payload: added,
+//   };
+// };
+
+export const addNote = (theNote) => {
+  const headers = { 
+    authorization: localStorage.getItem('token')
+  }
+  return dispatch => {
+    axios
+      .post(`${ROOT_URL}/api/new-note`, theNote, {headers})
+      .then(res => {
+        dispatch({
+          type: ADD_NOTE,
+          payload: res.data
+        });
+      })
+      .catch(() => {
+        dispatch(authError('Failed to save note!'));
+      });
   };
-};
+}
 
 export const editNote = (edited, id) => {
   return {

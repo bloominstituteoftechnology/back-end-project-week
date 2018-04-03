@@ -7,7 +7,6 @@ import '../styles/CreateNote.css';
 class CreateNote extends Component {
   state = {
     title: '',
-    categories: '',
     body: '',
   };
 
@@ -18,7 +17,7 @@ class CreateNote extends Component {
   addNote = e => {
     const theNote = Object.assign({}, this.state);
     this.props.addNote(theNote);
-    this.props.history.push('/');
+    this.props.history.push('/home');
     this.setState({
       title: '',
       body: '',
@@ -63,4 +62,11 @@ class CreateNote extends Component {
   }
 }
 
-export default connect(null, { addNote })(CreateNote);
+const mapStateToProps = state => {
+  return {
+    state: state, 
+  };
+};
+
+
+export default connect(mapStateToProps, { addNote })(CreateNote);

@@ -13,6 +13,7 @@ export const SideBar = () => {
         <Link to="/create-new-note">
           <button className="sideBar-button">+ Create New Note</button>
         </Link>
+          <button className="sideBar-button">Logout</button>
       </div>
     </div>
   );

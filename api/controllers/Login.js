@@ -1,6 +1,7 @@
 const User = require('../models/UserModel');
 const jwt = require('jsonwebtoken');
-const { mysecret } = require('../config');
+const session = require('express-session');
+const { secret } = require('../config');
 const { getTokenForUser } = require('../services/auth');
 
 const login = (req, res) => {
@@ -29,6 +30,7 @@ const login = (req, res) => {
       }
       if (validated) {
         const token = getTokenForUser({ username: user.username });
+        req.session.username = user.username;
         res.json({ token });
       }
     });
