@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const COST = 11;
 
 const UserSchema = new mongoose.Schema({
     firstName: {
