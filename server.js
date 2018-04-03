@@ -37,6 +37,16 @@ server.get('/notes', (req, res) => {
     });
 });
 
+server.get('/notes/:id', (req, res) => {
+  Note.findById(req.params.id)
+    .then(note => res.status(200).json(note))
+    .catch(err =>
+      res
+        .status(500)
+        .json({ msg: 'There was an error retrieving the note.', error: err })
+    );
+});
+
 server.post('/notes', (req, res) => {
   const noteInfo = req.body;
   const note = new Note(noteInfo);
@@ -103,7 +113,10 @@ server.post('/login', (req, res) => {
   if (!username || !password) {
     res
       .status(400)
-      .json({ msg: 'Please enter both a username and a password.', error: err });
+      .json({
+        msg: 'Please enter both a username and a password.',
+        error: err,
+      });
   }
   User.findOne({ username }).then(foundUser => {
     if (!foundUser) res.status(404).json({ msg: 'User does not exist' });
