@@ -1,4 +1,4 @@
-const mysecret = 'una palabra no dice nada';
+const mySecret = 'una palabra no dice nada';
 module.exports = {
-  mysecret
+  mySecret
 };
