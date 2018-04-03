@@ -13,7 +13,11 @@ class AllNotes extends Component {
   };
 
   componentDidMount() {
-    this.props.getNotes(this.props.userId);
+    const userId = this.props.userId
+      ? this.props.userId
+      : sessionStorage.getItem('id');
+
+    this.props.getNotes(userId);
   }
 
   // componentWillReceiveProps() {

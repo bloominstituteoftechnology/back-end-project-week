@@ -1,4 +1,6 @@
 import axios from 'axios';
+axios.defaults.withCredentials = true;
+
 export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
 export const USER_CREATE = 'USER_CREATE';
 export const LOGIN = 'LOGIN';
@@ -48,7 +50,7 @@ export const userLogin = (username, password, history) => {
     axios
       .post(`${APIroot}/api/login`, { username, password })
       .then(res => {
-        // localStorage.setItem('token', res.data.token);
+        sessionStorage.setItem('id', res.data);
         dispatch({ type: LOGIN, payload: res.data });
         history.push('/');
       })
@@ -73,7 +75,6 @@ export const getNotes = id => {
   return dispatch => {
     notes
       .then(res => {
-        console.log('in actions: ', res.data.notes);
         dispatch({ type: GET_NOTES, payload: res.data.notes });
       })
       .catch(error => {

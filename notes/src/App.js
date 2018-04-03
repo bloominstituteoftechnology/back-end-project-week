@@ -12,7 +12,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Route path="/" component={AllNotes} exact />
+          <Route exact path="/" component={AllNotes} />
           <Route path="/new-note" component={NewNote} />
           <Route path="/notes/:id" component={SingleNote} />
           <Route path="/register" component={UserCreate} />
