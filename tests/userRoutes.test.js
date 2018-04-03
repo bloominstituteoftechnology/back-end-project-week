@@ -68,6 +68,7 @@ describe('UserRoutes', () => {
                 .end((err, res) => {
                     if(err) throw new Error(err);
 
+                    done();
                 });
         });
     });
