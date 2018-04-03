@@ -22,7 +22,7 @@ const initialState = {
   sortStatus: 'Unsorted',
   input: '',
   signingUp: false,
-  loggingIn: true,
+  loggingIn: false,
   loggedIn: false,
   jwt: null,
 };
