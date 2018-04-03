@@ -3,7 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
+const Schema = require('./schema');
+
 const PORT = 5000;
 const server = express();
 
