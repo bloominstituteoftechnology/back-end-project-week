@@ -38,9 +38,9 @@ describe('Notes', () => {
     });
     newNote
       .save()
-      .then((Note) => {
-        testNote = Note;
-        noteId = Note._id;
+      .then((note) => {
+        testNote = note;
+        noteId = note._id;
         done();
       })
       .catch((err) => {
@@ -51,20 +51,21 @@ describe('Notes', () => {
 
   afterEach((done) => {
     Note.remove({}, (err) => {
-      if (err) console.error(err);
-      done();
+      if (err) {
+        done(err);
+      } else done();
     });
   });
 
   describe('[POST] /api/note/create', () => {
     it('should save a new Note to the db', (done) => {
       const newNote = {
-        noteTitle: 'Tuesday Todos',
-        noteBody: 'Here is a list of todos.'
+        noteTitle: 'Wednesday Todos',
+        noteBody: 'Here is another list of todos.'
       };
       chai
         .request(server)
-        .post('/api/Note/create')
+        .post('/api/note/create')
         .send(newNote)
         .end((err, res) => {
           if (err) {
@@ -72,7 +73,7 @@ describe('Notes', () => {
             done();
           }
           expect(res.status).to.equal(200);
-          expect(res.body.title).to.equal('Tuesday Todos');
+          expect(res.body.noteTitle).to.equal('Wednesday Todos');
         });
       done();
     });
@@ -85,50 +86,74 @@ describe('Notes', () => {
         .get('/api/notes')
         .end((err, res) => {
           if (err) {
-            console.error(err);
-            done();
+            console.error();
+            done(err);
           }
           expect(res.status).to.equal(200);
-          expect(res.body[0].title).to.equal('Tuesday Todos');
+          expect(res.body[0].noteTitle).to.equal('Tuesday Todos');
         });
       done();
     });
   });
 
-  describe('[PUT] /api/note/update', () => {
-    it('should return the updated Note', (done) => {
-      const updatedNote = {
-        title: 'Tuesday Todos',
+  describe('[GET] /api/note/:id', () => {
+    it('should get a note by ID', (done) => {
+      // console.log(noteId)
+      chai
+        .request(server)
+        .get('/api/note/' + noteId)
+        .end((err, res) => {
+          if (err) {
+            console.error(err);
+            done();
+          }
+          expect(res.status).to.equal(200);
+          expect(res.body.noteTitle).to.equal('Tuesday Todos');
+        });
+      done();
+    });
+  });
+
+  // describe('[PUT] /api/note', () => {
+  //   it('should return the updated Note', (done) => {
+  //     const updatedNote = {
+  //       noteTitle: 'Wednesday Todos',
+  //       noteBody: 'No Todos Here',
+  //       id: noteId
+  //     };
+  //     console.log('id in put test', noteId);
+  //     chai
+  //       .request(server)
+  //       .put('/api/note/update')
+  //       .send(updatedNote)
+  //       .end((err, res) => {
+  //         console.log(res.body)
+  //         if (err) {
+  //           done(err);
+  //         }
+  //         expect(res.status).to.equal(200);
+  //         expect(res.body.noteTitle).to.equal('Wednesday Todos');
+  //       });
+  //     done();
+  //   });
+  // });
+
+  describe('[DELETE] /api/note', () => {
+    it('Should delete the note by id', (done) => {
+      const idToDelete = {
         id: noteId,
-      };
+      }
       chai
         .request(server)
-        .put('/api/note/update')
-        .send(updatedNote)
+        .delete('/api/note')
+        .send(idToDelete)
         .end((err, res) => {
           if (err) {
             console.error(err);
             done();
           }
           expect(res.status).to.equal(200);
-          expect(res.body.title).to.equal('Tuesday Todos');
-        });
-      done();
-    });
-  });
-
-  describe('[DELETE] /api/note/delete', () => {
-    it('should return the title', (done) => {
-      chai
-        .request(server)
-        .delete('/api/note/delete' + noteId)
-        .end((err, res) => {
-          if (err) {
-            console.error(err);
-            done();
-          }
-          expect(res.status).to.equal(200);
-          expect(res.body).to.have.property('success');
+          expect(res.body).to.not.be.undefined;
         });
       done();
     });

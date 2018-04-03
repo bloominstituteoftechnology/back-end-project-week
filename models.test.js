@@ -17,10 +17,11 @@ describe('Notes Model', () => {
   });
 
   after((done) => {
-    mongoose.connection.db.dropDatabase(() => {
-      mongoose.connection.close(done);
-      console.log('we are disconnected');
-    });
+    mongoose.connection.close(done);
+    // mongoose.connection.db.dropDatabase(() => {
+      
+    //   console.log('we are disconnected');
+    // });
   });
 
   describe('getNoteByTitle', () => {
