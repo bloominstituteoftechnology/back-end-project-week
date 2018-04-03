@@ -15,8 +15,29 @@ server.use(express.json());
 server.use(helmet());
 server.use(cors());
 
-server.get('/', (req, res) => {
-  res.status(200).json({ status: 'API running' });
+server.post('/login', (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    res.status(400).json({ errorMessage: 'Please provide an email and password in the request body' });
+  }
+  User.findOne({ email })
+    .then((user) => {
+      user.checkPassword(password, (err, matched) => {
+        if (err) {
+          res.status(422).json({ error: 'passwords dont match' });
+          return;
+        }
+        if (matched) {
+          res.status(201).json(user);
+        }
+      });
+    })
+    .catch((err) => {
+      if (err) {
+        res.status(400).json({ errorMessage: 'there was a user error', errorBody: err });
+      }
+      res.status(500).json({ errorMessage: 'There was an internal error while saving the user to the database', err });
+    });
 });
 
 server.post('/register', (req, res) => {

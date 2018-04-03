@@ -2,6 +2,8 @@ import {
   ADD_NOTE,
   DELETE_NOTE,
   ERROR,
+  LOGGED_IN,
+  LOGGING_IN,
   LOGIN,
   NEWEST_SORT,
   OLDEST_SORT,
@@ -21,6 +23,8 @@ const initialState = {
   sortStatus: 'Unsorted',
   input: '',
   signingUp: false,
+  loggingIn: true,
+  loggedIn: false,
 };
 
 export default (state = initialState, action) => {
@@ -47,9 +51,16 @@ export default (state = initialState, action) => {
       return {
         ...state
       };
-    case LOGIN:
+    case LOGGED_IN:
       return {
-        ...state
+        ...state,
+        loggingIn: false,
+        loggedIn: true,
+      };
+    case LOGGING_IN:
+      return {
+        ...state,
+        loggingIn: true,
       };
     case NEWEST_SORT:
       return {
