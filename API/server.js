@@ -2,7 +2,7 @@ const express = require('express');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const User = require('./Users/user');
+const User = require('./Schemas/user');
 
 const server = express();
 
