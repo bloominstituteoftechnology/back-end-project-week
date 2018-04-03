@@ -3,13 +3,20 @@ const mongoose = require('mongoose');
 const request = require('supertest');
 const server = require('../server.js');
 const Note = require('../models/NoteModel.js');
+const User = require('../models/UserModel.js');
 
-// Test note info to seed the tests
+// Test data to seed the tests
 const testNoteInfo = {
   title: 'Test note title',
   content: 'Bla Balsd nmdas kljfd'
 };
 
+const testUserInfo = {
+  username: 'Test User',
+  password: '1234'
+};
+
+// BEFORE/AFTER
 beforeAll(done => {
   mongoose.Promise = global.Promise;
   mongoose.connect('mongodb://localhost/lambdanotes-test');
@@ -30,21 +37,34 @@ afterAll(done => {
 
 beforeEach(done => {
   const testNote = new Note(testNoteInfo);
+  const testUser = new User(testUserInfo);
+
   request(server)
     .post('/notes')
     .send(testNote)
     .then(res => {
       testNoteInfo.id = res.body._id;
-      done();
+    })
+    .then(() => {
+      request(server)
+        .post('/users')
+        .send(testUser)
+        .then(res => {
+          testUserInfo.id = res.body._id;
+          done();
+        });
     });
 });
 
 afterEach(done => {
-  Note.remove({}).then(() => {
-    done();
-  });
+  Note.remove({});
+  User.remove({});
+  User.collection.dropIndexes();
+  done();
 });
 
+// TESTS //
+// Notes
 describe('Notes endpoints', () => {
   test('[GET] /notes should retrieve an array of notes', done => {
     request(server)
@@ -111,6 +131,41 @@ describe('Notes endpoints', () => {
       .catch(err => {
         console.error(err);
         done();
+      });
+  });
+});
+
+describe('Users endpoints', () => {
+  test('[POST] should create a new user correctly', done => {
+    const newUser = { username: 'Elephant Man', password: '1234' };
+    request(server)
+      .post('/users')
+      .send(newUser)
+      .then(res => {
+        expect(res.body.message).toBe('Successfully created!');
+        expect(res.body.savedUser).toHaveProperty('_id');
+        expect(res.body.savedUser).toHaveProperty('createdOn');
+        expect(res.body.savedUser.password.length).toBe(60);
+        expect(res.body.savedUser.username).toBe('elephant man');
+        done();
+      })
+      .catch(err => {
+        console.error(err);
+        done();
+      });
+  });
+  test('[POST] should throw error if password is not given', done => {
+    const newUser = { username: 'Hagbard Celine' };
+    const expectedMessage = 'You need to provide a username and password!';
+    request(server)
+      .post('/users')
+      .send(newUser)
+      .then(res => {
+        expect(res.body.message).toBe(expectedMessage);
+        done();
+      })
+      .catch(err => {
+        console.error(err);
       });
   });
 });

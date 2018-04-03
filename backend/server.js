@@ -8,8 +8,8 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 
-// NOTES ENDPOINTS
-//// Get all notes
+// NOTES ENDPOINTS //
+// Get all notes
 server.get('/notes', (req, res) => {
   Note.find({}, (err, notes) => {
     if (err) res.status(500).json('Failed to get notes: ', err);
@@ -29,7 +29,7 @@ server.get('/notes/:id', (req, res) => {
     });
 });
 
-//// Save new note
+// Save new note
 server.post('/notes', (req, res) => {
   const { title, content, createdBy } = req.body;
   if (!title || !content) {
@@ -59,13 +59,17 @@ server.post('/notes', (req, res) => {
     );
 });
 
-// USER ENDPOINTS
-//// Create new User
+// USER ENDPOINTS //
+// Create new User
 server.post('/users', (req, res) => {
   let { username, password } = req.body;
   username = username.toLowerCase();
-  if (!username || !password)
-    res.status(422).json('You need to provide a username and password!');
+  if (!username || !password) {
+    res
+      .status(422)
+      .json({ message: 'You need to provide a username and password!' });
+    return;
+  }
   const newUser = new User({ username, password });
   newUser
     .save()
