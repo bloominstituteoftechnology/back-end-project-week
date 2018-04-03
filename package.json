@@ -4,5 +4,8 @@
   "main": "index.js",
   "repository": "https://github.com/mixelpixel/back-end-project-week.git",
   "author": "mixelpixel <mixelpix@mac.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "mongoose": "^5.0.12"
+  }
 }
