@@ -26,8 +26,8 @@ const logUser = (req, res) => {
       res.status(422).json({ error: "Could not find that user in the db" });
       return;
     }
-    user.checkPassword(password, doesEqual => {
-      if (doesEqual) {
+    user.checkPassword(password, doesMatch => {
+      if (doesMatch) {
         const token = makeToker({ email: user.email });
         res.json({ token });
       } else {

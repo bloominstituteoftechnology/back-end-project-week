@@ -6,8 +6,16 @@ const cors = require("cors");
 const path = require("path");
 const logger = require("morgan");
 const server = express();
+
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost/notes");
+mongoose
+  .connect("mongodb://localhost/notes")
+  .then(() => {
+    console.log("Connected to database");
+  })
+  .catch(() => {
+    console.log("Unable to connect to database");
+  });
 
 const corsOptions = {
   origin: "mongodb://localhost/notes",
@@ -19,11 +27,10 @@ server.use(cors(corsOptions));
 
 const port = 8000;
 
-//routes
-routes(server);
-
-module.exports = { server };
-
 server.listen(port, () => {
   console.log(`Server is now listening on port ${port}`);
 });
+
+routes(server);
+
+module.exports = { server };

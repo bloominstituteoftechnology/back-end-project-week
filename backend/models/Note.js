@@ -13,7 +13,7 @@ const NoteSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  userRelId: {
+  userId: {
     type: ObjectId,
     required: true,
     ref: "User"
