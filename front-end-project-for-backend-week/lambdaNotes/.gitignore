@@ -20,8 +20,3 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-#mongoose
-/serverDep
-
-#yarn
-/yarn-error.log
