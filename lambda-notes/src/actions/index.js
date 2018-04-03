@@ -12,6 +12,9 @@ export const USER_UNAUTHENTICATED = 'USER_UNAUTHENTICATED';
 export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
 export const GET_USERS = 'GET_USERS';
 export const CHECK_IF_AUTHENTICATED = 'CHECK_IF_AUTHENTICATED';
+export const GET_NOTES = 'GET_NOTES';
+
+// axios.defaults.withCredentials = true;
 
 //=====================================
 //         Validation Actions
@@ -65,10 +68,10 @@ export const getUsers = () => {
   return dispatch => {
     axios
       .get(`${ROOT_URL}/api/get`, {headers})
-      .then(response => {
+      .then(res => {
         dispatch({
           type: GET_USERS,
-          payload: response.data
+          payload: res.data
         });
       })
       .catch(() => {
@@ -80,13 +83,6 @@ export const getUsers = () => {
 //=====================================
 //            UI Actions
 //=====================================
-
-// export const addNote = (added) => {
-//   return {
-//     type: ADD_NOTE,
-//     payload: added,
-//   };
-// };
 
 export const addNote = (theNote) => {
   const headers = { 
@@ -106,6 +102,25 @@ export const addNote = (theNote) => {
       });
   };
 }
+
+export const getNotes = () => {
+  const headers = { 
+    authorization: localStorage.getItem('token')
+  }
+  const notes = axios.get(`${ROOT_URL}/api/notes/`, {headers});
+  return dispatch => {
+    notes
+      .then(res => {
+        dispatch({ 
+          type: GET_NOTES, 
+          payload: res.data
+        });
+      })
+      .catch(err => {
+        dispatch(authError('No notes to display!'));
+      });
+  };
+};
 
 export const editNote = (edited, id) => {
   return {

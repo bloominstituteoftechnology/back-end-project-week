@@ -2,24 +2,15 @@
 import { ADD_NOTE, DELETE_NOTE, EDIT_NOTE } from '../actions';
 
 //Authentication
-import { USER_AUTHENTICATED, USER_UNAUTHENTICATED, AUTHENTICATION_ERROR, CHECK_IF_AUTHENTICATED, GET_USERS } from '../actions';
+import { USER_AUTHENTICATED, USER_UNAUTHENTICATED, AUTHENTICATION_ERROR, CHECK_IF_AUTHENTICATED, GET_USERS, GET_NOTES } from '../actions';
 
 const initialState = {
-  notes: [
-    {
-      id: 0,
-      title: 'I Am The Title',
-      body: "I Am The Body",
-    },  
-  ],
-  counter: 1,
+  notes: [],
   users: [],
   authenticated: null,
 };
 
 export const reducer = (state = initialState, action) => {
-  console.log('state.authenticated', state.authenticated);
-  console.log('state.notes', state.notes)
   switch (action.type) {
     //Authentication
     case USER_AUTHENTICATED:
@@ -42,20 +33,24 @@ export const reducer = (state = initialState, action) => {
         ...state 
       };
     //UI
+    case GET_NOTES:
+      return {
+        ...state,
+        notes: action.payload,
+      }
     case GET_USERS:
       return action.payload;
     case ADD_NOTE:
       return {
         ...state,
-        // notes: [
-        //   ...state.notes,
-        //   {
-        //     title: action.payload.title,
-        //     body: action.payload.body,
-        //     id: state.counter,
-        //   },
-        // ],
-        // counter: ++state.counter,
+        notes: [
+          ...state.notes,
+          {
+            title: action.payload.title,
+            body: action.payload.body,
+            id: action.payload._id
+          },
+        ],
       };
     case DELETE_NOTE:
       return {
