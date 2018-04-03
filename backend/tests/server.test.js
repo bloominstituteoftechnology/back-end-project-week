@@ -66,7 +66,7 @@ afterEach(done => {
 });
 
 // TESTS //
-// Notes
+// Notes endpoints
 describe('Notes endpoints', () => {
   test('[GET] /notes should retrieve an array of notes', done => {
     request(server)
@@ -140,6 +140,7 @@ describe('Notes endpoints', () => {
       .then(res => {
         expect(res.body.message).toBe('Note updated successfully!');
         expect(res.body.updatedNote.content).toBe(updatedNoteInfo.content);
+        expect(res.body.updatedNote._id).toBe(testNoteInfo.id);
         done();
       })
       .catch(err => {
