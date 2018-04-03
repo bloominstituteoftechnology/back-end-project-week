@@ -1,4 +1,4 @@
-const { secret } = require("../config");
+const { secret } = require("../secret");
 const jwt = require("jsonwebtoken");
 
 const makeToker = userMod => {
@@ -13,6 +13,7 @@ const authenticateToker = (req, res, next) => {
   jwt.verify(toker, secret, (authError, decoded) => {
     if (authError) {
       res.status(403).json({ error: "Invalid toker" });
+      return;
     }
     req.decoded = decoded;
     next();

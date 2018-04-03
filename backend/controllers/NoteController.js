@@ -82,7 +82,7 @@ const deleteNote = (req, res) => {
 
 module.exports = {
   touchNote,
-  popNotesById,
+  popNotes,
   popNotesById,
   updateNote,
   deleteNote

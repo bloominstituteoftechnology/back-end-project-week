@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const routes = require("./routes");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
@@ -19,6 +20,9 @@ server.use(cors(corsOptions));
 const port = 8000;
 
 //routes
+routes(server);
+
+module.exports = { server };
 
 server.listen(port, () => {
   console.log(`Server is now listening on port ${port}`);

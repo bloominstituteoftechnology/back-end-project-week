@@ -1,5 +1,5 @@
-const User = require("../models/UserModel");
-const { makeToker } = require("../services/auth");
+const User = require("../models/User");
+const { makeToker } = require("../authenticate/auth");
 
 const makeUser = (req, res) => {
   const { firstName, lastName, email, password } = req.body;
@@ -11,7 +11,7 @@ const makeUser = (req, res) => {
   });
   user.save((err, user) => {
     if (err) return res.send(err);
-    res.status(200).json({ success: "user was saved", user });
+    res.json({ success: "user was saved", user });
   });
 };
 
