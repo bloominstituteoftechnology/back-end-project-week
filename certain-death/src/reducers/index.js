@@ -9,7 +9,8 @@ import {
   UPDATE_SEARCH,
   SHOW_NOTES,
   LOGIN,
-  SIGNING_UP
+  SIGNING_UP,
+  USER_CREATED,
 } from '../actions';
 import dummyData from '../dummydata';
 
@@ -107,6 +108,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         signingUp: true,
+      };
+    case USER_CREATED:
+      return {
+        ...state,
+        signingUp: false,
       };
     case LOGIN:
       return {

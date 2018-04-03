@@ -62,7 +62,10 @@ export const showNotes = data => ({
 });
 
 export const signup = (data) => {
-  const user = axios.get('https://dog.ceo/api/breeds/list/all');
+  const user = axios.post('localhost:5000/', {
+    email: data.email,
+    password: data.password,
+  });
   return (dispatch) => {
     dispatch({ type: SIGNING_UP });
     user

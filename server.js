@@ -21,11 +21,14 @@ server.get('/', (req, res) => {
 
 server.post('/', (req, res) => {
   const userInfo = req.body;
-  const { title, body, created, stamp } = req.body;
-  if (!title || !body) {
-    res.status(400).json({ errorMessage: 'Please provide a note title and body in the request body' });
+  const { email, password } = req.body;
+  if (!email || !password) {
+    res.status(400).json({ errorMessage: 'Please provide an email and password in the request body' });
   }
-  const user = new User(userInfo);
+  const user = new User({
+    email,
+    password,
+  });
   user.save()
     .then(newUser => {
       res.status(201).json(newUser);
