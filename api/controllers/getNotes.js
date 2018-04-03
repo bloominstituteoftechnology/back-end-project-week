@@ -1,7 +1,7 @@
 const User = require('../models/userModel');
 
 const getNotes = (req, res) => {
-  console.log('req.session.username in getNotes: ', req.session.username)
+  console.log('req.session in getNotes: ', req.session)
   const { id } = req.params;
   User.findById(id)
     .populate('notes')

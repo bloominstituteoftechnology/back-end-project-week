@@ -15,24 +15,4 @@ module.exports = server => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //server.get('/api/notes', authenticate, getAllJokes);

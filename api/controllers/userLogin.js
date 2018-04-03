@@ -17,7 +17,8 @@ const userLogin = (req, res) => {
               // const token = jwt.sign(payload, mysecret);
               // res.json({ token });
               req.session.username = user.username;
-              console.log('req.session.username in userLogin: ', req.session.username)
+              req.session.save(); // didn't change anything
+              console.log('req.session in userLogin: ', req.session);
               res.send(user._id);
             } else res.status(401).json({ error: "passwords don't match" });
           })
