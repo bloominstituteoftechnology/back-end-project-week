@@ -77,9 +77,7 @@ describe('Notes endpoints', () => {
         expect(res.body[0].content).toBe(testNoteInfo.content);
         done();
       })
-      .catch(err => {
-        console.err(err);
-      });
+      .catch(err => console.err(err));
   });
 
   test('[GET] /notes/:id should retrieve the note by id', done => {
@@ -91,9 +89,7 @@ describe('Notes endpoints', () => {
         expect(res.body.content).toBe(testNoteInfo.content);
         done();
       })
-      .catch(err => {
-        console.error(err);
-      });
+      .catch(err => console.error(err));
   });
 
   test('[POST] should post a note correctly', done => {
@@ -111,9 +107,7 @@ describe('Notes endpoints', () => {
         expect(res.body).toHaveProperty('content', newNoteInfo.content);
         done();
       })
-      .catch(err => {
-        console.error(err);
-      });
+      .catch(err => console.error(err));
   });
 
   test('[POST] should throw error if missing a title', done => {
@@ -127,9 +121,7 @@ describe('Notes endpoints', () => {
         expect(res.body.message).toBe('You need to enter a title and content!');
         done();
       })
-      .catch(err => {
-        console.error(err);
-      });
+      .catch(err => console.error(err));
   });
 
   test('[PUT] should update notes correctly', done => {
@@ -143,9 +135,20 @@ describe('Notes endpoints', () => {
         expect(res.body.updatedNote._id).toBe(testNoteInfo.id);
         done();
       })
-      .catch(err => {
-        console.error(err);
-      });
+      .catch(err => console.error(err));
+  });
+
+  test('[DELETE] should delete the note correctly', done => {
+    request(server)
+      .delete(`/notes/${testNoteInfo.id}`)
+      .then(res => {
+        expect(res.body.message).toBe('Note deleted successfully!');
+        expect(res.body.deletedNote.title).toBe(testNoteInfo.title);
+        expect(res.body.deletedNote.content).toBe(testNoteInfo.content);
+        expect(res.body.deletedNote._id).toBe(testNoteInfo.id);
+        done();
+      })
+      .catch(err => console.error(err));
   });
 });
 
@@ -164,9 +167,7 @@ describe('Users endpoints', () => {
         expect(res.body.savedUser.username).toBe('elephant man');
         done();
       })
-      .catch(err => {
-        console.error(err);
-      });
+      .catch(err => console.error(err));
   });
 
   test('[POST] should throw error if password is not given', done => {
@@ -179,9 +180,7 @@ describe('Users endpoints', () => {
         expect(res.body.message).toBe(expectedMessage);
         done();
       })
-      .catch(err => {
-        console.error(err);
-      });
+      .catch(err => console.error(err));
   });
 
   test('[GET] should return all users', done => {
@@ -201,9 +200,7 @@ describe('Users endpoints', () => {
             done();
           });
       })
-      .catch(err => {
-        console.error(err);
-      });
+      .catch(err => console.error(err));
   });
 
   test('[GET] by id should return the correct user', done => {
@@ -216,8 +213,6 @@ describe('Users endpoints', () => {
         expect(res.body.username).toBe('test user');
         done();
       })
-      .catch(err => {
-        console.error(err);
-      });
+      .catch(err => console.error(err));
   });
 });

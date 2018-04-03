@@ -75,6 +75,21 @@ server.put('/notes/:id', (req, res) => {
     );
 });
 
+// Delete note
+server.delete('/notes/:id', (req, res) => {
+  const id = req.params.id;
+  Note.findByIdAndRemove(id)
+    .then(note => {
+      res.status(200).json({
+        message: 'Note deleted successfully!',
+        deletedNote: note
+      });
+    })
+    .catch(err =>
+      res.status(500).json({ message: 'Error Deleting note', error: err })
+    );
+});
+
 // USER ENDPOINTS //
 // Create new User
 server.post('/users', (req, res) => {
