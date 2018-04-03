@@ -3,11 +3,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const Note = require('./models/NoteModel.js');
 const User = require('./models/UserModel.js');
+const cors = require('cors');
+
 const server = express();
-
+server.use(cors());
 server.use(express.json());
-const PORT = process.env.PORT || 5000;
 
+// Connected to MongoDB
 mongoose
   .connect('mongodb://localhost/lambdanotes')
   .then(() => console.log('Successfully connected to MongoDB!'))
@@ -84,6 +86,13 @@ server.get('/users/:id', (req, res) => {
     });
 });
 
-server.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
+server.get('/test', (req, res) => {
+  res.status(200);
+  res.send('Bada Bing Bada Boom!');
 });
+
+// server.listen(PORT, () => {
+//   console.log(`Server is listening on port ${PORT}`);
+// });
+
+module.exports = server;
