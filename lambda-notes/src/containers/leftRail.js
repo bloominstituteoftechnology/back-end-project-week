@@ -6,11 +6,15 @@ import Authenticator from '../components/authenticator';
 class LeftRail extends Component {
     render() {
         return (
+            this.props.authenticated ?
             <div className="left-rail">
                 <Authenticator />
                 <h1 className="left-rail__title">
                     Lambda Notes
                 </h1>
+            </div> :
+            <div className="left-rail">
+                <Authenticator />
             </div>
         )   
     }
