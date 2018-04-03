@@ -63,7 +63,7 @@ class SignUpForm extends React.Component {
       email: '',
       password: '',
       confirmPassword: '',
-      redirect: true,
+      // redirect: true,
     });
   }
 

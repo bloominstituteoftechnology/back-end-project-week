@@ -4,7 +4,6 @@ import {
   ERROR,
   LOGGED_IN,
   LOGGING_IN,
-  LOGIN,
   NEWEST_SORT,
   OLDEST_SORT,
   SHOW_NOTES,
