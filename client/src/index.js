@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import reducers from './reducers';
 import SignUp from './components/signup';
 import SignIn from './components/signin';
+//import RequireAuth from './components/RequireAuth';
 
 const sotreWithMW = applyMiddleware(thunk)(createStore);
 
@@ -19,6 +20,7 @@ ReactDOM.render(
         <Route path="/" component={App} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={SignIn} />
+        <Route path="/notes" /*{component={RequireAuth}}*/ />
       </div>
     </Router>
   </Provider>,

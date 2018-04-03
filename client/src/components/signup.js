@@ -4,8 +4,8 @@ import { reduxForm, Field } from 'redux-form';
 import { signUp } from '../actions/signUpandIn';
 
 class SignUp extends Component {
-  handleFormSubmit({ email, password, confirmPassword, history }) {
-    signUp(email, password, confirmPassword, history);
+  handleFormSubmit({ email, password, confirmPass, history }) {
+    this.props.signUp(email, password, confirmPass, history);
   }
 
   errorAlert = () => {
@@ -47,5 +47,5 @@ SignUp = connect(mapStateToProps, { signUp })(SignUp);
 
 export default reduxForm({
   form: 'signup',
-  fields: ['email', 'password', 'confirmPassword'],
+  fields: ['email', 'password', 'confirmPass'],
 })(SignUp);

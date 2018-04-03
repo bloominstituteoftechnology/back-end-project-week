@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-import { signin } from '../actions/signUpandIn';
+import { login } from '../actions/signUpandIn';
 
 class SignIn extends Component {
-  handleFormSubmit({ email, password }) {
-    this.props.signin(email, password, this.props.history);
+  handleFormSubmit({ email, password, history }) {
+    login(email, password, history);
   }
 
   errorAlert() {
@@ -17,7 +17,7 @@ class SignIn extends Component {
     const { handleSubmit } = this.props;
 
     return (
-      <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+      <form onSubmit={handleSubmit(this.handleFormSubmit)}>
         <fieldset>
           <label>Email:</label>
           <Field name="email" component="input" type="email" />
@@ -40,9 +40,9 @@ const mapStateToProps = state => {
   };
 };
 
-SignIn = connect(mapStateToProps, { signin })(SignIn);
+SignIn = connect(mapStateToProps, { login })(SignIn);
 
 export default reduxForm({
-  form: 'signin',
-  fields: ['username', 'password'],
+  form: 'login',
+  fields: ['email', 'password'],
 })(SignIn);
