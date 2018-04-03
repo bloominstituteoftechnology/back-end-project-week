@@ -5,10 +5,22 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+const session = require('express-session');
+const cors = require('cors');
+const User = require('./api/models/user');
+const bcrypt = require('bcrypt');
+
+var index = require('./api/routes/index');
+var users = require('./api/routes/users');
 
 var app = express();
+require('dotenv').config();
+
+const corsOptions = {
+  "origin": "http://localhost:3000",
+  "credentials": true
+};
+app.use(cors(corsOptions));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,6 +33,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+  secret: process.env.MY_SECRET,
+  resave: true,
+  saveUninitialized: false,
+}));
 
 app.use('/', index);
 app.use('/users', users);

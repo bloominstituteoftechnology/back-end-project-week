@@ -45,7 +45,7 @@ class App extends React.Component {
   }
 
   handleClickForSave = (newNote) => {
-    let tempArr = [newNote, ...this.state.notes];
+    //let tempArr = [newNote, ...this.state.notes];
     //fire.database().ref('notes2').set(tempArr.reverse());
     this.setState({
       notes: [newNote, ...this.state.notes],
