@@ -47,6 +47,14 @@ class SignUpForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    if (this.state.confirmPassword !== this.state.password) {
+      alert('Passwords do not match');
+      return;
+    }
+    if (this.state.password.length < 6) {
+      alert('Password must be six or more chatacters in length');
+      return;
+    }
     this.props.signup({
       email: this.state.email,
       password: this.state.password,

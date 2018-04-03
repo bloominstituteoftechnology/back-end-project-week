@@ -19,7 +19,7 @@ server.get('/', (req, res) => {
   res.status(200).json({ status: 'API running' });
 });
 
-server.post('/', (req, res) => {
+server.post('/register', (req, res) => {
   const userInfo = req.body;
   const { email, password } = req.body;
   if (!email || !password) {

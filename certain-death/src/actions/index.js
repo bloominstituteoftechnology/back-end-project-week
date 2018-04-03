@@ -4,6 +4,8 @@ import { v4 } from 'uuid';
 export const ADD_NOTE = 'ADD_NOTE';
 export const DELETE_NOTE = 'DELERE_NOTE';
 export const ERROR = 'ERROR';
+export const LOGGING_IN = 'LOGGING_IN';
+export const LOGGED_IN = 'LOGGED_IN';
 export const LOGIN = 'LOGIN';
 export const NEWEST_SORT = 'NEWEST_SORT';
 export const OLDEST_SORT = 'OLDEST_SORT';
@@ -33,9 +35,22 @@ export const error = data => ({
   type: ERROR,
 });
 
-export const login = data => ({
-  type: LOGIN,
-});
+export const login = (data) => {
+  const user = axios.post('http://localhost:5000/login', {
+    email: data.email,
+    password: data.password,
+  });
+  return (dispatch) => {
+    dispatch({ type: LOGGING_IN });
+    user
+      .then(({ res }) => {
+        dispatch({ type: LOGGED_IN, payload: res });
+      })
+      .catch((err) => {
+        dispatch({ type: ERROR, payload: err });
+      });
+  };
+};
 
 export const newestSort = data => ({
   type: NEWEST_SORT,
@@ -50,7 +65,7 @@ export const showNotes = data => ({
 });
 
 export const signup = (data) => {
-  const user = axios.post('http://localhost:5000/', {
+  const user = axios.post('http://localhost:5000/register', {
     email: data.email,
     password: data.password,
   });
