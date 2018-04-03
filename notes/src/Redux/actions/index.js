@@ -31,7 +31,7 @@ export const userCreate = (username, password, confirmPassword, history) => {
     axios
       .post(`${APIroot}/api/users`, { username, password })
       .then(res => {
-        dispatch({ type: USER_CREATE });
+        dispatch({ type: USER_CREATE, payload: res.data });
         history.push('/login');
       })
       .catch(err => {
@@ -43,20 +43,20 @@ export const userCreate = (username, password, confirmPassword, history) => {
   };
 };
 
-export const login = (username, password, history) => {
-  // return dispatch => {
-  //   axios
-  //     .post(`${APIroot}/api/login`, { username, password })
-  //     .then(res => {
-  //       localStorage.setItem('token', res.data.token);
-  //       dispatch({ type: LOGIN });
-  //       history.push('/jokes');
-  //     })
-  //     .catch(err => {
-  //       if (err.response.data.error)
-  //         dispatch(authError('Username/Password invalid.'));
-  //     });
-  // };
+export const userLogin = (username, password, history) => {
+  return dispatch => {
+    axios
+      .post(`${APIroot}/api/login`, { username, password })
+      .then(res => {
+        // localStorage.setItem('token', res.data.token);
+        dispatch({ type: LOGIN, payload: res.data });
+        history.push('/');
+      })
+      .catch(err => {
+        if (err.response.data.error)
+          dispatch(authError('Username/Password invalid.'));
+      });
+  };
 };
 
 export const logout = () => {
@@ -68,12 +68,13 @@ export const logout = () => {
 //
 // ─── NOTE ACTIONS ───────────────────────────────────────────────────────────────
 //
-export const getNotes = (id) => {
-  const notes = axios.get(`${APIroot}/api/notes`, id);
+export const getNotes = id => {
+  const notes = axios.get(`${APIroot}/api/notes/${id}`);
   return dispatch => {
     notes
-      .then(payload => {
-        dispatch({ type: GET_NOTES, payload: payload.data });
+      .then(res => {
+        console.log('in actions: ', res.data.notes);
+        dispatch({ type: GET_NOTES, payload: res.data.notes });
       })
       .catch(error => {
         console.log(

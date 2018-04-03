@@ -16,9 +16,9 @@ class AllNotes extends Component {
     this.props.getNotes(this.props.userId);
   }
 
-  componentWillReceiveProps() {
-    this.props.getNotes(this.props.userId);
-  }
+  // componentWillReceiveProps() {
+  //   this.props.getNotes(this.props.userId);
+  // }
 
   getCSV = () => {
     let csv = [['title', 'content', 'id']];

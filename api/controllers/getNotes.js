@@ -1,8 +1,10 @@
 const User = require('../models/userModel');
+const session = require('express-session');
 
 const getNotes = (req, res) => {
-  const { username } = req.body;
-  User.findById(userId)
+  console.log('req.session.username in getNotes: ', req.session)
+  const { id } = req.params;
+  User.findById(id)
     .populate('notes')
     .then(finalData => {
       res.send(finalData);
