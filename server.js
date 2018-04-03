@@ -24,4 +24,4 @@ server.get('/', (req, res) => {
     res.send('works');
 });
 
-module.exports = { server };
+module.exports = server;

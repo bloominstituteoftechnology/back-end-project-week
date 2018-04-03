@@ -1,17 +1,17 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js test
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js test
 
 PATH: 
-  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+  C:\Python27\;C:\Python27\Scripts;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64_win\compiler;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\ia32_win\compiler;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files\Common Files\Autodesk Shared\;C:\Program Files (x86)\Autodesk\Backburner\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Git\cmd;C:\Program Files\PuTTY\;C:\Go\bin;C:\Program Files\CMake\bin;C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin;C:\Users\admin\.cargo\bin;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files\dotnet\;C:\Program Files\nodejs\;C:\Program Files (x86)\Yarn\bin\;C:\Users\admin\.cargo\bin;C:\Python35\Scripts\;C:\Python35\;C:\Users\admin\AppData\Local\Programs\Python\Python36\Scripts\;C:\Users\admin\AppData\Local\Programs\Python\Python36\;C:\Users\admin\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Microsoft VS Code\bin;C:\Users\admin\AppData\Roaming\npm;C:\Program Files\Heroku\bin;C:\Program Files\MongoDB\Server\3.6\bin;C:\Users\admin\AppData\Local\Yarn\bin
 
 Yarn version: 
   1.5.1
 
 Node version: 
-  8.10.0
+  8.9.4
 
 Platform: 
-  darwin x64
+  win32 x64
 
 npm manifest: 
   {
@@ -23,13 +23,14 @@ npm manifest:
     "dependencies": {
       "bcrypt": "^1.0.3",
       "chai": "^4.1.2",
-      "chai-http": "^4.0.0",
       "express": "^4.16.3",
       "express-session": "^1.15.6",
       "global": "^4.3.2",
       "mocha": "^5.0.5",
       "mongoose": "^5.0.12",
-      "nodemon": "^1.17.3"
+      "nodemon": "^1.17.3",
+      "superagent": "^3.8.2",
+      "supertest": "^3.0.0"
     },
     "scripts": {
       "test": "mocha --exit tests/*.test.js",
@@ -330,16 +331,6 @@ Lockfile:
     version "0.12.0"
     resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
   
-  chai-http@^4.0.0:
-    version "4.0.0"
-    resolved "https://registry.yarnpkg.com/chai-http/-/chai-http-4.0.0.tgz#810f579e98ae9d7847701759de7682361f2f286f"
-    dependencies:
-      cookiejar "^2.1.1"
-      is-ip "^2.0.0"
-      methods "^1.1.2"
-      qs "^6.5.1"
-      superagent "^3.7.0"
-  
   chai@^4.1.2:
     version "4.1.2"
     resolved "https://registry.yarnpkg.com/chai/-/chai-4.1.2.tgz#0f64584ba642f0f2ace2806279f4f06ca23ad73c"
@@ -472,7 +463,7 @@ Lockfile:
     version "0.3.1"
     resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.3.1.tgz#e7e0a1f9ef43b4c8ba925c5c5a96e806d16873bb"
   
-  cookiejar@^2.1.0, cookiejar@^2.1.1:
+  cookiejar@^2.1.0:
     version "2.1.1"
     resolved "https://registry.yarnpkg.com/cookiejar/-/cookiejar-2.1.1.tgz#41ad57b1b555951ec171412a81942b1e8200d34a"
   
@@ -1109,10 +1100,6 @@ Lockfile:
     version "1.3.5"
     resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
   
-  ip-regex@^2.0.0:
-    version "2.1.0"
-    resolved "https://registry.yarnpkg.com/ip-regex/-/ip-regex-2.1.0.tgz#fa78bf5d2e6913c911ce9f819ee5146bb6d844e9"
-  
   ipaddr.js@1.6.0:
     version "1.6.0"
     resolved "https://registry.yarnpkg.com/ipaddr.js/-/ipaddr.js-1.6.0.tgz#e3fa357b773da619f26e95f049d055c72796f86b"
@@ -1215,12 +1202,6 @@ Lockfile:
     dependencies:
       global-dirs "^0.1.0"
       is-path-inside "^1.0.0"
-  
-  is-ip@^2.0.0:
-    version "2.0.0"
-    resolved "https://registry.yarnpkg.com/is-ip/-/is-ip-2.0.0.tgz#68eea07e8a0a0a94c2d080dd674c731ab2a461ab"
-    dependencies:
-      ip-regex "^2.0.0"
   
   is-npm@^1.0.0:
     version "1.0.0"
@@ -1412,7 +1393,7 @@ Lockfile:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/merge-descriptors/-/merge-descriptors-1.0.1.tgz#b00aaa556dd8b44568150ec9d1b953f3f90cbb61"
   
-  methods@^1.1.1, methods@^1.1.2, methods@~1.1.2:
+  methods@^1.1.1, methods@~1.1.2:
     version "1.1.2"
     resolved "https://registry.yarnpkg.com/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
   
@@ -2249,7 +2230,7 @@ Lockfile:
     version "2.0.1"
     resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
   
-  superagent@^3.7.0:
+  superagent@^3.0.0, superagent@^3.8.2:
     version "3.8.2"
     resolved "https://registry.yarnpkg.com/superagent/-/superagent-3.8.2.tgz#e4a11b9d047f7d3efeb3bbe536d9ec0021d16403"
     dependencies:
@@ -2263,6 +2244,13 @@ Lockfile:
       mime "^1.4.1"
       qs "^6.5.1"
       readable-stream "^2.0.5"
+  
+  supertest@^3.0.0:
+    version "3.0.0"
+    resolved "https://registry.yarnpkg.com/supertest/-/supertest-3.0.0.tgz#8d4bb68fd1830ee07033b1c5a5a9a4021c965296"
+    dependencies:
+      methods "~1.1.2"
+      superagent "^3.0.0"
   
   supports-color@4.4.0:
     version "4.4.0"
@@ -2511,15 +2499,15 @@ Lockfile:
 
 Trace: 
   Error: Command failed.
-  Exit code: 1
-  Command: sh
-  Arguments: -c mocha --exit tests/*.test.js
-  Directory: /Users/amydelanda/Desktop/RonniesPorn/back-end-project-week
+  Exit code: 2
+  Command: C:\WINDOWS\system32\cmd.exe
+  Arguments: /d /s /c mocha --exit tests/*.test.js
+  Directory: C:\Users\admin\Documents\programming\lambda\back-end-project-week
   Output:
   
-      at ProcessTermError.MessageError (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:186:110)
-      at new ProcessTermError (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:226:113)
-      at ChildProcess.<anonymous> (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:30281:17)
+      at ProcessTermError.MessageError (C:\Program Files (x86)\Yarn\lib\cli.js:186:110)
+      at new ProcessTermError (C:\Program Files (x86)\Yarn\lib\cli.js:226:113)
+      at ChildProcess.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:30281:17)
       at emitTwo (events.js:126:13)
       at ChildProcess.emit (events.js:214:7)
       at maybeClose (internal/child_process.js:925:16)

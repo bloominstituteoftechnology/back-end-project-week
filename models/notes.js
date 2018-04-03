@@ -12,6 +12,11 @@ const Note = new mongoose.Schema({
         type: String,
         default: new Date(),
     },
+    label: {
+        type: String,
+        enum: ['red', 'blue', 'tan', 'orange', 'purple', 'default'],
+        default: 'default'
+    },
     author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'

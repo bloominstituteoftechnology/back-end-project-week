@@ -1,4 +1,4 @@
-const { server } = require('./server.js');
+const server = require('./server.js');
 const config = require('./config.json');
 const mongoose = require('mongoose');
 

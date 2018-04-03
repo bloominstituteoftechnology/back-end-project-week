@@ -21,14 +21,19 @@ const User = new mongoose.Schema({
 
 User.pre('save', function(next) {
     let user = this;
-    bcrypt.hash(user.password, config.BCRYPT_COST)
-        .then(hashed => {
-            user.password = hashed;
-            next();
-        })
-        .catch(err => {
-            throw new Error(err);
-        })
+    bcrypt.hash(user.password, config.BCRYPT_COST, (err, hashed) => {
+        if(err) throw new Error(err);
+
+        user.password = hashed;
+        next();
+    })
+        // .then(hashed => {
+        //     user.password = hashed;
+        //     next();
+        // })
+        // .catch(err => {
+        //     throw new Error(err);
+        // });
 });
 
 const UserModel = mongoose.model('User', User);

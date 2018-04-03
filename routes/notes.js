@@ -81,6 +81,7 @@ router.get('/:id', (req, res) => {
 router.get('/', (req, res) => {
     Note.find({ author: req.session.loggedIn })
         .then(notes => {
+            console.log(req.session.loggedIn);
             res.send(notes);
         })
         .catch(err => {

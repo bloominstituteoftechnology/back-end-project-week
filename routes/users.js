@@ -12,7 +12,7 @@ router.get('/', authUser, (req, res) => {
     User.find()
         .populate('Notes')
         .then(users => {
-            res.send(users);
+            res.status(200).send(users);
         })
         .catch(err => {
             sendUserError(err, res);
@@ -25,7 +25,7 @@ router.post('/register', (req, res) => {
 
     newUser.save()
         .then(result => {
-            res.send(result);
+            res.status(201).send(result);
         })
         .catch(err => {
             sendUserError(err, res);
@@ -39,14 +39,15 @@ router.post('/login', (req, res) => {
             if(!user) {
                 sendUserError('Username or password does not match', res);
             } else {
-                bcrypt.compare(password, user.password)
-                    .then(response => {
+                bcrypt.compare(password, user.password, (err, result) => {
+                    if(err) throw new Error(err);
+                    if(result) {
                         req.session.loggedIn = user._id;
                         res.send({ success: true });
-                    })
-                    .catch(err => {
-                        throw new Error(err);
-                    });
+                    } else {
+                        sendUserError('Username or password does not match', res);
+                    }
+                });
             }
         })
         .catch(err => {
