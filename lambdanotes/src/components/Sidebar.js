@@ -5,7 +5,7 @@ import './Sidebar.css';
 
 export default class Sidebar extends React.Component {
   logout = _ => {
-    localStorage.clear('token');
+    localStorage.clear();
     this.props.deauthenticate();
   };
 

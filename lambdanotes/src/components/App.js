@@ -52,16 +52,22 @@ export default class App extends React.Component {
     };
   };
 
-  handleCreateNote = inputNote => {
+  handleCreateNote = async inputNote => {
     const newNote = {
-      id: this.nextId++,
+      author: localStorage.getItem('uuID'),
       title: inputNote.title,
       body: inputNote.body,
     };
-    const newNotes = [...this.state.notes, newNote];
-    this.setState({
-      notes: newNotes,
-    });
+    try {
+      const res = await axios.post(`${ROOT_URL}/notes`, newNote);
+      console.log('Success!', res);
+    } catch (err) {
+      console.error(err);
+    }
+    // const newNotes = [...this.state.notes, newNote];
+    // this.setState({
+    //   notes: newNotes,
+    // });
   };
 
   handleEditNote = inputNote => {

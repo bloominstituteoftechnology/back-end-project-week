@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 
 import './UserAuth.css';
 
@@ -30,6 +29,9 @@ class SignUp extends Component {
         this.setState({
           error: null,
           success: true,
+        });
+        setTimeout(() => {
+          window.location = '/';
         });
       }
     } catch (err) {
@@ -66,18 +68,11 @@ class SignUp extends Component {
     if (!this.state.error) return null;
     return <h3 className="UserAuth-Error">{this.state.error}</h3>;
   };
-
-  renderRedirect = _ => {
-    if (!this.state.success) return null;
-    return <Redirect to={"/"} />;
-  }
-
   render() {
     const { username, password } = this.state;
 
     return (
       <div className="UserAuth">
-      {this.renderRedirect()}
       <h2 className="SectionTitle">Sign Up</h2>
       <form className={"UserAuth-Form"}>
         <input
