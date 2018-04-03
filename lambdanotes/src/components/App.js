@@ -17,6 +17,16 @@ export default class App extends React.Component {
 
   state = {
     notes: [],
+    authenticated: false,
+  };
+
+  handleNewUser = async function(username, password, history) {
+    try {
+      const res = await axios.post(`${ROOT_URL}/users`, { username, password });
+      console.log(res.data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   handleNoteViewIndex = inputId => {
