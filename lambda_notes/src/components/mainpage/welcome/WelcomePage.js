@@ -61,8 +61,20 @@ class WelcomePage extends React.Component {
   };
 
   loginUser = (event) => {
+    const name = this.state.name;
+    const password = this.state.password
     event.preventDefault();
-
+    axios
+    .post('http://localhost:3030/api/login', { name, password })
+    .then(res => {
+      this.changeMessage(res.data.message);
+      this.cancel();
+    })
+    .catch(err => {
+      console.error(err);
+      console.error(err.response.data.message);
+      this.changeMessage(err.response.data.message);
+    });
   };
 
   registerUser = (event) => {
@@ -76,7 +88,6 @@ class WelcomePage extends React.Component {
     axios
       .post('http://localhost:3030/api/users', { name, password })
       .then(res => {
-        console.log(res);
         this.changeMessage(res.data.message);
         this.cancel();
       })
@@ -99,7 +110,8 @@ class WelcomePage extends React.Component {
       name: '',
       password: '',
       confirmpassword: '',
-      welcomeSwitchValue: 'buttons'
+      welcomeSwitchValue: 'buttons',
+      // message: ''
     });
   };
 }

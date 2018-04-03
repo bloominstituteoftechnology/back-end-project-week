@@ -15,7 +15,7 @@ const login = (req, res) => {
         }
         if (hashMatch) {
           const token = jwt.sign({ name: user.name }, secret);
-          res.status(200).json({ token });
+          res.status(200).json({ token, message: `Successfully logged in as ${user.name}.` });
         }
       });
     })
