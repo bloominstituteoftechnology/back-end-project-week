@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const server = express();
 const noteRouter = require('./routes/noteRoutes');
@@ -12,11 +13,17 @@ const success = process.env.STATUS_SUCCESS;
 server.use(express.json());
 server.use(helmet());
 
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true
+};
+
 // server.use((req, res, next) => {
 //     next();
 // }); // middleware if I need to add it later
 
 server.use('/api/notes', noteRouter);
+server.use(cors(corsOptions));
 userRouter(server);
 
 server.get('/', function(req, res) {
