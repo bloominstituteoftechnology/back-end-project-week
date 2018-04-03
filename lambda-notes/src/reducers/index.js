@@ -1,4 +1,8 @@
+//UI
 import { ADD_NOTE, DELETE_NOTE, EDIT_NOTE } from '../actions';
+
+//Authentication
+import { USER_AUTHENTICATED, USER_UNAUTHENTICATED, AUTHENTICATION_ERROR, CHECK_IF_AUTHENTICATED } from '../actions';
 
 const initialState = {
   notes: [
@@ -9,10 +13,34 @@ const initialState = {
     },  
   ],
   counter: 1,
+  authenticated: null,
 };
 
 export const reducer = (state = initialState, action) => {
+  console.log('state.authenticated', state.authenticated);
+  console.log('state.notes', state.notes)
   switch (action.type) {
+    //Authentication
+    case USER_AUTHENTICATED:
+      return { 
+        ...state, 
+        authenticated: true 
+      };
+    case USER_UNAUTHENTICATED:
+      return { 
+        ...state, 
+        authenticated: false 
+      };
+    case AUTHENTICATION_ERROR:
+      return { 
+        ...state, 
+        error: action.payload 
+      };
+    case CHECK_IF_AUTHENTICATED:
+      return { 
+        ...state 
+      };
+    //UI
     case ADD_NOTE:
       return {
         ...state,

@@ -19,6 +19,7 @@ class EditNote extends Component {
 
   save = e => {
     e.preventDefault();
+    console.log(this.state)
     const edited = Object.assign({}, this.state.note);
     this.props.editNote(edited, this.state.note.id);
     this.props.history.push('/');
