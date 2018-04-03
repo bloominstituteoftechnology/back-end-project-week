@@ -4,6 +4,8 @@ export const TOGGLE_MODAL = 'TOGGLE_MODAL';
 export const DELETE_NOTE = 'DELETE_NOTE';
 export const SELECT_NOTE = 'SELECT_NOTE';
 export const SORT_NOTES = 'SORT_NOTES';
+export const LOGIN_USER = 'LOGIN_USER';
+export const LOGOUT_USER = 'LOGOUT_USER';
 
 export const addNote = note => {
   return {
@@ -22,26 +24,39 @@ export const updateNote = note => {
 export const toggleModal = () => {
   return {
     type: TOGGLE_MODAL,
-  }
-}
+  };
+};
 
-export const deleteNote = (id) => {
+export const deleteNote = id => {
   return {
     type: DELETE_NOTE,
     payload: id,
-  }
-}
+  };
+};
 
-export const selectNote = (id) => {
+export const selectNote = id => {
   return {
     type: SELECT_NOTE,
-    payload: id
-  }
-}
+    payload: id,
+  };
+};
 
-export const sortNotes = (sort) => {
+export const sortNotes = sort => {
   return {
     type: SORT_NOTES,
     payload: sort,
+  };
+};
+
+export const login = (userData) => {
+  return {
+    type: LOGIN_USER,
+    payload: userData,
+  }
+}
+
+export const logout = () => {
+  return {
+    type: LOGOUT_USER,
   }
 }
