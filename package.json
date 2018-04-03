@@ -4,17 +4,23 @@
   "description": "This is the back-end project for the LambdaNotes app.",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "test": "mocha -R nyan tests --exit"
   },
   "repository": "https://github.com/astacy-phillips/back-end-project-week.git",
   "author": "Amanda Phillips <amanda@phillipsdev.org>",
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^1.0.3",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "helmet": "^3.12.0",
     "jsonwebtoken": "^8.2.0",
-    "mongoose": "^5.0.12"
+    "mocha": "^5.0.5",
+    "mongoose": "^5.0.12",
+    "morgan": "^1.9.0",
+    "sinon": "^4.5.0"
   }
 }
