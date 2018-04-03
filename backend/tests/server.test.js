@@ -1,6 +1,8 @@
+/* eslint-disable no-console */
 const mongoose = require('mongoose');
 const request = require('supertest');
 const server = require('../server.js');
+const Note = require('../models/NoteModel.js');
 
 describe('Server', () => {
   beforeAll(done => {
@@ -21,12 +23,31 @@ describe('Server', () => {
     });
   });
 
-  test('GET notes', done => {
+  beforeEach(done => {
+    const testNote = new Note({
+      title: 'Test note title',
+      content: 'Bla Balsd nmdas kljfd'
+    });
     request(server)
-      .get('/test')
+      .post('/notes')
+      .send(testNote)
       .then(res => {
-        expect(res.text).toBe('Bada Bing Bada Boom!');
-        console.log(res.text);
+        done();
+      });
+  });
+
+  afterEach(done => {
+    Note.remove({ title: 'Test note title' }).then(res => {
+      done();
+    });
+  });
+
+  test('GET Notes /notes', done => {
+    request(server)
+      .get('/notes')
+      .then(res => {
+        console.log(res.body);
+        expect(typeof res.body[0]).toBe('object');
         done();
       });
   });
