@@ -18,7 +18,7 @@ class UserLogin extends Component {
     const { handleSubmit } = this.props;
     return (
       <div>
-        <div>Register</div>
+        <div>Login</div>
         <form onSubmit={handleSubmit(this.handleFormSubmit)}>
           <fieldset>
             <label>Username:</label>

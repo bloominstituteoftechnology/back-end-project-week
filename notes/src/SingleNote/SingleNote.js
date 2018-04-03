@@ -24,8 +24,11 @@ class SingleNote extends Component {
   }
 
   fetchNotes = props => {
-    const id = Number(props.match.params.id);
-    const thisNote = props.notes.filter(each => each.id === id)[0];
+    const date = props.match.params.id;
+    console.log('date in SingleNote: ', date);
+    const thisNote = props.notes.filter(each => each.date === date)[0];
+    console.log('props.nots in SingleNote: ', props.notes);
+    console.log('thisNote in SingleNote: ', thisNote);
     this.setState({ note: thisNote });
   };
 
@@ -45,7 +48,6 @@ class SingleNote extends Component {
     const editedNote = {
       title: this.state.title,
       content: this.state.content,
-      id: this.state.note.id,
     };
 
     this.props.editNote(editedNote);
@@ -79,7 +81,6 @@ class SingleNote extends Component {
             updateState={this.updateState}
             editNote={this.editNote}
             displayState={this.displayState}
-            id={this.state.note.id}
           />
         ) : (
           <div className="container">

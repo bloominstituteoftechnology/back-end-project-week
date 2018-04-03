@@ -25,12 +25,12 @@ class AllNotes extends Component {
   // }
 
   getCSV = () => {
-    let csv = [['title', 'content', 'id']];
+    let csv = [['title', 'content', 'date']];
     for (let i = 0; i < this.props.notes.length; i++) {
       csv.push([
         this.props.notes[i].title,
         this.props.notes[i].content,
-        this.props.notes[i].id,
+        this.props.notes[i].date,
       ]);
     }
     return csv;
@@ -51,7 +51,7 @@ class AllNotes extends Component {
     let arr = [];
     this.props.notes.forEach(eachNote => {
       let eachArr = [];
-      eachArr.push(eachNote.id, eachNote.title, eachNote.content);
+      eachArr.push(eachNote.date, eachNote.title, eachNote.content);
       arr.push(eachArr);
     });
     arr.sort();
@@ -90,7 +90,7 @@ class AllNotes extends Component {
               className="order-button"
               onClick={this.toggleAlphabetButton}
             >
-              Order By Time Edited
+              Order By Date Created
             </button>
             <div className="all-notes_notes">
               {noteList.map((eachNote, i) => {
@@ -100,8 +100,9 @@ class AllNotes extends Component {
                     ? eachNote.content
                     : eachNote.content.slice(0, 105) + ' ...';
                 return (
-                  <div className="note-box" key={eachNote.id}>
-                    <Link to={`/notes/${eachNote.id}`}>
+                  <div className="note-box" key={eachNote.date}>
+                    {console.log(eachNote)}
+                    <Link to={`/notes/${eachNote.date}`}>
                       <div className="note-title">{`${i + 1}. ${
                         eachNote.title
                       }`}</div>

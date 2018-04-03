@@ -1,6 +1,3 @@
-// const jwt = require('jsonwebtoken');
-// const { mysecret } = require('../../config');
-
 const User = require('../models/userModel');
 
 const userLogin = (req, res) => {
@@ -13,9 +10,6 @@ const userLogin = (req, res) => {
           .checkPassword(password)
           .then(verified => {
             if (verified) {
-              // const payload = { username: user.username };
-              // const token = jwt.sign(payload, mysecret);
-              // res.json({ token });
               req.session.username = user.username;
               res.send(user._id);
             } else res.status(401).json({ error: "passwords don't match" });

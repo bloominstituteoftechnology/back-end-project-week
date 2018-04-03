@@ -61,9 +61,19 @@ export const userLogin = (username, password, history) => {
   };
 };
 
-export const logout = () => {
-  // localStorage.removeItem('token');
-  // return { type: LOGOUT };
+export const userLogout = history => {
+  return dispatch => {
+    axios
+      .post(`${APIroot}/api/logout`)
+      .then(res => {
+        sessionStorage.removeItem('id');
+        dispatch({ type: LOGOUT });
+        history.push('/');
+      })
+      .catch(err => {
+        if (err) dispatch(authError(err));
+      });
+  };
 };
 
 //

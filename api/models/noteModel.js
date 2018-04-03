@@ -12,7 +12,10 @@ const NoteSchema = Schema({
     type: String,
     required: true,
   },
-  
+  date: {
+    type: Date,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('Note', NoteSchema);
