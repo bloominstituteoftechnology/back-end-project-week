@@ -30,7 +30,7 @@ ReactDOM.render(
       <div>
         <Route path="/" component={App} />
         <Route path="/signin" component={SignIn} />
-        <Route path="/users" component={RequireAuth(notes)} />
+        <Route path="/notes" component={RequireAuth(notes)} />
         <Route path="/signout" component={SignOut} />
         <Route path="/signup" component={SignUp} />
       </div>
