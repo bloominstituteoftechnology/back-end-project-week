@@ -126,16 +126,14 @@ app.post("/api/login", (req, res) => {
 
     UserModel.findOne({username: newUsername})
     .then(response => {
-        console.log(response);
-        if (!response){
+        if (response === null){
             console.log(`No user with that username was found`);
             res.status(404)
             .json(`No user with that username was found`);
             return;
         }
         
-        response.checkLogin(loginPassword, (match) => {
-            console.log(`Match: ${match}`)
+        response.checkLogin(newPassword, (match) => {
             if (!match){
               res.status(422);
               res.send(`The password you entered was incorrect, please try again`);
