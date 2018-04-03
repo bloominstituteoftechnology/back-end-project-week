@@ -1,6 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const Note = require('../models/noteModel');
+const { validateToken } = require('../services/auth');
+const { getNotes } = require('../controllers');
 const noteRouter = express.Router();
 
 noteRouter.post('/new', function(req, res) {
@@ -23,5 +25,7 @@ noteRouter.post('/new', function(req, res) {
         });
     }
 });
+
+noteRouter.get('/', getNotes, validateToken);
 
 module.exports = noteRouter;
