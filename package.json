@@ -4,7 +4,8 @@
   "description": "Note taking app",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "test": "mocha *.test.js"
   },
   "author": "Lo Saephan",
   "license": "ISC",
@@ -16,6 +17,10 @@
     "helmet": "^3.11.0",
     "jsonwebtoken": "^8.2.0",
     "mongoose": "^5.0.12",
-    "nodemon": "^1.15.0"
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "mocha": "^5.0.5",
+    "nodemon": "^1.15.0",
+    "sinon": "^4.4.10"
   }
 }
