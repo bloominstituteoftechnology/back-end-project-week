@@ -8,6 +8,8 @@ import thunk from 'redux-thunk';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import reducers from './reducers';
 import SignUp from './components/signup';
+import SignIn from './components/signin';
+
 const sotreWithMW = applyMiddleware(thunk)(createStore);
 
 ReactDOM.render(
@@ -16,6 +18,7 @@ ReactDOM.render(
       <div>
         <Route path="/" component={App} />
         <Route path="/signup" component={SignUp} />
+        <Route path="/login" component={SignIn} />
       </div>
     </Router>
   </Provider>,

@@ -6,11 +6,14 @@ const mongoose = require('mongoose');
 const routes = require('./api/routes/routes');
 
 const server = express();
-const corsOptions = {};
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true,
+};
 
 server.use(helmet());
 server.use(express.json());
-server.use(cors());
+server.use(cors(corsOptions));
 
 routes(server);
 

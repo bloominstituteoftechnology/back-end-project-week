@@ -13,7 +13,7 @@ class Header extends Component {
     }
     return [
       <li key={1}>
-        <Link to="/signin">Sign In</Link>
+        <Link to="/login">Sign In</Link>
       </li>,
       <li key={2}>
         <Link to="/signup">Sign Up</Link>
