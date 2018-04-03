@@ -15,7 +15,7 @@ mongoose.connection
 .once("open", (err, res) => {
     if (err) return console.log(`There was an error starting Mongoose: \n ${err}`);
     console.log(`Mongoose is running`);
-})
+});
 
 //test route handler
 app.get("/", (req, res) => {
@@ -30,7 +30,7 @@ app.get("/api/allNotes", (req, res) => {
         res.status(200)
         .json(response);
     })
-})
+});
 
 //get handler for finding notes by id
 app.get("/api/viewNote/:id", (req, res) => {
@@ -54,7 +54,7 @@ app.get("/api/viewNote/:id", (req, res) => {
             .json(response);
         }
     })
-})
+});
 
 //handler for adding a new note
 app.post("/api/addNote", (req, res) => {
@@ -84,6 +84,7 @@ app.post("/api/addNote", (req, res) => {
     })
 });
 
+//handler for updating a note
 app.put("/api/editNote/:id", (req, res) => {
     const id = req.params.id;
     const newTitle = req.body.title;
@@ -145,6 +146,31 @@ app.put("/api/editNote/:id", (req, res) => {
             .json(response);
         })
     }
+});
+
+//handler for deleting a note
+app.delete("/api/deleteNote/:id", (req, res) => {
+    const id = req.params.id;
+
+    if (!id){
+        console.log(`An ID for deleting a note was not provided`);
+        res.status(422)
+        .json(`An ID was not provided`);
+        return;
+    }
+
+    NoteModel.findByIdAndRemove(id, (err, response) => {
+        if (err) {
+            console.log(`There was an error removing the note: \n ${err}`);
+            res.status(500)
+            .json(`There was an error on the server`);
+            return;
+        }
+
+        console.log(`The note was removed: \n ${response}`);
+        res.status(200)
+        .json(response);
+    })
 })
 
 app.listen(port);
