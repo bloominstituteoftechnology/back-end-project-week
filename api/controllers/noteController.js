@@ -1,9 +1,9 @@
 const NoteModel = require('../models/noteModel');
 
 const createNote = (req, res) => {
-    const user = new NoteModel(req.body);
-    user.save()
-        .then(usr => res.status(201).send(usr))
+    const note = new NoteModel(req.body);
+    note.save()
+        .then(newNote => res.status(201).send(newNote))
         .catch(err => {
             res.status(500).send({error: "Something went wrong saving your note information", info: err});
         });

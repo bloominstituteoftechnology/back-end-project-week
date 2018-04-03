@@ -6,4 +6,6 @@ let appRouter = express.Router();
 
 appRouter.route('/').get(noteController.getNotes);
 
+appRouter.route('/').post(noteController.createNote);
+
 module.exports = appRouter;
