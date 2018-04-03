@@ -68,7 +68,7 @@ class WelcomePage extends React.Component {
     .post('http://localhost:3030/api/login', { name, password })
     .then(res => {
       this.changeMessage(res.data.message);
-      localStorage.setItem('token', res.data.token);
+      // localStorage.setItem('token', res.data.token);
       this.cancel();
     })
     .catch(err => {
