@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const Note = require('../models/noteModel');
 const { getTokenForUser } = require('../services/auth');
 const userError = process.env.STATUS_USER_ERROR;
 
@@ -29,7 +30,16 @@ const login = (req, res) => {
   });
 };
 
+const getNotes = (req, res) => {
+  const { user } = req.body;
+  Note.find({}, (err, notes) => {
+    if (err) return res.send(err);
+    res.send(notes);
+  })
+}
+
 module.exports = {
   createUser,
-  login
+  login,
+  getNotes
 };
