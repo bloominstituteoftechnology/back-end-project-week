@@ -1,15 +1,16 @@
 import {
   ADD_NOTE,
-  UPDATE_NOTE,
   DELETE_NOTE,
-  TOGGLE_DELETE,
-  TITLE_SORT,
-  OLDEST_SORT,
-  NEWEST_SORT,
-  UPDATE_SEARCH,
-  SHOW_NOTES,
+  ERROR,
   LOGIN,
+  NEWEST_SORT,
+  OLDEST_SORT,
+  SHOW_NOTES,
   SIGNING_UP,
+  TITLE_SORT,
+  TOGGLE_DELETE,
+  UPDATE_NOTE,
+  UPDATE_SEARCH,
   USER_CREATED,
 } from '../actions';
 import dummyData from '../dummydata';
@@ -37,38 +38,18 @@ export default (state = initialState, action) => {
         }
         ],
       };
-    case UPDATE_NOTE:
-      return {
-        ...state,
-        notes: state.notes.map((val) => {
-          if (val.id.toString() === action.id) {
-            return {
-              id: Number(action.id),
-              title: action.title,
-              body: action.body,
-              created: val.created,
-              stamp: val.stamp,
-            };
-          } return val;
-        }),
-      };
     case DELETE_NOTE:
       return {
         ...state,
         notes: state.notes.filter(val => val.id.toString() !== action.id),
       };
-    case TOGGLE_DELETE:
+    case ERROR:
       return {
-        ...state,
-        deleteActive: !state.deleteActive,
+        ...state
       };
-    case TITLE_SORT:
+    case LOGIN:
       return {
-        ...state,
-        sortStatus: 'A - Z',
-        notes: [...state.notes].sort((a, b) => {
-          return a.title > b.title;
-        }),
+        ...state
       };
     case NEWEST_SORT:
       return {
@@ -86,16 +67,6 @@ export default (state = initialState, action) => {
           return a.created > b.created;
         }),
       };
-    case UPDATE_SEARCH:
-      return {
-        ...state,
-        input: action.input,
-        notes: [...state.notes].map((val) => {
-          if (!val.title.includes(state.input) && !val.body.includes(state.input)) {
-            return { ...val, filtered: true };
-          } return { ...val, filtered: false };
-        }),
-      };
     case SHOW_NOTES:
       return {
         ...state,
@@ -109,14 +80,48 @@ export default (state = initialState, action) => {
         ...state,
         signingUp: true,
       };
+    case TITLE_SORT:
+      return {
+        ...state,
+        sortStatus: 'A - Z',
+        notes: [...state.notes].sort((a, b) => {
+          return a.title > b.title;
+        }),
+      };
+    case TOGGLE_DELETE:
+      return {
+        ...state,
+        deleteActive: !state.deleteActive,
+      };
+    case UPDATE_NOTE:
+      return {
+        ...state,
+        notes: state.notes.map((val) => {
+          if (val.id.toString() === action.id) {
+            return {
+              id: Number(action.id),
+              title: action.title,
+              body: action.body,
+              created: val.created,
+              stamp: val.stamp,
+            };
+          } return val;
+        }),
+      };
+    case UPDATE_SEARCH:
+      return {
+        ...state,
+        input: action.input,
+        notes: [...state.notes].map((val) => {
+          if (!val.title.includes(state.input) && !val.body.includes(state.input)) {
+            return { ...val, filtered: true };
+          } return { ...val, filtered: false };
+        }),
+      };
     case USER_CREATED:
       return {
         ...state,
         signingUp: false,
-      };
-    case LOGIN:
-      return {
-        ...state
       };
     default:
       return state;
