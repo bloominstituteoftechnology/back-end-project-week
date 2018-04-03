@@ -34,7 +34,7 @@ const login = (req, res) => {
           email: user.email,
         };
         const token = jwt.sign(payload, mysecret);
-        res.json({ message: 'successfully logged in',token });
+        res.json({ message: 'successfully logged in', token });
       }
     });
   });
