@@ -47,7 +47,7 @@ const loginUser = (req, res) => {
 };
 
 const logoutUser = (req, res) => {
-  const { username } = req.body;
+  const username = req.body;
   User.findOne(username)
     .then((user) => {
       res.status(200).json({ message: 'User Logged Out', user });
