@@ -1,6 +1,3 @@
-// Data
-import notes from '../data/notes';
-
 // Action types
 import {
   ADD_NOTE,
@@ -9,14 +6,16 @@ import {
   DELETE_NOTE,
   SELECT_NOTE,
   SORT_NOTES,
+  LOGIN_USER,
+  LOGOUT_USER,
 } from '../actions';
 
 const initialState = {
-  notes: notes,
-  id: notes.length + 1,
+  notes: [],
   modalVisible: false,
   selectedNote: {},
   sortType: 'id',
+  authed: false,
 };
 
 const sortNotes = (notes, sortType, prop) => {
@@ -68,12 +67,23 @@ const reducer = (state = initialState, action) => {
         selectedNote: state.notes.filter(note => note.id === action.payload)[0],
       }
     case SORT_NOTES:
-    console.log(action);
     return {
       ...state,
       notes: sortNotes(state.notes, state.sortType, action.payload),
       sortType: action.payload,
     }
+    case LOGIN_USER:
+      return {
+        ...state,
+        user: action.payload.username,
+        notes: action.payload.notes,
+        authed: true,
+      };
+    case LOGOUT_USER:
+      return {
+        ...state,
+        authed: false,
+      };
     default:
       return state;
   }
