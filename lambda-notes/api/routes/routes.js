@@ -13,5 +13,7 @@ server.route('/posts/:id').delete(postRouter.deletePostById)
     //Users
 server.route('/new-user').post(userRouter.newUser).get(authenticate, userRouter.getUsers)
 server.route('/login').post(userRouter.newLogin)
+
+    //Test
 server.get('/jokes', authenticate, userRouter.getAllJokes)
 };
