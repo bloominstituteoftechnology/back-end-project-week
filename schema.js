@@ -13,6 +13,6 @@ const demoSchema = new Schema({
   }
 })
 
-mongoose.connect('mongodb://localhost/demoSchema');
+// mongoose.connect('mongodb://localhost/demoSchema');
 
 module.exports = mongoose.model('demoSchema', demoSchema);
