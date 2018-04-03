@@ -9,8 +9,7 @@ const noteRoutes = require('./note/noteRoutes');
 
 const server = express();
 
-// server.use(helmet()); // https://helmetjs.github.io/
-server.use(cors());   // https://medium.com/trisfera/using-cors-in-express-cac7e29b005b
+server.use(cors());
 server.use(bodyParser.json());
 
 server.get('/', function(req, res) {

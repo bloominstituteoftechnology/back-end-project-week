@@ -18,24 +18,6 @@ userRouter.post('/signup', function(req, res){
 			res.json(savedUser);
 		});
 	});
-
-// ** ANOTHER SOLUTION, SAVE HASH AND SALT IN DB **
- // user.save(function(err) {
- //    var token;
- //    token = user.generateJwt();
- //    res.status(200);
- //    res.json({
- //      "token" : token
- //    });
- //  });
-
-	// user.save().then(savedUser => {
-	// 	let token;
-	// 	token = user.generateJwt();
-	// 	res.status(200).json({"token": token});
-	// }).catch(err => {
-	// 	res.status(500).json({error: "Unable to save up user: ", err});
-	// });
 });
 
 userRouter.post('/login', function(req, res){
@@ -57,16 +39,6 @@ userRouter.post('/login', function(req, res){
         		res.json({ token: token, name: user.name });
 			});
 		}
-	});
-});
-
-userRouter.put('/', function(req, res){
-	const { toFollow, follower} = req.body;
-
-	User.findByIdAndUpdate(follower, { $push: { following: toFollow}}, function(err, updated){
-		User.findByIdAndUpdate(toFollow, { $push: { followers: follower}, $set: { beingFollowed: true }}, { new: true }, function(err, updatedToFallow){
-			res.json(updatedToFallow);
-		});
 	});
 });
 
