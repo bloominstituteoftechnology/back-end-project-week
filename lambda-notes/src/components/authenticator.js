@@ -20,7 +20,7 @@ class Authenticator extends Component {
       </li>
     ];
   }
-
+  
   render() {
     return (
       <div>

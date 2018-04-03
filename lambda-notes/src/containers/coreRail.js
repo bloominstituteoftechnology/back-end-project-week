@@ -9,6 +9,8 @@ import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 
 
 const CoreRail = (props) => {
+  console.log('CoreRail props: ', props);
+  
     return (
       <div className="core-rail">
         <Router onUpdate={() => window.scrollTo(0, 0)}>
@@ -22,7 +24,7 @@ const CoreRail = (props) => {
               </div>
               <Route render={(routeProps) => (
                       <NoteList {...routeProps} {...props} />
-                  )} path="/" exact/>
+                  )} path="/notes" exact/>
               <Route render={(routeProps) => (
                       <NewNote {...routeProps} {...props} />
                   )} path="/new"/>

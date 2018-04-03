@@ -10,12 +10,13 @@ class NoteList extends Component {
     let textArr = body.split('')
     let result = [];
     if (body.length > limit) {
-       return result.concat(textArr
-         .slice(0, limit).join('') + '...')
+      return result.concat(textArr
+        .slice(0, limit).join('') + '...')
+      }
+      return body;
     }
-    return body;
-  }
-  render() {
+    render() {
+      console.log('NoteList props: ', this.props);
     return (
       <div className="note-list">
       <div className="note-list__title">Your Notes:</div>
