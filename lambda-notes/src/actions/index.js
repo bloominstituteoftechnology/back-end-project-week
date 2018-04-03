@@ -1,6 +1,5 @@
 import axios from 'axios';
 axios.defaults.withCredentials = true;
-import _ from '../env';
 const ROOT_URL = process.env.ROOT_URL;
 
 export const USER_REGISTERED = 'USER_REGISTERED';
@@ -63,7 +62,7 @@ export const getNotes = () => {
   const token = localStorage.getItem('token');
   return dispatch => {
     axios
-      .get(`${ROOT_URL}/api/notes/`)
+      .get(`${ROOT_URL}/api/notes/`, { headers: {authorization: token } })
       .then(response => {
         dispatch({
           type: GET_NOTES,
