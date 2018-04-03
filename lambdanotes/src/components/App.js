@@ -23,6 +23,19 @@ export default class App extends React.Component {
     authenticated: false,
   };
 
+  login = async (username, password) => {
+    try {
+      const res = await axios.post(`${ROOT_URL}/login`, { username, password });
+      const token = res.data.token;
+      localStorage.setItem('token', token);
+      this.setState({
+        authenticated: true,
+      })
+    } catch (err) {
+      console.log('Error getting token.', err);
+    };
+  };
+
   handleNoteViewIndex = inputId => {
     for (let i = 0; i < this.state.notes.length; i++) {
       if (this.state.notes[i].id === inputId) this.noteIndex = i;
@@ -67,17 +80,20 @@ export default class App extends React.Component {
     });
   };
 
+  renderSignIn = _ => {
+    return <SignIn login={this.login} />
+  };
 
   render() {
     return (
       <Router>
         <div className="App">
           {this.state.authenticated ? (<Sidebar />) : null}
-          <Route exact path={"/signup"} render={() => <SignUp handleNewUser={this.handleNewUser} ROOT_URL={ROOT_URL} axios={axios} />} />
-          <Route exact path={"/"} render={() => (this.state.authenticated ? (<NoteList notes={this.state.notes} handleNoteViewIndex={this.handleNoteViewIndex} updateSortedNotes={this.updateSortedNotes} />) : (<SignIn />))} />
-          <Route exact path={"/create"} render={() => (this.state.authenticated ? (<CreateNote createNote={this.handleCreateNote} />) : (<SignIn />))} />
-          <Route exact path={"/view"} render={() => (this.state.authenticated ? (<NoteView note={this.state.notes[this.noteIndex]} toggleModal={this.toggleModal} handleDeleteNote={this.handleDeleteNote} />) : (<SignIn />))} />
-          <Route exact path={"/edit"} render={() => (this.state.authenticated ? (<EditNote note={this.state.notes[this.noteIndex]} handleEditNote={this.handleEditNote} />) : (<SignIn />))} />
+          <Route exact path={"/signup"} render={() => <SignUp ROOT_URL={ROOT_URL} axios={axios} />} />
+          <Route exact path={"/"} render={() => (this.state.authenticated ? (<NoteList notes={this.state.notes} handleNoteViewIndex={this.handleNoteViewIndex} updateSortedNotes={this.updateSortedNotes} />) : (this.renderSignIn()))} />
+          <Route exact path={"/create"} render={() => (this.state.authenticated ? (<CreateNote createNote={this.handleCreateNote} />) : (this.renderSignIn()))} />
+          <Route exact path={"/view"} render={() => (this.state.authenticated ? (<NoteView note={this.state.notes[this.noteIndex]} toggleModal={this.toggleModal} handleDeleteNote={this.handleDeleteNote} />) : (this.renderSignIn()))} />
+          <Route exact path={"/edit"} render={() => (this.state.authenticated ? (<EditNote note={this.state.notes[this.noteIndex]} handleEditNote={this.handleEditNote} />) : (this.renderSignIn()))} />
         </div>
       </Router>
     );

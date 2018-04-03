@@ -17,7 +17,7 @@ class SignIn extends Component {
   handleSubmit = event => {
     event.preventDefault();
     const { username, password } = this.state;
-    this.props.login(username, password, this.props.history);
+    this.props.login(username, password);
     this.setState({ title: '', body: '', });
   };
 
