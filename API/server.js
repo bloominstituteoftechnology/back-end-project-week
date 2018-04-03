@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const { mySecret } = require('./config');
+const { authenticate } = require('./authenticate');
 const User = require('./Schemas/user');
 
 const server = express();
@@ -16,6 +17,10 @@ mongoose
 server.use(express.json());
 server.use(helmet());
 server.use(cors());
+
+server.get('/', authenticate, (req, res) => {
+  res.json(req.decoded);
+});
 
 server.post('/login', (req, res) => {
   const { email, password } = req.body;
