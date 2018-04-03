@@ -1,3 +1,6 @@
+## Trello URL
+https://trello.com/invite/b/R8IekaxA/238f5e0c5eb99fe05d622a9a70f5957e/lambda-notes-project-week-cliff
+
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
