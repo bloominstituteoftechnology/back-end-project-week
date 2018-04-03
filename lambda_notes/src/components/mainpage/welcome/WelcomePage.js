@@ -76,16 +76,19 @@ class WelcomePage extends React.Component {
     axios
       .post('http://localhost:3030/api/users', { name, password })
       .then(res => {
-        this.changeMessage(res.message);
+        console.log(res);
+        this.changeMessage(res.data.message);
+        this.cancel();
       })
       .catch(err => {
-        this.changeMessage(err.message);
-        console.error(err.err);
+        console.error(err);
+        console.error(err.response.data.err);
+        this.changeMessage(err.response.data.message);
       });
   };
 
-  changeMessage = (message) => {
-    this.setState({ message: message });
+  changeMessage = (text) => {
+    this.setState({ message: text });
   };
 
   cancel = (event) => {
