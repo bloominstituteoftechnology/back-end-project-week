@@ -35,15 +35,14 @@ server.post('/notes', (req, res) => {
       return savedNote;
     })
     .then(savedNote => {
-      // Adds id of new note to 'notes' array on user's object
-      const userId = savedNote.createdBy;
+      const userId = savedNote.createdBy; // Adds id of new note to users object
       const savedNoteId = savedNote.id;
       User.findByIdAndUpdate(
         userId,
         { $push: { notes: [savedNoteId] } },
-        (err, res) => {
+        err => {
           if (err) console.log(err);
-        },
+        }
       );
     })
     .catch(err => res.status(500).json('Error saving note: ', err));
@@ -60,17 +59,29 @@ server.post('/users', (req, res) => {
   newUser
     .save()
     .then(savedUser =>
-      res.status(200).json({ message: 'Successfully created!', savedUser }),
+      res.status(200).json({ message: 'Successfully created!', savedUser })
     );
 });
 
+// Get all users
 server.get('/users', (req, res) => {
   User.find({})
     .populate('notes')
     .then(users => res.status(200).json(users))
     .catch(err =>
-      res.status(500).json({ message: 'Error getting users', error: err }),
+      res.status(500).json({ message: 'Error getting users', error: err })
     );
+});
+
+// Get user by id
+server.get('/users/:id', (req, res) => {
+  const id = req.params.id;
+  User.findById(id)
+    .populate('notes')
+    .exec((err, user) => {
+      if (err) res.status(500).json({ message: 'Error find user', error: err });
+      res.status(200).json(user);
+    });
 });
 
 server.listen(PORT, () => {
