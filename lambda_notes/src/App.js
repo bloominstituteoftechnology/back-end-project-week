@@ -38,7 +38,7 @@ class App extends Component {
     );
   }
 
-  changeSwitch = (title, casevalue) => {
+  changeSwitch = (title='', casevalue='') => {
     if (this.state.userId === null || this.state.userToken === null) {
       this.setState({mainPageTitle: 'Not Logged In', mainPageSwitchValue: ''});
       return;

@@ -17,6 +17,16 @@ const NavBar = (props) => {
       <div>
         <button className="navBar__button" onClick={() => props.reverseOrder()} style={props.switchValue === 'noteList'? { visibility: 'visible' } : { visibility: 'hidden' } } >Reverse Note Order</button>
       </div>
+      <div>
+        <button
+          className="navBar__button"
+          onClick={() => {
+            props.changeUser(null, null);
+            props.changeSwitch();
+          }}
+          style={props.currentUser.id !== null? { visibility: 'visible' } : { visibility: 'hidden' }}
+        >Logout</button>
+      </div>
     </div>
   );
 };
