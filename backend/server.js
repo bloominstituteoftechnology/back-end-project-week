@@ -13,7 +13,7 @@ mongoose
   .then(() => console.log('Successfully connected to MongoDB!'))
   .catch(err => console.error('Failed to connect to MongoDB!', err));
 
-// Notes endpoints
+// NOTES ENDPOINTS
 //// Get all notes
 server.get('/notes', (req, res) => {
   Note.find({}, (err, notes) => {
@@ -35,6 +35,7 @@ server.post('/notes', (req, res) => {
       return savedNote;
     })
     .then(savedNote => {
+      // Adds id of new note to 'notes' array on user's object
       const userId = savedNote.createdBy;
       const savedNoteId = savedNote.id;
       User.findByIdAndUpdate(
@@ -51,7 +52,6 @@ server.post('/notes', (req, res) => {
 // USER ENDPOINTS
 //// Create new User
 server.post('/users', (req, res) => {
-  console.log(req.body);
   let { username, password } = req.body;
   username = username.toLowerCase();
   if (!username || !password)
@@ -61,6 +61,15 @@ server.post('/users', (req, res) => {
     .save()
     .then(savedUser =>
       res.status(200).json({ message: 'Successfully created!', savedUser }),
+    );
+});
+
+server.get('/users', (req, res) => {
+  User.find({})
+    .populate('notes')
+    .then(users => res.status(200).json(users))
+    .catch(err =>
+      res.status(500).json({ message: 'Error getting users', error: err }),
     );
 });
 
