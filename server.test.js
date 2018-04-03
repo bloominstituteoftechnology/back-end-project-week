@@ -8,7 +8,7 @@ const sinon = require('sinon');
 const server = require('./server');
 chai.use(chaihttp);
 
-const NoteModel = require('./models');
+const NoteModel = require('./models/note-model');
 
 describe('Server', () => {
     before(done => {

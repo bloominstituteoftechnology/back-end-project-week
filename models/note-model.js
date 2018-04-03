@@ -15,6 +15,17 @@ const Note = new Schema({
     }
 });
 
+Note.methods.getNoteTitle = function() {
+    return this.noteTitle;
+};
+
+Note.statics.getNotes = (cb) => {
+    Note.find({}, (err, users) => {
+        if (err) console.error(err);
+        cb(users);
+    });
+};
+
 const NoteModel = mongoose.model('Note', Note);
 
 module.exports = NoteModel;
