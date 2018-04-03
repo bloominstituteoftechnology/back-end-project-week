@@ -1,5 +1,4 @@
 const express = require('express');
-const db = require('./data/db.js');
 
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -13,16 +12,8 @@ const corsOptions = {
   "optionsSuccessStatus": 204
 };
 
-db
-  .connectTo('lambda-notes')
-  .then(() => console.log('\n... API Connected to Database ...\n'))
-  .catch(err => console.log('\n*** ERROR Connecting to Database ***\n', err));
-
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/5000');
-
-// server.use(bodyParser.urlencoded({extended: true}));
-// server.use(bodyParser.json());
+mongoose.connect('mongodb://localhost/lambda-notes');
 
 server.use(express.urlencoded({extended: true}));
 server.use(express.json());
