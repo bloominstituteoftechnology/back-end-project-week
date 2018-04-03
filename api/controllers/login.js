@@ -17,7 +17,7 @@ const login = async function(req, res) {
     if (userIsValidated) {
       const payload = { username: user.username };
       const token = jwt.sign(payload, secret);
-      return res.json({ token });
+      return res.json({ user, token });
     } else {
       return res.status(422).json({ error: "Invalid Password!" });
     }

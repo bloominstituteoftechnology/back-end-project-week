@@ -20,6 +20,7 @@ class SignIn extends Component {
       const res = await this.props.axios.post(`${this.props.ROOT_URL}/login`, { username, password });
       const token = res.data.token;
       localStorage.setItem('token', token);
+      localStorage.setItem('uuID', res.data.user._id);
       this.props.authenticate();
     } catch (err) {
       this.setState({
