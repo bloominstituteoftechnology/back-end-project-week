@@ -7,6 +7,25 @@ class SignIn extends Component {
   state = {
     username: '',
     password: '',
+    error: null,
+  };
+
+  login = async (username, password) => {
+    if (!username || !password) {
+      return this.setState({
+        error: 'Please input a valid email address and password.'
+      });
+    };
+    try {
+      const res = await this.props.axios.post(`${this.props.ROOT_URL}/login`, { username, password });
+      const token = res.data.token;
+      localStorage.setItem('token', token);
+      this.props.authenticate();
+    } catch (err) {
+      this.setState({
+        error: 'Invalid username or password.'
+      });
+    };
   };
 
   handleInputChange = event => {
@@ -17,8 +36,13 @@ class SignIn extends Component {
   handleSubmit = event => {
     event.preventDefault();
     const { username, password } = this.state;
-    this.props.login(username, password);
+    this.login(username, password);
     this.setState({ title: '', body: '', });
+  };
+
+  renderAlert = _ => {
+    if (!this.state.error) return null;
+    return <h3 className="UserAuth-Error">{this.state.error}</h3>;
   };
 
   render() {
@@ -53,6 +77,7 @@ class SignIn extends Component {
         <Link to={"/"}><button onClick={(e) => this.handleSubmit(e)} type="submit">Sign In</button></Link>
         <Link to={"/signup"}><button>Sign Up</button></Link>
       </form>
+      {this.renderAlert()}
       </div>
     );
   };

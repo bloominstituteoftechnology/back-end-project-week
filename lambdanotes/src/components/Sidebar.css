@@ -18,3 +18,8 @@
   width: 56%;
   font-weight: 800;
 }
+
+.Sidebar-Logout {
+  align-self: flex-start;
+  cursor: pointer;
+}

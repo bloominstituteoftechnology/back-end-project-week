@@ -23,17 +23,27 @@ export default class App extends React.Component {
     authenticated: false,
   };
 
-  login = async (username, password) => {
-    try {
-      const res = await axios.post(`${ROOT_URL}/login`, { username, password });
-      const token = res.data.token;
-      localStorage.setItem('token', token);
-      this.setState({
+  componentDidMount() {
+    if (localStorage.getItem('token')) {
+      return this.setState({
         authenticated: true,
-      })
-    } catch (err) {
-      console.log('Error getting token.', err);
-    };
+      });
+    }
+    return this.setState({
+      authenticated: false,
+    });
+  };
+
+  authenticate = _ => {
+    this.setState({
+      authenticated: true,
+    });
+  };
+
+  deauthenticate = _ => {
+    this.setState({
+      authenticated: false,
+    });
   };
 
   handleNoteViewIndex = inputId => {
@@ -81,14 +91,14 @@ export default class App extends React.Component {
   };
 
   renderSignIn = _ => {
-    return <SignIn login={this.login} />
+    return <SignIn login={this.login} ROOT_URL={ROOT_URL} axios={axios} authenticate={this.authenticate}/>
   };
 
   render() {
     return (
       <Router>
         <div className="App">
-          {this.state.authenticated ? (<Sidebar />) : null}
+          {this.state.authenticated ? (<Sidebar deauthenticate={this.deauthenticate} />) : null}
           <Route exact path={"/signup"} render={() => <SignUp ROOT_URL={ROOT_URL} axios={axios} />} />
           <Route exact path={"/"} render={() => (this.state.authenticated ? (<NoteList notes={this.state.notes} handleNoteViewIndex={this.handleNoteViewIndex} updateSortedNotes={this.updateSortedNotes} />) : (this.renderSignIn()))} />
           <Route exact path={"/create"} render={() => (this.state.authenticated ? (<CreateNote createNote={this.handleCreateNote} />) : (this.renderSignIn()))} />

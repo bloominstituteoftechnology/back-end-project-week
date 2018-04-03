@@ -3,14 +3,20 @@ import { Link } from 'react-router-dom';
 
 import './Sidebar.css';
 
-const Sidebar = props => {
-  return (
-    <div className="Sidebar">
-        <h1 className="Sidebar-Title">Lambda Notes</h1>
-        <Link to={"/"}><button type="button">View Your Notes</button></Link>
-        <Link to={"/create"}><button type="button">+ Create New Note</button></Link>
-    </div>
-  );
-}
+export default class Sidebar extends React.Component {
+  logout = _ => {
+    localStorage.clear('token');
+    this.props.deauthenticate();
+  };
 
-export default Sidebar;
+  render() {
+    return (
+      <div className="Sidebar">
+          <h1 className="Sidebar-Title">Lambda Notes</h1>
+          <Link to={"/"}><button type="button">View Your Notes</button></Link>
+          <Link to={"/create"}><button type="button">+ Create New Note</button></Link>
+          <p className="Sidebar-Logout" onClick={this.logout}>Logout</p>
+      </div>
+    );
+  };
+};
