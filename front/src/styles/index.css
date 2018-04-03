@@ -1,0 +1,51 @@
+.App {
+  width: 73%;
+  height: 100vh;
+  background-color: #E3E8ED;
+  border: 1px solid black;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: row;
+}
+.App .App__menu {
+  width: 25%;
+  display: flex;
+  justify-content: flex-start;
+}
+.App .App__main {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+}
+.menu {
+  background-color: #CFCFCF;
+  border: 1px solid black;
+  width: 100%;
+  height: 100vh;
+}
+.menu .menu__header {
+  font-size: 4.1rem;
+  text-align: left;
+  font-weight: 900;
+}
+.menu .menu__buttons {
+  width: 86%;
+  margin: 0 auto 0 auto;
+}
+.menu .menu__buttons .menu__buttons__links {
+  text-decoration: none;
+}
+.menu .menu__buttons .menu__buttons--align {
+  display: block;
+  margin-top: 20px;
+  background-color: #62bec2;
+  border: 1px solid black;
+}
+.menu .menu__buttons .menu__buttons--align .menu__buttons__text {
+  font-size: 2.0rem;
+  color: #FFF4F4;
+  font-weight: bold;
+  margin-top: 13px;
+  margin-bottom: 13px;
+}

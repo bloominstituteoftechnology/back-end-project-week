@@ -14,9 +14,11 @@ const port = process.env.PORT || 3001;
 const app = express();
 mongoose.connect("mongodb://localhost:27017/notes");
 mongoose.connection
-.once("open", (err, res) => {
-    if (err) return console.log(`There was an error starting Mongoose: \n ${err}`);
+.once("open", () => {
     console.log(`Mongoose is running`);
+})
+.on("error", (err) => {
+    console.log(`There has been an error starting Mongoose: \n ${err}`);
 });
 
 //initialzing cors
@@ -51,7 +53,7 @@ const loginMid = (req, res, next) => {
 
 //test route handler
 app.get("/", (req, res) => {
-    res.json(`it's alive!`);
+    res.json({title: "cheese", message: "dick"});
 });
 
 //post handler for adding a new user
@@ -285,5 +287,4 @@ app.delete("/api/deleteNote/:id", (req, res) => {
     })
 })
 
-app.listen(port);
-console.log(`The server is listening on port ${port}`);
+app.listen(port, () => console.log(`The server is listening on port ${port}`));
