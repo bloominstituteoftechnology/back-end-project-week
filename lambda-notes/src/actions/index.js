@@ -1,6 +1,6 @@
 import axios from 'axios';
+import { ROOT_URL } from '../config.js';
 axios.defaults.withCredentials = true;
-const ROOT_URL = process.env.ROOT_URL;
 
 export const USER_REGISTERED = 'USER_REGISTERED';
 export const USER_AUTHENTICATED = 'USER_AUTHENTICATED';
