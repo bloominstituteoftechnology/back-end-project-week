@@ -28,7 +28,7 @@ const StyledHomeRail = styled.div`
 const HomeLeftRail = props => (
   <StyledHomeRail>
     <img src='https://res.cloudinary.com/jonbrunt/image/upload/v1519920433/JMB-Logo_htviyf.png' alt='JMB Logo' />
-    <Link to='/' style={{ textDecoration: 'none' }}>
+    <Link to='/list' style={{ textDecoration: 'none' }}>
       <Button backgroundColor='rgb(34, 170, 61)' title='View Your Notes' />
     </Link>
     <Link to='/newnote' style={{ textDecoration: 'none' }}>
