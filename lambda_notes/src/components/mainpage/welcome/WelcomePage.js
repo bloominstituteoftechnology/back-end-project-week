@@ -68,6 +68,7 @@ class WelcomePage extends React.Component {
     .post('http://localhost:3030/api/login', { name, password })
     .then(res => {
       this.changeMessage(res.data.message);
+      localStorage.setItem('token', res.data.token);
       this.cancel();
     })
     .catch(err => {
@@ -105,13 +106,13 @@ class WelcomePage extends React.Component {
   cancel = (event) => {
     if (event) {
       event.preventDefault();
+      this.setState({ message: '' });
     }
     this.setState({
       name: '',
       password: '',
       confirmpassword: '',
-      welcomeSwitchValue: 'buttons',
-      // message: ''
+      welcomeSwitchValue: 'buttons'
     });
   };
 }
