@@ -117,16 +117,27 @@ export const getNotes = () => {
         });
       })
       .catch(err => {
-        dispatch(authError('No notes to display!'));
+        dispatch(authError('No notes to display!', err));
       });
   };
 };
 
 export const editNote = (edited, id) => {
-  return {
-    type: EDIT_NOTE,
-    payload: edited,
-    id: id,
+  const headers = { 
+    authorization: localStorage.getItem('token')
+  }
+  const note = axios.put(`${ROOT_URL}/api/note/${id}`, {headers}, edited);
+  return dispatch => {
+    note
+      .then(res => {
+        dispatch({ 
+          type: EDIT_NOTE, 
+          payload: res.data
+        });
+      })
+      .catch(err => {
+        dispatch(authError('Error updating note!', err));
+      });
   };
 };
 

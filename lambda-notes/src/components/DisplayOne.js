@@ -14,14 +14,14 @@ class DisplayOne extends Component {
   };
 
   componentDidMount() {
-    const id = Number(this.props.match.params.id);
-    const singleNote = this.props.notes.filter(note => note.id === id)[0];
+    const id = this.props.match.params.id;
+    const singleNote = this.props.notes.filter(note => note._id === id)[0];
     this.setState({ note: singleNote });
   }
   
   toggleDelete = () => {
     this.props.deleteNote(this.state.note);
-    this.props.history.push('/');
+    this.props.history.push('/home');
   };
 
   toggleEdit = () => {
@@ -35,7 +35,7 @@ class DisplayOne extends Component {
         {this.state.edited ? (
           <EditNote
             editNote={this.editNote}
-            id={this.state.note.id}
+            id={this.state.note._id}
             history={this.props.history}
           />
         ) : (

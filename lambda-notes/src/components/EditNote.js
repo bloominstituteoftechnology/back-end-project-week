@@ -22,7 +22,7 @@ class EditNote extends Component {
     console.log(this.state)
     const edited = Object.assign({}, this.state.note);
     this.props.editNote(edited, this.state.note.id);
-    this.props.history.push('/');
+    this.props.history.push('/home');
     this.setState({
       title: '',
       body: '',
