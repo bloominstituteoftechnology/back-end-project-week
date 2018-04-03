@@ -34,7 +34,7 @@ class Delete extends React.Component {
     this.props.deleteNote({
       id: this.props.id,
     });
-    this.props.history.push('/');
+    this.props.history.push('/list');
     this.props.toggleDelete();
   }
 
