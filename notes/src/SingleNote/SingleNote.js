@@ -25,10 +25,7 @@ class SingleNote extends Component {
 
   fetchNotes = props => {
     const date = props.match.params.id;
-    console.log('date in SingleNote: ', date);
     const thisNote = props.notes.filter(each => each.date === date)[0];
-    console.log('props.nots in SingleNote: ', props.notes);
-    console.log('thisNote in SingleNote: ', thisNote);
     this.setState({ note: thisNote });
   };
 
