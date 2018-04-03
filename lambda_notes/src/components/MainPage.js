@@ -4,6 +4,7 @@ import NoteView from './mainpage/NoteView';
 import EditNote from './mainpage/EditNote';
 import CreateNote from './mainpage/CreateNote';
 import SearchBar from './mainpage/SearchBar';
+import WelcomePage from './mainpage/welcome/WelcomePage';
 import CsvCreator from 'react-csv-creator';
 import { arrayMove } from 'react-sortable-hoc';
 import './mainpage.css';
@@ -88,7 +89,7 @@ class MainPage extends React.Component {
       case 'createNote':
         return <CreateNote addNote={this.addNote} />;
       default:
-        return <div className="mainPage__welcome">Welcome to Lambda Notes</div>;
+        return <WelcomePage />;
     }
   };
 
