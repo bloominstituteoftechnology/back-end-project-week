@@ -33,7 +33,8 @@ class SignUp extends Component {
         });
       }
     } catch (err) {
-      this.setState({ error: err });
+      console.log(err);
+      this.setState({ error: 'Something broke, check the console.' });
     };
   };
 
@@ -44,6 +45,18 @@ class SignUp extends Component {
 
   handleSubmit = event => {
     const { username, password } = this.state;
+    if (username.length < 4) {
+      return this.setState({
+        success: false,
+        error: 'Username must be at least 4 characters long.'
+      });
+    };
+    if (password.length < 4) {
+      return this.setState({
+        success: false,
+        error: 'Password must be at least 4 characters long.'
+      });
+    };
     this.handleNewUser(username, password);
     this.setState({ title: '', body: '', });
     event.preventDefault();

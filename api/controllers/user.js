@@ -13,4 +13,21 @@ const createUser = async function(req, res) {
   };
 };
 
-module.exports = { createUser };
+const login = function(username, password, history) {
+  return async dispatch => {
+    try {
+      const response = await axios.post(`${ROOT_URL}/login`, { username, password });
+      const token = response.data.token;
+      localStorage.setItem('token', token);
+      dispatch({ type: USER_AUTHENTICATED });
+      history.push('/jokes');
+    } catch (err) {
+      dispatch(authError('Error getting token.'));
+    };
+  };
+};
+
+module.exports = {
+  createUser,
+  login,
+}
