@@ -1,9 +1,8 @@
 import axios from 'axios';
 
-axios.defaults.withCredentials = true;
+// const ROOT_URL = 'http://localhost:5000/api';
 
-const ROOT_URL = 'http://localhost:5000/api';
-
+export const GET_NOTES = 'GET_NOTES';
 export const CREATE_NOTE = 'CREATE_NOTE';
 export const EDIT_NOTE = 'EDIT_NOTE';
 export const DELETE_NOTE = 'DELETE_NOTE';
@@ -13,13 +12,28 @@ export const USER_REGISTERED = 'USER_REGISTERED';
 export const USER_AUTHENTICATED = 'USER_AUTHENTICATED';
 export const USER_UNAUTHENTICATED = 'USER_UNAUTHENTICATED';
 export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
-export const GET_NOTES = 'GET_NOTES';
 export const CHECK_IF_AUTHENTICATED = 'CHECK_IF_AUTHENTICATED';
 
 export const authError = (error) => {
   return {
     type: AUTHENTICATION_ERROR,
     payload: error
+  };
+};
+
+export const getNotes = () => {
+  return dispatch => {
+    axios
+      .get(`/notes`, { headers: { Authorization: window.localStorage.getItem('authorization') } })
+      .then(response => {
+        dispatch({
+          type: GET_NOTES,
+          payload: response.data
+        });
+      })
+      .catch(() => {
+        dispatch(authError('Failed to get notes'));
+      });
   };
 };
 
@@ -30,7 +44,7 @@ export const createNote = (note) => {
   // };
   return dispatch => {
     axios
-      .post(`${ROOT_URL}/notes`, { headers: { Authorization: window.localStorage.getItem('authorization') } })
+      .post(`/new`, note, { headers: { Authorization: window.localStorage.getItem('authorization') } })
       .then(response => {
         dispatch({
           type: CREATE_NOTE,
@@ -50,7 +64,7 @@ export const editNote = (note) => {
   // };
   return dispatch => {
     axios
-      .put(`${ROOT_URL}/notes`, note, { headers: { Authorization: window.localStorage.getItem('authorization') } })
+      .put(`/notes`, note, { headers: { Authorization: window.localStorage.getItem('authorization') } })
       .then(response => {
         dispatch({
           type: EDIT_NOTE,
@@ -64,33 +78,55 @@ export const editNote = (note) => {
 };
 
 export const deleteNote = (id) => {
-  return {
-    type: DELETE_NOTE,
-    payload: id
+  // return {
+  //   type: DELETE_NOTE,
+  //   payload: id
+  // };
+  return dispatch => {
+    axios
+      .delete(`/notes`, id, { headers: { Authorization: window.localStorage.getItem('authorization') } })
+      .then(response => {
+        dispatch({
+          type: DELETE_NOTE,
+          payload: id
+        });
+      })
+      .catch(() => {
+        dispatch(authError('Failed to delete note'));
+      });
   };
 };
 
 export const toggleDelete = (id) => {
-  return {
-    type: TOGGLE_DELETE,
-    payload: id
+  // return {
+  //   type: TOGGLE_DELETE,
+  //   payload: id
+  // };
+  return dispatch => {
+    axios
+      .delete(`/notes`, id, { headers: { Authorization: window.localStorage.getItem('authorization') } })
+      .then(response => {
+        dispatch({
+          type: TOGGLE_DELETE,
+          payload: id
+        });
+      })
+      .catch(() => {
+        dispatch(authError('Failed to delete note'));
+      });
   };
 };
 
-export const createUser = (username, password, confirmPassword, history) => {
+export const createUser = (username, password) => {
   return dispatch => {
-    if (password !== confirmPassword) {
-      dispatch(authError('Passwords do not match'));
-      return;
-    }
     axios
-      .post(`${ROOT_URL}/users`, { username, password })
+      .post(`/signup`, { username, password })
       .then((response) => {
         dispatch({
-          type: USER_REGISTERED
+          type: USER_REGISTERED,
+          payload: response
         });
         window.localStorage.setItem('authorization', response.data.token);
-        history.push('/login');
       })
       .catch(() => {
         dispatch(authError('Failed to register user'));
@@ -101,13 +137,14 @@ export const createUser = (username, password, confirmPassword, history) => {
 export const login = (username, password, history) => {
   return dispatch => {
     axios
-      .post(`${ROOT_URL}/login`, { username, password })
+      .post(`/login`, { username, password })
       .then((response) => {
         dispatch({
-          type: USER_AUTHENTICATED
+          type: USER_AUTHENTICATED,
+          payload: response
         });
         window.localStorage.setItem('authorization', response.data.token);
-        history.push('/notes');
+        // history.push('/notes');
       })
       .catch(() => {
         dispatch(authError('Username and Password combination does not match the data'));
@@ -121,21 +158,14 @@ export const logout = () => {
       type: USER_UNAUTHENTICATED
     });
     window.localStorage.removeItem('authorization');
+    window.location.reload();
   };
 };
 
-export const getNotes = () => {
+export const checkIfLoggedIn = () => {
   return dispatch => {
-    axios
-      .get(`${ROOT_URL}/notes`, { headers: { Authorization: window.localStorage.getItem('authorization') } })
-      .then(response => {
-        dispatch({
-          type: GET_NOTES,
-          payload: response.data
-        });
-      })
-      .catch(() => {
-        dispatch(authError('Failed to get notes'));
-      });
-  };
-};
+    dispatch({ 
+      type: CHECK_IF_AUTHENTICATED 
+    });
+  }
+}

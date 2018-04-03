@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { mysecret } = require('../../config');
-// const User = require('../models/userModels');
+const User = require('../models/userModels');
 
 const login = (req, res) => {
   const { username, password } = req.body;
@@ -15,7 +15,7 @@ const login = (req, res) => {
     }
     user.checkPassword(password, (nonMatch, hashMatch) => {
       if (nonMatch !== null) {
-        res.status(422).json({ error: 'Passwords do not match' });
+        res.status(422).json({ error: 'Password do not match' });
         return;
       }
       if (hashMatch) {
@@ -23,7 +23,7 @@ const login = (req, res) => {
           username: user.username
         };
         const token = jwt.sign(payload, mysecret);
-        res.jason({ token });
+        res.json({ token });
       }
     });
   });

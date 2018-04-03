@@ -20,10 +20,15 @@
   "dependencies": {
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
     "cors": "^2.8.4",
+    "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.2.0",
+    "mocha": "^5.0.5",
     "mongoose": "^5.0.12",
-    "node-fetch": "^2.1.2"
+    "morgan": "^1.9.0",
+    "path": "^0.12.7"
   }
 }

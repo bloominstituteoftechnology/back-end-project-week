@@ -9,10 +9,11 @@ const authenticate = (req, res, next) => {
     jwt.verify(token, mysecret, (err, decoded) => {
       if (err) return res.status(422).json(err);
       req.decoded = decoded;
+      req.username = decoded.username;
       next();
     });
   } else {
-    return res.stats(403).json({
+    return res.status(403).json({
       error: 'No token provided, must be set on the Authorization Header'
     });
   }

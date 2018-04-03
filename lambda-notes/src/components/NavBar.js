@@ -2,7 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { logout } from '../actions';
+
 class NavBar extends Component {
+
+  logOut = (event) => {
+    event.preventDefault();
+    this.props.logout();
+  }
+
   getLinks() {
     return [
       <li key={1}>
@@ -23,6 +31,7 @@ class NavBar extends Component {
         <div className="navbar-buttons">
           <ul>{this.getLinks()}</ul>
         </div>
+        <p className="navbar-logout" style={this.props.login ? {color: 'black'} : {display: 'none'}} onClick={this.logOut}>Log Out</p>
       </div>
     );
   };
@@ -32,7 +41,8 @@ const mapStateToProps = state => {
   // const notes = state.notes
   return {
     // lastId: notes[notes.length - 1].id
+    login: state.login
   };
 };
 
-export default connect(mapStateToProps)(NavBar);
+export default connect(mapStateToProps, { logout })(NavBar);

@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const SALT_ROUNDS = 11;
 
-const UserSchema = Schema({
+const UserSchema = new Schema({
   username: {
     type: String,
     required: true,
@@ -19,7 +19,7 @@ const UserSchema = Schema({
 
 UserSchema.pre('save', function(next) {
   let user = this;
-  bcrypt.hash(this.password, SALT_ROUNDS, function(error, hahs) {
+  bcrypt.hash(this.password, SALT_ROUNDS, function(error, hash) {
     if (error) return next(error);
     user.password = hash;
     next();

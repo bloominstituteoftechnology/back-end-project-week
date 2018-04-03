@@ -4,16 +4,22 @@ const {
   getNotes, 
   editNote, 
   createNote, 
-  deleteNote, 
-  createUser, 
-  login 
-} = require('../controllers');
+  deleteNote
+} = require('../controllers/notes');
+
+const {
+  login
+} = require('../controllers/login');
+
+const {
+  createUser
+} = require('../controllers/user');
 
 module.exports = server => {
-  server.get('/api/notes', authenticate, getNotes);
-  server.post('api/users', createUser);
-  server.post('/api/login', login);
-  server.post('api/new', authenticate, createNote);
-  server.put('/api/edit', authenticate, editNote);
-  server.delete('/api/delete', authenticate, deleteNote);
+  server.get('/notes', authenticate, getNotes);
+  server.post('/signup', createUser);
+  server.post('/login', login);
+  server.post('/new', authenticate, createNote);
+  server.put('/edit/:id', authenticate, editNote);
+  server.delete('/delete/:id', authenticate, deleteNote);
 };

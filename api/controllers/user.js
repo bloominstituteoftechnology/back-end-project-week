@@ -2,6 +2,8 @@ const bcrypt = require('bcrypt');
 const express = require('express');
 const mongoose = require('mongoose');
 
+const User = require('../models/userModels');
+
 const STATUS_USER_ERROR = 422;
 const STATUS_SUCCESS = 200;
 const STATUS_SERVER_ERROR = 500;
@@ -21,7 +23,7 @@ const createUser = (req, res) => {
   if(!username || !password) {
     res.status(STATUS_USER_ERROR).json('Please provide both username and password');
   } else {
-    const newUser = new username({ username, password: password });
+    const newUser = new User({ username, password: password });
     newUser.save((error, savedUser) => {
       if (error) {
         return sendUserError(error, res);

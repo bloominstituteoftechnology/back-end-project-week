@@ -7,18 +7,20 @@ import {
   applyMiddleware 
 } from 'redux';
 import thunk from 'redux-thunk';
-// import {
-//   BrowserRouter as Router,
-//   Route,
-// } from 'react-router-dom';
+import logger from 'redux-logger';
+import {
+  HashRouter as Router
+} from 'react-router-dom';
 import { rootReducer } from './reducers';
 import './index.css';
 
-const createStoreWithMiddleware = createStore(rootReducer, applyMiddleware(thunk));
+const createStoreWithMiddleware = createStore(rootReducer, applyMiddleware(thunk, logger));
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware}>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </Provider>,
   document.getElementById('root')
 );

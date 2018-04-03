@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { login } from '../actions';
+import { Link } from 'react-router-dom';
 
 class SignIn extends Component {
   state = {
@@ -15,7 +16,11 @@ class SignIn extends Component {
   handleSignIn = (event) => {
     const { username, password } = this.state;
     event.preventDefault();
-    this.props.login({ username, password });
+
+    if (username.length <= 0 || password.length <= 0) {
+      return alert('You must provide both username and password.');
+    }
+    return this.props.login({ username, password });
   };
 
   render() {
@@ -47,6 +52,8 @@ class SignIn extends Component {
           <br />
           <input className="button" type="submit" value="Sign In" />
         </form>
+        <br />
+        <p>Don't have an account yet? <Link to='/signup'>Sign up for free!</Link></p>
       </div>
     );
   };
