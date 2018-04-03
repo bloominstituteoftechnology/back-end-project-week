@@ -1,8 +1,10 @@
 const UserModel = require('../models/userModel');
 
 const createUser = (req, res) => {
-    const note = new UserModel(req.body);
-    note.save()
+    console.log('rthis.password:::', this.password);
+
+    const user = new UserModel(req.body);
+    user.save()
         .then(user => res.status(201).send(user))
         .catch(err => {
             res.status(500).send({error: "Something went wrong saving your user information", info: err});
