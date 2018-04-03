@@ -1,7 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
-const session = require('express-session');
+const session = require("express-session");
 const mongoose = require("mongoose");
 const User = require("./src/models/User");
 const server = express();
@@ -16,6 +16,14 @@ mongoose
   .catch(err => {
     console.log(err);
   });
+
+server.use(
+  session({
+    secret: "e5SPiqsEtjexkTj3Xqovsjzq8ovjfgVDFMfUzSmJO21dtXs4re",
+    resave: true,
+    saveUninitialized: false
+  })
+);
 
 const PORT = 5000;
 
@@ -66,16 +74,10 @@ server.post("/login", (req, res) => {
         return;
       }
       if (hashMatch) {
-          // error here
-
-
-         //
         req.session.ID = user._id;
-        // give javascript web token
+        res.json("login success!");
       }
     });
-    // respond with token upon log in success
-    res.json("login success!");
   });
 });
 
@@ -88,6 +90,9 @@ server.post("/logout", (req, res) => {
   User.findOne({ username })
     .then(user => {
       const foundUserID = JSON.stringify(user._id).replace(/"/g, "");
+      console.log("userid", foundUserID);
+      console.log("sessionid", req.session.ID);
+
       if (foundUserID === req.session.ID) {
         req.session.ID = null;
         res.status(200).json({ success: true });
