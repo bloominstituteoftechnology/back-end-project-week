@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { login } from '../actions';
+import { Link } from 'react-router-dom';
 
 class Login extends React.Component {
   state = {
@@ -58,6 +59,7 @@ class Login extends React.Component {
           <input type="submit" value="submit" />
         </form>
         {this.state.message && this.state.message}
+        <Link to='/register'><button>Register an account</button></Link>
       </div>
     );
   }
