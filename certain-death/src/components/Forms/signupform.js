@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { signup } from '../actions';
-import Button from './button';
+import { signup } from '../../actions';
+import Button from '../Misc/button';
 
 const StyledSignUpForm = styled.div`
   display: flex;

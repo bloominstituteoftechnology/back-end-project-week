@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import LeftRail from './leftrail';
-import SectionTitle from './sectiontitle';
-import UpdateForm from './updateform';
+import LeftRail from '../Rails/leftrail';
+import SectionTitle from '../Misc/sectiontitle';
+import UpdateForm from '../Forms/updateform';
 
 const StyledUpdateNote = styled.div`
   display: flex;

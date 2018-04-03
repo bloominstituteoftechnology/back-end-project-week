@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { updateSearch, showNotes } from '../actions';
+import { updateSearch, showNotes } from '../../actions';
 
 const StyledSearch = styled.div`
   display: flex;

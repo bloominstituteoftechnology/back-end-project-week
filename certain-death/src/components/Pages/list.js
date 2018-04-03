@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import NoteCard from './notecard';
-import HomeLeftRail from './homeleftrail';
-import SectionTitle from './sectiontitle';
+import NoteCard from '../Misc/notecard';
+import HomeLeftRail from '../Rails/homeleftrail';
+import SectionTitle from '../Misc/sectiontitle';
 
 const StyledList = styled.div`
   display: flex;

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import styled from 'styled-components';
-import UserPage from './userpage';
-import List from './list';
-import NewNote from './newnote';
-import FullNote from './fullnote';
-import UpdateNote from './updatenote';
+import UserPage from './Pages/userpage';
+import List from './Pages/list';
+import NewNote from './Pages/newnote';
+import FullNote from './Pages/fullnote';
+import UpdateNote from './Pages/updatenote';
 
 const StyledApp = styled.div`
   width: 830px;

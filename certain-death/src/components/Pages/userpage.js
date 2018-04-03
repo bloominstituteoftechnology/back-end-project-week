@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import UserRail from './userrail';
-import SectionTitle from './sectiontitle';
-import SignUpForm from './signupform';
-import LoginForm from './loginform';
+import UserRail from '../Rails/userrail';
+import SectionTitle from '../Misc/sectiontitle';
+import SignUpForm from '../Forms/signupform';
+import LoginForm from '../Forms/loginform';
 
 const StyledUser = styled.div`
   display: flex;

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import Button from './button';
+import Button from '../Misc/button';
 
 const StyledRail = styled.div`
   width: 210px;

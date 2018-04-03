@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { toggleDelete } from '../actions';
-import LeftRail from './leftrail';
-import SectionTitle from './sectiontitle';
-import TextBlock from './textblock';
-import Delete from './delete';
+import { toggleDelete } from '../../actions';
+import LeftRail from '../Rails/leftrail';
+import SectionTitle from '../Misc/sectiontitle';
+import TextBlock from '../Misc/textblock';
+import Delete from '../Modals/delete';
 
 const StyledNote = styled.div`
   display: flex;

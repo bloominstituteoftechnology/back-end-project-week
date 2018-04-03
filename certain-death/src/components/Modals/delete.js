@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import Button from './button';
-import { toggleDelete, deleteNote } from '../actions';
+import Button from '../Misc/button';
+import { toggleDelete, deleteNote } from '../../actions';
 
 const StyledDelete = styled.div`
   position: absolute;

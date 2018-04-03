@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import LeftRail from './leftrail';
-import SectionTitle from './sectiontitle';
-import PostForm from './postform';
+import LeftRail from '../Rails/leftrail';
+import SectionTitle from '../Misc/sectiontitle';
+import PostForm from '../Forms/postform';
 
 const StyledNewNote = styled.div`
   display: flex;

@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { login } from '../actions';
-import Button from './button';
+import { login } from '../../actions';
+import Button from '../Misc/button';
 
 const StyledLoginForm = styled.div`
   display: flex;
