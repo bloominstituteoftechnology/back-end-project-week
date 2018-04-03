@@ -1,8 +1,9 @@
 const User = require('../Models/userModel');
 
 const createUser = (req, res) => {
-    const { username, encryptedPasword } = req.body;
-    const newUser = new User({ username, encryptedPasword });
+    console.log(req.body);
+    const { userName, encryptedPassword } = req.body;
+    const newUser = new User({ userName, encryptedPassword });
     newUser.save((err, savedUser) => {
         if (err) {
             res.status(500).json(err);

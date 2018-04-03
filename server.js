@@ -1,11 +1,14 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const routes = require('./routes');
 
 const server = express();
 const PORT = process.env.PORT || 5000;
 
 server.use(cors());
+
+routes(server);
 
 mongoose
   .connect('mongodb://localhost/LambdaNotes')
