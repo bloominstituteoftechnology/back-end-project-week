@@ -12,14 +12,14 @@ export const authError = error => {
   };
 };
 
-export const signUp = (username, password, confirmPass, history) => {
+export const signUp = (email, password, confirmPass, history) => {
   return dispatch => {
     if (password !== confirmPass) {
       dispatch(authError('Passwords do not match'));
       return;
     }
     axios
-      .post(`${ROOT_URL}/users`, { username, password })
+      .post(`${ROOT_URL}/users`, { email, password })
       .then(() => {
         dispatch({
           type: USER_CREATED,

@@ -14,6 +14,7 @@ ReactDOM.render(
   <Provider store={sotreWithMW(reducers)}>
     <Router>
       <div>
+        <Route path="/" component={App} />
         <Route path="/signup" component={SignUp} />
       </div>
     </Router>
