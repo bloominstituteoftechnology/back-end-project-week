@@ -23,15 +23,6 @@ export default class App extends React.Component {
     authenticated: false,
   };
 
-  handleNewUser = async function(username, password, history) {
-    try {
-      const res = await axios.post(`${ROOT_URL}/users`, { username, password });
-      console.log(res.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   handleNoteViewIndex = inputId => {
     for (let i = 0; i < this.state.notes.length; i++) {
       if (this.state.notes[i].id === inputId) this.noteIndex = i;
@@ -82,7 +73,7 @@ export default class App extends React.Component {
       <Router>
         <div className="App">
           {this.state.authenticated ? (<Sidebar />) : null}
-          <Route exact path={"/signup"} render={() => <SignUp handleNewUser={this.handleNewUser}/>} />
+          <Route exact path={"/signup"} render={() => <SignUp handleNewUser={this.handleNewUser} ROOT_URL={ROOT_URL} axios={axios} />} />
           <Route exact path={"/"} render={() => (this.state.authenticated ? (<NoteList notes={this.state.notes} handleNoteViewIndex={this.handleNoteViewIndex} updateSortedNotes={this.updateSortedNotes} />) : (<SignIn />))} />
           <Route exact path={"/create"} render={() => (this.state.authenticated ? (<CreateNote createNote={this.handleCreateNote} />) : (<SignIn />))} />
           <Route exact path={"/view"} render={() => (this.state.authenticated ? (<NoteView note={this.state.notes[this.noteIndex]} toggleModal={this.toggleModal} handleDeleteNote={this.handleDeleteNote} />) : (<SignIn />))} />

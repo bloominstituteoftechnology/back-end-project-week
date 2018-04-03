@@ -1,0 +1,19 @@
+.UserAuth {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 100%;
+  align-items: center;
+}
+
+.UserAuth-Form {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.UserAuth-Error {
+  border: 1px solid black;
+  padding: 3px;
+  background: red;
+  color: white;
+}

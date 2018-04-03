@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import './UserAuth.css';
+
 class SignIn extends Component {
   state = {
     username: '',
@@ -8,10 +10,12 @@ class SignIn extends Component {
   };
 
   handleInputChange = event => {
+    event.preventDefault();
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  handleSubmit = _ => {
+  handleSubmit = event => {
+    event.preventDefault();
     const { username, password } = this.state;
     this.props.login(username, password, this.props.history);
     this.setState({ title: '', body: '', });
@@ -21,11 +25,10 @@ class SignIn extends Component {
     const { username, password } = this.state;
 
     return (
-      <div className="SignIn">
+      <div className="UserAuth">
       <h2 className="SectionTitle">Sign In</h2>
-      <form onSubmit={this.handleSubmit}>
+      <form className="UserAuth-Form">
         <input
-          className="SignIn-UsernameBox"
           value={username}
           name="username"
           type="text"
@@ -37,7 +40,6 @@ class SignIn extends Component {
         />
         <br />
         <input
-          className="SignIn-PasswordBox"
           value={password}
           name="password"
           type="password"
@@ -48,7 +50,7 @@ class SignIn extends Component {
           required
         />
         <br />
-        <Link to={"/"}><button onClick={() => this.handleSubmit()} type="submit">Sign In</button></Link>
+        <Link to={"/"}><button onClick={(e) => this.handleSubmit(e)} type="submit">Sign In</button></Link>
         <Link to={"/signup"}><button>Sign Up</button></Link>
       </form>
       </div>
