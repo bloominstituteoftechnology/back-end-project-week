@@ -31,7 +31,7 @@ class App extends Component {
             changeSwitch={this.changeSwitch}
             changeUser={this.changeUser}
             onRef={ref => (this.mainpage = ref)}
-            currentUser={{token: this.state.userToken, id: this.state.user}}
+            currentUser={{ token: this.state.userToken, id: this.state.user }}
           />
         </div>
       </div>
@@ -54,6 +54,9 @@ class App extends Component {
 
   changeUser = (token, id) => {
     this.setState({ userToken: token, userId: id });
+    if(this.state.mainPageTitle === 'Not Logged In') {
+      this.setState({ mainPageTitle: '' });
+    }
   };
 }
 
