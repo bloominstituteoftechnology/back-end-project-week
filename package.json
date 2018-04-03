@@ -4,7 +4,8 @@
   "description": "This week you will be building a minimum viable product (MVP) for a note taking app called \"Lambda Notes.\"",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,9 @@
   },
   "homepage": "https://github.com/mikemarshal/front-end-project-week#readme",
   "dependencies": {
-    "create-react-app": "^1.5.2"
+    "body-parser": "^1.18.2",
+    "create-react-app": "^1.5.2",
+    "express": "^4.16.3",
+    "mongoose": "^5.0.12"
   }
 }

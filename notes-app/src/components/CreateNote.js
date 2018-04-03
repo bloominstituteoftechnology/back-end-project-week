@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { Redirect } from "react-router-dom";
 import { addNote } from '../actions'
 
+
 class CreateNote extends Component {
   state = {
     title: '',
@@ -56,6 +57,7 @@ class CreateNote extends Component {
        // this doesn't overwrite state, but overwrites the specified [] value
   }
   doSubmit = (event) => {
+    console.log('created note');
     this.props.addNote(this.state);
     this.setState( // reset the state
       { title: '', meat: '', redirect: true, }
