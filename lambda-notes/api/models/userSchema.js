@@ -25,6 +25,22 @@ const UserSchema = new mongoose.Schema({
     posts: []
 });
 
+UserSchema.pre('save', function (next) {
+    bcrypt.hash(this.password, COST, (err, hash) => {
+        if (err) return next(err);
+        this.password = hash;
+        next();
+    })
+});
+
+UserSchema.methods.checkPassword = function (plainPassword, callBack) {
+    bcrypt.compare(plainPassword, this.password, (err, isMatch) => {
+        if (err) return callBack(err);
+        callBack(null, isMatch);
+    })
+};
+
+
 const UserModel = mongoose.model('User', UserSchema);
 
 module.exports = UserModel;
