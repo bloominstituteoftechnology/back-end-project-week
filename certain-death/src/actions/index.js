@@ -62,7 +62,7 @@ export const showNotes = data => ({
 });
 
 export const signup = (data) => {
-  const user = axios.post('localhost:5000/', {
+  const user = axios.post('http://localhost:5000/', {
     email: data.email,
     password: data.password,
   });
