@@ -50,7 +50,6 @@ class SignUpForm extends React.Component {
     this.props.signup({
       email: this.state.email,
       password: this.state.password,
-      confirmPassword: this.state.confirmPassword,
     });
     this.setState({
       email: '',

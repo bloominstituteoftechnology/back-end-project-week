@@ -1,4 +1,5 @@
 import { v4 } from 'uuid';
+import axios from 'axios';
 
 export const ADD_NOTE = 'ADD_NOTE';
 export const UPDATE_NOTE = 'UPDATE_NOTE';
@@ -10,7 +11,9 @@ export const OLDEST_SORT = 'OLDEST_SORT';
 export const UPDATE_SEARCH = 'UPDATE_SEARCH';
 export const SHOW_NOTES = 'SHOW_NOTES';
 export const LOGIN = 'LOGIN';
-export const SIGN_UP = 'SIGN_UP';
+export const SIGNING_UP = 'SIGN_UP';
+export const USER_CREATED = 'USER_CREATED';
+export const ERROR = 'ERROR';
 
 export const addNote = data => ({
   type: ADD_NOTE,
@@ -58,9 +61,19 @@ export const showNotes = data => ({
   type: SHOW_NOTES,
 });
 
-export const signup = data => ({
-  type: SIGN_UP,
-});
+export const signup = (data) => {
+  const user = axios.get('https://dog.ceo/api/breeds/list/all');
+  return (dispatch) => {
+    dispatch({ type: SIGNING_UP });
+    user
+      .then(({ newUser }) => {
+        dispatch({ type: USER_CREATED, payload: newUser });
+      })
+      .catch((err) => {
+        dispatch({ type: ERROR, payload: err });
+      });
+  };
+};
 
 export const login = data => ({
   type: LOGIN,

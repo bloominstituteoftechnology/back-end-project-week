@@ -1,4 +1,16 @@
-import { ADD_NOTE, UPDATE_NOTE, DELETE_NOTE, TOGGLE_DELETE, TITLE_SORT, OLDEST_SORT, NEWEST_SORT, UPDATE_SEARCH, SHOW_NOTES, LOGIN, SIGN_UP } from '../actions';
+import {
+  ADD_NOTE,
+  UPDATE_NOTE,
+  DELETE_NOTE,
+  TOGGLE_DELETE,
+  TITLE_SORT,
+  OLDEST_SORT,
+  NEWEST_SORT,
+  UPDATE_SEARCH,
+  SHOW_NOTES,
+  LOGIN,
+  SIGNING_UP
+} from '../actions';
 import dummyData from '../dummydata';
 
 const initialState = {
@@ -6,6 +18,7 @@ const initialState = {
   deleteActive: false,
   sortStatus: 'Unsorted',
   input: '',
+  signingUp: false,
 };
 
 export default (state = initialState, action) => {
@@ -90,9 +103,10 @@ export default (state = initialState, action) => {
           return { ...val, filtered: false };
         }),
       };
-    case SIGN_UP:
+    case SIGNING_UP:
       return {
-        ...state
+        ...state,
+        signingUp: true,
       };
     case LOGIN:
       return {
