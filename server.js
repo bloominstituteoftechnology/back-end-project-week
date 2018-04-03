@@ -3,12 +3,15 @@ const helmet = require('helmet');
 const server = express();
 const db = require('./db');
 const noteRoutes = require('./api/routes/noteRoutes');
+const userRoutes = require('./api/routes/userRoutes');
+
 const port = process.env.PORT || 3030;
 
 server.use(helmet());
 server.use(express.json());
 
 server.use('/api/note', noteRoutes);
+server.use('/api/user', userRoutes);
 
 db.connectTo()
     .then(() => console.log('\n... API Connected to Database ...\n'))
