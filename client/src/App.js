@@ -20,39 +20,34 @@ class App extends Component {
   }
 
   render() {
-    const { authed } = this.props;
     return (
       <Router>
         <div className="App" id="App">
-          {authed ? <div className="App--authed">
-            <div className="Sidebar">
-              <div className="Sidebar__header">
-                Lambda Notes
-              </div>
-              <Link className="Sidebar__button" to='/'>
-                View Your Notes
-              </Link>
-              <Link className="Sidebar__button" to='/new'>
-                + Create New Note
-              </Link>
+          <div className="Sidebar">
+            <div className="Sidebar__header">
+              Lambda Notes
             </div>
-            <div className="View">
-              <Route path="/" render={() => <NoteList notes={this.props.notes}/>} exact/>
-              <Route path="/new" component={ NewNote } exact />
-              {
-                this.props.notes.map(note => {
-                  return <Route key={note.id} path={`/note/${note.id}`} render={() => <Note note={note}/>}/>;
-                })
-              }
-              {
-                this.props.notes.map(note => {
-                  return <Route key={note.id} path={`/note/edit/${note.id}`} render={() => <EditNote note={note}/>}/>;
-                })
-              }
-            </div>
-          </div> : <div className="App--unauthed">
-            <Route path="/" exact component={ LoginPage }></Route>
-          </div>}
+            <Link className="Sidebar__button" to='/'>
+              View Your Notes
+            </Link>
+            <Link className="Sidebar__button" to='/new'>
+              + Create New Note
+            </Link>
+          </div>
+          <div className="View">
+            <Route path="/" render={() => <NoteList notes={this.props.notes}/>} exact/>
+            <Route path="/new" component={ NewNote } exact />
+            {
+              this.props.notes.map(note => {
+                return <Route key={note.id} path={`/note/${note.id}`} render={() => <Note note={note}/>}/>;
+              })
+            }
+            {
+              this.props.notes.map(note => {
+                return <Route key={note.id} path={`/note/edit/${note.id}`} render={() => <EditNote note={note}/>}/>;
+              })
+            }
+          </div>
         </div>
       </Router>
     );

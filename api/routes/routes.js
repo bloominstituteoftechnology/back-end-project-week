@@ -2,7 +2,7 @@ module.exports = async (app) => {
   const userControllers = require('../controllers/userControllers');
   //const postControllers = require('../controllers/postControllers');
 
-  app.route('/new-user')
+  app.route('/register')
     .post(userControllers.createUser);
   
   app.route('/login')

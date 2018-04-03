@@ -1,7 +1,7 @@
-import { ADD_NOTE } from '../actions';
-import { DELETE_NOTE } from '../actions';
-import { EDIT_NOTE } from '../actions';
-import { LOGIN_SUCCESS, LOGIN_FAIL } from '../actions';
+import { ADD_NOTE } from "../actions";
+import { DELETE_NOTE } from "../actions";
+import { EDIT_NOTE } from "../actions";
+import { LOGIN_SUCCESS, LOGIN_FAIL } from "../actions";
 
 // const initialState = {
 //   notes: [
@@ -46,50 +46,60 @@ import { LOGIN_SUCCESS, LOGIN_FAIL } from '../actions';
 
 const initialState = {
   notes: [],
-  authed: false,
+  authed: false
 };
 
 export default (state = initialState, action) => {
-  console.log('Reducer received:', action);
+  console.log("Reducer received:", action);
   switch (action.type) {
     case LOGIN_SUCCESS:
-      return Object.assign({}, {
-        notes: [...state.notes],
-        authed: true,
-      })
+      return Object.assign(
+        {},
+        {
+          notes: [...state.notes],
+          authed: true
+        }
+      );
     case ADD_NOTE:
-      return Object.assign({}, {
+      return {
+        ...state,
         notes: [
           ...state.notes,
           {
             title: action.payload.title,
             text: action.payload.text,
-            id: action.id,
+            id: action.id
           }
         ]
-      });
+      };
 
     case DELETE_NOTE:
       console.log("Deleting note ", action.id);
-      return Object.assign({}, {
-        notes: state.notes.filter(note => {
-          if (note.id !== action.id) return note;
-        })
-      });
+      return Object.assign(
+        {},
+        {
+          notes: state.notes.filter(note => {
+            if (note.id !== action.id) return note;
+          })
+        }
+      );
 
     case EDIT_NOTE:
-      return Object.assign({}, {
-        notes: state.notes.map(note => {
-          if (note.id === action.id){
+      return Object.assign(
+        {},
+        {
+          notes: state.notes.map(note => {
+            if (note.id === action.id) {
               return {
-              title: action.payload.title,
-              text: action.payload.text,
-              id: action.id,
+                title: action.payload.title,
+                text: action.payload.text,
+                id: action.id
+              };
             }
-          }
-          return note;
-        })
-      })
+            return note;
+          })
+        }
+      );
 
     default:
       return state;

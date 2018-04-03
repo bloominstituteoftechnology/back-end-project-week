@@ -1,12 +1,12 @@
-const axios = require('axios');
+const axios = require("axios");
 
-export const ADD_NOTE = 'ADD_NOTE';
-export const DELETE_NOTE = 'DELETE_NOTE';
-export const EDIT_NOTE = 'EDIT_NOTE';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAIL = 'LOGIN_FAIL';
+export const ADD_NOTE = "ADD_NOTE";
+export const DELETE_NOTE = "DELETE_NOTE";
+export const EDIT_NOTE = "EDIT_NOTE";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAIL = "LOGIN_FAIL";
 
-const ROOT_URL = 'http://localhost:3030';
+const ROOT_URL = "http://localhost:3030";
 
 let nextNoteID = 0;
 
@@ -18,7 +18,7 @@ let nextNoteID = 0;
 //     if (user) return {
 //       type: LOGIN_SUCCESS,
 //     }
-//     else return { 
+//     else return {
 //       type: LOGIN_FAIL,
 //     };
 //   } catch(e) {
@@ -33,13 +33,24 @@ export const login = (email, password) => {
   return async dispatch => {
     try {
       const user = await axios.post(`${ROOT_URL}/login`, { email, password });
-      const uuID = user._id;
-      localStorage.setItem('uuID', uuID);
+      console.log("Here's your acct:", user);
+      const uuID = user.data._id;
+      localStorage.setItem("uuID", uuID);
       if (user) dispatch({ type: LOGIN_SUCCESS });
       else dispatch({ type: LOGIN_FAIL });
-    } catch(e) {
-      console.log('There was a problem with the login action:', e);
+    } catch (e) {
+      console.log("There was a problem with the login action:", e);
       dispatch({ type: LOGIN_FAIL });
+    }
+  };
+};
+
+export const register = (email, password, confirmPassword) => {
+  return async dispatch => {
+    try {
+      const newUser = await axios.post(`${ROOT_URL}/register`, { email, password });
+    } catch(e) {
+      console.log(e);
     }
   }
 }
@@ -50,27 +61,27 @@ export const addNote = (noteTitle, noteText) => {
     id: nextNoteID++,
     payload: {
       title: noteTitle,
-      text: noteText,
-    },
+      text: noteText
+    }
     //Remember that note should have two props, note.title and note.text.
-  }
-}
+  };
+};
 
-export const deleteNote = (id) => {
-  console.log('Removing note number: ', id);
+export const deleteNote = id => {
+  console.log("Removing note number: ", id);
   return {
     type: DELETE_NOTE,
-    id,
-  }
-}
+    id
+  };
+};
 
 export const editNote = (newTitle, newText, id) => {
   return {
     type: EDIT_NOTE,
     payload: {
       title: newTitle,
-      text: newText,
+      text: newText
     },
-    id,
-  }
-}
+    id
+  };
+};

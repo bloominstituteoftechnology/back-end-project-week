@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { login } from '../actions';
+import { register } from '../actions';
 
-class LoginPage extends Component {
+class RegistrationPage extends Component {
   state = {
     email: '',
     password: '',
+    confirmPassword: '',
   };
 
   render() {
     return (
-      <div className="LoginView">
+      <div className="RegistrationView">
         <form className="Form" onSubmit={this.handleSubmit}>
           <input
             type="text"
@@ -24,7 +25,13 @@ class LoginPage extends Component {
             value={this.state.password}
             onChange={this.handlePasswordChange}
           />
-          <button className="Form__submit" type="submit">Log In</button>
+          <input
+            type="text"
+            placeholder="Confirm password"
+            value={this.state.confirmPassword}
+            onChange={this.handleConfirmPasswordChange}
+          />
+          <button className="Form__submit" type="submit">Sign Up</button>
         </form>
       </div>
     )
@@ -38,20 +45,25 @@ class LoginPage extends Component {
     this.setState({ password: event.target.value });
   }
 
+  handleConfirmPasswordChange = (event) => {
+    this.setState({ confirmPassword: event.target.value });
+  }
+
   handleSubmit = async (event) => {
     event.preventDefault();
-    await this.props.login(this.state.email, this.state.password);
-    this.setState({password: ''});
-    if (this.props.authed) {
-      this.props.history.push('/');
-    }
+    if (this.password === this.confirmPassword) {
+      await this.props.register(this.state.email, this.state.password);
+      this.setState({password: ''});
+      this.setState({confirmPassword: ''})
+      this.props.history.push('/login')
+    } else console.log('PWs do not match');
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    authed: state.authed,
+    state: state.state,
   }
 }
 
-export default connect(mapStateToProps, { login })(LoginPage);
+export default connect(mapStateToProps, { register })(RegistrationPage);
