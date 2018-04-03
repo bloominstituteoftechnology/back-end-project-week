@@ -23,7 +23,7 @@ The main objective of this week is to develop a backend to support the LambdaNot
 * [ ] Create a Database for your app
 * [ ] Create a Registration Page that allows users to create accounts for your app and sign in with email/password
 * [ ] Store these User Accounts in your Database
-* [ ] Add a Sign In Page
+* [X] Add a Sign In Page
 * [ ] Store Notes in your Database
 * [X] Deploy your application to the web
 
