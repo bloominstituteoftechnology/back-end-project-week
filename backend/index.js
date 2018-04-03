@@ -5,6 +5,7 @@ const server = require('./server');
 const PORT = process.env.PORT || 5050;
 
 // Connect to MongoDB
+mongoose.Promise = global.Promise;
 mongoose
   .connect('mongodb://localhost/lambdanotes')
   .then(() => console.log('Successfully connected to MongoDB!'))

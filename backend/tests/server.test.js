@@ -50,7 +50,7 @@ beforeEach(done => {
         .post('/users')
         .send(testUser)
         .then(res => {
-          testUserInfo.id = res.body._id;
+          testUserInfo.id = res.body.savedUser._id;
           done();
         });
     });
@@ -58,9 +58,10 @@ beforeEach(done => {
 
 afterEach(done => {
   Note.remove({});
-  User.remove({});
-  User.collection.dropIndexes();
-  done();
+  User.remove({}).then(() => {
+    User.collection.dropIndexes();
+    done();
+  });
 });
 
 // TESTS //
@@ -154,6 +155,7 @@ describe('Users endpoints', () => {
         done();
       });
   });
+
   test('[POST] should throw error if password is not given', done => {
     const newUser = { username: 'Hagbard Celine' };
     const expectedMessage = 'You need to provide a username and password!';
@@ -166,6 +168,46 @@ describe('Users endpoints', () => {
       })
       .catch(err => {
         console.error(err);
+        done();
+      });
+  });
+
+  test('[GET] should return all users', done => {
+    const newUser = { username: 'Saul Goodman', password: '1234' };
+    request(server)
+      .post('/users')
+      .send(newUser)
+      .then(() => {
+        request(server)
+          .get('/users')
+          .then(res => {
+            expect(res.body.length).toBe(2);
+            expect(res.body[1]).toHaveProperty('_id');
+            expect(res.body[1]).toHaveProperty('username');
+            expect(res.body[1]).toHaveProperty('password');
+            expect(res.body[1].username).toBe('saul goodman');
+            done();
+          });
+      })
+      .catch(err => {
+        console.error(err);
+        done();
+      });
+  });
+
+  test('[GET] by id should return the correct user', done => {
+    request(server)
+      .get(`/users/${testUserInfo.id}`)
+      .then(res => {
+        expect(res.body).toHaveProperty('_id');
+        expect(res.body).toHaveProperty('username');
+        expect(res.body).toHaveProperty('password');
+        expect(res.body.username).toBe('test user');
+        done();
+      })
+      .catch(err => {
+        console.error(err);
+        done();
       });
   });
 });
