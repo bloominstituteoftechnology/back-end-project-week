@@ -25,6 +25,7 @@ export default class App extends React.Component {
 
   componentDidMount() {
     if (localStorage.getItem('token')) {
+      this.getNotes();
       return this.setState({
         authenticated: true,
       });
@@ -52,6 +53,18 @@ export default class App extends React.Component {
     };
   };
 
+  getNotes = async _ => {
+    const res = await axios.get(`${ROOT_URL}/notes`, {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+        uuID: localStorage.getItem('uuID'),
+      },
+    });
+    this.setState({
+      notes: res.data.allNotes,
+    });
+  };
+
   handleCreateNote = async inputNote => {
     const newNote = {
       author: localStorage.getItem('uuID'),
@@ -63,11 +76,7 @@ export default class App extends React.Component {
       console.log('Success!', res);
     } catch (err) {
       console.error(err);
-    }
-    // const newNotes = [...this.state.notes, newNote];
-    // this.setState({
-    //   notes: newNotes,
-    // });
+    };
   };
 
   handleEditNote = inputNote => {

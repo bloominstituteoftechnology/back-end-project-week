@@ -11,7 +11,7 @@ const SortableList = SortableContainer(props => {
     {props.notes.map((note, index) => {
       return (
         <Note
-          key={note.id}
+          key={index}
           note={note}
           index={index}
           title={note.title}
