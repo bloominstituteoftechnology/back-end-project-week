@@ -1,0 +1,13 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "back/app.js",
+  "repository": "https://github.com/csparks878/back-end-project-week.git",
+  "author": "Charlie Sparks <csparks@antioch.edu>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "mongoose": "^5.0.12"
+  }
+}
