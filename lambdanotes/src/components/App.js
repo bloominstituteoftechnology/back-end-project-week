@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import axios from 'axios';
 
 import SignIn from './SignIn';
 import SignUp from './SignUp';
@@ -10,6 +11,8 @@ import NoteView from './NoteView';
 import EditNote from './EditNote';
 
 import './App.css';
+
+const ROOT_URL = 'http://localhost:5000/api';
 
 export default class App extends React.Component {
   nextId = 0;
