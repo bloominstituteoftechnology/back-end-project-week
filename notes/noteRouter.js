@@ -20,4 +20,30 @@ noteRouter.post('/', (req, res) => {
     });
 });
 
+noteRouter.delete('/', (req, res) => {
+  const { id } = req.body;
+
+  Note
+    .findByIdAndRemove(id)
+    .then(note => {
+      res
+        .status(200)
+        .json({ message: "Note deleted successfully!" })
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json(err)
+    })
+})
+
+// .delete( function (req, res) {     // <===== defined inside 'put',
+//     User.remove({
+//         _id: req.params.user_id
+//     }, function (err, user) {
+//         if (err) return res.send(err);
+//         res.json({ message: 'Deleted' });
+//     });
+// });
+
 module.exports = noteRouter;

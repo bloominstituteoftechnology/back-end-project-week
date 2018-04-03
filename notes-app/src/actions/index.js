@@ -1,10 +1,10 @@
 import axios from 'axios';
-const ROOT_URL = 'http://localhost:5000/api';
+const ROOT = 'http://localhost:5000/api';
 
 
 export const error = (error) => {
   return {
-    type: 'authentication error',
+    type: 'error',
     payload: error
   };
 };
@@ -17,14 +17,22 @@ export const addNote = (note) => {
   // return note;
   return dispatch => {
     axios
-    .post(`${ROOT_URL}/notes`, { headers: { Authorization: window.localStorage.getItem('authorization') } })
+    .post(`http://localhost:5000/api/notes`, {
+      title: note.title,
+      content: note.meat
+    })
     .then(response => {
+      console.log(response);
       dispatch({
         type: 'ADD_NOTE',
-        payload: response.data
+        payload: {
+          title: response.data.title,
+          meat: response.data.content
+        }
       });
     })
-    .catch(() => {
+    .catch((err) => {
+      console.log(note);
       dispatch(error('Failed to post new note'));
     });
   };

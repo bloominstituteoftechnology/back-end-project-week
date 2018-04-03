@@ -1,10 +1,13 @@
 const express = require('express'); // remember to install your npm packages
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const server = express();
 
 server.use(bodyParser.json());
+server.use(cors());
+
 // add your server code
 const noteRouter = require('./notes/noteRouter.js');
 
