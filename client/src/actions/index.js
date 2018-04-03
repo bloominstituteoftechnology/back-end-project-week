@@ -50,21 +50,20 @@ export const register = (email, password, confirmPassword) => {
     try {
       const newUser = await axios.post(`${ROOT_URL}/register`, { email, password });
     } catch(e) {
-      console.log(e);
+      console.log("There was a problem registering!", e);
     }
   }
 }
 
 export const addNote = (noteTitle, noteText) => {
-  return {
-    type: ADD_NOTE,
-    id: nextNoteID++,
-    payload: {
-      title: noteTitle,
-      text: noteText
+  return async dispatch => {
+    try {
+      const userUID = localStorage.getItem("uuID");
+      const res = await axios.post(`${ROOT_URL}/new-note`, { userUID, noteTitle, noteText })
+    } catch(e) {
+      console.log(e);
     }
-    //Remember that note should have two props, note.title and note.text.
-  };
+  }
 };
 
 export const deleteNote = id => {

@@ -8,8 +8,8 @@ module.exports = async (app) => {
   app.route('/login')
     .post(userControllers.login);
   
-  // app.route('/new-note')
-  //   .post(userControllers.createNewNote);
+  app.route('/new-note')
+    .post(userControllers.createNewNote);
   
   // app.route('/notes')
   //   .get(userControllers.getAllNotes);
