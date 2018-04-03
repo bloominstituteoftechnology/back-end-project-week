@@ -40,24 +40,16 @@ const loginUser = (req, res) => {
           payload,
           secret
         );
-        res.json({ token });
+        res.status(200).json({ message: 'User Logged In', user, token });
       }
     });
   })
-
-    .then((user) => {
-      res.status(200).json({ message: 'User Logged In', user });
-    })
-    .catch((error) => {
-      res.status(422).json({ message: 'User Log In Failed', error });
-    });
 };
 
 const logoutUser = (req, res) => {
-  const {username} = req.body;
+  const { username } = req.body;
   User.findOne(username)
     .then((user) => {
-      req.verified = null;
       res.status(200).json({ message: 'User Logged Out', user });
     })
     .catch((error) => {

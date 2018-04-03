@@ -1,12 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const session = require('express-session');
+
+const mySecret = require('./config')
 
 const port = process.env.PORT || 3000;
 const corsOptions = {
   methods: 'GET, PUT, POST, DELETE',
   preflightContinue: false,
-  optionsSuccessStatus: 204,
   origin: 'http://localhost:3000',
   credentials: true,
 };
