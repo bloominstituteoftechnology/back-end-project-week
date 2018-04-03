@@ -1,21 +1,24 @@
+//packages to import
 const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
 
+//models to import
 const NoteModel = require("./models/NoteModel");
 
+//server and database setup
 const port = process.env.PORT || 3001;
 const app = express();
-
-app.use(bodyParser.json());
-mongoose.Promise = global.Promise;
-
 mongoose.connect("mongodb://localhost:27017/notes");
 mongoose.connection
 .once("open", (err, res) => {
     if (err) return console.log(`There was an error starting Mongoose: \n ${err}`);
     console.log(`Mongoose is running`);
 });
+
+//middleware etc.
+app.use(bodyParser.json());
+mongoose.Promise = global.Promise;
 
 //test route handler
 app.get("/", (req, res) => {
