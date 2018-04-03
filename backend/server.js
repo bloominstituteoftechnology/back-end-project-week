@@ -59,6 +59,22 @@ server.post('/notes', (req, res) => {
     );
 });
 
+// Update note
+server.put('/notes/:id', (req, res) => {
+  const id = req.params.id;
+  const update = req.body;
+  Note.findByIdAndUpdate(id, update, { new: true })
+    .then(note => {
+      res.status(200).json({
+        message: 'Note updated successfully!',
+        updatedNote: note
+      });
+    })
+    .catch(err =>
+      res.status(500).json({ message: 'Error finding note', error: err })
+    );
+});
+
 // USER ENDPOINTS //
 // Create new User
 server.post('/users', (req, res) => {
@@ -97,11 +113,6 @@ server.get('/users/:id', (req, res) => {
       if (err) res.status(500).json({ message: 'Error find user', error: err });
       res.status(200).json(user);
     });
-});
-
-server.get('/test', (req, res) => {
-  res.status(200);
-  res.send('Bada Bing Bada Boom!');
 });
 
 module.exports = server;

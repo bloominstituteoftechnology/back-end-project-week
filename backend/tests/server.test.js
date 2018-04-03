@@ -16,7 +16,7 @@ const testUserInfo = {
   password: '1234'
 };
 
-// BEFORE/AFTER
+// BEFORE/AFTER ALL
 beforeAll(done => {
   mongoose.Promise = global.Promise;
   mongoose.connect('mongodb://localhost/lambdanotes-test');
@@ -35,6 +35,7 @@ afterAll(done => {
   });
 });
 
+// BEFORE/AFTER EACH
 beforeEach(done => {
   const testNote = new Note(testNoteInfo);
   const testUser = new User(testUserInfo);
@@ -78,7 +79,6 @@ describe('Notes endpoints', () => {
       })
       .catch(err => {
         console.err(err);
-        done();
       });
   });
 
@@ -93,7 +93,6 @@ describe('Notes endpoints', () => {
       })
       .catch(err => {
         console.error(err);
-        done();
       });
   });
 
@@ -114,7 +113,6 @@ describe('Notes endpoints', () => {
       })
       .catch(err => {
         console.error(err);
-        done();
       });
   });
 
@@ -131,11 +129,26 @@ describe('Notes endpoints', () => {
       })
       .catch(err => {
         console.error(err);
+      });
+  });
+
+  test('[PUT] should update notes correctly', done => {
+    const updatedNoteInfo = { content: 'Updated note content here' };
+    request(server)
+      .put(`/notes/${testNoteInfo.id}`)
+      .send(updatedNoteInfo)
+      .then(res => {
+        expect(res.body.message).toBe('Note updated successfully!');
+        expect(res.body.updatedNote.content).toBe(updatedNoteInfo.content);
         done();
+      })
+      .catch(err => {
+        console.error(err);
       });
   });
 });
 
+// Users endpoints
 describe('Users endpoints', () => {
   test('[POST] should create a new user correctly', done => {
     const newUser = { username: 'Elephant Man', password: '1234' };
@@ -152,7 +165,6 @@ describe('Users endpoints', () => {
       })
       .catch(err => {
         console.error(err);
-        done();
       });
   });
 
@@ -168,7 +180,6 @@ describe('Users endpoints', () => {
       })
       .catch(err => {
         console.error(err);
-        done();
       });
   });
 
@@ -191,7 +202,6 @@ describe('Users endpoints', () => {
       })
       .catch(err => {
         console.error(err);
-        done();
       });
   });
 
@@ -207,7 +217,6 @@ describe('Users endpoints', () => {
       })
       .catch(err => {
         console.error(err);
-        done();
       });
   });
 });
