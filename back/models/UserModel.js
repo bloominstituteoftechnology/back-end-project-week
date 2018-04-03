@@ -32,4 +32,4 @@ UserSchema.methods.checkLogin = function(newLoginPass, cb){
     })
 }
 
-module.exports = mongoose.model("UserModel", UserSchema, "users");
+module.exports = mongoose.model("UserModel", UserSchema, "Users");

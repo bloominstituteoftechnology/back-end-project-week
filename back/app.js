@@ -19,23 +19,137 @@ mongoose.connection
     console.log(`Mongoose is running`);
 });
 
+//initialzing cors
+const corsOptions = {
+    "origin": "http://localhost:3000",
+    "credentials": true
+};
+
 //middleware etc.
 app.use(bodyParser.json());
+app.use(session({
+    secret: 'e5SPiqsEtjexkTj3Xqovsjzq8ovjfgVDFMfUzSmJO21dtXs4re',
+    resave: true,
+    saveUninitialized: true,
+  }));
+app.use(cors(corsOptions))
 mongoose.Promise = global.Promise;
 
+//scoping middleware that checks for user login status
+// const loginCheck = (req, res, next) => {
+//     if (req.session.loggedIn === undefined){
+//         req.session.loggedIn = false;
+//       }
+
+//       const path = req.path.split("/");
+//       if (path[1] === "restricted"){
+//         if (req.session.loggedIn){
+//           console.log(`The user is logged in and can access the restricted content`);
+//           res.status(200);
+//           next();
+//         } else {
+//           console.log(`The user is not logged in and cannot access the restricted content`);
+//           res.status(401);
+//           res.send(`This content is restricted, please log in to access.`);
+//         }
+//       } else {
+//         next();
+//       }
+// }
+// app.use(loginCheck)
+
+
+const loginMid = (req, res, next) => {
+    console.log(req.session.loggedIn);
+    if (!req.session.loggedIn){
+        console.log(`The user is not logged in!`);
+        res.status(401)
+        res.json(`Please login to view this content`);
+        return;
+    }
+
+    console.log(`The user is logged in and can view the content`);
+    next();
+}
+
 //test route handler
-app.get("/", (req, res) => {
+app.get("/", loginMid, (req, res) => {
     res.json(`it's alive!`);
 });
 
 //post handler for adding a new user
 app.post("/api/newUser", (req, res) => {
+    const newUsername = req.body.username;
+    const newPassword = req.body.password;
 
+    if (!newUsername || !newPassword){
+        console.log(`Problem creating a new user: either the username or password was not provided`);
+        res.status(422)
+        .json(`A username or password was not provided, please try again`);
+        return;
+    }
+
+    const newUser = UserModel({
+        username: newUsername,
+        password: newPassword
+    })
+    .save()
+    .then(response => {
+        console.log(`The new user was saved!`);
+        res.status(200)
+        .json(response);
+    })
+    .catch(err => {
+        console.log(`There was an error saving the new user: \n ${err}`);
+        res.status(500)
+        .json(`There was an error saving a the user`);
+    })
 });
 
 //post handler for allowing a user to login
 app.post("/api/login", (req, res) => {
+    if (req.session.loggedIn){
+        console.log(`The user is already logged in`);
+        res.status(200)
+        .json(`You're already logged in!`);
+    }
 
+    const newUsername = req.body.username;
+    const newPassword = req.body.password;
+
+    if (!newUsername || !newPassword){
+        console.log(`Problem creating a new user: either the username or password was not provided`);
+        res.status(422)
+        .json(`A username or password was not provided, please try again`);
+        return;
+    }
+
+    UserModel.findOne({username: newUsername})
+    .then(response => {
+        console.log(response);
+        if (!response){
+            console.log(`No user with that username was found`);
+            res.status(404)
+            .json(`No user with that username was found`);
+            return;
+        }
+        
+        response.checkLogin(loginPassword, (match) => {
+            console.log(`Match: ${match}`)
+            if (!match){
+              res.status(422);
+              res.send(`The password you entered was incorrect, please try again`);
+            } else {
+              req.session.loggedIn = true;
+              res.status(200);
+              res.json({success: true});
+            }
+          })
+    })
+    .catch(err => {
+        res.status(500)
+        .json(`There was an error on the server`);
+    })
 })
 
 //get handler for accessing restricted content
