@@ -2,6 +2,8 @@ const express = require('express');
 const User = require('../models/userSchema.js');
 const { authenticate } = require('../utils/middlewares');
 
+const fetch = require('node-fetch');
+
 const jwt = require('jsonwebtoken');
 const { key } = require('../../config');
 
@@ -51,18 +53,33 @@ const newUser = (req, res) => {
     });
   };
 
-  const deleteUserById = (req, res) => {
-    const { id } = req.params;
-    const userInfo = req.body;
+//   const deleteUserById = (req, res) => {
+//     const { id } = req.params;
+//     const userInfo = req.body;
 
-    User.findByIdAndUpdate(id, userInfo)
-        .then(user => {
-            res.status(200).json(post);
-        })
-        .catch(err => {
-            res.status(500).json({ error: 'User is not in our database.' });
-        });
-};
+//     User.findByIdAndUpdate(id, userInfo)
+//         .then(user => {
+//             res.status(200).json(post);
+//         })
+//         .catch(err => {
+//             res.status(500).json({ error: 'User is not in our database.' });
+//         });
+// };
+
+const getAllJokes = (req, res) => {
+    if (req.decoded) {
+      fetch(
+          //Test
+        'https://08ad1pao69.execute-api.us-east-1.amazonaws.com/dev/random_ten'
+      )
+        .then(posts => posts.json())
+        .then(jokes => res.json(jokes))
+        .catch(err => res.status(500).json({ error: 'Error Fetching Jokes' }));
+    } else {
+      return res.status(422).json({ error: `Can't get these jokes!` });
+    }
+  };
+  
 // const newLogin = (req, res) => {
 //     const userInfo = req.body;
 //     const user = user.find()
@@ -104,4 +121,4 @@ const newLogin = (req, res) => {
     });
   };
 
-module.exports = { userRouter, newUser, newLogin, getUsers };
+module.exports = { userRouter, newUser, newLogin, getUsers, getAllJokes };
