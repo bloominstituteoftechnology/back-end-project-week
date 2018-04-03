@@ -1,1 +1,9 @@
 .DS_Store
+node_modules
+keys.js
+.sw[a-p]
+.*.sw[a-p]
+Session.vim
+.netrwhist
+*~
+tags
