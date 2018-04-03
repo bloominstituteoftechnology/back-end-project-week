@@ -89,9 +89,9 @@ class SignUp extends Component {
           required
         />
         <br />
-        {this.renderAlert()}
         <button onClick={(e) => this.handleSubmit(e)} type="submit">Create Account</button>
       </form>
+      {this.renderAlert()}
       </div>
     );
   };
