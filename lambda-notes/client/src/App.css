@@ -1,3 +1,50 @@
+@import url('https://fonts.googleapis.com/css?family=Knewave');
+
+.p__shift {
+  margin-bottom: 2%;
+}
+h1 {
+  font-size: 3.3rem;
+  text-align: center;
+  font-family: 'Knewave', cursive;
+  color:rgb(60, 59, 59);
+  margin-bottom: 5%;
+  color: white;
+}
+
+h3 {
+  margin-bottom: 7%;
+  font-family: 'Knewave', cursive;
+  color: rgb(60, 59, 59);
+}
+
+input {
+  margin-bottom: 3%;
+}
+
+.main__registration {
+  background: 
+  /* top, transparent red, faked with gradient */ 
+  linear-gradient(
+    rgba(39, 176, 185, 0.50), 
+    rgba(39, 176, 185, 0.50)
+  ),
+  url("http://blogs.bu.edu/core/files/2014/05/laptop-with-pen-and-books.jpg");
+  min-height: 800px;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.main__registration__header {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 .title {
   color: rgb(60, 59, 59);
@@ -15,7 +62,6 @@
 }
 
 .main__list {
-  background: #27B0B9;
   margin: 5%;
   display: flex;
   flex-direction: column;
@@ -98,6 +144,22 @@ p {
   height: 30px;
   padding-left: 1%;
   margin-bottom: 3%;
+}
+
+.button__registration {
+  width: 25%;
+  padding: 0.2rem;
+  margin: 2%;
+  color: white;
+  background: rgb(60, 59, 59);
+  font-family: 'Knewave', cursive;
+  border: none;
+  border-radius: 50%
+}
+
+.button__registration:hover {
+  background:white;
+  color: #27B0B9;
 }
 
 .button__main {
