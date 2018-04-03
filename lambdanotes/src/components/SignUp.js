@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 
 class SignUp extends Component {
   state = {
@@ -8,6 +8,7 @@ class SignUp extends Component {
   };
 
   handleInputChange = event => {
+    event.preventDefault();
     this.setState({ [event.target.name]: event.target.value });
   };
 
@@ -48,7 +49,7 @@ class SignUp extends Component {
           required
         />
         <br />
-        <Link to={"/"}><button onClick={() => this.handleSubmit()} type="submit">Create Account</button></Link>
+        <button type="submit">Create Account</button>
       </form>
       </div>
     );

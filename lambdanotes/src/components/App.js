@@ -25,10 +25,11 @@ export default class App extends React.Component {
     authenticated: false,
   };
 
-  handleNewUser = async function(username, password, history) {
+  handleNewUser = async function(username, password) {
     try {
       const res = await axios.post(`${ROOT_URL}/users`, { username, password });
-      console.log(res.data);
+      console.log(res.data.savedUser);
+      if (res.data.status.code === 11000) console.log("TODO: Use me for duplicate user name handling!")
     } catch (err) {
       console.error(err);
     }
