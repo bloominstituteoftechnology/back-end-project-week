@@ -9,8 +9,9 @@ const NoteSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  id: {
-    type: Number,
+  date: {
+    type: Date,
+    default: Date.now,
     required: true,
   }
 });
