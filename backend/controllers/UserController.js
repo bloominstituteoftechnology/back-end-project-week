@@ -1,36 +1,40 @@
-const User = require("../models/User");
+const User = require("../models/UserModel");
+const { makeToker } = require("../services/auth");
 
 const makeUser = (req, res) => {
   const { firstName, lastName, email, password } = req.body;
-  const newUser = new User({
+  const user = new User({
     firstName,
     lastName,
     email,
     password
   });
-  newUser.save(err, user => {
-    if (err) return res.status(400).json({ message: "Could not save user" });
-    else {
-      res.json({ success: "The user was saved to the database", user });
-    }
+  user.save((err, user) => {
+    if (err) return res.send(err);
+    res.status(200).json({ success: "user was saved", user });
   });
-  const logUser = (req, res) => {
-    const { email, password } = req.body;
-    User.findOne({ email }, (err, user) => {
-      if (err || !user) {
-        res.status(500).json({ error: "Incorrect user or password" });
-        return;
-      }
-      if (email === null) {
-        res
-          .status(422)
-          .json({ error: "That user does not exist in the database" });
-        return;
-      }
-      user.checkPassword(hashPass, doesEqual => {
-        if (doesEqual) {
-        }
-      });
-    });
-  };
 };
+
+const logUser = (req, res) => {
+  const { email, password } = req.body;
+  User.findOne({ email }, (err, user) => {
+    if (err || !user) {
+      res.status(500).json({ error: "Wrong username or password" });
+      return;
+    }
+    if (email === null) {
+      res.status(422).json({ error: "Could not find that user in the db" });
+      return;
+    }
+    user.checkPassword(password, doesEqual => {
+      if (doesEqual) {
+        const token = makeToker({ email: user.email });
+        res.json({ token });
+      } else {
+        res.status(422).json({ error: "Invalid username or password" });
+      }
+    });
+  });
+};
+
+module.exports = { makeUser, logUser };
