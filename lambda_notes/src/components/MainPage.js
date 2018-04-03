@@ -89,7 +89,7 @@ class MainPage extends React.Component {
       case 'createNote':
         return <CreateNote addNote={this.addNote} />;
       default:
-        return <WelcomePage />;
+        return <WelcomePage changeUser={this.props.changeUser} />;
     }
   };
 

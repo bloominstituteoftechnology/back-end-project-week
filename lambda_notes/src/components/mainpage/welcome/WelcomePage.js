@@ -69,6 +69,7 @@ class WelcomePage extends React.Component {
     .then(res => {
       this.changeMessage(res.data.message);
       // localStorage.setItem('token', res.data.token);
+      this.props.changeUser(res.data.token, res.data.id)
       this.cancel();
     })
     .catch(err => {
