@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 const express = require('express');
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 const Note = require('./models/NoteModel.js');
 const User = require('./models/UserModel.js');
 const cors = require('cors');
@@ -9,11 +9,11 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 
-// Connected to MongoDB
-mongoose
-  .connect('mongodb://localhost/lambdanotes')
-  .then(() => console.log('Successfully connected to MongoDB!'))
-  .catch(err => console.error('Failed to connect to MongoDB!', err));
+// Connect to MongoDB
+// mongoose
+//   .connect('mongodb://localhost/lambdanotes')
+//   .then(() => console.log('Successfully connected to MongoDB!'))
+//   .catch(err => console.error('Failed to connect to MongoDB!', err));
 
 // NOTES ENDPOINTS
 //// Get all notes
