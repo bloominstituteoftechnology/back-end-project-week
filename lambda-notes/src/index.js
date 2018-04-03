@@ -11,6 +11,12 @@ import { Provider } from 'react-redux';
 import rootReducers from './reducers';
 
 import ReduxThunk from 'redux-thunk';
+import SignIn from './components/SignIn/SignIn';
+import SignUp from './components/SignUp/SignUp';
+import Notes from './components/Notes/Notes';
+import RequireAuth from './components/HOC/RequireAuth';
+import HomePage from './components/HomePage/HomePage';
+
 
 const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
 
@@ -20,7 +26,11 @@ ReactDOM.render(
 <Provider store={store}>
   <Router>
     <Switch>
-      <Route path="/" component={App} exact />
+      <Route path="/" component={HomePage} exact />
+      <Route path="/notes" component={RequireAuth(App)} exact />
+      {/* <Route path="/notes" component={Notes} exact /> */}
+      <Route path="/login" component={SignIn} exact />
+      <Route path="/users" component={SignUp} exact />
       <Route path="/create" component={CreateNewNote} exact />
       <Route path="/view/:id" component={Note} exact />
       <Route path="/edit/:id" component={EditNote} exact />

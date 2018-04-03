@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import './App.css';
 import { getAllNotes } from '../../actions';
 
+import { Link } from 'react-router-dom';
+
 class App extends Component {
   componentDidMount() {
     this.props.getAllNotes();
@@ -16,6 +18,10 @@ class App extends Component {
     return (
       <div className="App">
         <Sidebar />
+        <div>
+          <Link to='/login'>Login</Link>
+          <Link to='/users'>Register</Link>
+        </div>
         <div className="Notes-Section">
           <header>Your Notes: </header>
           <div className="Notes-Container">
