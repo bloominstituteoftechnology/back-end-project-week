@@ -2,9 +2,12 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
+const session = require("express-session");
 
 //models to import
 const NoteModel = require("./models/NoteModel");
+const UserModel = require("./models/UserModel");
 
 //server and database setup
 const port = process.env.PORT || 3001;
@@ -24,6 +27,21 @@ mongoose.Promise = global.Promise;
 app.get("/", (req, res) => {
     res.json(`it's alive!`);
 });
+
+//post handler for adding a new user
+app.post("/api/newUser", (req, res) => {
+
+});
+
+//post handler for allowing a user to login
+app.post("/api/login", (req, res) => {
+
+})
+
+//get handler for accessing restricted content
+app.get("/api/restricted", (req, res) => {
+
+})
 
 //get handler for all notes
 app.get("/api/allNotes", (req, res) => {
