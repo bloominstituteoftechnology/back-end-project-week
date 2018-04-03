@@ -1,12 +1,10 @@
 const jwt = require('jsonwebtoken');
-
-const User = require('../models/userModels');
 const { key } = require('../../config');
 
 const authenticate = (req, res, next) => {
   const token = req.get('Authorization');
   if (token) {
-    jwt.verify(token, mysecret, (err, decoded) => {
+    jwt.verify(token, key, (err, decoded) => {
       if (err) return res.status(422).json(err);
       req.decoded = decoded;
       next();

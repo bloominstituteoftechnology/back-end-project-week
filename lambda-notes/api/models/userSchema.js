@@ -4,16 +4,16 @@ const COST = 11;
 
 const UserSchema = new mongoose.Schema({
     firstName: {
-        type: String,
-        required: true,
+        type: String
     },
     lastName: {
-        type: String,
-        required: true,
+        type: String
     },
     username: {
         type: String,
         required: true,
+        unique: true,
+        lowercase: true
     },
     password: {
         type: String,
@@ -21,7 +21,6 @@ const UserSchema = new mongoose.Schema({
     },
     createdOn: {
         type: Date,
-        required: true,
         default: Date.now
     },
     posts: []
