@@ -1,0 +1,23 @@
+[{
+    "_id": {
+        "$oid":"5aa995d3b97194b732c1680f"
+    },
+    "author": "Dixie Korley",
+    "title": "School",
+    "content": "Fake content",
+    "createdOn": {
+        "$date": "2014-12-10T15:11:50.376Z"
+    }
+},
+{
+
+    "_id": {
+       "$oid":"5aa995d3b97194b732c16810"
+    },
+    "author": "Johnathan Matthews",
+    "title": "Fire Ball",
+    "content": "Fake content 2",
+    "createdOn": {
+        "$date": "2014-12-10T15:11:50.376Z"
+    }
+}]
