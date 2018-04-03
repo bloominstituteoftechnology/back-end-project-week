@@ -3,7 +3,6 @@ import Sidebar from '../Sidebar/Sidebar';
 import NotesList from '../NotesList/NotesList';
 import { connect } from 'react-redux';
 import './App.css';
-
 import { getAllNotes } from '../../actions';
 
 class App extends Component {

@@ -19,8 +19,6 @@ class Note extends React.Component {
   }
   render() {
     console.log('NOTE PROPS', this.props)
-    console.log('NOTEARRID', this.props.match.params.id)
-    console.log('NOTEID', this.props.state.notes[0]);
     return (
       <div className="Container">
         <div className="Sidebar-Container">
