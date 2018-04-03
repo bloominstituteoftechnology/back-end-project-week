@@ -23,9 +23,9 @@ export default class App extends React.Component {
     authenticated: false,
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     if (localStorage.getItem('token')) {
-      this.getNotes();
+      await this.getNotes();
       return this.setState({
         authenticated: true,
       });
@@ -44,25 +44,31 @@ export default class App extends React.Component {
   deauthenticate = _ => {
     this.setState({
       authenticated: false,
+      notes: [],
     });
   };
 
   handleNoteViewIndex = inputId => {
     for (let i = 0; i < this.state.notes.length; i++) {
-      if (this.state.notes[i].id === inputId) this.noteIndex = i;
+      if (this.state.notes[i]._id === inputId) this.noteIndex = i;
     };
   };
 
   getNotes = async _ => {
-    const res = await axios.get(`${ROOT_URL}/notes`, {
-      headers: {
-        Authorization: localStorage.getItem('token'),
-        uuID: localStorage.getItem('uuID'),
-      },
-    });
-    this.setState({
-      notes: res.data.allNotes,
-    });
+    try {
+      const res = await axios.get(`${ROOT_URL}/notes`, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+          uuID: localStorage.getItem('uuID'),
+        },
+      });
+      console.log(res.data.allNotes);
+      this.setState({
+        notes: res.data.allNotes,
+      });
+    } catch (err) {
+      return console.log(err);
+    };
   };
 
   handleCreateNote = async inputNote => {
@@ -72,10 +78,9 @@ export default class App extends React.Component {
       body: inputNote.body,
     };
     try {
-      const res = await axios.post(`${ROOT_URL}/notes`, newNote);
-      console.log('Success!', res);
+      await axios.post(`${ROOT_URL}/notes`, newNote);
     } catch (err) {
-      console.error(err);
+      return console.error(err);
     };
   };
 
