@@ -11,20 +11,20 @@ server.use(express.json());
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/noteSchema');
 
-server.get('/', (request, response) => {
+server.get('/', (req, res) => {
   Note.find({}, (err, database) => {
     if (err) {
-      response.status(500);
-      response.json(err);
-    }else {
-      response.json(database);
+      res.status(500);
+      res.json(err);
+    } else {
+      res.json(database);
     }
   });
 });
 
 server.listen(PORT, err => {
   if (err) {
-    console.log('Something is not right in the world.', err);
+    console.error('Server error, not connecting', err);
   } else {
     console.log(`The server is listening on port number: ${PORT}.`);
   }
