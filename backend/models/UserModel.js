@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-
+const Note = require('./NoteModel.js');
 const Schema = mongoose.Schema;
+const ObjectId = mongoose.Schema.Types.ObjectId;
 const BCRYPT_COST = 11;
 
 const UserSchema = new Schema({
@@ -9,16 +10,17 @@ const UserSchema = new Schema({
     required: true,
     type: String,
     unique: true,
-    lowercase: true
+    lowercase: true,
   },
   password: {
     required: true,
-    type: String
+    type: String,
   },
   createdOn: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
+  notes: [{ type: ObjectId, ref: 'Note' }],
 });
 
 UserSchema.pre('save', function(next) {

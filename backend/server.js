@@ -14,6 +14,7 @@ mongoose
   .catch(err => console.error('Failed to connect to MongoDB!', err));
 
 // Notes endpoints
+//// Get all notes
 server.get('/notes', (req, res) => {
   Note.find({}, (err, notes) => {
     if (err) res.status(500).json('Failed to get notes: ', err);
@@ -21,6 +22,7 @@ server.get('/notes', (req, res) => {
   });
 });
 
+//// Save new note
 server.post('/notes', (req, res) => {
   const { title, content, createdBy } = req.body;
   if (!title || !content)
@@ -28,13 +30,28 @@ server.post('/notes', (req, res) => {
   const newNote = new Note({ title, content, createdBy });
   newNote
     .save()
-    .then(savedNote => res.status(200).json(savedNote))
+    .then(savedNote => {
+      res.status(200).json(savedNote);
+      return savedNote;
+    })
+    .then(savedNote => {
+      const userId = savedNote.createdBy;
+      const savedNoteId = savedNote.id;
+      User.findByIdAndUpdate(
+        userId,
+        { $push: { notes: [savedNoteId] } },
+        (err, res) => {
+          if (err) console.log(err);
+        },
+      );
+    })
     .catch(err => res.status(500).json('Error saving note: ', err));
 });
 
-// User endpoints
+// USER ENDPOINTS
+//// Create new User
 server.post('/users', (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   let { username, password } = req.body;
   username = username.toLowerCase();
   if (!username || !password)
@@ -43,7 +60,7 @@ server.post('/users', (req, res) => {
   newUser
     .save()
     .then(savedUser =>
-      res.status(200).json({ message: 'Successfully created!', savedUser })
+      res.status(200).json({ message: 'Successfully created!', savedUser }),
     );
 });
 
