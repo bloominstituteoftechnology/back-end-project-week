@@ -11,6 +11,7 @@ import NewNote from './comps/NewNote';
 import EditNote from './comps/EditNote';
 import Modal from './comps/Modal';
 import Login from './comps/Login';
+import Register from './comps/Register';
 
 // HOC
 import RequireAuth from './comps/RequireAuth';
@@ -31,6 +32,7 @@ class App extends React.Component {
           <Route path="/new" component={RequireAuth(NewNote)} />
           <Route path="/edit/:id" component={RequireAuth(EditNote)} />
           <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
         </div>
       </div>
     );
