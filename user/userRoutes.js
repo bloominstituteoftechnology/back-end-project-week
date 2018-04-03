@@ -53,7 +53,7 @@ userRouter.post('/login', function(req, res){
     			if(!valid){
     				res.json({error: 'Wrong email or password'});
     			}
-    			const token = jwt.sign(userObject, 'TOKEN_SECRET', { expiresIn: '1h' });
+    			const token = jwt.sign(userObject, 'TOKEN_SECRET', { expiresIn: '1000h' });
         		res.json({ token: token, name: user.name });
 			});
 		}

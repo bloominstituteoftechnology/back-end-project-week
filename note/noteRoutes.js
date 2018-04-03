@@ -7,6 +7,7 @@ const Note = require('./noteModel');
 const User = require('../user/userModel');
 
 const validateToken = (req, res, next) => {
+  console.log('valiating');
   const token = req.headers.authorization;
   console.log(req.body);
   console.log('validate token', token);
@@ -32,6 +33,7 @@ const validateToken = (req, res, next) => {
 };
 
 noteRouter.post('/', validateToken, function(req, res){
+  console.log('post api');
   let note = req.body;
   note.user = req.decoded.userId;
 	Note.create(note).then(post => {
@@ -46,6 +48,27 @@ noteRouter.get('/', validateToken, function(req, res){
 	}).catch(err => {
 		res.send(err);
 	});
+});
+
+noteRouter.put('/', validateToken, function(req, res){
+  console.log('req body edit', req.decoded);
+  Note.findOneAndUpdate({ _id: req.body.id, user: req.decoded.userId }, {$set:{title: req.body.title, content: req.body.content}}, { new: true }, function(err, note){
+        if(err){
+            res.send(err);
+        }
+        res.json(note);
+    });
+});
+
+noteRouter.delete('/:id', validateToken, function(req, res){
+  console.log('req body delete', req.decoded);
+  Note.findOneAndRemove({ _id: req.params.id, user: req.decoded.userId }, function(err, note){
+    console.log('deleted note', note);
+        if(err){
+            res.send(err);
+        }
+        res.json(note);
+    });
 });
 
 // noteRouter.get('/', function(req, res){
