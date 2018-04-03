@@ -32,8 +32,10 @@ server.get('/notes/:id', (req, res) => {
 //// Save new note
 server.post('/notes', (req, res) => {
   const { title, content, createdBy } = req.body;
-  if (!title || !content)
-    res.status(422).json('You need to enter a title and content!');
+  if (!title || !content) {
+    res.json({ message: 'You need to enter a title and content!' });
+    return;
+  }
   const newNote = new Note({ title, content, createdBy });
   newNote
     .save()
@@ -52,7 +54,9 @@ server.post('/notes', (req, res) => {
         }
       );
     })
-    .catch(err => res.status(500).json('Error saving note: ', err));
+    .catch(err =>
+      res.status(500).json({ message: 'Error saving note: ', error: err })
+    );
 });
 
 // USER ENDPOINTS

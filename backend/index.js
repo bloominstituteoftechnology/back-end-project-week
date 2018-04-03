@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+/* eslint-disable no-console */
+const mongoose = require('mongoose');
 const server = require('./server');
 
 const PORT = process.env.PORT || 5050;
