@@ -7,9 +7,9 @@ const User = require('./Schemas/user');
 const server = express();
 
 mongoose
-  .connect(`mongodb://localhost/notes`)
-  .then(() => console.log(`API connected...MongoDB connected...`))
-  .catch(() => console.log(`Connection to API failed`));
+  .connect('mongodb://localhost/notes')
+  .then(() => console.log('API connected...MongoDB connected...'))
+  .catch(() => console.log('Connection to API failed'));
 
 server.use(express.json());
 server.use(helmet());
@@ -30,14 +30,14 @@ server.post('/', (req, res) => {
     password,
   });
   user.save()
-    .then(newUser => {
+    .then((newUser) => {
       res.status(201).json(newUser);
     })
-    .catch(err => {
+    .catch((err) => {
       if (err) {
         res.status(400).json({ errorMessage: 'there was a user error', errorBody: err });
       }
-      res.status(500).json({ errorMessage: 'There was an internal error while saving the user to the database', err});
+      res.status(500).json({ errorMessage: 'There was an internal error while saving the user to the database', err });
     });
 });
 

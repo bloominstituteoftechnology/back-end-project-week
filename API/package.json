@@ -25,5 +25,11 @@
     "jsonwebtoken": "^8.2.0",
     "mongoose": "^5.0.12",
     "node-fetch": "^2.1.2"
+  },
+  "devDependencies": {
+    "eslint": "^4.17.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "react-scripts": "1.0.10"
   }
 }
