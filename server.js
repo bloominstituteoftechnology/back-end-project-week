@@ -15,7 +15,7 @@ server.use(cors(corsOptions));
 server.use(
   session({
     secret: 'e5SPiqsEtjexkTj3Xqovsjzq8ovjfgVDFMfUzSmJO21dtXs4re',
-    resave: false,
+    resave: true,
     saveUninitialized: false,
   })
 );

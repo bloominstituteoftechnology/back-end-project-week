@@ -6,7 +6,7 @@ const PORT = process.env.PORT || port;
 
 mongoose.Promise = global.Promise;
 mongoose
-  .connect('mongodb://localhost/lambda-notes', { useMongoClient: true })
+  .connect('mongodb://localhost/lambda-notes')
   .then(() => {
     console.log('Successfully connected to MongoDB');
   })

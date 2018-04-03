@@ -2,6 +2,8 @@ const User = require('../models/userModel');
 const Note = require('../models/noteModel');
 
 const addNote = (req, res) => {
+  console.log('req.session.username in addNote: ', req.session.username);
+
   const { title, content, userId } = req.body;
   const note = { title, content };
   const newNote = new Note(note);

@@ -1,7 +1,6 @@
 // const jwt = require('jsonwebtoken');
 // const { mysecret } = require('../../config');
 
-const session = require('express-session');
 const User = require('../models/userModel');
 
 const userLogin = (req, res) => {
