@@ -15,6 +15,6 @@ const Note = new Schema({
     }
 });
 
-const NoteModel = mongoose.model('Notes', Note);
+const NoteModel = mongoose.model('Note', Note);
 
-module.exports = BudgetModel;
+module.exports = NoteModel;
