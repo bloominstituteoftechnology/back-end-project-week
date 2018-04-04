@@ -10,6 +10,7 @@ import {
   SORT_NOTES,
   LOGIN_USER,
   LOGOUT_USER,
+  REGISTER_ERROR,
 } from '../actions';
 
 const initialState = {
@@ -84,6 +85,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload.username,
+    case REGISTER_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
         notes: action.payload.notes,
         authed: true,
       };
