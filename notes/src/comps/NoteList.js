@@ -26,10 +26,10 @@ const NoteList = props => {
       <div className="noteList">
         {props.notes.map(note => {
           return (
-            <div key={note.id} className="notelist__item">
+            <div key={note._id} className="notelist__item">
               <Link
-                to={`/view/${note.id}`}
-                onClick={() => props.selectNote(note.id)}
+                to={`/view/${note._id}`}
+                onClick={() => props.selectNote(note._id)}
               >
                 <NoteThumb note={note} />
               </Link>
