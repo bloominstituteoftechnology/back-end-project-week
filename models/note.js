@@ -9,7 +9,19 @@ const NoteSchema = mongoose.Schema({
     content: {
       type: String,
       required: true
+    },
+    createdAt: {
+      type: Date,
+      required: true,
+      default: Date.now(),
+    },
+    author: {
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: 'User', 
+      // required: true
     }
   });
 
-  module.exports = mongoose.model('Note', NoteSchema);
+const Note = mongoose.model('Note', NoteSchema);
+
+module.exports = Note;

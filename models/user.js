@@ -3,23 +3,19 @@ const bcrypt = require('bcrypt');
 const validator = require('validator');
 
 const UserSchema = mongoose.Schema({
-  // username: {
-  //   type: String,
-  //   unique: true,
-  //   lowercase: true,
-  //   required: true
-  // },
   email: {
     type: String,
     unique: true,
     lowercase: true,
     required: true,
+    trim: true,
     validate: [validator.isEmail, 'invalid email']
   },
   password: {
     type: String,
     required: true
-  }
+  },
+  notes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Note'}],
 });
 
 // notice something new here you haven't seen yet. This is a 'pre save hook'
