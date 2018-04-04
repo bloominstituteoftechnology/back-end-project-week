@@ -1,6 +1,6 @@
 import { ADD_NOTE, UPDATE_SELECTED, DELETE_NOTE, EDIT_NOTE } from "../actions";
 
-const initialState = [
+const initialNotes = [
   {
     id: 0,
     title: "Note Title",
@@ -13,11 +13,11 @@ Donec venenatis arcu dui, quis ultricies mauris iaculis in. Mauris a ex aliquet 
   }
 ];
 
-export const notesReducer = (state = initialState, action) => {
+export const notesReducer = (notes = initialNotes, action) => {
   switch (action.type) {
     case ADD_NOTE:
       return [
-        ...state,
+        ...notes,
         {
           id: action.id,
           title: action.payload.title,
@@ -26,17 +26,17 @@ export const notesReducer = (state = initialState, action) => {
         }
       ];
     case UPDATE_SELECTED:
-      return state.map(note => {
+      return notes.map(note => {
         if (note.id === action.payload)
           return { ...note, selected: !note.selected };
         else return note;
       });
     case DELETE_NOTE:
-      return state.filter(note => {
+      return notes.filter(note => {
         if (note.id !== action.payload) return note;
       });
     case EDIT_NOTE:
-      return state.map(note => {
+      return notes.map(note => {
         if (note.id === action.payload.id)
           return {
             ...note,
@@ -46,7 +46,7 @@ export const notesReducer = (state = initialState, action) => {
         else return note;
       });
     default:
-      return state;
+      return notes;
   }
 };
 

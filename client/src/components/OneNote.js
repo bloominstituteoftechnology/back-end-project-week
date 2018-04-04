@@ -74,7 +74,7 @@ class OneNote extends Component {
 
 const mapPropToStates = state => {
   return {
-    notes: state
+    notes: state.notes
   };
 };
 

@@ -34,7 +34,7 @@ class MainView extends Component {
 
 const mapStateToProps = state => {
   return {
-    notes: state
+    notes: state.notes
   };
 };
 
