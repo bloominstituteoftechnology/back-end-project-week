@@ -45,8 +45,8 @@ class NewNote extends Component {
                         <input className="newNote__form__title" value={this.state.title} onChange={this.handleNewTitle} />
                         <textarea className="newNote__form__content" rows="15" columns="15" value={this.state.content} onChange={this.handleNewContent}/>
                         <a className="newNote__form__save" href="/">
-                            <div className="newNote__form__button onClick={this.handleSubmit}">
-                                <p className="newNote__form__button__text">Save</p>
+                            <div className="newNote__form__button">
+                                <p className="newNote__form__button__text" onClick={this.handleSubmit}>Save</p>
                             </div>
                         </a>
                     </form>
