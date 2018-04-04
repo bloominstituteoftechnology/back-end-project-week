@@ -3,15 +3,6 @@ import React, { Component, Link } from "react";
 class Menu extends Component {
   constructor(props){
     super(props);
-
-    this.state = {
-    }
-  }
-
-
-  componentWillMount(){
-    this.setState({notes: this.props.notes});
-    console.log(this.state.notes);
   }
 
   render() {
@@ -41,7 +32,8 @@ class Menu extends Component {
             )
         })} */}
 
-        
+        <div>title: {this.props.noteProps.title}</div>
+        <div>content: {this.props.noteProps.content}</div>
       </div>
       )
   }

@@ -14,10 +14,10 @@ class App extends Component {
   }
 
   componentWillMount = () => {
-    axios.get("http://localhost:3001/")
+    axios.get("http://localhost:3001/api/allNotes")
       .then(response => {
-        console.log(`Reponse: ${response.data}`)
-        this.setState({notes: response.data})
+        console.log(`Reponse: ${response.data}`);
+        this.setState({notes: response.data});
       })
       .catch(err => {
         console.log(`There was an error: \n ${err}`);
@@ -26,12 +26,35 @@ class App extends Component {
 
   render() {
     console.log(this.state.notes);
+    const result = this.state.notes ? this.state.notes.map((noteObj, i) => {
+      return (
+        <Menu key={i} noteProps={noteObj} />
+        // <div key={i}>
+          
+        //   {/* <div>
+        //     <h1 style={styles.bg}>{noteObj.title}</h1>
+        //     <h1 style={styles.bg1}>{noteObj.content}</h1>
+        //   </div> */}
+        // </div>
+      );
+    }) : <h1>Loading</h1>;
+    
     return (
-      <div className="App">
-        <h1>{this.state.notes.message}</h1>
+      <div className="App" >
+        {result}
       </div>
     );
   }
 }
+
+const styles = {
+  bg: {
+    backgroundColor: 'red'
+  },
+  bg1: {
+    backgroundColor: 'blue'
+  }
+}
+
 
 export default App;
