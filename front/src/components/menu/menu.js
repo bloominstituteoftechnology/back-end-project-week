@@ -8,7 +8,7 @@ class Menu extends Component {
   render() {
     return (
       <div className="menu">
-        {/* <div className="menu__header">
+        <div className="menu__header">
           <p>Sparks Note</p>
         </div>
 
@@ -20,20 +20,7 @@ class Menu extends Component {
           <a href="/newnote" className="menu__buttons__links"><div className="menu__buttons--align">
             <p className="menu__buttons__text">+ Create New Note</p>
           </div></a>
-
-        </div> */}
-
-        {/* {this.props.notes.map((noteObj, i) => {
-            return(
-                <div>
-                    <h1>{noteObj.title}</h1>
-                    <p>{noteObj.content}</p>
-                </div>
-            )
-        })} */}
-
-        <div>title: {this.props.noteProps.title}</div>
-        <div>content: {this.props.noteProps.content}</div>
+        </div>}
       </div>
       )
   }
