@@ -31,12 +31,12 @@ const AppStyled = styled.div`
 // App Component starts here
 class App extends Component {
   state = {
+    showingSignup: true,
+    showingLogin: false,
     viewingNotes: true,
     creatingNote: false,
     editingNote: false,
     showingNoteDetails: false,
-    showingSignupPage: true,
-    showingLoginPage: false,
     authenticated: false,
     notes: [],
     noteDetails: {
@@ -62,6 +62,41 @@ class App extends Component {
       this.setState({ notes: newState });
     });
   }
+
+  loginUser = userInfo => {
+    axios
+      .post('http://localhost:5000/login', userInfo)
+      .then(res => {
+        localStorage.setItem('token', res.data.token);
+      })
+      .then(() => this.setState({ authenticated: true }))
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  logoutUser = () => {
+    localStorage.removeItem('token');
+    this.setState({
+      authenticated: false,
+      showLogin: true,
+      showSignup: false
+    })
+  }
+
+  showLogin = () => {
+    this.setState({
+      showingLogin: true,
+      showingSignup: false
+    });
+  };
+
+  showSignup = () => {
+    this.setState({
+      showingSignup: true,
+      showingLogin: false
+    });
+  };
 
   viewNotes = () => {
     this.setState({
@@ -158,16 +193,19 @@ class App extends Component {
           viewNotes={this.viewNotes}
           createNewNoteForm={this.createNewNoteForm}
           authenticated={this.state.authenticated}
-          showingLoginPage={this.state.showingLoginPage}
-          showingSignupPage={this.state.showingSignupPage}
+          showingLogin={this.state.showingLogin}
+          showingSignup={this.state.showingSignup}
+          showLogin={this.showLogin}
+          showSignup={this.showSignup}
+          logoutUser={this.logoutUser}
         />
 
         <div className="Content">
           {!this.state.authenticated &&
-            this.state.showingLoginPage && <Login />}
+            this.state.showingLogin && <Login loginUser={this.loginUser} />}
 
           {!this.state.authenticated &&
-            this.state.showingSignupPage && <Signup />}
+            this.state.showingSignup && <Signup showLogin={this.showLogin} />}
 
           {this.state.authenticated &&
             this.state.viewingNotes &&

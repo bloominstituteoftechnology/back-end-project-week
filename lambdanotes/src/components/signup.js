@@ -117,6 +117,7 @@ class Signup extends Component {
           passwordMatch: true
         });
       })
+      .then(() => this.props.showLogin())
       .catch(err => console.log(err));
   };
 

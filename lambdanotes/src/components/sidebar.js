@@ -22,10 +22,11 @@ const SideBarStyled = styled.div`
   }
 
   .SidebarContainer {
-    position: fixed;
+    // position: fixed;
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
   }
 `;
 
@@ -55,12 +56,12 @@ const Sidebar = props => {
       <div className="SidebarContainer">
         <h1>Lambda Notes</h1>
         {!props.authenticated &&
-          props.showingLoginPage &&
-          !props.showingSignupPage && <ButtonStyled>Sign Up</ButtonStyled>}
+          props.showingLogin &&
+          !props.showingSignup && <ButtonStyled onClick={props.showSignup}>Sign Up</ButtonStyled>}
 
         {!props.authenticated &&
-          props.showingSignupPage &&
-          !props.showingLoginPage && <ButtonStyled>Login</ButtonStyled>}
+          props.showingSignup &&
+          !props.showingLogin && <ButtonStyled onClick={props.showLogin}>Login</ButtonStyled>}
 
         {props.authenticated && (
           <div>
@@ -71,7 +72,7 @@ const Sidebar = props => {
               + Create New Note
             </ButtonStyled>
 
-            <ButtonStyled>Sign Out</ButtonStyled>
+            <ButtonStyled onClick={props.logoutUser}>Logout</ButtonStyled>
           </div>
         )}
       </div>
