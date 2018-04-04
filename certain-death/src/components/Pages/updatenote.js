@@ -24,7 +24,7 @@ const UpdateNote = props => (
     <LeftRail />
     <div className='update-note__right'>
       <SectionTitle name='Edit Your Note:'/>
-      <UpdateForm id={props.match.params.id}/>
+      <UpdateForm id={props.match.params.id} history={props.history}/>
     </div>
   </StyledUpdateNote>
 );

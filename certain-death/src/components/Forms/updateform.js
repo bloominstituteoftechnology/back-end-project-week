@@ -67,7 +67,7 @@ class UpdateForm extends React.Component {
       id: this.props.id,
       title: this.state.title,
       body: this.state.body,
-    });
+    }, this.props.history);
     this.setState({
       title: '',
       body: '',

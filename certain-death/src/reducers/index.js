@@ -1,3 +1,5 @@
+/* eslint no-underscore-dangle: [0] */
+
 import {
   ADDING_NOTE,
   ADDED_NOTE,
@@ -126,7 +128,11 @@ export default (state = initialState, action) => {
     case UPDATED_NOTE:
       return {
         ...state,
-        updatingNote: false,
+        notes: [...state.notes].map((val) => {
+          if (val._id !== action.payload.data._id) {
+            return val;
+          } return action.payload.data;
+        }),
       };
     case UPDATE_SEARCH:
       return {

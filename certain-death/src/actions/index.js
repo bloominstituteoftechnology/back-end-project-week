@@ -129,7 +129,7 @@ export const toggleDelete = data => ({
   type: TOGGLE_DELETE,
 });
 
-export const updateNote = (data) => {
+export const updateNote = (data, history) => {
   const config = {
     headers: {
       Authorization: localStorage.getItem('notesToken'),
@@ -144,12 +144,13 @@ export const updateNote = (data) => {
   return (dispatch) => {
     dispatch({ type: UPDATING_NOTE });
     note
-      .then(({ updatedNote }) => {
+      .then((updatedNote) => {
         dispatch({ type: UPDATED_NOTE, payload: updatedNote });
       })
       .catch((err) => {
         dispatch({ type: ERROR, payload: err });
       });
+    history.push(`/fullnote/${id}`);
   };
 };
 

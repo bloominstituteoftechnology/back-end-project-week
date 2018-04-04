@@ -118,7 +118,7 @@ server.put('/updatenote', authenticate, (req, res) => {
         res.status(404).json({ errorMessage: 'The note with the specified ID does not exist' });
       }
       console.log(alteredNote);
-      res.status(200).json({ alteredNote });
+      res.status(200).json(alteredNote);
     })
     .catch((err) => {
       res.status(500).json({ error: 'The note could not be updated', err });
