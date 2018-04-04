@@ -29,7 +29,7 @@ class MainPage extends React.Component {
   }
 
   render() {
-    console.log('rendering', this.state.notes);
+    // console.log('rendering', this.state.notes);
     return (
       <div>
         <div style={this.state.deleting ? { visibility: 'visible' } : { visibility: 'hidden' } }>
@@ -126,11 +126,9 @@ class MainPage extends React.Component {
         { headers: { "Authorization": this.props.currentUser.token }}
       )
       .then(res => {
-        console.log(res.data);
-        console.log('were about to run setState, but here is the new note', newNote);
         this.setState({
           currentNote: newNote,
-          notes: this.state.notes.map(note => { console.log('note:',note); if (note._id === newNote._id) {return newNote} else {return note} } )
+          notes: this.state.notes.map(note => { if (note._id === newNote._id) {return newNote} else {return note} } )
         });
       })
       .catch(err => {
@@ -144,7 +142,6 @@ class MainPage extends React.Component {
   };
 
   deleteCurrentNote = () => {
-    console.log('before axios');
     axios
       .delete(
         'http://localhost:3030/api/notes',
@@ -162,7 +159,6 @@ class MainPage extends React.Component {
         console.error(err);
         console.error(err.response);
       });
-      console.log('after axios');
   };
 
   updateSearchValue = (str) => {
@@ -183,7 +179,7 @@ class MainPage extends React.Component {
     axios
       .get('http://localhost:3030/api/notes', { headers: { "Authorization": this.props.currentUser.token }})
       .then(foundNotes => {
-        console.log('this is what we found', foundNotes);
+        // console.log('this is what we found', foundNotes);
         this.setState({ notes: foundNotes.data, notesLoaded: true });
       })
       .catch(err => {

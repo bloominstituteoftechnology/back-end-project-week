@@ -10,7 +10,7 @@ const modifyNote = (req, res) => {
         return;
       }
       if (note.author.toString() !== author) {
-        console.log(typeof author,author, 'vs', typeof note.author, note.author);
+        // console.log(typeof author,author, 'vs', typeof note.author, note.author);
         res.status(422).json({ message: 'Wrong Author.'});
         return;
       }
