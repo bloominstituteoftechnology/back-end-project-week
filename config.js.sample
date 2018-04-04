@@ -1,0 +1,3 @@
+module.exports = {
+    secret: 'Create**Ur*-Secret=+Key-'
+};

@@ -128,7 +128,7 @@ export const deleteNote = (noteKey) => {
     const key = noteKey;
 
     console.log('ready to delte key ', noteKey);
-    const newNotes = axios.delete(`http://localhost:3333/notes/delete/${key}`, {
+    const newNotes = axios.delete(`http://localhost:3040/api/note/${key}`, {
         key: key,
     });
     return dispatch => {
@@ -145,7 +145,7 @@ export const deleteNote = (noteKey) => {
 export const updateNote = (noteObj) => {
 
     const key = noteObj.key;
-    const newNotes = axios.put(`http://localhost:3333/notes/update/${key}`, {
+    const newNotes = axios.put(`http://localhost:3040/api/note/${key}`, {
         key:key,
         noteObj,
     });
