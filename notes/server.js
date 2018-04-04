@@ -22,6 +22,14 @@ server.get('/', (req, res) => {
   });
 });
 
+server.get('/notes/:id', (req, res) => {
+  const { id } = req.params;
+  Note.findById(id, (err, note) => {
+    if (err) console.error(err);
+    res.status(200).json({ message: 'here is your note!', note });
+  });
+});
+
 server.post('/notes', (req, res) => {
   const noteInfo = req.body;
   const note = new Note(noteInfo);
