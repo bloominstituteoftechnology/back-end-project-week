@@ -1,8 +1,6 @@
 const UserModel = require('../models/userModel');
 
 const createUser = (req, res) => {
-    console.log('rthis.password:::', this.password);
-
     const user = new UserModel(req.body);
     user.save()
         .then(user => res.status(201).send(user))
