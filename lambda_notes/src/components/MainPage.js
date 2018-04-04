@@ -118,8 +118,24 @@ class MainPage extends React.Component {
   };
 
   replaceCurrentNoteInArr = (newNote) => {
-    this.setState({...this.state, currentNote: newNote, notes: this.state.notes.map(note => { if (note.id === newNote.id) {return newNote} else {return note} } )
-    });
+    axios
+      .put(
+        'http://localhost:3030/api/notes',
+        newNote,
+        { headers: { "Authorization": this.props.currentUser.token }}
+      )
+      .then(res => {
+        console.log(res.data);
+        if(!newNote._id) {
+          newNote._id = res.data._id;
+        }
+        this.setState({...this.state, currentNote: newNote, notes: this.state.notes.map(note => { if (note.id === newNote.id) {return newNote} else {return note} } )
+        });
+      })
+      .catch(err => {
+        console.error(err);
+        console.error(err.response);
+      });
   }
 
   toggleDeleting = () => {
