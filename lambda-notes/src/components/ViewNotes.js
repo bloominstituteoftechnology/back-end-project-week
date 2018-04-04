@@ -21,7 +21,7 @@ class ViewNotes extends Component {
           <div className="allNotes">
             {this.props.notes.map((note, i) => {
               return (
-                <div className="noteCard" key={note._id}>
+                <div className="noteCard" key={i}>
                   <Link to={`/view-note/${note._id}`}>
                     <div className="noteTitle">{note.title}</div>
                     <div className="noteBody">{note.body}</div>

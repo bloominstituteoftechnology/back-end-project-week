@@ -36,7 +36,7 @@ class SignUp extends Component {
                   <input
                     type="text"
                     className="inputField"
-                    placeHolder="username"
+                    placeholder="username"
                     value={this.state.username}
                     name="username"
                     onChange={this.updateState}
@@ -46,7 +46,7 @@ class SignUp extends Component {
                   <input
                     type="text"
                     className="inputField"
-                    placeHolder="password"
+                    placeholder="password"
                     value={this.state.password}
                     name="password"
                     onChange={this.updateState}

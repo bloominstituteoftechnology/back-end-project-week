@@ -15,6 +15,7 @@ class CreateNote extends Component {
   };
 
   addNote = e => {
+    e.preventDefault();
     const theNote = Object.assign({}, this.state);
     this.props.addNote(theNote, this.props.history);
     this.setState({
