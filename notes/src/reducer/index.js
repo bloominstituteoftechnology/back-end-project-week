@@ -8,9 +8,10 @@ import {
   DELETE_NOTE,
   SELECT_NOTE,
   SORT_NOTES,
-  LOGIN_USER,
   LOGOUT_USER,
   REGISTER_ERROR,
+  USER_LOGGED_IN,
+  LOGIN_ERROR,
 } from '../actions';
 
 const initialState = {
@@ -18,7 +19,7 @@ const initialState = {
   modalVisible: false,
   selectedNote: {},
   sortType: 'id',
-  authed: false,
+  loggedIn: false,
   error: null,
 };
 
@@ -90,8 +91,17 @@ const reducer = (state = initialState, action) => {
         ...state,
         error: action.payload,
       };
+    case USER_LOGGED_IN:
+      return {
+        ...state,
         notes: action.payload.notes,
-        authed: true,
+        loggedIn: true,
+      };
+    case LOGIN_ERROR:
+      return {
+        ...state,
+        loggingIn: false,
+        error: action.payload,
       };
     case LOGOUT_USER:
       return {
