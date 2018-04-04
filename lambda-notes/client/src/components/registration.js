@@ -6,9 +6,24 @@ class Registration extends Component {
     constructor() {
         super();
         this.state = {
+            firstname: '',
+            lastname: '',
             username: '',
             password: '',
         };
+        this.handleUsername = this.handleUsername.bind(this);
+        this.handlePassword = this.handlePassword.bind(this);
+        this.handleFirstName = this.handleFirstName.bind(this);
+        this.handleLastName = this.handleLastName.bind(this);
+        this.createUser = this.createUser.bind(this);
+    }
+
+    handleFirstName(event) {
+        this.setState({ firstname: event.target.value });
+    }
+
+    handleLastName(event) {
+        this.setState({ firstname: event.target.value });
     }
 
     handleUsername(event) {
@@ -43,16 +58,16 @@ class Registration extends Component {
                     <h3>A free platform for those who love taking notes. Sign up now.</h3>
                     <form>
                         <p className="p__shift">First Name:</p>
-                        <input placeholder="Sara" type="text" name="firstname" />
+                        <input placeholder="Sara" type="text" name="firstname" onChange={this.handleFirstName} value={this.state.firstame} />
 
                         <p className="p__shift">Last Name:</p>
-                        <input placeholder="Smith" type="text" name="lastname" onChange={this.handleUsername} value={this.state.username} />
+                        <input placeholder="Smith" type="text" name="lastname" onChange={this.handleLastName} value={this.state.handleLastName} />
 
                         <p className="p__shift">Username:</p>
-                        <input placeholder="so2018" type="text" name="lastname" onChange={this.handlePassword} value={this.state.password} />
+                        <input placeholder="so2018" type="text" name="lastname" onChange={this.handleUsername} value={this.state.username} />
 
                         <p className="p__shift">Password:</p>
-                        <input type="text" name="lastname" />
+                        <input type="text" name="lastname" onChange={this.handlePassword} value={this.state.password} />
                         <br />
 
                         <button onClick={this.createUser} className="button__registration">Submit</button>
