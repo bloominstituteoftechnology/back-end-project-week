@@ -39,6 +39,17 @@ export default class NoteList extends React.Component {
     };
   };
 
+  componentWillReceiveProps(nextProps) {
+    this.boolEmptyNotes = false;
+    this.setState({
+      notes: nextProps.notes,
+    });
+  };
+
+  componentDidUpdate() {
+    console.log('Component updated');
+  };
+
   handleNoteIndex = index => {
     this.props.handleNoteViewIndex(index);
   };

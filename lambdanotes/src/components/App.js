@@ -21,11 +21,12 @@ export default class App extends React.Component {
   state = {
     notes: [],
     authenticated: false,
+    hasNewNotes: false,
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     if (localStorage.getItem('token')) {
-      await this.getNotes();
+      this.getNotes();
       return this.setState({
         authenticated: true,
       });
@@ -62,10 +63,11 @@ export default class App extends React.Component {
           uuID: localStorage.getItem('uuID'),
         },
       });
-      console.log(res.data.allNotes);
-      this.setState({
-        notes: res.data.allNotes,
-      });
+      if (res.data.status === 'success') {
+        this.setState({
+          notes: res.data.allNotes,
+        });
+      };
     } catch (err) {
       return console.log(err);
     };
