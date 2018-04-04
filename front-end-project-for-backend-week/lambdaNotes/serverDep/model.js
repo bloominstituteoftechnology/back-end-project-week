@@ -9,7 +9,11 @@ const lambdaNotesSchema = new Schema({
   content: {
     type: String,
     required: true
-  }
+  },
+  date: {
+    type: Date,
+    required: true,
+  },
 });
 
 lambdaNotesSchema.methods.getNoteTitle = function() {

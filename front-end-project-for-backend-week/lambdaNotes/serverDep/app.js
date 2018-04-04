@@ -3,9 +3,13 @@ const server = require('./server');
 
 const port = 2323;
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/lambdaNotes', {}, err => {
+mongoose.connect('mongodb://localhost/lambdaNotes', {}, err => {
   if (err) throw new Error(err);
   console.log('DB up and running');
+});
+
+mongoose.connect('mongodb://localhost/users', {
+  useMongoClient: true
 });
 
 server.listen(port, () => {
