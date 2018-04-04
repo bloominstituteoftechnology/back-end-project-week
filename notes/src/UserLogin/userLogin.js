@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { userLogin } from '../Redux/actions/index';
+import LeftBar from '../LeftBar/LeftBar';
 import './userLogin.css';
 
 class UserLogin extends Component {
-
   handleFormSubmit = ({ username, password }) => {
-      this.props.userLogin(username, password, this.props.history);
+    this.props.userLogin(username, password, this.props.history);
   };
 
   renderAlert = () => {
@@ -17,20 +17,37 @@ class UserLogin extends Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-      <div>
-        <div>Login</div>
-        <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-          <fieldset>
-            <label>Username:</label>
-            <Field name="username" component="input" type="text" />
-          </fieldset>
-          <fieldset>
-            <label>Password:</label>
-            <Field name="password" component="input" type="password" />
-          </fieldset>
-          <button action="submit">Submit</button>
-          {this.renderAlert()}
-        </form>
+      <div className="container">
+        <LeftBar />
+        <div className="login-content">
+          <div className="login-fields">
+            <div className="login-title">Login</div>
+            <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+              <fieldset>
+                <label className="field-title">Username:</label>
+                <Field
+                  className="field"
+                  name="username"
+                  component="input"
+                  type="text"
+                />
+              </fieldset>
+              <fieldset>
+                <label className="field-title">Password:</label>
+                <Field
+                  className="field"
+                  name="password"
+                  component="input"
+                  type="password"
+                />
+              </fieldset>
+              <button className="submit-button" action="submit">
+                Submit
+              </button>
+              {this.renderAlert()}
+            </form>
+          </div>
+        </div>
       </div>
     );
   }

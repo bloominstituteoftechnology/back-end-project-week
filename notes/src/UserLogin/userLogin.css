@@ -1,0 +1,55 @@
+.login-content {
+  width: 825px;
+  border: 1px solid #9b9b9b;
+  border-left: 0px;
+  background: #f3f3f3;
+  padding-top: 10px;
+}
+
+.login-fields {
+  margin: 35px 0px 0px 50px;
+}
+
+.login-title {
+  font-family: 'Roboto', 'Segoe UI', 'Open Sans', 'Arial';
+  font-size: 40px;
+  letter-spacing: 3px;
+  color: #4a494a;
+  margin-bottom: 50px;
+}
+
+.field-title {
+  font-size: 30px;
+  font-family: 'Roboto', 'Segoe UI', 'Open Sans', 'Arial';
+  color: #4a494a;
+}
+
+.field {
+  height: 100px;
+  border: red 1px solid;
+  font-size: 30px;
+  font-family: 'Roboto', 'Segoe UI', 'Open Sans', 'Arial';
+  width: 240px;
+  height: 55px;
+  margin-left: 18px;
+  margin-bottom: 20px;
+  padding-top: 3px;
+  font-size: 18px;
+  letter-spacing: 0.3px;
+  font-weight: bold;
+  box-sizing: border-box;
+  border: 1px solid #9b9b9b;
+}
+
+.submit-button {
+  width: 405px;
+  height: 53px;
+  margin: 30px 0px 65px 0px;
+  font-family: 'Roboto', 'Segoe UI', 'Open Sans', 'Arial';
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  color: white;
+  background: #2ac0c4;
+  border: 1px solid #9b9b9b;
+}

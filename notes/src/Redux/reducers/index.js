@@ -34,15 +34,6 @@ const NoteReducer = (notes = [], action) => {
     case GET_NOTES:
       console.log('in getnotes reducer: ', action.payload);
       return action.payload;
-    // case ADD_NOTE:
-    //   return [
-    //     ...notes,
-    //     {
-    //       title: action.payload.title,
-    //       content: action.payload.content,
-    //       id: action.payload._id,
-    //     },
-    //   ];
     case EDIT_NOTE:
       return notes.map(each => {
         if (each._id !== action.payload._id) return each;
