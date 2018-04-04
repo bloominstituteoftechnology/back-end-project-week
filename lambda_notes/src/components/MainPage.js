@@ -105,7 +105,8 @@ class MainPage extends React.Component {
         { headers: { "Authorization": this.props.currentUser.token }}
       )
       .then(res => {
-        console.log(res.data);
+        console.log(res.data.message);
+        noteObj._id = res.data.id;
         this.setState({ ...this.state, notes: this.state.notes.concat([noteObj]) });
       })
       .catch(err => {
@@ -126,9 +127,6 @@ class MainPage extends React.Component {
       )
       .then(res => {
         console.log(res.data);
-        if(!newNote._id) {
-          newNote._id = res.data._id;
-        }
         this.setState({...this.state, currentNote: newNote, notes: this.state.notes.map(note => { if (note.id === newNote.id) {return newNote} else {return note} } )
         });
       })
