@@ -53,6 +53,15 @@ server.post('/notes/:id', (req, res) => {
     });
 });
 
+server.delete('/notes/:id', (req, res) => {
+  const { id } = req.params;
+  Note
+    .findByIdAndRemove(id, (err, deletedNote) => {
+      if (err) console.error(err);
+      res.status(200).json({ message: 'note deleted!', deletedNote });
+    });
+});
+
 server.listen(PORT, err => {
   if (err) {
     console.error('Server error, not connecting', err);
