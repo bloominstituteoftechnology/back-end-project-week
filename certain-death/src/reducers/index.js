@@ -26,7 +26,6 @@ const initialState = {
   loggingIn: false,
   loggedIn: false,
   addingNote: false,
-  jwt: null,
 };
 
 export default (state = initialState, action) => {
@@ -64,7 +63,6 @@ export default (state = initialState, action) => {
         ...state,
         loggingIn: false,
         loggedIn: true,
-        jwt: action.payload,
       };
     case LOGGING_IN:
       return {
