@@ -4,7 +4,8 @@ import { reduxForm, Field } from 'redux-form';
 import { signUp } from '../actions/signUpandIn';
 
 class SignUp extends Component {
-  handleFormSubmit({ email, password, confirmPass, history }) {
+  handleFormSubmit({ email, password, confirmPass }) {
+    const { history } = this.props;
     this.props.signUp(email, password, confirmPass, history);
   }
 
@@ -15,7 +16,6 @@ class SignUp extends Component {
 
   render() {
     const { handleSubmit } = this.props;
-
     return (
       <form onSubmit={handleSubmit(this.handleFormSubmit)}>
         <fieldset>

@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
 
 const routes = require('./api/routes/routes');
 
@@ -17,6 +18,7 @@ server.use(cors(corsOptions));
 
 routes(server);
 
+mongoose.Promise = global.Promise;
 mongoose
   .connect('mongodb://localhost/lambda-notes')
   .then(conn => {
