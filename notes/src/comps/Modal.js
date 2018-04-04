@@ -10,7 +10,7 @@ const Modal = props => {
       <div className="modal__box">
         <div className="modal__box-text">Are you sure you want to delete this?</div>
         <div className="modal__box-buttons">
-          <Link to="/" onClick={props.deleteNote} className="modal__box-button delete">
+          <Link to="/" onClick={() => props.deleteNote(props.selectedNote._id)} className="modal__box-button delete">
             Delete
           </Link>
           <div onClick={props.toggleModal} className="modal__box-button no">
@@ -25,6 +25,7 @@ const Modal = props => {
 const mapStateToProps = state => {
   return {
     notes: state.notes,
+    selectedNote: state.selectedNote,
   };
 };
 
