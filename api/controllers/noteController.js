@@ -15,8 +15,8 @@ const createNote = (req, res) => {
 };
 
 const getAllNotes = (req, res) => {
-  if (!req.headers) return sendUserError('No token on Authorization header.');
-  Note.find({ user: req.headers }, (err, notes) => {
+  const user = req.decoded;
+  Note.find({ user }, (err, notes) => {
     if (err) return res.status(500).json({ error: 'Could not get notes' });
     res.json(notes);
   });

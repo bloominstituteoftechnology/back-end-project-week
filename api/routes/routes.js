@@ -12,7 +12,7 @@ const {
 module.exports = server => {
   server.route('/api/users').post(createUser);
   server.route('/api/login').post(login);
-  server.route('/api/notes/get').get(authenticate, getAllNotes);
+  server.get('/api/notes/get', authenticate, getAllNotes);
   server.route('/api/notes/get/:id').get(singleNote);
   server.route('/api/notes/create').post(createNote);
   server.route('/api/notes/update').put(updateNote);

@@ -32,6 +32,7 @@ const login = (req, res) => {
       if (match) {
         const payload = {
           email: user.email,
+          id: user.id,
         };
         const token = jwt.sign(payload, mysecret);
         res.json({ message: 'successfully logged in', token });

@@ -8,7 +8,8 @@ const authenticate = (req, res, next) => {
   const token = req.get('Authorization');
   if (token) {
     jwt.verify(token, mysecret, (err, decoded) => {
-      if (err) return sendUserError('Token invalid, please login', err);
+      if (err)
+        return res.status(422).json({ err: 'Token invalid, please login' });
       req.decoded = decoded;
       next();
     });
