@@ -7,9 +7,11 @@ const routes = require('./api/routes');
 
 const server = express();
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: '*',
   credentials: true,
   methods: 'GET, POST, PUT, DELETE',
+  preflightContinue: false,
+  optionsSuccessStatus: 204
 };
 
 server.use(express.json());
