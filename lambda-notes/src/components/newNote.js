@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import { ROOT_URL } from '../config.js';
 
 class NewNote extends Component {
   state = {
@@ -12,21 +14,39 @@ class NewNote extends Component {
   // }
   noteSubmitHandler = (event) => {
       event.preventDefault();
-      const notes = this.props.notes;
-      if (notes.length === 0) {
-        let nextId = 0;
-        this.setState({ id: nextId, title: this.state.title, content: this.state.content })
-        notes.push(this.state);
-        notes.slice(-1)[0].id = nextId;
-        this.props.history.go(-1)
-      } else { 
-        let nextId = notes.slice(-1)[0].id + 1
-        this.setState({ id: nextId, title: this.state.title, content: this.state.content })
-        notes.push(this.state);
-        notes.slice(-1)[0].id = nextId; // this is crazy and shouldn't work this way but it does
-        this.props.history.push('/')
-      }
-  }
+      const userId = localStorage.getItem('userId');
+      const title = this.state.title;
+      const content = this.state.content;
+        axios
+          .post(`${ROOT_URL}/api/notes/new`, 
+          {
+            user: userId,
+            title,
+            content
+          })
+          .then(res => {
+            console.log(res);
+            this.props.history.push('/notes');
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      };
+      // const notes = this.props.notes;
+      // if (notes.length === 0) {
+      //   let nextId = 0;
+      //   this.setState({ id: nextId, title: this.state.title, content: this.state.content })
+      //   notes.push(this.state);
+      //   notes.slice(-1)[0].id = nextId;
+      //   this.props.history.go(-1)
+      // } else { 
+      //   let nextId = notes.slice(-1)[0].id + 1
+      //   this.setState({ id: nextId, title: this.state.title, content: this.state.content })
+      //   notes.push(this.state);
+      //   notes.slice(-1)[0].id = nextId; // this is crazy and shouldn't work this way but it does
+      //   this.props.history.push('/')
+      // }
+  // }
   noteChangeHandler = (event) => {
       let { name, value } = event.target;
       this.setState({ [name]: value });

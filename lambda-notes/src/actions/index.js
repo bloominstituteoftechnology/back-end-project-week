@@ -87,7 +87,3 @@ export const getNotes = () => {
       });
   };
 };
-
-export const newNote = () => {
-  
-}
