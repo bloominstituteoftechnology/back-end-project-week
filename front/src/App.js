@@ -20,6 +20,7 @@ class App extends Component {
     axios.get("http://localhost:3001/api/allNotes")
       .then(response => {
         this.setState({allNotes: response.data});
+        console.log(`The state in App.js was added successfully`)
       })
       .catch(err => {
         console.log(`There was an error: \n ${err}`);
