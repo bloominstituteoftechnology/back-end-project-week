@@ -101,7 +101,6 @@ class AllNotes extends Component {
                     : eachNote.content.slice(0, 105) + ' ...';
                 return (
                   <div className="note-box" key={eachNote.date}>
-                    {console.log(eachNote)}
                     <Link to={`/notes/${eachNote.date}`}>
                       <div className="note-title">{`${i + 1}. ${
                         eachNote.title

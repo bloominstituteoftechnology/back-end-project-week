@@ -46,8 +46,7 @@ class SingleNote extends Component {
       title: this.state.title,
       content: this.state.content,
     };
-
-    this.props.editNote(editedNote);
+    this.props.editNote(editedNote, this.state.note._id);
 
     this.setState({
       title: '',
@@ -59,7 +58,7 @@ class SingleNote extends Component {
   };
 
   deleteNote = () => {
-    this.props.deleteNote(this.state.note);
+    this.props.deleteNote(this.state.note._id);
   };
 
   toggleDelete = () => {

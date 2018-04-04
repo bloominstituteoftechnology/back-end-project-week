@@ -41,12 +41,12 @@ const NoteReducer = (notes = [], action) => {
     //   ];
     case EDIT_NOTE:
       return notes.map(each => {
-        if (each.id !== action.payload.id) return each;
+        if (each._id !== action.payload._id) return each;
         return action.payload;
       });
     case DELETE_NOTE:
       return notes.filter(each => {
-        return each.id !== action.payload.id;
+        return each._id !== action.payload._id;
       });
     default:
       return notes;

@@ -109,15 +109,13 @@ export const addNote = newNote => {
   };
 };
 
-export const editNote = editedNote => {
-  const notes = axios.delete(`${APIroot}${editedNote.id}`);
+export const editNote = (editedNote, id) => {
+  const notePackage = { editedNote, id };
+  const notes = axios.put(`${APIroot}/api/notes`, notePackage);
   return dispatch => {
     notes
-      .then(() => {
-        return axios.post(APIroot, editedNote);
-      })
-      .then(payload => {
-        dispatch({ type: EDIT_NOTE, payload: payload.data });
+      .then(res => {
+        dispatch({ type: EDIT_NOTE, payload: res.data });
       })
       .catch(error => {
         console.log('In actions: There was an error editing the note: ', error);
@@ -125,8 +123,8 @@ export const editNote = editedNote => {
   };
 };
 
-export const deleteNote = oldNote => {
-  const notes = axios.delete(`${APIroot}${oldNote.id}`);
+export const deleteNote = id => {
+  const notes = axios.delete(`${APIroot}/api/notes/${id}`);
   return dispatch => {
     notes
       .then(payload => {
