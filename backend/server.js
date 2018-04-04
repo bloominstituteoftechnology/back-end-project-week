@@ -15,9 +15,9 @@ server.use(express.json());
 
 const corsOptions = {
   "origin": "http://localhost:3000",
-  "AllowedHeaders": ['Content-Type', 'Authorization', 'body'],
+  // "AllowedHeaders": ['Content-Type', 'Authorization', 'body'],
   "credentials": true,
-  "methods": ['GET', 'PUT', 'POST', 'DELETE']
+  // "methods": ['GET', 'PUT', 'POST', 'DELETE']
 };
 
 // server.use((req, res, next) => {
@@ -25,7 +25,7 @@ const corsOptions = {
 // }); // middleware if I need to add it later
 
 server.use('/api/notes', noteRouter);
-server.use(cors());
+server.use(cors(corsOptions));
 userRouter(server);
 
 server.get('/', cors(), function(req, res) {
