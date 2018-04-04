@@ -12,7 +12,7 @@ const NoteSchema = new Schema({
   },
 });
 
-mongoose.connect('mongoose://localhost/NoteSchema');
+mongoose.connect('mongodb://localhost/NoteSchema');
 
 const Note = mongoose.model('Note', NoteSchema);
 
