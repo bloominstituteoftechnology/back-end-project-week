@@ -2,7 +2,7 @@ import {
   AUTHENTICATION_ERROR,
   USER_UNAUTHENTICATED,
   USER_AUTHENTICATED,
-} from '../actions/signUpandIn';
+} from '../actions';
 
 export default (auth = {}, action) => {
   switch (action.type) {

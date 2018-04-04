@@ -1,34 +1,45 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-import { login } from '../actions/signUpandIn';
+import { login } from '../actions';
+import { connect } from 'react-redux';
 
 class SignIn extends Component {
-  handleFormSubmit({ email, password, history }) {
-    login(email, password, history);
+  handleFormSubmit({ email, password }) {
+    this.props.login(email, password, this.props.history);
   }
 
-  errorAlert() {
+  renderAlert() {
     if (!this.props.error) return null;
     return <h3>{this.props.error}</h3>;
   }
 
   render() {
     const { handleSubmit } = this.props;
-
     return (
-      <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-        <fieldset>
-          <label>Email:</label>
-          <Field name="email" component="input" type="email" />
-        </fieldset>
-        <fieldset>
-          <label>Password:</label>
-          <Field name="password" component="input" type="password" />
-        </fieldset>
-        <button action="submit">Sign In</button>
-        {this.errorAlert()}
-      </form>
+      <div className="signin">
+        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+          <fieldset>
+            <label>Email: </label>
+            <Field
+              placeholder="email"
+              name="email"
+              component="input"
+              type="text"
+            />
+          </fieldset>
+          <fieldset>
+            <label>Password: </label>
+            <Field
+              placeholder="password"
+              name="password"
+              component="input"
+              type="password"
+            />
+          </fieldset>
+          <button action="submit">Sign In</button>
+          {this.renderAlert()}
+        </form>
+      </div>
     );
   }
 }
@@ -43,6 +54,6 @@ const mapStateToProps = state => {
 SignIn = connect(mapStateToProps, { login })(SignIn);
 
 export default reduxForm({
-  form: 'login',
+  form: 'signin',
   fields: ['email', 'password'],
 })(SignIn);
