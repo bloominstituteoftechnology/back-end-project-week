@@ -17,7 +17,7 @@ class SideBar extends React.Component {
     return (
       <div className="sidebar">
         <div className="logout-container">
-          <p>{this.props.currentUser.username}</p>
+          {/* <p>{this.props.currentUser.username}</p> */}
           <button className="side-buttons-logout" onClick={this.handleLogOut}>
             LogOut{' '}
           </button>

@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const ADD_BUTTON_CLICK = 'ADD_BUTTON_CLICK';
 export const VIEW_BUTTON_CLICK = 'VIEW_BUTTON_CLICK';
 export const ADD_NOTE = 'ADD_NOTE';
@@ -16,6 +18,10 @@ export const NEW_USER_CREATION = 'NEW_USER_CREATION';
 export const HANDLE_LOG_OUT = 'HANDLE_LOG_OUT';
 export const TOGGLE_CHECK = 'TOGGLE_CHECK';
 
+const getNotes = (async(userID) => {
+  return await(axios.get('http://localhost:3000/notes/' + userID))
+});
+
 export const add_button_click = () => {
   const payload = 'create-note';
   return {
@@ -33,7 +39,7 @@ export const view_button_click = () => {
 };
 
 let id = 9;
-export const add_note = note => {
+export const add_note = (note) => {
   const payload = { ...note, id: id++ };
   return {
     type: 'ADD_NOTE',
@@ -41,7 +47,7 @@ export const add_note = note => {
   };
 };
 
-export const view_note = note => {
+export const view_note = (note) => {
   const payload = { note, current: 'note' };
   return {
     type: 'VIEW_NOTE',
@@ -49,7 +55,7 @@ export const view_note = note => {
   };
 };
 
-export const edit_note_clicked = note => {
+export const edit_note_clicked = (note) => {
   const payload = { note, current: 'edit' };
   return {
     type: 'EDIT_NOTE_CLICKED',
@@ -57,14 +63,14 @@ export const edit_note_clicked = note => {
   };
 };
 
-export const edit_note = revised => {
+export const edit_note = (revised) => {
   return {
     type: 'EDIT_NOTE',
     payload: revised,
   };
 };
 
-export const delete_note = note => {
+export const delete_note = (note) => {
   const payload = { note, current: 'list' };
   return {
     type: 'DELETE_NOTE',
@@ -80,7 +86,7 @@ export const search_button_click = () => {
   };
 };
 
-export const search_results_clicked = results => {
+export const search_results_clicked = (results) => {
   const payload = { results, current: 'results' };
   return {
     type: 'SEARCH_RESULTS_CLICKED',
@@ -119,16 +125,23 @@ export const load_user_notes = (user, notes) => {
   };
 };
 
-let userID = 2;
-export const new_user_creation = user => {
-  const payload = { ...user, userID: userID++ };
-  return {
-    type: 'NEW_USER_CREATION',
-    payload,
-  };
+export const new_user_creation = (userID) => {
+  getNotes(userID)
+    .then((notes) => {
+      return (
+        console.log('This is happening'),
+      {
+        type: 'NEW_USER_CREATION',
+        payload: notes.data.foundNotes,
+      }
+      );
+    })
+    .catch(error => {
+      console.alert('You Done Fucked Up Mang')
+    })
 };
 
-export const handle_log_out = user => {
+export const handle_log_out = (user) => {
   return {
     type: 'HANDLE_LOG_OUT',
     payload: user,
@@ -144,7 +157,7 @@ export const update_check_list = (check, currentNote) => {
   };
 };
 
-export const toggle_check = note => {
+export const toggle_check = (note) => {
   return {
     type: 'TOGGLE_CHECK',
     payload: note,

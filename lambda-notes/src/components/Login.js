@@ -1,7 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
-import { view_button_click, load_user_notes, new_user_creation } from '../actions/index';
+import {
+  view_button_click,
+  load_user_notes,
+  new_user_creation,
+} from '../actions/index';
 
 import './css/Login.css';
 
@@ -18,7 +23,13 @@ class Login extends React.Component {
       <div className="login">
         <div className="login-body">
           <h1 className="login-header"> Sign In To Your Notes</h1>
-          <input placeholder="username" value={this.state.user} onChange={this.handleUserChange} />
+          <label> Username </label>
+          <input
+            placeholder="username"
+            value={this.state.user}
+            onChange={this.handleUserChange}
+          />
+          <label> Password </label>
           <input
             type="password"
             placeholder="password"
@@ -30,11 +41,13 @@ class Login extends React.Component {
             Login{' '}
           </button>
           <h1 className="new-header"> No Account? Create One Below </h1>
+          <label> Username </label>
           <input
             placeholder="username"
             value={this.state.newUser}
             onChange={this.handleNewUserChange}
           />
+          <label> Username (Must Be At Least 8 Characters)</label>
           <input
             type="password"
             placeholder="password"
@@ -50,23 +63,26 @@ class Login extends React.Component {
     );
   }
 
-  handleUserChange = event => {
+  handleUserChange = (event) => {
     this.setState({ user: event.target.value });
   };
-  handlePassChange = event => {
+  handlePassChange = (event) => {
     this.setState({ pass: event.target.value });
   };
-  handleNewUserChange = event => {
+  handleNewUserChange = (event) => {
     this.setState({ newUser: event.target.value });
   };
-  handleNewPassChange = event => {
+  handleNewPassChange = (event) => {
     this.setState({ newPass: event.target.value });
   };
   loginClicked = () => {
     let flag = false;
     let userIndex = -1;
     this.props.users.forEach((user, index) => {
-      if (user.username === this.state.user && user.password === this.state.pass) {
+      if (
+        user.username === this.state.user &&
+        user.password === this.state.pass
+      ) {
         flag = true;
         userIndex = index;
       }
@@ -81,34 +97,55 @@ class Login extends React.Component {
       this.setState({ user: '', pass: '' });
     }
   };
-  createClicked = () => {
-    let flag = true;
-    this.props.users.forEach(user => {
-      if (user.username === this.state.newUser) {
-        alert('The Chosen User Name Already Exists, Try Again');
-        this.setState({ newUser: '' });
-        return (flag = false);
-      }
-    });
-    if (flag === true) {
-      if (this.state.newUser === '' || this.state.newPass === '') {
-        alert('You must enter a username and password to create a new account.');
-        this.setState({ newUser: '', newPass: '' });
-      } else {
-        const user = { username: this.state.newUser, password: this.state.newPass, notes: [] };
-        this.props.new_user_creation(user);
-      }
+  createClicked = (event) => {
+    // let flag = true;
+    // this.props.users.forEach(user => {
+    //   if (user.username === this.state.newUser) {
+    //     alert('The Chosen User Name Already Exists, Try Again');
+    //     this.setState({ newUser: '' });
+    //     return (flag = false);
+    //   }
+    // });
+    // if (flag === true) {
+    if (this.state.newUser === '' || this.state.newPass === '') {
+      alert('You must enter a username and password to create a new account.');
+      this.setState({ newUser: '', newPass: '' });
+    } else if (this.state.newPass.length < 8) {
+      alert('Your password must be at least 8 characters.');
+      this.setState({ newPass: '' });
+    } else {
+      // const user = { username: this.state.newUser, password: this.state.newPass, notes: [] };
+      // this.props.new_user_creation(user);
+      event.preventDefault();
+
+      const newUser = {
+        username: this.state.newUser,
+        password: this.state.newPass,
+      };
+      axios
+        .post('http://localhost:3000/notes/createuser', newUser)
+        .then((data) => {
+          const userID = data.data.user._id;
+          new_user_creation(userID);
+        })
+        .catch((error) => {
+          alert('Username already exists, please try again');
+          this.setState({ newUser: '' });
+        });
     }
+    // }
   };
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     users: state.users,
     note: state.note,
   };
 };
 
-export default connect(mapStateToProps, { view_button_click, load_user_notes, new_user_creation })(
-  Login
-);
+export default connect(mapStateToProps, {
+  view_button_click,
+  load_user_notes,
+  new_user_creation,
+})(Login);
