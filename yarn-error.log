@@ -2499,7 +2499,7 @@ Lockfile:
 
 Trace: 
   Error: Command failed.
-  Exit code: 2
+  Exit code: 1
   Command: C:\WINDOWS\system32\cmd.exe
   Arguments: /d /s /c mocha --exit tests/*.test.js
   Directory: C:\Users\admin\Documents\programming\lambda\back-end-project-week

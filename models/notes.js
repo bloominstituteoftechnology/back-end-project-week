@@ -8,7 +8,7 @@ const Note = new mongoose.Schema({
     entry: {
         type: String,
     },
-    timeStamp: {
+    dateCreated: {
         type: String,
         default: new Date(),
     },
@@ -19,7 +19,8 @@ const Note = new mongoose.Schema({
     },
     author: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     }
 });
 

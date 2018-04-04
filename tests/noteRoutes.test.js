@@ -8,8 +8,9 @@ const Note = require('../models/notes');
 
 const server = require('../server');
 
-describe('UserRoutes', () => {
-    let id = '';
+describe('NotesRoutes', () => {
+    let noteId = '';
+    let userId = '';
 
     const authenticatedUser = request.agent(server);
     before(done => {
@@ -34,7 +35,7 @@ describe('UserRoutes', () => {
                 throw new Error(err);
                 return;
             }
-
+            userId = user._id;
             const newNote = {
                 title: 'test title',
                 entry: 'pointless',
@@ -45,7 +46,7 @@ describe('UserRoutes', () => {
                     throw new Error(err);
                     return;
                 }
-                id = note._id;
+                noteId = note._id;
                 User.update(
                     { _id: user._id },
                     { $push: { Notes: note._id } },
@@ -87,25 +88,12 @@ describe('UserRoutes', () => {
             console.log('we are disconnected');
         });
     });
-    describe('[GET] /users', () => {
-        it('should return all the users', done => {
-            authenticatedUser.get('/users').end((err, res) => {
-                if (err) {
-                    throw new Error(err);
-                    return;
-                }
-                expect(res.status).to.equal(200);
-                expect(res.body).to.be.an('array');
-                expect(res.body.length).to.equal(1);
-                done();
-            });
-        });
-    });
-    describe('[POST] /users/register', () => {
-        it('should create new user', done => {
+
+    describe('[POST] /notes/new', () => {
+        it('should create a new note', done => {
             authenticatedUser
-                .post('/users/register')
-                .send({ username: 'regTest', password: 'pass' })
+                .post('/notes/new')
+                .send({ title: 'testNote', entry: 'testEntry' })
                 .end((err, res) => {
                     if (err) {
                         throw new Error(err);
@@ -113,9 +101,9 @@ describe('UserRoutes', () => {
                     }
                     expect(res.status).to.equal(201);
 
-                    User.findOne({ username: 'regTest' })
-                        .then(u => {
-                            expect(u).to.not.be.null;
+                    Note.findById(res.body._id)
+                        .then(result => {
+                            expect(result).to.not.be.null;
                             done();
                         })
                         .catch(err => {
@@ -124,60 +112,105 @@ describe('UserRoutes', () => {
                         });
                 });
         });
-        it('should error with missing/bad info', done => {
+
+        it('should create the note on the correct user', done => {
             authenticatedUser
-                .post('/users/register')
-                .send({ password: 'pass' })
+                .post('/notes/new')
+                .send({ title: 'testNote', entry: 'testEntry' })
                 .end((err, res) => {
                     if (err) {
                         throw new Error(err);
                         return;
                     }
-                    expect(res.status).to.equal(422);
+                    expect(res.status).to.equal(201);
+
+                    User.findById(userId)
+                        .then(user => {
+                            expect(user.Notes).to.include(noteId);
+                            done();
+                        })
+                        .catch(err => {
+                            throw new Error(err);
+                            done();
+                        })
+                });
+        });
+    });
+
+    describe('[POST] /notes/remove/:id', () => {
+        it('should remove the note', done => {
+            authenticatedUser
+                .post(`/notes/remove/${noteId}`)
+                .end((err, res) => {
+                    if(err) {
+                        throw new Error(err);
+                        return;
+                    }
+                    expect(res.status).to.equal(200);
+                    Note.findById(noteId)
+                        .then(result => {
+                            expect(result).to.be.null;
+                            done();
+                        })
+                        .catch(err => {
+                            throw new Error(err);
+                            done();
+                        })
+                });
+        });
+    });
+
+    describe('[PUT] /notes/edit/:id', () => {
+        it('should edit a note', done => {
+            authenticatedUser
+                .put(`/notes/edit/${noteId}`)
+                .send({ title: 'edited', entry: 'skimask' })
+                .end((err, res) => {
+                    if(err) {
+                        throw new Error(err);
+                        return;
+                    }
+                    expect(res.status).to.equal(200);
+                    Note.findById(noteId)
+                        .then(result => {
+                            expect(result).to.deep.include({ title: 'edited', entry: 'skimask' });
+                            done();
+                        })
+                        .catch(err => {
+                            throw new Error(err);
+                            done();
+                        })
+                });
+        });
+    });
+
+    describe('[GET] /notes/:id', () => {
+        it('should return the correct note', done => {
+            authenticatedUser
+                .get(`/notes/${noteId}`)
+                .end((err, res) => {
+                    if(err) {
+                        throw new Error(err);
+                        return;
+                    }
+                    expect(res.status).to.equal(200);
+                    expect(res.body).to.deep.include({ title: 'test title', entry: 'pointless' });
                     done();
                 });
         });
     });
 
-    describe('[POST] /users/login', () => {
-        it('should log user in', done => {
+    describe('[GET] /notes/', () => {
+        it('should return all notes', done => {
             authenticatedUser
-                .post('/users/login')
-                .send({ username: 'test', password: 'admin' })
+                .get('/notes')
                 .end((err, res) => {
-                    if (err) {
+                    if(err) {
                         throw new Error(err);
                         return;
                     }
                     expect(res.status).to.equal(200);
-                    expect(res.body.success).to.equal(true);
-                    done();
-                });
-        });
-
-        it('should not log in a user that doesnt exist', done => {
-            authenticatedUser
-                .post('/users/login')
-                .send({ username: 'fake', password: 'fake' })
-                .end((err, res) => {
-                    if (err) {
-                        throw new Error(err);
-                        return;
-                    }
-
-                    expect(res.status).to.equal(422);
-                    done();
-                });
-        });
-
-        it('should not log in a user with the wrong password', done => {
-            authenticatedUser
-                .post('/users/login')
-                .send({ username: 'test', password: 'fake' })
-                .end((err, res) => {
-                    if (err) throw new Error(err);
-
-                    expect(res.status).to.equal(422);
+                    expect(res.body).to.be.an('array');
                     done();
                 });
         });

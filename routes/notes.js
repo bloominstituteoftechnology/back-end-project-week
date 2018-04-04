@@ -23,7 +23,7 @@ router.post('/new', (req, res) => {
                 user.Notes.push(note);
                 user.save()
                     .then(result => {
-                        res.send(note);
+                        res.status(201).send(note);
                     })
                     .catch(err => {
                         sendUserError(err, res);
@@ -49,7 +49,7 @@ router.post('/remove/:id', (req, res) => {
         });
 });
 
-router.post('/edit/:id', (req, res) => {
+router.put('/edit/:id', (req, res) => {
     const { title, entry } = req.body;
     Note.findOneAndUpdate({ _id: req.params.id, author: req.session.loggedIn }, { title, entry }, { new: true })
         .then(note => {
@@ -81,7 +81,6 @@ router.get('/:id', (req, res) => {
 router.get('/', (req, res) => {
     Note.find({ author: req.session.loggedIn })
         .then(notes => {
-            console.log(req.session.loggedIn);
             res.send(notes);
         })
         .catch(err => {
