@@ -1,22 +1,32 @@
 const express = require('express');
 const server = express();
-const isLoggedIn = require('../controllers/auth')
+const isLoggedIn = require('../controllers/auth');
 const Note = require('../models/notes-model');
 
 server.use(express.json());
 
-server.post('/note/create', isLoggedIn, (req, res) => {
-  const { noteTitle, noteBody } = req.body;
+server.post('/note/create', (req, res) => {
+  const { noteTitle, noteBody, username } = req.body;
   const newNote = {
     noteTitle,
     noteBody,
-    username: req.session.username
-  }
+    username,
+  };
   if (noteTitle && noteBody) {
     const note = new Note(req.body);
     note
       .save()
-      .then((note) => res.json(note))
+      .then((note) => {
+        if (note) {
+          Note.find({})
+            .then((notes) => {
+              if (notes) {
+                res.status(200).json(notes);
+              } else res.status(404).json({ message: 'No notes found.' });
+            })
+            .catch((err) => res.status(400).json(err));
+        } else res.status(500).json({ error: 'Unable to Save Note' });
+      })
       .catch((err) => {
         res.status(500).json(err);
       });
@@ -27,8 +37,8 @@ server.post('/note/create', isLoggedIn, (req, res) => {
   }
 });
 
-server.get('/notes', isLoggedIn, (req, res) => {
-  Note.find({ username: req.session.username })
+server.get('/notes', (req, res) => {
+  Note.find({})
     .then((notes) => {
       if (notes) {
         res.status(200).json(notes);
@@ -37,15 +47,15 @@ server.get('/notes', isLoggedIn, (req, res) => {
     .catch((err) => res.status(400).json(err));
 });
 
-server.get('/note/:id', isLoggedIn, (req, res) => {
-  Note.findById(req.params.id)
-    .then((note) => {
-      if (note) {
-        res.status(200).json(note);
-      } else res.status(404).json({ message: 'No note with that id.' });
-    })
-    .catch((err) => res.status(400).json(err));
-});
+// server.get('/note/:id', isLoggedIn, (req, res) => {
+//   Note.findById(req.params.id)
+//     .then((note) => {
+//       if (note) {
+//         res.status(200).json(note);
+//       } else res.status(404).json({ message: 'No note with that id.' });
+//     })
+//     .catch((err) => res.status(400).json(err));
+// });
 
 server.put('/note', isLoggedIn, (req, res) => {
   const { noteTitle, noteBody, id } = req.body;
@@ -59,7 +69,15 @@ server.put('/note', isLoggedIn, (req, res) => {
         if (note) {
           Note.findById(note.id)
             .then((note) => {
-              res.status(200).json(note);
+              if (note) {
+                Note.find({})
+                  .then((notes) => {
+                    if (notes) {
+                      res.status(200).json(notes);
+                    } else res.status(404).json({ message: 'No notes found.' });
+                  })
+                  .catch((err) => res.status(400).json(err));
+              } else res.status(500).json({ error: 'Unable to Save Note' });
             })
             .catch((err) => res.status(500).json(err));
         } else res.status(404).json({ message: 'No note with that id.' });
@@ -72,8 +90,18 @@ server.put('/note', isLoggedIn, (req, res) => {
 server.delete('/note', isLoggedIn, (req, res) => {
   const { id } = req.body.id;
   Note.findByIdAndRemove(id)
-    .then(note => res.status(200).json(note))
-    .catch(err => res.status(500).json(err));
+    .then((note) => {
+      if (note) {
+        Note.find({})
+          .then((notes) => {
+            if (notes) {
+              res.status(200).json(notes);
+            } else res.status(404).json({ message: 'No notes found.' });
+          })
+          .catch((err) => res.status(400).json(err));
+      } else res.status(500).json({ error: 'Unable to Save Note' });
+    })
+    .catch((err) => res.status(500).json(err));
 });
 
 module.exports = server;

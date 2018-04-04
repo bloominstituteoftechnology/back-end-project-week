@@ -1,14 +1,8 @@
 import * as actionTypes from '../actions/actions';
 
 const initialState = {
-  notes: [
-    {
-      title: 'This is a tile',
-      body: 'This is a body',
-      id: 0,
-    },
-  ],
-  addingNote: false,
+  notes: [],
+  creatingNote: false,
   currentNote: [],
   filteredNotes: [],
   searchText: '',
@@ -17,52 +11,75 @@ const initialState = {
 
 export const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.ADDNOTE:
+    case actionTypes.GETTING_NOTES:
+    return {
+      ...state,
+      gettingNotes: true,
+    };
+    case actionTypes.NOTES_RECEIVED:
+    return {
+      ...state,
+      gettingNotes: false,
+    };
+    case actionTypes.CREATE_NOTE:
       return {
         ...state,
-        notes: [...state.notes, action.payload],
         addingNote: true,
       };
-    case actionTypes.GETNOTE:
+    case actionTypes.NOTE_CREATED:
+      return {
+        ...state,
+        notes: [...action.payload],
+        addingNote: true,
+      };
+    case actionTypes.GET_NOTE:
       return {
         ...state,
         currentNote: state.notes.filter(
-          note => note.id === Number(action.payload)
+          (note) => note._id === action.payload
         ),
         addingNote: false,
       };
-    case actionTypes.DELETENOTE:
+    case actionTypes.DELETE_NOTE:
       return {
         ...state,
-        notes: state.notes.filter(note => note.id !== Number(action.payload)),
+        deletingNote: true,
         currentNote: [],
       };
-    case actionTypes.UPDATENOTE:
+    case actionTypes.NOTE_DELETED:
       return {
         ...state,
-        notes: state.notes.map(note => {
-          if (note.id !== action.payload.id) {
-            return note;
-          }
-          return {
-            ...action.payload,
-          };
-        }),
+        deletingNote: false,
+        notes: [...state.notes, action.payload],
+        currentNote: [],
+      };
+    case actionTypes.UPDATE_NOTE:
+      return {
+        ...state,
+        updatingNote: true,
+        notes: [...state.notes, action.payload],
+        currentNote: [],
+      };
+    case actionTypes.NOTE_UPDATED:
+      return {
+        ...state,
+        updatingNote: false,
+        notes: [...state.notes, action.payload],
         currentNote: [],
       };
     case actionTypes.SEARCH:
       return {
         ...state,
         filteredNotes: state.notes.filter(
-          note =>
-            note.title.toLowerCase().indexOf(action.payload.toLowerCase()) >= 0
-            ||
-            note.body.toLowerCase().indexOf(action.payload.toLowerCase()) >= 0
+          (note) =>
+            note.noteTitle.toLowerCase().indexOf(action.payload.toLowerCase()) >=
+              0 ||
+            note.noteBody.toLowerCase().indexOf(action.payload.toLowerCase()) >= 0
         ),
         searching: true,
         searchText: action.payload,
       };
-      case actionTypes.RESETSEARCH:
+    case actionTypes.RESETSEARCH:
       return {
         ...state,
         searching: action.payload,
