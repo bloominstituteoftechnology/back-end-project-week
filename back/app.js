@@ -55,7 +55,8 @@ const loginMid = (req, res, next) => {
 app.get("/", (req, res) => {
     const title = "cheese";
     const message = "dick";
-    res.json({title: "cheese", message: "dick"});
+    res.json({title: "test", message: "content"});
+    //res.send("testeroo")
 });
 
 //post handler for adding a new user

@@ -9,14 +9,18 @@ class App extends Component {
     super(props);
 
     this.state = {
+      notes: []
     }
   }
 
   componentWillMount = () => {
-    const self = this;
-    axios.get("http://localhost:3001/api/allNotes")
+    axios.get("http://localhost:3001/")
       .then(response => {
-        self.setState({notes: response.data});
+        console.log(`Reponse: ${response.data}`)
+        this.setState({notes: response.data})
+      })
+      .catch(err => {
+        console.log(`There was an error: \n ${err}`);
       })
   }
 
@@ -24,7 +28,7 @@ class App extends Component {
     console.log(this.state.notes);
     return (
       <div className="App">
-        <Menu notes={this.state.notes} />
+        <h1>{this.state.notes.message}</h1>
       </div>
     );
   }
