@@ -26,6 +26,6 @@ noteRouter.post('/new', function(req, res) {
     }
 });
 
-noteRouter.post('/', getNotes, validateToken);
+noteRouter.get('/', getNotes, validateToken);
 
 module.exports = noteRouter;
