@@ -1,5 +1,5 @@
-const User = require('./user');
-const bcrypt = require('bctypt');
+const User = require('./models/user-model');
+const bcrypt = require('bcrypt');
 
 const STATUS_USER_ERROR = 422;
 const BCRYPT_COST = 11;
