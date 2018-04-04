@@ -1,7 +1,7 @@
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
-export const UPDATE_NOTE = 'UPDATE_NOTE';
+export const UPDATE_ERROR = 'UPDATE_ERROR';
 export const TOGGLE_MODAL = 'TOGGLE_MODAL';
 export const DELETE_NOTE = 'DELETE_NOTE';
 export const SELECT_NOTE = 'SELECT_NOTE';
@@ -44,9 +44,15 @@ export const addNote = note => {
 };
 
 export const updateNote = note => {
-  return {
-    type: UPDATE_NOTE,
-    payload: note,
+  return dispatch => {
+    axios
+      .put(`${URI}/notes`, note)
+      .then(() => {
+        dispatch(fetchNotes());
+      })
+      .catch(err => {
+        dispatch({ type: UPDATE_ERROR, payload: err });
+      });
   };
 };
 
@@ -57,11 +63,10 @@ export const toggleModal = () => {
 };
 
 export const deleteNote = id => {
-  console.log('in action', id);
   return dispatch => {
     axios
       .delete(`${URI}/notes/${id}`)
-      .then((res) => {
+      .then(res => {
         dispatch({ type: DELETE_NOTE });
       })
       .then(() => {
