@@ -45,7 +45,7 @@ class App extends Component {
     noteDetails: {
       title: '',
       content: '',
-      id: ''
+      _id: ''
     }
   };
 
@@ -140,7 +140,7 @@ class App extends Component {
   };
 
   showNoteDetails = id => {
-    const noteToView = this.state.notes.find(note => note.id === id);
+    const noteToView = this.state.notes.find(note => note._id === id);
     this.setState({
       noteDetails: { ...noteToView },
       viewingNotes: false,
