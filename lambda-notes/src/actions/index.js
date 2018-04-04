@@ -83,7 +83,8 @@ export const getUsers = () => {
 
 export const logout = (history) => {
   return dispatch => {
-    localStorage.removeItem('token')
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
     dispatch({
       type: USER_UNAUTHENTICATED
     });
@@ -98,6 +99,7 @@ export const addNote = (theNote, history) => {
   const headers = { 
     authorization: localStorage.getItem('token')
   }
+  theNote.username = localStorage.getItem('username');
   return dispatch => {
     axios
       .post(`${ROOT_URL}/api/new-note`, theNote, {headers})

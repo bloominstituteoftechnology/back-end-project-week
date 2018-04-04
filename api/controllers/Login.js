@@ -30,7 +30,6 @@ const login = (req, res) => {
       }
       if (validated) {
         const token = getTokenForUser({ username: user.username });
-        req.session.username = user.username;
         res.json({ token });
       }
     });

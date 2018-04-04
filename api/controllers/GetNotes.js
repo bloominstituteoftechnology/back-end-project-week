@@ -17,8 +17,9 @@ const getNotes = (req, res) => {
   const { username } = req.params;
     User.findOne({ username: username })
       .populate('notes')
-      .then(popData => {
-        res.status(200).json(popData.notes);
+      .then(notes => {
+        console.log(notes);
+        res.status(200).json(notes.notes);
       })
       .catch(err => {
         res.status(422).json({ error: 'The notes could not be retrieved!' });
