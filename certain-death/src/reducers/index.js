@@ -65,6 +65,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         notes: action.payload,
+        sortStatus: 'Unsorted',
         gettingNotes: false,
       };
     case LOGGED_IN:
