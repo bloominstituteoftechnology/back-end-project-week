@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const Note = require('../models/note');
 const secret = require('../../config');
+const BadToken = require('../models/badToken');
 
 const createUser = (req, res) => {
   const newUser = new User(req.body);
@@ -34,7 +35,7 @@ const loginUser = (req, res) => {
       }
       if (match) {
         const payload = {
-          username: user.username,
+          userId: user._id,
         };
         const token = jwt.sign(payload, secret);
         res.status(200).json({ message: 'User Logged In', user, token });
@@ -43,16 +44,21 @@ const loginUser = (req, res) => {
   });
 };
 
-const logoutUser = (req, res) => {
-  if (req.decoded.username === req.body.username) {
+const logoutUser = (req, res, next) => {
+  if (req.decoded.userId === req.params.userId) {
+    const badToken = req.headers.authorization;
+    const newBadToken = new BadToken({badToken});
     const username = req.body;
-    User.findOne(username)
-      .then((user) => {
-        res.status(200).json({ message: 'User Logged Out', user });
-      })
-      .catch((error) => {
-        res.status(422).json({ message: 'User Log Out Failed', error });
-      });
+    newBadToken.save().then((token) => {
+      User.findOne(username)
+        .then((user) => {
+          res.status(200).json({ message: 'User Logged Out', user });
+          next();
+        })
+        .catch((error) => {
+          res.status(422).json({ message: 'User Log Out Failed', error });
+        });
+    });
   } else {
     res.status(422).json({ message: 'User Not Logged In' });
   }

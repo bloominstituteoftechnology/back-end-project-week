@@ -2,20 +2,31 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 const secret = require('../../config');
+const logout = require('./loggedOut');
+const BadToken = require('../models/badToken');
 
 const loggedIn = (req, res, next) => {
-  const token = req.get('Authorization');
-  if (token) {
-    jwt.verify(token, secret, (error, decoded) => {
-      if (error) {
-        return res.status(422).json({ message: 'Failed to Verify the Token', error });
+  const tokenToCheck = req.get('Authorization');
+  BadToken.find({ badToken: tokenToCheck })
+    .then((token) => {
+      if (token.length === 0) {
+        console.log('WHAT THE FUCK1')
+        jwt.verify(tokenToCheck, secret, (error, decoded) => {
+          if (error) {
+            return res
+              .status(422)
+              .json({ message: 'Failed to Verify the Token', error });
+          }
+          req.decoded = decoded;
+          next();
+        });
+      } else {
+        return res.status(200).json({ message: 'User Failed to Log In' });
       }
-      req.decoded = decoded;
-      next();
+    })
+    .catch((error) => {
+      return res.status(200).json({ message: 'User Failed to Log In' });
     });
-  } else {
-    return res.status(403).json({ message: 'No Token Provided on Header' });
-  }
 };
 
 module.exports = loggedIn;

@@ -2,7 +2,7 @@ const Note = require('../models/note');
 const User = require('../models/user');
 
 const createNote = (req, res) => {
-  if (req.decoded.username === req.body.username) {
+  if (req.decoded.userId === req.params.userId) {
     const { userId } = req.params;
     const newNote = new Note({ ...req.body, user: userId });
 
@@ -22,7 +22,7 @@ const createNote = (req, res) => {
 };
 
 const getNotes = (req, res) => {
-  if (req.decoded.username === req.body.username) {
+  if (req.decoded.userId === req.params.userId) {
     const { userId } = req.params;
     User.findById(userId).then((user) => {
       Note.find({ user: userId })
@@ -39,7 +39,7 @@ const getNotes = (req, res) => {
 };
 
 const getNote = (req, res) => {
-  if (req.decoded.username === req.body.username) {
+  if (req.decoded.userId === req.params.userId) {
     const { userId, noteId } = req.params;
     User.findById(userId).then((user) => {
       Note.findById(noteId)
@@ -58,7 +58,7 @@ const getNote = (req, res) => {
 };
 
 const updateNote = (req, res) => {
-  if (req.decoded.username === req.body.username) {
+  if (req.decoded.userId === req.params.userId) {
     const { userId, noteId } = req.params;
     const updates = req.body;
     User.findById(userId).then((user) => {
@@ -78,7 +78,7 @@ const updateNote = (req, res) => {
 };
 
 const deleteNote = (req, res) => {
-  if (req.decoded.username === req.body.username) {
+  if (req.decoded.userId === req.params.userId) {
     const { userId, noteId } = req.params;
     User.findById(userId).then((user) => {
       Note.findByIdAndRemove(noteId)

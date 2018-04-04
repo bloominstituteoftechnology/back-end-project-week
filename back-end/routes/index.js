@@ -10,7 +10,7 @@ module.exports = (app) => {
   app.route('/notes/login/').post(userController.loginUser);
 
   //logout user
-  app.route('/notes/logout/').post(loggedIn, userController.logoutUser);
+  app.route('/notes/logout/:userId').post(loggedIn, userController.logoutUser);
 
   //create note
   app.route('/notes/:userId').post(loggedIn, noteController.createNote);
