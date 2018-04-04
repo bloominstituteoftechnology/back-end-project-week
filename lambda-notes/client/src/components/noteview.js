@@ -8,13 +8,22 @@ class NoteView extends Component {
                     <h1 className="title">Lambda Notes</h1>
                     <button className="button__main">View Your Notes</button>
                     <br />
-                   <button className="button__main">+ Create New Note</button>
+                    <button className="button__main">+ Create New Note</button>
 
                 </div>
                 <div className="main">
-                     <div className="main__list">
-                         <h3 className="title__main">Your Notes:</h3>
-                         Testing
+                    <div className="main__list">
+
+                    <div className="button__side">
+                    <button>Edit</button>
+                    <button>Delete</button>
+                    </div>
+                        <h3 className="title__main">Your Notes:</h3>
+                        <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu laoreet neque. In volutpat, purus quis aliquam accumsan, neque mauris semper diam, vitae finibus diam augue eu massa. Vivamus ultricies nisl et tincidunt sollicitudin. Vestibulum id feugiat arcu. Nam viverra vitae lacus in vestibulum. Curabitur gravida neque posuere massa dapibus, vel malesuada purus scelerisque. Nunc blandit dolor sit amet ex molestie, a dapibus eros eleifend. Aenean quis mi arcu. Curabitur eu lacus tristique mauris convallis fringilla vestibulum non sem. Curabitur quis varius est. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+                        Phasellus sed pretium risus, vel congue orci. Integer tempor justo eget felis interdum pulvinar. Ut vel feugiat ipsum. Nullam commodo sem eget placerat hendrerit. Suspendisse in congue quam, ac finibus lorem. Cras sed imperdiet urna. Duis eget urna interdum, placerat est suscipit, molestie mauris. Phasellus tincidunt, tortor at aliquet congue, lacus ex facilisis ligula, eu commodo nibh augue eu purus.
+                        Phasellus quis urna sit amet erat rutrum sagittis. Vivamus sit amet rhoncus velit. Etiam et eleifend mi, ut dapibus erat. Pellentesque vestibulum consequat turpis quis vestibulum. Ut et erat ante. Phasellus risus risus, sagittis vel odio id, ultricies condimentum orci. Nam at diam feugiat, volutpat erat sit amet, maximus augue. Donec tortor urna, malesuada eget facilisis sed, placerat vitae ligula. Suspendisse at suscipit nunc. In hac habitasse platea dictumst. Vestibulum interdum magna at nunc pellentesque fermentum id varius nibh. Nullam accumsan facilisis lorem sit amet fringilla. Aenean a pharetra est. Proin ultrices tincidunt lacus, a molestie dolor scelerisque a.
+                        </p>
                     </div>
                 </div>
             </div>

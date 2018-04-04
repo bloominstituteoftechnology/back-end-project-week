@@ -6,8 +6,8 @@ import {
   Switch,
   Redirect
 } from 'react-router-dom';
-// import NewView from './components/newview.js';
-// import NoteView from './components/noteview.js';
+import NewView from './components/newview.js';
+import NoteView from './components/noteview.js';
 import EditView from './components/editview.js';
 // import Delete from './components/icons/delete.js';
 import './App.css';
@@ -21,7 +21,9 @@ class App extends Component {
       <div>
         <Route path='/' component={Registration} exact />
         <Route path='/user' component={ListView} />
-        <Route path='/user/edit' component={EditView} />
+        <Route path='/edit' component={EditView} />
+        <Route path='/create' component={NewView} />
+        <Route path='/view' component={NoteView} />
       </div>
      </Router>
     );

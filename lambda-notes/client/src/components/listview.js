@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import NoteList from './notelist';
-
+import { Link } from 'react-router-dom';
 class ListView extends Component {
     
     render() {
@@ -10,7 +10,7 @@ class ListView extends Component {
                     <h1 className="title">Lambda Notes</h1>
                     <button className="button__main">View Your Notes</button>
                     <br />
-                   <button className="button__main">+ Create New Note</button>
+                   <button className="button__main"><Link className="link" to='/create'>+ Create New Note</Link></button>
 
                 </div>
                 <div className="main">

@@ -13,9 +13,12 @@ class NewView extends Component {
 
                 </div>
                 <div className="main">
-                     <div className="main__list">
-                         <h3 className="title__main">Your Notes:</h3>
-                       Testing
+                    <div className="main__list">
+                        <h3 className="title__main">Create Note:</h3>
+                        <input className="note__input__title" placeholder="Note Title"></input>
+                        <textarea className="note__input__content" placeholder="Note Content"></textarea>
+                        <br />
+                        <button className="button__main__update">Save</button>
                     </div>
                 </div>
             </div>
