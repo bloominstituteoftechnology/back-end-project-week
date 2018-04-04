@@ -1,0 +1,100 @@
+.App {
+  text-align: left;
+}
+
+.title {
+  font-size: 2.5rem;
+  color: #4a494a;
+  font-weight: bold;
+  font-family: Roboto;
+  text-decoration: none;
+}
+
+.yournotes-header {
+  font-size: 1.7rem;
+  position: absolute;
+  top: 10px;
+  left: 290px;
+  color: #4a494a;
+  font-weight: bold;
+  font-family: Roboto;
+}
+
+.notes {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 148px 0px 0px 0px;
+}
+
+.sidebar {
+  /* z-index: 2; */
+  top: 0;
+  left: 0;
+  background-color: #d7d7d7;
+  height: 3000px;
+  width: 227px;
+  padding: 0px 0px 0px 15px;
+  /* color: #4a494a; */
+  /* position: fixed; */
+  border-right: 1px solid rgb(150, 150, 150);
+  /* border: 1px solid blue; */
+}
+
+.button {
+  width: 190px;
+  border: 1px solid rgb(150, 150, 150);
+  padding: 15px 5px 15px 5px;
+  margin: 0px 20px 10px 5px;
+  background-color: #5bbdc2;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  font-family: Roboto;
+  font-size: 0.9rem;
+  display: inline-block;
+}
+
+a {
+  text-decoration: none;
+}
+
+.list-notes {
+  display: flex;
+  flex-direction: column;
+  min-width: 190px;
+  width: 190px;
+  height: 200px;
+  border: 1px solid rgb(150, 150, 150);
+  padding: 15px 5px 15px 5px;
+  margin: 0px 10px 10px 10px;
+  background-color: rgb(255, 255, 255);
+  color: black;
+}
+
+.note-title {
+  font-weight: bold;
+  font-size: 1.3rem;
+  font-family: 'Roboto';
+  border-bottom: 1px solid #4a494a;;
+  padding-bottom: 5px;
+  box-sizing: border-box;
+}
+
+.note-message {
+  font-size: 0.9rem;
+  padding-top: 8px;
+  text-align: left;
+  font-family: 'Raleway';
+  overflow: hidden;
+}
+
+.note-app-body {
+  display: flex;
+  height: 100%;
+  /* border: 1px solid red; */
+}
+
+/* .notes-box {
+  border: 1px solid green;
+} */
