@@ -30,7 +30,7 @@ class Authenticator extends Component {
         <ul>{this.getLinks()}</ul>
       </div>
     </div> :
-      <div>
+      <div className="auth-links">
         <NavLink to="/">You Must Sign In To Save Your Notes</NavLink>
         <ul>{this.getLinks()}</ul>
       </div>
