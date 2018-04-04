@@ -1,4 +1,5 @@
 import axios from 'axios';
+const faker = require('faker');
 
 export const GET_WORD_SO_FAR = 'GET_WORD_SO_FAR';
 export const ADD_NOTES = 'ADD_NOTES';
@@ -88,9 +89,9 @@ export const signUpUser = (user) => {
     return dispatch => {
         newUser
             .then(({data}) => {
-                console.log('saved user::', data);
                 // dispatch({type: ADD_NOTES, payload: data});
-                // window.location = "/";
+                // TODO: should redirect to the sig in page with success message
+                window.location = "/";
             })
             .catch(err => {
                 dispatch({type: ERROR_GETTING_NOTES, payload: err});
@@ -99,10 +100,11 @@ export const signUpUser = (user) => {
 };
 
 export const addNote = (note) => {
-    const newNote = axios.post('http://localhost:3333/notes', {
+    const newNote = axios.post('http://localhost:3040/api/note', {
         title:note.title,
         description:note.description,
         tags:note.tags,
+        image:faker.image.avatar(),
     });
     return dispatch => {
         newNote
