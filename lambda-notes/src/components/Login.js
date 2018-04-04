@@ -35,16 +35,18 @@ class Login extends Component {
                 <div className="inputContainer">
                   <input
                     type="text"
-                    className="usernameField"
+                    className="inputField"
+                    placeHolder="username"
                     value={this.state.username}
                     name="username"
                     onChange={this.updateState}
                   />
                 </div>
                 <div className="inputContainer">
-                  <textarea
+                  <input
                     type="text"
-                    className="passwordField"
+                    className="inputField"
+                    placeHolder="password"
                     value={this.state.password}
                     name="password"
                     onChange={this.updateState}
