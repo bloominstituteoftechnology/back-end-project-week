@@ -9,6 +9,7 @@ export const SELECT_NOTE = 'SELECT_NOTE';
 export const SORT_NOTES = 'SORT_NOTES';
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
+export const REGISTER_ERROR = 'REGISTER_ERROR';
 export const NOTES_FETCHED = 'NOTES_FETCHED';
 export const ERROR_FETCHING = 'ERROR_FETCHING';
 
@@ -74,6 +75,16 @@ export const login = (userData) => {
     payload: userData,
   }
 }
+export const registerUser = userData => {
+  return dispatch => {
+    axios
+      .post(`${URI}/register`, userData)
+      .then()
+      .catch(err => {
+        dispatch({ type: REGISTER_ERROR, payload: err });
+      });
+  };
+};
 
 export const logout = () => {
   return {
