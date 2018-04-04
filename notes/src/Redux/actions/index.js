@@ -94,7 +94,6 @@ export const getNotes = id => {
   return dispatch => {
     notes
       .then(res => {
-        console.log('getNotes action: ', res.data.notes);
         dispatch({ type: GET_NOTES, payload: res.data.notes });
       })
       .catch(error => {
@@ -111,7 +110,6 @@ export const addNote = newNote => {
   return dispatch => {
     notes
       .then(responseNote => {
-        console.log('newNote.id in addNote action: ', newNote.userId);
         dispatch(getNotes(newNote.userId));
       })
       .catch(error => {

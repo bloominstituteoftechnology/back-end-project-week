@@ -24,18 +24,20 @@ class UserLogin extends Component {
             <div className="login-title">Login</div>
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>
               <fieldset>
-                <label className="field-title">Username:</label>
+                <label />
                 <Field
                   className="field"
+                  placeholder="Username"
                   name="username"
                   component="input"
                   type="text"
                 />
               </fieldset>
               <fieldset>
-                <label className="field-title">Password:</label>
+                <label />
                 <Field
                   className="field"
+                  placeholder="Password"
                   name="password"
                   component="input"
                   type="password"

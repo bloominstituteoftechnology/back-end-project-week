@@ -3,13 +3,22 @@ import { Link } from 'react-router-dom';
 import './LeftBar.css';
 
 export const LeftBar = props => {
-  const displayLogout = () => {
+  const displayLogoutOrRegister = () => {
     if (sessionStorage.getItem('id'))
       return (
         <Link to="/logout">
           <button className="left-bar_button">Logout</button>
         </Link>
       );
+    else
+      return [
+        <Link key={0} to="/login">
+          <button className="left-bar_button">Login</button>
+        </Link>,
+        <Link key={1} to="/register">
+          <button className="left-bar_button">Register</button>
+        </Link>,
+      ];
   };
 
   return (
@@ -22,7 +31,7 @@ export const LeftBar = props => {
         <Link to="/new-note">
           <button className="left-bar_button">+ Create New Note</button>
         </Link>
-        {displayLogout()}
+        {displayLogoutOrRegister()}
       </div>
     </div>
   );

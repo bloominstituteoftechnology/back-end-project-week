@@ -32,7 +32,6 @@ const AuthReducer = (auth = {}, action) => {
 const NoteReducer = (notes = [], action) => {
   switch (action.type) {
     case GET_NOTES:
-      console.log('in getnotes reducer: ', action.payload);
       return action.payload;
     case EDIT_NOTE:
       return notes.map(each => {

@@ -10,7 +10,6 @@ export default ComposedComponent => {
     }
 
     render() {
-      console.log('props in HOC: ', this.props);
       return (
         <div>
           {sessionStorage.getItem('id') && (

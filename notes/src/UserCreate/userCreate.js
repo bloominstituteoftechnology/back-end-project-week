@@ -2,12 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { userCreate } from '../Redux/actions/index';
+import LeftBar from '../LeftBar/LeftBar';
 import './userCreate.css';
 
 class UserCreate extends Component {
-
   handleFormSubmit = ({ username, password, confirmPassword }) => {
-      this.props.userCreate(username, password, confirmPassword, this.props.history);
+    this.props.userCreate(
+      username,
+      password,
+      confirmPassword,
+      this.props.history
+    );
   };
 
   renderAlert = () => {
@@ -17,24 +22,49 @@ class UserCreate extends Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-      <div>
-        <div>Register</div>
-        <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-          <fieldset>
-            <label>Username:</label>
-            <Field name="username" component="input" type="text" />
-          </fieldset>
-          <fieldset>
-            <label>Password:</label>
-            <Field name="password" component="input" type="password" />
-          </fieldset>
-          <fieldset>
-            <label>Confirm Password:</label>
-            <Field name="confirmPassword" component="input" type="password" />
-          </fieldset>
-          <button action="submit">Submit</button>
-          {this.renderAlert()}
-        </form>
+      <div className="container">
+        <LeftBar />
+        <div className="login-content">
+          <div className="login-fields">
+            <div className="login-title">Login</div>
+            <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+              <fieldset>
+                <label />
+                <Field
+                  className="field"
+                  placeholder="Username"
+                  name="username"
+                  component="input"
+                  type="text"
+                />
+              </fieldset>
+              <fieldset>
+                <label />
+                <Field
+                  className="field"
+                  placeholder="Password"
+                  name="password"
+                  component="input"
+                  type="password"
+                />
+              </fieldset>
+              <fieldset>
+                <label />
+                <Field
+                  className="field"
+                  placeholder="Confirm Password"
+                  name="confirmPassword"
+                  component="input"
+                  type="password"
+                />
+              </fieldset>
+              <button className="submit-button" action="submit">
+                Submit
+              </button>
+              {this.renderAlert()}
+            </form>
+          </div>
+        </div>
       </div>
     );
   }
