@@ -7,10 +7,10 @@ function ViewSingleNote(props) {
     
         return (
             <div className='view-singlenote'>
-                <div className="nav"> 
+                <ol className="nav"> 
                 <Link className='edit' to={`/EditView`}> edit </Link>
                 <Link className='delete' to={`/Deletemodal`}> delete </Link>
-                </div>
+                </ol>
                 <div className="singlenote-title"> {props.location.singlenote.title}</div>
                 <div className="singlenote-content"> {props.location.singlenote.paragraph}</div>
                 
