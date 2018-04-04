@@ -13,6 +13,12 @@ import EditNote from './EditNote';
 import './App.css';
 
 const ROOT_URL = 'http://localhost:5000/api';
+const requestHeader = {
+  headers: {
+    Authorization: localStorage.getItem('token'),
+    uuID: localStorage.getItem('uuID'),
+  },
+};
 
 export default class App extends React.Component {
   nextId = 0;
@@ -59,12 +65,7 @@ export default class App extends React.Component {
 
   getNotes = async _ => {
     try {
-      const res = await axios.get(`${ROOT_URL}/notes`, {
-        headers: {
-          Authorization: localStorage.getItem('token'),
-          uuID: localStorage.getItem('uuID'),
-        },
-      });
+      const res = await axios.get(`${ROOT_URL}/notes`, requestHeader);
       if (res.data.status === 'success') {
         return this.setState({
           notes: [...res.data.allNotes],
@@ -82,35 +83,34 @@ export default class App extends React.Component {
       body: inputNote.body,
     };
     try {
-      await axios.post(`${ROOT_URL}/notes`, newNote, {
-        headers: {
-          Authorization: localStorage.getItem('token'),
-        },
-      });
+      await axios.post(`${ROOT_URL}/notes`, newNote, requestHeader);
       await this.getNotes();
     } catch (err) {
       return console.error(err);
     };
   };
 
-  handleEditNote = inputNote => {
+  handleEditNote = async inputNote => {
     const editedNote = {
-      id: inputNote.id,
+      _id: inputNote._id,
       title: inputNote.title,
       body: inputNote.body,
     };
-    const editedNotes = [...this.state.notes];
-    editedNotes.splice(this.noteIndex, 1, editedNote);
-    this.setState({
-      notes: editedNotes,
-    });
+    try {
+      await axios.put(`${ROOT_URL}/notes`, editedNote, requestHeader);
+      await this.getNotes();
+    } catch (err) {
+      return console.error(err);
+    };
   };
 
-  handleDeleteNote = inputId => {
-    const lessNotes = this.state.notes.filter(note => note.id !== inputId);
-    this.setState({
-      notes: lessNotes,
-    });
+  handleDeleteNote = async inputId => {
+    try {
+      await axios.delete(`${ROOT_URL}/notes/${inputId}`, requestHeader);
+      await this.getNotes();
+    } catch (err) {
+      return console.error(err);
+    };
   };
 
   updateSortedNotes = sortedNotes => {

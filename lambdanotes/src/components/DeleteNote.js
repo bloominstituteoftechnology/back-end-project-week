@@ -8,7 +8,7 @@ const DeleteNote = props => {
     <div className="DeleteModal">
       <div className="DeleteModal-Box">
         <p>Are you sure you want to delete this?</p>
-        <Link to={"/"}><button type="button" onClick={() => {props.handleDeleteNote(props.id)}} className="DeleteModal-Box-Delete">Delete</button></Link>
+        <Link to={"/"}><button type="button" onClick={() => {props.handleDeleteNote(props._id)}} className="DeleteModal-Box-Delete">Delete</button></Link>
         <button type="button" onClick={() => {props.toggleModal()}} >No</button>
       </div>
     </div>

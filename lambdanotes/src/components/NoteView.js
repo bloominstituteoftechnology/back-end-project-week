@@ -10,6 +10,7 @@ export default class NoteView extends React.Component {
 
   state = {
     id: 0,
+    _id: '',
     title: '',
     body: '',
   };
@@ -22,18 +23,27 @@ export default class NoteView extends React.Component {
   componentDidMount() {
     this.setState({
       id: this.props.note.id,
+      _id: this.props.note._id,
       title: this.props.note.title,
       body: this.props.note.body,
     });
   };
 
+  renderNoNoteMessage = _ => {
+    if (this.state.id === 0) {
+      return <h2>No note to view!</h2>
+    };
+    return null;
+  }
+
   render() {
-    const { id, title, body } = this.state;
+    const { _id, title, body } = this.state;
     return (
       <div className="NoteView">
+      {this.renderNoNoteMessage()}
         {this.boolModal ? (
           <div>
-            <DeleteNote id={id} toggleModal={this.toggleModal} handleDeleteNote={this.props.handleDeleteNote} />
+            <DeleteNote _id={_id} toggleModal={this.toggleModal} handleDeleteNote={this.props.handleDeleteNote} />
           </div>
         ) : (null)}
         <div className="NoteView-Links">

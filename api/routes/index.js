@@ -8,5 +8,5 @@ module.exports = server => {
   server.route('/api/login').post(login);
   server.route('/api/notes').post(authenticate, createNote);
   server.route('/api/notes').put(authenticate, editNote);
-  server.route('/api/notes').delete(authenticate, deleteNote);
+  server.route('/api/notes/:_id').delete(authenticate, deleteNote);
 };

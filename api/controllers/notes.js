@@ -29,6 +29,7 @@ const listNotes = async function(req, res) {
 
 const editNote = async function(req, res) {
   const { uuid } = req.headers;
+  console.log(uuid);
   const { _id, title, body } = req.body;
 
   if (!uuid) return res.status(422).json({ error: 'No uuid in headers!' });
@@ -38,8 +39,11 @@ const editNote = async function(req, res) {
       title,
       body,
     };
-    const foundNote = await Note.findByIdAndUpdate(_id, updatedNote);
+    const foundNote = await Note.findById(_id);
+    if (foundNote.author+'' !== uuid) return res.status(422).json({ error: 'ID does not match author!' });
     if (!foundNote) return res.status(422).json({ error: 'No note with that ID found' });
+    console.log(foundNote.author+'');
+    await Note.updateOne(foundNote, updatedNote);
     res.json(updatedNote);
   } catch(err) {
     console.log(err);
@@ -49,13 +53,15 @@ const editNote = async function(req, res) {
 
 const deleteNote = async function(req, res) {
   const { uuid } = req.headers;
-  const { _id } = req.body;
+  const { _id } = req.params;
 
   if (!uuid) return res.status(422).json({ error: 'No uuid in headers!' });
   try {
-    const deletedNote = await Note.findByIdAndRemove(_id);
-    if (!deletedNote) return res.status(422).json({ error: 'No note with that ID found' });
-    res.json({ deleted: deletedNote });
+    const noteToDelete = await Note.findById(_id);
+    if (!noteToDelete) return res.status(422).json({ error: 'No note with that ID found' });
+    if (noteToDelete.author+'' !== uuid) return res.status(422).json({ error: 'ID does not match author!' });
+    await Note.deleteOne(noteToDelete);
+    res.json({ deleted: noteToDelete });
   } catch(err) {
     console.log(err);
     res.status(500).json({ status: err });

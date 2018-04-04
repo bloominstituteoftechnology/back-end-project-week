@@ -5,14 +5,14 @@ import './CreateNote.css';
 
 export default class EditNote extends React.Component {
   state = {
-    id: 0,
+    _id: '',
     title: '',
     body: '',
   };
 
   componentDidMount() {
     this.setState({
-      id: this.props.note.id,
+      _id: this.props.note._id,
       title: this.props.note.title,
       body: this.props.note.body,
     });
@@ -23,9 +23,9 @@ export default class EditNote extends React.Component {
   };
 
   handleSubmit = _ => {
-    const { id, title, body } = this.state;
-    this.props.handleEditNote({ id, title, body });
-    this.setState({ id: 0, title: '', body: '', });
+    const { _id, title, body } = this.state;
+    this.props.handleEditNote({ _id, title, body });
+    this.setState({ _id: '', title: '', body: '', });
   };
 
   render() {
