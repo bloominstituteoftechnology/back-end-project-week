@@ -70,7 +70,7 @@ export const getNotes = () => {
       .get(`${ROOT_URL}/api/notes`,
       {
         headers: { 
-          authorization: token,
+          // authorization: token,
           user: userId
         }
       })
