@@ -53,6 +53,7 @@ server.post('/notes', authenticate, (req, res) => {
 server.get('/notes/:id', authenticate, (req, res) => {
   const id = req.params.id;
   Note.findById(id)
+    .populate('createdBy')
     .then(note => {
       res.status(200).json(note);
     })

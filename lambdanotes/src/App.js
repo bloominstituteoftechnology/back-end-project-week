@@ -1,6 +1,7 @@
 // dependencies
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 import firebase from './firebase';
 
 // Components
@@ -10,6 +11,7 @@ import CreateNote from './components/create-note';
 import NoteDetails from './components/note-details';
 import EditNote from './components/edit-note';
 import DeleteModal from './components/delete-modal';
+import Signup from './components/signup';
 
 import './App.css';
 
@@ -32,17 +34,18 @@ class App extends Component {
     creatingNote: false,
     editingNote: false,
     showingNoteDetails: false,
+    authenticated: false,
     notes: [],
     noteDetails: {
       title: '',
       content: '',
-      id: '',
+      id: ''
     }
-  }
+  };
 
   componentDidMount() {
     const notesRef = firebase.database().ref('notes');
-    notesRef.on('value', (snapshot) => {
+    notesRef.on('value', snapshot => {
       let notes = snapshot.val();
       let newState = [];
       for (let note in notes) {
@@ -51,7 +54,7 @@ class App extends Component {
           id: note,
           title: notes[note].title,
           content: notes[note].content
-        })
+        });
       }
       this.setState({ notes: newState });
     });
@@ -63,9 +66,9 @@ class App extends Component {
       creatingNote: false,
       showingNoteDetails: false,
       editingNote: false,
-      deletingNote: false,
+      deletingNote: false
     });
-  }
+  };
 
   createNewNoteForm = () => {
     this.setState({
@@ -73,11 +76,11 @@ class App extends Component {
       creatingNote: true,
       showingNoteDetails: false,
       editingNote: false,
-      deletingNote: false,
+      deletingNote: false
     });
-  }
+  };
 
-  showNoteDetails = (id) => {
+  showNoteDetails = id => {
     const noteToView = this.state.notes.find(note => note.id === id);
     this.setState({
       noteDetails: { ...noteToView },
@@ -85,9 +88,9 @@ class App extends Component {
       creatingNote: false,
       showingNoteDetails: true,
       editingNote: false,
-      deletingNote: false,
+      deletingNote: false
     });
-  }
+  };
 
   showNoteEditForm = () => {
     this.setState({
@@ -95,36 +98,35 @@ class App extends Component {
       creatingNote: false,
       showingNoteDetails: false,
       editingNote: true,
-      deletingNote: false,
+      deletingNote: false
     });
-  }
+  };
 
   showDeleteModal = () => {
     this.setState({
-      deletingNote: true,
-    })
-  }
+      deletingNote: true
+    });
+  };
 
   closeDeleteModal = () => {
     this.setState({
-      deletingNote: false,
-    })
-  }
+      deletingNote: false
+    });
+  };
 
-  saveNewNote = (note) => {
+  saveNewNote = note => {
     const notesRef = firebase.database().ref('notes');
-    notesRef.push(note)
+    notesRef.push(note);
     this.viewNotes();
-  }
+  };
 
-  updateNote = (updatedNote) => {
+  updateNote = updatedNote => {
     this.setState({ noteDetails: updatedNote });
-    let notesRef = firebase.database().ref(`/notes/${updatedNote.id}`)
-    notesRef.update(updatedNote)
-    .then(() => {
-      this.showNoteDetails(updatedNote.id)
-        });
-  }
+    let notesRef = firebase.database().ref(`/notes/${updatedNote.id}`);
+    notesRef.update(updatedNote).then(() => {
+      this.showNoteDetails(updatedNote.id);
+    });
+  };
 
   getNextId = () => {
     if (this.state.notes.length === 0) return 0;
@@ -134,17 +136,17 @@ class App extends Component {
       let nextId = lastNote.id + 1;
       return nextId;
     }
-  }
+  };
 
   deleteNote = () => {
     let id = this.state.noteDetails.id;
-    console.log(id)
+    console.log(id);
     const notesRef = firebase.database().ref(`/notes/${id}`);
     notesRef.remove();
     // let updatedNotes = this.state.notes.filter(note => note.id !== this.state.noteDetails.id);
     // this.setState({ notes: updatedNotes });
     this.viewNotes();
-  }
+  };
 
   render() {
     return (
@@ -152,42 +154,55 @@ class App extends Component {
         <Sidebar
           viewNotes={this.viewNotes}
           createNewNoteForm={this.createNewNoteForm}
+          authenticated={this.state.authenticated}
         />
 
         <div className="Content">
-          {(this.state.viewingNotes && this.state.notes.length > 0) &&
-            <NotesList
-              notes={this.state.notes}
-              showNoteDetails={this.showNoteDetails}
-            />}
+          {!this.state.authenticated && <Signup />}
+          {this.state.authenticated &&
+            this.state.viewingNotes &&
+            this.state.notes.length > 0 && (
+              <NotesList
+                notes={this.state.notes}
+                showNoteDetails={this.showNoteDetails}
+              />
+            )}
 
-          {this.state.creatingNote &&
-            <CreateNote
-              getNextId={this.getNextId}
-              saveNewNote={this.saveNewNote}
-            />}
+          {this.state.authenticated &&
+            this.state.creatingNote && (
+              <CreateNote
+                getNextId={this.getNextId}
+                saveNewNote={this.saveNewNote}
+              />
+            )}
 
-          {this.state.showingNoteDetails &&
-            <NoteDetails
-              noteDetails={this.state.noteDetails}
-              showNoteEditForm={this.showNoteEditForm}
-              showDeleteModal={this.showDeleteModal}
-              style={{ padding: "0" }}
-            />}
+          {this.state.authenticated &&
+            this.state.showingNoteDetails && (
+              <NoteDetails
+                noteDetails={this.state.noteDetails}
+                showNoteEditForm={this.showNoteEditForm}
+                showDeleteModal={this.showDeleteModal}
+                style={{ padding: '0' }}
+              />
+            )}
 
-          {this.state.editingNote &&
-            <EditNote
-              noteDetails={this.state.noteDetails}
-              updateNote={this.updateNote}
-              showNoteEditForm={this.showNoteEditForm}
-              showNoteDetails={this.showNoteDetails}
-            />}
+          {this.state.authenticated &&
+            this.state.editingNote && (
+              <EditNote
+                noteDetails={this.state.noteDetails}
+                updateNote={this.updateNote}
+                showNoteEditForm={this.showNoteEditForm}
+                showNoteDetails={this.showNoteDetails}
+              />
+            )}
         </div>
-        {this.state.deletingNote &&
-          <DeleteModal
-            deleteNote={this.deleteNote}
-            closeDeleteModal={this.closeDeleteModal}
-          />}
+        {this.state.authenticated &&
+          this.state.deletingNote && (
+            <DeleteModal
+              deleteNote={this.deleteNote}
+              closeDeleteModal={this.closeDeleteModal}
+            />
+          )}
       </AppStyled>
     );
   }

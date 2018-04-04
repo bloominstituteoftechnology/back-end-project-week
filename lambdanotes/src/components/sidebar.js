@@ -35,7 +35,7 @@ const ButtonStyled = styled.button`
   height: 50px;
   width: 150px;
   background-color: rgb(94, 190, 195);
-  color: #FFFFFF;
+  color: #ffffff;
   outline: none;
   font-size: 0.9rem;
   font-weight: bold;
@@ -49,16 +49,26 @@ const ButtonStyled = styled.button`
 `;
 
 // Sidebar Component
-const Sidebar = (props) => {
+const Sidebar = props => {
   return (
     <SideBarStyled className="Sidebar">
       <div className="SidebarContainer">
         <h1>Lambda Notes</h1>
-        <ButtonStyled onClick={props.viewNotes}>View Your Notes</ButtonStyled>
-        <ButtonStyled onClick={props.createNewNoteForm}>+ Create New Note</ButtonStyled>
+        {props.authenticated && (
+          <div>
+            <ButtonStyled onClick={props.viewNotes}>
+              View Your Notes
+            </ButtonStyled>
+            <ButtonStyled onClick={props.createNewNoteForm}>
+              + Create New Note
+            </ButtonStyled>
+
+            <ButtonStyled>Sign Out</ButtonStyled>
+          </div>
+        )}
       </div>
     </SideBarStyled>
-  )
-}
+  );
+};
 
 export default Sidebar;
