@@ -1468,7 +1468,7 @@ Lockfile:
 
 Trace: 
   Error: Command failed.
-  Exit code: 5
+  Exit code: 1
   Command: sh
   Arguments: -c mocha -R nyan tests --exit
   Directory: /Users/Duckie/LambdaSchool/back-end-project-week

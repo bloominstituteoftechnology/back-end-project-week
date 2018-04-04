@@ -73,7 +73,7 @@ describe('Notes', () => {
           }
           expect(res.status).to.equal(200);
           //myNote.title
-          expect(res.body.title).to.equal('Hipsum');
+          expect(res.body.title).to.equal(myNote.title);
         });
       done();
     });
@@ -92,12 +92,33 @@ describe('Notes', () => {
           }
           //testNote.title
           //noteId.toString()
-          expect(res.body[0].title).to.eql('Bloo');
-          expect(res.body[0]._id).to.equal('Hlo');
+          expect(res.body[0].title).to.eql(testNote.title);
+          expect(res.body[0]._id).to.equal(noteId.toString());
         });
       done();
     });
   });
+
+  // describe('[GET] /api/notes/get/:id', () => {
+  //   it('should get one note by given id', done => {
+  //     chai
+  //       .request(server)
+  //       .get(`/api/notes/get/${id}`)
+  //       .end((err, res) => {
+  //         if (err) {
+  //           console.error(err);
+  //           done();
+  //         }
+  //         Note.findById(noteId, (err, note) => {
+  //           if (err) {
+  //             console.log(err);
+  //             done();
+  //           }
+  //           expect(note).to.equal('Office');
+  //         }
+  //         done();
+  //   });
+  // });
 
   // PUT
   describe('[PUT] /api/notes/update', () => {
