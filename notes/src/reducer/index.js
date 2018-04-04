@@ -26,12 +26,12 @@ const initialState = {
 const sortNotes = (notes, sortType, prop) => {
   let notesCopy = notes.slice(0);
   if (sortType === prop) return notesCopy.reverse();
-  return notesCopy.sort((a,b) => {
+  return notesCopy.sort((a, b) => {
     if (a[prop] < b[prop]) return -1;
     if (a[prop] > b[prop]) return 1;
     return 0;
-  })
-}
+  });
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -57,7 +57,7 @@ const reducer = (state = initialState, action) => {
           if (note.id !== action.payload.id) return note;
           return action.payload;
         }),
-        selectedNote: action.payload
+        selectedNote: action.payload,
       };
     case TOGGLE_MODAL:
       return {
@@ -74,18 +74,14 @@ const reducer = (state = initialState, action) => {
     case SELECT_NOTE:
       return {
         ...state,
-        selectedNote: state.notes.filter(note => note.id === action.payload)[0],
-      }
+        selectedNote: state.notes.filter(note => note._id === action.payload)[0],
+      };
     case SORT_NOTES:
-    return {
-      ...state,
-      notes: sortNotes(state.notes, state.sortType, action.payload),
-      sortType: action.payload,
-    }
-    case LOGIN_USER:
       return {
         ...state,
-        user: action.payload.username,
+        notes: sortNotes(state.notes, state.sortType, action.payload),
+        sortType: action.payload,
+      };
     case REGISTER_ERROR:
       return {
         ...state,
