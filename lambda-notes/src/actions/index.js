@@ -18,9 +18,9 @@ export const NEW_USER_CREATION = 'NEW_USER_CREATION';
 export const HANDLE_LOG_OUT = 'HANDLE_LOG_OUT';
 export const TOGGLE_CHECK = 'TOGGLE_CHECK';
 
-const getNotes = (async(userID) => {
-  return await(axios.get('http://localhost:3000/notes/' + userID))
-});
+const getNotes = async (userID) => {
+  return await axios.get('http://localhost:3000/notes/' + userID);
+};
 
 export const add_button_click = () => {
   const payload = 'create-note';
@@ -125,20 +125,12 @@ export const load_user_notes = (user, notes) => {
   };
 };
 
-export const new_user_creation = (userID) => {
-  getNotes(userID)
-    .then((notes) => {
-      return (
-        console.log('This is happening'),
-      {
-        type: 'NEW_USER_CREATION',
-        payload: notes.data.foundNotes,
-      }
-      );
-    })
-    .catch(error => {
-      console.alert('You Done Fucked Up Mang')
-    })
+export const new_user_creation = () => {
+  console.log('This is Happening')
+  return {
+    type: 'NEW_USER_CREATION',
+    payload: [],
+  };
 };
 
 export const handle_log_out = (user) => {
