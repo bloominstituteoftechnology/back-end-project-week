@@ -12,22 +12,19 @@ class App extends Component {
     }
   }
 
-  componentDidMount(){
-    axios.get("http://localhost:3001")
-    .then(response => {
-      console.log(response);
-      this.setState({example: response.data.title});
-      console.log(this.state);
-    })
-    .catch(err => {
-      console.log(err);
-    })
+  componentWillMount = () => {
+    const self = this;
+    axios.get("http://localhost:3001/api/allNotes")
+      .then(response => {
+        self.setState({notes: response.data});
+      })
   }
 
   render() {
+    console.log(this.state.notes);
     return (
       <div className="App">
-        <Menu notes={this.state.example} />
+        <Menu notes={this.state.notes} />
       </div>
     );
   }

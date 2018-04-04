@@ -8,6 +8,12 @@ class Menu extends Component {
     }
   }
 
+
+  componentWillMount(){
+    this.setState({notes: this.props.notes});
+    console.log(this.state.notes);
+  }
+
   render() {
     return (
       <div className="menu">
@@ -26,7 +32,16 @@ class Menu extends Component {
 
         </div> */}
 
-        {/* <h1>{this.props.notes}</h1> */}
+        {/* {this.props.notes.map((noteObj, i) => {
+            return(
+                <div>
+                    <h1>{noteObj.title}</h1>
+                    <p>{noteObj.content}</p>
+                </div>
+            )
+        })} */}
+
+        
       </div>
       )
   }

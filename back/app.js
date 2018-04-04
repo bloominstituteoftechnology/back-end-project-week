@@ -53,6 +53,8 @@ const loginMid = (req, res, next) => {
 
 //test route handler
 app.get("/", (req, res) => {
+    const title = "cheese";
+    const message = "dick";
     res.json({title: "cheese", message: "dick"});
 });
 
@@ -140,7 +142,7 @@ app.get("/api/restricted", loginMid, (req, res) => {
 app.get("/api/allNotes", (req, res) => {
     NoteModel.find({}, (err, response) => {
         if (err) return console.log(`There was an error getting the notes: ${err}`);
-        console.log(`Here are all the notes: \n ${reponse}`);
+        console.log(`Here are all the notes: \n ${response}`);
         res.status(200)
         .json(response);
     })
