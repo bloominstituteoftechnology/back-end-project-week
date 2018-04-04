@@ -13,7 +13,7 @@ class AccountCreate extends Component {
     const { username, password } = this.state;
     axios
       // using "this.state "also works when posting a user
-      .post('http://localhost:5000/users', { username, password })
+      .post('http://localhost:5000/register', { username, password })
       .then(re => {
         console.log(re);
       })

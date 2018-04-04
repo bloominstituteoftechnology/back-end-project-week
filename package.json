@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "nodemon BackEnd/app.js"
   },
-  "repository": "https://github.com/EricHech/back-end-project-week.git",
-  "author": "Eric <erichech@gmail.com>",
+  "repository": "https://github.com/Maxjoeld/Blog",
+  "author": "Max <Mjd809@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^1.0.3",
