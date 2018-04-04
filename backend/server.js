@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const helmet = require('helmet');
+// const helmet = require('helmet');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
@@ -11,11 +11,13 @@ const host = process.env.DB_HOST;
 const success = process.env.STATUS_SUCCESS;
 
 server.use(express.json());
-server.use(helmet());
+// server.use(helmet());
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
-  credentials: true
+  "origin": "http://localhost:3000",
+  "AllowedHeaders": ['Content-Type', 'Authorization', 'body'],
+  "credentials": true,
+  "methods": ['GET', 'PUT', 'POST', 'DELETE']
 };
 
 // server.use((req, res, next) => {
@@ -23,10 +25,10 @@ const corsOptions = {
 // }); // middleware if I need to add it later
 
 server.use('/api/notes', noteRouter);
-server.use(cors(corsOptions));
+server.use(cors());
 userRouter(server);
 
-server.get('/', function(req, res) {
+server.get('/', cors(), function(req, res) {
   res.status(success).json({ api: 'running...' });
 });
 

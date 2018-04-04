@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import NoteListNote from './noteListNote';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getNotes } from '../actions'
 
 class NoteList extends Component {
   componentDidMount() {
-    this.setState({ notes: this.props.notes })
+    this.props.getNotes();
   }
   clampNote = (body, limit) => {
     let textArr = body.split('')
@@ -20,7 +22,8 @@ class NoteList extends Component {
     return (
       <div className="note-list">
       <div className="note-list__title">Your Notes:</div>
-          { this.props.notes.map((note) => {
+          { this.props.notes ? this.props.notes.map((note) => {
+            console.log('note: ', note);
             return (
               <div key={note.id}>
                 <NavLink className="note-list-note-link" to={`/note/${note.id}/${note.title}/${note.body}`}>
@@ -28,10 +31,16 @@ class NoteList extends Component {
                 </NavLink>
               </div>
             )
-          })}
+          }) : null};
       </div>
     );
   }
 }
 
-export default NoteList;
+const mapStateToProps = state => {
+  return {
+    notes: state.notes
+  };
+};
+
+export default connect(mapStateToProps, { getNotes })(NoteList);

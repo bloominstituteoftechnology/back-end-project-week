@@ -41,11 +41,14 @@ export const login = (username, password, history) => {
     axios
       .post(`${ROOT_URL}/api/users/login`, { username, password })
       .then((res) => {
+        console.log('res.data: ', res.data);
+        console.log('response: ', res);
         dispatch({
           type: USER_AUTHENTICATED
         });
         history.push('/notes');
         localStorage.setItem('token', res.data.token);
+        localStorage.setItem('userId', res.data.userId);
       })
       .catch(() => {
         dispatch(authError('Incorrect username/password combo'));
@@ -60,10 +63,17 @@ export const logout = () => {
 
 export const getNotes = () => {
   const token = localStorage.getItem('token');
+  const userId = localStorage.getItem('userId');
+  console.log('token: ', token);
   return dispatch => {
     axios
-      .get(`${ROOT_URL}/api/notes/`, { headers: {authorization: token } })
+      .get(`${ROOT_URL}/api/notes`,
+      {
+        headers: { authorization: token },
+        body: { user: userId }
+      })
       .then(response => {
+        console.log('response in actions/index.js line 68: ', response);
         dispatch({
           type: GET_NOTES,
           payload: response.data,
