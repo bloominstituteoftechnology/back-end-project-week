@@ -1,4 +1,6 @@
 // not importing yet
+import axios from 'axios';
+
 
 const noteState = { // main storage
   Notes: {},
@@ -31,6 +33,7 @@ const notes = (state = noteState, action) => {
         MESSAGE: 'deleted the note',
         Notes: {...state.Notes},
       }
+      console.log(delObj.Notes[action.payload]);
       delete delObj.Notes[action.payload];
       console.log('deleted');
       return delObj;

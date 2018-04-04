@@ -14,17 +14,17 @@ class singleNote extends Component {
     return (
       <div className="Home__Right">
 
-      <div id="myModal" class="modal">
-        <div class="modal-content">
-          <span class="close" onClick={this.closeModal}>&times;</span>
+      <div id="myModal" className="modal">
+        <div className="modal-content">
+          <span className="close" onClick={this.closeModal}>&times;</span>
             <p>Are you sure you want to delete this?</p>
-          <div class="modal-actions">
+          <div className="modal-actions">
             <NavLink to='/viewnotes'>
-              <div class="modal-actions-delete" onClick={this.deleteModal}>
+              <div className="modal-actions-delete" onClick={this.deleteModal}>
                 Delete
               </div>
             </NavLink>
-            <div class="modal-actions-no" onClick={this.closeModal}>
+            <div className="modal-actions-no" onClick={this.closeModal}>
               No
             </div>
           </div>
@@ -63,7 +63,12 @@ class singleNote extends Component {
   deleteModal = () => {
     var modal = document.getElementById('myModal');
     modal.style.display = "none";
-    this.props.deleteNote(this.props.id);
+    console.log(this.props);
+    // this.props.deleteNote(this.props.id);
+    this.props.deleteNote({
+      title: this.props.id, // this is counterintuitive, I know
+      id: this.props.note[this.props.id].id
+    });
     console.log('modal deleted TEST');
   }
 }
