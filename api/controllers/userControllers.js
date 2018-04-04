@@ -1,8 +1,9 @@
 const User = require('../models/userModels');
 
 const createUser = (req, res) => {
+  // console.log(req.body);
   const { username, password } = req.body;
-  const newUser = { usernmame, password };
+  const newUser = { username, password };
   const user = new User(newUser);
   user.save( (err, createdUser) => {
     if (err) {
@@ -15,8 +16,9 @@ const createUser = (req, res) => {
 };
 
   const login = (req, res) => {
+    console.log(req.body);
     const { username, password } = req.body;
-    const userToLogin = {usernmame, password};
+    const userToLogin = {username, password};
     User.findOne(userToLogin, (err, user) => {
       if (err) {
         res.status(422);

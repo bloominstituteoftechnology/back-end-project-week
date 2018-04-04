@@ -5,13 +5,15 @@ const getTodos = (req, res) => {
   Todo.find({}, (err, todos) => {
     if (err) {
       res.status(422);
-      return res.json(err);
+      res.json(err.message);
+      return;
     }
     return res.json(todos);
   });
 };
 
 const createNewTodo = (req, res) => {
+  // console.log(req.body);
   const newTodo = new Todo(req.body);
 
   newTodo.save((err, todo) => {
@@ -24,11 +26,8 @@ const createNewTodo = (req, res) => {
 };
 
 const updateTodo = (req, res) => {
-  Todo.findOneandUpdate(
-    { _id: req.body.id },
-    req.body,
-    { new: true },
-    (err, todo) => {
+  const id = req.params.id;
+  Todo.findOneAndUpdate(id, req.body, { new: true }, (err, todo) => {
       if (err) {
         return res.json(err);
       }
