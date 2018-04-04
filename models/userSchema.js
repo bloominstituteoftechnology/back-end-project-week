@@ -18,7 +18,7 @@ const UserSchema = new Schema({
   },
 });
 
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', function (next) {
   bcrypt.hash(this.hashpassword, SALT_ROUNDS, (err, password) => {
     if (err) return next(err);
     this.hashpassword = password;
@@ -26,7 +26,7 @@ UserSchema.pre('save', function(next) {
   });
 });
 
-UserSchema.methods.checkPassword = function(plainTextPW, cb) {
+UserSchema.methods.checkPassword = function (plainTextPW, cb) {
   bcrypt.compare(
     plainTextPW,
     this.hashpassword,
