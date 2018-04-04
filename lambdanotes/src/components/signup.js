@@ -1,5 +1,6 @@
 import React, { Component } from 'react'; // eslint-disable-line
 import styled from 'styled-components';
+import axios from 'axios';
 
 // Styles
 const SignupStyled = styled.div`
@@ -15,6 +16,11 @@ const SignupStyled = styled.div`
 
   h2 {
     padding: 20px;
+  }
+
+  h3 {
+    margin: 10px;
+    color: red;
   }
 
   button {
@@ -58,18 +64,77 @@ const SignupStyled = styled.div`
 
 // Signup Component
 class Signup extends Component {
+  state = {
+    username: '',
+    password: '',
+    confirmPassword: '',
+    passwordMatch: true
+  };
+
+  handleUsernameInput = event => {
+    this.setState({ username: event.target.value });
+  };
+
+  handlePasswordInput = event => {
+    if (event.target.value === this.state.confirmPassword) {
+      this.setState({ passwordMatch: true, password: event.target.value });
+    } else {
+      this.setState({ passwordMatch: false, password: event.target.value });
+    }
+    console.log(this.state.password, this.state.passwordMatch);
+  };
+
+  handleConfirmPasswordInput = event => {
+    if (this.state.password === event.target.value) {
+      this.setState({
+        passwordMatch: true,
+        confirmPassword: event.target.value
+      });
+    } else {
+      this.setState({
+        passwordMatch: false,
+        confirmPassword: event.target.value
+      });
+    }
+    console.log(this.state.confirmPassword, this.state.passwordMatch);
+  };
+
+  handleSignup = () => {
+    if (!this.state.passwordMatch) return;
+    console.log(this.state);
+    let newUserInfo = {
+      username: this.state.username,
+      password: this.state.password
+    };
+  };
+
   render() {
     return (
       <SignupStyled>
         <h2>Signup</h2>
-        <input type="text" placeholder="Username" className="Input_Username" />
-        <input type="text" placeholder="Password" className="Input_Password" />
         <input
           type="text"
+          placeholder="Username"
+          className="Input_Username"
+          value={this.state.username}
+          onChange={this.handleUsernameInput}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          className="Input_Password"
+          value={this.state.password}
+          onChange={this.handlePasswordInput}
+        />
+        <input
+          type="password"
           placeholder="Confirm password"
           className="Input_ConfirmPassword"
+          value={this.state.confirmPassword}
+          onChange={this.handleConfirmPasswordInput}
         />
-        <button>Sign Up</button>
+        <button onClick={this.handleSignup}>Sign Up</button>
+        {!this.state.passwordMatch && <h3>Passwords do not match</h3>}
       </SignupStyled>
     );
   }

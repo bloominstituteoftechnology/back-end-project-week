@@ -54,6 +54,14 @@ const Sidebar = props => {
     <SideBarStyled className="Sidebar">
       <div className="SidebarContainer">
         <h1>Lambda Notes</h1>
+        {!props.authenticated &&
+          props.showingLoginPage &&
+          !props.showingSignupPage && <ButtonStyled>Sign Up</ButtonStyled>}
+
+        {!props.authenticated &&
+          props.showingSignupPage &&
+          !props.showingLoginPage && <ButtonStyled>Login</ButtonStyled>}
+
         {props.authenticated && (
           <div>
             <ButtonStyled onClick={props.viewNotes}>

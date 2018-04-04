@@ -12,7 +12,7 @@ import NoteDetails from './components/note-details';
 import EditNote from './components/edit-note';
 import DeleteModal from './components/delete-modal';
 import Signup from './components/signup';
-import Login from './components/login'
+import Login from './components/login';
 
 import './App.css';
 
@@ -35,7 +35,8 @@ class App extends Component {
     creatingNote: false,
     editingNote: false,
     showingNoteDetails: false,
-    showingSignupPage: false,
+    showingSignupPage: true,
+    showingLoginPage: false,
     authenticated: false,
     notes: [],
     noteDetails: {
@@ -157,10 +158,13 @@ class App extends Component {
           viewNotes={this.viewNotes}
           createNewNoteForm={this.createNewNoteForm}
           authenticated={this.state.authenticated}
+          showingLoginPage={this.state.showingLoginPage}
+          showingSignupPage={this.state.showingSignupPage}
         />
 
         <div className="Content">
-          {!this.state.authenticated && <Login />}
+          {!this.state.authenticated &&
+            this.state.showingLoginPage && <Login />}
 
           {!this.state.authenticated &&
             this.state.showingSignupPage && <Signup />}
