@@ -53,7 +53,7 @@ export default class EditNote extends React.Component {
             required
           />
           <br />
-          <Link to={"/view"}><button onClick={() => this.handleSubmit()} type="submit">Update</button></Link>
+          <Link to={"/"}><button onClick={() => this.handleSubmit()} type="submit">Update</button></Link>
         </form>
       </div>
     );
