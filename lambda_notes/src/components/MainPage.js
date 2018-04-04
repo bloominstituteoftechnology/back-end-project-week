@@ -151,7 +151,6 @@ class MainPage extends React.Component {
         }
       )
       .then(res => {
-        const deletedNote = res.data;
         this.setState({ notes: this.state.notes.filter(note => note._id !== this.state.currentNote._id), currentNote: {}, deleting: false });
         this.props.changeSwitch('Your Notes:','noteList');
       })
