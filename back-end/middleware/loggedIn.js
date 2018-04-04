@@ -11,9 +11,7 @@ const loggedIn = (req, res, next) => {
       if (token.length === 0) {
         jwt.verify(tokenToCheck, secret, (error, decoded) => {
           if (error) {
-            return res
-              .status(422)
-              .json({ message: 'Failed to Verify the Token', error });
+            return res.status(422).json({ message: 'Failed to Verify the Token', error });
           }
           req.decoded = decoded;
           next();

@@ -1,15 +1,17 @@
 const mongoose = require('mongoose');
 
+var dateobject = new Date();
+var datestring = dateobject.toISOString().slice(0,10);
 const NoteSchema = new mongoose.Schema({
   date: {
     type: Date,
     required: true,
-    default: new Date(),
+    default: dateobject,
   },
   dateString: {
     type: String,
     required: true,
-    default: 'n/a'
+    default: datestring
   },
   checklist: {
     type: Array,
@@ -29,7 +31,7 @@ const NoteSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
-  }
+  },
 });
 
 const Note = mongoose.model("Note", NoteSchema);

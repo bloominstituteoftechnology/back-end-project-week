@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export const ADD_BUTTON_CLICK = 'ADD_BUTTON_CLICK';
 export const VIEW_BUTTON_CLICK = 'VIEW_BUTTON_CLICK';
 export const ADD_NOTE = 'ADD_NOTE';
@@ -17,10 +15,11 @@ export const LOAD_USER_NOTES = 'LOAD_USER_NOTES';
 export const NEW_USER_CREATION = 'NEW_USER_CREATION';
 export const HANDLE_LOG_OUT = 'HANDLE_LOG_OUT';
 export const TOGGLE_CHECK = 'TOGGLE_CHECK';
+export const USER_LOGIN = 'USER_LOGIN';
 
-const getNotes = async (userID) => {
-  return await axios.get('http://localhost:3000/notes/' + userID);
-};
+// const getNotes = async (userID) => {
+//   return await axios.get('http://localhost:3000/notes/' + userID);
+// };
 
 export const add_button_click = () => {
   const payload = 'create-note';
@@ -125,11 +124,10 @@ export const load_user_notes = (user, notes) => {
   };
 };
 
-export const new_user_creation = () => {
-  console.log('This is Happening')
+export const new_user_creation = (userID) => {
   return {
     type: 'NEW_USER_CREATION',
-    payload: [],
+    payload: {notes:[], userID},
   };
 };
 
@@ -153,5 +151,15 @@ export const toggle_check = (note) => {
   return {
     type: 'TOGGLE_CHECK',
     payload: note,
+  };
+};
+
+export const user_login = (userID, notes) => {
+  console.log('USERID', userID)
+  console.log('NOTES', notes.data.foundNotes)
+  const payload = {userID, notes: notes.data.foundNotes}
+  return {
+    type: 'USER_LOGIN',
+    payload,
   };
 };
