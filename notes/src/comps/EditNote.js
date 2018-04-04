@@ -49,7 +49,7 @@ class EditNote extends React.Component {
           />
           <input type="submit" value="Update" className="editNote__submit" />
         </form>
-        {this.state.redirect && <Redirect to={`/view/${this.state.note.id}`} />}
+        {this.state.redirect && <Redirect to={`/view/${this.state.note._id}`} />}
       </div>
     );
   }
