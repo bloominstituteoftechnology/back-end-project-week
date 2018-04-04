@@ -109,7 +109,7 @@ class PostForm extends React.Component {
           />
           <Button type='submit' backgroundColor='rgb(34, 170, 61)' title='Save' />
         </form>
-        {this.state.redirect ? <Redirect to='/' /> : null}
+        {this.state.redirect ? <Redirect to='/list' /> : null}
       </StyledForm>
     );
   }
