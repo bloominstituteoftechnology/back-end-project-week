@@ -4,6 +4,8 @@ const Schema = mongoose.Schema;
 
 const SALT_ROUNDS = 11;
 
+const ObjectId = mongoose.Schema.Types.ObjectId;
+
 const UserSchema = Schema({
   username: {
     type: String,
@@ -14,7 +16,8 @@ const UserSchema = Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  notes: [{ type: ObjectId, ref: 'Note' }],
 });
 
 //=========================================

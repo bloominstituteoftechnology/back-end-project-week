@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 const Schema = mongoose.Schema;
+
 
 const NoteSchema = Schema({
   title: {
@@ -9,7 +11,7 @@ const NoteSchema = Schema({
   body: {
     type: String,
     required: true
-  }
+  },
 });
 
 //=========================================

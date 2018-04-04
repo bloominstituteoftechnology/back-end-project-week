@@ -50,6 +50,7 @@ export const login = (user, history) => {
       .post(`${ROOT_URL}/api/login`, user)
       .then((res) => {
         localStorage.setItem('token', res.data.token)
+        localStorage.setItem('username', user.username)
         dispatch({
           type: USER_AUTHENTICATED
         });
@@ -117,7 +118,8 @@ export const getNotes = () => {
   const headers = { 
     authorization: localStorage.getItem('token')
   }
-  const notes = axios.get(`${ROOT_URL}/api/notes/`, {headers});
+  const user = localStorage.getItem('username');
+  const notes = axios.get(`${ROOT_URL}/api/notes/${user}`, {headers});
   return dispatch => {
     notes
       .then(res => {
