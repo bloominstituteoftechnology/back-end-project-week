@@ -1,7 +1,15 @@
 const User = require('../models/userModel');
-const { sendUserError } = require('../utils/middleware');
 const jwt = require('jsonwebtoken');
 const { mysecret } = require('../../config');
+
+const sendUserError = (err, res) => {
+  res.status(422);
+  if (err && err.message) {
+    res.json({ message: err.message, stack: err.stack });
+  } else {
+    res.json({ error: err });
+  }
+};
 
 const createUser = (req, res) => {
   const { email, password } = req.body;
@@ -35,7 +43,7 @@ const login = (req, res) => {
           id: user.id,
         };
         const token = jwt.sign(payload, mysecret);
-        res.json({ message: 'successfully logged in', token });
+        res.json({ message: 'successfully logged in', token, id: user.id });
       }
     });
   });

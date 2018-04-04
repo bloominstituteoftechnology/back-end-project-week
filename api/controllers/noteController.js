@@ -1,21 +1,32 @@
 const Note = require('../models/noteModel');
-const { sendUserError } = require('../utils/middleware');
+const User = require('../models/userModel');
+
+const sendUserError = (err, res) => {
+  res.status(422);
+  if (err && err.message) {
+    res.json({ message: err.message, stack: err.stack });
+  } else {
+    res.json({ error: err });
+  }
+};
 
 const createNote = (req, res) => {
   const { title, text } = req.body;
-  const myNote = new Note({ title, text });
+  const user = req.decoded.id;
+  const myNote = new Note({ title, text, user });
   myNote
     .save()
     .then(note => {
       res.json(note);
     })
     .catch(err => {
-      sendUserError('Error saving data to the DB', err);
+      res.status(422).json({ error: 'Error saving data to the DB', err });
     });
 };
 
 const getAllNotes = (req, res) => {
-  const user = req.decoded;
+  console.log('Will you make it here?');
+  const user = req.decoded.id;
   Note.find({ user }, (err, notes) => {
     if (err) return res.status(500).json({ error: 'Could not get notes' });
     res.json(notes);
@@ -37,19 +48,19 @@ const singleNote = (req, res) => {
 const updateNote = (req, res) => {
   const { title, id, text } = req.body;
   if (!id || !title) {
-    return sendUserError('Must Provide an ID and title');
+    res.status(422).json({ error: 'Must Provide an ID and title' });
   }
 
   Note.findById(id, (err, note) => {
     if (err || note === null) {
-      return sendUserError('Cannot find note by that id');
+      res.status(422).json({ error: 'Cannot find note by that id', err });
     }
     note.title = title;
     note.text = text;
     note.save((saveErr, savedNote) => {
       if (saveErr || note === null) {
         res.status(500);
-        res.json({ error: 'Could not save updated note' });
+        res.json({ error: 'Could not save updated note', err });
         return;
       }
       res.json(note);

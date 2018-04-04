@@ -13,6 +13,8 @@ const NoteSchema = new Schema({
   user: {
     type: ObjectId,
     ref: 'User',
+    required: true,
+    default: this.user,
   },
 });
 
