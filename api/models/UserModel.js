@@ -39,5 +39,12 @@ UserSchema.methods.checkPassword = function(password, callBack) {
     });
 };
 
+//=========================================
+//            Test Functions
+//=========================================
+
+UserSchema.methods.getUsername = function() {
+  return this.username;
+};
 
 module.exports = mongoose.model('User', UserSchema);

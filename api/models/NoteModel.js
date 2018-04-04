@@ -12,6 +12,10 @@ const NoteSchema = Schema({
   }
 });
 
+//=========================================
+//            Test Functions
+//=========================================
+
 NoteSchema.methods.getTitle = function() {
   return this.title;
 };

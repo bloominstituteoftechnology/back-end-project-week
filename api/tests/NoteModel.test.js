@@ -15,4 +15,4 @@ describe('Notes', () => {
       expect(note.getTitle()).to.equal('this is a test');
     });
   });
-})
+});
