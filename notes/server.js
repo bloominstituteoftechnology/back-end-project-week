@@ -35,6 +35,16 @@ server.post('/notes', (req, res) => {
     });
 });
 
+server.post('/notes/:id', (req, res) => {
+  const { id } = req.params;
+  const updatedNoteInfo = req.body;
+  Note
+    .findByIdAndUpdate(id, updatedNoteInfo, { new: true }, (err, updatedNote) => {
+      if (err) console.error(err);
+      res.status(200).send(`note has been updated! ${updatedNote}`);
+    });
+});
+
 server.listen(PORT, err => {
   if (err) {
     console.error('Server error, not connecting', err);
