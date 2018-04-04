@@ -4,8 +4,8 @@ const userRouter = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-
 userRouter.post('/signup', function(req, res){
+	console.log('signing up user');
 	const { name, email, password } = req.body;
 	const user = new User();
 	user.name = name;
@@ -23,20 +23,25 @@ userRouter.post('/signup', function(req, res){
 userRouter.post('/login', function(req, res){
 	const { email, password } = req.body;
 	User.findOne({ email }).then(user => {
+		console.log('found this user in db', user);
 		userObject = {
 			username: user.name,
+			email: user.email,
 			userId: user._id
-		};
+		}
 		if(!user){
-			res.json({error: 'Wrong email or password'});
+			console.log('no user');
+			res.json({success: false, message: 'Wrong email or password'});
 		}
 		if(user){
+			console.log('bcrypt');
 			bcrypt.compare(password, user.password, function(err, valid) {
     			if(!valid){
-    				res.json({error: 'Wrong email or password'});
+    				res.json({success: false, message: 'Wrong email or password'});
     			}
     			const token = jwt.sign(userObject, 'TOKEN_SECRET', { expiresIn: '1000h' });
-        		res.json({ token: token, name: user.name });
+    			console.log('token to send back after sign', token);
+        		res.json({success: true, token: token, name: user.name });
 			});
 		}
 	});

@@ -8,43 +8,10 @@ const noteRoutes = require('../note/noteRoutes');
 chai.use(chaihttp);
 
 const Note = require('../note/noteModel');
-const User = require('../user/userModel');
-
-let userId = null;
-
-beforeEach(done => {
-  console.log('beforeEach');
-  new User({
-    name: 'testing',
-    email: 'testing@email.com',
-    password:'testingpass'
-  }).save((err, user) => {
-    console.log(user);
-    if (err) {
-      console.log(err);
-      done();
-    }
-    userId = user._id;
-    console.log('userId', userId);
-    done();
-  });
-});
-
-afterEach(done => {
-  console.log('afterEach');
-    User.remove({}, (err) => {
-    if (err) {
-      console.log(err)
-      done();
-    };
-    done();
-  });
-});
 
 describe('Note', () => {
 
   before(done => {
-    console.log('before');
     mongoose.Promise = global.Promise;
     mongoose.connect('mongodb://localhost/test_lambdanotes');
     const db = mongoose.connection;
@@ -56,35 +23,63 @@ describe('Note', () => {
   });
 
   after(done => {
-    console.log('after');
     mongoose.connection.db.dropDatabase(() => {
       mongoose.connection.close(done);
       console.log('we are disconnected');
     });
   });
 
+  //   beforeEach(done => {
+  //   console.log('1.1 beforeEach');
+  //   const user = new User({
+  //     name: 'testing',
+  //     email: 'testing@email.com',
+  //     password:'testingpass'
+  //   }).save((err, user) => {
+  //     console.log('saving user to db user', user);
+  //     if (err) {
+  //       console.log('there was an error saving user --------------------> ',err);
+  //       done();
+  //     }
+  //     userId = user._id;
+  //     console.log('finsihed saving user, userId is ----> ', userId);
+  //     done();
+  //   })
+  // });
+
+    beforeEach(done => {
+  const user = new Note({
+    title: 'Test Title',
+    content: 'Test content'
+  }).save((err, note) => {
+    if (err) {
+      console.log(err);
+      done();
+    }
+    done();
+  });
+});
+
+afterEach(done => {
+    Note.remove({}, (err) => {
+    if (err) console.log(err);
+    done();
+  });
+});
+
   describe('[POST] /api/note', () => {
-    console.log('describe POST');
     it('should create a new note', (done) => {
-      console.log('it should create new note');
+      // console.log('inside it block');
       const newNote = {
-        title: 'Test note',
-        content: 'Test content',
-        user: userId
+        title: 'Another Test Title',
+        content: 'Another test content'
       };
       chai.request(noteRoutes)
         .post('/api/note')
         .send(newNote)
         .end((err, res) => {
-          console.log(res.body);
-          if (err) console.error(err);
-          console.log('cha res afte it test');
+          // expect(err).to.be.null;
           expect(res.status).to.equal(200);
-          // expect(res.body.name).to.equal('testUser');
-          // expect(res.body.email).to.equal('test@email.com');
-          // expect(res.body.password).to.not.equal('testpassword');
-          // expect(res.body).to.have.own.property('_id');
-          done();
         });
         done();
     });

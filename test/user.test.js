@@ -30,12 +30,10 @@ afterEach(done => {
   });
 });
 
-
 describe('User', () => {
-
   before(done => {
     mongoose.Promise = global.Promise;
-    mongoose.connect('mongodb://localhost/test_lambdanotes_user');
+    mongoose.connect('mongodb://localhost/test_lambdanotes');
     const db = mongoose.connection;
     db.on('error', () => console.error.bind(console, 'connection error'));
     db.once('open', () => {
@@ -62,7 +60,6 @@ describe('User', () => {
         .post('/api/user/signup')
         .send(newUser)
         .end((err, res) => {
-          console.log(res.body);
           if (err) console.error(err);
           expect(res.status).to.equal(200);
           expect(res.body.name).to.equal('testUser');

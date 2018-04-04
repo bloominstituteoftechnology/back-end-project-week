@@ -5,15 +5,11 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const NoteSchema = new mongoose.Schema({
 	title: {type: String, required: true},
-	content: {type: String, required: true, unique: true},
-	user: { type: ObjectId, ref: 'User', required: true },
+	content: {type: String, required: true},
+	user: { type: ObjectId, ref: 'User', required: true},
 	createdOn: {type: Date, default: Date.now}
 });
 
 const NoteModel = mongoose.model('Note', NoteSchema);
 
 module.exports = NoteModel;
-
-
-
-

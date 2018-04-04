@@ -1,2 +1,8 @@
 .DS_Store
 /node_modules
+debug_codes.js
+user.test.js
+note.test.js
+/user.test.js
+/note.test.js
+
