@@ -24,13 +24,13 @@ const corsOptions = {
 //     next();
 // }); // middleware if I need to add it later
 
-server.use('/api/notes', noteRouter);
 server.use(cors(corsOptions));
+server.use('/api/notes', noteRouter);
 userRouter(server);
 
-server.get('/', cors(), function(req, res) {
-  res.status(success).json({ api: 'running...' });
-});
+// server.get('/', cors(corsOptions), function(req, res) {
+//   res.status(success).json({ api: 'running...' });
+// });
 
 mongoose
   .connect(`mongodb://${host}`)
