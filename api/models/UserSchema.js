@@ -22,12 +22,15 @@ const UserSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Note',
   }],
+  securePW: false,
 });
 
 UserSchema.pre('save', function(next) {
+  if (this.securePW) return next();
   bcrypt.hash(this.password, 11, (err, hashed) => {
     if (err) return next(err);
     this.password = hashed;
+    this.securePW = true;
     next();
   });
 });
