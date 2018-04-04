@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import axios from 'axios';
 import firebase from './firebase';
 
+// axios.defaults.withCredentials = true;
+
 // Components
 import Sidebar from './components/sidebar';
 import NotesList from './components/notes-list';
@@ -38,6 +40,7 @@ class App extends Component {
     editingNote: false,
     showingNoteDetails: false,
     authenticated: false,
+    username: '',
     notes: [],
     noteDetails: {
       title: '',
@@ -46,30 +49,36 @@ class App extends Component {
     }
   };
 
-  componentDidMount() {
-    const notesRef = firebase.database().ref('notes');
-    notesRef.on('value', snapshot => {
-      let notes = snapshot.val();
-      let newState = [];
-      for (let note in notes) {
-        newState.push({
-          // id: notes[note].id,
-          id: note,
-          title: notes[note].title,
-          content: notes[note].content
-        });
-      }
-      this.setState({ notes: newState });
-    });
-  }
+  // componentDidMount() {
+  //   const notesRef = firebase.database().ref('notes');
+  //   notesRef.on('value', snapshot => {
+  //     let notes = snapshot.val();
+  //     let newState = [];
+  //     for (let note in notes) {
+  //       newState.push({
+  //         // id: notes[note].id,
+  //         id: note,
+  //         title: notes[note].title,
+  //         content: notes[note].content
+  //       });
+  //     }
+  //     this.setState({ notes: newState });
+  //   });
+  // }
 
   loginUser = userInfo => {
+    console.log(`${userInfo.username} just logged in`);
     axios
       .post('http://localhost:5000/login', userInfo)
       .then(res => {
         localStorage.setItem('token', res.data.token);
       })
-      .then(() => this.setState({ authenticated: true }))
+      .then(() => {
+        this.setState({ authenticated: true, username: userInfo.username });
+      })
+      .then(() => {
+        this.getNotes();
+      })
       .catch(err => {
         console.log(err);
       });
@@ -81,8 +90,8 @@ class App extends Component {
       authenticated: false,
       showLogin: true,
       showSignup: false
-    })
-  }
+    });
+  };
 
   showLogin = () => {
     this.setState({
@@ -96,6 +105,18 @@ class App extends Component {
       showingSignup: true,
       showingLogin: false
     });
+  };
+
+  getNotes = () => {
+    const token = localStorage.getItem('token');
+    const header = { headers: { Authorization: token } };
+    axios
+      .get(`http://localhost:5000/users/name/${this.state.username}`, header)
+      .then(res => {
+        this.setState({ notes: res.data.notes });
+        console.log(this.state.username);
+      })
+      .catch(err => console.log(err));
   };
 
   viewNotes = () => {

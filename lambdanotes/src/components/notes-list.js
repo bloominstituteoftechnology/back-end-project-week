@@ -20,7 +20,7 @@ const NoteListStyled = styled.div`
     justify-content: flex-start;
     align-items: flex-start;
     margin-bottom: 10px;
-    
+
     .searchContainer {
       margin-top: 20px;
 
@@ -34,48 +34,44 @@ const NoteListStyled = styled.div`
         width: 172px;
         /* border-radius: 3px; */
 
-
         &:hover {
           border-style: solid;
           /* outline: 1px solid black; */
           border: 1px solid black;
         }
-        
+
         &:focus {
           outline: 1px solid rgb(94, 190, 195);
           border: 1px solid rgb(94, 190, 195);
           border-style: solid;
         }
       }
-
-
     }
   }
 `;
 
 class NotesList extends Component {
   state = {
-    notesFiltered: [],
-  }
+    notesFiltered: []
+  };
 
-  handleSearch = (event) => {
+  handleSearch = event => {
     if (event.target.value.length > 0) {
       let filteredNotes = this.props.notes.filter(note => {
-        let searchTerms = event.target.value.toLowerCase().split(' ')
+        let searchTerms = event.target.value.toLowerCase().split(' ');
         let containsTerm = true;
-        searchTerms.forEach((term) => {
+        searchTerms.forEach(term => {
           if (note.title.toLowerCase().includes(term) !== true) {
             containsTerm = false;
           }
-        })
+        });
         return containsTerm;
-      })
-      this.setState({ notesFiltered: filteredNotes })
+      });
+      this.setState({ notesFiltered: filteredNotes });
+    } else {
+      this.setState({ notesFiltered: this.props.notes });
     }
-    else {
-      this.setState({ notesFiltered: this.props.notes })
-    }
-  }
+  };
 
   componentDidMount() {
     this.setState({ notesFiltered: this.props.notes });
@@ -87,22 +83,29 @@ class NotesList extends Component {
         <header className="NotesList__header">
           <h2>Your Notes:</h2>
           <div className="searchContainer">
-            <input onChange={this.handleSearch} value={this.state.searchInput} placeholder="Search Titles..."/>
+            <input
+              onChange={this.handleSearch}
+              value={this.state.searchInput}
+              placeholder="Search Titles..."
+            />
           </div>
         </header>
-        <div style={{ display: "flex", flexFlow: "row wrap" }} className="NotesList__body" >
-          {this.state.notesFiltered.map((note) => {
+        <div
+          style={{ display: 'flex', flexFlow: 'row wrap' }}
+          className="NotesList__body"
+        >
+          {this.state.notesFiltered.map(note => {
             return (
               <Note
-                key={note.id}
+                key={note._id}
                 note={note}
                 showNoteDetails={this.props.showNoteDetails}
               />
-            )
+            );
           })}
         </div>
       </NoteListStyled>
-    )
+    );
   }
 }
 

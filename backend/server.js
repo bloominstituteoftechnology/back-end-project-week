@@ -135,7 +135,6 @@ server.get('/users/:id', authenticate, (req, res) => {
 
 // Get user by username
 server.get('/users/name/:username', authenticate, (req, res) => {
-  const username = req.params.username;
   User.findOne({ username: req.params.username })
     .populate('notes')
     .exec((err, user) => {
