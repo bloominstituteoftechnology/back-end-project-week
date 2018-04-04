@@ -1,11 +1,17 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const Note = require('./NoteSchema');
+const mongooseTypes = require('mongoose-types');
+
+mongooseTypes.loadTypes(mongoose, 'email');
+
+const Email = mongoose.SchemaTypes.Email;
 
 const UserSchema = new mongoose.Schema({
   username: {
-    type: String,
+    type: Email,
     unique: true,
+    lowercase: true,
     required: true,
   },
   password: {
