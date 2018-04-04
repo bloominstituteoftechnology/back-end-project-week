@@ -123,12 +123,23 @@ server
   });
 
 // Get user by id
-server.get('/users/:id', (req, res) => {
+server.get('/users/:id', authenticate, (req, res) => {
   const id = req.params.id;
   User.findById(id)
     .populate('notes')
     .exec((err, user) => {
-      if (err) res.status(500).json({ message: 'Error find user', error: err });
+      if (err) res.status(500).json({ message: 'Error finding user', error: err });
+      res.status(200).json(user);
+    });
+});
+
+// Get user by username
+server.get('/users/name/:username', authenticate, (req, res) => {
+  const username = req.params.username;
+  User.findOne({ username: req.params.username })
+    .populate('notes')
+    .exec((err, user) => {
+      if (err) res.status(500).json({ message: 'Error finding user', error: err });
       res.status(200).json(user);
     });
 });
