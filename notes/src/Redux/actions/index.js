@@ -78,7 +78,6 @@ export const userLogout = history => {
 };
 
 export const setId = id => {
-  console.log('id in setId in actions: ', id);
   return {
     type: SET_ID,
     payload: id,
