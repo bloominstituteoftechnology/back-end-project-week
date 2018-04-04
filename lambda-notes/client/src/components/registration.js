@@ -17,6 +17,7 @@ class Registration extends Component {
         this.handleLastName = this.handleLastName.bind(this);
         this.createUser = this.createUser.bind(this);
     }
+    
 
     handleFirstName(event) {
         this.setState({ firstname: event.target.value });
@@ -36,12 +37,14 @@ class Registration extends Component {
 
     createUser(event) {
         event.preventDefault();
-        const newUser = { user: this.state.username, pass: this.state.password };
+        const newUser = { first: this.state.firstname, last: this.state.lastname, user: this.state.username, pass: this.state.password };
         axios.post('http://localhost:5000/sign-up', newUser)
-            .then(data => {
-                localStorage.setItem('uuID', data.data._id);
+            .then((data) => {
+                // this.setState({ newUser: data });
+                //localStorage.setItem(newUser, data.data._id);
+                this.setState(newUser, data.data._id);
                 setTimeout(() => {
-                    window.location = '/posts'
+                    window.location = '/list'
                 }, 200)
             })
             .catch(err => {
@@ -56,12 +59,13 @@ class Registration extends Component {
                     <h1>Welcome to Lambda Notes!</h1>
                     <hr className="style__one" />
                     <h3>A free platform for those who love taking notes. Sign up now.</h3>
+                
                     <form>
                         <p className="p__shift">First Name:</p>
-                        <input placeholder="Sara" type="text" name="firstname" onChange={this.handleFirstName} value={this.state.firstame} />
+                        <input placeholder="Sara" type="text" name="firstname" onChange={this.handleFirstName} value={this.state.firstName} />
 
                         <p className="p__shift">Last Name:</p>
-                        <input placeholder="Smith" type="text" name="lastname" onChange={this.handleLastName} value={this.state.handleLastName} />
+                        <input placeholder="Smith" type="text" name="lastname" onChange={this.handleLastName} value={this.state.lastName} />
 
                         <p className="p__shift">Username:</p>
                         <input placeholder="so2018" type="text" name="lastname" onChange={this.handleUsername} value={this.state.username} />
@@ -71,7 +75,7 @@ class Registration extends Component {
                         <br />
 
                         <button onClick={this.createUser} className="button__registration">Submit</button>
-                        <Link to='/user'><button className="button__registration">Log In</button></Link>
+                        <Link to='/list'><button className="button__registration">Log In</button></Link>
                     </form>
                 </div>
             </div>
