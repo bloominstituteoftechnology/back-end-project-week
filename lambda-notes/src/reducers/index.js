@@ -56,7 +56,7 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         notes: state.notes.filter(note => {
-          return note.id !== action.payload;
+          return note.id !== action.payload._id;
         }),
       };
       case EDIT_NOTE:

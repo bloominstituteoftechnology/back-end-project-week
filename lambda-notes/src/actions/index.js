@@ -80,11 +80,20 @@ export const getUsers = () => {
   };
 };
 
+export const logout = (history) => {
+  return dispatch => {
+    localStorage.removeItem('token')
+    dispatch({
+      type: USER_UNAUTHENTICATED
+    });
+  };
+};
+
 //=====================================
 //            UI Actions
 //=====================================
 
-export const addNote = (theNote) => {
+export const addNote = (theNote, history) => {
   const headers = { 
     authorization: localStorage.getItem('token')
   }
@@ -96,6 +105,7 @@ export const addNote = (theNote) => {
           type: ADD_NOTE,
           payload: res.data
         });
+        history.push('/home');
       })
       .catch(() => {
         dispatch(authError('Failed to save note!'));
@@ -142,7 +152,7 @@ export const editNote = (edited, id, history) => {
   };
 };
 
-export const deleteNote = (deleted) => {
+export const deleteNote = (deleted, history) => {
   const headers = { 
     authorization: localStorage.getItem('token')
   }
@@ -150,10 +160,12 @@ export const deleteNote = (deleted) => {
   return dispatch => {
     note
       .then(res => {
+        console.log(res.data)
         dispatch({ 
           type: EDIT_NOTE, 
           payload: res.data
         });
+        history.push('/home');
       })
       .catch(err => {
         dispatch(authError('Error deleting note!', err));
