@@ -1,31 +1,34 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import '../styles/RegisterLogin.css';
 
 class Header extends Component {
   getLinks() {
     if (this.props.authenticated) {
       return (
-        <li>
-          <Link to="/home">Enter</Link>
-        </li>
+        <div>
+          <Link to="/home" className="splashText">Enter</Link>
+        </div>
       );
     }
-    return [
-      <li key={1}>
-        <Link to="/login">Login</Link>
-      </li>,
-      <li key={2}>
-        <Link to="/signup">Sign Up</Link>
-      </li>
-    ];
+    return (
+      <div>
+        <Link to="/login" className="splashText">Login</Link>
+        <Link to="/signup" className="splashText">Sign Up</Link>
+      </div>
+    );
   }
 
   render() {
     return (
-      <div>
-        <Link to="/">Welcome</Link>
-        <ul>{this.getLinks()}</ul>
+      <div className="formContainer">
+        <div className="formWrapper">
+          <div className="splashField">
+            <Link to="/" className="splashText">Welcome</Link>
+            {this.getLinks()}
+          </div>
+        </div>
       </div>
     );
   }

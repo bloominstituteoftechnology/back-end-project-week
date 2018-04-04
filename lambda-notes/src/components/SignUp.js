@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { register } from '../actions';
+import '../styles/RegisterLogin.css';
 
 class SignUp extends Component {
   state = {
@@ -26,37 +27,39 @@ class SignUp extends Component {
 
   render() {
     return (
-      <div className="formBody">
-        <div className="formHeader">Register:</div>
-        <div className="formFields">
-          <form type="submit">
-            <div className="registerContainer">
-              <input
-                type="text"
-                className="usernameField"
-                value={this.state.username}
-                name="username"
-                onChange={this.updateState}
-              />
+      <div className="formContainer">
+        <div className="formWrapper">
+          <div className="formField">
+            <div className="formText">Sign Up</div>
+              <form type="submit">
+                <div className="inputContainer">
+                  <input
+                    type="text"
+                    className="usernameField"
+                    value={this.state.username}
+                    name="username"
+                    onChange={this.updateState}
+                  />
+                </div>
+                <div className="inputContainer">
+                  <textarea
+                    type="text"
+                    className="passwordField"
+                    value={this.state.password}
+                    name="password"
+                    onChange={this.updateState}
+                  />
+                </div>
+                <input
+                  type="submit"
+                  className="submitButton"
+                  value="Register"
+                  onClick={this.save}
+                />
+              </form>
             </div>
-            <div className="passwordContainer">
-              <textarea
-                type="text"
-                className="passwordField"
-                value={this.state.password}
-                name="password"
-                onChange={this.updateState}
-              />
-            </div>
-            <input
-              type="submit"
-              className="submitButton"
-              value="Register"
-              onClick={this.save}
-            />
-          </form>
+          </div>
         </div>
-      </div>
     );
   };
 
