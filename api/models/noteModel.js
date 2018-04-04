@@ -8,10 +8,13 @@ const NoteSchema = mongoose.Schema({
     description: {
         type: String,
     },
-    createdOn: {
+    tags: {
         type: String,
-        default: new Date(),
-    }
+    },
+    image: {
+        type: String,
+    },
+
 });
 
 module.exports = mongoose.model('Notes', NoteSchema);

@@ -8,6 +8,7 @@ export const SET_SINGLE_NOTE = 'SET_SINGLE_NOTE';
 export const UPDATE_NOTE = 'UPDATE_NOTE';
 export const SEARCH = 'SEARCH';
 export const RETRIEVING_SEARCH = 'RETRIEVING_SEARCH';
+export const GET_NOTES = 'GET_NOTES';
 
 export const search = (criteria, status) => {
 
@@ -52,7 +53,7 @@ export const search = (criteria, status) => {
 };
 
 export const getNotes = () => {
-    const notes = axios.get('http://localhost:3333/notes/');
+    const notes = axios.get('http://localhost:3040/api/note');
 
     return dispatch => {
         dispatch({type: FETCHING, fetching: true});
@@ -60,6 +61,7 @@ export const getNotes = () => {
             .then(response => {
 
                 const respKeys = Object.keys(response.data);
+                console.log('response:::', response.data);
                 const responseData = Object.entries(response.data).map((note, i) => {
                     note[1].key = respKeys[i];
                     return note[1];

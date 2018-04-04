@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import './App.css';
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
-import Notes from './components/Notes'
+import Notes from './components/Notes';
 import {Row, Grid, Col} from 'react-bootstrap';
 import styled from 'styled-components';
-import CreateNewNoteForm from './components/CreateNewNoteForm'
-import Search from './components/Search'
+import CreateNewNoteForm from './components/CreateNewNoteForm';
+import Search from './components/Search';
+import SignUp from './components/SignUp';
 import Details from './components/Details';
 import UpdateNote from './components/UpdateNote';
 import SearchResults from './components/SearchResults';
@@ -32,6 +33,10 @@ class App extends Component {
                                     <Link to="/create_new_note" className={"btn-text"}> + Create New Note</Link>
                                 </div>
 
+                                <div className={'btn-side'}>
+                                    <Link to="/sign_up" className={"btn-text"}> + Sign Up</Link>
+                                </div>
+
                             </Col>
                             <Col xs={12} md={9} className={"components-container"}>
                                 {this.props.searching
@@ -42,6 +47,8 @@ class App extends Component {
                                             <Route path="/create_new_note" component={CreateNewNoteForm} />
                                             <Route path="/details/:id" component={Details} />
                                             <Route path="/update/:id" component={UpdateNote} />
+                                            <Route path="/sign_up" component={SignUp} />
+
                                         </div>
                                 }
 
