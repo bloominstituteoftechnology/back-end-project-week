@@ -79,6 +79,25 @@ export const getNotes = () => {
 
 };
 
+export const signUpUser = (user) => {
+    const newUser = axios.post('http://localhost:3040/api/user', {
+        name:user.name,
+        email:user.email,
+        password:user.password,
+    });
+    return dispatch => {
+        newUser
+            .then(({data}) => {
+                console.log('saved user::', data);
+                // dispatch({type: ADD_NOTES, payload: data});
+                // window.location = "/";
+            })
+            .catch(err => {
+                dispatch({type: ERROR_GETTING_NOTES, payload: err});
+            });
+    };
+};
+
 export const addNote = (note) => {
     const newNote = axios.post('http://localhost:3333/notes', {
         title:note.title,

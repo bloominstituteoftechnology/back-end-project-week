@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 import {FormGroup, FormControl, Row, Col, Grid} from 'react-bootstrap';
+import {signUpUser} from '../actions'
+import {connect} from 'react-redux';
 
 
 class SignUp extends Component {
@@ -15,6 +17,11 @@ class SignUp extends Component {
             [e.target.name]: e.target.value
         });
     };
+
+    addNewUser = () => {
+        this.props.signUpUser(this.state);
+    };
+
     render() {
         return (
             <SignUpContainer>
@@ -56,7 +63,7 @@ class SignUp extends Component {
                                             />
                                             <div className={"btn-update"}>
 
-                                                <div onClick={() => {this.addNote()}} className={'btn-side create-new'}>
+                                                <div onClick={() => {this.addNewUser()}} className={'btn-side create-new'}>
                                                     <div className={"btn-text"}> Sign Up </div>
                                                 </div>
 
@@ -73,7 +80,7 @@ class SignUp extends Component {
         )}
 }
 
-export default SignUp;
+export default connect(null, {signUpUser})(SignUp);
 
 const SignUpContainer = styled.div`
     text-align:left;
