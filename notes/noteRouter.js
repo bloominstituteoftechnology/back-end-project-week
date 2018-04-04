@@ -38,5 +38,25 @@ noteRouter.delete('/', (req, res) => {
       })
 })
 
+noteRouter.put('/', (req, res) => {
+  const info = req.body;
+  const updateNote = {
+    title: info.title,
+    content: info.meat
+  }
+  console.log('editing: ', req.body);
+  Note
+    .findByIdAndUpdate(info.id, updateNote)
+      .then(note => {
+        res
+          .status(200)
+          .json({ message: "Note was edited successfully!" });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err });
+      });
+})
 
 module.exports = noteRouter;

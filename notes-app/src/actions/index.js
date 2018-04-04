@@ -40,15 +40,31 @@ export const addNote = (note) => {
 }
 
 export const editNote = (note) => {
-  return {
-    type: 'EDIT_NOTE',
-    payload: note,
-  }
-  return note;
+  console.log('editing: ', note);
+
+  return dispatch => {
+    axios
+    .put(`${ROOT}/notes`, note)
+    .then(response => {
+      console.log(response.data);
+      dispatch({
+        type: 'EDIT_NOTE',
+        payload: note,
+      })
+    })
+    .catch((err) => {
+      dispatch(error('Failed to edit note'));
+    });
+  };
+  // return {
+  //   type: 'EDIT_NOTE',
+  //   payload: note,
+  // }
+  // return note;
 }
 
 export const deleteNote = (note) => {
-  console.log('deleting', note.title);
+  console.log('deleting: ', note.title);
   return dispatch => {
     axios
     .delete(`${ROOT}/notes`, { data:

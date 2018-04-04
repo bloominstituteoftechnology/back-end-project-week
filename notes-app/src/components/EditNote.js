@@ -10,6 +10,7 @@ class EditNote extends Component {
     title: this.props.id,
     oldtitle: this.props.id,
     meat: this.props.notes.Notes[this.props.id].meat,
+    id: this.props.notes.Notes[this.props.id].id,
     redirect: false,
   };
   render() {
@@ -58,10 +59,11 @@ class EditNote extends Component {
        // this doesn't overwrite state, but overwrites the specified [] value
   }
   doSubmit = (event) => {
+    console.log('this.props', this.props);
     event.preventDefault(); // stop default action of component
     this.props.editNote(this.state);
     this.setState( // reset the state
-      { title: '', meat: '', oldtitle: '', redirect: true, }
+      { title: '', meat: '', oldtitle: '', redirect: true, id: null}
     );
   }
 }
