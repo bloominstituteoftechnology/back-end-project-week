@@ -2,9 +2,9 @@ import { Component } from 'react';
 import { setIdToken, setAccessToken } from '../../utils/AuthService';
 
 class Callback extends Component {
-  // eslint-disable-next-line
+// eslint-disable-next-line
   constructor() {
-    super();
+    super()
   }
 
   componentDidMount() {

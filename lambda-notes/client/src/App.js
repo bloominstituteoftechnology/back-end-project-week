@@ -6,7 +6,8 @@ import CreateNoteContainer from './components/CreateNoteContainer/CreateNoteCont
 import EditNoteContainer from './components/EditNoteContainer/EditNoteContainer';
 import SingleNote from './components/SingleNote/SingleNote';
 import Panel from './components/Panel/Panel';
-import { login, logout, isLoggedIn } from './utils/AuthService';
+import Signup from './components/Signup/Signup';
+import { isLoggedIn } from './utils/AuthService';
 
 class App extends React.Component {
   state = {
@@ -129,7 +130,7 @@ class App extends React.Component {
                 : <NoteContainer showSingleNote={this.state.showSingleNote} notes={this.state.notes} singleNoteView={this.singleNoteView} sortAfterDrag={this.sortAfterDrag}/>
         }
       </div>
-      : 'You are not logged in.'
+      : <Signup />
     );
   }
 }

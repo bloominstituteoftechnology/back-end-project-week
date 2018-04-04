@@ -1,14 +1,14 @@
 import decode from 'jwt-decode';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, withRouter } from 'react-router-dom';
 import auth0 from 'auth0-js';
 const ID_TOKEN_KEY = 'id_token';
 const ACCESS_TOKEN_KEY = 'access_token';
 
-const CLIENT_ID = '{AUTH0_CLIENT_ID}';
-const CLIENT_DOMAIN = 'AUTH0_DOMAIN';
-const REDIRECT = 'YOUR_CALLBACK_URL';
-const SCOPE = 'YOUR_SCOPE';
-const AUDIENCE = 'AUDIENCE_ATTRIBUTE';
+const CLIENT_ID = 'GmvYnc9BARvaP0vmBEgbq7VtggydTzCw';
+const CLIENT_DOMAIN = '45h131.auth0.com';
+const REDIRECT = 'http://localhost:3000/callback';
+const SCOPE = 'notes';
+const AUDIENCE = '45h131-lambda-notes';
 
 var auth = new auth0.WebAuth({
   clientID: CLIENT_ID,
