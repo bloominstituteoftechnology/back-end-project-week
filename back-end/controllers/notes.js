@@ -1,6 +1,10 @@
 const Note = require('../models/note');
 const User = require('../models/user');
 
+//Errors I've Checked:
+//Invalid ID results in 'User Not Logged In'
+//Invalid Token results in 'Failed to Verify Token'
+//Defaults are set up so an empty note with no information can be created
 const createNote = (req, res) => {
   if (req.decoded.userId === req.params.userId) {
     const { userId } = req.params;
@@ -21,6 +25,9 @@ const createNote = (req, res) => {
   }
 };
 
+//Errors I've Checked:
+//Invalid ID results in 'User Not Logged In'
+//Invalid Token results in 'Failed to Verify Token'
 const getNotes = (req, res) => {
   if (req.decoded.userId === req.params.userId) {
     const { userId } = req.params;
@@ -38,15 +45,23 @@ const getNotes = (req, res) => {
   }
 };
 
+//Errors I've Checked:
+//Invalid ID results in 'User Not Logged In'
+//Invalid Note ID results in 'Note Does Not Exist'
+//Invalid Token results in 'Failed to Verify Token'
 const getNote = (req, res) => {
   if (req.decoded.userId === req.params.userId) {
     const { userId, noteId } = req.params;
     User.findById(userId).then((user) => {
       Note.findById(noteId)
         .then((foundNote) => {
-          res
-            .status(200)
-            .json({ message: 'The Note You Requested', foundNote });
+          if (foundNote === null) {
+            return res.status(422).json({ message: 'Note Does Not Exist' });
+          } else {
+            res
+              .status(200)
+              .json({ message: 'The Note You Requested', foundNote });
+          }
         })
         .catch((error) => {
           res.status(422).json({ message: 'Error Retrieving Note', error });
@@ -57,6 +72,10 @@ const getNote = (req, res) => {
   }
 };
 
+//Errors I've Checked:
+//Invalid ID results in 'User Not Logged In'
+//Invalid Note ID results in 'Note Does Not Exist'
+//Invalid Token results in 'Failed to Verify Token'
 const updateNote = (req, res) => {
   if (req.decoded.userId === req.params.userId) {
     const { userId, noteId } = req.params;
@@ -64,9 +83,13 @@ const updateNote = (req, res) => {
     User.findById(userId).then((user) => {
       Note.findByIdAndUpdate(noteId, updates, { new: true })
         .then((updatedNote) => {
-          res
-            .status(200)
-            .json({ message: 'Note Has Been Updated', updatedNote });
+          if (updatedNote === null) {
+            return res.status(422).json({ message: 'Note Does Not Exist' });
+          } else {
+            res
+              .status(200)
+              .json({ message: 'Note Has Been Updated', updatedNote });
+          }
         })
         .catch((error) => {
           res.status(422).json({ message: 'Error Updating Note', error });
@@ -77,15 +100,23 @@ const updateNote = (req, res) => {
   }
 };
 
+//Errors I've Checked:
+//Invalid ID results in 'User Not Logged In'
+//Invalid Note ID results in 'Note Does Not Exist'
+//Invalid Token results in 'Failed to Verify Token'
 const deleteNote = (req, res) => {
   if (req.decoded.userId === req.params.userId) {
     const { userId, noteId } = req.params;
     User.findById(userId).then((user) => {
       Note.findByIdAndRemove(noteId)
         .then((deletedNote) => {
-          res
-            .status(200)
-            .json({ message: 'Note Deleted Successfully', deletedNote });
+          if (deletedNote === null) {
+            return res.status(422).json({ message: 'Note Does Not Exist' });
+          } else {
+            res
+              .status(200)
+              .json({ message: 'Note Has Been Deleted', updatedNote });
+          }
         })
         .catch((error) => {
           res.status(422).json({ message: 'Error Deleting Note', error });

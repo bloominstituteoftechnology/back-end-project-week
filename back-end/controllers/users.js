@@ -5,6 +5,10 @@ const Note = require('../models/note');
 const secret = require('../../config');
 const BadToken = require('../models/badToken');
 
+//Errors I've Checked:
+//Password shorter than 8 characters results in 'Error Creating User'
+//Duplicate username results in 'Error Creating User'
+//Empty String in username results in 'Error Creating User'
 const createUser = (req, res) => {
   const newUser = new User(req.body);
   newUser
@@ -17,6 +21,9 @@ const createUser = (req, res) => {
     });
 };
 
+// Errors I've Checked:
+// Bad username results in 'Username Does Not Exist'
+// Bad password results in 'Password is Incorrect'
 const loginUser = (req, res) => {
   let { username, password } = req.body;
   username = username.toLowerCase();
@@ -44,16 +51,17 @@ const loginUser = (req, res) => {
   });
 };
 
-const logoutUser = (req, res, next) => {
+//Errors I've Checked:
+//Invalid ID as paramater results in 'User Not Logged In'
+//Invalid Token in Header results in 'Failed to Verify Token'
+const logoutUser = (req, res) => {
   if (req.decoded.userId === req.params.userId) {
     const badToken = req.headers.authorization;
-    const newBadToken = new BadToken({badToken});
-    const username = req.body;
+    const newBadToken = new BadToken({ badToken });
     newBadToken.save().then((token) => {
-      User.findOne(username)
+      User.findById(req.params.userId)
         .then((user) => {
           res.status(200).json({ message: 'User Logged Out', user });
-          next();
         })
         .catch((error) => {
           res.status(422).json({ message: 'User Log Out Failed', error });
