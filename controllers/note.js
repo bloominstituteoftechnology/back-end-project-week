@@ -37,7 +37,32 @@ const getNotes = (req, res) => {
   });
 };
 
+const updateNote = (req, res) => {
+  const { authorId, noteId } = req.params;
+  const noteUpdates = req.body;
+  // console.log(noteUpdates);
+  User.findById(authorId)
+  .then(user => {
+    Note.findByIdAndUpdate(noteId, noteUpdates, (err, updatedNote) => {
+      if (err) res.status(501).json(err);
+      // console.log(user);
+      // console.log(updatedNote);
+      res.status(200).json(updatedNote);
+    })
+  })
+}
+
+const deleteNote = (req, res) => {
+  const { noteId } = req.params;
+  Note.findByIdAndRemove(noteId, (err, removedNote) => {
+    if (err) res.status(501).json(err);
+    res.status(200).json(removedNote);
+  })
+}
+
 module.exports = {
   createNote,
   getNotes,
+  updateNote,
+  deleteNote
 };
