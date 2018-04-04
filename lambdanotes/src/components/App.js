@@ -82,7 +82,11 @@ export default class App extends React.Component {
       body: inputNote.body,
     };
     try {
-      await axios.post(`${ROOT_URL}/notes`, newNote);
+      await axios.post(`${ROOT_URL}/notes`, newNote, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      });
       await this.getNotes();
     } catch (err) {
       return console.error(err);

@@ -1,5 +1,4 @@
-const jwt = require('jsonwebtoken');
-const { secret } = require('../../config');
+const { tokenGenerator } = require('../services/auth');
 const User = require('../models/userModel');
 
 const login = async function(req, res) {
@@ -15,8 +14,8 @@ const login = async function(req, res) {
 
     const userIsValidated = await user.checkPassword(password);
     if (userIsValidated) {
-      const payload = { username: user.username };
-      const token = jwt.sign(payload, secret);
+      const payload = { username: user.username, uuid: user._id };
+      const token = tokenGenerator(payload);
       return res.json({ user, token });
     } else {
       return res.status(422).json({ error: "Invalid Password!" });
