@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class NoteView extends Component {
     render() {
@@ -15,10 +16,10 @@ class NoteView extends Component {
                     <div className="main__list">
 
                     <div className="button__side">
-                    <button>Edit</button>
-                    <button>Delete</button>
+                    <button className="button"><Link to='/edit'><div className="text__change">edit</div></Link></button>
+                    <button className="button"><Link to='/delete'><div className="text__change">delete</div></Link></button>
                     </div>
-                        <h3 className="title__main">Your Notes:</h3>
+                        <h3 className="title__main">Note Name</h3>
                         <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu laoreet neque. In volutpat, purus quis aliquam accumsan, neque mauris semper diam, vitae finibus diam augue eu massa. Vivamus ultricies nisl et tincidunt sollicitudin. Vestibulum id feugiat arcu. Nam viverra vitae lacus in vestibulum. Curabitur gravida neque posuere massa dapibus, vel malesuada purus scelerisque. Nunc blandit dolor sit amet ex molestie, a dapibus eros eleifend. Aenean quis mi arcu. Curabitur eu lacus tristique mauris convallis fringilla vestibulum non sem. Curabitur quis varius est. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
                         Phasellus sed pretium risus, vel congue orci. Integer tempor justo eget felis interdum pulvinar. Ut vel feugiat ipsum. Nullam commodo sem eget placerat hendrerit. Suspendisse in congue quam, ac finibus lorem. Cras sed imperdiet urna. Duis eget urna interdum, placerat est suscipit, molestie mauris. Phasellus tincidunt, tortor at aliquet congue, lacus ex facilisis ligula, eu commodo nibh augue eu purus.

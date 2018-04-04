@@ -228,10 +228,18 @@ hr.style__one {
 }
 
 .button__side {
-  background: purple;
   display: flex;
   width: 100%;
   justify-content: flex-end;
   margin-bottom: 3%;
-  
+}
+
+.button {
+  border: none;
+  background: #F1F1F1;
+  font-weight: bold;
+}
+
+.text__change {
+  color: black;
 }
