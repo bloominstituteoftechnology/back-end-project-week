@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 const secret = require('../../config');
-const logout = require('./loggedOut');
 const BadToken = require('../models/badToken');
 
 const loggedIn = (req, res, next) => {
@@ -10,7 +9,6 @@ const loggedIn = (req, res, next) => {
   BadToken.find({ badToken: tokenToCheck })
     .then((token) => {
       if (token.length === 0) {
-        console.log('WHAT THE FUCK1')
         jwt.verify(tokenToCheck, secret, (error, decoded) => {
           if (error) {
             return res
