@@ -1,5 +1,4 @@
 import React from 'react';
-//import fire from './fire';
 import './css/App.css';
 //import dummyData from './dummy-data';
 import NoteContainer from './components/NoteContainer/NoteContainer';
@@ -7,6 +6,7 @@ import CreateNoteContainer from './components/CreateNoteContainer/CreateNoteCont
 import EditNoteContainer from './components/EditNoteContainer/EditNoteContainer';
 import SingleNote from './components/SingleNote/SingleNote';
 import Panel from './components/Panel/Panel';
+import { login, logout, isLoggedIn } from './utils/AuthService';
 
 class App extends React.Component {
   state = {
@@ -117,6 +117,7 @@ class App extends React.Component {
 
   render() {
     return (
+      ( isLoggedIn() ) ?
       <div className="App">
         <Panel notes={this.state.notes} showAddWin={this.state.showAddWin} handleClickForCreate={this.handleClickForCreate} handleClickForView={this.handleClickForView} />
         {this.state.showAddWin
@@ -128,6 +129,7 @@ class App extends React.Component {
                 : <NoteContainer showSingleNote={this.state.showSingleNote} notes={this.state.notes} singleNoteView={this.singleNoteView} sortAfterDrag={this.sortAfterDrag}/>
         }
       </div>
+      : 'You are not logged in.'
     );
   }
 }
