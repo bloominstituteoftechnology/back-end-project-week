@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { login } from '../actions';
 import { Link } from 'react-router-dom';
@@ -12,23 +11,12 @@ class Login extends React.Component {
   };
 
   submitLogin = event => {
-    const { username, password } = this.state;
-    if (!username || !password) this.setState({ message: 'Please enter a username and a password.'})
     event.preventDefault();
-    axios
-      .post('http://localhost:3030/login', { username, password })
-      .then(response => {
-        console.log('response', response);
-        if (response.status === 200) {
-          this.props.login(response.data);
-          this.props.history.push('/');
-        } else if (response.status === 404) {
-          this.setState({ message: 'The username or password is incorrect.' });
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    const { username, password } = this.state;
+    if (!username || !password) {
+      this.setState({ message: 'Please enter a username and a password.' });
+    }
+    this.props.login({ username, password }, this.props.history);
   };
 
   updateField = event => {
@@ -59,7 +47,9 @@ class Login extends React.Component {
           <input type="submit" value="submit" />
         </form>
         {this.state.message && this.state.message}
-        <Link to='/register'><button>Register an account</button></Link>
+        <Link to="/register">
+          <button>Register an account</button>
+        </Link>
       </div>
     );
   }
@@ -68,6 +58,7 @@ class Login extends React.Component {
 const mapStateToProps = state => {
   return {
     authed: state.authed,
+    currentUser: state.currentUser,
   };
 };
 
