@@ -44,15 +44,14 @@ const RequireAuthMW = (req, res, next) => {
 };
 
 server.get('/notes', RequireAuthMW, (req, res) => {
-  Note.find({})
-    .then(notes => {
-      res.status(200).json(notes);
+  const { username } = req.session;
+  User.findOne({ username })
+    .populate('notes')
+    .then(foundUser => {
+      if (!foundUser) res.status(404).json({ msg: 'User does not exist' });
+      res.status(200).json({ notes: foundUser.notes });
     })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ msg: 'There was an error retrieving the notes.', error: err });
-    });
+    .catch(err => res.error(err));
 });
 
 server.get('/notes/:id', RequireAuthMW, (req, res) => {
