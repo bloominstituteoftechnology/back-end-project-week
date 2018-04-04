@@ -110,9 +110,9 @@ server.put('/notes', RequireAuthMW, (req, res) => {
     });
 });
 
-server.delete('/notes', RequireAuthMW, (req, res) => {
-  const { id } = req.body;
-  Note.findOneAndRemove({ id })
+server.delete('/notes/:id', RequireAuthMW, (req, res) => {
+  const { id } = req.params;
+  Note.findByIdAndRemove(id)
     .then(deletedNote => {
       res.status(200).json(deletedNote);
     })
