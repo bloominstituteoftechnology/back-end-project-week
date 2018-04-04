@@ -40,7 +40,15 @@ const login = (req, res) => {
   });
 };
 
+// const getUsers = (req, res) => {
+//   User.find({}, (users, err) => {
+//     if (err) return res.status(500).json('Could not get users');
+//     res.json(users);
+//   });
+// };
+
 module.exports = {
   createUser,
   login,
+  //getUsers,
 };

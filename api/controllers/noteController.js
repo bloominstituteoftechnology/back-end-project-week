@@ -15,7 +15,8 @@ const createNote = (req, res) => {
 };
 
 const getAllNotes = (req, res) => {
-  Note.find({}, (err, notes) => {
+  if (!req.headers) return sendUserError('No token on Authorization header.');
+  Note.find({ user: req.headers }, (err, notes) => {
     if (err) return res.status(500).json({ error: 'Could not get notes' });
     res.json(notes);
   });
@@ -46,7 +47,7 @@ const updateNote = (req, res) => {
     note.title = title;
     note.text = text;
     note.save((saveErr, savedNote) => {
-      if (err || note === null) {
+      if (saveErr || note === null) {
         res.status(500);
         res.json({ error: 'Could not save updated note' });
         return;

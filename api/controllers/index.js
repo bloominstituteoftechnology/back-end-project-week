@@ -1,4 +1,4 @@
-const { createUser, login } = require('./userController');
+const { createUser, login /*getUsers*/ } = require('./userController');
 
 const {
   createNote,
