@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "../styling/App.css";
+import SignUp from "./SignUp";
+import Login from './Login';
 import MainView from "./MainView";
 import CreateView from "./CreateView";
 import OneNote from "./OneNote";
@@ -11,31 +13,33 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <NotesViewStyled>
-          <div className="LeftBar">
-            <h1>Lambda Notes</h1>
-            <NavLink to="/">
-              <button>View Your Notes</button>
-            </NavLink>
-            <NavLink to="/create">
-              <button>+ Create New Note</button>
-            </NavLink>
-          </div>
-          <Route exact path="/" component={MainView} />
-          <Route path="/create" component={CreateView} />
-          <Route
-            path="/note/:id"
-            render={props => {
-              return <OneNote id={props.match.params.id} />;
-            }}
-          />
-          <Route
-            path="/edit/:id"
-            render={props => {
-              return <EditView id={props.match.params.id} />;
-            }}
-          />
-        </NotesViewStyled>
+          <NotesViewStyled>
+            <div className="LeftBar">
+              <h1>Lambda Notes</h1>
+              <NavLink to="/home">
+                <button>View Your Notes</button>
+              </NavLink>
+              <NavLink to="/create">
+                <button>+ Create New Note</button>
+              </NavLink>
+            </div>
+            <Route exact path='/' component={SignUp} />
+            <Route path='/login' component={Login} />
+            <Route path="/home" component={MainView} />
+            <Route path="/create" component={CreateView} />
+            <Route
+              path="/note/:id"
+              render={props => {
+                return <OneNote id={props.match.params.id} />;
+              }}
+            />
+            <Route
+              path="/edit/:id"
+              render={props => {
+                return <EditView id={props.match.params.id} />;
+              }}
+            />
+          </NotesViewStyled>
       </Router>
     );
   }
