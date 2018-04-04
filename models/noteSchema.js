@@ -2,12 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const noteSchema = new Schema({
-  email: {
+  title: {
     type: String,
     required: true,
-    unique: true
   },
-  password: {
+  text: {
     type: String,
     required: true
   }
@@ -15,4 +14,4 @@ const noteSchema = new Schema({
 
 mongoose.connect('mongodb://localhost/noteSchema');
 
-module.exports = mongoose.model('noteSchema', noteSchema);
+module.exports = mongoose.model('noteSchema', noteSchema)
