@@ -6,6 +6,7 @@ import {
   UPDATE_NOTE,
   TOGGLE_MODAL,
   DELETE_NOTE,
+  DELETE_ERROR,
   SELECT_NOTE,
   SORT_NOTES,
   LOGOUT_USER,
@@ -67,10 +68,14 @@ const reducer = (state = initialState, action) => {
     case DELETE_NOTE:
       return {
         ...state,
-        notes: state.notes.filter(note => note.id !== state.selectedNote.id),
         modalVisible: !state.modalVisible,
         selectedNote: {},
       };
+    case DELETE_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      }
     case SELECT_NOTE:
       return {
         ...state,
