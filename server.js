@@ -149,7 +149,6 @@ server.post('/login', (req, res) => {
   if (!username || !password) {
     res.status(400).json({
       msg: 'Please enter both a username and a password.',
-      error: err,
     });
   }
   User.findOne({ username })
@@ -163,9 +162,10 @@ server.post('/login', (req, res) => {
             session.username = username;
             res
               .status(200)
-              .json({ username: foundUser.username, notes: foundUser.notes, id: foundUser._id });
-          } else
-            res.status(400).json({ msg: 'Incorrect username or password' });
+              .json({ username: foundUser.username, notes: foundUser.notes });
+          } else {
+            res.status(400).json({ msg: 'Incorrect password' });
+          }
         })
         .catch(err => res.error(err));
     });
