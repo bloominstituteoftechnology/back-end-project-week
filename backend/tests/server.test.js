@@ -216,3 +216,14 @@ describe('Users endpoints', () => {
       .catch(err => console.error(err));
   });
 });
+
+test('Login sends back token', done => {
+  request(server)
+    .post('/login')
+    .send({ username: 'Test User', password: '1234' })
+    .then(res => {
+      expect(res.body).toHaveProperty('token');
+      done();
+    })
+    .catch(err => console.error(err));
+});
