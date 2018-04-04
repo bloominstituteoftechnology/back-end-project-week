@@ -20,7 +20,7 @@ class Menu extends Component {
           <a href="/newnote" className="menu__buttons__links"><div className="menu__buttons--align">
             <p className="menu__buttons__text">+ Create New Note</p>
           </div></a>
-        </div>}
+        </div>
       </div>
       )
   }
