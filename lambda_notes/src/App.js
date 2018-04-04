@@ -31,7 +31,7 @@ class App extends Component {
             changeSwitch={this.changeSwitch}
             changeUser={this.changeUser}
             onRef={ref => (this.mainpage = ref)}
-            currentUser={{ token: this.state.userToken, id: this.state.user }}
+            currentUser={{ token: this.state.userToken, id: this.state.userId }}
           />
         </div>
       </div>

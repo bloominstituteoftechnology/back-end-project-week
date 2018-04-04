@@ -8,10 +8,10 @@ const authenticate = require('../controllers/authenticate');
 
 
 module.exports = server => {
-  server.route('/api/users').post(createUser);
+  server.get('/api/notes', authenticate, getNotes);
   server.route('/api/notes').post(addNote);
   server.route('/api/notes').put(modifyNote);
   server.route('/api/notes').delete(deleteNote);
+  server.route('/api/users').post(createUser);
   server.route('/api/login').post(login);
-  server.route('/api/getNotes').post(authenticate, getNotes);
 };

@@ -7,6 +7,7 @@ import SearchBar from './mainpage/SearchBar';
 import WelcomePage from './mainpage/welcome/WelcomePage';
 import CsvCreator from 'react-csv-creator';
 import { arrayMove } from 'react-sortable-hoc';
+import axios from 'axios';
 import './mainpage.css';
 import './deletebox.css';
 
@@ -16,6 +17,7 @@ class MainPage extends React.Component {
     notes: [],
     deleting: false,
     searchValue: '',
+    notesLoaded: false,
 
   };
 
@@ -72,6 +74,7 @@ class MainPage extends React.Component {
   renderSwitch = (param) => {
     switch(param) {
       case 'noteList':
+        if (this.state.notes.length === 0 && !this.state.notesLoaded) this.getNotes();
         return <div className="mainPage__noteList">
           <NoteList notesArr={this.state.notes} changeSwitch={this.props.changeSwitch} viewNote={this.changeCurrentNote}
            filterValue={this.state.searchValue} onSortEnd={this.onSortEnd}
@@ -127,6 +130,18 @@ class MainPage extends React.Component {
 
   reverseNoteOrder = () => {
     this.setState({ ...this.state, notes: [...this.state.notes].reverse() });
+  }
+
+  getNotes = () => {
+    axios
+      .get('http://localhost:3030/api/notes', { headers: { "Authorization": this.props.currentUser.token }})
+      .then(foundNotes => {
+        console.log('this is what we found', foundNotes);
+        this.setState({ notes: foundNotes.data, notesLoaded: true });
+      })
+      .catch(err => {
+        console.error(err);
+      })
   }
 
 }
