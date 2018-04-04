@@ -23,6 +23,20 @@ server.get('/', authenticate, (req, res) => {
   res.json(req.jwtObj);
 });
 
+server.get('/getnotes', authenticate, (req, res) => {
+  const { email } = req.jwtObj;
+  Note.find({ email })
+    .then((notes) => {
+      res.status(200).json(notes);
+    })
+    .catch((err) => {
+      if (err) {
+        res.status(400).json({ errorMessage: 'there was a user error', errorBody: err });
+      }
+      res.status(500).json({ errorMessage: 'There was an internal error while retrieving user notes', err });
+    });
+});
+
 server.post('/login', (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
