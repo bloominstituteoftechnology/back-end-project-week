@@ -1,3 +1,5 @@
+/* eslint no-underscore-dangle: [0] */
+
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -69,9 +71,9 @@ class FullNote extends React.Component {
             <a href='' onClick={this.handleDeleteLink}>delete</a>
           </div>
           <div className='full-note__card'>
-            <SectionTitle name={this.props.notes.find(val => val.id.toString() === this.props.match.params.id).title} />
-            <TextBlock body={this.props.notes.find(val => val.id.toString() === this.props.match.params.id).body} />
-            <p>{this.props.notes.find(val => val.id.toString() === this.props.match.params.id).stamp}</p>
+            <SectionTitle name={this.props.notes.find(val => val._id === this.props.match.params.id).title} />
+            <TextBlock body={this.props.notes.find(val => val._id === this.props.match.params.id).body} />
+            <p>{this.props.notes.find(val => val._id === this.props.match.params.id).stamp}</p>
           </div>
         </div>
       </StyledNote>

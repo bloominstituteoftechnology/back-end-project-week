@@ -1,3 +1,5 @@
+/* eslint no-underscore-dangle: [0] */
+
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -43,7 +45,7 @@ const StyledCard = styled.div`
 `;
 
 const NoteCard = props => (
-  <Link to={`/fullnote/${props.note.id}`} style={{ textDecoration: 'none' }}>
+  <Link to={`/fullnote/${props.note._id}`} style={{ textDecoration: 'none' }}>
     <StyledCard>
       <h3>{props.note.title.length > 15 ? `${props.note.title.substring(0, 14)}...` : props.note.title}</h3>
       <p>{props.note.body.length > 120 ? `${props.note.body.substring(0, 119)}...` : props.note.body}</p>
