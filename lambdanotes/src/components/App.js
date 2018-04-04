@@ -24,22 +24,24 @@ export default class App extends React.Component {
     hasNewNotes: false,
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     if (localStorage.getItem('token')) {
-      this.getNotes();
-      return this.setState({
+      this.setState({
         authenticated: true,
       });
+      await this.getNotes();
+      return;
     }
     return this.setState({
       authenticated: false,
     });
   };
 
-  authenticate = _ => {
+  authenticate = async _ => {
     this.setState({
       authenticated: true,
     });
+    await this.getNotes();
   };
 
   deauthenticate = _ => {
@@ -64,8 +66,8 @@ export default class App extends React.Component {
         },
       });
       if (res.data.status === 'success') {
-        this.setState({
-          notes: res.data.allNotes,
+        return this.setState({
+          notes: [...res.data.allNotes],
         });
       };
     } catch (err) {
@@ -81,6 +83,7 @@ export default class App extends React.Component {
     };
     try {
       await axios.post(`${ROOT_URL}/notes`, newNote);
+      await this.getNotes();
     } catch (err) {
       return console.error(err);
     };

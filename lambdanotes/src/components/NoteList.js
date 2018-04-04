@@ -28,7 +28,7 @@ export default class NoteList extends React.Component {
   boolEmptyNotes = true;
 
   state = {
-    notes: this.props.notes,
+    notes: [...this.props.notes],
   };
 
   componentWillMount() {
@@ -40,14 +40,14 @@ export default class NoteList extends React.Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    this.boolEmptyNotes = false;
+    if(this.state.notes.length > 0) {
+      this.boolEmptyNotes = false;
+    } else {
+      this.boolEmptyNotes = true;
+    };
     this.setState({
       notes: nextProps.notes,
     });
-  };
-
-  componentDidUpdate() {
-    console.log('Component updated');
   };
 
   handleNoteIndex = index => {
