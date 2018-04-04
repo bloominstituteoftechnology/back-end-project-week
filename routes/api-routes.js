@@ -1,19 +1,23 @@
 const express = require('express');
 const server = express();
-
+const isLoggedIn = require('../controllers/auth')
 const Note = require('../models/notes-model');
 
 server.use(express.json());
 
-server.post('/note/create', (req, res) => {
+server.post('/note/create', isLoggedIn, (req, res) => {
   const { noteTitle, noteBody } = req.body;
+  const newNote = {
+    noteTitle,
+    noteBody,
+    username: req.session.username
+  }
   if (noteTitle && noteBody) {
     const note = new Note(req.body);
     note
       .save()
       .then((note) => res.json(note))
       .catch((err) => {
-        // console.log(err);
         res.status(500).json(err);
       });
   } else {
@@ -23,8 +27,8 @@ server.post('/note/create', (req, res) => {
   }
 });
 
-server.get('/notes', (req, res) => {
-  Note.find({})
+server.get('/notes', isLoggedIn, (req, res) => {
+  Note.find({ username: req.session.username })
     .then((notes) => {
       if (notes) {
         res.status(200).json(notes);
@@ -33,7 +37,7 @@ server.get('/notes', (req, res) => {
     .catch((err) => res.status(400).json(err));
 });
 
-server.get('/note/:id', (req, res) => {
+server.get('/note/:id', isLoggedIn, (req, res) => {
   Note.findById(req.params.id)
     .then((note) => {
       if (note) {
@@ -43,7 +47,7 @@ server.get('/note/:id', (req, res) => {
     .catch((err) => res.status(400).json(err));
 });
 
-server.put('/note', (req, res) => {
+server.put('/note', isLoggedIn, (req, res) => {
   const { noteTitle, noteBody, id } = req.body;
   if (id && (noteTitle || noteBody)) {
     const updatedNote = {
@@ -65,7 +69,7 @@ server.put('/note', (req, res) => {
     res.status(400).json({ error: 'Please provide an ID and Title or Body.' });
 });
 
-server.delete('/note', (req, res) => {
+server.delete('/note', isLoggedIn, (req, res) => {
   const { id } = req.body.id;
   Note.findByIdAndRemove(id)
     .then(note => res.status(200).json(note))
