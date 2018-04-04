@@ -69,8 +69,10 @@ export const getNotes = () => {
     axios
       .get(`${ROOT_URL}/api/notes`,
       {
-        headers: { authorization: token },
-        body: { user: userId }
+        headers: { 
+          authorization: token,
+          user: userId
+        }
       })
       .then(response => {
         console.log('response in actions/index.js line 68: ', response);
