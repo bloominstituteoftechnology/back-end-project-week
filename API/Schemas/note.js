@@ -15,6 +15,10 @@ const Note = new mongoose.Schema({
   stamp: {
     type: String,
   },
+  email: {
+    type: String,
+    lowercase: true,
+  }
 });
 
 module.exports = mongoose.model('Note', Note);
