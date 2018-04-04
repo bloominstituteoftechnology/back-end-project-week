@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 export default ComposedComponent => {
   class RequireAuth extends React.Component {
     componentWillMount() {
-      if (!this.props.authed) {
+      if (!sessionStorage.getItem('username')) {
         this.props.history.push('/login');
       }
     }
@@ -12,9 +12,9 @@ export default ComposedComponent => {
     render() {
       return (
         <div>
-          {this.props.authed ? (
-            <ComposedComponent />
-          ) : this.props.history.push('/login')}
+          {sessionStorage.getItem('username') ? (
+            <ComposedComponent {...this.props} />
+          ): null}
         </div>
       );
     }
