@@ -99,7 +99,7 @@ server.post('/notes', RequireAuthMW, (req, res) => {
 
 server.put('/notes', RequireAuthMW, (req, res) => {
   const note = req.body;
-  Note.findOneAndUpdate({ id: note.id }, note, { new: true })
+  Note.findByIdAndUpdate(note._id, note, { new: true })
     .then(updatedNote => {
       res.status(200).json(updatedNote);
     })
