@@ -3,6 +3,8 @@ const express = require('express');
 // const helmet = require('helmet');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const morgan = require('morgan');
+
 
 const server = express();
 const noteRouter = require('./routes/noteRoutes');
@@ -11,6 +13,7 @@ const host = process.env.DB_HOST;
 const success = process.env.STATUS_SUCCESS;
 
 server.use(express.json());
+server.use(morgan('combined'));
 // server.use(helmet());
 
 const corsOptions = {
