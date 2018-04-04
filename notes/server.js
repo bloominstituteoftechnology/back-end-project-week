@@ -22,6 +22,19 @@ server.get('/', (req, res) => {
   });
 });
 
+server.post('/notes', (req, res) => {
+  const noteInfo = req.body;
+  const note = new Note(noteInfo);
+  note
+    .save()
+    .then((savedNote) => {
+      res.status(200).json(savedNote);
+    })
+    .catch((err) => {
+      res.status(500).json({ errorMessage: 'There was an error saving the note' });
+    });
+});
+
 server.listen(PORT, err => {
   if (err) {
     console.error('Server error, not connecting', err);
