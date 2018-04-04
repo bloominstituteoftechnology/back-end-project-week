@@ -26,8 +26,7 @@ class EditNote extends Component {
   save = e => {
     e.preventDefault();
     const edited = Object.assign({}, this.state.note);
-    this.props.editNote(edited, this.state.note._id);
-    this.props.history.push('/home');
+    this.props.editNote(edited, this.state.note._id, this.props.history);
     this.setState({
       title: '',
       body: '',

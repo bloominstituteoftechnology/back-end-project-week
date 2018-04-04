@@ -122,7 +122,7 @@ export const getNotes = () => {
   };
 };
 
-export const editNote = (edited, id) => {
+export const editNote = (edited, id, history) => {
   const headers = { 
     authorization: localStorage.getItem('token')
   }
@@ -134,6 +134,7 @@ export const editNote = (edited, id) => {
           type: EDIT_NOTE, 
           payload: res.data
         });
+        history.push('/home');
       })
       .catch(err => {
         dispatch(authError('Error updating note!', err));
