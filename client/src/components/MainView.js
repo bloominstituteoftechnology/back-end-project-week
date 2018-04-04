@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import Notes from "./Notes";
 import { updateSelected } from "../actions";
-import { Redirect } from "react-router-dom";
 
 class MainView extends Component {
   render() {
