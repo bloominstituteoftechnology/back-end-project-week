@@ -18,7 +18,7 @@ class EditView extends Component {
                         <input className="note__input__title" placeholder="Note Title"></input>
                         <textarea className="note__input__content" placeholder="Note Content"></textarea>
                         <br />
-                        <button className="button__main__update">Update</button>
+                        <button className="button__main__update"><Link className="link" to='/user'>Update</Link></button>
                     </div>
                 </div>
             </div>
