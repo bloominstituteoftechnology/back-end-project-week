@@ -16,7 +16,8 @@ export const SHOW_NOTES = 'SHOW_NOTES';
 export const SIGNING_UP = 'SIGN_UP';
 export const TITLE_SORT = 'TITLE_SORT';
 export const TOGGLE_DELETE = 'TOGGLE_DELETE';
-export const UPDATE_NOTE = 'UPDATE_NOTE';
+export const UPDATING_NOTE = 'UPDATING_NOTE';
+export const UPDATED_NOTE = 'UPDATED_NOTE';
 export const UPDATE_SEARCH = 'UPDATE_SEARCH';
 export const USER_CREATED = 'USER_CREATED';
 
@@ -128,12 +129,29 @@ export const toggleDelete = data => ({
   type: TOGGLE_DELETE,
 });
 
-export const updateNote = data => ({
-  type: UPDATE_NOTE,
-  id: data.id,
-  title: data.title,
-  body: data.body,
-});
+export const updateNote = (data) => {
+  const config = {
+    headers: {
+      Authorization: localStorage.getItem('notesToken'),
+    }
+  };
+  const {
+    title, body, id
+  } = data;
+  const note = axios.put('http://localhost:5000/updatenote', {
+    title, body, id,
+  }, config);
+  return (dispatch) => {
+    dispatch({ type: UPDATING_NOTE });
+    note
+      .then(({ updatedNote }) => {
+        dispatch({ type: UPDATED_NOTE, payload: updatedNote });
+      })
+      .catch((err) => {
+        dispatch({ type: ERROR, payload: err });
+      });
+  };
+};
 
 export const updateSearch = data => ({
   type: UPDATE_SEARCH,

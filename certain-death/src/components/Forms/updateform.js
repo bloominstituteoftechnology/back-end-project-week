@@ -71,7 +71,7 @@ class UpdateForm extends React.Component {
     this.setState({
       title: '',
       body: '',
-      redirect: true,
+      // redirect: true,
     });
   }
 

@@ -66,6 +66,24 @@ server.post('/login', (req, res) => {
     });
 });
 
+server.post('/newnote', authenticate, (req, res) => {
+  const noteInfo = req.body;
+  const { email } = req.jwtObj;
+  const note = new Note({
+    ...noteInfo, email,
+  });
+  note.save()
+    .then((newNote) => {
+      res.status(201).json(newNote);
+    })
+    .catch((err) => {
+      if (err) {
+        res.status(400).json({ errorMessage: 'there was a user error', errorBody: err });
+      }
+      res.status(500).json({ errorMessage: 'There was an internal error while saving the note to the database', err });
+    });
+});
+
 server.post('/register', (req, res) => {
   const userInfo = req.body;
   const { email, password } = req.body;
@@ -88,21 +106,22 @@ server.post('/register', (req, res) => {
     });
 });
 
-server.post('/newnote', authenticate, (req, res) => {
-  const noteInfo = req.body;
-  const { email } = req.jwtObj;
-  const note = new Note({
-    ...noteInfo, email,
-  });
-  note.save()
-    .then((newNote) => {
-      res.status(201).json(newNote);
+server.put('/updatenote', authenticate, (req, res) => {
+  const changes = req.body;
+  const { id, title, body } = changes;
+  if (!title || !body || !id) {
+    res.status(400).json({ errorMessage: 'Please provide a title and body for update' });
+  }
+  Note.findByIdAndUpdate(id, changes, { new: true, runValidators: true })
+    .then((alteredNote) => {
+      if (alteredNote === null) {
+        res.status(404).json({ errorMessage: 'The note with the specified ID does not exist' });
+      }
+      console.log(alteredNote);
+      res.status(200).json({ alteredNote });
     })
     .catch((err) => {
-      if (err) {
-        res.status(400).json({ errorMessage: 'there was a user error', errorBody: err });
-      }
-      res.status(500).json({ errorMessage: 'There was an internal error while saving the note to the database', err });
+      res.status(500).json({ error: 'The note could not be updated', err });
     });
 });
 

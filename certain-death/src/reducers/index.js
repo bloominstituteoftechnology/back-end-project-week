@@ -13,7 +13,8 @@ import {
   SIGNING_UP,
   TITLE_SORT,
   TOGGLE_DELETE,
-  UPDATE_NOTE,
+  UPDATING_NOTE,
+  UPDATED_NOTE,
   UPDATE_SEARCH,
   USER_CREATED,
 } from '../actions';
@@ -28,7 +29,8 @@ const initialState = {
   loggingIn: false,
   loggedIn: false,
   addingNote: false,
-  gettingNoted: false,
+  gettingNotes: false,
+  updatingNote: false,
 };
 
 export default (state = initialState, action) => {
@@ -116,20 +118,15 @@ export default (state = initialState, action) => {
         ...state,
         deleteActive: !state.deleteActive,
       };
-    case UPDATE_NOTE:
+    case UPDATING_NOTE:
       return {
         ...state,
-        notes: state.notes.map((val) => {
-          if (val.id.toString() === action.id) {
-            return {
-              id: Number(action.id),
-              title: action.title,
-              body: action.body,
-              created: val.created,
-              stamp: val.stamp,
-            };
-          } return val;
-        }),
+        updatingNote: true,
+      };
+    case UPDATED_NOTE:
+      return {
+        ...state,
+        updatingNote: false,
       };
     case UPDATE_SEARCH:
       return {
