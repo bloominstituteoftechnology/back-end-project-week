@@ -1,48 +1,26 @@
-const passport = require('passport');
+module.exports = function(app, passport) {
+  app.get('/', function(req, res) {
+    res.render('index.ejs');
+  });
 
-//const User = mongoose.model('users');
+  app.get('/login', function(req, res){
+    res.render('login.ejs');
+  });
 
-module.exports = app => {
-  app.get('/',
-    function(req, res) {
-      res.render('index.ejs');
-    }
-  );
+  app.get('/signup', function(req, res) {
+    res.render('signup.ejs')
+  });
 
-  app.get('/login',
-    function(req, res){
-      res.render('login.ejs');
-    }
-  );
+  app.get('/profile', isLoggedIn, function(req, res) {
+    res.render('profile.ejs', { 
+      user: req.user 
+    });
+  });
 
-  app.post('/login', passport.authenticate('local-login', {
-    successRedirect : '/profile',
-    failureRedirect : '/login'
-  }));
-
-  app.get('/signup', 
-    function(req, res) {
-      res.render('signup.ejs')
-    }
-  );
-
-  app.post('/signup', passport.authenticate('local-signup', {
-    successRedirect : '/profile',
-    failureRedirect : '/signup',
-  }));
-
-  app.get('/logout',
-    function(req, res){
-      req.logout();
-      res.redirect('/');
-    }
-  );
-
-  app.get('/profile', isLoggedIn,
-    function(req, res){
-      res.render('profile.ejs', { user: req.user });
-    }
-  );
+  app.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+  });
 
   function isLoggedIn(req, res, next) {
     if(req.isAuthenticated()) {
@@ -50,5 +28,14 @@ module.exports = app => {
     }
     res.redirect('/');
   }
+  
+  app.post('/signup', passport.authenticate('local-signup', {
+    successRedirect : '/profile',
+    failureRedirect : '/signup',
+  }));
 
- };
+  app.post('/login', passport.authenticate('local-login', {
+    successRedirect : '/profile',
+    failureRedirect : '/login'
+  }));
+};

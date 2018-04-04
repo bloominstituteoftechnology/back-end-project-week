@@ -1,30 +1,31 @@
 const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 5000;
 const mongoose = require('mongoose');
 const passport = require('passport');
-const keys = require('./config/keys');
-require('./services/passport');
 
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+
+const keys = require('./config/keys');
 mongoose.connect(keys.mongoURI);
 
-const app = express();
+require('./services/passport')(passport);
 
-// Configure view engine to render EJS templates.
-app.set('views', __dirname + '/views');
+app.use(morgan('dev'));
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views');
 
-// Use application-level middleware for common functionality, including logging, parsing, and session handling.
-app.use(require('morgan')('combined'));
-app.use(require('cookie-parser')());
-app.use(require('body-parser').urlencoded({ extended: true }));
-app.use(require('express-session')({ secret: 'keyboard cat', resave:  false, saveUninitialized: false }));
-
-// Initialize Passport and restore authentication state, if any, from the session.
+app.use(session({ secret: 'keyboard cat', resave:  false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
-require('./services/passport')(passport);
-require('./routes/authRoutes')(app);
 
-// set port
-const PORT = process.env.PORT || 5000;
+require('./routes/authRoutes')(app, passport);
+
 app.listen(PORT);
 console.log('The magic happens on port ' + PORT);
