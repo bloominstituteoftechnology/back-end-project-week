@@ -1,4 +1,3 @@
-export const ADD_NOTE = 'ADD_NOTE';
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
@@ -11,6 +10,7 @@ export const LOGOUT_USER = 'LOGOUT_USER';
 export const REGISTER_ERROR = 'REGISTER_ERROR';
 export const USER_LOGGED_IN = 'USER_LOGGED_IN';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
+export const ERROR_ADDING_NOTE = 'ERROR_ADDING_NOTE';
 export const NOTES_FETCHED = 'NOTES_FETCHED';
 export const ERROR_FETCHING = 'ERROR_FETCHING';
 
@@ -30,9 +30,15 @@ export const fetchNotes = () => {
 };
 
 export const addNote = note => {
-  return {
-    type: ADD_NOTE,
-    payload: note,
+  return dispatch => {
+    axios
+      .post(`${URI}/notes`, note)
+      .then(({ data }) => {
+        dispatch(fetchNotes());
+      })
+      .catch(err => {
+        dispatch({ type: ERROR_ADDING_NOTE, payload: err });
+      });
   };
 };
 
