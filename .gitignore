@@ -1,7 +1,7 @@
 .DS_Store
 
 # Created by https://www.gitignore.io/api/node
-
+config.js
 ### Node ###
 # Logs
 logs

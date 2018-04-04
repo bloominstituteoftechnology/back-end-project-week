@@ -14,6 +14,6 @@ server.use(cors(corsOptions));
 
 server.use('/api', apiRoutes);
 
-// server.use('/', authRoutes);
+server.use('/', authRoutes);
 
 module.exports = server;

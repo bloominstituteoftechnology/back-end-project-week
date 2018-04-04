@@ -11,7 +11,10 @@ const NoteSchema = new Schema({
     required: true,
     type: String,
   },
-  // user: { type: ObjectId, ref: 'User' },
+  username: {
+    required: true,
+    type: String
+  },
 }, {timestamps: true});
 
 NoteSchema.methods.getNoteByTitle = function() {
