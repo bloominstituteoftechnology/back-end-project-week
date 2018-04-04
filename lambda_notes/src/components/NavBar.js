@@ -22,6 +22,7 @@ const NavBar = (props) => {
           className="navBar__button"
           onClick={() => {
             props.changeUser(null, null);
+            props.clearNotes();
             props.changeSwitch();
           }}
           style={props.currentUser.id !== null? { visibility: 'visible' } : { visibility: 'hidden' }}

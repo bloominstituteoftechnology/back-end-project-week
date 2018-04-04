@@ -20,6 +20,7 @@ class App extends Component {
             changeSwitch={this.changeSwitch}
             changeUser={this.changeUser}
             reverseOrder={this.reverseOrder}
+            clearNotes={this.clearNotes}
             switchValue={this.state.mainPageSwitchValue}
             currentUser={{ token: this.state.userToken, id: this.state.userId }}
           />
@@ -50,6 +51,10 @@ class App extends Component {
     if (this.state.mainPageSwitchValue === 'noteList') {
       this.mainpage.reverseNoteOrder();
     }
+  };
+
+  clearNotes = () => {
+    this.mainpage.clearNotes();
   };
 
   changeUser = (token, id) => {

@@ -29,6 +29,7 @@ class MainPage extends React.Component {
   }
 
   render() {
+    console.log('rendering', this.state.notes);
     return (
       <div>
         <div style={this.state.deleting ? { visibility: 'visible' } : { visibility: 'hidden' } }>
@@ -142,6 +143,12 @@ class MainPage extends React.Component {
       .catch(err => {
         console.error(err);
       })
+  }
+
+  clearNotes = () => {
+    if(this.state.notes.length > 0) {
+      this.setState({ notes: [], notesLoaded: false });
+    }
   }
 
 }
