@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { login } from '../actions';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
 class SignIn extends Component {
   handleFormSubmit({ username, password }) {
@@ -16,7 +17,10 @@ class SignIn extends Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-      <div className="signin">
+      !this.props.authenticated ?
+      <div className="popup">
+      <div className="popup__inner">
+        <h3>Please sign in </h3>
         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
           <fieldset>
             <Field placeholder="username" name="username" component="input" type="text" />
@@ -25,9 +29,11 @@ class SignIn extends Component {
             <Field placeholder="password" name="password" component="input" type="password" />
           </fieldset>
           <button action="submit">Sign In</button>
+          <NavLink to="/"> cancel </NavLink>
           {this.renderAlert()}
         </form>
       </div>
+    </div> : null
     );
   }
 }

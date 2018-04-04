@@ -23,6 +23,13 @@ class Authenticator extends Component {
   
   render() {
     return (
+      !this.props.authenticated ?
+      <div className="popup">
+      <div className="popup__inner">
+      <NavLink to="/">You Must Sign In To Save Your Notes</NavLink>
+        <ul>{this.getLinks()}</ul>
+      </div>
+    </div> :
       <div>
         <NavLink to="/">You Must Sign In To Save Your Notes</NavLink>
         <ul>{this.getLinks()}</ul>
