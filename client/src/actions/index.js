@@ -19,6 +19,7 @@ export const authError = error => {
 
 export const signUp = (email, password, confirmPassword, history) => {
   return dispatch => {
+    console.log({ email: email, password: password });
     if (password !== confirmPassword) {
       dispatch(authError('Passwords do not match'));
       return;
@@ -29,7 +30,7 @@ export const signUp = (email, password, confirmPassword, history) => {
         dispatch({
           type: USER_REGISTERED,
         });
-        history.push('/signin');
+        history.push('/login');
       })
       .catch(() => {
         dispatch(authError('Failed to register user'));

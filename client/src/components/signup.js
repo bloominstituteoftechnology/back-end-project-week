@@ -4,8 +4,9 @@ import { reduxForm, Field } from 'redux-form';
 import { signUp } from '../actions';
 
 class SignUp extends Component {
-  handleFormSubmit = ({ username, password, confirmPassword }) => {
-    this.props.signUp(username, password, confirmPassword, this.props.history);
+  handleFormSubmit = ({ email, password, confirmPassword }) => {
+    console.log(this.props.history);
+    this.props.signUp(email, password, confirmPassword, this.props.history);
   };
   renderAlert = () => {
     if (!this.props.error) return null;
