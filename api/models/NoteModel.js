@@ -12,4 +12,8 @@ const NoteSchema = Schema({
   }
 });
 
+NoteSchema.methods.getTitle = function() {
+  return this.title;
+};
+
 module.exports = mongoose.model('Note', NoteSchema);
