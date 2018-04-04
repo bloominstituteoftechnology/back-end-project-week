@@ -1,6 +1,8 @@
 // Action types
 import {
   ADD_NOTE,
+  NOTES_FETCHED,
+  ERROR_FETCHING,
   UPDATE_NOTE,
   TOGGLE_MODAL,
   DELETE_NOTE,
@@ -16,6 +18,7 @@ const initialState = {
   selectedNote: {},
   sortType: 'id',
   authed: false,
+  error: null,
 };
 
 const sortNotes = (notes, sortType, prop) => {
@@ -34,11 +37,15 @@ const reducer = (state = initialState, action) => {
       const newNote = {
         ...action.payload,
         id: state.id,
-      };
+    case NOTES_FETCHED:
       return {
         ...state,
-        notes: [...state.notes, newNote],
-        id: state.id + 1,
+        notes: action.payload,
+      };
+    case ERROR_FETCHING:
+      return {
+        ...state,
+        error: action.payload,
       };
     case UPDATE_NOTE:
       return {
