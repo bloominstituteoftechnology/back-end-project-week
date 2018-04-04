@@ -36,15 +36,6 @@ export default (state = initialState, action) => {
     case ADDING_NOTE:
       return {
         ...state,
-        // sortStatus: 'Unsorted',
-        // notes: [...state.notes, {
-        //   id: action.id,
-        //   title: action.title,
-        //   body: action.body,
-        //   created: action.created,
-        //   stamp: action.stamp,
-        // }
-        // ],
         addingNote: true,
       };
     case ADDED_NOTE:

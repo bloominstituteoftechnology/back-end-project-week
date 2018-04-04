@@ -59,7 +59,6 @@ export const getNotes = (data) => {
       Authorization: localStorage.getItem('notesToken'),
     }
   };
-  console.log('Getting Notes');
   const notes = axios.get('http://localhost:5000/getnotes', config);
   return (dispatch) => {
     dispatch({ type: GETTING_NOTES });
