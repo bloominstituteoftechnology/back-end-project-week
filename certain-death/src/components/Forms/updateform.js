@@ -1,3 +1,5 @@
+/* eslint no-underscore-dangle: [0] */
+
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -53,8 +55,8 @@ class UpdateForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: this.props.notes.find(val => val.id.toString() === this.props.id).title,
-      body: this.props.notes.find(val => val.id.toString() === this.props.id).body,
+      title: this.props.notes.find(val => val._id === this.props.id).title,
+      body: this.props.notes.find(val => val._id === this.props.id).body,
       redirect: false,
     };
   }
