@@ -142,9 +142,21 @@ export const editNote = (edited, id) => {
 };
 
 export const deleteNote = (deleted) => {
-  return {
-    type: DELETE_NOTE,
-    payload: deleted.id,
+  const headers = { 
+    authorization: localStorage.getItem('token')
+  }
+  const note = axios.delete(`${ROOT_URL}/api/note/delete/${deleted}`, {headers});
+  return dispatch => {
+    note
+      .then(res => {
+        dispatch({ 
+          type: EDIT_NOTE, 
+          payload: res.data
+        });
+      })
+      .catch(err => {
+        dispatch(authError('Error deleting note!', err));
+      });
   };
 };
 

@@ -20,7 +20,7 @@ class DisplayOne extends Component {
   }
   
   toggleDelete = () => {
-    this.props.deleteNote(this.state.note);
+    this.props.deleteNote(this.state.note._id);
     this.props.history.push('/home');
   };
 
