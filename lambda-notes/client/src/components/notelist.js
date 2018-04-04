@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Note from './icons/note';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -7,7 +7,6 @@ class NoteList extends Component {
     constructor() {
         super();
         this.state = {
-            // posts =[],
             title: '',
             content: ''
         }
