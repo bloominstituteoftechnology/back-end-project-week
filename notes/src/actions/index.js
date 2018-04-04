@@ -7,9 +7,10 @@ export const TOGGLE_MODAL = 'TOGGLE_MODAL';
 export const DELETE_NOTE = 'DELETE_NOTE';
 export const SELECT_NOTE = 'SELECT_NOTE';
 export const SORT_NOTES = 'SORT_NOTES';
-export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const REGISTER_ERROR = 'REGISTER_ERROR';
+export const USER_LOGGED_IN = 'USER_LOGGED_IN';
+export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const NOTES_FETCHED = 'NOTES_FETCHED';
 export const ERROR_FETCHING = 'ERROR_FETCHING';
 
@@ -69,12 +70,6 @@ export const sortNotes = sort => {
   };
 };
 
-export const login = (userData) => {
-  return {
-    type: LOGIN_USER,
-    payload: userData,
-  }
-}
 export const registerUser = userData => {
   return dispatch => {
     axios
@@ -82,6 +77,21 @@ export const registerUser = userData => {
       .then()
       .catch(err => {
         dispatch({ type: REGISTER_ERROR, payload: err });
+      });
+  };
+};
+
+export const login = (userData, history) => {
+  return dispatch => {
+    axios
+      .post(`${URI}/login`, userData)
+      .then(({ data }) => {
+        sessionStorage.setItem('username', userData.username);
+        dispatch({ type: USER_LOGGED_IN, payload: data });
+        history.push('/');
+      })
+      .catch(err => {
+        dispatch({ type: LOGIN_ERROR, payload: err });
       });
   };
 };
