@@ -6,8 +6,6 @@ const { getNotes } = require('../controllers');
 const noteRouter = express.Router();
 
 noteRouter.post('/new', function(req, res) {
-  console.log('Hi There');
-  
   const noteInfo = req.body;
   const newNote = new Note(noteInfo);
     if(!newNote.title || !newNote.content) {
