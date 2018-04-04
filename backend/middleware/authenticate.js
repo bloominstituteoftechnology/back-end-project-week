@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 const { secret } = require('../config');
 
 const authenticate = (req, res, next) => {
-  // You won't need to change anything in this file here.
   const token = req.get('Authorization');
   if (token) {
     jwt.verify(token, secret, (err, decoded) => {

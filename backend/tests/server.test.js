@@ -43,31 +43,59 @@ beforeEach(done => {
   const testUser = new User(testUserInfo);
 
   request(server)
-    // Seed the test note
-    .post('/notes')
-    .send(testNote)
+    // Seed the test user
+    .post('/users')
+    .send(testUser)
     .then(res => {
-      testNoteInfo.id = res.body._id;
+      testUserInfo.id = res.body.savedUser._id;
     })
     .then(() => {
       request(server)
-        // Seed the test user
-        .post('/users')
-        .send(testUser)
+        // Retrive a test token
+        .post('/login')
+        .send(testUserInfo)
         .then(res => {
-          testUserInfo.id = res.body.savedUser._id;
+          console.log(res.body.token)
+          testUserToken = res.body.token;
+          done();
         })
         .then(() => {
           request(server)
-            // Retrive a test token
-            .post('/login')
-            .send(testUserInfo)
+            // Seed the test note
+            .post('/notes')
+            .send(testNote)
             .then(res => {
-              testUserToken = res.body.token;
-              done();
+              testNoteInfo.id = res.body._id;
             });
         });
     });
+  // request(server)
+  //   // Seed the test note
+  //   .post('/notes')
+  //   .send(testNote)
+  //   .then(res => {
+  //     testNoteInfo.id = res.body._id;
+  //   })
+  //   .then(() => {
+  //     request(server)
+  //       // Seed the test user
+  //       .post('/users')
+  //       .send(testUser)
+  //       .then(res => {
+  //         testUserInfo.id = res.body.savedUser._id;
+  //       })
+  //       .then(() => {
+  //         request(server)
+  //           // Retrive a test token
+  //           .post('/login')
+  //           .send(testUserInfo)
+  //           .then(res => {
+  //             testUserToken = res.body.token;
+  //             done();
+  //           })
+  //           .catch(err => console.error(err));
+  //       });
+  //   });
 }); // beforeEach
 
 afterEach(done => {
@@ -82,6 +110,7 @@ afterEach(done => {
 // Notes endpoints
 describe('Notes endpoints', () => {
   test('[GET] /notes should retrieve an array of notes', done => {
+  console.log(testUserToken)
     request(server)
       .get('/notes')
       .set('Authorization', testUserToken)
@@ -97,6 +126,7 @@ describe('Notes endpoints', () => {
   test('[GET] /notes/:id should retrieve the note by id', done => {
     request(server)
       .get(`/notes/${testNoteInfo.id}`)
+      .set('Authorization', testUserToken)
       .then(res => {
         expect(res.body._id).toBe(testNoteInfo.id);
         expect(res.body.title).toBe(testNoteInfo.title);
@@ -113,6 +143,7 @@ describe('Notes endpoints', () => {
     };
     request(server)
       .post('/notes')
+      .set('Authorization', testUserToken)
       .send(newNoteInfo)
       .then(res => {
         expect(res.status).toBe(200);
@@ -130,6 +161,7 @@ describe('Notes endpoints', () => {
     };
     request(server)
       .post('/notes')
+      .set('Authorization', testUserToken)
       .send(newNoteInfo)
       .then(res => {
         expect(res.body.message).toBe('You need to enter a title and content!');

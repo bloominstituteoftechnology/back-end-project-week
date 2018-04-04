@@ -14,12 +14,13 @@ server.use(express.json());
 // NOTES ENDPOINTS //
 server.get('/notes', authenticate, (req, res) => {
   Note.find({}, (err, notes) => {
+    console.log(notes)
     if (err) res.status(500).json('Failed to get notes: ', err);
     res.status(200).json(notes);
   });
 });
 // Save new note
-server.post('/notes', (req, res) => {
+server.post('/notes', authenticate, (req, res) => {
   const { title, content, createdBy } = req.body;
   if (!title || !content) {
     res.json({ message: 'You need to enter a title and content!' });
@@ -48,48 +49,46 @@ server.post('/notes', (req, res) => {
     );
 });
 
-server
-  .route('/notes/:id')
-  // Get Note by ID
-  .get((req, res) => {
-    const id = req.params.id;
-    Note.findById(id)
-      .then(note => {
-        res.status(200).json(note);
-      })
-      .catch(err => {
-        res.status(500).json({ message: 'Cannot find note', error: err });
+// Get Note by ID
+server.get('/notes/:id', authenticate, (req, res) => {
+  const id = req.params.id;
+  Note.findById(id)
+    .then(note => {
+      res.status(200).json(note);
+    })
+    .catch(err => {
+      res.status(500).json({ message: 'Cannot find note', error: err });
+    });
+});
+// Update Note by ID
+server.put('/notes/:id', authenticate, (req, res) => {
+  const id = req.params.id;
+  const update = req.body;
+  Note.findByIdAndUpdate(id, update, { new: true })
+    .then(note => {
+      res.status(200).json({
+        message: 'Note updated successfully!',
+        updatedNote: note
       });
-  })
-  // Update Note by ID
-  .put((req, res) => {
-    const id = req.params.id;
-    const update = req.body;
-    Note.findByIdAndUpdate(id, update, { new: true })
-      .then(note => {
-        res.status(200).json({
-          message: 'Note updated successfully!',
-          updatedNote: note
-        });
-      })
-      .catch(err =>
-        res.status(500).json({ message: 'Error finding note', error: err })
-      );
-  })
-  // Delete note
-  .delete((req, res) => {
-    const id = req.params.id;
-    Note.findByIdAndRemove(id)
-      .then(note => {
-        res.status(200).json({
-          message: 'Note deleted successfully!',
-          deletedNote: note
-        });
-      })
-      .catch(err =>
-        res.status(500).json({ message: 'Error Deleting note', error: err })
-      );
-  });
+    })
+    .catch(err =>
+      res.status(500).json({ message: 'Error finding note', error: err })
+    );
+});
+// Delete note
+server.delete('/notes/:id', authenticate, (req, res) => {
+  const id = req.params.id;
+  Note.findByIdAndRemove(id)
+    .then(note => {
+      res.status(200).json({
+        message: 'Note deleted successfully!',
+        deletedNote: note
+      });
+    })
+    .catch(err =>
+      res.status(500).json({ message: 'Error Deleting note', error: err })
+    );
+});
 
 // USER ENDPOINTS //
 // Create new User
