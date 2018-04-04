@@ -7,6 +7,13 @@ const User = require("./src/models/User");
 const server = express();
 server.use(express.json());
 
+const corsOptions = {
+  "origin": "http://localhost:3000",
+  "credentials": true
+};
+
+server.use(cors(corsOptions));
+
 mongoose.Promise = global.Promise;
 mongoose
   .connect("mongodb://localhost/notes")
@@ -27,7 +34,7 @@ server.use(
 
 const PORT = 5000;
 
-// ===User manipulation functionality===
+// ===User manipulation functionality=== 
 
 server.post("/api/users", (req, res) => {
   console.log("Post recieved for user on server", req.body);
