@@ -102,9 +102,14 @@ input {
    grid-template-columns: 33% 33% 33%;
 } */
 
-.note__icon__title {
+.note__icon {
   font-weight: bold;
   font-size: 1rem;
+  background: white;
+  width: 25%;
+  height: 120px;
+  border: solid lightgrey 0.5px;
+  padding: 5%;
 }
 
 .note__icon__content {

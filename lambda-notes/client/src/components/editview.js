@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-class EditView extends Component {
+import { Link } from 'react-router-dom';
 
+class EditView extends Component {
     render() {
         return (
             <div>
                 <div className="section__content__left">
                     <h1 className="title">Lambda Notes</h1>
-                    <button className="button__main">View Your Notes</button>
+                    <button className="button__main"><Link className="link" to='/user'>View Your Notes</Link></button>
                     <br />
-                    <button className="button__main">+ Create New Note</button>
+                   <button className="button__main"><Link className="link" to='/create'>+ Create New Note</Link></button>
 
                 </div>
                 <div className="main">
