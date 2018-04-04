@@ -10,12 +10,12 @@ const server = express();
 
 server.use(express.json());
 server.use(helmet());
-server.use('/notes/NoteRoutes', router);
+server.use(router);
 
 mongoose.Promise = global.Promise;
 
 mongoose
-  .connect('mongodb://localhost/NoteSchema')
+  .connect('mongodb://localhost/LambdaNotesDB')
   .then(res => {
     console.log('Successfully connected to MongoDB');
   })
@@ -32,7 +32,7 @@ server.listen(PORT, err => {
 });
 
 server.get('/', (req, res) => {
-  Schema.find({}, (err, database) => {
+  Note.find({}, (err, database) => {
     if (err) {
       res.status(500);
       res.json(err);
