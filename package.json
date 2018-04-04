@@ -2,6 +2,9 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
   "repository": "https://github.com/cliffkang/back-end-project-week.git",
   "author": "cliffkang <cliffgkang@gmail.com>",
   "license": "MIT",
