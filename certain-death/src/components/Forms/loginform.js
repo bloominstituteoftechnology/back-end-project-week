@@ -49,11 +49,11 @@ class LoginForm extends React.Component {
     this.props.login({
       email: this.state.email.toLowerCase(),
       password: this.state.password,
-    });
+    }, this.props.history);
     this.setState({
       email: '',
       password: '',
-      redirect: true,
+      // redirect: true,
     });
   }
 

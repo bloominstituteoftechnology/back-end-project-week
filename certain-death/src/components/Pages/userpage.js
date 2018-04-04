@@ -20,13 +20,13 @@ const StyledUser = styled.div`
 
 `;
 
-const UserPage = () => (
+const UserPage = props => (
   <StyledUser>
     <UserRail />
     <div className='user-page__right'>
       <SectionTitle name='Please Register Or Login Below'/>
       <SignUpForm />
-      <LoginForm />
+      <LoginForm history={props.history}/>
     </div>
   </StyledUser>
 );

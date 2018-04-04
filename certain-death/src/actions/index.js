@@ -51,7 +51,8 @@ export const error = data => ({
   type: ERROR,
 });
 
-export const login = (data) => {
+export const login = (data, history) => {
+  console.log('THIS IS HISTORY', history);
   const user = axios.post('http://localhost:5000/login', {
     email: data.email,
     password: data.password,
@@ -62,6 +63,7 @@ export const login = (data) => {
       .then((res) => {
         localStorage.setItem('notesToken', res.data.token);
         dispatch({ type: LOGGED_IN, payload: res.data.token });
+        history.push('/list');
       })
       .catch((err) => {
         dispatch({ type: ERROR, payload: err });
