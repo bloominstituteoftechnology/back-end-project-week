@@ -47,8 +47,24 @@ const editNote = async function(req, res) {
   };
 };
 
+const deleteNote = async function(req, res) {
+  const { uuid } = req.headers;
+  const { _id } = req.body;
+
+  if (!uuid) return res.status(422).json({ error: 'No uuid in headers!' });
+  try {
+    const deletedNote = await Note.findByIdAndRemove(_id);
+    if (!deletedNote) return res.status(422).json({ error: 'No note with that ID found' });
+    res.json({ deleted: deletedNote });
+  } catch(err) {
+    console.log(err);
+    res.status(500).json({ status: err });
+  };
+};
+
 module.exports = { 
   createNote,
   listNotes,
   editNote,
+  deleteNote,
 };
