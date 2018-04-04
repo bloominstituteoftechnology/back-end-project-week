@@ -13,16 +13,16 @@ import EditNote from './EditNote';
 import './App.css';
 
 const ROOT_URL = 'http://localhost:5000/api';
-const requestHeader = {
-  headers: {
-    Authorization: localStorage.getItem('token'),
-    uuID: localStorage.getItem('uuID'),
-  },
-};
 
 export default class App extends React.Component {
   nextId = 0;
   noteIndex = 0;
+  requestHeader = {
+    headers: {
+      Authorization: localStorage.getItem('token'),
+      uuID: localStorage.getItem('uuID'),
+    },
+  };
 
   state = {
     notes: [],
@@ -31,7 +31,7 @@ export default class App extends React.Component {
   };
 
   async componentDidMount() {
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('token') && localStorage.getItem('uuID')) {
       this.setState({
         authenticated: true,
       });
@@ -44,6 +44,12 @@ export default class App extends React.Component {
   };
 
   authenticate = async _ => {
+    this.requestHeader = {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+        uuID: localStorage.getItem('uuID'),
+      },
+    };
     this.setState({
       authenticated: true,
     });
@@ -65,14 +71,14 @@ export default class App extends React.Component {
 
   getNotes = async _ => {
     try {
-      const res = await axios.get(`${ROOT_URL}/notes`, requestHeader);
+      const res = await axios.get(`${ROOT_URL}/notes`, this.requestHeader);
       if (res.data.status === 'success') {
         return this.setState({
           notes: [...res.data.allNotes],
         });
       };
     } catch (err) {
-      return console.log(err);
+      return console.error(err);
     };
   };
 
@@ -83,7 +89,7 @@ export default class App extends React.Component {
       body: inputNote.body,
     };
     try {
-      await axios.post(`${ROOT_URL}/notes`, newNote, requestHeader);
+      await axios.post(`${ROOT_URL}/notes`, newNote, this.requestHeader);
       await this.getNotes();
     } catch (err) {
       return console.error(err);
@@ -97,7 +103,7 @@ export default class App extends React.Component {
       body: inputNote.body,
     };
     try {
-      await axios.put(`${ROOT_URL}/notes`, editedNote, requestHeader);
+      await axios.put(`${ROOT_URL}/notes`, editedNote, this.requestHeader);
       await this.getNotes();
     } catch (err) {
       return console.error(err);
@@ -106,7 +112,7 @@ export default class App extends React.Component {
 
   handleDeleteNote = async inputId => {
     try {
-      await axios.delete(`${ROOT_URL}/notes/${inputId}`, requestHeader);
+      await axios.delete(`${ROOT_URL}/notes/${inputId}`, this.requestHeader);
       await this.getNotes();
     } catch (err) {
       return console.error(err);

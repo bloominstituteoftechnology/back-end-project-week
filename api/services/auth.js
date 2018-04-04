@@ -19,6 +19,7 @@ const authenticate = async function(req, res, next) {
       });
     }
   } catch (err) {
+    console.error(err);
     res.status(400).json({ error: err });
   };
 };
