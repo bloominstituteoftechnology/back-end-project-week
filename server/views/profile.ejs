@@ -1,9 +1,20 @@
-<p>
-ID: <%= user.id %><br/>
-Username: <%= user.username %><br/>
-Name: <%= user.displayName %><br/>
-<% if (user.emails) { %>
-Email: <%= user.emails[0].value %><br/>
-<% } %>
-</p>
-<a href="/logout">Log out</a>
+<!doctype html>
+<html>
+<head>
+  <title>Profile</title>
+</head>
+<body>
+  <h1>Profile Page</h1>
+
+  <!-- LOCAL INFORMATION -->
+  <h3>Local</h3>
+
+  <p>
+    <strong>id</strong>: <%= user._id %><br>
+    <strong>email</strong>: <%= user.local.email %><br>
+    <strong>password</strong>: <%= user.local.password %>
+  </p>
+
+<a href="/logout">Logout</a>
+</body>
+</html>

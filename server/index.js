@@ -1,6 +1,10 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const passport = require('passport');
-require('./services/passport')
+const keys = require('./config/keys');
+require('./services/passport');
+
+mongoose.connect(keys.mongoURI);
 
 const app = express();
 
@@ -17,9 +21,10 @@ app.use(require('express-session')({ secret: 'keyboard cat', resave:  false, sav
 // Initialize Passport and restore authentication state, if any, from the session.
 app.use(passport.initialize());
 app.use(passport.session());
-
+require('./services/passport')(passport);
 require('./routes/authRoutes')(app);
 
 // set port
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
+console.log('The magic happens on port ' + PORT);
