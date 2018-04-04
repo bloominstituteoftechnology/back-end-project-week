@@ -5,6 +5,7 @@ import { register } from '../../actions';
 
 class Register extends Component {
     handleFormSubmit({ username, email, password, confirm }) {
+        console.log("register props", this.props);
         this.props.register(username, email, password, confirm, this.props.history);
     }
     

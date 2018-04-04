@@ -2,7 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import Register from "./components/logging/Register";
-import LoginPage from "./components/logging/LoginPage";
+import Homepage from "./components/logging/Homepage";
+import Login from "./components/logging/Login";
+import NoteDisplayer from "./components/notes/NoteDisplayer";
 import { App } from "./components";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
@@ -19,8 +21,10 @@ ReactDOM.render(
     <Router>
       <div>
         <Route path="/" component={App} />
+        <Route path="/front" component={Homepage} />
         <Route path="/register" component={Register} />
-        <Route path="/login" component={LoginPage} />
+        <Route path="/login" component={Login} />
+        <Route path="/notes" component={NoteDisplayer} />
       </div>
     </Router>
   </Provider>,

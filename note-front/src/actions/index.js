@@ -1,5 +1,5 @@
 import notesData from "../notesData.js";
-import axios from 'axios';
+import axios from "axios";
 axios.defaults.withCredentials = true;
 
 // ==== NOTES variables ====
@@ -20,7 +20,7 @@ export const SINGLE_NOTE = "SINGLE_NOTE";
 // ==== USERS variables ====
 //region
 
-const ROOT_URL = 'http://localhost:5000';
+const ROOT_URL = "http://localhost:5000";
 export const USER_REG = "USER_REG";
 export const USER_AUTH = "USER_AUTH";
 export const USER_UNAUTH = "USER_UNAUTH";
@@ -137,30 +137,56 @@ export const updateSingleNote = note => {
 
 export const authErr = err => {
   return {
-      type: AUTH_ERR,
-      payload: err
+    type: AUTH_ERR,
+    payload: err
   };
 };
 
-export const register = (username, email, password, confirmPassword, history) => {
+export const register = (
+  username,
+  email,
+  password,
+  confirmPassword,
+  history
+) => {
   return dispatch => {
-      if (password !==confirmPassword) {
-          dispatch(authErr('Passwords do not match'));
-      }
-      if (!username || !email || !password || !confirmPassword) {
-          dispatch(authErr('Please fill in all fields'));
-      }  
-      axios
+    if (password !== confirmPassword) {
+      dispatch(authErr("Passwords do not match"));
+    }
+    if (!username || !email || !password || !confirmPassword) {
+      dispatch(authErr("Please fill in all fields"));
+    }
+    axios
       .post(`${ROOT_URL}/api/users`, { username, email, password })
       .then(user => {
-              dispatch({
-                  type: USER_REG
-              });
-              history.push('/signin');
-          })
-          .catch(err => {
-              dispatch(authErr(err.toString()));
-          });
+        dispatch({
+          type: USER_REG
+        });
+        history.push("/signin");
+      })
+      .catch(err => {
+        dispatch(authErr(err.toString()));
+      });
+  };
+};
+
+export const login = (username, password, history) => {
+  return dispatch => {
+    axios
+      .post(`${ROOT_URL}/login`, { username, password })
+      .then(res => {
+        let token = res.data.token;
+        axios.defaults.headers.common["Authorization"] = token;
+        console.log("auth header", axios.defaults.headers.common["Authorization"]);
+        dispatch({
+          type: USER_AUTH
+        });
+        console.log("Logged in!");
+        history.push("/notes");
+      })
+      .catch(err => {
+        dispatch(authErr(err.toString()));
+      });
   };
 };
 

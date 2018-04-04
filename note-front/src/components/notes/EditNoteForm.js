@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/EditNoteForm.css';
+import '../../styles/EditNoteForm.css';
 const EditNoteForm = props => {
   let theTitle = "test";
   let theText = "test";

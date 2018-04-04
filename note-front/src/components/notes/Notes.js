@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import '../styles/App.css';
-import logo from '../logo.svg';
+import '../../styles/App.css';
+import logo from '../../logo.svg';
 import { connect } from 'react-redux';
-import { deleteNote, updateSingleNote, toggleShowUpdate, updateNote } from '../actions';
+import { deleteNote, updateSingleNote, toggleShowUpdate, updateNote } from '../../actions';
 import NoteEdit from './NoteEdit';
 import EditNoteForm from './EditNoteForm';
 

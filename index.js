@@ -5,6 +5,8 @@ const session = require("express-session");
 const mongoose = require("mongoose");
 const User = require("./src/models/User");
 const server = express();
+const jwt = require('jsonwebtoken');
+const { mysecret } = require('./config');
 server.use(express.json());
 
 const corsOptions = {
@@ -81,8 +83,10 @@ server.post("/login", (req, res) => {
         return;
       }
       if (hashMatch) {
-        req.session.ID = user._id;
-        res.json("login success!");
+        const payload = { username: user.username };
+        const token = jwt.sign(payload, mysecret);
+        console.log("token is", token);
+        res.json({ token });
       }
     });
   });
