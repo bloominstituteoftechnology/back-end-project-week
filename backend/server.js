@@ -135,6 +135,7 @@ server.get('/users/:id', (req, res) => {
     });
 });
 
+// Login user and send back JWT
 server.post('/login', (req, res) => {
   let { username, password } = req.body;
   username = username.toLowerCase();
