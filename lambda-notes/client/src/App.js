@@ -1,5 +1,6 @@
 import React from 'react';
 import './css/App.css';
+import axios from 'axios';
 //import dummyData from './dummy-data';
 import NoteContainer from './components/NoteContainer/NoteContainer';
 import CreateNoteContainer from './components/CreateNoteContainer/CreateNoteContainer';
@@ -31,6 +32,12 @@ class App extends React.Component {
     })
   } */
 
+  componentDidMount() {
+  fetch('/notes')
+    .then(res => res.json())
+    .then(notes => this.setState({ notes: notes }));
+  }
+
   handleClickForCreate = () => {
     this.setState({
       showAddWin: !this.state.showAddWin,
@@ -48,6 +55,10 @@ class App extends React.Component {
   handleClickForSave = (newNote) => {
     //let tempArr = [newNote, ...this.state.notes];
     //fire.database().ref('notes2').set(tempArr.reverse());
+    axios.post('/notes/save', { newNote })
+    .then((result) => {
+      alert('server got it, hopefully')
+    });
     this.setState({
       notes: [newNote, ...this.state.notes],
       showAddWin: !this.state.showAddWin

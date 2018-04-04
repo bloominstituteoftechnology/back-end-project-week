@@ -1,21 +1,20 @@
 const express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
-const checkUserLoggedIn = require('./api/middlewares/checkLogStatus.js')
 const session = require('express-session');
 const cors = require('cors');
-const User = require('./api/models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('express-jwt');
 const jwks = require('jwks-rsa');
 
-var index = require('./api/routes/index');
-var users = require('./api/routes/users');
-
+const index = require('./api/routes/index');
+const users = require('./api/routes/users');
+const notes = require('./api/routes/notes');
+const Note = require('./api/models/note');
 const app = express();
 require('dotenv').config();
 
@@ -30,11 +29,11 @@ const authCheck = jwt({
         rateLimit: true,
         jwksRequestsPerMinute: 5,
         // YOUR-AUTH0-DOMAIN name e.g prosper.auth0.com
-        jwksUri: "https://{YOUR-AUTH0-DOMAIN}/.well-known/jwks.json"
+        jwksUri: "https://45h131.auth0.com/.well-known/jwks.json"
     }),
     // This is the identifier we set when we created the API
-    audience: '{YOUR-API-AUDIENCE-ATTRIBUTE}',
-    issuer: '{YOUR-AUTH0-DOMAIN}',
+    audience: '45h131-lambda-notes',
+    issuer: '45h131.auth0.com',
     algorithms: ['RS256']
 });
 
@@ -59,6 +58,7 @@ app.use(session({
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/notes', notes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -77,5 +77,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;
