@@ -67,9 +67,27 @@ server.get('/notes/:id', RequireAuthMW, (req, res) => {
 server.post('/notes', RequireAuthMW, (req, res) => {
   const noteInfo = req.body;
   const note = new Note(noteInfo);
+  const session = req.session;
   note
     .save()
     .then(savedNote => {
+      User.findOne({ username: session.username }, (err, user) => {
+        if (err)
+          return res
+            .status(500)
+            .json({ msg: 'There was an error adding the note.' });
+        user.notes.push(savedNote);
+        const hashed = user.password;
+        user
+          .save()
+          .then()
+          .catch(err =>
+            res.status(500).json({
+              msg: 'There was an error saving the the note to the account.',
+              error: err,
+            })
+          );
+      });
       res.status(200).json(savedNote);
     })
     .catch(err => {
