@@ -14,7 +14,6 @@ const createUser = (req, res) => {
 
 const login = (req, res) => {
   const { username, password } = req.body;
-  console.log('Request body: ', req.body);
   User.findOne({ username }, (err, user) => {
     if (err) {
       console.log('err: ', err);
@@ -27,7 +26,6 @@ const login = (req, res) => {
       .json({ error: 'No user with that username in the DB' });
       return;
     }
-    console.log("user: ", user);
     user.checkPassword(password, (nonMatch, hasMatch) => {
       if (nonMatch !== null) res.status(userError)
           .json({ error: 'Passwords do not match' });
@@ -41,9 +39,9 @@ const login = (req, res) => {
 };
 
 const getNotes = (req, res) => {
-  const { user } = req.body;
-  console.log('getNotes req: ', req);
-  Note.findById(user, (err, notes) => {
+  const { user } = req.headers;
+  console.log('getNotes req.headers: ', req.headers);
+  Note.find({ user }, (err, notes) => {
     if (err) return res.send(err);
     res.send(notes);
   })
