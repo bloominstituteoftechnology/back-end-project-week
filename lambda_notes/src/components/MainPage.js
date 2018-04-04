@@ -98,7 +98,19 @@ class MainPage extends React.Component {
   };
 
   addNote = (noteObj) => {
-    this.setState({ ...this.state, notes: this.state.notes.concat([noteObj]) });
+    axios
+      .post(
+        'http://localhost:3030/api/notes',
+        noteObj,
+        { headers: { "Authorization": this.props.currentUser.token }}
+      )
+      .then(res => {
+        console.log(res.data);
+        this.setState({ ...this.state, notes: this.state.notes.concat([noteObj]) });
+      })
+      .catch(err => {
+        console.error(err);
+      })
   };
 
   changeCurrentNote = (nextNote) => {
