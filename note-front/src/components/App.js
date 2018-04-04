@@ -1,16 +1,25 @@
-import React, { Component } from 'react';
-import logo from '../logo.svg';
-import NoteForm from './NoteForm';
-import Notes from './Notes.js';
-import '../styles/App.css';
-import { connect } from 'react-redux';
-import { getNotes } from '../actions';
-
-
+import React, { Component } from "react";
+import "../styles/App.css";
+// import { connect } from "react-redux";
+import LoginPage from "./logging/LoginPage";
+import Register from "./logging/Register";
+const auth = true;
 class App extends Component {
-    render() {
-        return (
-            
-        )
+  render() {
+    if (auth) {
+      return (
+        <div>
+          <LoginPage />
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <Register />
+        </div>
+      );
     }
+  }
 }
+
+export default App;
