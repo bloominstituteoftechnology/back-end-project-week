@@ -30,4 +30,34 @@ noteRouter.post('/new', function(req, res) {
 
 noteRouter.get('/', getNotes, validateToken);
 
+noteRouter.put('/update', (req, res) => {
+  const { title, content, _id } = req.body;
+  console.log('Req body in noteRouter line 35: ', req.body);
+  console.log('Now just the id: ', _id);
+  if (!title || !content ) {
+    return res.status(process.env.STATUS_USER_ERROR)
+      .json({ error: 'Must Provide a title & content of note' });
+  }
+
+  Note.findById(_id, (err, note) => {
+    if (err || note === null) {
+      res.status(process.env.STATUS_USER_ERROR);
+      res.json({ error: 'Cannot find note by that id' });
+      return;
+    }
+    note.title = title;
+    note.content = content;
+    note.save((saveErr, savedNote) => {
+      if (err || note === null) {
+        res.status(process.env.STATUS_INTERNAL_SERVER_ERROR);
+        res.json({ error: 'The server isn`t working properly' });
+        return;
+      }
+      res.json(note);
+    });
+  });
+});
+
+
+
 module.exports = noteRouter;
