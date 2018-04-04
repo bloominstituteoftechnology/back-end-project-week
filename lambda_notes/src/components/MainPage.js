@@ -127,7 +127,10 @@ class MainPage extends React.Component {
       )
       .then(res => {
         console.log(res.data);
-        this.setState({...this.state, currentNote: newNote, notes: this.state.notes.map(note => { if (note.id === newNote.id) {return newNote} else {return note} } )
+        console.log('were about to run setState, but here is the new note', newNote);
+        this.setState({
+          currentNote: newNote,
+          notes: this.state.notes.map(note => { console.log('note:',note); if (note._id === newNote._id) {return newNote} else {return note} } )
         });
       })
       .catch(err => {
@@ -141,8 +144,25 @@ class MainPage extends React.Component {
   };
 
   deleteCurrentNote = () => {
-    this.setState({ notes: this.state.notes.filter(note => note.id !== this.state.currentNote.id), currentNote: {}, deleting: false });
-    this.props.changeSwitch('Your Notes:','noteList');
+    console.log('before axios');
+    axios
+      .delete(
+        'http://localhost:3030/api/notes',
+        {
+          headers: { "Authorization": this.props.currentUser.token },
+          data: Object.assign({}, this.state.currentNote)
+        }
+      )
+      .then(res => {
+        const deletedNote = res.data;
+        this.setState({ notes: this.state.notes.filter(note => note._id !== this.state.currentNote._id), currentNote: {}, deleting: false });
+        this.props.changeSwitch('Your Notes:','noteList');
+      })
+      .catch(err => {
+        console.error(err);
+        console.error(err.response);
+      });
+      console.log('after axios');
   };
 
   updateSearchValue = (str) => {

@@ -1,7 +1,6 @@
 const Notes = require('../models/noteModel');
 
 const getNotes = (req, res) => {
-  console.log(req.decoded);
   const author = req.decoded.id;
   Notes.find({ author })
     .then(notes => {

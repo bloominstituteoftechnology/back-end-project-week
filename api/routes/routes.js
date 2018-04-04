@@ -11,7 +11,7 @@ module.exports = server => {
   server.get('/api/notes', authenticate, getNotes);
   server.route('/api/notes').post(authenticate, addNote);
   server.route('/api/notes').put(authenticate, modifyNote);
-  server.route('/api/notes').delete(deleteNote);
+  server.route('/api/notes').delete(authenticate, deleteNote);
   server.route('/api/users').post(createUser);
   server.route('/api/login').post(login);
 };
