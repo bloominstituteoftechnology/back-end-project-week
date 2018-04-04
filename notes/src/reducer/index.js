@@ -106,7 +106,7 @@ const reducer = (state = initialState, action) => {
     case LOGOUT_USER:
       return {
         ...state,
-        authed: false,
+        loggedIn: false,
       };
     default:
       return state;
