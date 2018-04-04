@@ -126,7 +126,7 @@ export const editNote = (edited, id) => {
   const headers = { 
     authorization: localStorage.getItem('token')
   }
-  const note = axios.put(`${ROOT_URL}/api/note/${id}`, {headers}, edited);
+  const note = axios.put(`${ROOT_URL}/api/note/edit/${id}`, edited, {headers});
   return dispatch => {
     note
       .then(res => {

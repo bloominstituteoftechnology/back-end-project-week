@@ -5,9 +5,15 @@ import SideBar from './SideBar';
 
 class EditNote extends Component {
   state = {
-    note: {...this.props.note[this.props.id]},
+    note: {},
   };
-  
+
+  componentDidMount() {
+    const id = this.props.id;
+    const displayNote = this.props.note.filter(note => note._id === id)[0];
+    this.setState({ note: displayNote });
+  }
+
   updateState = e => {
     this.setState({ 
       note: {
@@ -19,9 +25,8 @@ class EditNote extends Component {
 
   save = e => {
     e.preventDefault();
-    console.log(this.state)
     const edited = Object.assign({}, this.state.note);
-    this.props.editNote(edited, this.state.note.id);
+    this.props.editNote(edited, this.state.note._id);
     this.props.history.push('/home');
     this.setState({
       title: '',
