@@ -60,27 +60,31 @@ export const getAllNotes = () => {
   };
 };
 
-export const getNote = (id) => {
-  return dispatch => {
-    axios
-      .get(`${ROOT_URL}/notes/${id}`)
-      .then((response) => {
-        console.log('getNote response', response);
-        dispatch({
-          type: GET_NOTE,
-          payload: response.data
-        });
-      })
-      .catch(() => {
-        dispatch(error('Failed to retrieve note'));
-      })
-  }
-}
+// export const getNote = (id) => {
+//   return dispatch => {
+//     axios
+//       .get(`${ROOT_URL}/notes/${id}`)
+//       .then((response) => {
+//         console.log('getNote response', response);
+//         dispatch({
+//           type: GET_NOTE,
+//           payload: response.data
+//         });
+//       })
+//       .catch(() => {
+//         dispatch(error('Failed to retrieve note'));
+//       })
+//   }
+// }
 
 export const createNote = (title, content) => {
   return dispatch => {
     axios
-      .post(`${ROOT_URL}/notes`, { title, content })
+      .post(`${ROOT_URL}/notes`, { title, content }, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      })
       .then(() => {
         dispatch({
           type: CREATE_NOTE
@@ -142,7 +146,8 @@ export const login = (username, password, history) => {
   return dispatch => {
     axios
       .post(`${ROOT_URL}/login`, { username, password })
-      .then(() => {
+      .then((res) => {
+        localStorage.setItem('token', res.data.token)
         dispatch({
           type: USER_AUTHENTICATED,
         })
@@ -153,3 +158,10 @@ export const login = (username, password, history) => {
       });
   };
 };
+
+export const logout = (history) => {
+  return dispatch => {
+    localStorage.removeItem('token');
+    dispatch({ type: USER_UNAUTHENTICATED });
+  };
+;}

@@ -17,6 +17,7 @@ import SignUp from './components/SignUp/SignUp';
 import RequireAuth from './components/HOC/RequireAuth';
 import HomePage from './components/HomePage/HomePage';
 import NotLoggedIn from './components/NotLoggedIn/NotLoggedIn';
+// import SignOut from './components/SignOut/SignOut';
 
 
 const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
@@ -31,6 +32,7 @@ ReactDOM.render(
       <Route path="/pleaselogin" component={NotLoggedIn} exact />
       <Route path="/notes" component={RequireAuth(App)} exact />
       {/* <Route path="/notes" component={Notes} exact /> */}
+      {/* <Route path="/loggedout" component={SignOut} exact /> */}
       <Route path="/login" component={SignIn} exact />
       <Route path="/users" component={SignUp} exact />
       <Route path="/create" component={CreateNewNote} exact />

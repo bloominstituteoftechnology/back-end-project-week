@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './NotLoggedIn.css';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { authUser } from '../../actions';
+
 
 const NotLoggedIn = () => {
+  console.log('localStorage', localStorage.getItem('token'));
+  console.log('this.props', this.props)
   return (
     <div className="HomePage-container">
       <nav className="Sidebar-container">
@@ -30,4 +35,10 @@ const NotLoggedIn = () => {
   )
 }
 
-export default NotLoggedIn;
+const mapStateToProps = state => {
+  return {
+    state: state,
+  }
+}
+
+export default connect(mapStateToProps, { authUser })(NotLoggedIn);

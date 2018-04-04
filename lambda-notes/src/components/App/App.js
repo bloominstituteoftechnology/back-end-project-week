@@ -3,14 +3,14 @@ import Sidebar from '../Sidebar/Sidebar';
 import NotesList from '../NotesList/NotesList';
 import { connect } from 'react-redux';
 import './App.css';
-import { getAllNotes, authUser } from '../../actions';
+import { getAllNotes, authUser, logout } from '../../actions';
 
 import { Link } from 'react-router-dom';
 class App extends Component {
   state = {
     notes: [],
   }
-
+  
   componentDidMount() {
     if (localStorage.getItem('token')) {
       this.props.authUser();
@@ -23,7 +23,6 @@ class App extends Component {
 
   render() {
     const props = this.props;
-    console.log('App props', this.props)
     return (
       <div className="App">
         <Sidebar />
@@ -44,4 +43,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { getAllNotes, authUser })(App);
+export default connect(mapStateToProps, { getAllNotes, authUser, logout })(App);

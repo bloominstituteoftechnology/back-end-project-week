@@ -5,7 +5,11 @@ import {
   CHECK_IF_AUTHENTICATED
 } from '../actions';
 
-export default (auth = {}, action) => {
+const initialState = {
+  authenticated: false
+};
+
+export default (auth = initialState, action) => {
   switch(action.type) {
     case USER_AUTHENTICATED:
       return { ...auth, authenticated: true };
