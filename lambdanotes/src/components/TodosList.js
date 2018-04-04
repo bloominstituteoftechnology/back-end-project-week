@@ -1,6 +1,6 @@
 import React from "react";
 
-const TodosList = props => {
+export const TodosList = props => {
   const todos = props.todos;
   const target = props.target;
   const searchWord = props.searchWord;
