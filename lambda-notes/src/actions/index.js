@@ -160,7 +160,6 @@ export const deleteNote = (deleted, history) => {
   return dispatch => {
     note
       .then(res => {
-        console.log(res.data)
         dispatch({ 
           type: EDIT_NOTE, 
           payload: res.data
