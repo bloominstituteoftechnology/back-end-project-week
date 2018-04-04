@@ -79,8 +79,8 @@ class NoteFull extends Component {
                   delete
                 </Link>
               </p>
-              <h3>{note.title}</h3>
-              <p className="note-body">{note.body}</p>
+              <h3>{note.noteTitle}</h3>
+              <p className="note-body">{note.noteBody}</p>
             </div>
           );
         })}

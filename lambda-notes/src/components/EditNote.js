@@ -19,8 +19,8 @@ class EditNote extends Component {
   };
   submitEdit = () => {
     this.props.updateNote({
-      title: this.state.title,
-      body: this.state.body,
+      noteTitle: this.state.title,
+      noteBody: this.state.body,
       id: this.props.currentNote.id,
     });
     this.setState({ redirect: true });

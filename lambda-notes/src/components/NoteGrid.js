@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import Note from './Note';
+import { getNotes } from '../actions/actions';
 import { connect } from 'react-redux';
 import './NoteGrid.css';
 
 class NoteGrid extends Component {
+  componentDidMount(){
+    this.props.getNotes();
+  }
   render() {
     return (
       <div>
@@ -17,10 +21,10 @@ class NoteGrid extends Component {
             this.props.notes.map((note, i) => {
               return (
                 <Note
-                  title={note.title}
-                  body={note.body}
+                  title={note.noteTitle}
+                  body={note.noteBody}
                   key={i}
-                  id={note.id}
+                  id={note._id}
                 />
               );
             })
@@ -45,4 +49,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(NoteGrid);
+export default connect(mapStateToProps, { getNotes })(NoteGrid);

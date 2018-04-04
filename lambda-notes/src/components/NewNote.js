@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { addNote, resetSearch } from '../actions/actions';
+import { getNotes, createNote, resetSearch } from '../actions/actions';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import './NewNote.css';
@@ -8,7 +8,6 @@ class NewNote extends Component {
   state = {
     title: '',
     body: '',
-    id: '',
     redirect: false,
     disabled: true,
   };
@@ -30,20 +29,19 @@ class NewNote extends Component {
   submitNote = e => {
     e.preventDefault();
     if (!this.handleDisable()) {
-      this.props.addNote({
-        title: this.state.title,
-        body: this.state.body,
-        id: this.state.id.length + 1,
+      this.props.createNote({
+        noteTitle: this.state.title,
+        noteBody: this.state.body,
       });
       this.setState({
         note: {
           title: '',
           body: '',
-          id: '',
         },
         redirect: true,
       });
     }
+    this.props.getNotes();
   };
   render() {
     return (
@@ -89,4 +87,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { addNote, resetSearch })(NewNote);
+export default connect(mapStateToProps, { createNote, resetSearch, getNotes })(NewNote);
