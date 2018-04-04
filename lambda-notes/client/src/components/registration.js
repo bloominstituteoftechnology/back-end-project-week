@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Form from './icons/registrationform';
 
-
 class Registration extends Component {
     render() {
         return (

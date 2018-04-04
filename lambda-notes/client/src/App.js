@@ -1,17 +1,29 @@
 import React, { Component } from 'react';
-// import ListView from './components/listview.js';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch,
+  Redirect
+} from 'react-router-dom';
 // import NewView from './components/newview.js';
 // import NoteView from './components/noteview.js';
-// import EditView from './components/editview.js';
+import EditView from './components/editview.js';
 // import Delete from './components/icons/delete.js';
-// import Registration from './components/registration.js';
 import './App.css';
-// import Registration from './components/registration';
+import Registration from './components/registration';
+import ListView from './components/listview';
 
 class App extends Component {
   render() {
     return (
-     <div> </div>
+     <Router>
+      <div>
+        <Route path='/' component={Registration} exact />
+        <Route path='/user' component={ListView} />
+        <Route path='/user/edit' component={EditView} />
+      </div>
+     </Router>
     );
   }
 }
