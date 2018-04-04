@@ -20,7 +20,7 @@ class Registration extends Component {
     
 
     handleFirstName(event) {
-        this.setState({ firstname: event.target.value });
+       this.setState({ firstname: event.target.value });
     }
 
     handleLastName(event) {
@@ -41,8 +41,8 @@ class Registration extends Component {
         axios.post('http://localhost:5000/sign-up', newUser)
             .then((data) => {
                 // this.setState({ newUser: data });
-                //localStorage.setItem(newUser, data.data._id);
-                this.setState(newUser, data.data._id);
+                localStorage.setItem(newUser, data.data._id);
+                // this.setState(newUser, data._id);
                 setTimeout(() => {
                     window.location = '/list'
                 }, 200)
