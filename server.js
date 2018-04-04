@@ -7,11 +7,13 @@ const morgan = require('morgan');
 const routes = require('./api/routes/routes');
 
 const server = express();
+
 const corsOptions = {
   origin: 'http://localhost:3000',
   credentials: true,
 };
 
+server.use(morgan('combined'));
 server.use(helmet());
 server.use(express.json());
 server.use(cors(corsOptions));
