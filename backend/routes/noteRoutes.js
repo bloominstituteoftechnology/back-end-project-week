@@ -58,6 +58,23 @@ noteRouter.put('/update', (req, res) => {
   });
 });
 
-
+noteRouter.delete('/destroy', (req, res) => {
+  id = req.body._id;
+  console.log('Request body of delete function: ', req.body);
+  console.log("And now the note's id");
+  if (id === undefined) {
+    res.status(process.env.STATUS_USER_ERROR);
+    res.json({ error: 'You need to give me an ID if you want to delete the note' });
+    return;
+  }
+  Note.findByIdAndRemove(id, (err, removedNote) => {
+    if (err) {
+      res.status(process.env.STATUS_USER_ERROR);
+      res.json({ error: 'Cannot find name by that id' });
+      return;
+    }
+    res.json({ success: `${removedNote.title} was removed from the DB` });
+  });
+});
 
 module.exports = noteRouter;
