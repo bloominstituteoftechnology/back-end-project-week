@@ -13,6 +13,7 @@ export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const ERROR_ADDING_NOTE = 'ERROR_ADDING_NOTE';
 export const NOTES_FETCHED = 'NOTES_FETCHED';
 export const ERROR_FETCHING = 'ERROR_FETCHING';
+export const DELETE_ERROR = 'DELETE_ERROR';
 
 const URI = 'http://localhost:3030';
 
@@ -56,9 +57,19 @@ export const toggleModal = () => {
 };
 
 export const deleteNote = id => {
-  return {
-    type: DELETE_NOTE,
-    payload: id,
+  console.log('in action', id);
+  return dispatch => {
+    axios
+      .delete(`${URI}/notes/${id}`)
+      .then((res) => {
+        dispatch({ type: DELETE_NOTE });
+      })
+      .then(() => {
+        dispatch(fetchNotes());
+      })
+      .catch(err => {
+        dispatch({ type: DELETE_ERROR, payload: err });
+      });
   };
 };
 
