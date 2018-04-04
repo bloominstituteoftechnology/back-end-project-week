@@ -1,5 +1,6 @@
 import React from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { registerUser } from '../actions';
 
 class Register extends React.Component {
   state = {
@@ -14,17 +15,8 @@ class Register extends React.Component {
     if (!username || !password) this.setState({ message: 'Please enter a username and a password.'})
     if (password !== passwordRepeat) this.setState({ message: 'The passwords do not match.' });
     event.preventDefault();
-    axios
-      .post('http://localhost:3030/register', { username, password })
-      .then(response => {
-        console.log('response', response);
-        if (response.status === 200) {
-          this.props.history.push('/');
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.props.registerUser({ username, password });
+    this.props.history.push('/');
   };
 
   updateField = event => {
@@ -42,7 +34,7 @@ class Register extends React.Component {
             type="text"
             name="username"
             value={this.state.username}
-            placeholder="username"
+            placeholder="email"
             onChange={this.updateField}
           />
           <input
@@ -67,4 +59,4 @@ class Register extends React.Component {
   }
 }
 
-export default Register;
+export default connect(null, { registerUser })(Register);
