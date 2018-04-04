@@ -5,6 +5,7 @@ export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
 export const USER_CREATE = 'USER_CREATE';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
+export const SET_ID = 'SET_ID';
 export const GET_NOTES = 'GET_NOTES';
 export const ADD_NOTE = 'ADD_NOTE';
 export const EDIT_NOTE = 'EDIT_NOTE';
@@ -76,6 +77,14 @@ export const userLogout = history => {
   };
 };
 
+export const setId = id => {
+  console.log('id in setId in actions: ', id);
+  return {
+    type: SET_ID,
+    payload: id,
+  };
+};
+
 //
 //
 // ─── NOTE ACTIONS ───────────────────────────────────────────────────────────────
@@ -85,6 +94,7 @@ export const getNotes = id => {
   return dispatch => {
     notes
       .then(res => {
+        console.log('getNotes action: ', res.data.notes);
         dispatch({ type: GET_NOTES, payload: res.data.notes });
       })
       .catch(error => {
@@ -100,8 +110,9 @@ export const addNote = newNote => {
   const notes = axios.post(`${APIroot}/api/notes`, newNote);
   return dispatch => {
     notes
-      .then(newNote => {
-        dispatch(getNotes());
+      .then(responseNote => {
+        console.log('newNote.id in addNote action: ', newNote.userId);
+        dispatch(getNotes(newNote.userId));
       })
       .catch(error => {
         console.log('In actions: There was an error adding the note: ', error);

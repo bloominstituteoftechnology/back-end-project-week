@@ -23,7 +23,7 @@ class NewNote extends Component {
       content: this.state.content,
       userId: this.props.userId,
     };
-
+    console.log('this.props.userId in NewNote.js line 26: ', this.props.userId);
     this.props.addNote(completedNote);
 
     this.setState({

@@ -6,6 +6,7 @@ import {
   USER_CREATE,
   LOGIN,
   LOGOUT,
+  SET_ID,
   GET_NOTES,
   EDIT_NOTE,
   DELETE_NOTE,
@@ -21,6 +22,8 @@ const AuthReducer = (auth = {}, action) => {
       return { ...auth, authenticated: true, user: action.payload };
     case LOGOUT:
       return { ...auth, authenticated: false, user: null };
+    case SET_ID:
+      return { ...auth, authenticated: true, user: action.payload };
     default:
       return auth;
   }
@@ -29,6 +32,7 @@ const AuthReducer = (auth = {}, action) => {
 const NoteReducer = (notes = [], action) => {
   switch (action.type) {
     case GET_NOTES:
+      console.log('in getnotes reducer: ', action.payload);
       return action.payload;
     // case ADD_NOTE:
     //   return [

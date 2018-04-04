@@ -6,6 +6,7 @@ import NewNote from './NewNote/NewNote';
 import UserCreate from './UserCreate/userCreate';
 import UserLogin from './UserLogin/userLogin';
 import UserLogout from './UserLogout/userLogout';
+import RequireAuth from './HOC/RequireAuth';
 import './App.css';
 
 class App extends Component {
@@ -13,12 +14,12 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Route exact path="/" component={AllNotes} />
-          <Route path="/new-note" component={NewNote} />
-          <Route path="/notes/:id" component={SingleNote} />
+          <Route exact path="/" component={RequireAuth(AllNotes)} />
+          <Route path="/new-note" component={RequireAuth(NewNote)} />
+          <Route path="/notes/:id" component={RequireAuth(SingleNote)} />
           <Route path="/register" component={UserCreate} />
           <Route path="/login" component={UserLogin} />
-          <Route path="/logout" component={UserLogout} />
+          <Route path="/logout" component={RequireAuth(UserLogout)} />
         </div>
       </Router>
     );

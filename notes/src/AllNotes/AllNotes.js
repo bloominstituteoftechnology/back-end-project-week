@@ -13,16 +13,8 @@ class AllNotes extends Component {
   };
 
   componentDidMount() {
-    const userId = this.props.userId
-      ? this.props.userId
-      : sessionStorage.getItem('id');
-
-    this.props.getNotes(userId);
+    this.props.getNotes(this.props.userId);
   }
-
-  // componentWillReceiveProps() {
-  //   this.props.getNotes(this.props.userId);
-  // }
 
   getCSV = () => {
     let csv = [['title', 'content', 'date']];
