@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-// const ROOT_URL = 'http://localhost:5000/api';
+axios.defaults.withCredentials = true;
+
+const ROOT_URL = 'http://localhost:5000';
 
 export const GET_NOTES = 'GET_NOTES';
 export const CREATE_NOTE = 'CREATE_NOTE';
@@ -24,7 +26,7 @@ export const authError = (error) => {
 export const getNotes = () => {
   return dispatch => {
     axios
-      .get(`/notes`, { headers: { Authorization: window.localStorage.getItem('authorization') } })
+      .get(`${ROOT_URL}/notes`, { headers: { Authorization: window.localStorage.getItem('token') } })
       .then(response => {
         dispatch({
           type: GET_NOTES,
@@ -44,7 +46,7 @@ export const createNote = (note) => {
   // };
   return dispatch => {
     axios
-      .post(`/new`, note, { headers: { Authorization: window.localStorage.getItem('authorization') } })
+      .post(`${ROOT_URL}/new`, note, { headers: { Authorization: window.localStorage.getItem('token') } })
       .then(response => {
         dispatch({
           type: CREATE_NOTE,
@@ -64,7 +66,7 @@ export const editNote = (note) => {
   // };
   return dispatch => {
     axios
-      .put(`/notes`, note, { headers: { Authorization: window.localStorage.getItem('authorization') } })
+      .put(`${ROOT_URL}/notes`, note, { headers: { Authorization: window.localStorage.getItem('token') } })
       .then(response => {
         dispatch({
           type: EDIT_NOTE,
@@ -84,7 +86,7 @@ export const deleteNote = (id) => {
   // };
   return dispatch => {
     axios
-      .delete(`/notes`, id, { headers: { Authorization: window.localStorage.getItem('authorization') } })
+      .delete(`${ROOT_URL}/notes`, id, { headers: { Authorization: window.localStorage.getItem('token') } })
       .then(response => {
         dispatch({
           type: DELETE_NOTE,
@@ -104,7 +106,7 @@ export const toggleDelete = (id) => {
   // };
   return dispatch => {
     axios
-      .delete(`/notes`, id, { headers: { Authorization: window.localStorage.getItem('authorization') } })
+      .delete(`${ROOT_URL}/notes`, id, { headers: { Authorization: window.localStorage.getItem('token') } })
       .then(response => {
         dispatch({
           type: TOGGLE_DELETE,
@@ -120,13 +122,13 @@ export const toggleDelete = (id) => {
 export const createUser = (username, password) => {
   return dispatch => {
     axios
-      .post(`/signup`, { username, password })
+      .post(`${ROOT_URL}/signup`, { username, password })
       .then((response) => {
         dispatch({
           type: USER_REGISTERED,
           payload: response
         });
-        window.localStorage.setItem('authorization', response.data.token);
+        window.localStorage.setItem('token', response.data.token);
       })
       .catch(() => {
         dispatch(authError('Failed to register user'));
@@ -134,16 +136,17 @@ export const createUser = (username, password) => {
   };
 };
 
-export const login = (username, password, history) => {
+export const login = (username, password) => {
   return dispatch => {
     axios
-      .post(`/login`, { username, password })
+      .post(`${ROOT_URL}/login`, { username, password })
       .then((response) => {
+        console.log(response);
         dispatch({
           type: USER_AUTHENTICATED,
           payload: response
         });
-        window.localStorage.setItem('authorization', response.data.token);
+        window.localStorage.setItem('token', response.data.token);
         // history.push('/notes');
       })
       .catch(() => {
@@ -157,7 +160,7 @@ export const logout = () => {
     dispatch({
       type: USER_UNAUTHENTICATED
     });
-    window.localStorage.removeItem('authorization');
+    window.localStorage.removeItem('token');
     window.location.reload();
   };
 };

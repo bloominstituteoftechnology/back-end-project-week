@@ -22,7 +22,6 @@ class SignIn extends Component {
     }
     return this.props.login({ username, password });
   };
-
   render() {
     return (
       <div>
