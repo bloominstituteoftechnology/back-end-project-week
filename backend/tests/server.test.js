@@ -231,13 +231,27 @@ describe('Users endpoints', () => {
   });
 });
 
-test('Login sends back token', done => {
-  request(server)
-    .post('/login')
-    .send({ username: 'Test User', password: '1234' })
-    .then(res => {
-      expect(res.body).toHaveProperty('token');
-      done();
-    })
-    .catch(err => console.error(err));
+describe('Login endpoint', () => {
+  test('Login sends back token', done => {
+    request(server)
+      .post('/login')
+      .send({ username: 'Test User', password: '1234' })
+      .then(res => {
+        expect(res.body).toHaveProperty('token');
+        done();
+      })
+      .catch(err => console.error(err));
+  });
+  test('Incorrect password is handled correctly', done => {
+    request(server)
+      .post('/login')
+      .send({ username: 'Test User', password: '4321' })
+      .then(res => {
+        expect(res.status).toBe(422);
+        expect(res.body).toHaveProperty('error');
+        expect(res.body.error).toBe('Incorrect password');
+        done();
+      })
+      .catch(err => console.error(err));
+  });
 });

@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const server = require('./server');
 const { PORT, MONGODB_URL } = require('./config');
 
-// const PORT = process.env.PORT || 5050;
+const serverPort = process.env.PORT || PORT;
 
 // Connect to MongoDB
 mongoose.Promise = global.Promise;
@@ -14,5 +14,5 @@ mongoose
 
 // Connect to express server
 server.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}!`);
+  console.log(`Server is listening on port ${serverPort}!`);
 });

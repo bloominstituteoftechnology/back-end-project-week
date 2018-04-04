@@ -145,8 +145,7 @@ server.post('/login', (req, res) => {
   // Find the user object matching the username
   User.findOne({ username }, (err, user) => {
     if (err) {
-      res.status(403).json({ error: 'Invalid Username/Password' });
-      return;
+      return res.status(403).json({ error: 'Invalid Username/Password' });
     }
     if (user === null) {
       res.status(422).json({ error: 'User does not exist' });
@@ -154,8 +153,9 @@ server.post('/login', (req, res) => {
     }
     // Use the method on the User model to hash and check PW
     user.checkPassword(password, (nonMatch, hashMatch) => {
+      // console.log(nonMatch, password);
       if (nonMatch !== null) {
-        res.status(422).json({ error: 'passwords dont match' });
+        res.status(422).json({ error: 'Incorrect password' });
         return;
       }
       if (hashMatch) {
