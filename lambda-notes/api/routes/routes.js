@@ -11,7 +11,7 @@ module.exports = (server) => {
     server.route('/posts/:id').delete(postRouter.deletePostById)
 
     //Users
-    server.route('/new-user').post(userRouter.newUser).get(authenticate, userRouter.getUsers)
+    server.route('/sign-up').post(userRouter.newUser).get(authenticate, userRouter.getUsers)
     server.route('/login').post(userRouter.newLogin)
     server.route('/users/:id').delete(userRouter.deleteUserById)
     server.route('/users').get(userRouter.getUsers)
