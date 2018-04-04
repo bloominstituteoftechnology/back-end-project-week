@@ -9,15 +9,15 @@ const server = express();
 server.use(express.json());
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/noteSchema');
+mongoose.connect('mongodb://localhost/notes');
 
 server.get('/', (req, res) => {
-  Note.find({}, (err, database) => {
+  Note.find({}, (err, notes) => {
     if (err) {
       res.status(500);
       res.json(err);
     } else {
-      res.json(database);
+      res.json(notes);
     }
   });
 });
