@@ -6,8 +6,8 @@ const NoteListNote = (props) => {
             <div className="note-list-note__title">
                 {props.title}
             </div>
-            <div className="note-list-note__body">
-                {props.body}
+            <div className="note-list-note__content">
+                {props.content}
             </div>
         </div>
     )

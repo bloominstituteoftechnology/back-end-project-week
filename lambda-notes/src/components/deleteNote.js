@@ -30,8 +30,8 @@ const DeleteNote = (props) => {
           <div className="view-note__title">
           {props.notes[getNoteIndex()].title}
           </div>
-          <div className="view-note__body">
-          {props.notes[getNoteIndex()].body}
+          <div className="view-note__content">
+          {props.notes[getNoteIndex()].content}
           </div>
         </div>
       )

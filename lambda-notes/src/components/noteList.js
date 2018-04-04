@@ -8,14 +8,14 @@ class NoteList extends Component {
   componentDidMount() {
     this.props.getNotes();
   }
-  clampNote = (body, limit) => {
-    let textArr = body.split('')
+  clampNote = (content, limit) => {
+    let textArr = content.split('')
     let result = [];
-    if (body.length > limit) {
+    if (content.length > limit) {
       return result.concat(textArr
         .slice(0, limit).join('') + '...')
       }
-      return body;
+      return content;
     }
     render() {
       console.log('NoteList props: ', this.props);
@@ -25,9 +25,9 @@ class NoteList extends Component {
           { this.props.notes ? this.props.notes.map((note) => {
             console.log('note: ', note);
             return (
-              <div key={note.id}>
-                <NavLink className="note-list-note-link" to={`/note/${note.id}/${note.title}/${note.body}`}>
-                  <NoteListNote title={this.clampNote(note.title, 10)} body={this.clampNote(note.body, 100)} />
+              <div key={note._id}>
+                <NavLink className="note-list-note-link" to={`/note/${note.id}/${note.title}/${note.content}`}>
+                  <NoteListNote title={this.clampNote(note.title, 10)} content={this.clampNote(note.content, 100)} />
                 </NavLink>
               </div>
             )

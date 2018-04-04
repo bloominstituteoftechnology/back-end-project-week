@@ -16,20 +16,20 @@ const ViewNote = (props) => {
     return (
       <div className="view-note-container">
         <div className="edit-button">
-          <NavLink className="edit-link" to={`/edit/${props.match.params.id}/${props.match.params.title}/${props.match.params.body}`}>
+          <NavLink className="edit-link" to={`/edit/${props.match.params.id}/${props.match.params.title}/${props.match.params.content}`}>
             edit
           </NavLink>
         </div>
         <div className="delete-button">
-          <NavLink className="delete-link" to={`/delete/${props.match.params.id}/${props.match.params.title}/${props.match.params.body}`}>
+          <NavLink className="delete-link" to={`/delete/${props.match.params.id}/${props.match.params.title}/${props.match.params.content}`}>
             delete
           </NavLink>
         </div>
         <div className="view-note__title">
         {props.notes[getNoteIndex()].title}
         </div>
-        <div className="view-note__body">
-        {props.notes[getNoteIndex()].body}
+        <div className="view-note__content">
+        {props.notes[getNoteIndex()].content}
         </div>
       </div>
     )

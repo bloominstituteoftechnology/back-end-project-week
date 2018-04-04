@@ -4,7 +4,7 @@ class NewNote extends Component {
   state = {
     id: '',
     title: '',
-    body: '',
+    content: '',
   }
   // getNextId = () => {
   //   let nextId = this.props.notes.slice(-1)[0].id + 1;
@@ -15,13 +15,13 @@ class NewNote extends Component {
       const notes = this.props.notes;
       if (notes.length === 0) {
         let nextId = 0;
-        this.setState({ id: nextId, title: this.state.title, body: this.state.body })
+        this.setState({ id: nextId, title: this.state.title, content: this.state.content })
         notes.push(this.state);
         notes.slice(-1)[0].id = nextId;
         this.props.history.go(-1)
       } else { 
         let nextId = notes.slice(-1)[0].id + 1
-        this.setState({ id: nextId, title: this.state.title, body: this.state.body })
+        this.setState({ id: nextId, title: this.state.title, content: this.state.content })
         notes.push(this.state);
         notes.slice(-1)[0].id = nextId; // this is crazy and shouldn't work this way but it does
         this.props.history.push('/')
@@ -64,8 +64,8 @@ class NewNote extends Component {
                 placeholder="Note Content" 
                 rows="4" 
                 cols="72" 
-                name="body"
-                value={this.state.body}
+                name="content"
+                value={this.state.content}
                 onChange={this.noteChangeHandler}
               />
             </div>

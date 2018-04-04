@@ -30,13 +30,13 @@ const CoreRail = (props) => {
                   )} path="/new"/>
               <Route render={(routeProps) => (
                       <ViewNote {...routeProps} {...props} />
-                  )} path="/note/:id/:title/:body" />
+                  )} path="/note/:id/:title/:content" />
               <Route render={(routeProps) => (
                       <EditNote {...routeProps} {...props} />
-                  )} path="/edit/:id/:title/:body" />
+                  )} path="/edit/:id/:title/:content" />
               <Route render={(routeProps) => (
                       <DeleteNote {...routeProps} {...props} />
-                  )} path="/delete/:id/:title/:body" />
+                  )} path="/delete/:id/:title/:content" />
             </div>
           </ScrollToTop>
         </Router>

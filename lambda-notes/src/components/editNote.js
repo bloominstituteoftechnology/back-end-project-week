@@ -4,7 +4,7 @@ class EditNote extends Component {
     state ={
         id: +this.props.match.params.id,
         title: this.props.match.params.title,
-        body: this.props.match.params.body,
+        content: this.props.match.params.content,
         
     }
   getNoteIndex = () => {
@@ -19,7 +19,7 @@ class EditNote extends Component {
   }
   noteSubmitHandler = (event) => {
       event.preventDefault();
-      this.setState({title: this.state.title, body: this.state.body});
+      this.setState({title: this.state.title, content: this.state.content});
       this.props.notes.splice(this.getNoteIndex(), 1, this.state);
       this.props.history.push("/")
   }
@@ -57,11 +57,11 @@ class EditNote extends Component {
             <div className="new-note__content-input">
               <textarea 
                 className="content-input" 
-                placeholder={this.props.notes[this.getNoteIndex()].body}
+                placeholder={this.props.notes[this.getNoteIndex()].content}
                 rows="4" 
                 cols="72" 
-                name="body"
-                value={this.state.body}
+                name="content"
+                value={this.state.content}
                 onChange={this.noteChangeHandler}
               />
             </div>
