@@ -248,3 +248,8 @@ hr.style__one {
 .text__change {
   color: black;
 }
+
+.title__link {
+  text-decoration: none;
+  color: rgb(60, 59, 59);
+}

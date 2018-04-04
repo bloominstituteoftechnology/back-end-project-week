@@ -7,7 +7,7 @@ class NewView extends Component {
         return (
             <div>
                 <div className="section__content__left">
-                    <h1 className="title">Lambda Notes</h1>
+                <h1 className="title"><Link to='/user' className="title__link">Lambda Notes</Link></h1>
                     <button className="button__main"><Link className="link" to='/user'>View Your Notes</Link></button>
                     <br />
                    <button className="button__main"><Link className="link" to='/create'>+ Create New Note</Link></button>
