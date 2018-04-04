@@ -16,6 +16,8 @@ const testUserInfo = {
   password: '1234'
 };
 
+let testUserToken;
+
 // BEFORE/AFTER ALL
 beforeAll(done => {
   mongoose.Promise = global.Promise;
@@ -41,6 +43,7 @@ beforeEach(done => {
   const testUser = new User(testUserInfo);
 
   request(server)
+    // Seed the test note
     .post('/notes')
     .send(testNote)
     .then(res => {
@@ -48,14 +51,24 @@ beforeEach(done => {
     })
     .then(() => {
       request(server)
+        // Seed the test user
         .post('/users')
         .send(testUser)
         .then(res => {
           testUserInfo.id = res.body.savedUser._id;
-          done();
+        })
+        .then(() => {
+          request(server)
+            // Retrive a test token
+            .post('/login')
+            .send(testUserInfo)
+            .then(res => {
+              testUserToken = res.body.token;
+              done();
+            });
         });
     });
-});
+}); // beforeEach
 
 afterEach(done => {
   Note.remove({});
@@ -71,13 +84,14 @@ describe('Notes endpoints', () => {
   test('[GET] /notes should retrieve an array of notes', done => {
     request(server)
       .get('/notes')
+      .set('Authorization', testUserToken)
       .then(res => {
         expect(typeof res.body[0]).toBe('object');
         expect(res.body[0].title).toBe(testNoteInfo.title);
         expect(res.body[0].content).toBe(testNoteInfo.content);
         done();
       })
-      .catch(err => console.err(err));
+      .catch(err => console.error(err));
   });
 
   test('[GET] /notes/:id should retrieve the note by id', done => {

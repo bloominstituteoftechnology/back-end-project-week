@@ -4,6 +4,7 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const Note = require('./models/NoteModel.js');
 const User = require('./models/UserModel.js');
+const authenticate = require('./middleware/authenticate');
 const { secret } = require('./config');
 
 const server = express();
@@ -11,44 +12,41 @@ server.use(cors());
 server.use(express.json());
 
 // NOTES ENDPOINTS //
-server
-  .route('/notes')
-  // Get all notes
-  .get((req, res) => {
-    Note.find({}, (err, notes) => {
-      if (err) res.status(500).json('Failed to get notes: ', err);
-      res.status(200).json(notes);
-    });
-  })
-  // Save new note
-  .post((req, res) => {
-    const { title, content, createdBy } = req.body;
-    if (!title || !content) {
-      res.json({ message: 'You need to enter a title and content!' });
-      return;
-    }
-    const newNote = new Note({ title, content, createdBy });
-    newNote
-      .save()
-      .then(savedNote => {
-        res.status(200).json(savedNote);
-        return savedNote;
-      })
-      .then(savedNote => {
-        const userId = savedNote.createdBy; // Adds id of new note to users object
-        const savedNoteId = savedNote.id;
-        User.findByIdAndUpdate(
-          userId,
-          { $push: { notes: [savedNoteId] } },
-          err => {
-            if (err) console.log(err);
-          }
-        );
-      })
-      .catch(err =>
-        res.status(500).json({ message: 'Error saving note: ', error: err })
-      );
+server.get('/notes', authenticate, (req, res) => {
+  Note.find({}, (err, notes) => {
+    if (err) res.status(500).json('Failed to get notes: ', err);
+    res.status(200).json(notes);
   });
+});
+// Save new note
+server.post('/notes', (req, res) => {
+  const { title, content, createdBy } = req.body;
+  if (!title || !content) {
+    res.json({ message: 'You need to enter a title and content!' });
+    return;
+  }
+  const newNote = new Note({ title, content, createdBy });
+  newNote
+    .save()
+    .then(savedNote => {
+      res.status(200).json(savedNote);
+      return savedNote;
+    })
+    .then(savedNote => {
+      const userId = savedNote.createdBy; // Adds id of new note to users object
+      const savedNoteId = savedNote.id;
+      User.findByIdAndUpdate(
+        userId,
+        { $push: { notes: [savedNoteId] } },
+        err => {
+          if (err) console.log(err);
+        }
+      );
+    })
+    .catch(err =>
+      res.status(500).json({ message: 'Error saving note: ', error: err })
+    );
+});
 
 server
   .route('/notes/:id')
