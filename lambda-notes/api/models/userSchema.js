@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const COST = 11;
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const UserSchema = new mongoose.Schema({
     firstName: {
@@ -23,7 +24,7 @@ const UserSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    posts: []
+    posts: [{type: ObjectId, ref: 'Post'}]
 });
 
 UserSchema.pre('save', function (next) {

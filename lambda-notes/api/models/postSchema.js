@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const PostSchema = new mongoose.Schema({
-  author: {
-    // type: mongoose.Schema.Type.ObjectID,
-    // ref: 'user model name required',
+  author: [{
+    type: ObjectId,
+    ref: 'User',
     type: String,
     required: true,
-  },
+  }],
   title: {
     type: String,
     default: 'Untitled'

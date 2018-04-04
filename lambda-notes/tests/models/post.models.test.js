@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
-const Band = require('./models');
+const Posts = require('./models/postSchema');
 
 const chai = require('chai');
 const { expect } = chai;
 const sinon = require('sinon');
 
-describe('Bands', () => {
+describe('Posts', () => {
   before(done => {
     mongoose.Promise = global.Promise;
     mongoose.connect('mongodb://localhost/test');

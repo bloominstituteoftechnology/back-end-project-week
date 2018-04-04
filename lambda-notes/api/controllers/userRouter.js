@@ -29,13 +29,43 @@ const getUsers = (req, res) => {
     });
 };
 
-const deleteUserById = (req, res) => {
+const getUserById = (req, res) => {
+    const { id } = req.params;
+
+    User.findById(id)
+
+        .then(user => {
+            if (!user) {
+                res.status(404).json({ message: "The user with the specified ID does not exist." });
+            }
+            res.status(200).json(user);
+        })
+        .catch(err => {
+            res.status(500).json({ error: "There was an error while getting the user." });
+        });
+};
+
+
+const updateUserById = (req, res) => {
     const { id } = req.params;
     const userInfo = req.body;
 
     User.findByIdAndUpdate(id, userInfo)
+    .then(user => {
+        res.status(200).json(user);
+    })
+    .catch(err => {
+        res.status(500).json({ error: `There was an error while updating the user.` });
+      });
+}
+
+const deleteUserById = (req, res) => {
+    const { id } = req.params;
+    const userInfo = req.body;
+
+    User.findByIdAndRemove(id, userInfo)
         .then(user => {
-            res.status(200).json(post);
+            res.status(200).json(user);
         })
         .catch(err => {
             res.status(500).json({ error: 'User is not in our database.' });
@@ -84,4 +114,4 @@ const newLogin = (req, res) => {
     });
 };
 
-module.exports = { userRouter, newUser, newLogin, getUsers, getAllJokes, deleteUserById };
+module.exports = { userRouter, newUser, newLogin, getUsers, getAllJokes, deleteUserById, getUserById, updateUserById }
