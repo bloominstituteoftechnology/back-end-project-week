@@ -12,7 +12,11 @@ const server = express();
 
 server.use(express.json());
 server.use(cors());
-server.use(express.static(path.join(__dirname, 'lambda-notes', 'build')))
+server.use(express.static(path.join(__dirname, 'lambda-notes', 'build')));
+
+server.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'lambda-notes', 'build', 'index.html'));
+});
 
 routes(server);
 

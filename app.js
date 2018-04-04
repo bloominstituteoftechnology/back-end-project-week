@@ -8,10 +8,6 @@ mongoose.connect(process.env.MONOGODB_URI || 'mongodb://localhost/lambda-notes')
 //   useMongoClient: true
 // });
 
-server.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'lambda-notes', 'build', 'index.html'));
-})
-
-server.listen(port, () => {
+module.exports = server.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });

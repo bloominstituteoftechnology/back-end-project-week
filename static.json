@@ -1,0 +1,8 @@
+{
+  "root": "lambda-notes/build",
+  "encoding": "US-ASCII",
+  "clean_urls": false,
+  "routes": {
+    "/**": "index.html"
+  }
+}
