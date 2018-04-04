@@ -46,9 +46,9 @@ export const login = (username, password, history) => {
         dispatch({
           type: USER_AUTHENTICATED
         });
-        history.push('/notes');
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('userId', res.data.userId);
+        history.push('/notes');
       })
       .catch(() => {
         dispatch(authError('Incorrect username/password combo'));
@@ -58,6 +58,7 @@ export const login = (username, password, history) => {
 
 export const logout = () => {
   localStorage.removeItem('token');
+  localStorage.removeItem('userId');
   return { type: USER_UNAUTHENTICATED };
 };
 
@@ -86,3 +87,7 @@ export const getNotes = () => {
       });
   };
 };
+
+export const newNote = () => {
+  
+}
