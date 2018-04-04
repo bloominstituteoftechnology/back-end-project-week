@@ -96,16 +96,28 @@ class Signup extends Component {
         confirmPassword: event.target.value
       });
     }
-    console.log(this.state.confirmPassword, this.state.passwordMatch);
   };
 
   handleSignup = () => {
+    if (!this.state.username || !this.state.password) return;
     if (!this.state.passwordMatch) return;
-    console.log(this.state);
     let newUserInfo = {
       username: this.state.username,
       password: this.state.password
     };
+
+    axios
+      .post('http://localhost:5000/users', newUserInfo)
+      .then(res => {
+        console.log(res.data);
+        this.setState({
+          username: '',
+          password: '',
+          confirmPassword: '',
+          passwordMatch: true
+        });
+      })
+      .catch(err => console.log(err));
   };
 
   render() {
