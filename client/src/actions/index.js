@@ -5,35 +5,17 @@ export const DELETE_NOTE = "DELETE_NOTE";
 export const EDIT_NOTE = "EDIT_NOTE";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
+export const NOTES_RETRIEVED = "NOTES_RETRIEVED";
 
 const ROOT_URL = "http://localhost:3030";
 
 let nextNoteID = 0;
 
-// export const login = async (email, password) => {
-//   try {
-//     const user = await axios.post('/new-user').json({email, password});
-//     const uuid = user._id;
-//     localStorage.setItem('uuID', uuid);
-//     if (user) return {
-//       type: LOGIN_SUCCESS,
-//     }
-//     else return {
-//       type: LOGIN_FAIL,
-//     };
-//   } catch(e) {
-//     console.log('Problem with the login action:', e);
-//     return {
-//       type: LOGIN_FAIL,
-//     }
-//   }
-// }
 
 export const login = (email, password) => {
   return async dispatch => {
     try {
       const user = await axios.post(`${ROOT_URL}/login`, { email, password });
-      console.log("Here's your acct:", user);
       const uuID = user.data._id;
       localStorage.setItem("uuID", uuID);
       if (user) dispatch({ type: LOGIN_SUCCESS });
@@ -55,11 +37,26 @@ export const register = (email, password, confirmPassword) => {
   }
 }
 
+export const fetchNotes = () => {
+  const uuID = localStorage.getItem('uuID');
+  return async dispatch => {
+    try {
+      const allNotes = await axios.get(`${ROOT_URL}/notes/${uuID}`);
+      dispatch({
+        type: NOTES_RETRIEVED,
+        payload: allNotes,
+      })
+    } catch(e) {
+      console.log('There was a problem fetching notes', e);
+    }
+  }
+}
+
 export const addNote = (noteTitle, noteText) => {
   return async dispatch => {
     try {
       const userUID = localStorage.getItem("uuID");
-      const res = await axios.post(`${ROOT_URL}/new-note`, { userUID, noteTitle, noteText })
+      const res = await axios.post(`${ROOT_URL}/new-note`, { userUID, noteTitle, noteText });
     } catch(e) {
       console.log(e);
     }

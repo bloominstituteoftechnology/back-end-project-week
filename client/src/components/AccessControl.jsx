@@ -22,7 +22,6 @@ export default ComposedComponent => {
   }
 
   const mapStateToProps = state => {
-    console.log("The whole state is:", state)
     return {
       authenticated: state.authed,
     };

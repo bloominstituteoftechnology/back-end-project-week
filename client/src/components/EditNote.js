@@ -10,7 +10,6 @@ class EditNote extends Component {
   };
 
   render() {
-    console.log('The properties of EditNote are:', this.props)
     return (
       <div className="EditView">
         <div className="EditView__header">

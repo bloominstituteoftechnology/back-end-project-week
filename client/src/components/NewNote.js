@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addNote } from '../actions';
+import { addNote, fetchNotes } from '../actions';
 import '../css/index.css';
 
 class NewNote extends Component {
@@ -10,7 +10,6 @@ class NewNote extends Component {
   };
 
   render() {
-    console.log('The properties of NewNote are:', this.props)
     return (
       <div className="EditView">
         <div className="EditView__header">
@@ -41,9 +40,10 @@ class NewNote extends Component {
     this.setState({contentText: event.target.value})
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault();
-    this.props.addNote(this.state.titleText, this.state.contentText);
+    await this.props.addNote(this.state.titleText, this.state.contentText);
+    this.props.fetchNotes(localStorage.getItem('uuID'));
     this.setState({titleText: ''});
     this.setState({contentText: ''});
   }
@@ -56,4 +56,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, { addNote })(NewNote);
+export default connect(mapStateToProps, { addNote, fetchNotes })(NewNote);

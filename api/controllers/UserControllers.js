@@ -49,13 +49,24 @@ const createNewNote = async function(req, res) {
   try {
     const updatedProfile = await User.findByIdAndUpdate(userUID, { $push: { notes: newNote }});
     res.status(201).send(updatedProfile);
-  } catch(e){
+  } catch(e) {
     console.log(e);
+  }
+}
+
+const getAllNotes = async function(req, res) {
+  const uuID  = req.params.uid;
+  try {
+    const currentUser = await User.findById(uuID);
+    res.status(201).send(currentUser.notes);
+  } catch(e) {
+    console.log("There was a problem with fetching the notes", e);
   }
 }
 
 module.exports = {
   createUser,
   login,
-  createNewNote
+  createNewNote,
+  getAllNotes
 };

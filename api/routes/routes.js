@@ -10,9 +10,9 @@ module.exports = async (app) => {
   
   app.route('/new-note')
     .post(userControllers.createNewNote);
-  
-  // app.route('/notes')
-  //   .get(userControllers.getAllNotes);
+
+  app.route('/notes/:uid')
+    .get(userControllers.getAllNotes);
 
   // app.route('/notes/:id')
   //   .get(userControllers.getNoteById);

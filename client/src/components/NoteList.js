@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import '../css/index.css';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 export const NoteList = (props) => {
+  console.log("Props of NoteList are: ", props);
   return (
     <div className="NoteList">
       <div className="NoteList__header">

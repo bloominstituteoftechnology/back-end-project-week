@@ -9,7 +9,7 @@ import Note from './components/Note';
 import NewNote from './components/NewNote';
 import LoginPage from './components/LoginPage';
 import { connect } from 'react-redux';
-import { addNote, deleteNote } from './actions';
+import { addNote, deleteNote, fetchNotes } from './actions';
 
 
 class App extends Component {
@@ -17,6 +17,11 @@ class App extends Component {
   doLogout() {
     localStorage.setItem('uuID', '');
     window.location = '/';
+  }
+
+  async componentWillMount() {
+    const uuID = localStorage.getItem('uuID');
+    await this.props.fetchNotes(uuID);
   }
 
   render() {
@@ -61,4 +66,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { addNote })(App);
+export default connect(mapStateToProps, { addNote, fetchNotes })(App);
