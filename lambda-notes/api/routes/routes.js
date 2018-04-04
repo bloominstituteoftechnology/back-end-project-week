@@ -9,8 +9,8 @@ const { getNotes,
 
   module.exports = server => {
     server.route('/api/notes')
-    .get(getNotes)
-    .post(saveNote);
+    .get(authenticate, getNotes)
+    .post(authenticate, saveNote);
     server.route('/api/notes/:id')
     .put(editNote)
     .delete(deleteNote);

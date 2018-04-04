@@ -1,7 +1,8 @@
 const Note = require('../models/NoteModel');
 
 const getNotes = (req, res) => {
-  Note.find({})
+  const { username } = req.decoded;
+  Note.find({ username })
     .then(notes => {
       res.status(200).json(notes);
     })
@@ -12,7 +13,8 @@ const getNotes = (req, res) => {
 
 const saveNote = (req, res) => {
   const { title, content } = req.body;
-  const note = new Note({ title, content });
+  const { username } = req.decoded;
+  const note = new Note({ title, content, username });
   note.save()
     .then(note => {
       res.status(200).json({ success: 'Note Saved' });

@@ -14,7 +14,7 @@ class SignUp extends Component {
   }
   onSubmit = (event) => {
     event.preventDefault();
-    this.props.register(this.state.username, this.state.password, this.state.history);
+    this.props.register(this.state.username, this.state.password, this.props.history);
   }
 
   renderAlert = () => {
@@ -33,6 +33,7 @@ class SignUp extends Component {
           <input name="username" value={this.state.username} onChange={this.onChange} type="text" placeholder="username" />
           <input name="password" value={this.state.password} onChange={this.onChange} type="password" placeholder="password" />
           <button type="submit">Sign Up</button>
+          {this.renderAlert()}
         </form>
       </div>
     )
@@ -45,6 +46,6 @@ const mapStateToProps = state => {
   };
 };
 
-SignUp = connect(mapStateToProps, { register }), (SignUp);
+SignUp = connect(mapStateToProps, { register })(SignUp);
 
 export default SignUp;

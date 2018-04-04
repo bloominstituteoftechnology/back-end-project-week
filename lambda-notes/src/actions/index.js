@@ -34,6 +34,12 @@ export const error = error => {
   };
 };
 
+export const authUser = () => {
+  return dispatch => {
+    dispatch({ type: USER_AUTHENTICATED });
+  };
+};
+
 export const getAllNotes = () => {
   return dispatch => {
     axios

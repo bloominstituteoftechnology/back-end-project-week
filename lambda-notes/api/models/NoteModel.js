@@ -9,6 +9,10 @@ const NoteSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  username: {
+    type: String,
+    lowercase: true
+  }
 });
 
 module.exports = mongoose.model('Note', NoteSchema);

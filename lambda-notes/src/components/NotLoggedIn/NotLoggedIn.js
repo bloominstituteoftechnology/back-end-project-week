@@ -1,8 +1,8 @@
 import React from 'react';
-import './HomePage.css';
+import './NotLoggedIn.css';
 import { Link } from 'react-router-dom';
 
-const HomePage = () => {
+const NotLoggedIn = () => {
   return (
     <div className="HomePage-container">
       <nav className="Sidebar-container">
@@ -23,10 +23,11 @@ const HomePage = () => {
         </div>
       </nav>
       <div className="HomePage-Text">
-        Welcome to LambdaNotes!
+        Must Login to view this page!
+        If you do not have an account, please register!
       </div>
     </div>
   )
 }
 
-export default HomePage;
+export default NotLoggedIn;

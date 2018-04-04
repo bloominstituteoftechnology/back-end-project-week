@@ -8,7 +8,7 @@ const Sidebar = () => {
       <div className="Sidebar">
         <h1>Lambda Notes</h1>
         <div className="Sidebar-buttons">
-        <Link to="/">
+        <Link to="/notes">
           <button className="Sidebar-button" >
             View Your Notes
           </button>

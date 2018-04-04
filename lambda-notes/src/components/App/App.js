@@ -3,13 +3,22 @@ import Sidebar from '../Sidebar/Sidebar';
 import NotesList from '../NotesList/NotesList';
 import { connect } from 'react-redux';
 import './App.css';
-import { getAllNotes } from '../../actions';
+import { getAllNotes, authUser } from '../../actions';
 
 import { Link } from 'react-router-dom';
-
 class App extends Component {
+  state = {
+    notes: [],
+  }
+
   componentDidMount() {
+    if (localStorage.getItem('token')) {
+      this.props.authUser();
+    }
     this.props.getAllNotes();
+    this.setState({
+      notes: this.props.notes
+    });
   }
 
   render() {
@@ -18,10 +27,6 @@ class App extends Component {
     return (
       <div className="App">
         <Sidebar />
-        <div>
-          <Link to='/login'>Login</Link>
-          <Link to='/users'>Register</Link>
-        </div>
         <div className="Notes-Section">
           <header>Your Notes: </header>
           <div className="Notes-Container">
@@ -39,4 +44,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { getAllNotes })(App);
+export default connect(mapStateToProps, { getAllNotes, authUser })(App);

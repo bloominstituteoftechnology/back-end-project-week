@@ -13,9 +13,10 @@ import rootReducers from './reducers';
 import ReduxThunk from 'redux-thunk';
 import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
-import Notes from './components/Notes/Notes';
+// import Notes from './components/Notes/Notes';
 import RequireAuth from './components/HOC/RequireAuth';
 import HomePage from './components/HomePage/HomePage';
+import NotLoggedIn from './components/NotLoggedIn/NotLoggedIn';
 
 
 const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
@@ -27,6 +28,7 @@ ReactDOM.render(
   <Router>
     <Switch>
       <Route path="/" component={HomePage} exact />
+      <Route path="/pleaselogin" component={NotLoggedIn} exact />
       <Route path="/notes" component={RequireAuth(App)} exact />
       {/* <Route path="/notes" component={Notes} exact /> */}
       <Route path="/login" component={SignIn} exact />
