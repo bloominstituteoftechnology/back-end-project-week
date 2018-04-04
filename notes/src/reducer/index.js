@@ -3,7 +3,7 @@ import {
   NOTES_FETCHED,
   ERROR_FETCHING,
   ERROR_ADDING_NOTE,
-  UPDATE_NOTE,
+  UPDATE_ERROR,
   TOGGLE_MODAL,
   DELETE_NOTE,
   DELETE_ERROR,
@@ -51,14 +51,10 @@ const reducer = (state = initialState, action) => {
         ...state,
         error: action.payload,
       };
-    case UPDATE_NOTE:
+    case UPDATE_ERROR:
       return {
         ...state,
-        notes: state.notes.map(note => {
-          if (note.id !== action.payload.id) return note;
-          return action.payload;
-        }),
-        selectedNote: action.payload,
+        error: action.payload,
       };
     case TOGGLE_MODAL:
       return {
