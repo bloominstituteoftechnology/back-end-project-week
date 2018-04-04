@@ -103,7 +103,15 @@ export const login = (userData, history) => {
 };
 
 export const logout = () => {
-  return {
-    type: LOGOUT_USER,
-  }
-}
+  return dispatch => {
+    axios
+      .post(`${URI}/logout`)
+      .then(() => {
+        sessionStorage.removeItem('username');
+        dispatch({ type: LOGOUT_USER });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+};
