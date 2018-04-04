@@ -1,5 +1,5 @@
 module.exports = (app) => {
-  // const loggedIn = require('../middleware/loggedIn');
+  const loggedIn = require('../middleware/loggedIn');
   const userController = require('../controllers/users');
   const noteController = require('../controllers/notes');
 
@@ -10,20 +10,20 @@ module.exports = (app) => {
   app.route('/notes/login/').post(userController.loginUser);
 
   //logout user
-  app.route('/notes/logout/').post(userController.logoutUser);
+  app.route('/notes/logout/').post(loggedIn, userController.logoutUser);
 
   //create note
-  app.route('/notes/:userId').post(noteController.createNote);
+  app.route('/notes/:userId').post(loggedIn, noteController.createNote);
 
   //update note
-  app.route('/notes/:userId/:noteId').put(noteController.updateNote);
+  app.route('/notes/:userId/:noteId').put(loggedIn, noteController.updateNote);
 
   //delete note
-  app.route('/notes/:userId/:noteId').delete(noteController.deleteNote);
+  app.route('/notes/:userId/:noteId').delete(loggedIn, noteController.deleteNote);
 
   //get note
-  app.route('/notes/:userId/:noteId').get(noteController.getNote);
+  app.route('/notes/:userId/:noteId').get(loggedIn, noteController.getNote);
 
   //get notes
-  app.route('/notes/:userId').get(noteController.getNotes);
+  app.route('/notes/:userId').get(loggedIn, noteController.getNotes);
 };

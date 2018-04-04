@@ -15,12 +15,6 @@ const UserSchema = new mongoose.Schema({
     required: true,
     minlength: 8,
   },
-  notes: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Note',
-    },
-  ],
 });
 
 UserSchema.pre('save', function(next) {

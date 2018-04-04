@@ -36,25 +36,26 @@ const loginUser = (req, res) => {
         const payload = {
           username: user.username,
         };
-        const token = jwt.sign(
-          payload,
-          secret
-        );
+        const token = jwt.sign(payload, secret);
         res.status(200).json({ message: 'User Logged In', user, token });
       }
     });
-  })
+  });
 };
 
 const logoutUser = (req, res) => {
-  const username = req.body;
-  User.findOne(username)
-    .then((user) => {
-      res.status(200).json({ message: 'User Logged Out', user });
-    })
-    .catch((error) => {
-      res.status(422).json({ message: 'User Log Out Failed', error });
-    });
+  if (req.decoded.username === req.body.username) {
+    const username = req.body;
+    User.findOne(username)
+      .then((user) => {
+        res.status(200).json({ message: 'User Logged Out', user });
+      })
+      .catch((error) => {
+        res.status(422).json({ message: 'User Log Out Failed', error });
+      });
+  } else {
+    res.status(422).json({ message: 'User Not Logged In' });
+  }
 };
 
 module.exports = {

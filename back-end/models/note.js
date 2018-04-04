@@ -4,14 +4,17 @@ const NoteSchema = new mongoose.Schema({
   date: {
     type: Date,
     required: true,
+    default: new Date(),
   },
   dateString: {
     type: String,
     required: true,
+    default: 'n/a'
   },
   checklist: {
     type: Array,
     required: true,
+    default: [],
   },
   title: {
     type: String,
