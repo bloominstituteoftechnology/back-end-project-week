@@ -1,5 +1,6 @@
 import {
-  ADD_NOTE,
+  ADDING_NOTE,
+  ADDED_NOTE,
   DELETE_NOTE,
   ERROR,
   LOGGED_IN,
@@ -24,23 +25,30 @@ const initialState = {
   signingUp: false,
   loggingIn: false,
   loggedIn: false,
+  addingNote: false,
   jwt: null,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case ADD_NOTE:
+    case ADDING_NOTE:
       return {
         ...state,
-        sortStatus: 'Unsorted',
-        notes: [...state.notes, {
-          id: action.id,
-          title: action.title,
-          body: action.body,
-          created: action.created,
-          stamp: action.stamp,
-        }
-        ],
+        // sortStatus: 'Unsorted',
+        // notes: [...state.notes, {
+        //   id: action.id,
+        //   title: action.title,
+        //   body: action.body,
+        //   created: action.created,
+        //   stamp: action.stamp,
+        // }
+        // ],
+        addingNote: true,
+      };
+    case ADDED_NOTE:
+      return {
+        ...state,
+        addingNote: false,
       };
     case DELETE_NOTE:
       return {

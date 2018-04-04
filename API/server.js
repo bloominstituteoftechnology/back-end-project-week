@@ -6,11 +6,12 @@ const jwt = require('jsonwebtoken');
 const { mySecret } = require('./config');
 const { authenticate } = require('./authenticate');
 const User = require('./Schemas/user');
+const Note = require('./Schemas/note');
 
 const server = express();
 
 mongoose
-  .connect('mongodb://localhost/notes')
+  .connect('mongodb://localhost/backend')
   .then(() => console.log('API connected...MongoDB connected...'))
   .catch(() => console.log('Connection to API failed'));
 
@@ -19,7 +20,7 @@ server.use(helmet());
 server.use(cors());
 
 server.get('/', authenticate, (req, res) => {
-  res.json(req.decoded);
+  res.json(req.jwtObj);
 });
 
 server.post('/login', (req, res) => {
@@ -70,6 +71,25 @@ server.post('/register', (req, res) => {
         res.status(400).json({ errorMessage: 'there was a user error', errorBody: err });
       }
       res.status(500).json({ errorMessage: 'There was an internal error while saving the user to the database', err });
+    });
+});
+
+server.post('/newnote', authenticate, (req, res) => {
+  const noteInfo = req.body;
+  const { email } = req.jwtObj;
+  const note = new Note({
+    ...noteInfo, email,
+  });
+  console.log(note);
+  note.save()
+    .then((newNote) => {
+      res.status(201).json(newNote);
+    })
+    .catch((err) => {
+      if (err) {
+        res.status(400).json({ errorMessage: 'there was a user error', errorBody: err });
+      }
+      res.status(500).json({ errorMessage: 'There was an internal error while saving the note to the database', err });
     });
 });
 

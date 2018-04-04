@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { v4 } from 'uuid';
+// import { v4 } from 'uuid';
 
-export const ADD_NOTE = 'ADD_NOTE';
+export const ADDING_NOTE = 'ADD_NOTE';
+export const ADDED_NOTE = 'ADDED_NOTE';
 export const DELETE_NOTE = 'DELERE_NOTE';
 export const ERROR = 'ERROR';
 export const LOGGING_IN = 'LOGGING_IN';
@@ -17,14 +18,24 @@ export const UPDATE_NOTE = 'UPDATE_NOTE';
 export const UPDATE_SEARCH = 'UPDATE_SEARCH';
 export const USER_CREATED = 'USER_CREATED';
 
-export const addNote = data => ({
-  type: ADD_NOTE,
-  id: v4(),
-  title: data.title,
-  body: data.body,
-  created: data.created,
-  stamp: data.stamp,
-});
+export const addNote = (data) => {
+  const {
+    title, body, created, stamp
+  } = data;
+  const note = axios.post('http://localhost:5000/newnote', {
+    title, body, created, stamp,
+  });
+  return (dispatch) => {
+    dispatch({ type: ADDING_NOTE });
+    note
+      .then(({ newNote }) => {
+        dispatch({ type: ADDED_NOTE, payload: newNote });
+      })
+      .catch((err) => {
+        dispatch({ type: ERROR, payload: err });
+      });
+  };
+};
 
 export const deleteNote = data => ({
   type: DELETE_NOTE,
