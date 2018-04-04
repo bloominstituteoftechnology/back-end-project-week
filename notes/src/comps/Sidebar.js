@@ -1,19 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { Link, Redirect } from 'react-router-dom';
 import '../styles/Sidebar.css';
 
 import { logout } from '../actions';
 
-class Sidebar extends React.Component {  
+class Sidebar extends React.Component {
+  state = {
+    redirect: false,
+  }
+  
   logout = () => {
-    axios
-      .post('http://localhost:3030/logout')
-      .then()
-      .catch(err => console.log(err));
     this.props.logout();
+    this.setState({ redirect: true });
   };
+
   render() {
     return (
       <div className="sidebar">
@@ -25,17 +26,22 @@ class Sidebar extends React.Component {
           <Link to="/new" className="sidebar__button">
             <div>+ Create New Note</div>
           </Link>
-          {this.props.authed && <div onClick={this.logout} className="sidebar__button">Logout</div>}
+          {this.props.loggedIn && (
+            <Link to="/" onClick={this.logout}>
+              <div className="sidebar__button">Logout</div>
+            </Link>
+          )}
         </div>
+        {this.state.redirect && <Redirect to='/login'/>}
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    authed: state.authed,
-  }
-}
+    loggedIn: state.loggedIn,
+  };
+};
 
 export default connect(mapStateToProps, { logout })(Sidebar);
