@@ -7,10 +7,9 @@ class Registration extends Component {
         return (
 
             <div className="main__registration">
-
             <div className="main__registration__header">
                     <h1>Welcome to Lambda Notes!</h1>
-                    <hr/>
+                    <hr className="style__one"/>
                     <h3>A free platform for those who love taking notes. Sign up now.</h3>
                     <Form />
                     </div>

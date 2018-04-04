@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import NoteList from './notelist'
 
 class NewView extends Component {
 

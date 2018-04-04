@@ -16,7 +16,7 @@ module.exports = (server) => {
     server.route('/users/:id').delete(userRouter.deleteUserById)
     server.route('/users').get(userRouter.getUsers)
     server.route('/users/:id').get(userRouter.getUserById)
-    server.route('/login/:id').put(userRouter.updateUserById)
+    server.route('/login/:id').put(authenticate, userRouter.updateUserById)
 
     //Test
     server.get('/jokes', authenticate, userRouter.getAllJokes)

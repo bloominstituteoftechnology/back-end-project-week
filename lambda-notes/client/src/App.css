@@ -24,7 +24,6 @@ input {
 
 .main__registration {
   background: 
-  /* top, transparent red, faked with gradient */ 
   linear-gradient(
     rgba(39, 176, 185, 0.50), 
     rgba(39, 176, 185, 0.50)
@@ -212,3 +211,8 @@ p {
   color: rgb(60, 59, 59);
 }
 
+hr.style__one {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}

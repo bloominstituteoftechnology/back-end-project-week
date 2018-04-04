@@ -4,24 +4,16 @@ import React, { Component } from 'react';
 // import NoteView from './components/noteview.js';
 // import EditView from './components/editview.js';
 // import Delete from './components/icons/delete.js';
-import Registration from './components/registration.js';
+// import Registration from './components/registration.js';
 import './App.css';
+// import Registration from './components/registration';
 
 class App extends Component {
   render() {
     return (
-      <Registration/>
-          // <Router>
-          //   <div>
-          //   <Route exact path='/' component={ListView} exact/>
-          //   <Route path='/newview' component={NewView}/>
-          //   <Route path='/noteview' component={NoteView}/>
-          //   <Route path='/editview' component={EditView}/>
-          //   <Route path='/delete' component={Delete}/>
-          //   </div>
-          // </Router>
+     <div> </div>
     );
   }
 }
 
-export default App;
+export default App; 

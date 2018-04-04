@@ -16,7 +16,7 @@ class ListView extends Component {
                 <div className="main">
                      <div className="main__list">
                          <h3 className="title__main">Your Notes:</h3>
-                         <div classNam>
+                         <div>
                          <NoteList/>
                          </div>
                     </div>
