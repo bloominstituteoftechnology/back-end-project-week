@@ -19,12 +19,17 @@ export const UPDATE_SEARCH = 'UPDATE_SEARCH';
 export const USER_CREATED = 'USER_CREATED';
 
 export const addNote = (data) => {
+  const config = {
+    headers: {
+      Authorization: localStorage.getItem('notesToken'),
+    }
+  };
   const {
     title, body, created, stamp
   } = data;
   const note = axios.post('http://localhost:5000/newnote', {
     title, body, created, stamp,
-  });
+  }, config);
   return (dispatch) => {
     dispatch({ type: ADDING_NOTE });
     note
@@ -55,7 +60,7 @@ export const login = (data) => {
     dispatch({ type: LOGGING_IN });
     user
       .then((res) => {
-        console.log(res.data.token);
+        localStorage.setItem('notesToken', res.data.token);
         dispatch({ type: LOGGED_IN, payload: res.data.token });
       })
       .catch((err) => {
