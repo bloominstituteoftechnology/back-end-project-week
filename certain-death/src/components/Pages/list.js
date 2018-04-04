@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import NoteCard from '../Misc/notecard';
 import HomeLeftRail from '../Rails/homeleftrail';
 import SectionTitle from '../Misc/sectiontitle';
+import { getNotes } from '../../actions';
+
 
 const StyledList = styled.div`
   display: flex;
@@ -34,23 +36,31 @@ const StyledList = styled.div`
 
 `;
 
-const List = props => (
-  <StyledList>
-    <HomeLeftRail />
-    <div className='list__right'>
-      <div className='list__links'>
-        <Link to={'/newnote'}>sign up</Link>
-        <Link to={'/newnote'}>login</Link>
-      </div>
-      <SectionTitle name={`Your Notes (${props.sortStatus}):`}/>
-      {props.notes.map((note, index) => {
-        return (
-          note.filtered ? null : <NoteCard key={index} note={note} />
-        );
-      })}
-    </div>
-  </StyledList>
-);
+class List extends Component {
+  componentWillMount() {
+    this.props.getNotes();
+  }
+
+  render() {
+    return (
+      <StyledList>
+        <HomeLeftRail />
+        <div className='list__right'>
+          <div className='list__links'>
+            <Link to={'/newnote'}>sign up</Link>
+            <Link to={'/newnote'}>login</Link>
+          </div>
+          <SectionTitle name={`Your Notes (${this.props.sortStatus}):`}/>
+          {this.props.notes.map((note, index) => {
+            return (
+              note.filtered ? null : <NoteCard key={index} note={note} />
+            );
+          })}
+        </div>
+      </StyledList>
+    );
+  }
+}
 
 const mapStateToProps = (state) => {
   return {
@@ -59,4 +69,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(List);
+export default connect(mapStateToProps, { getNotes })(List);

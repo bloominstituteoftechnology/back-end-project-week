@@ -27,7 +27,7 @@ server.get('/getnotes', authenticate, (req, res) => {
   const { email } = req.jwtObj;
   Note.find({ email })
     .then((notes) => {
-      res.status(200).json(notes);
+      res.status(200).json({ notes });
     })
     .catch((err) => {
       if (err) {
@@ -94,7 +94,6 @@ server.post('/newnote', authenticate, (req, res) => {
   const note = new Note({
     ...noteInfo, email,
   });
-  console.log(note);
   note.save()
     .then((newNote) => {
       res.status(201).json(newNote);

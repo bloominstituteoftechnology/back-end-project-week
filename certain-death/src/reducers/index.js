@@ -3,6 +3,8 @@ import {
   ADDED_NOTE,
   DELETE_NOTE,
   ERROR,
+  GETTING_NOTES,
+  GOT_NOTES,
   LOGGED_IN,
   LOGGING_IN,
   NEWEST_SORT,
@@ -26,6 +28,7 @@ const initialState = {
   loggingIn: false,
   loggedIn: false,
   addingNote: false,
+  gettingNoted: false,
 };
 
 export default (state = initialState, action) => {
@@ -57,6 +60,17 @@ export default (state = initialState, action) => {
     case ERROR:
       return {
         ...state
+      };
+    case GETTING_NOTES:
+      return {
+        ...state,
+        gettingNotes: true,
+      };
+    case GOT_NOTES:
+      return {
+        ...state,
+        notes: action.payload,
+        gettingNotes: false,
       };
     case LOGGED_IN:
       return {

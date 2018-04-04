@@ -5,6 +5,8 @@ export const ADDING_NOTE = 'ADD_NOTE';
 export const ADDED_NOTE = 'ADDED_NOTE';
 export const DELETE_NOTE = 'DELERE_NOTE';
 export const ERROR = 'ERROR';
+export const GETTING_NOTES = 'GETTING_NOTES';
+export const GOT_NOTES = 'GOT_NOTES';
 export const LOGGING_IN = 'LOGGING_IN';
 export const LOGGED_IN = 'LOGGED_IN';
 export const LOGIN = 'LOGIN';
@@ -51,8 +53,27 @@ export const error = data => ({
   type: ERROR,
 });
 
+export const getNotes = (data) => {
+  const config = {
+    headers: {
+      Authorization: localStorage.getItem('notesToken'),
+    }
+  };
+  console.log('Getting Notes');
+  const notes = axios.get('http://localhost:5000/getnotes', config);
+  return (dispatch) => {
+    dispatch({ type: GETTING_NOTES });
+    notes
+      .then((userNotes) => {
+        dispatch({ type: GOT_NOTES, payload: userNotes.data.notes });
+      })
+      .catch((err) => {
+        dispatch({ type: ERROR, payload: err });
+      });
+  };
+};
+
 export const login = (data, history) => {
-  console.log('THIS IS HISTORY', history);
   const user = axios.post('http://localhost:5000/login', {
     email: data.email,
     password: data.password,
