@@ -1,8 +1,9 @@
 const express = require('express');
 const session = require('express-session');
-const config = require('config.js')
+const routes = require('./routes');
+//const config = require('config.js')
 const cors = require('cors');
-
+const mongoose = require('mongoose');
 const corOptions = {
   origin: 'http://localhost:3000',
   credentials: true,
