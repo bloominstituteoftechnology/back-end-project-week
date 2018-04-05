@@ -22,16 +22,22 @@ import {
   UPDATE_SEARCH,
   USER_CREATED,
 } from '../actions';
-import dummyData from '../dummydata';
+
+let test;
+if (typeof localStorage.getItem('notesToken') === 'string') {
+  test = true;
+} else {
+  test = false;
+}
 
 const initialState = {
-  notes: [...dummyData],
+  notes: [],
   deleteActive: false,
   sortStatus: 'Unsorted',
   input: '',
   signingUp: false,
   loggingIn: false,
-  loggedIn: false,
+  loggedIn: test,
   addingNote: false,
   gettingNotes: false,
   updatingNote: false,

@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import UserRail from '../Rails/userrail';
 import SectionTitle from '../Misc/sectiontitle';
 import SignUpForm from '../Forms/signupform';
@@ -20,15 +22,26 @@ const StyledUser = styled.div`
 
 `;
 
-const UserPage = props => (
-  <StyledUser>
-    <UserRail />
-    <div className='user-page__right'>
-      <SectionTitle name='Please Register Or Login Below'/>
-      <SignUpForm />
-      <LoginForm history={props.history}/>
-    </div>
-  </StyledUser>
-);
+class UserPage extends Component {
+  render() {
+    return (
+      <StyledUser>
+        <UserRail />
+        <div className='user-page__right'>
+          <SectionTitle name='Please Register Or Login Below'/>
+          <SignUpForm />
+          <LoginForm history={this.props.history}/>
+        </div>
+        {this.props.loggedIn ? <Redirect to={'/list'} /> : null}
+      </StyledUser>
+    );
+  }
+}
 
-export default UserPage;
+const mapStateToProps = (state) => {
+  return {
+    loggedIn: state.loggedIn,
+  };
+};
+
+export default connect(mapStateToProps, null)(UserPage);
