@@ -4,8 +4,8 @@ const cors = require('cors');
 const port = process.env.PORT || 3030;
 const session = require('express-session');
 
-const userRoutes = require('./api/routes/userRoutes');
-const noteRoutes = require('./api/routes/noteRoutes');
+const userRoutes = require('./routes/userRoutes');
+const noteRoutes = require('./routes/noteRoutes');
 
 const corsOptions = {
   origin: `http://localhost:3000`,
@@ -15,7 +15,7 @@ const corsOptions = {
 const server = express();
 
 mongoose
-  .connect('mongodb://localhost/notes')
+  .connect('mongodb://heroku_fll43slz:44b9r61764biiu512srsj2h6ah@ds133281.mlab.com:33281/heroku_fll43slz')
   .then(() => {
     console.log('Successfully connected to MongoDB');
   })
