@@ -1,6 +1,7 @@
 import React, { Component } from 'react'; // eslint-disable-line
 import styled from 'styled-components';
 import axios from 'axios';
+import { SERVER_URL } from '../config'
 
 // Styles
 const SignupStyled = styled.div`
@@ -81,7 +82,6 @@ class Signup extends Component {
     } else {
       this.setState({ passwordMatch: false, password: event.target.value });
     }
-    console.log(this.state.password, this.state.passwordMatch);
   };
 
   handleConfirmPasswordInput = event => {
@@ -107,9 +107,8 @@ class Signup extends Component {
     };
 
     axios
-      .post('http://localhost:5000/users', newUserInfo)
+      .post(`${SERVER_URL}/users`, newUserInfo)
       .then(res => {
-        console.log(res.data);
         this.setState({
           username: '',
           password: '',

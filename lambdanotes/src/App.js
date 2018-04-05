@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
-// axios.defaults.withCredentials = true;
-
 // Components
 import Sidebar from './components/sidebar';
 import NotesList from './components/notes-list';
@@ -13,8 +11,11 @@ import EditNote from './components/edit-note';
 import DeleteModal from './components/delete-modal';
 import Signup from './components/signup';
 import Login from './components/login';
+import { SERVER_URL } from './config';
 
 import './App.css';
+
+axios.defaults.withCredentials = true;
 
 // Styles for App Component
 const AppStyled = styled.div`
@@ -57,7 +58,7 @@ class App extends Component {
   loginUser = userInfo => {
     console.log(`${userInfo.username} just logged in`);
     axios
-      .post('http://localhost:5000/login', userInfo)
+      .post(`${SERVER_URL}/login`, userInfo)
       .then(res => {
         localStorage.setItem('token', res.data.token);
       })
@@ -112,7 +113,7 @@ class App extends Component {
     const token = localStorage.getItem('token');
     const header = { headers: { Authorization: token } };
     axios
-      .get(`http://localhost:5000/users/name/${this.state.username}`, header)
+      .get(`${SERVER_URL}/users/name/${this.state.username}`, header)
       .then(res => {
         this.setState({ notes: res.data.notes, userId: res.data._id });
       })
@@ -178,7 +179,7 @@ class App extends Component {
     const header = { headers: { Authorization: token } };
     note.createdBy = this.state.userId;
     axios
-      .post('http://localhost:5000/notes', note, header)
+      .post(`${SERVER_URL}/notes`, note, header)
       .then(res => {
         this.setState({ notes: [...this.state.notes, res.data] });
         this.getNotes();
@@ -195,11 +196,7 @@ class App extends Component {
       content: updatedNote.content
     };
     axios
-      .put(
-        `http://localhost:5000/notes/${updatedNote._id}`,
-        updatedNoteInfo,
-        header
-      )
+      .put(`${SERVER_URL}/notes/${updatedNote._id}`, updatedNoteInfo, header)
       .then(res => {
         this.setState({ noteDetails: { ...res.data.updatedNote } });
       })
@@ -215,7 +212,7 @@ class App extends Component {
     const header = { headers: { Authorization: token } };
     let id = this.state.noteDetails._id;
     axios
-      .delete(`http://localhost:5000/notes/${id}`, header)
+      .delete(`${SERVER_URL}/notes/${id}`, header)
       .then(() => {
         let updatedNotes = this.state.notes.filter(
           note => note._id !== this.state.noteDetails._id
@@ -249,8 +246,7 @@ class App extends Component {
             this.state.showingSignup && <Signup showLogin={this.showLogin} />}
 
           {this.state.authenticated &&
-            this.state.viewingNotes &&
-            this.state.notes.length > 0 && (
+            this.state.viewingNotes && (
               <NotesList
                 notes={this.state.notes}
                 showNoteDetails={this.showNoteDetails}
