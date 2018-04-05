@@ -34,12 +34,7 @@ describe('Users', () => {
       name: 'monkey7',
       password: 'bananas'
     });
-    const user4 = new User({
-      name: 'Torque',
-      password: 'blorp'
-    });
     await user3.save();
-    await user4.save();
   });
 
   afterEach(done => {
@@ -158,12 +153,7 @@ describe('Notes', () => {
       name: 'monkey7',
       password: 'bananas'
     });
-    const user4 = new User({
-      name: 'Torque',
-      password: 'blorp'
-    });
     await user3.save();
-    await user4.save();
   });
 
   afterEach(done => {
@@ -172,13 +162,18 @@ describe('Notes', () => {
       if (err) {
         console.error(err);
       }
+    });
+    Note.remove({}, (err) => {
+      if (err) {
+        console.error(err);
+      }
       done();
     });
   });
 
   describe('[POST] /api/notes', () => {
-    it('should return a message and note id when adding a note', (done) => {
-      const test = {
+    it('should return a message and noteid when adding a note', (done) => {
+      const testUser = {
         name: 'monkey7',
         password: 'bananas'
       };
@@ -188,7 +183,7 @@ describe('Notes', () => {
       };
       chai.request(server)
       .post('/api/login')
-      .send(test)
+      .send(testUser)
       .end((err, res) => {
         chai.request(server)
         .post('/api/notes')
@@ -203,4 +198,65 @@ describe('Notes', () => {
       });
     });
   });
+ 
+  describe('[GET] /api/notes', () => {
+    it('should return an array of notes', (done) => {
+      const testUser = {
+        name: 'monkey7',
+        password: 'bananas'
+      };
+      const testNote = {
+        title: 'testnote1',
+        content: 'This is content. Are you content?'
+      };
+      chai.request(server)
+      .post('/api/login')
+      .send(testUser)
+      .end((err, res) => {
+        testNote.author = res.body.id.toString();
+        const newNote = new Note(testNote);
+        newNote.save();
+        chai.request(server)
+        .get('/api/notes')
+        .set("Authorization", res.body.token)
+        .end((error, response) => {
+          expect(response.status).to.equal(200);
+          expect(response.body).to.be.an('array');
+          expect(response.body.length).to.equal(1);
+          expect(response.body.message).to.be.undefined;
+          done();
+        });
+      });
+    });
+
+    it('should return empty array when given the wrong author', (done) => {
+      const testUser = {
+        name: 'monkey7',
+        password: 'bananas'
+      };
+      const testNote = {
+        title: 'testnote1',
+        content: 'This is content. Are you content?'
+      };
+      chai.request(server)
+      .post('/api/login')
+      .send(testUser)
+      .end((err, res) => {
+        testNote.author = '5ac2a5e33391d7302457ee6b';
+        const newNote = new Note(testNote);
+        newNote.save();
+        chai.request(server)
+        .get('/api/notes')
+        .set("Authorization", res.body.token)
+        .end((error, response) => {
+          expect(response.status).to.equal(200);
+          expect(response.body).to.be.an('array');
+          expect(response.body.length).to.equal(0);
+          done();
+        });
+      });
+    });
+  });
+
+  
 });
