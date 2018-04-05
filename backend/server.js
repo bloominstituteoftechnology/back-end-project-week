@@ -14,7 +14,6 @@ server.use(express.json());
 // NOTES ENDPOINTS //
 server.get('/notes', authenticate, (req, res) => {
   Note.find({}, (err, notes) => {
-    console.log(notes)
     if (err) res.status(500).json('Failed to get notes: ', err);
     res.status(200).json(notes);
   });
