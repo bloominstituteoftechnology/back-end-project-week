@@ -21,6 +21,13 @@ UserSchema.pre('save', function(next) {
 		});
 	});
 
+UserSchema.methods.checkPassword = function(plainTextPW, callBack) {
+	 bcrypt.compare(plainTextPW, this.password, (error, isMatch) => {
+			 if (error) return callBack(error);
+			 callBack(null, isMatch);
+			});
+  };
+
 const userModel = mongoose.model('User', UserSchema);
 
 module.exports = userModel;
