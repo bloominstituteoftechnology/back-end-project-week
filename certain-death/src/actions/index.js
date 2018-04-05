@@ -105,6 +105,7 @@ export const login = (data, history) => {
       })
       .catch((err) => {
         dispatch({ type: ERROR, payload: err });
+        alert('There was a user error while logging in, please try again');
       });
   };
 };
