@@ -5,10 +5,16 @@ const Note = require("../models/Notes");
 const createNote= (req, res) => {
   const { user, title, description } = req.body;
   const newNote = new Note({ user, title, description });
+ 
   newNote
     .save()
     .then(newNote => {
-      res.json(newNote);
+      const id = newNote._id;
+      User.findOneAndUpdate({_id: userId }, { $push: { notes: id } })
+      .then(() => {
+        res.status(201).send(newNote);
+      })
+     .catch(err => res.send(err));
     })
     .catch(err => {
       res.status(500).json({ message: "Error creating new note" });
@@ -16,9 +22,10 @@ const createNote= (req, res) => {
 };
 
 const getNotes = (req, res) => {
+  const { id } = req.params;
   Note.find()
     .exec()
-    .then(note => {
+    .then(notes => {
       res.json(notes);
     })
     .catch(err => {
@@ -26,22 +33,22 @@ const getNotes = (req, res) => {
     });
 };
 
-// const getNote = (req, res) => {
-//   const { id } = req.params;
-//   Note.findById(id)
-//     .populate("user", "userName")
-//     .populate({
-//       path: "comments",
-//       populate: { path: "author", select: "userName" }
-//     })
-//     .exec()
-//     .then(post => {
-//       res.json(post);
-//     })
-//     .catch(err => {
-//       res.status(500).json({ message: "Error getting post by id" });
-//     });
-// };
+const getNote = (req, res) => {
+  const { id } = req.params;
+  Note.findById(id)
+    .populate("user", "userName")
+    .populate({
+      path: "comments",
+      populate: { path: "author", select: "userName" }
+    })
+    .exec()
+    .then(post => {
+      res.json(post);
+    })
+    .catch(err => {
+      res.status(500).json({ message: "Error getting post by id" });
+    });
+};
 
 const updateNote = (req, res) => {
   const { tobeupdate, id } = req.body;
@@ -66,6 +73,7 @@ const deleteNote  = (req, res) => {
 module.exports = {
   createNote,
   getNotes,
+  getNote,
   updateNote,
   deleteNote
 };

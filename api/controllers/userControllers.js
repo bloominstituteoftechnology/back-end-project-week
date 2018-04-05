@@ -1,18 +1,24 @@
 const mongoose = require("mongoose");
 const userModel = require("../models/Users");
 const bcrypt = require('bcrypt');
+const session = require('express-session');
 
 const BCRYPT_COST = 11;
 
 const createUser = (req, res) => {
-  const { userName, passWord } = req.body;
-  const newUser = new userModel({ userName, passWord });
+  const { username, password } = req.body;
+  const newUser = new userModel({ username, password });
+
   newUser
     .save()
     .then(user => {
-      res.json(user);
+      res.json({
+        username: user.username,
+        notes: user.notes
+      });
     })
     .catch(err => {
+      console.log(err);
       res.status(500).json({ message: "Not able to create new user" });
     });
 };
@@ -25,7 +31,7 @@ const hashPw = (req, res, next) => {
   } 
     bcrypt.hash(password, BCRYPT_COST)
     .then((Pw) => {
-      req.password = Pw;
+      req.body.password = Pw;
       next();
     })
     .catch((err) => {
@@ -34,33 +40,69 @@ const hashPw = (req, res, next) => {
 };
 
 const loginUser = (req, res, next) => {
-  const { username } = req.session;
+  console.log(" Session : ",req.session);
+  const { username, password } = req.body;
+  
   if(!username) {
-      sendUserError('User is not logged in', res);
-      return;
+    res.error("Usernmae not given"); 
   }
+  const lowercaseUsername = username.toLowerCase();
+  console.log(lowercaseUsername );
   userModel 
-    .findOne({ userName })
+    .findOne({ username: lowercaseUsername })
     .exec()
     .then(user => {
       if(!user) res.json({ message:  'User does not exist'});
-      else res.json(user);
-      next();
+      else {
+        const hwPassword = user.password;
+        bcrypt.compare(password, hwPassword)
+        .then(result => {
+          if(!result) throw new Error();
+          req.session.username = username; 
+          req.session.id = user._id;
+          console.log("user._id :", user._id);
+          console.log("id: ",req.session.id);
+          req.user = user;
+        })
+        .then(() => {
+          res.json({ success: true });
+        })
+        .catch(err => {
+          console.log("Could not Login");
+          res.error(err);
+        });
+      }
+    })
+    .catch(err => {
+      console.log("Could not Login");
+      res.error(err);
     });
 };
 
-const restrictedPermissions = (req, res, next) => {
-  const path = req.path;
-  if (/restricted/.test(path)) {
-      if(!req.session.username) {
-          sendUserError('user not authorized', res);
-          return;
-      }
-  } next();
+const whoAmI = (req,res)=> {
+  res.status(200).send("Hi ", req.session.username);
+
+}
+const logOut = (req, res) => {
+  if(!req.session.username) res.send('User not logged in or session expired');
+  //req.session.username = null;
+  req.session.destroy();
 };
+
+// const restrictedPermissions = (req, res, next) => {
+//   const path = req.path;
+//   if (/restricted/.test(path)) {
+//       if(!req.session.username) {
+//           sendUserError('user not authorized', res);
+//           return;
+//       }
+//   } next();
+// };
 module.exports = {
   createUser,
   loginUser,
   hashPw,
-  restrictedPermissions,
+ // restrictedPermissions,
+  logOut,
+  whoAmI,
 };

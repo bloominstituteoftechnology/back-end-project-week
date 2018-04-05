@@ -1,6 +1,7 @@
 
 const express = require("express");
 const mongoose = require("mongoose");
+const session = require('express-session');
 
 const port = process.env.PORT || 3030;
 const server = express();
@@ -27,6 +28,12 @@ server.use((req, res, next) => {
   );
   next();
 });
+
+server.use(session({
+  secret: 'e5SPiqsEtjexkTj3Xqovsjzq8ovjfgVDFMfUzSmJO21dtXs4re',
+  resave: true,
+  saveUninitialized: true,
+}));
 
 const routes = require("./routes/routes");
 routes(server);
