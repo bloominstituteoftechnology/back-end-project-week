@@ -15,7 +15,7 @@ const MongoStore = require('connect-mongo')(session);
   // "SECRET": "b58PiqsEtjexkTj3Eqovsszq8ovjfgGHFMfUzSmJO21dtXs34e"
 
 
-mongoose.connect('mongodb://myxozoa:1554GfG1554@ds135399.mlab.com:35399/lambda-notes', () => {
+mongoose.connect(`mongodb://${process.env.MLAB_USERNAME}:${process.env.MLAB_PASSWORD}@ds135399.mlab.com:35399/lambda-notes`, () => {
     console.log('connected to mongo');
 });
 server.use(session({
