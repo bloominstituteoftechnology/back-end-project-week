@@ -1,9 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import { search_results_clicked, load_notes } from '../actions/index';
 
 import './css/Search.css';
+
+const ROUTE = 'http://localhost:3000/notes/';
 
 class Search extends React.Component {
   state = {
@@ -25,28 +28,31 @@ class Search extends React.Component {
       </div>
     );
   }
-  handleTitleChange = event => {
+  handleTitleChange = (event) => {
     this.setState({ title: event.target.value });
   };
-  handleBodyChange = event => {
+  handleBodyChange = (event) => {
     this.setState({ body: event.target.value });
   };
   handleSearch = () => {
-    let results = [];
-    if (this.state.title === '') {
-      results = this.search({ term: this.state.body, type: 'body' });
-      this.props.search_results_clicked(results);
-    } else if (this.state.body === '') {
-      results = this.search({ term: this.state.title, type: 'title' });
-      this.props.search_results_clicked(results);
-    } else alert('Search either by title OR body');
+    axios.get(`${ROUTE}${this.props.user}`).then((data) => {
+      this.props.load_notes(data.data.foundNotes);
+      let results = [];
+      if (this.state.title === '') {
+        results = this.search({ term: this.state.body, type: 'body' });
+        this.props.search_results_clicked(results);
+      } else if (this.state.body === '') {
+        results = this.search({ term: this.state.title, type: 'title' });
+        this.props.search_results_clicked(results);
+      } else alert('Search either by title OR body');
+    });
   };
 
-  search = term => {
-    this.props.load_notes(this.props.currentUser)
+  search = (term) => {
     let lowerTerm = term.term.toLowerCase();
     let results = [];
-    const { notes } = this.props;
+    const notes = this.props.notes;
+    console.log("THISISNOTES", notes)
     notes.forEach(note => {
       if (term.type === 'title') {
         let lowerTitle = note.title.toLowerCase();
@@ -83,7 +89,7 @@ class Search extends React.Component {
   };
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     notes: state.currentUserNotes,
     user: state.currentUser,

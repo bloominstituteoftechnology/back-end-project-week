@@ -9,6 +9,7 @@ import {
   sort_button_click,
   download_button_click,
   handle_log_out,
+  load_notes
 } from '../actions/index';
 
 import './css/SideBar.css';
@@ -52,6 +53,7 @@ class SideBar extends React.Component {
   };
 
   handleView = () => {
+    this.props.load_notes();
     this.props.view_button_click();
   };
 
@@ -91,4 +93,5 @@ export default connect(mapStateToProps, {
   sort_button_click,
   download_button_click,
   handle_log_out,
+  load_notes,
 })(SideBar);
