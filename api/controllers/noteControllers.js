@@ -4,7 +4,7 @@ const Note = require("../models/Notes");
 
 const createNote= (req, res) => {
   const { user, title, description } = req.body;
-  const newNote = new Note({ author, title, content });
+  const newNote = new Note({ user, title, description });
   newNote
     .save()
     .then(newNote => {
@@ -44,6 +44,28 @@ const getNotes = (req, res) => {
 // };
 
 const updateNote = (req, res) => {
-  const { id } = req.params;
-  const { user, title, description } = req.body;
+  const { tobeupdate, id } = req.body;
+  Note.findByIdAndUpdate(id, tobeupdate)
+  .then(freshNote => {
+    res.send(freshNote);
+  })
+  .catch(err => res.send(err));
+};
+
+const deleteNote  = (req, res) => {
+  const {id } = req.params;
+  Note.findByIdAndRemove(id)
+  .then(deletedNote => {
+    res.send(deletedNote);
+  })
+  .catch(err => {
+    res.err(err);
+  });
+};
+
+module.exports = {
+  createNote,
+  getNotes,
+  updateNote,
+  deleteNote
 };
