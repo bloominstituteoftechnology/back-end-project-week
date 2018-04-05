@@ -1,18 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../styles/Sidebar.css';
 
 import { logout } from '../actions';
 
 class Sidebar extends React.Component {
-  state = {
-    redirect: false,
-  }
-  
   logout = () => {
     this.props.logout();
-    this.setState({ redirect: true });
+    window.location.reload();
   };
 
   render() {
@@ -26,13 +22,12 @@ class Sidebar extends React.Component {
           <Link to="/new" className="sidebar__button">
             <div>+ Create New Note</div>
           </Link>
-          {this.props.loggedIn && (
+          {sessionStorage.getItem('username') && (
             <Link to="/" onClick={this.logout}>
               <div className="sidebar__button">Logout</div>
             </Link>
           )}
         </div>
-        {this.state.redirect && <Redirect to='/login'/>}
       </div>
     );
   }
