@@ -26,7 +26,12 @@ server.all('*', function(req, res, next) {
     'Access-Control-Allow-Headers',
     'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json'
   );
-  next();
+  // intercept OPTIONS method
+  if ('OPTIONS' == req.method) {
+    res.send(200);
+  } else {
+    next();
+  }
 });
 
 server.use(
