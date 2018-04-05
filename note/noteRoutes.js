@@ -8,22 +8,22 @@ const User = require('../user/userModel');
 
 const validateToken = (req, res, next) => {
   res.send('you have reached heroku middleware api');
-  const token = req.headers.authorization;
-  if (!token) {
-    res
-      .status(422)
-      .json({ error: 'User not authorized' });
-  }
-  jwt.verify(token, 'TOKEN_SECRET' , (authError, decoded) => {
-    if (authError) {
-      res
-        .status(403)
-        .json({ error: 'Token invalid, please login', message: authError });
-      return;
-    }
-    req.decoded = decoded;
-    next();
-  });
+  // const token = req.headers.authorization;
+  // if (!token) {
+  //   res
+  //     .status(422)
+  //     .json({ error: 'User not authorized' });
+  // }
+  // jwt.verify(token, 'TOKEN_SECRET' , (authError, decoded) => {
+  //   if (authError) {
+  //     res
+  //       .status(403)
+  //       .json({ error: 'Token invalid, please login', message: authError });
+  //     return;
+  //   }
+  //   req.decoded = decoded;
+  //   next();
+  // });
 };
 
 noteRouter.post('/', validateToken, function(req, res){
