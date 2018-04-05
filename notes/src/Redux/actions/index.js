@@ -2,6 +2,7 @@ import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
+export const CLEAR_ERROR = 'CLEAR_ERROR';
 export const USER_CREATE = 'USER_CREATE';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
@@ -19,6 +20,12 @@ export const authError = error => {
       type: AUTHENTICATION_ERROR,
       payload: error,
     };
+};
+
+export const clearError = () => {
+  return {
+    type: CLEAR_ERROR,
+  };
 };
 
 //

@@ -1,23 +1,46 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { userLogin } from '../Redux/actions/index';
+import { userLogin, clearError } from '../Redux/actions/index';
+import { Modal } from './Modal';
 import LeftBar from '../LeftBar/LeftBar';
 import './userLogin.css';
 
 class UserLogin extends Component {
+  state = {
+    errorMessage: false,
+    message: undefined,
+  };
+
   handleFormSubmit = ({ username, password }) => {
     this.props.userLogin(username, password, this.props.history);
   };
 
+  turnOffError = () => {
+    this.setState({ errorMessage: false, message: undefined });
+  };
+
+  handleError = () => {
+    if (this.props.message) {
+      this.setState({ errorMessage: true, message: this.props.message });
+      this.props.clearError();
+    }
+  };
+
   renderAlert = () => {
-    if (this.props.message) return <h3>{this.props.message}</h3>;
+    return (
+      this.state.errorMessage && (
+        <Modal message={this.state.message} turnOffError={this.turnOffError} />
+      )
+    );
   };
 
   render() {
     const { handleSubmit } = this.props;
+    this.handleError();
     return (
       <div className="container">
+        {this.renderAlert()}
         <LeftBar />
         <div className="login-content">
           <div className="login-fields">
@@ -46,7 +69,6 @@ class UserLogin extends Component {
               <button className="submit-button" action="submit">
                 Submit
               </button>
-              {this.renderAlert()}
             </form>
           </div>
         </div>
@@ -61,7 +83,7 @@ const mapStateToProps = state => {
   };
 };
 
-UserLogin = connect(mapStateToProps, { userLogin })(UserLogin);
+UserLogin = connect(mapStateToProps, { userLogin, clearError })(UserLogin);
 
 export default reduxForm({
   form: 'userLogin', // Unique name for the form

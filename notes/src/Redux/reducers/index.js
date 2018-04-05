@@ -3,6 +3,7 @@ import { reducer as FormReducer } from 'redux-form';
 
 import {
   AUTHENTICATION_ERROR,
+  CLEAR_ERROR,
   USER_CREATE,
   LOGIN,
   LOGOUT,
@@ -16,6 +17,8 @@ const AuthReducer = (auth = {}, action) => {
   switch (action.type) {
     case AUTHENTICATION_ERROR:
       return { ...auth, message: action.payload };
+    case CLEAR_ERROR:
+      return { ...auth, message: undefined };
     case USER_CREATE:
       return { ...auth, message: 'Registered' };
     case LOGIN:

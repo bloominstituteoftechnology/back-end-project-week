@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { userCreate } from '../Redux/actions/index';
+import { userCreate, clearError } from '../Redux/actions/index';
+import { Modal } from './Modal';
 import LeftBar from '../LeftBar/LeftBar';
 import './userCreate.css';
+import './modal.css';
 
 class UserCreate extends Component {
+  state = {
+    errorMessage: false,
+    message: undefined,
+  };
+
   handleFormSubmit = ({ username, password, confirmPassword }) => {
     this.props.userCreate(
       username,
@@ -15,14 +22,31 @@ class UserCreate extends Component {
     );
   };
 
+  turnOffError = () => {
+    this.setState({ errorMessage: false, message: undefined });
+  };
+
+  handleError = () => {
+    if (this.props.message) {
+      this.setState({ errorMessage: true, message: this.props.message });
+      this.props.clearError();
+    }
+  };
+
   renderAlert = () => {
-    if (this.props.message) return <h3>{this.props.message}</h3>;
+    return (
+      this.state.errorMessage && (
+        <Modal message={this.state.message} turnOffError={this.turnOffError} />
+      )
+    );
   };
 
   render() {
     const { handleSubmit } = this.props;
+    this.handleError();
     return (
       <div className="container">
+        {this.renderAlert()}
         <LeftBar />
         <div className="login-content">
           <div className="login-fields">
@@ -61,7 +85,6 @@ class UserCreate extends Component {
               <button className="submit-button" action="submit">
                 Submit
               </button>
-              {this.renderAlert()}
             </form>
           </div>
         </div>
@@ -76,7 +99,7 @@ const mapStateToProps = state => {
   };
 };
 
-UserCreate = connect(mapStateToProps, { userCreate })(UserCreate);
+UserCreate = connect(mapStateToProps, { userCreate, clearError })(UserCreate);
 
 export default reduxForm({
   form: 'userCreate', // Unique name for the form
