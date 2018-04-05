@@ -41,15 +41,16 @@ export const addNote = note => {
       .catch(err => {
         dispatch({ type: ERROR_ADDING_NOTE, payload: err });
       });
+    };
   };
-};
-
-export const updateNote = note => {
-  return dispatch => {
-    axios
+  
+  export const updateNote = note => {
+    return dispatch => {
+      axios
       .put(`${URI}/notes`, note)
       .then(() => {
         dispatch(fetchNotes());
+        dispatch(selectNote(note._id));
       })
       .catch(err => {
         dispatch({ type: UPDATE_ERROR, payload: err });
