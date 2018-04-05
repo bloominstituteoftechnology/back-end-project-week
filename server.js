@@ -92,7 +92,6 @@ server.delete('/notes/:id', (req, res) => {
 // create user
 server.post('/users', (req, res) => {
   const userInfo = req.body;
-  const potentialPW = req.body.password;
   const user = new User(userInfo);
   user
     .save()
