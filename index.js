@@ -6,13 +6,13 @@ const mongoose = require("mongoose");
 const User = require("./src/models/User");
 const Note = require("./src/models/Note");
 const server = express();
-const jwt = require('jsonwebtoken');
-const { mysecret } = require('./config');
+const jwt = require("jsonwebtoken");
+const { mysecret } = require("./config");
 server.use(express.json());
 
 const corsOptions = {
-  "origin": "http://localhost:3000",
-  "credentials": true
+  origin: "http://localhost:3000",
+  credentials: true
 };
 
 server.use(cors(corsOptions));
@@ -37,7 +37,27 @@ server.use(
 
 const PORT = 5000;
 
-// ===User manipulation functionality=== 
+// ===User manipulation functionality===
+
+server.get("/api/users", (req, res) => {
+  console.log("Get request for users recieved on server");
+  User.find({}, (err, users) => {
+    if (err) return res.send(err);
+    res.send(users);
+  });
+});
+
+server.get("/api/users/:id", (req, res) => {
+  const userID = req.params.id;
+  console.log("Get request for specific user recieved on server");
+  User.findById(userID)
+    .then(user => {
+      res.json(user);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
 
 server.post("/api/users", (req, res) => {
   console.log("Post recieved for user on server", req.body);
@@ -54,22 +74,6 @@ server.post("/api/users", (req, res) => {
       user
     });
   });
-});
-
-server.get("/api/users", (req, res) => {
-  console.log("Get request for users recieved on server");
-  User.find({}, (err, users) => {
-    if (err) return res.send(err);
-    res.send(users);
-  });
-});
-
-server.get("/api/users/:id", (req, res) => {
-  const userID = req.params.id;
-  console.log("Get request for specific user recieved on server");
-  User.findById(userID)
-  .then(user => { res.json(user) })
-  .catch(err => { res.json(err) });
 });
 
 // ===Log-in functionality===
@@ -117,11 +121,23 @@ server.post("/logout", (req, res) => {
       }
     })
     .catch(err => {
-      sendUserError(err, res);
+      sendUserError(err);
     });
 });
 
 // ===Notes functionality===
+
+server.get("/api/notes", (req, res) => {
+  console.log("Get request for notes recieved on server");
+  Note.find()
+    .populate({ path: 'user', select: 'username' })
+    .then(notes => {
+      res.send(notes);
+    })
+    .catch(err => {
+      res.send(err);
+    });
+});
 
 server.post("/api/notes", (req, res) => {
   console.log("Post recieved for notes on server", req.body);
@@ -140,15 +156,17 @@ server.post("/api/notes", (req, res) => {
   });
 });
 
-server.get("/api/notes", (req, res) => {
-  console.log("Get request for notes recieved on server");
-  Note.find({}, (err, notes) => {
-    if (err) return res.send(err);
-    res.send(notes);
-  });
+server.delete("/api/notes/delete", (req, res) => {
+  const id = req.body.id;
+  console.log(id);
+  Note.findByIdAndRemove(id)
+    .then(deletedNote => {
+      res.status(200).json({ success: true });
+    })
+    .catch(err => {
+      sendUserError(err);
+    });
 });
-
-
 
 server.listen(PORT, (req, res) => {
   console.log("Server listening on: ", PORT);

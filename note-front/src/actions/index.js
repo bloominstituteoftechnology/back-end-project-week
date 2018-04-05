@@ -31,11 +31,6 @@ export const CHECK_IF_AUTH = "CHECK_IF_AUTH";
 
 // ==== NOTES actions ====
 //region
-// using local data, would use axios to get, post, put, and delete
-
-const keyGenerator = user => {
-  return user + new Date().getTime();
-};
 
 export const getNotes = () => {
   return dispatch => {
@@ -54,15 +49,12 @@ export const getNotes = () => {
 
 export const createNote = (title, content) => {
   const user = localStorage.getItem('uuID');
-  const id = keyGenerator(user);
-  const note = {title, content, user, id};
+  const note = {title, content, user};
   return dispatch => {
     dispatch({ type: CREATING_NOTE });
     axios
-      .post(`${ROOT_URL}/api/notes`, { title, content, user })
+      .post(`${ROOT_URL}/api/notes`, note)
       .then(res => {
-        //should send user an error message instead
-        if (!res.body) return;
         dispatch({ type: NOTE_CREATED, payload: res.data.note });
       })
       .catch(err => {
@@ -163,7 +155,7 @@ export const register = (
         dispatch({
           type: USER_REG
         });
-        history.push("/signin");
+        history.push("/login");
       })
       .catch(err => {
         dispatch(authErr(err.toString()));
