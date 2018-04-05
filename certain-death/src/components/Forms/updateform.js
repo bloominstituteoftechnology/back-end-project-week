@@ -65,8 +65,8 @@ class UpdateForm extends React.Component {
     event.preventDefault();
     this.props.updateNote({
       id: this.props.id,
-      title: this.state.title,
-      body: this.state.body,
+      title: this.state.title.trim(),
+      body: this.state.body.trim(),
     }, this.props.history);
     this.setState({
       title: '',

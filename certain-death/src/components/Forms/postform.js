@@ -66,7 +66,8 @@ class PostForm extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
     this.props.addNote({
-      ...this.state,
+      title: this.state.title.trim(),
+      body: this.state.body.trim(),
       stamp: this.parseDate(),
       created: Date.now(),
     });
