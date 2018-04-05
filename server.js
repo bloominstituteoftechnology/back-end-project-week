@@ -2,7 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const bcrypt = require('bcrypt');
 
-const Note = require('./src/models/note-model');
+const Note = require('./notes/src/models/note-model');
 
 const PORT = 5000;
 const server = express();
