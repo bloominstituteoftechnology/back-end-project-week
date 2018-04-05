@@ -8,9 +8,9 @@ import {
 } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
-import {
-  HashRouter as Router
-} from 'react-router-dom';
+// import {
+//   HashRouter as Router
+// } from 'react-router-dom';
 import { rootReducer } from './reducers';
 import './index.css';
 
@@ -18,9 +18,7 @@ const createStoreWithMiddleware = createStore(rootReducer, applyMiddleware(thunk
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware}>
-    <Router>
-      <App />
-    </Router>
+    <App />
   </Provider>,
   document.getElementById('root')
 );

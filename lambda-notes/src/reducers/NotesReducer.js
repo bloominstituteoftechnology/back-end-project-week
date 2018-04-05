@@ -1,41 +1,53 @@
 import { 
-  CREATE_NOTE, 
-  EDIT_NOTE, 
-  DELETE_NOTE,
-  GET_NOTES, 
-  TOGGLE_DELETE } from '../actions';
+  CREATED_NOTE,
+  CREATING_NOTE, 
+  EDITED_NOTE,
+  EDITING_NOTE, 
+  DELETED_NOTE,
+  DELETING_NOTE,
+  FETCHED_NOTES,
+  FETCHING_NOTES, 
+  TOGGLE_DELETE,
+  NOTES_ERROR
+ } from '../actions';
 
   // import testerNotes from '../dummyData';
 
-let _id = -1;
-
 const initialState = {
-  // modal: { 
-  //   showing: false, 
-  //   deleteId: null 
-  // },
+  modal: { 
+    showing: false, 
+    deleteId: null 
+  },
   // notes: [{ 
   //   title: 'Note Title', 
   //   content: 'Note Content', 
   //   id: 0 }]
   notes: [],
-  id: _id,
-  createNote: false,
-  editNote: false,
-  deleteNote: false,
-  getNotes: false
+  creatingNote: false,
+  editingNote: false,
+  deletingNote: false,
+  fetchingNotes: false,
+  error: null
 };
 
 export const notes = (state = initialState, action) => {
   switch (action.type) {
-    case CREATE_NOTE:
-      // return  [ ...state, action.payload ];
+    case CREATING_NOTE:
       return {
         ...state,
-        notes: [...state.notes, action.payload],
-        createNote: true
+        creatingNote: true
       };
-    case EDIT_NOTE:
+    case CREATED_NOTE:
+      return {
+        notes: state.notes.concat(action.payload),
+        creatingNote: false
+      };
+    case EDITING_NOTE:
+      return {
+        ...state,
+        editingNote: true
+      };
+    case EDITED_NOTE:
       // const newState = state.map((note) => {
       //   if (note._id === action.payload._id) {
       //     return action.payload;
@@ -45,32 +57,43 @@ export const notes = (state = initialState, action) => {
       // return newState;
       return {
         ...state,
-        notes: [...state.notes].map((note) => {
-          if (note._id === action.payload._id) {
-            return action.payload;
-          }
-          return note;
-        }),
-        editNote: true
+        notes: action.payload,
+        editingNote: false
       };
-    case DELETE_NOTE:
+    case DELETING_NOTE:
+      return {
+        ...state,
+        deletingNote: true
+      };
+    case DELETED_NOTE:
       // return state.filter((note) => {
       //   return note._id !== action.payload;
       // });
       return {
         ...state,
-        notes: [...state.notes].filter((note) => {
-          return note._id !== action.payload;
-        }),
-        deleteNote: true
+        notes: action.payload,
+        deletingNote: false
       };
-    case GET_NOTES:
-      // return action.payload;
+    case FETCHING_NOTES:
       return {
         ...state,
-        notes: [...state.notes, ...action.payload],
-        getNotes: true
-      }
+        fetchingNotes: true
+      };
+    case FETCHED_NOTES:
+      return {
+        ...state,
+        notes: action.payload,
+        fetchingNotes: false
+      };
+    case NOTES_ERROR:
+      return {
+        ...state,
+        fetchingNotes: false,
+        creatingNote: false,
+        editingNote: false,
+        deletingNote: false,
+        error: action.payload
+      };
     default:
       return state;
   }
@@ -82,7 +105,7 @@ export const modal = (state = initialModal, action) => {
   switch(action.type) {
     case TOGGLE_DELETE:
       return { ...state, showing: !state.showing, deleteId: action.payload };
-    case DELETE_NOTE:
+    case DELETED_NOTE:
       return { ...state, showing: !state.showing, deleteId: null };
     default:
       return state;

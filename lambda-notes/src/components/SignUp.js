@@ -16,6 +16,7 @@ class SignUp extends Component {
 
   handleSignUp = (event) => {
     const { username, password, confirmPassword } = this.state;
+    const { history } = this.props;
     event.preventDefault();
     if (confirmPassword !== password) {
       return alert('Passwords do not match')
@@ -24,9 +25,14 @@ class SignUp extends Component {
     } else if (password.length < 7) {
       return alert('Password must be 7 characters or longer');
     } else {
-      return this.props.createUser(username, password);
+      return this.props.createUser(username, password, history);
     }
   };
+
+  renderAlert = () => {
+    if (!this.props.error) return null;
+    return <h3>{this.props.error}</h3>
+  }
 
   render() {
     return (
@@ -66,6 +72,7 @@ class SignUp extends Component {
           />
           <br />
           <input className="button" type="submit" value="Register" />
+          {this.renderAlert()}
         </form>
         <br />
         <p>Already have an account? <Link to='/signin'>Sign in</Link></p>
@@ -77,7 +84,8 @@ class SignUp extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    createUser: state.createUser
+    authenticated: state.auth.authenticated,
+    error: state.auth.error
   };
 };
 

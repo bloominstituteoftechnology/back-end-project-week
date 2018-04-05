@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { login } from '../actions';
 import { Link } from 'react-router-dom';
-import {
-Redirect
-} from 'react-router-dom';
+// import {
+// Redirect
+// } from 'react-router-dom';
 
 class SignIn extends Component {
   state = {
@@ -18,14 +18,20 @@ class SignIn extends Component {
 
   handleSignIn = (event) => {
     const { username, password } = this.state;
+    const { history } = this.props;
     event.preventDefault();
 
     if (username.length <= 0 || password.length <= 0) {
       return alert('You must provide both username and password.');
     }
-    this.props.login(username, password);
-
+    this.props.login(username, password, history);
   };
+
+  renderAlert = () => {
+    if (!this.props.error) return null;
+    return <h3>{ this.props.error }</h3>
+  }
+
   render() {
     return (
       <div>
@@ -54,6 +60,7 @@ class SignIn extends Component {
           />
           <br />
           <input className="button" type="submit" value="Sign In" />
+          {this.renderAlert()}
         </form>
         <br />
         <p>Don't have an account yet? <Link to='/signup'>Sign up for free!</Link></p>
@@ -65,8 +72,8 @@ class SignIn extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    login: state.login
-    // userAuthenticated: state.auth.userAuthenticated 
+    authenticated: state.auth.authenticated,
+    error: state.auth.error 
   };
 };
 

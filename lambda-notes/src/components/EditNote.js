@@ -28,8 +28,9 @@ class EditNote extends Component {
 
   handleEditNote = (event) => {
     event.preventDefault();
-    const { title, content, id } = this.state;
-    this.props.editNote({ title, content, id });
+    const { title, content} = this.state;
+    const id = this.props.id;
+    this.props.editNote({ title, content }, id);
     this.props.history.push('/');
   };
 
@@ -69,9 +70,11 @@ class EditNote extends Component {
   };
 }
 
-// const mapStateToProps = (state) => {
-//   return {
-//   };
-// }
+const mapStateToProps = (state) => {
+  return {
+    editingNote: state.notes.editingNote,
+    error: state.notes.error
+  };
+}
 
-export default connect(null, { editNote })(EditNote);
+export default connect(mapStateToProps, { editNote })(EditNote);

@@ -51,9 +51,11 @@ class NewNote extends Component {
   };
 }
 
-// const mapStateToProps = (state) => {
-//   return {
-//   };
-// };
+const mapStateToProps = (state) => {
+  return {
+    creatingNote: state.notes.creatingNote,
+    error: state.notes.error
+  };
+};
 
-export default connect(null, { createNote })(NewNote);
+export default connect(mapStateToProps, { createNote })(NewNote);

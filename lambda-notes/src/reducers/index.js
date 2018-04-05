@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 import { notes, modal } from './NotesReducer';
-import { authenticate } from './AuthReducer';
+import { auth } from './AuthReducer';
 
 export const rootReducer = combineReducers({
   notes,
   modal,
-  authenticate
+  auth
 });

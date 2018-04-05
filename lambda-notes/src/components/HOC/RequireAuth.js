@@ -1,27 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ListView from '../ListView';
+// import ListView from '../ListView';
 
-export default ComposedComponent => {
+export default function RequireAuth(ComposedComponent) {
   class RequireAuthentication extends Component {
     componentWillMount() {
-      if (!this.props.userAuthenticated) {
-        this.props.history.push('/login');
+      if (!localStorage.getItem('authorization')) {
+        this.props.history.push('/');
       }
     }
 
     render() {
-      return (
-        <div>
-          {this.props.userAuthenticated ? <ListView /> : <div />}
-        </div>
-      )
+      const token = localStorage.getItem('authorization');
+      if (token) {
+        return (
+          <ComposedComponent />
+        )
+      }
+      return null;
     }
   }
 
-  const mapStateToProps = (state) => {
+  const mapStateToProps = state => {
     return {
-      userAuthenticated: state.userAuthenticated
+      authenticated: state.auth.authenticated
     };
   };
 

@@ -6,10 +6,10 @@ import { logout } from '../actions';
 
 class NavBar extends Component {
 
-  logOut = (event) => {
-    event.preventDefault();
-    this.props.logout();
-  }
+  // logOut = (event) => {
+  //   event.preventDefault();
+  //   this.props.logout();
+  // }
 
   getLinks() {
     return [
@@ -23,6 +23,7 @@ class NavBar extends Component {
   };
 
   render() {
+    const { history } = this.props;
     return (
       <div>
         <div className="navbar-header">
@@ -31,7 +32,7 @@ class NavBar extends Component {
         <div className="navbar-buttons">
           <ul>{this.getLinks()}</ul>
         </div>
-        <p className="navbar-logout" style={this.props.login ? {color: 'black'} : {display: 'none'}} onClick={this.logOut}>Log Out</p>
+        <p className="navbar-logout" onClick={() => this.props.logout({ history })}>Log Out</p>
       </div>
     );
   };
@@ -41,7 +42,6 @@ const mapStateToProps = state => {
   // const notes = state.notes
   return {
     // lastId: notes[notes.length - 1].id
-    login: state.login
   };
 };
 

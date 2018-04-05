@@ -9,15 +9,16 @@ class ListView extends Component {
   }
 
   render() {
+    const { notes } = this.props;
     return (
       <div>
         <div className="title">
           Your Notes:
         </div>
         <div className="notes">
-          {this.props.notes.map((note) => {
+          {notes.map((note) => {
             return (
-              <Link key={note.id} to={{ pathname: `/notes/${note.id}`, note: note }}>
+              <Link key={note._id} to={{ pathname: `/notes/${note._id}`, note: note }}>
                 <div className="note">
                   <div className="note-title">
                     {note.title.length > 20 ? note.title.split('').slice(0, 15).join('') + '...' : note.title}
@@ -37,7 +38,9 @@ class ListView extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    notes: state.notes
+    notes: state.notes.notes,
+    fetchingNotes: state.notes.fetchingNotes,
+    error: state.notes.error
   }
 };
 
