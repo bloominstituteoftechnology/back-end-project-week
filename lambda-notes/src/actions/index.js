@@ -13,6 +13,7 @@ export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
 export const GET_USERS = 'GET_USERS';
 export const CHECK_IF_AUTHENTICATED = 'CHECK_IF_AUTHENTICATED';
 export const GET_NOTES = 'GET_NOTES';
+export const ABC_SORT = 'ABC_SORT';
 
 // axios.defaults.withCredentials = true;
 
@@ -173,6 +174,15 @@ export const deleteNote = (deleted, history) => {
       .catch(err => {
         dispatch(authError('Error deleting note!', err));
       });
+  };
+};
+
+export const abcSort = (title) => {
+  return dispatch => {
+    dispatch({ 
+      type: ABC_SORT,
+      payload: title
+    });
   };
 };
 

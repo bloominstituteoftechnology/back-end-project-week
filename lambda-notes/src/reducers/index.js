@@ -1,5 +1,5 @@
 //UI
-import { ADD_NOTE, DELETE_NOTE, EDIT_NOTE } from '../actions';
+import { ADD_NOTE, DELETE_NOTE, EDIT_NOTE, ABC_SORT } from '../actions';
 
 //Authentication
 import { USER_AUTHENTICATED, USER_UNAUTHENTICATED, AUTHENTICATION_ERROR, CHECK_IF_AUTHENTICATED, GET_USERS, GET_NOTES } from '../actions';
@@ -65,6 +65,17 @@ export const reducer = (state = initialState, action) => {
         notes: state.notes.map(note => {
           if (note.id !== action.payload.id) return note;
           return action.payload;
+        })
+      };
+      case ABC_SORT:
+      return {
+        ...state,
+        notes: state.notes.slice().sort((a, b) => {
+          const first = a.title.toUpperCase();
+          const second = b.title.toUpperCase();
+          if (first < second) return -1;
+          if (first > second) return 1;
+          return 0;
         })
       };
     default:

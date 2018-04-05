@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import  { getNotes } from '../actions';
+import  { abcSort } from '../actions';
 import SideBar from './SideBar';
 import '../styles/ViewNotes.css';
 
@@ -18,17 +19,20 @@ class ViewNotes extends Component {
         <SideBar />
         <div className="viewNotesBody">
           <div className="header">Your Notes:</div>
-          <div className="allNotes">
-            {this.props.notes.map((note, i) => {
-              return (
-                <div className="noteCard" key={i}>
-                  <Link to={`/view-note/${note._id}`}>
-                    <div className="noteTitle">{note.title}</div>
-                    <div className="noteBody">{note.body}</div>
-                  </Link>
-                </div>
-              );
-            })}
+            <div>
+              <button onClick={() => this.props.abcSort('title')}>Sort Alphabetically</button>
+            </div>
+            <div className="allNotes">
+              {this.props.notes.map((note, i) => {
+                return (
+                  <div className="noteCard" key={i}>
+                    <Link to={`/view-note/${note._id}`}>
+                      <div className="noteTitle">{note.title}</div>
+                      <div className="noteBody">{note.body}</div>
+                    </Link>
+                  </div>
+                );
+              })}
           </div>
         </div>
       </div>
@@ -42,4 +46,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { getNotes })(ViewNotes);
+export default connect(mapStateToProps, { getNotes, abcSort })(ViewNotes);
