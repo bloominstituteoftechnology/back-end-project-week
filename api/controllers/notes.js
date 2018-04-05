@@ -29,7 +29,6 @@ const listNotes = async function(req, res) {
 
 const editNote = async function(req, res) {
   const { uuid } = req.headers;
-  console.log(uuid);
   const { _id, title, body } = req.body;
 
   if (!uuid) return res.status(422).json({ error: 'No uuid in headers!' });
@@ -42,7 +41,6 @@ const editNote = async function(req, res) {
     const foundNote = await Note.findById(_id);
     if (foundNote.author+'' !== uuid) return res.status(422).json({ error: 'ID does not match author!' });
     if (!foundNote) return res.status(422).json({ error: 'No note with that ID found' });
-    console.log(foundNote.author+'');
     await Note.updateOne(foundNote, updatedNote);
     res.json(updatedNote);
   } catch(err) {
