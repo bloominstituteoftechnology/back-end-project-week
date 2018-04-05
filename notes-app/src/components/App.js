@@ -6,6 +6,7 @@ import ViewNotes from './ViewNotes';
 import CreateNote from './CreateNote';
 import ViewSingleNote from './ViewSingleNote';
 import EditNote from './EditNote';
+import Login from './Login';
 
 import './App.css';
 
@@ -15,7 +16,7 @@ class App extends Component {
       <Router>
         <div className='App'>
           <Nav />
-          <Route path="/" component={ViewNotes} exact />
+          <Route path="/" component={Login} exact />
           <Route path="/viewnotes" component={ViewNotes} exact />
           <Route path="/createnote" component={CreateNote} exact />
           <Route path="/editnote/:id"
