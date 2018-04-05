@@ -3,7 +3,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import { updateNote } from '../../actions';
 import Button from '../Misc/button';
 
@@ -57,7 +56,6 @@ class UpdateForm extends React.Component {
     this.state = {
       title: this.props.notes.find(val => val._id === this.props.id).title,
       body: this.props.notes.find(val => val._id === this.props.id).body,
-      redirect: false,
     };
   }
 
@@ -71,7 +69,6 @@ class UpdateForm extends React.Component {
     this.setState({
       title: '',
       body: '',
-      // redirect: true,
     });
   }
 
@@ -107,7 +104,6 @@ class UpdateForm extends React.Component {
           />
           <Button type='submit' backgroundColor='rgb(34, 170, 61)' title='Update' />
         </form>
-        {this.state.redirect ? <Redirect to={`/fullnote/${this.props.id}`} /> : null}
       </StyledUpdateForm>
     );
   }

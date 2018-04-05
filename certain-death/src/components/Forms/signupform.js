@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import { signup } from '../../actions';
 import Button from '../Misc/button';
 
@@ -41,7 +40,6 @@ class SignUpForm extends React.Component {
       email: '',
       password: '',
       confirmPassword: '',
-      redirect: false,
     };
   }
 
@@ -63,7 +61,6 @@ class SignUpForm extends React.Component {
       email: '',
       password: '',
       confirmPassword: '',
-      // redirect: true,
     });
   }
 
@@ -109,7 +106,6 @@ class SignUpForm extends React.Component {
           />
           <Button type='submit' backgroundColor='rgb(34, 170, 61)' title='Register' />
         </form>
-        {this.state.redirect ? <Redirect to={'/list'} /> : null}
       </StyledSignUpForm>
     );
   }
