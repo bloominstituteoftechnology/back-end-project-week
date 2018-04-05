@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './css/index.css';
 import App from './App';
-import notes from './components/noteList';
 import SignIn from './components/signin';
 import SignUp from './components/signup';
 import SignOut from './components/signout';
@@ -28,9 +27,9 @@ ReactDOM.render(
   >
     <Router>
       <div>
-        <Route path="/" component={App} />
+        {/* <Route path="/" component={App} /> */}
         <Route path="/signin" component={SignIn} />
-        <Route path="/notes" component={RequireAuth(notes)} />
+        <Route path="/" component={RequireAuth(App)} />
         <Route path="/signout" component={SignOut} />
         <Route path="/signup" component={SignUp} />
       </div>

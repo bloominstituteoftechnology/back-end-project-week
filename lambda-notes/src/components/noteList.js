@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NoteListNote from './noteListNote';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getNotes } from '../actions'
+import { getNotes } from '../actions';
 
 class NoteList extends Component {
   componentDidMount() {
@@ -26,12 +26,13 @@ class NoteList extends Component {
             console.log('note: ', note);
             return (
               <div key={note._id}>
-                <NavLink className="note-list-note-link" to={`/note/${note.id}/${note.title}/${note.content}`}>
+                <NavLink className="note-list-note-link" to={`/note/${note.title}/${note.content}/${note._id}/`}>
+                {console.log(note)}
                   <NoteListNote title={this.clampNote(note.title, 10)} content={this.clampNote(note.content, 100)} />
                 </NavLink>
               </div>
             )
-          }) : null};
+          }) : null}
       </div>
     );
   }

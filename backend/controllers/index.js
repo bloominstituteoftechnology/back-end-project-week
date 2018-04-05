@@ -40,7 +40,6 @@ const login = (req, res) => {
 
 const getNotes = (req, res) => {
   const { user } = req.headers;
-  console.log('getNotes req.headers: ', req.headers);
   Note.find({ user }, (err, notes) => {
     if (err) return res.send(err);
     res.send(notes);

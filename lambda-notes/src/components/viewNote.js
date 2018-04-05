@@ -3,16 +3,16 @@ import { NavLink } from 'react-router-dom';
 
 const ViewNote = (props) => {
     console.log("NoteView props: ", props);
-    const getNoteIndex = () => {
-      for (let i = 0; i < props.notes.length; i++) {
-          if (+props.match.params.id === props.notes[i].id) {
-              // console.log('index in if statement: ', i)
-              return i;
-          }
+    // const getNoteIndex = () => {
+    //   for (let i = 0; i < props.notes.length; i++) {
+    //       if (+props.match.params.id === props.notes[i].id) {
+    //           // console.log('index in if statement: ', i)
+    //           return i;
+    //       }
       
-      }
+      // }
       // console.log('How is i defined here? ')
-    }
+    // }
     return (
       <div className="view-note-container">
         <div className="edit-button">
@@ -26,10 +26,10 @@ const ViewNote = (props) => {
           </NavLink>
         </div>
         <div className="view-note__title">
-        {props.notes[getNoteIndex()].title}
+        {props.match.params.title}
         </div>
         <div className="view-note__content">
-        {props.notes[getNoteIndex()].content}
+        {props.match.params.content}
         </div>
       </div>
     )
