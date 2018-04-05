@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { viewNote } from "../actions";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import { viewNote } from '../actions';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class NoteList extends Component {
-  state = {
-    id: "",
-  };
+  componentDidMount() {
+    this.props.viewNote();
+  }
 
   render() {
     return (
@@ -30,11 +30,6 @@ class NoteList extends Component {
       </div>
     );
   }
-
-  viewNote = note => {
-    this.props.viewNote(note);
-    this.setState({ id: note.id });
-  };
 }
 
 const mapStateToProps = state => {

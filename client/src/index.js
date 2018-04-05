@@ -26,13 +26,25 @@ ReactDOM.render(
         <Route path="/" component={App} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={SignIn} />
-        <Route path="/notelist" component={RequireAuth(SideBar)} />
+        <Route path="/notelist" component={RequireAuth(NoteList)} />
         <Route path="/signout" component={SignOut} />
-        <Route path="/main" component={SideBar} />
-        <Route path="/notelist" component={NoteList} exact />} />
-        <Route path="/note/:id" component={SingleNote} />
+        <Route path="/" component={SideBar} exact />
+        {/* <Route
+          path="/notelist"
+          render={state => <NoteList notes={this.state.notes} exact />}
+        />
+        <Route
+          render={routeProps => (
+            <SingleNote
+              {...routeProps}
+              {...this.props}
+              notes={this.state.notes}
+            />
+          )}
+          path="/note/:id"
+        />
         <Route path="/noteform" component={NoteForm} exact />
-        <Route path="/delete/:id" component={DeleteModal} />
+        <Route path="/delete/:id" component={DeleteModal} /> */}
       </div>
     </Router>
   </Provider>,

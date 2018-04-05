@@ -1,3 +1,8 @@
+* {
+  text-decoration: inherit;
+  list-style-type: none;
+  color: inherit;
+}
 .App {
   text-align: center;
   display: flex;
@@ -124,4 +129,10 @@ form .button {
 .modaltext {
   font-family: 'Raleway', sans-serif;
   font-size: 1rem;
+}
+
+.signup {
+  display: column;
+  flex-direction: row;
+  width: 400px;
 }

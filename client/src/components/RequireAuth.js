@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import SideBar from './sideBar';
+import NoteList from './noteList';
 
 export default ComposedComponent => {
   class RequireAuthentication extends Component {
@@ -15,7 +15,7 @@ export default ComposedComponent => {
         <div>
           {this.props.authenticated ? (
             <ComposedComponent>
-              <SideBar />
+              <NoteList notes={this.props.notes} />
             </ComposedComponent>
           ) : null}
         </div>
