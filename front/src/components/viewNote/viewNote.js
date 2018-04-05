@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 class ViewNote extends Component {
     constructor(props){
         super(props);
-
-        this.state = {
-
-        }
     }
 
     handleDelete = (event) => {
@@ -20,8 +17,8 @@ class ViewNote extends Component {
         return(
             <div className="viewNote">
             <div className="viewNote__options">
-                <p className="viewNote__options__text" >edit</p>
-                <p className="viewNote__options__text" onClick={this.handleDelete}>delete</p>
+                <Link to={{pathname: "/editnote", state: {title: this.props.location.state.title, content: this.props.location.state.content, id: this.props.location.state.id}}}><p className="viewNote__options__text">edit</p></Link>
+                <a href="/"><p className="viewNote__options__text" onClick={this.handleDelete}>delete</p></a>
             </div>
 
             <div className="viewNote__header">

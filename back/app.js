@@ -201,8 +201,8 @@ app.post("/api/addNote", (req, res) => {
 });
 
 //handler for updating a note
-app.put("/api/editNote/:id", (req, res) => {
-    const id = req.params.id;
+app.put("/api/editNote", (req, res) => {
+    const id = req.body.id;
     const newTitle = req.body.title;
     const newContent = req.body.content;
     if (!id){
@@ -265,7 +265,7 @@ app.put("/api/editNote/:id", (req, res) => {
 });
 
 //handler for deleting a note
-app.delete("/api/deleteNote/", (req, res) => {
+app.delete("/api/deleteNote", (req, res) => {
     const id = req.body.id;
 
     if (!id){
