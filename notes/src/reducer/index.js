@@ -19,7 +19,7 @@ const initialState = {
   notes: [],
   modalVisible: false,
   selectedNote: {},
-  sortType: 'id',
+  sortType: 'date',
   loggedIn: false,
   error: null,
 };

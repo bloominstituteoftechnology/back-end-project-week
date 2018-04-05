@@ -20,7 +20,7 @@ const NoteList = props => {
       </CSVLink>
       <div className="noteList__sort-options">
         <div className="noteList__sort-title">sort by:</div>
-        <div onClick={() => props.sortNotes('id')} className="noteList__sort-option">date</div>
+        <div onClick={() => props.sortNotes('date')} className="noteList__sort-option">date</div>
         <div onClick={() => props.sortNotes('title')} className="noteList__sort-option">name</div>
       </div>
       <div className="noteList">
