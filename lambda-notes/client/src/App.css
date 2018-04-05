@@ -95,21 +95,23 @@ input {
   flex-direction: column;
   margin: 5%;
 }
-/* 
+
 .section__content__icons {
-  margin: 0 auto;
-   display: grid;
-   grid-template-columns: 33% 33% 33%;
-} */
+  display:block;
+  background: red;
+  float: left;
+
+}
 
 .note__icon {
-  font-weight: bold;
   font-size: 1rem;
   background: white;
-  width: 25%;
+  width: 21.1%;
   height: 120px;
   border: solid lightgrey 0.5px;
   padding: 5%;
+  margin: 1%;
+  float: left;
 }
 
 .note__icon__content {
@@ -148,6 +150,10 @@ p {
   height: 30px;
   padding-left: 1%;
   margin-bottom: 3%;
+}
+
+.note__icon__title {
+  font-weight: bold;
 }
 
 .button__registration {
