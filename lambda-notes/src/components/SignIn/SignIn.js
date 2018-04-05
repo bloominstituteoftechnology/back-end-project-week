@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { login } from '../../actions';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import './SignIn.css';
 import UserSidebar from '../UserSidebar/UserSidebar';
 class SignIn extends Component {

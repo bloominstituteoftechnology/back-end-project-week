@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './SignOut.css';
 import UserSidebar from '../UserSidebar/UserSidebar';
 
