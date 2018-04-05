@@ -7,5 +7,5 @@ module.exports = server => {
     server.route('/api/notes').post(createNote);
     server.route('/api/users/:id').get(validateToken, getNotes);
     server.route('/api/notes/:authorId/:noteId').put(validateToken, updateNote);
-    server.delete('/api/notes/:noteId', validateToken, deleteNote);
+    server.route('/api/notes/:noteId').delete(validateToken, deleteNote);
 };
