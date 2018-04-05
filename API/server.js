@@ -21,10 +21,8 @@ server.use(cors());
 
 server.delete('/deletenote', authenticate, (req, res) => {
   const id = req.get('id');
-  console.log(id);
   Note.findByIdAndRemove(id)
     .then((deletedNote) => {
-      console.log(deletedNote);
       res.status(200).json(deletedNote);
     })
     .catch((err) => {
@@ -126,7 +124,6 @@ server.put('/updatenote', authenticate, (req, res) => {
       if (alteredNote === null) {
         res.status(404).json({ errorMessage: 'The note with the specified ID does not exist' });
       }
-      console.log(alteredNote);
       res.status(200).json(alteredNote);
     })
     .catch((err) => {
