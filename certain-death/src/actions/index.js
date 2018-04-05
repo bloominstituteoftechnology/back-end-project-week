@@ -135,6 +135,7 @@ export const signup = (data) => {
       })
       .catch((err) => {
         dispatch({ type: ERROR, payload: err });
+        alert('The email already exists, try another email');
       });
   };
 };

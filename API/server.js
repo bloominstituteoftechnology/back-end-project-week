@@ -26,7 +26,7 @@ server.delete('/deletenote', authenticate, (req, res) => {
       res.status(200).json(deletedNote);
     })
     .catch((err) => {
-      res.status(500).json({ error: 'The note could not be deleted' });
+      res.status(500).json({ errorMessage: 'There was an internal error while the note was deleting' });
     });
 });
 
@@ -37,10 +37,7 @@ server.get('/getnotes', authenticate, (req, res) => {
       res.status(200).json({ notes });
     })
     .catch((err) => {
-      if (err) {
-        res.status(400).json({ errorMessage: 'there was a user error', errorBody: err });
-      }
-      res.status(500).json({ errorMessage: 'There was an internal error while retrieving user notes', err });
+      res.status(500).json({ errorMessage: 'There was an internal error while retrieving notes', errorBody: err });
     });
 });
 
@@ -62,9 +59,7 @@ server.post('/login', (req, res) => {
       });
     })
     .catch((err) => {
-      if (err) {
-        res.status(400).json({ errorMessage: 'The email entered was not found in the system', errorBody: err });
-      }
+      res.status(400).json({ errorMessage: 'The email entered was not found in the system', errorBody: err });
     });
 });
 
@@ -79,10 +74,7 @@ server.post('/newnote', authenticate, (req, res) => {
       res.status(201).json(newNote);
     })
     .catch((err) => {
-      if (err) {
-        res.status(400).json({ errorMessage: 'there was a user error', errorBody: err });
-      }
-      res.status(500).json({ errorMessage: 'There was an internal error while saving the note to the database', err });
+      res.status(500).json({ errorMessage: 'There was an internal error while updating the note', errorBody: err });
     });
 });
 
@@ -108,17 +100,17 @@ server.put('/updatenote', authenticate, (req, res) => {
   const changes = req.body;
   const { id, title, body } = changes;
   if (!title || !body || !id) {
-    res.status(400).json({ errorMessage: 'Please provide a title and body for update' });
+    res.status(400).json({ errorMessage: 'Incomplete information provided for update' });
   }
   Note.findByIdAndUpdate(id, changes, { new: true, runValidators: true })
     .then((alteredNote) => {
       if (alteredNote === null) {
-        res.status(404).json({ errorMessage: 'The note with the specified ID does not exist' });
+        res.status(404).json({ errorMessage: 'The note with the specified ID was not found' });
       }
       res.status(200).json(alteredNote);
     })
     .catch((err) => {
-      res.status(500).json({ error: 'The note could not be updated', err });
+      res.status(500).json({ errorMessage: 'There was an internal error while updating the note', err });
     });
 });
 
