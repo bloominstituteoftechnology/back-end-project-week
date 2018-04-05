@@ -12,13 +12,14 @@ const corsOptions = {
   credentials: true,
 };
 
-// server.options('*', cors(corsOptions));
+//server.options('*', cors(corsOptions));
 
 server.use(express.json());
 server.use(cors(corsOptions));
 
 server.all('*', function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
+  var origin = req.get('origin');
+  res.header('Access-Control-Allow-Origin', origin);
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
   res.header(
