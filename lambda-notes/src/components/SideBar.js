@@ -7,7 +7,6 @@ import { logout } from '../actions';
 class SideBar extends Component {
 
   handleClick = e => {
-    localStorage.removeItem('token');
     this.props.logout();
   }
 

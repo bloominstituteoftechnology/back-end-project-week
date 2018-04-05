@@ -18,7 +18,6 @@ const getNotes = (req, res) => {
     User.findOne({ username: username })
       .populate('notes')
       .then(notes => {
-        console.log(notes);
         res.status(200).json(notes.notes);
       })
       .catch(err => {

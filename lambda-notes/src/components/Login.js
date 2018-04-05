@@ -44,7 +44,7 @@ class Login extends Component {
                 </div>
                 <div className="inputContainer">
                   <input
-                    type="text"
+                    type="password"
                     className="inputField"
                     placeholder="password"
                     value={this.state.password}
