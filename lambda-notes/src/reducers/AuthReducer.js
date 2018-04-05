@@ -6,14 +6,16 @@ import {
 } from '../actions';
 
 const initialState = {
-  authenticated: false
+  authenticated: true
 };
 
 export default (auth = initialState, action) => {
   switch(action.type) {
     case USER_AUTHENTICATED:
+      console.log('user authenticated')
       return { ...auth, authenticated: true };
     case USER_UNAUTHENTICATED:
+      console.log('user unauthenticated')
       return { ...auth, authenticated: false };
     case AUTHENTICATION_ERROR:
       return { ...auth, error: action.payload };

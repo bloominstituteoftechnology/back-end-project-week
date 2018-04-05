@@ -5,11 +5,16 @@ import { connect } from 'react-redux';
 import { authUser } from '../../actions';
 
 
-const NotLoggedIn = () => {
-  console.log('localStorage', localStorage.getItem('token'));
-  console.log('this.props', this.props)
-  return (
-    <div className="HomePage-container">
+class NotLoggedIn extends React.Component {
+  componentDidMount() {
+    if (localStorage.getItem('token')) {
+      this.props.authUser();
+    }
+  }
+  
+  render() {
+    return (
+      <div className="HomePage-container">
       <nav className="Sidebar-container">
         <div className="Sidebar">
           <h1>Lambda Notes</h1>
@@ -32,7 +37,9 @@ const NotLoggedIn = () => {
         If you do not have an account, please register!
       </div>
     </div>
-  )
+
+    )
+  }
 }
 
 const mapStateToProps = state => {

@@ -29,3 +29,14 @@
   font-weight: 800;
   color: white;
 }
+
+.Logout-button {
+  border: 1px solid grey;
+  background-color: #00CED1;
+  overflow: hidden;
+  margin: 550px 0 0 15px;
+  width: 250px;
+  height: 50px;
+  font-weight: 800;
+  color: white;
+}

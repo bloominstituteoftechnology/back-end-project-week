@@ -1,10 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { checkAuth } from '../../actions';
+import { authUser } from '../../actions';
 
 export default WrappedComponent => {
   class RequireAuthentication extends React.Component {
     componentWillMount() {
+      if (localStorage.getItem('token')) {
+        this.props.authUser();
+      }
       if (!this.props.authenticated) this.props.history.push('/pleaselogin');
     }
     render() {
@@ -20,5 +23,5 @@ export default WrappedComponent => {
       authenticated: state.auth.authenticated
     };
   };
-  return connect(mapStateToProps, { checkAuth })(RequireAuthentication);
+  return connect(mapStateToProps, { authUser })(RequireAuthentication);
 }

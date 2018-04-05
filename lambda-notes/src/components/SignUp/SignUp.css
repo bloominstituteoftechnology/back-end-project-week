@@ -1,0 +1,9 @@
+.Register-container {
+  display: flex;
+  width: 100%;
+}
+
+.Input-form {
+  margin-left: 320px;
+  margin-top: -130px;
+}

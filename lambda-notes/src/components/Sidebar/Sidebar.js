@@ -10,6 +10,7 @@ class Sidebar extends Component {
   }
 
   render() {
+    console.log('Sidebar props', this.props)
       return (
         <nav className="Sidebar-container">
           <div className="Sidebar">
@@ -25,7 +26,9 @@ class Sidebar extends Component {
                   + Create New Note
               </button>
             </Link>
-            <button onClick={this.handleLogOut}>Logout</button>
+            <Link to="/loggedout">
+              <button className="Logout-button" onClick={this.handleLogOut}>Logout</button>
+            </Link>
             </div>
           </div>
         </nav>

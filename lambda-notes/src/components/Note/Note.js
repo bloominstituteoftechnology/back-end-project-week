@@ -61,7 +61,7 @@ class Note extends React.Component {
   }
   handleDelete = () => {
     this.props.deleteNote(this.props.state.notes[this.props.match.params.id]._id);
-    this.props.history.push('/');
+    this.props.history.push('/notes');
   }
 }
 

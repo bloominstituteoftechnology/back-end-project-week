@@ -3,13 +3,13 @@ import Sidebar from '../Sidebar/Sidebar';
 import NotesList from '../NotesList/NotesList';
 import { connect } from 'react-redux';
 import './App.css';
-import { getAllNotes, authUser, logout } from '../../actions';
+import { getAllNotes, authUser } from '../../actions';
 
 import { Link } from 'react-router-dom';
 class App extends Component {
-  state = {
-    notes: [],
-  }
+  // state = {
+  //   notes: [],
+  // }
   
   componentDidMount() {
     if (localStorage.getItem('token')) {
@@ -23,7 +23,38 @@ class App extends Component {
 
   render() {
     const props = this.props;
+    console.log(props);
+    console.log('app state', this.state)
     return (
+      <div>
+      {this.props.state.notes.error ? 
+      <div className="Not-Logged-In">
+        <div className="HomePage-container">
+          <nav className="Sidebar-container">
+            <div className="Sidebar">
+              <h1>Lambda Notes</h1>
+              <div className="Sidebar-buttons">
+              <Link to="/login">
+                <button className="Sidebar-button" >
+                  Login
+                </button>
+              </Link>
+              <Link to="/users">
+                <button className="Sidebar-button">
+                    Register
+                </button>
+              </Link>
+              </div>
+            </div>
+          </nav>
+      <div className="HomePage-Text">
+        Must Login to view this page!
+        If you do not have an account, please register!
+      </div>
+    </div>
+        {/* Not Logged In. Please Log In. <a href="/login">Click here to login.</a>  */}
+      </div> 
+      : 
       <div className="App">
         <Sidebar />
         <div className="Notes-Section">
@@ -32,6 +63,7 @@ class App extends Component {
             {props.state.notes.map((note, index) => <NotesList id={index} note={note}/>)}
           </div>
         </div>
+      </div>}
       </div>
     );
   }
@@ -43,4 +75,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { getAllNotes, authUser, logout })(App);
+export default connect(mapStateToProps, { getAllNotes, authUser })(App);
