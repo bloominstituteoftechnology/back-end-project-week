@@ -13,7 +13,7 @@ const Note = require('./api/models/noteModel');
 let userId;
 let testToken;
 
-describe('Test Suite', () => {
+describe('Server Tests', () => {
   before(done => {
     mongoose.Promise = global.Promise;
     mongoose.connect('mongodb://localhost/test');
