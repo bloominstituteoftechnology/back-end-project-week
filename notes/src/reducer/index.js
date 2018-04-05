@@ -8,6 +8,7 @@ import {
   DELETE_NOTE,
   DELETE_ERROR,
   SELECT_NOTE,
+  SELECT_ERROR,
   SORT_NOTES,
   LOGOUT_USER,
   REGISTER_ERROR,
@@ -71,11 +72,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.payload,
-      }
+      };
     case SELECT_NOTE:
       return {
         ...state,
-        selectedNote: state.notes.filter(note => note._id === action.payload)[0],
+        selectedNote: action.payload,
+      };
+    case SELECT_ERROR:
+      return {
+        ...state,
+        error: action.payload,
       };
     case SORT_NOTES:
       return {

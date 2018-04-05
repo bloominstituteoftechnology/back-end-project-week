@@ -5,6 +5,7 @@ export const UPDATE_ERROR = 'UPDATE_ERROR';
 export const TOGGLE_MODAL = 'TOGGLE_MODAL';
 export const DELETE_NOTE = 'DELETE_NOTE';
 export const SELECT_NOTE = 'SELECT_NOTE';
+export const SELECT_ERROR = 'SELECT_ERROR';
 export const SORT_NOTES = 'SORT_NOTES';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const REGISTER_ERROR = 'REGISTER_ERROR';
@@ -79,10 +80,16 @@ export const deleteNote = id => {
 };
 
 export const selectNote = id => {
-  return {
-    type: SELECT_NOTE,
-    payload: id,
-  };
+  return dispatch => {
+    axios
+    .get(`http://localhost:3030/notes/${id}`)
+    .then(({ data }) => {
+      dispatch({ type: SELECT_NOTE, payload: data });
+    })
+    .catch(err => {
+      dispatch({ type: SELECT_ERROR, payload: err});
+    })
+  }
 };
 
 export const sortNotes = sort => {
