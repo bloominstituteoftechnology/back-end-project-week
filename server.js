@@ -12,8 +12,6 @@ const { authUser, sendUserError } = require('./middleware');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-  // "SECRET": "b58PiqsEtjexkTj3Eqovsszq8ovjfgGHFMfUzSmJO21dtXs34e"
-
 
 mongoose.connect(`mongodb://${process.env.MLAB_USERNAME}:${process.env.MLAB_PASSWORD}@ds135399.mlab.com:35399/lambda-notes`, () => {
     console.log('connected to mongo');

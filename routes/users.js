@@ -8,9 +8,9 @@ const User = require('../models/users');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', authUser, (req, res) => {
     User.find()
-        .populate('Notes')
+        .select('username')
         .then(users => {
             res.status(200).send(users);
         })
