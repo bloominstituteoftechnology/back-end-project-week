@@ -10,6 +10,7 @@ import {
   GOT_NOTES,
   LOGGED_IN,
   LOGGING_IN,
+  LOGOUT,
   NEWEST_SORT,
   OLDEST_SORT,
   SHOW_NOTES,
@@ -90,6 +91,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loggingIn: true,
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        loggedIn: false,
       };
     case NEWEST_SORT:
       return {

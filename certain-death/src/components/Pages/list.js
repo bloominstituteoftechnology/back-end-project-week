@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import NoteCard from '../Misc/notecard';
 import HomeLeftRail from '../Rails/homeleftrail';
 import SectionTitle from '../Misc/sectiontitle';
-import { getNotes } from '../../actions';
+import { getNotes, logout } from '../../actions';
 
 
 const StyledList = styled.div`
@@ -41,13 +40,18 @@ class List extends Component {
     this.props.getNotes();
   }
 
+  handleLogoutLink = (event) => {
+    event.preventDefault();
+    this.props.logout(this.props.history);
+  }
+
   render() {
     return (
       <StyledList>
         <HomeLeftRail />
         <div className='list__right'>
           <div className='list__links'>
-            <Link to={'/'}>logout</Link>
+            <a href='' onClick={this.handleLogoutLink}>logout</a>
           </div>
           <SectionTitle name={`Your Notes (${this.props.sortStatus}):`}/>
           {this.props.notes.map((note, index) => {
@@ -68,4 +72,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getNotes })(List);
+export default connect(mapStateToProps, { logout, getNotes })(List);

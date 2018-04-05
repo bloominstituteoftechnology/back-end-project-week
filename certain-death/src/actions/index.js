@@ -11,6 +11,7 @@ export const GOT_NOTES = 'GOT_NOTES';
 export const LOGGING_IN = 'LOGGING_IN';
 export const LOGGED_IN = 'LOGGED_IN';
 export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
 export const NEWEST_SORT = 'NEWEST_SORT';
 export const OLDEST_SORT = 'OLDEST_SORT';
 export const SHOW_NOTES = 'SHOW_NOTES';
@@ -67,7 +68,7 @@ export const deleteNote = (data, history) => {
   };
 };
 
-export const error = data => ({
+export const error = () => ({
   type: ERROR,
 });
 
@@ -110,15 +111,23 @@ export const login = (data, history) => {
   };
 };
 
-export const newestSort = data => ({
+export const logout = (history) => {
+  return (dispatch) => {
+    dispatch({ type: LOGOUT });
+    localStorage.removeItem('notesToken');
+    history.push('/');
+  };
+};
+
+export const newestSort = () => ({
   type: NEWEST_SORT,
 });
 
-export const oldestSort = data => ({
+export const oldestSort = () => ({
   type: OLDEST_SORT,
 });
 
-export const showNotes = data => ({
+export const showNotes = () => ({
   type: SHOW_NOTES,
 });
 
@@ -141,11 +150,11 @@ export const signup = (data) => {
   };
 };
 
-export const titleSort = data => ({
+export const titleSort = () => ({
   type: TITLE_SORT,
 });
 
-export const toggleDelete = data => ({
+export const toggleDelete = () => ({
   type: TOGGLE_DELETE,
 });
 
@@ -179,6 +188,6 @@ export const updateSearch = data => ({
   input: data.input,
 });
 
-export const userCreated = data => ({
+export const userCreated = () => ({
   type: USER_CREATED,
 });
