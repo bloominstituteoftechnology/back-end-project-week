@@ -1,21 +1,17 @@
 import { ADD_NOTE, VIEW_NOTE, EDIT_NOTE, DELETE_NOTE } from '../actions';
 
-const initialState = {
-  notes: [],
-};
-
-export const noteReducer = (state = initialState, action) => {
+export const NoteReducer = (notes = [], action) => {
   switch (action.type) {
     case ADD_NOTE:
-      return { ...state };
+      return { ...notes };
 
     case VIEW_NOTE:
-      return { ...state, current: action.payload };
+      return { ...notes, current: action.payload };
 
     case EDIT_NOTE:
       return {
-        ...state,
-        notes: [...state.notes].map(note => {
+        ...notes,
+        notes: [...notes.notes].map(note => {
           if (note._id !== action.payload.data._id) {
             return note;
           }
@@ -25,13 +21,13 @@ export const noteReducer = (state = initialState, action) => {
 
     case DELETE_NOTE:
       return {
-        ...state,
-        notes: state.notes.filter(note => note._id !== action.payload.data._id),
+        ...notes,
+        notes: notes.notes.filter(note => note._id !== action.payload.data._id),
       };
 
     default:
-      return state;
+      return notes;
   }
 };
 
-export default noteReducer;
+export default NoteReducer;
