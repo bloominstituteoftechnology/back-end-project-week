@@ -46,19 +46,15 @@ server.get('/getnotes', authenticate, (req, res) => {
 
 server.post('/login', (req, res) => {
   const { email, password } = req.body;
-  if (!email || !password) {
-    res.status(400).json({ errorMessage: 'Please provide an email and password in the request body' });
-  }
   User.findOne({ email })
     .then((user) => {
       user.checkPassword(password, (err, matched) => {
-        if (err) {
-          res.status(422).json({ error: 'passwords dont match' });
-          return;
+        if (matched === false) {
+          res.status(400).json({ errorMessage: 'The email and password do not match', errorBody: 'n/a' });
         }
-        if (matched) {
+        if (matched === true) {
           const payload = {
-            email: user.email
+            email: user.email,
           };
           const token = jwt.sign(payload, mySecret);
           res.status(201).json({ token });
@@ -67,9 +63,8 @@ server.post('/login', (req, res) => {
     })
     .catch((err) => {
       if (err) {
-        res.status(400).json({ errorMessage: 'there was a user error', errorBody: err });
+        res.status(400).json({ errorMessage: 'The email entered was not found in the system', errorBody: err });
       }
-      res.status(500).json({ errorMessage: 'There was an internal error while saving the user to the database', err });
     });
 });
 
