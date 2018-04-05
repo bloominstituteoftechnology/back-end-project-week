@@ -1,14 +1,23 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const session = require('express-session');
+const config = require('config.js')
 const cors = require('cors');
-const noteSchema = require('./models/noteSchema');
-const userSchema = require('./models/userSchema');
+
+const corOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true,
+};
+
 const PORT = 5000;
 const server = express();
-server.use(express.json());
-server.use(sesssion({
 
-}))
+server.use(express.json());
+server.use(cors(corOptions));
+server.use(session({
+  secret: 'mBXuM9c1iMqwdzYClsGj7qAHVJKVi5YS',
+  resave: true,
+  saveUninitialized: false,
+}));
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/noteSchema');
@@ -24,45 +33,8 @@ server.get('/', (req, res) => {
   });
 });
 
-server.post('/', (req, res) => {
-  const noteData = req.body;
-  const note = new Note(noteData);
 
-  note
-    .save()
-    .then(newNote => {
-      res.status(200).json(newNote);
-    })
-    .catch(err => {
-      res.status(500).json({ msg: 'Error adding your note', error: err });
-    });
-});
-
-server.put('/', (req, res) => {
-  const note = req.body;
-  noteSchema.findByIdAndUpdate({ id: note.id }, note, { new: true })
-    .then(changedNote => {
-      res.status(200).json(changedNote);
-    })
-    .catch(err => {
-      res.status(500).json({ msg: 'Error updating your note', error: err });
-    });
-});
-
-server.delete('/', (req, res) => {
-  const { id } = req.boy;
-  noteSchema.findByIdAndRemove({ id })
-    .then(removedNote => {
-      res.status(200).json(removedNote);
-    })
-    .catch(err => {
-      res.status(500).json({ msg: 'Error deleting your note', error: err });
-    });
-});
-
-
-
-
+routes(server);
 
 server.listen(PORT, err => {
   if (err) {
@@ -72,4 +44,4 @@ server.listen(PORT, err => {
   }
 });
 
-module.exports = server;
+module.exports = { server, };
