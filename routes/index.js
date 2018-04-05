@@ -3,7 +3,7 @@ const { validateToken } = require('../services/auth');
 
 module.exports = server => {
     server.route('/api/users').post(createUser)
-    server.post('/api/login', login);
+    server.route('/api/login').post(login);
     server.route('/api/notes').post(createNote);
     server.route('/api/users/:id').get(validateToken, getNotes);
     server.route('/api/notes/:authorId/:noteId').put(validateToken, updateNote);
