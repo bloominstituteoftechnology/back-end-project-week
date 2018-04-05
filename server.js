@@ -17,7 +17,7 @@ server.get('/', function(req, res) {
 });
 
 mongoose
-  .connect('mongodb://localhost/LambdaNotes')
+  .connect('mongodb://losaephan:Lantern1@ds019756.mlab.com:19756/singtafood')
   .then(conn => {
     console.log('connected to mongo Lambda Notes');
   })

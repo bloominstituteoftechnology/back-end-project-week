@@ -7,7 +7,6 @@ const Note = require('./noteModel');
 const User = require('../user/userModel');
 
 const validateToken = (req, res, next) => {
-  console.log('validateToken', req.headers.authorization);
   const token = req.headers.authorization;
   if (!token) {
     res
@@ -21,7 +20,6 @@ const validateToken = (req, res, next) => {
         .json({ error: 'Token invalid, please login', message: authError });
       return;
     }
-    console.log('decoded', decoded);
     req.decoded = decoded;
     next();
   });
