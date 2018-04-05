@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { registerUser } from '../actions';
+import '../styles/Register.css';
 
 class Register extends React.Component {
   state = {
@@ -12,8 +14,10 @@ class Register extends React.Component {
 
   submitRegistration = event => {
     const { username, password, passwordRepeat } = this.state;
-    if (!username || !password) this.setState({ message: 'Please enter a username and a password.'})
-    if (password !== passwordRepeat) this.setState({ message: 'The passwords do not match.' });
+    if (!username || !password)
+      this.setState({ message: 'Please enter a username and a password.' });
+    if (password !== passwordRepeat)
+      this.setState({ message: 'The passwords do not match.' });
     event.preventDefault();
     this.props.registerUser({ username, password });
     this.props.history.push('/');
@@ -28,14 +32,16 @@ class Register extends React.Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.submitRegistration}>
+      <div className="register__container">
+        <div className="register__header">Create a new account:</div>
+        <form className="register__form" onSubmit={this.submitRegistration}>
           <input
             type="text"
             name="username"
             value={this.state.username}
             placeholder="email"
             onChange={this.updateField}
+            className="register__username-field"
           />
           <input
             type="password"
@@ -43,6 +49,7 @@ class Register extends React.Component {
             value={this.state.password}
             placeholder="password"
             onChange={this.updateField}
+            className="register__password-field"
           />
           <input
             type="password"
@@ -50,8 +57,14 @@ class Register extends React.Component {
             value={this.state.repeatPassword}
             placeholder="confirm password"
             onChange={this.updateField}
+            className="register__password-field"
           />
-          <input type="submit" value="submit" />
+          <div className="register__buttons">
+            <input type="submit" value="Submit" className="register__button" />
+            <Link to="/login">
+              <button className="register__button login">Back to login</button>
+            </Link>
+          </div>
         </form>
         {this.state.message && this.state.message}
       </div>
