@@ -33,8 +33,8 @@ class Delete extends React.Component {
   handleDelete = () => {
     this.props.deleteNote({
       id: this.props.id,
-    });
-    this.props.history.push('/list');
+    }, this.props.history);
+    // this.props.history.push('/list');
     this.props.toggleDelete();
   }
 

@@ -19,8 +19,17 @@ server.use(express.json());
 server.use(helmet());
 server.use(cors());
 
-server.get('/', authenticate, (req, res) => {
-  res.json(req.jwtObj);
+server.delete('/deletenote', authenticate, (req, res) => {
+  const id = req.get('id');
+  console.log(id);
+  Note.findByIdAndRemove(id)
+    .then((deletedNote) => {
+      console.log(deletedNote);
+      res.status(200).json(deletedNote);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: 'The note could not be deleted' });
+    });
 });
 
 server.get('/getnotes', authenticate, (req, res) => {

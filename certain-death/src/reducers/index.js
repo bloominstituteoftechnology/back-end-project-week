@@ -3,7 +3,8 @@
 import {
   ADDING_NOTE,
   ADDED_NOTE,
-  DELETE_NOTE,
+  DELETING_NOTE,
+  DELETED_NOTE,
   ERROR,
   GETTING_NOTES,
   GOT_NOTES,
@@ -33,6 +34,7 @@ const initialState = {
   addingNote: false,
   gettingNotes: false,
   updatingNote: false,
+  deletingNote: true,
 };
 
 export default (state = initialState, action) => {
@@ -47,10 +49,16 @@ export default (state = initialState, action) => {
         ...state,
         addingNote: false,
       };
-    case DELETE_NOTE:
+    case DELETED_NOTE:
       return {
         ...state,
-        notes: state.notes.filter(val => val.id.toString() !== action.id),
+        deletingNote: false,
+        notes: state.notes.filter(val => val._id !== action.payload.data._id),
+      };
+    case DELETING_NOTE:
+      return {
+        ...state,
+        deletingNote: true,
       };
     case ERROR:
       return {

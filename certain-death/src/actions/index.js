@@ -3,7 +3,8 @@ import axios from 'axios';
 
 export const ADDING_NOTE = 'ADD_NOTE';
 export const ADDED_NOTE = 'ADDED_NOTE';
-export const DELETE_NOTE = 'DELERE_NOTE';
+export const DELETING_NOTE = 'DELETING_NOTE';
+export const DELETED_NOTE = 'DELETE_NOTE';
 export const ERROR = 'ERROR';
 export const GETTING_NOTES = 'GETTING_NOTES';
 export const GOT_NOTES = 'GOT_NOTES';
@@ -45,10 +46,26 @@ export const addNote = (data) => {
   };
 };
 
-export const deleteNote = data => ({
-  type: DELETE_NOTE,
-  id: data.id,
-});
+export const deleteNote = (data, history) => {
+  const config = {
+    headers: {
+      Authorization: localStorage.getItem('notesToken'),
+      id: data.id,
+    },
+  };
+  const note = axios.delete('http://localhost:5000/deletenote', config);
+  return (dispatch) => {
+    dispatch({ type: DELETING_NOTE });
+    note
+      .then((deletedNote) => {
+        dispatch({ type: DELETED_NOTE, payload: deletedNote });
+      })
+      .catch((err) => {
+        dispatch({ type: ERROR, payload: err });
+      });
+    history.push('/list');
+  };
+};
 
 export const error = data => ({
   type: ERROR,
