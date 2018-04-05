@@ -1,7 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import './css/DownloadNotes.css';
+
+const ROUTE = 'http://localhost:3000/notes/';
 
 class DownloadNotes extends React.Component {
   state = {
@@ -24,29 +27,31 @@ class DownloadNotes extends React.Component {
   }
   handleDownload = () => {
     this.setState({ show: true });
-    const newLine = '\n';
-    let notesArray = [`data:text/csv;charset=utf-8,,Date,Title,Body${newLine}`];
-    this.props.notes.forEach(note => {
-      note = [
-        note.dateString.replace(/,/g, ''),
-        note.title.replace(/,/g, ''),
-        note.body.replace(/,/g, '').concat(newLine),
-      ];
-      notesArray.push(note.join());
+    axios.get(`${ROUTE}${this.props.user}`).then((data) => {
+      const newLine = '\n';
+      let notesArray = [`data:text/csv;charset=utf-8,,Date,Title,Body${newLine}`];
+      data.data.foundNotes.forEach((note) => {
+        note = [
+          note.dateString.replace(/,/g, ''),
+          note.title.replace(/,/g, ''),
+          note.body.replace(/,/g, '').concat(newLine),
+        ];
+        notesArray.push(note.join());
+      });
+      const filename = 'DownloadedNotes.csv';
+      const encoded = encodeURI(notesArray);
+      let link = document.createElement('a');
+      link.setAttribute('href', encoded);
+      link.setAttribute('download', filename);
+      link.click();
     });
-    const filename = 'DownloadNotes.csv';
-    console.log(notesArray);
-    const data = encodeURI(notesArray);
-    let link = document.createElement('a');
-    link.setAttribute('href', data);
-    link.setAttribute('download', filename);
-    link.click();
   };
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     notes: state.currentUserNotes,
+    user: state.currentUser,
   };
 };
 
