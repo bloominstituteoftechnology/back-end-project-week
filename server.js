@@ -19,7 +19,7 @@ mongoose.connect(`mongodb://${process.env.MLAB_USERNAME}:${process.env.MLAB_PASS
     console.log('connected to mongo');
 });
 server.use(session({
-    secret: config.SECRET,
+    secret: process.env.SECRET,
     resave: true,
     saveUninitialized: true,
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
