@@ -130,7 +130,7 @@ server.post("/logout", (req, res) => {
 server.get("/api/notes", (req, res) => {
   console.log("Get request for notes recieved on server");
   Note.find()
-    .populate({ path: 'user', select: 'username' })
+    .populate({ path: "user", select: "username" })
     .then(notes => {
       res.send(notes);
     })
@@ -160,8 +160,31 @@ server.delete("/api/notes/delete/:id", (req, res) => {
   const id = req.params.id;
   Note.findByIdAndRemove(id)
     .then(deletedNote => {
+      if (deletedNote === null) {
+        res.status(404).json({ errorMessage: "Note not found" });
+      }
       console.log("deleted note is", deletedNote);
       res.status(200).json(deletedNote);
+    })
+    .catch(err => {
+      res.send(err);
+    });
+});
+
+server.put("/api/notes/update/:id", (req, res) => {
+  const id = req.params.id;
+  const changes = req.body;
+  const { title, content, user } = changes;
+  console.log("changes are", changes);
+  if (!title || !content || !id) {
+    res.status(400).json({ errorMessage: "Please fill in all forms" });
+  }
+  Note.findByIdAndUpdate(id, changes)
+    .then(updatedNote => {
+      if (updatedNote === null) {
+        res.status(404).json({ errorMessage: "Note not found" });
+      }
+      res.status(200).json(updatedNote);
     })
     .catch(err => {
       res.send(err);

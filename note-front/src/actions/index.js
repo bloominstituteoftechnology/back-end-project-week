@@ -68,9 +68,8 @@ export const deleteNote = (id) => {
   return dispatch => {
     dispatch({ type: DELETING_NOTE });
     axios.delete(`${ROOT_URL}/api/notes/delete/${id}`)
-      .then(data => {
-        console.log("deleted note data", data);
-        dispatch({ type: DELETE_NOTE, payload: data });
+      .then(deletedNote => {
+        dispatch({ type: DELETE_NOTE, payload: deletedNote });
       })
       .catch(err => {
         dispatch({ type: ERROR, payload: err });
@@ -78,31 +77,19 @@ export const deleteNote = (id) => {
   };
 };
 
-export const updateNote = updates => {
-  var updatedNote = new Promise(function(resolve, reject) {
-    let updatedNote = {
-      id: updates.id,
-      title: updates.title,
-      text: updates.text,
-      user: updates.user
-    };
-    let currentNotes = updates.notes.notes;
-    let updateIndex = currentNotes.findIndex(
-      note => note.id === updatedNote.id
-    );
-    currentNotes.splice(updateIndex, 1, updatedNote);
-    resolve(currentNotes);
-  });
+export const updateNote = (updates, history) => {
+  const {id, title, content, user} = updates;
+  console.log("The updates for the notes are");
   return dispatch => {
     dispatch({ type: UPDATING_NOTE });
-    updatedNote
-      .then(data => {
-        console.log(data);
-        dispatch({ type: UPDATE_NOTE, payload: data });
+    axios.put(`${ROOT_URL}/api/notes/update/${id}`, {title, content, user})      
+    .then(updatedNote => {
+        dispatch({ type: UPDATE_NOTE, payload: updatedNote });
       })
       .catch(err => {
         dispatch({ type: ERROR, payload: err });
       });
+      history.push("/notes");
   };
 };
 

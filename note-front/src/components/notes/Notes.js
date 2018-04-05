@@ -12,15 +12,17 @@ import NoteEdit from "./NoteEdit";
 import EditNoteForm from "./EditNoteForm";
 
 class Notes extends Component {
-  handleDeleteNote = () => {
-    const id = this.props.noteSelected._id;
+  componentDidMount() {
+  }
+  
+  handleDeleteNote = (id) => {
     console.log("ID in notes", id);
     this.props.deleteNote(id);
     this.handleShowNote({});
   };
 
-  handleUpdateNote = data => {
-    this.props.updateNote(data);
+  handleUpdateNote = (data, history) => {
+    this.props.updateNote(data, history);
     this.handleShowNote({});
   };
 
@@ -47,7 +49,7 @@ class Notes extends Component {
           {this.props.showUpdate ? (
             <EditNoteForm
               note={this.props.noteSelected}
-              notes={this.props}
+              history={this.props.history}
               handleUpdateNote={this.handleUpdateNote}
             />
           ) : null}

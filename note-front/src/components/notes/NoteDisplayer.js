@@ -14,7 +14,7 @@ class NoteDisplayer extends Component {
   
   noteMapper = () => {
    if (this.props.fetchingNotes) return (<img src={logo} className="App-logo" alt="logo" />);
-   else return ( <Notes notes={ this.props.notes } />);
+   else return ( <Notes notes={ this.props.notes } history={this.props.history} />);
   }
 
   render() {
