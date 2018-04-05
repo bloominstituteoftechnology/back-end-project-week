@@ -7,6 +7,7 @@ const Note = require('./noteModel');
 const User = require('../user/userModel');
 
 const validateToken = (req, res, next) => {
+  res.send('you have reached heroku middleware api');
   const token = req.headers.authorization;
   if (!token) {
     res
