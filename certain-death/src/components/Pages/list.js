@@ -47,8 +47,7 @@ class List extends Component {
         <HomeLeftRail />
         <div className='list__right'>
           <div className='list__links'>
-            <Link to={'/newnote'}>sign up</Link>
-            <Link to={'/newnote'}>login</Link>
+            <Link to={'/'}>logout</Link>
           </div>
           <SectionTitle name={`Your Notes (${this.props.sortStatus}):`}/>
           {this.props.notes.map((note, index) => {
