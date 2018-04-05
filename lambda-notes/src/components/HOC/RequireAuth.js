@@ -5,7 +5,7 @@ import ListView from '../ListView';
 export default ComposedComponent => {
   class RequireAuthentication extends Component {
     componentWillMount() {
-      if (!this.props.authenticated) {
+      if (!this.props.userAuthenticated) {
         this.props.history.push('/login');
       }
     }
@@ -13,7 +13,7 @@ export default ComposedComponent => {
     render() {
       return (
         <div>
-          {this.props.authenticated ? <ListView /> : <div />}
+          {this.props.userAuthenticated ? <ListView /> : <div />}
         </div>
       )
     }
@@ -21,7 +21,7 @@ export default ComposedComponent => {
 
   const mapStateToProps = (state) => {
     return {
-      authenticated: state.auth.authenticated
+      userAuthenticated: state.userAuthenticated
     };
   };
 

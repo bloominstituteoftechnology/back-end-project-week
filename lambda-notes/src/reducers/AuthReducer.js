@@ -2,18 +2,23 @@ import {
   USER_AUTHENTICATED,
   USER_UNAUTHENTICATED,
   AUTHENTICATION_ERROR,
-  CHECK_IF_AUTHENTICATED
+  CHECK_IF_AUTHENTICATED,
+  USER_REGISTERED
+
 } from '../actions';
 
 const initialAuth = {
   userAuthenticated: false,
   userUnauthenticated: false,
   authenticationError: null,
-  checkIfAuthenticated: false
+  checkIfAuthenticated: false,
+  userRegistered: false
 }
 
 export const authenticate = (auth = initialAuth, action) => {
   switch (action.type) {
+    case USER_REGISTERED:
+      return { ...auth, userRegistered: true };
     case USER_AUTHENTICATED:
       return { ...auth, userAuthenticated: true };
     case USER_UNAUTHENTICATED:
@@ -24,6 +29,7 @@ export const authenticate = (auth = initialAuth, action) => {
         userAuthenticated: false,
         userUnauthenticated: false,
         checkIfAuthenticated: false,
+        userRegistered: false,
         error: action.payload 
       };
     case CHECK_IF_AUTHENTICATED:

@@ -19,6 +19,30 @@ const authenticate = (req, res, next) => {
   }
 };
 
+// const hashPassword = (req, res, next) => {
+// 	const { 
+// 		password
+// 	} = req.body;
+
+// 	if (!password) {
+// 		sendUserError('You need to enter password', res);
+// 		return;
+// 	} else {
+// 		bcrypt.hash(password, BCRYPT_COST, (err, hash) => {
+// 			if (err) console.error(err);
+// 			if (hash) {
+// 				user = {
+//           username,
+//           password: hash
+//         };
+//         req.user = user;
+// 				next();
+// 			}
+// 		});
+// 	}
+// };
+
 module.exports = {
-  authenticate
+  authenticate,
+  // hashPassword
 };

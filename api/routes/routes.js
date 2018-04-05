@@ -16,10 +16,10 @@ const {
 } = require('../controllers/user');
 
 module.exports = server => {
-  server.get('/notes', authenticate, getNotes);
-  server.post('/signup', createUser);
-  server.post('/login', login);
-  server.post('/new', authenticate, createNote);
-  server.put('/edit/', authenticate, editNote);
-  server.delete('/delete/:id', authenticate, deleteNote);
+  server.get('/api/notes', authenticate, getNotes);
+  server.post('/api/signup', createUser);
+  server.post('/api/login', login);
+  server.post('/api/new', authenticate, createNote);
+  server.put('/api/edit/', authenticate, editNote);
+  server.delete('/api/delete/:id', authenticate, deleteNote);
 };

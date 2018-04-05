@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { login } from '../actions';
 import { Link } from 'react-router-dom';
+import {
+Redirect
+} from 'react-router-dom';
 
 class SignIn extends Component {
   state = {
@@ -20,7 +23,8 @@ class SignIn extends Component {
     if (username.length <= 0 || password.length <= 0) {
       return alert('You must provide both username and password.');
     }
-    return this.props.login({ username, password });
+    this.props.login(username, password);
+
   };
   render() {
     return (
@@ -53,6 +57,7 @@ class SignIn extends Component {
         </form>
         <br />
         <p>Don't have an account yet? <Link to='/signup'>Sign up for free!</Link></p>
+        {/* { this.props.userAuthenticated ? <Redirect path='/notes' /> : null } */}
       </div>
     );
   };
@@ -61,6 +66,7 @@ class SignIn extends Component {
 const mapStateToProps = (state) => {
   return {
     login: state.login
+    // userAuthenticated: state.auth.userAuthenticated 
   };
 };
 

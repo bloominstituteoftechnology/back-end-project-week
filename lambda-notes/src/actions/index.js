@@ -2,7 +2,7 @@ import axios from 'axios';
 
 axios.defaults.withCredentials = true;
 
-const ROOT_URL = 'http://localhost:5000';
+const ROOT_URL = 'http://localhost:5000/api';
 
 export const GET_NOTES = 'GET_NOTES';
 export const CREATE_NOTE = 'CREATE_NOTE';
@@ -127,6 +127,8 @@ export const createUser = (username, password) => {
         dispatch({
           type: USER_REGISTERED,
           payload: response
+          // type: USER_AUTHENTICATED,
+          // payload: response
         });
         window.localStorage.setItem('token', response.data.token);
       })
@@ -141,12 +143,12 @@ export const login = (username, password) => {
     axios
       .post(`${ROOT_URL}/login`, { username, password })
       .then((response) => {
-        console.log(response);
         dispatch({
           type: USER_AUTHENTICATED,
           payload: response
         });
         window.localStorage.setItem('token', response.data.token);
+        // console.log(history);
         // history.push('/notes');
       })
       .catch(() => {

@@ -21,7 +21,7 @@ import { checkIfLoggedIn } from './actions/index'
 class App extends Component {
 
   componentDidMount() {
-    if(localStorage.getItem('authorization')) {
+    if(localStorage.getItem('token')) {
       this.props.checkIfLoggedIn()
     }
   };
@@ -61,6 +61,28 @@ class App extends Component {
         </div>
       </Router>
     );
+
+    // return (
+    //   <Router>
+    //     <div className='App'>    
+    //       {this.props.modal.showing ? <Route component={DeleteModal} /> : null}
+    //       <div className='NavBar'>
+    //         <NavBar />
+    //       </div>
+    //       <div className='Right'>
+    //         <Route exact path='/' render={() => (this.props.login ? (<Redirect to='/notes' />) : (<Redirect to='/signin' />))} />
+    //         <Route path='/notes' component={RequireAuth(ListView)} />
+    //         <Route path='/create' component={NewNote} />
+    //         <Route path='/edit' component={EditNote} />
+    //         <Route path='/notes/:id' component={FullView} />
+    //         <Route path='/signup' component={SignUp} />
+    //         <Route path='/signin' component={SignIn} />
+    //         <Route path='/signout' component={SignOut} />
+    //         <Route path='/notes' render={() => (this.props.logout ? (<Redirect to='/' />) : (<Redirect to='/notes' />))} />
+    //       </div>
+    //     </div>
+    //   </Router>
+    // );
   }
 };
 
