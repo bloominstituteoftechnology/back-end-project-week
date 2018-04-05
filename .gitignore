@@ -1,5 +1,4 @@
 .DS_Store
 .vscode
-config.js
 /node_modules
 /note-front/node_modules

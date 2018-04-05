@@ -1,6 +1,6 @@
-import notesData from "../notesData.js";
 import axios from "axios";
 axios.defaults.withCredentials = true;
+const jwt = require("jsonwebtoken");
 
 // ==== NOTES variables ====
 //region
@@ -32,21 +32,19 @@ export const CHECK_IF_AUTH = "CHECK_IF_AUTH";
 // ==== NOTES actions ====
 //region
 // using local data, would use axios to get, post, put, and delete
-let theNotes = notesData.slice();
 
 const keyGenerator = user => {
   return user + new Date().getTime();
 };
 
 export const getNotes = () => {
-  var notes = new Promise(function(resolve, reject) {
-    resolve(console.log(" "));
-  });
   return dispatch => {
     dispatch({ type: RECIEVING_NOTES });
-    notes
-      .then(() => {
-        dispatch({ type: NOTES_RECEIVED, payload: theNotes });
+  axios 
+    .get(`${ROOT_URL}/api/notes`)
+      .then(res => {
+        console.log(res.data);
+        dispatch({ type: NOTES_RECEIVED, payload: res.data });
       })
       .catch(err => {
         dispatch({ type: ERROR, payload: err });
@@ -54,18 +52,21 @@ export const getNotes = () => {
   };
 };
 
-export const createNote = note => {
-  const newNote = new Promise(function(resolve, reject) {
-    resolve((note.id = keyGenerator(note.user)));
-  });
+export const createNote = (title, content) => {
+  const user = localStorage.getItem('uuID');
+  const id = keyGenerator(user);
+  const note = {title, content, user, id};
   return dispatch => {
     dispatch({ type: CREATING_NOTE });
-    newNote
-      .then(() => {
-        console.log("in actions => NOTES CREATED: ", theNotes);
-        dispatch({ type: NOTE_CREATED, payload: note });
+    axios
+      .post(`${ROOT_URL}/api/notes`, { title, content, user })
+      .then(res => {
+        //should send user an error message instead
+        if (!res.body) return;
+        dispatch({ type: NOTE_CREATED, payload: res.data.note });
       })
       .catch(err => {
+        if (err) alert(err);
         dispatch({ type: ERROR, payload: err });
       });
   };
@@ -73,11 +74,11 @@ export const createNote = note => {
 
 export const deleteNote = (id, notes) => {
   var deletedNote = new Promise(function(resolve, reject) {
-    let newNotes = notes.filter(note => {
-      return id !== note.id;
-    });
-    theNotes = newNotes;
-    resolve(theNotes);
+    // let newNotes = notes.filter(note => {
+    //   return id !== note.id;
+    // });
+    // theNotes = newNotes;
+    // resolve(theNotes);
   });
   return dispatch => {
     dispatch({ type: DELETING_NOTE });
@@ -177,11 +178,11 @@ export const login = (username, password, history) => {
       .then(res => {
         let token = res.data.token;
         axios.defaults.headers.common["Authorization"] = token;
-        console.log("auth header", axios.defaults.headers.common["Authorization"]);
+        var decoded = jwt.decode(token, { complete: true });
+        localStorage.setItem("uuID", decoded.payload.uID);
         dispatch({
           type: USER_AUTH
         });
-        console.log("Logged in!");
         history.push("/notes");
       })
       .catch(err => {

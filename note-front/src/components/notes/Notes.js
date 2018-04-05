@@ -53,7 +53,7 @@ class Notes extends Component {
                 </div>
                 { this.props.notes.map(note => {
                     return(
-                        <div className="note__card" onClick={() => this.handleShowNote(note)}  key={ note.id }>  
+                        <div className="note__card" onClick={() => this.handleShowNote(note)}  key={ note._id }>  
                         <div className="note__card__title">
                             { note.title }
                         </div>

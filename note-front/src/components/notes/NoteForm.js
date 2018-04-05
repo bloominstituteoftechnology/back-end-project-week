@@ -6,10 +6,8 @@ import '../../styles/NoteForm.css';
 
 class NoteForm extends Component {
     state = {
-        id: '',
         title: '',
-        text: '',
-        user: ''
+        content: '',
     };
 
     
@@ -18,9 +16,9 @@ class NoteForm extends Component {
     };
     
     handleAddNote = _ => {
-        const { title, text, user } = this.state;
-        this.props.createNote({ title, text, user });
-        this.setState({ id: '', title: '', text: '', user: '' });
+        const { title, content } = this.state;
+        this.props.createNote(title, content);
+        this.setState({ title: '', content: '' });
     };
 
     render() {
@@ -36,18 +34,10 @@ class NoteForm extends Component {
                 />
                 <input
                 className="input"
-                value={this.state.text}
-                name="text"
+                value={this.state.content}
+                name="content"
                 type="text"
                 placeholder="Enter text here..."
-                onChange={this.handleInputChange}
-                />
-                <input
-                className="input"
-                value={this.state.user}
-                name="user"
-                type="text"
-                placeholder="User"
                 onChange={this.handleInputChange}
                 />
                 <button onClick={() => this.handleAddNote()} type="button">
