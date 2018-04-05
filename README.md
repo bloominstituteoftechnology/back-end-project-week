@@ -83,6 +83,8 @@ Once your MVP has been approved, you have been given a feature list that the cli
 
 You will notice that this repository does not have any starter code.  This is on purpose.  You are to start from scratch using any files you have built throughout your time here at Lambda School.
 
+My LambadaNotes App - Deployed with Heroku, Mlab and Netlify
+http://5ac67e53295b5502bd4de024.stupefied-knuth-556b52.netlify.com
 
 My trello board
 https://trello.com/b/LZXtRrrY/lambda-notesbackend
