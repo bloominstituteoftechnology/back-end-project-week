@@ -1,3 +1,11 @@
+# [Visit the deployed site here]( https://nikhilkamineni.github.io/lambdanotes-frontend/ )
+## [My Trello Board](https://trello.com/b/Et5GI2u1)
+
+## IMPORTANT INSTRUCTIONS FOR PM's & INSTRUCTORS
+For the latest repos used to deploy this project please use the following updated repos. The files in this repo are not up to date with the deployed version.
+* [Front End](https://github.com/nikhilkamineni/lambdanotes-frontend)
+* [Back End](https://github.com/nikhilkamineni/lambdanotes-backend)
+
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
