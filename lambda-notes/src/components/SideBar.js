@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import {
   add_button_click,
@@ -64,8 +65,15 @@ class SideBar extends React.Component {
   handleDownload = () => {
     this.props.download_button_click();
   };
-  handleLogOut = () => {
-    this.props.handle_log_out(this.props.currentUser);
+  handleLogOut = (event) => {
+    event.preventDefault();
+    axios.post('http://localhost:3000/notes/logout/' + this.props.currentUser)
+    .then(() => {
+      this.props.handle_log_out();
+    })
+    .catch(error => {
+      alert('Error Logging Out.')
+    })
   };
 }
 

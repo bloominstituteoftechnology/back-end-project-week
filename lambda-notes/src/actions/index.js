@@ -131,10 +131,9 @@ export const new_user_creation = (userID) => {
   };
 };
 
-export const handle_log_out = (user) => {
+export const handle_log_out = () => {
   return {
     type: 'HANDLE_LOG_OUT',
-    payload: user,
   };
 };
 
@@ -155,8 +154,6 @@ export const toggle_check = (note) => {
 };
 
 export const user_login = (userID, notes) => {
-  console.log('USERID', userID)
-  console.log('NOTES', notes.data.foundNotes)
   const payload = {userID, notes: notes.data.foundNotes}
   return {
     type: 'USER_LOGIN',

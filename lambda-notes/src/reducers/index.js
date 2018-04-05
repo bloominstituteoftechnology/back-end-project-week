@@ -150,14 +150,20 @@ export default (state = initialState, action) => {
     case actions.NEW_USER_CREATION:
       return { ...state, currentUserNotes: action.payload.notes, currentUser: action.payload.userID, current: 'list' };
     case actions.HANDLE_LOG_OUT:
-      const currentUsers = state.users;
-      let userIndex = -1;
-      currentUsers.forEach((user, index) => {
-        if (user.id === action.payload.id) userIndex = index;
-      });
-      currentUsers[userIndex].notes = state.currentUserNotes;
-      currentUsers.splice(userIndex, 1, action.payload);
-      return { ...state, users: currentUsers, current: 'login' };
+      return {...state, current: 'login',
+      note: null,
+      results: [],
+      remove: false,
+      currentUserNotes: [],
+      currentUser: null, }
+      // const currentUsers = state.users;
+      // let userIndex = -1;
+      // currentUsers.forEach((user, index) => {
+      //   if (user.id === action.payload.id) userIndex = index;
+      // });
+      // currentUsers[userIndex].notes = state.currentUserNotes;
+      // currentUsers.splice(userIndex, 1, action.payload);
+      // return { ...state, users: currentUsers, current: 'login' };
     case actions.UPDATE_CHECK_LIST:
       const currentNotes = state.currentUserNotes;
       const checklist = currentNotes[action.payload.index].checklist;

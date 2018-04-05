@@ -67,7 +67,11 @@ class Login extends React.Component {
     if (this.state.user === '' || this.state.pass === '') {
       alert('You must enter a username and password to login.');
       this.setState({ user: '', pass: '' });
-    } else {
+    } else if (this.statee.pass.length < 8) {
+      alert('Your password is at least 8 characters.');
+      this.setState({pass: '' });
+    }
+      else {
       event.preventDefault();
       const user = {
         username: this.state.user,
