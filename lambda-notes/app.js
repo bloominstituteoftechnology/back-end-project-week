@@ -1,3 +1,4 @@
+'use strict'
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
@@ -12,7 +13,7 @@ const jwt = require('express-jwt');
 const jwks = require('jwks-rsa');
 
 const index = require('./api/routes/index');
-const users = require('./api/routes/users');
+//const users = require('./api/routes/users');
 const notes = require('./api/routes/notes');
 const Note = require('./api/models/note');
 const app = express();
@@ -57,7 +58,7 @@ app.use(session({
 }));
 
 app.use('/', index);
-app.use('/users', users);
+//app.use('/users', users);
 app.use('/notes', notes);
 
 // catch 404 and forward to error handler
