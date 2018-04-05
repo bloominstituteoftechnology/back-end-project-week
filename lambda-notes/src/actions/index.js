@@ -16,6 +16,7 @@ export const NEW_USER_CREATION = 'NEW_USER_CREATION';
 export const HANDLE_LOG_OUT = 'HANDLE_LOG_OUT';
 export const TOGGLE_CHECK = 'TOGGLE_CHECK';
 export const USER_LOGIN = 'USER_LOGIN';
+export const LOAD_NOTES = 'LOAD_NOTES';
 
 // const getNotes = async (userID) => {
 //   return await axios.get('http://localhost:3000/notes/' + userID);
@@ -160,3 +161,11 @@ export const user_login = (userID, notes) => {
     payload,
   };
 };
+
+export const load_notes = (notes) => {
+  const payload = notes;
+  return {
+    type: 'LOAD_NOTES',
+    payload
+  }
+}

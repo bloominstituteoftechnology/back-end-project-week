@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
-import { add_note, view_button_click } from '../actions/index';
+import { add_note, view_button_click, load_notes } from '../actions/index';
 
 import './css/CreateNote.css';
 
@@ -37,29 +38,38 @@ class CreateNote extends React.Component {
       </div>
     );
   }
-  handleTitleChange = event => {
+  handleTitleChange = (event) => {
     this.setState({ title: event.target.value });
   };
-  handleBodyChange = event => {
+  handleBodyChange = (event) => {
     this.setState({ body: event.target.value });
   };
 
-  handleSumbit = event => {
+  handleSumbit = (event) => {
     event.preventDefault();
-    const dateString = new Date().toUTCString();
-    const date = new Date();
-    if (this.state.body === '' && this.state.title === '') alert('Add a title and note!');
-    else if (this.state.body === '') alert('Add a note!');
-    else if (this.state.title === '') alert('Add a title!');
-    else {
-      this.props.add_note({ ...this.state, date, dateString, checklist: [] });
-      this.setState({
-        title: '',
-        body: '',
+    const newNote = { title: this.state.title, body: this.state.body };
+    axios
+      .post('http://localhost:3000/notes/' + this.props.currentUser, newNote)
+      .then(() => {
+        axios
+          .get('http://localhost:3000/notes/' + this.props.currentUser)
+          .then((data) => {
+            this.props.load_notes(data.data.foundNotes);
+          })
+          .then(() => {
+            this.props.view_button_click();
+          });
+      })
+      .catch((error) => {
+        alert('Error Creating Note', error);
       });
-      this.props.view_button_click();
-    }
   };
 }
 
-export default connect(null, { add_note, view_button_click })(CreateNote);
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.currentUser,
+  };
+};
+
+export default connect(mapStateToProps, { add_note, view_button_click, load_notes })(CreateNote);

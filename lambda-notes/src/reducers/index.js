@@ -50,22 +50,30 @@ export default (state = initialState, action) => {
     case actions.LOAD_USER_NOTES:
       return { ...state, currentUserNotes: action.payload.notes, currentUser: action.payload.user };
     case actions.NEW_USER_CREATION:
-      return { ...state, currentUserNotes: action.payload.notes, currentUser: action.payload.userID, current: 'list' };
+      return {
+        ...state,
+        currentUserNotes: action.payload.notes,
+        currentUser: action.payload.userID,
+        current: 'list',
+      };
     case actions.HANDLE_LOG_OUT:
-      return {...state, current: 'login',
-      note: null,
-      results: [],
-      remove: false,
-      currentUserNotes: [],
-      currentUser: null, }
-      // const currentUsers = state.users;
-      // let userIndex = -1;
-      // currentUsers.forEach((user, index) => {
-      //   if (user.id === action.payload.id) userIndex = index;
-      // });
-      // currentUsers[userIndex].notes = state.currentUserNotes;
-      // currentUsers.splice(userIndex, 1, action.payload);
-      // return { ...state, users: currentUsers, current: 'login' };
+      return {
+        ...state,
+        current: 'login',
+        note: null,
+        results: [],
+        remove: false,
+        currentUserNotes: [],
+        currentUser: null,
+      };
+    // const currentUsers = state.users;
+    // let userIndex = -1;
+    // currentUsers.forEach((user, index) => {
+    //   if (user.id === action.payload.id) userIndex = index;
+    // });
+    // currentUsers[userIndex].notes = state.currentUserNotes;
+    // currentUsers.splice(userIndex, 1, action.payload);
+    // return { ...state, users: currentUsers, current: 'login' };
     case actions.UPDATE_CHECK_LIST:
       const currentNotes = state.currentUserNotes;
       const checklist = currentNotes[action.payload.index].checklist;
@@ -81,7 +89,14 @@ export default (state = initialState, action) => {
       currentUsernotes.splice(state.note.index, 1, action.payload);
       return { ...state, currentUserNotes: currentUsernotes };
     case actions.USER_LOGIN:
-    return { ...state, currentUserNotes: action.payload.notes, currentUser: action.payload.userID, current: 'list' };
+      return {
+        ...state,
+        currentUserNotes: action.payload.notes,
+        currentUser: action.payload.userID,
+        current: 'list',
+      };
+    case actions.LOAD_NOTES:
+      return { ...state, currentUserNotes: action.payload };
     default:
       return state;
   }
