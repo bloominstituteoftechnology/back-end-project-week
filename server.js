@@ -12,9 +12,10 @@ const { authUser, sendUserError } = require('./middleware');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+  // "SECRET": "b58PiqsEtjexkTj3Eqovsszq8ovjfgGHFMfUzSmJO21dtXs34e"
 
 
-mongoose.connect('mongodb://localhost/notes', () => {
+mongoose.connect('mongodb://myxozoa:1554GfG1554@ds135399.mlab.com:35399/lambda-notes', () => {
     console.log('connected to mongo');
 });
 server.use(session({
@@ -25,7 +26,7 @@ server.use(session({
 }));
 
 const corsOptions = {
-    "origin": "http://localhost:3000",
+    "origin": "*",
     "credentials": true
   };
 
