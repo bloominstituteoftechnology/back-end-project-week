@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './css/index.css';
 import App from './App';
+// import Auth from './components/authenticator';
 import SignIn from './components/signin';
 import SignUp from './components/signup';
 import SignOut from './components/signout';
@@ -27,7 +28,7 @@ ReactDOM.render(
   >
     <Router>
       <div>
-        {/* <Route path="/" component={App} /> */}
+        {/* <Route path="/" component={Auth} /> */}
         <Route path="/signin" component={SignIn} />
         <Route path="/" component={RequireAuth(App)} />
         <Route path="/signout" component={SignOut} />

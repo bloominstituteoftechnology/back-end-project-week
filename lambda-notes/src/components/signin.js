@@ -29,7 +29,7 @@ class SignIn extends Component {
             <Field placeholder="password" name="password" component="input" type="password" />
           </fieldset>
           <button action="submit">Sign In</button>
-          <NavLink to="/"> cancel </NavLink>
+          <NavLink to="/signup"> <button>Sign Up</button> </NavLink>
           {this.renderAlert()}
         </form>
       </div>

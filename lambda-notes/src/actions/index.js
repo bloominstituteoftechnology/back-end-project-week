@@ -62,14 +62,12 @@ export const logout = () => {
 };
 
 export const getNotes = () => {
-  const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
   return dispatch => {
     axios
       .get(`${ROOT_URL}/api/notes`,
       {
         headers: { 
-          // authorization: token,
           user: userId
         }
       })

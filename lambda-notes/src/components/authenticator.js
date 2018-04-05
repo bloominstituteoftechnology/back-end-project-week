@@ -29,7 +29,7 @@ class Authenticator extends Component {
             <ul>{this.getLinks()}</ul>
           </div>
         </div> :
-      < div className="auth-links">
+      <div className="auth-links">
         <ul>{this.getLinks()}</ul>
       </div>
     );
