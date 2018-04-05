@@ -89,6 +89,7 @@ const mapStateToProps = state => {
   return {
     current: state.current,
     currentUser: state.currentUser,
+    notes: state.currentNotes,
   };
 };
 

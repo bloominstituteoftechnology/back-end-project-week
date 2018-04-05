@@ -1,11 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import CheckItem from './CheckItem';
 
 import { update_check_list } from '../actions/index';
 
 import './css/CheckList.css';
+
+const ROUTE = 'http://localhost:3000/notes/';
 
 class CheckList extends React.Component {
   state = {
@@ -27,25 +30,48 @@ class CheckList extends React.Component {
           Click to Add to CheckList
         </button>
         {this.props.note.checklist.map((check, index) => {
-          return <CheckItem key={check.id} check={check} index={index} />;
+          return (
+            <CheckItem key={this.props.note._id + Math.random() * 1000000} check={check} index={index} />
+          );
         })}
       </div>
     );
   }
-  handleNoteChange = event => {
+  handleNoteChange = (event) => {
     this.setState({ note: event.target.value });
   };
-  update_checklist = () => {
+
+  update_checklist = (event) => {
+    event.preventDefault();
     if (this.state.note === '') return;
     const check = { note: this.state.note, checked: false };
     this.props.update_check_list(check, this.props.note);
-    this.setState({ note: '' });
+
+    axios
+      .put(`${ROUTE}${this.props.user}/${this.props.note._id}`, {
+        checklist: this.props.note.checklist,
+      })
+      .then(() => {
+        this.setState({ note: '' });
+      })
+      .catch((error) => {
+        alert('Error Editing Check List.');
+      });
   };
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     note: state.note,
+    user: state.currentUser,
+    notes: state.currentUserNotes,
   };
 };
+//   update_checklist = () => {
+//
+//     const check = { note: this.state.note, checked: false };
+//     this.props.update_check_list(check, this.props.note);
+//     this.setState({ note: '' });
+//   };
+// }
 
 export default connect(mapStateToProps, { update_check_list })(CheckList);
