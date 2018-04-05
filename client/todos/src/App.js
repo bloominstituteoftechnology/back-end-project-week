@@ -28,17 +28,18 @@ class App extends Component {
   render() {
     const { loggedIn } = this.state;
     return (
-      <Router>
-        <div>
+      {loggedIn ? 
+      <div className="Inline-button">
+        <Button className="btn btn-primary btn-sm" onclick={this.doLogout}>Log Out</Button>        
+      </div>
+      : null}
           {/* <Route path = '/todos' component={Todos.GetTodos} exact></Route> */}
           <Route path = '/newtodo' component={CreateNewTodo} exact></Route>
           {/* <Route path = '/todos/:id' component={Todos.UpdateTodo} exact></Route>
           <Route path = '/todos//delete/:id' component={Todos.DeleteTodo} exact></Route>
           <Route path = '/newuser' component={Todos.CreateNewUser} exact></Route>
           <Route path = '/login' component={Todos.Login} exact></Route> */}
-        </div>
-      </Router>
-    );
+        );
   }
 }
 
