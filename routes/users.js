@@ -8,7 +8,7 @@ const User = require('../models/users');
 
 const router = express.Router();
 
-router.get('/', authUser, (req, res) => {
+router.get('/', (req, res) => {
     User.find()
         .populate('Notes')
         .then(users => {

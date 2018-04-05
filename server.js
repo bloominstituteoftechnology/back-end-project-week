@@ -31,7 +31,7 @@ const corsOptions = {
   };
 
 server.use(cookieParser());
-server.use(cors());
+server.use(cors(corsOptions));
 server.use(express.json());
 
 server.options('*', cors());
