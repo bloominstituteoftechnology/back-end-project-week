@@ -3,7 +3,8 @@ const { postNote } = require('./controllers/postNote');
 const { editNote } = require('./controllers/editNote');
 const { deleteNote } = require('./controllers/editNote');
 
-
+const { addUser } = require('./controllers/addUser');
+const { userLogin } = require('./controllers/userLogin');
 
 
 
@@ -17,4 +18,6 @@ module.exports = server => {
     .post(postNote)
     .put(editNote);
 
+  server.route('/api/users').post(addUser);
+  server.route('/api/login').post(userLogin);
 }

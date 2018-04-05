@@ -1,18 +1,5 @@
 const userSchema = require('./models/userSchema');
 
-const addUser = (req, res) => {
-  const { username, hashpassword } = req.body;
-  const newUser = new User({ username, hashpassword });
-  newUser
-    .save((err, addedUser) => {
-      if (err) {
-        res.status(500).json(err);
-        return;
-      }
-      res.json(addedUser);
-    });
-};
-
 const userLogin = (req, res) => {
   const { username, hashpassword } = req.body;
   userSchema.findOne({ username }, (err, user) => {
@@ -32,6 +19,5 @@ const userLogin = (req, res) => {
 };
 
 module.exports = {
-  addUser,
-  userLogin
+  userLogin,
 };
