@@ -23,7 +23,7 @@ const Note = new mongoose.Schema({
         required: true
     }
 });
-
+Note.index({ title: 'text', entry: 'text' });
 const NotesModel = mongoose.model('Note', Note);
 
 module.exports = NotesModel;

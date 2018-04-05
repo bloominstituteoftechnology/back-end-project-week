@@ -27,13 +27,7 @@ User.pre('save', function(next) {
         user.password = hashed;
         next();
     })
-        // .then(hashed => {
-        //     user.password = hashed;
-        //     next();
-        // })
-        // .catch(err => {
-        //     throw new Error(err);
-        // });
+
 });
 
 const UserModel = mongoose.model('User', User);

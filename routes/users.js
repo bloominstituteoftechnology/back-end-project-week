@@ -41,6 +41,7 @@ router.post('/login', (req, res) => {
             } else {
                 bcrypt.compare(password, user.password, (err, result) => {
                     if(err) throw new Error(err);
+
                     if(result) {
                         req.session.loggedIn = user._id;
                         res.send({ success: true });
@@ -53,6 +54,16 @@ router.post('/login', (req, res) => {
         .catch(err => {
             sendUserError(err, res);
         });
+});
+
+router.post('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if(err) {
+            sendUserError(err, res);
+        } else {
+            res.send({ success: true });
+        }
+    });
 });
 
 module.exports = router;
