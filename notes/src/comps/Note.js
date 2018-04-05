@@ -5,22 +5,17 @@ import { toggleModal } from '../actions';
 import '../styles/Note.css';
 
 const Note = props => {
-  // this is the note object with the id that matches the url
-  const note = props.notes.filter(
-    note => String(note._id) === props.match.params.id
-  )[0];
-
   return (
     <div className="note__container">
       <div className="note__options">
-        <Link to={`/edit/${note._id}`}>
+        <Link to={`/edit/${props.selectedNote._id}`}>
           <div className="note__option-item">edit</div>
         </Link>
         <div className="note__option-item" onClick={props.toggleModal}>delete</div>
       </div>
       <div className="note">
-        <div className="note__title">{note.title}</div>
-        <div className="note__content">{note.content}</div>
+        <div className="note__title">{props.selectedNote.title}</div>
+        <div className="note__content">{props.selectedNote.content}</div>
       </div>
     </div>
   );
@@ -28,7 +23,7 @@ const Note = props => {
 
 const mapStateToProps = state => {
   return {
-    notes: state.notes,
+    selectedNote: state.selectedNote,
   };
 };
 
