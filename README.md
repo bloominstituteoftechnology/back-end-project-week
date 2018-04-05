@@ -79,6 +79,16 @@ N/A
 |_id|String|A MongoDB ObjectID, needed to delete the appropriate note|
 
 ----
+
+# Known Issues:
+
+## Client:
+- Refreshing the page while on `/view` or `/edit` will cause the app to fail to load (this is due to the way these pages had been implemented during front-end project week.)
+    - Workaround: Simply go back to `/`
+- There are no loading screens at the moment, so the app can appear to hang for a few seconds while performing async operations.
+- Notes can be dragged and repositioned in the note list, however repositioning does not persist.
+
+----
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
