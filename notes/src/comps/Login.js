@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { login } from '../actions';
 import { Link } from 'react-router-dom';
+import '../styles/Login.css';
 
 class Login extends React.Component {
   state = {
@@ -28,14 +29,17 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.submitLogin}>
+      <div className="login__container">
+        <div className="login__header">Login:</div>
+        {this.props.error || this.state.message}
+        <form className="login__form" onSubmit={this.submitLogin}>
           <input
             type="text"
             name="username"
             value={this.state.username}
             placeholder="username"
             onChange={this.updateField}
+            className="login__username-field"
           />
           <input
             type="password"
@@ -43,16 +47,24 @@ class Login extends React.Component {
             value={this.state.password}
             placeholder="password"
             onChange={this.updateField}
+            className="login__password-field"
           />
-          <input type="submit" value="submit" />
+          <div className="login__buttons">
+            <input type="submit" value="Login" className="login__button" />
+            <Link to="/register">
+              <button className="login__button register">Register</button>
+            </Link>
+          </div>
         </form>
-        {this.state.message && this.state.message}
-        <Link to="/register">
-          <button>Register an account</button>
-        </Link>
       </div>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    error: state.error,
+  };
+};
 
 export default connect(null, { login })(Login);
