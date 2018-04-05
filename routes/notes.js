@@ -19,18 +19,19 @@ router.post('/new', (req, res) => {
             Note.create(newNote, (err, note) => {
                 if(err) {
                     sendUserError(err, res);
-                }
-                User.update(
-                    { _id: user._id },
-                    { $push: { Notes: note._id } },
-                    (err, num) => {
-                        if(err) {
-                            sendUserError(err, res);
-                        } else {
-                            res.status(201).send(note);
+                } else {
+                    User.update(
+                        { _id: user._id },
+                        { $push: { Notes: note._id } },
+                        (err, num) => {
+                            if(err) {
+                                sendUserError(err, res);
+                            } else {
+                                res.status(201).send(note);
+                            }
                         }
-                    }
-                );
+                    );
+                }
             });
         })
         .catch(err => {
@@ -71,7 +72,6 @@ router.get('/search/:term', (req, res) => {
     Note.find({ $text: { $search: req.params.term, $caseSensitive: false, $diacriticSensitive: false }, author: req.session.loggedIn }, { score: { $meta: "textScore" } })
     .sort( { "score": { "$meta": "textScore" } }).limit(0)
         .then(results => {
-            console.log('res', results);
             res.send(results);
         })
         .catch(err => {
