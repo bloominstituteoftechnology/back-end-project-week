@@ -17,7 +17,7 @@ const StyledApp = styled.div`
 class App extends Component {
   render() {
     return (
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <StyledApp>
           <Route path='/' component={UserPage} exact />
           <Route path='/list' component={List} />
