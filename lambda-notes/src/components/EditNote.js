@@ -1,9 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
-import { edit_note, view_button_click } from '../actions/index';
+import { edit_note, view_button_click, load_notes } from '../actions/index';
 
 import './css/EditNote.css';
+
+const ROUTE = 'http://localhost:3000/notes/';
 
 class EditNote extends React.Component {
   state = {
@@ -44,18 +47,21 @@ class EditNote extends React.Component {
 
   handleSumbit = event => {
     event.preventDefault();
-    if (this.state.body === '' && this.state.title === '') alert('Add a title and note!');
-    else if (this.state.body === '') alert('Add a note!');
-    else if (this.state.title === '') alert('Add a title!');
-    else {
-      const revisedNote = { ...this.props.note, title: this.state.title, body: this.state.body };
-      this.props.edit_note(revisedNote);
-      this.setState({
-        title: '',
-        body: '',
-      });
-      this.props.view_button_click();
-    }
+    const revisedNote = {title: this.state.title, body: this.state.body};
+    axios.put(`${ROUTE}${this.props.currentUser}/${this.props.note._id}`, revisedNote)
+    .then(() => {
+      axios
+        .get('http://localhost:3000/notes/' + this.props.currentUser)
+        .then((data) => {
+          this.props.load_notes(data.data.foundNotes);
+        })
+        .then(() => {
+          this.props.view_button_click();
+        });
+    })
+    .catch((error) => {
+      alert('Error Creating Note', error);
+    });
   };
 }
 
@@ -63,7 +69,8 @@ const mapStateToProps = state => {
   return {
     note: state.note,
     current: state.current,
+    currentUser: state.currentUser,
   };
 };
 
-export default connect(mapStateToProps, { edit_note, view_button_click })(EditNote);
+export default connect(mapStateToProps, { edit_note, view_button_click, load_notes })(EditNote);
