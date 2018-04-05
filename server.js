@@ -28,3 +28,5 @@ mongoose.connect('mongodb://localhost/lambda-notes', {}, err => {
 server.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
+
+module.exports = server;

@@ -9,7 +9,7 @@ const createUser = async function(req, res) {
     res.json({ status: 'success', savedUser });
   }
   catch (err) {
-    res.json({ status: err });
+    res.status(422).json({ status: err });
   };
 };
 
