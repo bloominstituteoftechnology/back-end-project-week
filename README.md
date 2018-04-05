@@ -1,3 +1,8 @@
+# Trello Board Link
+[Trello Link](https://trello.com/b/1BI5xT2N)
+
+***
+
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
@@ -35,11 +40,7 @@ Build an API Endpoint for each of the following, and connect it to your React Ap
 Upon your first commit, please submit a Pull Request and add _both_ the **Trello Set Up** and **Backend MVP Features** Task lists to your first Pull Request comment:
 
 ***
-# Trello Board Link
-[Trello Link](https://trello.com/b/1BI5xT2N)
 
-
-***
 ## Once you have completed the Backend Minimum Viable Product requirements, direct message your project manager for approval.  If approved, you may continue working on the Extra Features. Please add the Extra Features to your Task List in the first comment on your PR.
 
 Once your MVP has been approved, you have been given a feature list that the client would love to have completed.  Your goal would be to finish MVP as soon as you can and get working the list of features.
