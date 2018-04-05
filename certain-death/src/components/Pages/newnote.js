@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import LeftRail from '../Rails/leftrail';
 import SectionTitle from '../Misc/sectiontitle';
 import PostForm from '../Forms/postform';
@@ -19,8 +21,9 @@ const StyledNewNote = styled.div`
 
 `;
 
-const NewNote = () => (
+const NewNote = props => (
   <StyledNewNote>
+  {props.loggedIn ? null : <Redirect to={'/'} /> }
     <LeftRail />
     <div className='new-note__right'>
       <SectionTitle name='Create A New Note:'/>
@@ -29,4 +32,10 @@ const NewNote = () => (
   </StyledNewNote>
 );
 
-export default NewNote;
+const mapStateToProps = (state) => {
+  return {
+    loggedIn: state.loggedIn,
+  };
+};
+
+export default connect(mapStateToProps, null)(NewNote);

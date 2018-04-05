@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import LeftRail from '../Rails/leftrail';
 import SectionTitle from '../Misc/sectiontitle';
@@ -21,6 +23,7 @@ const StyledUpdateNote = styled.div`
 
 const UpdateNote = props => (
   <StyledUpdateNote>
+  {props.loggedIn ? null : <Redirect to={'/'} /> }
     <LeftRail />
     <div className='update-note__right'>
       <SectionTitle name='Edit Your Note:'/>
@@ -29,4 +32,10 @@ const UpdateNote = props => (
   </StyledUpdateNote>
 );
 
-export default UpdateNote;
+const mapStateToProps = (state) => {
+  return {
+    loggedIn: state.loggedIn,
+  };
+};
+
+export default connect(mapStateToProps, null)(UpdateNote);

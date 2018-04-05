@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import NoteCard from '../Misc/notecard';
 import HomeLeftRail from '../Rails/homeleftrail';
@@ -48,6 +49,7 @@ class List extends Component {
   render() {
     return (
       <StyledList>
+        {this.props.loggedIn ? null : <Redirect to={'/'} /> }
         <HomeLeftRail />
         <div className='list__right'>
           <div className='list__links'>
@@ -69,6 +71,7 @@ const mapStateToProps = (state) => {
   return {
     notes: state.notes,
     sortStatus: state.sortStatus,
+    loggedIn: state.loggedIn,
   };
 };
 
