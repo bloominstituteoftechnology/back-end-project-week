@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 userRouter.post('/signup', function(req, res){
+	console.log('you hit here');
 	const { name, email, password } = req.body;
 	const user = new User();
 	user.name = name;

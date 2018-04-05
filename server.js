@@ -17,12 +17,12 @@ server.get('/', function(req, res) {
 });
 
 mongoose
-  .connect('mongodb://losaephan:Lantern1@ds019756.mlab.com:19756/singtafood')
+  .connect('mongodb://lambdanotes:Lantern1@ds019756.mlab.com:19756/singtafood')
   .then(conn => {
     console.log('connected to mongo Lambda Notes');
   })
   .catch(err => {
-    console.log('error connect to mongo');
+    console.log('error connect to mongo', err);
 });
 
 server.use('/api/user', userRoutes);
