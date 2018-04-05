@@ -4,6 +4,7 @@
   "description": "Back end project",
   "main": "server.js",
   "scripts": {
+    "test": "mocha *.test.js --exit",
     "start": "nodemon server.js"
   },
   "repository": "https://github.com/Mephestys/back-end-project-week.git",
