@@ -190,7 +190,6 @@ class App extends Component {
   updateNote = updatedNote => {
     const token = localStorage.getItem('token');
     const header = { headers: { Authorization: token } };
-    // this.setState({ noteDetails: { ...updatedNote } });
     const updatedNoteInfo = {
       title: updatedNote.title,
       content: updatedNote.content
@@ -227,6 +226,7 @@ class App extends Component {
       .catch(err => console.log(err));
   };
 
+  // RENDER
   render() {
     return (
       <AppStyled className="App">
