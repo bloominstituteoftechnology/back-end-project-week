@@ -1,12 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
+import axios from 'axios';
 
 import CheckList from './CheckList';
 
-import { edit_note_clicked, delete_note } from '../actions/index';
+import { edit_note_clicked, delete_note, load_notes, view_button_click } from '../actions/index';
 
 import './css/ViewNote.css';
+
+const ROUTE = 'http://localhost:3000/notes/';
 
 class ViewNote extends React.Component {
   state = {
@@ -52,7 +55,21 @@ class ViewNote extends React.Component {
     this.props.edit_note_clicked(this.props.note);
   };
   handleDelete = () => {
-    this.props.delete_note(this.props.note);
+    axios
+      .delete(`${ROUTE}${this.props.currentUser}/${this.props.note._id}`)
+      .then((data) => {
+        axios
+          .get(`${ROUTE}${this.props.currentUser}`)
+          .then((data) => {
+            this.props.load_notes(data.data.foundNotes);
+          })
+          .then(() => {
+            this.props.view_button_click();
+          });
+      })
+      .catch((error) => {
+        alert('Error Deleting Note', error);
+      });
   };
   openModal = () => {
     this.setState({ modalIsOpen: true });
@@ -81,12 +98,13 @@ const customStyles = {
   },
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     current: state.current,
     note: state.note,
     remove: state.remove,
+    currentUser: state.currentUser,
   };
 };
 
-export default connect(mapStateToProps, { edit_note_clicked, delete_note })(ViewNote);
+export default connect(mapStateToProps, { edit_note_clicked, delete_note, load_notes, view_button_click })(ViewNote);

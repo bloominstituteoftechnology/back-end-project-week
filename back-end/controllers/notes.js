@@ -113,9 +113,9 @@ const deleteNote = (req, res) => {
           if (deletedNote === null) {
             return res.status(422).json({ message: 'Note Does Not Exist' });
           } else {
-            res
+            return res
               .status(200)
-              .json({ message: 'Note Has Been Deleted', updatedNote });
+              .json({ message: 'Note Has Been Deleted', deletedNote });
           }
         })
         .catch((error) => {

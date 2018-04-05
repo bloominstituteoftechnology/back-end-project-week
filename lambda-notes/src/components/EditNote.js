@@ -51,7 +51,7 @@ class EditNote extends React.Component {
     axios.put(`${ROUTE}${this.props.currentUser}/${this.props.note._id}`, revisedNote)
     .then(() => {
       axios
-        .get('http://localhost:3000/notes/' + this.props.currentUser)
+        .get(`${ROUTE}${this.props.currentUser}`)
         .then((data) => {
           this.props.load_notes(data.data.foundNotes);
         })
@@ -60,7 +60,7 @@ class EditNote extends React.Component {
         });
     })
     .catch((error) => {
-      alert('Error Creating Note', error);
+      alert('Error Editing Note', error);
     });
   };
 }
