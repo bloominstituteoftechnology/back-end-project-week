@@ -10,7 +10,13 @@ export default ComposedComponent => {
     }
 
     render() {
-      return !this.props.authenticated ? null : <ComposedComponent />
+      return (
+        <div className="auth">
+        <div className="auth--title">Welcome To NoteTater</div>
+        <div className="auth--subtitle">you must sign in to use the app</div>
+        {!this.props.authenticated ? null : <ComposedComponent />}
+        </div>
+      )
     }
   }
 

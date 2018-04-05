@@ -11,7 +11,6 @@ import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 
 class CoreRail extends Component {
   render() {
-    console.log("CoreRail props: ", this.props);
     return (
       <div className="core-rail">
         <Router onUpdate={() => window.scrollTo(0, 0)}>
@@ -37,7 +36,7 @@ class CoreRail extends Component {
         )} path="/edit/:id/:title/:content" />
         <Route render={(routeProps) => (
           <DeleteNote {...routeProps} {...this.props} />
-        )} path="/delete/:id/" />
+        )} path="/delete/:id/:title/:content" />
         </div>
         </ScrollToTop>
         </Router>

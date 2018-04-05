@@ -18,16 +18,13 @@ class NoteList extends Component {
       return content;
     }
     render() {
-      console.log('NoteList props: ', this.props);
     return (
       <div className="note-list">
       <div className="note-list__title">Your Notes:</div>
           { this.props.notes ? this.props.notes.map((note) => {
-            console.log('note: ', note);
             return (
               <div key={note._id}>
                 <NavLink className="note-list-note-link" to={`/note/${note.title}/${note.content}/${note._id}/`}>
-                {console.log(note)}
                   <NoteListNote title={this.clampNote(note.title, 10)} content={this.clampNote(note.content, 100)} />
                 </NavLink>
               </div>

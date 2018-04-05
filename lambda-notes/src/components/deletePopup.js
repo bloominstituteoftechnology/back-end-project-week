@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
+import { ROOT_URL } from '../config.js';
 
 class DeletePopup extends Component {
     state = {
-        notes: this.props.props.notes
+        notes: this.props.props.notes,
+        _id: this.props.props.match.params.id
     }
     render() {
-    // console.log('this', this)
+    console.log('this', this)
     // console.log('this.state before deleting note', this.state)
     // console.log('this.context ', this.context)
     // console.log('this.props', this.props)
@@ -18,7 +21,7 @@ class DeletePopup extends Component {
     // console.log('this.props.props.history', this.props.props.history)
     const getNoteIndex = () => {
         for (let i = 0; i < this.state.notes.length; i++) {
-            if (+this.props.props.match.params.id === this.state.notes[i].id) {
+            if (this.state._id === this.state.notes[i].id) {
                 // console.log('index in if statement: ', i)
                 return i;
             }
@@ -31,8 +34,13 @@ class DeletePopup extends Component {
         let deletedNote = this.state.notes.splice(getNoteIndex(), 1)
         // console.log('deletedNote: ', deletedNote);
         this.setState({notes: this.state.notes.filter(note => deletedNote.id !== note.id)})
-        this.props.props.notes.filter(note => deletedNote.id !== note.id)
-        this.props.props.history.push('/')
+        this.props.props.notes.filter(note => deletedNote.id !== note.id);
+        const _id = this.state._id;
+        axios
+          .delete(`${ROOT_URL}/api/notes/destroy`, { data: { _id } })
+          .then(res => res)
+          .catch(err => console.error(err));
+        this.props.props.history.push('/notes')
         // this.context.router.push('/')
         // console.log('this.state after deleting note', this.state)
         // console.log('this.props.props after deleting note', this.props.props)
@@ -44,7 +52,7 @@ class DeletePopup extends Component {
           <div className="popup__btn-container">
             <NavLink to={`/`} className="popup__delete-btn" onClick={noteDeleteHandler}>Delete</NavLink> 
             {/* <NavLink to={`/`} className="popup__delete-btn" >Delete</NavLink>  */}
-            <NavLink to={`/note/${this.props.props.match.params.id}/${this.props.props.match.params.title}/${this.props.props.match.params.content}`} className="popup__no-btn">No</NavLink>
+            <NavLink to={`/note/${this.props.props.match.params.title}/${this.props.props.match.params.content}/${this.props.props.match.params.id}`} className="popup__no-btn">No</NavLink>
           </div>
         </div>
       </div>

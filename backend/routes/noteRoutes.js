@@ -30,8 +30,6 @@ noteRouter.get('/', getNotes, validateToken);
 
 noteRouter.put('/update', (req, res) => {
   const { title, content, _id } = req.body;
-  console.log('Req body in noteRouter line 35: ', req.body);
-  console.log('Now just the id: ', _id);
   if (!title || !content ) {
     return res.status(process.env.STATUS_USER_ERROR)
       .json({ error: 'Must Provide a title & content of note' });
@@ -58,8 +56,6 @@ noteRouter.put('/update', (req, res) => {
 
 noteRouter.delete('/destroy', (req, res) => {
   id = req.body._id;
-  console.log('Request body of delete function: ', req.body);
-  console.log("And now the note's id");
   if (id === undefined) {
     res.status(process.env.STATUS_USER_ERROR);
     res.json({ error: 'You need to give me an ID if you want to delete the note' });
