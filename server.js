@@ -12,27 +12,9 @@ const corsOptions = {
   credentials: true,
 };
 
-
 server.use(express.json());
 server.use(cors(corsOptions));
 server.options('*', cors());
-
-// server.all('*', function(req, res, next) {
-//   var origin = req.get('origin');
-//   res.header('Access-Control-Allow-Origin', origin);
-//   res.header('Access-Control-Allow-Credentials', true);
-//   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-//   res.header(
-//     'Access-Control-Allow-Headers',
-//     'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json'
-//   );
-//   // intercept OPTIONS method
-//   if ('OPTIONS' == req.method) {
-//     res.send(200);
-//   } else {
-//     next();
-//   }
-// });
 
 server.use(
   session({
@@ -41,6 +23,13 @@ server.use(
     saveUninitialized: false,
   })
 );
+
+const restrictAccess = (req, res, next) => {
+  if (req.session.username) next();
+  else res.status(404).send({ msg: 'You must log in to view this page.' });
+};
+
+server.use('/api/notes', restrictAccess);
 
 routes(server);
 
