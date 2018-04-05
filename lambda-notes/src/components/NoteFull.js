@@ -69,9 +69,9 @@ class NoteFull extends Component {
         </Modal>
         {this.props.currentNote.map(note => {
           return (
-            <div key={note.id} className="full-note">
+            <div key={note._id} className="full-note">
               <p className="text-right">
-                <Link to={`/edit/${note.id}`}>edit</Link>
+                <Link to={`/edit/${note._id}`}>edit</Link>
                 <Link
                   onClick={this.openModal}
                   /*onClick={this.deleteNote}*/ to={`#`}

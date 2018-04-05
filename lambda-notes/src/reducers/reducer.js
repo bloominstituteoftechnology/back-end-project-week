@@ -50,21 +50,20 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         deletingNote: false,
-        notes: [...state.notes, action.payload],
+        notes: [...action.payload],
         currentNote: [],
       };
     case actionTypes.UPDATE_NOTE:
       return {
         ...state,
         updatingNote: true,
-        notes: [...state.notes, action.payload],
         currentNote: [],
       };
     case actionTypes.NOTE_UPDATED:
       return {
         ...state,
         updatingNote: false,
-        notes: [...state.notes, action.payload],
+        notes: [...action.payload],
         currentNote: [],
       };
     case actionTypes.SEARCH:

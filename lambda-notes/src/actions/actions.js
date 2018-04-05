@@ -75,7 +75,7 @@ export const deleteNote = (id) => {
   return (dispatch) => {
     dispatch({ type: DELETE_NOTE });
     axios
-      .delete('http://localhost:5000/api/notes/delete' + id)
+      .delete('http://localhost:5000/api/note/' + id)
       .then(({ data }) => dispatch({ type: NOTE_DELETED, payload: data }))
       .catch((error) => {
         dispatch({ type: ERROR_DELETING_NOTE, payload: error });
@@ -84,6 +84,7 @@ export const deleteNote = (id) => {
 };
 
 export const updateNote = (data) => {
+  console.log(data);
   return (dispatch) => {
     dispatch({ type: UPDATE_NOTE });
     axios

@@ -6,9 +6,9 @@ import './NewNote.css';
 
 class EditNote extends Component {
   state = {
-    title: this.props.currentNote.title,
-    body: this.props.currentNote.body,
-    id: this.props.currentNote.id,
+    title: this.props.currentNote.noteTitle,
+    body: this.props.currentNote.noteBody,
+    id: this.props.currentNote._id,
     redirect: false,
   };
   componentDidMount() {
@@ -21,7 +21,7 @@ class EditNote extends Component {
     this.props.updateNote({
       noteTitle: this.state.title,
       noteBody: this.state.body,
-      id: this.props.currentNote.id,
+      id: this.props.currentNote._id,
     });
     this.setState({ redirect: true });
   };

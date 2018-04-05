@@ -41,7 +41,6 @@ class NewNote extends Component {
         redirect: true,
       });
     }
-    this.props.getNotes();
   };
   render() {
     return (
