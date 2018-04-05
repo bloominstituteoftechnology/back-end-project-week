@@ -1,5 +1,5 @@
 const {createUser, loginUser} = require('../controllers/userControllers');
-const {createNote, getNotes, updateNote} = require('../controllers/noteControllers');
+const {createNote, getNotes, updateNote, deleteNote} = require('../controllers/noteControllers');
 
 module.exports = app => {
   app.post('/new-user',createUser);
