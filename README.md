@@ -24,12 +24,12 @@ The main objective of this week is to develop a backend to support the LambdaNot
 * [X] Create a Registration Page that allows users to create accounts for your app and sign in with email/password
 * [X] Store these User Accounts in your Database
 * [X] Add a Sign In Page
-* [ ] Store Notes in your Database
+* [X] Store Notes in your Database
 * [X] Deploy your application to the web
 
 Build an API Endpoint for each of the following, and connect it to your React App. These should all be read from your Database and scoped to the logged in user. Write tests for your endpoints which adequately cover use cases and errors.
-* [ ] Display a list of notes
-* [ ] Create a note with a title and content
+* [X] Display a list of notes
+* [X] Create a note with a title and content
 * [ ] View an existing note
 * [ ] Edit an existing note
 * [ ] Delete an existing note
