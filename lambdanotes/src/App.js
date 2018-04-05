@@ -115,7 +115,6 @@ class App extends Component {
       .get(`http://localhost:5000/users/name/${this.state.username}`, header)
       .then(res => {
         this.setState({ notes: res.data.notes, userId: res.data._id });
-        console.log(res.data.notes);
       })
       .catch(err => console.log(err));
   };
@@ -142,7 +141,6 @@ class App extends Component {
 
   showNoteDetails = id => {
     const noteToView = this.state.notes.find(note => note._id === id);
-    console.log('* showNoteDetails * ', noteToView);
     this.setState({
       noteDetails: { ...noteToView },
       viewingNotes: false,
@@ -182,9 +180,9 @@ class App extends Component {
     axios
       .post('http://localhost:5000/notes', note, header)
       .then(res => {
-        console.log(res.data);
+        this.setState({ notes: [...this.state.notes, res.data] });
+        this.getNotes();
       })
-      .then(() => this.getNotes())
       .then(() => this.viewNotes())
       .catch(err => console.log(err));
   };
@@ -205,7 +203,6 @@ class App extends Component {
       )
       .then(res => {
         this.setState({ noteDetails: { ...res.data.updatedNote } });
-        console.log('~noteDetails~ ', this.state.noteDetails);
       })
       .then(() => this.getNotes())
       .then(() =>
@@ -220,9 +217,6 @@ class App extends Component {
     let id = this.state.noteDetails._id;
     axios
       .delete(`http://localhost:5000/notes/${id}`, header)
-      .then(res => {
-        console.log(res.data);
-      })
       .then(() => {
         let updatedNotes = this.state.notes.filter(
           note => note._id !== this.state.noteDetails._id
