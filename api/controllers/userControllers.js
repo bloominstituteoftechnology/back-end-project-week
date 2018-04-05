@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 const userModel = require("../models/Users");
+const bcrypt = require('bcrypt');
+
+const BCRYPT_COST = 11;
 
 const createUser = (req, res) => {
   const { userName, passWord } = req.body;
@@ -14,23 +17,50 @@ const createUser = (req, res) => {
     });
 };
 
-const loginUser = (req, res) => {
-  const { userName, passWord } = req.body;
-  console.log(req.body);
-  userModel 
-    .findOne({userName})
-    .exec()
-    .then(user => {
-        console.log(user);
-      res.json(user);
+const hashPw = (req, res, next) => {
+  const { password } = req.body;
+  if (!password || password.length === 0) {
+    sendUserError('Gimme a password.', res);
+    return;
+  } 
+    bcrypt.hash(password, BCRYPT_COST)
+    .then((Pw) => {
+      req.password = Pw;
+      next();
     })
-    .catch(error => {
-        console.log(error);
-      res.status(500).json({ message: "Not able to login user" });
+    .catch((err) => {
+        throw new Error(err);
     });
 };
 
+const loginUser = (req, res, next) => {
+  const { username } = req.session;
+  if(!username) {
+      sendUserError('User is not logged in', res);
+      return;
+  }
+  userModel 
+    .findOne({ userName })
+    .exec()
+    .then(user => {
+      if(!user) res.json({ message:  'User does not exist'});
+      else res.json(user);
+      next();
+    });
+};
+
+const restrictedPermissions = (req, res, next) => {
+  const path = req.path;
+  if (/restricted/.test(path)) {
+      if(!req.session.username) {
+          sendUserError('user not authorized', res);
+          return;
+      }
+  } next();
+};
 module.exports = {
   createUser,
-  loginUser
+  loginUser,
+  hashPw,
+  restrictedPermissions,
 };
