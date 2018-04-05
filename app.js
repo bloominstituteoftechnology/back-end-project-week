@@ -3,10 +3,13 @@ const mongoose = require('mongoose');
 
 const { port, MONGO_CONNECT } = require('./config');
 const PORT = process.env.PORT || port;
+const USERNAME = process.env.MLAB_USERNAME;
+const PASSWORD = process.env.MLAB_PASSWORD;
+const MONGO = process.env.MONGO;
 
 mongoose.Promise = global.Promise;
 mongoose
-  .connect(`mongodb://${MONGO_CONNECT}`)
+  .connect(`mongodb://${USERNAME}:${PASSWORD}${MONGO_CONNECT}`)
   .then(() => {
     console.log('Successfully connected to MongoDB');
   })
