@@ -6,7 +6,7 @@ https://lambda-notes-78324c.netlify.com
 
 # Quick and Dirty API Documentation:
 
-Base API can be found at https://warm-mountain-87424.herokuapp.com/api
+Base API can be found at https://warm-mountain-87424.herokuapp.com/
 
 ## `[POST] /api/users`
 ### Headers
