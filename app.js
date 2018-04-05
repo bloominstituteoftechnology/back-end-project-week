@@ -1,12 +1,12 @@
 const { server } = require('./server');
 const mongoose = require('mongoose');
 
-const { port } = require('./config');
+const { port, MONGO_CONNECT } = require('./config');
 const PORT = process.env.PORT || port;
 
 mongoose.Promise = global.Promise;
 mongoose
-  .connect('mongodb://localhost/lambda-notes')
+  .connect(`mongodb://${MONGO_CONNECT}`)
   .then(() => {
     console.log('Successfully connected to MongoDB');
   })
