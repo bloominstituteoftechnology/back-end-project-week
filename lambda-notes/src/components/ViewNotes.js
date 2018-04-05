@@ -20,7 +20,7 @@ class ViewNotes extends Component {
         <div className="viewNotesBody">
           <div className="header">Your Notes:</div>
             <div>
-              <button onClick={() => this.props.abcSort('title')}>Sort Alphabetically</button>
+              <button className ="sortButton" onClick={() => this.props.abcSort('title')}>ABC</button>
             </div>
             <div className="allNotes">
               {this.props.notes.map((note, i) => {
