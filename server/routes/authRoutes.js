@@ -1,3 +1,5 @@
+const Note = require('../models/Note');
+
 module.exports = function(app, passport) {
   app.get('/', function(req, res) {
     res.render('index.ejs');
@@ -12,14 +14,41 @@ module.exports = function(app, passport) {
   });
 
   app.get('/profile', isLoggedIn, function(req, res) {
-    res.render('profile.ejs', { 
-      user: req.user 
-    });
+    Note.find({'_user': req.user.id}, function(err, data) {
+      //console.log('back end', data);
+      res.render('profile.ejs', { 
+        user: req.user,
+        data: data
+      });
+    })
+
   });
 
   app.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
+  });
+
+  app.get('/createNote', function(req, res) {
+    res.render('createNote.ejs')
+  });
+
+  app.post('/createNote', function(req, res) {
+    const { title, text } = req.body;
+    const newNote = new Note({
+      title, 
+      text,
+      _user: req.user.id
+    });
+    newNote.save()
+      .then(item => {
+        res.status(200);
+        res.redirect('/profile');
+      })
+       .catch(err => {
+         res.status(400);
+         res.redirect('/profile');
+    });
   });
 
   function isLoggedIn(req, res, next) {

@@ -15,14 +15,22 @@
     <strong>password</strong>: <%= user.local.password %>
   </p>
   -->
-
-  <h3>Here are your Notes</h3>
+  
+  <h3>Here are your Notes</h3><a href="/createNote">Create Note</a>
 
   <ul>
-    <li>Note 1</li>
-    <li>Note 2</li>
-    <li>Note 3</li>
+    <% for (var i = 0; i < data.length; i++) { %>
+    <li>
+      Title: <%= data[i].title %>
+      <br>
+      Text: <%= data[i].text %>
+    </li>
+    <br>
+    <% } %>
   </ul>
+
+  <!--<% console.log('front end', data) %> -->
+  <!-- <p><%= data[0].title %></p> -->
 
 <a href="/logout">Logout</a>
 </body>
