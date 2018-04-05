@@ -1,6 +1,6 @@
 const express = require('express');
 const server = express();
-const isLoggedIn = require('../controllers/auth');
+
 const Note = require('../models/notes-model');
 
 server.use(express.json());
