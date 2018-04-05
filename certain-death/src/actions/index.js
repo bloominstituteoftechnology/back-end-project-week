@@ -131,6 +131,7 @@ export const signup = (data) => {
     user
       .then(({ newUser }) => {
         dispatch({ type: USER_CREATED, payload: newUser });
+        alert('You are registered. Please login below.');
       })
       .catch((err) => {
         dispatch({ type: ERROR, payload: err });
