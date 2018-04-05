@@ -3,6 +3,44 @@ import { Link } from 'react-router-dom';
 
 class NewView extends Component {
 
+    constructor() {
+        super();
+        this.state = {
+            title: '',
+            content: ''
+        }
+        this.handleTitleChange = this.handleTitleChange.bind(this);
+        this.handleContent = this.handleContent.bind(this);
+        this.submitPost = this.submitPost.bind(this);
+    }
+
+    contentInput(event) {
+        this.setState({ content: event.target.value });
+    }
+
+    handleTitleChange(event) {
+        this.setState({ title: event.target.value });
+    }
+    handleContent(event) {
+        this.setState({ content: event.target.value });
+    }
+
+    submitPost(event) {
+        event.preventDefault();
+        const { title, content } = this.state;
+        const newPost = { title, content, author: localStorage.getItem('uuID') };
+        this.setState({ content: '', title: '' });
+        axios.post('http://localhost:5000/create-post', newPost)
+            .then((data) => {
+                const newPostId = data.data._id;
+                window.location = `/list`
+            })
+            .catch((err) => {
+                console.log('You still need to get your posts.', err);
+            })
+    }
+
+
     render() {
         return (
             <div>
@@ -16,10 +54,10 @@ class NewView extends Component {
                 <div className="main">
                     <div className="main__list">
                         <h3 className="title__main">Create Note:</h3>
-                        <input className="note__input__title" placeholder="Note Title"></input>
-                        <textarea className="note__input__content" placeholder="Note Content"></textarea>
+                        <input className="note__input__title"  onChange={this.handleTitleChange} value={this.state.title} placeholder="Note Title">{this.state.title}</input>
+                        <textarea className="note__input__content" onChange={this.handleContent} value={this.state.content} placeholder="Note Content">{this.state.content}</textarea>
                         <br />
-                        <button className="button__main__update">Save</button>
+                        <Link to="/list"><button className="button__main__update">Save</button></Link>
                     </div>
                 </div>
             </div>
