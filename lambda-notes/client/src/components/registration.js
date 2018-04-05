@@ -38,11 +38,9 @@ class Registration extends Component {
     createUser(event) {
         event.preventDefault();
         const newUser = { first: this.state.firstname, last: this.state.lastname, user: this.state.username, pass: this.state.password };
-        axios.post('http://localhost:5000/sign-up', newUser)
+        axios.post('http://localhost:5000/create-post', newUser)
             .then((data) => {
-                // this.setState({ newUser: data });
-                localStorage.setItem(newUser, data.data._id);
-                // this.setState(newUser, data._id);
+                localStorage.setItem('uuID', data.data._id);
                 setTimeout(() => {
                     window.location = '/list'
                 }, 200)

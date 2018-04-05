@@ -1,5 +1,6 @@
 import React, { Component } from 'react'; 
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 class NewView extends Component {
 
@@ -12,10 +13,6 @@ class NewView extends Component {
         this.handleTitleChange = this.handleTitleChange.bind(this);
         this.handleContent = this.handleContent.bind(this);
         this.submitPost = this.submitPost.bind(this);
-    }
-
-    contentInput(event) {
-        this.setState({ content: event.target.value });
     }
 
     handleTitleChange(event) {
@@ -33,7 +30,7 @@ class NewView extends Component {
         axios.post('http://localhost:5000/create-post', newPost)
             .then((data) => {
                 const newPostId = data.data._id;
-                window.location = `/list`
+                window.location = `/list/${newPostId}`
             })
             .catch((err) => {
                 console.log('You still need to get your posts.', err);
@@ -45,8 +42,8 @@ class NewView extends Component {
         return (
             <div>
                 <div className="section__content__left">
-                <h1 className="title"><Link to='/user' className="title__link">Lambda Notes</Link></h1>
-                    <button className="button__main"><Link className="link" to='/user'>View Your Notes</Link></button>
+                <h1 className="title"><Link to='/' className="title__link">Lambda Notes</Link></h1>
+                    <button className="button__main"><Link className="link" to='/list'>View Your Notes</Link></button>
                     <br />
                    <button className="button__main"><Link className="link" to='/create'>+ Create New Note</Link></button>
 
@@ -54,10 +51,10 @@ class NewView extends Component {
                 <div className="main">
                     <div className="main__list">
                         <h3 className="title__main">Create Note:</h3>
-                        <input className="note__input__title"  onChange={this.handleTitleChange} value={this.state.title} placeholder="Note Title">{this.state.title}</input>
-                        <textarea className="note__input__content" onChange={this.handleContent} value={this.state.content} placeholder="Note Content">{this.state.content}</textarea>
+                        <input className="note__input__title"  onChange={this.handleTitleChange} value={this.state.title} placeholder="Note Title"></input>
+                        <textarea className="note__input__content" onChange={this.handleContent} value={this.state.content} placeholder="Note Content"></textarea>
                         <br />
-                        <Link to="/list"><button className="button__main__update">Save</button></Link>
+                        <button className="button__main__update" onClick={this.submitPost}>Save</button>
                     </div>
                 </div>
             </div>
