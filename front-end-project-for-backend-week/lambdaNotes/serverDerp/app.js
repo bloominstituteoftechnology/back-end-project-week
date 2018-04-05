@@ -8,9 +8,6 @@ mongoose.connect('mongodb://localhost/lambdaNotes', {}, err => {
   console.log('DB up and running');
 });
 
-mongoose.connect('mongodb://localhost/users', {
-  useMongoClient: true
-});
 
 server.listen(port, () => {
   console.log(`Magic happening on port ${port}`);
