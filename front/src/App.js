@@ -7,14 +7,14 @@ import Home from "./components/home/home";
 import NewNote from "./components/newNote/newNote";
 import ViewNote from "./components/viewNote/viewNote";
 import EditNote from "./components/editNote/editNote";
+import Login from "./components/login/login";
 
 class App extends Component {
   constructor(props){
     super(props);
 
     this.state = {
-      allNotes: [],
-      singleNote: []
+      allNotes: []
     }
   }
 
@@ -43,6 +43,7 @@ class App extends Component {
           <Route path="/newnote" exact component={NewNote} />
           <Route path="/viewnote" exact component={ViewNote} />
           <Route path="/editnote" exact component={EditNote} />
+          <Route path="/login" exact component = {Login} />
         </div>
       </div>
     );

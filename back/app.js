@@ -38,18 +38,18 @@ app.use(cors(corsOptions))
 mongoose.Promise = global.Promise;
 
 //local middleware that scopes routes for logged in users only
-const loginMid = (req, res, next) => {
-    console.log(req.session.loggedIn);
-    if (!req.session.loggedIn){
-        console.log(`The user is not logged in!`);
-        res.status(401)
-        res.json(`Please login to view this content`);
-        return;
-    }
+// const loginMid = (req, res, next) => {
+//     console.log(req.session.loggedIn);
+//     if (!req.session.loggedIn){
+//         console.log(`The user is not logged in!`);
+//         res.status(401)
+//         res.json(`Please login to view this content`);
+//         return;
+//     }
 
-    console.log(`The user is logged in and can view the content`);
-    next();
-};
+//     console.log(`The user is logged in and can view the content`);
+//     next();
+// };
 
 //test route handler
 app.get("/", (req, res) => {
@@ -89,6 +89,7 @@ app.post("/api/newUser", (req, res) => {
 
 //post handler for allowing a user to login
 app.post("/api/login", (req, res) => {
+    console.log(req.body.username, req.body.password);
     if (req.session.loggedIn){
         console.log(`The user is already logged in`);
         res.status(200)
@@ -119,6 +120,7 @@ app.post("/api/login", (req, res) => {
               res.status(422);
               res.send(`The password you entered was incorrect, please try again`);
             } else {
+              console.log(`The user is now logged in`)
               req.session.loggedIn = true;
               res.status(200);
               res.json({success: true});
@@ -132,7 +134,7 @@ app.post("/api/login", (req, res) => {
 })
 
 //get handler for accessing restricted content
-app.get("/api/restricted", loginMid, (req, res) => {
+app.get("/api/restricted", (req, res) => {
     console.log(`The user is logged in and can access the restricted content!`)
     res.status(200)
     .json(`Welcome to the dark side! We have cookies =]`)
@@ -140,12 +142,18 @@ app.get("/api/restricted", loginMid, (req, res) => {
 
 //get handler for all notes
 app.get("/api/allNotes", (req, res) => {
-    NoteModel.find({}, (err, response) => {
-        if (err) return console.log(`There was an error getting the notes: ${err}`);
-        console.log(`Here are all the notes: \n ${response}`);
-        res.status(200)
-        .json(response);
-    })
+    if (!req.session.loggedIn){
+        console.log(`The user is not logged in! Line 146`);
+        res.status(422)
+        .json(`not working!`);
+    } else {
+        NoteModel.find({}, (err, response) => {
+            if (err) return console.log(`There was an error getting the notes: ${err}`);
+            console.log(`Here are all the notes: \n ${response}`);
+            res.status(200)
+            .json(response);
+        })
+    }
 });
 
 //get handler for finding notes by id
