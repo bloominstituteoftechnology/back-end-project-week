@@ -265,8 +265,8 @@ app.put("/api/editNote/:id", (req, res) => {
 });
 
 //handler for deleting a note
-app.delete("/api/deleteNote/:id", (req, res) => {
-    const id = req.params.id;
+app.delete("/api/deleteNote/", (req, res) => {
+    const id = req.body.id;
 
     if (!id){
         console.log(`An ID for deleting a note was not provided`);
