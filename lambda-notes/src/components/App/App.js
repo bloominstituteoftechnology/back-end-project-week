@@ -8,11 +8,11 @@ import { getAllNotes, authUser } from '../../actions';
 
 import { Link } from 'react-router-dom';
 class App extends Component {
-  // state = {
-  //   notes: [],
-  // }
+  state = {
+    notes: [],
+  }
   
-  componentDidMount() {
+  componentWillMount() {
     if (localStorage.getItem('token')) {
       this.props.authUser();
     }
