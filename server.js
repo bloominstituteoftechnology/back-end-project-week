@@ -4,10 +4,17 @@ const express = require('express');
 const cors = require('cors');
 const User = require('./Models/UserModel');
 
-const server = express();
 const PORT = 5000;
 const STATUS_SUCCESS = 200;
 const STATUS_USER_ERROR = 422;
+const server = express();
+const corsOptions = {
+  origin: `http://localhost:3000`,
+  credentials: true,
+  methods: ['GET', 'POST']
+};
+
+server.use(cors(corsOptions));
 server.use(express.json());
 server.use(helmet());
 
@@ -25,6 +32,15 @@ server.post('/signup', (req, res) => {
     });
 });
 
+server.get('/users', (req, res) => {
+  User.find()
+    .then(users => {
+      res.status(200).send(users);
+    })
+    .catch(err => {
+      res.status(500).send({ fail: 'Problem getting users', err });
+    });
+});
 server.listen(PORT, () => {
   console.log(`Server up an running on Port: ${PORT}`);
 });

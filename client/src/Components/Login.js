@@ -10,9 +10,35 @@ class Login extends Component {
     e.preventDefault();
     return this.setState({ [e.target.name]: e.target.value });
   };
-  
+  handleNewUser = e => {
+    e.preventDefault();
+    let body = this.state;
+    fetch('http://localhost:5000/signup', {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then(pass => pass.json())
+      .then(pass => {
+        if (pass.hasOwnProperty('success')) {
+          console.log({ pass });
+          this.setState({
+            username: '',
+            password: ''
+          });
+          this.props.main.handleLogin();
+        } else {
+          alert('Username already in use please choose another');
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
-    console.log(this.state);
+    console.log({ newUser: this.state });
+    console.log({ props: this.props });
     return (
       <div className="login">
         <h1 className="loginTitle">Welcome to Notes</h1>
@@ -32,7 +58,7 @@ class Login extends Component {
             onChange={this.handleInput}
           />
           <button>Login</button>
-          <button>Create New User</button>
+          <button onClick={this.handleNewUser}>Create New User</button>
         </form>
       </div>
     );

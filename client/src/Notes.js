@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DummyData from './DummyData';
+import fetch from 'node-fetch';
 import './Notes.css';
 import CreateNote from './Components/CreateNote';
 import SingleNote from './Components/SingleNote';
@@ -10,7 +10,7 @@ import Login from './Components/Login';
 class Notes extends Component {
   state = {
     login: false,
-    notes: DummyData,
+    notes: [],
     view: {
       notes: false,
       create: false,
@@ -25,11 +25,30 @@ class Notes extends Component {
   componentDidMount() {
     this.SetViewNotes();
   }
+  handleLogin() {
+    try {
+      this.getNotes();
+      this.setState({ ...this.state });
+    } catch (err) {
+      console.log('Ay dios mio...');
+    }
+  }
+  getNotes() {
+    fetch('http://localhost:5000/notes', { method: 'GET' })
+      .then(notes => {
+        this.setState({ ...this.state, login: true });
+        console.log(this.state.notes);
+      })
+      .catch(err => {
+        console.log({ err });
+      });
+  }
+
   render() {
     return (
       <div>
         {!this.state.login ? (
-          <Login />
+          <Login main={this} />
         ) : (
           <div className="container">
             <div className="leftPanel">
