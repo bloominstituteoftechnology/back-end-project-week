@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { editNote } from '../actions';
+import { editNote, fetchNotes } from '../actions';
 import '../css/index.css';
 
 class EditNote extends Component {
@@ -40,11 +40,10 @@ class EditNote extends Component {
     this.setState({contentText: event.target.value})
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault();
-    this.props.editNote(this.state.titleText, this.state.contentText, this.props.note.id);
-    this.setState({titleText: ''});
-    this.setState({contentText: ''});
+    await this.props.editNote(this.state.titleText, this.state.contentText, this.props.note.id);
+    this.props.fetchNotes(localStorage.getItem('uuID'));
   }
 }
 
@@ -55,4 +54,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, { editNote })(EditNote);
+export default connect(mapStateToProps, { editNote, fetchNotes })(EditNote);

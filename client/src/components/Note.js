@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import { addNote } from '../actions';
-import { deleteNote } from '../actions';
+import { deleteNote, fetchNotes } from '../actions';
 import { connect } from 'react-redux';
 
 import '../css/index.css';
@@ -28,7 +28,11 @@ class Note extends Component {
             <button onClick={() => this.setState({ modal: !this.state.modal})}>
               [ X ]
             </button>
-            <Link to={'/'} className="Toolbar__button" onClick={() => this.props.deleteNote(this.props.note.id)}>
+            <Link to={'/'} className="Toolbar__button" onClick={() => {
+                this.props.deleteNote(this.props.note.id);
+                this.props.fetchNotes(localStorage.getItem('uuID'));
+              }
+            }>
               Delete
             </Link>
           </div>
@@ -54,4 +58,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { deleteNote })(Note);
+export default connect(mapStateToProps, { deleteNote, fetchNotes })(Note);

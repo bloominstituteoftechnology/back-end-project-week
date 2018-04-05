@@ -55,7 +55,7 @@ const createNewNote = async function(req, res) {
 }
 
 const getAllNotes = async function(req, res) {
-  const uuID  = req.params.uid;
+  const uuID = req.params.uid;
   try {
     const currentUser = await User.findById(uuID);
     res.status(201).send(currentUser.notes);
@@ -64,9 +64,56 @@ const getAllNotes = async function(req, res) {
   }
 }
 
+const deleteNote = async function(req, res) {
+  console.log('The params are', req.params);
+  const noteUID = req.params.id;
+  const userUID = req.params.userUID;
+  try {
+    console.log(`Got some params: userUID is ${userUID} and noteUID is ${noteUID}`);
+    const updatedProfile = await User.findByIdAndUpdate(userUID,
+      { $pull: { notes: { _id: noteUID } } }
+    );
+    console.log('Updated profile:', updatedProfile);
+    res.status(200).send(updatedProfile.notes);
+  } catch(e) {
+    console.log(e);
+  }
+}
+
+const editNoteById = async function(req, res) {
+  const noteUID = req.params.id;
+  const userUID = req.params.userUID;
+  const { noteTitle, noteText } = req.body;
+
+  const editedNote = new Note({
+    title: noteTitle,
+    body: noteText,
+  });
+  try {
+    const currentUser = await User.findById(userUID);
+    const newNotes = currentUser.notes.map(note => {
+      if (note._id.toString() === noteUID.toString()) {
+        return editedNote;
+      } else {
+        return note;
+      }
+    });
+    await User.findOneAndUpdate(
+      { _id: userUID },
+      { $set : { notes: newNotes } }
+    );
+    const updatedProfile = await User.findById(userUID);
+    res.status(200).send(updatedProfile);
+  } catch(e) {
+    console.log(e);
+  }
+}
+
 module.exports = {
   createUser,
   login,
   createNewNote,
-  getAllNotes
+  getAllNotes,
+  deleteNote,
+  editNoteById,
 };

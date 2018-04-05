@@ -65,19 +65,37 @@ export const addNote = (noteTitle, noteText) => {
 
 export const deleteNote = id => {
   console.log("Removing note number: ", id);
-  return {
-    type: DELETE_NOTE,
-    id
-  };
+  return async dispatch => {
+    try {
+      const userUID = localStorage.getItem("uuID");
+      const res = await axios.delete(`${ROOT_URL}/delete/${id}&${userUID}`, {
+        params: {
+          userUID: userUID,
+          noteUID: id,
+        }
+      });
+    } catch(e) {
+      console.log(e);
+    }
+  } 
 };
 
 export const editNote = (newTitle, newText, id) => {
-  return {
-    type: EDIT_NOTE,
-    payload: {
-      title: newTitle,
-      text: newText
-    },
-    id
-  };
+
+  return async dispatch => {
+    try {
+      const userUID = localStorage.getItem("uuID");
+      const res = await axios.put(`${ROOT_URL}/edit/${id}&${userUID}`, { noteTitle: newTitle, noteText: newText });
+    } catch(e) {
+      console.log(e);
+    }
+  }
+  // return {
+  //   type: EDIT_NOTE,
+  //   payload: {
+  //     title: newTitle,
+  //     text: newText
+  //   },
+  //   id
+  // };
 };

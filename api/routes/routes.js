@@ -17,9 +17,9 @@ module.exports = async (app) => {
   // app.route('/notes/:id')
   //   .get(userControllers.getNoteById);
   
-  // app.route('/edit/:id')
-  //   .put(userControllers.editNoteById);
+  app.route('/edit/:id&:userUID')
+    .put(userControllers.editNoteById);
 
-  // app.route('/delete/:id')
-  //   .delete(userControllers.deleteNoteById);
+  app.route('/delete/:id&:userUID')
+    .delete(userControllers.deleteNote);
 };

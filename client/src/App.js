@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './index.css';
-import { NoteList } from './components/NoteList';
+import NoteList from './components/NoteList';
 import EditNote from './components/EditNote';
 import Note from './components/Note';
 import NewNote from './components/NewNote';
@@ -40,7 +40,7 @@ class App extends Component {
             </Link>
           </div>
           <div className="View">
-            <Route path="/" render={() => <NoteList notes={this.props.notes}/>} exact/>
+            <Route path="/" render={() => <NoteList/>} exact/>
             <Route path="/new" component={ NewNote } exact />
             {
               this.props.notes.map(note => {
