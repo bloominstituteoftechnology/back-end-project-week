@@ -1,19 +1,32 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './NotesList.css'
+import { getAllNotes } from '../../actions';
+import { connect } from 'react-redux';
 
-const NotesList = (props) => {
-  console.log('NotesList props', props)
-  return (
-    <Link to={`/view/${props.id}`} style={{textDecoration:"none", color:"black"}}>
-      <div className="Note">
-        <div className="Note-Title">{props.note.title}</div>
-        <hr />
-        <div className="Note-Content">{props.note.content}</div>
-      </div>
-    </Link>
-  )
+class NotesList extends Component {
+  componentDidMount() {
+    this.props.getAllNotes();
+  }
+  render() {
+    console.log('NotesList props', this.props)
+    return (
+      <Link to={`/view/${this.props.id}`} style={{textDecoration:"none", color:"black"}}>
+        <div className="Note">
+          <div className="Note-Title">{this.props.note.title}</div>
+          <hr />
+          <div className="Note-Content">{this.props.note.content}</div>
+        </div>
+      </Link>
+    )
+  }
 }
 
 
-export default NotesList;
+const mapStateToProps = state => {
+  return {
+    state: state,
+  }
+}
+
+export default connect(mapStateToProps, { getAllNotes })(NotesList);

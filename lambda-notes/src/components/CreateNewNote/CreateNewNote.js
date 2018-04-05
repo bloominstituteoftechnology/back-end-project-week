@@ -1,6 +1,7 @@
 import React from 'react';
 import Sidebar from '../Sidebar/Sidebar';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { createNote } from '../../actions';
 import './CreateNewNote.css';
 
@@ -33,7 +34,7 @@ class CreateNewNote extends React.Component {
               value={this.state.content}
               onChange={this.handleContentChange}>
             </textarea>
-            <button className="Save-Button" type="submit">Save</button>
+              <button className="Save-Button" type="submit">Save</button>
           </form>
         </div>
       </div>
@@ -48,7 +49,6 @@ class CreateNewNote extends React.Component {
   handleSubmit = (event) => {
     this.props.createNote(this.state.title, this.state.content);
     this.setState({title: '', content: ''});
-    // this.props.history.push('/notes');
   }
 }
 
