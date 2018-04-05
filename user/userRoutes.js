@@ -5,19 +5,18 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 userRouter.post('/signup', function(req, res){
-	res.send('you hit it!');
-	// const { name, email, password } = req.body;
-	// const user = new User();
-	// user.name = name;
-	// user.email = email;
+	const { name, email, password } = req.body;
+	const user = new User();
+	user.name = name;
+	user.email = email;
 
-	// bcrypt.hash(password, 11, (err, hash) => {
-	// 	if (err) throw err;
-	// 	user.password = hash;
-	// 	user.save().then(savedUser => {
-	// 		res.json(savedUser);
-	// 	});
-	// });
+	bcrypt.hash(password, 11, (err, hash) => {
+		if (err) throw err;
+		user.password = hash;
+		user.save().then(savedUser => {
+			res.json(savedUser);
+		});
+	});
 });
 
 userRouter.post('/login', function(req, res){
