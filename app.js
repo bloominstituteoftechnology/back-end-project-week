@@ -9,7 +9,7 @@ const MONGO = process.env.MONGO;
 
 mongoose.Promise = global.Promise;
 mongoose
-  .connect(`mongodb://${USERNAME}:${PASSWORD}${MONGO_CONNECT}`)
+  .connect(`mongodb://${USERNAME}:${PASSWORD}${MONGO}`)
   .then(() => {
     console.log('Successfully connected to MongoDB');
   })
