@@ -14,12 +14,13 @@ import {
 
 import './css/SideBar.css';
 
+const ROUTE = 'http://localhost:3000/notes/';
+
 class SideBar extends React.Component {
   render() {
     return (
       <div className="sidebar">
         <div className="logout-container">
-          {/* <p>{this.props.currentUser.username}</p> */}
           <button className="side-buttons-logout" onClick={this.handleLogOut}>
             LogOut{' '}
           </button>
@@ -53,8 +54,13 @@ class SideBar extends React.Component {
   };
 
   handleView = () => {
-    this.props.load_notes();
-    this.props.view_button_click();
+    axios.get(`${ROUTE}${this.props.currentUser}`)
+    .then(data => {
+      this.props.view_button_click(data.data.foundNotes);
+    })
+    .catch(error => {
+      console.log('Error Loading Notes');
+    })
   };
 
   handleSearch = () => {

@@ -1,11 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import Note from './Note';
 
-import { remove_edit } from '../actions/index';
+import { remove_edit, load_notes } from '../actions/index';
 
 import './css/SortOverview.css';
+
+const ROUTE = 'http://localhost:3000/notes/';
 
 class SortOverview extends React.Component {
   state = {
@@ -43,9 +46,8 @@ class SortOverview extends React.Component {
               <h1 className="sort-header"> Alphabetically Sorted by Title</h1>
             )}
             <ul className="sorted-notes">
-              {this.state.sorted.map(note => {
-                const noteObj = { body: note[1], title: note[3], dateString: note[4] };
-                return <Note key={note[2]} note={noteObj} />;
+              {this.props.notes.map((note, index) => {
+                return <Note key={note._id} note={{ ...note, index: index }} />;
               })}
             </ul>
           </div>
@@ -54,9 +56,8 @@ class SortOverview extends React.Component {
           <div>
             <h1 className="sort-header"> Chronologically Sorted by Date</h1>
             <ul className="sorted-notes">
-              {this.state.sorted.map(note => {
-                const noteObj = { body: note[2], title: note[1], dateString: note[4] };
-                return <Note key={note[3]} note={noteObj} />;
+              {this.props.notes.map((note, index) => {
+                return <Note key={note._id} note={{ ...note, index: index }} />;
               })}
             </ul>
           </div>
@@ -67,67 +68,88 @@ class SortOverview extends React.Component {
 
   clickAlphabetically = () => {
     this.setState({ sort: 'alphabetically', reverse: false });
-    let sorted = [];
-    this.props.notes.map(note => {
-      return sorted.push([
-        note.title.toLowerCase(),
-        note.body,
-        note.id,
-        note.title,
-        note.dateString,
-      ]);
-    }, []);
-    sorted = sorted.sort();
-    this.setState({ sorted });
-    this.props.remove_edit();
+    axios.get(`${ROUTE}${this.props.user}`).then((data) => {
+      this.props.load_notes(data.data.foundNotes);
+      const notes = this.props.notes;
+      notes.sort((a, b) => {
+        if (a.title.toLowerCase() < b.title.toLowerCase()) {
+          return -1;
+        }
+        if (a.title.toLowerCase() > b.title.toLowerCase()) {
+          return 1;
+        }
+        return 0;
+      });
+      this.setState({ sorted: notes });
+      this.props.remove_edit();
+    });
   };
 
   clickChronologically = () => {
     this.setState({ sort: 'chronologically', reverse: false });
-    let sorted = [];
-    this.props.notes.map(note => {
-      return sorted.push([note.date, note.title, note.body, note.id, note.dateString]);
-    }, []);
-    sorted = sorted.sort();
-    this.setState({ sorted });
-    this.props.remove_edit();
+    axios.get(`${ROUTE}${this.props.user}`).then((data) => {
+      this.props.load_notes(data.data.foundNotes);
+      const notes = this.props.notes;
+      notes.sort((a, b) => {
+        if (a.date < b.title) {
+          return -1;
+        }
+        if (a.title > b.title) {
+          return 1;
+        }
+        return 0;
+      });
+      this.setState({ sorted: notes });
+      this.props.remove_edit();
+    });
   };
 
   clickRevAlphabetically = () => {
     this.setState({ sort: 'alphabetically', reverse: true });
-    let sorted = [];
-    this.props.notes.map(note => {
-      return sorted.push([
-        note.title.toLowerCase(),
-        note.body,
-        note.id,
-        note.title,
-        note.dateString,
-      ]);
-    }, []);
-    sorted = sorted.sort();
-    sorted = sorted.reverse();
-    this.setState({ sorted });
-    this.props.remove_edit();
+    axios.get(`${ROUTE}${this.props.user}`).then((data) => {
+      this.props.load_notes(data.data.foundNotes);
+      const notes = this.props.notes;
+      notes.sort((a, b) => {
+        if (a.title.toLowerCase() < b.title.toLowerCase()) {
+          return -1;
+        }
+        if (a.title.toLowerCase() > b.title.toLowerCase()) {
+          return 1;
+        }
+        return 0;
+      });
+      notes.reverse();
+      this.setState({ sorted: notes });
+      this.props.remove_edit();
+    });
   };
 
   clickRevChronologically = () => {
     this.setState({ sort: 'chronologically', reverse: true });
-    let sorted = [];
-    this.props.notes.map(note => {
-      return sorted.push([note.date, note.title, note.body, note.id, note.dateString]);
-    }, []);
-    sorted = sorted.sort();
-    sorted = sorted.reverse();
-    this.setState({ sorted });
-    this.props.remove_edit();
+    axios.get(`${ROUTE}${this.props.user}`).then((data) => {
+      this.props.load_notes(data.data.foundNotes);
+      const notes = this.props.notes;
+      notes.sort((a, b) => {
+        if (a.date < b.title) {
+          return -1;
+        }
+        if (a.title > b.title) {
+          return 1;
+        }
+        return 0;
+      });
+      notes.reverse();
+      this.setState({ sorted: notes });
+      this.props.remove_edit();
+    });
   };
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     notes: state.currentUserNotes,
+    user: state.currentUser,
   };
 };
 
-export default connect(mapStateToProps, { remove_edit })(SortOverview);
+export default connect(mapStateToProps, { remove_edit, load_notes })(SortOverview);
