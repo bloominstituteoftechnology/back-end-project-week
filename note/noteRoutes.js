@@ -43,8 +43,8 @@ noteRouter.get('/', validateToken, function(req, res){
 });
 
 noteRouter.put('/', validateToken, function(req, res){
-  const { id, contest, title } = req.body;
-  const { userId } = req.decode;
+  const { id, content, title } = req.body;
+  const { userId } = req.decoded;
   Note.findOneAndUpdate({ _id: id, user: userId }, { $set: { title, content }}, { new: true }, function(err, note){
     if(err){
       res.send(err);

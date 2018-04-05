@@ -5,7 +5,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 userRouter.post('/signup', function(req, res){
-	console.log('you hit here');
 	const { name, email, password } = req.body;
 	const user = new User();
 	user.name = name;
@@ -35,9 +34,10 @@ userRouter.post('/login', function(req, res){
 			bcrypt.compare(password, user.password, function(err, valid) {
     			if(!valid){
     				res.json({success: false, message: 'Wrong email or password'});
-    			}
-    			const token = jwt.sign(userObject, 'TOKEN_SECRET', { expiresIn: '1000h' });
-        		res.json({success: true, token: token, name: user.name });
+    			}else{
+    				const token = jwt.sign(userObject, 'TOKEN_SECRET', { expiresIn: '1000h' });
+        		   res.json({success: true, token: token, name: user.name });
+        		}
 			});
 		}
 	});
