@@ -3,7 +3,8 @@ const Note = require('../models/noteModel');
 
 const addNote = (req, res) => {
   const { title, content, userId } = req.body;
-  const note = { title, content };
+  const date = new Date();
+  const note = { title, content, date };
   const newNote = new Note(note);
 
   newNote
@@ -22,3 +23,4 @@ const addNote = (req, res) => {
 module.exports = {
   addNote,
 };
+//

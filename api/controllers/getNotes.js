@@ -1,6 +1,7 @@
 const User = require('../models/userModel');
 
 const getNotes = (req, res) => {
+  let finalData = [art, rob, jon];
   const { username } = req.body;
   User.findById(_id)
     .populate('notes')

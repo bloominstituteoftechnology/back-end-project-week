@@ -1,4 +1,6 @@
 import axios from 'axios';
+axios.defaults.withCredentials = true;
+
 export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
 export const USER_CREATE = 'USER_CREATE';
 export const LOGIN = 'LOGIN';
@@ -31,7 +33,7 @@ export const userCreate = (username, password, confirmPassword, history) => {
     axios
       .post(`${APIroot}/api/users`, { username, password })
       .then(res => {
-        dispatch({ type: USER_CREATE });
+        dispatch({ type: USER_CREATE, payload: res.data });
         history.push('/login');
       })
       .catch(err => {
@@ -43,14 +45,14 @@ export const userCreate = (username, password, confirmPassword, history) => {
   };
 };
 
-export const login = (username, password, history) => {
+export const userLogin = (username, password, history) => {
   return dispatch => {
     axios
       .post(`${APIroot}/api/login`, { username, password })
       .then(res => {
-        localStorage.setItem('token', res.data.token);
-        dispatch({ type: LOGIN });
-        history.push('/jokes');
+        sessionStorage.setItem('id', res.data);
+        dispatch({ type: LOGIN, payload: res.data });
+        history.push('/');
       })
       .catch(err => {
         if (err.response.data.error)
@@ -59,21 +61,31 @@ export const login = (username, password, history) => {
   };
 };
 
-export const logout = () => {
-  // localStorage.removeItem('token');
-  // return { type: LOGOUT };
+export const userLogout = history => {
+  return dispatch => {
+    axios
+      .post(`${APIroot}/api/logout`)
+      .then(res => {
+        sessionStorage.removeItem('id');
+        dispatch({ type: LOGOUT });
+        history.push('/');
+      })
+      .catch(err => {
+        if (err) dispatch(authError(err));
+      });
+  };
 };
 
 //
 //
 // ─── NOTE ACTIONS ───────────────────────────────────────────────────────────────
 //
-export const getNotes = (id) => {
-  const notes = axios.get(`${APIroot}/api/notes`, id);
+export const getNotes = id => {
+  const notes = axios.get(`${APIroot}/api/notes/${id}`);
   return dispatch => {
     notes
-      .then(payload => {
-        dispatch({ type: GET_NOTES, payload: payload.data });
+      .then(res => {
+        dispatch({ type: GET_NOTES, payload: res.data.notes });
       })
       .catch(error => {
         console.log(
@@ -127,4 +139,5 @@ export const deleteNote = oldNote => {
         );
       });
   };
+  //
 };

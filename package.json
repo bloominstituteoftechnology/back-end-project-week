@@ -17,8 +17,12 @@
     "bcrypt": "^1.0.3",
     "cors": "^2.8.4",
     "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "express-sessions": "^1.0.6",
     "mongoose": "^5.0.12",
-    "mongoose-types": "^1.0.3"
+    "mongoose-types": "^1.0.3",
+    "node": "^9.10.1",
+    "sessions": "0.0.2-7"
   },
   "bugs": {
     "url": "https://github.com/EricHech/back-end-project-week/issues"

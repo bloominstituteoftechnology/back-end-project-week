@@ -1,15 +1,14 @@
-const { userCreate } = require('../controllers/userCreate');
+////// Note Controllers ////////
 const { getNotes } = require('../controllers/getNotes');
 const { addNote } = require('../controllers/addNote');
-
+////// User Controllers ////////
+const { userLogin } = require('../controllers/userLogin');
+const { userCreate } = require('../controllers/userCreate');
+//////Server Routes ////////
 module.exports = server => {
-  server
-    .route('/api/notes')
-    .get(getNotes)
-    .post(addNote);
-  server
-  .route('/api/users')
-  .post(userCreate);
-  server
-  .route('/api/login'); //.post(login);
+  server.route('/api/login').post(userLogin);
+  server.route('/api/notes/:id').get(getNotes);
+  server.route('/api/notes/').post(addNote);
+  server.route('/api/users').post(userCreate);
 };
+//
