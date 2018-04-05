@@ -20,10 +20,6 @@ server.use(session({
 
 routes(server);
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('lambda-notes/build'));
-}
-
 module.exports = {
   server
 };
