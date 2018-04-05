@@ -130,12 +130,77 @@ describe('Users', () => {
       });
     });
   });
-// });
+});
 
-// describe('Notes', () => {
-//   describe('[POST] /api/users', () => {
-//     it('should do a thing', (done) => {
+describe('Notes', () => {
+  let token;
 
-//     });
-//   });
+  before(done => {
+    mongoose.Promise = global.Promise;
+    mongoose.connect('mongodb://localhost/newtest');
+    const db = mongoose.connection;
+    db.on('error', () => console.error.bind(console, 'connection error'));
+    db.once('open', () => {
+      console.log('we are connected');
+      done();
+    });
+  });
+
+  after(done => {
+    mongoose.connection.db.dropDatabase(() => {
+      mongoose.connection.close(done);
+      console.log('we are disconnected');
+    });
+  });
+
+  beforeEach(async () => {
+    const user3 = new User({
+      name: 'monkey7',
+      password: 'bananas'
+    });
+    const user4 = new User({
+      name: 'Torque',
+      password: 'blorp'
+    });
+    await user3.save();
+    await user4.save();
+  });
+
+  afterEach(done => {
+    // simply remove the collections from your DB.
+    User.remove({}, (err) => {
+      if (err) {
+        console.error(err);
+      }
+      done();
+    });
+  });
+
+  describe('[POST] /api/notes', () => {
+    it('should return a message and note id when adding a note', (done) => {
+      const test = {
+        name: 'monkey7',
+        password: 'bananas'
+      };
+      const testNote = {
+        title: 'testnote1',
+        content: 'This is content. Are you content?'
+      };
+      chai.request(server)
+      .post('/api/login')
+      .send(test)
+      .end((err, res) => {
+        chai.request(server)
+        .post('/api/notes')
+        .set("Authorization", res.body.token)
+        .send(testNote)
+        .end((error, response) => {
+          expect(response.status).to.equal(200);
+          expect(response.body.message).to.equal('Note successfully saved.');
+          expect(response.body.id).to.not.be.undefined;
+          done();
+        });
+      });
+    });
+  });
 });
