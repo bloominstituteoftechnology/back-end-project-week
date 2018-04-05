@@ -32,7 +32,7 @@ const NoteDetailsStyled = styled.div`
     padding-left: 10px;
     cursor: pointer;
     font-weight: bold;
-    
+
     &:hover {
       text-decoration: underline;
     }
@@ -43,7 +43,7 @@ const NoteDetailsStyled = styled.div`
     white-space: pre-line;
     padding-bottom: 15px;
     line-height: 25px;
-    }
+  }
 
   ul {
     padding-left: 20px;
@@ -55,17 +55,20 @@ const NoteDetailsStyled = styled.div`
     list-style-type: decimal;
   }
 
-  li, tbody {
+  li,
+  tbody {
     font-size: 1rem;
     line-height: 25px;
   }
 
-  thead, td {
+  thead,
+  td {
     border: 1px dashed rgb(166, 166, 166);
     padding: 10px;
   }
 
-  th, table {
+  th,
+  table {
     border: 1px solid rgb(166, 166, 166);
     padding: 10px;
     background-color: rgb(243, 243, 243);
@@ -101,21 +104,21 @@ class NoteDetails extends Component {
   state = {
     title: '',
     content: '',
-    id: '',
-  }
+    _id: ''
+  };
 
   componentDidMount() {
     this.setState({
       title: this.props.noteDetails.title,
       content: this.props.noteDetails.content,
-      id: this.props.noteDetails.id,
-    })
-    window.scrollTo(0, 0)
+      _id: this.props.noteDetails._id
+    });
+    window.scrollTo(0, 0);
   }
 
   handleDelete = () => {
     this.props.showDeleteModal();
-  }
+  };
 
   render() {
     return (
@@ -127,9 +130,12 @@ class NoteDetails extends Component {
             <a onClick={this.props.showDeleteModal}>Delete</a>
           </div>
         </header>
-        <ReactMarkdown source={this.state.content} className="NoteDetails_Content"/>
+        <ReactMarkdown
+          source={this.state.content}
+          className="NoteDetails_Content"
+        />
       </NoteDetailsStyled>
-    )
+    );
   }
 } // NoteDetails Component
 

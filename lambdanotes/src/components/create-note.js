@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import styled from "styled-components";
+import React, { Component } from 'react';
+import styled from 'styled-components';
 
 // Styles
 const CreateNoteStyled = styled.div`
@@ -33,7 +33,7 @@ const CreateNoteStyled = styled.div`
     margin-top: 20px;
     font-size: 1rem;
   }
-  
+
   .NoteContentInput {
     width: 80%;
     height: 300px;
@@ -42,7 +42,8 @@ const CreateNoteStyled = styled.div`
     resize: none;
   }
 
-  input, textarea {
+  input,
+  textarea {
     outline: 1px solid rgba(0 0 0 0);
     border-style: solid;
     border: 1px solid grey;
@@ -52,7 +53,7 @@ const CreateNoteStyled = styled.div`
       outline: 1px solid rgba(0 0 0 0);
       border: 1px solid black;
     }
-    
+
     &:focus {
       outline: 1px solid rgb(94, 190, 195);
       border: 1px solid rgb(94, 190, 195);
@@ -79,11 +80,10 @@ class CreateNote extends Component {
   handleSave = () => {
     let newNote = {
       title: this.state.title,
-      content: this.state.content,
-      // id: this.props.getNextId()
-    }
+      content: this.state.content
+    };
     this.props.saveNewNote(newNote);
-  }
+  };
 
   render() {
     return (

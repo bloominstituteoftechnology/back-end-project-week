@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'; //eslint-disable-line
 import styled from 'styled-components';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown'; //eslint-disable-line
 
 const NoteStyled = styled.a`
   display: flex;

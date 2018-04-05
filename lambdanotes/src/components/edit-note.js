@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import styled from "styled-components"
+import React, { Component } from 'react';
+import styled from 'styled-components';
 
 // Styles
 const EditNoteStyled = styled.div`
@@ -42,7 +42,8 @@ const EditNoteStyled = styled.div`
     resize: none;
   }
 
-  input, textarea {
+  input,
+  textarea {
     outline: 1px solid rgba(0 0 0 0);
     border-style: solid;
     border: 1px solid grey;
@@ -52,7 +53,7 @@ const EditNoteStyled = styled.div`
       outline: 1px solid rgba(0 0 0 0);
       border: 1px solid black;
     }
-    
+
     &:focus {
       outline: 1px solid rgb(94, 190, 195);
       border: 1px solid rgb(94, 190, 195);
@@ -66,16 +67,16 @@ class EditNote extends Component {
   state = {
     title: '',
     content: '',
-    id: '',
-  }
+    _id: ''
+  };
 
   componentDidMount() {
-    let { title, content, id } = this.props.noteDetails;
+    let { title, content, _id } = this.props.noteDetails;
     this.setState({
       title: title,
       content: content,
-      id: id,
-    })
+      _id: _id
+    });
   }
 
   handleTitleInput = event => {
@@ -84,16 +85,16 @@ class EditNote extends Component {
 
   handleContentInput = event => {
     this.setState({ content: event.target.value });
-  }
+  };
 
   handleUpdate = () => {
     let updatedNote = {
       title: this.state.title,
       content: this.state.content,
-      id: this.state.id,
-    }
+      _id: this.state._id
+    };
     this.props.updateNote(updatedNote);
-  }
+  };
 
   render() {
     return (
@@ -115,7 +116,7 @@ class EditNote extends Component {
         />
         <button onClick={this.handleUpdate}>Update</button>
       </EditNoteStyled>
-    )
+    );
   }
 } // Edit Note Component
 

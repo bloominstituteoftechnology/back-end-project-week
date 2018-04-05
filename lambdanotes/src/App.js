@@ -41,6 +41,7 @@ class App extends Component {
     showingNoteDetails: false,
     authenticated: false,
     username: '',
+    userId: '',
     notes: [],
     noteDetails: {
       title: '',
@@ -49,22 +50,11 @@ class App extends Component {
     }
   };
 
-  // componentDidMount() {
-  //   const notesRef = firebase.database().ref('notes');
-  //   notesRef.on('value', snapshot => {
-  //     let notes = snapshot.val();
-  //     let newState = [];
-  //     for (let note in notes) {
-  //       newState.push({
-  //         // id: notes[note].id,
-  //         id: note,
-  //         title: notes[note].title,
-  //         content: notes[note].content
-  //       });
-  //     }
-  //     this.setState({ notes: newState });
-  //   });
-  // }
+  componentDidMount() {
+    if (this.state.authenticated) {
+      this.getNotes();
+    }
+  }
 
   loginUser = userInfo => {
     console.log(`${userInfo.username} just logged in`);
@@ -87,9 +77,21 @@ class App extends Component {
   logoutUser = () => {
     localStorage.removeItem('token');
     this.setState({
+      showingSignup: true,
+      showingLogin: false,
+      viewingNotes: true,
+      creatingNote: false,
+      editingNote: false,
+      showingNoteDetails: false,
       authenticated: false,
-      showLogin: true,
-      showSignup: false
+      username: '',
+      userId: '',
+      notes: [],
+      noteDetails: {
+        title: '',
+        content: '',
+        _id: ''
+      }
     });
   };
 
@@ -113,8 +115,8 @@ class App extends Component {
     axios
       .get(`http://localhost:5000/users/name/${this.state.username}`, header)
       .then(res => {
-        this.setState({ notes: res.data.notes });
-        console.log(this.state.username);
+        this.setState({ notes: res.data.notes, userId: res.data._id });
+        console.log(res.data.notes);
       })
       .catch(err => console.log(err));
   };
@@ -174,27 +176,41 @@ class App extends Component {
   };
 
   saveNewNote = note => {
-    const notesRef = firebase.database().ref('notes');
-    notesRef.push(note);
-    this.viewNotes();
+    const token = localStorage.getItem('token');
+    const header = { headers: { Authorization: token } };
+    note.createdBy = this.state.userId;
+    console.log(note);
+    axios
+      .post('http://localhost:5000/notes', note, header)
+      .then(res => {
+        console.log(res.data);
+      })
+      .then(() => this.getNotes())
+      .then(() => this.viewNotes())
+      .catch(err => console.log(err));
   };
 
   updateNote = updatedNote => {
+    const token = localStorage.getItem('token');
+    const header = { headers: { Authorization: token } };
     this.setState({ noteDetails: updatedNote });
-    let notesRef = firebase.database().ref(`/notes/${updatedNote.id}`);
-    notesRef.update(updatedNote).then(() => {
-      this.showNoteDetails(updatedNote.id);
-    });
-  };
-
-  getNextId = () => {
-    if (this.state.notes.length === 0) return 0;
-    else {
-      let lastNoteIndex = this.state.notes.length - 1;
-      let lastNote = this.state.notes[lastNoteIndex];
-      let nextId = lastNote.id + 1;
-      return nextId;
-    }
+    const updatedNoteInfo = {
+      title: updatedNote.title,
+      content: updatedNote.content
+    };
+    axios
+      .put(
+        `http://localhost:5000/notes/${updatedNote._id}`,
+        updatedNoteInfo,
+        header
+      )
+      .then(res => {
+        console.log(res.data);
+        this.setState({ noteDetails: res.data.updatedNote });
+      })
+      .then(() => this.getNotes())
+      .then(() => this.viewNotes())
+      .catch(err => console.log(err));
   };
 
   deleteNote = () => {
