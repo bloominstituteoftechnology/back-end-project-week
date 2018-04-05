@@ -121,7 +121,7 @@ server.post("/logout", (req, res) => {
       }
     })
     .catch(err => {
-      sendUserError(err);
+      res.send(err);
     });
 });
 
@@ -156,15 +156,15 @@ server.post("/api/notes", (req, res) => {
   });
 });
 
-server.delete("/api/notes/delete", (req, res) => {
-  const id = req.body.id;
-  console.log(id);
+server.delete("/api/notes/delete/:id", (req, res) => {
+  const id = req.params.id;
   Note.findByIdAndRemove(id)
     .then(deletedNote => {
-      res.status(200).json({ success: true });
+      console.log("deleted note is", deletedNote);
+      res.status(200).json(deletedNote);
     })
     .catch(err => {
-      sendUserError(err);
+      res.send(err);
     });
 });
 

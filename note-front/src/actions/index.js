@@ -38,7 +38,6 @@ export const getNotes = () => {
   axios 
     .get(`${ROOT_URL}/api/notes`)
       .then(res => {
-        console.log(res.data);
         dispatch({ type: NOTES_RECEIVED, payload: res.data });
       })
       .catch(err => {
@@ -64,18 +63,13 @@ export const createNote = (title, content) => {
   };
 };
 
-export const deleteNote = (id, notes) => {
-  var deletedNote = new Promise(function(resolve, reject) {
-    // let newNotes = notes.filter(note => {
-    //   return id !== note.id;
-    // });
-    // theNotes = newNotes;
-    // resolve(theNotes);
-  });
+export const deleteNote = (id) => {
+  console.log("ID in actions", id);
   return dispatch => {
     dispatch({ type: DELETING_NOTE });
-    deletedNote
+    axios.delete(`${ROOT_URL}/api/notes/delete/${id}`)
       .then(data => {
+        console.log("deleted note data", data);
         dispatch({ type: DELETE_NOTE, payload: data });
       })
       .catch(err => {
@@ -103,6 +97,7 @@ export const updateNote = updates => {
     dispatch({ type: UPDATING_NOTE });
     updatedNote
       .then(data => {
+        console.log(data);
         dispatch({ type: UPDATE_NOTE, payload: data });
       })
       .catch(err => {

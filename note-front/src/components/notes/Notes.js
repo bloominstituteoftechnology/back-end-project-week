@@ -13,19 +13,18 @@ import EditNoteForm from "./EditNoteForm";
 
 class Notes extends Component {
   handleDeleteNote = () => {
-    const { id } = this.props.noteSelected;
-    this.props.deleteNote(id, this.props.notes);
+    const id = this.props.noteSelected._id;
+    console.log("ID in notes", id);
+    this.props.deleteNote(id);
     this.handleShowNote({});
   };
 
   handleUpdateNote = data => {
-    console.log("handle update note", data);
     this.props.updateNote(data);
     this.handleShowNote({});
   };
 
   handleShowNote = note => {
-    console.log("Clicked on note");
     this.props.updateSingleNote(note);
   };
 
@@ -57,7 +56,6 @@ class Notes extends Component {
           ) : null}
         </div>
         {this.props.notes.map(note => {
-          console.log(note);
           return (
             <div
               className="note__card"

@@ -1,10 +1,14 @@
-import { 
-  RECIEVING_NOTES, NOTES_RECEIVED, 
-  CREATING_NOTE, NOTE_CREATED, 
-  DELETING_NOTE, DELETE_NOTE,
-  UPDATING_NOTE, UPDATE_NOTE,
+import {
+  RECIEVING_NOTES,
+  NOTES_RECEIVED,
+  CREATING_NOTE,
+  NOTE_CREATED,
+  DELETING_NOTE,
+  DELETE_NOTE,
+  UPDATING_NOTE,
+  UPDATE_NOTE,
   ERROR
-} from '../actions';
+} from "../actions";
 
 const initialState = {
   notes: [],
@@ -18,23 +22,27 @@ const initialState = {
 export const notesReducer = (state = initialState, action) => {
   switch (action.type) {
     case RECIEVING_NOTES:
-      return { ...state, fetchingNotes: true }; 
-    case NOTES_RECEIVED: 
+      return { ...state, fetchingNotes: true };
+    case NOTES_RECEIVED:
       return { ...state, fetchingNotes: false, notes: action.payload };
     case CREATING_NOTE:
       return { ...state, creatingNote: true };
     case NOTE_CREATED:
-      return { ...state, notes: [...state.notes, action.payload], creatingNote: false};
+      return {
+        ...state,
+        notes: [...state.notes, action.payload],
+        creatingNote: false
+      };
     case UPDATING_NOTE:
       return { ...state, updatingNote: true };
     case UPDATE_NOTE:
-      return { ...state, notes: action.payload, updatingNote: false };  
+      return { ...state, notes: action.payload, updatingNote: false };
     case DELETING_NOTE:
       return { ...state, deletingNote: true };
     case DELETE_NOTE:
-      return { ...state, notes: action.payload, deletingNote: false };  
+      return { ...state, notes: state.notes.filter(val => val._id !== action.payload.data._id), deletingNote: false };
     case ERROR:
-      return{
+      return {
         ...state,
         fetchingNotes: false,
         creatingNote: false,
