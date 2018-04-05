@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { search_results_clicked } from '../actions/index';
+import { search_results_clicked, load_notes } from '../actions/index';
 
 import './css/Search.css';
 
@@ -39,11 +39,11 @@ class Search extends React.Component {
     } else if (this.state.body === '') {
       results = this.search({ term: this.state.title, type: 'title' });
       this.props.search_results_clicked(results);
-    } else alert('Search either by title or body');
+    } else alert('Search either by title OR body');
   };
 
-  //This is sadly far less complicated than my previous attempt at search...
   search = term => {
+    this.props.load_notes(this.props.currentUser)
     let lowerTerm = term.term.toLowerCase();
     let results = [];
     const { notes } = this.props;
@@ -86,7 +86,8 @@ class Search extends React.Component {
 const mapStateToProps = state => {
   return {
     notes: state.currentUserNotes,
+    user: state.currentUser,
   };
 };
 
-export default connect(mapStateToProps, { search_results_clicked })(Search);
+export default connect(mapStateToProps, { search_results_clicked, load_notes })(Search);

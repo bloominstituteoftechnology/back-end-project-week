@@ -15,7 +15,7 @@ class SearchResults extends React.Component {
         ) : (
           <ul className="notes">
             {this.props.results.map((note, index) => {
-              return <Note key={note.id} note={{ ...note, index: index }} />;
+              return <Note key={note._id} note={{ ...note, index: index }} />;
             })}
           </ul>
         )}
