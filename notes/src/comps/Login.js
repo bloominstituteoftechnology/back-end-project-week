@@ -16,14 +16,9 @@ class Login extends React.Component {
     const { username, password } = this.state;
     if (!username || !password) {
       this.setState({ message: 'Please enter a username and a password.' });
-      return;
     }
     this.props.login({ username, password }, this.props.history);
   };
-
-  componentWillReceiveProps = (newProps) => {
-    this.setState({ message: newProps.error });
-  }
 
   updateField = event => {
     this.setState({
@@ -36,7 +31,7 @@ class Login extends React.Component {
     return (
       <div className="login__container">
         <div className="login__header">Login:</div>
-        { this.state.message && this.state.message }
+        {this.props.error || this.state.message}
         <form className="login__form" onSubmit={this.submitLogin}>
           <input
             type="text"
@@ -72,4 +67,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(null, { login })(Login);
