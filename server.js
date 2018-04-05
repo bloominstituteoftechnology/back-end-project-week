@@ -103,6 +103,34 @@ server.post('/users', (req, res) => {
     });
 });
 
+// login user
+server.post('/login', (req, res) => {
+  const username = req.body.username.toLowerCase();
+  const potentialPW = req.body.password;
+
+  if (!username || !potentialPW) {
+    res.json({ errorMessage: 'username and password required' });
+  }
+
+  User
+    .findOne({ username })
+    .then((foundUser) => {
+      foundUser.checkPassword(potentialPW, (err, isMatch) => {
+        if (isMatch) {
+          req.session.username = username;
+          res.status(200).json({ success: true, user: req.session.username });
+        } else {
+          res.status(500).json({ success: false});
+        }
+      });
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .json({ errorMessage: 'There was an error logging in' });
+    });
+});
+
 server.listen(PORT, err => {
   if (err) {
     console.error('Server error, not connecting', err);
