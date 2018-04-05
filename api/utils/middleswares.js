@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
+const { mysecret } = require('../../config');
 
 const User = require('../models/userModels');
-const { mysecret } = require('../../config');
 
 const authenticate = (req, res, next) => {
   const token = req.get('Authorization');
@@ -43,6 +43,6 @@ const authenticate = (req, res, next) => {
 // };
 
 module.exports = {
-  authenticate,
+  authenticate
   // hashPassword
 };

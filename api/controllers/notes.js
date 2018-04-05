@@ -5,11 +5,10 @@ const User = require('../models/userModels');
 
 const getNotes = (req, res) => {
   if (req.decoded) {
-    User.findOne({ username: req.username })
+    User.findOne({ username })
       .then(user => {
-        id = user._id;
-        Note.find({ author: id })
-          .then(notes => {
+        Note.find({ username: req.username })
+          .then(user => {
             res.json(notes);
           })
           .catch(err => {
@@ -38,12 +37,9 @@ const createNote = (req, res) => {
           author: user._id
         });
         newNote
-          .save()
-          .then(note => {
-            res.status(200).json(note);
-          })
-          .catch(err => {
-            res.status(500).json(err);
+          .save((err, note) => {
+            if (err) return res.json(err);
+            res.json(note);
           });
       })
       .catch(err => {
@@ -55,7 +51,7 @@ const createNote = (req, res) => {
 };
 
 const editNote = (req, res) => {
-  const { id, title, content } = req.body;
+  const { id } = req.params;
   const updateNote = {
     title,
     content
@@ -75,8 +71,8 @@ const editNote = (req, res) => {
 };
 
 const deleteNote = (req, res) => {
-  const { id } = req.body;
-
+  const { id } = req.params;
+  
   if (req.decoded) {
     Note.findByIdAndRemove(id)
       .then(note => {

@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const routes = require('./api/routes/routes');
 const path = require('path');
+const mongoose = require('mongoose');
 
 const server = express();
 const corsOptions = {
@@ -12,7 +13,13 @@ const corsOptions = {
 
 server.use(express.json());
 server.use(cors(corsOptions));
-server.use(express.static(path.join(__dirname, 'lambda-notes', 'build')))
+// server.use(express.static(path.join('lambda-notes/build')));
+
+mongoose.Promise = global.Promise;
+mongoose.connect(process.env.MONOGODB_URI || 'mongodb://localhost/lambda-notes');
+// mongoose.connect('mongodb://localhost/lambda-notes', {
+//   useMongoClient: true
+// });
 
 routes(server);
 
