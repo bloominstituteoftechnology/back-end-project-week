@@ -10,6 +10,35 @@ class Login extends Component {
     e.preventDefault();
     return this.setState({ [e.target.name]: e.target.value });
   };
+
+  userLogin = e => {
+    e.preventDefault();
+    let body = this.state;
+    if (body.username === '' || body.password === '')
+      return alert('Must have Username and Password to login.');
+    fetch('http://localhost:5000/login', {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        if (res.hasOwnProperty('success')) {
+          this.setState({
+            username: '',
+            password: ''
+          });
+          this.props.main.handleLogin(res.id);
+        } else {
+          alert('Incorrect Login: Check Username and Password');
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   handleNewUser = e => {
     e.preventDefault();
     let body = this.state;
@@ -18,15 +47,16 @@ class Login extends Component {
       body: JSON.stringify(body),
       headers: { 'Content-Type': 'application/json' }
     })
-      .then(pass => pass.json())
-      .then(pass => {
-        if (pass.hasOwnProperty('success')) {
-          console.log({ pass });
+      .then(res => res.json())
+      .then(res => {
+        if (res.hasOwnProperty('success')) {
+          console.log(res);
           this.setState({
             username: '',
             password: ''
           });
-          this.props.main.handleLogin();
+          let id = res.newUser._id;
+          this.props.main.handleLogin(id);
         } else {
           alert('Username already in use please choose another');
         }
@@ -37,11 +67,9 @@ class Login extends Component {
   };
 
   render() {
-    console.log({ newUser: this.state });
-    console.log({ props: this.props });
     return (
-      <div className="login">
-        <h1 className="loginTitle">Welcome to Notes</h1>
+      <div>
+        <h1 className="container">Welcome to Notes</h1>
         <form>
           <input
             name="username"
@@ -57,7 +85,7 @@ class Login extends Component {
             placeholder="Password"
             onChange={this.handleInput}
           />
-          <button>Login</button>
+          <button onClick={this.userLogin}>Login</button>
           <button onClick={this.handleNewUser}>Create New User</button>
         </form>
       </div>

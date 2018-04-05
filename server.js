@@ -32,13 +32,24 @@ server.post('/signup', (req, res) => {
     });
 });
 
-server.get('/users', (req, res) => {
-  User.find()
-    .then(users => {
-      res.status(200).send(users);
+server.post('/login', (req, res) => {
+  const { username, password } = req.body;
+
+  User.find({ username })
+    .then(user => {
+      user.checkPassword(password, (noMatch, hashMatch) => {
+        if (noMatch !== null) {
+          res.status(422).json({ error: 'passwords dont match' });
+          return;
+        }
+        if (hashMatch) {
+          let id = user[0]._id;
+          res.status(200).send({ success: 'User info Found.', id });
+        }
+      });
     })
     .catch(err => {
-      res.status(500).send({ fail: 'Problem getting users', err });
+      res.status(500).send(err);
     });
 });
 server.listen(PORT, () => {

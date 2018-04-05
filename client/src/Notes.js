@@ -10,6 +10,7 @@ import Login from './Components/Login';
 class Notes extends Component {
   state = {
     login: false,
+    userId: null,
     notes: [],
     view: {
       notes: false,
@@ -25,28 +26,13 @@ class Notes extends Component {
   componentDidMount() {
     this.SetViewNotes();
   }
-  handleLogin() {
-    try {
-      this.getNotes();
-      this.setState({ ...this.state });
-    } catch (err) {
-      console.log('Ay dios mio...');
-    }
+  handleLogin(id) {
+    this.setState({ ...this.state, login: true, userId: id });
   }
-  getNotes() {
-    fetch('http://localhost:5000/notes', { method: 'GET' })
-      .then(notes => {
-        this.setState({ ...this.state, login: true });
-        console.log(this.state.notes);
-      })
-      .catch(err => {
-        console.log({ err });
-      });
-  }
-
   render() {
+    console.log(this.state);
     return (
-      <div>
+      <div className="container">
         {!this.state.login ? (
           <Login main={this} />
         ) : (
