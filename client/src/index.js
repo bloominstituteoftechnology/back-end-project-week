@@ -9,8 +9,13 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import reducers from './reducers';
 import SignUp from './components/signup';
 import SignIn from './components/signin';
-//import RequireAuth from './components/RequireAuth';
+import RequireAuth from './components/RequireAuth';
 import SignOut from './components/signout';
+import SingleNote from './components/singleNote';
+import NoteForm from './components/noteForm';
+import DeleteModal from './components/deleteModal';
+import NoteList from './components/noteList';
+import SideBar from './components/sideBar';
 
 const sotreWithMW = applyMiddleware(thunk)(createStore);
 
@@ -21,8 +26,13 @@ ReactDOM.render(
         <Route path="/" component={App} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={SignIn} />
-        <Route path="/notes" /*{component={RequireAuth(Notes)}}*/ />
+        <Route path="/notelist" component={RequireAuth(SideBar)} />
         <Route path="/signout" component={SignOut} />
+        <Route path="/main" component={SideBar} />
+        <Route path="/notelist" component={NoteList} exact />} />
+        <Route path="/note/:id" component={SingleNote} />
+        <Route path="/noteform" component={NoteForm} exact />
+        <Route path="/delete/:id" component={DeleteModal} />
       </div>
     </Router>
   </Provider>,

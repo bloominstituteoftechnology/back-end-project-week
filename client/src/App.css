@@ -1,18 +1,127 @@
 .App {
   text-align: center;
+  display: flex;
+  max-width: 800px;
+  height: 100%;
+  background-color: #f8f8f6;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+.sidebar {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background-color: #e6e6e6;
+  padding: 0 15px 0 15px;
+  min-height: 800px;
+  height: initial;
+  width: 200px;
+}
+
+.title {
+  text-align: justify;
+  color: #5f645e;
+  font-family: 'Roboto', sans-serif;
+}
+
+.button {
+  width: 170px;
+  height: 40px;
   color: white;
+  margin: 0 0 15px 0;
+  font-size: 0.8rem;
+  font-family: 'Roboto', sans-serif;
 }
 
-.App-title {
-  font-size: 1.5em;
+.button--teal {
+  background-color: #06e7f4;
 }
 
-.App-intro {
-  font-size: large;
+.button--red {
+  background-color: red;
+}
+
+.note-container {
+  width: 600px;
+}
+.heading {
+  text-align: justify;
+  box-sizing: border-box;
+  margin: 50px 20px 0 20px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.4rem;
+}
+.notelist {
+  box-sizing: border-box;
+  width: 175px;
+  height: 175px;
+  text-align: left;
+  list-style-type: none;
+  border: 2px solid #e6e6e6;
+  padding: 0 10px 5px 10px;
+  background-color: white;
+  margin: 0 0 15px 0;
+}
+.note-container ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.notelist h4 {
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.notelist p {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.7rem;
+}
+
+.unstyledlink {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+/* Form */
+form {
+  display: flex;
+  flex-direction: column;
+}
+form .formtitle {
+  box-sizing: border-box;
+  width: 400px;
+  margin: 45px 20px 10px 20px;
+  padding: 10px 10px 10px 10px;
+}
+
+form .formtext {
+  box-sizing: border-box;
+  width: 550px;
+  height: 325px;
+  border: 2px solid #e6e6e6;
+  margin: 5px 20px 10px 20px;
+  padding: 10px 10px 10px 10px;
+}
+
+form .button {
+  margin: 0 0 0 20px;
+}
+
+.notetext {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1rem;
+  text-align: left;
+  margin: 40px 20px;
+  line-height: 1.5rem;
+}
+
+.modaltext {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1rem;
 }
