@@ -5,6 +5,7 @@ import axios from "axios";
 import Menu from "./components/menu/menu";
 import Home from "./components/home/home";
 import NewNote from "./components/newNote/newNote";
+import ViewNote from "./components/viewNote/viewNote";
 
 class App extends Component {
   constructor(props){
@@ -35,12 +36,12 @@ class App extends Component {
         </div>
 
         <div className="App__main">
-         <Route path="/" exact component={() => {
+          <Route path="/" exact component={() => {
            return <Home allNotes={this.state.allNotes}/>
           }} />
           <Route path="/newnote" exact component={NewNote} />
+          <Route path="/viewnote" exact component={ViewNote} />
         </div>
-        
       </div>
     );
   }
