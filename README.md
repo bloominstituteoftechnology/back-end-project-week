@@ -4,6 +4,15 @@ https://trello.com/b/KwWUcruO
 # Link to Deployed Front-End:
 https://lambda-notes-78324c.netlify.com
 
+# A note if you plan on cloning this:
+You will need to create a `config.js` file, the contents of which should appear as follows:
+
+```js
+module.exports = {
+  secret: 'Insert any secret of your choice.'
+};
+```
+
 # Quick and Dirty API Documentation:
 
 Base API can be found at https://warm-mountain-87424.herokuapp.com/
