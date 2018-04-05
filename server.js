@@ -2,6 +2,8 @@ const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
 
+const SECRET = process.env.SECRET;
+
 const routes = require('./api/routes/routes');
 
 const server = express();
@@ -14,7 +16,7 @@ server.use(express.json());
 server.use(cors(corsOptions));
 server.use(
   session({
-    secret: 'e5SPiqsEtjexkTj3Xqovsjzq8ovjfgVDFMfUzSmJO21dtXs4re',
+    secret: SECRET,
     resave: true,
     saveUninitialized: false,
   })

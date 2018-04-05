@@ -1,10 +1,7 @@
-const mysecret = 'Hello world';
+const mysecret = 'e5SPiqsEtjexkTj3Xqovsjzq8ovjfgVDFMfUzSmJO21dtXs4re';
 const port = 5000;
-const MONGO_CONNECT =
-  '@ds217349.mlab.com:17349/lambda-notes';
 
 module.exports = {
   mysecret,
   port,
-  MONGO_CONNECT,
 };
