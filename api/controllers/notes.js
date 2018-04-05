@@ -5,10 +5,11 @@ const User = require('../models/userModels');
 
 const getNotes = (req, res) => {
   if (req.decoded) {
-    User.findOne({ username })
+    User.findOne({ username: req.username })
       .then(user => {
-        Note.find({ username: req.username })
-          .then(user => {
+        id = user._id;
+        Note.find({ author: id })
+          .then(notes => {
             res.json(notes);
           })
           .catch(err => {
@@ -52,6 +53,7 @@ const createNote = (req, res) => {
 
 const editNote = (req, res) => {
   const { id } = req.params;
+  const { title, content } = req.body;
   const updateNote = {
     title,
     content
@@ -72,7 +74,7 @@ const editNote = (req, res) => {
 
 const deleteNote = (req, res) => {
   const { id } = req.params;
-  
+
   if (req.decoded) {
     Note.findByIdAndRemove(id)
       .then(note => {
