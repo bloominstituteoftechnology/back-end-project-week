@@ -12,10 +12,10 @@ const corsOptions = {
   credentials: true,
 };
 
-server.options('*', cors());
 
 server.use(express.json());
 server.use(cors(corsOptions));
+server.options('*', cors());
 
 // server.all('*', function(req, res, next) {
 //   var origin = req.get('origin');
