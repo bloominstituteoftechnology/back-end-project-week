@@ -1,17 +1,21 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const session = require('express-session');
+const bcrypt = require('bcrypt');
 
-const Note = require('./src/models/notes-model');
+const Note = require('./src/models/note-model');
 
 const PORT = 5000;
 const server = express();
 
 server.use(express.json());
+server.use(session({
+  secret: 'e5SPiqsEtjexkTj3Xqovsjzq8ovjfgVDFMfUzSmJO21dtXs4re',
+  resave: true,
+  saveUninitialized: false,
+}));
 
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/notes');
-
-server.get('/', (req, res) => {
+// get all notes
+server.get('/notes', (req, res) => {
   Note.find({}, (err, notes) => {
     if (err) {
       res.status(500);
@@ -22,6 +26,7 @@ server.get('/', (req, res) => {
   });
 });
 
+// get specific note
 server.get('/notes/:id', (req, res) => {
   const { id } = req.params;
   Note.findById(id, (err, note) => {
@@ -30,6 +35,7 @@ server.get('/notes/:id', (req, res) => {
   });
 });
 
+// add note
 server.post('/notes', (req, res) => {
   const noteInfo = req.body;
   const note = new Note(noteInfo);
@@ -43,16 +49,18 @@ server.post('/notes', (req, res) => {
     });
 });
 
+// udpate note
 server.post('/notes/:id', (req, res) => {
   const { id } = req.params;
   const updatedNoteInfo = req.body;
   Note
     .findByIdAndUpdate(id, updatedNoteInfo, { new: true }, (err, updatedNote) => {
       if (err) console.error(err);
-      res.status(200).send(`note has been updated! ${updatedNote}`);
+      res.status(200).json({ message: 'note has been updated!', updatedNote });
     });
 });
 
+//delete note
 server.delete('/notes/:id', (req, res) => {
   const { id } = req.params;
   Note

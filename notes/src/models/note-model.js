@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema;
 
-const noteSchema = new Schema({
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/notes');
+
+const NoteSchema = new Schema({
   title: {
     type: String,
     required: true,
@@ -20,4 +24,4 @@ const noteSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model('Note', noteSchema);
+module.exports = mongoose.model('Note', NoteSchema);
