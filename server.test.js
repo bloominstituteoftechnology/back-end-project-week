@@ -257,6 +257,120 @@ describe('Notes', () => {
       });
     });
   });
+  
+  describe('[PUT] /api/notes', () => {
+    it('should return the new note', (done) => {
+      const testUser = {
+        name: 'monkey7',
+        password: 'bananas'
+      };
+      const testNote = {
+        title: 'testnote1',
+        content: 'This is content. Are you content?'
+      };
+      chai.request(server)
+      .post('/api/login')
+      .send(testUser)
+      .end(async (err, res) => {
+        testNote.author = res.body.id.toString();
+        const newNote = new Note(testNote);
+        await newNote.save();
+        Note.find()
+        .then(notes => {
+          chai.request(server)
+          .put('/api/notes')
+          .set("Authorization", res.body.token)
+          .send({ title: 'Changed title', content: 'Changed content', _id: notes[0]._id })
+          .end((error, response) => {
+            expect(response.status).to.equal(200);
+            expect(response.body.title).to.equal('Changed title');
+            expect(response.body.content).to.equal('Changed content');
+            expect(response.body.message).to.be.undefined;
+            done();
+          });
+        })
+        .catch(error => {
+          console.error(error)
+          done();
+        });
+      });
+    });
+
+    it('should return an error message when given the wrong author', (done) => {
+      const testUser = {
+        name: 'monkey7',
+        password: 'bananas'
+      };
+      const testNote = {
+        title: 'testnote1',
+        content: 'This is content. Are you content?'
+      };
+      chai.request(server)
+      .post('/api/login')
+      .send(testUser)
+      .end(async (err, res) => {
+        testNote.author = '5ac2a5e33391d7302457ee6b';
+        const newNote = new Note(testNote);
+        await newNote.save();
+        Note.find()
+        .then(notes => {
+          chai.request(server)
+          .put('/api/notes')
+          .set("Authorization", res.body.token)
+          .send({ title: 'Changed title', content: 'Changed content', _id: notes[0]._id })
+          .end((error, response) => {
+            expect(response.status).to.equal(422);
+            expect(response.body.title).to.be.undefined;
+            expect(response.body.content).to.be.undefined;
+            expect(response.body.message).to.equal('Wrong Author.');
+            done();
+          });
+        })
+        .catch(error => {
+          console.error(error)
+          done();
+        });
+      });
+    });
+    
+    it('should return an error message when given the wrong note id', (done) => {
+      const testUser = {
+        name: 'monkey7',
+        password: 'bananas'
+      };
+      const testNote = {
+        title: 'testnote1',
+        content: 'This is content. Are you content?'
+      };
+      chai.request(server)
+      .post('/api/login')
+      .send(testUser)
+      .end(async (err, res) => {
+        testNote.author = '5ac2a5e33391d7302457ee6b';
+        const newNote = new Note(testNote);
+        await newNote.save();
+        Note.find()
+        .then(notes => {
+          chai.request(server)
+          .put('/api/notes')
+          .set("Authorization", res.body.token)
+          .send({ title: 'Changed title', content: 'Changed content', _id: '5ac2a5e33391d7302457ee6b' })
+          .end((error, response) => {
+            expect(response.status).to.equal(422);
+            expect(response.body.title).to.be.undefined;
+            expect(response.body.content).to.be.undefined;
+            expect(response.body.message).to.equal('Note by that Id was not found.');
+            done();
+          });
+        })
+        .catch(error => {
+          console.error(error)
+          done();
+        });
+      });
+    });
+
+  });
 
   
 });
