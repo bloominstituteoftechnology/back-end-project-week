@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-
+const Note = require('./noteSchema');
 const Schema = mongoose.Schema;
 
 const SALT_ROUNDS = 11;
@@ -16,6 +16,12 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  notes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Note',
+    }
+  ],
 });
 
 UserSchema.pre('save', function (next) {
