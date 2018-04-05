@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/notes');
+mongoose.connect('mongodb://localhost/users');
 
 const UserSchema = new Schema({
   username: { type: String, required: true, unique: true, lowercase: true },
