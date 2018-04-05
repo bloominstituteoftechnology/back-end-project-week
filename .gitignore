@@ -1,4 +1,5 @@
 /node_modules
+/lambdanotes/lambdanotesclient
 config.js
 
 npm-debug.log*

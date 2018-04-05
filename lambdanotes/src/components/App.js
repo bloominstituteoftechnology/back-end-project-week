@@ -12,7 +12,8 @@ import EditNote from './EditNote';
 
 import './App.css';
 
-const ROOT_URL = 'http://localhost:5000/api';
+//const ROOT_URL = 'http://localhost:5000/api';
+const ROOT_URL = 'https://warm-mountain-87424.herokuapp.com/api'
 
 export default class App extends React.Component {
   nextId = 0;
