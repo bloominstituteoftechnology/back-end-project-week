@@ -23,15 +23,15 @@ userRouter.post('/signup', function(req, res){
 userRouter.post('/login', function(req, res){
 	const { email, password } = req.body;
 	User.findOne({ email }).then(user => {
-		userObject = {
-			username: user.name,
-			email: user.email,
-			userId: user._id
-		}
 		if(!user){
 			res.json({success: false, message: 'Wrong email or password'});
 		}
 		if(user){
+			userObject = {
+			username: user.name,
+			email: user.email,
+			userId: user._id
+		}
 			bcrypt.compare(password, user.password, function(err, valid) {
     			if(!valid){
     				res.json({success: false, message: 'Wrong email or password'});
