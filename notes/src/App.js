@@ -7,12 +7,41 @@ import styled from 'styled-components';
 import CreateNewNoteForm from './components/CreateNewNoteForm';
 import Search from './components/Search';
 import SignUp from './components/SignUp';
+import SignIn from './components/SignIn';
 import Details from './components/Details';
 import UpdateNote from './components/UpdateNote';
 import SearchResults from './components/SearchResults';
 import {connect} from 'react-redux';
+import {logOut} from './actions'
 
 class App extends Component {
+
+    state = {
+        userName: ''
+    };
+
+    componentWillMount(){
+        const cookies = document.cookie.split(";");
+        console.log('cookies::', cookies);
+
+        const resp = JSON.parse(sessionStorage.getItem('user'));
+
+        if(resp !== null) {
+            console.log('username', resp.data.user.name);
+            this.setState({
+                userName: resp.data.user.name
+            });
+        }
+
+    }
+
+    logOut = () => {
+        console.log('clickeado ologout');
+        sessionStorage.clear();
+        this.props.logOut();
+    };
+
+
     render() {
         return (
             <AppContainer>
@@ -25,6 +54,17 @@ class App extends Component {
                                     Lambda Notes
                                 </div>
 
+                                {console.log('this.state', this.state.userName)}
+
+                                {(this.state.userName !== '')
+                                    ?
+                                    <div>
+                                        {this.state.userName}
+                                    </div>
+                                    :
+                                    ''
+                                }
+
                                 <div className={'btn-side'}>
                                     <Link to="/" className={"btn-text"}> View Your Notes </Link>
                                 </div>
@@ -33,9 +73,18 @@ class App extends Component {
                                     <Link to="/create_new_note" className={"btn-text"}> + Create New Note</Link>
                                 </div>
 
-                                <div className={'btn-side'}>
-                                    <Link to="/sign_up" className={"btn-text"}> + Sign Up</Link>
-                                </div>
+                                {(this.state.userName !== '')
+                                    ?
+                                    <div className={'btn-side'}>
+                                        <div onClick={() => {this.logOut()}} className={"btn-text"}> - LogOut</div>
+                                    </div>
+                                    :
+                                    <div className={'btn-side'}>
+                                        <Link to="/sign_up" className={"btn-text"}> + Sign Up</Link>
+                                    </div>
+                                }
+
+
 
                             </Col>
                             <Col xs={12} md={9} className={"components-container"}>
@@ -48,6 +97,7 @@ class App extends Component {
                                             <Route path="/details/:id" component={Details} />
                                             <Route path="/update/:id" component={UpdateNote} />
                                             <Route path="/sign_up" component={SignUp} />
+                                            <Route path="/sign_in" component={SignIn} />
 
                                         </div>
                                 }
@@ -74,7 +124,7 @@ const mapStateToProps = state => {
         searching: notes_reducer.searching,
     }
 };
-export default connect(mapStateToProps, {})(App);
+export default connect(mapStateToProps, {logOut})(App);
 
 
 const AppContainer = styled.div`

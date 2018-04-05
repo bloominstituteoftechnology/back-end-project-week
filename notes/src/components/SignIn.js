@@ -1,20 +1,18 @@
 import React, {Component} from 'react';
-import {FormGroup, FormControl, Row, Col, Grid} from 'react-bootstrap';
 import styled from 'styled-components';
-import {addNote, secureComponent} from '../actions'
+import {FormGroup, FormControl, Row, Col, Grid} from 'react-bootstrap';
+import {signInUser} from '../actions';
 import {connect} from 'react-redux';
 
-class CreateNewNoteForm extends Component {
 
+class SignIn extends Component {
     state = {
-        notes: [],
-        title: '',
-        description: '',
-        tags: '',
+        email: '',
+        password: '',
     };
 
-    componentDidMount(){
-        this.props.secureComponent();
+    componentDidMount() {
+        console.log('componentDidMount SIGNIN::', this.props.userName);
     }
 
     updateField = (e) => {
@@ -23,17 +21,17 @@ class CreateNewNoteForm extends Component {
         });
     };
 
-    addNote = () => {
-        this.props.addNote(this.state);
+    signInUser = () => {
+        this.props.signInUser(this.state);
     };
 
     render() {
         return (
-            <CreateNewNoteFormContainer>
+            <SignInContainer>
                 <Grid>
                     <Row className="show-grid">
                         <Col md={6} className={"col-up"}>
-                            <h3 className={'top-title'}>Create New Note:</h3>
+                            <h3 className={'top-title'}>SignIn:</h3>
                         </Col>
                     </Row>
 
@@ -43,34 +41,26 @@ class CreateNewNoteForm extends Component {
                                 <Col md={12} className={"col-up"}>
                                     <form>
                                         <FormGroup>
+
                                             <FormControl
-                                                type="text"
-                                                value={this.state.title}
-                                                placeholder="Title"
+                                                type="email"
+                                                value={this.state.email}
+                                                placeholder="Email"
                                                 onChange={this.updateField}
-                                                name={"title"}
+                                                name={"email"}
                                             />
                                             <br/>
                                             <FormControl
-                                                componentClass="textarea"
-                                                type="textarea"
-                                                value={this.state.description}
-                                                placeholder="Description"
+                                                type="password"
+                                                value={this.state.password}
+                                                placeholder="Password"
                                                 onChange={this.updateField}
-                                                name={"description"}
-                                            />
-                                            <br/>
-                                            <FormControl
-                                                type="text"
-                                                value={this.state.tags}
-                                                placeholder="Tags"
-                                                onChange={this.updateField}
-                                                name={"tags"}
+                                                name={"password"}
                                             />
                                             <div className={"btn-update"}>
 
-                                                <div onClick={() => {this.addNote()}} className={'btn-side create-new'}>
-                                                    <div className={"btn-text"}> Save </div>
+                                                <div onClick={() => {this.signInUser()}} className={'btn-side create-new'}>
+                                                    <div className={"btn-text"}> SignIn </div>
                                                 </div>
 
                                             </div>
@@ -82,15 +72,21 @@ class CreateNewNoteForm extends Component {
                     </Row>
 
                 </Grid>
-            </CreateNewNoteFormContainer>
-
+            </SignInContainer>
         )}
-
 }
 
-export default connect(null, {addNote, secureComponent})(CreateNewNoteForm);
+const mapStateToProps = state => {
+    const {users_reducer} = state;
+    return {
+        userName: users_reducer.userName,
+        user: users_reducer.user,
+    }
+};
 
-const CreateNewNoteFormContainer = styled.div`
+export default connect(mapStateToProps, {signInUser})(SignIn);
+
+const SignInContainer = styled.div`
     text-align:left;
     margin-top:10px;
     

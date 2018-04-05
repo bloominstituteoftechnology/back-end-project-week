@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 import {FormGroup, FormControl, Row, Col, Grid} from 'react-bootstrap';
-import {signUpUser} from '../actions'
+import {signUpUser, extendTokenLife} from '../actions'
 import {connect} from 'react-redux';
-
 
 class SignUp extends Component {
     state = {
@@ -22,54 +21,81 @@ class SignUp extends Component {
         this.props.signUpUser(this.state);
     };
 
+    extendTokenLife = (e) => {
+        e.preventDefault();
+        console.log('extendTokenLife', e.target);
+        this.props.extendTokenLife();
+    };
+
     render() {
         return (
             <SignUpContainer>
                 <Grid>
                     <Row className="show-grid">
+                    {this.props.userName === ''
+                        ?
                         <Col md={6} className={"col-up"}>
                             <h3 className={'top-title'}>SignUp:</h3>
                         </Col>
+                        :
+                        <Col md={8} className={"col-up"}>
+                            <h3 className={'top-title'}>Welcome {this.props.userName}</h3>
+                        </Col>
+                    }
+
                     </Row>
 
                     <Row>
                         <Grid>
                             <Row className="show-grid">
                                 <Col md={12} className={"col-up"}>
-                                    <form>
-                                        <FormGroup>
-                                            <FormControl
-                                                type="text"
-                                                value={this.state.name}
-                                                placeholder="Name"
-                                                onChange={this.updateField}
-                                                name={"name"}
-                                            />
-                                            <br/>
-                                            <FormControl
-                                                type="email"
-                                                value={this.state.email}
-                                                placeholder="Email"
-                                                onChange={this.updateField}
-                                                name={"email"}
-                                            />
-                                            <br/>
-                                            <FormControl
-                                                type="password"
-                                                value={this.state.password}
-                                                placeholder="Password"
-                                                onChange={this.updateField}
-                                                name={"password"}
-                                            />
-                                            <div className={"btn-update"}>
+                                    {this.props.userName === ''
+                                        ?
+                                        <form>
+                                            <FormGroup>
+                                                <FormControl
+                                                    type="text"
+                                                    value={this.state.name}
+                                                    placeholder="Name"
+                                                    onChange={this.updateField}
+                                                    name={"name"}
+                                                />
+                                                <br/>
+                                                <FormControl
+                                                    type="email"
+                                                    value={this.state.email}
+                                                    placeholder="Email"
+                                                    onChange={this.updateField}
+                                                    name={"email"}
+                                                />
+                                                <br/>
+                                                <FormControl
+                                                    type="password"
+                                                    value={this.state.password}
+                                                    placeholder="Password"
+                                                    onChange={this.updateField}
+                                                    name={"password"}
+                                                />
+                                                <div className={"form-btn"}>
 
-                                                <div onClick={() => {this.addNewUser()}} className={'btn-side create-new'}>
-                                                    <div className={"btn-text"}> Sign Up </div>
+                                                    <div onClick={() => {
+                                                        this.addNewUser()
+                                                    }} className={'btn-side create-new'}>
+                                                        <div className={"btn-text"}> Sign Up</div>
+                                                    </div>
+
                                                 </div>
-
-                                            </div>
-                                        </FormGroup>
-                                    </form>
+                                            </FormGroup>
+                                        </form>
+                                        :
+                                        <div className={"form-btn"}>
+                                            <form>
+                                                <FormGroup >
+                                                    <button onClick={this.extendTokenLife} className={"btn, btn-primary btn-lg"}> Continue SignIn </button>
+                                                </FormGroup>
+                                            </form>
+                                        </div>
+                                    }
                                 </Col>
                             </Row>
                         </Grid>
@@ -80,11 +106,25 @@ class SignUp extends Component {
         )}
 }
 
-export default connect(null, {signUpUser})(SignUp);
+const mapStateToProps = state => {
+    const {users_reducer} = state;
+    return {
+        userName: users_reducer.userName,
+        user: users_reducer.user,
+        token: users_reducer.token,
+    }
+};
+
+export default connect(mapStateToProps, {signUpUser, extendTokenLife})(SignUp);
 
 const SignUpContainer = styled.div`
     text-align:left;
     margin-top:10px;
+    border: 0px solid black;
+    
+    .form-btn {
+        text-align:center;
+    }
     
     input{
         border-radius: 0px;

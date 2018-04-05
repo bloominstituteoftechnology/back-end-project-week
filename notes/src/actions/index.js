@@ -10,6 +10,7 @@ export const UPDATE_NOTE = 'UPDATE_NOTE';
 export const SEARCH = 'SEARCH';
 export const RETRIEVING_SEARCH = 'RETRIEVING_SEARCH';
 export const GET_NOTES = 'GET_NOTES';
+export const USER = 'USER';
 
 export const search = (criteria, status) => {
 
@@ -53,6 +54,59 @@ export const search = (criteria, status) => {
 
 };
 
+// This method is used to secure pages in the front
+// If there is any problem with the token it will redirect to SignIn
+export const secureComponent = () => {
+    const resp = axios.get(`http://localhost:3040/api/user/validate_token`, {withCredentials: true});
+
+    return dispatch => {
+        resp.then(({data}) => {
+            console.log('data secureComponent:::', data);
+            // dispatch({});
+        })
+            .catch((err) => {
+                console.log('err',err);
+                window.location = "/sign_in";
+            });
+    };
+};
+
+export const logOut = () => {
+    console.log('data logOut:::');
+
+    const resp = axios.get(`http://localhost:3040/api/user/log_out`, {withCredentials: true});
+
+    return dispatch => {
+        resp.then(({data}) => {
+            window.location = "/";
+            // dispatch({});
+        })
+        .catch((err) => {
+            console.log('err',err);
+
+        });
+    };
+};
+
+export const extendTokenLife = () => {
+    const resp = axios.get(`http://localhost:3040/api/user/extend_token_life`, {withCredentials: true});
+
+    return dispatch => {
+        resp.then(({data}) => {
+            console.log('data extendTokenLife:::', data);
+            sessionStorage.setItem('user', JSON.stringify(data));
+            window.location = "/";
+            // dispatch({});
+        })
+            .catch((err) => {
+                console.log('err',err);
+                window.location = "/sign_in";
+            });
+    };
+};
+
+
+
 export const getNotes = () => {
     const notes = axios.get('http://localhost:3040/api/note');
 
@@ -76,8 +130,6 @@ export const getNotes = () => {
                 dispatch({type: ERROR_GETTING_NOTES, payload: err});
             });
     };
-
-
 };
 
 export const signUpUser = (user) => {
@@ -85,13 +137,34 @@ export const signUpUser = (user) => {
         name:user.name,
         email:user.email,
         password:user.password,
-    });
+    },
+    {withCredentials: true});
+
     return dispatch => {
         newUser
             .then(({data}) => {
-                // dispatch({type: ADD_NOTES, payload: data});
+                sessionStorage.setItem('user_signed_up', JSON.stringify(data.user));
+                dispatch({type: USER, user_name:data.user.name, payload:data.user, token:data.token});
                 // TODO: should redirect to the sig in page with success message
-                window.location = "/";
+                // window.location = "/sign_in";
+            })
+            .catch(err => {
+                dispatch({type: ERROR_GETTING_NOTES, payload: err});
+            });
+    };
+};
+
+export const signInUser = (user) => {
+    const userR = axios.post('http://localhost:3040/api/user/signin', {
+        email:user.email,
+        password:user.password,
+    }, {withCredentials: true});
+
+    return dispatch => {
+        userR.then(({data}) => {
+                console.log('signInUser:::', data);
+                // dispatch({type: ADD_NOTES, payload: data});
+                // window.location = "/";
             })
             .catch(err => {
                 dispatch({type: ERROR_GETTING_NOTES, payload: err});
@@ -105,15 +178,16 @@ export const addNote = (note) => {
         description:note.description,
         tags:note.tags,
         image:faker.image.avatar(),
-    });
+    },{withCredentials: true});
+
     return dispatch => {
         newNote
             .then(({data}) => {
                 dispatch({type: ADD_NOTES, payload: data});
                 window.location = "/";
             })
-            .catch(err => {
-                dispatch({type: ERROR_GETTING_NOTES, payload: err});
+            .catch((error) => {
+                console.log(error.error);
             });
     };
 };
@@ -127,7 +201,7 @@ export const getSingleNote = (note) => {
 export const deleteNote = (noteKey) => {
     const key = noteKey;
 
-    console.log('ready to delte key ', noteKey);
+    console.log('ready to delete key ', noteKey);
     const newNotes = axios.delete(`http://localhost:3040/api/note/${key}`, {
         key: key,
     });
