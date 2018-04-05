@@ -26,7 +26,7 @@ server.use(session({
 }));
 
 const corsOptions = {
-    origin: "http://localhost:3000",
+    origin: "https://distracted-kepler-8e6505.netlify.com",
     credentials: true
   };
 
