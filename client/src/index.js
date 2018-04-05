@@ -15,7 +15,7 @@ import SingleNote from './components/singleNote';
 import NoteForm from './components/noteForm';
 import DeleteModal from './components/deleteModal';
 import NoteList from './components/noteList';
-import SideBar from './components/sideBar';
+//import SideBar from './components/sideBar';
 
 const sotreWithMW = applyMiddleware(thunk)(createStore);
 
@@ -28,23 +28,10 @@ ReactDOM.render(
         <Route path="/login" component={SignIn} />
         <Route path="/notelist" component={RequireAuth(NoteList)} />
         <Route path="/signout" component={SignOut} />
-        <Route path="/" component={SideBar} exact />
-        {/* <Route
-          path="/notelist"
-          render={state => <NoteList notes={this.state.notes} exact />}
-        />
-        <Route
-          render={routeProps => (
-            <SingleNote
-              {...routeProps}
-              {...this.props}
-              notes={this.state.notes}
-            />
-          )}
-          path="/note/:id"
-        />
-        <Route path="/noteform" component={NoteForm} exact />
-        <Route path="/delete/:id" component={DeleteModal} /> */}
+        {/* {<Route path="/" component={SideBar} exact />} */}
+        <Route path="/note/:id" component={RequireAuth(SingleNote)} />
+        <Route path="/noteform" component={RequireAuth(NoteForm)} exact />
+        <Route path="/delete/:id" component={RequireAuth(DeleteModal)} />
       </div>
     </Router>
   </Provider>,
