@@ -10,10 +10,6 @@ const lambdaNotesSchema = new Schema({
     type: String,
     required: true
   },
-  date: {
-    type: Date,
-    required: true,
-  },
 });
 
 lambdaNotesSchema.methods.getNoteTitle = function() {
