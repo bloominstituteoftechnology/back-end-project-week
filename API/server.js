@@ -94,9 +94,6 @@ server.post('/newnote', authenticate, (req, res) => {
 server.post('/register', (req, res) => {
   const userInfo = req.body;
   const { email, password } = req.body;
-  if (!email || !password) {
-    res.status(400).json({ errorMessage: 'Please provide an email and password in the request body' });
-  }
   const user = new User({
     email,
     password,
@@ -107,9 +104,8 @@ server.post('/register', (req, res) => {
     })
     .catch((err) => {
       if (err) {
-        res.status(400).json({ errorMessage: 'there was a user error', errorBody: err });
+        res.status(400).json({ errorMessage: 'The email already exists, try another email', errorBody: err });
       }
-      res.status(500).json({ errorMessage: 'There was an internal error while saving the user to the database', err });
     });
 });
 

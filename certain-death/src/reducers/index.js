@@ -35,6 +35,7 @@ const initialState = {
   gettingNotes: false,
   updatingNote: false,
   deletingNote: true,
+  error: null,
 };
 
 export default (state = initialState, action) => {
@@ -62,7 +63,8 @@ export default (state = initialState, action) => {
       };
     case ERROR:
       return {
-        ...state
+        ...state,
+        error: action.payload.response.data.errorMessage,
       };
     case GETTING_NOTES:
       return {
