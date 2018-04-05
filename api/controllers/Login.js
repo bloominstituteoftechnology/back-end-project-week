@@ -6,7 +6,8 @@ const { getTokenForUser } = require('../services/auth');
 
 const login = (req, res) => {
   const { username, password } = req.body;
-  User.findOne({ username }, (err, user) => {
+  const lowercaseUsername = username.toLowerCase();
+  User.findOne({ username: lowercaseUsername }, (err, user) => {
     if (!username || !password) {
       res.status(422).json({ message: 'Must enter a username and password!' });
       return;
