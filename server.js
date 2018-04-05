@@ -1,11 +1,12 @@
 const express = require('express');
 const session = require('express-session');
-const bcrypt = require('bcrypt');
 
 const Note = require('./notes/src/models/note-model');
 
 const PORT = 5000;
 const server = express();
+
+const STATUS_USER_ERROR = 422;
 
 server.use(express.json());
 server.use(session({
@@ -13,6 +14,22 @@ server.use(session({
   resave: true,
   saveUninitialized: false,
 }));
+
+const auth = (req, res, next) => {
+  if (req.session.username) {
+    User
+      .findOne({ username: req.session.username })
+      .then((user) => {
+        req.user = user;
+        next();
+      })
+      .catch((err) => {
+        console.error('error logging in', err);
+      });
+  } else {
+    res.status(STATUS_USER_ERROR).send({ errorMessage: 'You are not logged in' });
+  }
+};
 
 // get all notes
 server.get('/notes', (req, res) => {
