@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { getNotes } from '../actions';
 import MultNote from './MultNote';
 import './ViewNotes.css'
 
 class ViewNotes extends Component {
+  componentDidMount() {
+    this.getTheNotes();
+  }
   render () {
     return (
       <div className="Home__Right">
@@ -26,6 +30,10 @@ class ViewNotes extends Component {
       </div>
     )
   }
+  getTheNotes = (event) => {
+    console.log('getNotes workin!');
+    this.props.getNotes();
+  }
 }
   // console.log('the props in viewnotes' + this.props.notes)
 const mapStateToProps = (state) => {
@@ -34,4 +42,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(ViewNotes);
+export default connect(mapStateToProps, { getNotes })(ViewNotes);

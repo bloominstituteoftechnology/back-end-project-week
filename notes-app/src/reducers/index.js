@@ -37,6 +37,12 @@ const notes = (state = noteState, action) => {
       delete delObj.Notes[action.payload];
       console.log('deleted');
       return delObj;
+    case 'GET_NOTE':
+      return {
+        ...state, // copy the state (shallow copy)
+        MESSAGE: 'got the note',
+        Notes: action.payload,
+      }
     default:
       return state;
   }

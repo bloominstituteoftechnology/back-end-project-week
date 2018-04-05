@@ -9,6 +9,31 @@ export const error = (error) => {
   };
 };
 
+export const getNotes = (note) => {
+  return dispatch => {
+    axios
+    .get(`${ROOT}/notes`)
+    .then(response => {
+      // convert it to be used with Redux Notes
+      Object.keys(response.data).forEach((key) => {
+        response.data[key].meat = response.data[key].content;
+        delete response.data[key].content;
+      })
+      console.log('getnotes', response.data);
+      dispatch({
+        type: 'GET_NOTE',
+        payload: response.data
+      });
+    })
+  }
+
+  // return {
+  //   type: 'GET_NOTE',
+  //   payload: 'hello :)',
+  // }
+  // return note;
+}
+
 export const addNote = (note) => {
   // return {
   //   type: 'ADD_NOTE',

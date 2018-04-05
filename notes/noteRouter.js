@@ -2,6 +2,26 @@ const express = require('express');
 const Note = require('./noteModel.js');
 const noteRouter = express.Router();
 
+noteRouter.get('/', (req, res) => {
+    Note
+      .find({})
+        .then(notes => {
+          const notesObj = {};
+          notes.forEach((note) => { // create the array of notes into an object
+            notesObj[note.title] = note;
+          });
+          console.log(notesObj);
+          res
+            .status(200)
+            .json(notesObj);
+          })
+        .catch(err => {
+          res
+            .status(500)
+            .json({ error: err });
+        });
+});
+
 noteRouter.post('/', (req, res) => {
   const info = req.body;
   console.log('info test', info);
