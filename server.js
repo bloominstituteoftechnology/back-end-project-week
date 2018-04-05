@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 
 const Note = require('./notes/src/models/note-model');
+const User = require('./notes/src/models/user-model');
 
 const PORT = 5000;
 const server = express();
@@ -15,6 +16,7 @@ server.use(session({
   saveUninitialized: false,
 }));
 
+// middleware to check if user is logged in
 const auth = (req, res, next) => {
   if (req.session.username) {
     User
@@ -77,13 +79,28 @@ server.post('/notes/:id', (req, res) => {
     });
 });
 
-//delete note
+// delete note
 server.delete('/notes/:id', (req, res) => {
   const { id } = req.params;
   Note
     .findByIdAndRemove(id, (err, deletedNote) => {
       if (err) console.error(err);
       res.status(200).json({ message: 'note deleted!', deletedNote });
+    });
+});
+
+// create user
+server.post('/users', (req, res) => {
+  const userInfo = req.body;
+  const potentialPW = req.body.password;
+  const user = new User(userInfo);
+  user
+    .save()
+    .then((savedUser) => {
+      res.status(200).json(savedUser);
+    })
+    .catch((err) => {
+      res.status(500).json({ errorMessage: 'There was an error saving the user' });
     });
 });
 
