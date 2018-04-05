@@ -40,7 +40,7 @@ const reducer = (state = initialState, action) => {
     case ERROR_ADDING_NOTE:
       return {
         ...state,
-        error: action.payload,
+        error: action.payload.response.data.msg,
       };
     case NOTES_FETCHED:
       return {
@@ -50,12 +50,12 @@ const reducer = (state = initialState, action) => {
     case ERROR_FETCHING:
       return {
         ...state,
-        error: action.payload,
+        error: action.payload.response.data.msg,
       };
     case UPDATE_ERROR:
       return {
         ...state,
-        error: action.payload,
+        error: action.payload.response.data.msg,
       };
     case TOGGLE_MODAL:
       return {
@@ -71,7 +71,7 @@ const reducer = (state = initialState, action) => {
     case DELETE_ERROR:
       return {
         ...state,
-        error: action.payload,
+        error: action.payload.response.data.msg,
       };
     case SELECT_NOTE:
       return {
@@ -92,7 +92,7 @@ const reducer = (state = initialState, action) => {
     case REGISTER_ERROR:
       return {
         ...state,
-        error: action.payload,
+        error: action.payload.response.data.msg,
       };
     case USER_LOGGED_IN:
       return {
@@ -103,8 +103,7 @@ const reducer = (state = initialState, action) => {
     case LOGIN_ERROR:
       return {
         ...state,
-        loggingIn: false,
-        error: action.payload,
+        error: action.payload.response.data.msg,
       };
     case LOGOUT_USER:
       return {

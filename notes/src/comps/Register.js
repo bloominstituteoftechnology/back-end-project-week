@@ -12,13 +12,21 @@ class Register extends React.Component {
     message: null,
   };
 
+  componentWillReceiveProps = (newProps) => {
+    this.setState({ message: newProps.error });
+  }
+
   submitRegistration = event => {
-    const { username, password, passwordRepeat } = this.state;
-    if (!username || !password)
-      this.setState({ message: 'Please enter a username and a password.' });
-    if (password !== passwordRepeat)
-      this.setState({ message: 'The passwords do not match.' });
     event.preventDefault();
+    const { username, password, passwordRepeat } = this.state;
+    if (!username || !password) {
+      this.setState({ message: 'Please enter a username and a password.' });
+      return;
+    }
+    if (password !== passwordRepeat) {
+      this.setState({ message: 'The passwords do not match.' });
+      return;
+    }
     this.props.registerUser({ username, password });
     this.props.history.push('/');
   };
@@ -34,6 +42,7 @@ class Register extends React.Component {
     return (
       <div className="register__container">
         <div className="register__header">Create a new account:</div>
+        {this.state.message && this.state.message}
         <form className="register__form" onSubmit={this.submitRegistration}>
           <input
             type="text"
@@ -66,10 +75,15 @@ class Register extends React.Component {
             </Link>
           </div>
         </form>
-        {this.state.message && this.state.message}
       </div>
     );
   }
 }
 
-export default connect(null, { registerUser })(Register);
+const mapStateToProps = state => {
+  return {
+    error: state.error,
+  };
+};
+
+export default connect(mapStateToProps, { registerUser })(Register);
