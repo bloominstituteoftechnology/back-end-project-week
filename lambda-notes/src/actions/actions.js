@@ -64,7 +64,7 @@ export const getNotes = () => {
   return (dispatch) => {
     dispatch({ type: GETTING_NOTES });
     axios
-      .get('http://localhost:5000/api/notes', getHeaders())
+      .get('http://138.68.51.121/api/notes', getHeaders())
       .then(({ data }) => {
         dispatch({ type: NOTES_RECEIVED, payload: data });
       })
@@ -78,7 +78,7 @@ export const createNote = (data) => {
   return (dispatch) => {
     dispatch({ type: CREATE_NOTE });
     axios
-      .post('http://localhost:5000/api/note/create', data, getHeaders())
+      .post('http://138.68.51.121/api/note/create', data, getHeaders())
       .then(({ data }) => {
         dispatch({ type: NOTE_CREATED, payload: data });
       })
@@ -92,7 +92,7 @@ export const deleteNote = (id) => {
   return (dispatch) => {
     dispatch({ type: DELETE_NOTE });
     axios
-      .delete('http://localhost:5000/api/note/' + id, getHeaders())
+      .delete('http://138.68.51.121/api/note/' + id, getHeaders())
       .then(({ data }) => dispatch({ type: NOTE_DELETED, payload: data }))
       .catch((error) => {
         dispatch({ type: ERROR_DELETING_NOTE, payload: error });
@@ -104,7 +104,7 @@ export const updateNote = (data) => {
   return (dispatch) => {
     dispatch({ type: UPDATE_NOTE });
     axios
-      .put('http://localhost:5000/api/note', data, getHeaders())
+      .put('http://138.68.51.121/api/note', data, getHeaders())
       .then(({ data }) => {
         dispatch({ type: NOTE_UPDATED, payload: data });
       })
@@ -121,7 +121,7 @@ export const register = (username, password, confirmPassword) => {
       return;
     }
     axios
-      .post(`http://localhost:5000/register`, { username, password })
+      .post(`http://138.68.51.121/register`, { username, password })
       .then(({ data }) => {
         dispatch({
           type: USER_REGISTERED,
@@ -141,7 +141,7 @@ export const register = (username, password, confirmPassword) => {
 export const login = (username, password) => {
   return (dispatch) => {
     axios
-      .post('http://localhost:5000/login', { username, password })
+      .post('http://138.68.51.121/login', { username, password })
       .then(({ data }) => {
         dispatch({
           type: USER_AUTHENTICATED,

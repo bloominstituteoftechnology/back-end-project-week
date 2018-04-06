@@ -17,11 +17,9 @@ class SignUpLogin extends Component {
   };
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
-    console.log(this.state);
   };
   handleFormSubmit = () => {
     const { username, password, confirmPassword } = this.state;
-    console.log(this.state.username);
     if ((username, password, confirmPassword)) {
       this.props.register(username, password, confirmPassword);
     } else if ((username, password && !confirmPassword)) {
