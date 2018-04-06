@@ -10,7 +10,7 @@ const Note = new mongoose.Schema({
     },
     dateCreated: {
         type: String,
-        default: Date.now,
+        default: new Date().toLocaleString("en-US"),
     },
     label: {
         type: String,
