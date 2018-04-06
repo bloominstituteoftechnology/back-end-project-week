@@ -6,7 +6,7 @@ import { view_button_click, load_notes } from '../actions/index';
 
 import './css/CreateNote.css';
 
-const ROUTE = 'http://localhost:3000/notes/';
+const ROUTE = 'https://pure-sands-16313.herokuapp.com/notes/';
 
 class CreateNote extends React.Component {
   state = {

@@ -6,7 +6,7 @@ import { search_results_clicked, load_notes } from '../actions/index';
 
 import './css/Search.css';
 
-const ROUTE = 'http://localhost:3000/notes/';
+const ROUTE = 'https://pure-sands-16313.herokuapp.com/notes/';
 
 class Search extends React.Component {
   state = {

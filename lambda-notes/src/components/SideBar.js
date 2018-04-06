@@ -14,7 +14,7 @@ import {
 
 import './css/SideBar.css';
 
-const ROUTE = 'http://localhost:3000/notes/';
+const ROUTE = 'https://pure-sands-16313.herokuapp.com/notes/';
 
 class SideBar extends React.Component {
   render() {

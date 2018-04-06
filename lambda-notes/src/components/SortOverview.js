@@ -8,7 +8,7 @@ import { remove_edit, load_notes } from '../actions/index';
 
 import './css/SortOverview.css';
 
-const ROUTE = 'http://localhost:3000/notes/';
+const ROUTE = 'https://pure-sands-16313.herokuapp.com/notes/';
 
 class SortOverview extends React.Component {
   state = {

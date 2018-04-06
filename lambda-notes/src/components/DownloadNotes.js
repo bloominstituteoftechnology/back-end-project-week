@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import './css/DownloadNotes.css';
 
-const ROUTE = 'http://localhost:3000/notes/';
+const ROUTE = 'https://pure-sands-16313.herokuapp.com/notes/';
 
 class DownloadNotes extends React.Component {
   state = {

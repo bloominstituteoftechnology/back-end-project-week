@@ -8,7 +8,7 @@ import { update_check_list } from '../actions/index';
 
 import './css/CheckList.css';
 
-const ROUTE = 'http://localhost:3000/notes/';
+const ROUTE = 'https://pure-sands-16313.herokuapp.com/notes/';
 
 class CheckList extends React.Component {
   state = {
