@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { register } from '../actions';
+import { NavLink } from 'react-router-dom';
 
 class SignUp extends Component {
   handleFormSubmit = ({ username, password, confirmPassword }) => {
@@ -15,7 +16,9 @@ class SignUp extends Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-      <div className="signup">
+      <div className="popup">
+      <div className="popup__inner">
+        <h3>Please sign up</h3>
       <form onSubmit={handleSubmit(this.handleFormSubmit)}>
         <fieldset>
           <Field placeholder="username" name="username" component="input" type="text" />
@@ -27,8 +30,10 @@ class SignUp extends Component {
           <Field placeholder="confirm password" name="confirmPassword" component="input" type="password" />
         </fieldset>
         <button action="submit">Sign Up</button>
+        <NavLink to="/signin"> <button>Sign In</button> </NavLink>
         {this.renderAlert()}
       </form>
+      </div>
       </div>
     );
   }
