@@ -9,7 +9,7 @@ class Menu extends Component {
     return (
       <div className="menu">
         <div className="menu__header">
-          <p>Sparks Note</p>
+          <p>Sparks Notes</p>
         </div>
 
         <div className="menu__buttons">

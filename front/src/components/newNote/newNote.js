@@ -21,7 +21,7 @@ class NewNote extends Component {
     }
 
     handleSubmit = () => {
-        axios.post("http://localhost:3001/api/addNote", {
+        axios.post("http://localhost:3001/api/newnote", {
             title: this.state.title,
             content: this.state.content
         })
@@ -46,13 +46,17 @@ class NewNote extends Component {
                         <textarea className="newNote__form__content" rows="15" columns="15" value={this.state.content} onChange={this.handleNewContent}/>
                         <a className="newNote__form__save" href="/">
                             <div className="newNote__form__button">
-                                <p className="newNote__form__button__text" onClick={this.handleSubmit}>Save</p>
+                                <p className="newNote__form__button__text" onClick={this.handleSubmit} style={this.styles}>Save</p>
                             </div>
                         </a>
                     </form>
                 </div>
             </div>
         )
+    }
+
+    styles = {
+        textAlign: "center"
     }
 }
 

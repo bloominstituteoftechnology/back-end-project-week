@@ -4,6 +4,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const session = require("express-session");
+let checkLogin = false;
 
 //models to import
 const NoteModel = require("./models/NoteModel");
@@ -38,18 +39,17 @@ app.use(cors(corsOptions))
 mongoose.Promise = global.Promise;
 
 //local middleware that scopes routes for logged in users only
-// const loginMid = (req, res, next) => {
-//     const storage = localStorage.getItem("loggedIn");
-//     if (!storage){
-//         console.log(`The user is not logged in!`);
-//         res.status(401)
-//         res.json(`Please login to view this content`);
-//         return;
-//     }
+const loginMid = (req, res, next) => {
+    if (!checkLogin){
+        console.log(`The user is not logged in!`);
+        res.status(401)
+        res.json(`Please login to view this content`);
+        return;
+    }
 
-//     console.log(`The user is logged in and can view the content`);
-//     next();
-// };
+    console.log(`The user is logged in and can view the content`);
+    next();
+};
 
 //test route handler
 app.get("/", (req, res) => {
@@ -91,7 +91,7 @@ app.post("/api/newUser", (req, res) => {
 app.post("/api/login", (req, res) => {
     console.log(req.body.username, req.body.password);
 
-    if (req.session.loggedIn){
+    if (checkLogin){
         console.log(`The user is already logged in`);
         res.status(200)
         .json(`You're already logged in!`);
@@ -123,7 +123,8 @@ app.post("/api/login", (req, res) => {
             } else {
               console.log(`The user is now logged in`)
               //set equal to username
-              req.session.loggedIn = true;
+              checkLogin = true;
+              console.log(checkLogin);
               res.status(200);
               res.json({success: true});
             }
@@ -143,48 +144,25 @@ app.get("/api/restricted", (req, res) => {
 })
 
 //get handler for all notes
-app.get("/api/allNotes", (req, res) => {
-    if (!req.session.loggedIn){
-        console.log(`The user is not logged in! Line 146`);
-        res.status(422)
-        .json(`You must be logged in to view this content`);
-    } else {
-        NoteModel.find({}, (err, response) => {
-            if (err) return console.log(`There was an error getting the notes: ${err}`);
-            console.log(`Here are all the notes: \n ${response}`);
-            res.status(200)
-            .json(response);
-        })
-    }
+app.get("/api/allNotes", loginMid, (req, res) => {
+    NoteModel.find({}, (err, response) => {
+        if (err) return console.log(`There was an error getting the notes: ${err}`);
+        console.log(`Here are all the notes: \n ${response}`);
+        res.status(200)
+        .json(response);
+    })
 });
 
-//get handler for finding notes by id
-// app.get("/api/viewNote/:id", (req, res) => {
-//     const id = req.params.id;
-//     if (!id){
-//         console.log(`An ID for getting a note was not provided`);
-//         res.status(422)
-//         .json(`An ID was not provided`);
-//         return;
-//     }
-
-//     NoteModel.findById(id, (err, response) => {
-//         if (err){
-//             console.log(`A post with that ID wasn't found`);
-//             res.status(404)
-//             .json(`A post with that ID wasn't found`);
-//             return;
-//         } else {
-//             console.log(`The post was found: \n ${response}`);
-//             res.status(200)
-//             .json(response);
-//         }
-//     })
-// });
-
 //handler for adding a new note
-app.post("/api/addNote", (req, res) => {
-    console.log(req.body)
+app.post("/api/newnote", loginMid, (req, res) => {
+    console.log(checkLogin);
+    if (!checkLogin){
+        console.log(`Line 159: The user is not logged in`);
+        res.status(403)
+        .json(`You need to log in to add a new note`);
+        return;
+    }
+
     if (!req.body.title || !req.body.content){
         console.log('Note was not filled in properly');
         return res.status(422)
@@ -211,7 +189,7 @@ app.post("/api/addNote", (req, res) => {
 });
 
 //handler for updating a note
-app.put("/api/editNote", (req, res) => {
+app.put("/api/editNote", loginMid, (req, res) => {
     const id = req.body.id;
     const newTitle = req.body.title;
     const newContent = req.body.content;
@@ -275,7 +253,7 @@ app.put("/api/editNote", (req, res) => {
 });
 
 //handler for deleting a note
-app.delete("/api/deleteNote", (req, res) => {
+app.delete("/api/deleteNote", loginMid, (req, res) => {
     const id = req.body.id;
 
     if (!id){
