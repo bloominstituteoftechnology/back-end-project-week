@@ -22,6 +22,10 @@ mongoose.connect(config.dburl);
 //   useMongoClient: true
 // });
 
+server.get("*", (req, res) => {  
+    res.sendFile(path.join(__dirname, 'lambda-notes', 'build', 'index.html'));
+  });
+
 routes(server);
 
 module.exports = {
