@@ -1,4 +1,7 @@
+https://lambda-notes-2.herokuapp.com/
+
 https://trello.com/b/MBqgT5MH/ashlei-jones-lambda-notes-2
+
 https://github.com/ashleijo/front-end-project-week
 
 # Back End Project Week
