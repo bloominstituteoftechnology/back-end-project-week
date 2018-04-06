@@ -1,5 +1,6 @@
 # TRELLO URL: https://trello.com/b/3XgvZjZX
 - bOOyaKASHA - that's how we git'r'dun!!!!!
+# Deployed URL: https://modest-northcutt-f181d5.netlify.com/
 
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
