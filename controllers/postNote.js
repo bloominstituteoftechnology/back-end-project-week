@@ -11,7 +11,7 @@ const postNote = (req, res) => {
     .save()
     .then(note => {
       const id = note._id;
-      userSchema.findOneAndUpdate({ _id: userId }, { $push: { notes: id } })
+      userSchema.findOneAndUpdate({ _id: userId }, { $push: { notes: _id } })
         .then(() => {
           res.status(200).send(note);
         })

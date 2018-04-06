@@ -8,7 +8,7 @@ const Email = mongoose.SchemaTypes.Email;
 const ObjectId = mongoose.Schema.Types.ObjectId;
 const SALT_ROUNDS = 11;
 
-const UserSchema = Schema({
+const userSchema = Schema({
   username: {
     type: Email,
     unique: true,
@@ -21,12 +21,12 @@ const UserSchema = Schema({
   notes: [
     {
       type: ObjectId,
-      ref: 'Note',
+      ref: 'noteSchema',
     },
   ],
 });
 
-UserSchema.pre('save', function (next) {
+userSchema.pre('save', function (next) {
   bcrypt.hash(this.hashpassword, SALT_ROUNDS, (err, password) => {
     if (err) return next(err);
     this.hashpassword = password;
@@ -34,8 +34,11 @@ UserSchema.pre('save', function (next) {
   });
 });
 
-UserSchema.methods.checkPassword = function (plainTextPW) {
+userSchema.methods.checkPassword = function (plainTextPW) {
   return bcrypt.compare(plainTextPW, this.hashpassword)
 };
 
-module.exports = mongoose.model('userSchema', UserSchema);
+mongoose.connect('mongodb://localhost/userSchema');
+
+
+module.exports = mongoose.model('userSchema', userSchema);

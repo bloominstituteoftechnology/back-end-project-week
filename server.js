@@ -9,7 +9,6 @@ const corOptions = {
   credentials: true,
 };
 
-const PORT = 5000;
 const server = express();
 
 server.use(express.json());
@@ -20,7 +19,12 @@ server.use(session({
   saveUninitialized: false,
 }));
 
-mongoose.connect('mongodb://localhost/noteSchema');
+const auth = (req,res, next) => {
+  if (req.session.username) next();
+  else res.status(400).send({ msg: 'Authorized Users only'});
+};
+
+server.use('/api/notes', auth);
 
 /* server.get('/', (req, res) => {
   noteSchema.find({}, (err, database) => {
@@ -36,12 +40,6 @@ mongoose.connect('mongodb://localhost/noteSchema');
 
 routes(server);
 
-server.listen(PORT, err => {
-  if (err) {
-    console.log('Server error', err);
-  } else {
-    console.log(`The server is listening on port: ${PORT}.`);
-  }
-});
+
 
 module.exports = { server, };
