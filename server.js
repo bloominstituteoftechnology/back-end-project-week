@@ -17,8 +17,9 @@ server.use(bodyParser.json());
 server.use(
   session({
     secret: 'e5SPiqsEtjexkTj3Xqovsjzq8ovjfgVDFMfUzSmJO21dtXs4re',
-    resave: true,
-    saveUninitialized: false,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
   })
 );
 

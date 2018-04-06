@@ -37,7 +37,28 @@ const userLogin = (req, res) => {
   });
 };
 
+const userLogout = (req, res) => {
+  const { username } = req.body;
+  User.findOne({ username}, (err, user) => {
+    if (err) {
+      res.status(403).json({ error: 'Invalid Username/Password' });
+      return;
+    }
+    if (user === null) {
+      res.status(422).json({ error: 'No user with that username in our DB' });
+      return;
+    }
+    const { id } = req.session.id;
+    req.session.destroy(id, (function(err) {
+      if (err) {
+        res.status(500).json({ error: 'Error deleting session' });
+      };
+    }));
+  });
+};
+
 module.exports = {
   userLogin,
   createUser,
+  userLogout
 };
