@@ -9,6 +9,7 @@ class CollabModal extends React.Component {
   };
 
   handleSubmit = event => {
+    event.preventDefault();
     this.props.toggleCollabModal();
     this.props.addNote({
       ...this.props.selectedNote,
