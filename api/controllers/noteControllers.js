@@ -1,18 +1,21 @@
 const mongoose = require("mongoose");
-const Note = require("../models/Notes");
+const models = require("./models");
+// const Note = require("../models/Users");
+// const User = require("../models/Users");
 //const Comment = require("../models/commentModel");
 
 const createNote= (req, res) => {
-  const { user, title, description } = req.body;
-  const newNote = new Note({ user, title, description });
- 
+  
+
+  const { title, description } = req.body;
+  const newNote = new models.Note({ title, description });
+  const username = req.session.username;
   newNote
     .save()
     .then(newNote => {
-      const id = newNote._id;
-      User.findOneAndUpdate({_id: userId }, { $push: { notes: id } })
-      .then(() => {
-        res.status(201).send(newNote);
+       models.User.findOneAndUpdate({ username}, { $push: { notes: newNote } })
+      .then((user) => {
+         res.status(201).send(user);
       })
      .catch(err => res.send(err));
     })
@@ -22,58 +25,83 @@ const createNote= (req, res) => {
 };
 
 const getNotes = (req, res) => {
-  const { id } = req.params;
-  Note.find()
+  const username = req.session.username;
+  console.log(username);
+  models.User.findOne({'username': username})
     .exec()
-    .then(notes => {
-      res.json(notes);
+    .then(user => {
+      console.log(user, user.notes);
+      res.json({
+        notes: user.notes
+      });
     })
     .catch(err => {
       res.status(500).json({ message: "Error getting notes" });
     });
 };
 
-const getNote = (req, res) => {
-  const { id } = req.params;
-  Note.findById(id)
-    .populate("user", "userName")
-    .populate({
-      path: "comments",
-      populate: { path: "author", select: "userName" }
-    })
-    .exec()
-    .then(post => {
-      res.json(post);
-    })
-    .catch(err => {
-      res.status(500).json({ message: "Error getting post by id" });
-    });
-};
+// const getNote = (req, res) => {
+//   const { id } = req.params;const { id } = req.params;
+//   models.Note.findById(id)
+//     .populate("user", "userName")
+//     .populate({
+//       path: "comments",
+//       populate: { path: "author", select: "userName" }
+//     })
+//     .exec()
+//     .then(post => {
+//       res.json(post);
+//     })
+//     .catch(err => {
+//       res.status(500).json({ message: "Error getting post by id" });
+//     });
+// };
 
 const updateNote = (req, res) => {
-  const { tobeupdate, id } = req.body;
-  Note.findByIdAndUpdate(id, tobeupdate)
-  .then(freshNote => {
-    res.send(freshNote);
-  })
-  .catch(err => res.send(err));
+  const username = req.session.username;
+  const noteId = req.query.id;
+  const { title, description } = req.body;
+  
+    models.User.findOne({'username': username})
+    .exec()
+    .then(user => {
+      const note = user.notes[noteId];
+      note.title = title;
+      note.description = description;
+      user.save()
+      // models.Note.findByIdAndUpdate(note.id, {title: title, description: description}, {new: true})
+      .then(user1 => {
+        console.log("updated note:",user1);
+        res.json(user1);
+      }
+      ).catch(err =>res.send(err));
+    })
+    .catch(err => res.send(err));
 };
 
 const deleteNote  = (req, res) => {
-  const {id } = req.params;
-  Note.findByIdAndRemove(id)
-  .then(deletedNote => {
-    res.send(deletedNote);
-  })
-  .catch(err => {
-    res.err(err);
-  });
+  const noteId = req.query.id;
+  const username = req.session.username;
+  models.User.findOne({'username': username})
+    .exec()
+    .then(user => {
+      const note = user.notes[noteId];
+      user.notes.remove(note._id);
+      user.save()
+      // models.Note.findByIdAndUpdate(note.id, {title: title, description: description}, {new: true})
+      .then(user1 => {
+        console.log("updated note:",user1);
+        res.json(user1);
+      }
+      ).catch(err =>res.send(err));
+    })
+    .catch(err => res.send(err));
 };
 
 module.exports = {
   createNote,
   getNotes,
-  getNote,
+  //getNote,
   updateNote,
   deleteNote
 };

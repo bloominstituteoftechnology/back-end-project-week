@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const userModel = require("../models/Users");
+const models = require("./models");
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 
@@ -7,7 +7,7 @@ const BCRYPT_COST = 11;
 
 const createUser = (req, res) => {
   const { username, password } = req.body;
-  const newUser = new userModel({ username, password });
+  const newUser = new models.User({ username, password });
 
   newUser
     .save()
@@ -40,15 +40,14 @@ const hashPw = (req, res, next) => {
 };
 
 const loginUser = (req, res, next) => {
-  console.log(" Session : ",req.session);
   const { username, password } = req.body;
   
   if(!username) {
     res.error("Usernmae not given"); 
   }
   const lowercaseUsername = username.toLowerCase();
-  console.log(lowercaseUsername );
-  userModel 
+  
+  models.User 
     .findOne({ username: lowercaseUsername })
     .exec()
     .then(user => {
@@ -60,8 +59,6 @@ const loginUser = (req, res, next) => {
           if(!result) throw new Error();
           req.session.username = username; 
           req.session.id = user._id;
-          console.log("user._id :", user._id);
-          console.log("id: ",req.session.id);
           req.user = user;
         })
         .then(() => {
@@ -80,8 +77,9 @@ const loginUser = (req, res, next) => {
 };
 
 const whoAmI = (req,res)=> {
-  res.status(200).send("Hi ", req.session.username);
-
+  res.json({
+    username: req.session.username
+  });
 }
 const logOut = (req, res) => {
   if(!req.session.username) res.send('User not logged in or session expired');
