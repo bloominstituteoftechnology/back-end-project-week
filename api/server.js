@@ -1,10 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const Note = require('./models/noteModel.js');
-const User = require('./models/userModel.js');
+const Note = require('./models/noteModels');
+const User = require('./models/userModels');
 const server = express();
 
-server.use(express.json));
+server.use(express.json);
 const PORT = process.env.PORT || 5000;
 
 mongoose 
@@ -44,7 +44,7 @@ server.post('/notes', (req, res) => {
 			      .catch(err => res.status(500).json('Error in saving note: ', err));
 				});
 
- server.post('/users', (req.res) => {
+ server.post('/users', (req, res) => {
 		 console.log(req.body);
 		 let { username, password } = req.body;
 		 if (!username || !password)
@@ -53,7 +53,7 @@ server.post('/notes', (req, res) => {
 			 newlycreatedUser 
 			   .save()
 				 .then(newlysavedUser => 
-						 res.status(200).json({ message: 'User successfully created!', newlysavedUser}
+						 res.status(200).json({ message: 'User successfully created!', newlysavedUser })
 						);
 					});
 
