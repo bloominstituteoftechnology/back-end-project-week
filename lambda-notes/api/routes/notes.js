@@ -26,7 +26,7 @@ router.post('/shownote', function(req, res) {
 router.post('/shownote/delete', function(req, res) {
   const noteId = req.body.noteToDelete["_id"];
   const note = req.body.noteToDelete;
-
+  console.log(note)
   User.update(
     { 'notes': noteId },
     { $pull: { 'notes': noteId } },
@@ -41,6 +41,19 @@ router.post('/shownote/delete', function(req, res) {
   .then(note => {
     res.json(note);
   })
+});
+
+router.post('/shownote/edit', function(req, res) {
+const noteToEdit = req.body.updatedNote
+const noteId = req.body.updatedNote["_id"];
+Note.update(
+  { '_id' : noteId },
+  { $set : {noteTitle : req.body.updatedNote["noteTitle"],noteContent : req.body.updatedNote["noteContent"] }},
+  function(err, data){
+    if (err) {
+      console.log(err, data);
+    }
+  });
 });
 
 router.post('/save', function(req, res) {

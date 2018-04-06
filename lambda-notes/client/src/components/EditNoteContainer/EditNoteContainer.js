@@ -2,6 +2,7 @@ import React from 'react';
 
 class EditNoteContainer extends React.Component {
     state = {
+      _id: this.props.noteToShow._id,
       noteTitle: this.props.noteToShow.noteTitle,
       noteContent: this.props.noteToShow.noteContent
     };

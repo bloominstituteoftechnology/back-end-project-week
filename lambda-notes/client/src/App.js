@@ -55,12 +55,30 @@ class App extends React.Component {
     });
   }
 
+  handleDeletePrompt = (i, noteToDelete) => {
+    if(window.confirm("Are you sure you want to delete this?")) {
+      axios.post('/notes/shownote/delete', { noteToDelete })
+      .then((result) => {
+        // do something with results, maybe.
+      });
+      const tempArr = this.state.notes;
+      tempArr.splice(i, 1);
+      this.setState({
+        notes: tempArr.reverse(),
+        showSingleNote: !this.state.showSingleNote
+      })
+    }
+  }
+
   handleClickForUpdate = (updatedNote, i) => {
     const temp = this.state.notes;
     temp[i] = updatedNote;
-    //fire.database().ref('notes2').set(temp.reverse());
+    axios.post('/notes/shownote/edit', { updatedNote })
+    .then((result) => {
+      // do something with results, maybe.
+    });
     this.setState({
-      notes: temp.reverse(),
+      notes: temp,
       showEditWin: !this.state.showEditWin
     });
   }
@@ -78,21 +96,6 @@ class App extends React.Component {
       showEditWin: !this.state.showEditWin,
       showSingleNote: !this.state.showSingleNote
     });
-  }
-
-  handleDeletePrompt = (i, noteToDelete) => {
-    if(window.confirm("Are you sure you want to delete this?")) {
-      axios.post('/notes/shownote/delete', { noteToDelete })
-      .then((result) => {
-        // do something with results, maybe.
-      });
-      const tempArr = this.state.notes;
-      tempArr.splice(i, 1);
-      this.setState({
-        notes: tempArr.reverse(),
-        showSingleNote: !this.state.showSingleNote
-      })
-    }
   }
 
   render() {
