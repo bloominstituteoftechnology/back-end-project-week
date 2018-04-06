@@ -2,12 +2,19 @@ const express = require('express');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
+const morgan = require('morgan');
+const routes = require('../Routes/Router');
+
 
 const port = process.env.PORT || 5000;
 
-const note = require('./notes/noteModel')
-
 const server = express();
+
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    credentials: true,
+};
 
 server.use(helmet());
 server.use(bodyParser.json());

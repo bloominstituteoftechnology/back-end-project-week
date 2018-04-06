@@ -1,10 +1,13 @@
-const Note = require('../Models/noteModel');
+const express = require('express');
+const mongoose = require('mongoose');
 
-const User = require('../Models/userModel');
+const Note = require('../Models/NoteModel');
+
+const User = require('../Models/UserModel');
 
 const createNote = (req, res) => {
-    const {Title, content, userId} = req.body;
-    const note = new noteModel(req.body);
+    const { Title, Content, UserId } = req.body;
+    const Note = new NoteModel(req.body);
 
     newNote
         .save()
@@ -13,18 +16,57 @@ const createNote = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                err: 'unable to save note'
+                err: 'Unable to save Note'
             });
         });
 };
 
-
 const getNotes = (req, res) => {
-    const {username} = req.body;
+    const { Username } = req.body;
+    const id = User._id;
     User.findById(_id)
-        .populate('notes')
+        .populate('Notes')
         .then(res.send())
         .catch(err => {
             res.status(200).send(err);
         });
+};
+
+const editNote = (req, res) => {
+    const{ id, title, content } = req.body
+    const updateNote = {
+        title,
+        content,
+    }
+    if (req.decoded) {
+        Note.findByIdAndUpdate(id, updateNote, { new: true })
+            .then(Note => {
+                res.status(201)
+                    .json({
+                        message: 'Note has been updated'
+                    });
+            })
+            .catch(err => {
+                res.status(500)
+                    .json(err);
+            });
+    };
+};
+
+const deleteNote = (req, res) => {
+    const { UserId } = req.body;
+    Note.findByIdAndRemove(UserId)
+        .then(Note => {
+            res.json('Note deleted');
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        });
+};
+
+module.exports = {
+    createNote,
+    getNotes,
+    editNote,
+    deleteNote,
 };

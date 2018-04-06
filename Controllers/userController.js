@@ -1,18 +1,24 @@
-const userModel = require('../userModel');
-const user = require('../models/userModel');
-
+const UserModel = require('../UserModel');
+const User = require('../models/UserModel');
+const 
 
 const createUser = (req, res) => {
-    const {Email, Password} = req.body;
-    const user = new user({Email, Password});
-
-    user.save()
-        .then(user => {
-            res.status(201).send(newUser)
+    const { User, Password } = req.body;
+    
+    const User = new User({ User, Password });
+    
+    User.save()
+        .then(User => {
+            res.status(201)
+                .send({
+                    message: 'User has been Saved'
+                })
         })
         .catch(err => {
             res.status(500)
-                .send({err:'Unable to save user info'});
+                .send({
+                    err: 'Unable to save User info'
+                });
         });
 };
 
