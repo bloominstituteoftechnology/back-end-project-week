@@ -8,7 +8,7 @@ const email = mongoose.SchemaTypes.Email;
 const ObjectId = mongoose.Schema.Types.ObjectId;
 const SALT_ROUNDS = 11;
 
-const UserSchema = new Schema({
+const UserSchema = Schema({
   username: {
     type: email,
     unique: true,
@@ -22,7 +22,7 @@ const UserSchema = new Schema({
     {
       type: ObjectId,
       ref: 'Note',
-    }
+    },
   ],
 });
 
