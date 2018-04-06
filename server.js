@@ -24,7 +24,7 @@ server.use(session({
 }));
 
 const corsOptions = {
-    origin: ["https://peaceful-beach-56546.herokuapp.com", "http://localhost:3000"],
+    origin: ["https://lamdba-notes.herokuapp.com", "http://localhost:3000"],
     credentials: true
   };
 
