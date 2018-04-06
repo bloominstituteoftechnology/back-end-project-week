@@ -2,9 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import Notes from "./Notes";
-import { updateSelected } from "../actions";
+import { updateSelected, getNotes } from "../actions";
 
 class MainView extends Component {
+  componentDidMount() {
+    this.props.getNotes();
+  }
+
   render() {
     return (
       <div className="MainView">
@@ -38,4 +42,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { updateSelected })(MainView);
+export default connect(mapStateToProps, { updateSelected, getNotes })(MainView);
