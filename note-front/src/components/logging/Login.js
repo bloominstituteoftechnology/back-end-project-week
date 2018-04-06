@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { login } from '../../actions';
 import { connect } from 'react-redux';
+import '../../styles/Login.css';
 
 class LogIn extends Component {
     handleFormSubmit({ username, password }) {

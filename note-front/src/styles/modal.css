@@ -1,14 +1,25 @@
 .modal {
-    position: fixed;
-    top: 40px;
-    left: 40px;
-    right: 40px;
-    bottom: 40px;
-    border: 1px solid #ccc;
-    background: #fff;
-    overflow: auto;
-    border-radius: 4px;
-    outline: none;
-    padding: 20px;
-    display: block;
+  position: fixed;
+  z-index: 1010;
+  top: 15%;
+  left: 30%;
+  right: 30%;
+  bottom: auto;
+  border: 1px solid black;
+  background: #4c5760;
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+  display: block;
+  animation: opac 0.8s;
+}
+
+@keyframes opac {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

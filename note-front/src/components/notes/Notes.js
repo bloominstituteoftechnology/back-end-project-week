@@ -22,6 +22,10 @@ class Notes extends Component {
     this.props.updateSingleNote(note);
   };
 
+  shortenNote = content => {
+    console.log("length is", content.length);
+    if (content.length > 150) return content.substr(0, 150) + "...";
+  }
   render() {
     return (
       <div className="note__container">
@@ -49,7 +53,7 @@ class Notes extends Component {
               key={note._id}
             >
               <div className="note__card__title">{note.title}</div>
-              <div className="note__card__text">{note.content}</div>
+              <div className="note__card__text">{this.shortenNote(note.content)}</div>
               <div className="note__card__user">
                 {note.user.username}
               </div>

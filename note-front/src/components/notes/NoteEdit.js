@@ -18,9 +18,8 @@ class NoteEdit extends Component {
             alt="close"
           />
         </span>
-        <h5>{this.props.selected._id}</h5>
-        <h4>{this.props.selected.content}</h4>
-        <div>{this.props.selected.text}</div>
+        <h3>{this.props.selected.title}</h3>
+        <div>{this.props.selected.content}</div>
         <div>{this.props.selected.user.username}</div>
         <button
           onClick={() => this.props.handleDeleteNote(this.props.selected._id)}

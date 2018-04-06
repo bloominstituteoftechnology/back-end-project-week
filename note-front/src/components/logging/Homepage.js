@@ -1,25 +1,31 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import "../../styles/Login.css";
 
 class Homepage extends Component {
   getLinks() {
     if (this.props.authenticated) {
       return (
-        <Link to="/signout">
-          <button className="front__buttons">Sign Out</button>
-        </Link>
+        <header>
+          <h1>Note App</h1>
+          <div>
+            <Link to="/signout">
+              <button className="front__buttons">Sign Out</button>
+            </Link>
+          </div>
+        </header>
       );
     }
     return (
       <header>
-          <h1>Welcome!</h1>
-          <div>
+        <h1>Note App</h1>
+        <div>
           <Link to="/login">
-            <button>Log In</button>
+            <button className="front__buttons">Log In</button>
           </Link>
           <Link to="/register">
-            <button>Register</button>
+            <button className="front__buttons">Register</button>
           </Link>
         </div>
       </header>
@@ -29,9 +35,6 @@ class Homepage extends Component {
   render() {
     return (
       <div className="front__header">
-        <Link className="front__link-header" to="/">
-          Notes Homepage
-        </Link>
         <div>{this.getLinks()}</div>
       </div>
     );

@@ -1,8 +1,23 @@
 .note__edit__menu {
     margin: 5px;
+    color: white;
 }
 
 .note__edit_close {
     width: 30px;
     cursor: pointer;
+}
+
+button {
+    cursor: pointer;
+    margin: 5px;
+    background-color: #838955;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
 }

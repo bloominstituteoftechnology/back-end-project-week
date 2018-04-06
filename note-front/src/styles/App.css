@@ -2,8 +2,11 @@ head, body {
   height: 100%;
   width: 100%;
   text-align: center;
+  background-color: #5A6F7F;
 }
-
+h1 {
+  margin: 0;
+}
 .App {
   text-align: center;
 }
@@ -19,24 +22,25 @@ head, body {
 }
 
 .note__container {
-  background-color: #5A6F7F;
+  background-color: #93A8AC;
   display: flex;
+  justify-content: center;
   flex-flow: wrap;
   border-radius: 5px;
-  margin: 0px auto 5% auto;
-  width: 80%;
-  padding: 10px;
+  min-width: 300px;
+  margin: 5px 10%;
+  padding: 10px 5%;
 }
 
 .note__card {
   background-color: #FEFFEA;
   color: #929648;
-  margin: 10px auto;
+  margin: 10px 15px;
   padding: 10px;
   border-radius: 7px;
-  width: 250px;
-  min-width: 250px;
-  min-height: 300px;
+  min-width: 200px;
+  min-height: 150px;
+  width: 200px;
 }
 .note__card__title {
   font-size: 24px;

@@ -40,7 +40,7 @@ class NoteForm extends Component {
                 placeholder="Enter text here..."
                 onChange={this.handleInputChange}
                 />
-                <button onClick={() => this.handleAddNote()} type="button">
+                <button className="input__button" onClick={() => this.handleAddNote()} type="button">
                     Add New Note
                 </button>
             </form>

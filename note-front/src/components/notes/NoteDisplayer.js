@@ -21,7 +21,6 @@ class NoteDisplayer extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="app__title">Noter</h1>
           <NoteForm />
         </header>
         {this.noteMapper()}
