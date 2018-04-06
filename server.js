@@ -34,22 +34,19 @@ const auth = (req, res, next) => {
 };
 
 // get all notes
-server.get('/notes', (req, res) => {
-  Note.find({}, (err, notes) => {
-    if (err) {
-      res.status(500);
-      res.json(err);
-    } else {
-      res.json(notes);
-    }
-  });
+server.get('/notes', auth, (req, res) => {
+  Note.find()
+    .then((notes) => res.status(200).json(notes))
+    .catch((err) => {
+      res.status(500).json({ errorMessage: 'There was an error getting the notes' });
+    });
 });
 
 // get specific note
 server.get('/notes/:id', (req, res) => {
   const { id } = req.params;
   Note.findById(id, (err, note) => {
-    if (err) console.error(err);
+    if (err) return console.error(err);
     res.status(200).json({ message: 'here is your note!', note });
   });
 });
