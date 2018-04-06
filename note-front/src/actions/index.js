@@ -64,7 +64,6 @@ export const createNote = (title, content) => {
 };
 
 export const deleteNote = id => {
-  console.log("ID in actions", id);
   return dispatch => {
     dispatch({ type: DELETING_NOTE });
     axios
@@ -80,13 +79,11 @@ export const deleteNote = id => {
 
 export const updateNote = updates => {
   const { id, title, content, user } = updates;
-  console.log("The updates for the notes are", updates);
   return dispatch => {
     dispatch({ type: UPDATING_NOTE });
     axios
     .put(`${ROOT_URL}/api/notes/update/${id}`, { title, content, user })
     .then(updatedNote => {
-      console.log("the updated response is", updatedNote);
         dispatch({ type: UPDATE_NOTE, payload: updatedNote });
         dispatch({ type: SINGLE_NOTE, payload: {} });
 

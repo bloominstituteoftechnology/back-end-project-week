@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 
 class Homepage extends Component {
   getLinks() {
-    console.log("props", this.props);
     if (this.props.authenticated) {
       return (
         <Link to="/signout">

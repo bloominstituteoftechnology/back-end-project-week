@@ -14,7 +14,6 @@ import NoteEdit from "./NoteEdit";
 class Notes extends Component {
   
   handleDeleteNote = (id) => {
-    console.log("ID in notes", id);
     this.props.deleteNote(id);
     this.handleShowNote({});
   };
@@ -33,7 +32,6 @@ class Notes extends Component {
             handleShowNote={this.handleShowNote}
             handleDeleteNote={this.handleDeleteNote}
             selected={this.props.noteSelected}
-            // showUpdate={this.props.showUpdate}
             />
             </Modal>
           ) : null}
