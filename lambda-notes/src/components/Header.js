@@ -25,7 +25,6 @@ class Header extends Component {
       <div className="formContainer">
         <div className="formWrapper">
           <div className="splashField">
-            {/* <Link to="/" className="formText">Welcome</Link> */}
             {this.getLinks()}
           </div>
         </div>
