@@ -62,14 +62,14 @@ class CreateNote extends Component {
        // this doesn't overwrite state, but overwrites the specified [] value
   }
   doLogin = (event) => {
-    console.log('created note: ', this.props);
+    console.log('logged in');
     axios
-    .post(`${ROOT}/login`, {
+    .post(`${ROOT}/register`, {
       username: this.props.username,
       password: this.props.password
     })
     .then(response => {
-      console.log(response.data);
+      console.log('got register data back', response.data);
     })
     .catch((err) => {
       console.log(err);
@@ -80,7 +80,18 @@ class CreateNote extends Component {
   }
   doRegister = (event) => {
     console.log('registered');
-    this.props.addNote(this.state);
+    console.log('registration info ', this.state);
+    axios
+    .post(`${ROOT}/register`, {
+      username: this.state.username,
+      password: this.state.password
+    })
+    .then(response => {
+      console.log('got register data back', response.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
     this.setState( // reset the state
       { username: '', password: '' }
     );
