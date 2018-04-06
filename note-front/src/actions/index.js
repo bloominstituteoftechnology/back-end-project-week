@@ -88,6 +88,8 @@ export const updateNote = updates => {
     .then(updatedNote => {
       console.log("the updated response is", updatedNote);
         dispatch({ type: UPDATE_NOTE, payload: updatedNote });
+        dispatch({ type: SINGLE_NOTE, payload: {} });
+
       })
       .catch(err => {
         dispatch({ type: ERROR, payload: err });
@@ -142,7 +144,7 @@ export const register = (
         history.push("/login");
       })
       .catch(err => {
-        dispatch(authErr(err.toString()));
+        dispatch(authErr(err));
       });
   };
 };
@@ -162,7 +164,7 @@ export const login = (username, password, history) => {
         history.push("/notes");
       })
       .catch(err => {
-        dispatch(authErr(err.toString()));
+        dispatch(authErr(err));
       });
   };
 };

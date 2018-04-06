@@ -29,7 +29,7 @@ class NoteEdit extends Component {
         {this.props.showUpdate ? (
           <EditNoteForm
             note={this.props.selected}
-            handleUpdateNote={this.props.handleUpdateNote}
+            handleShowNote={this.props.handleShowNote}
           />
         ) : null}
       </div>

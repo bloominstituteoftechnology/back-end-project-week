@@ -30,6 +30,7 @@ class EditNoteForm extends Component {
     this.theTitle = "";
     this.theContent = "";
   };
+  
   render() {
 
     return (
