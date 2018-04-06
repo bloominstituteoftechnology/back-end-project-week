@@ -27,7 +27,7 @@ const NewNote = props => (
     <LeftRail />
     <div className='new-note__right'>
       <SectionTitle name='Create A New Note:'/>
-      <PostForm />
+      <PostForm history={this.props.history}/>
     </div>
   </StyledNewNote>
 );

@@ -70,11 +70,11 @@ class PostForm extends React.Component {
       body: this.state.body.trim(),
       stamp: this.parseDate(),
       created: Date.now(),
-    });
+    }, this.props.history);
     this.setState({
       title: '',
       body: '',
-      redirect: true,
+      // redirect: true,
     });
   }
 
@@ -110,7 +110,7 @@ class PostForm extends React.Component {
           />
           <Button type='submit' backgroundColor='rgb(34, 170, 61)' title='Save' />
         </form>
-        {this.state.redirect ? <Redirect to='/list' /> : null}
+        {/* {this.state.redirect ? <Redirect to='/list' /> : null} */}
       </StyledForm>
     );
   }

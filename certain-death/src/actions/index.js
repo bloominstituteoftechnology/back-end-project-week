@@ -23,7 +23,7 @@ export const UPDATED_NOTE = 'UPDATED_NOTE';
 export const UPDATE_SEARCH = 'UPDATE_SEARCH';
 export const USER_CREATED = 'USER_CREATED';
 
-export const addNote = (data) => {
+export const addNote = (data, history) => {
   const config = {
     headers: {
       Authorization: localStorage.getItem('notesToken'),
@@ -40,6 +40,7 @@ export const addNote = (data) => {
     note
       .then(({ newNote }) => {
         dispatch({ type: ADDED_NOTE, payload: newNote });
+        history.push('/');
       })
       .catch((err) => {
         dispatch({ type: ERROR, payload: err });
