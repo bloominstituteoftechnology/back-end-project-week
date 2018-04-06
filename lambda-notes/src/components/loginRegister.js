@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import { login, register } from '../actions/actions';
 import { Link } from 'react-router-dom';
 import './LoginRegister.css';
@@ -36,30 +36,35 @@ class SignUpLogin extends Component {
 
   render() {
     return (
-      <div>
+      <div className="col-md-6 col-sm-12 login-form">
+      <h1>Lambda Notes</h1>
         {this.state.register ? <p>Register Now</p> : <p>Login</p>}
+        <p>{this.props.authMessage}</p>
         <form onSubmit={this.handleFormSubmit}>
-          <label>Username:</label>
+          <label for="username" >Email Address:</label>
           <input
             onChange={this.onChange}
             type="text"
             name="username"
+            id="username"
             placeholder="Username"
           />
-          <label>Password:</label>
+          <label for="password" >Password:</label>
           <input
             onChange={this.onChange}
             type="password"
             name="password"
+            id="password"
             placeholder="Password"
           />
           {this.state.register ? (
             <div>
-              <label>Confirm Password:</label>
+              <label for="confirmPassword">Confirm Password:</label>
               <input
                 onChange={this.onChange}
                 type="password"
                 name="confirmPassword"
+                id="confirmPassword"
                 placeholder="Confirm Password"
               />
             </div>
@@ -81,8 +86,7 @@ class SignUpLogin extends Component {
               </button>
           )}
         </form>
-        {this.state.register ? <a onClick={this.register}> Already a Member? Login </a> : <a onClick={this.register}> Not a member? Register Now. </a> }
-        <p>{this.props.authMessage}</p>
+        {this.state.register ? <a className="log-link" onClick={this.register}> Already a Member? Login </a> : <a className="log-link" onClick={this.register}> Not a member? Register Now. </a> }
       </div>
     );
   }

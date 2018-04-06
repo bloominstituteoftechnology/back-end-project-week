@@ -1,0 +1,19 @@
+.login-form {
+  width:50%;
+  text-align: center;
+  margin: 0 auto;
+}
+form {
+  margin-bottom:20px;
+}
+label, input, button {
+  width:100%;
+}
+label {
+  text-align: left
+}
+.log-link {
+  margin:10px 0;
+  cursor: pointer;
+  text-decoration:underline;
+}
