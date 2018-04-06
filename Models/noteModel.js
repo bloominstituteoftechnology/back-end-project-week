@@ -12,7 +12,7 @@ const NoteSchema = new Schema({
         type: String,
         required: true
     },
-    user: {
+    username: {
         type: ObjectId,
         ref: 'User'
     }
