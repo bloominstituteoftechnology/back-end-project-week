@@ -1,0 +1,64 @@
+.new-note_message {
+  width: 1000px;
+  /* border: 1px solid #9b9b9b; */
+  border-left: 0px;
+  background: #f3f3f3;
+  padding-top: 13px;
+  min-height: 400px;
+} 
+
+.new-note_header {
+  font-family: 'Roboto', 'Segoe UI', 'Open Sans', 'Arial';
+  font-size: 1.7rem;
+  color: #4a494a;
+  font-weight: bold;
+  margin: 81px 0px 10px 31px;
+}
+
+.new-note_fields {
+  display: flex;
+  padding-left: 25px;
+  padding-right: 15px;
+  padding-top: 12px;
+}
+
+.title-div {
+  margin-bottom: 10px;
+}
+
+.title-input {
+  height: 49px;
+  width: 400px;
+  padding-left: 5px;
+  font-family: 'Raleway', Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+  border: 1px solid rgb(150, 150, 150);
+}
+
+.message-div {
+  margin-bottom: 9px;  
+}
+
+.message-input {
+  height: 425px;
+  width: 400px;
+  padding-left: 5px;
+  padding-top: 5px;
+  font-family: 'Raleway', Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+.submit-button {
+  width: 190px;
+  border: 1px solid rgb(150, 150, 150);
+  padding: 15px 5px 15px 5px;
+  margin: 0px 20px 10px 0px;
+  background-color: #5bbdc2;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  font-family: Roboto;
+  font-size: 0.9rem;
+  display: inline-block;
+}
