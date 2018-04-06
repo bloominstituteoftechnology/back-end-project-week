@@ -27,10 +27,25 @@ class Notes extends Component {
     this.SetViewNotes();
   }
   handleLogin(id) {
-    this.setState({ ...this.state, login: true, userId: id });
+    this.target = null;
+    fetch('http://localhost:5000/notes', {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          ...this.state,
+          notes: res.notes,
+          userId: id,
+          login: true
+        });
+      })
+      .catch(err => {
+        console.log(`Error retrieving notes ${err}`);
+      });
   }
   render() {
-    console.log(this.state);
     return (
       <div className="container">
         {!this.state.login ? (
@@ -134,6 +149,9 @@ class Notes extends Component {
     });
   };
   deleteNote = target => {
+    let noteId = this.state.notes[target]._id;
+    console.log(noteId); // <---------- Send this to Delete note in Mongo < ---------
+
     let mirror = this.state.notes;
     mirror.splice(target, 1);
     this.target = null;
@@ -165,18 +183,32 @@ class Notes extends Component {
   };
 
   addNote = newNote => {
+    newNote = { ...newNote, author: this.state.userId };
+    console.log(newNote);
     this.target = null;
-    this.setState({
-      notes: [newNote, ...this.state.notes],
-      view: {
-        notes: true,
-        edit: false,
-        create: false,
-        singleNote: false,
-        results: false
-      },
-      keyword: ''
-    });
+    fetch('http://localhost:5000/notes', {
+      method: 'POST',
+      body: JSON.stringify(newNote),
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        this.setState({
+          notes: [res.note, ...this.state.notes],
+          view: {
+            notes: true,
+            edit: false,
+            create: false,
+            singleNote: false,
+            results: false
+          },
+          keyword: ''
+        });
+      })
+      .catch(err => {
+        console.log(`Error adding note: ${err}`);
+      });
   };
 
   SetViewNotes() {

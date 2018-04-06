@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class CreateNote extends Component {
   state = {
-    title: "",
-    content: ""
+    title: '',
+    content: ''
   };
 
   handleInput = e => {
@@ -13,11 +13,12 @@ class CreateNote extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    if (this.state.title === "" || this.state.content === "") return;
+    if (this.state.title === '' || this.state.content === '')
+      return alert('Title and content are required');
     this.props.addNote(this.state);
     this.setState({
-      title: "",
-      content: ""
+      title: '',
+      content: ''
     });
   };
 

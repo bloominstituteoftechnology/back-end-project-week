@@ -23,7 +23,6 @@ class Login extends Component {
     })
       .then(res => res.json())
       .then(res => {
-        console.log(res);
         if (res.hasOwnProperty('success')) {
           this.setState({
             username: '',
@@ -42,6 +41,8 @@ class Login extends Component {
   handleNewUser = e => {
     e.preventDefault();
     let body = this.state;
+    if (body.username === '' || body.password === '')
+    return alert('Must have Username and Password to login.');
     fetch('http://localhost:5000/signup', {
       method: 'POST',
       body: JSON.stringify(body),
@@ -50,7 +51,6 @@ class Login extends Component {
       .then(res => res.json())
       .then(res => {
         if (res.hasOwnProperty('success')) {
-          console.log(res);
           this.setState({
             username: '',
             password: ''
