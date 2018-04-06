@@ -37,7 +37,7 @@ const StyledList = styled.div`
 `;
 
 class List extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.getNotes();
   }
 
