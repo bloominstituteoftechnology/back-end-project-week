@@ -9,7 +9,7 @@ const routes = require('./api/routes/routes');
 const server = express();
 const corsOptions = {
   origin: 'https://awesome-volhard-b3adaf.netlify.com',
-  //origin: 'http://localhost:3000',
+  // origin: 'http://localhost:3000',
   credentials: true,
 };
 
