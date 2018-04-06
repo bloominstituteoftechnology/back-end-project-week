@@ -1,0 +1,26 @@
+{
+  "name": "lamba-notes-backend",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": "https://github.com/roytanjx/back-end-project-week.git",
+  "author": "Roy <Roy.tanjx@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "helmet": "^3.12.0",
+    "jsonwebtoken": "^8.2.1",
+    "mongoose": "^5.0.12",
+    "morgan": "^1.9.0",
+    "react": "^16.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.3"
+  },
+  "scripts": {
+    "start": "nodemon server.js"
+  }
+}
