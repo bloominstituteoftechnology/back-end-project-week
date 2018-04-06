@@ -8,6 +8,8 @@ import NewNote from "./components/newNote/newNote";
 import ViewNote from "./components/viewNote/viewNote";
 import EditNote from "./components/editNote/editNote";
 import Login from "./components/login/login";
+import Register from "./components/register/register";
+
 
 class App extends Component {
   constructor(props){
@@ -43,7 +45,8 @@ class App extends Component {
           <Route path="/newnote" exact component={NewNote} />
           <Route path="/viewnote" exact component={ViewNote} />
           <Route path="/editnote" exact component={EditNote} />
-          <Route path="/login" exact component = {Login} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/register" exact component={Register} />
         </div>
       </div>
     );

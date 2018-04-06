@@ -39,8 +39,8 @@ mongoose.Promise = global.Promise;
 
 //local middleware that scopes routes for logged in users only
 // const loginMid = (req, res, next) => {
-//     console.log(req.session.loggedIn);
-//     if (!req.session.loggedIn){
+//     const storage = localStorage.getItem("loggedIn");
+//     if (!storage){
 //         console.log(`The user is not logged in!`);
 //         res.status(401)
 //         res.json(`Please login to view this content`);
@@ -90,6 +90,7 @@ app.post("/api/newUser", (req, res) => {
 //post handler for allowing a user to login
 app.post("/api/login", (req, res) => {
     console.log(req.body.username, req.body.password);
+
     if (req.session.loggedIn){
         console.log(`The user is already logged in`);
         res.status(200)
@@ -121,6 +122,7 @@ app.post("/api/login", (req, res) => {
               res.send(`The password you entered was incorrect, please try again`);
             } else {
               console.log(`The user is now logged in`)
+              //set equal to username
               req.session.loggedIn = true;
               res.status(200);
               res.json({success: true});
@@ -145,7 +147,7 @@ app.get("/api/allNotes", (req, res) => {
     if (!req.session.loggedIn){
         console.log(`The user is not logged in! Line 146`);
         res.status(422)
-        .json(`not working!`);
+        .json(`You must be logged in to view this content`);
     } else {
         NoteModel.find({}, (err, response) => {
             if (err) return console.log(`There was an error getting the notes: ${err}`);
@@ -157,28 +159,28 @@ app.get("/api/allNotes", (req, res) => {
 });
 
 //get handler for finding notes by id
-app.get("/api/viewNote/:id", (req, res) => {
-    const id = req.params.id;
-    if (!id){
-        console.log(`An ID for getting a note was not provided`);
-        res.status(422)
-        .json(`An ID was not provided`);
-        return;
-    }
+// app.get("/api/viewNote/:id", (req, res) => {
+//     const id = req.params.id;
+//     if (!id){
+//         console.log(`An ID for getting a note was not provided`);
+//         res.status(422)
+//         .json(`An ID was not provided`);
+//         return;
+//     }
 
-    NoteModel.findById(id, (err, response) => {
-        if (err){
-            console.log(`A post with that ID wasn't found`);
-            res.status(404)
-            .json(`A post with that ID wasn't found`);
-            return;
-        } else {
-            console.log(`The post was found: \n ${response}`);
-            res.status(200)
-            .json(response);
-        }
-    })
-});
+//     NoteModel.findById(id, (err, response) => {
+//         if (err){
+//             console.log(`A post with that ID wasn't found`);
+//             res.status(404)
+//             .json(`A post with that ID wasn't found`);
+//             return;
+//         } else {
+//             console.log(`The post was found: \n ${response}`);
+//             res.status(200)
+//             .json(response);
+//         }
+//     })
+// });
 
 //handler for adding a new note
 app.post("/api/addNote", (req, res) => {

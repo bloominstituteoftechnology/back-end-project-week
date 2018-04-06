@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom"
 
-class Login extends Component {
+class Register extends Component {
     constructor(props){
         super(props);
 
@@ -21,15 +21,11 @@ class Login extends Component {
     }
 
     handleSubmit = () => {
-        axios.post("http://localhost:3001/api/login", {
+        axios.post("http://localhost:3001/api/newUser", {
             username: this.state.username,
             password: this.state.password
         })
-        .then(response => {
-            console.log(response);
-            localStorage.setItem("loggedIn", "true")
-            console.log(localStorage.loggedIn);
-        })
+        .then(response => {console.log(response)})
         .catch(err => console.log(err));
     }
 
@@ -37,7 +33,7 @@ class Login extends Component {
         return(
             <div className="login">
                 <div className="login__header">
-                    <p className="login__header__text">Enter Credentials Below:</p>
+                    <p className="login__header__text">Create a Username and Password Below:</p>
                 </div>
 
                 <div className="login__input">
@@ -56,4 +52,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default Register;
