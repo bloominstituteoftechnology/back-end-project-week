@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import CreateNote from './createNote';
+import ViewNotes from './ViewNotes';
+import ViewSingleNote from './ViewSingleNote';
+import EditNote from './EditNote';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+        <Router>
+          <div>
+            <Route path="/" component={ViewNotes} exact />
+            <Route path="/viewnotes" component={ViewNotes} />
+            <Route path="/createnote" component={CreateNote} />
+            <Route path="/viewsinglenote/:id" component={ViewSingleNote} />
+            <Route path="/editnote/:id" component={EditNote} />
+          </div>
+        </Router>
+      </div>	
     );
   }
 }

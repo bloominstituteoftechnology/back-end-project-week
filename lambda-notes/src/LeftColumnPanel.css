@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:bold');
+
+.LeftColumnPanel {
+  width: 242px;
+  height: 100%;
+  min-height: calc(100vh - 2px);
+  background: #d7d7d7;
+  border-right: 2px solid #c0c0c0;
+}
+
+.LeftColumnPanel p {
+  color: #4a494a;
+  font-size: 38px;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  letter-spacing: 1px;
+  line-height: 33px;
+  position: absolute;
+  left: 15px;
+  top: 22px;
+  margin: 0;
+  padding: 0;
+}
+
+.button {
+  width: 210px;
+  height: 47px;
+  position: absolute;
+  left: 17px;
+  border: 1px solid #94a3a4;
+  box-shadow: 1px 0 #c2c8c8;
+  color: white;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  font-size: 17px;
+  letter-spacing: 0;
+  word-spacing: 1px;
+  line-height: 100%;
+  background: #2ac0c4;
+  text-align: center;
+  text-decoration: none;
+  padding-top: 14px;
+}
+
+.view-button {
+  top: 118px;
+}
+
+.create-button {
+  top: 185px;
+}

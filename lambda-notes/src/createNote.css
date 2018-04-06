@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:bold');
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+.create-note {
+  position: absolute;
+  height: 100%;
+  width: 734px;
+  min-height: calc(100vh - 2px);
+  background: #f3f3f3;
+  top: 0;
+  left: 242px;
+}
+
+.create-note p {
+  position: absolute;
+  left: 30px;
+  top: 25px;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  font-size: 22px;
+  letter-spacing: 0;
+  word-spacing: 1px;
+  color: #4a494a;
+}
+
+.Titleinsertbox {
+  position: absolute;
+  left: 29px;
+  top: 106px;
+  width: 394px;
+  height: 47px;
+  border: 1px solid #a5a5a5;
+  border-radius: 2px;
+  padding: 16px 15px;
+  font-family: "Raleway", sans-serif;
+  font-size: 13px;
+  letter-spacing: 1px;
+  word-spacing: 1px;
+  color: #4c4b4c;
+  text-shadow: 1px 0 #e0dfe0;
+}
+
+.Contentinsertbox {
+  position: absolute;
+  left: 29px;
+  top: 168px;
+  width: 668px;
+  height: 382px;
+  border: 1px solid #a5a5a5;
+  border-radius: 2px;
+  padding: 24px 25px;
+  font-family: "Raleway", sans-serif;
+  font-size: 13px;
+  letter-spacing: 1px;
+  word-spacing: 1px;
+  line-height: 24px;
+  color: #4c4b4c;
+  text-shadow: 1px 0 #e0dfe0;
+  overflow: auto;
+}
+
+.save {
+  position: absolute;
+  left: 31px;
+  top: 567px;
+  width: 210px;
+  height: 47px;
+  border: 1px solid #94a3a4;
+  box-shadow: 1px 0 #c2c8c8;
+  color: white;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  font-size: 17px;
+  letter-spacing: 0;
+  word-spacing: 1px;
+  line-height: 100%;
+  background: #2ac0c4;
+  text-align: center;
+  cursor: pointer;
+}

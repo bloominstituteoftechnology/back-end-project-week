@@ -1,28 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:bold');
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  width: 978px;
+  min-height: calc(100vh - 2px);
+  position: absolute;
+  left: calc(50% - 459px);
+  border: 1px solid #989898;
 }
