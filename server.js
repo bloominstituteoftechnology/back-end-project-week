@@ -25,19 +25,6 @@ const auth = (req,res, next) => {
 };
 
 server.use('/api/notes', auth);
-
-/* server.get('/', (req, res) => {
-  noteSchema.find({}, (err, database) => {
-    if (err) {
-      res.status(500);
-      res.json(err);
-    } else {
-      res.json(database);
-    }
-  });
-});
- */
-
 routes(server);
 
 
