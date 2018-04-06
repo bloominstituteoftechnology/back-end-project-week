@@ -4,14 +4,14 @@ const User = require('../models/user');
 const { getTokenForUser } = require('../services/auth');
 
 const createNote = (req, res) => {
-  const { id, title, content } = req.body;
+  const { authorId, title, content } = req.body;
   const newNote = new Note({ title, content });
   // console.log(newNote);
   newNote.save()
   .then(note => {
     // console.log(note);
     User
-    .findOneAndUpdate({ _id: id }, { $push: { notes: note } }, function(err, updatedUser){
+    .findOneAndUpdate({ _id: authorId }, { $push: { notes: note } }, function(err, updatedUser){
       if (err){
               console.log(err);
       } else {
@@ -42,21 +42,29 @@ const updateNote = (req, res) => {
   const noteUpdates = req.body;
   // console.log(noteUpdates);
   User.findById(authorId)
-  .then(user => {
+  .then(foundUser => {
     Note.findByIdAndUpdate(noteId, noteUpdates, (err, updatedNote) => {
       if (err) res.status(501).json(err);
-      // console.log(user);
+      // console.log(foundUser);
       // console.log(updatedNote);
       res.status(200).json(updatedNote);
     })
   })
 }
 
+// try splice for deleting array elements in user.notes
 const deleteNote = (req, res) => {
-  const { noteId } = req.params;
+  const { authorId, noteId } = req.params;
   Note.findByIdAndRemove(noteId, (err, removedNote) => {
     if (err) res.status(501).json(err);
     res.status(200).json(removedNote);
+    User.findById(authorId, (err, foundAuthor) => {
+      if (err) res.status(501).send(err);
+      // console.log(foundAuthor.notes);
+      foundAuthor.notes = foundAuthor.notes.filter(foundAuthorNote => foundAuthorNote !== noteId);
+      console.log(foundAuthor.notes);
+      res.status(200).json(foundAuthor);
+    })
   })
 }
 

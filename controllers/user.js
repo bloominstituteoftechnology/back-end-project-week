@@ -7,21 +7,22 @@ const createUser = (req, res) => {
   const user = new User({ email, password });
   user.save((err, user) => {
     if (err) return res.send(err);
-    res.json({
+    res.status(201).json({
       success: 'User saved',
       user
     });
   });
 };
 
-// const getUsers = (req, res) => {
-//   // This controller will not work until a user has sent up a valid JWT
-//   // check out what's going on in services/index.js in the `validate` token function
-//   User.find({}, (err, users) => {
-//     if (err) return res.send(err);
-//     res.send(users);
-//   })
-// };
+const getUsers = (req, res) => {
+  // This controller will not work until a user has sent up a valid JWT
+  // check out what's going on in services/index.js in the `validate` token function
+  const { email, password } = req.body;
+  User.find({ email, password }, (err, users) => {
+    if (err) return res.send(err);
+    res.status(200).json(users);
+  })
+};
 
 const login = (req, res) => {
   const { email, password } = req.body;
@@ -42,7 +43,7 @@ const login = (req, res) => {
       }
       if (hashMatch) {
         const token = getTokenForUser({ email: user.email });
-        res.json({ email, token });
+        res.json({ user, token} );
       }
     });
   });
@@ -50,5 +51,6 @@ const login = (req, res) => {
 
 module.exports = {
   createUser,
-  login
+  getUsers,
+  login,
 };

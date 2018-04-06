@@ -1,4 +1,4 @@
-const { createUser, login } = require('./user');
+const { createUser, login, getUsers } = require('./user');
 const { createNote, getNotes, updateNote, deleteNote } = require('./note');
 
 module.exports = {
@@ -7,5 +7,6 @@ module.exports = {
   createNote,
   getNotes,
   updateNote,
-  deleteNote
+  deleteNote,
+  getUsers
 }; 
