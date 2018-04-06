@@ -17,6 +17,7 @@ class App extends Component {
         <div className='App'>
           <Nav />
           <Route path="/" component={Login} exact />
+          <Route path="/login" component={Login} exact />
           <Route path="/viewnotes" component={ViewNotes} exact />
           <Route path="/createnote" component={CreateNote} exact />
           <Route path="/editnote/:id"

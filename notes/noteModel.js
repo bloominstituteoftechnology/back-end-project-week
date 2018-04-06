@@ -14,7 +14,7 @@ const NoteSchema = new Schema({ // Schema is a small portion of what makes up a 
 // feed this into Mongoose to make a new note model
 
 
-const Note = mongoose.model('note', NoteSchema);
+const Note = mongoose.model('Note', NoteSchema);
 // When we create the user model:
 // 1) Mongoose asks Mongo: do we have a collection called 'notes'? If not lets make one
 // 2) 2nd argument, by passing UserSchema: hey Mongoose, any time you're working with 'note' we expect them to have a name and it should be a String

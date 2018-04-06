@@ -10,8 +10,12 @@ server.use(cors());
 
 // add your server code
 const noteRouter = require('./notes/noteRouter.js');
+const loginRouter = require('./notes/loginRouter.js');
+const registerRouter = require('./notes/createUser.js');
 
 server.use('/api/notes', noteRouter);
+server.use('/api/login', loginRouter);
+server.use('/api/register', registerRouter);
 
 mongoose
   .connect('mongodb://localhost/notes')
