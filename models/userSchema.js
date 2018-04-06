@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
+const mongooseTypes = require('mongoose-types');
 const Note = require('./noteSchema');
 const Schema = mongoose.Schema;
 
@@ -32,15 +33,8 @@ UserSchema.pre('save', function (next) {
   });
 });
 
-UserSchema.methods.checkPassword = function (plainTextPW, cb) {
-  bcrypt.compare(
-    plainTextPW,
-    this.hashpassword,
-    (err, matchingPassword) => {
-      if (err) return cb(err);
-      cb(null, matchingPassword);
-    }
-  );
+UserSchema.methods.checkPassword = function (plainTextPW) {
+  return bcrypt.compare(plainTextPW, this.hashpassword)
 };
 
 module.exports = mongoose.model('User', UserSchema);
