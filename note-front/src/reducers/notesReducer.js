@@ -55,6 +55,7 @@ export const notesReducer = (state = initialState, action) => {
         deletingNote: false
       };
     case ERROR:
+    console.log("ERROR OBJECT in reducer", action.payload);
       return {
         ...state,
         fetchingNotes: false,

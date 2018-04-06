@@ -41,7 +41,7 @@ export const getNotes = () => {
         dispatch({ type: NOTES_RECEIVED, payload: res.data });
       })
       .catch(err => {
-        dispatch({ type: ERROR, payload: err });
+        dispatch(authErr(err.toString()));
       });
   };
 };
@@ -58,7 +58,7 @@ export const createNote = (title, content) => {
       })
       .catch(err => {
         if (err) alert(err);
-        dispatch({ type: ERROR, payload: err });
+        dispatch(authErr(err.toString()));
       });
   };
 };
@@ -72,7 +72,7 @@ export const deleteNote = id => {
         dispatch({ type: DELETE_NOTE, payload: deletedNote });
       })
       .catch(err => {
-        dispatch({ type: ERROR, payload: err });
+        dispatch(authErr(err.toString()));
       });
   };
 };
@@ -88,7 +88,7 @@ export const updateNote = updates => {
         dispatch({ type: SINGLE_NOTE, payload: {} });
       })
       .catch(err => {
-        dispatch({ type: ERROR, payload: err });
+        dispatch(authErr(err.toString()));
       });
   };
 };
@@ -140,7 +140,7 @@ export const register = (
         history.push("/login");
       })
       .catch(err => {
-        dispatch(authErr(err));
+        dispatch(authErr(err.toString()));
       });
   };
 };
@@ -160,7 +160,7 @@ export const login = (username, password, history) => {
         history.push("/notes");
       })
       .catch(err => {
-        dispatch(authErr(err));
+        dispatch(authErr(err.toString()));
       });
   };
 };
@@ -175,8 +175,8 @@ export const logout = () => {
           type: USER_UNAUTH
         });
       })
-      .catch(() => {
-        dispatch(authErr("Failed to log you out"));
+      .catch(err => {
+        dispatch(authErr(err.toString()));
       });
   };
 };

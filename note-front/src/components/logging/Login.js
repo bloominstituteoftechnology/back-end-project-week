@@ -10,8 +10,9 @@ class LogIn extends Component {
   }
 
   renderAlert() {
+    console.log("ERROR OBJECT", this.props.error);
     if (!this.props.error) return null;
-    return <h3>{this.props.error}</h3>;
+    return <h3>{[this.props.error]}</h3>;
   }
 
   render() {
