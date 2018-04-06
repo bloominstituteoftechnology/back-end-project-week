@@ -31,7 +31,7 @@ class CollabModal extends React.Component {
           <div >
             <form onSubmit={this.handleSubmit} className="modal__box-form" >
               <input type="email" value={this.state.email} name="email" onChange={this.handleInput} className="modal__box-field" />
-              <input type="submit" value="Add user" className="modal__box-button"/>
+              <input type="submit" value="Add user" className="modal__box-submit"/>
             </form>
           </div>
         </div>
