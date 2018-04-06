@@ -42,7 +42,7 @@ class Register extends Component {
                         <input className="login__form__password" value={this.state.password} onChange={this.handlePassword} />
                         <a href="/" className="login__form__save">
                             <div className="login__form__button">
-                                <p className="login__form__button__text" onClick={this.handleSubmit}>Login</p>
+                                <p className="login__form__button__text" onClick={this.handleSubmit}>Register</p>
                             </div>
                         </a>
                     </form>

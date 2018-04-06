@@ -12,8 +12,9 @@ const UserModel = require("./models/UserModel");
 
 //server and database setup
 const port = process.env.PORT || 3001;
+const url = "mongodb://charlie:password12@ds147975.mlab.com:47975/sparks_notes";
 const app = express();
-mongoose.connect("mongodb://localhost:27017/notes");
+mongoose.connect(url);
 mongoose.connection
 .once("open", () => {
     console.log(`Mongoose is running`);
