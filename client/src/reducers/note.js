@@ -6,7 +6,7 @@ export const NoteReducer = (notes = [], action) => {
       return { ...notes };
 
     case VIEW_NOTE:
-      return { ...notes, current: action.payload };
+      return action.payload;
 
     case EDIT_NOTE:
       return {

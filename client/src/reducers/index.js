@@ -6,7 +6,7 @@ import NoteReducer from './note';
 const rootReducer = combineReducers({
   form: formReducer,
   auth: AuthReducer,
-  note: NoteReducer,
+  notes: NoteReducer,
 });
 
 export default rootReducer;

@@ -83,7 +83,7 @@ export const viewNote = data => {
   };
 };
 
-export const addNote = data => {
+export const addNote = (data, history) => {
   const config = { headers: { Authorization: localStorage.getItem('token') } };
   const { title, text } = data;
   return dispatch => {
@@ -91,6 +91,7 @@ export const addNote = data => {
       .post(`${ROOT_URL}/notes/create`, { title, text }, config)
       .then(({ newNote }) => {
         dispatch({ type: ADD_NOTE, payload: newNote });
+        history.push('/notes/get');
       })
       .catch(err => {
         dispatch(authError('Failed to add new note'));
