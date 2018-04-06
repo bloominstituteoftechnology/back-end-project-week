@@ -1,7 +1,16 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+const ObjectId = mongoose.Schema.Types.ObjectId;
+
 
 const lambdaNotesSchema = new Schema({
+  
+  author: {
+    type: ObjectId,
+    required: true,
+    ref: 'User'
+  },
+
   title: {
     type: String,
     required: true
