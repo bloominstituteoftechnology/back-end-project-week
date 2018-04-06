@@ -1,0 +1,17 @@
+header {
+  font-size: 25px;
+  font-weight: 700;
+}
+input {
+  border: 1px solid grey;
+  margin-top: 10px;
+}
+
+.Container {
+  background-color: #F4F4F4;
+}
+
+.SignIn {
+  width: 100%;
+  margin: 50px;
+}
