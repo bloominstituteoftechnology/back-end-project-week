@@ -1,11 +1,17 @@
 const express = require('express');
 const session = require('express-session');
+const cors = require('cors');
 
 const Note = require('./notes/src/models/note-model');
 const User = require('./notes/src/models/user-model');
 
 const PORT = 5000;
 const server = express();
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+};
 
 const STATUS_USER_ERROR = 422;
 
@@ -15,6 +21,7 @@ server.use(session({
   resave: true,
   saveUninitialized: false,
 }));
+server.use(cors(corsOptions));
 
 // middleware to check if user is logged in
 const auth = (req, res, next) => {
