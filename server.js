@@ -22,8 +22,8 @@ mongoose.connect(config.dburl);
 //   useMongoClient: true
 // });
 
-server.get("*", (req, res) => {  
-    res.sendFile(path.join(__dirname, 'lambda-notes', 'build', 'index.html'));
+server.get("*", (req, res) => {
+  res.redirect('/api/notes');  
   });
 
 routes(server);
