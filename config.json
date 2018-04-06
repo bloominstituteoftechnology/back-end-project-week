@@ -1,0 +1,5 @@
+{
+  "PORT": 5000,
+  "BCRYPT_COST": 11,
+  "STATUS_USER_ERROR": 422
+}
