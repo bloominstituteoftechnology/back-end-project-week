@@ -38,6 +38,23 @@ router.post('/', (req, res) => {
   const noteInfo = req.body;
   const note = new Note(noteInfo);
   const session = req.session;
+  if (req.body.username) {
+    User.findOneAndUpdate(
+      { username: req.body.username },
+      { $push: { notes: noteInfo } },
+      (err, note) => {
+        if (err)
+          res
+            .status(500)
+            .json({
+              msg:
+                'there was an error adding the note to the collaborator account',
+              err,
+            });
+      }
+    );
+    return;
+  }
   note
     .save()
     .then(savedNote => {
@@ -47,7 +64,6 @@ router.post('/', (req, res) => {
             .status(500)
             .json({ msg: 'There was an error adding the note.' });
         user.notes.push(savedNote);
-        const hashed = user.password;
         user
           .save()
           .then()

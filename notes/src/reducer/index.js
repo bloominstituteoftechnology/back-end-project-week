@@ -5,6 +5,7 @@ import {
   ERROR_ADDING_NOTE,
   UPDATE_ERROR,
   TOGGLE_MODAL,
+  TOGGLE_COLLAB_MODAL,
   DELETE_NOTE,
   DELETE_ERROR,
   SELECT_NOTE,
@@ -19,6 +20,7 @@ import {
 const initialState = {
   notes: [],
   modalVisible: false,
+  collabModalVisible: false,
   selectedNote: {},
   sortType: 'date',
   loggedIn: false,
@@ -61,6 +63,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         modalVisible: !state.modalVisible,
+      };
+    case TOGGLE_COLLAB_MODAL:
+      return {
+        ...state,
+        collabModalVisible: !state.collabModalVisible,
       };
     case DELETE_NOTE:
       return {

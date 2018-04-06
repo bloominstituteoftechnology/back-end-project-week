@@ -12,6 +12,7 @@ import EditNote from './comps/EditNote';
 import Modal from './comps/Modal';
 import Login from './comps/Login';
 import Register from './comps/Register';
+import CollabModal from './comps/CollabModal';
 
 // HOC
 import RequireAuth from './comps/RequireAuth';
@@ -23,6 +24,11 @@ class App extends React.Component {
         {this.props.modalVisible && (
           <div className="modal-container">
             <Modal />
+          </div>
+        )}
+        {this.props.collabModalVisible && (
+          <div className="modal-container">
+            <CollabModal />
           </div>
         )}
         <Sidebar />
@@ -42,6 +48,7 @@ class App extends React.Component {
 const mapStateToProps = state => {
   return {
     modalVisible: state.modalVisible,
+    collabModalVisible: state.collabModalVisible,
   };
 };
 

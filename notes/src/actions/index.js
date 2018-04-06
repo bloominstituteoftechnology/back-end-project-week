@@ -15,6 +15,7 @@ export const ERROR_ADDING_NOTE = 'ERROR_ADDING_NOTE';
 export const NOTES_FETCHED = 'NOTES_FETCHED';
 export const ERROR_FETCHING = 'ERROR_FETCHING';
 export const DELETE_ERROR = 'DELETE_ERROR';
+export const TOGGLE_COLLAB_MODAL = 'TOGGLE_COLLAB_MODAL';
 
 const URI = 'https://limitless-brushlands-24225.herokuapp.com';
 
@@ -57,6 +58,12 @@ export const addNote = note => {
       });
   };
 };
+
+export const toggleCollabModal = () => {
+  return {
+    type: TOGGLE_COLLAB_MODAL,
+  }
+}
 
 export const toggleModal = () => {
   return {
