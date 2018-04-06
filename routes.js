@@ -7,4 +7,6 @@ module.exports = server => {
   server.route('/login').post(userLogin);
   server.route('/', authenticateUser).get(getAllNotes);
   server.route('/', authenticateUser).post(createNote);
+  server.route('/delete/:id', authenticateUser).delete(deleteNote);
+  server.route('/update/:id', authenticateUser).put(updateNote);
 };
