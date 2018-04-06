@@ -20,10 +20,9 @@ server.use(session({
   saveUninitialized: false,
 }));
 
-mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/noteSchema');
 
-server.get('/', (req, res) => {
+/* server.get('/', (req, res) => {
   noteSchema.find({}, (err, database) => {
     if (err) {
       res.status(500);
@@ -33,7 +32,7 @@ server.get('/', (req, res) => {
     }
   });
 });
-
+ */
 
 routes(server);
 

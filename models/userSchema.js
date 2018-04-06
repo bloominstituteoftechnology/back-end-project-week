@@ -1,17 +1,18 @@
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const mongooseTypes = require('mongoose-types');
-const Note = require('./noteSchema');
-const Schema = mongoose.Schema;
+mongooseTypes.loadTypes(mongoose, 'email');
 
+const Schema = mongoose.Schema;
+const email = mongoose.SchemaTypes.Email;
+const ObjectId = mongoose.Schema.Types.ObjectId;
 const SALT_ROUNDS = 11;
 
 const UserSchema = new Schema({
   username: {
-    type: String,
+    type: email,
     unique: true,
     required: true,
-    lowercase: true,
   },
   hashpassword: {
     type: String,
@@ -19,7 +20,7 @@ const UserSchema = new Schema({
   },
   notes: [
     {
-      type: mongoose.Schema.Types.ObjectId,
+      type: ObjectId,
       ref: 'Note',
     }
   ],

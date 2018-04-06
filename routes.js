@@ -1,4 +1,4 @@
-const { getNotes } = require('./controllers/getNotes')
+const { getNote } = require('./controllers/getNote')
 const { postNote } = require('./controllers/postNote');
 const { editNote } = require('./controllers/editNote');
 const { deleteNote } = require('./controllers/deleteNote');
@@ -10,7 +10,7 @@ const { userLogin } = require('./controllers/userLogin');
 module.exports = server => {
   server
     .route('/api/notes/:id')
-    .get(getNotes)
+    .get(getNote)
     .delete(deleteNote);
   server
     .route('/api/notes')

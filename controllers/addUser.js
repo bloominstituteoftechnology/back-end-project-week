@@ -4,14 +4,14 @@ const addUser = (req, res) => {
   const { username, hashpassword } = req.body;
   const newUser = new userSchema({ username, hashpassword });
   newUser
-    .save((err, addedUser) => {
-      if (err) {
-        res.status(500).json(err);
-        return;
-      }
-      res.json(addedUser);
+    .save()
+    .then(user => {
+      res.status(200).send(user);
+    })
+    .catch(err => {
+      res.status(500).send({ err });
     });
 };
-module.exports = { 
+module.exports = {
   addUser,
 }
