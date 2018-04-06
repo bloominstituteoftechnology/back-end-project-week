@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const ROOT_URL = 'http://localhost:5000/api';
+const ROOT_URL = 'https://kawaii-notes.herokuapp.com';
 
 export const FETCHING_NOTES = 'FETCHING_NOTES';
 export const NOTES_FETCHED = 'NOTES_FETCHED';
