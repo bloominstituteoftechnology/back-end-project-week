@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon index.js"
   },
   "repository": "https://github.com/tysonwilliams/back-end-project-week.git",
   "author": "Tyson Williams <tyson.j.williams@gmail.com>",
