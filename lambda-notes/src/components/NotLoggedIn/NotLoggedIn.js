@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { authUser } from '../../actions';
 import UserSidebar from '../UserSidebar/UserSidebar';
-
+import './NotLoggedIn.css';
 
 class NotLoggedIn extends React.Component {
   componentDidMount() {
@@ -18,9 +18,9 @@ class NotLoggedIn extends React.Component {
         <div className="Sidebar-Container">
           <UserSidebar />
         </div>
-        <div className="Homepage-Text">
+        <div className="Main-Text">
         Must Login to view this page!
-        If you do not have an account, please register!
+        If you do not have an account, please register!!
         </div>
     </div>
 

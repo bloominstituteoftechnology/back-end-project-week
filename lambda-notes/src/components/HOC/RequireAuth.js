@@ -8,7 +8,7 @@ export default WrappedComponent => {
       if (localStorage.getItem('token')) {
         this.props.authUser();
       }
-      if (!this.props.authenticated) this.props.history.push('/pleaselogin');
+      if (!this.props.authenticated || this.props.authenticated === null) this.props.history.push('/pleaselogin');
     }
     render() {
       return (

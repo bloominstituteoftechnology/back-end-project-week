@@ -6,7 +6,7 @@ import {
 } from '../actions';
 
 const initialState = {
-  authenticated: true
+  authenticated: null,
 };
 
 export default (auth = initialState, action) => {
