@@ -1,7 +1,7 @@
 const createUser = require('./user');
 const login = require('./login');
 
-module.export = {
+module.exports = {
    createUser,
    login,
 };

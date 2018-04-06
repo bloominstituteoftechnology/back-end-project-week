@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const routes = require('./api/routes/routes');
 
 const server = express();
 const corsOptions = {
@@ -11,5 +12,7 @@ const corsOptions = {
 server.use(cors(corsOptions));
 server.use(express.json());
 server.use(morgan('combined'));
+
+routes(server);
 
 module.exports = server;

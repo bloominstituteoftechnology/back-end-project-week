@@ -30,7 +30,7 @@ export const register = (username, password, confirmPassword, history) => {
          .post(`${ROOT_URL}/signup`, { username, password })
          .then(() => {
             dispatch({ type: USER_REGISTERED });
-            history.push('/signin');
+            history.push('/login');
          })
          .catch(() => {
             dispatch(authError('Failed to register user'));

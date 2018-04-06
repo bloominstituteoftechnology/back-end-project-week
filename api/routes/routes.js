@@ -4,6 +4,6 @@ const { authenticate } = require('../utils/middleware');
 module.exports = server => {
    server.route('/signup').post(createUser);
    server.route('/login').post(login);
-   server.route('/home');
-   server.route('/');
+   // server.route('/home');
+   // server.route('/');
 }
