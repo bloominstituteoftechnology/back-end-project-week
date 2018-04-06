@@ -68,6 +68,21 @@ router.put('/edit/:id', (req, res) => {
         });
 });
 
+router.put('/changeLabel/:id', (req, res) => {
+    const { title, entry, label } = req.body;
+    Note.findOneAndUpdate({ _id: req.params.id, author: req.session.loggedIn }, { title, entry, label }, { new: true })
+        .then(note => {
+            if(note) {
+                res.send(note);
+            } else {
+                sendUserError('No note found with that ID', res);
+            }
+        })
+        .catch(err => {
+            sendUserError(err, res);
+        });
+});
+
 router.get('/search/:term', (req, res) => {
     Note.find({ $text: { $search: req.params.term, $caseSensitive: false, $diacriticSensitive: false }, author: req.session.loggedIn }, { score: { $meta: "textScore" } })
     .sort( { "score": { "$meta": "textScore" } }).limit(0)

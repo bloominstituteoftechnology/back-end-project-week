@@ -9,7 +9,7 @@ const Note = new mongoose.Schema({
         type: String,
     },
     dateCreated: {
-        type: String,
+        type: Date,
         default: Date.now,
     },
     label: {
