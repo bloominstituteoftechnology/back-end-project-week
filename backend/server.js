@@ -36,7 +36,7 @@ userRouter(server);
 // });
 
 mongoose
-  .connect(`mongodb://${host}`)
+  .connect(`mongodb://${env.process.DB_USER}:${env.process.DB_PASS}@ds062097.mlab.com:62097/mynotater`)
   .then(conn => {
     console.log('\n\nConnected to Mongo');
   })
