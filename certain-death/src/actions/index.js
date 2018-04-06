@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import { v4 } from 'uuid';
 
 export const ADDING_NOTE = 'ADD_NOTE';
 export const ADDED_NOTE = 'ADDED_NOTE';
@@ -23,6 +22,8 @@ export const UPDATED_NOTE = 'UPDATED_NOTE';
 export const UPDATE_SEARCH = 'UPDATE_SEARCH';
 export const USER_CREATED = 'USER_CREATED';
 
+const URL = 'https://aqueous-beyond-16440.herokuapp.com';
+
 export const addNote = (data, history) => {
   const config = {
     headers: {
@@ -32,7 +33,7 @@ export const addNote = (data, history) => {
   const {
     title, body, created, stamp
   } = data;
-  const note = axios.post('http://localhost:5000/newnote', {
+  const note = axios.post(`${URL}/newnote`, {
     title, body, created, stamp,
   }, config);
   return (dispatch) => {
@@ -55,7 +56,7 @@ export const deleteNote = (data, history) => {
       id: data.id,
     },
   };
-  const note = axios.delete('http://localhost:5000/deletenote', config);
+  const note = axios.delete(`${URL}/deletenote`, config);
   return (dispatch) => {
     dispatch({ type: DELETING_NOTE });
     note
@@ -79,7 +80,7 @@ export const getNotes = (data) => {
       Authorization: localStorage.getItem('notesToken'),
     }
   };
-  const notes = axios.get('http://localhost:5000/getnotes', config);
+  const notes = axios.get(`${URL}/getnotes`, config);
   return (dispatch) => {
     dispatch({ type: GETTING_NOTES });
     notes
@@ -93,7 +94,7 @@ export const getNotes = (data) => {
 };
 
 export const login = (data, history) => {
-  const user = axios.post('http://localhost:5000/login', {
+  const user = axios.post(`${URL}/login`, {
     email: data.email,
     password: data.password,
   });
@@ -133,7 +134,7 @@ export const showNotes = () => ({
 });
 
 export const signup = (data) => {
-  const user = axios.post('http://localhost:5000/register', {
+  const user = axios.post(`${URL}/register`, {
     email: data.email,
     password: data.password,
   });
@@ -168,7 +169,7 @@ export const updateNote = (data, history) => {
   const {
     title, body, id
   } = data;
-  const note = axios.put('http://localhost:5000/updatenote', {
+  const note = axios.put(`${URL}/updatenote`, {
     title, body, id,
   }, config);
   return (dispatch) => {
