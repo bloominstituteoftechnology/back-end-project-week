@@ -69,9 +69,8 @@ class Login extends React.Component {
       this.setState({ user: '', pass: '' });
     } else if (this.state.pass.length < 8) {
       alert('Your password is at least 8 characters.');
-      this.setState({pass: '' });
-    }
-      else {
+      this.setState({ pass: '' });
+    } else {
       event.preventDefault();
       const user = {
         username: this.state.user,
@@ -83,11 +82,10 @@ class Login extends React.Component {
           var instance = axios.create();
           instance.defaults.headers.common['Authorization'] = data.data.token;
           const userID = data.data.user._id;
-          axios.get('http://localhost:3000/notes/' + userID)
-          .then(notes => {
+          axios.get('http://localhost:3000/notes/' + userID).then((notes) => {
             this.props.user_login(userID, notes);
             return;
-          })
+          });
         })
         .catch((error) => {
           alert('You Entered An Incorrect Username or Password.');
@@ -112,8 +110,15 @@ class Login extends React.Component {
       axios
         .post('http://localhost:3000/notes/createuser', newUser)
         .then((data) => {
-          const userID = data.data.user._id;
-          this.props.new_user_creation(userID);
+          axios.post('http://localhost:3000/notes/login', newUser).then((data) => {
+            var instance = axios.create();
+            instance.defaults.headers.common['Authorization'] = data.data.token;
+            const userID = data.data.user._id;
+            axios.get('http://localhost:3000/notes/' + userID).then((notes) => {
+              this.props.user_login(userID, notes);
+              return;
+            });
+          });
         })
         .catch((error) => {
           alert('Username already exists, please try again');

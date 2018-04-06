@@ -6,6 +6,8 @@ import { add_note, view_button_click, load_notes } from '../actions/index';
 
 import './css/CreateNote.css';
 
+const ROUTE = 'http://localhost:3000/notes/';
+
 class CreateNote extends React.Component {
   state = {
     title: '',
@@ -49,10 +51,10 @@ class CreateNote extends React.Component {
     event.preventDefault();
     const newNote = { title: this.state.title, body: this.state.body };
     axios
-      .post('http://localhost:3000/notes/' + this.props.currentUser, newNote)
+      .post(`${ROUTE}${this.props.currentUser}`, newNote)
       .then(() => {
         axios
-          .get('http://localhost:3000/notes/' + this.props.currentUser)
+          .get(`${ROUTE}${this.props.currentUser}`)
           .then((data) => {
             this.props.load_notes(data.data.foundNotes);
           })

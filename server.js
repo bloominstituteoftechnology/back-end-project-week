@@ -18,7 +18,7 @@ server.use(express.json());
 server.use(cors(corsOptions));
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/notes', () => {
+mongoose.connect('mongodb://knoxvillain:lambda15@ds237379.mlab.com:37379/notes', () => {
   console.log('MongoDB Running');
 });
 
