@@ -1,15 +1,6 @@
 const Note = require('../models/noteModel');
 const User = require('../models/userModel');
 
-const sendUserError = (err, res) => {
-  res.status(422);
-  if (err && err.message) {
-    res.json({ message: err.message, stack: err.stack });
-  } else {
-    res.json({ error: err });
-  }
-};
-
 const createNote = (req, res) => {
   const { title, text } = req.body;
   const user = req.decoded.id;
@@ -36,11 +27,11 @@ const getAllNotes = (req, res) => {
 const singleNote = (req, res) => {
   const { id } = req.params;
   if (!id) {
-    return sendUserError('Must provide an id');
+    return res.status(422).json({ error: 'Must provide an id' });
   }
   Note.findById(id, (err, note) => {
     if (err || note === null)
-      return sendUserError('Cannot find note by that id');
+      return res.status(422).json({ error: 'Cannot find note by that id' });
     res.json(note);
   });
 };
@@ -77,13 +68,11 @@ const deleteNote = (req, res) => {
     id = req.body.id;
   }
   if (id === undefined) {
-    sendUserError('Please provide an ID');
-    return;
+    return res.status(422).json({ error: 'Please provide an ID' });
   }
   Note.findByIdAndRemove(id, (err, removedNote) => {
     if (err) {
-      sendUserError('Cannot find note by that id');
-      return;
+      return res.status(422).json({ error: 'Cannot find note by that id' });
     }
     res.json({ success: `${removedNote.title} was removed from the DB` });
   });

@@ -35,9 +35,7 @@ class NoteForm extends Component {
             Save
           </button>
         </form>
-        {/* {this.state.redirect ? (
-          <Redirect to="/notelist" />
-        ) : null} */}
+        {this.state.redirect ? <Redirect to="/notelist" /> : null}
       </div>
     );
   }
