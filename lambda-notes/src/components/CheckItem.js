@@ -1,9 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import { toggle_check } from '../actions/index';
 
 import './css/CheckItem.css';
+
+const ROUTE = 'http://localhost:3000/notes/';
 
 class CheckItem extends React.Component {
   render() {
@@ -22,13 +25,24 @@ class CheckItem extends React.Component {
     const updated = this.props.note;
     updated.checklist[this.props.check.index].checked = !updated.checklist[this.props.check.index]
       .checked;
-    this.props.toggle_check(updated);
+
+    axios
+      .put(`${ROUTE}${this.props.user}/${this.props.note._id}`, {
+        checklist: this.props.note.checklist,
+      })
+      .then(() => {
+        this.props.toggle_check(updated);
+      })
+      .catch((error) => {
+        alert('Error Editing Check List.');
+      });
   };
 }
 
-const mapPropsToState = state => {
+const mapPropsToState = (state) => {
   return {
     note: state.note,
+    user: state.currentUser,
   };
 };
 
