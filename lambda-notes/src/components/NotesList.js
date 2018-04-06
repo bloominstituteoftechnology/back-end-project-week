@@ -20,7 +20,7 @@ class NotesList extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     notes: state.currentUserNotes,
   };

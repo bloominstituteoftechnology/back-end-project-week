@@ -1,11 +1,8 @@
 export const ADD_BUTTON_CLICK = 'ADD_BUTTON_CLICK';
 export const VIEW_BUTTON_CLICK = 'VIEW_BUTTON_CLICK';
-export const ADD_NOTE = 'ADD_NOTE';
 export const VIEW_NOTE = 'VIEW_NOTE';
 export const EDIT_NOTE_CLICKED = 'EDIT_NOTE_CLICKED';
-export const EDIT_NOTE = 'EDIT_NOTE';
-export const DELETE_NOTE = 'DELETE_NOTE';
-export const SEARCH_CLICK = 'SEARCH_CLICK';
+export const SEARCH_BUTTON_CLICK = 'SEARCH_BUTTON_CLICK';
 export const SEARCH_RESULTS_CLICKED = 'SEARCH_RESULTS_CLICKED';
 export const SORT_BUTTON_CLICKED = 'SORT_BUTTON_CLICKED';
 export const DOWNLOAD_BUTTON_CLICKED = 'DOWNLOAD_BUTTON_CLICKED';
@@ -17,10 +14,6 @@ export const HANDLE_LOG_OUT = 'HANDLE_LOG_OUT';
 export const TOGGLE_CHECK = 'TOGGLE_CHECK';
 export const USER_LOGIN = 'USER_LOGIN';
 export const LOAD_NOTES = 'LOAD_NOTES';
-
-// const getNotes = async (userID) => {
-//   return await axios.get('http://localhost:3000/notes/' + userID);
-// };
 
 export const add_button_click = () => {
   const payload = 'create-note';
@@ -34,15 +27,6 @@ export const view_button_click = () => {
   const payload = 'list';
   return {
     type: 'ADD_BUTTON_CLICK',
-    payload,
-  };
-};
-
-let id = 9;
-export const add_note = (note) => {
-  const payload = { ...note, id: id++ };
-  return {
-    type: 'ADD_NOTE',
     payload,
   };
 };
@@ -70,18 +54,10 @@ export const edit_note = (revised) => {
   };
 };
 
-export const delete_note = (note) => {
-  const payload = { note, current: 'list' };
-  return {
-    type: 'DELETE_NOTE',
-    payload,
-  };
-};
-
 export const search_button_click = () => {
   const payload = 'search';
   return {
-    type: 'SEARCH_CLICK',
+    type: 'SEARCH_BUTTON_CLICK',
     payload,
   };
 };
@@ -128,7 +104,7 @@ export const load_user_notes = (user, notes) => {
 export const new_user_creation = (userID) => {
   return {
     type: 'NEW_USER_CREATION',
-    payload: {notes:[], userID},
+    payload: { notes: [], userID },
   };
 };
 
@@ -155,7 +131,7 @@ export const toggle_check = (note) => {
 };
 
 export const user_login = (userID, notes) => {
-  const payload = {userID, notes: notes.data.foundNotes}
+  const payload = { userID, notes: notes.data.foundNotes };
   return {
     type: 'USER_LOGIN',
     payload,
@@ -166,6 +142,6 @@ export const load_notes = (notes) => {
   const payload = notes;
   return {
     type: 'LOAD_NOTES',
-    payload
-  }
-}
+    payload,
+  };
+};

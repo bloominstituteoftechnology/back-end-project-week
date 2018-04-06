@@ -58,9 +58,7 @@ const getNote = (req, res) => {
           if (foundNote === null) {
             return res.status(422).json({ message: 'Note Does Not Exist' });
           } else {
-            res
-              .status(200)
-              .json({ message: 'The Note You Requested', foundNote });
+            res.status(200).json({ message: 'The Note You Requested', foundNote });
           }
         })
         .catch((error) => {
@@ -86,9 +84,7 @@ const updateNote = (req, res) => {
           if (updatedNote === null) {
             return res.status(422).json({ message: 'Note Does Not Exist' });
           } else {
-            res
-              .status(200)
-              .json({ message: 'Note Has Been Updated', updatedNote });
+            res.status(200).json({ message: 'Note Has Been Updated', updatedNote });
           }
         })
         .catch((error) => {
@@ -113,9 +109,7 @@ const deleteNote = (req, res) => {
           if (deletedNote === null) {
             return res.status(422).json({ message: 'Note Does Not Exist' });
           } else {
-            return res
-              .status(200)
-              .json({ message: 'Note Has Been Deleted', deletedNote });
+            return res.status(200).json({ message: 'Note Has Been Deleted', deletedNote });
           }
         })
         .catch((error) => {

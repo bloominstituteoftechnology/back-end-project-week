@@ -10,8 +10,6 @@ import SearchResults from './SearchResults';
 import SortOverview from './SortOverview';
 import DownloadNotes from './DownloadNotes';
 
-import './css/MainContent.css';
-
 class MainContent extends React.Component {
   render() {
     let show = null;
@@ -27,7 +25,7 @@ class MainContent extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     current: state.current,
   };

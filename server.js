@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const session = require('express-session');
 
-const mySecret = require('./config')
+const mySecret = require('./config');
 
 const port = process.env.PORT || 3000;
 const corsOptions = {

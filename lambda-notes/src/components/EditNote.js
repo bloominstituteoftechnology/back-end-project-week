@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
-import { edit_note, view_button_click, load_notes } from '../actions/index';
+import { view_button_click, load_notes } from '../actions/index';
 
 import './css/EditNote.css';
 
@@ -38,34 +38,35 @@ class EditNote extends React.Component {
       </div>
     );
   }
-  handleTitleChange = event => {
+  handleTitleChange = (event) => {
     this.setState({ title: event.target.value });
   };
-  handleBodyChange = event => {
+  handleBodyChange = (event) => {
     this.setState({ body: event.target.value });
   };
 
-  handleSumbit = event => {
+  handleSumbit = (event) => {
     event.preventDefault();
-    const revisedNote = {title: this.state.title, body: this.state.body};
-    axios.put(`${ROUTE}${this.props.currentUser}/${this.props.note._id}`, revisedNote)
-    .then(() => {
-      axios
-        .get(`${ROUTE}${this.props.currentUser}`)
-        .then((data) => {
-          this.props.load_notes(data.data.foundNotes);
-        })
-        .then(() => {
-          this.props.view_button_click();
-        });
-    })
-    .catch((error) => {
-      alert('Error Editing Note', error);
-    });
+    const revisedNote = { title: this.state.title, body: this.state.body };
+    axios
+      .put(`${ROUTE}${this.props.currentUser}/${this.props.note._id}`, revisedNote)
+      .then(() => {
+        axios
+          .get(`${ROUTE}${this.props.currentUser}`)
+          .then((data) => {
+            this.props.load_notes(data.data.foundNotes);
+          })
+          .then(() => {
+            this.props.view_button_click();
+          });
+      })
+      .catch((error) => {
+        alert('Error Editing Note', error);
+      });
   };
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     note: state.note,
     current: state.current,
@@ -73,4 +74,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { edit_note, view_button_click, load_notes })(EditNote);
+export default connect(mapStateToProps, { view_button_click, load_notes })(EditNote);

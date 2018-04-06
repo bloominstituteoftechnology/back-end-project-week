@@ -22,16 +22,16 @@ UserSchema.pre('save', function(next) {
     if (error) throw new Error(error);
     this.password = hash;
     next();
-  })
-})
+  });
+});
 
 UserSchema.methods.checkPassword = function(password, callback) {
   bcrypt.compare(password, this.password, (error, checked) => {
     if (error) callback(error, null);
     if (checked) return callback(null, checked);
-    else return callback('Incorrect Password', checked)
-  })
-}
+    else return callback('Incorrect Password', checked);
+  });
+};
 
 const User = mongoose.model('User', UserSchema);
 

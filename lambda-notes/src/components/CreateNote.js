@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
-import { add_note, view_button_click, load_notes } from '../actions/index';
+import { view_button_click, load_notes } from '../actions/index';
 
 import './css/CreateNote.css';
 
@@ -74,4 +74,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { add_note, view_button_click, load_notes })(CreateNote);
+export default connect(mapStateToProps, { view_button_click, load_notes })(CreateNote);

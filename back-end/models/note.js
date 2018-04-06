@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 var dateobject = new Date();
-var datestring = dateobject.toISOString().slice(0,10);
+var datestring = dateobject.toISOString().slice(0, 10);
 const NoteSchema = new mongoose.Schema({
   date: {
     type: Date,
@@ -11,7 +11,7 @@ const NoteSchema = new mongoose.Schema({
   dateString: {
     type: String,
     required: true,
-    default: datestring
+    default: datestring,
   },
   checklist: {
     type: Array,
@@ -30,10 +30,10 @@ const NoteSchema = new mongoose.Schema({
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'User',
   },
 });
 
-const Note = mongoose.model("Note", NoteSchema);
+const Note = mongoose.model('Note', NoteSchema);
 
 module.exports = Note;

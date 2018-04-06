@@ -52,30 +52,21 @@ class Search extends React.Component {
     let lowerTerm = term.term.toLowerCase();
     let results = [];
     const notes = this.props.notes;
-    console.log("THISISNOTES", notes)
-    notes.forEach(note => {
+    notes.forEach((note) => {
       if (term.type === 'title') {
         let lowerTitle = note.title.toLowerCase();
         let alphaNumeric = note.title.toLowerCase().replace(/[^a-zA-Z ]/g, '');
-        if (
-          lowerTerm === lowerTitle ||
-          lowerTerm === alphaNumeric ||
-          lowerTitle.includes(lowerTerm)
-        ) {
+        if (lowerTerm === lowerTitle || lowerTerm === alphaNumeric || lowerTitle.includes(lowerTerm)) {
           results.push(note);
         }
       }
       if (term.type === 'body') {
         let flag = false;
         let body = note.body.split(' ');
-        body.forEach(word => {
+        body.forEach((word) => {
           let lowerWord = word.toLowerCase();
           let alphaNumeric = word.toLowerCase().replace(/[^a-zA-Z ]/g, '');
-          if (
-            lowerTerm === lowerWord ||
-            lowerTerm === alphaNumeric ||
-            lowerWord.includes(lowerTerm)
-          ) {
+          if (lowerTerm === lowerWord || lowerTerm === alphaNumeric || lowerWord.includes(lowerTerm)) {
             flag = true;
           }
         });
