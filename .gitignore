@@ -1,2 +1,5 @@
 .DS_Store
 node_modules/
+notes/README\.md
+
+notes/public/manifest\.json
