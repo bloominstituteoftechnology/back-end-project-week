@@ -7,10 +7,8 @@ const mySecret = require('./config');
 
 const port = process.env.PORT || 3000;
 const corsOptions = {
-  methods: 'GET, PUT, POST, DELETE',
-  preflightContinue: false,
-  origin: '*',
-  credentials: true,
+  "origin": "*",
+  "credentials": true
 };
 
 const server = express();
