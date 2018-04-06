@@ -18,6 +18,7 @@ export const getNotes = (note) => {
       // convert it to be used with Redux Notes
       Object.keys(response.data).forEach((key) => {
         response.data[key].meat = response.data[key].content;
+        response.data[key].id = response.data[key]._id;
         delete response.data[key].content;
       })
       console.log('getnotes', response.data);

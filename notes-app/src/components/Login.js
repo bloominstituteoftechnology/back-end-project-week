@@ -40,7 +40,7 @@ class CreateNote extends Component {
             />
           </div>
           <NavLink activeClassName='NavButton' to='/viewnotes'>
-            <div className="button CreateNote__Save" onClick={this.doSubmit}>
+            <div className="button CreateNote__Save" onClick={this.doLogin}>
               <b>Log In</b>
             </div>
           </NavLink>
@@ -62,14 +62,16 @@ class CreateNote extends Component {
        // this doesn't overwrite state, but overwrites the specified [] value
   }
   doLogin = (event) => {
-    console.log('logged in');
+    console.log('registered');
+    console.log('registration info ', this.state);
     axios
-    .post(`${ROOT}/register`, {
-      username: this.props.username,
-      password: this.props.password
+    .post(`${ROOT}/login`, {
+      username: this.state.username,
+      password: this.state.password
     })
     .then(response => {
-      console.log('got register data back', response.data);
+      console.log('got login data back', response.data);
+      window.localStorage.setItem('token', response.data.token);
     })
     .catch((err) => {
       console.log(err);
