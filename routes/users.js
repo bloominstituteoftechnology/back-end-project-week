@@ -2,6 +2,9 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const { authUser, sendUserError } = require('../middleware');
 
+// const session = require('express-session');
+// const MongoStore = require('connect-mongo')(session);
+
 const { STATUS_USER_ERROR, BCRYPT_COST } = require('../config.json');
 
 const User = require('../models/users');
@@ -57,12 +60,16 @@ router.post('/login', (req, res) => {
 });
 
 router.post('/logout', (req, res) => {
-    req.session.destroy((err) => {
-        if(err) {
-            sendUserError(err, res);
-        } else {
-            res.send({ success: true });
-        }
+    const store = req.sessionStore;
+    const sesh = store.db.collection('sessions');
+    sesh.remove({ loggedIn: req.session.loggedIn }, (err) => {
+        req.session.destroy((err) => {
+            if(err) {
+                sendUserError(err, res);
+            } else {
+                res.send({ success: true });
+            }
+        });
     });
 });
 
