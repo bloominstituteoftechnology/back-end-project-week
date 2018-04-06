@@ -14,7 +14,7 @@ const corsOptions = {
 
 server.use(express.json());
 server.use(cors(corsOptions));
-// server.use(express.static(path.join('lambda-notes/build')));
+server.use(express.static(path.join('lambda-notes/public')));
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.dburl);
@@ -22,8 +22,8 @@ mongoose.connect(config.dburl);
 //   useMongoClient: true
 // });
 
-server.get("*", (req, res) => {
-  res.redirect('/api/notes');  
+server.get('/', (req, res) => {  
+    res.sendFile(path.join('lambda-notes/public/index.html'));
   });
 
 routes(server);
