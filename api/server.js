@@ -15,7 +15,6 @@ const corsOptions = {
 const server = express();
 
 const MONGO_URI = process.env.MONGODB_URI || 'mongodb://localhost/notes';
-console.log(MONGO_URI);
 mongoose
   .connect(MONGO_URI)
   .then(() => {
