@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "node app.js",
     "test": "mocha *.test.js --recursive --exit"
   },
   "author": "Terrie B. Kim",
