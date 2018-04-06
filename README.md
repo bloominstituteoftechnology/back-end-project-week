@@ -1,3 +1,6 @@
+## Trello Add Link:
+https://trello.com/invite/b/OKfkgt1b/ba3dea186405182ace277c86b1e21fbf/lambda-notes-backend-charlie-sparks
+
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
@@ -83,3 +86,13 @@ Once your MVP has been approved, you have been given a feature list that the cli
 * [ ] Gate your favorite feature behind the premium paywall
 
 You will notice that this repository does not have any starter code.  This is on purpose.  You are to start from scratch using any files you have built throughout your time here at Lambda School.
+
+## Deployment Options:
+- Netlify: https://www.netlify.com/blog/2016/09/29/a-step-by-step-guide-deploying-on-netlify/
+- GitHub Pages: https://pages.github.com/
+  - GH: https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/
+- ngrok: https://ngrok.com/
+- Heroku: https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction
+  - https://devcenter.heroku.com/articles/mongolab
+  - https://forum.freecodecamp.org/t/guide-for-using-mongodb-and-deploying-to-heroku/19347
+- MLab (for MongoDB hosting): https://mlab.com/signup/?gclid=EAIaIQobChMIrLP4p4Kc2gIVlLjACh0cFgTiEAAYASABEgJyJ_D_BwE
