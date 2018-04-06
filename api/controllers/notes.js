@@ -52,8 +52,7 @@ const createNote = (req, res) => {
 };
 
 const editNote = (req, res) => {
-  const { id } = req.params;
-  const { title, content } = req.body;
+  const { id, title, content } = req.body;
   const updateNote = {
     title,
     content
@@ -73,7 +72,7 @@ const editNote = (req, res) => {
 };
 
 const deleteNote = (req, res) => {
-  const { id } = req.params;
+  const { id } = req.body;
 
   if (req.decoded) {
     Note.findByIdAndRemove(id)
