@@ -120,7 +120,7 @@ server.post('/login', (req, res) => {
           req.session.username = username;
           res.status(200).json({ success: true, user: req.session.username });
         } else {
-          res.status(500).json({ success: false});
+          res.status(500).json({ success: false });
         }
       });
     })
