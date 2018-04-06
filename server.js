@@ -43,7 +43,7 @@ server.get('/notes', auth, (req, res) => {
 });
 
 // get specific note
-server.get('/notes/:id', (req, res) => {
+server.get('/notes/:id', auth, (req, res) => {
   const { id } = req.params;
   Note.findById(id, (err, note) => {
     if (err) return console.error(err);
@@ -52,7 +52,7 @@ server.get('/notes/:id', (req, res) => {
 });
 
 // add note
-server.post('/notes', (req, res) => {
+server.post('/notes', auth, (req, res) => {
   const noteInfo = req.body;
   const note = new Note(noteInfo);
   note
@@ -66,18 +66,18 @@ server.post('/notes', (req, res) => {
 });
 
 // udpate note
-server.post('/notes/:id', (req, res) => {
+server.post('/notes/:id', auth, (req, res) => {
   const { id } = req.params;
   const updatedNoteInfo = req.body;
   Note
     .findByIdAndUpdate(id, updatedNoteInfo, { new: true }, (err, updatedNote) => {
-      if (err) console.error(err);
+      if (err) return console.error(err);
       res.status(200).json({ message: 'note has been updated!', updatedNote });
     });
 });
 
 // delete note
-server.delete('/notes/:id', (req, res) => {
+server.delete('/notes/:id', auth, (req, res) => {
   const { id } = req.params;
   Note
     .findByIdAndRemove(id, (err, deletedNote) => {
