@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const BCRYPT_COST = 11;
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/users');
+mongoose.connect('mongodb://localhost/notes');
 
 const UserSchema = new Schema({
   username: { type: String, required: true, unique: true, lowercase: true },
