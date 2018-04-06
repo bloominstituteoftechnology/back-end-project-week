@@ -24,7 +24,7 @@ server.use(session({
 }));
 
 const corsOptions = {
-    origin: ["https://distracted-kepler-8e6505.netlify.com", "http://localhost:3000"],
+    origin: ["https://peaceful-beach-56546.herokuapp.com", "http://localhost:3000"],
     credentials: true
   };
 
