@@ -4,8 +4,10 @@ import NoteView from './mainpage/NoteView';
 import EditNote from './mainpage/EditNote';
 import CreateNote from './mainpage/CreateNote';
 import SearchBar from './mainpage/SearchBar';
+import WelcomePage from './mainpage/Welcome/WelcomePage';
 //import CsvCreator from 'react-csv-creator';
 import { arrayMove } from 'react-sortable-hoc';
+import axios from 'axios';
 import './mainpage.css';
 import './deletebox.css';
 
@@ -15,6 +17,7 @@ class MainPage extends React.Component {
     notes: [],
     deleting: false,
     searchValue: '',
+    notesLoaded: false,
 
   };
 
@@ -26,6 +29,7 @@ class MainPage extends React.Component {
   }
 
   render() {
+    // console.log('rendering', this.state.notes);
     return (
       <div>
         <div style={this.state.deleting ? { visibility: 'visible' } : { visibility: 'hidden' } }>
@@ -52,7 +56,7 @@ class MainPage extends React.Component {
           <div style={this.props.caseValue === 'noteList' && this.state.notes.length > 1 ? { visibility: 'visible' } : { visibility: 'hidden' }}>
             <SearchBar sendSearchValue={this.updateSearchValue}/>
           </div>
-          {/* <CsvCreator
+         {/* <CsvCreator
             filename='my_notes'
             headers={ [{ id: 'first', display: 'Titles' }, {id: 'second', display: 'Content' }] }
             rows={this.state.notes.filter(elem => elem.title.toLowerCase().includes(this.state.searchValue.toLowerCase()))
@@ -71,6 +75,7 @@ class MainPage extends React.Component {
   renderSwitch = (param) => {
     switch(param) {
       case 'noteList':
+        if (this.state.notes.length === 0 && !this.state.notesLoaded) this.getNotes();
         return <div className="mainPage__noteList">
           <NoteList notesArr={this.state.notes} changeSwitch={this.props.changeSwitch} viewNote={this.changeCurrentNote}
            filterValue={this.state.searchValue} onSortEnd={this.onSortEnd}
@@ -88,12 +93,25 @@ class MainPage extends React.Component {
       case 'createNote':
         return <CreateNote addNote={this.addNote} />;
       default:
-        return <div className="mainPage__welcome">Welcome to Lambda Notes</div>;
+        return <WelcomePage changeUser={this.props.changeUser} />;
     }
   };
 
   addNote = (noteObj) => {
-    this.setState({ ...this.state, notes: this.state.notes.concat([noteObj]) });
+    axios
+      .post(
+        'http://localhost:2323/serverDerp/notes',
+        noteObj,
+        { headers: { "Authorization": this.props.currentUser.token }}
+      )
+      .then(res => {
+        console.log(res.data.message);
+        noteObj._id = res.data.id;
+        this.setState({ ...this.state, notes: this.state.notes.concat([noteObj]) });
+      })
+      .catch(err => {
+        console.error(err);
+      })
   };
 
   changeCurrentNote = (nextNote) => {
@@ -101,8 +119,22 @@ class MainPage extends React.Component {
   };
 
   replaceCurrentNoteInArr = (newNote) => {
-    this.setState({...this.state, currentNote: newNote, notes: this.state.notes.map(note => { if (note.id === newNote.id) {return newNote} else {return note} } )
-    });
+    axios
+      .put(
+        'http://localhost:2323/serverDerp/notes',
+        newNote,
+        { headers: { "Authorization": this.props.currentUser.token }}
+      )
+      .then(res => {
+        this.setState({
+          currentNote: newNote,
+          notes: this.state.notes.map(note => { if (note._id === newNote._id) {return newNote} else {return note} } )
+        });
+      })
+      .catch(err => {
+        console.error(err);
+        console.error(err.response);
+      });
   }
 
   toggleDeleting = () => {
@@ -110,8 +142,22 @@ class MainPage extends React.Component {
   };
 
   deleteCurrentNote = () => {
-    this.setState({ notes: this.state.notes.filter(note => note.id !== this.state.currentNote.id), currentNote: {}, deleting: false });
-    this.props.changeSwitch('Your Notes:','noteList');
+    axios
+      .delete(
+        'http://localhost:2323/serverDerp/notes',
+        {
+          headers: { "Authorization": this.props.currentUser.token },
+          data: Object.assign({}, this.state.currentNote)
+        }
+      )
+      .then(res => {
+        this.setState({ notes: this.state.notes.filter(note => note._id !== this.state.currentNote._id), currentNote: {}, deleting: false });
+        this.props.changeSwitch('Your Notes:','noteList');
+      })
+      .catch(err => {
+        console.error(err);
+        console.error(err.response);
+      });
   };
 
   updateSearchValue = (str) => {
@@ -123,6 +169,25 @@ class MainPage extends React.Component {
       notes: arrayMove(this.state.notes, oldIndex, newIndex),
     });
   };
+
+ 
+
+  getNotes = () => {
+    axios
+      .get('http://localhost:2323/serverDerp/notes', { headers: { "Authorization": this.props.currentUser.token }})
+      .then(foundNotes => {
+        this.setState({ notes: foundNotes.data, notesLoaded: true });
+      })
+      .catch(err => {
+        console.error(err);
+      })
+  }
+
+  clearNotes = () => {
+    if(this.state.notes.length > 0) {
+      this.setState({ notes: [], notesLoaded: false });
+    }
+  }
 
 }
 

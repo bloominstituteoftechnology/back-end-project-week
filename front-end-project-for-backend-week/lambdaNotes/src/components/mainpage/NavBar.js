@@ -14,6 +14,7 @@ const NavBar = (props) => {
       <div>
         <button className="navBar__button" onClick={() => props.changeSwitch('Create New Note:', 'createNote')} >+ Create New Note</button>
       </div>
+      
       <div>
         <button
           className="navBar__button"

@@ -7,6 +7,8 @@ class App extends Component {
   state = {
     mainPageTitle: '',
     mainPageSwitchValue: '',
+    userToken: null,
+    userId: null
   };
 
   render() {
@@ -14,20 +16,47 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App__leftbox">
-          <NavBar changeSwitch={this.changeSwitch} viewNotes={this.viewNotes} switchValue={this.state.mainPageSwitchValue} />
+          <NavBar
+            changeSwitch={this.changeSwitch}
+            changeUser={this.changeUser}
+            clearNotes={this.clearNotes}
+            switchValue={this.state.mainPageSwitchValue}
+            currentUser={{ token: this.state.userToken, id: this.state.userId }}
+          />
         </div>
         <div className="App__rightbox">
-          <MainPage title={currentState.mainPageTitle} caseValue={currentState.mainPageSwitchValue} changeSwitch={this.changeSwitch} onRef={ref => (this.mainpage = ref)}/>
+          <MainPage
+            title={currentState.mainPageTitle}
+            caseValue={currentState.mainPageSwitchValue}
+            changeSwitch={this.changeSwitch}
+            changeUser={this.changeUser}
+            onRef={ref => (this.mainpage = ref)}
+            currentUser={{ token: this.state.userToken, id: this.state.userId }}
+          />
         </div>
       </div>
     );
   }
 
-  changeSwitch = (title, casevalue) => {
-    this.setState({mainPageTitle: title, mainPageSwitchValue: casevalue})
+  changeSwitch = (title='', casevalue='') => {
+    if (this.state.userId === null || this.state.userToken === null) {
+      this.setState({mainPageTitle: 'Not Logged In', mainPageSwitchValue: ''});
+      return;
+    }
+    this.setState({mainPageTitle: title, mainPageSwitchValue: casevalue});
   };
 
+
+  clearNotes = () => {
+    this.mainpage.clearNotes();
+  };
+
+  changeUser = (token, id) => {
+    this.setState({ userToken: token, userId: id });
+    if(this.state.mainPageTitle === 'Not Logged In') {
+      this.setState({ mainPageTitle: '' });
+    }
+  };
 }
-  
 
 export default App;
