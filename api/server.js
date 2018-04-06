@@ -15,7 +15,7 @@ const corsOptions = {
 const server = express();
 
 mongoose
-  .connect('mongodb://localhost/notes')
+  .connect('mongodb://heroku_f6f35d4r:74c7oa0c2k8jtl6mhv2kkh9d4@ds235609.mlab.com:35609/heroku_f6f35d4r')
   .then(() => {
     console.log('Successfully connected to MongoDB');
   })
