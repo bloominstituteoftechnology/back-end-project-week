@@ -1,47 +1,73 @@
-import React from 'react';
-import '../../styles/EditNoteForm.css';
+import React, { Component } from "react";
+import "../../styles/EditNoteForm.css";
+import { connect } from "react-redux";
+import { updateNote } from "../../actions";
 
-
-const EditNoteForm = props => {
-  let theTitle = "test";
-  let theContent = "test";
-  const handleTitleChange = event => {
-    theTitle = event.target.value;
-  };
-
-  const handleContentChange = event => {
-    theContent = event.target.value;
-  };
-  
-  const submitEdits = () => {
-    props.handleUpdateNote({id: props.note._id, title: theTitle, content: theContent, user: props.note.user._id, }, props.history);
-    theTitle = "";
-    theContent = "";
+class EditNoteForm extends Component {
+  constructor() {
+    super();
+    this.theTitle = "";
+    this.theContent = "";
   }
-  return (
-    <div className="editnote__container">
-      <form className="editnote__form">
-        <input
-          value={props.title}
-          name="title"
-          type="text"
-          placeholder={props.note.title}
-          onChange={ handleTitleChange }
-          />
-        <input
-          value={props.content}
-          name="theText"
-          type="text"
-          placeholder={props.note.content}
-          onChange={ handleContentChange }
-          />
-        <button onClick={() => submitEdits()} type="button">
-          Edit Note
-        </button>
-        <div>User: {props.note.user.username}</div>
-      </form>
+
+  handleTitleChange = event => {
+   this.theTitle = event.target.value;
+  };
+
+  handleContentChange = event => {
+    this.theContent = event.target.value;
+  };
+
+  submitEdits = () => {
+    this.props.updateNote(
+      {
+        id: this.props.note._id,
+        title: this.theTitle,
+        content: this.theContent,
+        user: this.props.note.user._id
+      }
+    );
+    this.theTitle = "";
+    this.theContent = "";
+  };
+  render() {
+
+    return (
+      <div className="editnote__container">
+        <form className="editnote__form">
+          <input
+            value={this.props.title}
+            name="title"
+            type="text"
+            placeholder={this.props.note.title}
+            onChange={this.handleTitleChange}
+            />
+          <input
+            value={this.props.content}
+            name="theText"
+            type="text"
+            placeholder={this.props.note.content}
+            onChange={this.handleContentChange}
+            />
+          <button onClick={() => this.submitEdits()} type="button">
+            Edit Note
+          </button>
+          <div>User: {this.props.note.user.username}</div>
+        </form>
     </div>
   );
+}
 };
 
-export default EditNoteForm;
+const mapStateToProps = state => {
+  return {
+    showUpdate: state.noteReducer.showUpdate,
+    updateNote: state.notesReducer.updateNote,
+    updateSingleNote: state.noteReducer.updateSingleNote,
+    error: state.notesReducer.error
+  };
+};
+
+export default connect(mapStateToProps, {
+  updateNote
+})(EditNoteForm);

@@ -107,22 +107,7 @@ server.post("/login", (req, res) => {
 
 server.post("/logout", (req, res) => {
   console.log("Post recieved for logging out on server", req.body);
-  if (!req.body.username) {
-    res.status(422).json({ error: "Need username" });
-  }
-  let { username } = req.body;
-  username = username.toLowerCase();
-  User.findOne({ username })
-    .then(user => {
-      const foundUserID = JSON.stringify(user._id).replace(/"/g, "");
-      if (foundUserID === req.session.ID) {
-        req.session.ID = null;
-        res.status(200).json({ success: true });
-      }
-    })
-    .catch(err => {
-      res.send(err);
-    });
+  res.status(200).json({ success: true });
 });
 
 // ===Notes functionality===
@@ -146,14 +131,17 @@ server.post("/api/notes", (req, res) => {
   }
   const { title, content, user } = req.body;
   const note = new Note({ title, content, user });
-  note.save((err, note) => {
-    console.log("saving note", err, note);
-    if (err) return res.send(err);
+  note.save(note)
+  .then(note => {
+    console.log("saving note", note);
     res.json({
       success: "Note saved",
       note
-    });
-  });
+    })
+  })
+    .catch(err => {
+      res.send(err);
+    })
 });
 
 server.delete("/api/notes/delete/:id", (req, res) => {
@@ -179,12 +167,13 @@ server.put("/api/notes/update/:id", (req, res) => {
   if (!title || !content || !id) {
     res.status(400).json({ errorMessage: "Please fill in all forms" });
   }
-  Note.findByIdAndUpdate(id, changes)
+  Note.findByIdAndUpdate(id, changes, {new: true})
     .then(updatedNote => {
+      console.log("mongoose found by id:", updatedNote);
       if (updatedNote === null) {
         res.status(404).json({ errorMessage: "Note not found" });
       }
-      res.status(200).json(updatedNote);
+      res.status(200).send(updatedNote);
     })
     .catch(err => {
       res.send(err);

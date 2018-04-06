@@ -23,7 +23,7 @@ class NoteForm extends Component {
 
     render() {
         return (
-            <form className="input__form">
+            <form className="input__form" autoComplete="off" >
                 <input
                 className="input"
                 value={this.state.title}

@@ -1,19 +1,17 @@
 import React, { Component } from "react";
 import "../../styles/App.css";
 import logo from "../../logo.svg";
+import Modal from "../misc/Modal";
 import { connect } from "react-redux";
 import {
   deleteNote,
   updateSingleNote,
-  toggleShowUpdate,
   updateNote,
 } from "../../actions";
 import NoteEdit from "./NoteEdit";
-import EditNoteForm from "./EditNoteForm";
+
 
 class Notes extends Component {
-  componentDidMount() {
-  }
   
   handleDeleteNote = (id) => {
     console.log("ID in notes", id);
@@ -21,17 +19,8 @@ class Notes extends Component {
     this.handleShowNote({});
   };
 
-  handleUpdateNote = (data, history) => {
-    this.props.updateNote(data, history);
-    this.handleShowNote({});
-  };
-
   handleShowNote = note => {
     this.props.updateSingleNote(note);
-  };
-
-  toggleShowUpdate = () => {
-    this.props.toggleShowUpdate();
   };
 
   render() {
@@ -39,23 +28,20 @@ class Notes extends Component {
       <div className="note__container">
         <div className="note__editbox">
           {Object.keys(this.props.noteSelected).length > 0 ? (
+            <Modal>
             <NoteEdit
-              handleShowNote={this.handleShowNote}
-              toggleShowUpdate={this.toggleShowUpdate}
-              handleDeleteNote={this.handleDeleteNote}
-              selected={this.props.noteSelected}
+            handleShowNote={this.handleShowNote}
+            handleDeleteNote={this.handleDeleteNote}
+            selected={this.props.noteSelected}
+            // showUpdate={this.props.showUpdate}
             />
+            </Modal>
           ) : null}
-          {this.props.showUpdate ? (
-            <EditNoteForm
-              note={this.props.noteSelected}
-              history={this.props.history}
-              handleUpdateNote={this.handleUpdateNote}
-            />
-          ) : null}
+
           {this.props.deletingNote ? (
             <img src={logo} className="App-logo" alt="logo" />
           ) : null}
+          
         </div>
         {this.props.notes.map(note => {
           return (
@@ -91,6 +77,5 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, {
   deleteNote,
   updateSingleNote,
-  toggleShowUpdate,
   updateNote
 })(Notes);

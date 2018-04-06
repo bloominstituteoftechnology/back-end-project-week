@@ -35,8 +35,8 @@ export const CHECK_IF_AUTH = "CHECK_IF_AUTH";
 export const getNotes = () => {
   return dispatch => {
     dispatch({ type: RECIEVING_NOTES });
-  axios 
-    .get(`${ROOT_URL}/api/notes`)
+    axios
+      .get(`${ROOT_URL}/api/notes`)
       .then(res => {
         dispatch({ type: NOTES_RECEIVED, payload: res.data });
       })
@@ -47,8 +47,8 @@ export const getNotes = () => {
 };
 
 export const createNote = (title, content) => {
-  const user = localStorage.getItem('uuID');
-  const note = {title, content, user};
+  const user = localStorage.getItem("uuID");
+  const note = { title, content, user };
   return dispatch => {
     dispatch({ type: CREATING_NOTE });
     axios
@@ -63,11 +63,12 @@ export const createNote = (title, content) => {
   };
 };
 
-export const deleteNote = (id) => {
+export const deleteNote = id => {
   console.log("ID in actions", id);
   return dispatch => {
     dispatch({ type: DELETING_NOTE });
-    axios.delete(`${ROOT_URL}/api/notes/delete/${id}`)
+    axios
+      .delete(`${ROOT_URL}/api/notes/delete/${id}`)
       .then(deletedNote => {
         dispatch({ type: DELETE_NOTE, payload: deletedNote });
       })
@@ -77,19 +78,20 @@ export const deleteNote = (id) => {
   };
 };
 
-export const updateNote = (updates, history) => {
-  const {id, title, content, user} = updates;
-  console.log("The updates for the notes are");
+export const updateNote = updates => {
+  const { id, title, content, user } = updates;
+  console.log("The updates for the notes are", updates);
   return dispatch => {
     dispatch({ type: UPDATING_NOTE });
-    axios.put(`${ROOT_URL}/api/notes/update/${id}`, {title, content, user})      
+    axios
+    .put(`${ROOT_URL}/api/notes/update/${id}`, { title, content, user })
     .then(updatedNote => {
+      console.log("the updated response is", updatedNote);
         dispatch({ type: UPDATE_NOTE, payload: updatedNote });
       })
       .catch(err => {
         dispatch({ type: ERROR, payload: err });
       });
-      history.push("/notes");
   };
 };
 
@@ -161,6 +163,22 @@ export const login = (username, password, history) => {
       })
       .catch(err => {
         dispatch(authErr(err.toString()));
+      });
+  };
+};
+
+export const logout = () => {
+  axios.defaults.headers.common["Authorization"] = null;
+  return dispatch => {
+    axios
+      .post(`${ROOT_URL}/logout`)
+      .then(() => {
+        dispatch({
+          type: USER_UNAUTH
+        });
+      })
+      .catch(() => {
+        dispatch(authErr("Failed to log you out"));
       });
   };
 };

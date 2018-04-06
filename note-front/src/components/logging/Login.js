@@ -17,7 +17,7 @@ class LogIn extends Component {
       const { handleSubmit } = this.props;
   
       return (
-        <form className="login__form" onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+        <form autoComplete="off" className="login__form" onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
           <fieldset className="login__container">
             <label className="login__label">Username:</label>
             <Field className="login__field" name="username" component="input" type="text" />
