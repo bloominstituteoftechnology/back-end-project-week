@@ -8,7 +8,7 @@ const userRoutes = require('./routes/userRoutes');
 const noteRoutes = require('./routes/noteRoutes');
 
 const corsOptions = {
-  origin: `http://localhost:3000`,
+  origin: `https://sleepy-mahavira-8c8bd5.netlify.com`,
   credentials: true,
 };
 
