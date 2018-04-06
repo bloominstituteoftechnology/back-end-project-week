@@ -3,17 +3,11 @@ import "../../styles/App.css";
 import logo from "../../logo.svg";
 import Modal from "../misc/Modal";
 import { connect } from "react-redux";
-import {
-  deleteNote,
-  updateSingleNote,
-  updateNote,
-} from "../../actions";
+import { deleteNote, updateSingleNote, updateNote } from "../../actions";
 import NoteEdit from "./NoteEdit";
 
-
 class Notes extends Component {
-  
-  handleDeleteNote = (id) => {
+  handleDeleteNote = id => {
     this.props.deleteNote(id);
     this.handleShowNote({});
   };
@@ -25,38 +19,38 @@ class Notes extends Component {
   shortenNote = content => {
     console.log("length is", content.length);
     if (content.length > 150) return content.substr(0, 150) + "...";
-  }
+    else return content;
+  };
   render() {
     return (
       <div className="note__container">
-        <div className="note__editbox">
-          {Object.keys(this.props.noteSelected).length > 0 ? (
-            <Modal>
+        {Object.keys(this.props.noteSelected).length > 0 ? (
+          <Modal>
             <NoteEdit
-            handleShowNote={this.handleShowNote}
-            handleDeleteNote={this.handleDeleteNote}
-            selected={this.props.noteSelected}
+              handleShowNote={this.handleShowNote}
+              handleDeleteNote={this.handleDeleteNote}
+              selected={this.props.noteSelected}
             />
-            </Modal>
-          ) : null}
+          </Modal>
+        ) : null}
 
-          {this.props.deletingNote ? (
-            <img src={logo} className="App-logo" alt="logo" />
-          ) : null}
-          
-        </div>
+        {this.props.deletingNote ? (
+          <img src={logo} className="App-logo" alt="logo" />
+        ) : null}
+
         {this.props.notes.map(note => {
           return (
             <div
               className="note__card"
+              draggable="true"
               onClick={() => this.handleShowNote(note)}
               key={note._id}
             >
               <div className="note__card__title">{note.title}</div>
-              <div className="note__card__text">{this.shortenNote(note.content)}</div>
-              <div className="note__card__user">
-                {note.user.username}
+              <div className="note__card__text">
+                {this.shortenNote(note.content)}
               </div>
+              <div className="note__card__user">{note.user.username}</div>
             </div>
           );
         })}

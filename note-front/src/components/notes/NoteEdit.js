@@ -11,20 +11,24 @@ class NoteEdit extends Component {
   render() {
     return (
       <div className="note__edit__menu">
-        <span onClick={() => this.props.handleShowNote({})}>
+        <span onClick={() => this.props.handleShowNote({})}>Close 
           <img
             className="note__edit_close"
             src="https://cdn1.iconfinder.com/data/icons/feather-2/24/x-256.png"
             alt="close"
           />
         </span>
-        <h3>{this.props.selected.title}</h3>
-        <div>{this.props.selected.content}</div>
-        <div>{this.props.selected.user.username}</div>
+        <div className="noteEdit__title">{this.props.selected.title}</div>
+        <div className="noteEdit__content">{this.props.selected.content}</div>
+        <div className="noteEdit__user">
+          User: {this.props.selected.user.username}
+        </div>
         <button
           onClick={() => this.props.handleDeleteNote(this.props.selected._id)}
         >{`Delete This Note`}</button>
-        <button onClick={() => this.handleToggleUpdate()}>{`Update This Note`}</button>
+        <button
+          onClick={() => this.handleToggleUpdate()}
+        >{`Update This Note`}</button>
         {this.props.showUpdate ? (
           <EditNoteForm
             note={this.props.selected}

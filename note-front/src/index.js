@@ -6,7 +6,7 @@ import Homepage from "./components/logging/Homepage";
 import Login from "./components/logging/Login";
 import LogOut from "./components/logging/LogOut";
 import NoteDisplayer from "./components/notes/NoteDisplayer";
-import RequireAuth from './components/HOC/Authorization';
+import RequireAuth from "./components/HOC/Authorization";
 import { App } from "./components";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";

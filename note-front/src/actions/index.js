@@ -82,11 +82,10 @@ export const updateNote = updates => {
   return dispatch => {
     dispatch({ type: UPDATING_NOTE });
     axios
-    .put(`${ROOT_URL}/api/notes/update/${id}`, { title, content, user })
-    .then(updatedNote => {
+      .put(`${ROOT_URL}/api/notes/update/${id}`, { title, content, user })
+      .then(updatedNote => {
         dispatch({ type: UPDATE_NOTE, payload: updatedNote });
         dispatch({ type: SINGLE_NOTE, payload: {} });
-
       })
       .catch(err => {
         dispatch({ type: ERROR, payload: err });

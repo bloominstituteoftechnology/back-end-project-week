@@ -11,7 +11,7 @@ class EditNoteForm extends Component {
   }
 
   handleTitleChange = event => {
-   this.theTitle = event.target.value;
+    this.theTitle = event.target.value;
   };
 
   handleContentChange = event => {
@@ -19,20 +19,17 @@ class EditNoteForm extends Component {
   };
 
   submitEdits = () => {
-    this.props.updateNote(
-      {
-        id: this.props.note._id,
-        title: this.theTitle,
-        content: this.theContent,
-        user: this.props.note.user._id
-      }
-    );
+    this.props.updateNote({
+      id: this.props.note._id,
+      title: this.theTitle,
+      content: this.theContent,
+      user: this.props.note.user._id
+    });
     this.theTitle = "";
     this.theContent = "";
   };
-  
-  render() {
 
+  render() {
     return (
       <div className="editnote__container">
         <form className="editnote__form">
@@ -42,23 +39,22 @@ class EditNoteForm extends Component {
             type="text"
             placeholder={this.props.note.title}
             onChange={this.handleTitleChange}
-            />
+          />
           <input
             value={this.props.content}
             name="theText"
             type="text"
             placeholder={this.props.note.content}
             onChange={this.handleContentChange}
-            />
+          />
           <button onClick={() => this.submitEdits()} type="button">
             Edit Note
           </button>
-          <div>User: {this.props.note.user.username}</div>
         </form>
-    </div>
-  );
+      </div>
+    );
+  }
 }
-};
 
 const mapStateToProps = state => {
   return {
