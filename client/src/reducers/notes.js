@@ -23,7 +23,7 @@ export const notesReducer = (notes = initialNotes, action) => {
           title: action.payload.title,
           text: action.payload.text,
           selected: false
-        }
+        },
       ];
     case UPDATE_SELECTED:
       return notes.map(note => {

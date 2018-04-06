@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const morgan = require('morgan');
 
 const server = express();
 const corsOptions = {
@@ -9,5 +10,6 @@ const corsOptions = {
 
 server.use(cors(corsOptions));
 server.use(express.json());
+server.use(morgan('combined'));
 
 module.exports = server;
