@@ -1,3 +1,4 @@
+const { addCollab } = require('../controllers/addCollab');
 const { getNotes } = require('../controllers/getNotes');
 const { addNote } = require('../controllers/addNote');
 const { editNote } = require('../controllers/editNote');
@@ -15,6 +16,9 @@ module.exports = server => {
     .route('/api/notes')
     .post(addNote)
     .put(editNote);
+  server
+    .route('/api/notes/collab')
+    .post(addCollab)
   server.route('/api/users').post(userCreate);
   server.route('/api/login').post(userLogin);
   server.route('/api/logout').post(userLogout);
