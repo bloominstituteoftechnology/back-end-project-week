@@ -7,8 +7,12 @@ const session = require('express-session');
 
 const server = express();
 const PORT = process.env.PORT || 5000;
+const corsOptions = {
+  origin: 'http:localhost:3000',
+  credentials: true,
+};
 
-server.use(cors());
+server.use(cors(corsOptions));
 server.use(bodyParser.json());
 server.use(
   session({
