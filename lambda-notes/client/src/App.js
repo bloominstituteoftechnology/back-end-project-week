@@ -49,10 +49,11 @@ class App extends React.Component {
     .then((result) => {
       // do something with results, maybe.
     });
-    this.setState({
-      notes: [newNote, ...this.state.notes],
+  /*  this.setState({
+      notes: [...this.state.notes, newNote],
       showAddWin: !this.state.showAddWin
-    });
+    });*/
+    window.location.href = "/";
   }
 
   handleDeletePrompt = (i, noteToDelete) => {
