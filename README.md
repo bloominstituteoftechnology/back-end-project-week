@@ -1,4 +1,5 @@
 [My Trello](https://trello.com/b/SyMmlQIG)
+[Github to my front-end](https://github.com/sharp0111/front-end-project-week)
 
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
