@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 const corsOptions = {
   methods: 'GET, PUT, POST, DELETE',
   preflightContinue: false,
-  // origin: 'https://pure-sands-16313.herokuapp.com/',
+  origin: '*',
   credentials: true,
 };
 
