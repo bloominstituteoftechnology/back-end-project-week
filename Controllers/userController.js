@@ -1,9 +1,9 @@
 const User = require('../Models/userModel');
+const bcrypt = require('bcrypt');
 
 const createUser = (req, res) => {
-    console.log(req.body);
-    const { userName, encryptedPassword } = req.body;
-    const newUser = new User({ userName, encryptedPassword });
+    const { username, password } = req.body;
+    const newUser = new User({ username, encryptedPassword: password });
     newUser.save((err, savedUser) => {
         if (err) {
             res.status(500).json(err);
@@ -30,7 +30,8 @@ const userLogin = (req, res) => {
                 return;
             }
             if (hashMatch) {
-                res.status(200).json(user);
+                req.session.username = user.username;
+                res.status(200).send({ success: true });
             }
         });
     });

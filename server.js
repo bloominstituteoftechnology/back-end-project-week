@@ -2,11 +2,21 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const routes = require('./routes');
+const bodyParser = require('body-parser');
+const session = require('express-session');
 
 const server = express();
 const PORT = process.env.PORT || 5000;
 
 server.use(cors());
+server.use(bodyParser.json());
+server.use(
+  session({
+    secret: 'e5SPiqsEtjexkTj3Xqovsjzq8ovjfgVDFMfUzSmJO21dtXs4re',
+    resave: true,
+    saveUninitialized: false,
+  })
+);
 
 routes(server);
 
@@ -23,4 +33,3 @@ server.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
 
-module.exports = { server };

@@ -6,11 +6,10 @@ const Schema = mongoose.Schema;
 const SALT_ROUNDS = 11;
 
 const UserSchema = new Schema({
-  userName: {
+  username: {
     type: String,
     unique: true,
     required: true,
-    lowercase: true,
   },
   encryptedPassword: {
     type: String,

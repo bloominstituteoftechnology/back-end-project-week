@@ -11,6 +11,10 @@ const NoteSchema = new Schema({
     content: {
         type: String,
         required: true
+    },
+    user: {
+        type: ObjectId,
+        ref: 'User'
     }
 });
 

@@ -1,6 +1,6 @@
-const userController = require('./Controllers/userController');
+const { createUser, userLogin } = require('./Controllers/userController');
 
-module.exports = app => {
-    app.route('/login').post(userController.userLogin);
-    app.route('/new-user').post(userController.createUser);
-}
+module.exports = server => {
+    server.route('/new-user').post(createUser);
+    server.route('/login').post(userLogin);
+};
