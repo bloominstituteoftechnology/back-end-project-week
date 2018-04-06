@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../styles/DisplayOne.css';
 import SideBar from './SideBar';
-import { editNote, deleteNote } from '../actions';
+import { editNote, deleteNote, addNote } from '../actions';
 import EditNote from './EditNote';
 
 class DisplayOne extends Component {
@@ -27,6 +27,15 @@ class DisplayOne extends Component {
     this.setState({ edited: !this.state.edited });
   };
 
+  createClone = e => {
+    e.preventDefault();
+    const cloned = {
+      title: this.state.note.title,
+      body: this.state.note.body,
+    };
+    this.props.addNote(cloned, this.props.history);
+  }
+
   render() { 
 
     return (
@@ -47,6 +56,11 @@ class DisplayOne extends Component {
                   onClick={this.toggleEdit}
                   >
                   edit
+                  </div>
+                  <div className="edit-delete"
+                  onClick={this.createClone}
+                  >
+                  clone
                   </div>
                   <div 
                   className="edit-delete"
@@ -72,4 +86,4 @@ const mapStateToProps = state => {
   };
 };
   
-export default connect(mapStateToProps, { editNote, deleteNote })(DisplayOne);
+export default connect(mapStateToProps, { editNote, deleteNote, addNote })(DisplayOne);
