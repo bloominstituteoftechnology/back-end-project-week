@@ -6,7 +6,8 @@ html, body {
 body {
   background-image: url('http://www.modafinilsale.com/data/out/696/234844472-cute-youtube-backgrounds.jpg');
   background-repeat: repeat;
-  background-size: 1275px
+  background-size: 1275px;
+  cursor: url('http://cur.cursors-4u.net/special/spe-2/spe177.ani'), url('http://cur.cursors-4u.net/special/spe-2/spe177.png'), auto !important;
 }
 
 .App {
