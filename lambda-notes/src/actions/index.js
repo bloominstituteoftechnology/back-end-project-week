@@ -50,6 +50,7 @@ export const getAllNotes = () => {
         },
       })
       .then(response => {
+        console.log('getallnotes response!!!', response)
         dispatch({
           type: GET_ALL_NOTES,
           payload: response.data
@@ -69,9 +70,10 @@ export const createNote = (title, content) => {
           Authorization: localStorage.getItem('token'),
         },
       })
-      .then(() => {
+      .then((response) => {
         dispatch({
-          type: CREATE_NOTE
+          type: CREATE_NOTE,
+          payload: response.data
         })
       })
       .catch(() => {
@@ -99,9 +101,11 @@ export const editNote = (updatedNote, id) => {
   return dispatch => {
     axios
       .put(`${ROOT_URL}/notes/${id}`, updatedNote)
-      .then(() => {
+      .then((response) => {
+        console.log('edit response', response);
         dispatch({
           type: EDIT_NOTE,
+          payload: response.data
         })
       })
       .catch(() => {

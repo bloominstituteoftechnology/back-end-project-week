@@ -14,9 +14,6 @@ class Note extends React.Component {
   state = {
     isModalOpen: false,
   }
-  componentDidMount() {
-    this.props.getAllNotes();
-  }
   render() {
     console.log('NOTE PROPS', this.props)
     return (
@@ -42,9 +39,11 @@ class Note extends React.Component {
           </div>
           <div className="Note-Whole">
             <div className="Note-Title">
+              {/* {!this.props.state.notes.title ? this.props.state.notes[this.props.match.params.id].title : this.props.state.notes.title } */}
               {this.props.state.notes[this.props.match.params.id].title}
             </div>
             <div className="Note-Content">
+              {/* {!this.props.state.notes.content ? this.props.state.notes[this.props.match.params.id].content : this.props.state.notes.content } */}
               {this.props.state.notes[this.props.match.params.id].content}
             </div>
           </div>

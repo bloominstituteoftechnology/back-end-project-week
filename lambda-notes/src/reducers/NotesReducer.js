@@ -18,7 +18,7 @@ export default (notes = [], action) => {
     case DELETE_NOTE:
       return [...notes];
     case EDIT_NOTE:
-      return [...notes];
+      return [...notes, action.payload];
     case ERROR:
       return {...notes, error: action.payload}
     default:

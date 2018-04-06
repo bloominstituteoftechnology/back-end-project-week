@@ -5,11 +5,13 @@ import { Link } from 'react-router-dom';
 import { createNote } from '../../actions';
 import './CreateNewNote.css';
 
+
 class CreateNewNote extends React.Component {
   state = {
     title: '',
     content: '',
   }
+
   render() {
     return (
       <div className="Container">
@@ -49,8 +51,9 @@ class CreateNewNote extends React.Component {
   handleSubmit = (event) => {
     this.props.createNote(this.state.title, this.state.content);
     this.setState({title: '', content: ''});
+    this.props.history.push('/notes'); 
   }
-}
+};
 
 const mapStateToProps = state => {
   return {

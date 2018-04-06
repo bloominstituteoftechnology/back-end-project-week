@@ -14,7 +14,6 @@ import ReduxThunk from 'redux-thunk';
 import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
 import SignOut from './components/SignOut/SignOut';
-// import Notes from './components/Notes/Notes';
 import RequireAuth from './components/HOC/RequireAuth';
 import HomePage from './components/HomePage/HomePage';
 import NotLoggedIn from './components/NotLoggedIn/NotLoggedIn';

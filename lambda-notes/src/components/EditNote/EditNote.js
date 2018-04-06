@@ -10,9 +10,9 @@ class EditNote extends React.Component {
     content: ''
   }
   render() {
-    console.log('edit props', this.props);
-    console.log('this.state', this.state);
-    console.log('NOTEID', this.props.state.notes[this.props.match.params.id]._id)
+    // console.log('edit props', this.props);
+    // console.log('this.state', this.state);
+    // console.log('NOTEID', this.props.state.notes[this.props.match.params.id]._id)
     return (
     <div className="Container">
       <div className="Sidebar-Container">
@@ -52,7 +52,8 @@ class EditNote extends React.Component {
     event.preventDefault();
     this.props.editNote(this.state, this.props.state.notes[this.props.match.params.id]._id);
     this.setState({title: '', content: ''});
-    this.props.history.push(`/view/${this.props.match.params.id}`)
+    this.props.history.push('/notes');
+    // this.props.history.push(`/view/${this.props.match.params.id}`)
   }
   componentDidMount() {
     const notes = this.props.state.notes;

@@ -11,21 +11,21 @@ class App extends Component {
   state = {
     notes: [],
   }
-  
-  componentWillMount() {
+
+  componentDidMount() {
     if (localStorage.getItem('token')) {
       this.props.authUser();
     }
-    this.props.getAllNotes();
     this.setState({
       notes: this.props.notes
     });
-  }
+    this.props.getAllNotes();
+  };
 
   render() {
     const props = this.props;
-    console.log(props);
-    console.log('app state', this.state)
+    console.log('app props', props);
+    console.log('app state', this.state);
     return (
       <div>
       {this.props.state.notes.error ? 
