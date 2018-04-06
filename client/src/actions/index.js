@@ -51,7 +51,7 @@ export const login = (email, password, history) => {
         dispatch({
           type: USER_AUTHENTICATED,
         });
-        history.push('/notes/get');
+        history.push('/notelist');
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('userId', res.data.userId);
       })
@@ -91,7 +91,7 @@ export const addNote = (data, history) => {
       .post(`${ROOT_URL}/notes/create`, { title, text }, config)
       .then(({ newNote }) => {
         dispatch({ type: ADD_NOTE, payload: newNote });
-        history.push('/notes/get');
+        history.push('/notelist');
       })
       .catch(err => {
         dispatch(authError('Failed to add new note'));
