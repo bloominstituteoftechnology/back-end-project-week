@@ -8,13 +8,13 @@ const config = require('./config');
 
 const server = express();
 const corsOptions = {
-  "origin": "http://localhost:3000",
+  "origin": "*",
   "credentials": true
 };
 
 server.use(express.json());
 server.use(cors(corsOptions));
-server.use(express.static(path.join('lambda-notes/public')));
+// server.use(express.static(path.join('lambda-notes/public')));
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.dburl);
@@ -22,9 +22,9 @@ mongoose.connect(config.dburl);
 //   useMongoClient: true
 // });
 
-server.get('/', (req, res) => {  
-    res.sendFile(path.join('lambda-notes/public/index.html'));
-  });
+// server.get('/', (req, res) => {  
+//     res.sendFile(path.join('lambda-notes/public/index.html'));
+//   });
 
 routes(server);
 
