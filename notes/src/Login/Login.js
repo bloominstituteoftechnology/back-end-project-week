@@ -24,6 +24,7 @@ class Login extends Component {
       .post('http://localhost:5000/login', LoginUser)
       .then((res) => {
         console.log(res);
+        window.location.href="http://localhost:3000";
       })
       .catch((err) => {
         console.error('There was an error logging in', err);

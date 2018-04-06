@@ -24,6 +24,7 @@ class Signup extends Component {
       .post('http://localhost:5000/users', newUser)
       .then((res) => {
         console.log(res);
+        window.location.href="http://localhost:3000/login";
       })
       .catch((err) => {
         console.error('There was an error signing up', err);
