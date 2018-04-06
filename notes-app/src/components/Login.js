@@ -4,7 +4,8 @@ import './Login.css';
 import { NavLink } from 'react-router-dom';
 import { Redirect } from "react-router-dom";
 import { addNote } from '../actions'
-
+import axios from 'axios';
+const ROOT = 'http://localhost:5000/api';
 
 class CreateNote extends Component {
   state = {
@@ -44,7 +45,7 @@ class CreateNote extends Component {
             </div>
           </NavLink>
           <NavLink activeClassName='NavButton' to='/viewnotes'>
-            <div className="button CreateNote__Save" onClick={this.doSubmit}>
+            <div className="button CreateNote__Save" onClick={this.doRegister}>
               <b>Register</b>
             </div>
           </NavLink>
@@ -60,11 +61,28 @@ class CreateNote extends Component {
     )  // adds the event.target.name (eg: title) property of the state to equal the new value
        // this doesn't overwrite state, but overwrites the specified [] value
   }
-  doSubmit = (event) => {
-    console.log('created note');
+  doLogin = (event) => {
+    console.log('created note: ', this.props);
+    axios
+    .post(`${ROOT}/login`, {
+      username: this.props.username,
+      password: this.props.password
+    })
+    .then(response => {
+      console.log(response.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+    this.setState( // reset the state
+      { username: '', password: '' }
+    );
+  }
+  doRegister = (event) => {
+    console.log('registered');
     this.props.addNote(this.state);
     this.setState( // reset the state
-      { title: '', meat: '', redirect: true, }
+      { username: '', password: '' }
     );
   }
 }

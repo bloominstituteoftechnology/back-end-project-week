@@ -32,7 +32,9 @@ UserSchema.methods.checkPassword = function(plainTextPW, callBack) {
     .then(result => {
       callBack(null, result)
     })
-    .catch(err => callBack(err));
+    .catch(err => {
+      callBack(err)
+    });
 };
 
 

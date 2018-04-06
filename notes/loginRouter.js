@@ -16,6 +16,7 @@ loginRouter.post('/', (req, res) => {
       return;
     }
     user.checkPassword(password, (nonMatch, hashMatch) => {
+      
       if (nonMatch !== null) {
         res.status(422).json({ error: 'passwords dont match' });
         return;

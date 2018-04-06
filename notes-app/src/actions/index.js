@@ -10,6 +10,7 @@ export const error = (error) => {
 };
 
 export const getNotes = (note) => {
+  console.log(window.localStorage);
   return dispatch => {
     axios
     .get(`${ROOT}/notes`)
