@@ -1,9 +1,19 @@
-// const { getAllJokes } = require('./jokes');
-// const { login } = require('./login');
-// const { createUser } = require('./user');
+const { addCollab } = require('./addCollab');
+const { getNotes } = require('./getNotes');
+const { addNote } = require('./addNote');
+const { editNote } = require('./editNote');
+const { deleteNote } = require('./deleteNote');
+const { userCreate } = require('./userCreate');
+const { userLogin } = require('./userLogin');
+const { userLogout } = require('./userLogout');
 
-// module.exports = {
-//   getAllJokes,
-//   login,
-//   createUser
-// };
+module.exports = {
+  addCollab,
+  getNotes,
+  addNote,
+  editNote,
+  deleteNote,
+  userCreate,
+  userLogin,
+  userLogout,
+};
