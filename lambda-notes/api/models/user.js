@@ -1,34 +1,29 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-
-require('dotenv').config();
-const BCRYPT_COST = parseInt(process.env.SALT_ROUNDS);
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 mongoose.models = {};
 mongoose.modelSchemas = {};
 
 mongoose.Promise = Promise;
-mongoose.connect('mongodb://localhost/users');
+mongoose.connect('mongodb://heroku_7957gfbt:jv1e3gq0ma3fsmrb1erhfftnpj@ds217349.mlab.com:17349/heroku_7957gfbt');
 
 const UserSchema = new mongoose.Schema({
-  username: {
+  notes : [{ type: ObjectId, ref: 'Note'}]
+});
+
+const NoteSchema = new mongoose.Schema({
+  noteTitle: {
     type: String,
-    unique: true,
-    required: true,
-    lowercase: true,
+    required: true
   },
-  password: {
+  noteContent: {
     type: String,
     required: true,
   }
 });
 
-UserSchema.pre('save', function a(next) {
-  bcrypt.hash(this.password, BCRYPT_COST, (error, hash) => {
-    if (error) return next(error);
-    this.password = hash;
-    next();
-  });
-});
+const NoteModel = mongoose.model("Note", NoteSchema);
 
-module.exports = mongoose.model('User', UserSchema);
+const UserModel = mongoose.model("User", UserSchema);
+
+module.exports = UserModel;

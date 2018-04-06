@@ -6,8 +6,8 @@ const ACCESS_TOKEN_KEY = 'access_token';
 
 const CLIENT_ID = 'GmvYnc9BARvaP0vmBEgbq7VtggydTzCw';
 const CLIENT_DOMAIN = '45h131.auth0.com';
-const REDIRECT = 'http://localhost:3000/callback';
-const SCOPE = 'notes';
+const REDIRECT = 'https://fefb03a7.ngrok.io/callback';
+const SCOPE = 'openid email';
 const AUDIENCE = '45h131-lambda-notes';
 
 var auth = new auth0.WebAuth({
@@ -78,6 +78,11 @@ export function setIdToken() {
 export function isLoggedIn() {
   const idToken = getIdToken();
   return !!idToken && !isTokenExpired(idToken);
+}
+
+export function getToken() {
+  const idToken = getIdToken();
+  return idToken;
 }
 
 function getTokenExpirationDate(encodedToken) {

@@ -8,7 +8,7 @@ import EditNoteContainer from './components/EditNoteContainer/EditNoteContainer'
 import SingleNote from './components/SingleNote/SingleNote';
 import Panel from './components/Panel/Panel';
 import Signup from './components/Signup/Signup';
-import { isLoggedIn } from './utils/AuthService';
+import { isLoggedIn, getToken } from './utils/AuthService';
 
 class App extends React.Component {
   state = {
@@ -21,21 +21,12 @@ class App extends React.Component {
     showEditWin: false
   };
 
-/*  componentDidMount() {
-    let notesRef = fire.database().ref('notes2').orderByKey();
-    notesRef.on('child_added', snapshot => {
-      let note = snapshot.val();
-      this.setState({
-      //notes: dummyData,
-      notes: [note].concat(this.state.notes),
-      });
-    })
-  } */
-
   componentDidMount() {
-  fetch('/notes')
-    .then(res => res.json())
-    .then(notes => this.setState({ notes: notes }));
+    var tokenToServer = getToken();
+    if (tokenToServer) {
+      axios.post('/notes', { tokenToServer })
+      .then(res => this.setState({ notes: res.data.notes }))
+    }
   }
 
   handleClickForCreate = () => {
@@ -53,11 +44,10 @@ class App extends React.Component {
   }
 
   handleClickForSave = (newNote) => {
-    //let tempArr = [newNote, ...this.state.notes];
-    //fire.database().ref('notes2').set(tempArr.reverse());
-    axios.post('/notes/save', { newNote })
+    var tokenToServer = getToken();
+    axios.post('/notes/save', { newNote, tokenToServer })
     .then((result) => {
-      alert('server got it, hopefully')
+      // do something with results, maybe.
     });
     this.setState({
       notes: [newNote, ...this.state.notes],
@@ -83,26 +73,6 @@ class App extends React.Component {
     })
   }
 
-  sortAfterDrag = (notes) => {
-    let notes2 = notes.replace(/[^0-9]/g, '');
-    let tempArr = [];
-    let tempArr2 = [];
-    let temp = this.state.notes;
-    for (let i = 0; i < notes2.length; i++) {
-      tempArr.push(notes2[i]);
-    }
-    console.log(Object.keys(temp));
-    console.log(tempArr);
-    for (let i = 0; i < tempArr.length; i++) {
-     tempArr2.push(temp[tempArr[i]]);
-    }
-
-    //fire.database().ref('notes2').set(tempArr2.reverse());
-    this.setState({
-      notes: tempArr2.reverse(),
-    })
-  }
-
   handleEditPrompt = (note) => {
     this.setState({
       showEditWin: !this.state.showEditWin,
@@ -110,16 +80,14 @@ class App extends React.Component {
     });
   }
 
-  handleDeletePrompt = (i) => {
+  handleDeletePrompt = (i, noteToDelete) => {
     if(window.confirm("Are you sure you want to delete this?")) {
+      axios.post('/notes/shownote/delete', { noteToDelete })
+      .then((result) => {
+        // do something with results, maybe.
+      });
       const tempArr = this.state.notes;
       tempArr.splice(i, 1);
-      /* if (tempArr.length <= 1) {
-        fire.database().ref("notes2").remove();
-      } else {
-        fire.database().ref("notes2").remove();
-        fire.database().ref("notes2").set(tempArr.reverse());
-      } */
       this.setState({
         notes: tempArr.reverse(),
         showSingleNote: !this.state.showSingleNote

@@ -12,10 +12,10 @@ const bcrypt = require('bcrypt');
 const jwt = require('express-jwt');
 const jwks = require('jwks-rsa');
 
-const index = require('./api/routes/index');
-//const users = require('./api/routes/users');
-const notes = require('./api/routes/notes');
 const Note = require('./api/models/note');
+const index = require('./api/routes/index');
+const notes = require('./api/routes/notes');
+
 const app = express();
 require('dotenv').config();
 
@@ -36,7 +36,7 @@ const authCheck = jwt({
     audience: '45h131-lambda-notes',
     issuer: '45h131.auth0.com',
     algorithms: ['RS256']
-});
+  });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -57,8 +57,9 @@ app.use(session({
   saveUninitialized: false,
 }));
 
+//app.use(authCheck);
+
 app.use('/', index);
-//app.use('/users', users);
 app.use('/notes', notes);
 
 // catch 404 and forward to error handler
@@ -79,5 +80,9 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.get('/authorized', function (req, res) {
+  res.send('Secured Resource');
+  console.log('secured')
+});
 
 module.exports = app;

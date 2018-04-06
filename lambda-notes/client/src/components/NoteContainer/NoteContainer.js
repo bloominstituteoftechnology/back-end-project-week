@@ -1,24 +1,16 @@
 import React from 'react';
-import $ from 'jquery';
-import 'jquery-ui/ui/widgets/sortable';
+import axios from 'axios';
 
 class NoteContainer extends React.Component {
 
   handleSingleNoteClick = (theNote, index) => {
-    this.props.singleNoteView(theNote, index);
+    axios.post('/notes/shownote', { theNote })
+    .then((result) => {
+      this.props.singleNoteView(result.data, index);
+    });
   };
 
-
-    render() {
-      let handleWasDragged = (sortedArr) => {
-        this.props.sortAfterDrag(sortedArr)
-      }
-    $("ol").sortable({
-      update: function (event, ui) {
-        var data = $(this).sortable('serialize');
-        handleWasDragged(data);
-      }
-    });
+  render() {
     return (
       <div className="Notes">
       <p className="yn-title">Your Notes:</p>

@@ -12,7 +12,7 @@ class Panel extends React.Component {
    }
 
    let stuff2 = () => {
-     window.location.replace("https://45h131.auth0.com/v2/logout?returnTo=http%3A%2F%2Flocalhost:3000/");
+     window.location.replace("https://45h131.auth0.com/v2/logout?returnTo=https%3A%2F%2Ffefb03a7.ngrok.io");
      logout2();
   }
 
