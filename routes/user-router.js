@@ -41,6 +41,7 @@ router.post('/login', (req, res) => {
         middleWare.sendUserError('Please enter a valid username', res);
         return;
     }
+    // lowerCaseUsername = username.toLowerCase();
     User.findOne({ username }, (err, user) => {
         if (err || user === null) {
             middleware.sendUserError('username not found, please register', res);

@@ -18,7 +18,7 @@ const sendUserError = (err, res) => {
 const hashedPassword = (req, res, next) => {
     const { password } = req.body;
     if (!password) {
-        sendUserError('Password is required', res);
+        sendUserError('A valid password is required', res);
         return;
     }
     bcrypt
@@ -55,7 +55,7 @@ const loggedIn = (req, res, next) => {
     const path = req.path;
     if (/restricted/.test(path)) {
       if (!req.session.username) {
-        sendUserError('user not autorized', res);
+        sendUserError('user is not authorized', res);
         return;
       }
     }
