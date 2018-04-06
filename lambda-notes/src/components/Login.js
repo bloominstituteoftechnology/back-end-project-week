@@ -77,12 +77,12 @@ class Login extends React.Component {
         password: this.state.pass,
       };
       axios
-        .post('http://localhost:3000/notes/login', user)
+        .post('https://pure-sands-16313.herokuapp.com/notes/login', user)
         .then((data) => {
           var instance = axios.create();
           instance.defaults.headers.common['Authorization'] = data.data.token;
           const userID = data.data.user._id;
-          axios.get('http://localhost:3000/notes/' + userID).then((notes) => {
+          axios.get('https://pure-sands-16313.herokuapp.com/notes/' + userID).then((notes) => {
             this.props.user_login(userID, notes);
             return;
           });
@@ -108,13 +108,13 @@ class Login extends React.Component {
         password: this.state.newPass,
       };
       axios
-        .post('http://localhost:3000/notes/createuser', newUser)
+        .post('https://pure-sands-16313.herokuapp.com/notes/createuser', newUser)
         .then((data) => {
-          axios.post('http://localhost:3000/notes/login', newUser).then((data) => {
+          axios.post('https://pure-sands-16313.herokuapp.com/notes/login', newUser).then((data) => {
             var instance = axios.create();
             instance.defaults.headers.common['Authorization'] = data.data.token;
             const userID = data.data.user._id;
-            axios.get('http://localhost:3000/notes/' + userID).then((notes) => {
+            axios.get('https://pure-sands-16313.herokuapp.com/notes/' + userID).then((notes) => {
               this.props.user_login(userID, notes);
               return;
             });
