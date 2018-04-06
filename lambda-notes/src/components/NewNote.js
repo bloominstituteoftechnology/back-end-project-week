@@ -73,7 +73,7 @@ class NewNote extends Component {
             Add note
           </button>
         </form>
-        {this.state.redirect && <Redirect to={'/'} />}
+        {this.state.redirect && <Redirect to={'/notes'} />}
       </div>
     );
   }

@@ -1,5 +1,11 @@
 import axios from 'axios';
 
+export const NON_MATCH = 'NON_MATCH';
+export const USER_REGISTERED = 'USER_REGISTERED';
+export const USER_AUTHENTICATED = 'USER_AUTHENTICATED';
+export const USER_UNAUTHENTICATED = 'USER_UNAUTHENTICATED';
+export const USER_NOT_REGISTERED = 'USER_NOT_REGISTERED';
+
 export const GETTING_NOTES = 'GETTING_NOTES';
 export const NOTES_RECEIVED = 'NOTES_RECEIVED';
 export const ERROR_GETTING_NOTES = 'ERROR_GETTING_NOTES';
@@ -23,6 +29,17 @@ export const ERROR_UPDATING_NOTE = 'ERROR_UPDATING_NOTE';
 export const SEARCH = 'SEARCH';
 export const RESETSEARCH = 'RESETSEARCH';
 
+const getHeaders = () => {
+  let config = {
+    headers: {
+      authorization: localStorage.getItem('token'),
+      userid: localStorage.getItem('id'),
+    },
+  };
+  return config;
+}
+
+
 export const search = (text) => {
   return {
     type: SEARCH,
@@ -38,18 +55,18 @@ export const resetSearch = (resetAction) => {
 
 export const getNote = (id) => {
   return {
-      type: GET_NOTE,
-      payload: id,
-  }
+    type: GET_NOTE,
+    payload: id,
+  };
 };
 
 export const getNotes = () => {
   return (dispatch) => {
     dispatch({ type: GETTING_NOTES });
     axios
-      .get('http://localhost:5000/api/notes')
+      .get('http://localhost:5000/api/notes', getHeaders())
       .then(({ data }) => {
-        dispatch({ type: NOTES_RECEIVED, payload: data })
+        dispatch({ type: NOTES_RECEIVED, payload: data });
       })
       .catch((error) => {
         dispatch({ type: ERROR_GETTING_NOTES, payload: error });
@@ -61,7 +78,7 @@ export const createNote = (data) => {
   return (dispatch) => {
     dispatch({ type: CREATE_NOTE });
     axios
-      .post('http://localhost:5000/api/note/create', data)
+      .post('http://localhost:5000/api/note/create', data, getHeaders())
       .then(({ data }) => {
         dispatch({ type: NOTE_CREATED, payload: data });
       })
@@ -75,7 +92,7 @@ export const deleteNote = (id) => {
   return (dispatch) => {
     dispatch({ type: DELETE_NOTE });
     axios
-      .delete('http://localhost:5000/api/note/' + id)
+      .delete('http://localhost:5000/api/note/' + id, getHeaders())
       .then(({ data }) => dispatch({ type: NOTE_DELETED, payload: data }))
       .catch((error) => {
         dispatch({ type: ERROR_DELETING_NOTE, payload: error });
@@ -84,11 +101,10 @@ export const deleteNote = (id) => {
 };
 
 export const updateNote = (data) => {
-  console.log(data);
   return (dispatch) => {
     dispatch({ type: UPDATE_NOTE });
     axios
-      .put('http://localhost:5000/api/note', data)
+      .put('http://localhost:5000/api/note', data, getHeaders())
       .then(({ data }) => {
         dispatch({ type: NOTE_UPDATED, payload: data });
       })
@@ -98,21 +114,50 @@ export const updateNote = (data) => {
   };
 };
 
-// export const addNote = (note) => {
-//     return {
-//         type: ADDNOTE,
-//         payload: note
-//     }
-// };
-// export const updateNote = (note) => {
-//     return {
-//         type: UPDATENOTE,
-//         payload: note,
-//     }
-// };
-// export const deleteNote = (id) => {
-//     return {
-//         type: DELETENOTE,
-//         payload: id,
-//     }
-// };
+export const register = (username, password, confirmPassword) => {
+  return (dispatch) => {
+    if (password !== confirmPassword) {
+      dispatch({ type: NON_MATCH });
+      return;
+    }
+    axios
+      .post(`http://localhost:5000/register`, { username, password })
+      .then(({ data }) => {
+        dispatch({
+          type: USER_REGISTERED,
+          payload: data,
+        });
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('id', data.user._id);
+      })
+      .catch(() => {
+        dispatch({
+          type: USER_NOT_REGISTERED,
+        });
+      });
+  };
+};
+
+export const login = (username, password) => {
+  return (dispatch) => {
+    axios
+      .post('http://localhost:5000/login', { username, password })
+      .then(({ data }) => {
+        dispatch({
+          type: USER_AUTHENTICATED,
+          payload: data,
+        });
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('id', data.user._id);
+      })
+      .catch(() => {
+        dispatch({
+          type: USER_UNAUTHENTICATED,
+        });
+      });
+  };
+};
+
+export const logout = () => {
+  return { type: USER_UNAUTHENTICATED };
+};

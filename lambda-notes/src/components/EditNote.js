@@ -50,7 +50,8 @@ class EditNote extends Component {
             Submit Edit
           </button>
         </form>
-        {this.state.redirect && <Redirect to={'/'} />}
+        {this.state.redirect && <Redirect to={'/notes'} />}
+        
       </div>
     );
   }

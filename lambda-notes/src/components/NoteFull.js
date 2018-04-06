@@ -84,7 +84,7 @@ class NoteFull extends Component {
             </div>
           );
         })}
-        {this.state.redirect && <Redirect to={'/'} />}
+        {this.state.redirect && <Redirect to={'/notes'} />}
       </div>
     );
   }

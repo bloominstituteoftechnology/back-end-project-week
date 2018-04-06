@@ -7,7 +7,7 @@ class Sidebar extends Component {
     return (
       <div className="col-md-3 col-sm-12 text-center text-md-left sidebar">
         <h1>Lambda Notes</h1>
-        <Link className="d-block" to="/">
+        <Link className="d-block" to="/notes">
           <button type="button" style={{marginBottom: '15px'}}className="btn">View Your Notes</button>
         </Link>
         <Link className="d-block" to="/new-note">

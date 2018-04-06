@@ -10,9 +10,11 @@ const isLoggedIn = (req, res, next) => {
       console.log(err);
       res.status(403).json({ error: 'Please login in.', message: err });
       return;
-    }
+      
+    } else if (decoded._id === req.headers.userid) {
     req.decoded = decoded;
     next();
+    } else res.status(403).json({ error: 'User ids don\'t match. Please login again.', message: err });
   });
 };
 

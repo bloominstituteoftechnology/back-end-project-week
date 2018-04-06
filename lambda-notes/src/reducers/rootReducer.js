@@ -7,20 +7,23 @@ const initialState = {
   filteredNotes: [],
   searchText: '',
   searching: false,
+  isAuth: false,
+  authMessage: '',
 };
 
 export const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GETTING_NOTES:
-    return {
-      ...state,
-      gettingNotes: true,
-    };
+      return {
+        ...state,
+        gettingNotes: true,
+      };
     case actionTypes.NOTES_RECEIVED:
-    return {
-      ...state,
-      gettingNotes: false,
-    };
+      return {
+        ...state,
+        notes: [...action.payload],
+        gettingNotes: false,
+      };
     case actionTypes.CREATE_NOTE:
       return {
         ...state,
@@ -35,9 +38,7 @@ export const rootReducer = (state = initialState, action) => {
     case actionTypes.GET_NOTE:
       return {
         ...state,
-        currentNote: state.notes.filter(
-          (note) => note._id === action.payload
-        ),
+        currentNote: state.notes.filter((note) => note._id === action.payload),
         addingNote: false,
       };
     case actionTypes.DELETE_NOTE:
@@ -71,8 +72,9 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         filteredNotes: state.notes.filter(
           (note) =>
-            note.noteTitle.toLowerCase().indexOf(action.payload.toLowerCase()) >=
-              0 ||
+            note.noteTitle
+              .toLowerCase()
+              .indexOf(action.payload.toLowerCase()) >= 0 ||
             note.noteBody.toLowerCase().indexOf(action.payload.toLowerCase()) >= 0
         ),
         searching: true,
@@ -83,6 +85,41 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         searching: action.payload,
         filteredNotes: [],
+      };
+    case actionTypes.NON_MATCH:
+      return {
+        ...state,
+        authMessage: 'Passwords do not match.',
+      };
+    case actionTypes.USER_REGISTERED:
+      return {
+        ...state,
+        isAuth: true,
+        userID: action.payload.user._id,
+        authMessage: 'Welcome!',
+      };
+    case actionTypes.USER_AUTHENTICATED:
+      return {
+        ...state,
+        isAuth: true,
+        userID: action.payload.user._id,
+        authMessage: 'Welcome!',
+      };
+    case actionTypes.USER_UNAUTHENTICATED:
+      localStorage.removeItem('token');
+      localStorage.removeItem('id');
+      return {
+        ...state,
+        isAuth: false,
+        authMessage: 'Logged Out.',
+      };
+    case actionTypes.USER_NOT_REGISTERED:
+      localStorage.removeItem('token');
+      localStorage.removeItem('id');
+      return {
+        ...state,
+        isAuth: false,
+        authMessage: 'Unable to register. Please try again.',
       };
     default:
       return state;

@@ -6,19 +6,21 @@ const Note = require('../models/notes-model');
 server.use(express.json());
 
 server.post('/note/create', (req, res) => {
-  const { noteTitle, noteBody, username } = req.body;
+  const { userid } = req.headers;
+  console.log(userid)
+  const { noteTitle, noteBody } = req.body;
   const newNote = {
     noteTitle,
     noteBody,
-    username,
+    userId: userid,
   };
   if (noteTitle && noteBody) {
-    const note = new Note(req.body);
+    const note = new Note(newNote);
     note
       .save()
       .then((note) => {
         if (note) {
-          Note.find({})
+          Note.find({ userId: userid })
             .then((notes) => {
               if (notes) {  
                 res.status(200).json(notes);
@@ -38,7 +40,8 @@ server.post('/note/create', (req, res) => {
 });
 
 server.get('/notes', (req, res) => {
-  Note.find({})
+  const { userid } = req.headers;
+  Note.find({ userId: userid })
     .then((notes) => {
       if (notes) {
         res.status(200).json(notes);
@@ -58,6 +61,7 @@ server.get('/notes', (req, res) => {
 // });
 
 server.put('/note', (req, res) => {
+  const { userid } = req.headers;
   console.log(req.body);
   const { noteTitle, noteBody, id } = req.body;
   if (id && (noteTitle || noteBody)) {
@@ -71,7 +75,7 @@ server.put('/note', (req, res) => {
           Note.findById(note.id)
             .then((note) => {
               if (note) {
-                Note.find({})
+                Note.find({ userId: userid })
                   .then((notes) => {
                     if (notes) {
                       res.status(200).json(notes);
@@ -89,9 +93,10 @@ server.put('/note', (req, res) => {
 });
 
 server.delete('/note/:id', (req, res) => {
+  const { userid } = req.headers;
   Note.findByIdAndRemove(req.params.id)
     .then((note) => {
-        Note.find({})
+        Note.find({ userId: userid })
           .then((notes) => {
             if (notes) {
               res.status(200).json(notes);
