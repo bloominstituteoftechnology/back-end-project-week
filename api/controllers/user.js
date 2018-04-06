@@ -7,7 +7,7 @@ const STATUS_SUCCESS = 200;
 const STATUS_SERVER_ERROR = 500;
 
 const getuserError = (error, res) => {
-	res.status(STATUS_SERVER)ERROR);
+	res.status(STATUS_SERVER_ERROR);
 	if(error && error.message) {
 		res.json({ message: error.message, stack: error.stack });
 	} else {

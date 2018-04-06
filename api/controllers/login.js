@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken');
-const { secret } = require('../../config');
-
+const { mysecret } = require('../../config');
+const User = require('../models/userModels');
 
 const login = (req, res) => {
 	const { username, password } = req.body;
 	User.findOne({ username }, (err, user) => {
-		if (err) {
+		if (err || !user) {
 		  res.status(403).json({ error: 'Username or password are invalid' });
 			return;
 		}
@@ -22,7 +22,7 @@ const login = (req, res) => {
          const payload = {
 				   username: user.username
 				};
-				const token = jwt.sign(payload, secret);
+				const token = jwt.sign(payload, mysecret);
 				  res.json({ token });
 			 }
 			});

@@ -1,9 +1,41 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const routes = require('./api/routes/routes');
+const path = require('path');
+const mongoose = require('mongoose');
+const config = require('./config');
+
+const server = express();
+const corsOptions = {
+  "origin": "http://localhost:3000",
+  "credentials": true
+};
+
+server.use(express.json());
+server.use(cors(corsOptions));
+server.use(express.static(path.join('lambda-notes/build')));
+
+mongoose.Promise = global.Promise;
+//mongoose.connect(config.dburl);
+ mongoose.connect('mongodb://localhost/lambda-notes', {
+   useMongoClient: true
+ });
+
+routes(server);
+
+module.exports = {
+  server
+};
+
+/*const express = require('express');
 const mongoose = require('mongoose');
 const Note = require('./models/noteModels');
 const User = require('./models/userModels');
 const server = express();
+const cors = require('cors');
 
+server.use(cors());
 server.use(express.json);
 const PORT = process.env.PORT || 5000;
 
@@ -12,12 +44,29 @@ mongoose
 	.then(() => console.log('Successfully connected to MongoDB!'))
 	.catch(err => console.error('Failed to connect to MongoDB', err));
 
-	server.get('/notes', (req, res) => {
-			Note.find({}, (err, notes) => {
-					if (err) res.status(500).json('Failure to get notes:', err);
-					res.status(200).json(notes);
-				});
-		 });
+server.get('/', (req, res) => res.send('API Running...'));
+
+server.get('/notes', (req, res) => {
+	Note
+		.find({})
+			.then(notes => {
+				res
+					.status(200)
+					.json(notes)
+			})
+			.catch(err => {
+				res
+					.status(500)
+					.json({ error: err })
+			})
+})
+
+	// server.get('/notes', (req, res) => {
+	// 		Note.find({}, (err, notes) => {
+	// 				if (err) res.status(500).json('Failure to get notes:', err);
+	// 				res.status(200).json(notes);
+	// 			});
+	// 	 });
 
 server.post('/notes', (req, res) => {
 		const { user, title, content } = req.body;
@@ -60,4 +109,4 @@ server.post('/notes', (req, res) => {
 server.listen(PORT, () => {
 		console.log(`Server is listening on port ${PORT}`);
    }); 
-
+*/

@@ -4,8 +4,9 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 require('./userModels.js');
 
 const NoteSchema = new mongoose.Schema({
- user: {
+ author: {
    type: ObjectId,
+   required: true,
 	 ref: 'User'
  },
  title: {
@@ -15,6 +16,10 @@ const NoteSchema = new mongoose.Schema({
  content: {
    type: String,
 	 required: true,
+ },
+ createdOn: {
+   type: Date,
+   default: Date.now
  }
 });
 

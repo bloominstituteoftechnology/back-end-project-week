@@ -24,33 +24,32 @@ const viewNotes = (req, res) => {
 				 }
 	    };
 
-const createNote = (req, res) => {
-	const { title, content } = req.body;
-	  const username = req.username;
-
-		 if (req.decoded) {
-			 User.findOne({ username })
-				 .then(user => {
-						 const newNote = new Note({
-								 title,
-								 content
-								});
-						    newNote
-								 .save()
-								 .then(note => {
-										 res.status(200).json(note);
-									})
-								  .catch(err => {
-											res.status(500).json(err);
-										});
-								 })
-			           .catch(err => {
-										 res.status(500).json(err);
-									});
-								} else {
-									return res.status(422).json({ error: 'Login is required to create notes' });
-									 }
-		           };
+	const createNote = (req, res) => {
+			const { title, content } = req.body;
+			const username = req.username;
+			const author = req.author;
+		  
+			if (req.decoded) {
+			  User.findOne({ username })
+				.then(user => {
+				  const newNote = new Note({
+					title,
+					content,
+					author: user._id
+				  });
+				  newNote
+					.save((err, note) => {
+					  if (err) return res.json(err);
+					  res.json(note);
+					});
+				})
+				.catch(err => {
+				  res.status(500).json(err);
+				});
+			} else {
+			  return res.status(422).json({ error: 'Please log in first to view your notes' });
+			}
+		  };
 
        const editNote = (req, res) => {
 				  const { id, title, content } = req.body;
