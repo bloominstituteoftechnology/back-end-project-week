@@ -1,0 +1,35 @@
+.input__form {
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+  width: 80%;
+}
+
+.input {
+  border-radius: 4px;
+  padding: 12px 20px;
+  margin: 2px 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.input__button {
+  cursor: pointer;
+  margin: 5px;
+  background-color: #838955;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+@media (min-width: 150px) and (max-width: 600px) {
+  .input__form {
+    flex-direction: column;
+  }
+}

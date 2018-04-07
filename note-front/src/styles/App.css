@@ -1,0 +1,93 @@
+head,
+body {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  background-color: #5a6f7f;
+}
+h1 {
+  margin: 0;
+}
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.note__container {
+  background-color: #93a8ac;
+  display: flex;
+  justify-content: center;
+  flex-flow: wrap;
+  border-radius: 5px;
+  min-width: 300px;
+  margin: 5px 10% 3%;
+  padding: 10px 5%;
+}
+
+.note__card {
+  background-color: #feffea;
+  color: #929648;
+  margin: 10px 10px;
+  padding: 10px;
+  border-radius: 7px;
+  min-width: 200px;
+  min-height: 150px;
+  width: 200px;
+}
+.note__card__title {
+  font-size: 24px;
+  padding: 0 0 5px 0;
+}
+.note__card__text {
+  color: #374e54;
+  font-size: 15px;
+  text-align: left;
+}
+.note__card__user {
+  color: #374e54;
+  font-size: 10px;
+  text-align: right;
+}
+
+.app__title {
+}
+
+.note__editbox {
+  background-color: #feffea;
+  color: #929648;
+  border-radius: 7px;
+  width: 100%;
+}
+
+@media (min-width: 150px) and (max-width: 600px) {
+  .note__container {
+    display: flex;
+    border-radius: 5px;
+    min-width: 100px;
+    margin: 5px 5%;
+    padding: 10px 10px;
+  }
+
+  .note__card {
+    padding: 20px;
+    min-width: 150px;
+    min-height: 100px;
+    width: 250px;
+  }
+  .note__card__title {
+    font-size: 36px;
+  }
+}

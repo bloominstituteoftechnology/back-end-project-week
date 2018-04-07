@@ -1,0 +1,34 @@
+.modal {
+  position: fixed;
+  z-index: 1010;
+  top: 10%;
+  left: 15%;
+  right: 15%;
+  bottom: 20%;
+  border: none;
+  background: #4c5760;
+  overflow: auto;
+  border-radius: 10px;
+  outline: none;
+  padding: 20px;
+  display: block;
+  animation: opac 0.8s;
+}
+
+@keyframes opac {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (min-width: 150px) and (max-width: 600px) {
+  .modal {
+    top: 0%;
+    left: 0%;
+    right: 0%;
+    bottom: 0%;
+  }
+}
