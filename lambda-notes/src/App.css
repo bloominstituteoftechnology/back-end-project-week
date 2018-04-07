@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:bold');
+
+.App {
+  width: 978px;
+  min-height: calc(100vh - 2px);
+  position: absolute;
+  left: calc(50% - 459px);
+  border: 1px solid #989898;
+}

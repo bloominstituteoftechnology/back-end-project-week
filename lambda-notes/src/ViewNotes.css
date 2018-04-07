@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:bold');
+
+.Home {
+  min-height: calc(100vh - 2px);
+}
+
+.Notes {
+  left: 242px;
+  width: 734px;
+  min-height: calc(100vh - 2px);
+  position: absolute;
+  top: 0;
+  padding-left: 15px;
+  background: #f3f3f3;
+}
+
+.Note-title {
+  position: relative;
+  top: 63px;
+  left: 16px;
+  padding: 0;
+  color: #4d4c4d;
+  font-size: 23px;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  letter-spacing: 0;
+  word-spacing: 0;
+  line-height: 100%;
+}
+
+.note-grid {
+  padding-top: 94px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
