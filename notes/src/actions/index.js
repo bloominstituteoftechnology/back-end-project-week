@@ -54,26 +54,7 @@ export const search = (criteria, status) => {
 
 };
 
-// This method is used to secure pages in the front
-// If there is any problem with the token it will redirect to SignIn
-export const secureComponent = () => {
-    const resp = axios.get(`http://localhost:3040/api/user/validate_token`, {withCredentials: true});
-
-    return dispatch => {
-        resp.then(({data}) => {
-            console.log('data secureComponent:::', data);
-            // dispatch({});
-        })
-            .catch((err) => {
-                console.log('err',err);
-                window.location = "/sign_in";
-            });
-    };
-};
-
 export const logOut = () => {
-    console.log('data logOut:::');
-
     const resp = axios.get(`http://localhost:3040/api/user/log_out`, {withCredentials: true});
 
     return dispatch => {
@@ -104,8 +85,6 @@ export const extendTokenLife = () => {
             });
     };
 };
-
-
 
 export const getNotes = () => {
     const notes = axios.get('http://localhost:3040/api/note');

@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {Row, Grid} from 'react-bootstrap';
-import {getNotes, getSingleNote, syncLocalStore} from '../actions'
+import {getNotes, getSingleNote, syncLocalStore, secureComponent} from '../actions'
 import styled from 'styled-components';
 import {connect} from 'react-redux';
 import Loading from './Loading'
 import firebase from './firebase'
 import {BrowserRouter as Router, Link} from "react-router-dom";
+
 
 class Notes extends Component {
     state={
@@ -13,6 +14,9 @@ class Notes extends Component {
     };
 
     componentDidMount(){
+
+        // this.props.secureComponent();
+
         if(this.props.firstTime){
             this.props.getNotes();
         }else{
@@ -85,7 +89,7 @@ const mapStateToProps = state => {
     }
 };
 
-export default connect(mapStateToProps, {getNotes, getSingleNote, syncLocalStore})(Notes);
+export default connect(mapStateToProps, {getNotes, getSingleNote, syncLocalStore, secureComponent})(Notes);
 
 
 const NotesContainer = styled.div`

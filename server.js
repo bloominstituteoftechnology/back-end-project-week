@@ -1,6 +1,6 @@
 const express = require('express');
 const helmet = require('helmet');
-var cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 const server = express();
 const db = require('./db');
 const noteRoutes = require('./api/routes/noteRoutes');

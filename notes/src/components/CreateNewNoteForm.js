@@ -14,7 +14,7 @@ class CreateNewNoteForm extends Component {
     };
 
     componentDidMount(){
-        this.props.secureComponent();
+        console.log('create note ::::', this.props);
     }
 
     updateField = (e) => {

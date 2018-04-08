@@ -12,7 +12,8 @@ import Details from './components/Details';
 import UpdateNote from './components/UpdateNote';
 import SearchResults from './components/SearchResults';
 import {connect} from 'react-redux';
-import {logOut} from './actions'
+import {logOut} from './actions';
+import SecureRoute from './components/SecureRoute';
 
 class App extends Component {
 
@@ -20,13 +21,11 @@ class App extends Component {
         userName: ''
     };
 
-    componentWillMount(){
-        const cookies = document.cookie.split(";");
-        console.log('cookies::', cookies);
+    componentWillMount() {
 
         const resp = JSON.parse(sessionStorage.getItem('user'));
 
-        if(resp !== null) {
+        if (resp !== null) {
             console.log('username', resp.data.user.name);
             this.setState({
                 userName: resp.data.user.name
@@ -54,8 +53,6 @@ class App extends Component {
                                     Lambda Notes
                                 </div>
 
-                                {console.log('this.state', this.state.userName)}
-
                                 {(this.state.userName !== '')
                                     ?
                                     <div>
@@ -76,7 +73,10 @@ class App extends Component {
                                 {(this.state.userName !== '')
                                     ?
                                     <div className={'btn-side'}>
-                                        <div onClick={() => {this.logOut()}} className={"btn-text"}> - LogOut</div>
+                                        <div onClick={() => {
+                                            this.logOut()
+                                        }} className={"btn-text"}> - LogOut
+                                        </div>
                                     </div>
                                     :
                                     <div className={'btn-side'}>
@@ -85,21 +85,20 @@ class App extends Component {
                                 }
 
 
-
                             </Col>
                             <Col xs={12} md={9} className={"components-container"}>
                                 {this.props.searching
-                                    ?   <SearchResults/>
+                                    ? <SearchResults/>
                                     :
-                                        <div>
-                                            <Route exact path="/" component={Notes} />
-                                            <Route path="/create_new_note" component={CreateNewNoteForm} />
-                                            <Route path="/details/:id" component={Details} />
-                                            <Route path="/update/:id" component={UpdateNote} />
-                                            <Route path="/sign_up" component={SignUp} />
-                                            <Route path="/sign_in" component={SignIn} />
+                                    <div>
+                                        <Route exact path="/" component={Notes}/>
+                                        <Route path="/create_new_note" component={SecureRoute(CreateNewNoteForm)}/>
+                                        <Route path="/details/:id" component={Details}/>
+                                        <Route path="/update/:id" component={UpdateNote}/>
+                                        <Route path="/sign_up" component={SignUp}/>
+                                        <Route path="/sign_in" component={SignIn}/>
 
-                                        </div>
+                                    </div>
                                 }
 
                             </Col>
