@@ -23,20 +23,23 @@ The main objective of this week is to develop a backend to support the LambdaNot
 * [ ] Add your Trello URL to your project's README.md file.  Commit the change, push it to your repository & submit a pull request
 
 ## Backend MVP Features:
+It is suggested that you deploy the server and database first, before you undergo implementing the logic. Doing it this makes the deployment process much simpler, since there's no code yet to complicate the deployment step. We recommend you deploy your server to [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction), and your Mongo database to [mlab](https://docs.mlab.com/). The recommended deployment site for the front end is [netlify](https://www.netlify.com/blog/2016/09/29/a-step-by-step-guide-deploying-on-netlify/). 
+
+Once you have empty projects deployed to these platforms, they can be easily updated with the code you implement as you write it. Additionally, it is recommended that you keep your front end and backend codebases in separate github repos, not under a single umbrella repo. This helps with separation of concerns, plus it helps with deploying, since the different parts of your full-stack codebase need to live on different platforms. 
+
 * [ ] Create a Database for your app
+* [ ] Deploy your application to the web
 * [ ] Create a Registration Page that allows users to create accounts for your app and sign in with email/password
 * [ ] Store these User Accounts in your Database
 * [ ] Add a Sign In Page
 * [ ] Store Notes in your Database
-* [ ] Deploy your application to the web
 
-Build an API Endpoint for each of the following, and connect it to your React App. These should all be read from your Database and scoped to the logged in user. Write tests for your endpoints which adequately cover use cases and errors.
+Build an API Endpoint for each of the following, and connect it to your React App. These should all be read from your Database and scoped to the logged in user.
 * [ ] Display a list of notes
 * [ ] Create a note with a title and content
 * [ ] View an existing note
 * [ ] Edit an existing note
 * [ ] Delete an existing note
-* [ ] Write tests for your endpoints
 
 Upon your first commit, please submit a Pull Request and add _both_ the **Trello Set Up** and **Backend MVP Features** Task lists to your first Pull Request comment:
 
@@ -52,20 +55,21 @@ Upon your first commit, please submit a Pull Request and add _both_ the **Trello
 
 ## Backend MVP Features:
 * [ ] Create a Database for your app
+* [ ] Deploy your application to the web
 * [ ] Create a Node app and connect it to your database
 * [ ] Create a Registration Page that allows users to create accounts for your app and sign in with email/password
 * [ ] Store these User Accounts in your Database
 * [ ] Add a Sign In Page
 * [ ] Store Notes in your Database
-* [ ] Deploy your application to the web
 
-Build an API Endpoint in your Node App for each of the following, and connect them to your React App. These should all be read from your Database and scoped to the logged in user. Write tests for your endpoints which adequately cover use cases and errors.
+Build an API Endpoint in your Node App for each of the following, and connect them to your React App. These should all be read from your Database and scoped to the logged in user.
 * [ ] Display a list of notes
 * [ ] Create a note with a title and content
 * [ ] View an existing note
 * [ ] Edit an existing note
 * [ ] Delete an existing note
 ```
+
 ***
 ## Once you have completed the Backend Minimum Viable Product requirements, direct message your project manager for approval.  If approved, you may continue working on the Extra Features. Please add the Extra Features to your Task List in the first comment on your PR.
 
