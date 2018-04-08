@@ -1,0 +1,21 @@
+{
+  "name": "lambda_notes_backend",
+  "version": "1.0.0",
+  "description": "Back end for front-end-project: Lambda Notes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": "https://github.com/EricHech/back-end-project-week.git",
+  "author": "Eric <erichech@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "mongoose": "^5.0.12",
+    "mongoose-types": "^1.0.3"
+  }
+}
