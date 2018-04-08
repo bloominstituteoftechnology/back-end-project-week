@@ -25,8 +25,8 @@ mongoose.Promise = global.Promise;
 const connect = mongoose.connect('mongodb://localhost/DATABASENAME')
 
 // This style avoids the unhandled promise rejection
-// Refactor to us a catch?
-// Refactor for Async/Await?
+// Refactor to use a catch?
+// Refactor for Async/Await? Try/catch?
 connect.then(() => {
   server.listen(PORT);
   console.log(`The server is listening on ${PORT}`);
