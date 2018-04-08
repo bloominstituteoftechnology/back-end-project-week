@@ -11,6 +11,8 @@ const server = express();
 server.use(bodyParser.json());
 
 mongoose.Promise = global.Promise;
+// The mongoose.connect() method establishes the name of the Database
+// See the Schema for the names of the database collections.
 mongoose.connect('mongodb://localhost/DATABASENAME');
 
 server.get('/', (request, response) => {
