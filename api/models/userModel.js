@@ -29,11 +29,8 @@ UserSchema.pre('save', function(next) {
     });
 });
 
-UserSchema.methods.checkPassword = function(plainTextPW, callBack) {
-    bcrypt.compare(plainTextPW, this.password, (err, isMatch) => {
-        if (err) return callBack(err);
-        callBack(null, isMatch);
-    });
+UserSchema.methods.checkPassword = function(plainTextPW) {
+    return bcrypt.compare(plainTextPW, this.password);
 };
 
 module.exports = mongoose.model('Users', UserSchema);

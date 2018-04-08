@@ -24,11 +24,14 @@ class App extends Component {
 
     componentWillMount() {
         const resp = JSON.parse(sessionStorage.getItem('user'));
-        if (resp !== null) {
-            this.props.setUserInfo(resp.data.user);
-            this.setState({
-                userName: resp.data.user.name
-            });
+        if (resp !== null ) {
+            this.props.setUserInfo(resp.data);
+            if(resp.data !== undefined) {
+                this.setState({
+                    userName: resp.data.user.name
+                });
+            }
+
         }
     }
 
@@ -43,8 +46,6 @@ class App extends Component {
             <AppContainer>
                 <Router>
                     <Grid>
-                        {        console.log('this.props finally worked::::', this.props)
-                        }
                         <Row className="show-grid">
                             <Col xs={6} md={3} className={"sidebar"}>
 

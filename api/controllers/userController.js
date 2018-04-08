@@ -33,12 +33,31 @@ const getUsers = (req, res) => {
 
 const signInUser = (req, res) => {
     const user = new UserModel(req.body);
-    UserModel.findOne({$and: [{username: user.username}, {password: user.password}]})
+
+    UserModel.findOne({email: user.email})
         .then(usr => {
+
             if(usr === null) {
                 res.status(401).send();
             }else{
-                res.status(200).send(usr);
+                const tUser = {};
+                usr.checkPassword(user.password)
+                    .then(isValid => {
+                        if (isValid) {
+                            const token = getTokenForUser({ user: user,
+                                access: true }, '10m');
+
+                            res.cookie('access_token', token, { maxAge: 604800, httpOnly: true });
+
+                            res.status(200).send({"user":usr, "token":token});
+
+                        } else {
+                            res.status(400).json({ msg: 'Incorrect password' });
+                        }
+                    })
+                    .catch(err => {
+                        res.error(err)
+                    });
             }
         })
         .catch(err => {

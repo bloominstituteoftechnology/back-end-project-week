@@ -11,10 +11,6 @@ class SignIn extends Component {
         password: '',
     };
 
-    componentDidMount() {
-        console.log('componentDidMount SIGNIN::', this.props.userName);
-    }
-
     updateField = (e) => {
         this.setState({
             [e.target.name]: e.target.value
@@ -28,6 +24,14 @@ class SignIn extends Component {
     render() {
         return (
             <SignInContainer>
+                {(this.props.userName !== '')
+                    ?
+                    <div>
+                        {this.props.userName}
+                    </div>
+                    :
+                    ''
+                }
                 <Grid>
                     <Row className="show-grid">
                         <Col md={6} className={"col-up"}>

@@ -143,16 +143,19 @@ export const signUpUser = (user) => {
 };
 
 export const signInUser = (user) => {
-    const userR = axios.post('http://localhost:3040/api/user/signin', {
+
+    const userR = axios.post('http://localhost:3040/api/user/sign_in', {
         email:user.email,
         password:user.password,
     }, {withCredentials: true});
 
     return dispatch => {
         userR.then(({data}) => {
-                console.log('signInUser:::', data);
-                // dispatch({type: ADD_NOTES, payload: data});
-                // window.location = "/";
+                console.log('data::: ', JSON.stringify(data.user))
+                sessionStorage.setItem('user', JSON.stringify(data.user));
+                dispatch({type: USER_INFO, payload:data, user_name:data.user.name});
+
+
             })
             .catch(err => {
                 dispatch({type: ERROR_GETTING_NOTES, payload: err});
