@@ -11,7 +11,7 @@ const server = express();
 server.use(bodyParser.json());
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/demoSchema');
+mongoose.connect('mongodb://localhost/DATABASENAME');
 
 server.get('/', (request, response) => {
   Schema.find({}, (err, database) => {
