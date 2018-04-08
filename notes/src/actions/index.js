@@ -11,6 +11,7 @@ export const SEARCH = 'SEARCH';
 export const RETRIEVING_SEARCH = 'RETRIEVING_SEARCH';
 export const GET_NOTES = 'GET_NOTES';
 export const USER = 'USER';
+export const USER_INFO = 'USER_INFO';
 
 export const search = (criteria, status) => {
 
@@ -66,6 +67,14 @@ export const logOut = () => {
             console.log('err',err);
 
         });
+    };
+};
+
+export const setUserInfo = (userInfo) => {
+    console.log('setUserInfo:userInfo :::', userInfo);
+
+    return dispatch => {
+        dispatch({type: USER_INFO, payload:userInfo});
     };
 };
 

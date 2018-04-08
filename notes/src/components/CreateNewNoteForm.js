@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {FormGroup, FormControl, Row, Col, Grid} from 'react-bootstrap';
 import styled from 'styled-components';
-import {addNote, secureComponent} from '../actions'
+import {addNote} from '../actions'
 import {connect} from 'react-redux';
 
 class CreateNewNoteForm extends Component {
@@ -12,10 +12,6 @@ class CreateNewNoteForm extends Component {
         description: '',
         tags: '',
     };
-
-    componentDidMount(){
-        console.log('create note ::::', this.props);
-    }
 
     updateField = (e) => {
         this.setState({
@@ -88,7 +84,7 @@ class CreateNewNoteForm extends Component {
 
 }
 
-export default connect(null, {addNote, secureComponent})(CreateNewNoteForm);
+export default connect(null, {addNote})(CreateNewNoteForm);
 
 const CreateNewNoteFormContainer = styled.div`
     text-align:left;

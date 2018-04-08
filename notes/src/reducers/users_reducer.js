@@ -1,20 +1,23 @@
-import {USER} from '../actions/';
+import {USER, USER_INFO} from '../actions/';
 
 const initialStateT = {
     userName: '',
     user: [],
     token: '',
+    user_info: []
 };
 
 export const users_reducer = (state = initialStateT, action) => {
     switch (action.type) {
         case USER:
-            console.log('action.user_name::', action.user_name);
             return {...state,
                         userName: action.user_name,
                         user: action.payload,
                         token: action.token
                     };
+        case USER_INFO:
+            console.log('payload::', action.payload);
+            return {...state, user_info: action.payload};
         default:
             return state;
     }

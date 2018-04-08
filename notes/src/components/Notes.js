@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Row, Grid} from 'react-bootstrap';
-import {getNotes, getSingleNote, syncLocalStore, secureComponent} from '../actions'
+import {getNotes, getSingleNote, syncLocalStore} from '../actions'
 import styled from 'styled-components';
 import {connect} from 'react-redux';
 import Loading from './Loading'
@@ -89,7 +89,7 @@ const mapStateToProps = state => {
     }
 };
 
-export default connect(mapStateToProps, {getNotes, getSingleNote, syncLocalStore, secureComponent})(Notes);
+export default connect(mapStateToProps, {getNotes, getSingleNote, syncLocalStore})(Notes);
 
 
 const NotesContainer = styled.div`

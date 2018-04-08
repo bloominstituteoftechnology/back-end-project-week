@@ -24,7 +24,6 @@ export default ComposedComponent => {
     }
 
     const mapStateToProps = state => {
-        console.log('state:::', state);
         return {
             authed: state.authed,
         };

@@ -13,6 +13,7 @@ import UpdateNote from './components/UpdateNote';
 import SearchResults from './components/SearchResults';
 import {connect} from 'react-redux';
 import {logOut} from './actions';
+import {setUserInfo} from './actions';
 import SecureRoute from './components/SecureRoute';
 
 class App extends Component {
@@ -22,20 +23,16 @@ class App extends Component {
     };
 
     componentWillMount() {
-
         const resp = JSON.parse(sessionStorage.getItem('user'));
-
         if (resp !== null) {
-            console.log('username', resp.data.user.name);
+            this.props.setUserInfo(resp.data.user);
             this.setState({
                 userName: resp.data.user.name
             });
         }
-
     }
 
     logOut = () => {
-        console.log('clickeado ologout');
         sessionStorage.clear();
         this.props.logOut();
     };
@@ -46,6 +43,8 @@ class App extends Component {
             <AppContainer>
                 <Router>
                     <Grid>
+                        {        console.log('this.props finally worked::::', this.props)
+                        }
                         <Row className="show-grid">
                             <Col xs={6} md={3} className={"sidebar"}>
 
@@ -118,12 +117,13 @@ class App extends Component {
 
 
 const mapStateToProps = state => {
-    const {notes_reducer} = state;
+    const {notes_reducer, users_reducer} = state;
     return {
         searching: notes_reducer.searching,
+        userInfo: users_reducer.user_info,
     }
 };
-export default connect(mapStateToProps, {logOut})(App);
+export default connect(mapStateToProps, {logOut, setUserInfo})(App);
 
 
 const AppContainer = styled.div`
