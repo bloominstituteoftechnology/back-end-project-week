@@ -1,0 +1,27 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "Back end project",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha *.test.js --exit",
+    "start": "nodemon server.js"
+  },
+  "repository": "https://github.com/Mephestys/back-end-project-week.git",
+  "author": "Daniel Abbott",
+  "license": "ISC",
+  "private": false,
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.0",
+    "mongoose": "^5.0.12",
+    "passport": "^0.4.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "mocha": "^5.0.5"
+  }
+}

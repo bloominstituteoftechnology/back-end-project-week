@@ -1,3 +1,103 @@
+# Link to Trello Board:
+https://trello.com/b/KwWUcruO
+
+# Link to Deployed Front-End:
+https://lambda-notes-78324c.netlify.com
+
+# A note if you plan on cloning this:
+You will need to create a `config.js` file, the contents of which should appear as follows:
+
+```js
+module.exports = {
+  secret: 'Insert any secret of your choice.'
+};
+```
+
+# Quick and Dirty API Documentation:
+
+Base API can be found at https://warm-mountain-87424.herokuapp.com/
+
+## `[POST] /api/users`
+### Headers
+N/A
+
+### Request Body
+|Name|Type|Description|
+|----|----|-----------|
+|username|String|Creates a new user with this name|
+|password|String|Creates a new user with this password (password is hashed and salted prior to storage)|
+
+## `[POST] /api/login`
+### Headers
+N/A
+
+### Request Body
+|Name|Type|Description|
+|----|----|-----------|
+|username|String|A username for a user in the database|
+|password|String|A password for a user in the database|
+
+## `[GET] /api/notes`
+### Headers
+|Name|Description|
+|-----|----------|
+|Authorization|Must be a valid JWT (obtained at login)|
+|uuID|Must be a valid user ID (eventually this will just be in the JWT)|
+
+### Request Body
+N/A
+
+## `[POST] /api/notes`
+### Headers
+|Name|Description|
+|-----|----------|
+|Authorization|Must be a valid JWT (obtained at login)|
+|uuID|Must be a valid user ID (eventually this will just be in the JWT)|
+
+### Request Body
+|Name|Type|Description|
+|----|----|-----------|
+|author|String|A MongoDB ObjectID, to link a note with a user|
+|title|String|A title for the note|
+|body|String|The contents of a note|
+
+## `[PUT] /api/notes`
+### Headers
+|Name|Description|
+|-----|----------|
+|Authorization|Must be a valid JWT (obtained at login)|
+|uuID|Must be a valid user ID (eventually this will just be in the JWT)|
+
+### Request Body
+|Name|Type|Description|
+|----|----|-----------|
+|_id|String|A MongoDB ObjectID, needed to update the appropriate note|
+|title|String|A title for the note|
+|body|String|The contents of a note|
+
+## `[DELETE] /api/notes`
+### Headers
+|Name|Description|
+|-----|----------|
+|Authorization|Must be a valid JWT (obtained at login)|
+|uuID|Must be a valid user ID (eventually this will just be in the JWT)|
+
+### Request Parameters
+|Name|Type|Description|
+|----|----|-----------|
+|_id|String|A MongoDB ObjectID, needed to delete the appropriate note|
+
+----
+
+# Known Issues:
+
+## Client:
+- Refreshing the page while on `/view` or `/edit` will cause the app to fail to load (this is due to the way these pages had been implemented during front-end project week.)
+    - Workaround: Simply go back to `/`
+- There are no loading screens at the moment, so the app can appear to hang for a few seconds while performing async operations.
+- Notes can be dragged and repositioned in the note list, however repositioning does not persist.
+
+----
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
