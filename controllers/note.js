@@ -4,7 +4,8 @@ const User = require('../models/user');
 const { getTokenForUser } = require('../services/auth');
 
 const createNote = (req, res) => {
-  const { authorId, title, content } = req.body;
+  const { title, content } = req.body;
+  const { authorId } = req.params;
   const newNote = new Note({ title, content });
   // console.log(newNote);
   newNote.save()
