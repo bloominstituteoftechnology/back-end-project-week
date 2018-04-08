@@ -65,7 +65,6 @@ Build an API Endpoint in your Node App for each of the following, and connect th
 * [ ] View an existing note
 * [ ] Edit an existing note
 * [ ] Delete an existing note
-* [ ] Write tests for your endpoints
 ```
 ***
 ## Once you have completed the Backend Minimum Viable Product requirements, direct message your project manager for approval.  If approved, you may continue working on the Extra Features. Please add the Extra Features to your Task List in the first comment on your PR.
