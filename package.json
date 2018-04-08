@@ -1,7 +1,7 @@
 {
   "name": "back-end-project-week",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "repository": "https://github.com/mixelpixel/back-end-project-week.git",
   "author": "mixelpixel <mixelpix@mac.com>",
   "license": "MIT",
@@ -9,5 +9,8 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
     "mongoose": "^5.0.12"
+  },
+  "scripts": {
+    "start": "nodemon server.js"
   }
 }
