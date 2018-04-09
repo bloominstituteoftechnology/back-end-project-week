@@ -1,89 +1,80 @@
-# Back End Project Week
-This week you will be building a backend for a note taking app called "Lambda Notes."
+# Pushing you Onward with your knowledge of Authentication.
 
-You are to treat this week as if you are working at a company and the instructor is your client.  The teaching assistants are acting as your project managers and will be your main support throughout the week.
+* **DISCLAIMER** Authentication is a subject that many people spend a large amount time throughout their careers obtaining knowledge over. This is not something we expect you to have a mastery over, rather, we're preparing you to be able have an intelligent conversation about the subject.
 
-The main objective of this week is to develop a backend to support the LambdaNotes app you built during the Front End project week, connect the two projects together, and add some additional features. You will use NodeJS, MongoDB and any other technologies you have learned here at Lambda School.
+![UnAuthorized](keep-calm-you-are-not-authorized.png)
 
-## Git Commits
-* You are required to showcase progress with at least 1 commit a day.  This will let your project manager know where you are and if you need help.  This also allows the client to get progress reports from the company in a real world setting. This also protects you from losing your work if your computer blows up.
+* The objective of this challenge is to get you used to answering a few questions about Authentication.
+* We also have some more reps for you to help hammer in the knowledge you've thus far learned.
+* Answers to your written questions will be recorded in _Answers.md_
+* This is to be worked on alone but you can use outside resources. You can _reference_ any old code you may have, and the React Documentation, however, please refrain from copying and pasting any of your answers. Try and understand the question and put your responses in your own words. Be as thorough as possible when explaining something.
+* **Just a friendly Reminder** Don't fret or get anxious about this, this is a no-pressure assessment that is only going to help guide you here in the near future. This is NOT a pass/fail situation.
 
-## Trello Set Up:
-* [ ] Use your existing Trello account from the Front End Project, or create a new one
-* [ ] Create a new board called "Lambda Notes(Backend) - {Your Name}"
-* [ ] Create lists titled `backlog`,`To Do`, `In Progress`, and `Done`
-* [ ] Fill in the `To Do` list with the Backend MVP features listed below
-* [ ] Fill in the `backlog` list with all the extra features listed below
-* [ ] Share your board with the project manager that has been assigned to you.  If you have not been assigned yet, reach out to your Section Lead for guidance
-* [ ] Add your Trello URL to your project's README.md file.  Commit the change, push it to your repository & submit a pull request
+## Start by forking and cloning this repository.
 
-## Backend MVP Features:
-It is suggested that you deploy the server and database first, before you undergo implementing the logic. Doing it this makes the deployment process much simpler, since there's no code yet to complicate the deployment step. We recommend you deploy your server to [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction), and your Mongo database to [mlab](https://docs.mlab.com/). The recommended deployment site for the front end is [netlify](https://www.netlify.com/blog/2016/09/29/a-step-by-step-guide-deploying-on-netlify/). 
+## Questions - Self Study - You can exercise your Google-Fu for this and any other _Sprint Challenge_ in the future.
 
-Once you have empty projects deployed to these platforms, they can be easily updated with the code you implement as you write it. Additionally, it is recommended that you keep your front end and backend codebases in separate github repos, not under a single umbrella repo. This helps with separation of concerns, plus it helps with deploying, since the different parts of your full-stack codebase need to live on different platforms. 
+1.  Describe Middleware, Sessions (as we know them in express), bcrypt and JWT.
+1.  What does bcrypt do in order to prevent attacks?
+1.  What are the three parts of the JSON Web Token?
 
-* [ ] Create a Database for your app
-* [ ] Deploy your application to the web
-* [ ] Create a Registration Page that allows users to create accounts for your app and sign in with email/password
-* [ ] Store these User Accounts in your Database
-* [ ] Add a Sign In Page
-* [ ] Store Notes in your Database
+## Project Description - User Management System - Jokes On YoU!
 
-Build an API Endpoint for each of the following, and connect it to your React App. These should all be read from your Database and scoped to the logged in user.
-* [ ] Display a list of notes
-* [ ] Create a note with a title and content
-* [ ] View an existing note
-* [ ] Edit an existing note
-* [ ] Delete an existing note
+* What we have here is a wise-guy application. _Dad jokes_ are all the rage these days.
+* Our main problem with the application now is that we are trying to receive some mad dad jokes that are being requested from an external api, but we are locked out.
+* Trust me, we all need these dad jokes in our lives.
+* In order to be able to access our Killer Jokes you'll need to implement a User Authentication System that uses bcrypt and JWT.
 
-Upon your first commit, please submit a Pull Request and add _both_ the **Trello Set Up** and **Backend MVP Features** Task lists to your first Pull Request comment:
+## Initializing the Project
 
-```markdown
-## Trello Set Up:
-* [ ] Use your existing Trello account from the Front End Project, or create a new one
-* [ ] Create a new board called "Lambda Notes(Backend) - {Your Name}"
-* [ ] Create lists titled `backlog`,`To Do`, `In Progress`, and `Done`
-* [ ] Fill in the `To Do` list with the MVP features listed below
-* [ ] Fill in the `backlog` list with all the extra features listed below
-* [ ] Share your board with the project manager that has been assigned to you.  If you have not been assigned yet, reach out to your Section Lead for guidance
-* [ ] Add your Trello URL to your project's README.md file.  Commit the change, push it to your repository & submit a pull request
+* `cd` into the root of the project and run `yarn install`.
+* Once you have your `node_modules` go ahead and start your `mongod` server \* use either `mongod` `mongod --dbpath data` flag.
+* Run `nodemon app.js` to start your node server.
+* **TEST** this project using **`POSTMAN`**. Once you finish the project, you'll be tasked to set up `cors` properly for use with a client.
 
-## Backend MVP Features:
-* [ ] Create a Database for your app
-* [ ] Deploy your application to the web
-* [ ] Create a Node app and connect it to your database
-* [ ] Create a Registration Page that allows users to create accounts for your app and sign in with email/password
-* [ ] Store these User Accounts in your Database
-* [ ] Add a Sign In Page
-* [ ] Store Notes in your Database
+### Step 1: Implement your User Schema in `api/models/userModels.js`
 
-Build an API Endpoint in your Node App for each of the following, and connect them to your React App. These should all be read from your Database and scoped to the logged in user.
-* [ ] Display a list of notes
-* [ ] Create a note with a title and content
-* [ ] View an existing note
-* [ ] Edit an existing note
-* [ ] Delete an existing note
-* [ ] Write tests for your endpoints and models
+* The required fields are `username` (must be unique and required) and `password`.
+
+```
+{
+  "username": "Tony@stark.com",
+  "password": "pepperpots"
+}
 ```
 
-***
-## Once you have completed the Backend Minimum Viable Product requirements, direct message your project manager for approval.  If approved, you may continue working on the Extra Features. Please add the Extra Features to your Task List in the first comment on your PR.
+* Next we'll use bcrypt to set up a `pre` hook on our `save` function for the UserSchema.
+* This pre save hook will act as middleware to encrypt our users passwords.
+* You can also take this time to set up a `checkPassword` method that can be used for comparing user passwords later on.
 
-Once your MVP has been approved, you have been given a feature list that the client would love to have completed.  Your goal would be to finish MVP as soon as you can and get working the list of features.
+### Step 2: Implement your Create User Functionality in `api/controllers/user.js`
 
-## Extra Features:
-* [ ] Allow users to sign in with a third party service (google, facebook, github, club penguin, etc...)
-* [ ] Search functionality
-* [ ] Allow multiple users to collaborate on notes
-* [ ] Add pagination for long lists of notes
-* [ ] Create and display tags that can be added to notes and stored in the Database
-* [ ] Allow users to clone notes
-* [ ] Allow users to attach images to notes
-* [ ] Allow users to create Lists and assign notes to a list
-* [ ] Setup Auto-Deploy on Heroku
+* Most of the heavy lifting will be taken care of in our pre save `middleware` that we've already implemented in our `userModel` file.
+* Be sure to follow instructions on creating a user and you should be set
+* **TEST** your `/api/user` _POST_ to ensure you can create a user with an encrypted password.
+* Before moving on make sure you can create a user in the DB with an encrypted pw.
 
-## Super Duper Extra Credit Bonus Features
-* [ ] Add a payment form integrating with Stripe that allows Users to buy a "Premium" version of LambdaNotes.
-* [ ] Gate your favorite feature behind the premium paywall
+### Step 3: Users Gotta Login!
 
-You will notice that this repository does not have any starter code.  This is on purpose.  You are to start from scratch using any files you have built throughout your time here at Lambda School.
+* This step will be real fun. Primarily because it's built out for you already! You're welcome!
+* IF your `checkPassword` function is working properly, you should get back a token from the server.
+* You'll need to handle this token appropriately in your next route.
+
+### Step 4: _GET_ your Jokes!
+
+* Grab your Token sent back to you in JWT format from _/login_.
+* Send a `GET` request up to `/api/jokes` with the appropriate
+* Without the appropriate request you'll get an error that looks like this from the `jwt` package
+
+```
+{
+    "name": "JsonWebTokenError",
+    "message": "invalid signature"
+}
+```
+
+### Stretch Problem: Build a front end to interface with your User Auth System
+
+* In order to play around with a client server app, you'll need to set up your `cors` inside of `server.js` properly.
+* Using React and Redux and React Router, create a `Sign Up`, `Sign In` and `Jokes` page.
+* Once you have the functionality down, you'll be able to style it up a bit and play around with the jokes etc.
