@@ -1,0 +1,27 @@
+{
+  "name": "backdolist",
+  "version": "1.0.0",
+  "description": "This week you will be building a backend for a note taking app called \"Lambda Notes.\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/didacta/back-end-project-week.git"
+  },
+  "author": "Igor Yermak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/didacta/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/didacta/back-end-project-week#readme",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "mongoose": "^5.0.13",
+    "mongoose-types": "^1.0.3"
+  }
+}
