@@ -56,18 +56,10 @@ export const login = (username, password, history) => {
         };
     };
     
-    export const logout = () => {
-        return dispatch => {
-            console.log('reaching the logout action');
+export const logout = () => {
+    return dispatch => {
         localStorage.removeItem('token');
         dispatch({ type: USER_UNAUTHENTICATED });
-        // axios
-        //     .post(`${ROOT_URL}/logout`)
-        //     .then(() => {
-        //     })
-        //     .catch(() => {
-        //         dispatch(authError('Failed to log you out'));
-        //     });
     };
 };
 
@@ -91,7 +83,7 @@ export const getNotes = () => {
                 });
             })
             .catch(() => {
-                dispatch(authError('Failed to fetch jokes'));
+                dispatch(noteError('Failed to fetch notes'));
             });
     };
 };
@@ -101,14 +93,10 @@ export const addNote = noteObj => {
     const { title, text } = noteObj;
     return dispatch => {
         axios
-            .post(`${ROOT_URL}/create`, {
-                title,
-                text,
-                headers: { authorization: token },
-            })
+            .post(`${ROOT_URL}/create`, { title, text }, { headers: { authorization: token } })
             .then(response => {
                 dispatch({ type: ADD_NOTE, payload: response.data });
-            }).catch(() => {
+            }).catch((error) => {
                 dispatch(noteError('Failed to add note'));
             });
     };

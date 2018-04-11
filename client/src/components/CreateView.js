@@ -34,7 +34,6 @@ class CreateView extends Component {
             <button>Save</button>
           </form>
           {this.state.fireRedirect && <Redirect to="/home" />}
-          {}
         </div>
       </div>
     );

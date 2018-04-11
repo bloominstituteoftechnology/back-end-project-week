@@ -2,13 +2,13 @@ const Note = require('../models/noteModels');
 
 const getAllNotes = (req, res) => {
     Note.find({})
-        .then(p => p.json())
-        .then(notes => console.log(notes), res.json(notes))
+        .then(notes => res.json(notes))
         .catch(err => res.status(500).json({ error: 'Error fetching notes' }));
 };
 
 const addNote = (req, res) => {
     const { title, text } = req.body;
+    console.log('how about within addNote controller', title, text);
     if (title && text) {
         const newNote = new Note({ title, text });
         newNote
