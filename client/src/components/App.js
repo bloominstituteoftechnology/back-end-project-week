@@ -8,6 +8,8 @@ import OneNote from "./OneNote";
 import EditView from "./EditView";
 import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 import NotesViewStyled from "../styling/NotesViewStyled";
+import { connect } from "react-redux";
+import { logout } from '../actions';
 
 class App extends Component {
   render() {
@@ -22,6 +24,14 @@ class App extends Component {
               <NavLink to="/create">
                 <button>+ Create New Note</button>
               </NavLink>
+              {console.log('authenticated?', this.props.authenticated)}
+              {this.props.authenticated ? 
+                <NavLink to="/">
+                  <button onClick={this.submitHandler}>Logout</button>
+                </NavLink>
+                : <NavLink to='/login'>
+                    <button>Login</button>
+                  </NavLink>}
             </div>
             <Route exact path='/' component={SignUp} />
             <Route path='/login' component={Login} />
@@ -43,9 +53,17 @@ class App extends Component {
       </Router>
     );
   }
+  
+  submitHandler = () => { this.props.logout() }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    authenticated: state.auth.authenticated,
+  }
+};
+
+export default connect(mapStateToProps, {logout})(App);
 
 // Questions
 // 1. What order do things fire on a render? Does it go through the the entire file before implementing anything? (I have a specific example that I'd love to ask someone about)

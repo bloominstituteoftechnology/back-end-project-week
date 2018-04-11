@@ -53,19 +53,21 @@ export const login = (username, password, history) => {
             .catch(() => {
                 dispatch(authError('Incorrect username or password'));
             });
+        };
     };
-};
-
-export const logout = () => {
-    return dispatch => {
-        axios
-            .post(`${ROOT_URL}/logout`)
-            .then(() => {
-                dispatch({ type: USER_UNAUTHENTICATED });
-            })
-            .catch(() => {
-                dispatch(authError('Failed to log you out'));
-            });
+    
+    export const logout = () => {
+        return dispatch => {
+            console.log('reaching the logout action');
+        localStorage.removeItem('token');
+        dispatch({ type: USER_UNAUTHENTICATED });
+        // axios
+        //     .post(`${ROOT_URL}/logout`)
+        //     .then(() => {
+        //     })
+        //     .catch(() => {
+        //         dispatch(authError('Failed to log you out'));
+        //     });
     };
 };
 

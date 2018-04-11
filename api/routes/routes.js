@@ -6,5 +6,4 @@ module.exports = server => {
    server.route('/login').post(login);
    server.route('/home').get(authenticate, getAllNotes);
    server.route('/create').post(authenticate, addNote);
-   // server.route('/');
 }
