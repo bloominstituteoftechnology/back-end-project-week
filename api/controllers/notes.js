@@ -9,12 +9,11 @@ const getAllNotes = (req, res) => {
 
 const addNote = (req, res) => {
     const { title, text, user } = req.body;
-    console.log('reaches addNote in controllers?');
     if (title && text && user) {
         const newNote = new Note({ title, text, user });
         newNote
             .save()
-            .then(note => { console.log('reaches save/then', note); res.send(note); })
+            .then(note => res.send(note))
             .catch(err => {
                 res.status(422).send('Error saving the note');
             });

@@ -90,7 +90,6 @@ export const getNotes = (user) => {
 
 export const addNote = noteObj => {
     const token = localStorage.getItem('token');
-    console.log('noteObj in addNote action', noteObj);
     const { title, text, user } = noteObj;
     return dispatch => {
         axios

@@ -18,7 +18,7 @@ export const notesReducer = (notes = [], action) => {
     case ADD_NOTE:
       return notes;
     case GET_NOTES:
-      return [ action.payload ];
+      return action.payload;
     case UPDATE_SELECTED:
       return notes.map(note => {
         if (note.id === action.payload)
