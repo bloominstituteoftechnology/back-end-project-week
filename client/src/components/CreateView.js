@@ -7,6 +7,7 @@ class CreateView extends Component {
   state = {
     title: "",
     text: "",
+    user: this.props.user,
     fireRedirect: false
   };
 
@@ -53,7 +54,8 @@ class CreateView extends Component {
 
 const mapStateToProps = state => {
   return {
-    notes: state.notes
+    notes: state.notes,
+    user: state.auth.user,
   };
 };
 

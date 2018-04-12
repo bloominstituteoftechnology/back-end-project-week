@@ -12,6 +12,10 @@ const NoteSchema = Schema({
       type: String,
       required: true,
    },
+   user: {
+      type: String,
+      required: true,
+   }
 });
 
 // UserSchema.pre('save', function(next) {

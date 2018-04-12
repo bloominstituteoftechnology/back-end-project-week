@@ -16,7 +16,7 @@ import { ADD_NOTE, UPDATE_SELECTED, DELETE_NOTE, EDIT_NOTE, GET_NOTES } from "..
 export const notesReducer = (notes = [], action) => {
   switch (action.type) {
     case ADD_NOTE:
-      return action.payload;
+      return notes;
     case GET_NOTES:
       return [ action.payload ];
     case UPDATE_SELECTED:

@@ -6,7 +6,7 @@ import { updateSelected, getNotes } from "../actions";
 
 class MainView extends Component {
   componentDidMount() {
-    this.props.getNotes();
+    this.props.getNotes(this.props.user);
   }
 
   render() {
@@ -20,11 +20,11 @@ class MainView extends Component {
             return (
               <form>
                 <Notes
-                  key={note.id}
+                  key={note._id}
                   note={note}
                 />
                 {note.selected ? (
-                  <Redirect to={`/note/${note.id}`} />
+                  <Redirect to={`/note/${note._id}`} />
                 ) : (
                   console.log("not going through redirect")
                 )}
@@ -39,7 +39,8 @@ class MainView extends Component {
 
 const mapStateToProps = state => {
   return {
-    notes: state.notes
+    notes: state.notes,
+    user: state.auth.user,
   };
 };
 

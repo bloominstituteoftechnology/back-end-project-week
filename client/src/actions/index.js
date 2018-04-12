@@ -46,16 +46,16 @@ export const login = (username, password, history) => {
         axios
             .post(`${ROOT_URL}/login`, { username, password })
             .then(result => {
-                dispatch({ type: USER_AUTHENTICATED });
+                dispatch({ type: USER_AUTHENTICATED, payload: username });
                 localStorage.setItem('token', result.data.token);
                 history.push('/home');
             })
             .catch(() => {
                 dispatch(authError('Incorrect username or password'));
             });
-        };
     };
-    
+};
+
 export const logout = () => {
     return dispatch => {
         localStorage.removeItem('token');
@@ -71,11 +71,11 @@ export const noteError = error => {
     };
 };
 
-export const getNotes = () => {
+export const getNotes = (user) => {
     const token = localStorage.getItem('token');
     return dispatch => {
         axios
-            .get(`${ROOT_URL}/home`, { headers: { authorization: token } })
+            .post(`${ROOT_URL}/home`, { user }, { headers: { authorization: token } })
             .then(response => {
                 dispatch({
                     type: GET_NOTES,
@@ -90,13 +90,19 @@ export const getNotes = () => {
 
 export const addNote = noteObj => {
     const token = localStorage.getItem('token');
-    const { title, text } = noteObj;
+    console.log('noteObj in addNote action', noteObj);
+    const { title, text, user } = noteObj;
     return dispatch => {
         axios
-            .post(`${ROOT_URL}/create`, { title, text }, { headers: { authorization: token } })
+            .post(
+                `${ROOT_URL}/create`,
+                { title, text, user },
+                { headers: { authorization: token } }
+            )
             .then(response => {
                 dispatch({ type: ADD_NOTE, payload: response.data });
-            }).catch((error) => {
+            })
+            .catch(error => {
                 dispatch(noteError('Failed to add note'));
             });
     };
@@ -117,8 +123,20 @@ export const deleteNote = id => {
 };
 
 export const editNote = noteObj => {
-    return {
-        type: EDIT_NOTE,
-        payload: noteObj,
+    const token = localStorage.getItem('token');
+    const { title, text, id } = noteObj;
+    return dispatch => {
+        axios
+            .post(
+                `${ROOT_URL}/edit`,
+                { title, text, id },
+                { headers: { authorization: token } }
+            )
+            .then(response => {
+                dispatch({ type: EDIT_NOTE, payload: response.data });
+            })
+            .catch(() => {
+                dispatch(noteError('Failed to edit note'));
+            });
     };
 };
