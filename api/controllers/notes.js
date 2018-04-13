@@ -23,9 +23,9 @@ const addNote = (req, res) => {
 };
 
 const editNote = (req, res) => {
-    const { title, text, _id } = req.body;
-    if (title && text && _id) {
-        Note.findOneAndUpdate({ _id }, { title, text })
+    const { title, text, id } = req.body;
+    if (title && text && id) {
+        Note.findOneAndUpdate({ _id: id }, { title, text }, { new: true })
         .then(note => res.send(note))
         .catch(err => {
             res.status(422).send('Error editing the note');

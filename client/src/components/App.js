@@ -24,7 +24,6 @@ class App extends Component {
               <NavLink to="/create">
                 <button>+ Create New Note</button>
               </NavLink>
-              {console.log('authenticated?', this.props.authenticated)}
               {this.props.authenticated ? 
                 <NavLink to="/">
                   <button onClick={this.submitHandler}>Logout</button>

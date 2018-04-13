@@ -15,7 +15,6 @@ class MainView extends Component {
         <div className="header" />
         <h2>Your Notes:</h2>
         <div className="Notes">
-          {console.log('note props in MainView', this.props.notes)}
           {this.props.notes.map(note => {
             return (
               <form>

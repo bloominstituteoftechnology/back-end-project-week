@@ -144,7 +144,7 @@ export const editNote = noteObj => {
     return dispatch => {
         axios
             .put(
-                `${ROOT_URL}/edit/:id`,
+                `${ROOT_URL}/edit/${id}`,
                 { title, text, id },
                 { headers: { authorization: token } }
             )
