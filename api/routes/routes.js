@@ -1,4 +1,4 @@
-const { createUser, login, getAllNotes, addNote, editNote } = require('../controllers');
+const { createUser, login, getAllNotes, addNote, editNote, deleteNote } = require('../controllers');
 const authenticate = require('../utils/middleware');
 
 module.exports = server => {
@@ -6,5 +6,6 @@ module.exports = server => {
    server.route('/login').post(login);
    server.route('/home').post(authenticate, getAllNotes);
    server.route('/create').post(authenticate, addNote);
-   // server.route('/edit').post(authenticate, editNote);
+   server.route('/edit/:id').put(authenticate, editNote);
+   server.route('/note/:id').delete(authenticate, deleteNote);
 }

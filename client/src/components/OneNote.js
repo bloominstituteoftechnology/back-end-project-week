@@ -19,7 +19,7 @@ class OneNote extends Component {
             delete
           </a>
         </div>
-        {this.state.fireRedirect && <Redirect to="/" />}
+        {this.state.fireRedirect && <Redirect to="/home" />}
         <h2>
           {!this.state.fireRedirect
             ? note.title
@@ -68,7 +68,7 @@ class OneNote extends Component {
   // deletes the correct prop, but renders the entire function before placing the <Redirect>
   handleDelete = event => {
     event.preventDefault();
-    this.props.deleteNote(this.props.notes[this.props.id].id);
+    this.props.deleteNote(this.props.id);
     this.setState({ fireRedirect: true });
   };
 }

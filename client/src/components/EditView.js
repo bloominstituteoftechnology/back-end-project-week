@@ -5,11 +5,16 @@ import { Redirect } from "react-router-dom";
 
 class EditView extends Component {
   state = {
-    title: this.props.notes[this.props.id].title,
-    text: this.props.notes[this.props.id].text,
-    id: Number(this.props.id),
+    title: this.props.notes.title,
+    text: this.props.notes.text,
+    id: this.props.id,
     fireRedirect: false
   };
+
+  componentWillMount() {
+    const noteToEdit = this.props.notes.find(each => each._id === this.props.id)
+    this.setState({ title: noteToEdit.title, text: noteToEdit.text });
+  }
 
   render() {
     return (
@@ -34,7 +39,7 @@ class EditView extends Component {
             />
             <button>Update</button>
           </form>
-          {this.state.fireRedirect && <Redirect to="/" />}
+          {this.state.fireRedirect && <Redirect to="/home" />}
           {}
         </div>
       </div>
@@ -54,8 +59,9 @@ class EditView extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log('props.id is', this.props);
   return {
-    notes: state.notes
+    notes: state.notes,
   };
 };
 

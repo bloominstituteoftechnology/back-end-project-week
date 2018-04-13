@@ -71,11 +71,15 @@ export const noteError = error => {
     };
 };
 
-export const getNotes = (user) => {
+export const getNotes = user => {
     const token = localStorage.getItem('token');
     return dispatch => {
         axios
-            .post(`${ROOT_URL}/home`, { user }, { headers: { authorization: token } })
+            .post(
+                `${ROOT_URL}/home`,
+                { user },
+                { headers: { authorization: token } }
+            )
             .then(response => {
                 dispatch({
                     type: GET_NOTES,
@@ -115,9 +119,22 @@ export const updateSelected = id => {
 };
 
 export const deleteNote = id => {
-    return {
-        type: DELETE_NOTE,
-        payload: id,
+    const token = localStorage.getItem('token');
+    return dispatch => {
+        axios
+            .delete(
+                `${ROOT_URL}/note/${id}`,
+                { headers: { authorization: token } }
+            )
+            .then(response =>
+                dispatch({
+                    type: DELETE_NOTE,
+                    payload: id
+                })
+            )
+            .catch(() => {
+                dispatch(noteError('Failed to delete note'));
+            });
     };
 };
 
@@ -126,8 +143,8 @@ export const editNote = noteObj => {
     const { title, text, id } = noteObj;
     return dispatch => {
         axios
-            .post(
-                `${ROOT_URL}/edit`,
+            .put(
+                `${ROOT_URL}/edit/:id`,
                 { title, text, id },
                 { headers: { authorization: token } }
             )

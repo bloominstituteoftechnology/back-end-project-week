@@ -26,19 +26,9 @@ export const notesReducer = (notes = [], action) => {
         else return note;
       });
     case DELETE_NOTE:
-      return notes.filter(note => {
-        if (note.id !== action.payload) return note;
-      });
+      return notes;
     case EDIT_NOTE:
-      return notes.map(note => {
-        if (note.id === action.payload.id)
-          return {
-            ...note,
-            title: action.payload.title,
-            text: action.payload.text
-          };
-        else return note;
-      });
+      return notes;
     default:
       return notes;
   }

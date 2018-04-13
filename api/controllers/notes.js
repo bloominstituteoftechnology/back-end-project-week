@@ -22,12 +22,35 @@ const addNote = (req, res) => {
     }
 };
 
-// const editNote = (req, res) => {
+const editNote = (req, res) => {
+    const { title, text, _id } = req.body;
+    if (title && text && _id) {
+        Note.findOneAndUpdate({ _id }, { title, text })
+        .then(note => res.send(note))
+        .catch(err => {
+            res.status(422).send('Error editing the note');
+        });
+    } else {
+        res.status(422).send('Please send valid title, text and/or id for the note');
+    };
+};
 
-// }
+const deleteNote = (req, res) => {
+    const { id } = req.params;
+    if (id) {
+        Note.findOneAndRemove({ _id: id })
+            .then(note => res.send(note))
+            .catch(err => {
+                res.status(422).send('Error deleting the note');
+            });
+    } else {
+        res.status(422).send('Please send id for the note');
+    };
+};
 
 module.exports = {
     getAllNotes,
     addNote,
-    // editNote,
+    editNote,
+    deleteNote,
 };
