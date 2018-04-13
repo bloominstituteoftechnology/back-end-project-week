@@ -10,6 +10,7 @@ class OneNote extends Component {
   };
 
   render() {
+    const note = this.props.notes.find(each => each._id === this.props.id);
     return (
       <div className="OneNote">
         <div className="header">
@@ -21,12 +22,12 @@ class OneNote extends Component {
         {this.state.fireRedirect && <Redirect to="/" />}
         <h2>
           {!this.state.fireRedirect
-            ? this.props.notes[this.props.id].title
+            ? note.title
             : null}
         </h2>
         <p>
           {!this.state.fireRedirect
-            ? this.props.notes[this.props.id].text
+            ? note.text
             : null}
         </p>
         {this.state.showModal && (
@@ -56,7 +57,7 @@ class OneNote extends Component {
   }
 
   componentWillMount = () => {
-    this.props.updateSelected(this.props.notes[this.props.id].id);
+    this.props.updateSelected(this.props.id);
   };
 
   handleClickOnToggleDeleteModal = e => {

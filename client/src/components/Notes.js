@@ -47,14 +47,14 @@ class Notes extends Component {
       <NoteStyled>
         <h4
           onClick={() => {
-            this.props.updateSelected(this.props.note.id);
+            this.props.updateSelected(this.props.note._id);
           }}
         >
           {this.props.note.title}
         </h4>
         <p
           onClick={() => {
-            this.props.updateSelected(this.props.note.id);
+            this.props.updateSelected(this.props.note._id);
           }}
         >
           {this.props.note.text}
