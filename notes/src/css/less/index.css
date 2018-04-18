@@ -1,0 +1,475 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 62.5%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  background: #f2f4f5;
+}
+a {
+  text-decoration: none;
+}
+.input-box {
+  width: 100%;
+  height: 30px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+.textarea-box {
+  width: 100%;
+  border: none;
+  font-size: .9rem;
+  border-radius: 3px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  margin-top: 4px;
+}
+.primary-button {
+  width: 100%;
+  max-width: 90px;
+  padding: 7px;
+  margin: 2px;
+  background: #0272b6;
+  color: white;
+  border-radius: 5px;
+}
+.primary-button:hover {
+  cursor: pointer;
+}
+.secondary-button {
+  width: 100%;
+  max-width: 90px;
+  padding: 7px;
+  margin: 2px;
+  background: none;
+  border: 1px solid #0272b6;
+  color: #0272b6;
+  border-radius: 5px;
+}
+.secondary-button:hover {
+  cursor: pointer;
+  background: #0272b6;
+  color: white;
+}
+.notes .logout {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 30px;
+}
+.notes .loading-msg {
+  display: flex;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin: 40px;
+}
+.notes .notes__add-form {
+  text-align: center;
+}
+.notes .notes__add-form h1 {
+  padding: 10px;
+  font-size: 1.5rem;
+}
+.notes .notes__add-form .add-form-input {
+  width: 100%;
+  max-width: 300px;
+  margin: auto;
+}
+.notes .notes__add-form .add-form-input input {
+  width: 100%;
+  height: 30px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+.notes .notes__add-form .add-form-input textarea {
+  width: 100%;
+  border: none;
+  font-size: .9rem;
+  border-radius: 3px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  margin-top: 4px;
+}
+.notes .notes__add-form .add-form-input button {
+  width: 100%;
+  max-width: 90px;
+  padding: 7px;
+  margin: 2px;
+  background: #0272b6;
+  color: white;
+  border-radius: 5px;
+}
+.notes .notes__add-form .add-form-input button:hover {
+  cursor: pointer;
+}
+.notes .notes-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.notes .notes-grid .note {
+  background: #FCF0CC;
+  color: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
+  margin: 1rem;
+  padding: 1rem;
+  min-width: 15rem;
+  max-width: 15rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.notes .notes-grid .note .note-title {
+  margin-bottom: 7px;
+  font-weight: 900;
+  font-family: cursive;
+}
+.notes .notes-grid .note .note-text {
+  font-family: cursive;
+  margin-bottom: 15px;
+}
+.notes .notes-grid .note .notes_update-form {
+  display: none;
+}
+.notes .notes-grid .note .notes_update-form .update-form-input {
+  width: 100%;
+  max-width: 300px;
+}
+.notes .notes-grid .note .notes_update-form .update-form-input input {
+  width: 100%;
+  height: 30px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+.notes .notes-grid .note .notes_update-form .update-form-input textarea {
+  width: 100%;
+  border: none;
+  font-size: .9rem;
+  border-radius: 3px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  margin-top: 4px;
+}
+.notes .notes-grid .note .notes_update-form .update-form-input button {
+  width: 100%;
+  max-width: 90px;
+  padding: 7px;
+  margin: 2px;
+  background: #0272b6;
+  color: white;
+  border-radius: 5px;
+}
+.notes .notes-grid .note .notes_update-form .update-form-input button:hover {
+  cursor: pointer;
+}
+.notes .notes-grid .note .note-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+.notes .notes-grid .note .note-buttons .update-button {
+  width: 100%;
+  max-width: 90px;
+  padding: 7px;
+  margin: 2px;
+  background: none;
+  border: 1px solid #0272b6;
+  color: #0272b6;
+  border-radius: 5px;
+  max-width: 35px;
+  border: none;
+}
+.notes .notes-grid .note .note-buttons .update-button:hover {
+  cursor: pointer;
+  background: #0272b6;
+  color: white;
+}
+.notes .notes-grid .note .note-buttons .update-button:hover {
+  cursor: pointer;
+}
+.notes .notes-grid .note .note-buttons .delete-button {
+  display: none;
+  width: 100%;
+  max-width: 90px;
+  padding: 7px;
+  margin: 2px;
+  background: #0272b6;
+  color: white;
+  border-radius: 5px;
+  background: #EF3E36;
+  order: 1;
+}
+.notes .notes-grid .note .note-buttons .delete-button:hover {
+  cursor: pointer;
+}
+.notes .notes-grid .note .note-buttons .done-button {
+  display: none;
+  width: 100%;
+  max-width: 90px;
+  padding: 7px;
+  margin: 2px;
+  background: none;
+  border: 1px solid #0272b6;
+  color: #0272b6;
+  border-radius: 5px;
+}
+.notes .notes-grid .note .note-buttons .done-button:hover {
+  cursor: pointer;
+  background: #0272b6;
+  color: white;
+}
+.landing-page {
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+}
+.landing-page .main-text {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.landing-page .main-text h1 {
+  font-size: 1.7rem;
+  margin-bottom: 20px;
+}
+.landing-page .main-text h2 {
+  font-size: 1.5rem;
+  margin-bottom: 40px;
+}
+.landing-page .landing-page__menu {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+.landing-page .landing-page__menu .navLink {
+  margin: 20px;
+  font-size: 1rem;
+}
+.landing-page .landing-page__menu .navLink a {
+  width: 100%;
+  max-width: 90px;
+  padding: 7px;
+  margin: 2px;
+  background: none;
+  border: 1px solid #0272b6;
+  color: #0272b6;
+  border-radius: 5px;
+}
+.landing-page .landing-page__menu .navLink a:hover {
+  cursor: pointer;
+  background: #0272b6;
+  color: white;
+}
+.login-form-input {
+  margin: 40px;
+  width: 100%;
+  max-width: 250px;
+}
+.login-form-input h1 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+.login-form-input input {
+  width: 100%;
+  height: 30px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  margin-bottom: 5px;
+}
+.login-form-input button {
+  width: 100%;
+  max-width: 90px;
+  padding: 7px;
+  margin: 2px;
+  background: #0272b6;
+  color: white;
+  border-radius: 5px;
+}
+.login-form-input button:hover {
+  cursor: pointer;
+}
+.signup-form-input {
+  margin: 40px;
+  width: 100%;
+  max-width: 250px;
+}
+.signup-form-input h1 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+.signup-form-input input {
+  width: 100%;
+  height: 30px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  margin-bottom: 5px;
+}
+.signup-form-input button {
+  width: 100%;
+  max-width: 90px;
+  padding: 7px;
+  margin: 2px;
+  background: #0272b6;
+  color: white;
+  border-radius: 5px;
+}
+.signup-form-input button:hover {
+  cursor: pointer;
+}
+.Navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  height: 80px;
+  margin-bottom: 40px;
+}
+.Navbar .Navbar__nav {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 284px;
+}
+.Navbar .Navbar__nav .NavLink {
+  font-size: 1.2rem;
+}
+.Navbar .Navbar__nav .NavLink a {
+  color: white;
+}
+.Navbar .Navbar__nav .NavLink a:hover {
+  color: #C5CBD3;
+}
+.Navbar .Navbar__nav .NavLink .Navlink--selected {
+  color: #C5CBD3;
+}

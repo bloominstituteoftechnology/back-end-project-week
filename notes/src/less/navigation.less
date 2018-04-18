@@ -1,0 +1,31 @@
+.Navbar {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: black;
+	height: 80px;
+	margin-bottom: 40px;
+
+	.Navbar__nav {
+		display: flex;
+		justify-content: space-around;
+		width: 100%;
+		max-width: 284px;
+
+		.NavLink {
+			font-size: 1.2rem;
+
+			a {
+				color: white;
+
+				&:hover {
+					color: #C5CBD3;
+				}
+			}
+
+			.Navlink--selected {
+				color: #C5CBD3;
+			}
+		}
+	}
+}
