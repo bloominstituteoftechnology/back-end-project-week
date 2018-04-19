@@ -1,0 +1,24 @@
+{
+  "name": "lambda-notes-back-end",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": "https://github.com/sharp0111/back-end-project-week.git",
+  "author": "Sergey N..",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "jsonwebtoken": "^8.1.0",
+    "mongoose": "^5.0.0",
+    "passport": "^0.4.0",
+    "validator": "^9.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  }
+}
