@@ -1,0 +1,47 @@
+Arguments: 
+  /home/icontain/.nvm/versions/node/v9.4.0/bin/node /home/icontain/.yarn/bin/yarn.js add mongoose express mongodb
+
+PATH: 
+  /home/icontain/.yarn/bin:/home/icontain/.config/yarn/global/node_modules/.bin:/home/icontain/.nvm/versions/node/v9.4.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl
+
+Yarn version: 
+  1.5.1
+
+Node version: 
+  9.4.0
+
+Platform: 
+  linux x64
+
+npm manifest: 
+  {
+    "name": "back-end-project-week",
+    "version": "1.0.0",
+    "description": "Backend for Note App",
+    "main": "server.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/theMultitude/back-end-project-week.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/theMultitude/back-end-project-week/issues"
+    },
+    "homepage": "https://github.com/theMultitude/back-end-project-week#readme"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: connect ECONNREFUSED 192.168.2.1:443
+      at Object._errnoException (util.js:1003:13)
+      at _exceptionWithHostPort (util.js:1024:20)
+      at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1194:14)

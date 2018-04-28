@@ -1,0 +1,27 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "Backend for Note App",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theMultitude/back-end-project-week.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/theMultitude/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/theMultitude/back-end-project-week#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "mongodb": "^3.0.4",
+    "mongoose": "^5.0.11",
+    "react": "^16.2.0",
+    "react-router": "^4.2.0"
+  }
+}
