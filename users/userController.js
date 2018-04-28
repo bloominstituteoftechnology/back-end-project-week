@@ -9,8 +9,9 @@ const secret = 'There is no urf mode';
 
 const { ExtractJwt } = require('passport-jwt');
 const JwtStrategy = require('passport-jwt').Strategy;
+const logout = require('express-passport-logout');
 
-const localStrategy = new LocalStrategy(function(username, password, email, done) {
+const localStrategy = new LocalStrategy(function(username, password, done) {
     User.findOne({ username }, function(err, user) {
         if (err) {
             done(err);
@@ -78,8 +79,41 @@ router
 
 router
     .post('/login', authenticate, (req, res) => {
-    res.json({ token: makeToken(req.user), user: req.user });
+        const { username, password } = req.body;
+        
+        User.findOne({ username }, (err, user) => {
+            if (err) {
+              res.status(403).json({ error: 'Invalid Username/Password' });
+              return;
+            }
+            if (user === null) {
+              res.status(422).json({ error: 'No user with that username in our DB' });
+              return;
+            }
+            user.verifyPassword(password, (nonMatch, hashMatch) => {
+              // This is an example of using our User.method from our model.
+              if (nonMatch !== null) {
+                res.status(422).json({ error: 'passwords dont match' });
+                return;
+              }
+           
+              if (hashMatch) {
+                // if (req.headers['authorization'] ===  ){
+                //     res.status(422).json({ error: 'You are already logged in' });
+                // }else {
+                res.json({ token: makeToken(req.user), user: req.user });
+                
+              }
+            });
+          });
+
   });
+
+router
+    .get('/logout', (req, res)=> {
+        res.status(200).send({ auth: false, token: null });
+        console.log(req.headers['authorization']);
+    });
 
 function makeToken(user) {
     const timestamp = new Date().getTime();
