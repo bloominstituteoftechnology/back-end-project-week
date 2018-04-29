@@ -26,4 +26,11 @@ User.pre('save', function(next) {
   });
 });
 
+User.methods.checkPassword = function(pw, callBack) {
+  return bcrypt.compare(pw, this.password, function(err, valid) {
+    if (valid) return callBack(null, valid);
+    return callBack(err);
+  });
+};
+
 module.exports = mongoose.model('User', User);
