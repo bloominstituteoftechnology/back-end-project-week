@@ -40,13 +40,13 @@ Upon your first commit, please submit a Pull Request and add _both_ the **Trello
 
 ```markdown
 ## Trello Set Up:
-* [ ] Use your existing Trello account from the Front End Project, or create a new one
-* [ ] Create a new board called "Lambda Notes(Backend) - {Your Name}"
-* [ ] Create lists titled `backlog`,`To Do`, `In Progress`, and `Done`
-* [ ] Fill in the `To Do` list with the MVP features listed below
-* [ ] Fill in the `backlog` list with all the extra features listed below
+* [x] Use your existing Trello account from the Front End Project, or create a new one
+* [x] Create a new board called "Lambda Notes(Backend) - {Your Name}"
+* [x] Create lists titled `backlog`,`To Do`, `In Progress`, and `Done`
+* [x] Fill in the `To Do` list with the MVP features listed below
+* [x] Fill in the `backlog` list with all the extra features listed below
 * [ ] Share your board with the project manager that has been assigned to you.  If you have not been assigned yet, reach out to your Section Lead for guidance
-* [ ] Add your Trello URL to your project's README.md file.  Commit the change, push it to your repository & submit a pull request
+* [x] Add your Trello URL to your project's README.md file.  Commit the change, push it to your repository & submit a pull request
 
 ## Backend MVP Features:
 * [ ] Create a Database for your app
@@ -87,3 +87,5 @@ Once your MVP has been approved, you have been given a feature list that the cli
 * [ ] Gate your favorite feature behind the premium paywall
 
 You will notice that this repository does not have any starter code.  This is on purpose.  You are to start from scratch using any files you have built throughout your time here at Lambda School.
+
+* https://trello.com/b/8XJzBUo4/lambda-notesbackend-habib-ur-rehman
