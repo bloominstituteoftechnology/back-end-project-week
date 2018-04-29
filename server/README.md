@@ -33,14 +33,14 @@ This is a RESTful API to connect the Lambda Notes Project by AJ Genung to the Da
 
 1.  [POST] request to `/api/newnote` requires a title and active `JWT`. `body` is optional and will default to 'Default Entry' if not provided. `{ JWT, title, body }`
 
-* Saves note to the database, and returns an array of all notes from active user.
+    * Saves note to the database, and returns an array of all notes from active user.
 
 2.  [PUT] request to `/api/updatenote` requires active `JWT` and `note._id`. `title` and `body` are optional, but if your updating something, you should probably send at least one of these...
 
-* Updates the note on the database and returns an array of all notes from the active user.
+    * Updates the note on the database and returns an array of all notes from the active user.
 
 3.  [DELETE] request to `/api/destroynote/:id` requires active `JWT` on the body, and the `:id` param must be an active note.\_id.
 
-* Deletes the note from the database, and returns an array of all the notes from the active user.
+    * Deletes the note from the database, and returns an array of all the notes from the active user.
 
 [trello](https://trello.com/b/7DBOIyKV/lambdanotes-backend-aj-genung)
