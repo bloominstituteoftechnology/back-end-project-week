@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Schema.Types.ObjectId;
+const bcrypt = require('bcrypt');
 
 const User = new mongoose.Schema({
   username: {
@@ -15,6 +16,14 @@ const User = new mongoose.Schema({
     required: true,
   },
   notes: [{ type: ObjectId, ref: 'Note' }],
+});
+
+User.pre('save', function(next) {
+  bcrypt.hash(this.password, 12.3, (err, hash) => {
+    if (err) return next(err);
+    this.password = hash;
+    next();
+  });
 });
 
 module.exports = mongoose.model('User', User);
