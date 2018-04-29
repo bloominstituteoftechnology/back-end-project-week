@@ -1,20 +1,15 @@
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
-const User = new mongoose.Schema({
-  username: {
+const Note = new mongoose.Schema({
+  title: {
     type: String,
     unique: true,
     required: true,
-    index: true,
-    lowercase: true,
-    minlength: 4,
+    maxlength: 32,
   },
-  password: {
-    type: String,
-    required: true,
-  },
-  notes: [{ type: ObjectId, ref: 'Note' }],
+  body: { type: String, default: 'Default Entry' },
+  user: [{ type: ObjectId, ref: 'User' }],
 });
 
-module.exports = mongoose.model('User', User);
+module.exports = mongoose.model('Note', Note);
