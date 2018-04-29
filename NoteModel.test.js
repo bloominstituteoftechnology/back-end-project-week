@@ -3,9 +3,9 @@ const chai = require('chai');
 const { expect } = chai;
 const sinon = require('sinon');
 
-const User = require('./models/UserModel');
+const Note = require('./models/NoteModel');
 
-describe('User Model', () => {
+describe('Note Model', () => {
     before(done => {
         mongoose.Promise = global.Promise;
         mongoose.connect('mongodb://localhost/test');
@@ -23,35 +23,29 @@ describe('User Model', () => {
         });
     });
 
-    describe('#getUserName()', () => {
-        it('should return the correct User title', () => {
-            const user = new User ({
-                username: 'habib1234731',
-                password: 'psaword',
-                firstName: "Habib",
-                lastName: 'Rehman',
-                age: 20
+    describe('#getTitle()', () => {
+        it('should return the correct Note title', () => {
+            const note = new Note ({
+                title: 'Note 1',
+                body: 'This is the body of Note 1'
             });
-            expect(user.getUserName()).to.equal('habib1234731');
+            expect(note.getTitle()).to.equal('Note 1');
         });
     });
 
     describe('#getAllData()', () => {
-        it('should return all of the users', () => {
-            sinon.stub(User, 'find');
-            User.find.yields(null, [
+        it('should return all of the notes', () => {
+            sinon.stub(Note, 'find');
+            Note.find.yields(null, [
                 {
-                    username: 'habib1234731',
-                    password: 'psaword',
-                    firstName: "Habib",
-                    lastName: 'Rehman',
-                    age: 20
+                    title: 'Note 1',
+                    body: 'This is just a note in which data is added to test the NoteModel we created.'
                 }
             ]);
-            User.getAllData(returnObject => {
+            Note.getAllData(returnObject => {
                 expect(returnObject.length).to.equal(1);
-                expect(returnObject[0].title).to.equal('habib1234731');
-                User.find.restore();
+                expect(returnObject[0].title).to.equal('Note 1');
+                Note.find.restore();
             });
         });
     });
