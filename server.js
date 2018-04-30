@@ -1,26 +1,23 @@
 const express = require('express');
-const helmet = require('helmet');
-const cors = require('cors');
-const mongoose = require('mongoose');
+const app = express();
 
+// set the port of our application
+// process.env.PORT lets the port be set by Heroku
+const port = process.env.PORT || 8080;
 
-mongoose
-  .connect('mongodb://localhost/notesdb')
-  .then(() => console.log('\n=== connected to mongo ===\n'))
-  .catch(err => console.log('error connecting to mongo'));
+// set the view engine to ejs
+app.set('view engine', 'ejs');
 
+// make express look in the public directory for assets (css/js/img)
+app.use(express.static(__dirname + '/public'));
 
-// add your server code
-const server = express();
-server.use(helmet());
-server.use(express.json());
+// set the home page route
+app.get('/', function(req, res) {
 
-
-server.get('/', function(req, res) {
-  res.status(200).json({ api: 'running' });
+    // ejs render automatically looks in the views folder
+    res.render('index');
 });
 
-const port = process.env.PORT || 5000;
-server.listen(port, () => {
-  console.log(`Server up and running on ${port}`);
+app.listen(port, function() {
+    console.log('Our app is running on http://localhost:' + port);
 });
