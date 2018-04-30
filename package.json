@@ -1,0 +1,8 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": "git@github.com:sumi419/back-end-project-week.git",
+  "author": "Sumayyah <sumayyah@zubairs-air.attlocal.net>",
+  "license": "MIT"
+}
