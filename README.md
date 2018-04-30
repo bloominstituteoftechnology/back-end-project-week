@@ -28,8 +28,8 @@ It is suggested that you deploy the server and database first, before you underg
 
 Once you have empty projects deployed to these platforms, they can be easily updated with the code you implement as you write it. Additionally, it is recommended that you keep your front end and backend codebases in separate github repos, not under a single umbrella repo. This helps with separation of concerns, plus it helps with deploying, since the different parts of your full-stack codebase need to live on different platforms.
 
-* [ ] Create a Database for your app
-* [ ] Deploy your application to the web
+* [x] Create a Database for your app: ## COMPLETE
+* [/] Deploy your application to the web: In Progress/Incomplete
 * [ ] Create a Registration Page that allows users to create accounts for your app and sign in with email/password
 * [ ] Store these User Accounts in your Database
 * [ ] Add a Sign In Page
