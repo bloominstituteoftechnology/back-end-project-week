@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('./User');
+const { makeToken } = require('./auth');
 
 router.post('/', (req, res) => {
   const { username, password } = req.body;
@@ -11,7 +12,8 @@ router.post('/', (req, res) => {
     newUser
       .save()
       .then(response => {
-        res.json({ message: 'User Created!  Please login!' });
+        const token = makeToken(newUser);
+        res.json({ token, username: newUser.username, notes: [] });
       })
       .catch(err => {
         res.status(500).json(err);
