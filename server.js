@@ -1,7 +1,17 @@
 const express = require('express');
 const app = express();
-const bodyParser = require("body-parser");
+const helmet = require('helmet');
+const cors = require('cors');
 const mongoose = require('mongoose');
+
+
+mongoose
+  .connect('mongodb://localhost/polarnotesdb')
+  .then(() => console.log('\n=== connected to mongo ===\n'))
+  .catch(err => console.log('error connecting to mongo'));
+
+const userController = require('./users/userController.js');
+
 
 // set the port of our application
 // process.env.PORT lets the port be set by Heroku
@@ -12,7 +22,12 @@ app.set('view engine', 'ejs');
 
 // make express look in the public directory for assets (css/js/img)
 app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.json());
+app.use(helmet());
+app.use(express.json());
+
+
+app.use('/api/users', userController);
+
 
 // set the home page route
 app.get('/', function(req, res) {
