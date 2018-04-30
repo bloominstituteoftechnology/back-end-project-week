@@ -11,9 +11,14 @@
     "test": "node test.js"
   },
   "dependencies": {
+    "bcrypt": "^2.0.1",
+    "body-parser": "^1.18.2",
     "ejs": "^2.5.6",
     "express": "^4.16.3",
-    "mongoose": "^5.0.16"
+    "express-session": "^1.15.6",
+    "mongoose": "^5.0.16",
+    "nodemon": "^1.17.3",
+    "session": "^0.1.0"
   },
   "devDependencies": {
     "request": "^2.81.0",
