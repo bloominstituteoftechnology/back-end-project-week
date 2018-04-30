@@ -22,4 +22,17 @@ router
     });
   });
 
+router
+  .route("/:id")
+  .put((req, res) => {
+    Note.findByIdAndUpdate(req.params.id, req.body, { new: true }).then(
+      updatedNote => res.json(updatedNote)
+    );
+  })
+  .delete((req, res) => {
+    Note.findByIdAndRemove(req.params.id).then(deletedNote => {
+      res.json(deletedNote);
+    });
+  });
+
 module.exports = router;
