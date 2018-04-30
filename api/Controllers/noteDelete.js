@@ -1,8 +1,8 @@
 const Note = require('../Models/Note');
 
 const noteDelete = (req, res) => {
-  const { _id } = req.body;
-  Note.findByIdAndRemove(_id)
+  // const { _id } = req.body;
+  Note.findByIdAndRemove(req.params.id)
     .then(resposne => {
       res
         .status(200)
