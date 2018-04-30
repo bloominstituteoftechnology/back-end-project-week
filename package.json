@@ -1,0 +1,32 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "Back end project for Lambda School.",
+  "main": "index.js",
+  "engines": {
+    "node": "8.11.1",
+    "npm": "5.6.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JaredRCooper/back-end-project-week.git"
+  },
+  "author": "Jared Cooper",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JaredRCooper/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/JaredRCooper/back-end-project-week#readme",
+  "dependencies": {
+    "chalk-animation": "^1.6.0",
+    "express": "^4.16.3",
+    "mongoose": "^5.0.17",
+    "nodemon": "^1.17.3",
+    "passport": "^0.4.0",
+    "passport-google-oauth20": "^1.0.0"
+  }
+}
