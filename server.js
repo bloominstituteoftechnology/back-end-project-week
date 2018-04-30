@@ -2,9 +2,12 @@ const express = require("express");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
+const dotenv = require(".env");
+
+dotenv.config();
 
 mongoose
-  .connect("mongodb://test:test@ds163769.mlab.com:63769/lambda-notes")
+  .connect(process.env.MONGOLAB_URI)
   .then(() => {
     console.log("Connected to Mongo.");
   })
