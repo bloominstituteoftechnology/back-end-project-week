@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const helmet = require('helmet')
 const logger = require('morgan')
+const cool = require('cool-ascii-faces')
 
 const Todo = require('./todos/Todo')
 
@@ -18,6 +19,7 @@ server.use(express.json())
 
 server.get('/', (req, res) => res.json({ msg: `Server Online` }))
 
+server.get('/cool', (req, res) => res.send(cool()))
 server.get('/api/todos', (req, res) => {
   Todo.find()
     .then(todos => {
