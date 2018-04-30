@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 
 const register = require('./Routes/register');
+const login = require('./Routes/login');
 
 const server = express();
 
@@ -17,5 +18,6 @@ server.get('/', (req, res) => {
 });
 
 server.use('/api/register', register);
+server.use('/api/login', login);
 
 module.exports = server;
