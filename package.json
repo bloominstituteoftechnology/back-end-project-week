@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/crispad/back-end-project-week#readme",
   "dependencies": {
+    "bcrypt": "^2.0.1",
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
     "cors": "^2.8.4",
