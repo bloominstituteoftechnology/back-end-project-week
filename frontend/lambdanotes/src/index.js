@@ -1,0 +1,28 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import './styles/index.css';
+import Createnote from './NoteComponent/Createnote';
+import NoteView from './NoteComponent/NoteView';
+import Sidebar from './NoteComponent/Sidebar';
+import Login from './NoteComponent/Login';
+import Home from './NoteComponent/Home';
+import EditView from './NoteComponent/EditView';
+import Deletemodal from './NoteComponent/Deletemodal';
+import ViewSingleNote from './NoteComponent/ViewSingleNote';
+
+ReactDOM.render(
+    <Router>
+    <div className="container">
+        <Sidebar />
+        <Route path='/' component={Home} exact />
+        <Route path='/Login' component={Login} exact />
+        <Route path='/NoteView' component={NoteView} exact />
+        <Route path='/Createnote' component={Createnote}/>
+        <Route path='/EditView' component={EditView} exact />
+        <Route path='/ViewSingleNote' component={ViewSingleNote}/>
+        <Route path='/Deletemodal' component={Deletemodal} exact />
+    </div>
+    </Router>,
+     document.getElementById('root'));
+

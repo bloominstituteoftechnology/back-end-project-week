@@ -1,0 +1,23 @@
+{
+  "name": "LambdaNotes-Backend",
+  "version": "1.0.0",
+  "description": "LambdaNotes Database.\r * MongoDB.\r * Mongoose.\r * Performing CRUD Operations.",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "Shobana Ramesh",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "helmet": "^3.12.0",
+    "mongoose": "^5.0.10",
+    "node-fetch": "^2.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.15.0"
+  }
+}

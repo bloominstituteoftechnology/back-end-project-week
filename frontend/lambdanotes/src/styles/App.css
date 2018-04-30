@@ -1,0 +1,158 @@
+html,body {
+  font-size: 62.5%;
+  padding:4%;
+}
+
+
+
+.container {
+  display: flex;
+  text-align: left;
+  width: 100%;
+  min-width: 100%;
+  
+  border: 3px solid #ddd;
+  min-height: 600px;
+  
+}
+.note-list {
+  display:flex;
+  flex-flow: row-wrap;
+ 
+}
+.notes-container{
+  display:flex;
+  flex-wrap: wrap;
+  
+}
+.sidebar {
+  background-color: #ddd;
+  color: white;
+  min-width: 25%;
+}
+.button {
+  display: block;
+  background-color: #41d8d3;
+  border: 1px solid #818787;
+  
+  padding: 5%;
+  margin: 10%;
+  min-width: 50%;
+  color: #fff;
+  font-size: 1.7rem;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+}
+.App-title {
+  font-size: 3.9rem;
+  color: #373d3c;
+  margin: 2%;
+  padding: 2.5%;
+  font-stretch: expanded;
+}
+
+.App-intro {
+  font-size: large;
+}
+.notes-title {
+  font-size: 2rem;
+}
+
+.single-note {
+    width: 200px; 
+    border: 2px solid #ddd;
+    margin: 30px;
+    height: 200px;
+    font-size: 1.6rem; 
+    overflow: hidden;
+}
+h4{ 
+  text-align:left;
+  font-size: 1.5rem;
+  border-bottom: 2px solid #ddd;
+}
+h2 {
+  text-decoration: none;
+  font-size: 2rem;
+}
+p{
+  height:30%;
+  width:100%;
+  font-size: 1rem;
+}
+.new-content {
+  width: 100px;
+  height:100px;
+}
+.para {
+  text-decoration: none;
+}
+/* Create View styles. */
+.create-note {
+  padding:4%;
+  width: 100%;
+  min-height: 80%;
+  font-weight: bold;
+  font-size: 2rem;
+  background-color: #e3e7ea;
+
+}
+.create-title {
+  font-size: 1.3rem;
+  border: 1px solid #b1aeb2;
+  border-radius: 5%;
+  margin-left: 1%;
+  margin-top: 4%;
+  margin-bottom: 2%;
+  width:40% ;
+  background-color: #fff;
+  padding:1.5%;
+}
+.create-content {
+  font-size: 1.6rem;
+  margin:1%;
+  padding: 2%;
+  min-width: 700px;
+  min-height: 350px;
+}
+.save {
+  width:40%;
+  margin:-1.5%;
+}
+  /* view-singlenote */
+.view-singlenote {
+  background-color: #fcfdff;
+}
+.singlenote-title {
+  font-size: 2rem;margin: 5%;
+  font-weight:bold;
+}
+.singlenote-content {
+  font-size: 1.6rem;
+  margin:2%;
+  padding: 2%;
+  line-height: 2.5rem;
+}
+.edit{
+  
+  font-size: 1.6rem;
+  color: gray;
+  padding: 2%;
+  margin: 2%;
+}
+.delete{
+  
+  font-size: 1.6rem;
+  color: gray;
+  padding: 2%;
+  margin: 2%;
+}
+.nav {
+  float:right;
+  margin: 1%;
+
+}
+.red{
+  background-color: red;
+}
