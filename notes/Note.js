@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const Note = new mongoose.Schema({
+  userId: {
+    type: String,
+    required: true,
+  },
   title: {
     type: String,
     required: true,
@@ -11,6 +15,11 @@ const Note = new mongoose.Schema({
   },
   tags: {
     type: Array,
+    default: [],
+  },
+  timestamp: {
+    type: Date,
+    default: Date.now(),
   }
 });
 

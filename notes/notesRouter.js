@@ -1,5 +1,6 @@
 const express = require('express');
 
+const User = require('../users/User.js');
 const Note = require('./Note.js');
 
 const router = express.Router();
