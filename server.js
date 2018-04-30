@@ -16,9 +16,9 @@ mongoose
 const server = express();
 
 server.use(helmet());
-server.use(morgan("dev"));
+server.use(morgan("combined"));
 server.use(express.json());
-server.use(noteController);
+server.use("/api/notes", noteController);
 
 const port = process.env.PORT || 5000;
 server.listen(port, () => {
