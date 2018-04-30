@@ -8,8 +8,9 @@ const Todo = require('./todos/Todo')
 
 const server = express()
 
+const uri = 'mongodb://cesar:fibona66I@ds014658.mlab.com:14658/notes-db'
 mongoose
-  .connect('mongodb://ds014658.mlab.com:14658/notes-db')
+  .connect(uri)
   .then(() => console.log(`\n=== Mongo Online ===\n`))
   .catch(err => console.log(err))
 
