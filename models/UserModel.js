@@ -24,8 +24,11 @@ const UserSchema = new Schema({
         type: String,
         required: true,
     },
-    age: Number,
-    notes: [{ type: ObjectId, ref: ''}],
+    age: {
+        type: Number,
+        required: false,
+    },
+    notes: [{ type: ObjectId, ref: 'Note'}],
 });
 
 UserSchema.pre('save', function(next) {
@@ -65,4 +68,4 @@ UserSchema.path('password').validate(function(password) {
     return password && password.length >= 5;
 }, 'Password must contain five characters');
 
-module.exports = mongoose.model('User', UserSchema, 'users');
+module.exports = mongoose.model('User', UserSchema,'users');

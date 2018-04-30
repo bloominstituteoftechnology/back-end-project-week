@@ -1,4 +1,5 @@
 const Note = require('../models/NoteModel');
+const User = require('../models/UserModel');
 
 const createNote = async function (req, res) {
     const { userId, title, body } = req.body;
@@ -23,11 +24,11 @@ const getNotes = async function (req, res) {
 };
 
 const deleteNote = async function (req, res) {
-    const noteUId = req.params.id;
+    const noteId = req.params.id;
     const { userId } = req.params;
     try {
         const removeNote = await User
-            .findByIdAndUpdate(userId, {$pull: {notes: { _id: noteUId }}});
+            .findByIdAndUpdate(userId, {$pull: {notes: { _id: noteId }}});
         res.status(200).send(deleteNote.notes);
     } catch(error) {
         console.log(error, 'There was an error deleting the note');
@@ -35,14 +36,14 @@ const deleteNote = async function (req, res) {
 };
 
 const editNote = async function (req, res) {
-    const noteUId = req.params.id;
+    const noteId = req.params.id;
     const { userId } = req.params;
     const { title, body } = req.body;
     const updateNote = new Note({ title, body });
     try{
         const loggedInUser = await User.findById(userId);
         const newNotes = loggedInUser.notes.map( note => {
-            if (note._id.toString() === noteUId.toString()) return updateNote;
+            if (note._id.toString() === noteId.toString()) return updateNote;
             else return note;
         });
         await User.findOneAndUpdate(

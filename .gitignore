@@ -1,6 +1,4 @@
-.DS_Store
 node_modules
-package-lock.json
-filesCreatedInOrder.txt
-yarn-error.log
 config.js
+howIDidIt.txt
+yarn-error.log
