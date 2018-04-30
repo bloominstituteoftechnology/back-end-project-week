@@ -4,8 +4,8 @@ const helmet = require('helmet');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-const MONGOLAB_URI = require('./mlab');
-const path = MONGOLAB_URI;
+const mlab = require('./mlab');
+const path = process.env.MONGOLAB_URI || mlab;
 
 mongoose
   .connect(path)
