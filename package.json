@@ -4,5 +4,11 @@
   "main": "index.js",
   "repository": "https://github.com/kait-schorr/back-end-project-week.git",
   "author": "Kaitlyn Schorr <kaitlynschorr@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3",
+    "helmet": "^3.12.0",
+    "mongoose": "^5.0.16",
+    "morgan": "^1.9.0"
+  }
 }
