@@ -13,5 +13,5 @@ server.use(express.json());
 server.get('/', (req, res) => res.send('API Running...'));
 
 const PORT = process.env.PORT || 5000;
-express
+server
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
