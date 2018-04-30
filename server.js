@@ -3,6 +3,7 @@ const helmet = require("helmet");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const noteController = require("./notes/notesController");
+const cors = require("cors");
 
 mongoose
   .connect("mongodb://test:test@ds163769.mlab.com:63769/lambda-notes")
@@ -16,6 +17,7 @@ mongoose
 const server = express();
 
 server.use(helmet());
+server.unsubscribe(cors());
 server.use(morgan("combined"));
 server.use(express.json());
 server.use("/api/notes", noteController);
