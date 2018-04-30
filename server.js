@@ -50,4 +50,5 @@ server.post('/api/todos', (req, res) => {
 const port = process.env.PORT || 5000
 server.listen(port, () => {
   console.log(`\n API running on http://localhost:${port}`)
+  console.log(process.env)
 })
