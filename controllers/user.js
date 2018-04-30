@@ -6,11 +6,10 @@ const createUser = (req, res) => {
     user
         .save((error, user) => {
             if (error) {
-                console.log("I was in here line9");
+                console.log('There was an error saving the user');
                 return res.status(422).json(error);
             }
-            console.log("I was in here line12");
-            res.json({message: 'User saved'});
+            res.json(user);
         });
 };
 

@@ -9,11 +9,12 @@ const createNote = async function (req, res) {
     console.log("New Note: ", newNote);
     console.log("10: ", userId);
     try {
-        console.log('9', userId);
-        const saveNote = await User.findByIdAndUpdate(userId, {$push: { notes: newNote }});
+        console.log('userId: ', userId);
+        console.log('NewNote: ', newNote);
+        const updatedUser = await User.findByIdAndUpdate(userId, {$push: { notes: newNote }});
         //console.log(req.body._id);
-        console.log(saveNote, 'saved');
-        res.status(201).send(saveNote);
+        console.log('noteto be saved: ',updatedUser, 'saved');
+        res.status(201).send(updatedUser);
     } catch(error) {
         console.log(error);
     };
@@ -22,7 +23,7 @@ const createNote = async function (req, res) {
 const getNotes = async function (req, res) {
     const { uid } = req.params;
     try {
-        const loggedInUser = await User.findById(uid);
+        const loggedInUser = await User.findById(uid).populate('title body');
         //console.log(uid);
         console.log('logUser:', loggedInUser, '  notes:', loggedInUser.notes)
         res.status(200).send(loggedInUser.notes);

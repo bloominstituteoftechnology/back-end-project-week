@@ -7,17 +7,14 @@ const login = (req, res) => {
     User
         .findOne( { username }, (error, user) => {
             if (error) {
-                res.status(403).json({ error: 'Invalid Username/Password'});
-                return;
+                return res.status(403).json({ error: 'Invalid Username/Password'});
             }
             if (user === null) {
-                res.status(422).json({ error: 'No user with that username was found in the database'});
-                return;
+                return res.status(422).json({ error: 'No user with that username was found in the database'});
             }
             user.checkPassword(password, (nonmatch, hashMatch) => {
                 if (nonmatch !== null) {
-                    res.status(422).json({ error: 'Passwords dont match'});
-                    return;
+                    return res.status(422).json({ error: 'Passwords dont match'});
                 }
                 if (hashMatch) {
                     const payload = {

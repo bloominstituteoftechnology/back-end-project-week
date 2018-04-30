@@ -11,12 +11,12 @@ const NoteSchema = new Schema({
         type: String,
         required: true
     },
-    users: [{ type: ObjectId, ref: 'User'}],
     createdOn: {
         type: Date,
         required: true,
         default: Date.now()
-    }
+    },
+    users: [{ type: ObjectId, ref: 'User'}],
 });
 
 NoteSchema.methods.getTitle = function() {
