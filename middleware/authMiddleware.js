@@ -4,7 +4,7 @@ const User = require('../models/userModel');
 const secret = require('../config');
 
 const authenticate = (req, res, next) => {
-  const token = req.get('Authorization');
+  const token = req.get('authorization');
   if (token) {
     jwt.verify(token, secret, (err, decoded) => {
       if (err) return res.status(422).json(err);
