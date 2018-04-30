@@ -1,0 +1,31 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "Adding backend to Lambda Notes App",
+  "engines": {
+    "node": "8.9.4"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gooseandmegander/back-end-project-week.git"
+  },
+  "keywords": [
+    "heroku",
+    "node",
+    "express"
+  ],
+  "author": "Megan Williamson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gooseandmegander/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/gooseandmegander/back-end-project-week#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
