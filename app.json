@@ -1,0 +1,7 @@
+{
+    "name": "back-end-project-week",
+    "description": "This week you will be building a backend for a note taking app called \"Lambda Notes.\"",
+    "repository": "https://github.com/bmakau/back-end-project-week.git",
+    "keywords":["node", "express", "static"],
+    "image": "heroku/nodejs"
+}

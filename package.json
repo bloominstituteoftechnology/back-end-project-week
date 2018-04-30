@@ -25,7 +25,7 @@
     "mongose": "0.0.2-security",
     "morgan": "^1.9.0"
   },
-  "devDependencies": {
+  "engines": {
     "nodemon": "^1.17.3"
   }
 }
