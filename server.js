@@ -4,10 +4,8 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 const dotenv = require(".env");
 
-dotenv.config();
-
 mongoose
-  .connect(process.env.MONGOLAB_URI)
+  .connect("mongodb://test:test@ds163769.mlab.com:63769/lambda-notes")
   .then(() => {
     console.log("Connected to Mongo.");
   })
