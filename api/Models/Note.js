@@ -5,7 +5,7 @@ const NoteSchema = new mongoose.Schema({
   author: {
     type: ObjectId,
     required: true,
-    ref: User,
+    ref: 'User',
   },
 
   title: {
