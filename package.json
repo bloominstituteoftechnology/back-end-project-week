@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Backend for a note taking app called \"Lambda Notes.\"",
   "engines": {
-    "node": "9.2.0"
+    "node": "9.2.0",
+    "npm": "6.0.0"
   },
   "main": "index.js",
   "scripts": {

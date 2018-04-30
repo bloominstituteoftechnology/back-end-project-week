@@ -6,6 +6,9 @@ const router = express.Router();
 
 router
   .route('/')
+  .get((req, res) => {
+    res.status(200).json('hi');
+  })
   .post((req, res) => {
     if (req.body.username && req.body.password) {
       const newUser = new User(req.body);
