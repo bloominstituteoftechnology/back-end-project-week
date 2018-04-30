@@ -3,8 +3,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const helmet = require('helmet');
 
-const register = require('./Routes/register');
-const login = require('./Routes/login');
+const routes = require('./routes/routes');
 
 const server = express();
 
@@ -17,7 +16,6 @@ server.get('/', (req, res) => {
   res.send({ api: 'up and running!' });
 });
 
-server.use('/api/register', register);
-server.use('/api/login', login);
+routes(server);
 
 module.exports = server;
