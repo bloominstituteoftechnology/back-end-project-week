@@ -15,11 +15,10 @@ mongoose
 const server = express();
 
 server.use(helmet());
+server.use(morgan("dev"));
 server.use(express.json());
 
 const port = process.env.PORT || 5000;
 server.listen(port, () => {
   console.log(`Server up and running on ${port}`);
 });
-
-res.json({ message: "Up and Running!" });
