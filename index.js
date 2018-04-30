@@ -18,12 +18,12 @@ const server = express();
 //routes
 
 server.get('/', (req, res) => {
-  res.json({ api: 'api is working correctly!' });
+  res.json({ api: 'Api is working correctly, Raymond Rosario || Kevin Jolley can you read this?' });
 });
 
 
 
-//listen on this port
+//dynamic port binding
 const PORT = process.env.PORT || 5000;
 
 server.listen(PORT, () => {
