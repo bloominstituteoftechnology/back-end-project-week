@@ -2,6 +2,13 @@ const express = require ('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const helmet = require('helmet');
+const cors = require('cors');
+const mongoose =require('mongoose');
+
+mongoose.connect('mongodb://localhost/backend').then(() =>
+  console.log('\n===connected to mongo===\n'))
+
+.catch(err =>console.log('not connected'));
 
 
 const server = express();
