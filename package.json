@@ -1,0 +1,8 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/kait-schorr/back-end-project-week.git",
+  "author": "Kaitlyn Schorr <kaitlynschorr@gmail.com>",
+  "license": "MIT"
+}
