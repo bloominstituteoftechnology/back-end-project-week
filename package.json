@@ -1,10 +1,11 @@
 {
-  "name": "y",
+  "name": "back-end-project-week",
   "version": "1.0.0",
   "description": "[Trello Board] (https://trello.com/b/FI93YYCE/lambda-notesbackend-nour-hassan)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha *.test.js --exit",
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,20 @@
   "bugs": {
     "url": "https://github.com/nourmhassan/back-end-project-week/issues"
   },
-  "homepage": "https://github.com/nourmhassan/back-end-project-week#readme"
+  "homepage": "https://github.com/nourmhassan/back-end-project-week#readme",
+  "dependencies": {
+    "bcrypt": "^2.0.1",
+    "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "helmet": "^3.12.0",
+    "jsonwebtoken": "^8.2.1",
+    "mocha": "^5.1.1",
+    "mongoose": "^5.0.16",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.17.3",
+    "sinon": "^5.0.1"
+  }
 }
