@@ -36,4 +36,4 @@ NoteSchema.path('title').validate(function(title) {
     return title && title.length < 21;
 }, 'A title is not a title with description. Keep it less than 21 characters');
 
-module.exports = mongoose.model('Note', NoteSchema);
+module.exports = mongoose.model('Note', NoteSchema, 'notes');

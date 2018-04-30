@@ -24,6 +24,7 @@ const login = (req, res) => {
                         username: user.username
                     };
                     const token = jwt.sign(payload, mysecret);
+                    console.log(user.id);
                     res.json({ token });
                 }
             });

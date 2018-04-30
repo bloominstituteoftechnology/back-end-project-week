@@ -2,11 +2,17 @@ const Note = require('../models/NoteModel');
 const User = require('../models/UserModel');
 
 const createNote = async function (req, res) {
-    const { userId, title, body } = req.body;
+    const { title, body } = req.body;
     const newNote = new Note({ title, body });
+    const userId = req.params.uid;
+    console.log("body",req.body);
+    console.log("New Note: ", newNote);
+    console.log("10: ", userId);
     try {
-        const saveNote = await User
-            .findByIdAndUpdate(userId, {$push: { notes: newNote }});
+        console.log('9', userId);
+        const saveNote = await User.findByIdAndUpdate(userId, {$push: { notes: newNote }});
+        //console.log(req.body._id);
+        console.log(saveNote, 'saved');
         res.status(201).send(saveNote);
     } catch(error) {
         console.log(error);
@@ -14,9 +20,11 @@ const createNote = async function (req, res) {
 };
 
 const getNotes = async function (req, res) {
-    const { uid } = req.params.id;
+    const { uid } = req.params;
     try {
         const loggedInUser = await User.findById(uid);
+        //console.log(uid);
+        console.log('logUser:', loggedInUser, '  notes:', loggedInUser.notes)
         res.status(200).send(loggedInUser.notes);
     } catch (error) {
         console.log(error, 'There was an error retrieving the notes');

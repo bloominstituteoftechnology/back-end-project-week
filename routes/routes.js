@@ -11,8 +11,8 @@ const {
 module.exports = async (server) => {
   server.route("/users").post(createUser);
   server.route("/login").post(login);
-  server.get("/uid/displayNotes", authenticate, getNotes);
-  server.route("/uid/createNote").post(createNote);
-  server.route('/uid/editNote/id').put(editNote);
-  server.route('/uid/deleteNote/id').delete(deleteNote);
+  server.route("/displayNotes/:uid", authenticate).get(getNotes);
+  server.route("/:uid/createNote").post(createNote);
+  server.route('/:uid/editNote/:id').put(editNote);
+  server.route('/:uid/deleteNote/:id').delete(deleteNote);
 };
