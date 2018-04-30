@@ -22,4 +22,4 @@ server.listen(port, () => {
   console.log(`Server up and running on ${port}`);
 });
 
-resizeBy.json({ message: "Up and Running!" });
+res.json({ message: "Up and Running!" });
