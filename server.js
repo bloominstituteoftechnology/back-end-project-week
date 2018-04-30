@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 
 mongoose
-  .connect("mongodb://localhost/budgetdb")
+  .connect("mongodb://<test>:<test>@ds163769.mlab.com:63769/lambda-notes")
   .then(() => {
     console.log("Connected to Mongo.");
   })
