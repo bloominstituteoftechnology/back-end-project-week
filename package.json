@@ -16,5 +16,14 @@
   "bugs": {
     "url": "https://github.com/crispad/back-end-project-week/issues"
   },
-  "homepage": "https://github.com/crispad/back-end-project-week#readme"
+  "homepage": "https://github.com/crispad/back-end-project-week#readme",
+  "dependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "express": "^4.16.3",
+    "helmet": "^3.12.0",
+    "mocha": "^5.1.1",
+    "mongoose": "^5.0.16",
+    "morgan": "^1.9.0"
+  }
 }
