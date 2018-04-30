@@ -33,6 +33,11 @@ server.get('/api/notes', (req, res) => {
     });
 });
 
+server.get('/api/notes/:id', (req, res) => {
+  console.log('req param', req.params);
+  res.json('connected');
+});
+
 // POST
 server.post('/api/notes', (req, res) => {
   const note = new Note(req.body);
