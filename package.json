@@ -1,0 +1,30 @@
+{
+  "name": "back-end-project-jeremy-jones",
+  "version": "1.0.0",
+  "description": "Lambda Notes Back-End",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crypto-jones/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/crypto-jones/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/crypto-jones/back-end-project-week#readme",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "helmet": "^3.12.0",
+    "mongoose": "^5.0.16",
+    "morgan": "^1.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.3"
+  }
+}
