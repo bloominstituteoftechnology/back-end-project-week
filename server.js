@@ -9,7 +9,7 @@ const Todo = require('./todos/Todo')
 const server = express()
 
 mongoose
-  .connect(`ds014658.mlab.com:14658/notes-db -u cesar -p fibona66I`)
+  .connect(`mongodb://ds014658.mlab.com:14658/notes-db -u cesar -p fibona66I`)
   .then(() => console.log(`\n=== Mongo Online ===\n`))
   .catch(err => console.log(err))
 
