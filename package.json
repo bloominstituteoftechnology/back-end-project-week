@@ -23,5 +23,9 @@
   "homepage": "https://github.com/Jkasem/back-end-project-week#readme",
   "devDependencies": {
     "nodemon": "^1.17.3"
+  },
+  "dependencies": {
+    "helmet": "^3.12.0",
+    "mongoose": "^5.0.16"
   }
 }
