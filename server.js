@@ -3,6 +3,7 @@ const helmet = require("helmet");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const dotenv = require(".env");
+const noteController = require("./notes/notesController");
 
 mongoose
   .connect("mongodb://test:test@ds163769.mlab.com:63769/lambda-notes")
@@ -18,6 +19,7 @@ const server = express();
 server.use(helmet());
 server.use(morgan("dev"));
 server.use(express.json());
+server.use(noteController);
 
 const port = process.env.PORT || 5000;
 server.listen(port, () => {
