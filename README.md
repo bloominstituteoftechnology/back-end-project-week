@@ -10,7 +10,7 @@ The main objective of this week is to develop a backend to support the LambdaNot
 
 ## Trello Set Up:
 * [ ] Use your existing Trello account from the Front End Project, or create a new one
-* [ ] Create a new board called "Lambda Notes(Backend) - {Your Name}"
+* [ ] Create a new board called "Lambda Notes(Backend) - {Your Name}" 
 * [ ] Create lists titled `backlog`,`To Do`, `In Progress`, and `Done`
 * [ ] Fill in the `To Do` list with the Backend MVP features listed below
 * [ ] Fill in the `backlog` list with all the extra features listed below
