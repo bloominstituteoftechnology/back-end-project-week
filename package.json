@@ -1,0 +1,19 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "[Trello Board] (https://trello.com/b/FI93YYCE/lambda-notesbackend-nour-hassan)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nourmhassan/back-end-project-week.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nourmhassan/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/nourmhassan/back-end-project-week#readme"
+}
