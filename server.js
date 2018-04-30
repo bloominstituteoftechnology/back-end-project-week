@@ -38,6 +38,8 @@ mongoose
     console.log('Error connecting to DB', err);
   });
 
-server.listen(5000, err => {
-  console.log('connected to the server');
+const port = process.env.PORT || 5000;
+
+server.listen(port, err => {
+  console.log(`connected to the server port ${port}`);
 });
