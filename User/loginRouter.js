@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('./User');
+const { makeToken } = require('./auth');
 
 router.post('/', (req, res) => {
   const { username, password } = req.body;
@@ -12,7 +13,9 @@ router.post('/', (req, res) => {
         res.status(422).json({ message: 'first Invalid credentials' });
       user.checkPassword(password, (err, valid) => {
         if (valid) {
-          res.json({ message: 'Loggin Success' });
+          const token = makeToken(user);
+          console.log(token);
+          res.json({ token, username: user.username, notes: user.notes });
         } else {
           res.status(422).json({ message: 'Invalid credentials' });
         }
