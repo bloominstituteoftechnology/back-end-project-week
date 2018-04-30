@@ -1,0 +1,27 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "Backend for a note taking app called \"Lambda Notes.\"",
+  "engines": {
+    "node": "9.2.0"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jkasem/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jkasem/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/Jkasem/back-end-project-week#readme",
+  "devDependencies": {
+    "nodemon": "^1.17.3"
+  }
+}
