@@ -9,7 +9,8 @@ const server = express();
 
 mongoose
   .connect(
-    'mongodb://zack:zack123456@ds133340.mlab.com:33340/lambda-backend-project'
+    // 'mongodb://zack:zack123456@ds133340.mlab.com:33340/lambda-backend-project'
+    'mongodb://localhost/backendProjTestDB'
   )
   .then(() => {
     console.log('\n=== Connected to mongo ===\n');

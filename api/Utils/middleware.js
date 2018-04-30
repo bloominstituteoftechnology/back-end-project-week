@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const User = require('../models/userModels');
+const User = require('../Models/User');
 const mysecret = 'Why can’t banks keep secrets? There are too many tellers!';
 
 const authenticate = (req, res, next) => {
