@@ -1,3 +1,7 @@
+# Access my Trello to monitor development progress!!!
+
+Trello: https://trello.com/b/emcvp49t/lambda-notes-back-end-daniel-plott
+
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
