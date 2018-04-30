@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const cors = require('cors');
 
+const routes = require('./api/Routes/Routes');
+
 const server = express();
 
 mongoose
@@ -19,6 +21,8 @@ mongoose
 server.use(helmet());
 server.use(express.json());
 server.use(cors());
+
+routes(server);
 
 const port = process.env.PORT || 5000;
 server.listen(port, () => {
