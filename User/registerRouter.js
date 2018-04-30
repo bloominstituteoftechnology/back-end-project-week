@@ -11,7 +11,6 @@ router.post('/', (req, res) => {
     newUser
       .save()
       .then(response => {
-        console.log(response);
         res.json({ message: 'User Created!  Please login!' });
       })
       .catch(err => {
