@@ -4,6 +4,11 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
+const { Pool } = require('pg');
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true
+});
 
 const STATUS_USER_ERROR = 422;
 const BCRYPT_COST = 11;
@@ -27,7 +32,7 @@ const sendUserError = (err, res) => {
 };
 
 mongoose
-  .connect('mongodb://localhost/budgetDb')
+  .connect('mongodb://test:test@ds163689.mlab.com:63689/backenddb')
   .then(() => console.log('\n=== connected to mongo ===\n'))
   .catch(err => console.log('error connecting to mongo', err));
 

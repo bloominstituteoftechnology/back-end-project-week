@@ -7,7 +7,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "test": "node test.js"
   },
   "dependencies": {
@@ -16,8 +16,10 @@
     "ejs": "^2.5.6",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
+    "heroku": "^7.0.17",
     "mongoose": "^5.0.16",
     "nodemon": "^1.17.3",
+    "pg": "^7.4.1",
     "session": "^0.1.0"
   },
   "devDependencies": {
