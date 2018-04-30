@@ -1,0 +1,29 @@
+{
+  "name": "long-survey",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "helmet": "^3.12.0",
+    "mongoose": "^5.0.14",
+    "nodemon": "^1.17.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.2"
+  },
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noxasaxon/Long-Survey.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/noxasaxon/Long-Survey/issues"
+  },
+  "homepage": "https://github.com/noxasaxon/Long-Survey#readme"
+}
