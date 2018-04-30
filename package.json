@@ -1,6 +1,9 @@
 {
   "name": "back-end-project-week",
   "version": "1.0.0",
+  "engines": {
+    "node": "8.9.4"
+  },
   "description": "# Back End Project Week",
   "main": "index.js",
   "scripts": {
