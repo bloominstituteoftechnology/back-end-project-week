@@ -4,10 +4,15 @@ const helmet = require('helmet');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
+const MONGOLAB_URI = require('./mlab');
+const path = MONGOLAB_URI;
+
 mongoose
-  .connect('mongodb://ds263619.mlab.com:63619/jeremyjonesdb')
-  .then(() => console.log('\n=== Connected to MLAB ===\n'))
-  .catch(err => console.log('\n === Error connecting to MLAB ===\n'));
+  .connect(path)
+  .then(() => console.log('\n=== Connected to Mongo ===\n'))
+  .catch(err => console.log('\n === Error connecting to Mongo ===\n'));
+
+const noteController = require('./notes/noteController');
 
 const server = express();
 
@@ -15,6 +20,12 @@ server.use(helmet());
 server.use(morgan('combined'));
 server.use(cors());
 server.use(express.json());
+
+server.get('/', (req, res) => {
+  res.status(200).json({ api: 'API is running' });
+});
+
+server.use('/api/notes', noteController);
 
 const port = process.env.PORT || 5050;
 server.listen(port, () =>

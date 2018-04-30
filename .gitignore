@@ -3,3 +3,6 @@
 
 # Dependency directories
 node_modules/
+
+# Local files
+mlab.js
