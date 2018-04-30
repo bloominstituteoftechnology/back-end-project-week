@@ -1230,12 +1230,6 @@ mkdirp@^0.5.0, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
-mongod@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/mongod/-/mongod-2.0.0.tgz#ceec4b72305190e85d6f8fac992f15a47eb18c74"
-  dependencies:
-    promise-queue "^2.2.3"
-
 mongodb-core@3.0.7:
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/mongodb-core/-/mongodb-core-3.0.7.tgz#a9941f14883a75768d554cef5fd67756a9cc0f25"
@@ -1527,10 +1521,6 @@ prepend-http@^1.0.1:
 process-nextick-args@~2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.0.tgz#a37d732f4271b4ab1ad070d35508e8290788ffaa"
-
-promise-queue@^2.2.3:
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/promise-queue/-/promise-queue-2.2.5.tgz#2f6f5f7c0f6d08109e967659c79b88a9ed5e93b4"
 
 proxy-addr@~2.0.3:
   version "2.0.3"
