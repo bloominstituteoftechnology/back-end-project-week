@@ -4,6 +4,7 @@
   "description": "This week you will be building a backend for a note taking app called \"Lambda Notes.\"",
   "main": "index.js",
   "dependencies": {
+    "axios": "^0.18.0",
     "express": "^4.16.3",
     "mongoose": "^5.0.16"
   },
