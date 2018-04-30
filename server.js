@@ -2,7 +2,6 @@ const express = require("express");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
-const dotenv = require(".env");
 const noteController = require("./notes/notesController");
 
 mongoose
