@@ -7,6 +7,11 @@ const routes = require('./api/Routes/Routes');
 
 const server = express();
 
+const corsOptions = {
+  origin: 'http://angry-northcutt-d02a71.netlify.com',
+  credentials: true,
+};
+
 mongoose
   .connect(
     process.env.MONGO_URI
@@ -21,7 +26,7 @@ mongoose
 
 server.use(helmet());
 server.use(express.json());
-server.use(cors());
+server.use(cors(corsOptions));
 
 routes(server);
 
