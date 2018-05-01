@@ -6,6 +6,25 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const jwt = require('jsonwebtoken');
 const { secret } = require('../secrets/config');
 
+function makeToken(user) {
+  // sub: subject (id)
+  // iat:
+  //return token...
+
+  const timestamp = new Date().getTime();
+
+  const payload = {
+    sub: user._id,
+    iat: timestamp,
+    username: user.username,
+  };
+  const options = {
+    expiresIn: '1h',
+  };
+
+  return jwt.sign(payload, secret, options);
+}
+
 const localStrategy = new LocalStrategy(function(username, password, done) {
   User.findOne({ username }, function(err, user) {
     if (err) {
@@ -54,4 +73,4 @@ passport.use(jwtStrategy);
 const authenticate = passport.authenticate('local', { session: false });
 const restricted = passport.authenticate('jwt', { session: false });
 
-module.exports = { authenticate, restricted };
+module.exports = { authenticate, restricted, makeToken };
