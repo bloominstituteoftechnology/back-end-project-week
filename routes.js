@@ -76,10 +76,11 @@ module.exports = function(server) {
   server.post("/register", function(req, res) {
     const credentials = req.body;
     const user = new User(credentials);
-    console.log(req)
+    // console.log(req)
     user
       .save()
       .then(inserted => {
+        //   console.log(inserted);
         const token = makeToken(inserted);
         res.status(201).json({ token });
       })
