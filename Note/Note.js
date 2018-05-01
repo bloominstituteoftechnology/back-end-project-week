@@ -9,7 +9,6 @@ const Note = new mongoose.Schema({
     maxlength: 32,
   },
   body: { type: String, default: 'Default Entry' },
-  user: [{ type: ObjectId, ref: 'User' }],
 });
 
 module.exports = mongoose.model('Note', Note);
