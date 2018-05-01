@@ -64,6 +64,15 @@ server.delete('/api/notes/:id', (req, res) => {
     });
 });
 // PUT
+server.put('/api/notes/:id', (req, res) => {
+  Note.findByIdAndUpdate(req.params.id, req.body)
+    .then(response => {
+      res.json(response);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
 
 const port = process.env.PORT || 5000;
 server.listen(port, () => {
