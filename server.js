@@ -3,19 +3,16 @@ const app = express();
 const helmet = require('helmet');
 const cors = require('cors');
 const mongoose = require('mongoose');
-
-
-mongoose
-  .connect('mongodb://localhost/polarnotesdb')
-  .then(() => console.log('\n=== connected to mongo ===\n'))
-  .catch(err => console.log('error connecting to mongo'));
-
-const userController = require('./users/userController.js');
-
-
 // set the port of our application
 // process.env.PORT lets the port be set by Heroku
 const port = process.env.PORT || 8080;
+const userController = require('./users/userController.js');
+
+mongoose
+  .connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_SERVER}`)
+  .then(() => console.log('\n=== connected to mongo ===\n'))
+  .catch(err => console.log('error connecting to mongo'));
+
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -35,6 +32,20 @@ app.get('/', function(req, res) {
     // ejs render automatically looks in the views folder
     res.render('index');
 });
+
+server.post('/api/register', function(req, res) {
+    const credentials = req.body;
+
+    //add user to database
+    const user = new User(credentials);
+    user
+    .save().then(insertedUser => {
+        // const token = makeToken(insertedUser);
+        res.status(201).json(insertedUser);
+    });
+});
+
+
 
 app.listen(port, function() {
     console.log('Our app is running on http://localhost:' + port);
