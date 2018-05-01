@@ -33,17 +33,6 @@ server.get('/api/notes', (req, res) => {
     });
 });
 
-// GET BY ID
-server.get('/api/notes/:id', (req, res) => {
-  Note.findById(req.params.id)
-    .then(note => {
-      res.json(note);
-    })
-    .catch(err => {
-      res.json({ err: 'Note could not be retrieved' });
-    });
-});
-
 // POST
 server.post('/api/notes', (req, res) => {
   const note = new Note(req.body);
@@ -57,8 +46,17 @@ server.post('/api/notes', (req, res) => {
       console.log(err.message);
     });
 });
-// GET
+
 // DELETE
+server.delete('/api/notes/:id', (req, res) => {
+  Note.findByIdAndRemove(req.params.id)
+    .then(response => {
+      res.json(response);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
 // PUT
 
 const port = process.env.PORT || 5000;
