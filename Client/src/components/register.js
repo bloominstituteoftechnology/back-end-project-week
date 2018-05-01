@@ -1,16 +1,14 @@
 import React, { Component } from "react";
-import axios from "axios";
+import { connect } from 'react-redux';
+import { register } from '../actions';
 import {
   Container,
-  Row,
-  Col,
   Button,
   Form,
   FormGroup,
   Label,
   Input
 } from "reactstrap";
-import { BrowserRouter as Router, Route } from "react-router-dom";
 
 let divStyle = {
   width: "80%"
@@ -26,16 +24,7 @@ class Register extends Component {
   };
   signupSubmitHandler = event => {
     event.preventDefault();
-    axios
-      .post("http://localhost:5000/api/signup", this.state)
-      .then(response => {
-        console.log("response", response.data);
-        localStorage.setItem("authToken", response.data.token);
-        this.props.history.push(`${this.state.username}/displayNotes`);
-      })
-      .catch(error => {
-        console.log("error", error);
-      });
+    
   };
 
   signupInputHandler = ({ target }) => {

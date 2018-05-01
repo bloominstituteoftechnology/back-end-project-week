@@ -9,10 +9,10 @@ const {
 } = require("../controllers/notes");
 
 module.exports = async (server) => {
-  server.route("/users").post(createUser);
-  server.route("/login").post(login);
+  server.route("/").post(createUser);
+  server.route("/").post(login);
   server.route("/:uid/displayNotes", authenticate).get(getNotes);
-  server.route("/:uid/createNote").post(createNote);
+  server.route("/:uid/createNote", authenticate).post(createNote);
   server.route('/:uid/editNote/:id', authenticate).put(editNote);
-  server.route('/:uid/deleteNote/:id').delete(deleteNote);
+  server.route('/:uid/deleteNote/:id', authenticate).delete(deleteNote);
 };
