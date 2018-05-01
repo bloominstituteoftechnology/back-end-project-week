@@ -15,7 +15,7 @@ mongoose.connect('mongodb://swede:Basser@ds263089.mlab.com:63089/swedishgood-not
     console.log('Mango Up Bruh');
 })
 
-server.get('/', (req, res) => {
+server.get('/notes', (req, res) => {
     res.status(200).json({api: 'harambe'})
 })
 
