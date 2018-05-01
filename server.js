@@ -3,8 +3,9 @@ const mongoose = require('mongoose');
 
 const server = express();
 
-const setupMiddleware = require('./middleware')(server);
-const setupRoutes = require('./routes')(server);
+const setupMiddleware = require(`${__dirname}/middleware`)(server);
+const setupRoutes = require(`${__dirname}/routes`)(server);
+
 
 mongoose
   .connect("mongodb://arcadia-ego:L337hunter1@ds163769.mlab.com:63769/listbackend")
