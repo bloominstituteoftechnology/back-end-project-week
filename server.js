@@ -1,6 +1,6 @@
 const express = require('express');
-//const helmet = require('helmet');
-//const cors = require('cors');
+const helmet = require('helmet');
+const cors = require('cors');
 const mongoose = require('mongoose');
 
 mongoose
@@ -17,8 +17,8 @@ mongoose
 
 const server = express();
 
-//server.use(helmet());
-//server.use(cors());
+server.use(helmet());
+server.use(cors());
 server.use(express.json());
 
 
