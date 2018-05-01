@@ -18,8 +18,10 @@ const noteAdd = (req, res) => {
 
   const saveNote = async () => {
     await findUser(author);
+    console.log(`===AUTHOR===:`, author);
     if (author) {
       const newNote = new Note({ id, title, content });
+      console.log(`===NEW NOTE===`, newNote);
       newNote
         .save()
         .then(savedNote => {
@@ -32,6 +34,8 @@ const noteAdd = (req, res) => {
       res.status(422).json({ Error: `User error: ${err}` });
     }
   };
+
+  saveNote();
 };
 
 module.exports = noteAdd;
