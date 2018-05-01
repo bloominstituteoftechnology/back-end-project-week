@@ -6,14 +6,37 @@ const Note = require('./Note.js');
 const router = express.Router();
 
 router
-  .route('/')
+  .route('/:user')
+  .get((req, res) => {
+    //if auth
+    User.findById(req.params.user)
+      .populate('notes', 'title content')
+      .then(user => {
+        if (!user) res.status(404).json('user not found!');
+        else res.status(200).json(user);
+      })
+      .catch(err => {
+        res.status(500).json(err);
+      });
+  })
   .post((req, res) => {
     if (req.body.title && req.body.content) {
-      const newNote = new Note(req.body);
-      newNote
-        .save()
-        .then(saved => {
-          res.status(201).json(saved);
+      User.findById(req.params.user)
+        .then(user => {
+          if (!user) res.status(404).json('user not found!');
+          else {
+            const newNote = new Note({ ...req.body, "user_id": req.params.user });
+            newNote
+              .save()
+              .then(saved => {
+                user.addNote(saved._id);
+                user.save();
+                res.status(201).json(saved);
+              })
+              .catch(err => {
+                res.status(500).json(err);
+              });
+          }
         })
         .catch(err => {
           res.status(500).json(err);
@@ -21,6 +44,39 @@ router
     } else {
       res.status(422).json('provide a title and content!');
     }
-  })
+  });
 
-  module.exports = router;
+router
+  .route('/:user/:note')
+  .get((req, res) => {
+    Note.findById(req.params.note)
+    .then(note => {
+      if (!note) res.status(404).json('note not found!');
+      else res.status(200).json(note);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+  })
+  .put((req, res) => {
+      Note.findByIdAndUpdate(req.params.note, { ...req.body })
+    .then(note => {
+      if (!note) res.status(404).json('note not found!');
+      else res.status(200).json(note);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+  })
+  .delete((req, res) => {
+    Note.findByIdAndRemove(req.params.note)
+    .then(note => {
+      if (!note) res.status(404).json('note not found!');
+      else res.status(200).json(note);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+  });
+
+module.exports = router;

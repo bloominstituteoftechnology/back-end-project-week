@@ -16,7 +16,7 @@ server.use(express.json());
 server.use('/api/notes', notesRouter);
 server.use('/api/users', usersRouter);
 
-server.get('/', (req, res) => res.send('API Running...'));
+server.get('/', (req, res) => res.send('API Running...!'));
 
 const PORT = process.env.PORT || 5000;
 server

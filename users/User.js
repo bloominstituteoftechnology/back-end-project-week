@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 const bcrypt = require('bcrypt');
 
 const User = new mongoose.Schema({
@@ -11,10 +12,10 @@ const User = new mongoose.Schema({
     type: String,
     required: true,
   },
-  notes: {
-    type: Array,
-    default: [],
-  }
+  notes: [{
+    type: ObjectId, 
+    ref: 'Note' 
+  }],
 });
 
 User.pre('save', function (next) {
@@ -31,9 +32,8 @@ User.methods.isPasswordValid = function (passwordGuess) {
   return bcrypt.compare(passwordGuess, this.password);
 };
 
-User.methods.addNote = function (note) {
-  this.note.push(note);
+User.methods.addNote = function (note_id) {
+  this.notes.push(note_id);
 };
-
 
 module.exports = mongoose.model('User', User);
