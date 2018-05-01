@@ -18,7 +18,7 @@ mongoose
 const server = express();
 
 server.use(helmet());
-server.use(cors({ origin: "https://kaits-lambda-notes.netlify.com" }));
+server.use(cors());
 server.use(morgan("combined"));
 server.use(express.json());
 server.use("/api/notes", noteController);
