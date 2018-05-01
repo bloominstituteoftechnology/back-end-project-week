@@ -12,6 +12,7 @@ mongoose
   .catch(err => console.log('\n === Error connecting to Mongo ===\n'));
 
 const noteController = require('./notes/noteController');
+const userController = require('./users/userController');
 
 const server = express();
 
@@ -25,6 +26,7 @@ server.get('/', (req, res) => {
 });
 
 server.use('/api/notes', noteController);
+server.use('/', userController);
 
 const port = process.env.PORT || 5050;
 server.listen(port, () =>
