@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { mysercet } = require('../../config');
 
 const User = require('../models/userModel');
 
@@ -21,13 +22,17 @@ const login = (req, res) => {
         res.status(422).json({ error: 'passwords dont match' });
         return;
       }
-      if(hashMatch) {
-          const payload = {
-              username: user.username
-          };
-          const token = jwt.sign(payload);
-          
+      if (hashMatch) {
+        const payload = {
+          username: user.username
+        };
+        const token = jwt.sign(payload, mysercet);
+        res.json({ token });
       }
     });
   });
+};
+
+module.exports = {
+  login
 };
