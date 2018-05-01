@@ -4,7 +4,7 @@ const router = express.Router();
 const Note = require("./notesModel.js");
 
 router
-  .route("/")
+  .route("/:user")
   .post((req, res) => {
     const note = new Note(req.body);
     note
@@ -17,13 +17,10 @@ router
       });
   })
   .get((req, res) => {
-    if (req.body.user) {
-      Note.find({ user }).then(notes => {
+    
+      Note.find( {user: req.params.user} ).then(notes => {
         res.json(notes);
-      });
-    } else {
-      res.status(404).json({ error: "Must be signed in to view notes." });
-    }
+      
   });
 
 router
