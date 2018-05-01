@@ -7,7 +7,7 @@ const noteAdd = (req, res) => {
   let id;
 
   const findUser = username => {
-    User.findOne({ username })
+    User.findOne({ username: req.username })
       .then(user => {
         id = user._id;
       })
