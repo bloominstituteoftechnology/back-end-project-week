@@ -11,13 +11,13 @@ const noteRouter = require('./data/notes/NoteRouter');
 const secrets = require('./secrets');
 
 const server = express();
-const corsOptions = {
-    "origin": "http://localhost:3000",
-    "credentials": true,
-};
+// const corsOptions = {
+//     "origin": "http://localhost:3000",
+//     "credentials": true,
+// };
 
 
-server.use(cors(corsOptions));
+server.use(cors());
 server.use(helmet());
 server.use(morgan());
 server.use(bodyParser.json());

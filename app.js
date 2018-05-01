@@ -10,7 +10,4 @@ mongoose.connect(`mongodb+srv://runranron:${secrets.mongopw}@cluster0-h73bz.mong
     console.log('DB Connection Achieved');
 });
 
-server.listen(port, err => {
-    if (err) console.log(err);
-    console.log(`Server rollin on ${port}`);
-});
+server.listen(port);
