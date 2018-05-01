@@ -49,7 +49,8 @@ server.get('/', (req, res) => {
 });
 
 server.post('/', (req, res) => {
-  const newNote = req.body;
+  const newNote = new Note(req.body);
+  console.log(newNote);
   newNote.save()
     .then(response => {
       res
