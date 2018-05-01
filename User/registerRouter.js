@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('./User');
-const { makeToken } = require('./security');
+const { makeToken } = require('../secrets/security');
 
 router.post('/', (req, res) => {
   const { username, password } = req.body;
