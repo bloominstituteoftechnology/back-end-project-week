@@ -13,7 +13,7 @@ const userLogin = (req, res) => {
             res.status(422).json({ Error: 'Password is incorrect!' });
           }
           if (hashMatch) {
-            const payload = { username: user.username };
+            const payload = { username: user.username, id: user._id };
             const token = jwt.sign(payload, mysecret);
             res.status(200).json({ token });
           }

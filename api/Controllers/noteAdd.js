@@ -3,7 +3,7 @@ const Note = require('../Models/Note');
 
 const noteAdd = (req, res) => {
   const { title, content } = req.body;
-  const author = req.decoded.username;
+  const author = req.decoded.id;
 
   if (author) {
     const newNote = new Note({ author, title, content });
