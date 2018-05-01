@@ -4,8 +4,8 @@ const helmet = require('helmet');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-// const mlab = require('./mlab');
 const path = process.env.MONGOLAB_URI || 'mongodb://localhost/notes';
+
 mongoose
   .connect(path)
   .then(() => console.log('\n=== Connected to Mongo ===\n'))
