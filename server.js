@@ -49,7 +49,6 @@ server.get('/', (req, res) => {
     })
 })
 
-});
 
 //server.use('/api/friends', friendsController);
 
