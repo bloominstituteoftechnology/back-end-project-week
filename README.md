@@ -73,7 +73,7 @@ Build an API Endpoint in your Node App for each of the following, and connect th
 ```
 
 ***
-## Once you have completed the Backend Minimum Viable Product requirements, direct message your project manager for approval.  If approved, you may continue working on the Extra Features. Please add the Extra Features to your Task List in the first comment on your PR.
+## Once you have completed the Backend Minimum Viable Product requirements, direct message your project manager for appro   val.  If approved, you may continue working on the Extra Features. Please add the Extra Features to your Task List in the first comment on your PR.
 
 Once your MVP has been approved, you have been given a feature list that the client would love to have completed.  Your goal would be to finish MVP as soon as you can and get working the list of features.
 
