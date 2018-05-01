@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const noteSchema = new mongoose.Schema ({
     title: {
         type: String,
@@ -26,3 +27,5 @@ noteSchema.pre('save', function(next) {
 
     next();
 })
+
+const noteModel = mongoose.model('Note', noteSchema);
