@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/userModel');
 
-router.post('/', (req, res) => {
+const createUser = (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
     res
@@ -19,6 +19,6 @@ router.post('/', (req, res) => {
         res.status(500).json(err);
       });
   }
-});
+};
 
-module.exports = router;
+module.exports = { createUser };

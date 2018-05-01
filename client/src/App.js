@@ -15,7 +15,7 @@ class App extends Component {
     return (
       <div className="App">
         <Route path="/" component={SideMenu} />
-        <Route path="/" compnent={SignUp} />
+        <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
         <Route exact path="/home" component={YourNotes} />
         <Route exact path="/Create" component={CreateNote} />

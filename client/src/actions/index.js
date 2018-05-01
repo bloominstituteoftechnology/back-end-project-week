@@ -54,7 +54,7 @@ export const register = (username, password, confirmPassword, history) => {
       return;
     }
     axios
-      .post(`${ROOT_URL}/users`, { username, password })
+      .post(`${ROOT_URL}/register`, { username, password })
       .then(() => {
         dispatch({
           type: USER_REGISTERED
@@ -71,11 +71,12 @@ export const login = (username, password, history) => {
   return dispatch => {
     axios
       .post(`${ROOT_URL}/login`, { username, password })
-      .then(() => {
+      .then(result => {
         dispatch({
           type: USER_AUTHENTICATED
         });
-        history.push('/users');
+        localStorage.setItem('token', result.data.token);
+        history.push('/home');
       })
       .catch(() => {
         dispatch(authError('Incorrect username/password combo'));

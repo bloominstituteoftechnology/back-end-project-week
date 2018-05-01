@@ -1,7 +1,7 @@
-const register = require('./register');
+const SignUp = require('./SignUp');
 const login = require('./login');
 
-module.export = {
-  register,
+module.exports = {
+  SignUp,
   login
 };

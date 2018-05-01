@@ -1,5 +1,3 @@
-const secret = {
-  secret: 'find the notes'
-};
+const secret = 'find the notes';
 
 module.exports = secret;
