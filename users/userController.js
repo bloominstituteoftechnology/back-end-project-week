@@ -7,6 +7,7 @@ router
   .route("/")
   .post((req, res) => {
     const user = new User(req.body);
+    console.log(req.body);
     note
       .save()
       .then(newUser => {
