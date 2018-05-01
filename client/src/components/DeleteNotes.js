@@ -23,7 +23,7 @@ class DeleteNotes extends Component {
   componentDidMount() {
     this.setState({
       note: this.props.notes.find(note => {
-        return note._id === parseInt(this.props.id);
+        return note.id === parseInt(this.props.match.params.id, 10);
       })
     });
   }
@@ -36,7 +36,7 @@ class DeleteNotes extends Component {
 
   handleDelete(id) {
     this.props.deleteNote(id);
-    this.props.history.push('/');
+    this.props.history.push('/home');
   }
 
   render() {

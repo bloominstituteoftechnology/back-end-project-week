@@ -2,6 +2,8 @@ const { login } = require('../controllers/login');
 const { createUser } = require('../controllers/createUser');
 const { getNotes } = require('../controllers/notes');
 const { createNote } = require('../controllers/notes');
+const { editNote } = require('../controllers/notes');
+const { deleteNote } = require('../controllers/notes');
 const authenticate = require('../middleware/authMiddleware');
 
 module.exports = server => {
@@ -9,4 +11,6 @@ module.exports = server => {
   server.route('/login').post(login);
   server.route('/home').post(authenticate, getNotes);
   server.route('/create').post(authenticate, createNote);
+  server.route('/edit/:id').put(authenticate, editNote);
+  server.route('/notes/:id').delete(authenticate, deleteNote);
 };

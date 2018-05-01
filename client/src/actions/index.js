@@ -80,7 +80,7 @@ export const editNote = noteObj => {
   return dispatch => {
     axios
       .post(
-        `${ROOT_URL}/edit`,
+        `${ROOT_URL}/edit/${id}`,
         { title, text, id },
         { headers: { authorization: token } }
       )
@@ -94,9 +94,19 @@ export const editNote = noteObj => {
 };
 
 export const deleteNote = id => {
-  return {
-    type: DELETE_NOTE,
-    payload: id
+  const token = localStorage.getItem('token');
+  return dispatch => {
+    axios
+      .delete(`${ROOT_URL}/note/${id}`, { headers: { authorization: token } })
+      .then(response =>
+        dispatch({
+          type: DELETE_NOTE,
+          payload: id
+        })
+      )
+      .catch(() => {
+        dispatch(noteError('Failed to delete note'));
+      });
   };
 };
 

@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import { editNote } from "../actions";
-import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import React, { Component } from 'react';
+import { editNote } from '../actions';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 class EditNotes extends Component {
   state = {
     note: {
-      title: "",
-      text: "",
-      id: ""
+      title: '',
+      text: '',
+      id: ''
     },
     redirect: false
   };
@@ -20,8 +20,8 @@ class EditNotes extends Component {
     console.log(this.state.note);
     this.setState({
       note: {
-        title: "",
-        text: "",
+        title: '',
+        text: '',
         id: 0
       }
     });
@@ -47,7 +47,7 @@ class EditNotes extends Component {
   };
 
   render() {
-    if (this.state.redirect) return <Redirect to="/" />;
+    if (this.state.redirect) return <Redirect to="/home" />;
     return (
       <div className="editNotes">
         <h4 className="title">Edit Note:</h4>

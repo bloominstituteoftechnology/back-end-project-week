@@ -66,15 +66,9 @@ export const notesReducer = (notes = [], action) => {
     case actions.GET_NOTES:
       return [...notes, action.payload];
     case actions.EDIT_NOTE:
-      return notes.map(note => {
-        if (note._id === action.payload)
-          return { ...note, selected: !note.selected };
-        else return note;
-      });
+      return notes;
     case actions.DELETE_NOTE:
-      return notes.filter(note => {
-        if (note.id !== action.payload) return note;
-      });
+      return notes;
     default:
       return notes;
   }
