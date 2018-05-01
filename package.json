@@ -13,6 +13,7 @@
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
+    "foreman": "^2.0.0",
     "helmet": "^3.12.0",
     "mongoose": "^5.0.17",
     "morgan": "^1.9.0",
@@ -23,6 +24,6 @@
     "nodemon": "^1.17.3"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "nodemon app.js --watch"
   }
 }
