@@ -34,6 +34,7 @@ router
     );
   })
   .delete((req, res) => {
+    console.log(req);
     Note.findByIdAndRemove(req.params.id).then(deletedNote => {
       res.json(deletedNote);
     });
