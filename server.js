@@ -2,12 +2,12 @@ const express = require('express');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/notes')
+mongoose.connect('mongodb://anon:anon@ds014368.mlab.com:14368/notes')
   .then(() => console.log('\n Connected to DB \n'))
   .catch(error => console.error('Connection to DB failed.'));
 
 const noteController = require('./notes/noteController');
-
+const userController = require('./users/userController');
 const server = express();
 
 server.use(helmet());
@@ -18,6 +18,7 @@ server.get('/', (req, res) => {
 });
 
 server.use('/api/notes', noteController);
+server.use('/api/user', userController);
 
 const port = process.env.PORT || 5000;
 server.listen(port, () => console.log(`\n API functional on port: ${port} \n`));
