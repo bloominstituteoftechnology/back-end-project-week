@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema({
-  email: {
+  username: {
     type: String,
     required: true,
     unique: true
@@ -33,7 +33,7 @@ userSchema.pre("save", function(next) {
 
   userSchema.methods.verifyUsername = function(guess, callback) {
       let usernameVal = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-      return usernameVal.test(email);
+      return usernameVal.test(username);
   }
 
   module.exports = mongoose.model("User", userSchema);

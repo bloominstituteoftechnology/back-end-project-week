@@ -34,8 +34,8 @@ const localStrategy = new LocalStrategy(function(username, password, done) {
         return done(err);
       }
       if (isValid) {
-        const { _id, username, race } = user;
-        return done(null, { _id, username, race }); //placed on req.user
+        const { _id, username } = user;
+        return done(null, { _id, username}); //placed on req.user
       }
       return done(null, false);
     });
@@ -69,13 +69,14 @@ const authenticate = passport.authenticate("local", { session: false });
 const protected = passport.authenticate("jwt", { session: false });
 
 module.exports = function(server) {
-  server.get("https://frozen-hamlet-56840.herokuapp.com", function(req,res){ 
+  server.get("/", function(req,res){ 
     res.json({"whats up": "dude"});
   })
 
-  server.post("https://frozen-hamlet-56840.herokuapp.com", function(req, res) {
+  server.post("/register", function(req, res) {
     const credentials = req.body;
     const user = new User(credentials);
+    console.log(req)
     user
       .save()
       .then(inserted => {
