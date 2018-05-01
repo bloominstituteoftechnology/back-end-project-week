@@ -24,6 +24,8 @@ const protected = function(msg) {
 
 router.use(express.json());
 
+const path = process.env.MONGOLAB_URI || 'mongodb://localhost/notes';
+
 router.use(
   session({
     name: 'auth',
@@ -33,7 +35,7 @@ router.use(
     cookie: { maxAge: 1 * 24 * 60 * 60 * 1000 },
     secure: false,
     store: new MongoStore({
-      url: 'mongodb://localhost/notes',
+      url: path,
       ttl: 10 * 60
     })
   })
