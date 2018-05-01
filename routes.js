@@ -69,7 +69,7 @@ const authenticate = passport.authenticate("local", { session: false });
 const protected = passport.authenticate("jwt", { session: false });
 
 module.exports = function(server) {
-  server.post("https://frozen-hamlet-56840.herokuapp.com/register", function(req, res) {
+  server.post("https://frozen-hamlet-56840.herokuapp.com", function(req, res) {
       const credentials = req.body;
       const user = new User(credentials);
       user
