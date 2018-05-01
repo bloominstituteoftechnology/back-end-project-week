@@ -14,7 +14,7 @@ router
         username: req.body.username.toLowerCase(),
         password: req.body.password
       })
-        .then(saved => res.status(200).json(saved))
+        .then(saved => res.status(201).json(saved))
         .catch(error => res.status(500).json(error));
     }
   })
@@ -36,7 +36,7 @@ router
                 } else res.status(422).json({ success: false });
               })
               .catch(error => res.status(422).json({ success: false }));
-          } else res.status(422).json('not found');
+          } else res.status(404).json('user not found');
         })
         .catch(error => res.status(500).json(error));
     }
