@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const mongodb = require('mongodb')
 const server = express();
 
-const { login } = require('./login.js');
+// const { login } = require('./login.js');
 const Note = require('./noteModel');
 const User = require('./userModel');
 
@@ -82,7 +82,9 @@ server.post('/api/notes/register', (req, res) => {
 
 })
 
-server.post('/api/notes/login', login);
+// server.post('/api/notes/login', (req, res) => {
+
+// });
 
 
 
