@@ -21,6 +21,11 @@ server.use(cors());
 server.use(helmet());
 server.use(morgan());
 server.use(bodyParser.json());
+server.use(session({
+  secret: secrets.sessionSecret,
+  resave: true,
+  saveUninitialized: false,
+}));
 server.use('/users', userRouter);
 server.use('/notes', noteRouter);
 server.use(session({

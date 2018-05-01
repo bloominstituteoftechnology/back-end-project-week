@@ -20,7 +20,7 @@ router
             req.body.password) {
             const user = new User(req.body);
             console.log('okay...')
-            User
+            user
                 .save()
                 .then(savedUser => res.status(200).json(savedUser))
                 .catch(err => res.status(500).json(err));
@@ -36,18 +36,16 @@ router
         } User
             .findOne({ username })
             .then(user => {
-                console.log(user);
-                User
+                user
                     .authenticate(password, user.password)
-                    .then(isValid => {
-                        if(isValid) {
-                        res.status(200).json({ success: "true" })         
-                        } else {
-                          res.status(500).json({message: "sorry!"});
+                    .then(authenticated => {
+                        if(authenticated) {
+                            req.session.userId = user._id;
+                            res.status(200).json(req.session.userId);
                         }
-                    }).catch(err => res.status(500).json('yep'));
-                res.status(200).json(user);
-            }).catch(err => res.status(500).json('yup'));
+                    })
+                    .catch(err => res.status(500).json('failed authentication'));
+            }).catch(err => res.status(500).json(err));
     })
 
 

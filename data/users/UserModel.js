@@ -34,7 +34,7 @@ UserSchema.pre('save', function (next) {
   });
 });
 
-UserSchema.methods.isPasswordValid = (passwordGuess, passwordHash) => {
+UserSchema.methods.authenticate = (passwordGuess, passwordHash) => {
   return bcrypt.compare(passwordGuess, passwordHash);
 };
 
