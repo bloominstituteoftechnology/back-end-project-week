@@ -24,9 +24,9 @@ mongoose
     console.log(err);
   });
 
+server.use(cors(corsOptions));
 server.use(helmet());
 server.use(express.json());
-server.use(cors(corsOptions));
 
 routes(server);
 
