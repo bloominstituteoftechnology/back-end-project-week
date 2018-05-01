@@ -3,11 +3,11 @@ const Note = require('../Models/Note');
 
 const noteAdd = (req, res) => {
   const { title, content } = req.body;
-  const author = req.username;
+  const author = req.body.username;
   let id;
 
   const findUser = username => {
-    User.findOne({ username: req.username })
+    User.findOne({ username: req.body.username })
       .then(user => {
         id = user._id;
       })
