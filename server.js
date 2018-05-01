@@ -1,6 +1,7 @@
 const loginRouter = require('./User/loginRouter');
 const logoutRouter = require('./User/logoutRouter');
 const registerRouter = require('./User/registerRouter');
+const getNotesRouter = require('./Note/getNotesRouter');
 const newNoteRouter = require('./Note/newNoteRouter');
 const updateNoteRouter = require('./Note/updateNoteRouter');
 const destroyNoteRouter = require('./Note/destroyNoteRouter');
@@ -25,6 +26,7 @@ server.get('/', (req, res) => {
 server.use('/api/login', loginRouter);
 server.use('/api/logout', logoutRouter);
 server.use('/api/register', registerRouter);
+server.use('/api/getnotes', getNotesRouter);
 server.use('/api/newnote', newNoteRouter);
 server.use('/api/updatenote', updateNoteRouter);
 server.use('/api/destroynote', destroyNoteRouter);

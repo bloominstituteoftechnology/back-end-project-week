@@ -1,7 +1,7 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./User');
-const { ExtractJwt } = require('passport-jwt');
+const ExtractJwt = require('passport-jwt').ExtractJwt;
 const JwtStrategy = require('passport-jwt').Strategy;
 const jwt = require('jsonwebtoken');
 const { secret } = require('../secrets/config');
@@ -52,10 +52,11 @@ const jwtOptions = {
   secretOrKey: secret,
 };
 
-const jwtStrategy = new JwtStrategy(jwtOptions, function(payload, done) {
-  User.findById(payload.sub)
+const jwtStrategy = new JwtStrategy(jwtOptions, function(load, done) {
+  User.findById(load.sub)
     .select('-password')
     .then(user => {
+      console.log(user, 'user');
       if (user) {
         done(null, user);
       } else {
@@ -63,7 +64,8 @@ const jwtStrategy = new JwtStrategy(jwtOptions, function(payload, done) {
       }
     })
     .catch(err => {
-      return done(err, false);
+      console.log(err);
+      done(err, false);
     });
 });
 

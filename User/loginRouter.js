@@ -24,7 +24,7 @@ router.post('/', authenticate, (req, res) => {
   //   });
   // }
   const { _id, username, notes } = req.user;
-  const user = { id: _id, username };
+  const user = { _id, username };
   const token = makeToken(user);
   res.json({ token, user: req.user });
 });
