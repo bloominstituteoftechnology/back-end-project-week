@@ -8,7 +8,7 @@ const routes = require('./api/Routes/Routes');
 const server = express();
 
 const corsOptions = {
-  origin: 'http://angry-northcutt-d02a71.netlify.com',
+  origin: 'https://angry-northcutt-d02a71.netlify.com',
   credentials: true,
 };
 
