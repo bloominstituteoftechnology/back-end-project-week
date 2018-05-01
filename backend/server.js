@@ -15,7 +15,7 @@ server.use(bodyParser.json());
 const url = process.env.MONGOLAB_URI;
 
 
-mongoose.connect('mongodb://swede:Basser@ds263089.mlab.com:63089/swedishgood-note', {}, err => {
+mongoose.connect('mongodb://myman:man@ds163769.mlab.com:63769/heroku_rghr6r91', {}, err => {
     if(err) return console.log(err);
     console.log('Mango Up Bruh');
 })
