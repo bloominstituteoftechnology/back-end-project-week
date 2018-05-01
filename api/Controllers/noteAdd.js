@@ -3,10 +3,19 @@ const Note = require('../Models/Note');
 
 const noteAdd = (req, res) => {
   const { title, content } = req.body;
-  const author = req.decoded.id;
+  const username = req.username;
+  let id;
+
+  User.findOne({ username })
+    .then(user => {
+      id = user._id;
+    })
+    .catch(err => {
+      res.json({ Error: `Unable to find user ${err}` });
+    });
 
   if (author) {
-    const newNote = new Note({ author, title, content });
+    const newNote = new Note({ id, title, content });
     newNote
       .save()
       .then(savedNote => {
