@@ -1,3 +1,3 @@
 module.exports = {
-    // development related properties
+    testDb: "mongodb://localhost/test",
 };

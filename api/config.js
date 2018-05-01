@@ -3,7 +3,7 @@ const _ = require(`lodash`);
 const config = {
     env: process.env.NODE_ENV || `development`,
     port: process.env.PORT || 5000,
-    db: process.env.MONGODB_URL || "mongodb://localhost:/notesTestDB",
+    db: process.env.MONGODB_URL || "mongodb://localhost:/notesDB",
 };
 
 const envConfig = require(`./${config.env}.js`);
