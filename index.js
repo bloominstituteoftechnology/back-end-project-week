@@ -18,6 +18,8 @@ const dbCred = {
     dbPassword: process.env.DB_PASSWORD
 };
 
+const setUpRoutes = require('./routes')(server);
+
 server.get('/', (req, res) => {
     res.json({api:'running'});
 });
