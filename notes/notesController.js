@@ -25,6 +25,7 @@ router
 router
   .route("/:id")
   .put((req, res) => {
+    console.log("Note Put: ", req.body);
     Note.findByIdAndUpdate(req.params.id, req.body, { new: true }).then(
       updatedNote => res.json(updatedNote)
     );
