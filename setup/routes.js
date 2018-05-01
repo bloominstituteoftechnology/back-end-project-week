@@ -5,7 +5,7 @@ module.exports = function(server) {
         res.send({api: 'up and running'});
     });
 
-    server.post('/api/register', function(req, res){
+    server.post('/back-end/register', function(req, res){
         const credentials = req.body;
 
         const Users = new User (credentials);
