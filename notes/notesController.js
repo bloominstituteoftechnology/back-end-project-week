@@ -27,7 +27,10 @@ router
   .put((req, res) => {
     console.log("Note Put: ", req.body);
     Note.findByIdAndUpdate(req.params.id, req.body, { new: true }).then(
-      updatedNote => res.json(updatedNote)
+      updatedNote => {
+        console.log("Updated Note: ", updatedNote);
+        res.json(updatedNote);
+      }
     );
   })
   .delete((req, res) => {
