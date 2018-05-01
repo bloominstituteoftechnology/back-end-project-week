@@ -2,12 +2,11 @@ const config = require('./api/config');
 const server = require('./server');
 
 const port = config.port;
-
+console.log(port);
 server.get('/', (req, res) => {
-  console.log('delete me');
-  res.json('API is okay');
+  res.json('API is running ok!');
 });
 
 server.listen(port, err => {
-  console.log(`The server is up and running...!!!`);
+  console.log(`The server is up and running on ${port}...!!!`);
 });
