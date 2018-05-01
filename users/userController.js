@@ -1,6 +1,13 @@
 const router = require('express').Router();
 const User = require('./userModel.js');
 
+
+router
+.route('/api/views')
+.get((req, res) => {
+    res.send({ api: 'up and running' });
+  });
+
 router
   .route('/')
   .get((req, res) => {
