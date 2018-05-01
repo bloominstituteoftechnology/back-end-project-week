@@ -4,7 +4,6 @@ const helmet = require('helmet')
 const logger = require('morgan')
 const cool = require('cool-ascii-faces')
 const cors = require('cors')
-
 const Note = require('./notes/Note')
 
 const server = express()
