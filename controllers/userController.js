@@ -1,7 +1,7 @@
 const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
 
-const registration = (req, res) => {
+const userRegistration = (req, res) => {
     const {firstName, lastName, userName, password } = req.body;
     const user = new User({ firstName, lastName, userName, password });
 
@@ -15,3 +15,26 @@ const registration = (req, res) => {
         })
 }
 
+const updateUser = (req, res) => {
+    const { title, content } = req.body;
+
+    User 
+        .findByIdAndUpdate(req.params.id, (err, updatedUser) => {
+            if (err || User === null) {
+                res.status(500).json({ errMsg: 'Error retreiving selected note' })
+            } else {
+                res.status(200).json(updatedNote);     
+            }
+        })
+}
+
+const deleteUser = (req, res) => {
+    
+    User
+        findByIdAndRemove(req.params.id, (err, deletedUser) => {
+            if (err) {
+                res.status(500).json(err);
+            }
+                res.status(200).redirect('/');
+        })
+}
