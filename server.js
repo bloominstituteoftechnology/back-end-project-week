@@ -33,19 +33,6 @@ app.get('/', function(req, res) {
     res.render('index');
 });
 
-server.post('/api/register', function(req, res) {
-    const credentials = req.body;
-
-    //add user to database
-    const user = new User(credentials);
-    user
-    .save().then(insertedUser => {
-        // const token = makeToken(insertedUser);
-        res.status(201).json(insertedUser);
-    });
-});
-
-
 
 app.listen(port, function() {
     console.log('Our app is running on http://localhost:' + port);
