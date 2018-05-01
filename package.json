@@ -1,0 +1,22 @@
+{
+  "name": "awesomelambdanotes",
+  "version": "1.0.0",
+  "description":
+    "a backend, server side and database project app that will connect to a front front end note app",
+  "main": "app.js",
+  "scripts": {
+    "start": "app.js",
+    "test": "mocha tests/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emukupa/back-end-project-week.git"
+  },
+  "keywords": ["mocha", "heroku", "mlab", "netlify", "react"],
+  "author": "Edward Manda",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emukupa/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/emukupa/back-end-project-week#readme"
+}
