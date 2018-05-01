@@ -9,6 +9,7 @@ router
 .route('/')
 .get( (req,res) =>{
   User.find({})
+  .populate('notes')
   .then(response=>{
     res.status(200).json(response);
   })
