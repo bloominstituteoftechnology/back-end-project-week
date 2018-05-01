@@ -1,7 +1,7 @@
 {
-  "name": "back-end-project-jeremy-jones",
+  "name": "back-end-project-week",
   "version": "1.0.0",
-  "description": "Lambda Notes Back-End",
+  "description": "Lambda Notes Back-End Server",
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js"
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/crypto-jones/back-end-project-week.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Jeremy A. Jones",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/crypto-jones/back-end-project-week/issues"
