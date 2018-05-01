@@ -53,7 +53,7 @@ server.get('/', (req, res) => {
     })
 });
 
-server.post('/', (req, res) => {
+server.post('/post', (req, res) => {
   newNote.save()
     .then(response => {
       res
