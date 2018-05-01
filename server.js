@@ -4,13 +4,13 @@ const helmet = require('helmet');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-const mlab = require('./mlab');
-const path = process.env.MONGOLAB_URI || mlab;
-
-mongoose
-  .connect(path)
-  .then(() => console.log('\n=== Connected to Mongo ===\n'))
-  .catch(err => console.log('\n === Error connecting to Mongo ===\n'));
+// const mlab = require('./mlab');
+const path =
+  process.env.MONGOLAB_URI || // mlab;
+  mongoose
+    .connect(path)
+    .then(() => console.log('\n=== Connected to Mongo ===\n'))
+    .catch(err => console.log('\n === Error connecting to Mongo ===\n'));
 
 const noteController = require('./notes/noteController');
 
