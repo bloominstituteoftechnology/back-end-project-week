@@ -13,6 +13,6 @@ mongoose
   console.log("API CONNECTED TO DATABASE"))
   .catch(err => console.log('ERROR CONNECTING TO DB'))
 
-  let port = process.env.port || 3000;
+  let port = process.env.port;
 
   server.listen(port, () => console.log(`\n === API on port ${port}  ===\n`));
