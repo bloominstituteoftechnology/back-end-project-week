@@ -1,0 +1,19 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "back end project",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mehrunes-Dagon/back-end-project-week.git"
+  },
+  "author": "wtpwinberg@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mehrunes-Dagon/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/Mehrunes-Dagon/back-end-project-week#readme"
+}
