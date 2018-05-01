@@ -24,4 +24,4 @@ const localStrategy = new LocalStrategy(function(username, password, done) {
   });
 });
 
-passport.use(localStorage);
+module.exports = passport.use(localStorage);
