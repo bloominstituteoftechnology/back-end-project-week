@@ -35,7 +35,11 @@ const noteAdd = (req, res) => {
     }
   };
 
-  saveNote();
+  try {
+    saveNote();
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 module.exports = noteAdd;
