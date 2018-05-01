@@ -4,9 +4,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 mongoose
-  .connect('mongodb://ajmaljalal58@gmail.com:ZargoKhwaga123!@ds111050.mlab.com:11050/notes')
+  .connect('mongodb://ajmal:ZargoKhwaga123!@ds111050.mlab.com:11050/notes')
   .then(() => {
-    console.log('Connected to DB');
+    console.log('Connected to Database');
   })
   .catch(error => {
     console.log('Error connecting to the server');
@@ -21,8 +21,34 @@ const server = express();
 //server.use(cors());
 server.use(express.json());
 
+
+const noteSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true
+  },
+  text: {
+    type: String,
+    required: true
+  }
+});
+
+const Note = mongoose.model('note', noteSchema);
+
 server.get('/', (req, res) => {
-  res.status(200).json(notes);
+  Note.find()
+    .then(notes => {
+      res
+        .status(200)
+        .json(notes)
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json('error: could not get notes from the database');
+    })
+})
+
 });
 
 //server.use('/api/friends', friendsController);
