@@ -86,7 +86,7 @@ server.post('/', (req, res) => {
 
 server.post('/users', (req, res) => {
   const newUser = new User(req.body);
-  console.log(newNote);
+  console.log(newUser);
   newUser.save()
     .then(response => {
       res
