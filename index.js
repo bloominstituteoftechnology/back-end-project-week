@@ -27,9 +27,10 @@ passport.use(new GoogleStrategy({
 
 //routes
 
-server.get('/', (req, res) => {
-  res.json({ api: 'Api is working correctly, Raymond Rosario || Kevin Jolley can you read this?' });
-});
+server.get('/auth/google', passport.authenticate('google', {
+  scope: ['profile', 'email']
+})
+);
 
 
 
