@@ -1,12 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
-
+require('dotenv').config();
 const server = express();
-
-mongoose.connect('mongodb://localhost/backend')
-.then(()=>console.log('connected'))
-.catch(err=>{console.log('not connected')}
-);
+mongoose.connect(process.env.URI)
+.then(()=>{
+  console.log('connected');
+})
+.catch(err=>{
+  console.log(err);
+});
 
 server.get('/', (req,res) => {
   res.status(200).json({api:'running'});
