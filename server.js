@@ -13,7 +13,7 @@ server.use(cors());
 server.use(express.json());
 
 server.get('/', (req, res) => {
-  res.status(200).json({ api: 'Running' });
+  res.status(200).json({ api: 'Running Sir' });
 });
 
 mongoose
