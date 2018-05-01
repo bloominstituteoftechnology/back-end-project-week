@@ -3,7 +3,7 @@ const helmet = require("helmet");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const noteController = require("./notes/notesController");
-const userController = require("./user/userController");
+const userController = require("./users/userController");
 const cors = require("cors");
 
 mongoose
