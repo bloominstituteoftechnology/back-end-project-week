@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "Lambda Notes Back-End Server",
   "main": "server.js",
+  "engines": {
+    "node": "8.11.1",
+    "npm": "6.0.0"
+  },
   "scripts": {
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
