@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const SALT = 11;
 
 const userSchema = new mongoose.Schema({
-    userName: {
+    username: {
         type: String,
         unique: true,
         required: true,
@@ -19,10 +19,12 @@ const userSchema = new mongoose.Schema({
     }]
 });
 
-userSchema.pre('save', next => {
+userSchema.pre('save', function (next) {
+    
     bcrypt.hash(this.password, SALT, (err, hash) => {
         if (err)
             return next(err);
+        console.log(hash);
         this.password = hash;
         next();
     });

@@ -1,8 +1,10 @@
 const express = require('express');
+const session = require('express-sessions');
+
 const helmet = require('helmet');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const User = require('./UserModel');
+const User = require('./UserModel.js');
 
 const PORT = process.env.PORT || 5000;
 
@@ -12,6 +14,13 @@ const server = express();
 server.use(helmet());
 server.use(express.json());
 server.use(cors());
+server.use(
+    session({
+        secret: '',
+        cookie: { maxAge: 1 * 24 * 60 * 60 * 1000 },
+        secure: false
+    })
+);
 
 const dbCred = {
     dbUser: process.env.DB_USER,
@@ -35,7 +44,7 @@ server.get('/users', (req, res) => {
 });
 
 mongoose
-    .connect(`mongodb://${dbCred.dbUser}:${dbCred.dbPassword}@ds263619.mlab.com:63619/notes`)
+    .connect('mongodb://jmoney:thepasswordiestBIG123@ds263619.mlab.com:63619/notes')
     .then(response => {
         console.log('\n===Connected to DB===\n');
     })

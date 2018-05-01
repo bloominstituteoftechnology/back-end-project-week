@@ -1,12 +1,27 @@
 const User = require('./UserModel');
 
-server.post('/api/register', (req, res) => {
-    const user = new User(req.body);
-    user.save()
-    .then(newUser => {
-        res.status(201).json(newUser);
-    })
-    .catch(err => {
-        res.status(500).json(err);
+const seesion = require('express-sessions');
+
+module.exports = function(server) {
+    
+    server.post('/api/register', (req, res) => {
+        const user = new User(req.body);
+        console.log(user);
+        user.save()
+        .then(newUser => {
+            console.log(newUser);
+            res.status(201).json(newUser);
+        })
+        .catch(err => {
+            res.status(500).json({msg:'there was an error'});
+        });
     });
-});
+
+    server.post('/api/note', (req, res) => {
+
+    });
+
+    server.post('/api/login', (req, res) => {
+
+    })
+}
