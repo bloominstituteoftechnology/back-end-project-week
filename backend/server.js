@@ -8,7 +8,7 @@ const server = express();
 const port = 5000;
 
 
-mongoose.connect('mongodb://swedishgoodbye:Basser66@ds263089.mlab.com:63089/swedishgood-note', {}, err => {
+mongoose.connect('mongodb://heroku_20g8ndz2:5er5o5d19qcdnj3v92fegvvh6m@ds111050.mlab.com:11050/heroku_20g8ndz2', {}, err => {
     if(err) return console.log(err);
     console.log('Mango Up Bruh');
 })
