@@ -3,7 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-const mongodb = require('mongodb')
+const mongodb = require('mongodb');
+const cors = require('cors');
 const server = express();
 
 // const { login } = require('./login.js');
@@ -11,6 +12,7 @@ const Note = require('./noteModel');
 const User = require('./userModel');
 
 server.use(bodyParser.json());
+server.use(cors());
 
 const url = process.env.MONGOLAB_URI;
 
