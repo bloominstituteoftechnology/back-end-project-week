@@ -6,11 +6,14 @@ const noteSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  description: {
+  text: {
     type: String,
     required: true
   },
-  users: [{ type: ObjectId, ref: 'User' }]
+  users: {
+    type: String,
+    required: true
+  }
 });
 
 module.exports = mongoose.model('Note', noteSchema);

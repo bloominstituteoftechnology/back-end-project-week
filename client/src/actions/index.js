@@ -2,9 +2,12 @@ import axios from 'axios';
 axios.defaults.withCredentials = true;
 const ROOT_URL = 'http://localhost:5000';
 
+export const NOTE_ERROR = 'NOTE_ERROR';
+export const GET_NOTES = 'GET_NOTES';
 export const CREATE_NOTE = 'CREATE_NOTE';
 export const EDIT_NOTE = 'EDIT_NOTE';
 export const DELETE_NOTE = 'DELETE_NOTE';
+
 export const USER_REGISTERED = 'USER_REGISTERED';
 export const USER_AUTHENTICATED = 'USER_AUTHENTICATED';
 export const USER_UNAUTHENTICATED = 'USER_UNAUTHENTICATED';
@@ -20,30 +23,80 @@ export const authError = error => {
   };
 };
 
-export const createNote = note => {
+export const noteError = error => {
   return {
-    type: CREATE_NOTE,
-    id: nextId++,
-    title: note.title,
-    text: note.text
+    type: NOTE_ERROR,
+    payload: error
   };
 };
 
-export const editNote = note => {
-  return {
-    type: EDIT_NOTE,
-    id: note.id,
-    title: note.title,
-    text: note.text
+export const getNotes = users => {
+  const token = localStorage.getItem('token');
+  return dispatch => {
+    axios
+      .post(
+        `${ROOT_URL}/home`,
+        { users },
+        { headers: { authorization: token } }
+      )
+      .then(response => {
+        dispatch({
+          type: GET_NOTES,
+          payload: response.data
+        });
+      })
+      .catch(() => {
+        dispatch(noteError('cannot get notes'));
+      });
   };
 };
 
-export const deleteNote = note => {
+export const createNote = noteObj => {
+  const token = localStorage.getItem('token');
+  const { title, text, users } = noteObj;
+  return dispatch => {
+    axios
+      .post(
+        `${ROOT_URL}/create`,
+        {
+          title,
+          text,
+          users
+        },
+        { headers: { authorization: token } }
+      )
+      .then(response => {
+        dispatch({ type: CREATE_NOTE, payload: response.data });
+      })
+      .catch(error => {
+        dispatch(noteError('cannot add note'));
+      });
+  };
+};
+
+export const editNote = noteObj => {
+  const token = localStorage.getItem('token');
+  const { title, text, id } = noteObj;
+  return dispatch => {
+    axios
+      .post(
+        `${ROOT_URL}/edit`,
+        { title, text, id },
+        { headers: { authorization: token } }
+      )
+      .then(response => {
+        dispatch({ type: EDIT_NOTE, payload: response.data });
+      })
+      .catch(() => {
+        dispatch(noteError('cannot edit note'));
+      });
+  };
+};
+
+export const deleteNote = id => {
   return {
     type: DELETE_NOTE,
-    id: note.id,
-    title: note.title,
-    text: note.text
+    payload: id
   };
 };
 
@@ -73,7 +126,8 @@ export const login = (username, password, history) => {
       .post(`${ROOT_URL}/login`, { username, password })
       .then(result => {
         dispatch({
-          type: USER_AUTHENTICATED
+          type: USER_AUTHENTICATED,
+          payload: username
         });
         localStorage.setItem('token', result.data.token);
         history.push('/home');
@@ -86,15 +140,7 @@ export const login = (username, password, history) => {
 
 export const logout = () => {
   return dispatch => {
-    axios
-      .post(`${ROOT_URL}/logout`)
-      .then(() => {
-        dispatch({
-          type: USER_UNAUTHENTICATED
-        });
-      })
-      .catch(() => {
-        dispatch(authError('Failed to log you out'));
-      });
+    localStorage.removeItem('token');
+    dispatch({ type: USER_UNAUTHENTICATED });
   };
 };

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { logout } from '../actions/index';
 
 class SideMenu extends Component {
   render() {
@@ -9,8 +11,8 @@ class SideMenu extends Component {
         <h1 className="notes">Notes</h1>
         {console.log('authenticated?', this.props.authenticated)}
         {this.props.authenticated ? (
-          <Link to="/" className="view">
-            View Your Notes
+          <Link to="/" className="create" onClick={this.submitHandler}>
+            Logout
           </Link>
         ) : (
           <Link to="/login" className="create">
@@ -24,9 +26,21 @@ class SideMenu extends Component {
         <Link to="/Create" className="create">
           + Create New Note
         </Link>
+        <Link to="/home" className="create">
+          View Your Notes
+        </Link>
       </div>
     );
   }
-}
 
-export default SideMenu;
+  submitHandler = () => {
+    this.props.logout();
+  };
+}
+const mapStateToProps = state => {
+  return {
+    authenticated: state.auth.authenticated
+  };
+};
+
+export default connect(mapStateToProps, { logout })(SideMenu);

@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import { Button, Modal, ModalHeader, ModalFooter } from "reactstrap";
-import { deleteNote } from "../actions";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { Button, Modal, ModalHeader, ModalFooter } from 'reactstrap';
+import { deleteNote } from '../actions';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class DeleteNotes extends Component {
   constructor(props) {
     super(props);
     this.state = {
       note: {
-        id: "",
-        title: "",
-        text: ""
+        id: '',
+        title: '',
+        text: ''
       },
       modal: false
     };
@@ -23,7 +23,7 @@ class DeleteNotes extends Component {
   componentDidMount() {
     this.setState({
       note: this.props.notes.find(note => {
-        return note.id === parseInt(this.props.match.params.id, 10);
+        return note._id === parseInt(this.props.id);
       })
     });
   }
@@ -36,7 +36,7 @@ class DeleteNotes extends Component {
 
   handleDelete(id) {
     this.props.deleteNote(id);
-    this.props.history.push("/");
+    this.props.history.push('/');
   }
 
   render() {

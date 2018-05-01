@@ -1,18 +1,16 @@
-import React, { Component } from "react";
-import { createNote } from "../actions";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import React, { Component } from 'react';
+import { createNote } from '../actions';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 class CreateNote extends Component {
-  constructor() {
-    super();
-    this.state = {
-      newNote: {
-        title: "",
-        text: ""
-      }
-    };
-  }
+  state = {
+    newNote: {
+      title: '',
+      text: '',
+      users: this.props.users
+    }
+  };
 
   handleOnChange(event) {
     event.preventDefault();
@@ -23,8 +21,8 @@ class CreateNote extends Component {
   handleOnSubmit(event) {
     event.preventDefault();
     this.props.createNote(this.state.newNote);
-    this.setState({ newNote: { title: "", text: "" } });
-    this.props.history.push("/");
+    this.setState({ newNote: { title: '', text: '' } });
+    this.props.history.push('/home');
   }
 
   render() {
@@ -58,7 +56,10 @@ class CreateNote extends Component {
   }
 }
 const mapStateToProps = state => {
-  return { notes: state.notes };
+  return {
+    notes: state.notes,
+    users: state.auth.users
+  };
 };
 
 export default withRouter(connect(mapStateToProps, { createNote })(CreateNote));
