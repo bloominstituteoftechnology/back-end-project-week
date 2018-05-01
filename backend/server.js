@@ -1,14 +1,16 @@
-2 + 2 === 4;
+// 2 + 2 === 4;
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const mongodb = require('mongodb')
 const server = express();
 
 const port = 5000;
+const url = process.env.MONGOLAB_URI;
 
 
-mongoose.connect('mongodb://heroku_20g8ndz2:5er5o5d19qcdnj3v92fegvvh6m@ds111050.mlab.com:11050/heroku_20g8ndz2', {}, err => {
+mongoose.connect('mongodb://swede:Basser@ds263089.mlab.com:63089/swedishgood-note', {}, err => {
     if(err) return console.log(err);
     console.log('Mango Up Bruh');
 })
