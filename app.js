@@ -10,4 +10,6 @@ mongoose.connect(`mongodb+srv://runranron:${secrets.mongopw}@cluster0-h73bz.mong
     console.log('DB Connection Achieved');
 });
 
-server.listen(port);
+server.listen(port, () => {
+    console.log("Express is working on port " + port);
+  });
