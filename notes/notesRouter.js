@@ -10,7 +10,7 @@ router
   .get((req, res) => {
     //if auth
     User.findById(req.params.user)
-      .populate('notes', 'title content')
+      .populate('notes')
       .then(user => {
         if (!user) res.status(404).json('user not found!');
         else res.status(200).json(user);

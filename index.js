@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const helmet = require('helmet');
 
 const usersRouter = require('./users/usersRouter.js');
@@ -10,6 +11,7 @@ const server = express();
 const path = process.env.MONGOLAB_URI || 'mongodb://localhost/notes';
 mongoose.connect(path);
 
+server.use(cors());
 server.use(helmet());
 server.use(express.json());
 
