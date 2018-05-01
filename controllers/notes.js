@@ -1,74 +1,97 @@
-const Note = require('../models/NoteModel');
-const User = require('../models/UserModel');
+const Note = require("../models/NoteModel");
+const User = require("../models/UserModel");
 
-const createNote = async function (req, res) {
-    const { title, body } = req.body;
-    const newNote = new Note({ title, body });
-    const userId = req.params.uid;
-    console.log("body",req.body);
-    console.log("New Note: ", newNote);
-    console.log("10: ", userId);
-    try {
-        console.log('userId: ', userId);
-        console.log('NewNote: ', newNote);
-        const updatedUser = await User.findByIdAndUpdate(userId, {$push: { notes: newNote }});
-        //console.log(req.body._id);
-        console.log('noteto be saved: ',updatedUser, 'saved');
-        res.status(201).send(updatedUser);
-    } catch(error) {
-        console.log(error);
-    };
+const createNote = async function(req, res) {
+  console.log(req.body, req.params);
+  const note = req.body;
+  const newNote = new Note(note);
+  const { uid } = req.params;
+
+  // try {
+  //     console.log('userId', uid);
+  //     const saveNote = await User.findByIdAndUpdate(uid, {$push: { notes: newNote }})
+  //     res.status(201).json(saveNote);
+  // } catch(error) {
+  //     console.log(error);
+  // };
+  if (req.params.id) {
+    User.findByIdAndUpdate(uid, { $push: { notes: newNote } }, (err, note) => {
+      if (err)
+        res
+          .status(500)
+          .json("There was an error adding the note");
+    });
+    return;
+  }
+  newNote
+    .save()
+    .then(savedNote => {
+      console.log("saved note: ", savedNote);
+      User.findById(uid, (err, user) => {
+        if (err)
+          return res
+            .status(500)
+            .json({ msg: "There was an error savkng the note." });
+        user.notes.push(savedNote);
+        user
+          .save()
+          .then()
+          .catch(err =>
+            res.status(500).json({
+              msg: "There was an error saving the the note.",
+              error: err
+            })
+          );
+      });
+      res.status(200).json(savedNote);
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ msg: "There was an error saving the note.", error: err });
+    });
 };
 
-const getNotes = async function (req, res) {
-    const { uid } = req.params;
-    try {
-        const loggedInUser = await User.findById(uid).populate('title body');
-        //console.log(uid);
-        console.log('logUser:', loggedInUser, '  notes:', loggedInUser.notes)
-        res.status(200).send(loggedInUser.notes);
-    } catch (error) {
-        console.log(error, 'There was an error retrieving the notes');
-    };
+const getNotes = async function(req, res) {
+  const { uid } = req.params;
+  console.log(uid);
+  try {
+    const loggedInUser = await User.findById(uid).populate("notes");
+    //console.log(uid)
+    res.status(200).send({ notes: loggedInUser.notes });
+  } catch (error) {
+    console.log(error, "There was an error retrieving the notes");
+  }
 };
 
-const deleteNote = async function (req, res) {
-    const noteId = req.params.id;
-    const { userId } = req.params;
-    try {
-        const removeNote = await User
-            .findByIdAndUpdate(userId, {$pull: {notes: { _id: noteId }}});
-        res.status(200).send(deleteNote.notes);
-    } catch(error) {
-        console.log(error, 'There was an error deleting the note');
-    };
+const deleteNote = async function(req, res) {
+  const noteId = req.params.id;
+  const { uid } = req.params;
+  Note.findByIdAndRemove(noteId, req.body, { new: true }).then(deleteNote =>
+    res.json(deleteNote)
+  );
+  // try {
+  //     const removeNote = await User.findByIdAndUpdate(uid, {$pull: {notes: { _id: noteId }}});
+  //     res.status(200).send(removeNote.notes);
+  // } catch(error) {
+  //     console.log(error, 'There was an error deleting the note');
+  // };
 };
 
-const editNote = async function (req, res) {
-    const noteId = req.params.id;
-    const { userId } = req.params;
-    const { title, body } = req.body;
-    const updateNote = new Note({ title, body });
-    try{
-        const loggedInUser = await User.findById(userId);
-        const newNotes = loggedInUser.notes.map( note => {
-            if (note._id.toString() === noteId.toString()) return updateNote;
-            else return note;
-        });
-        await User.findOneAndUpdate(
-            { _id: userId },
-            {$set: { notes: newNotes }}
-        );
-        const savedNotes = await User.findById(userId);
-        res.status(200).send(savedNotes);
-    } catch (error) {
-        console.log(error, 'There was an error editing/updating the note');
-    };
+const editNote = async function(req, res) {
+  const { id } = req.params;
+  const { uid } = req.params;
+  const { title, body } = req.body;
+  await Note.findByIdAndUpdate(id, req.body, { new: true })
+    .then(updateNote => res.status(200).json(updateNote))
+    .catch(error => {
+      res.status(500).json({ error: "There was an error updating" });
+    });
 };
 
 module.exports = {
-    createNote,
-    getNotes,
-    deleteNote,
-    editNote
+  createNote,
+  getNotes,
+  deleteNote,
+  editNote
 };

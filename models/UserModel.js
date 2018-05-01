@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const { Schema } = mongoose;
 const ObjectId = mongoose.Schema.Types.ObjectId;
+const Note = require('./NoteModel');
 
 const Salt_Rounds = 12;
 
