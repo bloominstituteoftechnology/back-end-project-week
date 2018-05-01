@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
+const ObjectId = mongoose.Schema.Types.ObjectId;
+
+const Note = require('./noteModel');
+
 const HASH_ROUNDS = 12;
 
 const userSchema = new mongoose.Schema ({
@@ -30,6 +34,10 @@ const userSchema = new mongoose.Schema ({
     active_Since: {
         type: Date,
     },
+    notes: [{
+        type: ObjectId,
+        ref: "Note",
+    }],
 });
 
 userSchema.pre('save', function(next) {
