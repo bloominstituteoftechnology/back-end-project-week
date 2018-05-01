@@ -8,7 +8,7 @@ const Note = require('./notes/Note')
 
 const server = express()
 
-const uri = 'mongodb://cesar:fibona66I@ds014658.mlab.com:14658/notes-db'
+const uri = 'mongodb://cesar:cesar@ds014658.mlab.com:14658/notes-db'
 mongoose
   .connect(uri)
   .then(() => console.log(`\n=== Mongo Online ===\n`))
