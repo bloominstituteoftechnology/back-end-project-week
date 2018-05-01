@@ -1,7 +1,31 @@
 {
-  "name": "back-end-project-week",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/JohnathanHuggett/back-end-project-week.git",
-  "license": "MIT"
+    "name": "lambda-backend-project",
+    "version": "1.0.0",
+    "description": "backend project for lambdaschool ",
+    "main": "app.js",
+    "scripts": {
+        "test": "mocha tests/*test.js",
+        "start": "nodemon app.js"
+    },
+    "repository": {
+        "type": "git",
+        "url":
+            "git+https://github.com/JohnathanHuggett/back-end-project-week.git"
+    },
+    "keywords": ["react", "mocha", "mlab", "heroku"],
+    "author": "Johnathan Huggett",
+    "license": "ISC",
+    "bugs": {
+        "url":
+            "https://github.com/JohnathanHuggett/back-end-project-week/issues"
+    },
+    "homepage":
+        "https://github.com/JohnathanHuggett/back-end-project-week#readme",
+    "devDependencies": {
+        "nodemon": "^1.17.3"
+    },
+    "dependencies": {
+        "express": "^4.16.3",
+        "mongoose": "^5.0.17"
+    }
 }
