@@ -4,7 +4,7 @@ const router = express.Router();
 const Note = require("./notesModel.js");
 
 router
-  .route("/:user")
+  .route("/user/:user")
   .post((req, res) => {
     const note = new Note(req.body);
     note
