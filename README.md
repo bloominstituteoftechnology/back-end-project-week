@@ -28,8 +28,8 @@ It is suggested that you deploy the server and database first, before you underg
 
 Once you have empty projects deployed to these platforms, they can be easily updated with the code you implement as you write it. Additionally, it is recommended that you keep your front end and backend codebases in separate github repos, not under a single umbrella repo. This helps with separation of concerns, plus it helps with deploying, since the different parts of your full-stack codebase need to live on different platforms.
 
-* [x] Create a Database for your app: ## COMPLETE
-* [/] Deploy your application to the web: In Progress/Incomplete
+* [ ] Create a Database for your app
+* [ ] Deploy your application to the web
 * [ ] Create a Registration Page that allows users to create accounts for your app and sign in with email/password
 * [ ] Store these User Accounts in your Database
 * [ ] Add a Sign In Page
@@ -48,17 +48,17 @@ Upon your first commit, please submit a Pull Request and add _both_ the **Trello
 ```markdown
 ## Trello Set Up:
 
-* [ ] Use your existing Trello account from the Front End Project, or create a new one
-* [ ] Create a new board called "Lambda Notes(Backend) - {Your Name}"
-* [ ] Create lists titled `backlog`,`To Do`, `In Progress`, and `Done`
-* [ ] Fill in the `To Do` list with the MVP features listed below
-* [ ] Fill in the `backlog` list with all the extra features listed below
-* [ ] Share your board with the project manager that has been assigned to you. If you have not been assigned yet, reach out to your Section Lead for guidance
-* [ ] Add your Trello URL to your project's README.md file. Commit the change, push it to your repository & submit a pull request
+* [x] Use your existing Trello account from the Front End Project, or create a new one
+* [x] Create a new board called "Lambda Notes(Backend) - {Your Name}"
+* [x] Create lists titled `backlog`,`To Do`, `In Progress`, and `Done`
+* [x] Fill in the `To Do` list with the MVP features listed below
+* [x] Fill in the `backlog` list with all the extra features listed below
+* [x] Share your board with the project manager that has been assigned to you. If you have not been assigned yet, reach out to your Section Lead for guidance
+* [x] Add your Trello URL to your project's README.md file. Commit the change, push it to your repository & submit a pull request
 
 ## Backend MVP Features:
 
-* [ ] Create a Database for your app
+* [x] Create a Database for your app
 * [ ] Deploy your application to the web
 * [ ] Create a Node app and connect it to your database
 * [ ] Create a Registration Page that allows users to create accounts for your app and sign in with email/password
