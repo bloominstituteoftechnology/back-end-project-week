@@ -12,4 +12,5 @@
 > Working on this to make it work
 # Backend
 > Added express, body-parser, mongoose, mocha, chai, chai-http, morgan, and sinon
-> Created server.js, and app.js, 
+> Created server.js, and app.js. Made note folder with noteModel.js and noteController.js
+> mLab database is at  mongo ds211440.mlab.com:11440/lambdanotes -u <dbuser> -p <dbpassword> 
