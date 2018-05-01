@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { mysercet } = require('../../config');
+const { mysecret } = require('../../config');
 
 const User = require('../models/userModel');
 
@@ -26,7 +26,7 @@ const login = (req, res) => {
         const payload = {
           username: user.username
         };
-        const token = jwt.sign(payload, mysercet);
+        const token = jwt.sign(payload, mysecret);
         res.json({ token });
       }
     });

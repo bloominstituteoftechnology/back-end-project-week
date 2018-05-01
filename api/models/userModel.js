@@ -1,4 +1,4 @@
-const mongoose = require('moongoose');
+const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
 
@@ -23,13 +23,13 @@ UserSchema.pre('save', function(next) {
   });
 });
 
-UserSchema.methods.checkPassword = function(plainTetPW, callback) {
+UserSchema.methods.checkPassword = function(plainTextPW, callBack) {
   bcrypt.compare(plainTextPW, this.password, function(err, isValid) {
     if (err) {
-      return callback(err);
+      return callBack(err);
     }
     callBack(null, isValid);
   });
 };
 
-module.exports = mongoose.model('User', UserSchema)
+module.exports = mongoose.model('User', UserSchema);
