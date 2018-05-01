@@ -28,5 +28,5 @@ server.get('/', (req, res) => {
 });
 
 // Port
-const port = process.env.PORT || 'https://lambdanoteskevin.herokuapp.com/';
-server.listen(port, () => console.log('API Running on Heroku'));
+const port = 5000;
+server.listen(port, () => console.log('API Running on Port 5000'));
