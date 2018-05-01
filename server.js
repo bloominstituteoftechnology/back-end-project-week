@@ -32,8 +32,12 @@ const noteSchema = new mongoose.Schema({
     required: true
   }
 });
-
 const Note = mongoose.model('note', noteSchema);
+
+const newNote = new Note({
+  title: 'Brand new note',
+  text: 'Debby Boone You Light Up My Life You Light Up My Life You Light Up My Life You Light Up My Life You Light Up My Life You Light Up My Life You Light Up My Life You Light Up My Life You Light Up My Life',
+});
 
 server.get('/', (req, res) => {
   Note.find()
@@ -47,7 +51,21 @@ server.get('/', (req, res) => {
         .status(500)
         .json('error: could not get notes from the database');
     })
-})
+});
+
+server.post('/', (req, res) => {
+  newNote.save()
+    .then(response => {
+      res
+        .status(201)
+        .json(response)
+    })
+    .catch(error => {
+      res
+        .status(505)
+        .json('error: data could not saved to DB');
+    });
+});
 
 
 //server.use('/api/friends', friendsController);
