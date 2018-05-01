@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-
 import ListNotes from './components/ListNotes/ListNotes';
-
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import CreateNote from './components/CreateNote/CreateNote';
 import ViewNote from './components/ViewNote/ViewNote';
 import { Route } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
+import axios from 'axios';
 class App extends Component {
   constructor() {
     super();
@@ -17,6 +16,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    // axios.get('http://localhost:5000')
     const cachedHits = localStorage.getItem(this.props.user);
 
     if (!JSON.parse(cachedHits)) console.log('invalid json confirmed');
