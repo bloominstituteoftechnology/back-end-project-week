@@ -34,11 +34,6 @@ const noteSchema = new mongoose.Schema({
 });
 const Note = mongoose.model('note', noteSchema);
 
-const newNote = new Note({
-  title: 'Brand new note',
-  text: 'Debby Boone You Light Up My Life You Light Up My Life You Light Up My Life You Light Up My Life You Light Up My Life You Light Up My Life You Light Up My Life You Light Up My Life You Light Up My Life',
-});
-
 server.get('/', (req, res) => {
   Note.find()
     .then(notes => {
@@ -53,7 +48,8 @@ server.get('/', (req, res) => {
     })
 });
 
-server.post('/post', (req, res) => {
+server.post('/', (req, res) => {
+  const newNote = req.body;
   newNote.save()
     .then(response => {
       res
