@@ -21,8 +21,7 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(helmet());
 app.use(express.json());
-
-
+app.use(cors());
 app.use('/api/users', userController);
 
 
