@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const server = require('./server');
 const secrets = require('./secrets')
 
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 mongoose.connect(`mongodb+srv://runranron:${secrets.mongopw}@cluster0-h73bz.mongodb.net/test`, {}, err => {
     if (err) return console.log(err);

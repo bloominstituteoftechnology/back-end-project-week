@@ -8,7 +8,7 @@ const MongoStore = require('connect-mongo')(session);
 
 const userRouter = require('./data/users/UserRouter');
 const noteRouter = require('./data/notes/NoteRouter');
-const secrets = require('./secrets')
+const secrets = require('./secrets');
 
 const server = express();
 const corsOptions = {

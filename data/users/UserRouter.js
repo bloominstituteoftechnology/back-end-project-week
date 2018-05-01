@@ -21,5 +21,13 @@ router
             res.status(422).json({ message: 'Please provide a first name, last name, username, and password when creating a new user.'})
         }
     })
+    .get('/users', (req, res) => {
+        User
+        .find()
+        .then(users => {
+            res.status(200).json(users)
+        }).catch(err => res.status(500).json(err));
+    })
+
 
 module.exports = router;
