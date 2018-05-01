@@ -5,7 +5,7 @@
     "a backend, server side and database project app that will connect to a front front end note app",
   "main": "app.js",
   "scripts": {
-    "start": "app.js",
+    "start": "nodemon app.js",
     "test": "mocha tests/*.test.js"
   },
   "repository": {
@@ -18,5 +18,13 @@
   "bugs": {
     "url": "https://github.com/emukupa/back-end-project-week/issues"
   },
-  "homepage": "https://github.com/emukupa/back-end-project-week#readme"
+  "homepage": "https://github.com/emukupa/back-end-project-week#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "lodash": "^4.17.10",
+    "mongoose": "^5.0.17"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.3"
+  }
 }
