@@ -52,8 +52,8 @@ userSchema.pre('save', function(next) {
     })
 });
 
-userSchema.methods.checkPassword = function(originalPW, callBack) {
-    bcrypt.compare(originalPW, this.password, function(err, isValid) {
+userSchema.methods.checkPassword = function(passwordGuess, callBack) {
+    bcrypt.compare(passwordGuess, this.password, function(err, isValid) {
         if (err) {
             return callBack(err);
         } 
