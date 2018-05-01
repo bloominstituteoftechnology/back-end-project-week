@@ -51,7 +51,13 @@ server.post('/api/notes', (req, res) => {
 server.delete('/api/notes/:id', (req, res) => {
   Note.findByIdAndRemove(req.params.id)
     .then(response => {
-      res.json(response);
+      Note.find({})
+        .then(notes => {
+          res.json(notes);
+        })
+        .catch(err => {
+          res.json(err);
+        });
     })
     .catch(err => {
       res.json(err);
