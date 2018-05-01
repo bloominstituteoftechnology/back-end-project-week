@@ -69,15 +69,19 @@ const authenticate = passport.authenticate("local", { session: false });
 const protected = passport.authenticate("jwt", { session: false });
 
 module.exports = function(server) {
+  server.get("https://frozen-hamlet-56840.herokuapp.com", function(req,res){ 
+    res.json({"whats up": "dude"});
+  })
+
   server.post("https://frozen-hamlet-56840.herokuapp.com", function(req, res) {
-      const credentials = req.body;
-      const user = new User(credentials);
-      user
-        .save()
-        .then(inserted => {
-          const token = makeToken(inserted);
-          res.status(201).json({ token });
-        })
-        .catch(err => res.status(500).json({ err: "username taken" }));
+    const credentials = req.body;
+    const user = new User(credentials);
+    user
+      .save()
+      .then(inserted => {
+        const token = makeToken(inserted);
+        res.status(201).json({ token });
+      })
+      .catch(err => res.status(500).json({ err: "username taken" }));
   });
 };
