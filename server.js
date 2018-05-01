@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const server = express();
 
 const setupMiddleware = require(`${__dirname}/middleware`)(server);
-const setupRoutes = require(`${__dirname}/routes`)(server);
+const setupRoutes = require('./routes')(server);
 
 
 mongoose

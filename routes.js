@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
-const User = require("./User");
+const User = require(`${__dirname}/User`);
 const secret = "backend app secret";
 
 const { ExtractJwt } = require("passport-jwt");
@@ -76,14 +76,12 @@ module.exports = function(server) {
   server.post("/register", function(req, res) {
     const credentials = req.body;
     const user = new User(credentials);
-    // console.log(req)
     user
       .save()
       .then(inserted => {
-        //   console.log(inserted);
         const token = makeToken(inserted);
         res.status(201).json({ token });
       })
-      .catch(err => res.status(500).json({ err: "username taken" }));
+      .catch(err => res.status(500).json({ err: err.message }));
   });
 };
