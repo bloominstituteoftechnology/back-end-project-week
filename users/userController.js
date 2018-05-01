@@ -8,7 +8,7 @@ router
   .post((req, res) => {
     const user = new User(req.body);
     console.log(req.body);
-    note
+    user
       .save()
       .then(newUser => {
         res.status(201).json(newUser);
