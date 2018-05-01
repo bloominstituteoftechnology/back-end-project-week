@@ -23,7 +23,6 @@ router.post('/', authenticate, (req, res) => {
   //     });
   //   });
   // }
-  console.log(req.user);
   const { _id, username, notes } = req.user;
   const user = { id: _id, username };
   const token = makeToken(user);
