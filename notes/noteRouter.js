@@ -17,9 +17,9 @@ router
   });
 })
 .post( (req,res)=>{
-  const note  = new Note(req.body);
+  const note = new Note(req.body);
   note.save()
-  .then(savedNote =>{
+  .then(savedNote=>{
     res.status(200).json(savedNote);
   })
   .catch(err=>{

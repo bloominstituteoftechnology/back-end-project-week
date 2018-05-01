@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const ObjectId = mongoose.Schema.Types.Objectid;
 
 const User = mongoose.Schema({
-  name:{
+  username:{
     type:String,
     required:true
   },
-  pass:{
+  password:{
     type:String,
     required:true
   }

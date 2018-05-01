@@ -2,9 +2,12 @@ const mongoose = require('mongoose');
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const Note = mongoose.Schema({
-  name:{
+  title:{
     type:String, 
     required:true
+  },
+  text:{
+    type:String
   }
 });
 

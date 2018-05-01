@@ -15,6 +15,17 @@ router
   .catch(err=>{
     res.status(500).json(err);
   })
+})
+.post( (req,res) => {
+  const newUser = new User(req.body);
+  newUser
+  .save()
+  .then(response=>{
+    res.status(200).json(response);
+  })
+  .catch(err=>{
+    res.status(500).json(err);
+  });
 });
 
 module.exports = router;
