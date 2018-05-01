@@ -58,3 +58,10 @@ const deleteNote = (req, res) => {
                 res.status(200).redirect('/:id/notes');
         })
 }
+
+module.exports = {
+    retrieveNotes,
+    createNote,
+    updateNote,
+    deleteNote,
+}

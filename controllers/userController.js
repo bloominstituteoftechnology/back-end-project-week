@@ -16,7 +16,6 @@ const userRegistration = (req, res) => {
 }
 
 const updateUser = (req, res) => {
-    const { title, content } = req.body;
 
     User 
         .findByIdAndUpdate(req.params.id, (err, updatedUser) => {
@@ -37,4 +36,10 @@ const deleteUser = (req, res) => {
             }
                 res.status(200).redirect('/');
         })
+}
+
+module.exports = {
+    userRegistration,
+    updateUser,
+    deleteUser,
 }
