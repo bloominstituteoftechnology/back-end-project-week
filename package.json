@@ -2,27 +2,27 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "description": "This week you will be building a backend for a note taking app called \"Lambda Notes.\"",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": ""
+  },
+  "dependencies": {
+    "express": "4.16.3",
+    "mongoose": "5.0.17",
+    "morgan": "1.9.0",
+    "nodemon": "1.17.3",
+    "body-parser": "1.18.2",
+    "cors": "2.8.4"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Dbald/back-end-project-week.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Itsdevinci",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Dbald/back-end-project-week/issues"
   },
-  "homepage": "https://github.com/Dbald/back-end-project-week#readme",
-  "dependencies": {
-    "body-parser": "^1.18.2",
-    "cors": "^2.8.4",
-    "express": "^4.16.3",
-    "mongoose": "^5.0.17",
-    "morgan": "^1.9.0",
-    "nodemon": "^1.17.3"
-  }
+  "homepage": "https://github.com/Dbald/back-end-project-week#readme"
 }
