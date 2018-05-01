@@ -1,28 +1,84 @@
-.App {
-  text-align: center;
+.container0 {
+  display: flex;
+  justify-content: flex-start;
+  
+  
+}
+.leftnav {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  height:100vh;
+  background: #d8d8d8;
+  border: 2px solid #979797;
+  margin: 2px;
+  
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.container1 {
+  
+  display: flex;
+  width: 80%;
+  flex-wrap: wrap;
+  background: #f3f3f3;
+  padding: 10px;
+  
+
 }
 
-.App-header {
-  background-color: #222;
+.Note {
   height: 150px;
-  padding: 20px;
-  color: white;
+  width: 150px;
+  background: white;
+  margin: 10px 10px;
+  overflow: hidden;
+  border: 1px solid grey;
+  font-size: 13px;
+  
 }
 
-.App-title {
-  font-size: 1.5em;
+.button {
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  width: 160px;
+  margin: 10px 10px;
+  background: #2bc1c2;
+  border-radius: 0;
+  border: 1px solid grey;
+  text-align: center;
+  position: relative;
+  float: left;
+  
 }
 
-.App-intro {
-  font-size: large;
+a:link {
+  text-decoration: none;
+  vertical-align: center;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.titlefornotes{
+  display: flex;
+  justify-content: center;
+  background: #f3f3f3;
+}
+
+input{
+ width: 100%;
+ padding: 12px 0;
+ margin: 8px 0;
+ box-sizing: border-box;
+ border: 2px solid lightgrey;
+ border-radius: 4px;
+ margin: 50px;
+
+}
+
+.input[]
+
+
+form{
+display: flex;
+flex-direction: column;
+
 }
