@@ -1,10 +1,10 @@
 const express = require('express');
 //const helmet = require('helmet');
 //const cors = require('cors');
-//const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-/*mongoose
-  .connect('mongodb://localhost/friendsDB')
+mongoose
+  .connect('mongodb://ajmaljalal58@gmail.com:ZargoKhwaga123!@ds111050.mlab.com:11050/notes')
   .then(() => {
     console.log('Connected to DB');
   })
@@ -12,8 +12,8 @@ const express = require('express');
     console.log('Error connecting to the server');
   });
 
-const friendsController = require('./friends/friendsController');
-*/
+//const friendsController = require('./friends/friendsController');
+
 
 const server = express();
 
@@ -22,7 +22,7 @@ const server = express();
 server.use(express.json());
 
 server.get('/', (req, res) => {
-  res.status(200).json({ api: 'running' });
+  res.status(200).json(notes);
 });
 
 //server.use('/api/friends', friendsController);
