@@ -6,7 +6,8 @@ const LocalStrategy = require('passport-local');
 const { ExtractJwt } = require('passport-jwt'); //use this to teach passport how to get jwt
 const JwtStrategy = require('passport-jwt').Strategy;
 
-const User = require('../users/User');
+const User = require('../User/userModel');
+const Note = require('../Notes/notesModel');
 const secret = 'no size limit on tokens';
 
 function makeToken(user) {

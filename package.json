@@ -1,14 +1,20 @@
 {
-  "name": "long-survey",
+  "name": "back-end-project-week",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "./Server/server.js",
   "dependencies": {
+    "bcrypt": "^2.0.1",
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "helmet": "^3.12.0",
+    "jsonwebtoken": "^8.2.1",
     "mongoose": "^5.0.14",
-    "nodemon": "^1.17.3"
+    "morgan": "^1.9.0",
+    "nodemon": "^1.17.3",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "nodemon": "^1.17.2"
@@ -18,12 +24,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/noxasaxon/Long-Survey.git"
+    "url": "git+https://github.com/noxasaxon/back-end-project-week.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/noxasaxon/Long-Survey/issues"
+    "url": "https://github.com/noxasaxon/back-end-project-week/issues"
   },
-  "homepage": "https://github.com/noxasaxon/Long-Survey#readme"
+  "homepage": "https://github.com/noxasaxon/back-end-project-week#readme"
 }

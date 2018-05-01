@@ -4,27 +4,20 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 const server = express();
-server.use(helmet());
-server.use(express.json());
-server.use(cors());
+
+const setupMiddleware = require('./setup/middleware')(server);
+const setupRoutes = require('./setup/routes')(server);
 
 // Mongo code
-// const surveyRouter = require('./zServerFiles/Surveys/SurveyRouter.js');
-// const questionRouter = require('./zServerFiles/Question/QuestionRouter.js');
+const router = require('./setup/routes');
+mongoose
+  .connect('mongodb://localhost/survey')
+  .then(() => console.log('\n=== connected to Mongo ===\n'))
+  .catch(err => console.log('error connecting to DB'));
+server.use('/api/', router);
 
-// mongoose
-//   .connect('mongodb://localhost/survey')
-//   .then(() => console.log('\n=== connected to Mongo ===\n'))
-//   .catch(err => console.log('error connecting to DB'));
-
-// server.use('/api/surveys', surveyRouter);
-// server.use('/api/questions', questionRouter);
-
+// Sanity route
 server.get('/', (req, res) => res.send('API running...'));
-
-server.get('/api/surveys/all', (req, res) => {
-  // res.send(Surveys);
-});
 
 const port = process.env.PORT || 5000;
 server.listen(port, () => {
