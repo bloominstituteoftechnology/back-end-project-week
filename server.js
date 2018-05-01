@@ -34,6 +34,26 @@ const noteSchema = new mongoose.Schema({
 });
 const Note = mongoose.model('note', noteSchema);
 
+const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  rePassword: {
+    type: String,
+    required: true
+  }
+});
+const User = mongoose.model('user', userSchema);
+
 server.get('/', (req, res) => {
   Note.find()
     .then(notes => {
@@ -61,6 +81,22 @@ server.post('/', (req, res) => {
       res
         .status(505)
         .json('error: data could not saved to DB');
+    });
+});
+
+server.post('/users', (req, res) => {
+  const newUser = new User(req.body);
+  console.log(newNote);
+  newUser.save()
+    .then(response => {
+      res
+        .status(201)
+        .json(response)
+    })
+    .catch(error => {
+      res
+        .status(505)
+        .json('error: could not registered the user');
     });
 });
 
