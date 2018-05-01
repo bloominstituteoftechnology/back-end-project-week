@@ -41,7 +41,7 @@ server.get('/api/notes', (req, res) => {
     })
 })
 
-server.post('/api/notes/newnote', (req, res) => {
+server.post('/api/notes/new', (req, res) => {
     const { title, content } = req.body;
     const newNote = new Note({ title, content });
 
