@@ -5,7 +5,7 @@ const logger = require('morgan')
 const cool = require('cool-ascii-faces')
 const cors = require('cors')
 
-const Todo = require('./todos/Todo')
+const Note = require('./notes/Note')
 
 const server = express()
 
@@ -23,27 +23,27 @@ server.use(cors())
 server.get('/', (req, res) => res.json({ msg: `Server Online` }))
 
 server.get('/cool', (req, res) => res.send(cool()))
-server.get('/api/todos', (req, res) => {
-  Todo.find()
-    .then(todos => {
-      res.status(200).json(todos)
+server.get('/api/notes', (req, res) => {
+  Note.find()
+    .then(notes => {
+      res.status(200).json(notes)
     })
     .catch(err => res.status(500).json(err))
 })
 
-let todoId = 0
+let noteId = 0
 
-server.post('/api/todos', (req, res) => {
+server.post('/api/notes', (req, res) => {
   const { title, content } = req.body
-  const newTodo = { todoId, title, content }
-  todoId++
+  const newNote = { noteId, title, content }
+  noteId++
 
-  const todo = new Todo(newTodo)
-  todo
+  const note = new Note(newNote)
+  note
     .save()
     .then(msg => {
-      Todo.find().then(todos => {
-        res.status(201).json(todos)
+      Note.find().then(notes => {
+        res.status(201).json(notes)
       })
     })
     .catch(err => res.status(500).json(err))
