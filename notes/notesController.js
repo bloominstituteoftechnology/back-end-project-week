@@ -17,10 +17,9 @@ router
       });
   })
   .get((req, res) => {
-    
-      Note.find( {user: req.params.user} ).then(notes => {
-        res.json(notes);
-      
+    Note.find({ user: req.params.user }).then(notes => {
+      res.json(notes);
+    });
   });
 
 router
