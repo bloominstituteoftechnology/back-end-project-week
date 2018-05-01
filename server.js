@@ -33,9 +33,16 @@ server.get('/api/notes', (req, res) => {
     });
 });
 
+// GET BY ID
 server.get('/api/notes/:id', (req, res) => {
   console.log('req param', req.params);
-  res.json('connected');
+  Note.findById(req.params.id)
+    .then(note => {
+      res.json(note);
+    })
+    .catch(err => {
+      res.json({ err: 'Note could not be retrieved' });
+    });
 });
 
 // POST
