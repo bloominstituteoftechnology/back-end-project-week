@@ -35,4 +35,12 @@ router
     });
   });
 
+  router.route('/name/:username').get((req, res)=>{
+    User.findOne({username: req.params.username}).then(user=>{
+      res.json(user);
+    })
+  }
+
+  })
+
 module.exports = router;
