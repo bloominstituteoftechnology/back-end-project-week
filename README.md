@@ -1,4 +1,10 @@
+
 # Back End Project Week
+
+## [My Trello Board](https://trello.com/b/x6M4nx60/lambda-notesbackend-william-pelton)
+## [My App on Netlify]
+(https://romantic-mirzakhani-d12553.netlify.com/)
+
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
 You are to treat this week as if you are working at a company and the instructor is your client.  The teaching assistants are acting as your project managers and will be your main support throughout the week.
@@ -67,7 +73,7 @@ Build an API Endpoint in your Node App for each of the following, and connect th
 ```
 
 ***
-## Once you have completed the Backend Minimum Viable Product requirements, direct message your project manager for approval.  If approved, you may continue working on the Extra Features. Please add the Extra Features to your Task List in the first comment on your PR.
+## Once you have completed the Backend Minimum Viable Product requirements, direct message your project manager for appro   val.  If approved, you may continue working on the Extra Features. Please add the Extra Features to your Task List in the first comment on your PR.
 
 Once your MVP has been approved, you have been given a feature list that the client would love to have completed.  Your goal would be to finish MVP as soon as you can and get working the list of features.
 
