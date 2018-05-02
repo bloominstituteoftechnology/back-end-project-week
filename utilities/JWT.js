@@ -1,3 +1,5 @@
+import { INSPECT_MAX_BYTES } from "buffer";
+
 const User = require("../users/userModel");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
@@ -11,12 +13,12 @@ function makeToken(user) {
   const timestamp = new Date().getTime();
 
   const payload = {
-    sub: user._id,
+    sub: user._id.toString(),
     iat: timestamp,
     username: user.username
   };
   const options = {
-    expiresIn: "2 minutes"
+    expiresInSeconds: 1
   };
   return jwt.sign(payload, secret, options);
 }
@@ -67,6 +69,16 @@ const authenticate = passport.authenticate("local", {
   session: false,
   failureFlash: true
 });
-const protected = passport.authenticate("jwt", { session: false });
+const protected = passport.authenticate(
+  "jwt",
+  { session: false },
+  (err, payload, info) => {
+    if (err || info) {
+      return next(new Error("Token is wrong or nonexistent, bro."));
+    } else {
+      next();
+    }
+  }
+);
 
 module.exports = { makeToken, authenticate, protected };
