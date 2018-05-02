@@ -1,7 +1,7 @@
 const Note = require('../Models/Note');
 
 const noteGet = (req, res) => {
-  const author = req.decoded.username;
+  const author = req.body.username;
   Notes.find({ author })
     .then(userNotes => {
       if (userNotes === null) {
