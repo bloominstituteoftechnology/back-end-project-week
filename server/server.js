@@ -1,10 +1,10 @@
 const express = require('express');
-const morgan = require('morgan');
-const helmet = require('helmet');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
 const server = express();
+
+const setupMiddleware = require('./setup/middleware')(server);
 
 mongoose
   .connect('mongodb://pacManKana:LambdaN0t3s@ds111050.mlab.com:11050/lambda-notes')
@@ -14,11 +14,6 @@ mongoose
   .catch(err => {
     console.log('\n=== ERROR connecting to mongo ===\n');
   });
-
-server.use(helmet());
-server.use(morgan('dev'));
-server.use(express.json());
-server.use(cors());
 
 server.get('/', function(req, res) {
   res.send({ api: 'up and running' });
