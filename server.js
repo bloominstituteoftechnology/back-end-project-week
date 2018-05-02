@@ -24,4 +24,29 @@ server.get('/', function (req,res){
     res.send({api: 'up'});
 });
 
+const NewNote = (req,res) => {
+    const {title, content} = req.body;
+    if(!title || !contents){
+        res.status(400).json({errorMessage:'Please provide title and contents for the post'})
+    }
+    else{
+        const newNote = {title,content}
+        newNote
+        .save()
+        .then(post => {
+            res.json(note);
+        })
+        .catch(err => {
+            res.status(400).json({errorMessage:'ERROR'})
+            return;
+        })
+    };
+
+const ViewNotes = (req,res) => {
+    Post.find({})
+    .exec()
+    .then()
+}
+}
+
 server.listen(process.env.PORT || 5000, () => console.log('\n=== API on port 5k ===\n'));
