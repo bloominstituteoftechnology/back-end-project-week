@@ -4,9 +4,9 @@ const User = require('../Models/User');
 const noteGet = (req, res) => {
   // const author = req.body.username;
   if (req.params.id) {
-    const id = req.params.id;
+    const id = req.params.id; // {id: 'asldf;asdlf}  'liasdjflaskd'
     console.log(req.body);
-    User.findById({ id })
+    User.findById(id)
       .then(user => {
         console.log(user);
         res.status(200).json(user.notes);
