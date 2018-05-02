@@ -27,7 +27,9 @@ const noteAdd = (req, res) => {
               user
                 .save()
                 .then(res => {
-                  res.status(200).json({ Message: 'Note successfully saved!' });
+                  res.status(200).json({
+                    Message: 'User successfully saved with new note!',
+                  });
                 })
                 .catch(err => {
                   res
