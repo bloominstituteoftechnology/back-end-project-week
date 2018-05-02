@@ -24,9 +24,9 @@ Once you have empty projects deployed to these platforms, they can be easily upd
 
 * [x] Create a Database for your app
 * [x] Deploy your application to the web
-* [ ] Create a Registration Page that allows users to create accounts for your app and sign in with email/password
+* [x] Create a Registration Page that allows users to create accounts for your app and sign in with email/password
 * [x] Store these User Accounts in your Database
-* [ ] Add a Sign In Page
+* [x] Add a Sign In Page
 * [ ] Store Notes in your Database
 
 Build an API Endpoint for each of the following, and connect it to your React App. These should all be read from your Database and scoped to the logged in user.
@@ -51,10 +51,10 @@ Upon your first commit, please submit a Pull Request and add _both_ the **Trello
 ## Backend MVP Features:
 * [x] Create a Database for your app
 * [x] Deploy your application to the web
-* [ ] Create a Node app and connect it to your database
-* [ ] Create a Registration Page that allows users to create accounts for your app and sign in with email/password
-* [ ] Store these User Accounts in your Database
-* [ ] Add a Sign In Page
+* [x] Create a Node app and connect it to your database
+* [x] Create a Registration Page that allows users to create accounts for your app and sign in with email/password
+* [x] Store these User Accounts in your Database
+* [x] Add a Sign In Page
 * [ ] Store Notes in your Database
 
 Build an API Endpoint in your Node App for each of the following, and connect them to your React App. These should all be read from your Database and scoped to the logged in user.
@@ -63,7 +63,7 @@ Build an API Endpoint in your Node App for each of the following, and connect th
 * [ ] View an existing note
 * [ ] Edit an existing note
 * [ ] Delete an existing note
-* [ ] Write tests for your endpoints and models
+* [x] Write tests for your endpoints and models
 ```
 
 ***
@@ -80,7 +80,7 @@ Once your MVP has been approved, you have been given a feature list that the cli
 * [ ] Allow users to clone notes
 * [ ] Allow users to attach images to notes
 * [ ] Allow users to create Lists and assign notes to a list
-* [ ] Setup Auto-Deploy on Heroku
+* [x] Setup Auto-Deploy on Heroku
 
 ## Super Duper Extra Credit Bonus Features
 * [ ] Add a payment form integrating with Stripe that allows Users to buy a "Premium" version of LambdaNotes.
