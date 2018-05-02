@@ -8,6 +8,9 @@ const Note = mongoose.Schema({
   },
   text:{
     type:String
+  },
+  username:{
+    type:String
   }
 });
 

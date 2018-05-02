@@ -8,7 +8,8 @@ const router = express.Router();
 router
 .route('/')
 .get( (req,res)=>{
-  Note.find({})
+  Note.find({username:req.user.username})
+  .populate('user')
   .then(response=>{
     res.status(200).send(response);
   })

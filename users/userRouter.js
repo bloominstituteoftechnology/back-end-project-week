@@ -19,10 +19,12 @@ router
 })
 .post( (req,res) => {
   const newUser = new User(req.body);
+  newUser.password = bcrypt.hashSync(req.body.password,10);
   newUser
   .save()
   .then(response=>{
-    res.status(200).json(response);
+    user.password = undefined;
+    res.status(200).json(user);
   })
   .catch(err=>{
     res.status(500).json(err);
