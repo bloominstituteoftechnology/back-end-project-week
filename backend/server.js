@@ -17,7 +17,7 @@ server.use(cors());
 const url = process.env.MONGOLAB_URI;
 
 
-mongoose.connect('mongodb://myman:man@ds163769.mlab.com:63769/heroku_rghr6r91', {}, err => {
+mongoose.connect('mongodb://dude:bro@ds151153.mlab.com:51153/heroku_srq65m10', {}, err => {
     if(err) return console.log(err);
     console.log('Mango Up Bruh');
 })
