@@ -23,11 +23,7 @@ const userSchema = new mongoose.Schema ({
         type: String,
         required: true,
     },
-    firstName: {
-        type: String,
-        required: true,
-    },
-    lastName: {
+    name: {
         type: String,
         required: true,
     },
@@ -59,6 +55,10 @@ userSchema.methods.checkPassword = function(passwordGuess, callBack) {
         } 
             callBack(null, isValid);
     })
+};
+
+userSchema.methods.createNote = function (note_id) {
+    this.note.push(note_id);
 };
 
 const userModel = mongoose.model('User', userSchema);

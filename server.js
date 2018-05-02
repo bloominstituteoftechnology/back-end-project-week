@@ -1,6 +1,7 @@
 const express = require('express');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
+const session = require('express-session');
 const cors = require('cors');
 
 const routes = require('./routes/appRoutes');
@@ -12,11 +13,22 @@ mongoose
 
 
 const server = express();
-const connectFrontEnd = {};
+
+const connectFrontEnd = {
+    credentials: true,
+};
 
 server.use(helmet());
 server.use(express.json());
-server.use(cors());
+server.use(cors(connectFrontEnd));
+
+server.use(
+    session({
+        secret: "minetotell",
+        resave: true,
+        saveUninitialized: true,
+    })
+);
 
 routes(server);
 

@@ -1,40 +1,67 @@
 const Note = require('../models/noteModel');
+const User = require('../models/userModel');
 
-const noteList = (req, res) => {
+const viewNoteAccount = (req, res) => {
 
-    Note
-        .find()
-        .then(notesList => {
-            res.status(200).json(notesList);
-        })
-        .catch(err => {
-            res.status(500).json({ errMsg: "Could not retrieve notes" });
-        })
-}
-
-const singleNoteView = (req, res) => {
-
-    Note
+    User
         .findById(req.params.id)
-        .then(notes => {
-            res.status(200).json(notes);
+        .populate('notes')
+        .then(user => {
+            if (!user) {
+                res.status(404).json({ errMsg: "User Not Found" });
+            } else {
+                res.status(200).json(user);
+            }
+
         })
-        .catch(err => {
-            res.status(500).json({ errMsg: "Could not retrieve note" });
-        })
-}
+    }
+
 
 const createNote = (req, res) => {
     const { title, content } = req.body;
-    const note = new Note({ title, content });
+    const noteEntry = new Note(req.body);
 
-    note
-        .create()
-        .then(newNote => {
-            res.status(201).redirect(newNote)
+    if( !title && !content ) {
+        res.status(400).json({ errMsg: "Please enter a title and description." });
+    } else {
+
+        User 
+
+            .findById(req.params.id)
+            .then(user => {
+                if ( !user ) {
+                    res.status(404).json({ errMsg: "User Not Found." });
+                } else {
+
+                    noteEntry
+                        .save()
+                        .then(newNote => {
+                            res.status(201).json(newNote);
+                        })
+                        .catch(err => {
+                            res.status(500).json({ errMsg: "Note Not Saved" });
+                        })
+                }
+            })
+            .catch(err => {
+                res.status(500).json({ errMsg: "Error finding User" });
+            })
+    }
+}
+
+const fetchNote = (req, res) => {
+
+    Note
+        .findById(req.params.id)
+        .then(noteEntry => {
+            if (!req.params.id) {
+                res.status(404).json({ errMsg: "Note Entry Not Found" });
+            } else {
+                res.status(200).json(noteEntry);
+            }
         })
         .catch(err => {
-            res.status(500).json({ errMsg: "Error creating new note." });
+            res.status(500).json({ errMsg: "There was an error with the server" });
         })
 }
 
@@ -42,30 +69,34 @@ const updateNote = (req, res) => {
     const { title, content } = req.body;
 
     Note 
-        .findByIdAndUpdate(req.params.id, (err, updatedNote) => {
-            if (err || Note === null) {
-                res.status(500).json({ errMsg: 'Error retreiving selected note' })
+        .findByIdAndUpdate(req.params.note, req.body) 
+        .then(updatedNote => {
+            if( !note ) {
+                res.status(404).json({ errMsg: "Note Entry Not Found" });
             } else {
-                res.status(200).json(updatedNote);     
+                res.status(200).json(updatedNote);
             }
+        })
+        .catch(err => {
+            res.status(500).json({ errMsg: "There was an issue with the server" });
         })
 }
 
 const deleteNote = (req, res) => {
     
     Note
-        findByIdAndRemove(req.params.id, (err, deletedNote) => {
+        findByIdAndRemove(req.params.note, (err, deletedNote) => {
             if (err) {
                 res.status(500).json(err);
             }
-                res.status(200).redirect('/:id/notes');
+                res.status(200).json({ errMsg: "Note Entry Successfully Deleted" });
         })
 }
 
 module.exports = {
-    noteList,
-    singleNoteView,
     createNote,
+    fetchNote,
     updateNote,
     deleteNote,
+    viewNoteAccount,
 };

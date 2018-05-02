@@ -1,7 +1,14 @@
 const mongoose = require('mongoose');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
+const User = require('./userModel');
 
 const noteSchema = new mongoose.Schema ({
+    user_id: [{
+        type: ObjectId,
+        ref: "User",
+        required: true,
+    }],
     title: {
         type: String,
         required: true,
@@ -15,7 +22,8 @@ const noteSchema = new mongoose.Schema ({
     },
     updated_On: {
         type: Date,
-    }
+    },
+
 })
 
 noteSchema.pre('save', function(next) {
@@ -29,3 +37,5 @@ noteSchema.pre('save', function(next) {
 })
 
 const noteModel = mongoose.model('Note', noteSchema);
+
+module.exports = noteModel;
