@@ -1,3 +1,4 @@
+const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
@@ -8,6 +9,11 @@ const noteRouter = require('./notes/noteRouter.js');
 const userRouter = require('./users/userRouter.js');
 const User = require('./users/User.js');
 const secret = process.env.secret;
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials:true
+};
+server.use(cors(corsOptions));
 mongoose.connect(process.env.URI);
 let db = mongoose.connection;
 db.on('error',console.error.bind(console,'connection error:'));
@@ -21,14 +27,14 @@ const login = (req,res) => {
   const {username, password} = req.body;
   User.findOne({username}, (err, user)=>{
     if(err || user === null){
-      res.status(500).json({error:"Invalid username / password"});
+      res.status(400).json({error:"Invalid username / password"});
       return;
     }
     if(user.comparePassword(password)){
       res.status(200).json({token:jwt.sign({username:user.username,_id:user._id},'RESTFULAPIs')});
     }
     else{
-      res.status(500).send('failure');
+      res.status(400).json({error:"Invalid username / password"});
     }
   });
 };
