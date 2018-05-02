@@ -10,9 +10,8 @@ const noteSchema = new mongoose.Schema({
     type: String,
   },
   author: {
-    type: ObjectId,
+    type: String,
     required: true,
-    unique: true,
   },
 });
 
