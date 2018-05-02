@@ -112,6 +112,17 @@ router
   res.json({ token: makeToken(req.user), user: req.user });
 });
 
+router
+.route('/api/notes', protected)
+.get((req, res) => {
+  User.find({ notes: 'notes' }).select('-password').then(notes => {
+      res.json(notes)
+  })
+  .catch(err => {
+      res.status(500).json(err);
+  });
+});
+
   router
   .route('/:id')
   .get((req, res) => {
