@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const authenticate = require("../utilities/JWT");
+
 const User = require("./userModel.js");
 
 router
@@ -23,7 +25,7 @@ router
     });
   });
 
-router.route("/login").post((req, res) => {
+router.route("/login").post(authenticate, (req, res) => {
   const { username, password } = req.body;
   if (username && password) {
     User.findOne({ username }).then(user => {
