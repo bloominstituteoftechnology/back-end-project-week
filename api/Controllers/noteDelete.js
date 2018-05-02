@@ -6,7 +6,7 @@ const noteDelete = (req, res) => {
     .then(resposne => {
       res
         .status(200)
-        .json({ Message: `Note successfully deleted: ${respomse}` });
+        .json({ Message: `Note successfully deleted: ${response}` });
     })
     .catch(err => {
       res.status(500).json({ Error: `Unable to delete note: ${err}` });
