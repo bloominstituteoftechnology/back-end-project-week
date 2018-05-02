@@ -24,9 +24,14 @@ router.post('/', authenticate, (req, res) => {
   //   });
   // }
   const { _id, username, notes } = req.user;
-  const user = { _id, username };
-  const token = makeToken(user);
-  res.json({ token, user: req.user });
+  const tknUser = { _id, username };
+  const token = makeToken(tknUser);
+  User.findById(_id)
+    .select('-password')
+    .populate('notes')
+    .then(user => {
+      res.json({ token, user });
+    });
 });
 
 module.exports = router;
