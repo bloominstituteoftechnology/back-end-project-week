@@ -18,5 +18,4 @@ module.exports = server => {
     server.put("/users/:id/changepassword", getUserController.changePassword);
 
     server.route("/users/login").post(getUserController.login);
-    server.route("/users/logout").post(getUserController.logout);
 };

@@ -103,12 +103,10 @@ UserSchema.pre("update", function(next) {
 });
 
 UserSchema.methods.checkPassword = function(plainTextPW, callback) {
-    // refactor this!!!!!
-    bcrypt.compare(plainTextPW, this.password, function(err, isValid) {
-        if (err || isValid === false) {
+    bcrypt.compare(plainTextPW, this.passwordHash, function(err, isValid) {
+        if (err) {
             return callback(err);
         }
-
         callback(null, isValid);
     });
 };
@@ -116,5 +114,3 @@ UserSchema.methods.checkPassword = function(plainTextPW, callback) {
 const User = mongoose.model("User", UserSchema);
 
 module.exports = User;
-
-// module.exports = mongoose.model("User", UserSchema);

@@ -2,9 +2,8 @@ const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 
 const User = require("./userModel");
-// var User = mongoose.model("User");
-
 const config = require("../api/config.js");
+const { makeToken } = require("../api/utils/middleware");
 
 const getUsers = (req, res) => {
     User.find({})
@@ -109,13 +108,44 @@ const changePassword = (req, res) => {
         });
 };
 
-const logout = (req, res) => {
-    res.json({ msg: "connected" });
-};
-
-// bring in dependencies
 const login = (req, res) => {
-    res.json({ msg: "connected" });
+    const { username, password } = req.body;
+
+    if (username === undefined || password === undefined) {
+        return res.status(400).json({ errorMessage: "provide username and password" });
+    }
+
+    User.findOne({ username })
+        .then(loginUser => {
+            if (loginUser === null) {
+                res.status(404).json({ errorMessage: "Can not find that user!" });
+                return;
+            }
+            // found user now attempt to login
+            loginUser.checkPassword(password, function(err, isValid) {
+                if (err) {
+                    res.status(500);
+                    return config.env === "development" ? res.json(err) : res.json({ errorMessage: "Encountered a login error" });
+                }
+                if (isValid) {
+                    const token = makeToken(loginUser);
+                    const userInfo = { username: loginUser.username, id: loginUser._id, token };
+                    return res.status(200).json(userInfo);
+                }
+                res.status(422).json({ errorMsg: "login incorrect" });
+            });
+        })
+
+        .catch(err => {
+            // only show errors if in development, otherwise, show generic error!!
+            if (config.env === "development") {
+                return res.status(500).json(err);
+            } else {
+                return res.status(500).json({
+                    errorMessage: "Encountered an error problem when logging in the user!",
+                });
+            }
+        });
 };
 
 const editUser = (req, res) => {
@@ -195,7 +225,6 @@ module.exports = {
     createUser,
     changePassword,
     login,
-    logout,
     editUser,
     deleteUser,
 };
