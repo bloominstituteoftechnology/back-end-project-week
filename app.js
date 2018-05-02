@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const server = require('./server');
-const PORT = process.env.PORT || 5000;
-const express = require('express');
+const port = process.env.PORT || 5000;
+//const express = require('express');
 
 mongoose.connect('mongodb://localhost/backEnd', {}, err => {
     if(err) return console.log(err);
