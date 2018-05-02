@@ -12,7 +12,7 @@ server.use(helmet());
 server.use(morgan());
 
 mongoose
-.connect('mongodb://localhost/back-end')
+.connect('mongodb://<dbuser>:<dbpassword>@ds111430.mlab.com:11430/localhost5000')
 .then(cnn => {
     console.log('\n=== connected to mongo ===\n');
 })
