@@ -67,16 +67,6 @@ const authenticate = passport.authenticate("local", {
   session: false,
   failureFlash: true
 });
-function protected() {
-  return (req, res, next) => {
-    passport.authenticate("jwt", { session: false }, (err, payload, info) => {
-      if (err || info) {
-        return next(new Error("Token is wrong or nonexistent, bro."));
-      } else {
-        next();
-      }
-    })(req, res, next);
-  };
-}
+const protected = passport.authenticate("jwt", { session: false });
 
 module.exports = { makeToken, authenticate, protected };
