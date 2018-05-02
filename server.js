@@ -88,7 +88,16 @@ server.post('/', (req, res) => {
 server.delete('/:id', (req, res) => {
   Note
     .findByIdAndRemove(req.params.id)
-    .then(friend => {
+    .then(() => {
+      Note.find()
+      then(notes => {
+        res
+          .json(notes)
+      })
+        .catch(erro => {
+          res
+            .json('error: refreshing notes failed');
+        });
       res.status(200);
     })
     .catch(error => {
