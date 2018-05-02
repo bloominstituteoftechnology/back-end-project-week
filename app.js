@@ -8,10 +8,10 @@ mongoose.connect('mongodb://localhost/backEnd', {}, err => {
     console.log('Connected to Mongo');
 });
 
-// server.listen(port, err => {
-//     if(err) console.log(err);
-//     console.log(`Server running on ${port}`)
-// })
+server.listen(port, err => {
+    if(err) console.log(err);
+    console.log(`Server running on ${port}`)
+})
 
-express()
-    .listen(PORT, () => console.log(`Listening on ${PORT}`))
+// express()
+//     .listen(PORT, () => console.log(`Listening on ${PORT}`))
