@@ -20,12 +20,16 @@ server.use(cors());
 
 routes(server);
 
-// server
-//     .get('/', (req, res) => {
-//         res.status(200).json({ api: '\n=== Connected to Server... ===\n'});
-//     });
+server
+    .get('/', (req, res) => {
+        res.status(200).json({ api: '\n=== Connected to Server... ===\n'});
+    });
 
 const port = process.env.PORT || 5000;
 server.listen(port, () => {
     console.log('Server Connected')
 });
+
+module.exports = {
+    server
+};

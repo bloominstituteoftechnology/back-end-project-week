@@ -8,7 +8,7 @@ const userRegistration = (req, res) => {
     user
         .save()
         .then(newUser => {
-            res.status(201).json(newUsers);
+            res.status(201).json(newUser);
         })
         .catch(err => {
             res.status(500).json({ errMsg: "Could not create user account." });
@@ -18,12 +18,26 @@ const userRegistration = (req, res) => {
 const getUsers = (req, res) => {
 
     User
-        .find()
+        .find({})
+        .populate('notes')
         .then(users => {
             res.status(200).json(users);
         })
         .catch(err => {
             res.status(500).json({ errMsg: 'Could not retrieve users' });
+        })
+
+}
+
+const findOneUser = (req, res) => {
+
+    User
+        .findById(req.params.id)
+        .then(user => {
+            res.status(200).json(user);
+        })
+        .catch(err => {
+            res.status(500).json(err);
         })
 
 }
@@ -50,14 +64,16 @@ const retrieveUserNotes = (req, res) => {
 }
 
 const updateUser = (req, res) => {
+    const { id } = req.params;
+    const update = (req.body);
 
     User 
-        .findByIdAndUpdate(req.params.id, (err, updatedUser) => {
-            if (err || User === null) {
-                res.status(500).json({ errMsg: 'Error retreiving selected note' })
-            } else {
-                res.status(200).json(updatedNote);     
-            }
+        .findByIdAndUpdate(id, update, {new:true})
+        .then(updatedUsers => {
+            res.status(200).json(updatedUsers)
+        })
+        .catch(err => {
+            res.status(500).json(err);
         })
 }
 
@@ -75,6 +91,7 @@ const deleteUser = (req, res) => {
 module.exports = {
     userRegistration,
     getUsers,
+    findOneUser,
     retrieveUserNotes,
     updateUser,
     deleteUser,
