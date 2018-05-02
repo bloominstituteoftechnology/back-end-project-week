@@ -8,6 +8,8 @@ const mongoose =require('mongoose');
 
 const userModel= require('./userModel')
 const userRouter = require('./userRouter');
+const noteModel = require('./noteModel');
+const noteRouter = require('./noteRouter');
 
 mongoose.connect('process.env.MONGO_URI')
 
@@ -22,9 +24,10 @@ const server = express();
 server.use(morgan('dev'));
 server.use(helmet());
 server.use(express.json());
-server.use('/api/users', userRouter);
+server.use('/api/user', userRouter);
+server.use('/api/note', noteRouter);
 
-server.get('/api/users',  (req, res) => {
+server.get('/api/user',  (req, res) => {
   res.send({api: 'running...' });
  });
 
