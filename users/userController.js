@@ -1,6 +1,9 @@
 const bcrypt = require("bcrypt");
+const mongoose = require("mongoose");
 
-const User = require("./UserModel");
+const User = require("./userModel");
+// var User = mongoose.model("User");
+
 const config = require("../api/config.js");
 
 const getUsers = (req, res) => {
@@ -9,9 +12,7 @@ const getUsers = (req, res) => {
             if (users) {
                 res.status(200).json(users);
             } else {
-                res
-                    .status(404)
-                    .json({ errorMessage: "Can not find any users!" });
+                res.status(404).json({ errorMessage: "Can not find any users!" });
             }
         })
         .catch(err => {
@@ -20,8 +21,7 @@ const getUsers = (req, res) => {
                 return res.status(500).json(err);
             } else {
                 return res.status(500).json({
-                    errorMessage:
-                        "Encountered an error problem when finding users!",
+                    errorMessage: "Encountered an error problem when finding users!",
                 });
             }
         });
@@ -33,9 +33,7 @@ const getUserById = (req, res) => {
             if (foundUser) {
                 res.status(200).json(foundUser);
             } else {
-                res
-                    .status(404)
-                    .json({ errorMessage: "Can not find that user!" });
+                res.status(404).json({ errorMessage: "Can not find that user!" });
             }
         })
         .catch(err => {
@@ -44,8 +42,7 @@ const getUserById = (req, res) => {
                 return res.status(500).json(err);
             } else {
                 return res.status(500).json({
-                    errorMessage:
-                        "Encountered an error problem when finding the user!",
+                    errorMessage: "Encountered an error problem when finding the user!",
                 });
             }
         });
@@ -56,14 +53,10 @@ const createUser = (req, res) => {
     const { username, password: passwordHash, firstname, lastname } = req.body;
 
     if (username === undefined || passwordHash === undefined) {
-        return res
-            .status(400)
-            .json({ errorMessage: " username and password are required" });
+        return res.status(400).json({ errorMessage: " username and password are required" });
     }
     if (firstname === undefined || lastname === undefined) {
-        return res
-            .status(400)
-            .json({ errorMessage: " firstname and lastname are required" });
+        return res.status(400).json({ errorMessage: " firstname and lastname are required" });
     }
 
     const userInfo = Object.assign(req.body, { passwordHash });
@@ -87,8 +80,6 @@ const createUser = (req, res) => {
         });
 };
 
-const login = (req, res) => {};
-
 const changePassword = (req, res) => {
     const { password: passwordHash, id } = req.body;
 
@@ -97,20 +88,14 @@ const changePassword = (req, res) => {
     }
 
     if (passwordHash === undefined) {
-        return res
-            .status(400)
-            .json({ errorMessage: "please provide a password" });
+        return res.status(400).json({ errorMessage: "please provide a password" });
     }
 
     User.findById(id)
         .then(userToChangePassword => {
-            User.update(
-                { _id: id },
-                { $set: { passwordHash: passwordHash } },
-                () => {
-                    res.status(201).json({ message: "Password was updated" });
-                },
-            );
+            User.update({ _id: id }, { $set: { passwordHash: passwordHash } }, () => {
+                res.status(201).json({ message: "Password was updated" });
+            });
         })
         .catch(err => {
             // only show errors if in development, otherwise, show generic error!!
@@ -124,23 +109,26 @@ const changePassword = (req, res) => {
         });
 };
 
-const logout = (req, res) => {};
+const logout = (req, res) => {
+    res.json({ msg: "connected" });
+};
+
+// bring in dependencies
+const login = (req, res) => {
+    res.json({ msg: "connected" });
+};
 
 const editUser = (req, res) => {
     // destructure properties to check if attempting to change username and also changing password
     const { username, password } = req.body;
 
     if (username !== undefined) {
-        return res
-            .status(400)
-            .json({ errorMessage: "username can not be changed!" });
+        return res.status(400).json({ errorMessage: "username can not be changed!" });
     }
 
     // check if password is being changed
     if (password !== undefined) {
-        return res
-            .status(400)
-            .json({ errorMessage: "password can not be changed here!" });
+        return res.status(400).json({ errorMessage: "password can not be changed here!" });
         // userInfo = Object.assign(req.body, { passwordHash: userInfo.password });
     }
 
@@ -161,8 +149,7 @@ const editUser = (req, res) => {
                             return res.status(500).json(err);
                         } else {
                             return res.status(500).json({
-                                errorMessage:
-                                    "Encountered an update error problem!",
+                                errorMessage: "Encountered an update error problem!",
                             });
                         }
                     });
@@ -187,9 +174,7 @@ const deleteUser = (req, res) => {
             if (deletedUser) {
                 res.status(200).json(deletedUser);
             } else {
-                res
-                    .status(404)
-                    .json({ errorMessage: "Can not delete that user!" });
+                res.status(404).json({ errorMessage: "Can not delete that user!" });
             }
         })
         .catch(err => {
@@ -198,8 +183,7 @@ const deleteUser = (req, res) => {
                 return res.status(500).json(err);
             } else {
                 return res.status(500).json({
-                    errorMessage:
-                        "Encountered an error problem when deleting the user!",
+                    errorMessage: "Encountered an error problem when deleting the user!",
                 });
             }
         });

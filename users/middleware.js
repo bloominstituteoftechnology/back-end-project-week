@@ -1,0 +1,34 @@
+const jwt = require("jsonwebtoken");
+
+const User = require("./userModels");
+const config = require("../api/config");
+
+const makeToken = () => {
+    console.log("making token");
+};
+const authenticate = (req, res, next) => {
+    console.log("auth");
+
+    // const token = req.get("Authorization");
+    // if (token) {
+    //     jwt.verify(token, mysecret, (err, decoded) => {
+    //         if (err) return res.status(422).json(err);
+    //         req.decoded = decoded;
+    //         next();
+    //     });
+    // } else {
+    //     return res.status(403).json({
+    //         error: "No token provided, must be set on the Authorization Header",
+    //     });
+    // }
+};
+
+const authenticated = (req, res, next) => {
+    console.log("authed");
+};
+
+module.exports = {
+    makeToken,
+    authenticate,
+    authenticated,
+};
