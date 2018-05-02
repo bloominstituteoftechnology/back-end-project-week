@@ -6,6 +6,10 @@ const router = express.Router();
 
 router
   .route('/')
+  .get((req, res) => {
+    if (!req.session.auth) res.status(422).json('not allowed');
+    if (req.session.auth) res.status(200).json({_id: req.session._id});
+  })
   .post((req, res) => {
     if (!(req.body.username && req.body.password)) {
       res.status(422).json({ error: 'provide username and password' });
@@ -40,6 +44,13 @@ router
         })
         .catch(error => res.status(500).json(error));
     }
+  })
+
+  router
+  .route('/logout')
+  .post((req, res) => {
+    req.session.regenerate(err => res.json(err));
+    res.status(200).json('logged out');
   })
 
   module.exports = router;
