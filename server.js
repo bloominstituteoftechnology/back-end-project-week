@@ -90,10 +90,10 @@ server.delete('/:id', (req, res) => {
     .findByIdAndRemove(req.params.id)
     .then(() => {
       Note.find()
-      then(notes => {
-        res
-          .json(notes)
-      })
+        .then(notes => {
+          res
+            .json(notes)
+        })
         .catch(erro => {
           res
             .json('error: refreshing notes failed');
