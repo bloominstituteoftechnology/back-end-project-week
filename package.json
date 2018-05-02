@@ -1,53 +1,41 @@
 {
-  "name": "node-js-getting-started",
-  "version": "0.3.0",
-  "description": "A sample Node.js app using Express 4",
-  "engines": {
-    "node": "8.9.1"
-  },
-  "main": "server.js",
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "This week you will be building a backend for a note taking app called \"Lambda Notes.\"",
+  "main": "index.js",
+  "keywords": [],
   "scripts": {
-    "start": "nodemon server.js",
-    "test": "node test.js",
-    "build": "webpack"
+    "start": "nodemon sever.js"
+  },
+  "engines": {
+    "node": "8.9.4"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.17.3"
   },
   "dependencies": {
-    "axios": "^0.18.0",
-    "bcrypt": "^2.0.1",
+    "bcrypt": "^2.0.0",
     "body-parser": "^1.18.2",
-    "bootstrap": "^4.1.1",
-    "build": "^0.1.4",
-    "ejs": "^2.5.6",
+    "cors": "^2.8.4",
+    "dotenv": "^5.0.1",
     "express": "^4.16.3",
-    "express-session": "^1.15.6",
-    "heroku": "^7.0.17",
-    "mongoose": "^5.0.16",
-    "nodemon": "^1.17.3",
-    "pg": "^7.4.1",
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2",
-    "react-markdown": "^3.3.0",
-    "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2",
-    "react-scripts": "^1.1.4",
-    "react-sortable-hoc": "^0.6.8",
-    "reactstrap": "^5.0.0",
-    "session": "^0.1.0",
-    "webpack": "^4.6.0"
-  },
-  "devDependencies": {
-    "request": "^2.81.0",
-    "tape": "^4.7.0",
-    "webpack-cli": "^2.1.2"
+    "helmet": "^3.12.0",
+    "jsonwebtoken": "^8.2.1",
+    "mongodb": "^3.0.7",
+    "mongoose": "^5.0.15",
+    "morgan": "^1.9.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
+    "url": "git+https://github.com/csstone12/back-end-project-week.git"
   },
-  "keywords": [
-    "node",
-    "heroku",
-    "express"
-  ],
-  "license": "MIT"
+  "bugs": {
+    "url": "https://github.com/csstone12/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/csstone12/back-end-project-week#readme"
 }
