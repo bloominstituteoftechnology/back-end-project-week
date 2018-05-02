@@ -10,6 +10,7 @@ const noteAdd = (req, res) => {
     User.findOne({ username: req.body.username })
       .then(user => {
         id = user._id;
+        console.log(`===USER ID: ===`, id);
       })
       .catch(err => {
         res.json({ Error: `Unable to find user ${err}` });
