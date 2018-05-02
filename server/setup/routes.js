@@ -49,6 +49,13 @@ const localStrategy = new LocalStrategy(function(username, password, done) {
   });
 });
 
+// use strategies
+passport.use(localStrategy);
+// https://www.npmjs.com/package/passport
+
+//generate passport middleware
+const authenticate = passport.authenticate('local', { sessions: false });
+
 module.exports = function(server) {
   server.get('/', function(req, res) {
     res.send({ api: 'up and running' });
@@ -65,5 +72,7 @@ module.exports = function(server) {
     });
   });
 
-  server.post('/api/login', (req, res) => {});
+  server.post('/api/login', authenticate, (req, res) => {
+    res.json({ token: makeToken(req.user), user: req.user });
+  });
 };

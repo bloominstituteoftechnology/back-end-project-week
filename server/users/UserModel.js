@@ -33,7 +33,7 @@ userSchema.methods.verifyPassword = function(guess, callback) {
     if (err) {
       return callback(err);
     }
-    callbacl(null, isValid);
+    callback(null, isValid);
   });
 };
 module.exports = mongoose.model('User', userSchema, 'users');
