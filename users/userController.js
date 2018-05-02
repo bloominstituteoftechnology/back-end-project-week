@@ -27,8 +27,11 @@ router.route("/login").post((req, res) => {
   const { username, password } = req.body;
   if (username && password) {
     User.findOne({ username }).then(user => {
-      user.verifyPassword(password, response => {
-        if (response) {
+      user.verifyPassword(password, (err, isValid) => {
+        if (err) {
+          res.status(500).json(err);
+        }
+        if (isValid) {
           res.status(200).json({ success: true, user });
         } else {
           res.status(400).json({ success: false });
