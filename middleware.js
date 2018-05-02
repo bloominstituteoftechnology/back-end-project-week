@@ -7,5 +7,5 @@ module.exports = function(server) {
   server.use(helmet());
   server.use(morgan('combined'));
   server.use(express.json());
-  server.use(cors());
+  server.use(cors({ origin: '*' }));
 };
