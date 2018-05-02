@@ -21,7 +21,7 @@ mongoose
 })
 
 server.get('/', function (req,res){
-    res.send({api: 'up and running'});
+    res.send({api: 'up'});
 });
 
 server.listen(5000, () => console.log('\n=== API on port 5k ===\n'));
