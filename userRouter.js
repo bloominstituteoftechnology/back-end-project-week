@@ -17,7 +17,7 @@ router
   .post( (req, res) => {
     const user = new User(req.body);
 
-    bear
+    user
     .save().then(savedUser=>{
       res.status(201).json(savedUser);
     })
