@@ -52,6 +52,7 @@ const userSchema = new mongoose.Schema({
     required: true
   }
 });
+
 const User = mongoose.model('user', userSchema);
 
 server.get('/', (req, res) => {
@@ -83,6 +84,17 @@ server.post('/', (req, res) => {
         .json('error: data could not saved to DB');
     });
 });
+
+server.delete('/:id', (req, res) => {
+  Note
+    .findByIdAndRemove(req.params.id)
+    .then(friend => {
+      res.status(200);
+    })
+    .catch(error => {
+      res.status(500).json({ error: 'could not delete the note' });
+    });
+})
 
 server.post('/users', (req, res) => {
   const newUser = new User(req.body);
