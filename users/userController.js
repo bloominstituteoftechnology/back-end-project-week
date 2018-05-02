@@ -74,8 +74,12 @@ router
 
 router
   .post('/login', authenticate, (req, res) => {
-    // res.json({ token: makeToken(req.user), user: req.user });
-    res.json({ success: 'Login successful!' });
+    res.json({ token: makeToken(req.user), user: req.user });
+  });
+
+router
+  .get('/profile', protected, (req, res) => {
+    res.json({ user: req.user });
   });
 
 function makeToken(user) {
