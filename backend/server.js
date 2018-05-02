@@ -30,7 +30,7 @@ server.get('/', (req, res) => {
 
 
 
-server.get('/notes', (req, res) => {
+server.get('/', (req, res) => {
     Note
     .find({})
     .then(notes => {
@@ -41,7 +41,7 @@ server.get('/notes', (req, res) => {
     })
 })
 
-server.post('/notes/new', (req, res) => {
+server.post('/new', (req, res) => {
     const { title, content } = req.body;
     const newNote = new Note({ title, content });
 
@@ -55,7 +55,7 @@ server.post('/notes/new', (req, res) => {
     });
 })
 
-server.put('/notes/:_id', (req, res) => {
+server.put('/:_id', (req, res) => {
     // const { _id, title, content } = req.body;
     // const id = { _id };
     // if(!id) {
@@ -88,7 +88,7 @@ server.put('/notes/:_id', (req, res) => {
 });
 
 
-server.delete('/notes/:_id', (req, res) => {
+server.delete('/:_id', (req, res) => {
     Note.findByIdAndRemove(req.params._id)
     .then(() => {
         res.status(200).json({status: 'Note Deleted'})
@@ -100,7 +100,7 @@ server.delete('/notes/:_id', (req, res) => {
 
 // New User Routes //
 
-server.get('/notes/users', (req, res) => {
+server.get('/users', (req, res) => {
     User
     .find({})
     .then(users => {
@@ -111,7 +111,7 @@ server.get('/notes/users', (req, res) => {
     })
 })
 
-server.post('/notes/register', (req, res) => {
+server.post('/register', (req, res) => {
     const { username, password } = req.body;
     const newUser = new User({ username, password });
 
