@@ -84,4 +84,8 @@ module.exports = function(server) {
       })
       .catch(err => res.status(500).json({ err: err.message }));
   });
+
+  server.post('/login', authenticate, (req, res) => {
+    res.json({ token: makeToken(req.user), user: req.user });
+  })
 };
