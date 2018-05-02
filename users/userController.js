@@ -99,6 +99,8 @@ router.get(
   protected('please login before proceeding'),
   checkPass('lambdafriends'),
   (req, res) => {
+    console.log(req.session);
+
     res.send({ greeting: `welcome back ${req.session.name}` });
   }
 );

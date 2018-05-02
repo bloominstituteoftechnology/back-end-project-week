@@ -17,7 +17,7 @@ const userController = require('./users/userController');
 const server = express();
 
 server.use(helmet());
-server.use(morgan('combined'));
+server.use(morgan('dev'));
 server.use(cors());
 server.use(express.json());
 

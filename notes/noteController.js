@@ -1,6 +1,26 @@
 const router = require('express').Router();
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 const Note = require('./noteModel');
+const User = require('../users/userModel');
+
+const path = process.env.MONGOLAB_URI || 'mongodb://localhost/notes';
+
+router.use(
+  session({
+    name: 'auth',
+    secret: 'you shall not pass!!',
+    resave: true,
+    saveUninitialized: false,
+    cookie: { maxAge: 1 * 24 * 60 * 60 * 1000 },
+    secure: false,
+    store: new MongoStore({
+      url: path,
+      ttl: 10 * 60
+    })
+  })
+);
 
 router
   .route('/')
@@ -20,9 +40,9 @@ router
 
   // Create Note
   .post((req, res) => {
-    const note = new Note(req.body);
     const { title, content } = req.body;
-
+    const note = new Note({ title, content });
+    console.log(note);
     if (!title || !content) {
       res.status(400).json({
         errorMessage: 'Please provide title and content for the note.'
@@ -31,10 +51,35 @@ router
     note
       .save()
       .then(savedNote => {
-        res.status(201).json({ savedNote });
+        console.log(req.session.name);
+        User.find({ username: req.session.name })
+          .then(user => {
+            user[0].notes.push(savedNote);
+            user[0]
+              .save()
+              .then(user => {
+                res.status(201).json({
+                  message:
+                    'The user was saved to the db and the note was added.'
+                });
+              })
+              .catch(err => {
+                res
+                  .status(500)
+                  .json({ errorMessage: 'The user could not be saved.' });
+              });
+          })
+          .catch(err => {
+            res
+              .status(500)
+              .json({ errorMessage: 'There was an error finding the user' });
+          });
       })
       .catch(err => {
-        res.status(500).json(err);
+        res.status(500).json({
+          errorMessage: 'There was an error saving the note.',
+          error: err
+        });
       });
   });
 
