@@ -13,4 +13,7 @@ module.exports = function(server) {
             res.status(201).json(inserted);
         });
     });
+
+    server.
+
 };

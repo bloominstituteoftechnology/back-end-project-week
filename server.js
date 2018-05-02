@@ -6,6 +6,11 @@ const morgan = require('morgan');
 
 const server = express();
 
+server.use(cors());
+server.use(express());
+server.use(helmet());
+server.use(morgan());
+
 mongoose
 .connect('mongodb://localhost/back-end')
 .then(cnn => {

@@ -89,3 +89,14 @@ Once your MVP has been approved, you have been given a feature list that the cli
 You will notice that this repository does not have any starter code.  This is on purpose.  You are to start from scratch using any files you have built throughout your time here at Lambda School.
 
 https://trello.com/b/f0nFr8Ou/backend-project-omoniyi-alimi
+
+
+Update
+posting one note
+get all notes
+get one notes
+sign up 
+sign in 
+sign out 
+delete
+create 
