@@ -12,7 +12,7 @@ function makeToken(user) {
   const timestamp = new Date().getTime();
   const payload = {
     sub: user._id,
-    username: user.username,
+    email: user.email,
     iat: timestamp
   };
 
@@ -20,8 +20,8 @@ function makeToken(user) {
   return jwt.sign(payload, secret, options);
 }
 
-const localStrategy = new LocalStrategy(function(username, password, done) {
-  User.findOne({ username }, function(err, user) {
+const localStrategy = new LocalStrategy(function(email, password, done) {
+  User.findOne({ email }, function(err, user) {
     if (err) {
       done(err);
     }
@@ -31,13 +31,13 @@ const localStrategy = new LocalStrategy(function(username, password, done) {
     }
 
     user.verifyPassword(password, function(err, isValid) {
-     console.log(password)
+      console.log(password);
       if (err) {
         return done(err);
       }
       if (isValid) {
-        const { _id, username } = user;
-        return done(null, { _id, username });
+        const { _id, email } = user;
+        return done(null, { _id, email });
       }
       return done(null, false);
     });
@@ -51,7 +51,7 @@ const jwtOptions = {
 
 const jwtStrategy = new JwtStrategy(jwtOptions, function(payload, done) {
   User.findById(payload.sub)
-    .select('username race')
+    .select('email')
     .then(user => {
       if (user) {
         done(null, user);
@@ -85,7 +85,7 @@ module.exports = function(server) {
   });
 
   server.post('/api/login', authenticate, function(req, res) {
-    console.log(req.user);
+      console.log('REQ.USER:', req.user)
     res.json({ token: makeToken(req.user), user: req.user });
   });
 };
