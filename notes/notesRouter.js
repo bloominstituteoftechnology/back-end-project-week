@@ -8,7 +8,6 @@ const router = express.Router();
 router
   .route('/:user')
   .get((req, res) => {
-    //if auth
     User.findById(req.params.user)
       .populate('notes')
       .then(user => {

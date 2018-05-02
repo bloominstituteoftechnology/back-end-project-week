@@ -7,8 +7,8 @@ const router = express.Router();
 router
   .route('/')
   .get((req, res) => {
-    if (!req.session.auth) res.status(422).json('not allowed');
-    if (req.session.auth) res.status(200).json({_id: req.session._id});
+    if (!req.session.auth) res.status(422).json('not logged in');
+    if (req.session._id) res.status(200).json({success: true, _id: req.session._id});
   })
   .post((req, res) => {
     if (!(req.body.username && req.body.password)) {
@@ -18,7 +18,11 @@ router
         username: req.body.username.toLowerCase(),
         password: req.body.password
       })
-        .then(saved => res.status(201).json(saved))
+        .then(saved => {
+          req.session.auth = true;
+          req.session._id = saved._id;
+          res.status(201).json(saved)
+        })
         .catch(error => res.status(500).json(error));
     }
   })
@@ -36,10 +40,11 @@ router
               .isPasswordValid(req.body.password)
               .then((response) => {
                 if (response) {
-                  res.status(200).json({ success: true });
-                } else res.status(422).json({ success: false });
+                  req.session.auth = true;
+                  req.session._id = user._id;
+                  res.status(200).json({ success: true, user: user });
+                } else res.status(422).json({ success: false, message: "Invalid Password"});
               })
-              .catch(error => res.status(422).json({ success: false }));
           } else res.status(404).json('user not found');
         })
         .catch(error => res.status(500).json(error));
