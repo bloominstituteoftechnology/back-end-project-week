@@ -6,8 +6,6 @@ const cors = require('cors');
 
 const PORT = process.env.PORT || 5000
 
-server.use(helmet());
-server.use(morgan('dev'));
 server.use(express.json());
 server.use(cors());
 
