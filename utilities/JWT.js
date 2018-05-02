@@ -63,7 +63,10 @@ const jwtStrategy = new JwtStrategy(jwtOptions, function(payload, done) {
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
-const authenticate = passport.authenticate("local", { session: false });
+const authenticate = passport.authenticate("local", {
+  session: false,
+  failureFlash: true
+});
 const protected = passport.authenticate("jwt", { session: false });
 
 module.exports = { makeToken, authenticate, protected };
