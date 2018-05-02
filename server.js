@@ -103,7 +103,26 @@ server.delete('/:id', (req, res) => {
     .catch(error => {
       res.status(500).json({ error: 'could not delete the note' });
     });
-})
+});
+
+server.put('/', (req, res) => {
+  const updatedNote = req.body;
+  friends
+    .findByIdAndUpdate(req.params.id, updatedInfo)
+    .then(() => {
+      Note.find()
+        .then(notes => {
+          res.json(notes);
+        })
+        .catch(error => {
+          res.json('error: could not refresh the notes');
+        })
+      res.status(200);
+    })
+    .catch(error => {
+      res.status(500).json({ error: 'error happened in updating your note' });
+    });
+});
 
 server.post('/users', (req, res) => {
   const newUser = new User(req.body);
