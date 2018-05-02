@@ -5,6 +5,11 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const mongodb = require('mongodb');
 const cors = require('cors');
+const corsOptions = {
+    origin: 'https://peaceful-meadow-91763.herokuapp.com/',
+    credentials: true
+};
+
 const server = express();
 
 // const { login } = require('./login.js');
@@ -13,6 +18,7 @@ const User = require('./userModel');
 
 server.use(bodyParser.json());
 server.use(cors());
+// server.use(corsOptions);
 
 const url = process.env.MONGOLAB_URI;
 
