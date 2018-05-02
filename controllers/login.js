@@ -21,8 +21,9 @@ const login = (req, res) => {
                         username: user.username
                     };
                     const token = jwt.sign(payload, mysecret);
-                    console.log(user.id);
-                    res.json({ token });
+                    let uid = user.id;
+                    console.log(uid);
+                    res.status(200).json({ token, uid });
                 }
             });
         });

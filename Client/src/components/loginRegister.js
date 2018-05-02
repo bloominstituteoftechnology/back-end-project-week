@@ -11,7 +11,7 @@ function mapStateToProps(state) {
 
 class LoginRegister extends React.Component{
     render() {
-      console.log("Props in loginRegister:",this.props);
+      //console.log("Props in loginRegister:",this.props);
         return(
             <Container fluid = {true} className = "App">
             <Row className="app-wrapper">

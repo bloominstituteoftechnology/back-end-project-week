@@ -8,11 +8,11 @@ const {
   editNote
 } = require("../controllers/notes");
 
-module.exports = async (server) => {
+module.exports = (server) => {
   server.route("/").post(createUser);
-  server.route("/").post(login);
-  server.route("/:uid/displayNotes", authenticate).get(getNotes);
-  server.route("/:uid/createNote", authenticate).post(createNote);
-  server.route('/:uid/editNote/:id', authenticate).put(editNote);
-  server.route('/:uid/deleteNote/:id', authenticate).delete(deleteNote);
+  server.route("/login").post(login);
+  server.route('/dispayNotes').post(authenticate, getNotes);
+  server.route("/createNote", authenticate).post(createNote);
+  server.route('/editNote/:id', authenticate).put(editNote);
+  server.route('/deleteNote/:id', authenticate).delete(deleteNote);
 };

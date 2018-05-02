@@ -18,7 +18,7 @@ class SignIn extends Component {
 
   loginSubmitHandler = event => {
     event.preventDefault();
-    console.log("history in the props:", this.props.history)
+    //console.log("history in the props:", this.props.history)
     this.props.login(this.state.username, this.state.password, this.props.history);
     this.setState({ password: "" });
     if (this.props.authed) {

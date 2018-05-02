@@ -12,18 +12,10 @@ import SignOut from './components/logout';
 import RequireAuth from '../src/components/HOC/RequireAuth';
 
 const routes = [
-  // {
-  //   path:"/",
-  //   main: (props) => <LoginRegister {...props}/>,
-  //   // authed:this.props.authed,
-  //   // render:() => {
-  //   // return this.props.authed ? <Redirect to="/displayNotes" /> : <LoginRegister />
-  //   exact:true
-  // },
   {
     path: "/displayNotes",
     sidebar: () => <Button>View Notes</Button>,
-    main: (props) => {RequireAuth(DisplayNotesList)}
+    main: () => <DisplayNotesList/>
   },
   {
     path: "/logout",
@@ -62,7 +54,7 @@ class App extends Component {
     else if (this.props.authed){
       return (
         <Router>
-          <Container fluid={true} className="App">
+          <Container fluid="true" className="App">
             <Row className="app-wrapper">
               <Col sm={3} className="leftSide position-fixed">
                 <h1 className="header my-4">Lambda Notes</h1>
@@ -95,6 +87,7 @@ Container.propTypes = {
 const mapStateToProps = (state) => {
   return {
     authed: state.authed,
+    users: state.users
   };
 };
 

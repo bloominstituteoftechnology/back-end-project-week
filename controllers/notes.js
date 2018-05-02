@@ -55,13 +55,16 @@ const createNote = async function(req, res) {
 const getNotes = async function(req, res) {
   const { uid } = req.params;
   console.log(uid);
-  try {
-    const loggedInUser = await User.findById(uid).populate("notes");
-    //console.log(uid)
-    res.status(200).send({ notes: loggedInUser.notes });
-  } catch (error) {
-    console.log(error, "There was an error retrieving the notes");
-  }
+  Note.find({ uid })
+    .then(notes => res.json(notes))
+    .catch(err => res.status(500).json({ error: 'Error fetching notes' }));
+  // try {
+  //   const loggedInUser = await User.findById(uid).populate("notes");
+  //   //console.log(uid)
+  //   res.status(200).send({ notes: loggedInUser.notes });
+  // } catch (error) {
+  //   console.log(error, "There was an error retrieving the notes");
+  // }
 };
 
 const deleteNote = async function(req, res) {

@@ -40,7 +40,7 @@ class Register extends Component {
     this.setState({ [name]: value });
   };
   render() {
-    console.log(this.props);
+    //console.log(this.props);
     return (
       <Container>
         <div className="d-flex justify-content-center mt-5 mb-4">
