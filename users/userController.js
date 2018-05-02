@@ -14,11 +14,23 @@ const protected = passport.authenticate('jwt', { session: false });
 const secret = 'HrtkalwJAp873921FJkOpurqvnL';
 
 const localStrategy = new Strategy((username, password, cb) => {
-  User.findOne({ username: username }, function (err, user) {
-    if (err) { return cb(err); }
-    if (!user) { return cb(null, false); }
-    if (!user.isPasswordValid(password)) { return cb(null, false); }
-    return cb(null, user);
+  User.findOne({ username: username }, function (error, user) {
+    if (error) { 
+      return cb(error);
+    }
+    if (!user) {
+      return cb(null, false);
+    }
+    if (user) {
+      user
+        .isPasswordValid(password)
+        .then(result => {
+          result ? cb(null, user) : cb(null, false);
+        })
+        .catch(error => {
+          return cb(error);
+        })
+      }
   });
 });
 
@@ -62,7 +74,8 @@ router
 
 router
   .post('/login', authenticate, (req, res) => {
-    res.json({ token: makeToken(req.user), user: req.user });
+    // res.json({ token: makeToken(req.user), user: req.user });
+    res.json({ success: 'Login successful!' });
   });
 
 function makeToken(user) {
@@ -73,7 +86,7 @@ function makeToken(user) {
     username: user.username,
     email: user.email,
   };
-  return jwt.sign(payload, secret);
+  return jwt.sign(payload, secret, { expiresIn: '1h' });
 }
 
 module.exports = router;
