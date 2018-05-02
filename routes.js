@@ -96,9 +96,18 @@ module.exports = function(server) {
       .catch(err => res.status(500).json({ err: err.message }));
   });
 
+  server.get("/notes/:id", function(req,res) { 
+    Note.find({userRef: req.params.id})
+    .populate("userRef", "username")
+    .then(notes => {
+      res.json({notes})
+    }).catch((err) => console.log(err.message));
+  })
+
   server.post("/notes", function(req,res) {
-    const {body} = req.body;
-    const note = new Note({body, userRef: req.user._id});
+    const {id, body} = req.body;
+    const note = new Note({body, userRef: id});
+    console.log("req", req)
     note
       .save()
       .then(inserted => {

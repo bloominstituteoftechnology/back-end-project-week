@@ -1,17 +1,17 @@
-const {model, Schema} = require("mongoose");
+const mongoose = require("mongoose");
 const User = require(`${__dirname}/User`);
 
 
-const noteSchema = new Schema({
+const noteSchema = new mongoose.Schema({
     body:{
         type: String,
         required: true,
     },
     userRef: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref:'User',
     }
 })
 
 
-module.exports = model("Note", userSchema);
+module.exports = mongoose.model("Note", noteSchema);

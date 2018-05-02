@@ -31,9 +31,9 @@ userSchema.pre("save", function(next) {
     });
   };
 
-  userSchema.methods.verifyUsername = function(guess, callback) {
-      let usernameVal = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-      return usernameVal.test(guess);
-  }
+  // userSchema.methods.verifyUsername = function(guess, callback) {
+  //     let usernameVal = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+  //     return usernameVal.test(guess);
+  // }
 
   module.exports = mongoose.model("User", userSchema);

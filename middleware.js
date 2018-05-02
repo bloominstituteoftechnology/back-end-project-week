@@ -3,5 +3,5 @@ const express = require("express");
 
 module.exports = function(server) {
   server.use(express.json());
-  server.use(cors());
+  server.use(cors({origin: "*"}));
 };
