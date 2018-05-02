@@ -2,7 +2,6 @@ const express = require('express')
 const mongoose = require('mongoose')
 const helmet = require('helmet')
 const logger = require('morgan')
-const cool = require('cool-ascii-faces')
 const cors = require('cors')
 const Note = require('./notes/Note')
 
@@ -21,7 +20,6 @@ server.use(cors())
 
 server.get('/', (req, res) => res.json({ msg: `Server Online` }))
 
-server.get('/cool', (req, res) => res.send(cool()))
 server.get('/api/notes', (req, res) => {
   Note.find()
     .then(notes => {
@@ -48,8 +46,36 @@ server.post('/api/notes', (req, res) => {
     .catch(err => res.status(500).json(err))
 })
 
+server.delete('/api/notes/:id', (req, res) => {
+  const { id } = req.params
+  Note.findByIdAndRemove(id)
+    .then(removed => {
+      console.log('removed', removed)
+      Note.find()
+        .then(notes => {
+          res.status(200).json(notes)
+        })
+        .catch(err => console.log(err))
+    })
+    .catch(err => console.log(error))
+})
+
+server.put('/api/notes/:id', (req, res) => {
+  const { id } = req.params
+  const { title, content } = req.body
+  Note.findByIdAndUpdate(id, { title, content })
+    .then(updated => {
+      console.log('updated', updated)
+      Note.find()
+        .then(notes => {
+          res.status(200).json(notes)
+        })
+        .catch(err => console.log(err))
+    })
+    .catch(err => console.log(err))
+})
+
 const port = process.env.PORT || 5000
 server.listen(port, () => {
   console.log(`\n API running on ${port}`)
-  console.log(process.env)
 })

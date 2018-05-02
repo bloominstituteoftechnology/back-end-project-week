@@ -15,6 +15,10 @@ const NoteSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  edited: {
+    type: Date,
+    default: Date.now
+  },
   tags: {
     type: ObjectId,
     ref: 'Tag'
@@ -26,6 +30,9 @@ const NoteSchema = new Schema({
   users: {
     type: ObjectId,
     ref: 'User'
+  },
+  author: {
+    type: String
   }
 })
 
