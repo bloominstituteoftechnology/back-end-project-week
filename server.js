@@ -16,6 +16,8 @@ const cors = require('cors');
 
 // const STATUS_USER_ERROR = 422;
 // const BCRYPT_COST = 11;
+const server = express();
+
 const db = process.env.MONGOLAB_URI || 'mongodb://localhost/notes-db';
 
 mongoose
@@ -24,9 +26,8 @@ mongoose
   .catch(err => console.log('error connecting to mongo', err));
 
 
-const User = require('./user');
-
-const server = express();
+const User = require('./models/user');
+const userController = require('./controllers/userController');
 
 server.use(express.json());
 server.use(morgan('dev'));
@@ -65,6 +66,7 @@ server.get('/', (req, res) => {
   res.status(200).json({ api: "I'M SERVER RICK!!!!!!!!!!!" });
   // User.find().then(users => res.json(users));
 });
+server.use('/api/users', userController);
 
 // server.get('/me', (req, res) => {
 //   res.json(req.user);
