@@ -30,7 +30,7 @@ server.get('/', (req, res) => {
 
 
 
-server.get('/api/notes', (req, res) => {
+server.get('/notes', (req, res) => {
     Note
     .find({})
     .then(notes => {
@@ -41,7 +41,7 @@ server.get('/api/notes', (req, res) => {
     })
 })
 
-server.post('/api/notes/new', (req, res) => {
+server.post('/notes/new', (req, res) => {
     const { title, content } = req.body;
     const newNote = new Note({ title, content });
 
@@ -55,7 +55,7 @@ server.post('/api/notes/new', (req, res) => {
     });
 })
 
-server.put('/api/notes/:_id', (req, res) => {
+server.put('/notes/:_id', (req, res) => {
     // const { _id, title, content } = req.body;
     // const id = { _id };
     // if(!id) {
@@ -79,17 +79,28 @@ server.put('/api/notes/:_id', (req, res) => {
     // });
 
     Note.findByIdAndUpdate(req.params._id, req.body)
-    .then
+    .then(() => {
+        res.status(200).json({update: 'Note Updated'})
+    })
+    .catch(err => {
+        res.status(500).json(err)
+    })
 });
 
 
-server.delete('/api/note/:_id', (req, res) => {
-    
+server.delete('/notes/:_id', (req, res) => {
+    Note.findByIdAndRemove(req.params._id)
+    .then(() => {
+        res.status(200).json({status: 'Note Deleted'})
+    })
+    .catch(err => {
+        res.status(500).json(err)
+    })
 })
 
 // New User Routes //
 
-server.get('/api/notes/users', (req, res) => {
+server.get('/notes/users', (req, res) => {
     User
     .find({})
     .then(users => {
@@ -100,7 +111,7 @@ server.get('/api/notes/users', (req, res) => {
     })
 })
 
-server.post('/api/notes/register', (req, res) => {
+server.post('/notes/register', (req, res) => {
     const { username, password } = req.body;
     const newUser = new User({ username, password });
 
@@ -115,7 +126,7 @@ server.post('/api/notes/register', (req, res) => {
 
 })
 
-// server.post('/api/notes/login', (req, res) => {
+// server.post('/notes/login', (req, res) => {
 
 // });
 
