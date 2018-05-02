@@ -26,6 +26,7 @@ function makeToken(user) {
 }
 
 const localStrategy = new LocalStrategy(function(username, password, done) {
+  console.log('local');
   User.findOne({ username }, function(err, user) {
     if (err) {
       return done(err);
@@ -53,6 +54,7 @@ const jwtOptions = {
 };
 
 const jwtStrategy = new JwtStrategy(jwtOptions, function(load, done) {
+  console.log(jwtOptions.jwtFromRequest);
   User.findById(load.sub)
     .select('-password')
     .then(user => {

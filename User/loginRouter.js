@@ -35,7 +35,6 @@ router.post('/', authenticate, (req, res) => {
 });
 
 router.get('/', restricted, (req, res) => {
-  console.log(req.user, 'USER');
   const { _id } = req.user;
   User.findById(_id)
     .select('-password')
