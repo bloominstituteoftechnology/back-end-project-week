@@ -20,7 +20,7 @@ const noteAdd = (req, res) => {
     await findUser(author);
     console.log(`===AUTHOR===:`, author);
     if (author) {
-      const newNote = new Note({ author: id, title, content });
+      const newNote = new Note({ author: id, title: title, content: content });
       console.log(`===NEW NOTE===`, newNote);
       newNote
         .save()
