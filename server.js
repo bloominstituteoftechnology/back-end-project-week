@@ -2,6 +2,7 @@ const express = require ('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const helmet = require('helmet');
+
 const cors = require('cors');
 const mongoose =require('mongoose');
 
@@ -19,9 +20,9 @@ server.use(morgan('dev'));
 server.use(helmet());
 server.use(express.json());
 
-server.get('/', function(req, res) {
-  res.send({api: running })
-})
+server.get('/', function (req, res) {
+  res.send({api: 'running...' });
+});
 
 
 
