@@ -1,9 +1,12 @@
 // Libraries:
+const { ExtractJwt } = require('passport-jwt');
+const JwtStrategy = require('passport-jwt').Strategy;
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const jwt = require('jsonwebtoken');
 
 const User = require('./users/User');
+const secret = 'no size limit on tokens';
 
 function makeToken(user) {
   const timestamp = new Date().getTime();
@@ -12,7 +15,7 @@ function makeToken(user) {
     username: user.username,
     iat: timestamp
   };
-  const secret = 'no size limit on tokens';
+
   const options = { expiresIn: '300000' }; // 300,000 milliseconds or 5 minutes
   return jwt.sign(payload, secret, options);
 }
@@ -39,12 +42,50 @@ const localStrategy = new LocalStrategy(function(username, password, done) {
   });
 });
 
+const jwtOptions = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+
+  secretOrKey: secret
+};
+
+const jwtStrategy = new JwtStrategy(jwtOptions, function(payload, done) {
+  User.findById(payload.sub)
+
+    .select('username race')
+    .then(user => {
+      if (user) {
+        done(null, user);
+      } else {
+        done(null, false);
+      }
+    })
+    .catch(err => {
+      return done(err, false);
+    });
+});
+
 passport.use(localStrategy);
+passport.use(jwtStrategy);
 
 const authenticate = passport.authenticate('local', { session: false });
+const protected = passport.authenticate('jwt', { session: false });
 
 module.exports = function(server) {
-  server.get('/', function(req, res) {
+  
+// QUESTION: Will I use something like this to post notes OR do I leave that on the front-end???
+//   server.get('/api/hobbits', protected, (req, res) => {
+//     // if you are here, you will receive a list of the hobbits
+//     User.find({ race: 'hobbit' })
+//       .select('-password')
+//       .then(hobbits => {
+//         res.json(hobbits);
+//       })
+//       .catch(err => {
+//         res.status(500).json(err);
+//       });
+//   });
+  
+    server.get('/', function(req, res) {
     res.send({ api: 'up and running' });
   });
 
@@ -58,7 +99,10 @@ module.exports = function(server) {
   });
 
   server.post('/api/login', authenticate, (req, res) => {
-  res.json({ success: `${req.user.username}, you are logged in!`, token: makeToken(req.user), user: req.user });
+    res.json({
+      success: `${req.user.username}, you are logged in!`,
+      token: makeToken(req.user),
+      user: req.user
+    });
   });
-}
-
+};
