@@ -13,7 +13,7 @@ router.post('/', (req, res) => {
       .save()
       .then(response => {
         const token = makeToken(newUser);
-        res.json({ token, username: newUser.username, notes: [] });
+        res.json({ token, user: response });
       })
       .catch(err => {
         res.status(500).json(err);
