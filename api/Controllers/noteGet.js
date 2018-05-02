@@ -2,7 +2,8 @@ const Note = require('../Models/Note');
 
 const noteGet = (req, res) => {
   const author = req.body.username;
-  Notes.find({ author })
+  const id = req.body.id;
+  Notes.find({ id })
     .then(userNotes => {
       if (userNotes === null) {
         res.status(200).json({ Message: 'User has no notes!' });
