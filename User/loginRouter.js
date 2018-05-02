@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('./User');
 // const { makeToken } = require('./auth');
-const { authenticate, makeToken } = require('../secrets/security');
+const { restricted, authenticate, makeToken } = require('../secrets/security');
 
 router.post('/', authenticate, (req, res) => {
   // const { username, password } = req.body;
@@ -32,6 +32,18 @@ router.post('/', authenticate, (req, res) => {
     .then(user => {
       res.json({ token, user });
     });
+});
+
+router.get('/', restricted, (req, res) => {
+  console.log(req.user, 'USER');
+  const { _id } = req.user;
+  User.findById(_id)
+    .select('-password')
+    .populate('notes')
+    .then(user => {
+      res.json({ user });
+    })
+    .catch(err => res.status(501).json(err));
 });
 
 module.exports = router;
