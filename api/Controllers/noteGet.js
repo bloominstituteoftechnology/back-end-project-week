@@ -2,8 +2,9 @@ const Note = require('../Models/Note');
 const User = require('../Models/User');
 
 const noteGet = (req, res) => {
-  const author = req.body.username;
-  const id = req.body.id;
+  // const author = req.body.username;
+  if (req.params.id) {
+  const id = req.params.id;
   console.log(req.body);
   User.findById({ id })
     .then(user => {
@@ -13,6 +14,8 @@ const noteGet = (req, res) => {
     .catch(err => {
       res.status(500).json({ Error: `Unable to get notes: ${err}` });
     });
-};
+  } else {
+    console.log('no id');
+  }
 
 module.exports = noteGet;
