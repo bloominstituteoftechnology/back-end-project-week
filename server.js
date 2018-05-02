@@ -39,7 +39,7 @@ server.post('/api/notes', (req, res) => {
       res.json(savedNote);
     })
     .catch(err => {
-      console.log(err);
+      console.log(err.message);
     });
 });
 
