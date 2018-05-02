@@ -1,13 +1,12 @@
-// const jwt = require("jsonwebtoken");
 // const passport = require("passport");
 // const LocalStrategy = require("passport-local");
 // const { ExtractJwt } = require("passport-jwt");
 // const JwtStrategy = require("passport-jwt").Strategy;
 
+const jwt = require("jsonwebtoken");
+
 const User = require("../../users/userModel");
 const config = require("../config");
-
-const jwt = require("jsonwebtoken");
 
 const authenticate = (req, res, next) => {
     const token = req.get("Authorization");
@@ -26,8 +25,6 @@ const authenticate = (req, res, next) => {
 
 // Add in the make token function
 const makeToken = user => {
-    // sub: subject (id) who the token is about
-    // iat: issued at time
     const timestamp = new Date().getTime();
     const payload = {
         sub: user._id,
