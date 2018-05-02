@@ -1,23 +1,26 @@
 const Note = require('../models/noteModel');
 
-const retrieveNotes = (req, res) => {
+const noteList = (req, res) => {
 
-    User
-        .findById(req.params.id)
-        .then(noteList => {
-            let noteId = note.id;
-
-            Note
-                findById(req.params.id)
-                .then(noteList => {
-                    res.status(200).json(noteList);
-                })
-                .catch(err => {
-                    res.status(500).json({ errMsg: 'Could not retrieve notes.' });
-                })
+    Note
+        .find()
+        .then(notesList => {
+            res.status(200).json(notesList);
         })
         .catch(err => {
-            res.status(404).json(err);
+            res.status(500).json({ errMsg: "Could not retrieve notes" });
+        })
+}
+
+const singleNoteView = (req, res) => {
+
+    Note
+        .findById(req.params.id)
+        .then(notes => {
+            res.status(200).json(notes);
+        })
+        .catch(err => {
+            res.status(500).json({ errMsg: "Could not retrieve note" });
         })
 }
 
@@ -60,8 +63,9 @@ const deleteNote = (req, res) => {
 }
 
 module.exports = {
-    retrieveNotes,
+    noteList,
+    singleNoteView,
     createNote,
     updateNote,
     deleteNote,
-}
+};

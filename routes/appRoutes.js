@@ -1,13 +1,15 @@
-const { login, userRegistration, updateUser, deleteUser } = require('../controllers');
-const { retrieveNotes, createNote, updateNote, deleteNote } = require('../controllers');
+const ctrlLogin = require('../controllers/loginController');
+const ctrlUser = require('../controllers/userController');
+const ctrlNotes = require('../controllers/noteController');
 
 module.exports = server => {
-    server.route('/login').get(login);
-    server.route('/').post(userRegistration);
-    server.route('/:id').put(updateUser);
-    server.route('/:id').delete(deleteUser);
-    server.route('/:id/notes').get(retrieveNotes);
-    server.route('/:id/notes').post(createNote);
-    server.route('/:id/notes/:id').put(updateNote);
-    server.route('/:id/notes/:id').delete(deleteNote);
+    server.get('/login,', ctrlLogin.login);
+    server.route('/').post(ctrlUser.userRegistration);
+    server.route('/:id').put(ctrlUser.updateUser);
+    server.route('/:id').delete(ctrlUser.deleteUser);
+    server.get('/users', ctrlUser.getUsers)
+    server.get('/:id/notes', ctrlNotes.noteList);
+    server.route('/:id/notes').post(ctrlNotes.createNote);
+    server.route('/:id/notes/:id').put(ctrlNotes.updateNote);
+    server.route('/:id/notes/:id').delete(ctrlNotes.deleteNote);
 }
