@@ -23,6 +23,7 @@
   "homepage": "https://github.com/JaredRCooper/back-end-project-week#readme",
   "dependencies": {
     "chalk-animation": "^1.6.0",
+    "cookie-session": "^2.0.0-beta.3",
     "express": "^4.16.3",
     "mongoose": "^5.0.17",
     "nodemon": "^1.17.3",

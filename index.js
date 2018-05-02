@@ -1,6 +1,8 @@
 //dependencies
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieSession = require('cookie-session');
+const passport = require('passport');
 const keys = require('./config/keys')
 require('./models/user');
 require('./services/passport');
@@ -10,11 +12,21 @@ const chalkAnimation = require('chalk-animation');
 mongoose.connect(keys.mongoURI);
 //initialize the server
 const server = express();
-require('./routes/authRoutes')(server);
-//connect mongo database
-
 
 //middleware
+//enabling cookies
+server.use(cookieSession({
+  // i want this cookie to last 30 days before it will expire
+  maxAge: 30 * 24 * 60 * 60 * 1000,
+  keys: [keys.cookieKey]
+}));
+//telling passport to manage our authentication
+server.use(passport.initialize());
+server.use(passport.session());
+
+require('./routes/authRoutes')(server);
+
+
 
 
 //next();
