@@ -17,7 +17,7 @@ const server = express();
 server.use(morgan('dev'));
 server.use(express.json());
 server.use(helmet());
-server.use(cors({ origin: 'http://localhost:3000' }));
+server.use(cors());
 
 server.get('/', (req, res) => {
   res.json({ message: 'API running successfully! YAY!' });
