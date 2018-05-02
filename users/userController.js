@@ -108,8 +108,8 @@ router
 });
 
 router
-route('/api/login')
-.post( authenticate, (req, res) => {
+route('/api/login', authenticate)
+.post((req, res) => {
   //find user using the creds from body
   //verify pswd with what we have stored
   //issue token to user = if successful login
