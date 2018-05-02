@@ -4,7 +4,7 @@ const router = express.Router();
 
 router
   .route('/')
-  .get('/api/user', (req, res) => {
+  .get('/api/users', (req, res) => {
     User.find({}).then(users => {
       res.status(200).json(users);
 
@@ -14,7 +14,7 @@ router
     });
   })
 
-  .post('/api/user', (req, res) => {
+  .post('/api/users', (req, res) => {
     const user = new User(req.body);
 
     user
@@ -27,7 +27,7 @@ router
 
   router
   .route('/:id')
-  .get('/api/user', (req, res) => {
+  .get('/api/users', (req, res) => {
     user.findById(req.params.id)
     .then(user => {
 res.status(200).json(user);
@@ -37,7 +37,7 @@ res.status(200).json(user);
     });
   })
 
-  .delete('/api/user', (req, res) => {
+  .delete('/api/users', (req, res) => {
     const { id } = req.params;
     User.findByIdAndRemove(id)
     .then(response => {
@@ -59,7 +59,7 @@ res.status(200).json(user);
   });
   })
 
-  .put('/api/user', (req, res) => {
+  .put('/api/users', (req, res) => {
     user.findByIdAndUpdate(req.params.id, req.body)
     .then(response => {
       if(response === null){

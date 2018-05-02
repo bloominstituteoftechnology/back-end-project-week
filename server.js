@@ -5,7 +5,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const mongoose =require('mongoose');
 
-mongoose.connect(MONGO_URI).then(() =>
+mongoose.connect(process.env.MONGO_URI).then(() =>
   console.log('\n===connected to mongo===\n'))
 
 .catch(err =>console.log('not connected'));
