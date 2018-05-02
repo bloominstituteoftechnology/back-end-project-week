@@ -9,6 +9,9 @@ const noteSchema = new mongoose.Schema({
   content: {
     type: String,
   },
+  author: {
+    type: ObjectId,
+  },
 });
 
 const Note = mongoose.model('Note', noteSchema);

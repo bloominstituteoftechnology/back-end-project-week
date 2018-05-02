@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
-// cosnt { ObjectId } = mongoose.Schema.Types;
+const { ObjectId } = mongoose.Schema.Types;
 const bcrypt = require('bcrypt');
 
 const rounds = 12;
 
-// const Note = require('./note');
+const Note = require('./note');
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -18,7 +18,7 @@ const UserSchema = new mongoose.Schema({
     required: true,
     minlength: 8,
   },
-  //   notes: [{ type: ObjectId, ref: 'Note'}]
+  notes: [{ type: ObjectId, ref: 'Note' }],
 });
 
 UserSchema.pre('save', function(next) {

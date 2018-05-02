@@ -7,6 +7,7 @@ require('dotenv').config();
 const secret = 'no size limit on tokens';
 
 const User = require('../models/user');
+const Note = require('../models/note');
 
 function makeToken(user) {
   const timestamp = new Date().getTime();
@@ -47,8 +48,10 @@ const jwtOptions = {
 
 const jwtStrategy = new JwtStrategy(jwtOptions, function(payload, done) {
   User.findById(payload.sub)
+    .populate('notes')
     .select('-password')
     .then(user => {
+      console.log('user', user);
       if (user) {
         done(null, user);
       } else {
@@ -80,6 +83,60 @@ module.exports = function(server) {
         res.json(err);
       });
   });
+
+  server.get('/api/notes', protected, (req, res) => {
+    User.findById(req.user._id)
+      .select('-password')
+      .then(user => {
+        res.json(user.notes);
+      })
+      .catch(err => {
+        res.json({ err: err.message });
+      });
+  });
+
+  server.post('/api/notes', protected, (req, res) => {
+    if (req.body.author !== req.user._id) {
+      res.json({ message: 'Unauthorized' });
+    }
+    const note = new Note(req.body);
+
+    note
+      .save()
+      .then(savedNote => {
+        res.json(savedNote);
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+  });
+
+  server.delete('/api/notes/:id', protected, (req, res) => {
+    Note.findByIdAndRemove(req.params.id)
+      .then(response => {
+        Note.find({})
+          .then(notes => {
+            res.json(notes);
+          })
+          .catch(err => {
+            res.json(err);
+          });
+      })
+      .catch(err => {
+        res.json(err);
+      });
+  });
+
+  server.put('/api/notes/:id', protected, (req, res) => {
+    Note.findByIdAndUpdate(req.params.id, req.body)
+      .then(response => {
+        res.json(response);
+      })
+      .catch(err => {
+        res.json(err);
+      });
+  });
+
   server.post('/api/register', (req, res) => {
     const credentials = req.body;
 
