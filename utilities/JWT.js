@@ -7,7 +7,7 @@ const { ExtractJwt } = require("passport-jwt");
 const JwtStrategy = require("passport-jwt").Strategy;
 const secret = "unicorns are amazing";
 
-function makeToken(user) {
+export function makeToken(user) {
   const timestamp = new Date().getTime();
 
   const payload = {
@@ -63,5 +63,5 @@ const jwtStrategy = new JwtStrategy(jwtOptions, function(payload, done) {
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
-const authenticate = passport.authenticate("local", { session: false });
-const protected = passport.authenticate("jwt", { session: false });
+export const authenticate = passport.authenticate("local", { session: false });
+export const protected = passport.authenticate("jwt", { session: false });

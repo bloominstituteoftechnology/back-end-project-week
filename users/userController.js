@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const authenticate = require("../utilities/JWT");
+const { authenticate, makeToken } = require("../utilities/JWT");
 
 const User = require("./userModel.js");
 
@@ -26,21 +26,7 @@ router
   });
 
 router.route("/login").post(authenticate, (req, res) => {
-  const { username, password } = req.body;
-  if (username && password) {
-    User.findOne({ username }).then(user => {
-      user.verifyPassword(password, (err, isValid) => {
-        if (err) {
-          res.status(500).json(err);
-        }
-        if (isValid) {
-          res.status(200).json({ success: true, user });
-        } else {
-          res.status(400).json({ success: false });
-        }
-      });
-    });
-  }
+  res.status(200).json({ success: true, user, token: makeToken(req.user) });
 });
 
 router
