@@ -12,8 +12,6 @@ server.use(morgan('dev'));
 server.use(express.json());
 server.use(cors());
 
-const setupRoutes = require('./setup/routes')(server);
-
 mongoose
   .connect(
     'mongodb://pacManKana:LambdaN0t3s>@ds111050.mlab.com:11050/lambda-notes'
@@ -25,5 +23,6 @@ mongoose
     console.log('\n=== ERROR connecting to mongo ===\n');
   });
 
+const setupRoutes = require('./setup/routes')(server);
 
 server.listen(PORT);
