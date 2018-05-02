@@ -107,6 +107,12 @@ router
     });
 });
 
+router
+.route('/api/login')
+.post((req, res) => {
+  res.json({ token: makeToken(req.user), user: req.user });
+});
+
   router
   .route('/:id')
   .get((req, res) => {
