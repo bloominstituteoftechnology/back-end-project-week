@@ -2,7 +2,7 @@ const router = require('express').Router();
 const User = require('./userModel.js');
 
 router
-  .route('/api/views')
+  .route('/')
   .get((req, res) => {
     User.find({})
       .then(users => {
