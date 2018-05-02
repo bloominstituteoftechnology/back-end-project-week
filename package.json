@@ -16,6 +16,8 @@
     "brace-expansion": "^1.1.11",
     "bson": "^1.0.6",
     "buffer-equal-constant-time": "^1.0.1",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
     "chownr": "^1.0.1",
     "code-point-at": "^1.1.0",
     "concat-map": "^0.0.1",
@@ -58,10 +60,12 @@
     "minipass": "^2.2.4",
     "minizlib": "^1.1.0",
     "mkdirp": "^0.5.1",
+    "mocha": "^5.1.1",
     "mongodb": "^3.0.7",
     "mongodb-core": "^3.0.7",
     "mongoose": "^5.0.17",
     "mongoose-legacy-pluralize": "^1.0.2",
+    "morgan": "^1.9.0",
     "mpath": "^0.4.1",
     "mquery": "^3.0.0",
     "ms": "^2.0.0",
@@ -92,6 +96,7 @@
     "semver": "^5.5.0",
     "set-blocking": "^2.0.0",
     "signal-exit": "^3.0.2",
+    "sinon": "^5.0.3",
     "sliced": "^1.0.1",
     "string-width": "^1.0.2",
     "string_decoder": "^1.1.1",
@@ -108,6 +113,7 @@
     "nodemon": "^1.17.3"
   },
   "scripts": {
+    "test": "mocha *.test.js",
     "start": "nodemon app.js"
   },
   "repository": {

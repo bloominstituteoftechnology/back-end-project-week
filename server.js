@@ -1,6 +1,7 @@
 const express = require('express');
 // const bodyParser = require('body-parser');
 const cors = require('cors');
+const morgan = require('morgan');
 
 const routes = require('./api/routes/routes');
 
@@ -15,7 +16,7 @@ const corsOptions = {
 
 server.use(express.json());
 server.use(cors());
-
+server.use(morgan('dev'));
 routes(server);
 
 module.exports = {

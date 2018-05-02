@@ -7,3 +7,12 @@
 
 const { createUser } = require('./user');
 const { login } = require('./login');
+const { displayNotes } = require('./displayNote');
+const { createNote } = require('./createNote');
+
+module.exports = {
+  createUser,
+  login,
+  displayNotes,
+  createNote
+};

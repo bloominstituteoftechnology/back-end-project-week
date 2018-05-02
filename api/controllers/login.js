@@ -8,6 +8,7 @@ const login = (req, res) => {
 
   User.findOne({ username }, (error, user) => {
     if (error) {
+      console.log(error);
       res.status(403).json({ error: 'invalid user name' });
       return;
     }
@@ -27,7 +28,9 @@ const login = (req, res) => {
           username: user.username
         };
         const token = jwt.sign(payload, mysecret);
-        res.json({ token });
+        let userID = user.username;
+        console.log(userID);
+        res.status(200).json({ token });
       }
     });
   });
