@@ -1,58 +1,62 @@
 import React, { Component } from 'react';
+import { Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import './Login.css';
 
-class Login extends Component {
-  constructor() {
-    super();
-    this.handleChange = this.handleChange.bind(this);
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+export default class Login extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      email: '',
+      password: '',
+    };
   }
+
+  validateForm() {
+    return this.state.email.length > 0 && this.state.password.length > 0;
+  }
+
+  handleChange = event => {
+    this.setState({
+      [event.target.id]: event.target.value,
+    });
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+  };
 
   render() {
     return (
-      <div className="center">
-        <div className="card">
-          <h1>Login</h1>
-          <form>
-            <input
-              className="form-item"
-              placeholder="Email goes here..."
-              email="email address"
+      <div className="Login">
+        <form onSubmit={this.handleSubmit}>
+          <FormGroup controlId="email" bsSize="large">
+            <ControlLabel>Email</ControlLabel>
+            <FormControl
+              autoFocus
               type="email"
+              value={this.state.email}
               onChange={this.handleChange}
             />
-            <input
-              className="form-item"
-              placeholder="Password goes here..."
-              name="password"
+          </FormGroup>
+          <FormGroup controlId="password" bsSize="large">
+            <ControlLabel>Password</ControlLabel>
+            <FormControl
+              value={this.state.password}
+              onChange={this.handleChange}
               type="password"
-              onChange={this.handleChange}
             />
-            <button
-              className="submit"
-              value="submit"
-              type="button"
-              onClick={this.handleFormSubmit}
-            >
-              Submit
-            </button>
-          </form>
-        </div>
+          </FormGroup>
+          <Button
+            block
+            bsSize="large"
+            disabled={!this.validateForm()}
+            type="submit"
+          >
+            Login
+          </Button>
+        </form>
       </div>
     );
   }
-  handleChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
-  }
-  handleFormSubmit(e) {
-    e.preventDefault();
-
-    this.login(this.state.email, this.state.password).then(res => {
-      this.props.history.push('/notes');
-    });
-  }
 }
-
-export default Login;

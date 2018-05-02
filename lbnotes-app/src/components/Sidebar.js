@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Sidebar.css';
+import Login from './Login';
 
 const Sidebar = props => {
   return (

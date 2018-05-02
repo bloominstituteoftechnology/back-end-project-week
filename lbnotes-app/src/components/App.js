@@ -5,6 +5,7 @@ import NoteList from './NoteList';
 import CreateNote from './CreateNote';
 import NoteView from './NoteView';
 import EditNote from './EditNote';
+import Login from './Login';
 
 import './App.css';
 
@@ -102,6 +103,7 @@ export default class App extends React.Component {
               />
             )}
           />
+          <Route path="/login" exact component={Login} />
         </div>
       </Router>
     );
