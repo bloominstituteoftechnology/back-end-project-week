@@ -13,38 +13,36 @@ const noteAdd = (req, res) => {
         id = user._id;
         console.log(`===USER ID: ===`, id);
         console.log(`===AUTHOR===:`, author);
-        if (author) {
-          const newNote = new Note({
-            author: id,
-            title: title,
-            content: content,
-          });
-          console.log(`===NEW NOTE===`, newNote);
-          newNote
-            .save()
-            .then(savedNote => {
-              user.notes.push(savedNote);
-              user
-                .save()
-                .then(res => {
-                  res.status(200).json({
-                    Message: 'User successfully saved with new note!',
-                  });
-                })
-                .catch(err => {
-                  res
-                    .status(500)
-                    .json({ Error: `Error saving note to user: ${err}` });
+        // if (author) {
+        const newNote = new Note({
+          author: id,
+          title: title,
+          content: content,
+        });
+        console.log(`===NEW NOTE===`, newNote);
+        newNote
+          .save()
+          .then(savedNote => {
+            user.notes.push(savedNote);
+            user
+              .save()
+              .then(response => {
+                res.status(200).json({
+                  Message: 'User successfully saved with new note!',
                 });
-            })
-            .catch(err => {
-              res
-                .status(500)
-                .json({ Error: `Unable to save new note: ${err}` });
-            });
-        } else {
-          res.status(422).json({ Error: `User error: ${err}` });
-        }
+              })
+              .catch(err => {
+                res
+                  .status(500)
+                  .json({ Error: `Error saving note to user: ${err}` });
+              });
+          })
+          .catch(err => {
+            res.status(500).json({ Error: `Unable to save new note: ${err}` });
+          });
+        // } else {
+        //   res.status(422).json({ Error: `User error: ${err}` });
+        // }
       })
       .catch(err => {
         res.json({ Error: `Unable to find user ${err}` });
