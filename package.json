@@ -2,6 +2,9 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "description": "This week you will be building a backend for a note taking app called \"Lambda Notes.\"",
+  "engines": {
+    "node": "8.9.4"
+  },
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,8 +14,8 @@
     "type": "git",
     "url": "git+https://github.com/crispad/back-end-project-week.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["heroku", "node", "mongoose"],
+  "author": "Cristina",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/crispad/back-end-project-week/issues"
