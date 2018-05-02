@@ -54,4 +54,27 @@ server.post('/api/notes', (req, res) => {
     });
 });
 
+// Delete does not work right now.
+
+// server.delete('/api/notes/:id', (req, res) => {
+//   const { id } = req.params;
+//   let notes;
+
+//   Note.findById(id)
+//     .then(response => {
+//       user = { ...response[0] };
+
+//       Note.remove(id)
+//         .then(response => {
+//           res.status(200).json(notes);
+//         })
+//         .catch(error => {
+//           res.status(500).json(error);
+//         });
+//     })
+//     .catch(error => {
+//       res.status(500).json(error);
+//     });
+// });
+
 module.exports = server;
