@@ -7,7 +7,7 @@ const noteGet = (req, res) => {
     const id = req.params.id;
     console.log(req.body);
     User.findById(id)
-      .populate('note')
+      .populate('notes')
       .then(user => {
         console.log(user);
         res.status(200).json(user.notes);
