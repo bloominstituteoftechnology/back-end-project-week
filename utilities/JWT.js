@@ -7,7 +7,7 @@ const { ExtractJwt } = require("passport-jwt");
 const JwtStrategy = require("passport-jwt").Strategy;
 const secret = "unicorns are amazing";
 
-export const makeToken = user => {
+function makeToken(user) {
   const timestamp = new Date().getTime();
 
   const payload = {
@@ -19,7 +19,7 @@ export const makeToken = user => {
     expiresIn: "2 minutes"
   };
   return jwt.sign(payload, secret, options);
-};
+}
 
 const localStrategy = new LocalStrategy(function(username, password, done) {
   User.findOne({ username }, function(err, user) {
@@ -42,7 +42,7 @@ const localStrategy = new LocalStrategy(function(username, password, done) {
 });
 
 const jwtOptions = {
-  jwtFromRequest: ExtractJwt.fromAuthHeader(),
+  jwtFromRequest: ExtractJwt.fromHeader("authorization"),
   secretOrKey: secret
 };
 
@@ -63,5 +63,7 @@ const jwtStrategy = new JwtStrategy(jwtOptions, function(payload, done) {
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
-export const authenticate = passport.authenticate("local", { session: false });
-export const protected = passport.authenticate("jwt", { session: false });
+const authenticate = passport.authenticate("local", { session: false });
+const protected = passport.authenticate("jwt", { session: false });
+
+module.exports = { makeToken, authenticate, protected };
