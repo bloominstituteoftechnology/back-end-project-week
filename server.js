@@ -5,6 +5,8 @@ const helmet = require('helmet');
 const cors = require('cors');
 const mongoose =require('mongoose');
 
+const userRouter = require('./userRouter.js');
+
 mongoose.connect(process.env.MONGO_URI).then(() =>
   console.log('\n===connected to mongo===\n'))
 

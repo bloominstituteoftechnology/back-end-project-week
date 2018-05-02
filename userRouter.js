@@ -48,13 +48,13 @@ res.status(200).json(user);
       }
     })
     .catch(err => {
-      if(err.name === 'CastError'){
+      if(err.email === 'CastError'){
         res
         .status(400)
         .json({message:'The id is invalid' });
       }else{
         res.status(500)
-        .json({errorMessage:'The friend could not be removed', err});
+        .json({errorMessage:'The user could not be removed', err});
       }
   });
   })
@@ -71,7 +71,7 @@ res.status(200).json(user);
       
     })
     .catch(err =>{
-      if(err.name === 'CastError'){
+      if(err.email === 'CastError'){
         res.status(400).json({
           message:'The id provided is invalid, please check and try again'
         })
