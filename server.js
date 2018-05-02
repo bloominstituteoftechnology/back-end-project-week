@@ -8,8 +8,8 @@ const server = express();
 
 server.use(express.json());
 server.use(cors());
-server.use(helmet());
-server.use(morgan("dev"));
+// server.use(helmet());
+// server.use(morgan("dev"));
 
 const routes = require("./api/routes");
 
