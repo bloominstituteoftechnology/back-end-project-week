@@ -107,17 +107,6 @@ router
     });
 });
 
-router
-route('/api/login', authenticate)
-.post((req, res) => {
-  //find user using the creds from body
-  //verify pswd with what we have stored
-  //issue token to user = if successful login
-  //grants access to the resource(s)
-  res.json({ token: makeToken(req.user), user: req.user });
-
-});
-
   router
   .route('/:id')
   .get((req, res) => {
