@@ -15,8 +15,4 @@ mongoose
     console.log('\n=== ERROR connecting to Mongo ===\n');
   });
 
-server.get('/', function(req, res) {
-  res.send({ api: 'up and running' });
-});
-
 server.listen(5000, () => console.log('\n=== API on port 5000 ===\n'));
