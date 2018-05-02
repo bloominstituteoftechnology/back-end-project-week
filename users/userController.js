@@ -16,8 +16,7 @@ function makeToken(user) {
   const payload = {
       sub: user._id,
       iat: timestamp,
-      username: user.username,
-      // race: user.race,        
+      username: user.username,       
   };
   
   const options = { expiresIn: '4h'};
@@ -35,8 +34,8 @@ const localStrategy = new LocalStrategy(function(username, password, done) { //m
               return done(err);
           }
           if(isValid) {
-          const { _id, username } = user; //or race if the pswd is valid and user exists
-          return done(null, { _id, username }); // race or notes placed on req.user
+          const { _id, username } = user; 
+          return done(null, { _id, username }); 
           }
           return done(null, false);
       });
@@ -49,7 +48,7 @@ const jwtOptions = {
 };
 
 const jwtStrategy = new JwtStrategy(jwtOptions, function(payload, done) {
-  User.findById(payload.sub).select('username').then(user => { // or race or notes
+  User.findById(payload.sub).select('username').then(user => { 
       if(user) {
       done(null, user);
       } else {
@@ -98,7 +97,7 @@ router
   .post((req, res) => {
     const credentials = req.body;
 
-    //add user to database
+    //add new user to database
     const user = new User(credentials);
     user
     .save().then(insertedUser => {
@@ -108,7 +107,7 @@ router
 });
 
 router
-.route('/api/login')
+.route('/api/login', authenticate )
 .post((req, res) => {
   res.json({ token: makeToken(req.user), user: req.user });
 });
