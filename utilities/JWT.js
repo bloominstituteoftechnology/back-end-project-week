@@ -13,7 +13,8 @@ function makeToken(user) {
   const payload = {
     sub: user._id.toString(),
     iat: timestamp,
-    username: user.username
+    username: user.username,
+    exp: timestamp + 10
   };
   const options = {
     expiresIn: "10 seconds"
