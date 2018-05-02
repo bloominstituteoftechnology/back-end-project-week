@@ -16,22 +16,22 @@ const userSchema = new mongoose.Schema({
   notes: [{ type: ObjectId, ref: "" }]
 });
 
-// userSchema.pre("save", function(next) {
-//   bcrypt.hash(this.password, 12).then(hash => {
-//     this.password = hash;
+userSchema.pre("save", function(next) {
+  bcrypt.hash(this.password, 12).then(hash => {
+    this.password = hash;
 
-//     next();
-//   });
-// });
+    next();
+  });
+});
 
-// userSchema.methods.verifyPassword = function(guess, callBack) {
-//   bcrypt.compare(guess, this.password, function(err, isValid) {
-//     if (err) {
-//       return callBack(err);
-//     }
+userSchema.methods.verifyPassword = function(guess, callBack) {
+  bcrypt.compare(guess, this.password, function(err, isValid) {
+    if (err) {
+      return callBack(err);
+    }
 
-//     callBack(null, isValid);
-//   });
-// };
+    callBack(null, isValid);
+  });
+};
 
 module.exports = mongoose.model("User", userSchema, "users");
