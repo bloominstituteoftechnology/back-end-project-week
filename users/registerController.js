@@ -69,13 +69,13 @@ passport.use(jwtStrategy);
 const authenticate = passport.authenticate('local', { session: false });
 const protected = passport.authenticate('jwt', { session: false });
 
-module.exports = function(server) {
+module.exports = function(app) {
 
-    server.get('/', function(req, res) {
+    app.get('/', function(req, res) {
         res.send({ api: 'up and running' });
       });
 
-    server.post('/api/register', function(req, res) {
+    app.post('/api/register', function(req, res) {
           const credentials = req.body;
 
           //add user to database
@@ -87,7 +87,7 @@ module.exports = function(server) {
           });
       });
 
-    server.post('/api/login', authenticate, (req, res) => {
+    app.post('/api/login', authenticate, (req, res) => {
         //find user using the creds from body
         //verify pswd with what we have stored
         //issue token to user = if successful login
@@ -95,7 +95,7 @@ module.exports = function(server) {
         res.json({ token: makeToken(req.user), user: req.user });
 
     });
-    server.get('/api/hobbits', protected, (req, res) => {
+    app.get('/api/hobbits', protected, (req, res) => {
         User.find({ race: 'hobbit' }).select('-password').then(hobbits => {
             res.json(hobbits)
         })
