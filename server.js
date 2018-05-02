@@ -17,7 +17,7 @@ mongoose
     console.log('\n=== connected to mongo ===\n');
 })
 .catch(err => {
-    console.log('\n=== not connected to mongo\n');
+    console.log('\n=== not connected to mongo\n', err);
 })
 
 server.get('/', function (req,res){
