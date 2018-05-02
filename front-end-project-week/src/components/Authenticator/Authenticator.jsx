@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import './Authenticator.css';
 import App from '../../App';
 
+
 class Authenticator extends Component {
 
    constructor() {

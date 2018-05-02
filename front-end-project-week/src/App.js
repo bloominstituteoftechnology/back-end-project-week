@@ -4,9 +4,12 @@ import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import CreateNote from './components/CreateNote/CreateNote';
 import ViewNote from './components/ViewNote/ViewNote';
+import Callback from './components/Callback/Callback';
 import { Route } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+import { requireAuth } from './utils/AuthService';
+
 class App extends Component {
   constructor() {
     super();
@@ -17,16 +20,14 @@ class App extends Component {
 
   componentDidMount() {
     // axios.get('http://localhost:5000')
-    const cachedHits = localStorage.getItem(this.props.user);
-
-    if (!JSON.parse(cachedHits)) console.log('invalid json confirmed');
-
-    if (cachedHits) {
-      this.setState({ notes: JSON.parse(cachedHits) });
-      return;
-    } else {
-      localStorage.setItem(this.props.user, this.state.notes);
-    }
+    // const cachedHits = localStorage.getItem(this.props.user);
+    // if (!JSON.parse(cachedHits)) console.log('invalid json confirmed');
+    // if (cachedHits) {
+    //   this.setState({ notes: JSON.parse(cachedHits) });
+    //   return;
+    // } else {
+    //   localStorage.setItem(this.props.user, this.state.notes);
+    // }
   }
 
   addNewNote = newNote => {
@@ -92,6 +93,7 @@ class App extends Component {
         <Route
           exact
           path="/"
+          onEnter={requireAuth}
           render={() => (
             <ListNotes
               name={this.props.user}
@@ -102,6 +104,7 @@ class App extends Component {
         />
         <Route
           path="/viewNote/:id"
+          onEnter={requireAuth}
           render={() =>
             this.state.notes[this.props.location.pathname.split('/')[2]] ? (
               <ViewNote
@@ -125,9 +128,11 @@ class App extends Component {
           }
         />
         <Route
+          onEnter={requireAuth}
           path="/newNote"
           render={() => <CreateNote addNote={this.addNewNote} />}
         />
+        <Route path="/callback" component={Callback} />
       </div>
     );
   }

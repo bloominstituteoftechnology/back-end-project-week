@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
+import { login, logout, isLoggedIn } from '../../utils/AuthService';
 
 class Navbar extends Component {
    
@@ -69,11 +70,16 @@ class Navbar extends Component {
                <button className="downloadButton" onClick={this.downloadNotes} >
                <h3> Download Notes</h3>
                </button>
-               <Link to="/">
+               {/* <Link to="/">
                <button id="returnToLogin" onClick={() => this.props.returnToLogin()} >
                <h3>Return To Login</h3>
                </button>
-               </Link>
+               </Link> */}
+               
+                  {
+             (isLoggedIn()) ? ( <button id="returnToLogin" className="btn btn-danger log" onClick={() => logout()}>Log out </button> ) : ( <button id="returnToLogin" className="btn btn-info log" onClick={() => login()}>Log In</button> )
+                  }
+               
                </div>
          </div>
       )
