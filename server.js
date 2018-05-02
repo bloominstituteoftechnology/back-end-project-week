@@ -24,4 +24,4 @@ server.get('/', function (req,res){
     res.send({api: 'up'});
 });
 
-server.listen(5000, () => console.log('\n=== API on port 5k ===\n'));
+server.listen(process.env.PORT || 5000, () => console.log('\n=== API on port 5k ===\n'));
