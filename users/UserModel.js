@@ -86,11 +86,9 @@ UserSchema.pre('save', function(next) {
 });
 
 UserSchema.pre('update', function(next) {
-  console.log(this.notes, '9999999999');
   bcrypt
     .hash(this.passwordHash, SALT_ROUNDS)
     .then(hash => {
-      console.log(this.passwordHash, '--------');
       this.passwordHash = hash;
       next();
     })

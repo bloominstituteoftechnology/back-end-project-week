@@ -1,7 +1,9 @@
 const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
 
-const User = require('./UserModel');
+const User = require('./userModel');
 const config = require('../api/config.js');
+const { makeToken } = require('../api/utils/middleware');
 
 const getUsers = (req, res) => {
   User.find({})
@@ -81,8 +83,6 @@ const createUser = (req, res) => {
     });
 };
 
-const login = (req, res) => {};
-
 const changePassword = (req, res) => {
   const { password: passwordHash, id } = req.body;
 
@@ -96,20 +96,9 @@ const changePassword = (req, res) => {
 
   User.findById(id)
     .then(userToChangePassword => {
-      if (userToChangePassword) {
-        userToChangePassword
-          .update(
-            //{ $set: { passwordHash: passwordHash, notes: ['hello'] } },
-            { $set: { notes: ['hello'] } },
-            () => {
-              console.log(userToChangePassword, '++++');
-              res.status(201).json({ message: 'Password was updated' });
-            }
-          )
-          .exec();
-      } else {
-        res.status(404).json({ errorMessage: 'Can not change password' });
-      }
+      User.update({ _id: id }, { $set: { passwordHash: passwordHash } }, () => {
+        res.status(201).json({ message: 'Password was updated' });
+      });
     })
     .catch(err => {
       // only show errors if in development, otherwise, show generic error!!
@@ -123,7 +112,54 @@ const changePassword = (req, res) => {
     });
 };
 
-const logout = (req, res) => {};
+const login = (req, res) => {
+  const { username, password } = req.body;
+
+  if (username === undefined || password === undefined) {
+    return res
+      .status(400)
+      .json({ errorMessage: 'provide username and password' });
+  }
+
+  User.findOne({ username })
+    .then(loginUser => {
+      if (loginUser === null) {
+        res.status(404).json({ errorMessage: 'Can not find that user!' });
+        return;
+      }
+      // found user now attempt to login
+      loginUser.checkPassword(password, function(err, isValid) {
+        if (err) {
+          res.status(500);
+          return config.env === 'development'
+            ? res.json(err)
+            : res.json({ errorMessage: 'Encountered a login error' });
+        }
+        if (isValid) {
+          const token = makeToken(loginUser);
+          const userInfo = {
+            username: loginUser.username,
+            id: loginUser._id,
+            token,
+          };
+          return res.status(200).json(userInfo);
+        }
+        res.status(422).json({ errorMsg: 'login incorrect' });
+      });
+    })
+
+    .catch(err => {
+      // only show errors if in development, otherwise, show generic error!!
+      if (config.env === 'development') {
+        return res.status(500).json(err);
+      } else {
+        return res.status(500).json({
+          errorMessage:
+            'Encountered an error problem when logging in the user!',
+        });
+      }
+    });
+};
 
 const editUser = (req, res) => {
   // destructure properties to check if attempting to change username and also changing password
@@ -206,7 +242,6 @@ module.exports = {
   createUser,
   changePassword,
   login,
-  logout,
   editUser,
   deleteUser,
 };
