@@ -26,6 +26,7 @@ router
   });
 
 router.route("/login").post(authenticate, (req, res) => {
+  console.log(req.user);
   res
     .status(200)
     .json({ success: true, user: req.user, token: makeToken(req.user) });
