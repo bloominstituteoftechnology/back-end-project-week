@@ -1,12 +1,13 @@
 const express = require('express');
-const cors = require('cors');
 const mongoose = require('mongoose');
-const morgan = require('morgan');
 require('dotenv').config();
 
 const Note = require('./models/note');
 
 const server = express();
+
+const middleware = require('./middleware.js')(server);
+const UserRoutes = require('./Controllers/userRoutes.js')(server);
 
 mongoose
   .connect(process.env.MONGO_URI)
@@ -17,12 +18,7 @@ mongoose
     console.log('\n++++ ERROR connecting to Mongo ++++\n');
   });
 
-server.use(morgan('combined'));
-server.use(cors());
-server.use(express.json());
-
-// Controllers
-// sanity check
+// Notes Controllers
 server.get('/api/notes', (req, res) => {
   Note.find({})
     .then(notes => {
