@@ -26,7 +26,8 @@ export function login() {
 export function logout() {
   clearIdToken();
   clearAccessToken();
-  this.props.history.push('/');
+  //   this.history.push('/');
+  console.log(this);
 }
 
 export function requireAuth(nextState, replace) {
