@@ -14,7 +14,7 @@ function makeToken(user) {
     sub: user._id.toString(),
     iat: timestamp,
     username: user.username,
-    exp: timestamp + 10
+    exp: 10
   };
   const options = {
     // expiresIn: "10 seconds"
