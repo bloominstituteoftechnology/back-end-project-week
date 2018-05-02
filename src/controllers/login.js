@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const User = require('../users/User.js');
-const secret = require('../config.js');
+const { secret } = require('../config.js');
 
 const login = (req, res) => {
   const { username, password } = req.body;
@@ -24,8 +24,8 @@ const login = (req, res) => {
         const payload = {
           username: user.username
         }; // what will determine our payload.
-        const token = jwt.sign(payload, secret); // creates our JWT with a secret and a payload and a hash.
-        res.json({ token }); // sends the token back to the client
+        const token = jwt.sign(payload, secret);
+        res.json({ token });
       }
     });
   });
