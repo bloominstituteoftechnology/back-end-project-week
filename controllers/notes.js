@@ -1,8 +1,8 @@
 const Note = require('../models/noteModel');
 
 const getNotes = (req, res) => {
-  const { users } = req.body;
-  Note.find({ users })
+  const { user } = req.body;
+  Note.find({ user })
     .then(notes => res.json(notes))
     .catch(err => res.status(500).json({ error: 'Error fetching notes' }));
 };
@@ -13,20 +13,19 @@ const createNote = (req, res) => {
     const newNote = new Note({ title, text, users });
     newNote
       .save()
-      .then(note => res.json(note))
+      .then(note => res.send(note))
       .catch(err => {
         res.status(422).send('Error saving the note');
       });
   } else {
-    res
-      .status(422)
-      .send('Please send valid title and description for the note');
+    res.status(422).send('Please send valid title and text for the note');
   }
 };
+
 const editNote = (req, res) => {
-  const { title, text, _id } = req.body;
-  if (title && text && _id) {
-    Note.findOneAndUpdate({ _id }, { title, text })
+  const { title, text, id } = req.body;
+  if (title && text && id) {
+    Note.findOneAndUpdate({ _id: id }, { title, text }, { new: true })
       .then(note => res.send(note))
       .catch(err => {
         res.status(422).send('Error editing the note');

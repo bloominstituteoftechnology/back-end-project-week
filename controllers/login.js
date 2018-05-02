@@ -10,9 +10,7 @@ const login = (req, res) => {
       return;
     }
     if (user === null) {
-      res
-        .status(422)
-        .json({ error: 'No user with that username in our records' });
+      res.status(422).json({ error: 'That User Does Not Exist' });
       return;
     }
     user.verifyPassword(password, (nonMatch, hashMatch) => {

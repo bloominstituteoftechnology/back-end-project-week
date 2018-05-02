@@ -3,6 +3,7 @@ axios.defaults.withCredentials = true;
 const ROOT_URL = 'http://localhost:5000';
 
 export const NOTE_ERROR = 'NOTE_ERROR';
+export const UPDATE_SELECTED = 'UPDATE_SELECTED';
 export const GET_NOTES = 'GET_NOTES';
 export const CREATE_NOTE = 'CREATE_NOTE';
 export const EDIT_NOTE = 'EDIT_NOTE';
@@ -13,8 +14,6 @@ export const USER_AUTHENTICATED = 'USER_AUTHENTICATED';
 export const USER_UNAUTHENTICATED = 'USER_UNAUTHENTICATED';
 export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
 export const CHECK_IF_AUTHENTICATED = 'CHECK_IF_AUTHENTICATED';
-
-let nextId = 10;
 
 export const authError = error => {
   return {
@@ -27,6 +26,13 @@ export const noteError = error => {
   return {
     type: NOTE_ERROR,
     payload: error
+  };
+};
+
+export const updateSelected = id => {
+  return {
+    type: UPDATE_SELECTED,
+    payload: id
   };
 };
 
@@ -46,7 +52,7 @@ export const getNotes = users => {
         });
       })
       .catch(() => {
-        dispatch(noteError('cannot get notes'));
+        dispatch(noteError('Failed to fetch notes'));
       });
   };
 };
@@ -58,18 +64,14 @@ export const createNote = noteObj => {
     axios
       .post(
         `${ROOT_URL}/create`,
-        {
-          title,
-          text,
-          users
-        },
+        { title, text, users },
         { headers: { authorization: token } }
       )
       .then(response => {
         dispatch({ type: CREATE_NOTE, payload: response.data });
       })
       .catch(error => {
-        dispatch(noteError('cannot add note'));
+        dispatch(noteError('Failed to add note'));
       });
   };
 };
@@ -79,7 +81,7 @@ export const editNote = noteObj => {
   const { title, text, id } = noteObj;
   return dispatch => {
     axios
-      .post(
+      .put(
         `${ROOT_URL}/edit/${id}`,
         { title, text, id },
         { headers: { authorization: token } }
@@ -88,7 +90,7 @@ export const editNote = noteObj => {
         dispatch({ type: EDIT_NOTE, payload: response.data });
       })
       .catch(() => {
-        dispatch(noteError('cannot edit note'));
+        dispatch(noteError('Failed to edit note'));
       });
   };
 };

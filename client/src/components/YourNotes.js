@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Card, CardTitle, CardText, Container, Row, Col } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Container } from 'reactstrap';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getNotes } from '../actions/index';
+import { getNotes, updateSelected } from '../actions';
+import Notes from './Notes';
 
 class YourNotes extends Component {
   componentDidMount() {
@@ -16,16 +17,14 @@ class YourNotes extends Component {
         <div className="cardsList">
           {this.props.notes.map(note => {
             return (
-              <div className="cardList" key={note._id} note={note}>
-                <Link to={`/notes/${note._id}}`}>
-                  <Row>
-                    <Card body>
-                      <CardTitle>{note.title}</CardTitle>
-                      <CardText>{note.text}</CardText>
-                    </Card>
-                  </Row>
-                </Link>
-              </div>
+              <form>
+                <Notes key={note._id} note={note} />
+                {note.selected ? (
+                  <Redirect to={`/note/${note._id}`} />
+                ) : (
+                  console.log('redirect ')
+                )}
+              </form>
             );
           })}
         </div>
@@ -40,4 +39,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { getNotes })(YourNotes);
+export default connect(mapStateToProps, { getNotes, updateSelected })(
+  YourNotes
+);

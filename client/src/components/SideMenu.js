@@ -9,7 +9,6 @@ class SideMenu extends Component {
       <div className="background">
         <h1 className="lambda">Lambda</h1>
         <h1 className="notes">Notes</h1>
-        {console.log('authenticated?', this.props.authenticated)}
         {this.props.authenticated ? (
           <Link to="/" className="create" onClick={this.submitHandler}>
             Logout

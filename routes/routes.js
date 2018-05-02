@@ -12,5 +12,5 @@ module.exports = server => {
   server.route('/home').post(authenticate, getNotes);
   server.route('/create').post(authenticate, createNote);
   server.route('/edit/:id').put(authenticate, editNote);
-  server.route('/notes/:id').delete(authenticate, deleteNote);
+  server.route('/note/:id').delete(authenticate, deleteNote);
 };

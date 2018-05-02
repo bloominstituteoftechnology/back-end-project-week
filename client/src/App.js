@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { Route } from 'react-router-dom';
 import SideMenu from './components/SideMenu.js';
@@ -19,8 +18,18 @@ class App extends Component {
         <Route path="/login" component={Login} />
         <Route exact path="/home" component={YourNotes} />
         <Route exact path="/Create" component={CreateNote} />
-        <Route exact path="/notes/:id" component={DeleteNotes} />
-        <Route exact path="/edit/:id" component={EditNotes} />
+        <Route
+          path="/note/:id"
+          render={props => {
+            return <DeleteNotes id={props.match.params.id} />;
+          }}
+        />
+        <Route
+          path="/edit/:id"
+          render={props => {
+            return <EditNotes id={props.match.params.id} />;
+          }}
+        />
       </div>
     );
   }

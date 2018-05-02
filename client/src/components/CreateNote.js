@@ -1,28 +1,24 @@
 import React, { Component } from 'react';
 import { createNote } from '../actions';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 
 class CreateNote extends Component {
   state = {
-    newNote: {
-      title: '',
-      text: '',
-      users: this.props.users
-    }
+    title: '',
+    text: '',
+    users: this.props.users,
+    fireRedirect: false
   };
 
   handleOnChange(event) {
     event.preventDefault();
-    let noteCopy = this.state.newNote;
-    noteCopy[event.target.name] = event.target.value;
-    this.setState({ newNote: noteCopy });
+    this.setState({ [event.target.name]: event.target.value });
   }
   handleOnSubmit(event) {
     event.preventDefault();
-    this.props.createNote(this.state.newNote);
-    this.setState({ newNote: { title: '', text: '' } });
-    this.props.history.push('/home');
+    this.props.createNote(this.state);
+    this.setState({ title: '', text: '', fireRedirect: true });
   }
 
   render() {
@@ -38,19 +34,20 @@ class CreateNote extends Component {
             type="text"
             name="title"
             placeholder="New Title"
-            value={this.state.newNote.title}
+            value={this.state.title}
           />
           <input
             className="newContent"
             type="text"
             name="text"
             placeholder="New Content"
-            value={this.state.newNote.text}
+            value={this.state.text}
           />
           <button className="save" type="submit">
             Save
           </button>
         </form>
+        {this.state.fireRedirect && <Redirect to="/home" />}
       </div>
     );
   }
