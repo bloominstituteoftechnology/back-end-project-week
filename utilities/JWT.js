@@ -17,7 +17,7 @@ function makeToken(user) {
     exp: timestamp + 10
   };
   const options = {
-    expiresIn: "10 seconds"
+    // expiresIn: "10 seconds"
   };
   return jwt.sign(payload, secret, options);
 }
