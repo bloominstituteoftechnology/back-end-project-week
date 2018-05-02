@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
     },
     notes:[{
         title: String,
-        content: String,
+        text: String,
         id: Number,
     }]
 });
@@ -24,7 +24,6 @@ userSchema.pre('save', function (next) {
     bcrypt.hash(this.password, SALT, (err, hash) => {
         if (err)
             return next(err);
-        console.log(hash);
         this.password = hash;
         next();
     });
