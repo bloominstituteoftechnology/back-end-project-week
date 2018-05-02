@@ -34,8 +34,8 @@ const localStrategy = new LocalStrategy(function(username, password, done) { //m
                 return done(err);
             }
             if(isValid) {
-            const { _id, username, race } = user; //if the pswd is valid and user exists
-            return done(null, { _id, username, race }); // placed on req.user
+            const { _id, username } = user; //race or notes --if the pswd is valid and user exists
+            return done(null, { _id, username }); //race or notes placed on req.user
             }
             return done(null, false);
         });
@@ -48,7 +48,7 @@ const jwtOptions = {
 };
 
 const jwtStrategy = new JwtStrategy(jwtOptions, function(payload, done) {
-    User.findById(payload.sub).select('username race').then(user => {
+    User.findById(payload.sub).select('username').then(user => { // or notes
         if(user) {
         done(null, user);
         } else {
@@ -94,14 +94,6 @@ module.exports = function(app) {
         //grants access to the resource(s)
         res.json({ token: makeToken(req.user), user: req.user });
 
-    });
-    app.get('/api/hobbits', protected, (req, res) => {
-        User.find({ race: 'hobbit' }).select('-password').then(hobbits => {
-            res.json(hobbits)
-        })
-        .catch(err => {
-            res.status(500).json(err);
-        });
     });
 };
 
