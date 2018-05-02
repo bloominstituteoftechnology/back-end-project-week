@@ -75,7 +75,7 @@ function protected() {
       } else {
         next();
       }
-    });
+    })(req, res, next);
   };
 }
 
