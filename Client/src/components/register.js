@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { register } from '../actions';
+import { register } from '../actions/index';
 import {
   Container,
   Button,
@@ -20,11 +20,19 @@ class Register extends Component {
     password: "",
     confirmPassword: "",
     firstName: "",
-    lastName: ""
+    lastName: "",
   };
   signupSubmitHandler = event => {
     event.preventDefault();
-    
+    if (this.password === this.confirmPassword) {
+      //console.log('props: ', this.props, "this.props.history: ", this.props.history);
+      this.props.register(this.state.username, this.state.password,this.state.confirmPassword, this.state.firstName,this.state.lastName);
+      this.setState({password:''});
+      this.setState({confirmPassword:''});
+      this.props.history.push('/');
+    } else {
+      console.log('Passwords did not match');
+    }
   };
 
   signupInputHandler = ({ target }) => {
@@ -32,6 +40,7 @@ class Register extends Component {
     this.setState({ [name]: value });
   };
   render() {
+    console.log(this.props);
     return (
       <Container>
         <div className="d-flex justify-content-center mt-5 mb-4">
@@ -117,4 +126,8 @@ class Register extends Component {
   }
 }
 
-export default Register;
+function mapStateToProps(state) {
+  return {}
+};
+
+export default connect(mapStateToProps, { register })(Register);

@@ -29,7 +29,7 @@ export const register = (
       return;
     }
     axios
-      .post(`${ROOT_URL}/users`, { username, password, firstName, lastName })
+      .post(`${ROOT_URL}`, { username, password, firstName, lastName })
       .then(() => {
         dispatch({ type: USER_REGISTERED });
         history.push("/");
@@ -58,7 +58,7 @@ export const login = (username, password, history) => {
         dispatch({
           type: USER_AUTHENTICATED
         });
-        history.push(`${ROOT_URL}${uid}/displayNotes`);
+        history.push(`${ROOT_URL}displayNotes`);
       })
       .catch(() => {
         dispatch(authError("Incorrect username/password."));

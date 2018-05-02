@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 export default ComposedComponent => {
   class RequireAuthentication extends Component {
     componentWillMount() {
-      if(!this.props.authenticated){
+      if(this.props.authenticated){
         this.props.history.push('/');
       }
     }
@@ -22,7 +22,7 @@ export default ComposedComponent => {
 
   const mapStateToProps = state => {
     return {
-      authenticated: state.authed
+      authed: state.authed
     };
   };
 
