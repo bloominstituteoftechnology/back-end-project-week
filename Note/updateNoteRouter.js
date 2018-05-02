@@ -22,8 +22,8 @@ router.put('/', restricted, (req, res) => {
     User.findById(req.user._id)
       .select('-_id notes')
       .populate('notes')
-      .then(newNotes => {
-        res.json(newNotes);
+      .then(user => {
+        res.json(user);
       })
       .catch(err => res.status(500).json(err));
   });
