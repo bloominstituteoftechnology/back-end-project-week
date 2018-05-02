@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require(`${__dirname}/User`);
+const Note = require(`${__dirname}/Notes`);
 const secret = "backend app secret";
 
 const { ExtractJwt } = require("passport-jwt");
@@ -28,6 +29,16 @@ const localStrategy = new LocalStrategy(function(username, password, done) {
     if (!user) {
       done(null, false);
     }
+
+    //email verification
+    // const usernameIsEmail = (username) => {
+    //   let usernameValTest = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+    //   let usernameValid = usernameValTest.test(guess);
+    //   if (usernameValid === false) {
+    //     return done(err);
+    //   } else return 
+    // }
+
 
     user.verifyPassword(password, function(err, isValid) {
       if (err) {
@@ -84,6 +95,17 @@ module.exports = function(server) {
       })
       .catch(err => res.status(500).json({ err: err.message }));
   });
+
+  server.post("/notes", function(req,res) {
+    const {body} = req.body;
+    const note = new Note({body, userRef: req.user._id});
+    note
+      .save()
+      .then(inserted => {
+        console.log(inserted);
+        res.json({inserted})
+      }).catch((err) => console.log(err.message))
+  })
 
   server.post('/login', authenticate, (req, res) => {
     res.json({ token: makeToken(req.user), user: req.user });
