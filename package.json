@@ -14,7 +14,11 @@
     "type": "git",
     "url": "git+https://github.com/crispad/back-end-project-week.git"
   },
-  "keywords": ["heroku", "node", "mongoose"],
+  "keywords": [
+    "heroku",
+    "node",
+    "mongoose"
+  ],
   "author": "Cristina",
   "license": "ISC",
   "bugs": {
