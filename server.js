@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 // process.env.PORT lets the port be set by Heroku
 const port = process.env.PORT || 8080;
 const userController = require('./users/userController.js');
+const registerController = require('./users/registerController.js');
 
 mongoose
   .connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_SERVER}`)
@@ -23,6 +24,7 @@ app.use(helmet());
 app.use(express.json());
 app.use(cors());
 app.use('/api/users', userController);
+app.use('/api/register', registerController);
 
 
 // set the home page route
