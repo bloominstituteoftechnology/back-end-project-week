@@ -23,6 +23,7 @@ app.use(helmet());
 app.use(express.json());
 app.use(cors());
 app.use('/api/register', userController);
+app.use('/api/views', userController);
 
 
 // set the home page route
