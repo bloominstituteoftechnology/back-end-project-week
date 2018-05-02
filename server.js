@@ -2,6 +2,7 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 const morgan = require('morgan');
+const cool = require('cool-ascii-faces');
 const mongoose = require('mongoose');
 
 mongoose
@@ -17,8 +18,18 @@ server.use(express.json());
 server.use(morgan('dev'));
 
 server.get('/', function (req, res) {
-  res.send('Hello World! from the server');
-});
+  res.send( 'Hello World! From the server');
+})
+
+server.get('/coolfaces',(req, res) => {
+    res.send(cool());
+})
+
+server.get('/jeff', (req, res) => {
+    res.send('hai mai name is jeffff')
+})
+
 server.listen(5500, function () {
-  console.log('Server listening on port 5500!');
+  console.log('Ya server listenin pon port 5500!');
 });
+
