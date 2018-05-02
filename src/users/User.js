@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
+const ObjectId = mongoose.Schema.Types.ObjectId;
+
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -11,7 +13,13 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  notes: [
+    {
+      type: ObjectId,
+      ref: 'Note'
+    }
+  ]
 });
 // pre save hook
 

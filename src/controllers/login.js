@@ -23,8 +23,9 @@ const login = (req, res) => {
       if (hashMatch) {
         const payload = {
           username: user.username
-        }; // what will determine our payload.
+        };
         const token = jwt.sign(payload, secret);
+        console.log(username);
         res.json({ token });
       }
     });
