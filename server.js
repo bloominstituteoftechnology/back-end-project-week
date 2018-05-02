@@ -5,7 +5,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const mongoose =require('mongoose');
 
-const userRouter = require('./userRouter.js');
+//const userRouter = require('./userRouter.js');
 
 mongoose.connect(process.env.MONGO_URI).then(() =>
   console.log('\n===connected to mongo===\n'))
@@ -18,6 +18,10 @@ const server = express();
 server.use(morgan('dev'));
 server.use(helmet());
 server.use(express.json());
+
+server.get('/', function(req, res) {
+  res.send({api: running })
+})
 
 
 
