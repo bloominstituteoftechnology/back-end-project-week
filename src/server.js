@@ -1,8 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const session = require('express-session');
 const mongoose = require('mongoose');
-const MongoStore = require('connect-mongo')(session);
+const jwt = require('jsonwebtoken');
 
 const STATUS_USER_ERROR = 422;
 
