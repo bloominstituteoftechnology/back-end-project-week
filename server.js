@@ -7,12 +7,9 @@ const cors = require('cors');
 // Server
 const server = express();
 
-// Middelware
-server.use(express.json());
-server.use(morgan());
-server.use(helmet());
-server.use(cors());
-server.use(logger);
+// Imports
+
+const Note = require('./NotesSchema');
 
 // Logger
 const logger = (req, res, next) => {
@@ -21,12 +18,40 @@ const logger = (req, res, next) => {
   next();
 };
 
+// Middelware
+server.use(express.json());
+server.use(morgan());
+server.use(helmet());
+server.use(cors());
+server.use(logger);
+
 // Server Code
 server.get('/', (req, res) => {
   // API Check
   res.json({ api: 'Running..' });
 });
 
-// Port
-const port = 5000;
-server.listen(port, () => console.log('API Running on Port 5000'));
+server.get('/api/notes', (req, res) => {
+  Note.find({})
+    .then(notes => {
+      res.json(notes);
+    })
+    .catch(err => {
+      res.status(500).json({ error: 'Note does not exist' });
+    });
+});
+
+server.post('/api/notes', (req, res) => {
+  const { title, body } = req.body;
+  const newNote = new Note({ title, body });
+  newNote
+    .save()
+    .then(savedNote => {
+      res.json(savedNote);
+    })
+    .catch(err => {
+      res.status(422).json(err);
+    });
+});
+
+module.exports = server;
