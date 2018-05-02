@@ -5,7 +5,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const mongoose =require('mongoose');
 
-mongoose.connect('mongodb://localhost/backend').then(() =>
+mongoose.connect(MONGO_URI).then(() =>
   console.log('\n===connected to mongo===\n'))
 
 .catch(err =>console.log('not connected'));
@@ -18,5 +18,7 @@ server.use(helmet());
 server.use(express.json());
 
 
-const port =5000;
+
+
+const port = process.env.port || 5000;
 server.listen(port, () =>console.log('server listening at port 5000'));
