@@ -7,10 +7,16 @@ mongoose.connect('mongodb://ds263619.mlab.com:63619/lambdanotes', {}, err => {
   console.log('\n===Connected to MLAB database===\n');
 });
 
+const userRouter = require('./user/userRouter');
+const noteRouter = require('./note/noteRouter');
+
 const server = express();
 
 server.use(helmet());
 server.use(express.json());
+
+server.use('/api/users', userRouter);
+server.use('/api/notes', noteRouter);
 
 server.get('/', (req, res) => res.send('API Running...'));
 
