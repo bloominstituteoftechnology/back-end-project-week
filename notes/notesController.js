@@ -1,9 +1,11 @@
 const express = require("express");
 const router = express.Router();
 
+const { protected } = require("../utilities/JWT");
+
 const Note = require("./notesModel.js");
 
-router.route("/").post((req, res) => {
+router.route("/").post(protected, (req, res) => {
   const note = new Note(req.body);
   note
     .save()
@@ -18,7 +20,7 @@ router.route("/").post((req, res) => {
 router
   .route("/user/:user")
 
-  .get((req, res) => {
+  .get(protected, (req, res) => {
     Note.find({ user: req.params.user }).then(notes => {
       res.json(notes);
     });
@@ -26,14 +28,14 @@ router
 
 router
   .route("/:id")
-  .put((req, res) => {
+  .put(protected, (req, res) => {
     Note.findByIdAndUpdate(req.params.id, req.body, { new: true }).then(
       updatedNote => {
         res.json(updatedNote);
       }
     );
   })
-  .delete((req, res) => {
+  .delete(protected, (req, res) => {
     console.log("Delete Request: ", req);
     Note.findByIdAndRemove(req.params.id).then(deletedNote => {
       res.json(deletedNote);
