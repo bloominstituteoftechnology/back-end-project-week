@@ -1,12 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5000;
 const server = express();
 
-const setupMiddleware = require('./setup/middleware')(server);
+// const setupMiddleware = require('./setup/middleware')(server);
 
-const setupRoutes = require('./setup/routes')(server);
+// const setupRoutes = require('./setup/routes')(server);
 
 mongoose
   .connect(
@@ -18,5 +18,9 @@ mongoose
   .catch(err => {
     console.log('\n=== ERROR connecting to mongo ===\n');
   });
+
+server.get('/', function(req, res) {
+  res.send({ api: 'up and running' });
+});
 
 server.listen(PORT, () => console.log('\n=== API on port 5k ===\n'));
