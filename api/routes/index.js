@@ -2,6 +2,9 @@ const { getUserController } = require("../controllers");
 
 // a server function being exported
 module.exports = server => {
+    server.get("/", (req, res) => {
+        res.status(200).json({ msg: "api running" });
+    });
     server
         .route("/users")
         .get(getUserController.getUsers)
