@@ -200,7 +200,35 @@ const updateNoteById = (req, res) => {
 };
 
 const deleteNoteById = (req, res) => {
-  res.json({ p: 1 });
+  const { id, note_Id } = req.params;
+
+  User.findById(id)
+    .then(user => {
+      if (user) {
+        Note.findByIdAndRemove(note_Id)
+          .then(deletedNote => {
+            if (deletedNote) {
+              res.status(200).json(deletedNote);
+            } else {
+              res
+                .status(404)
+                .json({ errorMessage: 'Can not delete that note!' });
+            }
+          })
+          .catch(err => errHandler(res, err, 'cannot delete that note'));
+      } else {
+        res
+          .status(404)
+          .json({ errorMessage: 'Can not delete an error occured' });
+      }
+    })
+    .catch(err =>
+      errHandler(
+        res,
+        err,
+        "Encountered an error problem when deleting the user's note!"
+      )
+    );
 };
 
 module.exports = {
