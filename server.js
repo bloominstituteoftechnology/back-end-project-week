@@ -24,9 +24,9 @@ server.use(helmet());
 server.use(express.json());
 server.use('/api/users', userRouter);
 
-// server.get('/api/users',  (req, res) => {
-//   res.send({api: 'running...' });
-// });
+server.get('/api/users',  (req, res) => {
+  res.send({api: 'running...' });
+ });
 
 
 
