@@ -1,10 +1,10 @@
 const Note = require('../Models/Note');
 const User = require('../Models/User');
 
+// GETs all note IDs for a User ID supplied as req.params.id
 const noteGet = (req, res) => {
-  // const author = req.body.username;
   if (req.params.id) {
-    const id = req.params.id; // {id: 'asldf;asdlf}  'liasdjflaskd'
+    const id = req.params.id;
     console.log(req.body);
     User.findById(id)
       .then(user => {
