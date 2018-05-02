@@ -28,12 +28,9 @@ server.get('/api/notes', (req, res) => {
     .catch(err => res.status(500).json(err))
 })
 
-let noteId = 0
-
 server.post('/api/notes', (req, res) => {
   const { title, content } = req.body
-  const newNote = { noteId, title, content }
-  noteId++
+  const newNote = { title, content }
 
   const note = new Note(newNote)
   note

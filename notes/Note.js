@@ -2,6 +2,8 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 const { ObjectId } = Schema.Types
 
+let noteId = 0
+
 const NoteSchema = new Schema({
   title: {
     type: String,
@@ -34,6 +36,13 @@ const NoteSchema = new Schema({
   author: {
     type: String
   }
+})
+
+NoteSchema.pre('save', function(next) {
+  console.log(noteId)
+  this.noteId = noteId
+  noteId++
+  next()
 })
 
 module.exports = mongoose.model('Note', NoteSchema)
