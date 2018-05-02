@@ -7,7 +7,7 @@ const { ExtractJwt } = require("passport-jwt");
 const JwtStrategy = require("passport-jwt").Strategy;
 const secret = "unicorns are amazing";
 
-export function makeToken(user) {
+export const makeToken = user => {
   const timestamp = new Date().getTime();
 
   const payload = {
@@ -19,7 +19,7 @@ export function makeToken(user) {
     expiresIn: "2 minutes"
   };
   return jwt.sign(payload, secret, options);
-}
+};
 
 const localStrategy = new LocalStrategy(function(username, password, done) {
   User.findOne({ username }, function(err, user) {
