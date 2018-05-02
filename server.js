@@ -14,7 +14,7 @@ server.use(cors());
 
 mongoose
   .connect(
-    'mongodb://pacManKana:LambdaN0t3s>@ds111050.mlab.com:11050/lambda-notes'
+    'mongodb:// pacManKana : LambdaN0t3s >@ds111050.mlab.com:11050/lambda-notes'
   )
   .then(cnn => {
     console.log('\n=== connected to mongo ===\n');
@@ -99,19 +99,6 @@ passport.use(jwtStrategy);
 const authenticate = passport.authenticate('local', { session: false });
 const protected = passport.authenticate('jwt', { session: false });
 
-module.exports = function(server) {
-  // QUESTION: Will I use something like this to post notes OR do I leave that on the front-end???
-  //   server.get('/api/hobbits', protected, (req, res) => {
-  //     // if you are here, you will receive a list of the hobbits
-  //     User.find({ race: 'hobbit' })
-  //       .select('-password')
-  //       .then(hobbits => {
-  //         res.json(hobbits);
-  //       })
-  //       .catch(err => {
-  //         res.status(500).json(err);
-  //       });
-  //   });
 
   server.get('/', (req, res) => {
     res.send({
@@ -172,7 +159,6 @@ module.exports = function(server) {
       user: req.user
     });
   });
-};
 
 // ========= END OF ROUTES.JS ========== //
 
