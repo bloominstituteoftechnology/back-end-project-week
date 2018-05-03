@@ -5,15 +5,14 @@ const morgan = require('morgan');
 const routes = require('./routes/routes');
 const server = express();
 
-// const corsOptions = {
-//     origin: 'https://vigorous-goldstine-ca9e37.netlify.com',
-//     credentials: true
-// }
+const corsOptions = {
+    origin: 'https://vigorous-goldstine-ca9e37.netlify.com',
+    credentials: true
+}
 
 server.use(helmet());
 server.use(express.json());
 server.use(morgan('dev'));
-//server.use(cors(corsOptions));
-server.use(cors());
+server.use(cors(corsOptions));
 routes(server);
 module.exports = server;
