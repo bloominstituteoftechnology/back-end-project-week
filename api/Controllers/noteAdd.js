@@ -22,6 +22,7 @@ const noteAdd = (req, res) => {
         `Note successfully saved to the DB only, not to a user just yet`
       );
       noteId = savedNote._id;
+      console.log(`=====+++++++++++ NOTE ID LOG +++++++=====`, savedNote);
     })
     .catch(err => {
       res
