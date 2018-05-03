@@ -16,7 +16,7 @@ const notesRouter = require('./notes/notesRouter.js');
 //   credentials: true
 // };
 
-app.options('*', cors())
+server.options('*', cors())
 server.use(express.json());
 server.use(helmet());
 
