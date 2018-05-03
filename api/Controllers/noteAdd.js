@@ -24,6 +24,7 @@ const noteAdd = (req, res) => {
       noteId = savedNote._id;
       console.log(`=====+++++++++++ NOTE ID LOG +++++++=====`, savedNote);
       console.log(`%%%%%%%% SAVEDNOTE._ID %%%%%%%%`, savedNote._id);
+      console.log(`$$$$$$$$ NOTEID ASYNC? $$$$$$$$`, noteId);
     })
     .catch(err => {
       res
