@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const config = require('../api/config.js');
-const Note = require('./noteModel');
-const User = require('../users/userModel');
+const Note = require('./noteModel.js');
+const User = require('../users/userModel.js');
 
 const errHandler = (res, err, msg = 'error occurred') => {
   if (config.env === 'development') {

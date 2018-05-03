@@ -1,9 +1,9 @@
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 
-const User = require('./userModel');
+const User = require('./userModel.js');
 const config = require('../api/config.js');
-const { makeToken } = require('../api/utils/middleware');
+const { makeToken } = require('../api/utils/middleware.js');
 
 const getUsers = (req, res) => {
   User.find({})
