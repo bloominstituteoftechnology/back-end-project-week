@@ -27,6 +27,7 @@ mongoose.connect(path);
 //mongoose.connect('mongodb://localhost/notes')
 
 const corsOptions = {
+  origin: 'https://heuristic-bohr-b92bb6.netlify.com/',
   methods:['GET','POST'],
   credentials: true
 };
