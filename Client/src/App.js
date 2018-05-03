@@ -56,12 +56,12 @@ class App extends Component {
         <Router>
           <Container fluid="true" className="App">
             <Row className="app-wrapper">
-              <Col sm={3} className="leftSide position-fixed">
+              {/* <Col sm={3} className="leftSide position-fixed">
                 <h1 className="header my-4">Lambda Notes</h1>
                 <Link to ="/displayNotes"><Button className="w-100 my-2 p-2">View Your Notes</Button></Link>
                 <Link to ="/createNote"><Button className="w-100 my-2 p-2">+ Create New Note</Button></Link>
                 <Link to ="/logout"><Button className="w-100 my-2 p-2">Sign out</Button></Link>
-              </Col>
+              </Col> */}
               <Col sm={9} className="rightSide offset-3">
                 {routes.map((route, index) => (
                   <Route

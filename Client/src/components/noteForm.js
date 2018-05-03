@@ -5,7 +5,7 @@ import { Form, FormGroup, Input, Button, Container } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 
 const mapStateToProps = state => {
-    return {notes: state.notes}
+    return {notes: state.notes, users: state.auth.users}
 };
 
 class NoteForm extends Component {

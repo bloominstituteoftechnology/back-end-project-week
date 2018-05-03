@@ -10,14 +10,19 @@ import {
   CardTitle
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import { getNotes } from '../actions/index'
 
 function mapStateToProps(state) {
   return {
-    notes: state.notes
+    notes: state.notes,
+    user: state.auth.user
   };
-}
+};
 
 class NotesList extends Component {
+  ComponentDidMount() {
+    this.props.getNotes(this.props.users);
+  }
   render() {
     return (
       <Container className="my-5">
@@ -48,4 +53,4 @@ class NotesList extends Component {
   }
 }
 
-export default connect(mapStateToProps)(NotesList);
+export default connect(mapStateToProps, { getNotes })(NotesList);
