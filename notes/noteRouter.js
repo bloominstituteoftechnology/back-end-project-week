@@ -6,6 +6,17 @@ const Note = require('./Note.js');
 const router = express.Router();
 
 router
+.route('/:id')
+.delete((req,res)=>{
+  Note.findById(req.params.id).remove()
+  .then(response=>{
+    res.status(200).json(response);
+  })
+  .catch(err=>{
+    res.status(500).json(err);
+  });
+});
+router
 .route('/')
 .get( (req,res)=>{
   Note.find({username:req.user.username})
@@ -17,7 +28,8 @@ router
   });
 })
 .post( (req,res)=>{
-  const note = new Note(req.body);
+  const {text, title} = req.body;
+  const note = new Note({title,text,username:req.user.username});
   note.save()
   .then(savedNote=>{
     res.status(200).json(savedNote);
@@ -25,6 +37,5 @@ router
   .catch(err=>{
     res.status(500).json(err);
   });
-});
-
+})
 module.exports = router;
