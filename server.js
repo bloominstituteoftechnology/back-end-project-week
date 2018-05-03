@@ -2,7 +2,7 @@ const express = require('express');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://ds263619.mlab.com:63619/lambdanotes', {}, err => {
+mongoose.connect('mongodb://shaun:red@ds263619.mlab.com:63619/lambdanotes', {}, err => {
   if (err) return console.log(err);
   console.log('\n===Connected to MLAB database===\n');
 });
@@ -16,7 +16,7 @@ server.use(helmet());
 server.use(express.json());
 
 server.use('/api/users', userRouter);
-server.use('/api/notes', noteRouter);
+// server.use('/api/notes', noteRouter);
 
 server.get('/', (req, res) => res.send('API Running...'));
 

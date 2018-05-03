@@ -1,6 +1,6 @@
 const express = require('express');
 const User = require('./userModel');
-const router = require(express.Router());
+const router = express.Router();
 
 // user sign-up
 router.route('/').post((req, res) => {
@@ -15,9 +15,19 @@ router.route('/').post((req, res) => {
   } else res.status(422).json({ Error: 'Enter username and password' });
 });
 
+// user sign-in
 router.route('/login').post((req, res) => {
   const { username, password } = req.body;
 
   if (username && password) {
+    User.findOne({ username })
+      .then(user => {
+        if (user) {
+          user.checkPassword(password); // resume here, need JWT
+        }
+      })
+      .catch();
   }
 });
+
+module.exports = router;
