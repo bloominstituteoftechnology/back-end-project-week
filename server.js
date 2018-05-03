@@ -13,6 +13,17 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+mongoose
+  .connect(
+    'mongodb://pacManKana:LambdaN0t3s@ds111050.mlab.com:11050/lambda-notes'
+  )
+  .then(cnn => {
+    console.log('\n=== connected to mLab mongo ===\n');
+  })
+  .catch(err => {
+    console.log('\n=== ERROR connecting to mongo ===\n');
+  });
+
 app.get('/', (req, res) => {
   res.send({
     dummyData: [
