@@ -4,7 +4,7 @@ const Note = require('../Models/Note');
 const noteAdd = (req, res) => {
   const { title, content } = req.body;
   const author = req.body.username;
-  let id;
+  // let id;
 
   const saveNote = () => {
     // await findUser(author);
@@ -18,7 +18,7 @@ const noteAdd = (req, res) => {
       $push: { notes: newestNote },
     })
       .then(user => {
-        console.log(`===USER ID: ===`, id);
+        console.log(`===USER ID: ===`, req.body.id);
         console.log(`===AUTHOR===:`, author);
         // if (author) {
         // const newNote = new Note({
