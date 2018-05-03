@@ -26,13 +26,13 @@ server.use(cors(
     credentials: true // enable set cookie
   }));
 
-server.use(function (req, res, next) {
+/* server.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', 'https://wonderful-snyder-42b641.netlify.com');
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
-});
+}); */
 
 server.use(express.json());
 
