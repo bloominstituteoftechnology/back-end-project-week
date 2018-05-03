@@ -26,17 +26,16 @@ store.on('error', function(error) {
 mongoose.connect(path);
 //mongoose.connect('mongodb://localhost/notes')
 
-server.options('*', cors())
-
 const corsOptions = {
   origin: ['https://lambda-notes.netlify.com/'],
   methods:['GET','POST', 'DELETE', 'PUT'],
+  preflightContinue: true,
   credentials: true
 };
 
-server.use(cors(corsOptions));
-server.use(helmet());
 server.use(express.json());
+server.use(helmet());
+server.use(cors(corsOptions));
 server.use(
   session({
     secret: 'supersecretsecret',
