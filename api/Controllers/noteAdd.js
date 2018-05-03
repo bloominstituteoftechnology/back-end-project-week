@@ -2,11 +2,11 @@ const User = require('../Models/User');
 const Note = require('../Models/Note');
 
 const noteAdd = (req, res) => {
-  const { username, id, title, content } = req.body;
-  console.log(`USER ID: `, id);
+  const { username, userId, title, content } = req.body;
+  console.log(`USER ID: `, userId);
   // const saveNote = () => {
   const newestNote = new Note({
-    author: id,
+    author: userId,
     title: title,
     content: content,
   });
@@ -18,7 +18,7 @@ const noteAdd = (req, res) => {
     $push: { notes: newestNote },
   })
     .then(user => {
-      console.log(`===AUTHOR===:`, username, `===AUTHOR ID===`, id);
+      console.log(`===AUTHOR===:`, username, `===AUTHOR ID===`, userId);
       console.log(`===NEW NOTE===`, newestNote);
       newestNote
         .save()
@@ -30,7 +30,7 @@ const noteAdd = (req, res) => {
         });
     })
     .catch(err => {
-      console.log(`===AUTHOR===`, username, `===AUTHOR ID===`, id);
+      console.log(`===AUTHOR===`, username, `===AUTHOR ID===`, userId);
       console.log(`===NEWEST NOTE===:`, newestNote);
       res.json({ Error: `Unable to find user`, err });
     });
