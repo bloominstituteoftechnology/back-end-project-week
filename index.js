@@ -32,7 +32,7 @@ server.use(
         resave: true,
         saveUninitialized: false,
         store: new MongoStore({
-            url: mongoose.connection,
+            mongooseConnection: mongoose.connection,
             ttl: 10 * 60 //seconds
         })
     })
