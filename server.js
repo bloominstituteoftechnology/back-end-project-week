@@ -4,9 +4,9 @@ const cors = require('cors');
 const PORT = process.env.PORT || 5000;
 const server = express();
 
-const setupMiddleware = require('./setup/middleware')(server);
+// const setupMiddleware = require('./setup/middleware')(server);
 
-const setupRoutes = require('./setup/routes')(server);
+// const setupRoutes = require('./setup/routes')(server);
 
 mongoose
   .connect(
