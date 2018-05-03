@@ -3,10 +3,6 @@ const mongoose = require('mongoose');
 
 const PORT = process.env.PORT || 5000;
 
-// ========== ROUTES ========== //
-
-const setupRoutes = require('./setup/routes')(app);
-
 // ========== MIDDLEWARE ============== //
 
 const cors = require('cors');
@@ -30,6 +26,8 @@ mongoose
     console.log('\n=== ERROR connecting to mongo ===\n');
   });
 
+// ========== ROUTES ========== //
 
+const setupRoutes = require('./setup/routes')(app);
 
 app.listen(PORT);
