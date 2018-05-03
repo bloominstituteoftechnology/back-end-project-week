@@ -8,7 +8,7 @@ const config = require('../api/config');
 
 const server = require('../server');
 
-const User = require('../users/userModel');
+const User = require('../users/userModel.js');
 
 chai.use(chaiHTTP);
 
