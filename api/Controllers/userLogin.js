@@ -12,13 +12,10 @@ const userLogin = (req, res) => {
       user.checkPassword(password, (nonMatch, hashMatch) => {
         if (nonMatch !== null) {
           res.status(422).json({ Error: 'Password is incorrect!' });
-        }
-        if (hashMatch) {
-          const payload = { username: user.username, id: user._id };
+        } else {
+          const payload = { username, id: user._id };
           const token = jwt.sign(payload, mysecret);
           res.status(200).json({ token, id: user._id });
-        } else {
-          res.status(501).json({ ELSEERROR: `This is an error` });
         }
       });
     })
