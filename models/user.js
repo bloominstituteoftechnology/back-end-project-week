@@ -1,41 +1,43 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-// Clear out mongoose's model cache to allow --watch to work for tests:
-// https://github.com/Automattic/mongoose/issues/1251
-mongoose.models = {};
-mongoose.modelSchemas = {};
+SALT_FACTOR = 11;
 
-mongoose.Promise = Promise;
-mongoose.connect('mongodb://test:test@ds163689.mlab.com:63689/backenddb');
-
-const UserSchema = new mongoose.Schema({
-  // TODO: fill in this schema
+const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
     unique: true,
   },
-  passwordHash: {
+  password: {
     type: String,
     required: true,
+    minlength: 4,
   },
 });
 
-UserSchema.pre('save', function (next) {
-  console.log('pre save hook');
-  bcrypt.hash(this.passwordHash, 11, (err, hash) => {
-    if (err) {
-      return next(err);
-    }
-    this.passwordHash = hash;
+userSchema.pre('save', function(next) {
+  bcrypt
+    .hash(this.password, SALT_FACTOR)
+    .then(hash => {
+      this.password = hash;
 
-    return next();
-  });
+      next();
+    })
+    .catch(err => {
+      return next(err);
+    });
 });
 
-UserSchema.methods.isPasswordValid = function (passwordGuess) {
-  return bcrypt.compare(passwordGuess, this.passwordHash);
+userSchema.methods.verifyPassword = function(guess, callback) {
+  bcrypt.compare(guess, this.password, function(err, isValid) {
+    if (err) {
+      return callbackify(err);
+    }
+    callback(null, isValid);
+  });
 };
 
-module.exports = mongoose.model('User', UserSchema);
+const userModel = mongoose.model('User', userSchema);
+
+module.exports = userModel;
