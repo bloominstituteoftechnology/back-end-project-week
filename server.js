@@ -19,7 +19,7 @@ mongoose.connect('process.env.MONGODB_URI', function(err, database){
     process.exit(1);
   }
 })
-db = database;
+database;
 console.log('database is connection ready')
 
 
