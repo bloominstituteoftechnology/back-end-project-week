@@ -8,22 +8,30 @@ const noteAdd = (req, res) => {
 
   const saveNote = () => {
     // await findUser(author);
-    User.findOne({ username: req.body.username })
+    const newestNote = new Note({
+      author: localStorage.id,
+      title: title,
+      content: content,
+    });
+    User.findOneAndUpdate({
+      username: req.body.username,
+      notes: { $push: newestNote },
+    })
       .then(user => {
-        id = user._id;
         console.log(`===USER ID: ===`, id);
         console.log(`===AUTHOR===:`, author);
         // if (author) {
-        const newNote = new Note({
-          author: id,
-          title: title,
-          content: content,
-        });
+        // const newNote = new Note({
+        //   author: id,
+        //   title: title,
+        //   content: content,
+        // });
         console.log(`===NEW NOTE===`, newNote);
-        newNote
+        newestNote
           .save()
           .then(savedNote => {
-            user.notes.push(savedNote);
+            console.log(`Note successfully saved!!! YAY`);
+            // user.notes.push(savedNote);
             // user
             //   .save()
             //   .then(response => {
