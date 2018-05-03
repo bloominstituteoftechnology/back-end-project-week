@@ -26,7 +26,7 @@ const noteAdd = (req, res) => {
         //   title: title,
         //   content: content,
         // });
-        console.log(`===NEW NOTE===`, newNote);
+        console.log(`===NEW NOTE===`, newestNote);
         newestNote
           .save()
           .then(savedNote => {
