@@ -86,6 +86,7 @@ module.exports = function(server) {
 
   server.get('/api/notes', protected, (req, res) => {
     User.findById(req.user._id)
+      .populate('notes')
       .select('-password')
       .then(user => {
         res.json(user.notes);
@@ -96,18 +97,17 @@ module.exports = function(server) {
   });
 
   server.post('/api/notes', protected, (req, res) => {
-    if (req.body.author !== req.user._id) {
-      res.json({ message: 'Unauthorized' });
-    }
+    // if (req.body.author !== req.user._id) {
+    //   res.json({ message: 'Unauthorized' });
+    // }
     const note = new Note(req.body);
-
     note
       .save()
       .then(savedNote => {
         res.json(savedNote);
       })
       .catch(err => {
-        console.log(err.message);
+        console.log(err);
       });
   });
 
