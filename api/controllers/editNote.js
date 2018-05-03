@@ -2,18 +2,20 @@ const express = require('express');
 const Notes = require('../models/notesModel');
 const User = require('../models/userModel');
 
-const editNote = (req, res) => {
+const editNote = async function(req, res) {
+  /// const { id } = req.params;
+
+  // const { username } = req.params;
+
   const { id } = req.params;
-
-  const { userID } = req.params;
-
-  const { title, body } = req.body;
-
-  Notes.findByIdAndUpdate(id, req.body, { new: true })
-    .then(updateNote => {
-      res.status(200).json(updateNote);
+  console.log('this is body', req.body);
+  console.log('this is params', req.params);
+  Notes.findByIdAndUpdate( id , req.body)
+    .then(data => {
+      console.log('this is data', data);
+      res.send(data);
     })
     .catch(error => console.log('error'));
 };
 
-module.export = { editNote };
+module.exports = { editNote };

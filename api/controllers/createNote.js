@@ -1,67 +1,64 @@
-// // const express = require('express');
-// // const Notes = require('../models/notesModel');
-// // const User = require('../models/userModel');
 
-// // //   console.log(req.body, req.params);
-// // //   const note = req.body;
-// // //   const newNote = new Note(note);
-// // //   const { uid } = req.params;
 
-// // //   newNote
-// // //     .save()
-// // //     .then(savedNote => {
-// // //       console.log("saved note: ", savedNote);
-// // //       User.findById(uid, (err, user) => {
-// // //         if (err)
-// // //           return res
-// // //             .status(500)
-// // //             .json({ msg: "There was an error savkng the note." });
-// // //         user.notes.push(savedNote);
-// // //         user
-// // //           .save()
-// // //           .then()
-// // //           .catch(err =>
-// // //             res.status(500).json({
-// // //               msg: "There was an error saving the the note.",
-// // //               error: err
-// // //             })
-// // //           );
-// // //       });
-// // //       res.status(200).json(savedNote);
-// // //     })
-// // //     .catch(err => {
-// // //       res
-// // //         .status(500)
-// // //         .json({ msg: "There was an error saving the note.", error: err });
-// // //     });
-// // // };
+const Notes = require('../models/notesModel');
+const User = require('../models/userModel');
+const express = require('express');
 
-// const Note = require('../models/notesModel');
-// const User = require('../models/userModel');
-// const express = require('express');
+const createNote = async function(req, res) {
+  //   console.log('xxxxxxxxxxxxxxxxxxxxxx');
+  //   console.log(req.body);
+  //   console.log('xxxxxxxxxxxxxxxxxxxxxx');
+  const note = req.body; //Getting from model
 
-// const createNote = (req, res) => {
-//   const note = req.body; //Getting from model
-//   const newNote = new Note(note);
-//   const { userID } = req.params;
+  //   console.log('xxxxxxxxxxxxxxxxxxxxxx');
+  //   console.log(req.params);
+  //   console.log('xxxxxxxxxxxxxxxxxxxxxx');
 
-//   if (!req.body.content) {
-//     return res.status(400).send({ message: 'Content cannot be empty' });
-//   }
+  const newNote = new Notes(note);
 
-//   const loggedInUser = await User.findById(userID);
+  console.log('printing new note', newNote);
+  const { username } = req.params;
 
-//   // Save Note in the database
-//   // newNote
-//   //   .save()
-//   //   .then(data => {
-//   //     res.send(data);
-//   //   })
-//   //   .catch(err => {
-//   //     res.status(500).send({
-//   //       message: err.message || 'Some error occurred while creating the Note.'
-//   //     });
-//     });
-// };
+  //   console.log('xxxxxxxxxxxxxxxxxxxxxx');
+  //   console.log(username);
+  //   console.log('xxxxxxxxxxxxxxxxxxxxxx');
 
-// module.exports = { createNote };
+  if (!req.body.content) {
+    console.log('the content was empty');
+    return res.status(400).send({ message: 'Content cannot be empty' });
+  }
+
+  //   const loggedInUser = await User.findOne({ username });
+
+  //   console.log('xxxxxxxxxxxxxxxxxxxxxx');
+  //   console.log('logged in: ', loggedInUser);
+  //   console.log('xxxxxxxxxxxxxxxxxxxxxx');
+
+  if (req.params.username) {
+    // console.log('in the if statement');
+    User.findOneAndUpdate({ username }, { $push: { notes: newNote } }, (error, note) => {
+      if (error) {
+        console.log('in the error statement');
+        res.status(500).json({ error: 'error' });
+      }
+    });
+    // console.log('in the return statement');
+
+    // return;
+  }
+
+  //Save Note in the database
+  newNote
+    .save()
+    .then(data => {
+      console.log('this is data: ', data);
+      res.send(data);
+    })
+    .catch(error => {
+      res.status(500).json({
+        error: 'Error adding note'
+      });
+    });
+};
+
+module.exports = { createNote };

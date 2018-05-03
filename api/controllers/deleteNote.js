@@ -1,16 +1,21 @@
-const express = requore('express');
+const express = require('express');
 const Notes = require('../models/notesModel');
 const User = require('../models/userModel');
 
-const deleteNote = (req, res) => {
-  const { id } = req.params;
+const deleteNote = async function(req, res) {
+  //const { id } = req.params;
 
-  const { userID } = req.params;
-  Notes.findByIdAndRemove(noteID, req.body, { new: true })
-    .then(deleteNote => {
-      res.status(200).json(deleteNote);
+  const { username } = req.params;
+  console.log('this is my body', req.body);
+  const { title } = req.body;
+  Notes.findOneAndRemove({ title })
+    .then(data => {
+      console.log('this is data', data);
+      res.send(data);
     })
     .catch(error => {
       console.log('error');
     });
 };
+
+module.exports = { deleteNote };

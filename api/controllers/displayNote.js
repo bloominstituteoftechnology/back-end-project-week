@@ -4,10 +4,13 @@ const User = require('../models/userModel');
 
 const displayNotes = async function(req, res) {
   console.log('xxxxxxxxxxxxxxxxxxxxxx');
-  //console.log(req.params.userID);
+  console.log(req.params);
   console.log('xxxxxxxxxxxxxxxxxxxxxx');
-  const { userID } = req.params.username;
-  const loggedInUser = await User.findById(userID).populate('notes');
+  const { username } = req.params;
+  const loggedInUser = await User.findOne({ username }).populate('notes');
+  console.log('xxxxxxxxxxxxxxxxxxxxxx');
+  console.log(loggedInUser);
+  console.log('xxxxxxxxxxxxxxxxxxxxxx');
   res.status(200).json({ notes: loggedInUser.notes });
   // try {
   //   const { userID } = req.params.userID;
