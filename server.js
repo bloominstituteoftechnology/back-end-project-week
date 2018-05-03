@@ -148,7 +148,6 @@ server.put('/:id', (req, res) => {
 
 server.post('/users', (req, res) => {
   const newUser = new User(req.body);
-  console.log(newUser);
   newUser.save()
     .then(response => {
       res
@@ -166,18 +165,26 @@ server.post('/users', (req, res) => {
 server.post('/signin', (req, res) => {
   const { email, password } = req.body;
 
-  User.findOne({ email }).then(user => {
-    if (user) {
-      user.isPasswordValid(password).then(isValid => {
-        if (isValid) {
-          //req.session.name = user.name;
-          res.status(200).json({ response: `welcome ${user.name}` });
-        } else {
-          res.status(401).json({ msg: 'you shall not pass!!!' });
-        }
-      });
-    }
-  });
+  User.findOne({ email })
+    .then(user => {
+      if (user) {
+        user.isPasswordValid(password)
+          .then(Valid => {
+            if (Valid) {
+              //req.session.name = user.name;
+              res.status(200).json({ response: `welcome ${user.name}` });
+            } else {
+              res.status(401).json({ response: 'you shall not pass!!!' });
+            }
+          })
+          .catch(error => {
+            res.json("Error signing in")
+          })
+      }
+    })
+    .catch(error => {
+      res.json('Error signing in')
+    })
 });
 
 
