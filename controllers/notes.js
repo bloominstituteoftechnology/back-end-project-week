@@ -70,19 +70,19 @@ const getNotes = async function(req, res) {
 const deleteNote = async function(req, res) {
   const noteId = req.params.id;
   const { uid } = req.params;
-  // Note
-  //   .findByIdAndRemove(noteId, req.body, { new: true })
-  //   .then(deleteNote =>{
-  //   res.json(deleteNote);
-  //   }
-  // ).catch(error => res.json(error));
-  ;
-  try {
-      const removeNote = await User.findByIdAndUpdate(uid, {$pull: {notes: { _id: noteId }}});
-      res.status(200).send(removeNote.notes);
-  } catch(error) {
-      console.log(error, 'There was an error deleting the note');
-  };
+  Note
+    .findByIdAndRemove(noteId, req.body)
+    .then(deleteNote =>{
+    res.json(deleteNote);
+    }
+  ).catch(error => res.json(error));
+
+  // try {
+  //     const removeNote = await User.findByIdAndUpdate(uid, {$pull: {notes: { _id: noteId }}});
+  //     res.status(200).send(removeNote.notes);
+  // } catch(error) {
+  //     console.log(error, 'There was an error deleting the note');
+  // };
 };
 
 const editNote = async function(req, res) {
