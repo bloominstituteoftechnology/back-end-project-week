@@ -7,10 +7,19 @@ const helmet = require('helmet');
 
 const server = express();
 
-server.options('*', cors())
-
 const usersRouter = require('./users/usersRouter.js');
 const notesRouter = require('./notes/notesRouter.js');
+
+const corsOptions = {
+  origin: ['https://lambda-notes.netlify.com/'],
+  methods:['GET','POST', 'DELETE', 'PUT', 'OPTIONS'],
+  allowedheaders: ['Content-Type, Authorization, Content-Length, X-Requested-With'],
+  credentials: true
+};
+
+server.use(cors(corsOptions));
+server.use(express.json());
+server.use(helmet());
 
 const path = process.env.MONGOLAB_URI || 'mongodb://localhost/notes';
 
@@ -18,7 +27,7 @@ mongoose.connect(path);
 
 var store = new MongoDBStore(
   {
-    uri: path,
+    uri: process.env.MONGOLAB_URI,
     databaseName: 'connect_mongodb_session_test',
     collection: 'mySessions'
   });
@@ -28,8 +37,6 @@ var store = new MongoDBStore(
     assert.ok(false);
   });
 
-server.use(express.json());
-server.use(helmet());
 server.use(
   session({
     secret: 'supersecretsecret',
