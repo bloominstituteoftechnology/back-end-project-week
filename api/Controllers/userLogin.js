@@ -6,6 +6,7 @@ const userLogin = (req, res) => {
   const { username, password } = req.body;
 
   if (username && password) {
+    console.log(`BACKEND: username: ${username} and password: ${password}`);
     User.findOne({ username })
       .then(user => {
         user.checkPassword(password, (nonMatch, hashMatch) => {
@@ -20,7 +21,7 @@ const userLogin = (req, res) => {
         });
       })
       .catch(err => {
-        res.status(500).json({ Error: `Unable to login: ${err}` });
+        res.status(500).json({ Error: `Unable to login:`, err });
       });
   } else {
     res.status(422).json({ Error: 'Username and Password required.' });
