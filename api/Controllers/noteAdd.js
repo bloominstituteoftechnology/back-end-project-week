@@ -11,6 +11,8 @@ const noteAdd = (req, res) => {
     content: content,
   });
 
+  console.log(newestNote);
+
   User.findOneAndUpdate({
     username: username,
     $push: { notes: newestNote },
