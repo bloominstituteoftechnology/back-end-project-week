@@ -51,6 +51,9 @@ router
     note
       .save()
       .then(savedNote => {
+        res.status(201).json({
+          message: 'The user was saved to the db and the note was added.'
+        });
         console.log(req.session.name);
         User.find({ username: req.session.name })
           .then(user => {
