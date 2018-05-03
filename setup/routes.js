@@ -1,4 +1,4 @@
-const User = require('../User/Users');
+const User = require('../Model/Users');
 
 module.exports = (server) => {
     server.route('/Notes').get(ViewNote)
