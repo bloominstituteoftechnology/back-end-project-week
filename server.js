@@ -6,7 +6,7 @@ const routes = require('./routes/routes');
 const server = express();
 
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: 'https://vigorous-goldstine-ca9e37.netlify.com',
     credentials: true
 }
 

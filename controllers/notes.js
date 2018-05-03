@@ -14,15 +14,15 @@ const createNote = async function(req, res) {
   // } catch(error) {
   //     console.log(error);
   // };
-  if (req.params.id) {
-    User.findByIdAndUpdate(uid, { $push: { notes: newNote } }, (err, note) => {
-      if (err)
-        res
-          .status(500)
-          .json("There was an error adding the note");
-    });
-    return;
-  }
+  // if (req.params.id) {
+  //   User.findByIdAndUpdate(uid, { $push: { notes: newNote } }, (err, note) => {
+  //     if (err)
+  //       res
+  //         .status(500)
+  //         .json("There was an error adding the note");
+  //   });
+  //   return;
+  // }
   newNote
     .save()
     .then(savedNote => {
@@ -31,7 +31,7 @@ const createNote = async function(req, res) {
         if (err)
           return res
             .status(500)
-            .json({ msg: "There was an error savkng the note." });
+            .json({ msg: "There was an error saving the note." });
         user.notes.push(savedNote);
         user
           .save()
