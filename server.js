@@ -9,6 +9,8 @@ mongoose.connect(keys.mongodb.dbURI, () => {
     console.log('Connected to MongoDB');
 })
 
+const noteRouter = require('./noteRoute');
+
 const server = express();
 
 server.use(helmet());
@@ -18,6 +20,8 @@ server.use(express.json());
 server.get('/', (req, res) => {
     res.status(200).json({ api: 'Running' });
   });
+
+server.use('/viewnotes', noteRouter);
 
 const port = process.env.PORT || 5000;
 server.listen(port, () => {
