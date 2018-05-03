@@ -19,6 +19,7 @@
   "homepage": "https://github.com/omoniyi21/back-end-project-week#readme",
   "dependencies": {
     "bcrypt": "^2.0.1",
+    "bootstrap": "^4.1.1",
     "cors": "^2.8.4",
     "create-react-app": "^1.5.2",
     "express": "^4.16.3",
@@ -27,6 +28,7 @@
     "mongodb": "^3.0.7",
     "mongoose": "^5.0.17",
     "morgan": "^1.9.0",
-    "nodemon": "^1.17.3"
+    "nodemon": "^1.17.3",
+    "react-bootstrap": "^0.32.1"
   }
 }

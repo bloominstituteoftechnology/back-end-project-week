@@ -91,12 +91,11 @@ You will notice that this repository does not have any starter code.  This is on
 https://trello.com/b/f0nFr8Ou/backend-project-omoniyi-alimi
 
 
-Update
-posting one note
-get all notes
-get one notes
+Update*
+get all notes *
+get one notes*
 sign up 
 sign in 
 sign out 
-delete
-create 
+delete*
+create* 

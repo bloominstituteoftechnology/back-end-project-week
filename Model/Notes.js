@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const notesSchema = new mongoose.Schema ({
+    _id: Schema.types.ObjectId,
     Title: {
         type: String,
         required: true,
@@ -12,7 +13,7 @@ const notesSchema = new mongoose.Schema ({
         required: true,
     },
       
-    Body: {
+    Content: {
         type: String,
     }
 })
