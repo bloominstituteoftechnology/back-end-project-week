@@ -6,6 +6,7 @@ const LocalStrategy = require('passport-local');
 const jwt = require('jsonwebtoken');
 
 const User = require('./schemas/User');
+const Note = require('./schemas/Note');
 const secret = 'no size limit on tokens';
 
 function makeToken(user) {
@@ -108,6 +109,7 @@ module.exports = function(server) {
   server.post('/createnote', function(req, res) {
     const credentials = req.body;
     const note = new Note(credentials);
+    console.log('Note req.body', req.body)
     note.save().then(inserted => {
       const token = makeToken(inserted);
       res.status(201).json(token);
