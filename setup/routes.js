@@ -58,6 +58,9 @@ module.exports = function(app) {
     app.post('/api/register', function(req, res) {
       const credentials = req.body;
       const user = new User(credentials);
+      if (credentials.username === undefined) {
+          res.status(404).json(err)
+      }
       user.save().then(inserted => {
         // const token = makeToken(inserted);
         res.status(201).json(inserted);
