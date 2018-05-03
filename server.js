@@ -7,12 +7,10 @@ const PORT = process.env.PORT || 5000;
 // ========== MIDDLEWARE ============== //
 
 const express = require('express');
-const helmet = require('helmet');
 const cors = require('cors');
 
 const app = express();
 
-app.use(helmet());
 app.use(express.json());
 app.use(cors());
 
