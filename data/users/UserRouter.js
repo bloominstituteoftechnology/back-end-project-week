@@ -54,8 +54,12 @@ router
         res.status(200).json({message: "Successfully logged out."})
     })
     .get('/me', validate, (req, res) => {
-        res.json(req.user.username);
-    })
+        if (!req.user) {
+            res.status(400).json({ message: 'You are not logged in.'})
+        } else {
+            res.json(req.user.username);
+        }
+    });
 
 
 module.exports = router;
