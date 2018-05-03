@@ -56,7 +56,7 @@ router
   router
   .route('/logout')
   .post((req, res) => {
-    req.session.regenerate(err => res.json(err));
+    req.session.destroy(err => res.json(err));
     res.status(200).json('logged out');
   })
 
