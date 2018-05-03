@@ -27,7 +27,6 @@ mongoose.connect(path);
 //mongoose.connect('mongodb://localhost/notes')
 
 const corsOptions = {
-  origin:['http://localhost:3000'],
   methods:['GET','POST'],
   credentials: true
 };
