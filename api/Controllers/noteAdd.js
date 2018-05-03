@@ -30,11 +30,12 @@ const noteAdd = (req, res) => {
     });
 
   console.log(newestNote);
+  console.log(`====+++++ Note ID +++++====`, noteId);
 
   User.findByIdAndUpdate(
     { _id: userId },
     {
-      $push: { notes: ObjectId(noteId) },
+      $push: { notes: noteId },
     }
   )
     .then(user => {
