@@ -55,7 +55,7 @@ const jwtOptions = {
 const jwtStrategy = new JwtStrategy(jwtOptions, function(payload, done) {
   User.findById(payload.sub)
 
-    .select('username race')
+    .select('username')
     .then(user => {
       if (user) {
         done(null, user);
