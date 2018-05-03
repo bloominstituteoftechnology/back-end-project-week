@@ -34,6 +34,7 @@ const noteAdd = (req, res) => {
     .then(user => {
       console.log(`===AUTHOR===:`, username, `===AUTHOR ID===`, userId);
       console.log(`===NEW NOTE===`, newestNote);
+      console.log(`++++ NOTE SUCCESSFULLY SAVED TO USER DB ++++`);
     })
     .catch(err => {
       console.log(`===ERR AUTHOR===`, username, `===ERR AUTHOR ID===`, userId);
