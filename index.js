@@ -1,6 +1,7 @@
 const express = require('express');
 const session = require('express-session');
-
+const MongoStore = require('connect-mongo')(session);
+const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -13,12 +14,27 @@ const server = express();
 //use middleware
 server.use(helmet());
 server.use(express.json());
-server.use(cors());
+server.use(cors({
+    origin:true,
+    methods:['GET','POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
+
+server.use(morgan('dev'));
+
 server.use(
     session({
         secret: process.env.SECRET || require('./config').secret,
         cookie: { maxAge: 1 * 24 * 60 * 60 * 1000 },
-        secure: false
+        secure: false,
+        httpOnly: true,
+        name: 'lambda-notes',
+        resave: true,
+        saveUninitialized: false,
+        store: new MongoStore({
+            url: mongoose.connection,
+            ttl: 10 * 60 //seconds
+        })
     })
 );
 

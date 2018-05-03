@@ -29,5 +29,8 @@
   "engines": {
     "node": "8.9.4",
     "npm": "6.0.0"
+  },
+  "devDependencies": {
+    "morgan": "^1.9.0"
   }
 }
