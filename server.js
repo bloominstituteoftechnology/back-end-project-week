@@ -18,7 +18,7 @@ const corsOptions = {
 };
 
 
-server.use(cors());
+server.use(cors(corsOptions));
 server.use(helmet());
 server.use(morgan());
 server.use(bodyParser.json());
