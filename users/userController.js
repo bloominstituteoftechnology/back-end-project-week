@@ -5,25 +5,23 @@ const { authenticate, makeToken } = require("../utilities/JWT");
 
 const User = require("./userModel.js");
 
-router
-  .route("/")
-  .post((req, res) => {
-    const user = new User(req.body);
-    console.log(req.body);
-    user
-      .save()
-      .then(newUser => {
-        res.status(201).json(newUser);
-      })
-      .catch(err => {
-        res.status(500).json(err);
-      });
-  })
-  .get((req, res) => {
-    User.find().then(users => {
-      res.json(users);
+router.route("/").post((req, res) => {
+  const user = new User(req.body);
+  console.log(req.body);
+  user
+    .save()
+    .then(newUser => {
+      res.status(201).json(newUser);
+    })
+    .catch(err => {
+      res.status(500).json(err);
     });
-  });
+});
+// .get((req, res) => {
+//   User.find().then(users => {
+//     res.json(users);
+//   });
+// });
 
 router.route("/login").post(authenticate, (req, res) => {
   console.log(req.user);
