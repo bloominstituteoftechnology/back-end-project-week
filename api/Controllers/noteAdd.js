@@ -15,7 +15,7 @@ const noteAdd = (req, res) => {
     });
     User.findOneAndUpdate({
       username: req.body.username,
-      notes: { $push: newestNote },
+      notes: newestNote,
     })
       .then(user => {
         console.log(`===USER ID: ===`, id);
