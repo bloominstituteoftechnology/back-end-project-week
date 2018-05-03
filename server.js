@@ -2,25 +2,29 @@ const express = require ('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const helmet = require('helmet');
+const axios = require('axios');
 
 const cors = require('cors');
 const mongoose =require('mongoose');
+const mongodb = require('mongodb');
 
 const userModel= require('./userModel')
 const userRouter = require('./userRouter');
 const noteModel = require('./noteModel');
 const noteRouter = require('./noteRouter');
 
-
-mongoose.connect('mongodb://admin:12345@ds263619.mlab.com:63619/backend')
-
-.then(() =>
-  console.log('\n===connected to mongo===\n'))
-
-.catch(err =>console.log('not connected'));
+mongoose.connect('process.env.MONGODB_URI', function(err, database){
+  if (err){
+    console.log(err);
+    process.exit(1);
+  }
+})
+db = database;
+console.log('database is connection ready')
 
 
 const server = express();
+
 
 server.use(morgan('dev'));
 server.use(helmet());

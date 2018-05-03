@@ -2,13 +2,12 @@ const mongoose = require('mongoose');
 
 
 const noteSchema = new mongoose.Schema({
-title:{
+Title:{
     type: String,
-    unique: true,
     required: true,
     lowercase: false
 },
-body:{
+Body:{
     type: String,
     required: true,
     lowercase: true
