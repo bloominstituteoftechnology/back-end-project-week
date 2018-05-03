@@ -105,7 +105,7 @@ server.delete('/:id', (req, res) => {
     });
 });
 
-server.put('/', (req, res) => {
+server.put('/:id', (req, res) => {
   const updatedNote = req.body;
   Note
     .findByIdAndUpdate(req.params.id, updatedInfo)
