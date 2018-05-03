@@ -179,9 +179,9 @@ server.post('/signin', (req, res) => {
           .then(Valid => {
             if (Valid) {
               //req.session.name = user.name;
-              res.status(200).json({ response: `welcome ${user.name}` });
+              res.status(200).json(`welcome ${user.name}`);
             } else {
-              res.status(401).json({ response: 'you shall not pass!!!' });
+              res.status(401).json('you shall not pass!!!');
             }
           })
           .catch(error => {
