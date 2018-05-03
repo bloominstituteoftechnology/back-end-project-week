@@ -45,6 +45,7 @@ UserSchema.methods.checkPassword = function(plainTextPW, callBack) {
   bcrypt
     .compare(plainTextPW, this.password)
     .then(res => {
+      console.log(`===HASHED PW FROM CHECKPW:`, this.password);
       callBack(null, res);
     })
     .catch(err => {
