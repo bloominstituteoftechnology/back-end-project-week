@@ -26,12 +26,13 @@ store.on('error', function(error) {
 mongoose.connect(path);
 //mongoose.connect('mongodb://localhost/notes')
 
-// const corsOptions = {
-//   origin: 'https://heuristic-bohr-b92bb6.netlify.com/',
-//   methods:['GET','POST'],
-//   credentials: true
-// };
-server.use(cors());
+const corsOptions = {
+  origin: ['https://lambda-notes.netlify.com/'],
+  methods:['GET','POST', 'DELETE', 'PUT'],
+  credentials: true
+};
+
+server.use(cors(corsOptions));
 server.use(helmet());
 server.use(express.json());
 server.use(
