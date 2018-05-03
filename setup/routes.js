@@ -104,4 +104,13 @@ module.exports = function(server) {
       user: req.user
     });
   });
+
+  server.post('/createnote', function(req, res) {
+    const credentials = req.body;
+    const note = new Note(credentials);
+    note.save().then(inserted => {
+      const token = makeToken(inserted);
+      res.status(201).json(token);
+    });
+  });
 };
