@@ -30,7 +30,7 @@ server.get('/coolfaces',(req, res) => {
     res.send(cool());
 })
 server.get('/jeff', (req, res) => {
-    res.send('hai mai name is jeffff')
+    res.send('hai mai name is jeff')
 })
 // ----- tests ---------------------------------------------------------------
 
