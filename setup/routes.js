@@ -1,11 +1,5 @@
 const User = require('../Model/Users');
 
-module.exports = (server) => {
-    server.route('/Notes').get(ViewNote)
-    server.route('/').get(getNotes)
-    server.route('/NewNote').post(NewNote)
-    server.route('/deleteNotes').delete(deleteNotes)
-}
     // // server.post('/back-end/register', function(req, res){
     // //     const credentials = req.body;
 
@@ -32,6 +26,7 @@ module.exports = (server) => {
                 return;
             })
         };
+    }
     
     const ViewNote = (req,res) => {
         const {id} = req.params;
@@ -93,4 +88,11 @@ module.exports = (server) => {
         })
     };
     
+
+    module.exports = (server) => {
+        server.route('/Notes').get(ViewNote)
+        server.route('/').get(getNotes)
+        server.route('/NewNote').post(NewNote)
+        server.route('/deleteNotes').delete(deleteNotes)
     }
+    
