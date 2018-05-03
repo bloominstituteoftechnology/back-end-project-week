@@ -12,16 +12,52 @@ module.exports = function(app) {
     //       });
     //   });
   
-    server.get('/', function(req, res) {
-        res.send({ api: 'up and running' });
+    app.get('/', (req, res) => {
+        res.send({
+          dummyData: [
+            {
+              title: 'Lion Title 1',
+              text:
+                'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.',
+              id: 1
+            },
+            {
+              title: 'Note Title 2',
+              text:
+                'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.',
+              id: 2
+            },
+            {
+              title: 'Note Title 3',
+              text:
+                'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.',
+              id: 3
+            },
+            {
+              title: 'Note Title 4',
+              text:
+                'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.',
+              id: 4
+            },
+            {
+              title: 'Note Title 5',
+              text:
+                'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.',
+              id: 5
+            },
+            {
+              title: 'Note Title 6',
+              text:
+                'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.',
+              id: 6
+            }
+          ]
+        });
       });
   
     app.post('/api/register', function(req, res) {
       const credentials = req.body;
       const user = new User(credentials);
-      if (credentials.username === undefined) {
-          res.status(404).json(err)
-      }
       user.save().then(inserted => {
         // const token = makeToken(inserted);
         res.status(201).json(inserted);
