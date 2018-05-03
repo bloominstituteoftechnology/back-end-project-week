@@ -21,21 +21,20 @@ const server = express();
 //server.use(helmet());
 server.use(cors(
   {
-    origin: ['http://localhost:3000'],
+    origin: ['https://wonderful-snyder-42b641.netlify.com'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true // enable set cookie
   }));
 
 server.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.header('Access-Control-Allow-Origin', 'https://wonderful-snyder-42b641.netlify.com/');
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+
 server.use(express.json());
-
-
 
 const noteSchema = new mongoose.Schema({
   title: {
@@ -87,7 +86,6 @@ userSchema.methods.isPasswordValid = function (passwordGuess) {
 };
 
 const User = mongoose.model('user', userSchema);
-
 
 server.get('/', (req, res) => {
   Note.find()
