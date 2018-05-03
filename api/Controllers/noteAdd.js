@@ -2,8 +2,6 @@ const mongoose = require('mongoose');
 const User = require('../Models/User');
 const Note = require('../Models/Note');
 
-const ObjectId = mongoose.Schema.Types.ObjectId;
-
 const noteAdd = (req, res) => {
   const { username, userId, title, content } = req.body;
   let noteId;
