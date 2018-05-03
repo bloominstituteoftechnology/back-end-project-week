@@ -3,31 +3,38 @@ const Note = require('../Models/Note');
 
 const noteAdd = (req, res) => {
   const { username, userId, title, content } = req.body;
+  let noteId;
   console.log(`USER ID: `, userId);
-  // const saveNote = () => {
+
   const newestNote = new Note({
     author: userId,
     title: title,
     content: content,
   });
 
+  newestNote
+    .save()
+    .then(savedNote => {
+      console.log(
+        `Note successfully saved to the DB only, not to a user just yet`
+      );
+      noteId = savedNote._id;
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ Error: `Unable to save new note to the DB: ${err}` });
+    });
+
   console.log(newestNote);
 
   User.findByIdAndUpdate({
     userId,
-    $push: { notes: newestNote },
+    $push: { notes: noteId },
   })
     .then(user => {
       console.log(`===AUTHOR===:`, username, `===AUTHOR ID===`, userId);
       console.log(`===NEW NOTE===`, newestNote);
-      newestNote
-        .save()
-        .then(savedNote => {
-          console.log(`Note successfully saved!!! YAY`);
-        })
-        .catch(err => {
-          res.status(500).json({ Error: `Unable to save new note: ${err}` });
-        });
     })
     .catch(err => {
       console.log(`===ERR AUTHOR===`, username, `===ERR AUTHOR ID===`, userId);
@@ -37,9 +44,6 @@ const noteAdd = (req, res) => {
         err,
       });
     });
-  // };
-
-  // saveNote();
 };
 
 module.exports = noteAdd;
