@@ -17,6 +17,8 @@ const userLogin = (req, res) => {
           const payload = { username: user.username, id: user._id };
           const token = jwt.sign(payload, mysecret);
           res.status(200).json({ token, id: user._id });
+        } else {
+          res.status(501).json({ ELSEERROR: `This is an error` });
         }
       });
     })
