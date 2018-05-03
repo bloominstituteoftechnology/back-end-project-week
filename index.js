@@ -1,41 +1,42 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
-const cors = require('cors');
 const helmet = require('helmet');
+
+const server = express();
+
+const corsOptions = {
+  origin: '*',
+  methods:['GET','POST', 'DELETE', 'PUT', 'OPTIONS'],
+  allowedheaders: ['Content-Type, Authorization, Content-Length, X-Requested-With'],
+  credentials: true
+};
+
+server.use(cors(corsOptions));
 
 const usersRouter = require('./users/usersRouter.js');
 const notesRouter = require('./notes/notesRouter.js');
 
 const path = process.env.MONGOLAB_URI || 'mongodb://localhost/notes';
 
-const server = express();
+mongoose.connect(path);
+
 var store = new MongoDBStore(
   {
     uri: path,
     databaseName: 'connect_mongodb_session_test',
     collection: 'mySessions'
   });
-
-store.on('error', function(error) {
-  assert.ifError(error);
-  assert.ok(false);
-});
-
-mongoose.connect(path);
-//mongoose.connect('mongodb://localhost/notes')
-
-const corsOptions = {
-  origin: ['https://lambda-notes.netlify.com/'],
-  methods:['GET','POST', 'DELETE', 'PUT'],
-  preflightContinue: true,
-  credentials: true
-};
+  
+  store.on('error', function(error) {
+    assert.ifError(error);
+    assert.ok(false);
+  });
 
 server.use(express.json());
 server.use(helmet());
-server.use(cors(corsOptions));
 server.use(
   session({
     secret: 'supersecretsecret',
