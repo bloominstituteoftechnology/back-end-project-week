@@ -26,6 +26,9 @@
     "node-fetch": "^1.7.3",
     "sinon": "^4.5.0"
   },
+  "engines": {
+    "node": "8.11.1"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
