@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
   res.send({
     dummyData: [
       {
-        title: 'Note Title 1',
+        title: 'Bote Title 1',
         text:
           'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.',
         id: 1
