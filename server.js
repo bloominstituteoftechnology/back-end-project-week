@@ -14,6 +14,6 @@ server.use(helmet());
 server.use(express.json());
 server.use(morgan('dev'));
 //server.use(cors(corsOptions));
-server.user(cors());
+server.use(cors());
 routes(server);
 module.exports = server;
