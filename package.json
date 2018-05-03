@@ -5,7 +5,8 @@
     "This week you will be building a backend for a note taking app called \"Lambda Notes.\"",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-prebuild": "yarn install --production=false"
   },
   "repository": {
     "type": "git",
