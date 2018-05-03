@@ -25,6 +25,7 @@ server.use(cors(
     credentials: true // enable set cookie
   }));
 server.use(express.json());
+axios.defaults.withCredentials = true
 
 
 const noteSchema = new mongoose.Schema({
