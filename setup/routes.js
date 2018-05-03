@@ -1,10 +1,10 @@
 const User = require('../User/Users');
 
-module.exports = function(server) {
-    server.get('/', function(req, res){
-        res.send({api: 'up and running'});
-    });
-
+module.exports = (server) => {
+    server.route('/Notes').get(ViewNote)
+    server.route('/').get(getNotes)
+    server.route('/NewNote').post(NewNote)
+}
     server.post('/back-end/register', function(req, res){
         const credentials = req.body;
 
@@ -13,11 +13,6 @@ module.exports = function(server) {
             res.status(201).json(inserted);
         });
     });
-
-    server.get('/', functon(req, res){
-        
-    })
-
 
     const NewNote = (req,res) => {
         const {title, content} = req.body;
@@ -37,7 +32,7 @@ module.exports = function(server) {
             })
         };
     
-    const ViewNotes = (req,res) => {
+    const ViewNote = (req,res) => {
         const {id} = req.params;
         Notes.find(_id)
         .then(notes => {
@@ -98,4 +93,3 @@ module.exports = function(server) {
     };
     
     }
-};

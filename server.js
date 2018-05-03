@@ -3,6 +3,7 @@ const cors = require('cors');
 const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const routes = require('./setup/routes');
 
 const server = express();
 
@@ -24,5 +25,6 @@ server.get('/', function (req,res){
     res.send({api: 'up'});
 });
 
+routes(server)
 
 server.listen(process.env.PORT || 5000, () => console.log('\n=== API on port 5k ===\n'));

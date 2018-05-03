@@ -5,8 +5,9 @@ import NewNote from './components/NewNote';
 import DeleteNote from './components/DeleteNote';
 import Notes from './components/Notes';
 import {Link, Route} from 'react-router-dom';
-import axios from 'axios'
-import Login from './components/Registration'
+import axios from 'axios';
+import Login from './components/Registration';
+import Signup from './components/Signup';
 
 class App extends Component {
   state = {
@@ -31,6 +32,9 @@ class App extends Component {
         <Route exact path="/" component={NotesList}/>
         <Route path="/NewNote" component={NewNote}/>
         {/* <Route path="/login" component={Login} /> */}
+        <AppliedRoute path="/signup" exact component={Signup} props={childProps} />
+
+
       </div>  
     
     );
