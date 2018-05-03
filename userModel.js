@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const userSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
 email:{
     type: String,
     
@@ -15,7 +15,7 @@ password:{
 }
 
 })
-userSchema.pre('save', function (next) {
+UserSchema.pre('save', function (next) {
     bcrypt.hash(this.password, 11, (err, hash) => {
       if (err) {
         return next(err);
@@ -25,8 +25,8 @@ userSchema.pre('save', function (next) {
       return next();
     });
   });
-  userSchema.methods.isPasswordValid = function (passwordGuess) {
+  UserSchema.methods.isPasswordValid = function (passwordGuess) {
     return bcrypt.compare(passwordGuess, this.password);
   };
-const userModel = mongoose.model('User', userSchema);
+const userModel = mongoose.model('User', UserSchema);
 module.exports = userModel;
