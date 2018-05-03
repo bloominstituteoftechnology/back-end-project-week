@@ -9,12 +9,6 @@ const noteSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-//   created: {
-//     type: Number,
-//   },
-//   stamp: {
-//     type: String,
-//   },
   email: {
     type: String,
     lowercase: true,
