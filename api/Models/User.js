@@ -33,14 +33,23 @@ UserSchema.pre('save', function(next) {
     });
 });
 
+// UserSchema.methods.checkPassword = function(plainTextPW, callBack) {
+//   bcrypt.compare(plainTextPW, this.password, function(err, isValid) {
+//     console.log(`===HASHED PW FROM CHECKPW:`, this.password);
+//     if (err) {
+//       return callBack(err, null);
+//     }
+//     callBack(null, isValid);
+//   });
 UserSchema.methods.checkPassword = function(plainTextPW, callBack) {
-  bcrypt.compare(plainTextPW, this.password, function(err, isValid) {
-    console.log(`===HASHED PW FROM CHECKPW:`, this.password);
-    if (err) {
-      return callBack(err, null);
-    }
-    callBack(null, isValid);
-  });
+  bcrypt
+    .compare(plainTextPW, this.password)
+    .then(res => {
+      callBack(null, res);
+    })
+    .catch(err => {
+      return callBack(err);
+    });
 };
 
 module.exports = mongoose.model('User', UserSchema);
