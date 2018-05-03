@@ -25,7 +25,6 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.pre('save', function (next) {
   bcrypt.hash(this.password, 12, (err, hash) => {
-    console.log(hash);
     if (err) {
       return next(err);
     }
@@ -34,8 +33,9 @@ UserSchema.pre('save', function (next) {
   });
 });
 
-UserSchema.methods.authenticate = (passwordGuess, passwordHash) => {
-  return bcrypt.compare(passwordGuess, passwordHash);
+UserSchema.methods.authenticate = function (passwordGuess){
+  console.log('authenticating...')
+  return bcrypt.compare(passwordGuess, this.password)
 };
 
 

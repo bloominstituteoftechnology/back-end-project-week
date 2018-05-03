@@ -2,8 +2,7 @@
 # Back End Project Week
 
 ## [My Trello Board](https://trello.com/b/x6M4nx60/lambda-notesbackend-william-pelton)
-## [My App on Netlify]
-(https://romantic-mirzakhani-d12553.netlify.com/)
+## [My App on Netlify](https://quiet-fjord-20542.herokuapp.com/)
 
 This week you will be building a backend for a note taking app called "Lambda Notes."
 

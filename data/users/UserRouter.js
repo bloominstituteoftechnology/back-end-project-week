@@ -1,6 +1,6 @@
 const express = require('express');
-
 const User = require('./UserModel');
+const validate = require('../../assets/middlewares/validate');
 
 const router = express.Router();
 
@@ -13,13 +13,11 @@ router
         }).catch(err => res.status(500).json(err));
     })
     .post('/register', (req, res) => {
-        console.log('trying...');
         if (req.body.firstName &&
             req.body.lastName &&
             req.body.username &&
             req.body.password) {
             const user = new User(req.body);
-            console.log('okay...')
             user
                 .save()
                 .then(savedUser => res.status(200).json(savedUser))
@@ -36,16 +34,27 @@ router
         } User
             .findOne({ username })
             .then(user => {
-                user
-                    .authenticate(password, user.password)
+                return user
+                    .authenticate(password)
                     .then(authenticated => {
                         if(authenticated) {
-                            req.session.userId = user._id;
-                            res.status(200).json(req.session.userId);
+                            req.session.username = user.username;
+                            res.status(200).json(req.session.username);
+                        } else {
+                            res.status(400).json({ message: "Incorrect username/password combination." });
                         }
-                    })
-                    .catch(err => res.status(500).json('failed authentication'));
+                    }).catch(err => console.log(err));
             }).catch(err => res.status(500).json(err));
+    })
+    .post('/logout', (req, res) => {
+        if(!req.session) {
+            res.status(400).json({message: "You are note currently logged in."})
+        }
+        req.session.destroy();
+        res.status(200).json({message: "Successfully logged out."})
+    })
+    .get('/me', validate, (req, res) => {
+        res.json(req.user.username);
     })
 
 

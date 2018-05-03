@@ -22,16 +22,16 @@ server.use(helmet());
 server.use(morgan());
 server.use(bodyParser.json());
 server.use(session({
+  name: 'Auth',
   secret: secrets.sessionSecret,
   resave: true,
   saveUninitialized: false,
+  cookie: { maxAge: 1 * 24 *60 * 60 * 1000 },
+  httpOnly: true,
+  secure: true,
 }));
 server.use('/users', userRouter);
 server.use('/notes', noteRouter);
-server.use(session({
-    secret: secrets.sessionSecret,
-    resave: true,
-    saveUninitialized: false,
-  }));
+
 
 module.exports = server;
