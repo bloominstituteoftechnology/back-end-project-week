@@ -3,7 +3,6 @@ const { ObjectId } = mongoose.Schema.Types;
 const bcrypt = require('bcrypt');
 
 const rounds = 12;
-
 const Note = require('./note');
 
 const UserSchema = new mongoose.Schema({

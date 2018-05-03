@@ -4,8 +4,8 @@ const LocalStrategy = require('passport-local');
 const { ExtractJwt } = require('passport-jwt');
 const JwtStrategy = require('passport-jwt').Strategy;
 require('dotenv').config();
-const secret = 'no size limit on tokens';
 
+const secret = 'no size limit on tokens';
 const User = require('../models/user');
 const Note = require('../models/note');
 
@@ -69,37 +69,25 @@ const authenticate = passport.authenticate('local', { session: false });
 const protected = passport.authenticate('jwt', { session: false });
 
 module.exports = function(server) {
-  server.get('/', (req, res) => {
-    res.json({ api: 'up and Running' });
-  });
-
-  server.get('/api/test', protected, (req, res) => {
-    User.find({})
-      .select('-password')
-      .then(notes => {
-        res.json(notes);
-      })
-      .catch(err => {
-        res.json(err);
-      });
-  });
-
   server.get('/api/notes', protected, (req, res) => {
-    User.findById(req.user._id)
-      .populate('notes')
-      .select('-password')
-      .then(user => {
-        res.json(user.notes);
+    Note.find({ author: req.user._id })
+      .select('-author')
+      .then(notes => {
+        res.status(200).json(notes);
       })
       .catch(err => {
-        res.json({ err: err.message });
+        res.status(500).json({ err: `Error getting notes from the server.` });
       });
   });
 
   server.post('/api/notes', protected, (req, res) => {
-    // if (req.body.author !== req.user._id) {
-    //   res.json({ message: 'Unauthorized' });
-    // }
+    console.log('body', req.body);
+    const { title, content, author } = req.body;
+    if (!title || !author || !content) {
+      res.status(400).json({
+        message: 'Please provide a title and content to save a note.',
+      });
+    }
     const note = new Note(req.body);
     note
       .save()
@@ -107,7 +95,10 @@ module.exports = function(server) {
         res.json(savedNote);
       })
       .catch(err => {
-        console.log(err);
+        res.status(500).json({
+          errorMessage:
+            'The server experienced an error creating the new note.',
+        });
       });
   });
 
@@ -116,24 +107,30 @@ module.exports = function(server) {
       .then(response => {
         Note.find({})
           .then(notes => {
-            res.json(notes);
+            res.status(204).json(notes);
           })
           .catch(err => {
-            res.json(err);
+            res
+              .status(500)
+              .json({ errorMessage: 'Error getting notes from the server.' });
           });
       })
       .catch(err => {
-        res.json(err);
+        res
+          .status(500)
+          .json({ errorMessage: 'Error deleting note from the server.' });
       });
   });
 
   server.put('/api/notes/:id', protected, (req, res) => {
     Note.findByIdAndUpdate(req.params.id, req.body)
       .then(response => {
-        res.json(response);
+        res.status(204).json({ message: 'Note updated successfully' });
       })
       .catch(err => {
-        res.json(err);
+        res.status(500).json({
+          errorMessage: 'Server error occured when attempting to update note.',
+        });
       });
   });
 
@@ -145,14 +142,16 @@ module.exports = function(server) {
       .save()
       .then(newUser => {
         const token = makeToken(newUser);
-        res.json({ token });
+        res.status(200).json({ token });
       })
       .catch(err => {
-        res.json(err);
+        res
+          .status(500)
+          .json({ errorMessage: 'A server error occurred while registering ' });
       });
   });
 
   server.post('/api/login', authenticate, (req, res) => {
-    res.json({ token: makeToken(req.user), user: req.user });
+    res.status(200).json({ token: makeToken(req.user), user: req.user });
   });
 };
