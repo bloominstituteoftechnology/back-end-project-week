@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const server = require('./server');
-const secrets = require('./secrets')
+const secrets = require('./secrets');
 
 const port = process.env.PORT || 5000;
 
@@ -10,7 +10,7 @@ const db = {
 }
 
 let useDb;
-if (false) {
+if (process.env.NODE_ENV === 'production') {
     useDb = db.prod;
 } else {
     useDb = db.dev;
