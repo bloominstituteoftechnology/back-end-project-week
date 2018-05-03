@@ -4,7 +4,7 @@ const mysecret = 'Why can’t banks keep secrets? There are too many tellers!';
 
 const userLogin = (req, res) => {
   const { username, password } = req.body;
-
+  console.log(req);
   // if (username && password) {
   console.log(`BACKEND: username: ${username} and password: ${password}`);
   User.findOne({ username })
