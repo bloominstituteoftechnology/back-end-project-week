@@ -56,6 +56,9 @@ describe("Users", () => {
             console.log(err);
             done();
           }
+          expect(response.status).to.equal(201);
+          expect(response.body).to.be.an("object");
+          done();
         });
     });
   });
