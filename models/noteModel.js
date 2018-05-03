@@ -5,7 +5,7 @@ const User = require('./userModel');
 
 const noteSchema = new mongoose.Schema ({
     user_id: [{
-        type: ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true,
     }],
@@ -36,6 +36,5 @@ noteSchema.pre('save', function(next) {
     next();
 })
 
-const noteModel = mongoose.model('Note', noteSchema);
 
-module.exports = noteModel;
+module.exports = mongoose.model('Note', noteSchema);

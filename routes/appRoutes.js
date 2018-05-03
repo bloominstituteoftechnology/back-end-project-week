@@ -8,7 +8,8 @@ module.exports = server => {
     server.route('/login').post(ctrlLogin.login);
     server.route('/signout').post(ctrlLogout.logout);
     server.route('/').post(ctrlUser.userRegistration);
-    server.get('/accounts', ctrlUser.getUsers);
+    // server.get('/accounts', ctrlUser.getUsers);
+    server.get('/:id', ctrlNotes.viewNoteAccount);
     server.route('/:id').put(ctrlUser.updateUser);
     server.route('/:id').delete(ctrlUser.deleteUser);
     server.route('/:id').post(ctrlNotes.createNote);

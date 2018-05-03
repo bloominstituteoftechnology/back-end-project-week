@@ -31,8 +31,8 @@ const userSchema = new mongoose.Schema ({
         type: Date,
     },
     notes: [{
-        type: ObjectId,
-        ref: "Note",
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Note',
     }],
 });
 

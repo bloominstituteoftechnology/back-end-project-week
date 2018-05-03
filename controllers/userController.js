@@ -15,19 +15,19 @@ const userRegistration = (req, res) => {
         })
 }
 
-const getUsers = (req, res) => {
+// const getUsers = (req, res) => {
 
-    User
-        .find()
-        .populate('notes')
-        .exec(users => {
-            res.status(200).json(users);
-        })
-        .catch(err => {
-            res.status(500).json({ errMsg: 'Could not retrieve users' });
-        })
+//     User
+//         .find()
+//         .populate('notes')
+//         .then(users => {
+//             res.status(200).json(users);
+//         })
+//         .catch(err => {
+//             res.status(500).json({ errMsg: 'Could not retrieve users' });
+//         })
 
-}
+// }
 
 const updateUser = (req, res) => {
     const { id } = req.params;
@@ -56,7 +56,7 @@ const deleteUser = (req, res) => {
 
 module.exports = {
     userRegistration,
-    getUsers,
+    // getUsers,
     updateUser,
     deleteUser,
 };

@@ -7,6 +7,7 @@ const viewNoteAccount = (req, res) => {
         .findById(req.params.id)
         .populate('notes')
         .then(user => {
+            console.log(user.notes)
             if (!user) {
                 res.status(404).json({ errMsg: "User Not Found" });
             } else {
@@ -14,12 +15,13 @@ const viewNoteAccount = (req, res) => {
             }
 
         })
-    }
+};
 
 
 const createNote = (req, res) => {
     const { title, content } = req.body;
-    const noteEntry = new Note(req.body);
+    const { id } = req.params
+    const noteEntry = new Note({ ...req.body, user_id: id });
 
     if( !title && !content ) {
         res.status(400).json({ errMsg: "Please enter a title and description." });
@@ -27,15 +29,16 @@ const createNote = (req, res) => {
 
         User 
 
-            .findById(req.params.id)
+            .findById(id)
             .then(user => {
                 if ( !user ) {
                     res.status(404).json({ errMsg: "User Not Found." });
                 } else {
-
+                    
                     noteEntry
                         .save()
                         .then(newNote => {
+                            user.notes = {...user.notes, newNote}
                             res.status(201).json(newNote);
                         })
                         .catch(err => {
@@ -69,7 +72,7 @@ const updateNote = (req, res) => {
     const { title, content } = req.body;
 
     Note 
-        .findByIdAndUpdate(req.params.note, req.body) 
+        .findByIdAndUpdate(req.params.id, req.body) 
         .then(updatedNote => {
             if( !note ) {
                 res.status(404).json({ errMsg: "Note Entry Not Found" });
@@ -83,9 +86,9 @@ const updateNote = (req, res) => {
 }
 
 const deleteNote = (req, res) => {
-    
+    const { id } = req.params
     Note
-        findByIdAndRemove(req.params.note, (err, deletedNote) => {
+        findByIdAndRemove(id, (err, deletedNote) => {
             if (err) {
                 res.status(500).json(err);
             }
