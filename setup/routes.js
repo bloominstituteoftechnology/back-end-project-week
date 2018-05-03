@@ -5,7 +5,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const jwt = require('jsonwebtoken');
 
-const User = require('./users/User');
+const User = require('./schemas/User');
 const secret = 'no size limit on tokens';
 
 function makeToken(user) {
@@ -71,18 +71,18 @@ const authenticate = passport.authenticate('local', { session: false });
 const protected = passport.authenticate('jwt', { session: false });
 
 module.exports = function(server) {
-  // QUESTION: Will I use something like this to post notes OR do I leave that on the front-end???
-  //   server.get('/api/hobbits', protected, (req, res) => {
-  //     // if you are here, you will receive a list of the hobbits
-  //     User.find({ race: 'hobbit' })
-  //       .select('-password')
-  //       .then(hobbits => {
-  //         res.json(hobbits);
-  //       })
-  //       .catch(err => {
-  //         res.status(500).json(err);
-  //       });
-  //   });
+
+    server.get('/api/notes', protected, (req, res) => {
+      // PSEUDO: You need to access ALL notes
+      User.find({ username: req.body.username }) // ??? For now I'll just send back the username
+        .select('-password')
+        .then(notes => {
+          res.json(notes);
+        })
+        .catch(err => {
+          res.status(500).json(err);
+        });
+    });
 
   server.get('/', function(req, res) {
     res.send({ api: 'up and running' });
