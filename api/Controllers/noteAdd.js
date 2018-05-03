@@ -3,7 +3,7 @@ const Note = require('../Models/Note');
 
 const noteAdd = (req, res) => {
   const { username, id, title, content } = req.body;
-
+  console.log(`USER ID: `, id);
   // const saveNote = () => {
   const newestNote = new Note({
     author: id,
