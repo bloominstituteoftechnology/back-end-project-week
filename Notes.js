@@ -3,6 +3,10 @@ const User = require(`${__dirname}/User`);
 
 
 const noteSchema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true
+    },
     body:{
         type: String,
         required: true,
