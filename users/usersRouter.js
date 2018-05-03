@@ -8,7 +8,7 @@ router
   .route('/')
   .get((req, res) => {
     if (!req.session.auth) res.status(422).json('not logged in');
-    if (req.session._id) res.status(200).json({success: true, _id: req.session._id});
+    if (req.session._id) res.status(200).json({success: true, _id: req.session._id, username: req.session.username});
   })
   .post((req, res) => {
     if (!(req.body.username && req.body.password)) {
@@ -21,6 +21,7 @@ router
         .then(saved => {
           req.session.auth = true;
           req.session._id = saved._id;
+          req.session.username = user.username;
           res.status(201).json(saved)
         })
         .catch(error => res.status(500).json(error));
@@ -42,6 +43,7 @@ router
                 if (response) {
                   req.session.auth = true;
                   req.session._id = user._id;
+                  req.session.username = user.username;
                   res.status(200).json({ success: true, user: user });
                 } else res.status(422).json({ success: false, message: "Invalid Password"});
               })

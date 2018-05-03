@@ -1,19 +1,34 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
 const cors = require('cors');
 const helmet = require('helmet');
 
 const usersRouter = require('./users/usersRouter.js');
 const notesRouter = require('./notes/notesRouter.js');
 
-const server = express();
-
 const path = process.env.MONGOLAB_URI || 'mongodb://localhost/notes';
+
+const server = express();
+var store = new MongoDBStore(
+  {
+    uri: path,
+    databaseName: 'connect_mongodb_session_test',
+    collection: 'mySessions'
+  });
+
+store.on('error', function(error) {
+  assert.ifError(error);
+  assert.ok(false);
+});
+
 mongoose.connect(path);
-// mongoose.connect('mongodb://localhost/notes')
+//mongoose.connect('mongodb://localhost/notes')
 
 const corsOptions = {
+  origin:['http://localhost:3000'],
+  methods:['GET','POST'],
   credentials: true
 };
 server.use(cors(corsOptions));
@@ -22,14 +37,15 @@ server.use(express.json());
 server.use(
   session({
     secret: 'supersecretsecret',
-    resave: true,
-    saveUninitialized: true
+    store: store,
+    resave: false,
+    saveUninitialized: false
   })
 );
 
 const isLoggedIn = function (req, res, next) {
   if (!req.session.auth) res.status(422).json('not allowed');
-  if (req.session.id) {
+  else if (req.session.id) {
     next();
   }
 };
