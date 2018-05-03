@@ -10,11 +10,11 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 
-const server = express();
+const bubba = express();
 
-// server.use(helmet());
-// server.use(express.json());
-// server.use(cors());
+bubba.use(helmet());
+bubba.use(express.json());
+bubba.use(cors());
 
 server.get('/', (req, res) => {
   res.send({
