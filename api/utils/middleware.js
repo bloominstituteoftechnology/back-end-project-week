@@ -23,7 +23,6 @@ const authenticate = (req, res, next) => {
     }
 };
 
-// Add in the make token function
 const makeToken = user => {
     const timestamp = new Date().getTime();
     const payload = {

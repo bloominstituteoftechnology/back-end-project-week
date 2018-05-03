@@ -66,7 +66,6 @@ const createUser = (req, res) => {
         .save()
         .then(newUser => {
             const result = { id: newUser._id, username: newUser.username, firstname: newUser.firstname, lastname: newUser.lastname };
-            console.log(result);
             res.status(201).json(result);
         })
         .catch(err => {
