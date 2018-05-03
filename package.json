@@ -7,7 +7,7 @@
     "node": "8.9.4"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "nodemon server.js",
     "test": "node test.js"
   },
   "repository": {

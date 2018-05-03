@@ -82,3 +82,5 @@ router
                 }
             })
     });
+
+    module.exports = router;

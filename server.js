@@ -18,6 +18,7 @@ server.use(helmet());
 server.use(cors());
 server.use(express.json());
 server.use(morgan('dev'));
+
 server.use('/api/notes/', myNoteRoutes)
 
 
