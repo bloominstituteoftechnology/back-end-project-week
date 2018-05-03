@@ -31,11 +31,6 @@ var store = new MongoDBStore(
     databaseName: 'connect_mongodb_session_test',
     collection: 'mySessions'
   });
-  
-  store.on('error', function(error) {
-    assert.ifError(error);
-    assert.ok(false);
-  });
 
 server.use(
   session({
