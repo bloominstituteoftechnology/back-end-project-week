@@ -65,7 +65,9 @@ const createUser = (req, res) => {
     user
         .save()
         .then(newUser => {
-            res.status(201).json(newUser);
+            const result = { id: newUser._id, username: newUser.username, firstname: newUser.firstname, lastname: newUser.lastname };
+            console.log(result);
+            res.status(201).json(result);
         })
         .catch(err => {
             // only show errors if in development, otherwise, show generic error!!
