@@ -10,13 +10,20 @@ const userLogin = (req, res) => {
   User.findOne({ username })
     .then(user => {
       user.checkPassword(password, (nonMatch, hashMatch) => {
-        if (nonMatch !== null) {
-          res.status(422).json({ Error: 'Password is incorrect!' });
-        } else {
+        if (hashMatch) {
           const payload = { username, id: user._id };
           const token = jwt.sign(payload, mysecret);
           res.status(200).json({ token, id: user._id });
+        } else {
+          res.status(422).json({ Error: 'Password is incorrect!' });
         }
+        // if (nonMatch !== null) {
+        //   res.status(422).json({ Error: 'Password is incorrect!' });
+        // } else {
+        //   const payload = { username, id: user._id };
+        //   const token = jwt.sign(payload, mysecret);
+        //   res.status(200).json({ token, id: user._id });
+        // }
       });
     })
     .catch(err => {
