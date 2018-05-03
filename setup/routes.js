@@ -6,14 +6,14 @@ module.exports = (server) => {
     server.route('/NewNote').post(NewNote)
     server.route('/deleteNotes').delete(deleteNotes)
 }
-    server.post('/back-end/register', function(req, res){
-        const credentials = req.body;
+    // // server.post('/back-end/register', function(req, res){
+    // //     const credentials = req.body;
 
-        const Users = new User (credentials);
-        Users.save().then( inserted => {
-            res.status(201).json(inserted);
-        });
-    });
+    //     const Users = new User (credentials);
+    //     Users.save().then( inserted => {
+    //         res.status(201).json(inserted);
+    //     });
+    // });
 
     const NewNote = (req,res) => {
         const {title, content} = req.body;
