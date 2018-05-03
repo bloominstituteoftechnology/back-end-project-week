@@ -16,7 +16,7 @@ module.exports = function(app) {
         res.send({
           dummyData: [
             {
-              title: 'Mote Title 1',
+              title: 'Lion Title 1',
               text:
                 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.',
               id: 1
