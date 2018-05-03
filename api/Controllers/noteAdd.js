@@ -30,7 +30,7 @@ const noteAdd = (req, res) => {
         });
     })
     .catch(err => {
-      res.json({ Error: `Unable to find user ${err}` });
+      res.json({ Error: `Unable to find user`, err });
     });
   // };
 
