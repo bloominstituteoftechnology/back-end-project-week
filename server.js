@@ -22,7 +22,7 @@ const server = express();
 server.use(cors(
   {
     origin: ['http://localhost:3000'],
-    methods: ['GET', 'POST', 'PUT'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true // enable set cookie
   }));
 server.use(express.json());
