@@ -30,6 +30,7 @@ const noteAdd = (req, res) => {
         });
     })
     .catch(err => {
+      console.log(`===NEWEST NOTE===:`, newestNote);
       res.json({ Error: `Unable to find user`, err });
     });
   // };
