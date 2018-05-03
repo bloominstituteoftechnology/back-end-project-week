@@ -10,13 +10,13 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 
-const bubba = express();
+const app = express();
 
-bubba.use(helmet());
-bubba.use(express.json());
-bubba.use(cors());
+app.use(helmet());
+app.use(express.json());
+app.use(cors());
 
-server.get('/', (req, res) => {
+app.get('/', (req, res) => {
   res.send({
     dummyData: [
       {
@@ -59,4 +59,4 @@ server.get('/', (req, res) => {
   });
 });
 
-server.listen(PORT);
+app.listen(PORT);
