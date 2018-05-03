@@ -11,10 +11,11 @@ const noteRouter = require('./data/notes/NoteRouter');
 const secrets = require('./secrets');
 
 const server = express();
-// const corsOptions = {
-//     "origin": "http://localhost:3000",
-//     "credentials": true,
-// };
+const corsOptions = {
+    origin: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+};
 
 
 server.use(cors());
@@ -27,7 +28,6 @@ server.use(session({
   resave: true,
   saveUninitialized: false,
   cookie: { maxAge: 1 * 24 *60 * 60 * 1000 },
-  httpOnly: true,
   secure: false,
 }));
 server.use('/users', userRouter);
