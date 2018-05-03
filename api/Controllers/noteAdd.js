@@ -31,7 +31,29 @@ const noteAdd = (req, res) => {
     })
     .catch(err => {
       console.log(`===NEWEST NOTE===:`, newestNote);
-      res.json({ Error: `Unable to find user`, err });
+      // res.json({ Error: `Unable to find user`, err });
+      User.findOneAndUpdate({
+        username: username,
+        $push: { notes: newestNote },
+      })
+        .then(user => {
+          console.log(`===AUTHOR===:`, username);
+          console.log(`===NEW NOTE===`, newestNote);
+          newestNote
+            .save()
+            .then(savedNote => {
+              console.log(`Note successfully saved!!! YAY`);
+            })
+            .catch(err => {
+              res
+                .status(500)
+                .json({ Error: `Unable to save new note: ${err}` });
+            });
+        })
+        .catch(err => {
+          console.log(`===NEWEST NOTE===:`, newestNote);
+          res.json({ Error: `Unable to find user`, err });
+        });
     });
   // };
 
