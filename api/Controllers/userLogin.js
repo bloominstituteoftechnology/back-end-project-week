@@ -9,6 +9,7 @@ const userLogin = (req, res) => {
     User.findOne({ username })
       .then(user => {
         user.checkPassword(password, (nonMatch, hashMatch) => {
+          console.log('nonMatch: ', nonMatch, 'hashMatch', hashMatch);
           if (nonMatch !== null) {
             res.status(422).json({ Error: 'Password is incorrect!' });
           } else if (nonMatch === null && hashMatch) {
