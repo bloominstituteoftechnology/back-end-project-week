@@ -14,6 +14,9 @@ const User = new mongoose.Schema({
         required: true,
         minlength: 4,
     },
+    notes: {
+        type: String,
+    },
 });
 
 User.pre('save', function(next) { //next event
