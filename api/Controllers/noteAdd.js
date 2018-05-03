@@ -32,7 +32,10 @@ const noteAdd = (req, res) => {
     .catch(err => {
       console.log(`===ERR AUTHOR===`, username, `===ERR AUTHOR ID===`, userId);
       console.log(`===ERR NEWEST NOTE===:`, newestNote);
-      res.json({ Error: `Unable to find user`, err });
+      res.json({
+        Error: `Unable to find user, YOU HAVE TO BE KIDDING ME`,
+        err,
+      });
     });
   // };
 
