@@ -5,7 +5,7 @@
     "This week you will be building a backend for a note taking app called \"Lambda Notes.\"",
   "main": "index.js",
   "scripts": {
-    "start": "yarn build && NODE_ENV=production"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
     "passport-local": "^1.0.0"
   },
   "engines": {
-    "node": "8.9.4"
+    "node": "8.9.4",
+    "npm": "6.0.0"
   }
 }
