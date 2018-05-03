@@ -1,0 +1,23 @@
+{
+  "name": "swedishgoodnote",
+  "version": "1.0.0",
+  "main": "./backend/server.js",
+  "repository": "https://github.com/swedishgoodbye/back-end-project-week.git",
+  "author": "Brett Sullivan <opticalfalicy@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^2.0.1",
+    "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "mocha": "^5.0.0",
+    "mongoose": "^5.0.3",
+    "morgan": "^1.9.0",
+    "sinon": "^5.0.2"
+  },
+  "scripts": {
+    "start": "nodemon server.js"
+  }
+}
