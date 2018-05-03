@@ -98,7 +98,7 @@ module.exports = function(server) {
     });
   });
 
-  server.post('/api/login', authenticate, (req, res) => {
+  server.post('/api/login', (req, res) => {
     res.json({
       success: `${req.user.username}, you are logged in!`,
       token: makeToken(req.user),
