@@ -107,6 +107,7 @@ server.delete('/:id', (req, res) => {
 
 server.put('/', (req, res) => {
   const updatedNote = req.body;
+  console.log(updatedNote);
   friends
     .findByIdAndUpdate(req.params.id, updatedInfo)
     .then(() => {
