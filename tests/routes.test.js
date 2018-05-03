@@ -58,7 +58,8 @@ describe("Users", () => {
           }
           expect(response.status).to.equal(201);
           expect(response.body).to.be.an("object");
-          done();
+          expect(response.body.username).to.equal("newuser");
+          return done();
         });
     });
   });
