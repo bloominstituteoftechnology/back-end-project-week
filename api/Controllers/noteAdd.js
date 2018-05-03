@@ -28,8 +28,7 @@ const noteAdd = (req, res) => {
 
   console.log(newestNote);
 
-  User.findByIdAndUpdate({
-    userId,
+  User.findByIdAndUpdate(userId, {
     $push: { notes: noteId },
   })
     .then(user => {
