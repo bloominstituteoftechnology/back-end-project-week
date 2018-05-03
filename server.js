@@ -18,7 +18,12 @@ mongoose
 const server = express();
 
 //server.use(helmet());
-server.use(cors());
+server.use(cors(
+  {
+    origin: ['http://localhost:3000'],
+    methods: ['GET', 'POST', 'PUT'],
+    credentials: true // enable set cookie
+  }));
 server.use(express.json());
 
 
@@ -53,7 +58,7 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-UserSchema.pre('save', function (next) {
+userSchema.pre('save', function (next) {
   console.log('pre save hook');
   bcrypt.hash(this.password, 10, (err, hash) => {
     // 2 ^ 16.5 ~ 92.k rounds of hashing
@@ -67,7 +72,7 @@ UserSchema.pre('save', function (next) {
   });
 });
 
-UserSchema.methods.isPasswordValid = function (passwordGuess) {
+userSchema.methods.isPasswordValid = function (passwordGuess) {
   return bcrypt.compare(passwordGuess, this.password);
 };
 
