@@ -47,7 +47,6 @@ server.delete('/api/notes/:id', (req, res) => {
   const { id } = req.params
   Note.findByIdAndRemove(id)
     .then(removed => {
-      console.log('removed', removed)
       Note.find()
         .then(notes => {
           res.status(200).json(notes)
