@@ -138,7 +138,7 @@ server.post('/register', (req, res) => {
 
 
 
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 server.listen(port, err => {
     if (err) console.log(err);
