@@ -28,7 +28,7 @@
     "nodemon": "^1.17.3"
   },
   "scripts": {
-    "start": "nodemon app.js --watch",
+    "start": "node app.js",
     "test": "mocha tests/UserRouter.test.js"
   }
 }
