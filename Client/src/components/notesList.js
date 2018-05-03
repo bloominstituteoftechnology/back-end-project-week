@@ -10,19 +10,14 @@ import {
   CardTitle
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import { getNotes } from '../actions/index'
 
 function mapStateToProps(state) {
   return {
-    notes: state.notes,
-    user: state.auth.user
+    notes: state.notes.notes
   };
-};
+}
 
 class NotesList extends Component {
-  ComponentDidMount() {
-    this.props.getNotes(this.props.users);
-  }
   render() {
     return (
       <Container className="my-5">
@@ -35,7 +30,7 @@ class NotesList extends Component {
           {this.props.notes.map((note, key) => {
             return (
               <Col sm={4}>
-                <Link className="card-link" to={`/displayNotes/${note.id}`}>
+                <Link className="card-link" to={`/:uid/displayNotes/${note.id}`}>
                   <Card className="note pb-3">
                     <CardBody>
                       <CardTitle>{note.title}</CardTitle>
@@ -53,4 +48,4 @@ class NotesList extends Component {
   }
 }
 
-export default connect(mapStateToProps, { getNotes })(NotesList);
+export default connect(mapStateToProps)(NotesList);

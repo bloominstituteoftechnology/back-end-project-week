@@ -53,11 +53,13 @@ export const login = (username, password, history) => {
       .then(response => {
         console.log("data:",response.data, "response:", response);
         const token = response.data.token;
+        const uid = response.data.uid;
         window.localStorage.setItem("token", token);
+        window.localStorage.setItem("uid", uid);
         dispatch({
           type: USER_AUTHENTICATED
         });
-        history.push('/displayNotes');
+        history.push(`${uid}/displayNotes`);
       })
       .catch(() => {
         dispatch(authError("Incorrect username/password."));
@@ -82,6 +84,7 @@ export const ADD_NOTE = "ADD_NOTE";
 
 export const addNote = note => {
   const token = window.localStorage.getItem("token");
+  const uid = window.localStorage.getItem("uid");
   return dispatch => {
     axios
       .post(`${ROOT_URL}createNote`, note, {
@@ -103,9 +106,10 @@ export const GET_NOTES = "GET_NOTES";
 
 export const getNotes = () => {
   const token = window.localStorage.getItem("token");
+  const uid = window.localStorage.getItem("uid");
   return dispatch => {
     axios
-      .post(`${ROOT_URL}displayNotes`, {
+      .post(`${ROOT_URL}${uid}/displayNotes`, {
         headers: { Authorization: token }
       })
       .then(({ data }) => {
@@ -124,10 +128,11 @@ export const EDIT_NOTE = "EDIT_NOTE";
 
 export const editNote = note => {
   const token = window.localStorage.getItem("token");
+  const uid = window.localStorage.getItem("uid");
   return dispatch => {
     const id = note.data._id;
     axios
-      .post(`${ROOT_URL}editNote/${id}`, note, {
+      .post(`${ROOT_URL}${uid}/editNote/${id}`, note, {
         headers: {Authorization: token}
       })
       .then(({ data }) => {
