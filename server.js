@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 
 const PORT = process.env.PORT || 5000;
 
+// ========== ROUTES ========== //
 
+const setupMiddleware = require('./setup/middleware')(app);
 
 // ========== MIDDLEWARE ============== //
 
