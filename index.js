@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const session = require('express-session');
-const MongoDBStore = require('connect-mongodb-session')(session);
 const helmet = require('helmet');
 
 const server = express();
@@ -25,17 +24,12 @@ const path = process.env.MONGOLAB_URI || 'mongodb://localhost/notes';
 
 mongoose.connect(path);
 
-var store = new MongoDBStore(
-  {
-    uri: process.env.MONGOLAB_URI,
-    databaseName: 'connect_mongodb_session_test',
-    collection: 'mySessions'
-  });
+const MS = require('express-mongoose-store')(session, mongoose);
 
 server.use(
   session({
     secret: 'supersecretsecret',
-    store: store,
+    store: new MS(),
     resave: false,
     saveUninitialized: false
   })
