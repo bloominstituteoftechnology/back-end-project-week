@@ -4,7 +4,9 @@
   "description":
     "This week you will be building a backend for a note taking app called \"Lambda Notes.\"",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "nodemon server.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/WalterSWoodward/back-end-project-week.git"
@@ -29,5 +31,8 @@
   },
   "engines": {
     "node": "8.9.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.3"
   }
 }
