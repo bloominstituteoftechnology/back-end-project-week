@@ -7,7 +7,7 @@ const routes = require('./routes/routes');
 
 const server = express();
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: 'https://lambda-notes-project-second.herokuapp.com',
   credentials: true
 };
 
