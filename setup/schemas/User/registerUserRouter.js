@@ -1,3 +1,8 @@
+const express = require('express');
+const router = express.Router();
+const routes = require('../../routes');
+
+// ============ from ROUTES ============= //
 // Libraries:
 const { ExtractJwt } = require('passport-jwt');
 const JwtStrategy = require('passport-jwt').Strategy;
@@ -5,8 +10,6 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const jwt = require('jsonwebtoken');
 
-const User = require('./schemas/User/User');
-const Note = require('./schemas/Note/Note');
 const secret = 'no size limit on tokens';
 
 function makeToken(user) {
@@ -71,34 +74,19 @@ passport.use(jwtStrategy);
 const authenticate = passport.authenticate('local', { session: false });
 const protected = passport.authenticate('jwt', { session: false });
 
-module.exports = function(server) {
+// ============ from ROUTES -- END ============= //
 
-    server.get('/api/notes', protected, (req, res) => {
-      // PSEUDO: You need to access ALL notes
-      User.find({ username: req.body.username }) // ??? For now I'll just send back the username
-        .select('-password')
-        .then(notes => {
-          res.json(notes);
-        })
-        .catch(err => {
-          res.status(500).json(err);
-        });
+//schema
+const User = require('./User.js');
+
+//endpoints
+router.post('/', function(req, res) {
+    const credentials = req.body;
+    const user = new User(credentials);
+    user.save().then(inserted => {
+      const token = makeToken(inserted);
+      res.status(201).json(token);
     });
-
-//   server.post('/api/register', function(req, res) {
-//     const credentials = req.body;
-//     const user = new User(credentials);
-//     user.save().then(inserted => {
-//       const token = makeToken(inserted);
-//       res.status(201).json(token);
-//     });
-//   });
-
-  server.post('/api/login', authenticate, (req, res) => {
-    res.json({
-      success: `${req.user.username}, you are logged in!`,
-      token: makeToken(req.user),
-      user: req.user
-    }); 
   });
-};
+
+module.exports = router;
