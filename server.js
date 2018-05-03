@@ -4,6 +4,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const cool = require('cool-ascii-faces');
 const mongoose = require('mongoose');
+const port = process.env.PORT || 5500;
 
 mongoose
     .connect('mongodb://localhost/notesdb')
@@ -29,7 +30,7 @@ server.get('/jeff', (req, res) => {
     res.send('hai mai name is jeffff')
 })
 
-server.listen(5500, function () {
+server.listen(port, function () {
   console.log('Ya server listenin pon port 5500!');
 });
 
