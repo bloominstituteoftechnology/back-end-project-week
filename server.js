@@ -18,7 +18,7 @@ server.use(express.json());
 server.use(morgan('dev'));
 
 server.get('/', function (req, res) {
-  res.send( 'Hello World! From the server');
+  res.status(200).json( 'Hello World! From the server');
 })
 
 server.get('/coolfaces',(req, res) => {
