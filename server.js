@@ -53,7 +53,26 @@ const userSchema = new mongoose.Schema({
   }
 });
 
+UserSchema.pre('save', function (next) {
+  console.log('pre save hook');
+  bcrypt.hash(this.password, 10, (err, hash) => {
+    // 2 ^ 16.5 ~ 92.k rounds of hashing
+    if (err) {
+      return next(err);
+    }
+
+    this.password = hash; // schema
+
+    return next();
+  });
+});
+
+UserSchema.methods.isPasswordValid = function (passwordGuess) {
+  return bcrypt.compare(passwordGuess, this.password);
+};
+
 const User = mongoose.model('user', userSchema);
+
 
 server.get('/', (req, res) => {
   Note.find()
@@ -124,6 +143,9 @@ server.put('/:id', (req, res) => {
     });
 });
 
+
+// ############### REGISTERING USER ########################### //
+
 server.post('/users', (req, res) => {
   const newUser = new User(req.body);
   console.log(newUser);
@@ -138,6 +160,24 @@ server.post('/users', (req, res) => {
         .status(505)
         .json('error: could not registered the user');
     });
+});
+
+
+server.post('/signin', (req, res) => {
+  const { email, password } = req.body;
+
+  User.findOne({ email }).then(user => {
+    if (user) {
+      user.isPasswordValid(password).then(isValid => {
+        if (isValid) {
+          //req.session.name = user.name;
+          res.status(200).json({ response: `welcome ${user.name}` });
+        } else {
+          res.status(401).json({ msg: 'you shall not pass!!!' });
+        }
+      });
+    }
+  });
 });
 
 
