@@ -7,14 +7,7 @@ const helmet = require('helmet');
 
 const server = express();
 
-const corsOptions = {
-  origin: '*',
-  methods:['GET','POST', 'DELETE', 'PUT', 'OPTIONS'],
-  allowedheaders: ['Content-Type, Authorization, Content-Length, X-Requested-With'],
-  credentials: true
-};
-
-server.use(cors(corsOptions));
+server.options('*', cors())
 
 const usersRouter = require('./users/usersRouter.js');
 const notesRouter = require('./notes/notesRouter.js');
