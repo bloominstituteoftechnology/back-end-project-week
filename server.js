@@ -30,7 +30,7 @@ server.use(morgan('dev'));
 
 mongoose
   .connect(
-    'mongodb://localhost/auth'
+    'mongodb://pacManKana:LambdaN0t3s@ds111050.mlab.com:11050/lambda-notes'
   )
   .then(cnn => {
     console.log('\n=== connected to mongo ===\n');
