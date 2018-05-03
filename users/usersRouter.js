@@ -21,10 +21,10 @@ router
         .then(saved => {
           req.session.auth = true;
           req.session._id = saved._id;
-          req.session.username = user.username;
+          req.session.username = saved.username;
           res.status(201).json(saved)
         })
-        .catch(error => res.status(500).json(error));
+        .catch(error => res.status(500).json({error: "something went horribly wrong"}));
     }
   })
 
