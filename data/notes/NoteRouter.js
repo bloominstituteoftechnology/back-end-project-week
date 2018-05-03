@@ -33,10 +33,10 @@ router
         } else {
             const { title, text } = req.body
             console.log(req.user.username);
-            const note = new Note({ 
+            const note = new Note({
                 username: req.user.username, 
                 title, 
-                text 
+                text
             });
             note
                 .save()
