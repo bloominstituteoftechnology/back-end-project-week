@@ -9,14 +9,12 @@ const server = express();
 const usersRouter = require('./users/usersRouter.js');
 const notesRouter = require('./notes/notesRouter.js');
 
-// const corsOptions = {
-//   origin: ['https://lambda-notes.netlify.com/'],
-//   methods:['GET','POST', 'DELETE', 'PUT', 'OPTIONS'],
-//   allowedheaders: ['Content-Type, Authorization, Content-Length, X-Requested-With'],
-//   credentials: true
-// };
+const corsOptions = {
+  origin: 'https://lambda-notes.netlify.com',
+  credentials: true
+};
 
-server.options('*', cors())
+server.use(cors(corsOptions));
 server.use(express.json());
 server.use(helmet());
 
