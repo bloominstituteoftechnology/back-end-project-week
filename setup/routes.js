@@ -55,14 +55,14 @@ module.exports = function(app) {
         });
       });
   
-    // app.post('/api/register', function(req, res) {
-    //   const credentials = req.body;
-    //   const user = new User(credentials);
-    //   user.save().then(inserted => {
-    //     const token = makeToken(inserted);
-    //     res.status(201).json(token);
-    //   });
-    // });
+    app.post('/api/register', function(req, res) {
+      const credentials = req.body;
+      const user = new User(credentials);
+      user.save().then(inserted => {
+        // const token = makeToken(inserted);
+        res.status(201).json(inserted);
+      });
+    });
   
     // app.post('/api/login', authenticate, (req, res) => {
     //   res.json({
