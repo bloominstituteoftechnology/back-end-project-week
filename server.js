@@ -8,11 +8,12 @@ const PORT = process.env.PORT || 5000;
 // ========== MIDDLEWARE ============== //
 
 const cors = require('cors');
-
+const helmet = require('helmet');
 const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.use(helmet());
 
 mongoose
   .connect(
