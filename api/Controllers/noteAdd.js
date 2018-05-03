@@ -9,7 +9,7 @@ const noteAdd = (req, res) => {
   const saveNote = () => {
     // await findUser(author);
     const newestNote = new Note({
-      author: localStorage.id,
+      author: req.body.id,
       title: title,
       content: content,
     });
