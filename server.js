@@ -1,4 +1,5 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
 //const helmet = require('helmet');
 const cors = require('cors');
 const mongoose = require('mongoose');
