@@ -11,7 +11,8 @@ const userRouter = require('./userRouter');
 const noteModel = require('./noteModel');
 const noteRouter = require('./noteRouter');
 
-mongoose.connect('process.env.MONGO_URI')
+//mongoose.connect('process.env.MONGO_URI')
+mongoose.connect('mongodb://localhost/backend')
 
 .then(() =>
   console.log('\n===connected to mongo===\n'))
