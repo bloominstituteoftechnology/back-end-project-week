@@ -1,7 +1,6 @@
 {
   "name": "swedishgoodnote",
   "version": "1.0.0",
-  "main": "./backend/server.js",
   "repository": "https://github.com/swedishgoodbye/back-end-project-week.git",
   "author": "Brett Sullivan <opticalfalicy@gmail.com>",
   "license": "MIT",
@@ -18,6 +17,6 @@
     "sinon": "^5.0.2"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server"
   }
 }

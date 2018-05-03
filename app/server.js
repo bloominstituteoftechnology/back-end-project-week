@@ -28,15 +28,16 @@ mongoose.connect('mongodb://dude:bro@ds151153.mlab.com:51153/heroku_srq65m10', {
     console.log('Mango Up Bruh');
 })
 
-server.get('/', (req, res) => {
-    res.status(200).json({api: 'notes'})
-})
+// server.get('/', (req, res) => {
+//     res.status(200).json({api: 'notes'})
+// })
 
 // Notes Routes
 
 
 
 server.get('/', (req, res) => {
+    console.log('Notes api')
     Note
     .find({})
     .then(notes => {
@@ -50,7 +51,7 @@ server.get('/', (req, res) => {
 server.post('/new', (req, res) => {
     const { title, content } = req.body;
     const newNote = new Note({ title, content });
-
+    console.log('New Note')
     newNote
     .save()
     .then(note => {
