@@ -108,7 +108,7 @@ server.delete('/:id', (req, res) => {
 server.put('/:id', (req, res) => {
   const updatedNote = req.body;
   Note
-    .findByIdAndUpdate(req.params.id, updatedInfo)
+    .findByIdAndUpdate(req.params.id, updatedNote)
     .then(() => {
       Note.find()
         .then(notes => {
