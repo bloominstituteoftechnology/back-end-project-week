@@ -40,7 +40,12 @@ const noteAdd = (req, res) => {
       console.log(`++++ NOTE SUCCESSFULLY SAVED TO USER DB ++++`);
     })
     .catch(err => {
-      console.log(`===ERR AUTHOR===`, username, `===ERR AUTHOR ID===`, userId);
+      console.log(
+        `===ERR AUTHOR===`,
+        username,
+        `===ERR AUTHOR ID===`,
+        typeof userId
+      );
       console.log(`===ERR NEWEST NOTE===:`, newestNote);
       res.json({
         Error: `Unable to find user, YOU HAVE TO BE KIDDING ME`,
