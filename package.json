@@ -5,7 +5,7 @@
     "This week you will be building a backend for a note taking app called \"Lambda Notes.\"",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "yarn build && NODE_ENV=production"
   },
   "repository": {
     "type": "git",
