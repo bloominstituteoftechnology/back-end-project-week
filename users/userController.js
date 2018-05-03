@@ -15,7 +15,7 @@ const secret = 'HrtkalwJAp873921FJkOpurqvnL';
 
 const localStrategy = new Strategy((username, password, cb) => {
   User.findOne({ username: username }, function (error, user) {
-    if (error) { 
+    if (error) {
       return cb(error);
     }
     if (!user) {
@@ -36,7 +36,7 @@ const localStrategy = new Strategy((username, password, cb) => {
 
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: secret, 
+  secretOrKey: secret,
 };
 
 const jwtStrategy = new JwtStrategy(jwtOptions, function(payload, cb) {
@@ -61,15 +61,25 @@ router
 
 router
   .post('/register', function(req, res) {
-    const credentials = req.body;
-    const user = new User(credentials);
+    const { username, email, password } = req.body;
 
-    user.save()
-        .then(savedUser => {
-          const token = makeToken(savedUser);
-          res.status(201).json({ token });
-        })
-        .catch(error => res.status(500).json(console.error('Error registering user', error)));
+    if (!username || !username.trim()) {
+      res.status(422).json({ error: "Invalid username" });
+    } else if (!email || !email.trim()) {
+      res.status(422).json({ error: "Invalid email" });
+    } else if (!password || !password.trim()) {
+      res.status(422).json({ error: "Invalid password" });
+    } else {
+
+      const user = new User(credentials);
+
+      user.save()
+          .then(savedUser => {
+            const token = makeToken(savedUser);
+            res.status(201).json({ token });
+          })
+          .catch(error => res.status(500).json(console.error('Error registering user', error)));
+    }
   });
 
 router

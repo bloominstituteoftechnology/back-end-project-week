@@ -4,7 +4,7 @@ const Note = require('./noteModel.js');
 router
   .route('/')
   .get((req, res) => {
-    
+
     Note.find({})
       .then(notes => {
         res.status(200).json(notes);
@@ -12,10 +12,10 @@ router
       .catch(error => {
         res.status(500).json(console.error('Error retrieving notes', error));
       });
-  })  
+  })
   .post((req, res) => {
     const note = new Note(req.body);
-    
+
     note
       .save()
       .then(savedNote => {
@@ -28,7 +28,7 @@ router
   .route('/:id')
   .get((req, res) => {
     const { id } = req.params;
-    
+
     Note.find({})
     .then(notes => {
       let note = notes[`${id}`];
@@ -40,10 +40,10 @@ router
       res.status(500).json(console.error('Error retrieving note!', error));
     })
   })
-  
+
   .delete((req, res) => {
     const { id } = req.params;
-    
+
     Note.find({})
     .then(notes => {
       let note = notes[`${id}`];
@@ -70,7 +70,6 @@ router
       let oldNote = notes[`${id}`];
       if (!oldNote) res.status(404).json({ error: 'Note not found.' });
       else {
-        console.log(oldNote);
         oldNote
           .set({ title: newNote.title, body: newNote.body, author: newNote.author, edited: newNote.edited })
           .save()
