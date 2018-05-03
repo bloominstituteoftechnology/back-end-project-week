@@ -3,18 +3,18 @@ const router = express.Router();
 
 const User = require("../api/models/userModel.js");
 
-router.get('/api/notes/users', (req, res) => {
+router.get('/users', (req, res) => {
     User
     .find({})
     .then(users => {
         res.status(200).json(users);
     })
     .catch(err => {
-        res.status(500).json({ err: 'Could not display users...' })
+        res.status(500).json({ err: 'Could not display User' })
     })
 })
 
-router.post('/api/notes/register', (req, res) => {
+router.post('/register', (req, res) => {
     const { username, password } = req.body;
     const newUser = new User({ username, password });
 
@@ -24,7 +24,7 @@ router.post('/api/notes/register', (req, res) => {
         res.status(200).json(newuser)
     })
     .catch(err => {
-        res.status(422).json({ err: 'Could not create user...' });
+        res.status(422).json({ err: 'Could not create new User...' });
     })
 
 })
