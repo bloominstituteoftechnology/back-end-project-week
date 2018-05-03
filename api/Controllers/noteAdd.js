@@ -24,18 +24,18 @@ const noteAdd = (req, res) => {
           .save()
           .then(savedNote => {
             user.notes.push(savedNote);
-            user
-              .save()
-              .then(response => {
-                res.status(200).json({
-                  Message: 'User successfully saved with new note!',
-                });
-              })
-              .catch(err => {
-                res
-                  .status(500)
-                  .json({ Error: `Error saving note to user: ${err}` });
-              });
+            // user
+            //   .save()
+            //   .then(response => {
+            //     res.status(200).json({
+            //       Message: 'User successfully saved with new note!',
+            //     });
+            //   })
+            //   .catch(err => {
+            //     res
+            //       .status(500)
+            //       .json({ Error: `Error saving note to user: ${err}` });
+            //   });
           })
           .catch(err => {
             res.status(500).json({ Error: `Unable to save new note: ${err}` });
