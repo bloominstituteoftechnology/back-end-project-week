@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const server = require('./server');
 const port = process.env.PORT || 5000;
 
-mongoose.connect(process.env.MONGODB_URI, {}, (error) => {
+mongoose.connect(process.env.MONGO_URI, {}, (error) => {
     if (error) {
         return console.log(error);
     }
