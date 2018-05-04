@@ -24,7 +24,11 @@ router
           req.session.username = saved.username;
           res.status(201).json(saved)
         })
-        .catch(error => res.status(500).json({success: false, message: "Something bad happened"}));
+        .catch(error => {
+          console.log(error);
+          if (error.code === 11000) res.status(422).json({success: false, message: "User already exists"})
+          else res.status(500).json({success: false, message: "Something bad happened"})
+        });
     }
   })
 
