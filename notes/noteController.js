@@ -28,7 +28,7 @@ router
       .then(savedNote => {
         res.status(201).json({ success: 'Note has been created.', creation: savedNote });
       })
-      .catch(error => res.status(500).json(console.error('Error creating note', req.body)));
+      .catch(error => res.status(500).json(console.error('Error creating note', error)));
   });
 
 router
