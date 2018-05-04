@@ -24,10 +24,14 @@ router.route("/").post((req, res) => {
 // });
 
 router.route("/login").post(authenticate, (req, res) => {
-  console.log(req.user);
-  res
-    .status(200)
-    .json({ success: true, user: req.user, token: makeToken(req.user) });
+  console.log("LOGIN ROUTE FIRING");
+  if (req.user) {
+    res
+      .status(200)
+      .json({ success: true, user: req.user, token: makeToken(req.user) });
+  } else {
+    res.status(400).json({ error: "Please include a username and password" });
+  }
 });
 
 router

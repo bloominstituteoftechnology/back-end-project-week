@@ -17,7 +17,7 @@ npm manifest:
   {
     "name": "back-end-project-week",
     "version": "1.0.0",
-    "main": "index.js",
+    "main": "app.js",
     "repository": "https://github.com/kait-schorr/back-end-project-week.git",
     "author": "Kaitlyn Schorr <kaitlynschorr@gmail.com>",
     "license": "MIT",
@@ -41,7 +41,7 @@ npm manifest:
     },
     "scripts": {
       "start": "nodemon server.js",
-      "test": "node --expose-internals mocha ./tests/*.test.js"
+      "test": "mocha tests/*.test.js"
     }
   }
 
@@ -2342,7 +2342,7 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: sh
-  Arguments: -c node --expose-internals mocha ./tests/*.test.js
+  Arguments: -c mocha tests/*.test.js
   Directory: /home/kaitlyn/LambdaSchool/back-end-project-week
   Output:
   

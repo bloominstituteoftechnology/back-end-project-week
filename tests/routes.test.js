@@ -54,7 +54,7 @@ describe("Users", () => {
     });
   });
 
-  describe("[POST] /api/users", () => {
+  describe("[POST] /api/user", () => {
     let user = { username: "newuser", password: "newpassword" };
     it("should add a user to the database and return the new user", done => {
       chai
@@ -66,9 +66,36 @@ describe("Users", () => {
             console.log(err);
             done();
           }
+          //Expects an OK Status
           expect(response.status).to.equal(201);
+          //Expects the new user object back
           expect(response.body).to.be.an("object");
           expect(response.body.username).to.equal("newuser");
+          //Expects the password to be hashed
+          expect(response.body.password).to.not.equal("newpassword");
+          expect(response.body.password).to.have.length(60);
+          done();
+        });
+    });
+  });
+
+  describe("[POST] /api/user/login", () => {
+    let user = { username: "testUser", password: "testpassword" };
+    it("should login a user and return an object with the keys: success, user, and token", done => {
+      chai
+        .request(server)
+        .post("/api/user/login")
+        .send(user)
+        .end((err, response) => {
+          if (err) {
+            console.log(err);
+            done();
+          }
+          expect(response.status).to.equal(200);
+          expect(response.body).to.be.an("object");
+          expect(response.body).to.have.property("success");
+          expect(response.body).to.have.property("user");
+          expect(response.body).to.have.property("token");
           done();
         });
     });
