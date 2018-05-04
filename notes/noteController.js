@@ -4,21 +4,22 @@ const Note = require('./noteModel.js');
 router
   .route('/')
   .get((req, res) => {
-    const { username } = req.body;
-    Note.find({ "author": username })
-      .then(notes => {
-        if (notes.length === 0) {
-          const defaultNotes = [{
-            title: 'Your first note',
-            body: 'Memories go here'
-          }];
-          res.status(200).json({ notes: defaultNotes });
-        }
-        res.status(200).json(notes);
-      })
-      .catch(error => {
-        res.status(500).json(console.error('Error retrieving notes', error));
-      });
+    res.status(200).json(req.body);
+    // const { username } = req.body;
+    // Note.find({ author: username })
+    //   .then(notes => {
+    //     if (notes.length === 0) {
+    //       const defaultNotes = [{
+    //         title: 'Your first note',
+    //         body: 'Memories go here'
+    //       }];
+    //       res.status(200).json({ notes: defaultNotes });
+    //     }
+    //     res.status(200).json(notes);
+    //   })
+    //   .catch(error => {
+    //     res.status(500).json(console.error('Error retrieving notes', error));
+    //   });
   })
   .post((req, res) => {
     const note = new Note(req.body);
