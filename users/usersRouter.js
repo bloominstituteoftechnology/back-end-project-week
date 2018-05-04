@@ -41,17 +41,18 @@ router
       User.findOne({ username: req.body.username.toLowerCase() })
         .then((user) => {
           if (user) {
-            user
-              .isPasswordValid(req.body.password)
-              .then((response) => {
-                if (response) {
+            user.isPasswordValid(req.body.password)
+            .then(valid => {
+            if (valid) {
                   req.session.auth = true;
                   req.session._id = user._id;
                   req.session.username = user.username;
                   res.status(200).json({ success: true, user: user });
-                } else res.status(422).json({ success: false, message: "Invalid Password"});
-              })
-          } else res.status(404).json({success: false, message: "User not found"});
+                } 
+            else res.status(422).json({ success: false, message: "Invalid Password"});
+          })
+        }
+          else res.status(404).json({success: false, message: "User not found"});
         })
         .catch(error => res.status(500).json({success: false, message: "Something bad happened"}));
     }
