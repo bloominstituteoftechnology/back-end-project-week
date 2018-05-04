@@ -10,7 +10,7 @@ const userRouter = require('./users/userRouter.js');
 const User = require('./users/User.js');
 const secret = process.env.secret;
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: process.env.CLIENT,
   credentials:true
 };
 server.use(cors(corsOptions));
