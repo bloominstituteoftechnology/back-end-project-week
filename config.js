@@ -1,8 +1,8 @@
-config = {
+let config = {
     username: 'DeepLot',
     password: 'A1.June1887May'
 }
 
-secret = 'wherewedroppinboys'
+let secret = 'wherewedroppinboys'
 
 module.exports = config;
