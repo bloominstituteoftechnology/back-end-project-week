@@ -28,9 +28,11 @@ User.pre('save', function (next) {
   });
 });
 
-User.methods.isPasswordValid = async function (passwordGuess) {
-  const resp = await bcrypt.compare(passwordGuess, this.password);
-  return resp;
+User.methods.isPasswordValid = function(pwAttempt, cb) {
+  bcrypt.compare(pwAttempt, this.password, function(err, isMatch) {
+      if (err) return cb(err);
+      cb(null, isMatch);
+  });
 };
 
 User.methods.addNote = function (note_id) {
