@@ -12,14 +12,25 @@ chai.use(chaiHTTP);
 describe("Users", () => {
   before(done => {
     mongoose.connect("mongodb://localhost/test", {}, err => {
-      if (err) return console.log(err);
-      console.log("Test DB Connection Achieved");
+      if (err) {
+        console.log(err);
+        done();
+      } else {
+        console.log("Test DB Connection Achieved");
+        done();
+      }
     });
-    done();
   });
   after(done => {
-    mongoose.connection.close();
-    done();
+    mongoose.connection.close(err => {
+      if (err) {
+        console.log(err);
+        done();
+      } else {
+        console.log("Closed DB Connection");
+        done();
+      }
+    });
   });
 
   let userId;
@@ -31,7 +42,6 @@ describe("Users", () => {
     newUser.save((err, savedUser) => {
       if (err) {
         console.log(err);
-        done();
       }
       userId = savedUser._id;
       done();
@@ -40,7 +50,7 @@ describe("Users", () => {
   afterEach(done => {
     User.remove({}, err => {
       if (err) console.log(err);
-      return done();
+      done();
     });
   });
 
@@ -59,7 +69,7 @@ describe("Users", () => {
           expect(response.status).to.equal(201);
           expect(response.body).to.be.an("object");
           expect(response.body.username).to.equal("newuser");
-          return done();
+          done();
         });
     });
   });
