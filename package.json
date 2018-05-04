@@ -2,9 +2,10 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "description": "back end project",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,13 @@
   "bugs": {
     "url": "https://github.com/Mehrunes-Dagon/back-end-project-week/issues"
   },
-  "homepage": "https://github.com/Mehrunes-Dagon/back-end-project-week#readme"
+  "homepage": "https://github.com/Mehrunes-Dagon/back-end-project-week#readme",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "react-router-dom": "^4.2.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.2"
+  }
 }
