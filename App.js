@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 const server = require('./server');
 const port = 5500;
 
-mongoose.connect('mongodb://localhost/notes', {}, err => {
+const mongo = mongo_uri || 'mongodb://localhost/notes';
+
+mongoose.connect(mongo, {}, err => {
   if (err) return console.log(err);
   console.log('DB Connection Achieved');
 });
