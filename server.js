@@ -32,8 +32,11 @@ const gen = () => {
 const notes = gen();
 
 server.get('/', (req, res) => {
-  console.log('hi');
-  return;
+  res.json('foo');
+});
+
+server.get('/notes', (req, res) => {
+  res.json(notes);
 });
 
 server.post('/notes', (req, res) => {
