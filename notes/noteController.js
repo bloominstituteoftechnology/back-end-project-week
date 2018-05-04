@@ -4,7 +4,7 @@ const Note = require('./noteModel.js');
 router
   .route('/')
   .get((req, res) => {
-    const username = req.body.username;
+    const { username } = req.body;
     Note.find({ author: username })
       .then(notes => {
         if (notes.length === 0) {
@@ -28,7 +28,7 @@ router
       .then(savedNote => {
         res.status(201).json({ success: 'Note has been created.', creation: savedNote });
       })
-      .catch(error => res.status(500).json(console.error('Error creating note', error)));
+      .catch(error => res.status(500).json(console.error('Error creating note', req.body)));
   });
 
 router
