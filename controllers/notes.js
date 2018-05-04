@@ -14,42 +14,53 @@ const createNote = async function(req, res) {
   // } catch(error) {
   //     console.log(error);
   // };
-  // if (req.params.id) {
-  //   User.findByIdAndUpdate(uid, { $push: { notes: newNote } }, (err, note) => {
-  //     if (err)
-  //       res
-  //         .status(500)
-  //         .json("There was an error adding the note");
-  //   });
-  //   return;
-  // }
-  newNote
-    .save()
-    .then(savedNote => {
-      console.log("saved note: ", savedNote);
-      User.findById(uid, (err, user) => {
-        if (err)
-          return res
-            .status(500)
-            .json({ msg: "There was an error saving the note." });
-        user.notes.push(savedNote);
-        user
-          .save()
-          .then()
-          .catch(err =>
-            res.status(500).json({
-              msg: "There was an error saving the the note.",
-              error: err
-            })
-          );
-      });
-      res.status(200).json(savedNote);
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ msg: "There was an error saving the note.", error: err });
+  if (req.params.id) {
+    User.findByIdAndUpdate(uid, { $push: { notes: newNote } }, (err, note) => {
+      if (err)
+        res
+          .status(500)
+          .json("There was an error adding the note");
     });
+    //return;
+  }
+  newNote
+  .save()
+  .then(note => {
+    console.log( note);
+    res.send(note);
+  })
+  .catch(error => {
+    res.status(500).json({
+      error: 'There was an error adding the note'
+    });
+  });
+  // newNote
+  //   .save()
+  //   .then(savedNote => {
+  //     console.log("saved note: ", savedNote);
+  //     User.findById(uid, (err, user) => {
+  //       if (err)
+  //         return res
+  //           .status(500)
+  //           .json({ msg: "There was an error saving the note." });
+  //       user.notes.push(savedNote);
+  //       user
+  //         .save()
+  //         .then()
+  //         .catch(err =>
+  //           res.status(500).json({
+  //             msg: "There was an error saving the the note.",
+  //             error: err
+  //           })
+  //         );
+  //     });
+  //     res.status(200).json(savedNote);
+  //   })
+  //   .catch(err => {
+  //     res
+  //       .status(500)
+  //       .json({ msg: "There was an error saving the note.", error: err });
+  //   });
 };
 
 const getNotes = async function(req, res) {
