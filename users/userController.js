@@ -7,7 +7,6 @@ const User = require("./userModel.js");
 
 router.route("/").post((req, res) => {
   const user = new User(req.body);
-  console.log(req.body);
   user
     .save()
     .then(newUser => {
@@ -24,7 +23,7 @@ router.route("/").post((req, res) => {
 // });
 
 router.route("/login").post(authenticate, (req, res) => {
-  console.log("LOGIN ROUTE FIRING");
+  console.log(req.err);
   if (req.user) {
     res
       .status(200)

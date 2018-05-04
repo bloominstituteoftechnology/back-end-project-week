@@ -29,16 +29,17 @@ const localStrategy = new LocalStrategy(function(username, password, done) {
     }
     if (!user) {
       done(null, false);
+    } else {
+      user.verifyPassword(password, function(err, isValid) {
+        if (err) {
+          return done(err);
+        }
+        if (isValid) {
+          return done(null, user);
+        }
+        return done(null, false);
+      });
     }
-    user.verifyPassword(password, function(err, isValid) {
-      if (err) {
-        return done(err);
-      }
-      if (isValid) {
-        return done(null, user);
-      }
-      return done(null, false);
-    });
   });
 });
 

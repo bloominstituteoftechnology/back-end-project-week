@@ -94,8 +94,12 @@ describe("Users", () => {
           expect(response.status).to.equal(200);
           expect(response.body).to.be.an("object");
           expect(response.body).to.have.property("success");
+          expect(response.body.success).to.equal(true);
           expect(response.body).to.have.property("user");
+          expect(response.body.user).to.be.an("object");
+          expect(response.body.user.username).to.equal("testUser");
           expect(response.body).to.have.property("token");
+          expect(response.body.token).to.be.a("string");
           done();
         });
     });
