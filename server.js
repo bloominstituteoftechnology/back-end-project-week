@@ -6,7 +6,7 @@ const routes = require('./routes/routes');
 const server = express();
 
 const corsOptions = {
-    origin: 'https://vigorous-goldstine-ca9e37.netlify.com',
+    origin: '*',
     credentials: true
 }
 
