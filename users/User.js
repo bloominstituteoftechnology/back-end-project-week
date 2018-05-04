@@ -29,7 +29,7 @@ User.pre('save', function (next) {
 });
 
 User.methods.isPasswordValid = function (passwordGuess) {
-  bcrypt.compare(passwordGuess, this.password, (err, res) => {
+  return bcrypt.compare(passwordGuess, this.password, (err, res) => {
     if (res) {
       return res;
     }
