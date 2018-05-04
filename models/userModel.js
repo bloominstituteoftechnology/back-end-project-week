@@ -1,15 +1,13 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 mongoose.models = {};
 mongoose.modelSchemas = {};
 
-const User = require('./model.js');
-
-mongoose.connect('mongodb://kennington:123@dbh61.mlab.com:27617/lambdanotes');
+const User = require('./userModel.js');
 
 const UserSchema = new mongoose.Schema({
-  // TODO: fill in this schema
   username: {
     type: String,
     unique: true,
@@ -20,7 +18,8 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  notes: [{ type: ObjectId, ref: '' }]
 });
 UserSchema.pre('save', function(next) {
   bcrypt.hash(this.password, 11, (err, hash) => {
