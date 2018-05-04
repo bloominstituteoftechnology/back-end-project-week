@@ -4,9 +4,12 @@ const Note = require('./noteModel.js');
 router
   .route('/')
   .get((req, res) => {
-
-    Note.find({})
+    const username = req.body.username;
+    Note.find({ author: username })
       .then(notes => {
+        if (!notes) {
+          res.status(200).json({ notes: [{ title: 'Your first Note', body: 'Memories go here', }] });
+        }
         res.status(200).json(notes);
       })
       .catch(error => {
