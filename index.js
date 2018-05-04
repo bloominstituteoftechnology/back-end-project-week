@@ -24,16 +24,8 @@ server.use(cookieSession({
 server.use(passport.initialize());
 server.use(passport.session());
 
-require('./routes/authRoutes')(server);
-
-
-
-
-//next();
-
-
 //routes
-
+require('./routes/authRoutes')(server);
 
 //dynamic port binding
 const PORT = process.env.PORT || 5000;
