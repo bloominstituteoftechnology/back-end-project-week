@@ -13,10 +13,7 @@ const corsOptions = {
 };
 
 mongoose
-  .connect(
-    process.env.MONGO_URI
-    // 'mongodb://localhost/backendProjTestDB'
-  )
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log('\n=== Connected to mongo ===\n');
   })

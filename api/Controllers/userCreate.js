@@ -13,7 +13,7 @@ const userCreate = (req, res) => {
       .catch(err => {
         res
           .status(500)
-          .json({ Error: `There was an error creating the user: ${err}` });
+          .json({ Error: `There was an error creating the user`, err });
       });
   } else {
     res.status(422).json({ Error: 'username and password are required.' });

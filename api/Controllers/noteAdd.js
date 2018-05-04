@@ -5,7 +5,6 @@ const Note = require('../Models/Note');
 const noteAdd = (req, res) => {
   const { username, userId, title, content } = req.body;
   let noteId;
-  console.log(`USER ID: `, userId);
 
   const newestNote = new Note({
     author: userId,
@@ -16,9 +15,6 @@ const noteAdd = (req, res) => {
   newestNote
     .save()
     .then(savedNote => {
-      console.log(
-        `Note successfully saved to the DB only, not to a user just yet`
-      );
       noteId = savedNote._id;
       User.findByIdAndUpdate(
         { _id: userId },
@@ -27,19 +23,19 @@ const noteAdd = (req, res) => {
         }
       )
         .then(user => {
-          console.log(`++++ NOTE SUCCESSFULLY SAVED TO USER DB ++++`);
+          res
+            .status(200)
+            .json({ Message: `Note Successfully Saved to users database!` });
         })
         .catch(err => {
-          res.json({
-            Error: `Unable to find user, YOU HAVE TO BE KIDDING ME`,
+          res.status(500).json({
+            Error: `Unable to find user`,
             err,
           });
         });
     })
     .catch(err => {
-      res
-        .status(500)
-        .json({ Error: `Unable to save new note to the DB: ${err}` });
+      res.status(500).json({ Error: `Unable to save new note to the DB`, err });
     });
 };
 

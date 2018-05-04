@@ -5,15 +5,13 @@ const User = require('../Models/User');
 const noteGet = (req, res) => {
   if (req.params.id) {
     const id = req.params.id;
-    console.log(req.body);
     User.findById(id)
       .populate('notes')
       .then(user => {
-        console.log(user);
         res.status(200).json(user.notes);
       })
       .catch(err => {
-        res.status(500).json({ Error: `Unable to get notes: ${err}` });
+        res.status(500).json({ Error: `Unable to get notes`, err });
       });
   } else {
     console.log('no id');
