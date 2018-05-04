@@ -12,7 +12,7 @@ router
             title: 'Your first note',
             body: 'Memories go here'
           }];
-          res.status(200).json({ notes: defaultNotes });
+          res.status(200).json(defaultNotes);
         }
         res.status(200).json(notes);
       })
