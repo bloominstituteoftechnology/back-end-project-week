@@ -56,24 +56,24 @@ server.delete('/notes/:id', (req, res) => {
   res.send(notes);
 });
 
-server.put('/notes/:id', (req, res) => {
-  const { id } = req.params;
-
-  const noteIndex = notes.findIndex(note => note.id == id);
-
-  if (noteIndex > -1) {
-    const note = { ...notes[noteIndex], ...req.body };
-
-    notes = [
-      ...notes.slice(0, noteIndex),
-      note,
-      ...notes.slice(noteIndex + 1),
-    ];
-    res.send(notes);
-  } else {
-    res.status(404).send({ msg: 'Note not found' });
-  }
-});
+// server.put('/notes/:id', (req, res) => {
+//   const { id } = req.params;
+//
+//   const noteIndex = notes.findIndex(note => note.id == id);
+//
+//   if (noteIndex > -1) {
+//     const note = { ...notes[noteIndex], ...req.body };
+//
+//     notes = [
+//       ...notes.slice(0, noteIndex),
+//       note,
+//       ...notes.slice(noteIndex + 1),
+//     ];
+//     res.send(notes);
+//   } else {
+//     res.status(404).send({ msg: 'Note not found' });
+//   }
+// });
 
 server.listen(port, err => {
   if (err) console.log(err);
