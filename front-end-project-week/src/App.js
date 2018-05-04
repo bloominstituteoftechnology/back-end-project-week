@@ -8,7 +8,16 @@ import Callback from './components/Callback/Callback';
 import { Route } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-import { requireAuth, getAccessToken, getIdToken } from './utils/AuthService';
+import {
+  requireAuth,
+  getAccessToken,
+  auth,
+  getIdToken,
+  isLoggedIn,
+  login
+} from './utils/AuthService';
+
+const DB_DOMAIN = 'http://localhost:5000';
 
 class App extends Component {
   constructor() {
@@ -17,6 +26,24 @@ class App extends Component {
       notes: []
     };
   }
+
+  updateServer = newNotes => {
+    axios
+      .post(
+        `${DB_DOMAIN}`,
+        { notes: newNotes },
+        {
+          headers: {
+            Authorization: `Bearer ${getAccessToken()}`,
+            ID: getIdToken()
+          }
+        }
+      )
+      .then(res => {
+        console.log(res);
+        this.setState({ notes: res.data });
+      });
+  };
 
   componentDidMount() {
     // axios.get('http://localhost:5000')
@@ -28,13 +55,18 @@ class App extends Component {
     // } else {
     //   localStorage.setItem(this.props.user, this.state.notes);
     // }
+    if (isLoggedIn()) console.log('logged in');
+    else console.log('not logged in');
     axios
-      .get('http://localhost:5000/', {
-        headers: { Authorization: `Bearer ${getAccessToken()}` }
+      .get(`${DB_DOMAIN}`, {
+        headers: {
+          Authorization: `Bearer ${getAccessToken()}`,
+          ID: getIdToken()
+        }
       })
       .then(res => {
         console.log(res);
-        console.log(getAccessToken());
+        this.setState({ notes: res.data });
       })
       .catch(err => {
         //user is not logged in to auth0
@@ -55,7 +87,16 @@ class App extends Component {
       ]
     });
 
-    localStorage.setItem(
+    this.updateServer([
+      ...this.state.notes,
+      {
+        index: this.state.notes.length,
+        title: newNote.title,
+        content: newNote.content,
+        tags: newNote.tags
+      }
+    ]);
+    /*     localStorage.setItem(
       this.props.user,
       JSON.stringify([
         ...this.state.notes,
@@ -66,7 +107,7 @@ class App extends Component {
           tags: newNote.tags
         }
       ])
-    );
+    ) */
   };
 
   updateNote = updatedNote => {
@@ -78,7 +119,8 @@ class App extends Component {
       tags: updatedNote.tags
     };
     this.setState({ notes: newNotes });
-    localStorage.setItem(this.props.user, JSON.stringify(newNotes));
+    // localStorage.setItem(this.props.user, JSON.stringify(newNotes));
+    this.updateServer(newNotes);
   };
 
   deleteNote = indexToDelete => {
@@ -86,7 +128,8 @@ class App extends Component {
     this.setState({
       notes: [...this.state.notes]
     });
-    localStorage.setItem(this.props.user, JSON.stringify(this.state.notes));
+    // localStorage.setItem(this.props.user, JSON.stringify(this.state.notes));
+    this.updateServer(this.state.notes);
   };
 
   reorder = notesArr => {
@@ -102,48 +145,60 @@ class App extends Component {
           notes={this.state.notes}
           returnToLogin={this.props.returnToLogin}
         />
-        <Route
-          exact
-          path="/"
-          onEnter={requireAuth}
-          render={() => (
-            <ListNotes
-              name={this.props.user}
-              notes={this.state.notes}
-              reorder={this.reorder}
+
+        {isLoggedIn() ? (
+          <div>
+            <Route
+              exact
+              path="/"
+              onEnter={requireAuth}
+              render={() => (
+                <ListNotes
+                  name={this.props.user}
+                  notes={this.state.notes}
+                  reorder={this.reorder}
+                />
+              )}
             />
-          )}
-        />
-        <Route
-          path="/viewNote/:id"
-          onEnter={requireAuth}
-          render={() =>
-            this.state.notes[this.props.location.pathname.split('/')[2]] ? (
-              <ViewNote
-                index={this.props.location.pathname.split('/')[2]}
-                title={
-                  this.state.notes[this.props.location.pathname.split('/')[2]]
-                    .title
-                }
-                content={
-                  this.state.notes[this.props.location.pathname.split('/')[2]]
-                    .content
-                }
-                tags={
-                  this.state.notes[this.props.location.pathname.split('/')[2]]
-                    .tags
-                }
-                update={this.updateNote}
-                delete={this.deleteNote}
-              />
-            ) : null
-          }
-        />
-        <Route
-          onEnter={requireAuth}
-          path="/newNote"
-          render={() => <CreateNote addNote={this.addNewNote} />}
-        />
+            <Route
+              path="/viewNote/:id"
+              onEnter={requireAuth}
+              render={() =>
+                this.state.notes[this.props.location.pathname.split('/')[2]] ? (
+                  <ViewNote
+                    index={this.props.location.pathname.split('/')[2]}
+                    title={
+                      this.state.notes[
+                        this.props.location.pathname.split('/')[2]
+                      ].title
+                    }
+                    content={
+                      this.state.notes[
+                        this.props.location.pathname.split('/')[2]
+                      ].content
+                    }
+                    tags={
+                      this.state.notes[
+                        this.props.location.pathname.split('/')[2]
+                      ].tags
+                    }
+                    update={this.updateNote}
+                    delete={this.deleteNote}
+                  />
+                ) : null
+              }
+            />
+            <Route
+              onEnter={requireAuth}
+              path="/newNote"
+              render={() => <CreateNote addNote={this.addNewNote} />}
+            />
+          </div>
+        ) : (
+          <div className="yourNotes">
+            <h4 onClick={login()}> ...loading </h4>
+          </div>
+        )}
         <Route path="/callback" component={Callback} />
       </div>
     );

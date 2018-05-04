@@ -4,36 +4,37 @@ const bcrypt = require('bcrypt');
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: true,
-    unique: true, // no users can have the same username
-    lowercase: true // convert to lowercase before storage
+    required: true
   },
 
-  password: {
+  sub: {
     type: String,
-    required: true, // require a password
-    minlength: 4 // set minimum length of password
+    required: true
   },
 
-  race: {
-    type: String,
+  notes: {
+    type: Array,
     required: true
   }
 });
 
 userSchema.pre('save', function(next) {
   //dont user arrow function because you need THIS access of user object (that calls this in routes.js)
-  bcrypt
-    .hash(this.password, 10) // 10 increases depth of hashing, adding time to how long it takes
-    .then(hash => {
-      this.password = hash;
-      next();
-    })
-    .catch(error => res.send(404).json(error));
+  if (this.sub.includes('auth0|')) {
+    bcrypt
+      .hash(this.sub, 10) // 10 increases depth of hashing, adding time to how long it takes
+      .then(hash => {
+        this.sub = hash;
+        next();
+      })
+      .catch(error => res.send(404).json(error));
+  } else {
+    next();
+  }
 });
 
-userSchema.methods.verifyPassword = function(guess, callback) {
-  bcrypt.compare(guess, this.password, function(err, isValid) {
+userSchema.methods.verifySub = function(guess, callback) {
+  bcrypt.compare(guess, this.sub, function(err, isValid) {
     if (err) {
       return callback(err);
     }

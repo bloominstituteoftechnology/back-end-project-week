@@ -1,33 +1,98 @@
-// const jwt = require('jsonwebtoken');
-
-// const passport = require('passport');
-// const LocalStrategy = require('passport-local');
-
-// const { ExtractJwt } = require('passport-jwt'); //use this to teach passport how to get jwt
-// const JwtStrategy = require('passport-jwt').Strategy;
+// auth0 = require('auth0-js');
 
 const User = require('../User/userModel');
 const Note = require('../Notes/notesModel');
+const jwtDecode = require('jwt-decode');
 
 module.exports = function(server) {
   //sanity check route
   server.get('/', (req, res) => {
-    res.send({ api: 'Up and running' });
+    if (req.headers.id) {
+      console.log(jwtDecode(req.headers.id).nickname);
+      token = jwtDecode(req.headers.id);
+      User.findOne({ username: token.nickname })
+        .then(foundUser => {
+          //user exists in db, check secret pw
+          if (foundUser) {
+            console.log('User found, checking secret pw');
+            foundUser.verifySub(token.sub, function(err, isValid) {
+              if (err) return done(err);
+
+              if (isValid) {
+                console.log('pw match');
+                const { _id, notes } = foundUser;
+                console.log(notes);
+                res.send(notes);
+              } else {
+                console.log('no pw match');
+              }
+            });
+          }
+          //user doesnt exist, create user with secret pw
+          else {
+            console.log('user not found, creating user');
+            userObj = {
+              username: token.nickname,
+              sub: token.sub,
+              notes: []
+            };
+            user = new User(userObj);
+            user
+              .save()
+              .then(insertedUser => {
+                console.log('User Saved');
+                res.status(201).send(insertedUser.notes);
+              })
+              .catch(err => console.log(err));
+          }
+        })
+        .catch(err => {
+          console.log('user not found, or user not correct');
+          console.log(err);
+        });
+    }
+    //  res.send({ api: 'Up and running' });
   });
 
-  //auth0 route
-  server.get('/authorized', function(req, res) {
-    res.send('Secured Resource');
-  });
+  //save updated/new/deleted notes to database
+  server.post('/', (req, res) => {
+    if (req.headers.id) {
+      token = jwtDecode(req.headers.id);
+      User.findOne({ username: token.nickname })
+        .then(foundUser => {
+          //user exists in db, check secret pw
+          if (foundUser) {
+            console.log('User found, checking secret pw');
+            foundUser.verifySub(token.sub, function(err, isValid) {
+              if (err) return done(err);
 
-  /*   server.get('/api/hobbits', protected, (req, res) => {
-    User.find({ race: 'hobbit' })
-      .select('-password')
-      .then(hobbits => {
-        res.status(202).json(hobbits);
-      })
-      .catch(err => res.status(500).json(err));
-  }); */
+              if (isValid) {
+                console.log('pw match');
+                foundUser.notes = req.body.notes;
+                console.log(req.body.notes);
+                foundUser
+                  .save()
+                  .then(insertedUser => {
+                    console.log('User Saved with new Notes');
+                    res.status(201).send(insertedUser.notes);
+                  })
+                  .catch(err => console.log(err));
+              } else {
+                console.log('no pw match');
+              }
+            });
+          }
+          //user doesnt exist, create user with secret pw
+          else {
+            console.log('user not found, not saving notes');
+          }
+        })
+        .catch(err => {
+          console.log('user not found, or user not correct, not saving notes');
+          console.log(err);
+        });
+    }
+  });
 
   /*   //create a new user
   server.post('/api/register', (req, res) => {
@@ -50,72 +115,3 @@ module.exports = function(server) {
   //     res.json({ token: makeToken(req.user), user: req.user });
   //   });
 };
-
-/* function makeToken(user) {
-  //return token
-  // sub: subject (id)
-  const timestamp = new Date().getTime();
-
-  const payload = {
-    sub: user._id,
-    iat: timestamp,
-    username: user.username,
-    race: user.race
-  };
-
-  const options = {
-    expiresIn: '4h'
-  };
-
-  return jwt.sign(payload, secret, options);
-}
-
-const localStrategy = new LocalStrategy(function(username, password, done) {
-  // find user
-  User.findOne({ username }, function(err, user) {
-    if (err) done(err);
-
-    //no error
-    if (!user) {
-      done(null, false);
-    }
-
-    user.verifyPassword(password, function(err, isValid) {
-      if (err) return done(err);
-
-      if (isValid) {
-        const { _id, username, race } = user;
-        return done(null, { _id, username, race }); //placed on req
-      }
-
-      return done(null, false);
-    });
-  });
-  //verify password with what is stored
-});
-
-const jwtOptions = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: secret
-};
-
-const jwtStrategy = new JwtStrategy(jwtOptions, function(payload, done) {
-  User.findById(payload.sub)
-    .select('-password') //removes password from user before sending
-    .then(user => {
-      //can check here if user.active or user.admin
-      if (user) {
-        done(null, user); //no error = null; send back full user or filter if desired
-      } else {
-        done(null, false); //token valid but user is no longer in database
-      }
-    })
-    .catch(err => done(err, false));
-});
-
-passport.use(localStrategy);
-passport.use(jwtStrategy);
-
-const authenticate = passport.authenticate('local', { session: false });
-const protected = passport.authenticate('jwt', { session: false });
-*/

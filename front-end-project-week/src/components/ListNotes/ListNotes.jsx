@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import Note from '../Note/Note';
+import { getAccessToken, getUsername, auth } from '../../utils/AuthService';
 
 class ListNotes extends Component {
    constructor() {
      super();
      this.state = {
+       name: 'username',
        filteredTags : [],
        filtering: false,
        searching: false,
@@ -16,6 +18,14 @@ class ListNotes extends Component {
 
    componentDidMount() {
     document.getElementById('searchedWords').style.display = 'none';
+    let listNotes = this;
+    if(getAccessToken()){
+      auth.client.userInfo(getAccessToken(), function(err, user) {
+        if(user) listNotes.setState({name : user.nickname})
+      });
+    }
+
+    
    }
 
    filterTag = () => {
@@ -99,13 +109,14 @@ class ListNotes extends Component {
     }
 
    render() {
+    console.log(this.state.name)
       return (
          <div className="yourNotes">
          <div id="searchWrapper">
           <input type="text" id="searchInput"  placeholder="Enter search term" onKeyPress={e => this.handleKeyPress(e)}/> 
               <div id="searchedWords" onClick={() => this.clearSearch()}> {this.state.searchTerms} </div>
          </div>
-          <h2> {this.props.name}'s Notes:</h2> 
+          <h2> {this.state.name}'s Notes:</h2> 
           <div id="filterTags">
 
           <p> {this.state.filtering ? <span id="filteringText"> Filtering: </span> : null} {this.state.filtering ? 
