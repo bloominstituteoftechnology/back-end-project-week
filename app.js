@@ -6,7 +6,7 @@ const server = require('./server');
 const MONGODB_URL = config.db;
 
 mongoose
-  .connect(MONGODB_URL)
+  .connect('mongodb://admin:secret@ds263759.mlab.com:63759/lambdanotes')
   .then(() => console.log(`=== ${config.env} DB connection Achieve ===`))
   .catch(err => {
     // only show the exact error in develoment

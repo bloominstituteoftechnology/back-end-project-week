@@ -87,7 +87,6 @@ const createNote = (req, res) => {
         note
           .save()
           .then(newNote => {
-            console;
             // do a find
             User.findById(req.params.id)
               .select('-_id firstname lastname notes')
