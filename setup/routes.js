@@ -52,7 +52,7 @@ const jwtOptions = {
 const jwtStrategy = new JwtStrategy(jwtOptions, function(payload, done) {
   User.findById(payload.sub)
 
-    .select('username race')
+    .select('username')
     .then(user => {
       if (user) {
         done(null, user);
@@ -73,17 +73,17 @@ const protected = passport.authenticate('jwt', { session: false });
 
 module.exports = function(server) {
 
-    server.get('/api/notes', protected, (req, res) => {
-      // PSEUDO: You need to access ALL notes
-      User.find({ username: req.body.username }) // ??? For now I'll just send back the username
-        .select('-password')
-        .then(notes => {
-          res.json(notes);
-        })
-        .catch(err => {
-          res.status(500).json(err);
-        });
-    });
+    // server.get('/api/notes', protected, (req, res) => {
+    //   // PSEUDO: You need to access ALL notes
+    //   User.find({ username: req.body.username }) // ??? For now I'll just send back the username
+    //     .select('-password')
+    //     .then(notes => {
+    //       res.json(notes);
+    //     })
+    //     .catch(err => {
+    //       res.status(500).json(err);
+    //     });
+    // });
 
 //   server.post('/api/register', function(req, res) {
 //     const credentials = req.body;
@@ -94,11 +94,11 @@ module.exports = function(server) {
 //     });
 //   });
 
-  server.post('/api/login', authenticate, (req, res) => {
-    res.json({
-      success: `${req.user.username}, you are logged in!`,
-      token: makeToken(req.user),
-      user: req.user
-    }); 
-  });
+  // server.post('/api/login', authenticate, (req, res) => {
+  //   res.json({
+  //     success: `${req.user.username}, you are logged in!`,
+  //     token: makeToken(req.user),
+  //     user: req.user
+  //   }); 
+  // });
 };
