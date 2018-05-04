@@ -3,4 +3,6 @@ config = {
     password: 'A1.June1887May'
 }
 
+secret = 'wherewedroppinboys'
+
 module.exports = config;
