@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const server = require('./server');
 const port = process.env.PORT || 5000;
 
-mongoose.connect('mongodb://Habib:lambdaNotes@ds163769.mlab.com:63769/heroku_rkr8x6jp', {}, (error) => {
+mongoose.connect(process.env.MONGODB_URI, {}, (error) => {
     if (error) {
         return console.log(error);
     }
