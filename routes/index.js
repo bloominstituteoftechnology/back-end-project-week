@@ -11,4 +11,8 @@ router.post("/register", (request, response) => {
     UserController.register(request, response);
 });
 
+router.post("/login", (request, response) => {
+    UserController.login(request, response);
+})
+
 module.exports = router;
