@@ -1,6 +1,6 @@
 config = {
-    username: 'Tony Danza',
-    password: 'imtonydanza'
+    username: 'DeepLot',
+    password: 'A1.June1887May'
 }
 
 module.exports = config;

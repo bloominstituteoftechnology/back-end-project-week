@@ -60,7 +60,7 @@ server.get('/users', (req, res) => {
 });
 
 mongoose
-    .connect(`mongodb://localhost/bewDB`)
+    .connect(`mongodb://${dbCred.dbUser}:${dbCred.dbPassword}@ds215380.mlab.com:15380/bewdb`)
     .then(response => {
         console.log('\n===Connected to DB===\n');
     })
