@@ -8,7 +8,11 @@ router
     Note.find({ author: username })
       .then(notes => {
         if (!notes) {
-          res.status(200).json({ notes: [{ title: 'Your first Note', body: 'Memories go here', }] });
+          const defaultNotes = [{
+            title: 'Your first note',
+            body: 'Memories go here'
+          }];
+          res.status(200).json({ notes: defaultNotes });
         }
         res.status(200).json(notes);
       })
