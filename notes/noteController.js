@@ -7,13 +7,13 @@ router
     const { username } = req.body;
     Note.find({ author: username })
       .then(notes => {
-        if (notes.length === 0) {
-          const defaultNotes = [{
-            title: 'Your first note',
-            body: 'Memories go here'
-          }];
-          res.status(200).json({ notes: defaultNotes, body: req.data});
-        }
+        // if (notes.length === 0) {
+        //   const defaultNotes = [{
+        //     title: 'Your first note',
+        //     body: 'Memories go here'
+        //   }];
+        //   res.status(200).json({ notes: defaultNotes });
+        // }
         res.status(200).json(notes);
       })
       .catch(error => {
