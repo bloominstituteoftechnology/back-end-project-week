@@ -4,12 +4,12 @@ const Note = require('./noteModel.js');
 router
   .route('/')
   .get((req, res) => {
-    const { username } = req.body;
+    const author = req.body.username;
     Note.find({ author: username })
       .then(notes => {
         if (notes.length === 0) {
           const defaultNotes = [{
-            title: username,
+            title: 'Your first note',
             body: 'Memories go here'
           }];
           res.status(200).json({ notes: defaultNotes });
