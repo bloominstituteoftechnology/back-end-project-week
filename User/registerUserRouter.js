@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const routes = require('../../routes');
 
 // ============ from ROUTES ============= //
 // Libraries:
@@ -55,7 +54,7 @@ const jwtOptions = {
 const jwtStrategy = new JwtStrategy(jwtOptions, function(payload, done) {
   User.findById(payload.sub)
 
-    .select('username')
+    .select('-password')
     .then(user => {
       if (user) {
         done(null, user);
@@ -72,21 +71,21 @@ passport.use(localStrategy);
 passport.use(jwtStrategy);
 
 const authenticate = passport.authenticate('local', { session: false });
+// This is what you will use to protect user's notes -- see Auth Code Along hobbits [POST] for example
 const protected = passport.authenticate('jwt', { session: false });
-
 // ============ from ROUTES -- END ============= //
 
 //schema
 const User = require('./User.js');
 
 //endpoints
-router.post('/', authenticate, (req, res) => {
-    res.json({
-      success: `${req.user.username}, you are logged in!`,
-      token: makeToken(req.user),
-      user: req.user
-    }); 
+router.post('/', function(req, res) {
+    const credentials = req.body;
+    const user = new User(credentials);
+    user.save().then(inserted => {
+      const token = makeToken(inserted);
+      res.status(201).json(token);
+    });
   });
-
 
 module.exports = router;

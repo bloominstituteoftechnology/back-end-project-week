@@ -13,13 +13,16 @@ const morgan = require('morgan');
 
 // ======== ROUTER requires ======== //
 // Note
-const createNoteRouter = require('./setup/schemas/Note/createNoteRouter.js');
-const findNotesRouter = require('./setup/schemas/Note/findNotesRouter.js');
-const deleteNoteRouter = require('./setup/schemas/Note/deleteNoteRouter.js');
-const updateNoteRouter = require('./setup/schemas/Note/updateNoteRouter.js');
+const createNoteRouter = require('./Note/createNoteRouter.js');
+const findNotesRouter = require('./Note/findNotesRouter.js');
+const deleteNoteRouter = require('./Note/deleteNoteRouter.js');
+const updateNoteRouter = require('./Note/updateNoteRouter.js');
 // User
-const registerUserRouter = require('./setup/schemas/User/registerUserRouter.js');
-const loginUserRouter = require('./setup/schemas/User/loginUserRouter.js');
+const registerUserRouter = require('./User/registerUserRouter.js');
+const loginUserRouter = require('./User/loginUserRouter.js');
+const findUsersRouter = require('./User/findUsersRouter.js');
+const deleteUserRouter = require('./User/deleteUserRouter.js');
+const updateUserRouter = require('./User/updateUserRouter.js');
 
 const server = express();
 
@@ -55,6 +58,9 @@ server.use('/api/deletenote', deleteNoteRouter);
 server.use('/api/updatenote', updateNoteRouter);
 // User
 server.use('/api/register', registerUserRouter);
-server.use('./api/login', loginUserRouter);
+server.use('/api/login', loginUserRouter);
+server.use('/api/viewusers', findUsersRouter);
+server.use('/api/deleteuser', deleteUserRouter);
+server.use('/api/updateuser', updateUserRouter);
 
 server.listen(PORT, () => console.log('API on port 5000'));
