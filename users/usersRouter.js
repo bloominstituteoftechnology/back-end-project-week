@@ -49,7 +49,7 @@ router.route('/login').post((req, res) => {
   if (!(req.body.username && req.body.password)) {
     res.status(422).json({ error: 'Provide a username and password' });
   } else {
-    User.findOne({ username: req.body.username.toLowerCase() }, function(
+    User.findOne({ username: req.body.username.toLowerCase() }, async function(
       err,
       user
     ) {
@@ -60,7 +60,7 @@ router.route('/login').post((req, res) => {
       if (user === null)
         res.status(404).json({ success: false, message: 'User not found' });
       if (user) {
-        user.isPasswordValid(req.body.password, function(err, isMatch) {
+        await user.isPasswordValid(req.body.password, function(err, isMatch) {
           if (err)
             res
               .status(500)
