@@ -1,1 +1,9 @@
+node_modules
+config.js
+howIDidIt.txt
+yarn-error.log
+npm
+/node_modules
+npm-debug.log
 .DS_Store
+/*.env
