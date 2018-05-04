@@ -70,6 +70,7 @@ router
     } else if (!password || !password.trim()) {
       res.status(422).json({ error: "Invalid password" });
     } else {
+      const credentials = req.body;
 
       const user = new User(credentials);
 
