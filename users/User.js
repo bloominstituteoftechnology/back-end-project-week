@@ -29,7 +29,12 @@ User.pre('save', function (next) {
 });
 
 User.methods.isPasswordValid = function (passwordGuess) {
-  return bcrypt.compare(passwordGuess, this.password);
+  bcrypt.compare(passwordGuess, this.password, (err, res) => {
+    if (res) {
+      return res;
+    }
+    else return res;
+  });
 };
 
 User.methods.addNote = function (note_id) {
