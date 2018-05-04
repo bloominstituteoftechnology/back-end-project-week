@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 const server = require('./server');
-const secrets = require('./secrets');
+const mongo = process.env.mongo || require('./secrets').mongo;
 
 const port = process.env.PORT || 5000;
 
 const db = {
     dev: 'mongodb://127.0.0.1:27017/test',
-    prod: `mongodb+srv://runranron:${secrets.mongopw}@cluster0-h73bz.mongodb.net/test`,
+    prod: `mongodb+srv://runranron:${mongo}@cluster0-h73bz.mongodb.net/test`,
 }
 
 let useDb;

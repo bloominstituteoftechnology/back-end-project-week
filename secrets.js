@@ -1,6 +1,6 @@
 const secrets = {
-    mongopw: "choo820",
-    sessionSecret: "3Xqovsjzq8ovjfgVDFMfUzSmJO21dtXs4re",
+    mongo: "letsallgotothemongoletsallgotothemongo",
+    sessionSecret: "3Xqovsjzq8ovjfgVDFMfUz1SmJO21dtXx",
 }
 
 module.exports = secrets;
