@@ -12,18 +12,18 @@ const server = express();
 const Note = require('./NotesSchema');
 
 // Logger
-const logger = (req, res, next) => {
-  console.log('d-(OvO")z looks correct to me', req.body);
+// const logger = (req, res, next) => {
+//   console.log('d-(OvO")z looks correct to me', req.body);
 
-  next();
-};
+//   next();
+// };
 
 // Middelware
 server.use(express.json());
 server.use(morgan());
 server.use(helmet());
 server.use(cors());
-server.use(logger);
+// server.use(logger);
 
 // Server Code
 server.get('/', (req, res) => {
