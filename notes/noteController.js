@@ -5,7 +5,8 @@ router
   .route('/')
   .get((req, res) => {
     const { username } = req.body;
-    Note.find({ author: username })
+    Note.find({})
+      .where('author').equals(username)
       .then(notes => {
         if (notes.length === 0) {
           const defaultNotes = [{
