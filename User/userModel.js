@@ -1,7 +1,6 @@
-import { callbackify } from 'util';
-
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const SALT_ROUNDS = 11;
 
@@ -16,6 +15,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  notes: [{ type: ObjectId; ref: 'Note' }],
   createdOn: {
     type: Date,
     default: Date.now
