@@ -69,7 +69,6 @@ const getNotes = async function(req, res) {
 
 const deleteNote = async function(req, res) {
   const noteId = req.params.id;
-  const { uid } = req.params;
   Note
     .findByIdAndRemove(noteId, req.body)
     .then(deleteNote =>{
@@ -87,7 +86,6 @@ const deleteNote = async function(req, res) {
 
 const editNote = async function(req, res) {
   const { id } = req.params;
-  const { uid } = req.params;
   const { title, body } = req.body;
   await Note.findByIdAndUpdate(id, req.body, { new: true })
     .then(updateNote => res.status(200).json(updateNote))
