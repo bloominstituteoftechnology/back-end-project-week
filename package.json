@@ -1,0 +1,26 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "Backend for 'Lambda Notes.'",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "9.8.0"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.17.3"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sophiemullerc/back-end-project-week.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sophiemullerc/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/sophiemullerc/back-end-project-week#readme"
+}
