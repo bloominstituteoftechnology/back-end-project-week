@@ -13,6 +13,6 @@ module.exports = (server) => {
   server.route("/login").post(login);
   server.route('/:uid/displayNotes',authenticate).get(getNotes);
   server.route("/:uid/createNote", authenticate).post(createNote);
-  server.route('/:uid/editNote/:id', authenticate).put(editNote);
-  server.route('/:uid/deleteNote/:id', authenticate).delete(deleteNote);
+  server.route('/editNote/:id', authenticate).put(editNote);
+  server.route('deleteNote/:id', authenticate).delete(deleteNote);
 };
