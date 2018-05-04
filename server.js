@@ -14,11 +14,7 @@ const server = express();
 //use middleware
 server.use(helmet());
 server.use(express.json());
-server.use(cors({
-    origin:true,
-    methods:['GET','POST', 'PUT', 'DELETE'],
-    credentials: true
-}));
+server.use(cors());
 
 server.use(morgan('dev'));
 

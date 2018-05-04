@@ -79,7 +79,7 @@ module.exports = function(server) {
         .findOne({username})
         .then(response => {
             if (response)
-                res.send(true);
+                res.json(User);
             else   
                 res.send(false);
         })
