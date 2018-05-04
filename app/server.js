@@ -62,7 +62,20 @@ server.post('/new', (req, res) => {
     });
 })
 
-server.put('/:id', (req, res) => {
+server.get('/:id', (req, res) => {
+   const  {_id} = req.params._id;
+
+    Note
+    .findById({})
+    .then(note => {
+        res.status(200).json(note)
+    })
+    .catch(err => {
+        res.status(500).json({err: 'Could not retrieve note'})
+    })
+})
+
+server.put('/:_id', (req, res) => {
     // const { _id, title, content } = req.body;
     // const id = { _id };
     // if(!id) {
@@ -85,7 +98,7 @@ server.put('/:id', (req, res) => {
     //     });
     // });
 
-    Note.findByIdAndUpdate(req.params.id, req.body)
+    Note.findByIdAndUpdate(req.params._id, req.body)
     .then(() => {
         res.status(200).json({update: 'Note Updated'})
     })
@@ -95,7 +108,7 @@ server.put('/:id', (req, res) => {
 });
 
 
-server.delete('/:id', (req, res) => {
+server.delete('/:_id', (req, res) => {
     Note.findByIdAndRemove(req.params._id)
     .then(() => {
         res.status(200).json({status: 'Note Deleted'})
