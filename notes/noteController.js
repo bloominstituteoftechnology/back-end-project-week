@@ -7,7 +7,7 @@ router
     const username = req.body.username;
     Note.find({ author: username })
       .then(notes => {
-        if (!notes) {
+        if (notes.length === 0) {
           const defaultNotes = [{
             title: 'Your first note',
             body: 'Memories go here'
