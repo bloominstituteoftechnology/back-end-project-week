@@ -1,9 +1,9 @@
 .yourNotes {
    padding: 15px 15px 15px 22px;
    background: rgb(242, 241, 242);
-   border:1px 0 1px 1px solid rgb(175, 175, 175);
+   border-left: 1px solid rgb(175, 175, 175);
    width:100%;
-   min-width:60vw;
+   min-width:68.5vw;
    min-height: 91%;
 }
 .yourNotes h2 {
