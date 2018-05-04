@@ -1,26 +1,31 @@
 {
   "name": "back-end-project-week",
   "version": "1.0.0",
-  "description": "back end project",
+  "description": "back-end project",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "npm test",
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Mehrunes-Dagon/back-end-project-week.git"
   },
-  "author": "William Winberg",
+  "author": "William-Winberg",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Mehrunes-Dagon/back-end-project-week/issues"
   },
   "homepage": "https://github.com/Mehrunes-Dagon/back-end-project-week#readme",
   "dependencies": {
+    "bcrypt": "^2.0.1",
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "helmet": "^3.12.0",
     "mongoose": "^5.0.17",
     "morgan": "^1.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.3"
   }
 }
