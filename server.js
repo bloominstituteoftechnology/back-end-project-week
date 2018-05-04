@@ -1,3 +1,4 @@
+/*
 const express = require("express");
 const server = express();
 const helmet = require("helmet");
@@ -22,7 +23,7 @@ server.use('/api/notes', noteController);
 server.get("/", function(req, res) => {
 	res.status(200).json({api: 'API is running'});
 });
-
+*/
 
 
 

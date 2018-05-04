@@ -1,4 +1,4 @@
-const Note=require('./noteModel');
+/*const Note=require('./noteModel');
 
 
 
@@ -16,3 +16,4 @@ Note.findByIdAndRemove(id)
 	.json({errorMessage: 'The note could not be removed'})
 })
 
+*/
