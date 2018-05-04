@@ -105,8 +105,8 @@ module.exports = function(server) {
   })
 
   server.post("/notes", function(req,res) {
-    const {id, body, title} = req.body;
-    const note = new Note({body,title, userRef: id});
+    const {userRef, body, title} = req.body;
+    const note = new Note({body,title, userRef});
     console.log("req", req)
     note
       .save()
