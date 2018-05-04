@@ -8,7 +8,7 @@ const MongoStore = require('connect-mongo')(session);
 
 const userRouter = require('./data/users/UserRouter');
 const noteRouter = require('./data/notes/NoteRouter');
-const secrets = process.env.secret || require('./secrets').sessionSecret;
+const secret = process.env.secret;
 
 const server = express();
 const corsOptions = {
@@ -24,7 +24,7 @@ server.use(morgan());
 server.use(bodyParser.json());
 server.use(session({
   name: 'Auth',
-  secret: secrets.sessionSecret,
+  secret,
   resave: true,
   saveUninitialized: false,
   cookie: { maxAge: 1 * 24 *60 * 60 * 1000 },

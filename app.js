@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const server = require('./server');
-const mongo = process.env.mongo || require('./secrets').mongo;
+const mongo = process.env.mongo;
 
 const port = process.env.PORT || 5000;
 
