@@ -1,30 +1,73 @@
 const express = require('express');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 const morgan = require('morgan');
-const Login = require('/User/Login.js');
-const Logout = require('/User/Logout.js');
-const Signup = require('/User/Signup.js');
-const Create = require('/Note/Create.js');
-const Update = require('/Note/Update.js');
-const Delete = require('/Note/Delete.js');
-const mongoose = require('mongoose')
-const Port = process.env.PORT || 5000;
-mongoose
-.connect('mongodb://localhost/noteDB/')
-.then( console.log('===Connected to MongoDB==='))
-.catch( (err) => {
-    console.log('===Error Connecting to MongoDB===')
+const helmet = require('helmet');
+const cors = require('cors');
+const mongoose = require('mongoose');
+const User = require('./User/User.js');
+
+const PORT = process.env.PORT || 5000;
+
+const server = express();
+
+//use middleware
+server.use(helmet());
+server.use(express.json());
+server.use(cors({
+    origin:true,
+    methods:['GET','POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
+
+server.use(morgan('dev'));
+
+server.use(
+    session({
+        secret: process.env.SECRET || require('./config').secret,
+        cookie: { maxAge: 1 * 24 * 60 * 60 * 1000 },
+        secure: false,
+        httpOnly: true,
+        name: 'lambda-notes',
+        resave: true,
+        saveUninitialized: false,
+        store: new MongoStore({
+            mongooseConnection: mongoose.connection,
+            ttl: 10 * 60 //seconds
+        })
+    })
+);
+
+const dbCred = {
+    dbUser: process.env.DB_USER || require('./config').username,
+    dbPassword: process.env.DB_PASSWORD || require('./config').password
+};
+
+const setUpRoutes = require('./routes')(server);
+
+server.get('/', (req, res) => {
+    res.json({api:'running'});
 });
 
-const server = express;
-server.use(express.json());
-server.use(morgan('dev'));
-server.use('/login', Login);
-server.use('/logout', Logout);
-server.use('/signup', Signup);
-server.use('/create', Create);
-server.use('/update', Update);
-server.use('/delete', Delete);
-server.get('/', (req, res) => {
-    res.status(200).json({api: 'running!'});
-})
-server.listen(Port, () => console.log(`\n=== API up on port: ${Port} ===\n`));
+server.get('/users', (req, res) => {
+    User.find({})
+    .then(response => {
+        res.json(response);
+    })
+    .catch(err => {
+        res.json(err);
+    });
+});
+
+mongoose
+    .connect(`mongodb://localhost/bewDB`)
+    .then(response => {
+        console.log('\n===Connected to DB===\n');
+    })
+    .catch(err => {
+        console.log('Error connecting to DB');
+    });
+
+server.listen(PORT, () => {
+    console.log('Connected to Server');
+});

@@ -1,34 +1,36 @@
 {
   "name": "back-end-project-week",
   "version": "1.0.0",
-  "description": "Trello: https://trello.com/b/emcvp49t/lambda-notes-back-end-daniel-plott",
-  "main": "server.js",
+  "description": "This week you will be building a backend for a note taking app called \"Lambda Notes.\"",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DeepLot/back-end-project-week.git"
+    "url": "githttps://github.com/joshuacoyne/back-end-project-week.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/DeepLot/back-end-project-week/issues"
+    "url": "https://github.com/joshuacoyne/back-end-project-week/issues"
   },
-  "homepage": "https://github.com/DeepLot/back-end-project-week#readme",
+  "homepage": "https://github.com/joshuacoyne/back-end-project-week#readme",
   "dependencies": {
     "bcrypt": "^2.0.1",
-    "chai": "^4.1.2",
-    "chai-http": "^4.0.0",
+    "connect-mongo": "^2.0.1",
+    "cors": "^2.8.4",
     "express": "^4.16.3",
-    "heroku": "^7.0.17",
-    "mocha": "^5.1.1",
+    "express-session": "^1.15.6",
+    "helmet": "^3.12.0",
     "mongoose": "^5.0.16",
     "morgan": "^1.9.0"
   },
-  "devDependencies": {
-    "nodemon": "^1.17.3"
-  }
+  "engines": {
+    "node": "8.9.4",
+    "npm": "6.0.0"
+  },
+  "devDependencies": {}
 }
