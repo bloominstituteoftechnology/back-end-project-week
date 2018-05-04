@@ -46,6 +46,7 @@ router
   });
 
 router.route('/login').post((req, res) => {
+  const {username, password} = req.body;
   if (!(req.body.username && req.body.password)) {
     res.status(422).json({ error: 'Provide a username and password' });
   } else {
@@ -60,7 +61,9 @@ router.route('/login').post((req, res) => {
       if (user === null)
         res.status(404).json({ success: false, message: 'User not found' });
       if (user) {
-        await user.isPasswordValid(req.body.password, function(err, isMatch) {
+        await user.isPasswordValid(password, function(err, isMatch) {
+          console.log(user)
+          console.log(password)
           console.log(err, isMatch);
           if (err)
             res

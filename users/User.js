@@ -30,6 +30,7 @@ User.pre('save', function (next) {
 
 User.methods.isPasswordValid = function(pwAttempt, cb) {
   bcrypt.compare(pwAttempt, this.password, function(err, isMatch) {
+    console.log(err, isMatch, pwAttempt, "hi")
       if (err) return cb(err);
       cb(null, isMatch);
   });
