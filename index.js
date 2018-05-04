@@ -49,15 +49,15 @@ server.get('/', (req, res) => {
     res.json({api:'running'});
 });
 
-server.get('/users', (req, res) => {
-    User.find({})
-    .then(response => {
-        res.json(response);
-    })
-    .catch(err => {
-        res.json(err);
-    });
-});
+// server.get('/users', (req, res) => {
+//     User.find({})
+//     .then(response => {
+//         res.json(response);
+//     })
+//     .catch(err => {
+//         res.json(err);
+//     });
+// });
 
 mongoose
     .connect(`mongodb://${dbCred.dbUser}:${dbCred.dbPassword}@ds263619.mlab.com:63619/notes`)
