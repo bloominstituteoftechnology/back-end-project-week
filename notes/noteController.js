@@ -22,19 +22,27 @@ router.use(
   })
 );
 
+const sendErr = (res, statusCode, error, errString) => {
+  res.status(statusCode).json({ errorMessage: errString, err: error });
+};
+
 router
   .route('/')
 
   // Read Notes
   .get((req, res) => {
-    Note.find({})
-      .then(notes => {
-        res.status(200).json(notes);
+    console.log(req.body.username);
+    // Search for user
+    // After getting the user, get the notes from that user
+    // Populate notes
+    User.find({ username: req.body.username })
+      .populate('notes')
+      .then(user => {
+        console.log(user);
+        res.status(200).json(user);
       })
       .catch(err => {
-        res.status(500).json({
-          errorMessage: 'The notes could not be retrieved.'
-        });
+        res.status(500).json(err);
       });
   })
 
@@ -42,19 +50,16 @@ router
   .post((req, res) => {
     const { title, content } = req.body;
     const note = new Note({ title, content });
-    console.log(note);
+    console.log(req.body.title, req.body.content);
     if (!title || !content) {
-      res.status(400).json({
+      return res.status(400).json({
         errorMessage: 'Please provide title and content for the note.'
       });
     }
     note
       .save()
       .then(savedNote => {
-        res.status(201).json({
-          message: 'The user was saved to the db and the note was added.'
-        });
-        console.log(req.session.name);
+        console.log(req.session, 'noteController');
         User.find({ username: req.session.name })
           .then(user => {
             user[0].notes.push(savedNote);
@@ -68,18 +73,18 @@ router
               })
               .catch(err => {
                 res
-                  .status(500)
+                  .status(501)
                   .json({ errorMessage: 'The user could not be saved.' });
               });
           })
           .catch(err => {
             res
-              .status(500)
+              .status(502)
               .json({ errorMessage: 'There was an error finding the user' });
           });
       })
       .catch(err => {
-        res.status(500).json({
+        res.status(503).json({
           errorMessage: 'There was an error saving the note.',
           error: err
         });

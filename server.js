@@ -18,7 +18,13 @@ const server = express();
 
 server.use(helmet());
 server.use(morgan('dev'));
-server.use(cors());
+server.use(
+  cors({
+    origin: ['http://localhost:3000'],
+    methods: ['get', 'post', 'put', 'delete'],
+    credentials: true
+  })
+);
 server.use(express.json());
 
 server.get('/', (req, res) => {

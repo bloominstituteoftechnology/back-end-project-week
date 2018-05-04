@@ -57,6 +57,8 @@ router.get('/api/greet', (req, res) => {
 });
 
 router.post('/api/register', (req, res) => {
+  const { firstName, lastName, email, username, password } = req.body; // This is where new User info exists. Don't ask me why!?!?!
+
   const user = new User(req.body);
 
   user
@@ -67,12 +69,14 @@ router.post('/api/register', (req, res) => {
 
 router.post('/api/login', (req, res) => {
   const { username, password } = req.body;
-
+  console.log(username, password);
   User.findOne({ username }).then(user => {
     if (user) {
       user.isPasswordValid(password).then(isValid => {
         if (isValid) {
+          console.log(user);
           req.session.name = user.username;
+          console.log(req.session.name, '==== REQ SESSION NAME ====');
           res.status(200).json({ response: 'Eat a cookie!' });
         } else {
           res.status(401).json({ msg: 'You shall not pass!!!' });
