@@ -23,7 +23,7 @@ server.use(cors());
 const url = process.env.MONGOLAB_URI;
 
 
-mongoose.connect('mongodb://dude:bro@ds151153.mlab.com:51153/heroku_srq65m10', {}, err => {
+mongoose.connect('mongodb://user:pass@ds215370.mlab.com:15370/heroku_zbnm6575', {}, err => {
     if(err) return console.log(err);
     console.log('Mango Up Bruh');
 })
@@ -62,7 +62,7 @@ server.post('/new', (req, res) => {
     });
 })
 
-server.put('/:_id', (req, res) => {
+server.put('/:id', (req, res) => {
     // const { _id, title, content } = req.body;
     // const id = { _id };
     // if(!id) {
@@ -85,7 +85,7 @@ server.put('/:_id', (req, res) => {
     //     });
     // });
 
-    Note.findByIdAndUpdate(req.params._id, req.body)
+    Note.findByIdAndUpdate(req.params.id, req.body)
     .then(() => {
         res.status(200).json({update: 'Note Updated'})
     })
@@ -95,7 +95,7 @@ server.put('/:_id', (req, res) => {
 });
 
 
-server.delete('/:_id', (req, res) => {
+server.delete('/:id', (req, res) => {
     Note.findByIdAndRemove(req.params._id)
     .then(() => {
         res.status(200).json({status: 'Note Deleted'})
