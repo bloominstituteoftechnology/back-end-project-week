@@ -11,13 +11,12 @@ import axios from 'axios';
 import {
   requireAuth,
   getAccessToken,
-  auth,
   getIdToken,
   isLoggedIn,
   login
 } from './utils/AuthService';
 
-const DB_DOMAIN = 'http://localhost:5000';
+const DB_DOMAIN = 'https://lambda-notes-noxasaxon.herokuapp.com/';
 
 class App extends Component {
   constructor() {
@@ -46,15 +45,6 @@ class App extends Component {
   };
 
   componentDidMount() {
-    // axios.get('http://localhost:5000')
-    // const cachedHits = localStorage.getItem(this.props.user);
-    // if (!JSON.parse(cachedHits)) console.log('invalid json confirmed');
-    // if (cachedHits) {
-    //   this.setState({ notes: JSON.parse(cachedHits) });
-    //   return;
-    // } else {
-    //   localStorage.setItem(this.props.user, this.state.notes);
-    // }
     if (isLoggedIn()) console.log('logged in');
     else console.log('not logged in');
     axios
@@ -96,18 +86,6 @@ class App extends Component {
         tags: newNote.tags
       }
     ]);
-    /*     localStorage.setItem(
-      this.props.user,
-      JSON.stringify([
-        ...this.state.notes,
-        {
-          index: this.state.notes.length,
-          title: newNote.title,
-          content: newNote.content,
-          tags: newNote.tags
-        }
-      ])
-    ) */
   };
 
   updateNote = updatedNote => {
@@ -119,7 +97,7 @@ class App extends Component {
       tags: updatedNote.tags
     };
     this.setState({ notes: newNotes });
-    // localStorage.setItem(this.props.user, JSON.stringify(newNotes));
+
     this.updateServer(newNotes);
   };
 
@@ -128,7 +106,7 @@ class App extends Component {
     this.setState({
       notes: [...this.state.notes]
     });
-    // localStorage.setItem(this.props.user, JSON.stringify(this.state.notes));
+
     this.updateServer(this.state.notes);
   };
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Note from '../Note/Note';
-import { getAccessToken, getUsername, auth } from '../../utils/AuthService';
+import { getAccessToken,  auth } from '../../utils/AuthService';
 
 class ListNotes extends Component {
    constructor() {
@@ -109,7 +109,6 @@ class ListNotes extends Component {
     }
 
    render() {
-    console.log(this.state.name)
       return (
          <div className="yourNotes">
          <div id="searchWrapper">

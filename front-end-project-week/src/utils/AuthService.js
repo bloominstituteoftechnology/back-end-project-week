@@ -1,12 +1,11 @@
 import decode from 'jwt-decode';
-import { withRouter } from 'react-router';
 import auth0 from 'auth0-js';
 const ID_TOKEN_KEY = 'id_token';
 const ACCESS_TOKEN_KEY = 'access_token';
 
 const CLIENT_ID = 'Rvf1grYtAg_fKQr-720fS3CIAjnLmdPo';
 const CLIENT_DOMAIN = 'saxon.auth0.com';
-const REDIRECT = 'http://localhost:3000/callback';
+const REDIRECT = 'https://lambduh-notes.netlify.com/callback';
 const SCOPE = 'openid profile';
 const AUDIENCE = 'http://lamba-notes.com';
 

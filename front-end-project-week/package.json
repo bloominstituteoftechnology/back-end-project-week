@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build" 
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/noxasaxon/front-end-project-week/issues"
   },
-  "homepage": "https://github.com/noxasaxon/front-end-project-week#readme",
+  "homepage": "https://lambduh-notes.netlify.com/",
   "dependencies": {
     "auth0-js": "^9.5.1",
     "axios": "^0.18.0",

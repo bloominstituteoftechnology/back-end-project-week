@@ -58,7 +58,9 @@ module.exports = function(server) {
   server.post('/', (req, res) => {
     if (req.headers.id) {
       token = jwtDecode(req.headers.id);
-      User.findOne({ username: token.nickname })
+      User.findOne({
+        username: token.nickname
+      })
         .then(foundUser => {
           //user exists in db, check secret pw
           if (foundUser) {
