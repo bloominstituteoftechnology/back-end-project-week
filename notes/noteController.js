@@ -35,8 +35,9 @@ router
     // Search for user
     // After getting the user, get the notes from that user
     // Populate notes
-    User.find({ username: req.body.username })
-      .populate('notes')
+    // User.find({ username: req.body.username })
+    //   .populate('notes')
+    Note.find({})
       .then(user => {
         console.log(user);
         res.status(200).json(user);
@@ -59,29 +60,30 @@ router
     note
       .save()
       .then(savedNote => {
-        console.log(req.session, 'noteController');
-        User.find({ username: req.session.name })
-          .then(user => {
-            user[0].notes.push(savedNote);
-            user[0]
-              .save()
-              .then(user => {
-                res.status(201).json({
-                  message:
-                    'The user was saved to the db and the note was added.'
-                });
-              })
-              .catch(err => {
-                res
-                  .status(501)
-                  .json({ errorMessage: 'The user could not be saved.' });
-              });
-          })
-          .catch(err => {
-            res
-              .status(502)
-              .json({ errorMessage: 'There was an error finding the user' });
-          });
+        res.status(201).json(savedNote);
+        // console.log(req.session, 'noteController');
+        // User.find({ username: req.session.name })
+        //   .then(user => {
+        //     user[0].notes.push(savedNote);
+        //     user[0]
+        //       .save()
+        //       .then(user => {
+        //         res.status(201).json({
+        //           message:
+        //             'The user was saved to the db and the note was added.'
+        //         });
+        //       })
+        //       .catch(err => {
+        //         res
+        //           .status(501)
+        //           .json({ errorMessage: 'The user could not be saved.' });
+        //       });
+        //   })
+        //   .catch(err => {
+        //     res
+        //       .status(502)
+        //       .json({ errorMessage: 'There was an error finding the user' });
+        //   });
       })
       .catch(err => {
         res.status(503).json({

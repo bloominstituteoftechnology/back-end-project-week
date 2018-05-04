@@ -20,8 +20,8 @@ server.use(helmet());
 server.use(morgan('dev'));
 server.use(
   cors({
-    origin: ['http://localhost:3000'],
-    methods: ['get', 'post', 'put', 'delete'],
+    origin: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
   })
 );
