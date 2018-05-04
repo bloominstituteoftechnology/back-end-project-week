@@ -14,6 +14,15 @@ router
   })
   .catch(err=>{
     res.status(500).json(err);
+  })
+})
+.put((req,res)=>{
+  Note.findOneAndUpdate(new ObjectId(req.params.id),req.body,{upsert:false})
+  .then(response=>{
+    res.status(200).json(response);
+  })
+  .catch(err=>{
+    res.status(500).json(err);
   });
 });
 router
