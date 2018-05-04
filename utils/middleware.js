@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/UserModel');
-const { mysecret } = require('../config');
+// const { mysecret } = require('../config');
 
 const authenticate = (req, res , next) => {
     const token = req.get('Authorization');
     if (token) {
-        jwt.verify(token, mysecret, (error, decoded) => {
+        jwt.verify(token, process.env.MY_SECRET, (error, decoded) => {
             if (err) {
                 return res.status(422).json(error);
             }

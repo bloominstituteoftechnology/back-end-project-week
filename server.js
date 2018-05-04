@@ -5,15 +5,15 @@ const morgan = require('morgan');
 const routes = require('./routes/routes');
 const server = express();
 
-// const corsOptions = {
-//     origin: '*',
-//     credentials: true
-// }
+const corsOptions = {
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT'],
+    credentials: true
+}
 
 server.use(helmet());
 server.use(express.json());
 server.use(morgan('dev'));
-// server.use(cors(corsOptions));
-server.use(cors());
+server.use(cors(corsOptions));
 routes(server);
 module.exports = server;

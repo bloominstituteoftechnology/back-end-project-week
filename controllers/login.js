@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { mysecret } = require('../config');
+// const { mysecret } = require('../config');
 const User = require('../models/UserModel');
 
 const login = (req, res) => {
@@ -20,7 +20,7 @@ const login = (req, res) => {
                     const payload = {
                         username: user.username
                     };
-                    const token = jwt.sign(payload, mysecret);
+                    const token = jwt.sign(payload, process.env.MY_SECRET);
                     let uid = user.id;
                     console.log(uid);
                     res.status(200).json({ token, uid });
