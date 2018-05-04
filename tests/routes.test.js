@@ -43,7 +43,8 @@ describe("Users", () => {
       if (err) {
         console.log(err);
       }
-      userId = savedUser._id;
+      userId = savedUser._id.toString();
+      console.log(userId);
       done();
     });
   });
@@ -128,6 +129,23 @@ describe("Users", () => {
             done();
           }
           expect(response.status).to.equal(400);
+          done();
+        });
+    });
+  });
+  describe("[PUT] /api/user/:id", () => {
+    it("should accept an updated user object, put it to the database, and return the updated user", done => {
+      chai
+        .request(server)
+        .put(`/api/user/${userId}`)
+        .send({ username: "updatedname" })
+        .end((err, response) => {
+          if (err) {
+            console.log(err);
+            done();
+          }
+          expect(response.status).to.equal(200);
+          expect(response.body).to.be.an("object");
           done();
         });
     });
