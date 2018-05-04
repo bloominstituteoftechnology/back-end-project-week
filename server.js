@@ -28,7 +28,6 @@ server.use(session({
   resave: true,
   saveUninitialized: false,
   cookie: { maxAge: 1 * 24 *60 * 60 * 1000 },
-  secure: false,
 }));
 server.use('/users', userRouter);
 server.use('/notes', noteRouter);

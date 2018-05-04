@@ -78,7 +78,7 @@ Once your MVP has been approved, you have been given a feature list that the cli
 
 ## Extra Features:
 * [ ] Allow users to sign in with a third party service (google, facebook, github, club penguin, etc...)
-* [ ] Search functionality
+* [x ] Search functionality
 * [ ] Allow multiple users to collaborate on notes
 * [ ] Add pagination for long lists of notes
 * [ ] Create and display tags that can be added to notes and stored in the Database
