@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const config = require('../api/config.js');
-const Note = require('./noteModel.js');
-const User = require('../users/userModel.js');
+const Note = require('./noteModel');
+const User = require('../users/userModel');
 
 const errHandler = (res, err, msg = 'error occurred') => {
   if (config.env === 'development') {
@@ -87,6 +87,7 @@ const createNote = (req, res) => {
         note
           .save()
           .then(newNote => {
+            console;
             // do a find
             User.findById(req.params.id)
               .select('-_id firstname lastname notes')
