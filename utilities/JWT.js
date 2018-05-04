@@ -66,8 +66,7 @@ passport.use(localStrategy);
 passport.use(jwtStrategy);
 
 const authenticate = passport.authenticate("local", {
-  session: false,
-  failureFlash: true
+  session: false
 });
 const protected = passport.authenticate("jwt", { session: false });
 

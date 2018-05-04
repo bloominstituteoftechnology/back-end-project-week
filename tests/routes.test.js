@@ -103,5 +103,33 @@ describe("Users", () => {
           done();
         });
     });
+    it("should return a status of 401 if given incorrect credentials", done => {
+      chai
+        .request(server)
+        .post("/api/user/login")
+        .send({ username: "wrong", password: "wrong" })
+        .end((err, response) => {
+          if (err) {
+            console.log(err);
+            done();
+          }
+          expect(response.status).to.equal(401);
+          done();
+        });
+    });
+    it("should return a status of 500 if given missing credentials", done => {
+      chai
+        .request(server)
+        .post("/api/user/login")
+        .send({ username: "blah" })
+        .end((err, response) => {
+          if (err) {
+            console.log(err);
+            done();
+          }
+          expect(response.status).to.equal(400);
+          done();
+        });
+    });
   });
 });
