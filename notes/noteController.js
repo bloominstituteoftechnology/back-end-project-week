@@ -2,24 +2,23 @@ const router = require('express').Router();
 const Note = require('./noteModel.js');
 
 router
-  .route('/')
+  .route('/:username')
   .get((req, res) => {
-    res.status(200).json(req.body);
-    // const { username } = req.body;
-    // Note.find({ author: username })
-    //   .then(notes => {
-    //     if (notes.length === 0) {
-    //       const defaultNotes = [{
-    //         title: 'Your first note',
-    //         body: 'Memories go here'
-    //       }];
-    //       res.status(200).json({ notes: defaultNotes });
-    //     }
-    //     res.status(200).json(notes);
-    //   })
-    //   .catch(error => {
-    //     res.status(500).json(console.error('Error retrieving notes', error));
-    //   });
+    const { username } = req.params;
+    Note.find({ author: username })
+      .then(notes => {
+        if (notes.length === 0) {
+          const defaultNotes = [{
+            title: 'Your first note',
+            body: 'Memories go here'
+          }];
+          res.status(200).json({ notes: defaultNotes });
+        }
+        res.status(200).json(notes);
+      })
+      .catch(error => {
+        res.status(500).json(console.error('Error retrieving notes', error));
+      });
   })
   .post((req, res) => {
     const note = new Note(req.body);
@@ -31,23 +30,6 @@ router
       })
       .catch(error => res.status(500).json(console.error('Error creating note', error)));
   });
-
-router
-  .route('/:id')
-  .get((req, res) => {
-    const { id } = req.params;
-
-    Note.find({})
-    .then(notes => {
-      let note = notes[`${id}`];
-      !note
-      ? res.status(404).json({ error: 'Note not found.' })
-      : res.status(200).json(note);
-    })
-    .catch(error => {
-      res.status(500).json(console.error('Error retrieving note!', error));
-    })
-  })
 
   .delete((req, res) => {
     const { id } = req.params;
