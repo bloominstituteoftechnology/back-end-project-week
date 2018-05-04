@@ -146,9 +146,29 @@ server.post('/register', (req, res) => {
 
 })
 
-// server.post('/notes/login', (req, res) => {
-
-// });
+server.post('/login', (req, res) => {
+    const { username, password } = req.body;
+    if (username && password) {
+        User.findOne({ username })
+          .then(user => {
+            user.checkPassword(password, (nonMatch, hashMatch) => {
+              if (nonMatch !== null) {
+                res.status(422).json({ Error: 'Password is invalid...' });
+              } else if (nonMatch === null && hashMatch) {
+                const payload = { username, id: user._id };
+                res.status(200).json({id: user._id });
+              } else {
+                res.status(500)
+              }
+            });
+          })
+          .catch(err => {
+            res.status(500).json({ err: `Login failed...` });
+          });
+      } else {
+        res.status(422).json({ Error: 'Username and Password required.' });
+      }
+});
 
 
 

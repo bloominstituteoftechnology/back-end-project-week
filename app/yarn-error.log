@@ -17,7 +17,6 @@ npm manifest:
   {
     "name": "swedishgoodnote",
     "version": "1.0.0",
-    "main": "./backend/server.js",
     "repository": "https://github.com/swedishgoodbye/back-end-project-week.git",
     "author": "Brett Sullivan <opticalfalicy@gmail.com>",
     "license": "MIT",
@@ -34,7 +33,7 @@ npm manifest:
       "sinon": "^5.0.2"
     },
     "scripts": {
-      "start": "nodemon server.js"
+      "start": "node server"
     }
   }
 
@@ -1076,10 +1075,10 @@ Lockfile:
 
 Trace: 
   Error: Command failed.
-  Exit code: 3221225786
+  Exit code: 1
   Command: C:\Windows\system32\cmd.exe
-  Arguments: /d /s /c nodemon server.js
-  Directory: C:\Code\Lambda Projects\back-end-project-week
+  Arguments: /d /s /c node server
+  Directory: C:\Code\Lambda Projects\back-end-project-week\app
   Output:
   
       at ProcessTermError.MessageError (C:\Program Files (x86)\Yarn\lib\cli.js:186:110)
