@@ -4,11 +4,12 @@ import auth0 from 'auth0-js';
 const ID_TOKEN_KEY = 'id_token';
 const ACCESS_TOKEN_KEY = 'access_token';
 
-const CLIENT_ID = 'z9aVEb71OCYmF2t6jquhr4OXUM6TZ2Jc';
+// const CLIENT_ID = 'z9aVEb71OCYmF2t6jquhr4OXUM6TZ2Jc';
+const CLIENT_ID = 'Rvf1grYtAg_fKQr-720fS3CIAjnLmdPo';
 const CLIENT_DOMAIN = 'saxon.auth0.com';
 const REDIRECT = 'http://localhost:3000/callback';
 const SCOPE = 'openid';
-const AUDIENCE = 'https://saxon.auth0.com/userinfo';
+const AUDIENCE = 'http://lamba-notes.com';
 
 var auth = new auth0.WebAuth({
   clientID: CLIENT_ID,
@@ -24,10 +25,17 @@ export function login() {
 }
 
 export function logout() {
+  auth.client.userInfo(getAccessToken(), function(err, user) {
+    console.log(err);
+    console.log(`user : ${user}`);
+    console.log(`email : ${user.email}`);
+    console.log(`name : ${user.name}`);
+    console.log(`sub : ${user.sub}`);
+  });
+
   clearIdToken();
   clearAccessToken();
-  //   this.history.push('/');
-  console.log(this);
+  //   this.history.push('/'); //go to home route
 }
 
 export function requireAuth(nextState, replace) {

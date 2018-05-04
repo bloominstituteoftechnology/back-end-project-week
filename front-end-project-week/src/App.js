@@ -8,7 +8,7 @@ import Callback from './components/Callback/Callback';
 import { Route } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-import { requireAuth } from './utils/AuthService';
+import { requireAuth, getAccessToken, getIdToken } from './utils/AuthService';
 
 class App extends Component {
   constructor() {
@@ -28,6 +28,18 @@ class App extends Component {
     // } else {
     //   localStorage.setItem(this.props.user, this.state.notes);
     // }
+    axios
+      .get('http://localhost:5000/', {
+        headers: { Authorization: `Bearer ${getAccessToken()}` }
+      })
+      .then(res => {
+        console.log(res);
+        console.log(getAccessToken());
+      })
+      .catch(err => {
+        //user is not logged in to auth0
+        console.log(`Error: Log in to Auth0 for access to notes ${err}`);
+      });
   }
 
   addNewNote = newNote => {

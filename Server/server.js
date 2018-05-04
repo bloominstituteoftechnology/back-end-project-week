@@ -10,15 +10,12 @@ const setupRoutes = require('./setup/routes')(server);
 
 // Mongo code
 const router = require('./setup/routes');
-console.log(process.env.PROD_MONGODB);
+// console.log(process.env.PROD_MONGODB);
 mongoose
   .connect(process.env.PROD_MONGODB)
   .then(() => console.log('\n=== connected to Mongo ===\n'))
   .catch(err => console.log('error connecting to DB'));
-server.use('/api/', router);
-
-// Sanity route
-server.get('/', (req, res) => res.send('API running...'));
+server.use('/', router);
 
 const port = process.env.PORT || 5000;
 server.listen(port, () => {

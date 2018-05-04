@@ -1,16 +1,57 @@
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 
-const passport = require('passport');
-const LocalStrategy = require('passport-local');
+// const passport = require('passport');
+// const LocalStrategy = require('passport-local');
 
-const { ExtractJwt } = require('passport-jwt'); //use this to teach passport how to get jwt
-const JwtStrategy = require('passport-jwt').Strategy;
+// const { ExtractJwt } = require('passport-jwt'); //use this to teach passport how to get jwt
+// const JwtStrategy = require('passport-jwt').Strategy;
 
 const User = require('../User/userModel');
 const Note = require('../Notes/notesModel');
-const secret = 'no size limit on tokens';
 
-function makeToken(user) {
+module.exports = function(server) {
+  //sanity check route
+  server.get('/', (req, res) => {
+    res.send({ api: 'Up and running' });
+  });
+
+  //auth0 route
+  server.get('/authorized', function(req, res) {
+    res.send('Secured Resource');
+  });
+
+  /*   server.get('/api/hobbits', protected, (req, res) => {
+    User.find({ race: 'hobbit' })
+      .select('-password')
+      .then(hobbits => {
+        res.status(202).json(hobbits);
+      })
+      .catch(err => res.status(500).json(err));
+  }); */
+
+  /*   //create a new user
+  server.post('/api/register', (req, res) => {
+    const credentials = req.body;
+
+    // add a pre ('save') hook to the User schema
+    //that will hash the password before persisting
+    //the user to the database
+    const user = new User(credentials);
+
+    //save
+    user.save().then(insertedUser => {
+      const token = makeToken(insertedUser);
+
+      res.status(201).json({ token });
+    });
+  }); */
+
+  //   server.post('/api/login', authenticate, (req, res) => {
+  //     res.json({ token: makeToken(req.user), user: req.user });
+  //   });
+};
+
+/* function makeToken(user) {
   //return token
   // sub: subject (id)
   const timestamp = new Date().getTime();
@@ -77,40 +118,4 @@ passport.use(jwtStrategy);
 
 const authenticate = passport.authenticate('local', { session: false });
 const protected = passport.authenticate('jwt', { session: false });
-
-module.exports = function(server) {
-  server.get('/api/hobbits', protected, (req, res) => {
-    User.find({ race: 'hobbit' })
-      .select('-password')
-      .then(hobbits => {
-        res.status(202).json(hobbits);
-      })
-      .catch(err => res.status(500).json(err));
-  });
-
-  //sanity check route
-  server.get('/', (req, res) => {
-    res.send({ api: 'Up and running' });
-  });
-
-  //create a new user
-  server.post('/api/register', (req, res) => {
-    const credentials = req.body;
-
-    // add a pre ('save') hook to the User schema
-    //that will hash the password before persisting
-    //the user to the database
-    const user = new User(credentials);
-
-    //save
-    user.save().then(insertedUser => {
-      const token = makeToken(insertedUser);
-
-      res.status(201).json({ token });
-    });
-  });
-
-  server.post('/api/login', authenticate, (req, res) => {
-    res.json({ token: makeToken(req.user), user: req.user });
-  });
-};
+*/
