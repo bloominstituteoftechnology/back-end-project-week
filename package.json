@@ -4,8 +4,11 @@
   "description": "back end project",
   "main": "server.js",
   "scripts": {
-    "test": "test",
-    "start": "nodemon server.js"
+    "test": "node test.js",
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "8.11.0"
   },
   "repository": {
     "type": "git",
