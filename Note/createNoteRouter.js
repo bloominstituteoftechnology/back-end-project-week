@@ -6,9 +6,7 @@ const Note = require('./Note.js');
 
 //endpoints
 // This is just for quick checking
-router
-.route('/')
-.get((req, res) => {
+router.route('/').get((req, res) => {
   Note.find({})
     .then(notes => {
       if (notes.length === 0) {

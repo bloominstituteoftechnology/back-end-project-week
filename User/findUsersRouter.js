@@ -5,9 +5,7 @@ const User = require('./User.js');
 
 const router = express.Router();
 
-router
-.route('/')
-.get((req, res) => {
+router.route('/').get((req, res) => {
   User.find({})
     .then(notes => {
       if (notes.length === 0) {

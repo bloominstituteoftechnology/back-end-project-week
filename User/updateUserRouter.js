@@ -17,7 +17,7 @@ router
         res.status(500).json(err);
       });
   })
-.put((req, res) => {
+  .put((req, res) => {
     const { id } = req.params;
     const updateInfo = req.body;
     User.findByIdAndUpdate(id, updateInfo)

@@ -5,9 +5,7 @@ const Note = require('./Note.js');
 
 const router = express.Router();
 
-router
-.route('/')
-.get((req, res) => {
+router.route('/').get((req, res) => {
   Note.find({})
     .then(notes => {
       if (notes.length === 0) {

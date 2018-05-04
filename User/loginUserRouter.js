@@ -80,12 +80,11 @@ const User = require('./User.js');
 
 //endpoints
 router.post('/', authenticate, (req, res) => {
-    res.json({
-      success: `${req.user.username}, you are logged in!`,
-      token: makeToken(req.user),
-      user: req.user
-    }); 
+  res.json({
+    success: `${req.user.username}, you are logged in!`,
+    token: makeToken(req.user),
+    user: req.user
   });
-
+});
 
 module.exports = router;

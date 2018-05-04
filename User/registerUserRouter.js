@@ -80,12 +80,12 @@ const User = require('./User.js');
 
 //endpoints
 router.post('/', function(req, res) {
-    const credentials = req.body;
-    const user = new User(credentials);
-    user.save().then(inserted => {
-      const token = makeToken(inserted);
-      res.status(201).json(token);
-    });
+  const credentials = req.body;
+  const user = new User(credentials);
+  user.save().then(inserted => {
+    const token = makeToken(inserted);
+    res.status(201).json(token);
   });
+});
 
 module.exports = router;
