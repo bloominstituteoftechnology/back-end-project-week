@@ -10,7 +10,7 @@ const userRouter = require('./users/userRouter.js');
 const User = require('./users/User.js');
 const secret = process.env.secret;
 const corsOptions = {
-  origin: 'https://afternoon-bayou-71588.herokuapp.com/register/',
+  origin: 'https://afternoon-bayou-71588.herokuapp.com',
   credentials:true
 };
 server.use(cors(corsOptions));
