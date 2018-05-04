@@ -1,3 +1,5 @@
+import { callbackify } from 'util';
+
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
@@ -20,4 +22,19 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('Note', noteSchema);
+userSchema.pre('save', function (next) => {
+  bcrypt.hash(this.password, SALT_ROUNDS, (err, hash) => {
+    if (err) return next(err);
+    this.password = hash;
+    next();
+  });
+});
+
+userSchema.methods.checkPassword = function (plainTextPW, cb) {
+  bcrypt.compare(plainTextPW, this.password, (err, match) => {
+    if (err) return cb(err);
+    cb(null, match);
+  });
+};
+
+module.exports = mongoose.model('User', userSchema);
