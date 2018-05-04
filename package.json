@@ -1,0 +1,30 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "[Here is the Trello link for my project](https://trello.com/b/QDX098tD/lambda-notesbackend-tiffany-robbins)\r # Color guide for the Trello\r > Pink is from the To do list\r > Green is from the Backlog list\r > Yellow is from the Extra features list\r > Orange is from the Super extra credit list\r > Blue are items added by me to help the project along",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lillialskye/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "Tiffany Robbins",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lillialskye/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/lillialskye/back-end-project-week#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "express": "^4.16.3",
+    "mocha": "^5.1.1",
+    "mongoose": "^5.0.17",
+    "morgan": "^1.9.0",
+    "sinon": "^5.0.1"
+  }
+}
