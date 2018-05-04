@@ -1,5 +1,5 @@
 const express = require('express');
-const morgan = require('morgan');
+// const morgan = require('morgan');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -20,7 +20,7 @@ const Note = require('./NotesSchema');
 
 // Middelware
 server.use(express.json());
-server.use(morgan());
+// server.use(morgan());
 server.use(helmet());
 server.use(cors());
 // server.use(logger);
