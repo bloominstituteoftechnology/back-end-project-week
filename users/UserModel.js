@@ -104,7 +104,7 @@ UserSchema.pre('update', function(next) {
 
 UserSchema.methods.checkPassword = function(plainTextPW, callback) {
   // refactor this!!!!!
-  bcrypt.compare(plainTextPW, this.password, function(err, isValid) {
+  bcrypt.compare(plainTextPW, this.passwordHash, function(err, isValid) {
     if (err || isValid === false) {
       return callback(err);
     }

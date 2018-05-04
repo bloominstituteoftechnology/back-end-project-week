@@ -135,6 +135,7 @@ const login = (req, res) => {
             ? res.json(err)
             : res.json({ errorMessage: 'Encountered a login error' });
         }
+
         if (isValid) {
           const token = makeToken(loginUser);
           const userInfo = {
