@@ -15,7 +15,7 @@ router
         else res.status(200).json(user);
       })
       .catch(err => {
-        res.status(500).json(err);
+        res.status(500).json("something bad happened");
       });
   })
   .post((req, res) => {
@@ -33,12 +33,12 @@ router
                 res.status(201).json(saved);
               })
               .catch(err => {
-                res.status(500).json(err);
+                res.status(500).json("something bad happened");
               });
           }
         })
         .catch(err => {
-          res.status(500).json(err);
+          res.status(500).json("something bad happened");
         });
     } else {
       res.status(422).json('provide a title and content!');
@@ -54,7 +54,7 @@ router
       else res.status(200).json(note);
     })
     .catch(err => {
-      res.status(500).json(err);
+      res.status(500).json("something bad happened");
     });
   })
   .put((req, res) => {
@@ -64,7 +64,7 @@ router
       else res.status(200).json(note);
     })
     .catch(err => {
-      res.status(500).json(err);
+      res.status(500).json("something bad happened");
     });
   })
   .delete((req, res) => {
@@ -74,7 +74,7 @@ router
       else res.status(200).json(note);
     })
     .catch(err => {
-      res.status(500).json(err);
+      res.status(500).json("something bad happened");
     });
   });
 

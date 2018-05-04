@@ -26,15 +26,15 @@ const MS = require('express-mongoose-store')(session, mongoose);
 
 server.use(
   session({
-    secret: 'supersecretsecret',
+    secret: 'supersecretsecret!',
     store: new MS(),
-    resave: false,
-    saveUninitialized: false
+    resave: true,
+    saveUninitialized: false,
   })
 );
 
 const isLoggedIn = function (req, res, next) {
-  if (!req.session.auth) res.status(422).json('not allowed');
+  if (!req.session.auth) res.status(422).json('not authorized');
   else if (req.session.id) {
     next();
   }
