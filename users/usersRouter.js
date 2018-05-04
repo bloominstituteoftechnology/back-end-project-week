@@ -62,9 +62,6 @@ router.route('/login').post((req, res) => {
         res.status(404).json({ success: false, message: 'User not found' });
       if (user) {
         await user.isPasswordValid(password, function(err, isMatch) {
-          console.log(user)
-          console.log(password)
-          console.log(err, isMatch);
           if (err)
             res
               .status(500)
