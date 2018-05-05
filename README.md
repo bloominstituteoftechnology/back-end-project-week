@@ -1,3 +1,6 @@
+# Trello URL:
+https://trello.com/b/Pc55q9qb/lambda-notes-backend-aquila-strother
+
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
