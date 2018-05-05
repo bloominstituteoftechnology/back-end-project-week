@@ -50,3 +50,5 @@ router.get('/login', restricted, (req, res) => {
 router.get('/logout', (req, res) => {
   res.json({ message: 'Logged out >:]' });
 });
+
+module.exports = router;

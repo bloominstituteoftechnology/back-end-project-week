@@ -15,14 +15,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  notes: [{ type: ObjectId; ref: 'Note' }],
+  notes: [{ type: ObjectId, ref: 'Note' }],
   createdOn: {
     type: Date,
     default: Date.now
   }
 });
 
-userSchema.pre('save', function (next) => {
+userSchema.pre('save', function (next) {
   bcrypt.hash(this.password, SALT_ROUNDS, (err, hash) => {
     if (err) return next(err);
     this.password = hash;
