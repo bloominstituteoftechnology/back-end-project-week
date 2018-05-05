@@ -3,6 +3,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require(`${__dirname}/User`);
 const Note = require(`${__dirname}/Notes`);
+const mongoose = require("mongoose");
 const secret = "backend app secret";
 
 const { ExtractJwt } = require("passport-jwt");
@@ -102,6 +103,14 @@ module.exports = function(server) {
     .then(notes => {
       res.json({notes})
     }).catch((err) => console.log(err.message));
+  })
+
+  server.delete("/notes/:id", function(req, res) {
+    console.log(req)
+    Note.findByIdAndRemove({_id: req.params.id})
+    .then(note => {
+      res.json({note});
+    }).catch((err) => console.log("delete error:",err.message));
   })
 
   server.post("/notes", function(req,res) {
