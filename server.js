@@ -14,7 +14,7 @@ const { ExtractJwt } = require('passport-jwt')
 const JwtStrategy = require('passport-jwt').Strategy
 const secret = 'cesar is cool'
 
-function makeToken (user) {
+function makeToken(user) {
   // sub: subject (id) who the token is about
   // iat: issued at time
   console.log('***in makeToken strategy***')
@@ -25,21 +25,21 @@ function makeToken (user) {
     iat: timestamp,
     username: user.username
   }
-  const options = { expiresIn: '5m' }
+  const options = { expiresIn: '30s' }
   return jwt.sign(payload, secret, options)
 }
 // { usernameField: email }
-const localStrategy = new LocalStrategy(function (username, password, done) {
+const localStrategy = new LocalStrategy(function(username, password, done) {
   console.log('***in local strategy***')
 
-  User.findOne({ username }, function (err, user) {
+  User.findOne({ username }, function(err, user) {
     if (err) {
       done(err)
     }
     if (!user) {
       done(null, false)
     }
-    user.verifyPassword(password, function (err, isValid) {
+    user.verifyPassword(password, function(err, isValid) {
       if (err) {
         return done(err)
       }
@@ -55,7 +55,11 @@ const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: secret
 }
-const jwtStrategy = new JwtStrategy(jwtOptions, function (payload, done) {
+
+console.log(`\njwtOPTIONS\n`, jwtOptions)
+
+const jwtStrategy = new JwtStrategy(jwtOptions, function(payload, done) {
+  console.log('in jwt strategy')
   User.findById(payload.sub)
     .select('-password')
     .then(user => {
@@ -112,15 +116,15 @@ server.get('/api/notes', protectedRoute, (req, res) => {
   Note.find({ username: req.user.username })
     // .select()
     .then(notes => {
-      res.status(200).json(notes)
+      res.status(200).json({ notes: notes, username: req.user.username })
     })
     .catch(err => res.status(500).json(err))
 })
 server.post('/api/notes', protectedRoute, (req, res) => {
-  const { username } = req.user
+  const { username, _id } = req.user
   const { title, content } = req.body
-  const newNote = { title, content, username }
-  console.log(req.body, 'req body', newNote, 'New Note')
+  const newNote = { title, content, username, users: _id }
+
   const note = new Note(newNote)
   note
     .save()
