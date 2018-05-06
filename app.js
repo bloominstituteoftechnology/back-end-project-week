@@ -6,7 +6,7 @@ const port = process.env.PORT || 5000;
 
 const db = {
     dev: 'mongodb://127.0.0.1:27017/test',
-    prod: `mongodb+srv://runranron:${mongo}@cluster0-h73bz.mongodb.net/test`,
+    prod: `mongodb+srv://lambda-notes:${mongo}@cluster0-h73bz.mongodb.net/test`,
 }
 
 let useDb;
