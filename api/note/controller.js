@@ -15,6 +15,7 @@ module.exports = {
     const query = await newNote.save()
     res.status(201).json(query)
   },
+
   get: async (req, res) => {
     const { id } = req.params
     const query = await Note.find(null).select('-__v -created')

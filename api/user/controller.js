@@ -1,25 +1,32 @@
 const User = require('./model')
+const { createToken } = require('../util/auth')
 
 module.exports = {
-  post: async (req, res) => {
-    // const { name, username, password } = req.body
-    const newUser = new User(req.body)
-    const query = await newUser.save()
-    res.status(201).json(query)
+  getUsers: async (req, res) => {
+    const users = await User.find().select('-password -__v')
+    res.json(users)
   },
 
-  login: async (req, res) => {
-    const { username, password } = req.body
-    const user = await User.findOne({ username })
-    if (!user) return res.status(404).json({ err: `${username} not found`})
-    user.compare(password, (err, valid) => {
-      if (valid) {
-        console.log(user, valid, err)
-        res.json(user)
-      } else {
-        console.log(user, valid, err)
-        res.status(422).json({ err: 'beep' })
-      }
-    })
+  getUser: async (req, res) => {
+    const { body: { email, username }, params: { id } } = req
+    const _id = id ? id : null
+    const users = await User
+      .findOne()
+      .or([{ _id }, { email }, { username }])
+      .select('-password -__v')
+    res.json(users)
+  },
+
+  register: async ({ body }, res) => {
+    const newUser = new User(body)
+    let user = await newUser.save()
+    const token = createToken(user)
+    user = user.getPublicFields()
+    res.status(201).json({ ...user, token })
+  },
+
+  login: async ({ user }, res) => {
+    const token = createToken(user)
+    res.json({ ...user, token })
   }
 }
