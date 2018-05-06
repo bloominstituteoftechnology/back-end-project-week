@@ -9,7 +9,7 @@ This is a RESTful API to connect the Lambda Notes Project by William Pelton.
 | GET    | /users/logout      | N/A                          |
 | POST   | /users/login       | username, password           |
 | POST   | /users/register    | username, password           |
-| GET    | /notes/            | JWT on headers.Authorization |
+| GET    | /notes/            | session cooke                |
 | POST   | /notes/            | title, body                  |
 | PUT    | /notes/:id         | note.\_id, title, body       |
 | DELETE | /notes/:d          | note.\_id                    |
@@ -19,7 +19,7 @@ This is a RESTful API to connect the Lambda Notes Project by William Pelton.
 ### Log-In
 
 * [POST] request to `users/login` requires a username and a password.
-  * Response will consist of `{ cookie, username, notes }`
+  * Response will consist of `{ session cookie, username, notes }`
 
 ### Register New User
 
