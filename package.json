@@ -29,6 +29,6 @@
   },
   "scripts": {
     "start": "node app.js",
-    "test": "mocha tests/UserRouter.test.js"
+    "test": "mocha tests/NoteRouter.test.js"
   }
 }

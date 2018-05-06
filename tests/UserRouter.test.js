@@ -15,7 +15,7 @@ const newUser = new User({
     username: "bjones",
     password: "thisisaverysecurepassword"
 });
-describe('Notes', () => {
+describe('Users', () => {
     before(done => {
         mongoose.connect('mongodb://localhost/test', {}, err => {
         if (err) return console.log(err);
@@ -31,6 +31,7 @@ describe('Notes', () => {
         newUser
             .save()
             .then(savedUser => {
+                console.log(savedUser);
                 userId = savedUser._id;
             });
     });
@@ -56,25 +57,4 @@ describe('Notes', () => {
                 }).catch(err => console.log(err));
         });
     });
-    describe('[POST] to /users/login', () => {
-        it('should allow user to login and receive session cookie', () => {
-            const agent = chai.request.agent(server);
-            const { username, password } = newUser;
-            return agent
-                .post('/users/login')
-                .send({ username, password })
-                .then(function (res) {
-                    expect(res).to.have.cookie();
-                // The `agent` now has the sessionid cookie saved, and will send it
-                // back to the server in the next request:
-                }).catch(err => console.log(err.message));
-        });
-    });
-
-
-    // describe('[POST] to users/login', () => {
-    //     it('should allow user to login with correct username and password' () => {
-
-    //     })
-    // })
 }); 
