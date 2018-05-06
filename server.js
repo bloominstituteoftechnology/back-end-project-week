@@ -85,7 +85,8 @@ server.use(helmet())
 server.use(logger('dev'))
 server.use(express.json())
 server.use(cors())
-const uri = 'mongodb://localhost/lambda_notes'
+// const uri = 'mongodb://localhost/lambda_notes'
+const uri = 'mongodb://cesar:cesar@ds014648.mlab.com:14648/notes-db'
 mongoose
   .connect(uri)
   .then(() => console.log(`\n=== Mongo Online ===\n`))
