@@ -14,7 +14,7 @@ const { ExtractJwt } = require('passport-jwt')
 const JwtStrategy = require('passport-jwt').Strategy
 const secret = 'cesar is cool'
 
-function makeToken(user) {
+function makeToken (user) {
   // sub: subject (id) who the token is about
   // iat: issued at time
   console.log('***in makeToken strategy***')
@@ -29,17 +29,17 @@ function makeToken(user) {
   return jwt.sign(payload, secret, options)
 }
 // { usernameField: email }
-const localStrategy = new LocalStrategy(function(username, password, done) {
+const localStrategy = new LocalStrategy(function (username, password, done) {
   console.log('***in local strategy***')
 
-  User.findOne({ username }, function(err, user) {
+  User.findOne({ username }, function (err, user) {
     if (err) {
       done(err)
     }
     if (!user) {
       done(null, false)
     }
-    user.verifyPassword(password, function(err, isValid) {
+    user.verifyPassword(password, function (err, isValid) {
       if (err) {
         return done(err)
       }
@@ -58,7 +58,7 @@ const jwtOptions = {
 
 console.log(`\njwtOPTIONS\n`, jwtOptions)
 
-const jwtStrategy = new JwtStrategy(jwtOptions, function(payload, done) {
+const jwtStrategy = new JwtStrategy(jwtOptions, function (payload, done) {
   console.log('in jwt strategy')
   User.findById(payload.sub)
     .select('-password')
