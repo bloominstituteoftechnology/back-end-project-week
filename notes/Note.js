@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+
 const { Schema } = mongoose
 const { ObjectId } = Schema.Types
 
@@ -18,6 +19,10 @@ const NoteSchema = new Schema({
   users: {
     type: ObjectId,
     ref: 'User'
+  },
+  username: {
+    type: String,
+    default: 'unknown'
   }
 })
 
