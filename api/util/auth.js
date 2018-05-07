@@ -13,20 +13,15 @@ const createToken = ({ _id, email, username }) => {
     username,
     email
   }
-
-  const options = { expiresIn: '1d' }
-
-  console.log('createToken', payload)
-  const wt = jwt.sign(payload, secret, options)
-  console.log('createToken', wt)
-  return wt
+  const options = { expiresIn: '15m' }
+  return jwt.sign(payload, secret, options)
 }
 
 /* Passport strategy for authenticating with a username and password */
 const localStrategy = new LocalStrategy(async (username, password, done) => {
   let user = await User.findOne({ username })
   if (!user) return done(null, false)
-  const match = await user.compare(password)
+  const match = await user.verifyPassword(password)
   user = user.getPublicFields()
   match ? done(null, user) : done(null, false)
 })
@@ -37,12 +32,12 @@ const jwtOptions = {
 }
 
 /* A Passport strategy for securing RESTful endpoints using JWT */
-const jwtStrategy = new JwtStrategy(jwtOptions, async ({ _id, email, username}, done) => {
-  console.log('jwtStrategy', jwtOptions.jwtFromRequest)
-  console.log('jwtStrategy', _id, email, username)
-
-  const user = await User.findOne().or([{ _id }, { email }, { username }])
-  console.log('jwtStrategy', user)
+const jwtStrategy = new JwtStrategy(jwtOptions,async ({ _id, email, username }, done) => {
+  const user = await User
+    .findOne()
+    .or([{ _id }, { email }, { username }])
+    .select('email username roles')
+  console.log('👉 jwtStrategy \n', user)
   user ? done(null, user) : done(null, false)
 })
 
@@ -52,4 +47,11 @@ passport.use(jwtStrategy)
 const authenticate = passport.authenticate('local', { session: false })
 const restricted = passport.authenticate('jwt', { session: false })
 
-module.exports = { authenticate, createToken, restricted }
+/* Checks user's role */
+const roleAuth = roles => ({ user }, res, next) => {
+  return user.roles.some(role => roles.includes(role))
+    ? next()
+    : res.status(401).json({ err: 'You are not authorized to view to view this content.'})
+}
+
+module.exports = { authenticate, createToken, restricted, roleAuth }

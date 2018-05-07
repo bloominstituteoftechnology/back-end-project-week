@@ -4,7 +4,10 @@ const { ObjectId } = Schema.Types
 
 const schema = new Schema({
   author: { type: ObjectId, ref: 'User' },
-  content: String,
+  content: {
+    type: String,
+    default: ''
+  },
   created: {
     type: Date,
     default: new Date

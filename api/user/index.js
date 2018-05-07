@@ -1,12 +1,13 @@
 const router = require('express').Router()
 
-const { getUsers, getUser, login, register } = require('./controller')
+const { delUser, getUsers, getUser, login, register } = require('./controller')
+const { authenticate, restricted, roleAuth } = require('../util/auth')
 const { catchErr } = require('../util')
-const { authenticate, restricted } = require('../util/auth')
 
-router.get('/', restricted, catchErr(getUsers))
-router.put('/:id?', restricted, catchErr(getUser))
+router.get('/', restricted, roleAuth(['admin']), catchErr(getUsers))
+router.put('/:_id?', restricted, roleAuth(['admin']), catchErr(getUser))
 router.post('/register', catchErr(register))
 router.post('/login', authenticate, catchErr(login))
+router.delete('/delete/:_id', restricted, roleAuth(['admin']), catchErr(delUser))
 
 module.exports = router
