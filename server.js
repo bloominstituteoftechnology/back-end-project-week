@@ -115,6 +115,7 @@ server.get('/', (req, res) => res.json({ msg: `Server Online` }))
 
 server.get('/api/notes', protectedRoute, (req, res) => {
   Note.find({ username: req.user.username })
+    .select('title content _id username')
     // .select()
     .then(notes => {
       res.status(200).json({ notes: notes, username: req.user.username })
