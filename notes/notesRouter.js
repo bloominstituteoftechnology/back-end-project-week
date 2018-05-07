@@ -49,33 +49,33 @@ router
   .route('/:user/:note')
   .get((req, res) => {
     Note.findById(req.params.note)
-    .then(note => {
-      if (!note) res.status(404).json('note not found!');
-      else res.status(200).json(note);
-    })
-    .catch(err => {
-      res.status(500).json("something bad happened");
-    });
+      .then(note => {
+        if (!note) res.status(404).json('note not found!');
+        else res.status(200).json(note);
+      })
+      .catch(err => {
+        res.status(500).json("something bad happened");
+      });
   })
   .put((req, res) => {
-      Note.findByIdAndUpdate(req.params.note, { ...req.body })
-    .then(note => {
-      if (!note) res.status(404).json('note not found!');
-      else res.status(200).json(note);
-    })
-    .catch(err => {
-      res.status(500).json("something bad happened");
-    });
+    Note.findByIdAndUpdate(req.params.note, { ...req.body })
+      .then(note => {
+        if (!note) res.status(404).json('note not found!');
+        else res.status(200).json(note);
+      })
+      .catch(err => {
+        res.status(500).json("something bad happened");
+      });
   })
   .delete((req, res) => {
     Note.findByIdAndRemove(req.params.note)
-    .then(note => {
-      if (!note) res.status(404).json('note not found!');
-      else res.status(200).json(note);
-    })
-    .catch(err => {
-      res.status(500).json("something bad happened");
-    });
+      .then(note => {
+        if (!note) res.status(404).json('note not found!');
+        else res.status(200).json(note);
+      })
+      .catch(err => {
+        res.status(500).json("something bad happened");
+      });
   });
 
 module.exports = router;

@@ -18,10 +18,6 @@ const Note = new mongoose.Schema({
   tags: {
     type: Array,
     default: [],
-  },
-  timestamp: {
-    type: Date,
-    default: Date.now(),
   }
 });
 

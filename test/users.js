@@ -54,16 +54,13 @@ describe('Users', () => {
         .request(server)
         .post('/api/users')
         .send({
-          'title': 'California Games',
-          'genre': 'Sports',
-          'releaseDate': 'June 1987',
+          username: 'nour123',
+          password: 'psaword',
+          notes: ''
+
         })
-        .end(function(err, res) {
+        .end(function (err, res) {
           if (err) expect(err).to.have.status(422);
-          expect(res.body).to.have.property('_id');
-          expect(res.body.title).to.equal('California Games');
-          expect(res.body.genre).to.equal('Sports');
-          expect(res.body.releaseDate).to.equal('June 1987');
           done();
         });
     });
@@ -72,10 +69,8 @@ describe('Users', () => {
         .request(server)
         .post('/api/users')
         .send({
-          'genre': 'Sports',
-          'releaseDate': 'June 1987',
         })
-        .end(function(err, res) {
+        .end(function (err, res) {
           expect(res).to.have.status(422);
           done();
         });
@@ -83,13 +78,12 @@ describe('Users', () => {
   });
 
   describe('[POST] to /api/users', () => {
-    it('should return games in the database', done => {
+    it('should return users in the database', done => {
       chai
         .request(server)
         .get('/api/users')
-        .end(function(err, res) {
+        .end(function (err, res) {
           if (err) expect(err).to.have.status(500);
-          expect(res.body.length).to.equal(1);
           done();
         });
     });
@@ -98,10 +92,10 @@ describe('Users', () => {
   describe('[POST] to /api/users/login', () => {
     it('should log a user in', done => {
       chai
-      .request(server)
-      .post(`/api/game/destroy/${userId}`)
-      .send({id: userId})
-      .end(function(err, res) {
+        .request(server)
+        .post(`/api/users/destroy/${userId}`)
+        .send({ id: userId })
+        .end(function (err, res) {
           if (err) expect(err).to.have.status(422);
           expect(res.body).to.have.property('success')
           done();
@@ -110,8 +104,8 @@ describe('Users', () => {
     it('if not found throws an error', done => {
       chai
         .request(server)
-        .delete(`/api/game/destroy/3`)
-        .end(function(err, res) {
+        .delete(`/api/user/destroy/3`)
+        .end(function (err, res) {
           if (err) expect(err).to.have.status(422);
           done();
         });
@@ -127,7 +121,7 @@ describe('Users', () => {
           'title': 'California Gamez',
           'id': `${userId}`,
         })
-        .end(function(err, res) {
+        .end(function (err, res) {
           if (err) expect(err).to.have.status(422);
           expect(res.body.title).to.equal('California Gamez');
           done();
@@ -155,33 +149,31 @@ describe('User Model', () => {
     });
   });
 
-  describe('#getGameTitle', () => {
-    it('should give back the proper game.title', () => {
-      const game = new User({
-        title: 'California Games',
-        date: 'June 1987',
-        genre: 'Sports'
-      });
-      expect(game.getGameTitle()).to.equal('California Games');
+  describe('#getUserName()', () => {
+    it('should return the correct User title', () => {
+        const user = new User ({
+            username: 'nour',
+            password: 'psaword',
+            notes: 20
+        });
+        expect(user.getUserName()).to.equal('nour');
     });
-  });
-
-  describe('#getAllGames()', () => {
-    it('should return all the games', () => {
-      sinon.stub(User, 'find');
-      User.find.yields(null, [
-        {
-          title: 'California Games',
-          date: 'June 1987',
-          genre: 'Sports'
-        }
-      ]);
-      User.getGames(returnObject => {
-        expect(returnObject.length).to.equal(1);
-        expect(returnObject[0].title).to.equal('California Games');
-        User.find.restore();
-      });
-    });
-  });
 });
 
+describe('#getAllData()', () => {
+    it('should return all of the users', () => {
+        sinon.stub(User, 'find');
+        User.find.yields(null, [
+            {
+                username: 'habib1234731',
+                password: 'psaword',
+                notes: ''
+            }
+        ]);
+        User.getAllData(returnObject => {
+            expect(returnObject.length).to.equal(1);
+            User.find.restore();
+        });
+    });
+});
+});

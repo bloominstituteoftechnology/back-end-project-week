@@ -49,11 +49,11 @@ describe('Notes', () => {
     });
   });
 
-  describe('[POST] to /api/game/create', () => {
+  describe('[POST] to /api/note/create', () => {
     it('should do add a new note to the database', done => {
       chai
         .request(server)
-        .post('/api/game/create')
+        .post('/api/note/create')
         .send({
           'title': 'California Games',
           'genre': 'Sports',
@@ -71,7 +71,7 @@ describe('Notes', () => {
     it('if title and genre are not provided throws error', done => {
       chai
         .request(server)
-        .post('/api/game/create')
+        .post('/api/note/create')
         .send({
           'genre': 'Sports',
           'releaseDate': 'June 1987',
@@ -83,11 +83,11 @@ describe('Notes', () => {
     });
   });
 
-  describe('[GET] to /api/game/get', () => {
+  describe('[GET] to /api/note/get', () => {
     it('should return games in the database', done => {
       chai
         .request(server)
-        .get('/api/game/get')
+        .get('/api/note/get')
         .end(function(err, res) {
           if (err) expect(err).to.have.status(500);
           expect(res.body.length).to.equal(1);
@@ -96,11 +96,11 @@ describe('Notes', () => {
     });
   });
 
-  describe('[DELETE] to /api/game/destroy/:id', () => {
+  describe('[DELETE] to /api/note/destroy/:id', () => {
     it('should delete an id', done => {
       chai
       .request(server)
-      .delete(`/api/game/destroy/${gameId}`)
+      .delete(`/api/note/destroy/${gameId}`)
       .send({id: gameId})
       .end(function(err, res) {
           if (err) expect(err).to.have.status(422);
@@ -111,7 +111,7 @@ describe('Notes', () => {
     it('if not found throws an error', done => {
       chai
         .request(server)
-        .delete(`/api/game/destroy/3`)
+        .delete(`/api/note/destroy/3`)
         .end(function(err, res) {
           if (err) expect(err).to.have.status(422);
           done();
@@ -119,11 +119,11 @@ describe('Notes', () => {
     });
   });
 
-  describe('[PUT] to /api/game/update', () => {
-    it('should update a game', done => {
+  describe('[PUT] to /api/note/update', () => {
+    it('should update a note', done => {
       chai
         .request(server)
-        .put('/api/game/update')
+        .put('/api/note/update')
         .send({
           'title': 'California Gamez',
           'id': `${gameId}`,
@@ -157,13 +157,13 @@ describe('User Model', () => {
   });
 
   describe('#getGameTitle', () => {
-    it('should give back the proper game.title', () => {
+    it('should give back the proper note.title', () => {
       const note = new Game({
         title: 'California Games',
         date: 'June 1987',
         genre: 'Sports'
       });
-      expect(game.getGameTitle()).to.equal('California Games');
+      expect(note.getGameTitle()).to.equal('California Games');
     });
   });
 
@@ -185,4 +185,3 @@ describe('User Model', () => {
     });
   });
 });
-
