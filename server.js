@@ -24,7 +24,7 @@ server.use(session({
 }));
 
 const corsOptions = {
-    origin: ["https://lamdba-notes.herokuapp.com", "http://localhost:3000"],
+    origin: ["https://lambd-notes.herokuapp.com", "http://localhost:3000"],
     credentials: true
   };
 
