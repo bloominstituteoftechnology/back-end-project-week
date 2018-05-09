@@ -1,3 +1,7 @@
+https://trello.com/b/ZXiPkw0R/ronnie-miksch-lambda-notes-backend
+
+deployed at: https://lambda-notes.herokuapp.com
+
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
