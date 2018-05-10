@@ -3,12 +3,8 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 const { ObjectId } = Schema.Types
 
-const NoteSchema = new Schema({
-  title: {
-    type: String,
-    required: true
-  },
-  content: {
+const TagSchema = new Schema({
+  value: {
     type: String,
     required: true
   },
@@ -24,10 +20,10 @@ const NoteSchema = new Schema({
     type: String,
     default: 'unknown'
   },
-  tags: {
+  notes: {
     type: ObjectId,
     ref: 'Tag'
   }
 })
 
-module.exports = mongoose.model('Note', NoteSchema)
+module.exports = mongoose.model('Tag', TagSchema)

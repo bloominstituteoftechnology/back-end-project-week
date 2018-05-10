@@ -6,6 +6,7 @@ const cors = require('cors')
 
 const Note = require('./notes/Note')
 const User = require('./users/User')
+const Tag = require('./tags/Tag')
 
 const jwt = require('jsonwebtoken')
 const passport = require('passport')
@@ -17,7 +18,6 @@ const secret = 'cesar is cool'
 function makeToken (user) {
   // sub: subject (id) who the token is about
   // iat: issued at time
-  console.log('***in makeToken strategy***')
 
   const timestamp = new Date().getTime()
   const payload = {
@@ -30,8 +30,6 @@ function makeToken (user) {
 }
 // { usernameField: email }
 const localStrategy = new LocalStrategy(function (username, password, done) {
-  console.log('***in local strategy***')
-
   User.findOne({ username }, function (err, user) {
     if (err) {
       done(err)
@@ -56,10 +54,7 @@ const jwtOptions = {
   secretOrKey: secret
 }
 
-console.log(`\njwtOPTIONS\n`, jwtOptions)
-
 const jwtStrategy = new JwtStrategy(jwtOptions, function (payload, done) {
-  console.log('in jwt strategy')
   User.findById(payload.sub)
     .select('-password')
     .then(user => {
@@ -152,7 +147,6 @@ server.delete('/api/notes/:id', protectedRoute, (req, res) => {
 // })
 server.put('/api/notes/:id', protectedRoute, (req, res) => {
   const { title, content } = req.body
-  console.log(title, content)
   Note.findByIdAndUpdate(req.params.id, { title, content })
     .then(note => {
       Note.find({ username: req.user.username }).then(notes => {
@@ -161,9 +155,27 @@ server.put('/api/notes/:id', protectedRoute, (req, res) => {
     })
     .catch(err => res.status(500).json(err))
 })
-// .catch(err => {
-//   console.log(err)
-// })
+
+server.post('/api/tags', protectedRoute, (req, res) => {
+  const { tag } = req.body
+  const { username, user_id } = req.user
+  const newTag = {
+    value: tag,
+    username: username,
+    users: user_id
+  }
+  Tag.save(newTag)
+    .then(savedTag => {
+      console.log(savedTag)
+      Tag.find({ notes: note_id })
+        .then(tags => {
+          res.status(201).json(tags)
+        })
+        .catch(err => console.log(err))
+    })
+    .catch(err => console.log(err))
+})
+
 const port = process.env.PORT || 5000
 
 server.listen(port, () => {
