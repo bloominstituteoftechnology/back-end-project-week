@@ -57,14 +57,14 @@ const jwtOptions = {
 const jwtStrategy = new JwtStrategy(jwtOptions, function (payload, done) {
   User.findById(payload.sub)
     .select('-password')
-    .then(user => {
+    .then((user) => {
       if (user) {
         return done(null, user)
       } else {
         return done(null, false)
       }
     })
-    .catch(err => {
+    .catch((err) => {
       return done(err, false)
     })
 })
@@ -85,7 +85,7 @@ const uri = 'mongodb://cesar:cesar@ds014648.mlab.com:14648/notes-db'
 mongoose
   .connect(uri)
   .then(() => console.log(`\n=== Mongo Online ===\n`))
-  .catch(err => console.log(err))
+  .catch((err) => console.log(err))
 
 server.post('/api/login', authenticate, (req, res) => {
   res.json({ token: makeToken(req.user), user: req.user })
@@ -93,7 +93,7 @@ server.post('/api/login', authenticate, (req, res) => {
 server.post('/api/register', (req, res) => {
   const credentials = req.body
   const user = new User(credentials)
-  user.save().then(inserted => {
+  user.save().then((inserted) => {
     const token = makeToken(inserted)
     res.status(201).json({ token })
   })
@@ -101,8 +101,8 @@ server.post('/api/register', (req, res) => {
 
 server.get('/api/users', (req, res) => {
   User.find()
-    .then(users => res.status(200).json(users))
-    .catch(err => console.log(err))
+    .then((users) => res.status(200).json(users))
+    .catch((err) => console.log(err))
 })
 
 server.get('/', (req, res) => res.json({ msg: `Server Online` }))
@@ -112,10 +112,10 @@ server.get('/api/notes', protectedRoute, (req, res) => {
   Note.find({ username: req.user.username })
     .select('title content _id username tags created')
     // .select()
-    .then(notes => {
+    .then((notes) => {
       res.status(200).json({ notes: notes, username: req.user.username })
     })
-    .catch(err => res.status(500).json(err))
+    .catch((err) => res.status(500).json(err))
 })
 server.post('/api/notes', protectedRoute, (req, res) => {
   const { username, _id } = req.user
@@ -124,21 +124,21 @@ server.post('/api/notes', protectedRoute, (req, res) => {
   const note = new Note(newNote)
   note
     .save()
-    .then(msg => {
-      Note.find({ username: req.user.username }).then(notes => {
+    .then((msg) => {
+      Note.find({ username: req.user.username }).then((notes) => {
         res.status(201).json(notes)
       })
     })
-    .catch(err => res.status(500).json(err))
+    .catch((err) => res.status(500).json(err))
 })
 server.delete('/api/notes/:id', protectedRoute, (req, res) => {
   Note.findByIdAndRemove(req.params.id)
-    .then(note => {
-      Note.find({ username: req.user.username }).then(notes => {
+    .then((note) => {
+      Note.find({ username: req.user.username }).then((notes) => {
         res.status(201).json(notes)
       })
     })
-    .catch(err => res.status(500).json(err))
+    .catch((err) => res.status(500).json(err))
 })
 //     .catch(err => {
 //       res.status(500).json(err)
@@ -148,12 +148,12 @@ server.put('/api/notes/:id', protectedRoute, (req, res) => {
   const { title, content, tags } = req.body
   console.log(tags)
   Note.findByIdAndUpdate(req.params.id, { title, content, tags })
-    .then(note => {
-      Note.find({ username: req.user.username }).then(notes => {
+    .then((note) => {
+      Note.find({ username: req.user.username }).then((notes) => {
         res.status(201).json(notes)
       })
     })
-    .catch(err => res.status(500).json(err))
+    .catch((err) => res.status(500).json(err))
 })
 
 server.post('/api/tags', protectedRoute, (req, res) => {
@@ -167,14 +167,14 @@ server.post('/api/tags', protectedRoute, (req, res) => {
   const tag = new Tag(newTag)
   tag
     .save()
-    .then(savedTag => {
+    .then((savedTag) => {
       Tag.find()
-        .then(tags => {
+        .then((tags) => {
           res.status(201).json(tags)
         })
-        .catch(err => console.log(err))
+        .catch((err) => console.log(err))
     })
-    .catch(err => console.log(err))
+    .catch((err) => console.log(err))
 })
 
 const port = process.env.PORT || 5000
