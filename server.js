@@ -80,7 +80,7 @@ server.use(helmet())
 server.use(logger('dev'))
 server.use(express.json())
 server.use(cors())
-// const uri = 'mongodb://localhost/lambda_notes'
+// const uri = 'mongodb://localhost/notesdb'
 const uri = 'mongodb://cesar:cesar@ds014648.mlab.com:14648/notes-db'
 mongoose
   .connect(uri)
@@ -110,7 +110,7 @@ server.get('/', (req, res) => res.json({ msg: `Server Online` }))
 
 server.get('/api/notes', protectedRoute, (req, res) => {
   Note.find({ username: req.user.username })
-    .select('title content _id username')
+    .select('title content _id username tags created')
     // .select()
     .then(notes => {
       res.status(200).json({ notes: notes, username: req.user.username })
@@ -119,9 +119,8 @@ server.get('/api/notes', protectedRoute, (req, res) => {
 })
 server.post('/api/notes', protectedRoute, (req, res) => {
   const { username, _id } = req.user
-  const { title, content } = req.body
-  const newNote = { title, content, username, users: _id }
-
+  const { title, content, tags } = req.body
+  const newNote = { title, content, username, users: _id, tags: tags }
   const note = new Note(newNote)
   note
     .save()
@@ -146,8 +145,9 @@ server.delete('/api/notes/:id', protectedRoute, (req, res) => {
 //     })
 // })
 server.put('/api/notes/:id', protectedRoute, (req, res) => {
-  const { title, content } = req.body
-  Note.findByIdAndUpdate(req.params.id, { title, content })
+  const { title, content, tags } = req.body
+  console.log(tags)
+  Note.findByIdAndUpdate(req.params.id, { title, content, tags })
     .then(note => {
       Note.find({ username: req.user.username }).then(notes => {
         res.status(201).json(notes)
@@ -157,17 +157,18 @@ server.put('/api/notes/:id', protectedRoute, (req, res) => {
 })
 
 server.post('/api/tags', protectedRoute, (req, res) => {
-  const { tag } = req.body
-  const { username, user_id } = req.user
+  const { value } = req.body
+  const { username, _id } = req.user
   const newTag = {
-    value: tag,
+    value,
     username: username,
-    users: user_id
+    users: _id
   }
-  Tag.save(newTag)
+  const tag = new Tag(newTag)
+  tag
+    .save()
     .then(savedTag => {
-      console.log(savedTag)
-      Tag.find({ notes: note_id })
+      Tag.find()
         .then(tags => {
           res.status(201).json(tags)
         })

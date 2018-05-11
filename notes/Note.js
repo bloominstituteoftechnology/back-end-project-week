@@ -25,8 +25,7 @@ const NoteSchema = new Schema({
     default: 'unknown'
   },
   tags: {
-    type: ObjectId,
-    ref: 'Tag'
+    type: Array
   }
 })
 
