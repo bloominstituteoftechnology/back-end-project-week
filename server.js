@@ -25,7 +25,7 @@ function makeToken (user) {
     iat: timestamp,
     username: user.username
   }
-  const options = { expiresIn: '30s' }
+  const options = { expiresIn: '30' }
   return jwt.sign(payload, secret, options)
 }
 // { usernameField: email }
@@ -140,10 +140,7 @@ server.delete('/api/notes/:id', protectedRoute, (req, res) => {
     })
     .catch((err) => res.status(500).json(err))
 })
-//     .catch(err => {
-//       res.status(500).json(err)
-//     })
-// })
+
 server.put('/api/notes/:id', protectedRoute, (req, res) => {
   const { title, content, tags } = req.body
   console.log(tags)
@@ -181,5 +178,4 @@ const port = process.env.PORT || 5000
 
 server.listen(port, () => {
   console.log(`\n API running on ${port}`)
-  // console.log(process.env)
 })
