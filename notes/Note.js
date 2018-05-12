@@ -23,6 +23,9 @@ const NoteSchema = new Schema({
   username: {
     type: String,
     default: 'unknown'
+  },
+  tags: {
+    type: Array
   }
   note_id: {
     type: Number
