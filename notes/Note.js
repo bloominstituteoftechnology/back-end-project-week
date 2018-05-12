@@ -24,6 +24,16 @@ const NoteSchema = new Schema({
     type: String,
     default: 'unknown'
   }
+  note_id: {
+    type: Number
+    unique: true
+  }
+})
+
+let note_id = 1
+NoteSchema.pre('save', function(next) {
+  this.note_id = note_id
+  next()
 })
 
 module.exports = mongoose.model('Note', NoteSchema)
