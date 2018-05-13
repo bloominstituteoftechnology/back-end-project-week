@@ -28,14 +28,14 @@ const NoteSchema = new Schema({
     type: Array
   },
   note_id: {
-    type: Number,
-    unique: true
+    type: Number
   }
 })
 
-let note_id = 1
+let id = 1
 NoteSchema.pre('save', function (next) {
-  this.note_id = note_id
+  this.note_id = id
+  id++
   next()
 })
 
