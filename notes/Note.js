@@ -28,7 +28,8 @@ const NoteSchema = new Schema({
     type: Array
   },
   note_id: {
-    type: Number
+    type: Number,
+    unique: true
   }
 })
 
