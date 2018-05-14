@@ -19,13 +19,13 @@ function makeToken (user) {
   // sub: subject (id) who the token is about
   // iat: issued at time
 
-  const timestamp = new Date().getTime()
+  const timestamp = Date.now()
   const payload = {
     sub: user._id,
     iat: timestamp,
     username: user.username
   }
-  const options = { expiresIn: '30s' }
+  const options = { expiresIn: 60 * 60 * 1000 }
   return jwt.sign(payload, secret, options)
 }
 // { usernameField: email }
@@ -80,8 +80,8 @@ server.use(helmet())
 server.use(logger('dev'))
 server.use(express.json())
 server.use(cors())
-// const uri = 'mongodb://localhost/notesdb'
-const uri = 'mongodb://cesar:cesar@ds014648.mlab.com:14648/notes-db'
+const uri = 'mongodb://localhost/notesdb'
+// const uri = 'mongodb://cesar:cesar@ds014648.mlab.com:14648/notes-db'
 mongoose
   .connect(uri)
   .then(() => console.log(`\n=== Mongo Online ===\n`))
@@ -140,13 +140,9 @@ server.delete('/api/notes/:id', protectedRoute, (req, res) => {
     })
     .catch((err) => res.status(500).json(err))
 })
-//     .catch(err => {
-//       res.status(500).json(err)
-//     })
-// })
+
 server.put('/api/notes/:id', protectedRoute, (req, res) => {
   const { title, content, tags } = req.body
-  console.log(tags)
   Note.findByIdAndUpdate(req.params.id, { title, content, tags })
     .then((note) => {
       Note.find({ username: req.user.username }).then((notes) => {
@@ -181,5 +177,4 @@ const port = process.env.PORT || 5000
 
 server.listen(port, () => {
   console.log(`\n API running on ${port}`)
-  // console.log(process.env)
 })
