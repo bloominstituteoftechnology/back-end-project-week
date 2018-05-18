@@ -39,7 +39,7 @@ const localStrategy = new LocalStrategy(function (username, password, done) {
     }
     user.verifyPassword(password, function (err, isValid) {
       if (err) {
-        return done(err)
+        return done(err) // # polish
       }
       if (isValid) {
         const { _id, username } = user
