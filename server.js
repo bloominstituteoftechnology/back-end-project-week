@@ -75,7 +75,7 @@ const authenticate = passport.authenticate('local', { session: false })
 const protectedRoute = passport.authenticate('jwt', { session: false }) // new
 
 const server = express()
-
+server.use(passport.initialize())
 server.use(helmet())
 server.use(logger('dev'))
 server.use(express.json())
