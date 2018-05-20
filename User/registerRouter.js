@@ -21,7 +21,7 @@ router.post('/', (req, res) => {
             res.status(500).json(err);
           });
       } else {
-        res.status(4444).json({ message: 'Username already exists.' });
+        res.status(444).json({ message: 'Username already exists.' });
       }
     });
   }
