@@ -8,16 +8,22 @@ router.post('/', (req, res) => {
   if (!username || !password) {
     res.statusCode(422).json({ message: 'Username and Password are required' });
   } else {
-    const newUser = new User({ username, password });
-    newUser
-      .save()
-      .then(response => {
-        const token = makeToken(newUser);
-        res.json({ token, user: response });
-      })
-      .catch(err => {
-        res.status(500).json(err);
-      });
+    User.findOne({ username }).then(response => {
+      if (!response) {
+        const newUser = new User({ username, password });
+        newUser
+          .save()
+          .then(response => {
+            const token = makeToken(newUser);
+            res.json({ token, user: response });
+          })
+          .catch(err => {
+            res.status(500).json(err);
+          });
+      } else {
+        res.status(401).json({ message: 'Username already exists.' });
+      }
+    });
   }
 });
 
