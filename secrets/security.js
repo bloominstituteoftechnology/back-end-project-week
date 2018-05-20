@@ -19,14 +19,14 @@ function makeToken(user) {
     username: user.username,
   };
   const options = {
-    expiresIn: '1h',
+    expiresIn: 1000 * 60 * 60 * 24, // 24 hour expiration.
   };
 
   return jwt.sign(payload, secret, options);
 }
 
 const localStrategy = new LocalStrategy(function(username, password, done) {
-  console.log('local');
+  // console.log('local');
   User.findOne({ username }, function(err, user) {
     if (err) {
       return done(err);
@@ -54,12 +54,13 @@ const jwtOptions = {
 };
 
 const jwtStrategy = new JwtStrategy(jwtOptions, function(load, done) {
-  console.log(jwtOptions.jwtFromRequest);
+  // console.log(jwtOptions, 'jwtOptions');
+  // console.log(load, 'load');
   User.findById(load.sub)
     .select('-password')
     .then(user => {
-      console.log(user, 'user');
-      if (user) {
+      // console.log(load.exp - new Date().getTime());
+      if (user && load.exp - new Date().getTime() >= 0) {
         done(null, user);
       } else {
         done(null, false);
