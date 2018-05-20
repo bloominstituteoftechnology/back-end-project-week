@@ -18,7 +18,7 @@ router.post('/', (req, res) => {
             res.json({ token, user: response });
           })
           .catch(err => {
-            res.status(500).json(err);
+            res.status(500).json({ message: 'Server Error' });
           });
       } else {
         res.status(444).json({ message: 'Username already exists.' });
