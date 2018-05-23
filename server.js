@@ -39,7 +39,7 @@ const localStrategy = new LocalStrategy(function (username, password, done) {
     }
     user.verifyPassword(password, function (err, isValid) {
       if (err) {
-        return done(err) // # polish
+        return done(err)
       }
       if (isValid) {
         const { _id, username } = user
@@ -80,8 +80,8 @@ server.use(helmet())
 server.use(logger('dev'))
 server.use(express.json())
 server.use(cors())
-const uri = 'mongodb://localhost/notesdb'
-// const uri = 'mongodb://cesar:cesar@ds014648.mlab.com:14648/notes-db'
+// const uri = 'mongodb://localhost/notesdb'
+const uri = 'mongodb://cesar:cesar@ds014648.mlab.com:14648/notes-db'
 mongoose
   .connect(uri)
   .then(() => console.log(`\n=== Mongo Online ===\n`))
