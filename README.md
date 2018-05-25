@@ -63,7 +63,6 @@ Build an API Endpoint in your Node App for each of the following, and connect th
 * [ ] View an existing note
 * [ ] Edit an existing note
 * [ ] Delete an existing note
-* [ ] Write tests for your endpoints and models
 ```
 
 ***
@@ -72,6 +71,8 @@ Build an API Endpoint in your Node App for each of the following, and connect th
 Once your MVP has been approved, you have been given a feature list that the client would love to have completed.  Your goal would be to finish MVP as soon as you can and get working the list of features.
 
 ## Extra Features:
+* [ ] Write tests for your endpoints and models
+* [ ] Be sure to provide documentation for how to interface with your api
 * [ ] Allow users to sign in with a third party service (google, facebook, github, club penguin, etc...)
 * [ ] Search functionality
 * [ ] Allow multiple users to collaborate on notes
