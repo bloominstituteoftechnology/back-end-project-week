@@ -1,0 +1,33 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "Lambda Notes Back-end",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "mocha *.test.js -R nyan"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Smithface/back-end-project-week.git"
+  },
+  "author": "John Spraul",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Smithface/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/Smithface/back-end-project-week#readme",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "helmet": "^3.12.0",
+    "jsonwebtoken": "^8.2.0",
+    "mongoose": "^5.0.12"
+  },
+  "devDependencies": {
+    "mocha": "^5.0.5"
+  }
+}
