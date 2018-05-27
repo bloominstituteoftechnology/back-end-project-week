@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
 const bcrypt = require("bcrypt")
+const saltRounds = 13
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -20,11 +21,17 @@ const userSchema = new mongoose.Schema({
 })
 
 userSchema.pre("save", function(next) {
-  return bcrypt.hash(this.password, 13, (err, hashedPW) => {
+  return bcrypt.hash(this.password, saltRounds, (err, hashedPW) => {
     if (err) return next(err)
     this.password = hashedPW
     return next()
   })
 })
+
+userSchema.methods.validatePassword = function(plainText, callback) {
+  return bcrypt.compare(plainText, this.password, (err, valid) => {
+    return err ? callback(err) : callback(null, valid)
+  })
+}
 
 module.exports = mongoose.model("User", userSchema)
