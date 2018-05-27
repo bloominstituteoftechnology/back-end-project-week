@@ -1,0 +1,79 @@
+.formContainer {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.39);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalWrapper {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.479); 
+  display: flex;
+  align-items: center;
+  align-content: center;
+  align-self: center;
+  justify-content: center;
+}
+
+.formField {
+  background: white;
+  box-sizing: border-box;
+  border: 1px solid black;
+  height: 220px;
+  width: 650px;
+  text-align: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.inputField {
+  width: 235px;
+  height: 30px;
+  border-radius: 5px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+
+.submitButton {
+  margin-top: 10px;
+}
+
+/* Splash Page */
+
+.formText {
+  text-align: left;
+  font-size: 25px;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.splashText {
+  text-align: center;
+  font-size: 40px;
+  margin: 20px;
+  color: #4A494A;  
+}
+
+.splashText:hover {
+  color: #2AC0C4;
+}
+
+.splashField {
+  background: white;
+  box-sizing: border-box;
+  border: 1px solid black;
+  height: 220px;
+  width: 650px;
+  text-align: center;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+}
