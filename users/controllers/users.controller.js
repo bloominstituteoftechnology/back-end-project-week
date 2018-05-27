@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const User = require("./users.schema")
+const User = require("../users.schema")
 
 const GET = (req, res) => {
   User
