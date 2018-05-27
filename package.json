@@ -1,0 +1,59 @@
+{
+  "name": "notes-api",
+  "version": "1.0.0",
+  "description":
+    "a backend, server side and database project app that will connect to a front front end note app",
+  "main": "app.js",
+  "directories": {
+    "test": "tests",
+    "api": "api",
+    "users": "users",
+    "notes": "notes",
+    "tests": "tests"
+  },
+  "keywords": [
+    "mocha",
+    "heroku",
+    "mlab",
+    "netlify",
+    "react",
+    "notes",
+    "users",
+    "tags"
+  ],
+  "author": "Edward Manda",
+  "bugs": {
+    "url": "https://github.com/emukupa/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/emukupa/back-end-project-week#readme",
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emukupa/back-end-project-week.git"
+  },
+  "scripts": {
+    "test": "mocha tests/*test.js",
+    "start": "nodemon app.js"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "mocha": "^5.1.1",
+    "nodemon": "^1.17.3",
+    "sinon": "^5.0.3"
+  },
+  "dependencies": {
+    "bcrypt": "^2.0.1",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "helmet": "^3.12.0",
+    "jsonwebtoken": "^8.2.1",
+    "lodash": "^4.17.10",
+    "mongoose": "^5.0.17",
+    "morgan": "^1.9.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0"
+  }
+}
