@@ -6,7 +6,7 @@ const GET = (req, res) => {
   User
     .find()
     .then(users => {
-      return users.length <= 0 ?
+      users.length === 0 ?
         res.status(204).json({ message: 'there are no users is our database' }) :
         res.status(200).json(users)
     })
@@ -24,7 +24,7 @@ const PUT = (req, res) => {
   const { id } = req.params;
   const updates = req.body;
   User
-    .findByIdAndUpdate(id, updates)
+    .findByIdAndUpdate(id, updates, { new: true })
     .then(updated => res.status(200).json(updated))
     .catch(err => res.status(500).json({ error: 'cannot update user at this time' }))
 }
@@ -32,7 +32,7 @@ const PUT = (req, res) => {
 const DELETE = (req, res) => {
   const { id } = req.params;
   User
-    .findOneAndRemove(id)
+    .findByIdAndRemove(id)
     .then(deleted => res.status(200).json({ success: 'user successfully deleted' }))
     .catch(err => res.status(500).json({ error: 'cannot delete this user' }))
 }

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const bcrypt = require("bcrypt")
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -16,6 +17,14 @@ const userSchema = new mongoose.Schema({
     title: String,
     content: String,
   }]
+})
+
+userSchema.pre("save", function(next) {
+  return bcrypt.hash(this.password, 13, (err, hashedPW) => {
+    if (err) return next(err)
+    this.password = hashedPW
+    return next()
+  })
 })
 
 module.exports = mongoose.model("User", userSchema)
