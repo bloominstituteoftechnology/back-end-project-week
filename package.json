@@ -1,0 +1,17 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "jsonwebtoken": "^8.2.0",
+    "mongoose": "^5.0.12",
+    "nodemon": "^1.17.3"
+  },
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "license": "ISC"
+}

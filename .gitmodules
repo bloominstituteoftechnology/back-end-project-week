@@ -1,0 +1,3 @@
+[submodule "front-end-project"]
+	path = front-end-project
+	url = https://github.com/cwindeknecht/front-end-project-week
