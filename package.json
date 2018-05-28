@@ -2,13 +2,13 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "description": "backend for lambda notes project",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "test": "jest",
-    "server": "node dist/server.js",
-    "build": "babel server.js -d dist",
+    "server": "node dist/index.js",
+    "build": "babel index.js -d dist",
     "postinstall": "npm run build",
-    "dev": "nodemon --inspect --exec babel-node server.js"
+    "dev": "nodemon --inspect --exec babel-node index.js"
   },
   "engines": {
     "node": ">=10"
@@ -24,11 +24,13 @@
   },
   "homepage": "https://github.com/axhon/back-end-project-week#readme",
   "devDependencies": {
+    "@types/faker": "^4.1.2",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-jest": "^23.0.1",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
+    "faker": "^4.1.0",
     "jest": "^23.0.1",
     "nodemon": "^1.17.5",
     "supertest": "^3.1.0"
