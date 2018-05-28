@@ -6,7 +6,6 @@ const Note = require("../models/notes.schema")
 const GET = (req, res) => {
   User
     .find()
-    .populate('notes')
     .then(users => {
       users.length === 0 ?
         res.status(204).json({ message: 'there are no users is our database' }) :

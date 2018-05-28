@@ -14,8 +14,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 5
-  },
-  notes: [{ type: ObjectId, ref: 'Note' }]
+  }
 })
 
 userSchema.pre("save", function(next) {

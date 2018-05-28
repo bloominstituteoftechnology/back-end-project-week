@@ -4,15 +4,19 @@ const Note = require("../models/notes.schema")
 const router = express.Router()
 
 const GET = (req, res) => {
+  const { username, id } = req.decoded;
   Note
-    .find()
+    .find({ postedBy: id })
     .then(notes => res.status(200).json(notes))
     .catch(err => res.status(500).json({ error: 'error fetching notes' }))
 }
 
-const POST = (req, res) => {
+const POST = async (req, res) => {
+  const { username, id } = req.decoded;
+  const user = await User.findById(id)
+  const newNote = { title: req.body.title, content: req.body.content, postedBy: id }
   Note
-    .create(req.body)
+    .create(newNote)
     .then(note => res.status(201).json(note))
     .catch(err => res.status(500).json({ error: 'error creating new note' }))
 }

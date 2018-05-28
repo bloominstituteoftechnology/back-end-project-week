@@ -10,11 +10,11 @@ const LOGIN = (req, res) => {
       user.validatePassword(password, (noMatch, isValid) => {
         if (noMatch !== null) res.status(422).json({ fail: 'passwords do not match' })
         if (isValid) {
-          const payload = { username: user.username }
+          const payload = { username: user.username, id: user._id }
           const secret = 'this is my secret. shhhh...'
           const token = jwt.sign(payload, secret)
           res.status(200).json({ token })
-        } // res.status(200).json({ success: `welcome, ${user.username}` })
+        }
       })
     }).catch(err => res.status(500).json({ error: 'something went really wrong' }))
 }
