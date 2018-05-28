@@ -1,6 +1,4 @@
-const userRouter = require("../controllers/users.controller");
-const loginRouter = require("../controllers/login.controller");
-const notesRouter = require("../controllers/notes.controller");
+const { userRouter, notesRouter, loginRouter } = require("../controllers");
 const { authenticate } = require("../middleware");
 
 module.exports = server => {

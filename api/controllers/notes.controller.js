@@ -7,8 +7,17 @@ const GET = (req, res) => {
   const { username, id } = req.decoded;
   Note
     .find({ postedBy: id })
+    .populate('postedBy', { username: 1, _id: 0 })
     .then(notes => res.status(200).json(notes))
     .catch(err => res.status(500).json({ error: 'error fetching notes' }))
+}
+
+const GET_ID = (req, res) => {
+  const { id } = req.params;
+  Note
+    .findById(id)
+    .then(note => res.status(200).json(note))
+    .catch(err => res.status(500).json({ message: 'hmm you sure about that ID ?' }))
 }
 
 const POST = async (req, res) => {
@@ -42,6 +51,7 @@ router.route('/')
   .post(POST)
 
 router.route('/:id')
+  .get(GET_ID)
   .put(PUT)
   .delete(DELETE)
 
