@@ -1,6 +1,9 @@
-#Important Commands
+# Important Commands
 1. Use yarn server if you want to use nodemon server.js
 1. Use yarn start if you want to use node server.js
+
+# Trello
+https://trello.com/b/39eCKRzU/lambda-shcool-backend-harrison-brock
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
@@ -42,16 +45,17 @@ Upon your first commit, please submit a Pull Request and add _both_ the **Trello
 
 ```markdown
 ## Trello Set Up:
-* [ ] Use your existing Trello account from the Front End Project, or create a new one
-* [ ] Create a new board called "Lambda Notes(Backend) - {Your Name}"
-* [ ] Create lists titled `backlog`,`To Do`, `In Progress`, and `Done`
-* [ ] Fill in the `To Do` list with the MVP features listed below
-* [ ] Fill in the `backlog` list with all the extra features listed below
-* [ ] Share your board with the project manager that has been assigned to you.  If you have not been assigned yet, reach out to your Section Lead for guidance
-* [ ] Add your Trello URL to your project's README.md file.  Commit the change, push it to your repository & submit a pull request
+
+* [X] Use your existing Trello account from the Front End Project, or create a new one
+* [X] Create a new board called "Lambda Notes(Backend) - {Your Name}"
+* [X] Create lists titled `backlog`,`To Do`, `In Progress`, and `Done`
+* [X] Fill in the `To Do` list with the MVP features listed below
+* [X] Fill in the `backlog` list with all the extra features listed below
+* [X] Share your board with the project manager that has been assigned to you.  If you have not been assigned yet, reach out to your Section Lead for guidance
+* [X] Add your Trello URL to your project's README.md file.  Commit the change, push it to your repository & submit a pull request
 
 ## Backend MVP Features:
-* [ ] Create a Database for your app
+* [X] Create a Database for your app
 * [ ] Design your models for your app. You should have a model for notes and for users. (The users model will come in handy when building out your stretch goals).
 * [ ] Deploy your application to the web
 * [ ] Create a Node app and connect it to your database
