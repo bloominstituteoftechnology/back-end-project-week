@@ -1,0 +1,38 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "backend for lambda notes project",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/axhon/back-end-project-week.git"
+  },
+  "author": "axhon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/axhon/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/axhon/back-end-project-week#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.0.1",
+    "babel-preset-env": "^1.7.0",
+    "jest": "^23.0.1",
+    "supertest": "^3.1.0"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    }
+  },
+  "dependencies": {
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "helmet": "^3.12.1",
+    "morgan": "^1.9.0"
+  }
+}
