@@ -1,1 +1,2 @@
-worker: node dist/server.js
+worker: node dist/index.js
+test: npm test -- --watch

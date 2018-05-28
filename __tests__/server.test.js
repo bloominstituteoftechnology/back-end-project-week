@@ -4,7 +4,7 @@ import faker from 'faker'
 import server from '../server'
 
 const date = faker.date
-const { words } = faker.random
+const { words, word } = faker.random
 
 describe('server', () => {
   beforeAll(async () => {
@@ -14,7 +14,7 @@ describe('server', () => {
       notes.push({
         title: words(Math.random() * (5 - 1) + 1),
         content: words(Math.random() * (23 - 11) + 11),
-        dateCreated: date.past()
+        id: faker.random.uuid()
       })
     }
 

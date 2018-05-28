@@ -25,6 +25,7 @@
   "homepage": "https://github.com/axhon/back-end-project-week#readme",
   "devDependencies": {
     "@types/faker": "^4.1.2",
+    "@types/mongoose": "^5.0.15",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-jest": "^23.0.1",
@@ -32,13 +33,22 @@
     "babel-register": "^6.26.0",
     "faker": "^4.1.0",
     "jest": "^23.0.1",
+    "jest-nyan-reporter": "^1.0.2",
     "nodemon": "^1.17.5",
     "supertest": "^3.1.0"
   },
   "jest": {
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
-    }
+    },
+    "reporters": [
+      [
+        "jest-nyan-reporter",
+        {
+          "suppressErrorReporter": false
+        }
+      ]
+    ]
   },
   "babel": {
     "presets": "env",
