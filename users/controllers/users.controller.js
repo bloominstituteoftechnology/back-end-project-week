@@ -1,10 +1,12 @@
 const express = require("express")
 const router = express.Router()
-const User = require("../users.schema")
+const User = require("../models/users.schema")
+const Note = require("../models/notes.schema")
 
 const GET = (req, res) => {
   User
     .find()
+    .populate('notes')
     .then(users => {
       users.length === 0 ?
         res.status(204).json({ message: 'there are no users is our database' }) :

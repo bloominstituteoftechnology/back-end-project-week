@@ -1,5 +1,5 @@
 const express = require("express")
-const User = require("../users.schema")
+const User = require("../models/users.schema")
 const router = express.Router()
 
 const LOGIN = (req, res) => {
