@@ -1,3 +1,6 @@
+#Important Commands
+1. Use yarn server if you want to use nodemon server.js
+1. Use yarn start if you want to use node server.js
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
