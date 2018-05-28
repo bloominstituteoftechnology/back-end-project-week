@@ -1,12 +1,15 @@
 {
   "name": "back-end-project-week",
   "version": "1.0.0",
+  "engines": {
+    "node": "10.1.0"
+  },
   "main": "index.js",
   "repository": "https://github.com/phantomflynn/back-end-project-week.git",
   "author": "jeffrey <jeffreyneilflynn@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node app.js"
   },
   "dependencies": {
     "bcrypt": "^2.0.1",
