@@ -2,11 +2,12 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "description": "backend for lambda notes project",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "jest",
     "server": "node dist/server.js",
     "build": "babel server.js -d dist",
+    "postinstall": "npm run build",
     "dev": "nodemon --inspect --exec babel-node server.js"
   },
   "engines": {
