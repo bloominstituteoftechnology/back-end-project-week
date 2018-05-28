@@ -2,7 +2,7 @@ const server = require("./server")
 const mongoose = require("mongoose")
 
 mongoose
-  .connect("mongodb://admin:lambda@ds233500.mlab.com:33500/lambda-notes")
+  .connect(process.env.MONGODB_URI)
   .then(() => console.log("\n~ ~ ~ connected to mongo via mLab ~ ~ ~\n"))
   .catch(() => console.log("\n~ ~ ~ error connecting to mLab databse ~ ~ ~\n"))
 

@@ -11,8 +11,7 @@ const LOGIN = (req, res) => {
         if (noMatch !== null) res.status(422).json({ fail: 'passwords do not match' })
         if (isValid) {
           const payload = { username: user.username, id: user._id }
-          const secret = 'this is my secret. shhhh...'
-          const token = jwt.sign(payload, secret)
+          const token = jwt.sign(payload, process.env.SECRET)
           res.status(200).json({ token })
         }
       })
