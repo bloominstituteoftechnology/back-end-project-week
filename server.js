@@ -5,7 +5,7 @@ const cors = require('cors');
 
 const mongoose = require('mongoose');
 mongoose 
-  .connect('mongodb://localhost/frienddb')
+  .connect('mongodb://localhost/notedb')
   .then(mongo => {
     console.log('its raining men')
   })
