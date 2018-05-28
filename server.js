@@ -7,7 +7,12 @@ const helmet = require("helmet");
 
 const server = express();
 
+const path = process.env.MONGO_URI;
+
+mongoose.connect(path);
 server.get("/", (req, res) => res.send("API Running...!"));
 
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => console.log(`Listening on ${PORT}`));
+server.listen(PORT, () =>
+  console.log(`Listening on ${PORT} ${process.env.dbpath}`)
+);
