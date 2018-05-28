@@ -20,9 +20,7 @@
   "dependencies": {
     "cors": "^2.8.4",
     "express": "^4.16.3",
-    "helmet": "^3.12.1"
-  },
-  "devDependencies": {
+    "helmet": "^3.12.1",
     "nodemon": "^1.17.5"
   }
 }
