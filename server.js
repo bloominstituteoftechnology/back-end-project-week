@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const users = require('./routes/api/users');
-
+const notes = require('./routes/api/notes');
 const app = express();
 
 app.use(express.json());
@@ -14,6 +14,7 @@ mongoose
     .catch(err => console.log(err));
 
 app.use('/api/users', users);
+app.use('/api/notes', notes);
 app.get('/testing', (req, res) => {
 
     res.status(200).json({message: 'Testing working'});
