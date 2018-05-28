@@ -2,12 +2,10 @@ const jwt = require("jsonwebtoken")
 
 const authenticate = (req, res, next) => {
   const token = req.get('Authorization')
-  console.log(token)
   if (token) {
     jwt.verify(token, 'this is my secret. shhhh...', (err, decoded) => {
       if (err) return res.status(422).json(err);
       req.decoded = decoded;
-      console.log(decoded)
       next();
     })
   } else {
@@ -15,6 +13,4 @@ const authenticate = (req, res, next) => {
   }
 }
 
-module.exports = {
-  authenticate
-}
+module.exports = { authenticate }
