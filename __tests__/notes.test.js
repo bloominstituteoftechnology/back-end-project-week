@@ -19,4 +19,16 @@ describe('notes', () => {
     const n = new note(fakeNote)
     expect(n.title).toBe(fakeNote.title)
   })
+
+  it('will only create a new note if all required fields are used', async () => {
+    const fakeNote = {
+      content: faker.random.words(11)
+    }
+    const n = new note(fakeNote)
+    try {
+      await n.save()
+    } catch (error) {
+      expect(error).toBeTruthy()
+    }
+  })
 })
