@@ -10,7 +10,7 @@ const server = express();
 server.use(express.json());
 server.use(cors());
 
-// routes(server);
+routes(server);
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/lambda-notes', {}, err => {
