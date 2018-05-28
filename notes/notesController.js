@@ -61,11 +61,12 @@ function deleteid(req, res) {
 }
 
 function putid(req, res) {
+    const {title, body} = req.body;
     const id = req.params.id;
     if(!Note.findById(id)) {
         res.status(404).json({ message: 'Note not found'});
     }
-    Note.findByIdAndUpdate(id)
+    Note.findByIdAndUpdate(id, req.body)
     .then(add => {
         res.status(201).json(add);
     })

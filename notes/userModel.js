@@ -4,4 +4,4 @@ const mongoose = require('mongoose');
 
 
 
-module.exports = userModel;
+// module.exports = userModel;
