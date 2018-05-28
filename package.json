@@ -1,0 +1,28 @@
+{
+  "name": "lambda-notes-backend-project",
+  "version": "1.0.0",
+  "description": "https://trello.com/b/qSRlFPa9/lambda-notesbackend-mark-wong",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fmarkwong-lambda-school-cs9-coursework/back-end-project-week.git"
+  },
+  "author": "Mark Wong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fmarkwong-lambda-school-cs9-coursework/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/fmarkwong-lambda-school-cs9-coursework/back-end-project-week#readme",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "helmet": "^3.12.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  }
+}
