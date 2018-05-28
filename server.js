@@ -39,14 +39,6 @@ mongoose
   .catch(err => {
     console.log('Error connecting to DB', err);
   });
-// mongoose
-//   .connect('mongodb://localhost/lambdanotestesting')
-//   .then(() => {
-//     console.log('Connected to DB');
-//   })
-//   .catch(err => {
-//     console.log('Error connecting to DB', err);
-//   });
 
 const port = process.env.PORT || 5000;
 
