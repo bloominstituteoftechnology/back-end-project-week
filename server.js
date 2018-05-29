@@ -1,11 +1,14 @@
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
+const helmet = require("helmet");
 const config = require("./config.js");
 const mongoose = require("mongoose");
 
 const port = process.env.PORT || 3333;
 const server = express();
+
+const noteController = require("./notes/noteController");
 
 mongoose
   .connect(
@@ -27,6 +30,8 @@ server.use(morgan("combined"));
 server.get("/", (req, res) => {
   res.json({ Message: "Hello World" });
 });
+
+server.use("/api/notes", noteController);
 
 server.listen(port, err => {
   if (err) console.log(err);
