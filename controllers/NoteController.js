@@ -19,8 +19,16 @@ const createNote = (req, res) => {
 
 const getAllNotes = (req, res) => {
   console.log("getting all notes");
+  Note.find()
+    .then(p => {
+      res.status(200).json(p);
+    })
+    .catch(err => {
+      res.status(500).json({ msg: "we cant display notes " });
+    });
 };
 
+router.get("/", getAllNotes);
 router.post("/", createNote);
 
 module.exports = router;
