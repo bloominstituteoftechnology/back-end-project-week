@@ -1,3 +1,6 @@
+# TRELLO
+https://trello.com/b/R21iEHEM/lambda-notesbackend-justin-faulkenberry
+
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
