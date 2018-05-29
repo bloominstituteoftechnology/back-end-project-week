@@ -76,4 +76,17 @@ router.delete('/:id', passport.authenticate('jwt', {session: false}), (req, res)
         .catch(err => res.status(500).json(err))
 
 });
+
+
+router.put('/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
+
+    Note.findById(req.params.id)
+        .then(note => {
+            if(note.user == req.user.id) {
+
+            }
+        })
+        .catch(err => res.status(500).json(err))
+
+});
 module.exports = router;
