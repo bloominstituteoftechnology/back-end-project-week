@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
     });
 });
 
-router.post("/", (req, res) => {
+router.post("/register", (req, res) => {
   const { username, password } = req.body;
   if (!(username && password)) {
     res.status(422).json({ error: "Username and password are mandatory" });
@@ -44,12 +44,6 @@ router.post("/", (req, res) => {
 router.post("/login", (req, res) => {
   const { username, password } = req.body;
 
-  // if (!(username && password))
-  //   res.status(422).json({ error: "Username and password are mandatory" });
-  //   else
-  //   User.findOne({username: username.toLowerCase()}).then(user => {
-
-  //   })
   User.authenticate(username, password, function(error, user) {
     if (error || !user) {
       res.status(401).json({ error: "Wrong credentials - try again" });
@@ -59,9 +53,22 @@ router.post("/login", (req, res) => {
       req.session._id = user._id;
       req.session.username = user.username;
       res.status(200).json({ success: true, user: user });
-      console.log(req.session.userId);
+      console.log(req.session._id);
     }
   });
+});
+
+router.get("/logout", (req, res) => {
+  if (req.session) {
+    // delete session object
+    req.session.destroy(err => {
+      if (err) {
+        res.status(400).json(err);
+      } else {
+        res.status(200).json({ message: "Logged out" });
+      }
+    });
+  }
 });
 
 module.exports = router;
