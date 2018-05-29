@@ -13,7 +13,7 @@ server.use('/notes', notesRouter)
 
 mongoose
 .connect('mongodb://JacobLeonLyerla:server1122@ds237770.mlab.com:37770/jlldb')
-mongoose.connection.once('open',()=>{
+.then(open=>{
     console.log('connected to db')
 })
 .catch(err=>{
