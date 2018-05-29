@@ -28,7 +28,7 @@ server.use(cors());
 
 // mlab migration
 mongoose
-  .connect("mongodb://admin:admin@ds239940.mlab.com:39940/lambda-note_h")
+  .connect("mongodb://admin:adminpw@ds239940.mlab.com:39940/lambda-note_h")
   
   .then(mongo => {
     console.log("-=- connected to mongo database -=-");
