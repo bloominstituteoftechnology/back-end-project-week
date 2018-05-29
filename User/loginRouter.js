@@ -45,4 +45,14 @@ router.get('/', restricted, (req, res) => {
     .catch(err => res.status(501).json(err));
 });
 
+router.get('/:username', (req, res) => {
+  const { username } = req.params;
+  User.findOne({ username })
+    .select('security')
+    .then(({ security }) => {
+      res.json({ question: security.question });
+    })
+    .catch(err => res.status(501).json(err));
+});
+
 module.exports = router;
