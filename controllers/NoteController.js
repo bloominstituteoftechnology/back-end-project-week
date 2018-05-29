@@ -48,9 +48,18 @@ const updateNote = (req, res) => {
     .catch(err => res.status(500).json(err));
 };
 
+const deleteNote = (req, res) => {
+  console.log("deleting note");
+  const id = req.body.id;
+  Note.findByIdAndRemove(id)
+    .then(deletedNote => res.json({ "note deleted": deletedNote }))
+    .catch(err => res.status(500).json(err));
+};
+
 router.get("/", getAllNotes);
 router.post("/", createNote);
 router.get("/:id", getNote);
 router.put("/", updateNote);
+router.delete("/", deleteNote);
 
 module.exports = router;
