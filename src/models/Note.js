@@ -10,7 +10,8 @@ const noteSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  authors: [{ type: _id, ref: 'User' }]
+  author: { type: _id, ref: 'User' },
+  collaborators: [{ type: _id, ref: 'User' }]
 })
 
 module.exports = mongoose.model('Note', noteSchema)
