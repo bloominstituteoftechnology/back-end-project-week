@@ -23,10 +23,12 @@ mongoose
 server.use(express.json());
 server.use(cors());
 
+// Initial GET
 server.get('/', (req, res) => {
     res.send({ Message: 'api running' })
 })
 
+// POST notes
 server.post('/api/notes', (req, res) => {
 
     Note
@@ -36,6 +38,19 @@ server.post('/api/notes', (req, res) => {
     })
     .catch(err => {
         res.status(500).json({ Err: 'error creating note' })
+    })
+})
+
+// GET notes
+server.get('/api/notes', (req, res) => {
+    
+    Note
+    .find()
+    .then(notes => {
+        res.status(200).json({ notes })
+    })
+    .catch(err => {
+        res.status(500).json({ Error: 'Notes not found'})
     })
 })
 
