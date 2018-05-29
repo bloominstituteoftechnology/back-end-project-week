@@ -16,7 +16,7 @@ mongoose
 
 
 const server = express();
-
+const port = process.env.port || 5000; 
 
 
 const sessionConfig = {
@@ -53,6 +53,6 @@ server.get('/', (req, res) => {
 
 
 
-server.listen(5000, () => {
-	console.log('\n==> Server listening on port 5000 <==\n');
+server.listen(port, () => {
+	console.log(`\n==> Server listening on port ${port} <==\n`);
 });
