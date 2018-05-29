@@ -12,6 +12,12 @@ const GET = (req, res) => {
 }
 
 //POST NOTES
+const POST = (req, res) => {
+    Note
+        .create(req.body)
+        .then(note => res.status(201).json(note))
+        .catch(err => res.status(500).json({ errorMsg: 'Sorry - There Was An Error Creating Your Note' }))
+}
 
 //PUT NOTES
 
@@ -19,5 +25,6 @@ const GET = (req, res) => {
 
 router.route('/')
     .get(GET)
+    .post(POST)
 
 module.exports = router;
