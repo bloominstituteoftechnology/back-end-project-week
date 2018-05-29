@@ -24,8 +24,9 @@ const sessionConfig = {
 	secret: 'learn chinese',
 	cookie: {
 		maxAge: 15 * 60 * 1000,
-	},
-	httpOnly: true,
+    },
+    sameSite: false,
+	httpOnly: false,
 	secure: false,
 	resave: true,
 	saveUninitialized: false,
