@@ -12,4 +12,4 @@ server.get('/', (req, res) => {
 
 //no hard-coded port below
 const port = process.env.PORT || 5000;
-server.listen(port, err => console.log(`Server listening on ${port}...`)); // listen on port
+server.listen(port, () => console.log(`Server listening on ${port}...`)); // listen on port
