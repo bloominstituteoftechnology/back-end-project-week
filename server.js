@@ -4,8 +4,8 @@ const mongoose = require('mongoose');
 const cors = require('cors')
 
 server.use(express.json());
-server.use(cors());
-const port = process.env.Port || 6000;
+server.use(cors({}));
+const port = process.env.Port || 9000;
 
 mongoose
   .connect('mongodb://hillal20:Settara200@ds233500.mlab.com:33500/lambdanotesdb')
