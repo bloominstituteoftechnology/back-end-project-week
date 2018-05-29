@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 
 const Note = require('./models/notes/Note');
+const User = require('./models/users/User');
 
 const port = process.env.PORT || 3333;
 const server = express();
@@ -46,6 +47,13 @@ server.route('/notes')
         res.status(500).json(err);
       });
   });
+
+  server.route('/users')
+    .get((req, res) => {
+      User.find()
+        .then(users => res.json(users))
+        .catch(err => res.status(500).json(err));
+    });
 
 server.listen(port, err => {
   if(err) console.log(err);
