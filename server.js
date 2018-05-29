@@ -1,4 +1,5 @@
 const express = require('express')
+const mongoose = require('mongoose')
 
 const server = express()
 
@@ -7,4 +8,6 @@ server.get('/', (req, res) => {
 })
 
 const port = process.env.PORT || 3000
-server.listen(port, () => `Listening on ${port}`)
+
+mongoose.connect('mongodb+srv://lambda:lambda@cluster0-40ix5.mongodb.net/test?retryWrites=true')
+  .then(() => server.listen(port, () => console.log(`Listening on ${port}`)))
