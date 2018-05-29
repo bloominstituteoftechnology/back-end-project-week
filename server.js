@@ -10,7 +10,7 @@ mongoose
     console.log('its raining men')
   })
   .catch(err => {
-    console.log('errorr', err);
+    console.log('error', err);
   });
 
 const notesController = require('./notes/notesController');
@@ -26,6 +26,5 @@ server.get('/', (req, res) => {
 });
 server.use('/notes', notesController);
 
-// const port = process.env.PORT || 5000;
-// server.listen(port, () => console.log(`\n=== API up on port: ${port} ===\n`));
-server.listen(process.env.PORT || 1234)
+const port = process.env.PORT || 5000;
+server.listen(port, () => console.log(`\n=== API up on port: ${port} ===\n`));
