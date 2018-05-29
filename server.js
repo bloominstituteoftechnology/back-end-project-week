@@ -10,7 +10,7 @@ mongoose
     console.log('its raining men')
   })
   .catch(err => {
-    console.log('errorr', err);
+    console.log('error', err);
   });
 
 const notesController = require('./notes/notesController');
