@@ -26,7 +26,6 @@ server.get("/", (req, res) => {
   res.json({ Message: "Hello World" });
 });
 
-// below is test
 server.get("/notes", (req, res) => {
   Note.find()
     .then(notes => {
@@ -34,6 +33,19 @@ server.get("/notes", (req, res) => {
     })
     .catch(err => {
       res.status(500).json({ errorMessage: "Could not get notes." });
+    });
+});
+
+server.get("/notes/:id", (req, res) => {
+  const id = req.params.id;
+  Note.findById(id)
+    .then(note => {
+      res.status(200).json(note);
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ errorMessage: "Could not get a note for that id." });
     });
 });
 
