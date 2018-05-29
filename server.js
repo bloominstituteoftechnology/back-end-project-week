@@ -6,6 +6,7 @@ const server = express();
 
 // middleware
 server.use(express.json());
+server.use(cors());
 
 server.get('/', (req, res) => {
     res.send({ Message: 'api running' })
