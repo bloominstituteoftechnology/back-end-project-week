@@ -68,6 +68,19 @@ server.get('/api/notes/:id', (req, res) => {
     })
 })
 
+// // PUT notes - Edits a note
+server.put('/api/notes/:id', (req, res) => {
+    const id = req.params.id;
+    const note = req.body;
 
+    Note
+    .findByIdAndUpdate(id, note)
+    .then(response => {
+        res.status(200).json({ note })
+    })
+    .catch(err => {
+        res.status(500).json({ err: "Cannot edit"})
+    })
+})
 
 server.listen(port, () => console.log(`Server running on port: ${port}`))
