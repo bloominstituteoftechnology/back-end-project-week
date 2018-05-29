@@ -5,7 +5,6 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "nstart": "nodemone server.js",
     "heroku": "git push heroku master",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
