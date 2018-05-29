@@ -5,6 +5,7 @@ const session = require('express-session');
 const mongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
 const routes = require('./components/UserRoutes')
+const noteRoutes = require('./components/NoteRoutes');
 const User = require('./components/User');
 
 mongoose
@@ -40,7 +41,7 @@ server.use(session(sessionConfig));
 server.use(CORS({}));
 
 routes(server);
-
+noteRoutes(server);
 
 
 server.get('/', (req, res) => {
