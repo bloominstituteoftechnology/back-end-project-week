@@ -43,9 +43,7 @@ router.post("/create", (req, res) => {
           .status(400)
           .json({ errorMsg: "Please provide both title and content of note." });
       } else {
-        res.status(500).json({
-          err
-        });
+        res.status(500).json(err);
       }
     });
 });
