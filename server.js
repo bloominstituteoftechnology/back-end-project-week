@@ -37,7 +37,10 @@ const sessionConfig = {
 
 server.use(express.json());
 server.use(session(sessionConfig));
-server.use(CORS({}));
+server.use(CORS((res, req, next) => {
+    res.header("Access-Control-Request-Method", "*")
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+}));
 
 routes(server);
 
