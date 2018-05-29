@@ -19,7 +19,7 @@ The main objective of this week is to develop a backend to support the LambdaNot
 
 ## Trello link:
 
-https://github.com/sagdish/back-end-project-week.git
+https://trello.com/b/bursSEw6
 
 ## Backend MVP Features:
 It is suggested that you deploy the server and database first, before you undergo implementing the logic. Doing this makes the deployment process much simpler, since there's no code yet to complicate the deployment step. We recommend you deploy your server to [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction), and your Mongo database to [mlab](https://docs.mlab.com/). The recommended deployment site for the front end is [netlify](https://www.netlify.com/blog/2016/09/29/a-step-by-step-guide-deploying-on-netlify/). 
