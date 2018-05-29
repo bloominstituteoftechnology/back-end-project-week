@@ -2,5 +2,5 @@ let config = {
     username: "admin", 
     password: "admin" 
 };
-
-module.exports = config;
+const secret = 'I used to have llamas!';
+module.exports = { config, secret};

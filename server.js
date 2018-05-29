@@ -11,6 +11,7 @@ const server = express();
 
 const noteController = require("./controllers/noteController");
 
+mongoose.Promise = global.Promise;
 mongoose
   .connect(
     `mongodb://${config.username}:${
