@@ -25,4 +25,24 @@ router
         res.status(500).json(err)
     })
   })
+  router
+  .route("/:id")
+    .put((req, res) => {
+      const { id } = req.params
+      const update = req.body
+
+
+    Note
+        .findByIdAndUpdate(id, update)
+        .then(note => {
+          if (note) {
+            res.status(200).json(note)
+          } else {
+            res.status(404).json({ msg: 'Note not found' })
+          }
+        })
+        .catch(err => res.status(500).json(err))
+    })
+
+
 module.exports = router;
