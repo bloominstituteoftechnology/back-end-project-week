@@ -1,43 +1,48 @@
-const UserRouter = require('./Users/UserRouter');
-const getNotes = require('./Notes/getNote');
-const newNote = require('./Notes/newNote');
-const updateNote = require('./Notes/updateNote');
-const deleteNote = require('./Notes/deleteNote');
-
-const config = require('./secrets/config');
 const express = require('express');
 const mongoose = require('mongoose');
-const helmet = require('helmet');
-const morgan = require('morgan');
 const cors = require('cors');
-
+const session = require('express-session');
+const helmet = require('helmet');
 const server = express();
-server.use(morgan('dev'));
+const UserRouter = require('./Users/UserRouter.js');
+const NotesRouter = require('./Notes/NotesRouter.js');
+
+const corsOptions = {
+  origin: '',
+  credentials: true
+};
+
+server.use(cors(corsOptions));
 server.use(express.json());
 server.use(helmet());
-server.use(cors());
 
-server.get('/', (req, res) => {
-  res.json({ message: 'API Is Running...' });
-});
+const path = process.env.MONGOLAB_URI || 'mongodb://localhost/notes';
 
-server.use('/api/user', UserRouter);
-server.use('/api/getnotes', getNotes);
-server.use('/api/newnote', newNote);
-server.use('/api/updatenote', updateNote);
-server.use('/api/deletenote', deleteNote);
+mongoose.connect(path);
 
-mongoose
-  .connect(config.database)
-  .then(() => {
-    console.log('Connected to DataBase');
+const MS = require('express-mongoose-store')(session, mongoose);
+
+server.use(
+  session({
+    secret: 'each night I wonder',
+    store: new MS(),
+    resave: true,
+    saveUninitialized: false,
   })
-  .catch(err => {
-    console.log('Error Connecting to DataBase', err);
-  });
+);
 
-const port = process.env.PORT || 5000;
+const isLoggedIn = function (req, res, next) {
+  if (!req.session.auth) res.status(422).json('Not Authorized');
+  else if (req.session.id) {
+    next();
+  }
+};
 
-server.listen(port, err => {
-  console.log(`connected to the server port ${port}`);
-});
+server.use('/api/notes', isLoggedIn, NotesRouter);
+server.use('/api/users', UserRouter);
+
+server.get('/', (req, res) => res.send('API Is Running...'));
+
+const PORT = process.env.PORT || 5000;
+server
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
