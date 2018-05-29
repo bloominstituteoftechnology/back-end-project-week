@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "test": "yarn jest --verbose --watch"
+    "test": "yarn jest --verbose"
   },
   "repository": "git@github.com:jcuffe/back-end-project-week.git",
   "author": "Jared Cuffe <jcuffe@gmail.com>",
