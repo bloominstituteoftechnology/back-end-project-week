@@ -1,26 +1,13 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose")
 
-const definiton = {
-  Title:{
+
+const notesSchema = new mongoose.Schema({
+  title: {
     type: String,
-    required: true,
-  },
-  Content:{
+    required: true },
+  content: {
     type: String,
-    required: false,
-  },
-  createdOn:{
-    type: Date,
-    default: Date.now,
-  },
-}
+    required: true },
+})
 
-const options = {
-  timestamps: true,
-}
-
-const noteSchema = new mongoose.Schema(definiton, options)
-
-const Note = mongoose.model('Note', noteSchema)
-
-mongoose.exports = Note;
+module.exports = mongoose.model('Note', notesSchema)

@@ -18,7 +18,7 @@ mongoose
   app.get("/",(req, res)=>{
     res.send('Api running');
   })
-  app.use("/notes", noteRouters)
+  app.use("/api/notes", noteRouters)
 
 
 const port = process.env.PORT || 5000;
