@@ -1,12 +1,14 @@
 const { authenticate } = require('../services/auth');
 
-const { createUser, login, createNote, listNotes, editNote, deleteNote } = require('../controllers');
+const { createUser } = require('./api/controllers/userController');
+const { login } = require('./loginController');
+const { createNote, listNote, editNote, deleteNote } = require('./api/controllers/notesController');
 
 module.exports = server => {
-    server.get('/api/notes', authenticate, listNotes);
-    server.route('/api/users').post(createUser);
-    server.route('/api/login').post(login);
-    server.route('/api/notes').post(authenticate, createNote);
-    server.route('/api/notes').put(authenticate, editNote);
-    server.route('/api/notes/:_id').delete(authenticate, deleteNote);
+    server.get('./api/controllers/notesController', authenticate, listNotes);
+    server.route('./api/controllers/usersController').post(createUser);
+    server.route('./api/controllers/loginController').post(login);
+    server.route('./api/controllers/notesController').post(authenticate, createNote);
+    server.route('./api/controllers/notesController').put(authenticate, editNote);
+    server.route('./api/controllers/notesController/:_id').delete(authenticate, deleteNote);
 };
