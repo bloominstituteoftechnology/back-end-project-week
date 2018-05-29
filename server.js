@@ -36,6 +36,15 @@ server.route('/notes')
       if(err) res.status(201).json(err);
       else res.status(500).json(note);
     });
+  })
+  .delete((req, res) => {
+    Note.findByIdAndRemove(req.body.id)
+      .then(() => {
+        res.json('Note successfully deleted');
+      })
+      .catch(err => {
+        res.status(500).json(err);
+      });
   });
 
 server.listen(port, err => {
