@@ -4,7 +4,7 @@ const CORS = require('cors');
 const session = require('express-session');
 const mongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
-const userRoutes = require('./components/UserRoutes')
+const routes = require('./components/UserRoutes')
 const User = require('./components/User');
 
 mongoose
@@ -39,7 +39,7 @@ server.use(express.json());
 server.use(session(sessionConfig));
 server.use(CORS());
 
-userRoutes(server);
+routes(server);
 
 
 
