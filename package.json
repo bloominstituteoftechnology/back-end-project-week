@@ -1,0 +1,9 @@
+{
+  "name": "back-end-project",
+  "version": "1.0.0",
+  "description": "backend for lambda front end project",
+  "main": "server.js",
+  "repository": "https://github.com/Supertatortots/back-end-project-week.git",
+  "author": "totsuya <supertatortots@gmail.com>",
+  "license": "MIT"
+}
