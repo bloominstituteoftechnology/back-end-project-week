@@ -2,6 +2,9 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": "8.9.4"
+  },
   "repository": "https://github.com/kaitlynflynn/back-end-project-week.git",
   "author": "Kaitlyn Flynn <kaitlynflynn@gmail.com>",
   "license": "MIT",
