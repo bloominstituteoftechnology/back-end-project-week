@@ -7,8 +7,10 @@ const mongoose = require("mongoose");
 
 const port = process.env.PORT || 3333;
 const server = express();
+const { authenticate } = require("./middlewares/middlewares");
 
 const noteController = require("./notes/noteController");
+const userController = require("./users/userController");
 
 mongoose
   .connect(
@@ -28,10 +30,11 @@ server.use(express.json());
 server.use(morgan("combined"));
 
 server.get("/", (req, res) => {
-  res.json({ Message: "Hello World" });
+  res.json({ Message: "Server's not broken" });
 });
 
-server.use("/api/notes", noteController);
+server.use("/api/notes", authenticate, noteController);
+server.use("/api/users", userController);
 
 server.listen(port, err => {
   if (err) console.log(err);

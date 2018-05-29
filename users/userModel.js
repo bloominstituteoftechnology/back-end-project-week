@@ -1,18 +1,35 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
-const userModel = new Schema({
-    username: {
-        type: String,
-        unique: true,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
-    }
-})
+const userSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true
+  },
+  password: {
+    type: String,
+    required: true,
+    minlength: 5
+  }
+});
 
-const User = mongoose.model('User', userModel);
+userSchema.pre("save", function(next) {
+  return bcrypt
+    .hash(this.password, 12)
+    .then(hash => {
+      this.password = hash;
 
-module.exports = User;
+      return next();
+    })
+    .catch(err => {
+      return next(err);
+    });
+});
+
+userSchema.methods.validatePassword = function(passwordGuess) {
+  return bcrypt.compare(passwordGuess, this.password);
+};
+
+module.exports = mongoose.model("User", userSchema, "users");
