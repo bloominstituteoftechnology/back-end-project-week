@@ -44,7 +44,7 @@ server.get("/notes/:id", (req, res) => {
     })
     .catch(err => {
       res
-        .status(500)
+        .status(404)
         .json({ errorMessage: "Could not get a note for that id." });
     });
 });
@@ -58,6 +58,66 @@ server.post("/notes", (req, res) => {
     })
     .catch(err => {
       res.status(500).json({ errorMessage: "Could not post note." });
+    });
+});
+
+server.put("/notes/:id", (req, res) => {
+  const id = req.params.id;
+  const changes = req.body;
+  const options = {
+    new: true
+  };
+  if (!changes.title && !changes.content) {
+    return res
+      .status(422)
+      .json({ errorMessage: "Please add a title and/or content field." });
+  }
+  Note.findById(id)
+    .then(note => {
+      Note.findByIdAndUpdate(id, changes, options)
+        .then(note => {
+          if (!note) {
+            return res
+              .status(404)
+              .json({ errorMessage: "No note with that id could be found." });
+          } else res.status(200).json(note);
+        })
+        .catch(err => {
+          res
+            .status(500)
+            .json({ errorMessage: "Could not update a note with that id." });
+        });
+    })
+    .catch(err => {
+      res
+        .status(404)
+        .json({ errorMessage: "Could not get a note for that id." });
+    });
+});
+
+server.delete("/notes/:id", (req, res) => {
+  const id = req.params.id;
+  let pie = false;
+  Note.findById(id)
+    .then(note => {
+      Note.findByIdAndRemove(id)
+        .then(note => {
+          if (!note) {
+            return res
+              .status(404)
+              .json({ errorMessage: "No note with that id could be found." });
+          } else res.status(200).json(note);
+        })
+        .catch(err => {
+          res
+            .status(500)
+            .json({ errorMessage: "Could not delete a note with that id." });
+        });
+    })
+    .catch(err => {
+      res
+        .status(404)
+        .json({ errorMessage: "Could not get a note for that id." });
     });
 });
 
