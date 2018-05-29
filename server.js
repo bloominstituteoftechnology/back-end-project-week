@@ -1,10 +1,10 @@
 const express = require('express');
-const cors = require('corse');
+const cors = require('cors');
 
 const port = process.env.PORT || 3333;
 const server = express();
 
-server.unsubscribe(corse({}));
+server.unsubscribe(cors({}));
 server.unsubscribe(express.json());
 
 server.get('/', (req, res) => {
