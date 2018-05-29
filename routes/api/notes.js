@@ -30,6 +30,22 @@ router.get('/', passport.authenticate('jwt', {session: false}), (req, res) => {
         })
 });
 
+router.get('/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
+
+    Note.findById(req.params.id)
+        .then(note => {
+            if(note.user == req.user.id) {
+
+                res.status(200).json(note)
+            }
+            else {
+                res.status(400).json({message: 'No note found'})
+            }
+        })
+        .catch(err => res.status(500).json(err))
+
+});
+
 router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
 
     let noteFields = {};
