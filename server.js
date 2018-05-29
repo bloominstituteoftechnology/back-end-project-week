@@ -5,7 +5,7 @@ const cors = require('cors')
 
 server.use(express.json());
 server.use(cors());
-const port = process.env.Port || 5555;
+const port = process.env.Port || 6000;
 
 mongoose
   .connect('mongodb://hillal20:Settara200@ds233500.mlab.com:33500/lambdanotesdb')
