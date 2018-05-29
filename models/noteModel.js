@@ -13,7 +13,10 @@ const definitions = {
     tag: {
         type: String
     },
-    image: {},
+    createdOn: {
+        type: Date,
+        default: Date.now,
+    },
 }
 
 const options = {
@@ -24,7 +27,7 @@ const options = {
 const noteScheme = new mongoose.Schema(definitions, options);
 
 // define the note model using the scheme
-const noteModel = mongoose.model('note', noteScheme, 'notes');
+const noteModel = mongoose.model('Note', noteScheme, 'notes');
 
 // export
 module.exports = noteModel;

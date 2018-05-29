@@ -2,26 +2,38 @@
 const router = require('express').Router();
 const User = require('../models/userModel');
 
-// 
-router.route('/').post(((req, res) => {
-    user.find({})
-}));
+router
+    .route('/')
+    .get(get)
+    .post(post);
 
-// Router Endpoints
-router.route('/').get(((req, res) => {
-    // post endpoint
-}));
+router
+    .route('/:id')
+    .get((req, res) => {
+        res.status(200).json({ route: '/api/users/' + req.params.id });
+    })
+    .delete((req, res) => {
+        res.status(200).json({ status: 'work on delete!' });
+    })
+    .put((req, res) => {
+        res.status(200).json({ status: 'work on put' })
+    })
 
-router.route('/').get(((req, res) => {
-    // post endpoint
-}));
+function get(req, res) {
+    res.status(200).json({ route: '/api/users/' });
+}
 
-router.route('/').delete(((req, res) => {
-    // post endpoint
-}));
+function post(req, res) {
+    const userData = req.body;
 
-router.route('/').put(((req, res) => {
-    // post endpoint
-}));
+    const user = new User(userData);
 
-module.exports = router;
+    user
+        .save()
+        .then(user => {
+            res.status(201).json(user);
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        });
+}

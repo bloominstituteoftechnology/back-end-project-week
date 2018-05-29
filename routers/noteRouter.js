@@ -2,26 +2,55 @@
 const router = require('express').Router();
 const Note = require('../models/noteModel');
 
-// 
-router.route('/').post(((req, res) => {
-    Note.find({})
-}));
+router
+    .route('/')
+    .get(get)
+    .post(post);
 
-// Router Endpoints
-router.route('/').get(((req, res) => {
-    // post endpoint
-}));
+router
+    .route('/:id')
+    .get((req, res) => {
+        res.status(200).json({ route: '/api/notes/' + req.params.id });
+    })
+    .delete((req, res) => {
+        res.status(200).json({ status: 'work on delete!' });
+    })
+    .put((req, res) => {
+        res.status(200).json({ status: 'work on put' })
+    })
 
-router.route('/').get(((req, res) => {
-    // post endpoint
-}));
+function get(req, res) {
+    res.status(200).json({ route: '/api/notes/' });
+}
 
-router.route('/').delete(((req, res) => {
-    // post endpoint
-}));
+function post(req, res) {
+    const noteData = req.body;
 
-router.route('/').put(((req, res) => {
-    // post endpoint
-}));
+    const note = new Note(noteData);
+
+    note
+        .save()
+        .then(note => {
+            res.status(201).json(note);
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        });
+}
+// // Router Endpoints
+// // (1) Posts a note to the Database
+// function post(req, res) {
+//     const 
+//     note
+//         .save()
+//         .then(note => {
+//             res.status(201).json(note)
+//         })
+//         .catch(err => {
+//             res.json(err);
+//         });
+// };
+
+
 
 module.exports = router;
