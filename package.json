@@ -4,7 +4,8 @@
   "description": "This week you will be building a backend for a note taking app called \"Lambda Notes.\"",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
+    "heroku": "git push heroku master",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
