@@ -33,6 +33,16 @@ server.route('/notes')
         res.json(err);
       });
   })
+  .post((req, res) => {
+    const { title, body } = req.body;
+    const note = new Note({ title, body });
+
+    note.save((note, err) => {
+      if(err) res.json(err);
+      res.json(note);
+      res.redirect('/');
+    });
+  });
 
 server.listen(port, err => {
   if(err) console.log(err);
