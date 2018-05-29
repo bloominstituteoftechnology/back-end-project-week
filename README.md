@@ -47,6 +47,8 @@ Upon your first commit, please submit a Pull Request and add _both_ the **Trello
 * [ ] Share your board with the project manager that has been assigned to you.  If you have not been assigned yet, reach out to your Section Lead for guidance
 * [ ] Add your Trello URL to your project's README.md file.  Commit the change, push it to your repository & submit a pull request
 
+## Trello URL: https://trello.com/b/mnYUBDRB/lambda-notes-backend-david-morales
+
 ## Backend MVP Features:
 * [ ] Create a Database for your app
 * [ ] Design your models for your app. You should have a model for notes and for users. (The users model will come in handy when building out your stretch goals).
