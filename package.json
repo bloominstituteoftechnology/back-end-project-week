@@ -1,0 +1,25 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "Trello - https://trello.com/b/hQ1FVfxB/lambda-notesbackend-kevin-tan",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ktan114/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ktan114/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/ktan114/back-end-project-week#readme",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "mongoose": "^5.1.3"
+  }
+}
