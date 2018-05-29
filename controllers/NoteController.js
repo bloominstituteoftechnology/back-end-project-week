@@ -28,7 +28,20 @@ const getAllNotes = (req, res) => {
     });
 };
 
+const getNote = (req, res) => {
+  console.log("fetching note");
+  const { id } = req.params;
+  Note.findById(id)
+    .then(p => {
+      res.status(200).json(p);
+    })
+    .catch(err => {
+      res.status(500).json({ msg: "we cant display the note " });
+    });
+};
+
 router.get("/", getAllNotes);
 router.post("/", createNote);
+router.get("/:id", getNote);
 
 module.exports = router;
