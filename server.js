@@ -9,7 +9,7 @@ server.get('/', (req, res) => {
   res.json({Message: 'API is working!'})
 })
 
-let port = process.env.port || 5000;
+const port = process.env.port || 5000;
 
 server.listen(port, err => {
   if (err) console.log(err);
