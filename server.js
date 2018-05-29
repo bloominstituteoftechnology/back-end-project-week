@@ -28,7 +28,7 @@ server.get('/', (req, res) => {
     res.send({ Message: 'api running' })
 })
 
-// POST notes
+// POST notes - Title + Body/Content
 server.post('/api/notes', (req, res) => {
 
     Note
@@ -41,11 +41,11 @@ server.post('/api/notes', (req, res) => {
     })
 })
 
-// GET notes
+// GET notes - Display Notes
 server.get('/api/notes', (req, res) => {
 
     Note
-    .find()
+    .find().select('title body -_id')
     .then(notes => {
         res.status(200).json({ notes })
     })
@@ -53,5 +53,21 @@ server.get('/api/notes', (req, res) => {
         res.status(500).json({ Error: 'Notes not found'})
     })
 })
+
+// GET notes - Display a specific note
+server.get('/api/notes/:id', (req, res) => {
+    const id = req.params.id;
+
+    Note
+    .findById(id).select('title body')
+    .then(note => {
+        res.status(200).json({ note })
+    })
+    .catch(err => {
+        res.status(404).json({ Error: 'Cannot fulfill request '})
+    })
+})
+
+
 
 server.listen(port, () => console.log(`Server running on port: ${port}`))
