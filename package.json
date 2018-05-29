@@ -4,6 +4,7 @@
   "description": "Trello - https://trello.com/b/hQ1FVfxB/lambda-notesbackend-kevin-tan",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
