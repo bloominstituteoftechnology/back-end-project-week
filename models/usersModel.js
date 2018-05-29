@@ -19,18 +19,29 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  notes: [{ type: ObjectId, ref: '' }]
+  notes: {
+    type: ObjectId,
+    ref: 'Note'
+  }
 });
+
 UserSchema.pre('save', function(next) {
-  bcrypt.hash(this.password, 11, (err, hash) => {
-    if (err) {
-      return next(err);
-    }
-    this.password = hash;
-    return next();
-  });
+  bcrypt
+    .hash(this.password, 8)
+    .then(hash => {
+      this.password = hash
+      next()
+    })
+    .catch(err => next(err))
 });
-UserSchema.methods.isPassWordValid = function(passwordGuess) {
-  return bcrypt.compare(passwordGuess, this.password);
+
+UserSchema.methods.verifyPassword = function(passwordGuess, cb) {
+  bcrypt.compare(passwordGuess, this.password, function (err, isValid) {
+    if (err) {
+      return cb(err)
+    }
+    cb(null, isValid)
+  })
 };
+
 module.exports = mongoose.model('User', UserSchema);
