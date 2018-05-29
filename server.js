@@ -1,5 +1,6 @@
 const express = require('express');
 const cores = require('cors');
+const port = process.env.Port || 8000;
 
 const server = express();
 
@@ -10,7 +11,7 @@ server.get('/', (req,res) => {
     res.json({ Message: 'Hello Wold' });
 });
 
-server.listen(8000, err => {
+server.listen(port, err => {
     if (err) console.log(err);
-    console.log('Connected On Port 8000');
+    console.log(`Connected On Port ${port}`);
 });
