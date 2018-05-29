@@ -14,7 +14,7 @@ server.get('/', (req, res) => {
     res.json({ Message: 'Hello World' });
 });
 
-server.listen(8000, err => {
+server.listen(port, err => {
     if(err) console.log(err);
     console.log(`API Running on ${port}`);
 });
