@@ -18,7 +18,7 @@ const GET_ID = (req, res) => {
   User
     .findById(id)
     .then(user => res.status(200).json(user))
-    .catch(err => res.status(200).json({ message: 'hmm you sure about that ID ?' }))
+    .catch(err => res.status(500).json({ message: 'hmm you sure about that ID ?' }))
 }
 
 const POST = (req, res) => {
