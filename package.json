@@ -2,9 +2,9 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "main": "server.js",
-  "scripts": {
-    "start": "nodemon server.js"
-  },
+  // "scripts": {
+  //   "start": "nodemon server.js"
+  // }
   "repository": "https://github.com/markstez05/back-end-project-week.git",
   "author": "markstez05 <36493764+markstez05@users.noreply.github.com>",
   "license": "MIT",
