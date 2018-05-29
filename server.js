@@ -24,6 +24,12 @@ server.get('/', (req, res) => {
   res.json({ message: 'Hello World!' });
 });
 
+server.get('/notes/:id', (req, res) => {
+  Note.findById(req.params.id)
+    .then(note => res.json(note))
+    .catch(err => res.status(500).json(err));
+});
+
 server.route('/notes')
   .get((req, res) => {
     Note.find()
@@ -31,7 +37,8 @@ server.route('/notes')
       .catch(err => res.status(500).json(err));
   })
   .post((req, res) => {
-    const note = new Note(req.body);
+    const { title, body } = req.body;
+    const note = new Note({ title, body });
 
     note.save((note, err) => {
       if(err) res.status(201).json(err);
