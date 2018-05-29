@@ -5,7 +5,7 @@ const cors = require('cors')
 
 server.use(express.json());
 server.use(cors());
-const port = process.env.Port || 6000;
+const Port = process.env.Port || 6000;
 
 mongoose
   .connect('mongodb://hillal20:Settara200@ds233500.mlab.com:33500/lambdanotesdb')
@@ -22,6 +22,6 @@ const usersRoute = require('./usersRoute.js');
 server.use('/users', usersRoute);
 
 
-server.listen(port, () => {
-  console.log(`\n=== server is running on ${port} ==`)
+server.listen(Port, () => {
+  console.log(`\n=== server is running on ${Port} ==`)
 })
