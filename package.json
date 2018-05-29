@@ -1,0 +1,20 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "Trello Board: https://trello.com/b/CRfsrvki/lambda-notes-backend-anthony",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anthony-Calderaro/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Anthony-Calderaro/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/Anthony-Calderaro/back-end-project-week#readme"
+}
