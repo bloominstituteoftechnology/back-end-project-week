@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
 
+const Note = require('./models/notes/Note');
+
 const port = process.env.PORT || 3333;
 const server = express();
 
@@ -11,22 +13,25 @@ mongoose
     console.log('connected to production database');
   })
   .catch(err => {
-    console.log('error connecting to production database', err);
+    console.log('error connecting to production database');
   });
 
-server.unsubscribe(cors({}));
-server.unsubscribe(express.json());
+server.use(cors({}));
+server.use(express.json());
 
 server.get('/', (req, res) => {
   res.json({ message: 'Hello World!' });
 });
 
-server.route('notes')
+server.route('/notes')
   .get((req, res) => {
-    
-  })
-  .post((req, res) => {
-
+    Note.find()
+      .then(notes => {
+        res.json(notes);
+      })
+      .catch(err => {
+        res.json(err);
+      });
   })
 
 server.listen(port, err => {
