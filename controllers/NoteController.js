@@ -17,6 +17,10 @@ const createNote = (req, res) => {
     });
 };
 
+const getAllNotes = (req, res) => {
+  console.log("getting all notes");
+};
+
 router.post("/", createNote);
 
 module.exports = router;
