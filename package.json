@@ -1,0 +1,12 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/yshuman1/back-end-project-week.git",
+  "author": "Yasin Shuman <email@yasin.io>",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.3"
+  }
+}
