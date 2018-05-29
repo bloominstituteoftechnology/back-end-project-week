@@ -1,10 +1,14 @@
 const mongoose = require("mongoose");
-// const { dbLogin, dbPw } = require("../utils/dbConfig.js");
-const dbLogin = process.env.MONGO_DBLOGIN;
-const dbPw = process.env.MONGO_DBPW;
-const uri = `mongodb://${dbLogin}:${dbPw}@ds139960.mlab.com:39960/lambda-notes`;
+const uri = process.env.MONGODB_URI;
+const { dbLogin, dbPw } = require("../utils/dbConfig");
+// const uri = `mongodb://${dbLogin}:${dbPw}@ds139960.mlab.com:39960/lambda-notes`;
 module.exports = {
   connect: function() {
-    return mongoose.connect(uri);
+    if (uri) {
+      return mongoose.connect(uri);
+    }
+    return mongoose.connect(
+      `mongodb://${dbLogin}:${dbPw}@ds139960.mlab.com:39960/lambda-notes`
+    );
   }
 };
