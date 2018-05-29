@@ -18,6 +18,8 @@ mongoose
   app.get("/",(req, res)=>{
     res.send('Api running');
   })
+  app.get("/notes",(req, res)=>{
+  })
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`\n=== API up on port: ${port} ===\n`));
