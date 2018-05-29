@@ -49,6 +49,18 @@ server.get("/notes/:id", (req, res) => {
     });
 });
 
+server.post("/notes", (req, res) => {
+  const newNote = new Note(req.body);
+  newNote
+    .save()
+    .then(note => {
+      res.status(201).json(note);
+    })
+    .catch(err => {
+      res.status(500).json({ errorMessage: "Could not post note." });
+    });
+});
+
 server.listen(port, err => {
   if (err) console.log(err);
   else {
