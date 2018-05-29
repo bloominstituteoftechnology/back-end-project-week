@@ -10,10 +10,10 @@ server.use(express.json())
 server.use(cors({}));
 server.use(helmet());
 
-// mongoose
-// 	.connect("mongodb://faulkenfett11:fau11jus@ds139970.mlab.com:39970/lambda-notes-backend")
-// 	.then(() => console.log('==connected=='))
-// 	.catch(() => console.log('==error connecting=='))
+mongoose
+	.connect("mongodb://faulkenfett11:fau11jus@ds139970.mlab.com:39970/lambda-notes-backend")
+	.then(() => console.log('==connected=='))
+	.catch(() => console.log('==error connecting=='))
 
 server.get('/', (req, res) => {
 	res.json('==Server is connected==')
