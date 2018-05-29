@@ -1,0 +1,17 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "server.js",
+  "engines": {
+    "node": "8.9.4"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": "git@github.com:jcuffe/back-end-project-week.git",
+  "author": "Jared Cuffe <jcuffe@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
