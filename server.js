@@ -9,6 +9,8 @@ const server = express();
 server.use(express.json());
 server.use(cors());
 
+const notesRouter = require("./controllers/NoteController");
+
 db
   .connect()
   .then(() => console.log("\n... API Connected to Database ...\n"))
@@ -17,6 +19,7 @@ db
 server.get("/", (req, res) => {
   res.json({ message: "all good homie" });
 });
+server.use("/api/notes", notesRouter);
 
 server.listen(port, err => {
   if (err) console.log(err);
