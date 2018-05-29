@@ -44,11 +44,7 @@ userRoutes(server);
 
 
 server.get('/', (req, res) => {
-	if(req.session && req.session.username) {
-		res.send('welcome back');
-	} else {
-		res.send('please login');
-	}
+    res.send(port);
 });
 
 
