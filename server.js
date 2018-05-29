@@ -53,6 +53,14 @@ server.route('/notes')
       User.find()
         .then(users => res.json(users))
         .catch(err => res.status(500).json(err));
+    })
+    .post((req, res) => {
+      const user = new User(req.body);
+
+      user.save((user, err) => {
+        if(err) res.status(201).json(err);
+        else res.status(500).json(user);
+      });
     });
 
 server.listen(port, err => {
