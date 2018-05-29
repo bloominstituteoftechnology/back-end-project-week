@@ -1,0 +1,24 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "This week you will be building a backend for a note taking app called \"Lambda Notes.\"",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CruiseBrantley/back-end-project-week.git"
+  },
+  "author": "Cruise Brantley",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CruiseBrantley/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/CruiseBrantley/back-end-project-week#readme",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "morgan": "^1.9.0"
+  }
+}
