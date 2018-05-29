@@ -40,8 +40,17 @@ const getNote = (req, res) => {
     });
 };
 
+const updateNote = (req, res) => {
+  console.log("updating note");
+  const { id, title, content } = new Note(req.body);
+  Note.findByIdAndUpdate(id, { title, content })
+    .then(updatedNote => res.json({ "note updated": updatedNote }))
+    .catch(err => res.status(500).json(err));
+};
+
 router.get("/", getAllNotes);
 router.post("/", createNote);
 router.get("/:id", getNote);
+router.put("/", updateNote);
 
 module.exports = router;
