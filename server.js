@@ -5,7 +5,7 @@ const cors = require('cors');
 
 const mongoose = require('mongoose');
 mongoose 
-  .connect('mongodb://brandonalexander@ds233500.mlab.com:33500/backendproject1111')
+  .connect('mongodb://brad:brad@ds233500.mlab.com:33500/backendproject1111')
   .then(mongo => {
     console.log('its raining men')
   })
