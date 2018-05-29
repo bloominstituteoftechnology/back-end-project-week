@@ -40,12 +40,15 @@ server.route('/notes')
   })
   .delete((req, res) => {
     Note.findByIdAndRemove(req.body.id)
-      .then(() => {
-        res.json('Note successfully deleted');
-      })
-      .catch(err => {
-        res.status(500).json(err);
-      });
+      .then(() => res.json('Note successfully deleted'))
+      .catch(err => res.status(500).json(err));
+  })
+  .put((req, res) => {
+    const { id, title, body } = req.body;
+
+    Note.findByIdAndUpdate(id, { title, body })
+      .then(() => res.json('Note successfully updated'))
+      .catch(err => res.status(500).json(err));
   });
 
   server.route('/users')
@@ -58,18 +61,14 @@ server.route('/notes')
       const user = new User(req.body);
 
       user.save((user, err) => {
-        if(err) res.status(201).json(err);
+        if(err) res.status(201).json(err)
         else res.status(500).json(user);
       });
     })
     .delete((req, res) => {
       User.findByIdAndRemove(req.body.id)
-        .then(() => {
-          res.json('User successfully deleted');
-        })
-        .catch(err => {
-          res.status(500).json(err);
-        });
+        .then(() => res.json('User successfully deleted'))
+        .catch(err => res.status(500).json(err));
     });
 
 server.listen(port, err => {
