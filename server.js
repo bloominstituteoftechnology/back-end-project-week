@@ -6,6 +6,22 @@ const port = process.env.PORT || 5000;
 
 const server = express();
 
+const sessionConfig = {
+  secret: 'fumos are great',
+  cookie: {
+    maxAge: 1 * 24 * 60 * 60 * 1000
+  }, // 1 day in milliseconds
+  httpOnly: true,
+  secure: false,
+  resave: true,
+  saveUninitialized: false,
+  name: 'noname',
+  store: new MongoStore({
+  url : 'mongodb://ds139960.mlab.com:39960/fumo',
+    ttl: 60 * 10
+  })
+};
+
 mongoose
 .connect('mongodb://ds139960.mlab.com:39960/fumo')
 .then( conn => {
