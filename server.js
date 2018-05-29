@@ -5,13 +5,13 @@ const mongoose = require('mongoose');
 let port = process.env.PORT || 3000;
 const server = express();
 
-// mongoose.connect('mongodb://ChickenChaser:bulldog1@ds139950.mlab.com:39950/lambda-notes')
-//   .then(() => {
-//     console.log('connected to database!');
-//   })
-//   .catch(err => {
-//     console.log(err);
-//   })
+mongoose.connect('mongodb://eric:x@ds139950.mlab.com:39950/lambda-notes')
+  .then(() => {
+    console.log('connected to database!');
+  })
+  .catch(err => {
+    console.log(err);
+  })
 
 server.use(cors({}))
 server.use(helmet());
