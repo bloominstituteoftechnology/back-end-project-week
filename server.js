@@ -37,7 +37,7 @@ const sessionConfig = {
 
 server.use(express.json());
 server.use(session(sessionConfig));
-server.use(CORS());
+server.use(CORS({}));
 
 routes(server);
 
