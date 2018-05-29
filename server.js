@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+const port = process.env.PORT || 3333;
 const server = express();
 server.use(cors({}));
 server.use(bodyParser.json());
@@ -12,5 +12,5 @@ server.get('/', (req, res) => {
 
 server.listen(3333, err => {
     if(err) console.log(err);
-    console.log('Magic happening on 3333');
+    console.log('Magic happening on ${port}');
 })
