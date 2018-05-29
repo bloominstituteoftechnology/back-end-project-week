@@ -1,3 +1,6 @@
+# Kaitlyn's Trello Project URL: 
+https://trello.com/b/zH4lYXgD/lambda-notes-backend-kaitlyn-flynn
+
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
