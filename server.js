@@ -1,22 +1,22 @@
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
+const userRouter = require('./users/users.controller');
+const notesRouter = require('./users/notes.controller');
 
-const port = process.env.PORT || 8000;
 const server = express();
 
 server.use(express.json());
 server.use(helmet());
 server.use(cors());
 
+//Routes
+server.use('/api/users', userRouter);
+server.use('/api/notes', notesRouter);
 
+//Postman Test ok: http://localhost:8008 
 server.get('/', (req, res) => {
-    res.json({ Message: 'Hello World' });
-});
-
-server.listen(port, err => {
-    if(err) console.log(err);
-    console.log(`API Running on ${port}`);
+    res.json({ Message: 'Server Works' });
 });
 
 module.exports = server;
