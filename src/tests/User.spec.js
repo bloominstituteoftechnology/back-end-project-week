@@ -1,6 +1,6 @@
 const User = require('../models/User')
 const mongoose = require('mongoose')
-const { mongoUri, mongoOptions } = require('../config.js')
+const { mongoUri, mongoOptions } = require('../server/config')
 
 describe('User', () => {
   beforeAll(() => {

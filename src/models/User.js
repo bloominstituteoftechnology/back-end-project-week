@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
+const _id = mongoose.SchemaTypes.ObjectId
 
 const userSchema = mongoose.Schema({
   username: {
@@ -10,7 +11,8 @@ const userSchema = mongoose.Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  notes: [{ type: _id, ref: 'Note' }]
 })
 
 userSchema.pre('save', function (next) {
