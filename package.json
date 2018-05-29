@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js",
+    "star-dev": "nodemon server.js"
   },
   "repository":
     "https://github.com/ElizabethMcKenzie/back-end-project-week.git",
