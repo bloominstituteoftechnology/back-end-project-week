@@ -1,7 +1,7 @@
 {
   "name": "back-end-project-week",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "repository": "https://github.com/faulkenfett11/back-end-project-week.git",
   "author": "faulkenfett11 <36997363+faulkenfett11@users.noreply.github.com>",
   "license": "MIT",
