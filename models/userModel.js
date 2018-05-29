@@ -9,7 +9,11 @@ const definitions = {
     password: {
         type: String,
         required: true,
-    }
+    },
+    createdOn: {
+        type: Date,
+        default: Date.now,
+    },
 }
 
 const options = {
@@ -20,7 +24,7 @@ const options = {
 const userScheme = new mongoose.Schema(definitions, options);
 
 // define the user model using the scheme
-const userModel = mongoose.model('user', userScheme, 'users');
+const userModel = mongoose.model('User', userScheme, 'users');
 
 // export
 module.exports = userModel;

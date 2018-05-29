@@ -5,7 +5,7 @@ const cors = require('cors'); // allow cross-platform use
 const mongoose = require('mongoose'); // allow mongoDB syntax
 const bodyParser = require('body-parser'); // parse incoming body requests
 const noteRouter = require('./routers/noteRouter'); // import Note Router  
-const userRouter = require('/routers/userRouter'); // import User Router  
+const userRouter = require('./routers/userRouter'); // import User Router  
 
 const port = 3000; // declare static port
 const server = express(); // connect server to express
@@ -27,7 +27,7 @@ server.use(helmet()); // Use Middleware
 server.use(cors()); // Use Middleware
 server.use(bodyParser.json()); // Use Middleware
 server.use('/api/notes', noteRouter); // use Note Router
-server.use('/api/user', userRouter); // use user Router
+server.use('/api/users', userRouter); // use user Router
 
 
 // API Request Endpoints

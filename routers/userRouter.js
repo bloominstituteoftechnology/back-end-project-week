@@ -4,7 +4,7 @@ const User = require('../models/userModel');
 
 router
     .route('/')
-    .get(get)
+    .get()
     .post(post);
 
 router
@@ -19,9 +19,9 @@ router
         res.status(200).json({ status: 'work on put' })
     })
 
-function get(req, res) {
-    res.status(200).json({ route: '/api/users/' });
-}
+// function get(req, res) {
+//     res.status(200).json({ route: '/api/users/' });
+// }
 
 function post(req, res) {
     const userData = req.body;
@@ -37,3 +37,5 @@ function post(req, res) {
             res.status(500).json(err);
         });
 }
+
+module.exports = router;
