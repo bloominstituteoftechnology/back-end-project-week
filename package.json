@@ -9,7 +9,8 @@
   "author": "jeffrey <jeffreyneilflynn@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "jest --watch"
   },
   "dependencies": {
     "bcrypt": "^2.0.1",
@@ -20,6 +21,8 @@
     "mongoose": "^5.1.2"
   },
   "devDependencies": {
-    "nodemon": "^1.17.5"
+    "jest": "^23.0.1",
+    "nodemon": "^1.17.5",
+    "supertest": "^3.1.0"
   }
 }
