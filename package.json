@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/Anthony-Calderaro/back-end-project-week/issues"
   },
-  "homepage": "https://github.com/Anthony-Calderaro/back-end-project-week#readme"
+  "homepage": "https://github.com/Anthony-Calderaro/back-end-project-week#readme",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "helmet": "^3.12.1",
+    "mongoose": "^5.1.3"
+  }
 }
