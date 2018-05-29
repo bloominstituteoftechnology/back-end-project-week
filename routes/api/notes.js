@@ -59,33 +59,38 @@ router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
 
 router.delete('/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
 
-    Note.findByIdAndRemove(req.params.id)
+    Note.findById(req.params.id)
         .then(note => {
-            if(note.user == req.user.id) {
-                return res.status(204).json(note)
+
+            if (note.user == req.user.id) {
+
+                Note.findByIdAndRemove(req.params.id)
+                    .then(note => {
+                        return res.status(204).json(note)
+                    })
             }
             else {
                 res.status(400).json({message: 'No note found'})
             }
         })
-        .catch(err => res.status(500).json(err))
 
 });
 
 router.put('/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
 
-    console.log(req.body);
-    Note.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
+    Note.findById(req.params.id)
         .then(note => {
+
             if (note.user == req.user.id) {
-                res.status(200).json(note);
+
+                Note.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
+                    .then(note => {
+                        return res.status(204).json(note)
+                    })
             }
             else {
-                res.status(400).json({message: 'No note found'})
+                res.status(404).json({message: 'No not found'})
             }
         })
-        .catch(err => res.status(500).json(err))
-
-
 });
 module.exports = router;
