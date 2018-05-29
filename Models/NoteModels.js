@@ -21,6 +21,6 @@ const options = {
 
 const noteSchema = new mongoose.Schema(definiton, options)
 
-const noteModel = mongoose.model('Note', noteSchema)
+const Note = mongoose.model('Note', noteSchema)
 
-mongoose.exports = noteModel;
+mongoose.exports = Note;
