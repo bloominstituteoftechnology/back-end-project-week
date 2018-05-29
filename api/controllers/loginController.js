@@ -1,3 +1,6 @@
+const express = require("express")
+const router = express.Router();
+
 const jwt = require('jsonwebtoken');
 const { secret } = require('../../config');
 const User = require('../models/userModel');
@@ -29,6 +32,9 @@ const login = (req, res) => {
     });
   });
 };
+
+router.route('/')
+ .post(Login)
 
 module.exports = {
   login
