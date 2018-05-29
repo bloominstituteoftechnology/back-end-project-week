@@ -1,61 +1,62 @@
-const express = require('express');
+const router = require('express').Router();
 
 const Note = require('./notes');
 
-const router = express.Router();
 
 // add endpoints here
-
 router
-.get('/',(req,res)=>{
+  .route('/:id')
+    .get((req, res) => {
+        const {id} = req.params
     Note
-    .find()
-    .sort("createdOn")
-    .then(respone=>{
-     res.status(202).json(response)
+    .findById(id)
+    .then(response=>{
+           res.status(202).json(response);
     })
     .catch(err=>{
-        res.status(404).json({error:err})
+        res.status(500).json({errorMessage: "The notes information could not be retrieved."})
     })
-})
-router
-.post('/',(req,res)=>{
-   const note = new Note(req.body)
-   note
-   .save()
-   .then(respone=>{
-       res.status(201).json(response)
-   })
-   .catch(err=>{
-       res.status(500).json({error:err})
-   })
-})
-router
-.delete('/:id',(req,res)=>{
+  })
+  .delete((req, res) => {
     const {id} = req.params
     Note
     .findByIdAndRemove(id)
     .then(response=>{
-        res.status(204).end
+        res.status(204).end()
     })
-    .catch(err=>{
-        res.status(500).json({error:err})
-    })
-    router
-    .put('/:id',(req,res)=>{
-        const {id}=req.params
-        const update = req.body
-        const options ={
-            new:true,
-        }
-        Note
-        .findByIdAndUpdate(id,update,options)
-        .then(response=>{
-            res.status(200).json(response)
+  })
+  .put((req, res) => {
+    const {id} = req.params
+    const update = req.body;
+    const options ={
+      new:true,
+    }
+    Note
+    .findByIdAndUpdate(id,update, options)
+    .then(response=>{
+      res.status(200).json(response)
         })
-        .catch(err =>{
-            res.status(500).json({error:err})
-        })
+  });
+
+router.get('/',(req,res)=>{
+Note
+.find()
+.sort('-createdOn')
+.then(response=>{
+    res.status(200).json(response)
+})
+.catch(err=>{
+    res.status(500).json({err: "The collection of the brave responses of Griffindor could not be obtained."})
+})
+})
+router.post('/',(req,res)=>{
+    const note = new Note(req.body)
+    note
+    .save()
+    .then(response =>{
+        res.status(201).json(response)
+    }).catch(err =>{
+        res.status(500).json({err:"This response could not be added check their status and try again."})
     })
 })
 module.exports = router;
