@@ -31,12 +31,25 @@ server.get('/api/notes', asyncHandler(async (req, res) => {
 }));
 
 server.get('/api/notes/:id', asyncHandler(async (req, res) => {
-  const response = await Note.findById(req.params.id);
+  const response = await Note.findById(req.params.id)
+    || `Note with id ${req.params.id} not found`;
   res.status(200).json(response);
 }));
 
 server.post('/api/notes', asyncHandler(async (req, res) => {
   const response = await Note.create(req.body)
+  res.status(200).json(response);
+}));
+
+server.put('/api/notes/:id', asyncHandler(async (req, res) => {
+  const response = await Note.findByIdAndUpdate(req.params.id, req.body, { new: true})
+    || `Note with id ${req.params.id} not found`;
+  res.status(200).json(response);
+}));
+
+server.delete('/api/notes/:id', asyncHandler(async (req, res) => {
+  const response = await Note.findByIdAndRemove(req.params.id)
+    || `Note with id ${req.params.id} not found`;
   res.status(200).json(response);
 }));
 
