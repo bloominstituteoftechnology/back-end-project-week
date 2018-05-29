@@ -4,6 +4,18 @@ const cors = require('cors');
 
 const server = express();
 
+const mongoDB = `mongodb://localhost/lambdanotes`;
+
+// Connect to mongo
+mongoose
+    .connect(mongoDB)
+    .then(connect => {
+        console.log('Connected!');
+    })
+    .catch(err => {
+        console.log('Not connected');
+    })
+
 // middleware
 server.use(express.json());
 server.use(cors());
