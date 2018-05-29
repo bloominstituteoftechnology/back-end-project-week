@@ -23,10 +23,10 @@ mongoose
 server.use(express.json());
 server.use(cors());
 
-// // Initial GET
-// server.get('/', (req, res) => {
-//     res.send({ Message: 'api running' })
-// })
+// Initial GET
+server.get('/', (req, res) => {
+    res.send({ Message: 'api running' })
+})
 
 // POST notes
 server.post('/api/notes', (req, res) => {
