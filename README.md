@@ -88,4 +88,5 @@ Once your MVP has been approved, you have been given a feature list that the cli
 
 You will notice that this repository does not have any starter code.  This is on purpose.  You are to start from scratch using any files you have built throughout your time here at Lambda School.
 
-https://trello.com/b/e8ikX2b1/lambda-notesbackend-devon-bacon
+trello board: https://trello.com/b/e8ikX2b1/lambda-notesbackend-devon-bacon
+front end: https://github.com/metalogicoder/back-end-project-week-front-end/blob/master/README.md
