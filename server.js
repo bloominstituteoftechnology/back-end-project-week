@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 mongoose
-.connect('mongodb://localhost/')
+.connect('mongodb://localhost/lambdaNotes')
 .then(mongo => {
   console.log('connected to mongo-mini database');
 })
