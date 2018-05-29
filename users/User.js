@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const ObjectId = mongoose.Schema.Types.ObjectId;
 const bcrypt = require("bcrypt");
 
-const User = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
@@ -20,7 +20,7 @@ const User = new mongoose.Schema({
   ]
 });
 
-User.pre("save", function(next) {
+UserSchema.pre("save", function(next) {
   bcrypt.hash(this.password, 12, (err, hash) => {
     if (err) {
       return next(err);
@@ -30,15 +30,29 @@ User.pre("save", function(next) {
   });
 });
 
-User.methods.isPasswordValid = function(checkPW, cb) {
-  bcrypt.compare(checkPW, this.password, function(err, isValid) {
-    if (err) return cb(err);
-    cb(null, isValid);
+UserSchema.statics.authenticate = function(user, password, callback) {
+  User.findOne({ username: user }).exec(function(err, user) {
+    if (err) {
+      return callback(err);
+    } else if (!user) {
+      var err = new Error("User not found.");
+      err.status = 401;
+      return callback(err);
+    }
+    bcrypt.compare(password, user.password, function(err, result) {
+      if (result === true) {
+        return callback(null, user);
+      } else {
+        return callback();
+      }
+    });
   });
 };
 
-User.methods.addNote = function(note_id) {
-  this.notes.push(note_id);
-};
+// UserSchema.methods.addNote = function(note_id) {
+//   this.notes.push(note_id);
+// };
 
-module.exports = mongoose.model("User", User);
+const User = mongoose.model("User", UserSchema);
+
+module.exports = User;

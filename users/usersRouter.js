@@ -41,4 +41,27 @@ router.post("/", (req, res) => {
   }
 });
 
+router.post("/login", (req, res) => {
+  const { username, password } = req.body;
+
+  // if (!(username && password))
+  //   res.status(422).json({ error: "Username and password are mandatory" });
+  //   else
+  //   User.findOne({username: username.toLowerCase()}).then(user => {
+
+  //   })
+  User.authenticate(username, password, function(error, user) {
+    if (error || !user) {
+      res.status(401).json({ error: "Wrong credentials - try again" });
+    } else {
+      console.log("Logged in");
+      req.session.auth = true;
+      req.session._id = user._id;
+      req.session.username = user.username;
+      res.status(200).json({ success: true, user: user });
+      console.log(req.session.userId);
+    }
+  });
+});
+
 module.exports = router;
