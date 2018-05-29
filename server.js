@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-const port = process.env.PORT || 5000
+
 server = express();
 
 const db = require('./config/keys').mongoURL;
@@ -18,6 +18,7 @@ server.get('/', (req, res) => {
   res.status(200).json({Message: 'Hello World'});
 });
 
+const port = process.env.PORT || 5000;
 server.listen(port, () => {
   console.log(`Magic happening on ${port}`);
 });
