@@ -55,7 +55,7 @@ server.get('/api/notes', (req, res) => {
 })
 
 // GET notes - Display a specific note
-server.get('/api/notes/:id', (req, res) => {
+server.get('/api/note/:id', (req, res) => {
     const id = req.params.id;
 
     Note
@@ -68,8 +68,8 @@ server.get('/api/notes/:id', (req, res) => {
     })
 })
 
-// // PUT notes - Edits a note
-server.put('/api/notes/:id', (req, res) => {
+// PUT /api/note - Edits a note
+server.put('/api/note/:id', (req, res) => {
     const id = req.params.id;
     const note = req.body;
 
@@ -80,6 +80,20 @@ server.put('/api/notes/:id', (req, res) => {
     })
     .catch(err => {
         res.status(500).json({ err: "Cannot edit"})
+    })
+})
+
+// DELETE /api/note
+server.delete('/api/note/:id', (req, res) => {
+    const id = req.params.id;
+    
+    Note
+    .findByIdAndRemove(id)
+    .then(note => {
+        res.status(200).send('Note deleted successfully');
+    })
+    .catch(err => {
+        res.status(500).json({ Error: "Cannot delete "})
     })
 })
 
