@@ -10,10 +10,10 @@ const server = express();
 mongoose
   .connect('mongodb://devon:dvnbcn44@ds239940.mlab.com:39940/lambda-notes')
   .then(() => {
-    console.log('connected to production database');
+    console.log('Connected to database');
   })
   .catch(err => {
-    console.log('error connecting to production database');
+    console.log('Error connecting to database');
   });
 
 server.use(cors({}));
@@ -26,21 +26,15 @@ server.get('/', (req, res) => {
 server.route('/notes')
   .get((req, res) => {
     Note.find()
-      .then(notes => {
-        res.json(notes);
-      })
-      .catch(err => {
-        res.json(err);
-      });
+      .then(notes => res.json(notes))
+      .catch(err => res.status(500).json(err));
   })
   .post((req, res) => {
-    const { title, body } = req.body;
-    const note = new Note({ title, body });
+    const note = new Note(req.body);
 
     note.save((note, err) => {
-      if(err) res.json(err);
-      res.json(note);
-      res.redirect('/');
+      if(err) res.status(201).json(err);
+      else res.status(500).json(note);
     });
   });
 
