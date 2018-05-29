@@ -2,7 +2,7 @@ const Note = require('./Note');
 //const { authenticate } = require('./Middleware');
 
 module.exports = server => {
-    server.post('/newnote', (req, res) => {
+    server.post('/newnote', authenticate, (req, res) => {
         const note = new Note(req.body);
         note.save()
         .then(note => res.status(201).send(note))
