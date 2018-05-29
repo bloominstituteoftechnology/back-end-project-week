@@ -8,16 +8,16 @@ const User = require('../../models/User');
 router.get('/testing', passport.authenticate('jwt', {session: false}),
     (req, res) => {
 
-    res.status(200).json({message: 'Note Testing is Working'});
+        res.status(200).json({message: 'Note Testing is Working'});
 
-});
+    });
 
 router.get('/', passport.authenticate('jwt', {session: false}), (req, res) => {
 
     Note.find({user: req.user.id})
         .then(notes => {
 
-            if(notes.length === 0) {
+            if (notes.length === 0) {
                 res.status(404).json({message: 'You have not created any notes yet'})
             }
             else {
@@ -34,7 +34,7 @@ router.get('/:id', passport.authenticate('jwt', {session: false}), (req, res) =>
 
     Note.findById(req.params.id)
         .then(note => {
-            if(note.user == req.user.id) {
+            if (note.user == req.user.id) {
 
                 res.status(200).json(note)
             }
@@ -59,15 +59,10 @@ router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
 
 router.delete('/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
 
-    Note.findById(req.params.id)
+    Note.findByIdAndRemove(req.params.id)
         .then(note => {
             if(note.user == req.user.id) {
-
-                Note.findByIdAndRemove(req.params.id)
-                    .then(note => {
-                        return res.status(204).json(note)
-                    })
-
+                return res.status(204).json(note)
             }
             else {
                 res.status(400).json({message: 'No note found'})
@@ -77,16 +72,20 @@ router.delete('/:id', passport.authenticate('jwt', {session: false}), (req, res)
 
 });
 
-
 router.put('/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
 
-    Note.findById(req.params.id)
+    console.log(req.body);
+    Note.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
         .then(note => {
-            if(note.user == req.user.id) {
-
+            if (note.user == req.user.id) {
+                res.status(200).json(note);
+            }
+            else {
+                res.status(400).json({message: 'No note found'})
             }
         })
         .catch(err => res.status(500).json(err))
+
 
 });
 module.exports = router;
