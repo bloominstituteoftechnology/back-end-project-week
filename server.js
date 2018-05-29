@@ -10,7 +10,7 @@ server.get('/', (req, res) => {
     res.json({ Message: 'Hello World' });
 });
 
-server.listen(3333, err => {
+server.listen(port, err => {
     if(err) console.log(err);
     console.log('Magic happening on ${port}');
 })
