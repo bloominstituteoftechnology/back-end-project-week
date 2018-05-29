@@ -4,7 +4,7 @@
   "description": "// https://trello.com/b/WkaGvm5L/lambda-notes-back-end-m-margo-nikolaisen",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "test": "cross-env NODE_ENV=test jest --watch --verbose"
   },
   "repository": {
@@ -26,7 +26,6 @@
     "express": "^4.16.3",
     "jsonwebtoken": "^8.2.1",
     "mongoose": "^5.1.2",
-    "nodemon": "^1.17.5",
     "passport": "^0.4.0",
     "supertest": "^3.1.0"
   },
