@@ -16,26 +16,26 @@ server.use(cors());
 // mongoose
 
 // local
-mongoose
-  .connect("mongodb://localhost/lambda_notes")
-  .then(mongo => {
-    console.log("-=- connected to mongo database -=-");
-  })
-  .catch(err => {
-    console.log("!Error, trouble connecting to mongo DB!");
-  });
-
-
-// mlab migration
 // mongoose
-//   .connect("mongodb://jasonbourne:bourneidentity/@ds239940.mlab.com:39940/lambda-note_h")
-  
+//   .connect("mongodb://localhost/lambda_notes")
 //   .then(mongo => {
 //     console.log("-=- connected to mongo database -=-");
 //   })
 //   .catch(err => {
 //     console.log("!Error, trouble connecting to mongo DB!");
 //   });
+
+
+// mlab migration
+mongoose
+  .connect("mongodb://admin:admin@ds239940.mlab.com:39940/lambda-note_h")
+  
+  .then(mongo => {
+    console.log("-=- connected to mongo database -=-");
+  })
+  .catch(err => {
+    console.log("!Error, trouble connecting to mongo DB!");
+  });
 
 // sanity check
 server.get("/", (req, res) => {
@@ -44,7 +44,7 @@ server.get("/", (req, res) => {
 
 // routes
 server.use("/api/notes", noteRouter);
-// server.use("/api/users", userRouter);
+server.use("/api/users", userRouter);
 
 const port = process.env.PORT || 5000;
 server.listen(port, err => {
