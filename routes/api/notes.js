@@ -56,4 +56,24 @@ router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
 
     new Note(noteFields).save().then(note => res.json(note));
 });
+
+router.delete('/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
+
+    Note.findById(req.params.id)
+        .then(note => {
+            if(note.user == req.user.id) {
+
+                Note.findByIdAndRemove(req.params.id)
+                    .then(note => {
+                        return res.status(204).json(note)
+                    })
+
+            }
+            else {
+                res.status(400).json({message: 'No note found'})
+            }
+        })
+        .catch(err => res.status(500).json(err))
+
+});
 module.exports = router;
