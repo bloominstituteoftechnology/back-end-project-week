@@ -1,15 +1,17 @@
 const express = require("express");
 const cors = require("cors");
 const port = process.env.PORT || 3333;
-const mongoose = "mongoose";
 const db = require("./data/db.js");
+const helmet = require("helmet");
 
 const server = express();
 
 server.use(express.json());
 server.use(cors());
+server.use(helmet());
 
 const notesRouter = require("./controllers/NoteController");
+const userRouter = require("./controllers/UserController");
 
 db
   .connect()
@@ -19,7 +21,10 @@ db
 server.get("/", (req, res) => {
   res.json({ message: "all good homie" });
 });
+
 server.use("/api/notes", notesRouter);
+
+server.use("/api/user", userRouter);
 
 server.listen(port, err => {
   if (err) console.log(err);
