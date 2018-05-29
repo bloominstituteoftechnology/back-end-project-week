@@ -4,7 +4,10 @@ const mongoOptions = {
   reconnectInterval: 1000
 }
 
+jwtSecret = 'lambda'
+
 module.exports = {
   mongoUri,
-  mongoOptions
+  mongoOptions,
+  jwtSecret
 }
