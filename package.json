@@ -1,0 +1,8 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/kyle-kauzlarich/back-end-project-week.git",
+  "author": "kyle-kauzlarich <kauzlarich.kyle@gmail.com>",
+  "license": "MIT"
+}
