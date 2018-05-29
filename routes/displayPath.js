@@ -7,9 +7,9 @@ const getNote = (req,res) =>  {
         )
             .then(ok => ok.json())
             .then(notes => res.json(notes))
-            .catch(err => res.status(500).json({error: 'Error fetching Notes'}));
+            .catch(err => res.status(500).json({error: 'Error fetching user'}));
     }   else {
-        return res.status(422).json({error: `Can't get the notes`});
+        return res.status(422).json({error: `Can't get the user`});
     }
 };
 

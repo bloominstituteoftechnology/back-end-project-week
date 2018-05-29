@@ -1,7 +1,7 @@
 const Note = require('../note/NoteModel');
 const bcrypt = require('bcrypt');
 
-const createNote = (req,res) => {
+const createUser = (req,res) => {
     const {username, password} = req.body;
     const user = new User({username, password});
     user
@@ -11,5 +11,5 @@ const createNote = (req,res) => {
 };
 
 module.exports = {
-    createNote
+    createUser
 };
