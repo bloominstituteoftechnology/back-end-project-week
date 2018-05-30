@@ -9,9 +9,9 @@ const Note = require('./Notes/notes')
 //     optionsSuccessStatus: 200 
 //   }
 // server.use(cors(corsOptions))
-server.use(cors())
-const server = express();
 
+const server = express();
+server.use(cors())
 
 // var whitelist = ['https://notejll.netlify.com/']
 // server.use(cors({
