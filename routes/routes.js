@@ -88,10 +88,10 @@ router
                 Note
                     .remove(note)
                     .then(response => {
-                        res.status(200).json(response)
+                        res.status(200).json({ message: 'Note was deleted successfully!' });
                     })
                     .catch(err => {
-                        res.status(500).json({ message: 'Failed to delete the Note. Sorry! '})
+                        res.status(500).json({ message: 'Failed to delete the Note. Sorry! '});
                     });
             }
         })
