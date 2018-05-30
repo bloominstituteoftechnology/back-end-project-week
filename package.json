@@ -9,7 +9,7 @@
   "author": "Kaitlyn Flynn <kaitlynflynn@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "dependencies": {
     "bcrypt": "^2.0.1",
