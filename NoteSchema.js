@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const definition = {
-    species: {
+    title: {
         type: String,
         required: true,
     },
-    latinName: {
+    text: {
         type: String,
         required: true,
     },
@@ -19,8 +19,8 @@ const definition = {
 const options = {
     timestamp: true
 }
-const bearSchema = new mongoose.Schema(definition, options);
+const noteSchema = new mongoose.Schema(definition, options);
 
-const Bear = mongoose.model('Bear', bearSchema, 'bears');
+const Note = mongoose.model('Note', noteSchema, 'notes');
 
-module.exports = Bear;
+module.exports = Note;
