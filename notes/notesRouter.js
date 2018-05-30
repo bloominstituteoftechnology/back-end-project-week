@@ -42,4 +42,43 @@ router.post("/", (req, res) => {
     });
 });
 
+router.get("/:note", (req, res) => {
+  const noteId = req.params.note;
+  Note.findById(noteId)
+    .then(note => {
+      if (!note) res.status(404).json("Note not found");
+      else res.status(200).json(note);
+    })
+    .catch(error => {
+      res.status(500).json(error.message);
+    });
+});
+
+router.put("/:note", (req, res) => {
+  const noteId = req.params.note;
+  Note.findById(noteId)
+    .then(found => {
+      if (!(req.session._id == found.user_id)) {
+        res.status(422).json("You are not authorized");
+      } else {
+        if (!req.body.title.length || !req.body.content.length) {
+          res.status(422).json("Title and content can't be empty");
+        } else {
+          found
+            .update({ ...req.body })
+            .then(note => {
+              res.status(200).json(note);
+              console.log("Update successful");
+            })
+            .catch(error => {
+              res.status(500).json(error);
+            });
+        }
+      }
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
+});
+
 module.exports = router;
