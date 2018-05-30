@@ -12,7 +12,8 @@ let testToken;
 describe('Server Tests', () => {
   before(done => {
     mongoose.Promise = global.Promise;
-    mongoose.connect('mongodb://localhost/test');
+    mongoose.connect('mongodb://localhost/test
+    ');
     const db = mongoose.connection;
     db.on('error', () => console.error.bind(console, 'connection error'));
     db.once('open', () => {
@@ -32,7 +33,7 @@ describe('Server Tests', () => {
     beforeEach(async function() {
       let newUser = await Promise.resolve(
         new User({
-          username: 'username',
+          username: 'Tester',
           password: 'hungry_panda',
       }).save()).catch(err => {
         return console.error(err);
