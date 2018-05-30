@@ -29,3 +29,16 @@ router.get('/', (req, res) => {
       res.status(500).json({error: 'Could not retrieve data from server.'})
     })
 })
+
+//post route
+
+.post('/', (req, res) => {
+  const note = new Note(req.body);
+  note.save()
+    .then(note => {
+      res.status(200).json(note);
+    })
+    .catch(error => {
+      res.status(500).json({message: "Note could not be saved. Please try again later!"})
+    })
+})
