@@ -27,7 +27,7 @@ server.use(cors());
 
 // Initial GET
 server.get('/', (req, res) => {
-    res.send({ Message: 'api running' })
+    res.send({ Message: 'Hi Love' })
 })
 
 // POST notes - Title + Body/Content
