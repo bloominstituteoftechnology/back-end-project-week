@@ -1,10 +1,11 @@
 {
   "name": "back-end-project-week",
   "version": "1.0.0",
-  "description": "This week you will be building a backend for a note taking app called \"Lambda Notes.\"",
+  "description":
+    "This week you will be building a backend for a note taking app called \"Lambda Notes.\"",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server",
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
