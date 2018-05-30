@@ -16,13 +16,19 @@ const userModel = new mongoose.Schema({
     required: true,
     maxlength: 13
   },
+  cohort: {
+    type: String,
+    required: true,
+    maxlength: 5
+  },
   password: {
     type: String,
-    required: true
+    required: true,
+    minlength: 8
   },
   createdOn: {
     date: Date
   }
 });
 
-module.exports = userModel.model('User', User);
+module.exports = mongoose.model('User', userModel);
