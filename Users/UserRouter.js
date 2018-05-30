@@ -76,10 +76,8 @@ router.route('/login').post(authenticate, (req, res) => {
     });
   }
 });
-
 router.route('/logout').post((req, res) => {
   req.session.destroy(err => res.json(err));
   res.status(200).json('Logout Successful');
 });
-
 module.exports = router;
