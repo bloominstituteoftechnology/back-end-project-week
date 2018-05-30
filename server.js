@@ -7,14 +7,17 @@ const noteRouter = require("./Notes/noteController");
 const userRouter = require("./Users/userController");
 
 const server = express();
+const corsOption = {
+  origin: "http://localhost: 3000",
+  credentials: true
+};
 
 //middleware
 server.use(helmet());
 server.use(express.json());
-server.use(cors());
+server.use(cors(corsOption));
 
 // mongoose
-
 // local
 mongoose
   .connect("mongodb://localhost/lambda_notes")
@@ -25,11 +28,10 @@ mongoose
     console.log("!Error, trouble connecting to mongo DB!");
   });
 
-
-// // mlab migration
+// // mlab deployment
 // mongoose
 //   .connect("mongodb://admin:adminpw@ds239940.mlab.com:39940/lambda-note_h")
-  
+
 //   .then(mongo => {
 //     console.log("-=- connected to mongo database -=-");
 //   })

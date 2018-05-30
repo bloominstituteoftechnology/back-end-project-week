@@ -2,8 +2,14 @@ const express = require("express");
 const router = express.Router();
 
 const User = require("./userModel");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const { authenticate } = require("../middlewares");
 
-router.get("/", (req, res) => {
+const secret = "something very random";
+
+// get
+router.get("/", authenticate, (req, res) => {
   let query = User.find();
 
   query
@@ -15,6 +21,7 @@ router.get("/", (req, res) => {
     });
 });
 
+// GET with ID
 router.get("/:id", (req, res) => {
   const { id } = req.params;
 
@@ -27,24 +34,21 @@ router.get("/:id", (req, res) => {
     });
 });
 
+// post
 router.post("/register", (req, res) => {
-  const newUser = req.body;
-  const user = new User(newUser);
+  const { username, password } = req.body;
+  const user = new User({ username, password });
 
-  user
-    .save()
-    .then(newUser => {
-      res.status(201).json(newUser);
-    })
-    .catch(err => {
-      if (user.name === undefined) {
-        res.status(400).json({ errorMsg: "Please provide a name." });
-      } else {
-        res.status(500).json(err);
-      }
+  user.save((err, user) => {
+    if (err) return res.send(err);
+    const token = getTokenForUser({
+      username: user.username
     });
+    res.json({ token });
+  });
 });
 
+// delete
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
 
@@ -61,6 +65,7 @@ router.delete("/:id", (req, res) => {
     });
 });
 
+// put
 router.put("/:id", (req, res) => {
   const { id } = req.params;
   const userEdited = req.body;
@@ -83,5 +88,9 @@ router.put("/:id", (req, res) => {
       }
     });
 });
+
+const getTokenForUser = userObject => {
+  return jwt.sign(userObject, secret, { expiresIn: "1h" });
+};
 
 module.exports = router;
