@@ -5,11 +5,13 @@ const cors = require('cors');
 const Note = require('./models/notes/Note');
 const User = require('./models/users/User');
 
+const envUser = process.env.USER_NAME;
+const envPass = process.env.PASSWORD;
 const port = process.env.PORT || 3333;
 const server = express();
 
 mongoose
-  .connect('mongodb://devon:dvnbcn44@ds239940.mlab.com:39940/lambda-notes')
+  .connect(`mongodb://${envUser}:${envPass}@ds239940.mlab.com:39940/lambda-notes`)
   .then(() => {
     console.log('Connected to database');
   })
