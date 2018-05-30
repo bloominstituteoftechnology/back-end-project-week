@@ -1,7 +1,7 @@
 {
   "name": "backend_project_week",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "repository": "https://github.com/Sy-CoDe/back-end-project-week.git",
   "author": "<sycode@gmail.com>",
   "license": "MIT",
