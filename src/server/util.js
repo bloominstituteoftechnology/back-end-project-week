@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken')
+const User = require('../models/User')
 const { jwtSecret } = require('./config')
 
 const getSessionToken = (user) => {
@@ -9,11 +10,18 @@ const getSessionToken = (user) => {
   return jwt.sign(payload, jwtSecret)
 }
 
-const validateToken = (token) => {
-
+const getUserForToken = async (token) => {
+  let user
+  try {
+    const payload = jwt.verify(token, jwtSecret)
+    user = await User.findOne({ _id: payload.id, session: payload.session })
+  } catch (err) {
+    user = null
+  }
+  return user
 }
 
 module.exports = {
   getSessionToken,
-  validateToken
+  getUserForToken
 }
