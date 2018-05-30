@@ -15,6 +15,23 @@ router
         res.status(500).json(err);
       });
   })
+  .delete("/:id", authenticate, (req, res) => {
+    User.findByIdAndRemove(req.params.id)
+      .select("-password")
+      .then(user => {
+        if (user === null)
+          res.status(404).json({
+            message: "The user with the specified ID does not exist."
+          });
+        else
+          res
+            .status(200)
+            .json({ message: "User was successfully removed.", user: user });
+      })
+      .catch(error => {
+        res.status(500).json({ message: "The user could not be removed" }, err);
+      });
+  })
   .post("/login", (req, res) => {
     const { username, password } = req.body;
     User.findOne({ username }, (err, user) => {
