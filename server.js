@@ -6,18 +6,18 @@ const express = require('express');
 // const helmet = resquire('helmet');
 const mongoose = require('mongoose');
 const server = express();
-// const cors = require('cors');
+const cors = require('cors');
 const port = process.env.PORT || 5000;
 
 // const routes = require('./routes/routes');
 
-// const corsOptions = {
-//   origin: 'http://amanda-lambdanotes.netlify.com',
-//   credentials: true
-// };
+const corsOptions = {
+  origin: 'https://amanda-lambdanotes.netlify.com',
+  credentials: true
+};
 
 server.use(express.json());
-// server.use(cors(corsOptions));
+server.use(cors(corsOptions));
 
 const uri = 'mongodb://amanda:amanda@ds133550.mlab.com:33550/lambdanotes-backend'
 mongoose
