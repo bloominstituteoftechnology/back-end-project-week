@@ -63,17 +63,16 @@ router
                 Note
                     .update(note, newNote)
                     .then(updatedNote => {
-                        res.status(200).json(updatedNote)
+                        res.status(200).json({ message: 'Note updated successfully.' });
                     })
                     .catch(err => {
-                        res.status(500).json({ message: 'Falied to update note. Sorry!' })
+                        res.status(500).json({ message: 'Falied to update note. Sorry!' });
                     });
             }
         })
         .catch(err => {
             res.status(500).json(err);
         });
-        res.send(newNote);
 })
 
 
