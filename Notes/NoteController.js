@@ -1,5 +1,4 @@
-import Note from './NoteModel';
-import { userInfo } from 'os';
+const Note = require('./NoteModel');
 
 const NoteController = {
   getNotes: (req, res) => {
@@ -15,7 +14,7 @@ const NoteController = {
   createNote: (req, res) => {
     const noteInfo = req.body;
 
-    if('title' in noteInfo && 'contents' in userInfo) {
+    if('title' in noteInfo && 'contents' in noteInfo) {
       const newNote = new Note(noteInfo);
       newNote
         .save()

@@ -2,8 +2,9 @@ const express = require('express');
 const NoteController = require('./NoteController');
 
 const NoteRouter = express.Router();
-const { createNote } = NoteController;
+const { getNotes, createNote } = NoteController;
 
+NoteRouter.get('/', getNotes);
 NoteRouter.post('/', createNote);
 
 export default NoteRouter;
