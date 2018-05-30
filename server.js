@@ -52,7 +52,7 @@ server.put('/api/notes/:id', asyncHandler(async (req, res) => {
 server.delete('/api/notes/:id', asyncHandler(async (req, res) => {
   const response = await Note.findByIdAndRemove(req.params.id)
     || `Note with id ${req.params.id} not found`;
-  res.status(200).json(response);
+  res.status(200).json({ message: `Note with id ${response._id} deleted.`});
 }));
 
 // needs to be last: https://expressjs.com/en/guide/error-handling.html

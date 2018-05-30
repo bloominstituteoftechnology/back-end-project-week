@@ -78,5 +78,27 @@ describe('Notes', () => {
     });
   });
 
+  describe('PUT /api/notes/:id', () => {
+    it('should update a note', async () => {
+      const testNoteData = getTestNoteData();
+
+      const response = await request(server)
+        .put(`/api/notes/${testNotesData[0]._id}`)
+        .send(testNoteData);
+
+      expect(response.status).toBe(200);
+      expect(response.body).toMatchObject(testNoteData);
+    });
+  });
+
+  describe('DELETE /api/notes/:id', () => {
+    it('should update a note', async () => {
+      const response = await request(server)
+        .delete(`/api/notes/${testNotesData[0]._id}`);
+
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual({"message": `Note with id ${testNotesData[0]._id} deleted.`});
+    });
+  });
 
 });
