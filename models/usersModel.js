@@ -15,33 +15,33 @@ const UserSchema = new mongoose.Schema({
     index: true,
     lowercase: true
   },
-  password: {
-    type: String,
-    required: true
-  },
+  // password: {
+  //   type: String,
+  //   required: true
+  // },
   notes: {
     type: ObjectId,
     ref: 'Note'
   }
 });
 
-UserSchema.pre('save', function(next) {
-  bcrypt
-    .hash(this.password, 8)
-    .then(hash => {
-      this.password = hash
-      next()
-    })
-    .catch(err => next(err))
-});
+// UserSchema.pre('save', function(next) {
+//   bcrypt
+//     .hash(this.password, 8)
+//     .then(hash => {
+//       this.password = hash
+//       next()
+//     })
+//     .catch(err => next(err))
+// });
 
-UserSchema.methods.verifyPassword = function(passwordGuess, cb) {
-  bcrypt.compare(passwordGuess, this.password, function (err, isValid) {
-    if (err) {
-      return cb(err)
-    }
-    cb(null, isValid)
-  })
-};
+// UserSchema.methods.verifyPassword = function(passwordGuess, cb) {
+//   bcrypt.compare(passwordGuess, this.password, function (err, isValid) {
+//     if (err) {
+//       return cb(err)
+//     }
+//     cb(null, isValid)
+//   })
+// };
 
 module.exports = mongoose.model('User', UserSchema);

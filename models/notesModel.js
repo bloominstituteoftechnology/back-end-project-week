@@ -6,14 +6,14 @@ const noteSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  text: {
+  content: {
     type: String,
     required: true
   },
-  users: {
-    type: String,
-    required: true
-  }
+  // users: {
+  //   type: String,
+  //   required: true
+  // }
 });
 
 module.exports = mongoose.model('Note', noteSchema);
