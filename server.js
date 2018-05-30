@@ -16,6 +16,9 @@ mongoose
 const server = express();
 server.use(cors({}));
 server.use(bodyParser.json());
+server.use(express.json());
+
+server.use('/notes', noteController);
 
 server.get('/', (req, res) => {
   res.json({ Message: 'Hello World' });
