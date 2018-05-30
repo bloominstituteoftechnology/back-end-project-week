@@ -16,7 +16,7 @@ const cors = require('cors');
 // };
 
 server.use(express.json());
-server.use(cors(corsOptions));
+// server.use(cors(corsOptions));
 
 const uri = 'mongodb://amanda:amanda@ds133550.mlab.com:33550/lambdanotes-backend'
 mongoose
@@ -26,9 +26,10 @@ mongoose
 
 const port = process.env.PORT || 5000;
 
-server.listen(port, () =>
-  console.log(`\n API running on ${port}`)
-);
+server.listen(port, err => {
+  if (err) console.log(err);
+  console.log(`\n API running on ${port}`);
+});
 
 // routes(server);
 
