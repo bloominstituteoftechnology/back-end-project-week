@@ -7,7 +7,7 @@ const bodyParser = require('body-parser'); // parse incoming body requests
 const noteRouter = require('./routers/noteRouter'); // import Note Router  
 const userRouter = require('./routers/userRouter'); // import User Router  
 
-const port = 3000; // declare static port
+const port = process.env.PORT || 3000; // declare static port
 const server = express(); // connect server to express
 
 

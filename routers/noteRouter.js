@@ -2,9 +2,9 @@
 const router = require('express').Router();
 const Note = require('../models/noteModel');
 
+// Endpoint (1) Post Note
 router.post('/', function post(req, res) {
     const noteData = req.body;
-
     const note = new Note(noteData);
 
     note
@@ -17,18 +17,29 @@ router.post('/', function post(req, res) {
         });
 });
 
+// Endpoint (2) Get All Notes
 router.get('/', function get(req, res) {
     Note.find().then(notes => {
         res.status(200).json(notes);
     });
 });
 
+// Endpoint (3) Get Notes by Id
 router.get('/:id', (req, res) => {
-    res.status(200).json({ route: '/api/notes/' + req.params.id });
+    const { id } = req.params;
+
+    Note.findById(id)
+    .then(note => {
+        res.status(200).json(note);
+    })
+    .catch(err => {
+        res.status(500).json(err);
+    });
 });
 
+// Endpoint (4) Delete Notes by Id
 router.delete('/:id', (req, res) => {
-    const { id } = req.params;
+    const id = req.params;
 
     Note.findByIdAndRemove(id)
     .then(note => { 
@@ -39,8 +50,15 @@ router.delete('/:id', (req, res) => {
     });
 });
 
+// Endpoint (5) Edit Notes by Id
 router.put('/:id', (req, res) => {
-    res.status(200).json({ status: 'work on put' })
-});
+    const { id } = req.params;
+
+    Note.findByIdAndUpdate(id).then(note => {
+        res.status(200).json(note)
+    }).catch(err => {
+        res.status(500).json(err);
+    });
+})
 
 module.exports = router;
