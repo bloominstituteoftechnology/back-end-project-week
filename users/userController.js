@@ -75,7 +75,7 @@ router
       } else res.send("Invalid Credentials.");
     });
   })
-  .post("/signup", (req, res) => {
+  .post("/register", (req, res) => {
     const userData = req.body;
 
     const user = new User(userData);
