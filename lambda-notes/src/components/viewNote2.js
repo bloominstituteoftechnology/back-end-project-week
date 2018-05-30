@@ -13,7 +13,7 @@ class Here extends Component {
     super(props);
     this.state = {
         notes: [],
-     text: '',
+     body: '',
      title: '',
      modal: false
     }
@@ -61,7 +61,7 @@ toggleModal = () => {
 <div >
 <h3>{this.props.location.state.currentNote.title}</h3>
 <br />
-    <p>{this.props.location.state.currentNote.text}</p>
+    <p>{this.props.location.state.currentNote.body}</p>
                          </div>
                          </div>
         )}

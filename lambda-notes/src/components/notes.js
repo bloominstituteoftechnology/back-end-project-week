@@ -19,7 +19,7 @@ render() {
           <Link to={`/note/${note.id}`}>  
            <div key={note.id} className="borderGore">
            {note.title} <br />
-            {note.text}</div></Link>
+            {note.body}</div></Link>
             )
         })}
         </div>

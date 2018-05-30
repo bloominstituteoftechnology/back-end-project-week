@@ -25,10 +25,10 @@ export const saveData = note => {
     });
 }
 }
-export const deleteNote = noteId => {
+export const deleteNote = note => {
     return dispatch => {
     axios
-    .delete(`https://lambda-notes-brandon.herokuapp.com/notes/${noteId}`)
+    .delete(`https://lambda-notes-brandon.herokuapp.com/notes/${note._id}`)
     .then(response => {
         dispatch({ type: FETCHNOTES, payload: response.data})
     })
@@ -39,7 +39,7 @@ export const deleteNote = noteId => {
 }
 export const editNotes = note => {
     return dispatch => {
-        axios.put(`https://lambda-notes-brandon.herokuapp.com/notes/${note.id}`, note)
+        axios.put(`https://lambda-notes-brandon.herokuapp.com/notes/${note._id}`, note)
         .then(response => {
             console.log(response)
             dispatch({ type: FETCHNOTES, payload: response.data})

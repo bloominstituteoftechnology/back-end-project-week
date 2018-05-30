@@ -11,7 +11,7 @@ class free extends Component {
     super(props);
     this.state = {
         notes: [],
-     text: '',
+     body: '',
      title: '',
     }
   }
@@ -38,11 +38,11 @@ class free extends Component {
                 return (
                     <div className="rightSide">
                     
-<Link to={{pathname: `/note/${note.id}`, state: { currentNote: note}}}>    
+<Link to={{pathname: `/note/${note._id}`, state: { currentNote: note}}}>    
                     <Card className="cardHeight border-dark" key={note.id}>
                             <CardBody>
                         <CardTitle className="titleCard"> {note.title}</CardTitle>
-                       <CardText> {note.text}</CardText>
+                       <CardText> {note.body}</CardText>
                          </CardBody>
                          </Card> 
                          </Link>

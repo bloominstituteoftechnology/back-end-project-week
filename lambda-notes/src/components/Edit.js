@@ -9,7 +9,7 @@ class Edit extends Component {
     this.state={
         id: '',
         title: '',
-        text: ''
+        body: ''
     }
 }
     componentDidMount() {
@@ -19,7 +19,7 @@ class Edit extends Component {
         this.setState({
             id: note.id,
             title: note.title,
-            text: note.text
+            body: note.body
         });
     }
     handleTextInput = e => {
@@ -56,10 +56,10 @@ value={this.state.title}
  <input 
 
 type='text'
-name="text"
-placeholder="Note Text Here"
+name="body"
+placeholder="Note body Here"
 onChange={this.handleTextInput}
-value={this.state.text}
+value={this.state.body}
 
 />
  <button onClick={this.handleSubmit} type="submit">Update Note</button>

@@ -8,7 +8,7 @@ class Update extends Component {
         super(props);
         this.state ={
             title: props.location.state.currentNote.title,
-            text: props.location.state.currentNote.text
+            body: props.location.state.currentNote.body
         };
     }
     handleTextInput = e => {
@@ -17,7 +17,7 @@ class Update extends Component {
     newUpdate = () => {
         const edited ={
             title: this.state.title,
-            text: this.state.text,
+            body: this.state.body,
             id: this.props.location.state.currentNote.id
         }
         this.props.editNotes(edited);
@@ -38,10 +38,10 @@ onChange={this.handleTextInput}
 
  <input 
  className="centerText textarea mt-3"
-value={this.state.text}
+value={this.state.body}
 type='text'
-name="text"
-placeholder="Note Text Here"
+name="body"
+placeholder="Note body Here"
 onChange={this.handleTextInput}
 
 />
