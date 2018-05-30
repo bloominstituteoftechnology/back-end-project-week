@@ -73,7 +73,7 @@ router
     .catch(err => {
         res.status(500).json(err);
     });
-    res.send(updatedNote);
+    res.send(newNote);
 })
 
 
