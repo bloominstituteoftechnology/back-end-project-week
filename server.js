@@ -10,6 +10,8 @@ server.use(express.json());
 server.use(cors());
 server.use(helmet());
 
+const { authenticate } = require("./utils/middlewares");
+
 const notesRouter = require("./controllers/NoteController");
 const userRouter = require("./controllers/UserController");
 
@@ -22,7 +24,7 @@ server.get("/", (req, res) => {
   res.json({ message: "all good homie" });
 });
 
-server.use("/api/notes", notesRouter);
+server.use("/api/notes", authenticate, notesRouter);
 
 server.use("/api/user", userRouter);
 
