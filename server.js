@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+const port = process.env.PORT || 3333;
 const server = express();
 server.use(cors({}));
 server.use(bodyParser.json());
@@ -10,7 +10,7 @@ server.get('/', (req, res) => {
     res.json({Message: 'Hello World'});
 });
 
-server.listen(3333, err => {
+server.listen(port, err => {
     if(err) console.log(err);
-    console.log('The magic is happening 3333');
+    console.log(`The magic is happening ${port}`);
 });
