@@ -1,0 +1,9 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:abrambueno1992/back-end-project-week.git",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}
