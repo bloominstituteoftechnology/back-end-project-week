@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/ilhoKim/back-end-project-week/issues"
   },
-  "homepage": "https://github.com/ilhoKim/back-end-project-week#readme"
+  "homepage": "https://github.com/ilhoKim/back-end-project-week#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
 }
