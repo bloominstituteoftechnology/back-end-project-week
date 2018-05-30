@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-
+const port = process.env.PORT || 3333;
 const server = express();
 
 // middleware
@@ -12,7 +12,7 @@ server.get("/", (req, res) => {
 	res.json({ Message: "Hello there friend" });
 });
 
-server.listen(3000, err => {
+server.listen(port, err => {
 	if (err) console.log(err);
 	console.log("\n === Server listening on port 3000 === \n");
 });
