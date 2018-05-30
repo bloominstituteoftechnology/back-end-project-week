@@ -45,7 +45,12 @@ mongoose
     console.log("Something went wrong with DB");
   });
 
-server.use("/api/notes", notesRouter);
+const isLoggedIn = (req, res, next) => {
+  if (!req.session.auth) res.status(422).json("You are not logged in");
+  else if (req.session._id) next();
+};
+
+server.use("/api/notes", isLoggedIn, notesRouter);
 server.use("/api/users", usersRouter);
 
 server.get("/", (req, res) => res.send("API Running...!"));

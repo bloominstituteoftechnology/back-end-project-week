@@ -49,9 +49,9 @@ UserSchema.statics.authenticate = function(user, password, callback) {
   });
 };
 
-// UserSchema.methods.addNote = function(note_id) {
-//   this.notes.push(note_id);
-// };
+UserSchema.methods.addNote = function(note_id) {
+  this.notes.push(note_id);
+};
 
 const User = mongoose.model("User", UserSchema);
 
