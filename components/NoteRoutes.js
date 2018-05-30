@@ -27,6 +27,12 @@ module.exports = server => {
             res.status(200).json(updated)
         ).catch(err => res.status(500).send(err));
     });
+    server.delete('/deletenote/:id', (req, res) => {
+        const { id } = req.params;
+        Note.findByIdAndRemove(id).then(
+            res.status(200).send(deleted)
+        ).catch(err => res.status(500).send(err));
+    });
     // server.post('/login', (req,res) => {
     //     const { username, password } = req.body;
     //     User.findOne({ username }).then(user => {
