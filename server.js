@@ -4,9 +4,12 @@ const mongoose = require('mongoose');
 const notesRouter =require('./Notes/notesRouter')
 const Note = require('./Notes/notes')
 
+const corsOptions = {
+    origin: 'https://notejll.netlify.com',
+    optionsSuccessStatus: 200 
+  }
 
-
-const server = express();
+const server = express(corsOptions);
 server.use(cors({origin:'https://notejll.netlify.com/'}))
 
 // var whitelist = ['https://notejll.netlify.com/']
