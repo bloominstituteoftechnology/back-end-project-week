@@ -14,6 +14,10 @@ const createNote = async function (req, res) {
 };
 
 const listNotes = async function (req, res) {
+    const { _id } = req.params;
+    
+    if (!_id) return res.status(422).json({ error: 'No id' });
+
     try {
         const allNotes = await Note.find({
             author: _id,
@@ -29,6 +33,7 @@ const editNote = async function (req, res) {
     const { _id, title, body } = req.body;
 
     if (!_id || !title || !body) return res.status(422).json({ error: 'Needs _id, title, and body.' });
+
     try {
         const updatedNote = {
             title,
@@ -46,6 +51,7 @@ const editNote = async function (req, res) {
 
 const deleteNote = async function (req, res) {
     const { _id } = req.params;
+
     try {
         const noteToDelete = await Note.findById(_id);
         if (!noteToDelete) return res.status(422).json({ error: 'No note with that ID found' });
