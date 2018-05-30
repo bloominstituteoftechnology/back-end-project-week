@@ -22,8 +22,9 @@ const GET_ID = (req, res) => {
 
 const POST = async (req, res) => {
   const { username, id } = req.decoded;
+  const { title, content, tags } = req.body;
   const user = await User.findById(id)
-  const newNote = { title: req.body.title, content: req.body.content, postedBy: id }
+  const newNote = { title: title, content: content, tags: tags, postedBy: id }
   Note
     .create(newNote)
     .then(note => res.status(201).json(note))
