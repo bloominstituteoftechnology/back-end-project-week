@@ -1,8 +1,11 @@
 TRELLO URL
 https://trello.com/b/rrf2kKMr
 
-Heroku password:
-LambdaSchoolCS9!
+Heroku username/password:
+ajf412/LambdaSchoolCS9!
+
+mlabs username/password:
+ajf412/LambdaSchoolCS9!
 
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
