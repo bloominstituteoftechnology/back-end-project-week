@@ -7,17 +7,17 @@ const Note = require('./Notes/notes')
 
 
 const server = express();
-
-var whitelist = ['https://notejll.netlify.com/']
-server.use(cors({
-    origin: function (origin, callback) {
-      if (whitelist.indexOf(origin) !== -1) {
-        callback(null, true)
-      } else {
-        callback(new Error('Not allowed by CORS'))
-      }
-    }
-  }));
+server.use(cors())
+// var whitelist = ['https://notejll.netlify.com/']
+// server.use(cors({
+//     origin: function (origin, callback) {
+//       if (whitelist.indexOf(origin) !== -1) {
+//         callback(null, true)
+//       } else {
+//         callback(new Error('Not allowed by CORS'))
+//       }
+//     }
+//   }));
 server.use(express.json());
 server.use('/notes', notesRouter)
 
