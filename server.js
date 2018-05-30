@@ -12,7 +12,7 @@ mongoose
     console.log('Error connecting to the database', err);
   });
 
-const port = process.env.PORT || 3333;
+
 const server = express();
 server.use(cors({}));
 server.use(bodyParser.json());
@@ -21,6 +21,7 @@ server.get('/', (req, res) => {
   res.json({ Message: 'Hello World' });
 });
 
+const port = process.env.PORT || 3333;
 server.listen(port, err => {
   if(err) console.log(err);
   console.log(`API connected on ${port}`);
