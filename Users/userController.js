@@ -12,13 +12,17 @@ const secret = "something very random";
 router.get("/", authenticate, (req, res) => {
   let query = User.find();
 
-  query
-    .then(users => {
-      res.status(200).json(users);
-    })
-    .catch(err => {
-      res.status(500).json(err);
-    });
+  if (req.decoded) {
+    query
+      .then(users => {
+        res.status(200).json(users);
+      })
+      .catch(err => {
+        res.status(500).json(err);
+      });
+  } else {
+    return res.status(422).json({ error: `Can't get these jokes!` });
+  }
 });
 
 router.get("/bypass", (req, res) => {
@@ -53,6 +57,34 @@ router.post("/register", (req, res) => {
       username: user.username
     });
     res.json({ token });
+  });
+});
+
+router.post("/login", (req, res) => {
+  const { username, password } = req.body;
+  User.findOne({ username }, (err, user) => {
+    if (err) {
+      res.status(403).json({ error: "Invalid Username/Password" });
+      return;
+    }
+    if (user === null) {
+      res.status(422).json({ error: "No user with that username in our DB" });
+      return;
+    }
+    user.checkPassword(password, (nonMatch, hashMatch) => {
+      // This is an example of using our User.method from our model.
+      if (nonMatch !== null) {
+        res.status(422).json({ error: "passwords dont match" });
+        return;
+      }
+      if (hashMatch) {
+        const payload = {
+          username: user.username
+        }; // what will determine our payload.
+        const token = jwt.sign(payload, secret); // creates our JWT with a secret and a payload and a hash.
+        res.json({ token }); // sends the token back to the client
+      }
+    });
   });
 });
 
