@@ -1,12 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+require('dotenv').config();
+
 
 const Note = require('./notes/Note');
 
 const server = express();
 
-const mongoDB = `mongodb://localhost/lambdanotes`;
+const mongoDB = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@ds139920.mlab.com:39920/lambdanotes`;
 const port = process.env.PORT || 3001;
 
 // Connect to mongo
