@@ -1,6 +1,9 @@
-let config = { 
-    username: "admin", 
-    password: "admin" 
+let config = {
+    mongo: {
+        username: "admin",
+        password: "admin"
+    },
+    secret: "notSoSecret"
 };
-const secret = 'I used to have llamas!';
-module.exports = { config, secret};
+
+module.exports = config;

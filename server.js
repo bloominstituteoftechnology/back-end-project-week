@@ -2,11 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors'); 
 const helmet = require('helmet');
-const config = require("./config.js");
 const mongoose = require("mongoose");
+const APIroutes = require('./api/routes');
+const server = express();
+APIroutes(server);
 
-
-const server = express(); 
+ 
 
 // const noteController = require("./controllers/noteController");
 
@@ -21,9 +22,7 @@ server.use(helmet());
 //     res.json({Message: "Up and at'um!"});
 // });
 
-const routes = require('./api/routes/index');
 
-routes(server);
 
 
 

@@ -3,6 +3,8 @@ const router = express.Router();
 
 const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
+// const config = require('../config');
+// const { authenticate } = require("../utilities/middleware");
 
 const Get = (req, res) => {
   User

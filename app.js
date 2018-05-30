@@ -1,13 +1,11 @@
 const server = require("./server");
 const mongoose = require("mongoose");
+const config = require("./config.js");
 
-mongoose.Promise = global.Promise;
+ mongoose.Promise = global.Promise;
+let url = `mongodb://Nschennum:Nschennum1@ds239930.mlab.com:39930/users_notes`;
 mongoose
-  .connect(
-    `mongodb://${config.username}:${
-      config.password
-    }@ds239930.mlab.com:39930/users_notes`
-  )
+  .connect(url)
   .then(() => {
     console.log("connected to db");
   })
