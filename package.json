@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "jest --watch --verbose",
+    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "start": ". ./startup.sh"
   },
   "repository": {

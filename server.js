@@ -27,6 +27,11 @@ const errorLog = (err, req, res, next) => {
   res.status(500).json(err.message);
 }
 
+server.post('/api/notes', asyncHandler(async (req, res) => {
+  const response = await Note.create(req.body)
+  res.status(201).json(response);
+}));
+
 server.get('/api/notes', asyncHandler(async (req, res) => {
   const response = await Note.find()
   res.status(200).json(response);
@@ -36,11 +41,6 @@ server.get('/api/notes/:id', asyncHandler(async (req, res) => {
   const response = await Note.findById(req.params.id)
     || `Note with id ${req.params.id} not found`;
   res.status(200).json(response);
-}));
-
-server.post('/api/notes', asyncHandler(async (req, res) => {
-  const response = await Note.create(req.body)
-  res.status(201).json(response);
 }));
 
 server.put('/api/notes/:id', asyncHandler(async (req, res) => {
