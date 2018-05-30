@@ -6,7 +6,8 @@ const express = require('express');
 // const helmet = resquire('helmet');
 const mongoose = require('mongoose');
 const server = express();
-const cors = require('cors');
+// const cors = require('cors');
+const port = process.env.PORT || 5000;
 
 // const routes = require('./routes/routes');
 
@@ -24,7 +25,7 @@ mongoose
   .then(() => console.log('Connected to Mongo'))
   .catch((err) => console.log(err))
 
-const port = process.env.PORT || 5000;
+
 
 server.listen(port, err => {
   if (err) console.log(err);
