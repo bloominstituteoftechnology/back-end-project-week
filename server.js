@@ -10,7 +10,7 @@ const corsOptions = {
   }
 
 const server = express();
-server.use(cors(corsOptions}))
+server.use(cors(corsOptions))
 
 // var whitelist = ['https://notejll.netlify.com/']
 // server.use(cors({
