@@ -75,8 +75,30 @@ router
         });
 })
 
+// Delete an existing note
+.delete('/:id', (req, res) => {
+    const { id } = req.params;
 
-
+    Note
+        .findById(id)
+        .then(note => {
+            if(!Note) {
+                res.status(404).json({ message: 'The Note was not found' });
+            } else {
+                Note
+                    .remove(note)
+                    .then(response => {
+                        res.status(200).json(response)
+                    })
+                    .catch(err => {
+                        res.status(500).json({ message: 'Failed to delete the Note. Sorry! '})
+                    });
+            }
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        })
+})
 
 module.exports = router;
 
