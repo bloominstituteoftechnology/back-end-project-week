@@ -44,19 +44,15 @@ router
         res.status(422).json({ error: "Invalid Credentials" });
         return;
       }
-      user.checkPassword(password, (nonMatch, hashMatch) => {
-        if (nonMatch !== null) {
-          res.status(422).json({ error: "Invalid Credentials" });
-          return;
-        }
-        if (hashMatch) {
-          const payload = {
-            username: user.username
-          }; // what will determine our payload.
-          const token = jwt.sign(payload, config.secret); // creates our JWT with a secret and a payload and a hash.
-          res.json({ token }); // sends the token back to the client
-        }
-      });
+      const verified = user.validatePassword(password);
+
+      if (verified) {
+        const payload = {
+          username: user.username
+        };
+        const token = jwt.sign(payload, config.secret);
+        res.json({ token });
+      } else res.send("Not verified");
     });
   })
   .post("/signup", (req, res) => {
