@@ -78,6 +78,7 @@ router
         return;
     });
     res.send(newNote);
+    return;
 })
 
 
