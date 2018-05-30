@@ -30,13 +30,23 @@ router.route('/:id')
 .delete((req, res) => {
     const id = req.params.id;
     if (! Note.findById(id)) {
-        res.status(404).json({ Msg: 'HELP' })
+        res.status(404).json({ Msg: 'Error' })
     }
     Note.findByIdAndRemove(id)
         .then(note => res.status(201).json(note))
         .catch(err => res.status(500).json({ errorMsg: 'Sorry - There Was An Error Deleting This Note By ID' }))
 })
 
-
+//PUT NOTES BY ID - Postman Test ok! http://localhost:8008/notes/5b0f1a1210124b170c2ff2fc (successfully updated 'Test 0' by ID)
+.put((req, res) => {
+    const id = req.params.id;
+    const {title, content} = req.body;
+    if (! Note.findById(id)) {
+        res.status(404).json({ Msg: 'Error' })
+    }
+    Note.findByIdAndUpdate(id, req.body)
+        .then(add => res.status(201).json(add))
+        .catch(err => res.status(500).json({ errorMsg: 'Sorry - There Was An Error Updating Your Note' }));
+})
 
 module.exports = router;
