@@ -1,7 +1,7 @@
 {
   "name": "back-end-project-week",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "engines": {
     "node": "8.9.4"
   },
@@ -9,7 +9,7 @@
   "author": "Kaitlyn Flynn <kaitlynflynn@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node app.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "bcrypt": "^2.0.1",
