@@ -30,7 +30,8 @@ server.use('/notes', noteRouter);
 server.use('/users', userRouter);
 
 server.get('/', (req, res) => {
-  res.status(200).json('api is running');
+  //res.status(200).json('api is running');
+  res.send('api is runnnnnning')
 });
 
 const port = process.env.PORT || 5000;
