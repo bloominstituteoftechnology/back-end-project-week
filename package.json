@@ -4,7 +4,7 @@
   "description": "https://trello.com/b/qSRlFPa9/lambda-notesbackend-mark-wong",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --watch --verbose",
     "start": ". ./startup.sh"
   },
   "repository": {
@@ -24,5 +24,10 @@
     "helmet": "^3.12.1",
     "mongoose": "^5.1.2",
     "nodemon": "^1.17.5"
+  },
+  "devDependencies": {
+    "faker": "^4.1.0",
+    "jest": "^23.0.1",
+    "supertest": "^3.1.0"
   }
 }

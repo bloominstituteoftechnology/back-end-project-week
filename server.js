@@ -11,13 +11,15 @@ server.use(express.json());
 server.use(cors());
 server.use(helmet());
 
-const port = process.env.PORT || 5000;
-server.listen(port, () => console.log(`\n server listening on port ${port}`));
+if (process.env.NODE_ENV !== 'test') {
+  const port = process.env.PORT || 5000;
+  server.listen(port, () => console.log(`\n server listening on port ${port}`));
 
-const { DB_HOST, DB_USER, DB_PASS } = process.env;
-mongoose.connect(`mongodb://${DB_USER}:${DB_PASS}@${DB_HOST}/lambdanotes`)
-  .then(mongo => console.log('connected to database'))
-  .catch(err => console.log(err));
+  const { DB_HOST, DB_USER, DB_PASS } = process.env;
+  mongoose.connect(`mongodb://${DB_USER}:${DB_PASS}@${DB_HOST}/lambdanotes`)
+    .then(mongo => console.log('connected to database'))
+    .catch(err => console.log(err));
+}
 
 const asyncHandler = fn => (req, res, next) => fn(req, res, next).catch(next);
 const errorLog = (err, req, res, next) => {
@@ -38,7 +40,7 @@ server.get('/api/notes/:id', asyncHandler(async (req, res) => {
 
 server.post('/api/notes', asyncHandler(async (req, res) => {
   const response = await Note.create(req.body)
-  res.status(200).json(response);
+  res.status(201).json(response);
 }));
 
 server.put('/api/notes/:id', asyncHandler(async (req, res) => {
@@ -55,3 +57,5 @@ server.delete('/api/notes/:id', asyncHandler(async (req, res) => {
 
 // needs to be last: https://expressjs.com/en/guide/error-handling.html
 server.use(errorLog);
+
+module.exports = server;
