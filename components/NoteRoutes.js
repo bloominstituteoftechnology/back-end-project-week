@@ -21,7 +21,7 @@ module.exports = server => {
     });
     server.put('/editnote/:id', (req, res) => {
         const { id } = req.params;
-        const { title, body } = req.params;
+        const { title, body } = req.body;
         const updated = { title: title, body: body }
         Note.findByIdAndUpdate(id, updated).then(
             res.status(200).json(updated)
