@@ -61,7 +61,7 @@ router
             res.status(404).json({ message: 'The note with the specified ID was not found. Sorry!' });
         } else {
             Note
-                .update()
+                .update(note, newNote)
                 .then(updatedNote => {
                     res.status(200).json(updatedNote);
                 })
