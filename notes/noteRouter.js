@@ -1,11 +1,23 @@
 const express = require('express');
+const noteController = require('./noteController');
 
-const router = express.router();
+const noteRouter = express.router();
+const {
+  getNotes,
+  createNotes,
+  viewNote,
+  editNote,
+  deleteNote
+} = noteController;
 
-// router.get('/', (req, res => {}));
+noteRouter.get('/', getNotes); // get list of notes
 
-// router.post('/', (req, res) => {});
+noteRouter.post('/', createNotes); // create a new note with title and content
 
-// router.put('/:id', (req, res) => {});
+noteRouter.get('/:id', viewNote); // view existing note // findbyid
 
-// router.delete('/:id', (req, res) => {});
+noteRouter.put('/:id', editNote); // edit existing note
+
+noteRouter.delete('/:id', deleteNote); // delete existing note
+
+export default noteRouter;
