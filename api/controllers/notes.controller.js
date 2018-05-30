@@ -33,10 +33,27 @@ const POST = async (req, res) => {
 
 const PUT = (req, res) => {
   const { id } = req.params;
+  const { title, content, tags } = req.body;
+    
   Note
-    .findByIdAndUpdate(id, req.body, { new: true })
-    .then(updated => res.status(200).json(updated))
-    .catch(err => res.status(500).json({ error: 'cannot update note at this time' }))
+    .findById(id)
+    .then(note => {
+      if (!title && !content && tags) { 
+        note
+          .update({ tags: note.tags.concat(tags) }) 
+          .then(updated => res.status(200).json(updated))
+          .catch(err => res.status(500).json({ error: 'hmm something\'s wrong with tags' }))
+      } else {
+        note
+          .update(req.body)
+          .then(updated => res.status(200).json(updated))
+          .catch(err => res.status(500).json({ error: 'error updating note without tags' }))
+      }
+    }).catch(err => res.status(500).json({ error: 'oh no, this is bad' }))
+  // Note
+  //   .findByIdAndUpdate(id, req.body, { new: true })
+  //   .then(updated => res.status(200).json(updated))
+  //   .catch(err => res.status(500).json({ error: 'cannot update note at this time' }))
 }
 
 const DELETE = (req, res) => {
