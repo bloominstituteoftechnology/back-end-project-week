@@ -15,8 +15,7 @@ if (process.env.NODE_ENV !== 'test') {
   const port = process.env.PORT || 5000;
   server.listen(port, () => console.log(`\n server listening on port ${port}`));
 
-  const { DB_HOST, DB_USER, DB_PASS } = process.env;
-  mongoose.connect(`mongodb://${DB_USER}:${DB_PASS}@${DB_HOST}/lambdanotes`)
+  mongoose.connect(`mongodb://${process.env.MONGO_DB_URI}`)
     .then(mongo => console.log('connected to database'))
     .catch(err => console.log(err));
 }

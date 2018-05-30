@@ -42,7 +42,7 @@ describe('Notes', () => {
       .then(() => console.log('\n=== disconnected from TEST DB ==='));
   });
 
-  // this test needs to be first
+  // this test needs to be first (because the other tests change data)
   describe('GET /api/notes', () => {
     it('should get list of all notes', async () => {
 
