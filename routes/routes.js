@@ -22,7 +22,7 @@ router
 .get('/:id', (req, res) => {
     const { id } = req.params;
 
-    notes 
+    Note 
     .findById(id)
     .then(note => {
         if(!note) {
