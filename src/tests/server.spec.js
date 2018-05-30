@@ -3,6 +3,7 @@ const server = require('../server/server')
 const request = require('supertest')(server)
 const User = require('../models/User')
 const { userName, password } = require('faker').internet
+const { getSessionToken } = require('../server/util')
 const { mongoUri, mongoOptions } = require('../server/config')
 
 describe('API server', () => {
@@ -37,6 +38,26 @@ describe('API server', () => {
       const response = await request.post('/api/user/login').send(userData)
       expect(response.status).toBe(200)
       expect(response.body.token).toBeDefined()
+    })
+  })
+
+  describe('Note routes', () => {
+    let token
+    beforeAll(() => {
+      return User.create({ username: userName(), password: password() })
+        .then(user => token = getSessionToken(user))
+    })
+
+    it('Allows access to requests with a valid token', async () => {
+      const response = await request.get('/api/note/').set('token', token)
+      expect(response.status).toBe(200)
+    })
+
+    it('Denies access to requests with a missing or invalid token', async () => {
+      let missingResponse = await request.get('/api/note/')
+      let invalidResponse = await request.get('/api/note/').set('token', 'invalid')
+      expect(missingResponse.status).toBe(400)
+      expect(invalidResponse.status).toBe(404)
     })
   })
 })
