@@ -33,8 +33,7 @@ userSchema.statics.login = async function (userData) {
   const valid = await bcrypt.compare(userData.password, user.password)
 
   if (valid) {
-    user.session = Date.now()
-    user = await user.save()
+    user.update({ session: Date.now() })
     return user
   } else {
     return null
