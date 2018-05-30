@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const port = process.env.port || 5000;
+const port = process.env.PORT || 5000;
 
 const server = express();
 
@@ -8,7 +8,7 @@ server.use(express.json());
 server.use(cors());
 
 server.get('/', (req, res) => {
-  res.json({ message: `The api is running on port ${port}`});
+  res.json({ message: `The API is running on port ${port}.`});
 });
 
 server.listen(port, err => {
