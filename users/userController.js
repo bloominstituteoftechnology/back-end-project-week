@@ -31,7 +31,8 @@ router
       .catch(error => {
         res.status(500).json({ message: "The user could not be removed" }, err);
       });
-  })
+  });
+router
   .post("/login", (req, res) => {
     const { username, password } = req.body;
     User.findOne({ username }, (err, user) => {
