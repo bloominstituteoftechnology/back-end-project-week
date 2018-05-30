@@ -17,4 +17,13 @@ router.route('/')
         .catch(err => res.status(500).json({ errorMsg: 'Sorry - There Was An Error Retrieving Your Notes' }))
 })
 
+//GET NOTES BY ID
+router.route('/:id')
+.get((req, res) => {
+    const {id} = req.params;
+    Note.findById(id)
+        .then(note => res.status(200).json(note))
+        .catch(err => res.status(500).json({ errorMsg: 'Sorry - There Was An Error Retrieving This Note By ID' }))
+})
+
 module.exports = router;
