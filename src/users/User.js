@@ -31,4 +31,4 @@ UserSchema.methods.checkPassword = function(enteredPsw, cb) {
   });
 };
 
-module.exports = mongoose.model('Note', NoteSchema);
+module.exports = mongoose.model('User', UserSchema);

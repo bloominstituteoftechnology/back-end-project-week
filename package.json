@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/sagdish/back-end-project-week/issues"
   },
-  "homepage": "https://github.com/sagdish/back-end-project-week#readme"
+  "homepage": "https://github.com/sagdish/back-end-project-week#readme",
+  "dependencies": {
+    "bcrypt": "^2.0.1",
+    "express": "^4.16.3",
+    "helmet": "^3.12.1",
+    "mongoose": "^5.1.3"
+  }
 }
