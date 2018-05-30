@@ -11,4 +11,8 @@ server.get('/', (req, res) => {
 })
 
 
-server.listen(port, () => console.log('connected to ' + port))
+server.listen(port, (err) => {
+    if(err) console.log(err);
+
+    console.log('connected to ' + port);
+})
