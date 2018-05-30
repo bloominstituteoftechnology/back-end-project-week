@@ -2,9 +2,10 @@ const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const User = require("./userModel");
 const config = require("../config");
+const { authenticate } = require("../middlewares/middlewares");
 
 router
-  .get("/", (req, res) => {
+  .get("/", authenticate, (req, res) => {
     User.find()
       .select("-password")
       .then(users => {
