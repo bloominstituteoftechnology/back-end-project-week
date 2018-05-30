@@ -15,7 +15,7 @@ const server = express(); // connect server to express
 mongoose
 .connect('mongodb://anthony:t0nyj0n4!@ds016058.mlab.com:16058/backend-notes', { useMongoClient: true })
 .then(mongo => {
-    console.log('Properly connected to the notes DB. Well done!')
+    console.log('Properly connected to the notes DB. Well done!');
 })
 .catch(err => {
     console.log(err)
@@ -32,7 +32,7 @@ server.use('/api/users', userRouter); // use user Router
 
 // API Request Endpoints
 server.get('/', (req, res) => {
-    res.status(200).json({ api: 'running' });
+    res.status(200).json({ api: 'it works!' });
 });
 
 
