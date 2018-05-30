@@ -45,7 +45,7 @@ placeholder="Note body Here"
 onChange={this.handleTextInput}
 
 />
-<Link to="/" onClick={() => this.newUpdate()}><button className="d-flex mt-3 col-2 justify-content-center tealButton" type="submit">Update</button></Link>
+<Link onClick={() => this.newUpdate()} to={"/"}><button className="d-flex mt-3 col-2 justify-content-center tealButton" type="submit">Update</button></Link>
 
     </div>
         )}

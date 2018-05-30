@@ -15,12 +15,13 @@ class Here extends Component {
         notes: [],
      body: '',
      title: '',
-     modal: false
+     modal: false,
+     id: this.props.location.state.currentNote._id
     }
   }
-//   componentDidMount() {
-//     this.getFriends();
-//   }
+  componentDidMount() {
+    let NoteId = this.props.location.state.currentNote._id;
+}
 //   getFriends = () => {
 //     axios
 //       .get(`http://localhost:5000/notes`)
@@ -35,6 +36,7 @@ toggleModal = () => {
     this.setState({
         modal: !this.state.modal
     });
+    console.log(this.props.location.state.currentNote._id)
 }
 
 
@@ -52,7 +54,7 @@ toggleModal = () => {
        <ModalBody>
            Do you wish to delete this note?
            <div className="d-flex mt-3">
-           <Link to='/' onClick={() => this.props.deleteNote(this.props.location.state.currentNote._id)}> 
+           <Link onClick={() => this.props.deleteNote(this.props.match.params.id)} to='/'> 
            <button className="redButton" > Yes </button></Link>
             <button className="ml-3 tealButton" onClick={() => this.toggleModal()}> No</button>
             </div>
