@@ -47,6 +47,8 @@ router.get("/:note", (req, res) => {
   Note.findById(noteId)
     .then(note => {
       if (!note) res.status(404).json("Note not found");
+      else if (!(req.session._id == note.user_id))
+        res.status(422).json("You are not authorized to view this note");
       else res.status(200).json(note);
     })
     .catch(error => {
@@ -58,7 +60,9 @@ router.put("/:note", (req, res) => {
   const noteId = req.params.note;
   Note.findById(noteId)
     .then(found => {
-      if (!(req.session._id == found.user_id)) {
+      if (!found) {
+        res.status(404).json("Note not found");
+      } else if (!(req.session._id == found.user_id)) {
         res.status(422).json("You are not authorized");
       } else {
         if (!req.body.title.length || !req.body.content.length) {
@@ -71,13 +75,39 @@ router.put("/:note", (req, res) => {
               console.log("Update successful");
             })
             .catch(error => {
-              res.status(500).json(error);
+              res.status(500).json(error.message);
             });
         }
       }
     })
     .catch(error => {
-      res.status(500).json(error);
+      res.status(500).json(error.message);
+    });
+});
+
+router.delete("/:note", (req, res) => {
+  const noteId = req.params.note;
+  Note.findById(noteId)
+    .then(found => {
+      if (!found) {
+        res.status(404).json("Note not found");
+      } else if (!(req.session._id == found.user_id)) {
+        res.status(422).json("You are not authorized");
+      } else {
+        found
+          .remove()
+          .then(removed => {
+            res
+              .status(200)
+              .json({ message: `Note with ${noteId} has been removed` });
+          })
+          .catch(error => {
+            res.status(500).json(error.message);
+          });
+      }
+    })
+    .catch(error => {
+      res.status(500).json(error.message);
     });
 });
 
