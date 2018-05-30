@@ -1,4 +1,4 @@
-const mysecret = "super super super secret code";
+const secret = "it's a secret";
 module.exports = {
-  mysecret
+  secret
 };

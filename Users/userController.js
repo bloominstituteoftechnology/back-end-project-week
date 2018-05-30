@@ -21,6 +21,14 @@ router.get("/", authenticate, (req, res) => {
     });
 });
 
+router.get("/bypass", (req, res) => {
+  User.find()
+    .then(users => {
+      res.json(users);
+    })
+    .catch(err => res.json(err));
+});
+
 // GET with ID
 router.get("/:id", (req, res) => {
   const { id } = req.params;
@@ -36,8 +44,8 @@ router.get("/:id", (req, res) => {
 
 // post
 router.post("/register", (req, res) => {
-  const { username, password } = req.body;
-  const user = new User({ username, password });
+  const { username, password, email } = req.body;
+  const user = new User({ username, password, email });
 
   user.save((err, user) => {
     if (err) return res.send(err);
