@@ -11,13 +11,13 @@ const port = process.env.PORT || 5000;
 
 // const routes = require('./routes/routes');
 
-const corsOptions = {
-  origin: 'https://amanda-lambdanotes.netlify.com',
-  credentials: true
-};
+// const corsOptions = {
+//   origin: 'https://amanda-lambdanotes.netlify.com',
+//   credentials: true
+// };
 
 server.use(express.json());
-server.use(cors(corsOptions));
+server.use(cors());
 
 const uri = 'mongodb://amanda:amanda@ds133550.mlab.com:33550/lambdanotes-backend'
 mongoose
