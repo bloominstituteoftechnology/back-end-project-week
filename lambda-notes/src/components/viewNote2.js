@@ -38,7 +38,17 @@ toggleModal = () => {
     });
     console.log(this.props.location.state.currentNote._id)
 }
-
+bob = async (id) => {
+    axios
+    .delete(`https://lambda-notes-brandon.herokuapp.com/notes/${id}`)
+    .then(response => {
+        this.props.history.push('/');
+        // console.log('what')
+    })
+    .catch(err => {
+      console.log(err);
+    });
+    }
 
 
     render() {
@@ -54,8 +64,9 @@ toggleModal = () => {
        <ModalBody>
            Do you wish to delete this note?
            <div className="d-flex mt-3">
-           <Link onClick={() => this.props.deleteNote(this.props.match.params.id)} to='/'> 
-           <button className="redButton" > Yes </button></Link>
+           {/* <Link onClick={ async () => await this.props.deleteNote(this.props.match.params.id)} to='/'>  */}
+           <button className="redButton" onClick={() => this.bob(this.props.location.state.currentNote._id)} > Yes </button>
+           {/* </Link> */}
             <button className="ml-3 tealButton" onClick={() => this.toggleModal()}> No</button>
             </div>
             </ModalBody>
