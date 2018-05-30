@@ -9,7 +9,7 @@ const cors = require('cors');
 
 // Components
 const noteController = require('./notes/noteController');
-const User = require('./users/UserModel');
+const User = require('./users/userModel');
 
 // Connect to the database
 mongoose
