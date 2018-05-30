@@ -13,6 +13,12 @@ module.exports = server => {
             res.status(200).json(notes);
         }).catch(err => res.status(500).json(err));
     });
+    server.get('/viewnote:id', (req, res) => {
+        const { id } = req.params;
+        Note.findById(id).then(note => {
+            res.status(200).json(note);
+        }).catch(err => res.status(500).json(err));
+    });
     // server.post('/login', (req,res) => {
     //     const { username, password } = req.body;
     //     User.findOne({ username }).then(user => {
