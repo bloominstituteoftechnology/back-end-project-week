@@ -30,7 +30,7 @@ module.exports = server => {
     server.delete('/deletenote/:id', (req, res) => {
         const { id } = req.params;
         Note.findByIdAndRemove(id).then(
-            res.status(200).send(deleted)
+            res.status(200).send('deleted')
         ).catch(err => res.status(500).send(err));
     });
     // server.post('/login', (req,res) => {
