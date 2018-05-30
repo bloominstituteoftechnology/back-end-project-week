@@ -13,7 +13,7 @@ const server = express(); // connect server to express
 
 // Connect to DB
 mongoose
-.connect('mongodb://localhost/notesDB', { useMongoClient: true })
+.connect('mongodb://anthony:t0nyj0n4!@ds016058.mlab.com:16058/backend-notes', { useMongoClient: true })
 .then(mongo => {
     console.log('Properly connected to the notes DB. Well done!')
 })
