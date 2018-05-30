@@ -5,9 +5,7 @@
   "repository": "https://github.com/JacobLeonLyerla/back-end-project-week.git",
   "author": "Jacob Leon Lyerla <umasour@yahoo.com>",
   "license": "MIT",
-  "scripts": {
-    "start": "nodemon server.js"
-  },
+ 
   "dependencies": {
     "cors": "^2.8.4",
     "express": "^4.16.3",
