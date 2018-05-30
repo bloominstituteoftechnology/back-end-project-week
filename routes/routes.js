@@ -69,9 +69,6 @@ router
                     res.status(500).json({ message: 'The note failed to update. Sorry!' });
                 });
         }
-    })
-    .catch(err => {
-        res.status(500).json(err);
     });
     res.send(newNote);
 })
