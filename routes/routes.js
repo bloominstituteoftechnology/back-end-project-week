@@ -14,6 +14,7 @@ router
         res.status(500).json(err);
     });
 })
+
 .get('/:id', (req, res) => { // get a single id from the database
     const { id } = req.params;
 
@@ -30,6 +31,20 @@ router
         res.status(500).json(err);
     });
 })
+
+.get('/', (req, res) => {
+    const note = new Note(req.body);
+    note
+    .save()
+    .then(note => {
+        res.status(200).json(note);
+    })
+    .catch(err => {
+        res.status(500).json(err);
+    });
+})
+
+
 
 module.exports = router;
 
