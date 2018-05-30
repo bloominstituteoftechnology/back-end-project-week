@@ -5,7 +5,7 @@ const notesRouter =require('./Notes/notesRouter')
 const Note = require('./Notes/notes')
 
 const corsOptions = {
-    origin: 'https://notejll.netlify.com/',
+    origin: 'https://notejll.netlify.com',
     optionsSuccessStatus: 200 
   }
 
