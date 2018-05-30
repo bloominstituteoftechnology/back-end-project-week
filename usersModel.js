@@ -31,7 +31,7 @@ usersSchema.pre('save', function (next) {
 })
 
 usersSchema.methods.checkPassWord = function (guestPassWord) {
-  return bcrypt.compare(this.password, guestPassWord);
+  return bcrypt.compare(guestPassWord, this.password);
 }
 
 

@@ -20,7 +20,8 @@ const lambdaNotesRoute = require('./lambdaNotesRoute.js');
 server.use('/notes', lambdaNotesRoute);
 const usersRoute = require('./usersRoute.js');
 server.use('/users', usersRoute);
-
+const loginRoute = require('./loginRoute.js');
+server.use('/login', loginRoute);
 
 server.listen(port, () => {
   console.log(`\n=== server is running on ${port} ==`)

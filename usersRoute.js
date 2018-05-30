@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const User = require('./usersModel.js')
+const User = require('./usersModel.js');
+const { makeToken } = require('./makeTokenMWR.js')
 
 router.get('/', (req, res) => {
   User
@@ -18,7 +19,8 @@ router.post('/', (req, res) => {
   newUser
     .save()
     .then(p => {
-      res.status(200).json({ msg: 'user  posted successfully', p })
+      const token = makeToken(p)
+      res.status(200).json({ msg: 'user  posted successfully', p, token })
     })
     .catch(err => {
       res.status(200).json({ msg: '... not able to post your user' })
