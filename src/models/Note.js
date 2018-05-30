@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-const _id = mongoose.SchemaTypes.ObjectId
+const User = require('./User')
+const _id = mongoose.Schema.Types.ObjectId
 
 const noteSchema = mongoose.Schema({
   title: {
