@@ -37,11 +37,11 @@ router
     const { username, password } = req.body;
     User.findOne({ username }, (err, user) => {
       if (err) {
-        res.status(403).json({ error: "Couldn't process that" });
+        res.status(403).json({ error: "There was an error." });
         return;
       }
       if (user === null) {
-        res.status(422).json({ error: "Invalid Credentials" });
+        res.status(422).json({ error: "Invalid Credentials." });
         return;
       }
       const verified = user.validatePassword(password);
@@ -52,7 +52,7 @@ router
         };
         const token = jwt.sign(payload, config.secret);
         res.json({ token });
-      } else res.send("Not verified");
+      } else res.send("Invalid Credentials.");
     });
   })
   .post("/signup", (req, res) => {
@@ -70,8 +70,8 @@ router
       .then(user => {
         const payload = {
           username: user.username
-        }; // what will determine our payload.
-        const token = jwt.sign(payload, config.secret); // creates our JWT with a secret and a payload and a hash.
+        };
+        const token = jwt.sign(payload, config.secret);
         res.status(201).json({ user, token });
       })
       .catch(err => {
