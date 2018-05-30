@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8080;
 
 const routes = require('./api/routes/index');
 
@@ -25,8 +25,8 @@ mongoose.connect('mongodb://localhost/lambda-notes', {}, err => {
     console.log('Connected to database');
 });
 
-server.listen(port, () => {
-    console.log('Server listening on port ${port}');
-});
+server.listen(PORT, () => {
+    console.log('Server is up')
+  });
 
 module.exports = server;
