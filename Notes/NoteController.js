@@ -19,7 +19,7 @@ const NoteController = {
       newNote
         .save()
         .then(response => {
-          res.status(201).json({ note: resposne });
+          res.status(201).json({ note: response });
         })
         .catch(err => {
           res.status(500).json({ error: 'Error created new note', err });
