@@ -18,7 +18,7 @@ class Update extends Component {
         const edited ={
             title: this.state.title,
             body: this.state.body,
-            id: this.props.location.state.currentNote.id
+            _id: this.props.location.state.currentNote._id
         }
         this.props.editNotes(edited);
     }

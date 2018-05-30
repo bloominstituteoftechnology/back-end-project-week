@@ -43,7 +43,7 @@ toggleModal = () => {
         return(
             <div className="col-9 float-right pt-5 text-left">
             <div className="col-12 d-flex flex-row justify-content-end">
-       <Link to={{pathname: `/editnote/${this.props.location.state.currentNote.id}`, state: { currentNote: this.props.location.state.currentNote}}}>
+       <Link to={{pathname: `/editnote/${this.props.location.state.currentNote._id}`, state: { currentNote: this.props.location.state.currentNote}}}>
        <button >Edit</button>
        </Link>
        <button onClick={() => this.toggleModal()}>Delete</button>
@@ -52,7 +52,7 @@ toggleModal = () => {
        <ModalBody>
            Do you wish to delete this note?
            <div className="d-flex mt-3">
-           <Link to='/' onClick={() => this.props.deleteNote(this.props.location.state.currentNote.id)}> 
+           <Link to='/' onClick={() => this.props.deleteNote(this.props.location.state.currentNote._id)}> 
            <button className="redButton" > Yes </button></Link>
             <button className="ml-3 tealButton" onClick={() => this.toggleModal()}> No</button>
             </div>
