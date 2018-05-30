@@ -1,6 +1,9 @@
 trello url:
 https://trello.com/b/FNhKvt8m/lambda-notesbackend-nicholas-brennan
 
+link to frontend app:
+https://cocky-sammet-9c9deb.netlify.com/
+
 # Back End Project Week
 
 This week you will be building a backend for a note taking app called "Lambda Notes."
