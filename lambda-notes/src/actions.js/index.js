@@ -4,7 +4,7 @@ export const ERR = "ERR";
 
 export const fetchStuff = () => {
     return dispatch => {
-        axios.get(`http://localhost:5000/notes`)
+        axios.get(`https://lambda-notes-brandon.herokuapp.com/notes`)
         .then(response => {
             dispatch({ type: FETCHNOTES, payload: response.data})
         })
@@ -16,7 +16,7 @@ export const fetchStuff = () => {
 export const saveData = note => {
     return dispatch => {
     axios
-    .post(`http://localhost:5000/notes`, note) 
+    .post(`https://lambda-notes-brandon.herokuapp.com/notes`, note) 
     .then(response => {
         dispatch({ type: FETCHNOTES, payload: response.data})
     })
@@ -28,7 +28,7 @@ export const saveData = note => {
 export const deleteNote = noteId => {
     return dispatch => {
     axios
-    .delete(`http://localhost:5000/notes/${noteId}`)
+    .delete(`https://lambda-notes-brandon.herokuapp.com/notes/${noteId}`)
     .then(response => {
         dispatch({ type: FETCHNOTES, payload: response.data})
     })
@@ -39,7 +39,7 @@ export const deleteNote = noteId => {
 }
 export const editNotes = note => {
     return dispatch => {
-        axios.put(`http://localhost:5000/notes/${note.id}`, note)
+        axios.put(`https://lambda-notes-brandon.herokuapp.com/notes/${note.id}`, note)
         .then(response => {
             console.log(response)
             dispatch({ type: FETCHNOTES, payload: response.data})
