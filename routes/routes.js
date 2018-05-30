@@ -49,6 +49,33 @@ router
     });
 })
 
+// put to update a note
+.put('/:id', (req, res) => {
+    const { id } = req.params;
+    const newNote = req.body;
+
+    Note
+    .findById(id)
+    .then(note => {
+        if(!note) {
+            res.status(404).json({ message: 'The note with the specified ID was not found. Sorry!' });
+        } else {
+            Note
+                .update()
+                .then(updatedNote => {
+                    res.status(200).json(updatedNote);
+                })
+                .catch(err => {
+                    res.status(500).json({ message: 'The note failed to update. Sorry!' });
+                });
+        }
+    })
+    .catch(err => {
+        res.status(500).json(err);
+    });
+})
+
+
 
 
 module.exports = router;
