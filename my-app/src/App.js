@@ -5,7 +5,7 @@ import axios from 'axios';
 import './App.css';
 import { NotesDisplay } from './components/NotesDisplay/NotesDisplay';
 import NewNote from './components/NewNote/NewNote';
-import { Notes } from './components/Notes/Notes';
+import Notes  from './components/Notes/Notes';
 import Edit from './components/Edit/Edit';  
 
 class App extends Component {
@@ -25,8 +25,7 @@ class App extends Component {
     .catch(err => {
       console.log(err)
     })
-
-}
+  }
 
   render() {
     return (
@@ -39,17 +38,14 @@ class App extends Component {
 
         <Route path = '/newNote' component={ NewNote } />
           
-        <Route path = '/noteView' render={(props) => (
+        {/* <Route path = '/noteView' render={(props) => (
           <Notes {...props} 
           note={this.state.note} 
-          /> )}/>
+          /> )}/> */}
+
+        <Route path = '/noteView' component={ Notes } />
 
         <Route path = '/edit' component= { Edit } />
-
-         {this.state.note.map(notes => {
-        return (<div> <h1> {notes.title} </h1> <h1> {notes.body} </h1> </div>)
-      })}
-
       </div>
     );
   }

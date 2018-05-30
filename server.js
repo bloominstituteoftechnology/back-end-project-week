@@ -45,7 +45,7 @@ server.post('/api/notes', (req, res) => {
 server.get('/api/notes', (req, res) => {
 
     Note
-    .find().select('title body -_id')
+    .find().select('title body id')
     .then(notes => {
         res.status(200).json({ notes })
     })
