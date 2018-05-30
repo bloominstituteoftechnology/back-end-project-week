@@ -1,11 +1,21 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
-const port = process.env.PORT || 4444;
+const mongoose = require('mongoose');
+const helmet = require('helmet');
+const db = require('./utils/db');
 
 const server = express();
-server.use(cors({}));
-server.use(bodyParser.json());
+server.use(cors());
+server.use(express.json());
+
+db
+	.connect()
+	.then(() => console.log('==== connected to mongo via mLab ===='))
+	.catch(() => console.log('xxxx error connecting to mLab databse xxxx'));
+
+server.listen(process.env.PORT || 4444, () =>
+	console.log('===== server connected to port 4444 ====='),
+);
 
 server.get('/', (req, res) => {
 	res.json({
@@ -13,7 +23,4 @@ server.get('/', (req, res) => {
 	});
 });
 
-server.listen(port, err => {
-	if (err) console.log(err);
-	console.log(`Server listening on port ${4444}`);
-});
+module.exports = server;
