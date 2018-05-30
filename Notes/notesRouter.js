@@ -17,7 +17,7 @@ router.route('/')
         .catch(err => res.status(500).json({ errorMsg: 'Sorry - There Was An Error Retrieving Your Notes' }))
 })
 
-//GET NOTES BY ID
+//GET NOTES BY ID - Postman Test ok! http://localhost:8008/notes/5b0efc45a2dfa808189bafbe (successfully shows 'Test 2' by ID)
 router.route('/:id')
 .get((req, res) => {
     const {id} = req.params;
@@ -25,5 +25,18 @@ router.route('/:id')
         .then(note => res.status(200).json(note))
         .catch(err => res.status(500).json({ errorMsg: 'Sorry - There Was An Error Retrieving This Note By ID' }))
 })
+
+//DELETE NOTES BY ID - Postman Test ok! http://localhost:8008/notes/5b0eff5dd9a60a403c09e1f9 (successfully removed 'Test 4' by ID)
+.delete((req, res) => {
+    const id = req.params.id;
+    if (! Note.findById(id)) {
+        res.status(404).json({ Msg: 'HELP' })
+    }
+    Note.findByIdAndRemove(id)
+        .then(note => res.status(201).json(note))
+        .catch(err => res.status(500).json({ errorMsg: 'Sorry - There Was An Error Deleting This Note By ID' }))
+})
+
+
 
 module.exports = router;
