@@ -1,9 +1,5 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const passport = require('passport');
-
-const Keys = require('../config/keys');
 const User = require('../modules/users');
 
 const router = express.Router();
@@ -40,23 +36,8 @@ router
 router 
   .route('/login')
   .post((req, res) => {
-    User.findOne({email}) 
-      .then(user => {
-        if (!user) {
-          res.status(404).json('User not found!');
-        }
-        bcrypt.compare(password, user.password) 
-          .then(isMatch => {
-            const paylaod = {id: user.id, name: user.name}
-            jwt.sign(payload, keys.secret, {expiresIn:3600}, (err, token) => {
-              res.json({
-                success: true,
-                token: 'Bearer' + token
-              })
-            })
-          })
-        res.status(404).json('Password is incorrect');
-      });
-  });
+    const { username, password } =req.body;
+    User.findOne({ username });
+  })
 
 module.exports = router;
