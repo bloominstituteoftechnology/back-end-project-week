@@ -32,7 +32,7 @@ router
     });
 })
 
-.post('/', (req, res) => {
+.post('/', (req, res) => {      // post to notes list 
     const note = new Note(req.body);
     note
     .save()
