@@ -97,7 +97,6 @@ server.put("/notes/:id", (req, res) => {
 
 server.delete("/notes/:id", (req, res) => {
   const id = req.params.id;
-  let pie = false;
   Note.findById(id)
     .then(note => {
       Note.findByIdAndRemove(id)
