@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const User = require("./userModel");
+const config = require("../config");
 
 router
   .get("/", (req, res) => {
@@ -33,7 +34,7 @@ router
           const payload = {
             username: user.username
           }; // what will determine our payload.
-          const token = jwt.sign(payload, mysecret); // creates our JWT with a secret and a payload and a hash.
+          const token = jwt.sign(payload, config.secret); // creates our JWT with a secret and a payload and a hash.
           res.json({ token }); // sends the token back to the client
         }
       });
@@ -55,10 +56,7 @@ router
         const payload = {
           username: user.username
         }; // what will determine our payload.
-        console.log("before jwt");
-        const token = jwt.sign(payload, mysecret); // creates our JWT with a secret and a payload and a hash.
-        // sends the token back to the client
-        console.log("made it here");
+        const token = jwt.sign(payload, config.secret); // creates our JWT with a secret and a payload and a hash.
         res.status(201).json({ user, token });
       })
       .catch(err => {

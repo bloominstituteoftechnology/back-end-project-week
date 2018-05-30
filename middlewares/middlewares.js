@@ -1,13 +1,13 @@
 const jwt = require("jsonwebtoken");
 
 const User = require("../users/userModel");
-const mysecret = "CorrectHorseBatteryStaple";
+const config = require("../config");
 
 const authenticate = (req, res, next) => {
   let token = req.get("Authorization");
   if (token != undefined) token = token.replace("Bearer ", "");
   if (token) {
-    jwt.verify(token, mysecret, (err, decoded) => {
+    jwt.verify(token, config.secret, (err, decoded) => {
       if (err) return res.status(422).json(err);
       req.decoded = decoded;
       next();

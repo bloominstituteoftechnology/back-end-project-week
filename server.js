@@ -14,8 +14,8 @@ const userController = require("./users/userController");
 
 mongoose
   .connect(
-    `mongodb://${config.username}:${
-      config.password
+    `mongodb://${config.mongo.username}:${
+      config.mongo.password
     }@ds139970.mlab.com:39970/cruise-notes`
   )
   .then(() => {

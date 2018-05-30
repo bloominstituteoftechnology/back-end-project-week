@@ -1,3 +1,6 @@
-let config = { username: "admin", password: "admin" };
+let config = {
+  mongo: { username: "admin", password: "admin" },
+  secret: "CorrectHorseBatteryStaple"
+};
 
 module.exports = config;
