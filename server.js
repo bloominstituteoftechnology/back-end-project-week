@@ -2,11 +2,13 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const port = process.env.PORT || 5000;
+const NoteRouter = require('./Notes/NoteRoutes');
 
 const server = express();
 
 server.use(express.json());
 server.use(cors());
+server.use('/notes', NoteRouter);
 
 server.get('/', (req, res) => {
   res.json({ message: `Are you supposed to be here?`});

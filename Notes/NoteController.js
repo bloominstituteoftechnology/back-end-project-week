@@ -20,3 +20,5 @@ const NoteController = {
     }
   }
 }
+
+export default NoteController;
