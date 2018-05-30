@@ -11,10 +11,7 @@ const port = process.env.PORT || 5000;
 
 // const routes = require('./routes/routes');
 
-// const corsOptions = {
-//   origin: 'https://amanda-lambdanotes.netlify.com',
-//   credentials: true
-// };
+
 
 server.use(express.json());
 server.use(cors({}));
