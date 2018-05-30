@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-
+const notes = require('./routes/note');
 
 server = express();
 
@@ -13,6 +13,8 @@ mongoose
 
 server.use(express.json());
 server.use(cors({}));
+
+server.use('/notes', notes);
 
 server.get('/', (req, res) => {
   res.status(200).json({Message: 'Hello World'});
