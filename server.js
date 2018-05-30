@@ -3,6 +3,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const notes = require('./routes/note');
 const users = require('./routes/user');
+const login = require('./routes/login');
+const register = require('./routes/register');
 
 server = express();
 
@@ -17,6 +19,8 @@ server.use(cors({}));
 
 server.use('/notes', notes);
 server.use('/users', users);
+server.use('/login', login);
+server.use('/register', register);
 
 server.get('/', (req, res) => {
   res.status(200).json({Message: 'Hello World'});
