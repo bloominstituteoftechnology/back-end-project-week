@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 let port = process.env.PORT || 3000;
 const server = express();
 const registerRoute = require('./Routes/register');
+const notesRoute = require('./Routes/notesRoute');
 
 // database connection
 mongoose.connect('mongodb://eric:x@ds139950.mlab.com:39950/lambda-notes')
@@ -26,7 +27,7 @@ server.get('/', (req, res) => {
 })
 // server routes
 server.use('/register', registerRoute);
-server.use(/api/notes, )
+server.use('/api/notes', notesRoute);
 
 //port listener
 server.listen(port , () => {
