@@ -25,8 +25,6 @@ mongoose
   .then(() => console.log('Connected to Mongo'))
   .catch((err) => console.log(err))
 
-
-
 server.listen(port, err => {
   if (err) console.log(err);
   console.log(`\n API running on ${port}`);
@@ -34,8 +32,8 @@ server.listen(port, err => {
 
 // routes(server);
 
-server.get('/', (req, res) => {
-  res.send({ API: 'Running' });
-});
+// server.get('/', (req, res) => {
+//   res.send({ API: 'Running' });
+// });
 
 module.exports = { server };
