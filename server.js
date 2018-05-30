@@ -12,7 +12,7 @@ const { dbURI } = require('./config/config')
 
 const server = express();
 
-mongoose.connect(dbURI)
+mongoose.connect(dbURI || MONGODB_URI)
   .then(() => {
     console.log('\n ---=== connected to mlab database ===--- \n');
   })
