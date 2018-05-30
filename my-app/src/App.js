@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router';
+import axios from 'axios';
 
 import './App.css';
 import { NotesDisplay } from './components/NotesDisplay/NotesDisplay';
@@ -12,14 +13,19 @@ class App extends Component {
     super(props);
     this.state = {
       note: [],
-
     }
   }
   
   componentDidMount() {
-    const note = ['Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut deserunt consequuntur autem, deleniti perspiciatis placeat commodi inventore ducimus'];
+    axios
+    .get(`http://localhost:3001/api/notes`)
+    .then(res => {
+      this.setState ({ note: res.data.notes });
+    })
+    .catch(err => {
+      console.log(err)
+    })
 
-    this.setState ({ note });
 }
 
   render() {
@@ -39,6 +45,11 @@ class App extends Component {
           /> )}/>
 
         <Route path = '/edit' component= { Edit } />
+
+         {this.state.note.map(notes => {
+        return (<div> <h1> {notes.title} </h1> <h1> {notes.body} </h1> </div>)
+      })}
+
       </div>
     );
   }

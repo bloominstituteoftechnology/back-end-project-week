@@ -21,66 +21,11 @@ export const NotesDisplay = (props) => {
                     {props.note.map(note => {
                         return [<div className = 'Note-notes'> 
                         <Link to = '/noteView' >
-                        <h3>Note Title</h3> <p>{ note }</p>
+                        <h3>{note.title}</h3> <p>{ note.body }</p>
                         </Link>
                         </div>];
                         })}
-                    {props.note.map(note => {
-                        return [<div className = 'Note-notes'> 
-                        <Link to = '/noteView' >
-                        <h3>Note Title</h3> <p>{ note }</p>
-                        </Link>
-                        </div>];
-                        })}
-                    {props.note.map(note => {
-                        return [<div className = 'Note-notes'> 
-                        <Link to = '/noteView' >
-                        <h3>Note Title</h3> <p>{ note }</p>
-                        </Link>
-                        </div>];
-                        })}
-                    {props.note.map(note => {
-                        return [<div className = 'Note-notes'> 
-                        <Link to = '/noteView' >
-                        <h3>Note Title</h3> <p>{ note }</p>
-                        </Link>
-                        </div>];
-                        })}
-                    {props.note.map(note => {
-                        return [<div className = 'Note-notes'> 
-                        <Link to = '/noteView' >
-                        <h3>Note Title</h3> <p>{ note }</p>
-                        </Link>
-                        </div>];
-                        })}
-                    {props.note.map(note => {
-                        return [<div className = 'Note-notes'> 
-                        <Link to = '/noteView' >
-                        <h3>Note Title</h3> <p>{ note }</p>
-                        </Link>
-                        </div>];
-                        })}
-                    {props.note.map(note => {
-                        return [<div className = 'Note-notes'> 
-                        <Link to = '/noteView' >
-                        <h3>Note Title</h3> <p>{ note }</p>
-                        </Link>
-                        </div>];
-                        })}
-                    {props.note.map(note => {
-                        return [<div className = 'Note-notes'> 
-                        <Link to = '/noteView' >
-                        <h3>Note Title</h3> <p>{ note }</p>
-                        </Link>
-                        </div>];
-                        })}
-                    {props.note.map(note => {
-                        return [<div className = 'Note-notes'> 
-                        <Link to = '/noteView' >
-                        <h3>Note Title</h3> <p>{ note }</p>
-                        </Link>
-                        </div>];
-                        })}
+                    
                 </div>
             </div>
         </div>

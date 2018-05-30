@@ -7,7 +7,7 @@ const Note = require('./notes/Note');
 const server = express();
 
 const mongoDB = `mongodb://localhost/lambdanotes`;
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 // Connect to mongo
 mongoose
