@@ -4,42 +4,32 @@ const { userName, password } = require('faker').internet
 const { mongoUri, mongoOptions } = require('../server/config')
 
 describe('User', () => {
-  let userData
+  let user, userData
   
-  beforeAll(() => {
-    return mongoose.connect(mongoUri, mongoOptions)
-  })
+  beforeAll(() => mongoose.connect(mongoUri, mongoOptions))
   
-  afterAll(() => {
-    return User.remove()
-    .then(() => mongoose.disconnect())
-  })
+  afterEach(() => User.remove())
+  afterAll(() => mongoose.disconnect())
   
-  beforeEach(() => {
+  beforeEach(async () => {
     userData = {
       username: userName(),
       password: password()
     }
+    user = await User.create(userData)
   })
 
   it('Hashes the password before saving', async () => {
-    user = await User.create(userData)
     expect(user.password).not.toBe(userData.password)
   })
 
   it('Validates a provided password', async () => {
-    return User.create(userData)
-      .then(async () => {
-        user = await User.login(userData)
-        expect(user.username).toBe(userData.username)
-      })
+    const authenticated = await User.login(userData)
+    expect(authenticated.username).toBe(user.username)
   })
 
   it('Rejects an incorrect password', async () => {
-    return User.create(userData)
-      .then(async () => {
-        user = await User.login({ username: userData.username, password: '' })
-        expect(user).toBeNull()
-      })
+    authenticated = await User.login({ username: user.username, password: '' })
+    expect(authenticated).toBeNull()
   })
 })
