@@ -10,9 +10,10 @@ const noteModel = new Schema({
     type: String,
     required: true
   },
-  user: {
+  userid: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "users"
+    ref: "users",
+    required: true
   }
 });
 
