@@ -4,7 +4,7 @@ const server = express();
 
 server.use(cors({})); 
 server.use(express.json()); 
-const port =  process.env.PORT || 3000 
+const port =  process.env.PORT || 33333 
 
 server.get('/', (req, res) => {
     res.json({message: 'hello'})
