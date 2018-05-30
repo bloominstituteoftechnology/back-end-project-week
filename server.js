@@ -4,7 +4,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 // const usersRouter = require('./users/usersRouter');
-const notesRouter = require('./notes/notesRouter');
+const notesRouter = require('./Notes/notesRouter');
 
 mongoose
     .connect('mongodb://admin:admin@ds141320.mlab.com:41320/lambda-notes')
