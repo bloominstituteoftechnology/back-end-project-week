@@ -7,7 +7,7 @@ const Note = require('./Notes/notes')
 
 
 const server = express();
-server.use(cors())
+server.use(cors({}))
 // var whitelist = ['https://notejll.netlify.com/']
 // server.use(cors({
 //     origin: function (origin, callback) {

@@ -49,7 +49,8 @@ Note
     res.status(500).json({err: "The collection of the brave responses of Griffindor could not be obtained."})
 })
 })
-router.post('/',(req,res)=>{
+router
+.post('/',(req,res)=>{
     const note = new Note(req.body)
     note
     .save()
