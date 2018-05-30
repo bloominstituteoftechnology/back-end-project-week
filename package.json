@@ -1,0 +1,25 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "TRELLO URL\r https://trello.com/b/rrf2kKMr",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajf412/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ajf412/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/ajf412/back-end-project-week#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3"
+  }
+}
