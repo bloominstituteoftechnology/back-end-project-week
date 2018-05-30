@@ -4,6 +4,6 @@ const NoteController = require('./NoteController');
 const NoteRouter = express.Router();
 const { createNote } = NoteController;
 
-NoteRouter.post('/notes', createNote);
+NoteRouter.post('/', createNote);
 
 export default NoteRouter;
