@@ -2,7 +2,6 @@ const express = require('express');
 const helmet = require('helmet');
 
 const mongoose = require('mongoose');
-const db = require('./config/config');
 const User = require('./src/users/User');
 const Note = require('./src/notes/Note');
 
