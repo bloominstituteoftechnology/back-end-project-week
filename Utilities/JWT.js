@@ -13,7 +13,7 @@ function makeToken(user) {
     sub: user._id.toString(),
     iat: timestamp,
     username: user.username,
-    exp: timestamp + 30
+    exp: timestamp
   };
   const options = {
   };
