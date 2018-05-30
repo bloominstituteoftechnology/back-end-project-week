@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/ktan114/back-end-project-week#readme",
   "dependencies": {
+    "bcrypt": "^2.0.1",
     "cors": "^2.8.4",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
