@@ -19,6 +19,14 @@ module.exports = server => {
             res.status(200).json(note);
         }).catch(err => res.status(500).json(err));
     });
+    server.put('/editnote/:id', (req, res) => {
+        const { id } = req.params;
+        const { title, body } = req.params;
+        const updated = { title: title, body: body }
+        Note.findByIdAndUpdate(id, updated).then(
+            res.status(200).json(updated)
+        ).catch(err => res.status(500).send(err));
+    });
     // server.post('/login', (req,res) => {
     //     const { username, password } = req.body;
     //     User.findOne({ username }).then(user => {
