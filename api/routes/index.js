@@ -1,7 +1,7 @@
 const { authenticate } = require('../services/auth');
 
 const { createUser } = require('../controllers/userController');
-const { login } = require('../loginController');
+const { login } = require('../controllers/loginController');
 const { createNote, listNote, editNote, deleteNote } = require('../controllers/notesController');
 
 module.exports = server => {
