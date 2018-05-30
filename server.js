@@ -8,7 +8,7 @@ const UserRouter = require('./Users/UserRouter.js');
 const NotesRouter = require('./Notes/NotesRouter.js');
 
 const corsOptions = {
-  origin: '',
+  origin: 'https://mgclambdanotes.netifly.com',
   credentials: true
 };
 
