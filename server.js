@@ -4,7 +4,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 mongoose
-  .connect('mongodb://[ajf412:LambdaSchoolCS9!@]ds139970.mlab.com:39970/my-bible-app')
+  .connect('mongodb://boaz:wasruthless@ds139970.mlab.com:39970/my-bible-app')
   .then(mongo => {
     console.log('connected to database');
   })

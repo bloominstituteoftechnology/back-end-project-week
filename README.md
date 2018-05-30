@@ -4,8 +4,8 @@ https://trello.com/b/rrf2kKMr
 Heroku username/password:
 ajf412/LambdaSchoolCS9!
 
-mlabs username/password:
-ajf412/LambdaSchoolCS9!
+mlabsdb username/password:
+boaz/wasruthless
 
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
