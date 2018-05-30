@@ -1,0 +1,8 @@
+{
+  "name": "w13 Backend project week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Sy-CoDe/back-end-project-week.git",
+  "author": "<sycode@gmail.com>",
+  "license": "MIT"
+}
