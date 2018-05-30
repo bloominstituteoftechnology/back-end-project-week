@@ -12,8 +12,7 @@ let testToken;
 describe('Server Tests', () => {
   before(done => {
     mongoose.Promise = global.Promise;
-    mongoose.connect('mongodb://localhost/test
-    ');
+    mongoose.connect('mongodb://localhost/test');
     const db = mongoose.connection;
     db.on('error', () => console.error.bind(console, 'connection error'));
     db.once('open', () => {
@@ -33,8 +32,8 @@ describe('Server Tests', () => {
     beforeEach(async function() {
       let newUser = await Promise.resolve(
         new User({
-          username: 'Tester',
-          password: 'hungry_panda',
+          username: 'Mega Man',
+          password: 'fish_tacos',
       }).save()).catch(err => {
         return console.error(err);
       });
@@ -54,7 +53,7 @@ describe('Server Tests', () => {
       it('should add a new user', async function() {
         const user = {
           username: 'Tester',
-          password: 'hungry_panda'
+          password: 'fish_tacos'
         };
 
         const res = await Promise.resolve(.request(server).post('/api/users').send(user)).catch(err => console.error(err));
@@ -62,10 +61,10 @@ describe('Server Tests', () => {
         expect(res.body.savedUser.username).to.equal('tester');
       });
 
-      it('should return error status 422 when failing to save to the database', async function() {
+      it('should return HTTP status 422 when failing to save to the database', async function() {
         const user = {
           username: 'Tester',
-          password: 'hungry_panda'
+          password: 'fish_tacos'
         };
 
         const res = await Promise.resolve(.request(server).post('/api/users').send(user)).catch(err => {
@@ -77,8 +76,8 @@ describe('Server Tests', () => {
     describe('[POST] /api/login', () => {
       it('should allow an authorized user to login', async function() {
         const user = {
-          username: 'username',
-          password: 'hungry_panda'
+          username: 'Mega Man',
+          password: 'fish_tacos'
         };
 
         const res = await Promise.resolve(.request(server).post('/api/login').send(user)).catch(err => console.error(err));
@@ -87,10 +86,10 @@ describe('Server Tests', () => {
         expect(res.body.token).to.have.length.least(1);
       });
 
-      it('should return error status 422 when failing to login', async function() {
+      it('should return HTTP status 422 when failing to login', async function() {
         const user = {
           username: 'Tester',
-          password: 'hungry_pandabear'
+          password: 'no_fish_tacos'
         };
 
         const res = await Promise.resolve(.request(server).post('/api/login').send(user)).catch(err => {
@@ -103,11 +102,13 @@ describe('Server Tests', () => {
   describe('Notes', () => {
     let authHeaders = {
       "Authorization": undefined,
+      "uuID": undefined,
     };
 
     beforeEach(async function() {
       authHeaders = {
         "Authorization": testToken,
+        "uuID": userId,
       };
       let newNote = await Promise.resolve(
         new Note({
@@ -142,7 +143,7 @@ describe('Server Tests', () => {
         expect(res.body.savedNote.body).to.equal('New Note Body');
       });
 
-      it('should return error status 422 when failing to save to the database', async function() {
+      it('should return HTTP status 422 when failing to save to the database', async function() {
         const note = {
           author: 'not_a_valid_ObjectID',
           title: 'New Note',
@@ -158,7 +159,7 @@ describe('Server Tests', () => {
 
     describe('[GET] /api/notes', () => {
       it('should return all notes for authorized user in the database', async function() {
-        const res = await Promise.resolve(.request(server).get('/api/notes').set(authHeaders)).catch(err => console.error(err));
+        const res = await Promise.resolve(chai.request(server).get('/api/notes').set(authHeaders)).catch(err => console.error(err));
         expect(res.status).to.equal(200);
         expect(res.body.allNotes.length).to.equal(1);
       });
@@ -183,22 +184,22 @@ describe('Server Tests', () => {
         expect(res.body.body).to.equal('New Note Body');
       });
 
-      it('should return error status 422 when no title is provided', async function() {
+      it('should return HTTP status 422 when no title is provided', async function() {
         const note = {
           body: 'New Note Body'
         };
 
-        const res = await Promise.resolve(.request(server).put('/api/notes/update').send(note).set(authHeaders)).catch(err => {
+        const res = await Promise.resolve(.request(server).put('/api/game/update').send(note).set(authHeaders)).catch(err => {
           return expect(err.status).to.equal(422);
         }); 
       });
 
-      it('should return error status 422 when no body is provided', async function() {
+      it('should return HTTP status 422 when no body is provided', async function() {
         const note = {
           title: 'New Note',
         };
 
-        const res = await Promise.resolve(.request(server).put('/api/notes/update').send(note).set(authHeaders)).catch(err => {
+        const res = await Promise.resolve(.request(server).put('/api/game/update').send(note).set(authHeaders)).catch(err => {
           return expect(err.status).to.equal(422);
         }); 
       });
@@ -212,7 +213,7 @@ describe('Server Tests', () => {
         expect(deletedNote).to.equal(null);
       });
 
-      it('should return error status 422 when an invalid ID is provided', async function() {
+      it('should return HTTP status 422 when an invalid ID is provided', async function() {
         const res = await Promise.resolve(.request(server).delete(`/api/notes/I_am_an_invalid_ID`).set(authHeaders)).catch(err => {
           return expect(err.status).to.equal(422)
         });
