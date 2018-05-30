@@ -59,19 +59,23 @@ router
     .then(note => {
         if(!note) {
             res.status(404).json({ message: 'The note with the specified ID was not found. Sorry!' });
+            return;
         } else {
             Note
                 .update(note, newNote)
                 .then(updatedNote => {
                     res.status(200).json(updatedNote);
+                    return;
                 })
                 .catch(err => {
                     res.status(500).json({ message: 'The note failed to update. Sorry!' });
+                    return;
                 });
         }
     })
     .catch(err => {
         res.status(500).json(err);
+        return;
     });
     res.send(newNote);
 })
