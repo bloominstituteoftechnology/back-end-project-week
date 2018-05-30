@@ -10,9 +10,9 @@ const {
   deleteNote
 } = noteController;
 
-noteRouter.get('/', getNotes); // get list of notes
+noteRouter.get('/notes', getNotes); // get list of notes
 
-noteRouter.post('/', createNotes); // create a new note with title and content
+noteRouter.post('/notes', createNotes); // create a new note with title and content
 
 noteRouter.get('/:id', viewNote); // view existing note // findbyid
 

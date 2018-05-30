@@ -10,9 +10,9 @@ const server = express();
 server.use(cors({}));
 server.use(bodyParser.json());
 
-server.get('/', (req, res) => {
-  res.json({ Message: 'Any requests?' });
-});
+// server.get('/', (req, res) => {
+//   res.json({ Message: 'Any requests?' });
+// });
 
 mongoose.connect(mongooseDB, () => {
   console.log('connected to mongodb');
