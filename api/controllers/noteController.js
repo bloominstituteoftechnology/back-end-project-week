@@ -1,17 +1,9 @@
 const express = require("express")
 const router = express.Router();
 
-const Note = require("./models/noteModel");
+const Note = require("../models/noteModel");
 const User = require("../models/userModel")
 
-router.route("/")
-    .get(Get)
-    .post(Post);
-
-router.route('/:id')
-    .get(Get_Id)
-    .put(Put)
-    .delete(Delete)
 
 const Get = (req, res) => {
     const { username, id } = req.decoded;
@@ -53,5 +45,15 @@ const Delete = (req, res) => {
         .then(success => res.status(200).json({ message: 'Note deleted.' }))
         .catch(err => res.status(500).json({ error: 'Server error deleting.' }))
 }
+
+router.route("/")
+    .get(Get)
+    .post(Post);
+
+router.route('/:id')
+    .get(Get_Id)
+    .put(Put)
+    .delete(Delete)
+
 
 module.exports = router;

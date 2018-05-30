@@ -19,7 +19,7 @@ const login = (req, res) => {
     user.checkPassword(password, (nonMatch, hashMatch) => {
       // This is an example of using our User.method from our model.
       if (nonMatch !== null) {
-        res.status(422).json({ error: 'passwords dont match' });
+        res.status(422).json({ error: 'passwords do not match' });
         return;
       }
       if (hashMatch) {
@@ -34,8 +34,8 @@ const login = (req, res) => {
 };
 
 router.route('/')
- .post(Login)
+ .post(login)
 
 module.exports = {
-  login
+  router
 };
