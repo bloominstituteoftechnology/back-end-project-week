@@ -1,10 +1,13 @@
-const express = require('express'); // bring in express
-const Note = require('../notes/notes'); // bring in our Note
+// bring in express
+const express = require('express');
+// bring in our Note
+const Note = require('../notes/notes');
 
 const router = express.Router();
 
 router 
-.get('/', (req, res) => { // get a list of notes in db
+// get a list of notes in db
+.get('/', (req, res) => {
     Note
     .find()
     .then(notes => {
@@ -15,7 +18,8 @@ router
     });
 })
 
-.get('/:id', (req, res) => { // get a single id from the database
+// get a single id from the database
+.get('/:id', (req, res) => {
     const { id } = req.params;
 
     notes 
@@ -32,7 +36,8 @@ router
     });
 })
 
-.post('/', (req, res) => {      // post to notes list 
+// post to notes list 
+.post('/', (req, res) => {
     const note = new Note(req.body);
     note
     .save()
