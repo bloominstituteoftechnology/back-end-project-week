@@ -30,4 +30,4 @@ const NoteController = {
   },
 }
 
-export default NoteController;
+module.exports = NoteController;

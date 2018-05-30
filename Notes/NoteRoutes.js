@@ -7,4 +7,4 @@ const { getNotes, createNote } = NoteController;
 NoteRouter.get('/', getNotes);
 NoteRouter.post('/', createNote);
 
-export default NoteRouter;
+module.exports = NoteRouter;
