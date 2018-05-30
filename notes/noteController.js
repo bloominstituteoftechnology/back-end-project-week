@@ -14,10 +14,7 @@ router
     .catch(err => {
       res.status(500).json( { errorMessage: "Error getting note data." });
     });
-  });
-
-router
-  .route('/')
+  })
   .post((req, res) => {
     const noteData = req.body;
     const note = new Note(noteData);
@@ -34,5 +31,21 @@ router
         };
       });
   });
+
+router
+.route('/:id')
+.get((req, res) => {
+  Note.find({ _id: req.params.id })
+  .then(note => {
+    if (note.length > 0) {
+      res.status(201).json({ note })
+    } else {
+      res.status(404).json({ errorMessage: "The note with the specified ID does not exist." });
+    }
+  })
+  .catch(err => {
+    res.status(500).json({ errorMessage: "Note information could not be retrieved." });
+  });
+});
 
 module.exports = router;
