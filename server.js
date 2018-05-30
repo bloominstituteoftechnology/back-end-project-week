@@ -12,13 +12,14 @@ mongoose
     console.log('Error connecting to the database', err);
   });
 
+const noteController = require('./notes/noteController');
 
 const server = express();
 server.use(cors({}));
 server.use(bodyParser.json());
-server.use(express.json());
+// server.use(express.json());
 
-server.use('/notes', noteController);
+server.use('/api/notes', noteController);
 
 server.get('/', (req, res) => {
   res.json({ Message: 'Hello World' });

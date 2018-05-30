@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Note = mongoose.Schema({
+const definition = {
   title: {
     type: String,
     required: true,
@@ -9,7 +9,11 @@ const Note = mongoose.Schema({
     type: String,
     required: true,
   },
-});
+};
+
+const options = {
+
+};
 
 const noteSchema = new mongoose.Schema(definition, options);
 const noteModel = mongoose.model('Note', noteSchema, 'notes');
