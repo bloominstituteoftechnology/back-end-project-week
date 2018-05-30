@@ -5,14 +5,13 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 mongoose.models = {};
 mongoose.modelSchemas = {};
 
-const User = require('./userModel.js');
+const User = require('./usersModel');
 
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
     unique: true,
     required: true,
-    index: true,
     lowercase: true
   },
   // password: {
