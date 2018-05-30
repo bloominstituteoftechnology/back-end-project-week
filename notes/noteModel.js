@@ -9,7 +9,11 @@ const noteModel = new Schema({
   content: {
     type: String,
     required: true
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "users"
   }
 });
 
-module.exports = mongoose.model("Note", noteModel);
+module.exports = mongoose.model("Note", noteModel, "notes");

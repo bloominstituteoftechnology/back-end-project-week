@@ -69,7 +69,8 @@ router
       .save()
       .then(user => {
         const payload = {
-          username: user.username
+          username: user.username,
+          id: user._id
         };
         const token = jwt.sign(payload, config.secret);
         res.status(201).json({ user, token });

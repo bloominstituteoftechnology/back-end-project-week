@@ -1,11 +1,10 @@
 const router = require("express").Router();
-
+const jwt = require("jsonwebtoken");
 const Note = require("./noteModel");
+const config = require("../config");
 
-router
-  .route("/")
-  .get(get)
-  .post(post);
+router.route("/").get(get);
+// .post(post);
 
 router
   .route("/:id")
@@ -60,6 +59,29 @@ router
           });
         });
     }
+  })
+  .post((req, res) => {
+    const userid = req.decoded.id;
+    const noteData = { ...req.body, userid };
+    console.log(noteData);
+    const note = new Note(noteData);
+
+    if (!(req.body.title && req.body.content))
+      res.status(400).json({
+        errorMessage: "Please provide title and content for the note."
+      });
+
+    note
+      .save()
+      .then(note => {
+        res.status(201).json(note);
+      })
+      .catch(err => {
+        res.status(500).json({
+          errorMessage:
+            "There was an error while saving the note to the database."
+        });
+      });
   });
 
 function get(req, res) {
