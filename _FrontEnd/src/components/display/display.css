@@ -1,0 +1,72 @@
+.Display {
+    width: 74%;
+    height: 40rem;
+    border: 1px solid black;
+    margin-top: 1rem;
+    float: right;
+    background-color: rgb(245, 245, 245);
+    margin-bottom: 1rem;
+}
+
+.Display__buttons {
+    display: flex;
+    justify-content: flex-end;   
+}
+
+.edit, .delete {
+    text-decoration: underline;
+    margin: 1rem;
+    color: inherit;
+
+}
+
+.Display__content {
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    padding: 1rem;
+    margin: .5rem 1rem;
+}
+
+.header {
+    font-weight: bold;
+}
+
+
+
+.buttonDiv {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+
+
+.modalbtns {
+    display: flex;
+    justify-content: space-around;
+    margin: 2rem 0;
+}
+
+.teal {
+    border: 1px solid black;
+    background-color: teal;
+    text-align: center;
+    width: 35%;
+    color: white;
+}
+
+.red {
+    border: 1px solid black;
+    background-color: red;
+    width: 35%;
+    text-align: center;
+    color: white;
+}
+
+.modalBody {
+    text-align: center;
+    margin-top: 2rem;
+}
