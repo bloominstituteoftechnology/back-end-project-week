@@ -54,17 +54,13 @@ router
 router
   .post("/login", (req, res) => {
     const { username, password } = req.body;
-    User.findOne({ username }, (err, user) => {
-      if (err) {
-        res.status(403).json({ error: "There was an error." });
-        return;
-      }
+    User.findOne({ username }).then(user => {
       if (user === null) {
         res.status(422).json({ error: "Invalid Credentials." });
         return;
       }
-      const verified = user.validatePassword(password);
 
+      const verified = user.validatePassword(password);
       if (verified) {
         const payload = {
           username: user.username,
@@ -72,7 +68,7 @@ router
         };
         const token = jwt.sign(payload, config.secret);
         res.json({ token });
-      } else res.send("Invalid Credentials.");
+      } else res.status(422).json({ error: "Invalid Credentials." });
     });
   })
   .post("/register", (req, res) => {
