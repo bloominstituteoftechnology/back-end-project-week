@@ -51,7 +51,7 @@ Note
 })
 router
 .post('/',(req,res)=>{
-    const note = new Note(req.body)
+    const note = new Note(req.body);
     note
     .save()
     .then(response =>{
