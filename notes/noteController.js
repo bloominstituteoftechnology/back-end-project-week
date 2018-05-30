@@ -6,7 +6,7 @@ const config = require("../config");
 router
   .route("/")
   .get((req, res) => {
-    Note.find()
+    Note.find({ userid: req.decoded.id})
       .then(notes => {
         res.status(200).json(notes);
       })
@@ -22,7 +22,6 @@ router
   .post((req, res) => {
     const userid = req.decoded.id;
     const noteData = { ...req.body, userid };
-    console.log(noteData);
     const note = new Note(noteData);
 
     if (!(req.body.title && req.body.content))
