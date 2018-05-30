@@ -9,6 +9,10 @@ const Note = mongoose.Schema({
     type: String,
     required: false
   },
+  complete: {
+    type: Boolean,
+    required: true
+  },
   createdOn: {
     type: Date,
     required: true,
