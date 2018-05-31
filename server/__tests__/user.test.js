@@ -9,7 +9,7 @@ describe('users', () => {
     password: faker.random.words(11)
   }
   beforeAll(async () => {
-    const connection = await mongoose.connect('mongodb://localhost/lnotes-test')
+    return await mongoose.connect('mongodb://localhost/lnotes-test')
   })
 
   afterEach(() => {
@@ -18,18 +18,18 @@ describe('users', () => {
 
   afterAll(async () => {
     try {
-      await mongoose.disconnect()
+      return await mongoose.disconnect()
     } catch (error) {
       console.error(error)
     }
   })
 
-  xit('can create a new user', async () => {
+  it('can create a new user', async () => {
     user = new User(fakeuser)
     expect(user.username).toBe(fakeuser.username.toLowerCase())
   })
 
-  xit('will only create a new user if all required fields are used', async done => {
+  it('will only create a new user if all required fields are used', async done => {
     user = new User({ username: fakeuser.username })
     try {
       await user.save()
@@ -39,8 +39,8 @@ describe('users', () => {
     }
   })
 
-  xit('correctly checks password', async done => {
-    user = new User(fakeUser)
+  it('correctly checks password', async done => {
+    user = new User(fakeuser)
     try {
       user.checkPassword('sd', (err, isMatch) => {
         if (err) done()

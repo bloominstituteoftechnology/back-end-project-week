@@ -9,13 +9,13 @@ describe('notes', () => {
     content: faker.random.words(11)
   }
   beforeAll(async () => {
-    const connection = await mongoose.connect('mongodb://localhost/lnotes-test')
+    return await mongoose.connect('mongodb://localhost/lnotes-test')
   })
   afterEach(() => Note.remove())
 
   afterAll(async () => {
     try {
-      await mongoose.disconnect()
+      return await mongoose.disconnect()
     } catch (e) {
       console.error(e)
     }
