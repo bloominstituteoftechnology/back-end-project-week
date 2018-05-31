@@ -16,7 +16,7 @@ router
           }
           if (isValid) {
             const payload = { username: user.username, id: user._id };
-            const token = jwt.sign(payload, '1995TY11AR10');
+            const token = jwt.sign(payload, "t19y95l11a10r");
             res.status(200).json({ token });
           }
         })

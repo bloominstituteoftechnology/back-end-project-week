@@ -1,13 +1,15 @@
-const jwt = require('jsonwebtoken');
+const { getUserToken } = require('./util');
 
-const authenticate = (req, res, next) => {
-  const token = req.get('Authorization');
+const authenticate = async (req, res, next) => {
+  const token = req.get('token');
   if (token) {
-    jwt.verify(token, "1995TY11AR10", (err, decoded) => {
-      if (err) return res.status(422).json(err);
-      req.decoded = decoded;
+    const user = await getUserToken(token);
+    if (user) {
+      req.user = user;
       next();
-    });
+    } else {
+      res.status(404).json('Token invalid');
+    }
   }
   res.status(403).json('No token provided. Must be set in Authorization header.');
 };
