@@ -42,6 +42,9 @@ server.use('/users', userRouter)
 server.get("/", (req, res) =>
   res.render("index.pug", {keyPublishable}));
 
+server.get('/testing', (req, res) => {
+  res.send("API RUNNING")
+})
 server.post("/charge", (req, res) => {
   let amount = 500;
 
