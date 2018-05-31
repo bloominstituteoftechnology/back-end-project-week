@@ -9,8 +9,8 @@ router
 router
     .route('/:id')
     .get(getById)
-    // .put(put)
-    // .delete(destroy);
+    .put(put)
+    .delete(destroy);
 
 function get(req,res) {
     Note
