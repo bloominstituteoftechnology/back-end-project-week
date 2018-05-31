@@ -9,14 +9,17 @@ const localDb = 'mongodb://localhost/localDb_be'
 
 const Note = require('./src/notes/noteModel'); 
 
-server.use(cors({})); 
+server.use(cors()); 
 server.use(express.json()); 
 
+mongoose.connect(`mongodb://imsdhk:123456a@ds121599.mlab.com:21599/backend_lambda`, {}, err => {
+    if (err) return console.log(err);
+    console.log('=== Connected to database! ===');
+})
 
-
-mongoose.connect(mlab, () => {
-    console.log('connected to mLab');
-});
+// mongoose.connect(mlab, () => {
+//     console.log('connected to mLab');
+// });
 
 server.get('/', (req,res) => {
     res.send("hello ")
@@ -65,7 +68,8 @@ server.delete('/notes/:id', function(req, res) {
 
 
 
+const port = process.env.PORT || 3000; 
 
-server.listen(process.env.PORT || 3000, function(){
+server.listen(port, function(){
     console.log("Express server listening on port %d in %s mode", this.address().port, server.settings.env);
   });
