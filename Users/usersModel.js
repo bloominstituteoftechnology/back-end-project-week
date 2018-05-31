@@ -3,19 +3,19 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const SALT_ROUNDS = 11;
 
+
 //User Model Schema
-const userModel = {
+const userModel = mongoose.Schema ({
     username: {
         type: String,
         required: true,
+        unique: true,
     },
     password: {
         type: String, 
         required: true, 
     },
-};
-
-const userSchema = new mongoose.Schema(userModel);
+});
 
 //Add in Bcrypt for PW hashing
 userModel.pre('save', function(next) {
@@ -35,6 +35,4 @@ userModel.methods.checkPassword = function (plainTextPW, callBack) {
     })
 };
 
-module.exports = mongoose.model('User', userSchema);
-
-// const userModel = mongoose.model('Users', userSchema, 'users');
+module.exports = mongoose.model('User', userModel);

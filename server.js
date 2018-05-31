@@ -3,7 +3,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-// const usersRouter = require('./Users/usersRouter');
+const usersRouter = require('./Users/usersRouter');
 const notesRouter = require('./Notes/notesRouter');
 
 mongoose
@@ -24,8 +24,8 @@ server.get('/', (req, res) => {
 });
 
 //Routes
-server.use('/notes', notesRouter);
-// server.use('/users', usersRouter);
+server.use('/Notes', notesRouter);
+server.use('/Users', usersRouter);
 
 server.listen(port, () => console.log(`Server Connected to ${port}`));
 

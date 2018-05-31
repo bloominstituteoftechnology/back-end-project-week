@@ -1,18 +1,25 @@
 const express = require('express');
-const Users = require('./usersModel');
-// const Notes = require('./notesModel');
+const User = require('./usersModel');
+const router = express.Router();
+// const Notes = require('../Notes/notesModel');
 const bcrypt = require('bcrypt');
 
-const createUser = (req, res) => {
-    const { username, password } = req.body;
-
-    User
-        .create(req.body)
+//POST USERS
+router.route('/')
+.post((req, res) => {
+    User.create(req.body)
         .then(user => res.status(201).json(user))
-        .catch(err => res.status(500).json({ errorMsg: 'Sorry cannot save user' }))
-    };
+        .catch(err => res.status(500).json({ errorMsg: 'Sorry User could not be created' }));
+})
 
-module.exports = { createUser };
+//GET USERS
+.get((req, res) => {
+    User.find()
+        .then(users => res.status(200).json(users))
+        .catch(err => res.status(500).json({ errorMsg: 'The user could not be found' }))
+})
+
+module.exports = router;
 
 
 
