@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-// const session = require('express-session');
 
 const User = new mongoose.Schema ({
     username: {

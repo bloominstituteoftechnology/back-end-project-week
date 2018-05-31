@@ -10,12 +10,8 @@ const bcrypt = require('bcrypt');
 
 mongoose
 .connect('mongodb://localhost/lambdaNotes')
-.then(mongo => {
-  console.log('connected to lambda-notes backend database');
-})
-.catch(err => {
-  console.log('error connecting to database', err);
-})
+.then(mongo => console.log('connected to lambda-notes backend database'))
+.catch(err => console.log('error connecting to database', err))
 
 // const NoteControl = require('./NoteControl');
 // server.use('/api/todo', NoteControl);
@@ -115,9 +111,6 @@ server.post('/login', (req, res) => { // LOGIN TO ACCT
     .catch(err => res.status(500).json({ err }))
 })
 
-
-// const port = process.env.PORT || 5000;
-// server.listen(port, () => console.log(`\n=== API up on port: ${port} ===\n`));
 
 const port = process.env.PORT || 5000;
 server.listen(port, () => {
