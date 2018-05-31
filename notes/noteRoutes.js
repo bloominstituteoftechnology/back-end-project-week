@@ -1,9 +1,25 @@
 const express = require('express');
 const router = express.Router();
 const Note = require('./Note');
+const jwt = require('jsonwebtoken');
+
+const validateToken = (req, res, next) => {
+    const token = req.headers.authorization;
+    if (!token) {
+        res.status(422).json({ Error: 'No token found' })
+    } else {
+        jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => {
+            if (err) {
+                res.status(401).json({ Error: "Token invalid", message: err });
+            } else {
+                next();
+            }
+        })
+    }
+}
 
 // POST notes - Title + Body/Content
-router.post('/notes', (req, res) => {
+router.post('/notes', validateToken, (req, res) => {
 
     Note
     .create(req.body)
@@ -16,7 +32,7 @@ router.post('/notes', (req, res) => {
 })
 
 // GET notes - Display Notes
-router.get('/notes', (req, res) => {
+router.get('/notes', validateToken, (req, res) => {
 
     Note
     .find().select('title body id createdBy').populate('createdBy', 'username -_id')
@@ -29,7 +45,7 @@ router.get('/notes', (req, res) => {
 })
 
 // GET notes - Display a specific note
-router.get('/note/:id', (req, res) => {
+router.get('/note/:id', validateToken, (req, res) => {
     const id = req.params.id;
 
     Note
@@ -43,7 +59,7 @@ router.get('/note/:id', (req, res) => {
 })
 
 // PUT /note - Edits a note
-router.put('/note/:id', (req, res) => {
+router.put('/note/:id', validateToken, (req, res) => {
     const id = req.params.id;
     const note = req.body;
 
@@ -58,7 +74,7 @@ router.put('/note/:id', (req, res) => {
 })
 
 // DELETE /note
-router.delete('/note/:id', (req, res) => {
+router.delete('/note/:id', validateToken, (req, res) => {
     const id = req.params.id;
     
     Note

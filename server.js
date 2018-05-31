@@ -22,6 +22,7 @@ mongoose
         console.log('Not connected');
 })
 
+
 // Middleware
 server.use(express.json());
 server.use(cors());

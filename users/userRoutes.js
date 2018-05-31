@@ -51,7 +51,7 @@ router.get('/users', validateToken, (req, res) => {
 })
 
 // GET - retrieve a specific user using ID
-router.get('/user/:id', validateToken, (req, res) => {
+router.get('/user/:id', (req, res) => {
     const id = req.params.id;
 
     User
@@ -65,7 +65,7 @@ router.get('/user/:id', validateToken, (req, res) => {
 })
 
 // PUT - edit user information 
-router.put('/user/:id', validateToken, (req, res) => {
+router.put('/user/:id', (req, res) => {
     const id = req.params.id;
     const updateUser = req.body;
 
@@ -80,7 +80,7 @@ router.put('/user/:id', validateToken, (req, res) => {
 })
 
 // DELETE - deletes a user
-router.delete('/user/:id', validateToken, (req, res) => {
+router.delete('/user/:id', (req, res) => {
     const id = req.params.id;
 
     User
