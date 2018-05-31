@@ -10,7 +10,7 @@ const envPass = process.env.PASSWORD;
 const port = process.env.PORT || 3333;
 const server = express();
 
-const whitelist = ['https://lambda-notes-project.netlify.com', 'http://localhost:3000'];
+const whitelist = ['https://lambda-notes-project.netlify.com', 'http://localhost:3333/notes'];
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
@@ -30,7 +30,7 @@ mongoose
     console.log('Error connecting to database');
   });
 
-server.use(cors(corsOptions));
+server.use(cors());
 server.use(express.json());
 
 server.get('/', (req, res) => {
