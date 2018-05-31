@@ -19,7 +19,7 @@ router.post('/notes', (req, res) => {
 router.get('/notes', (req, res) => {
 
     Note
-    .find().select('title body id')
+    .find().select('title body id userId').populate('userId', 'username -_id')
     .then(notes => {
         res.status(200).json({ notes })
     })
