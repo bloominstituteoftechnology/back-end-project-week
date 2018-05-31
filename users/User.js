@@ -5,11 +5,14 @@ const options = {
 	strict: false
 };
 
-const User = new mongoose.Schema({
-	username: {
-		type: String,
-		required: true
-	}
-});
+const userSchema = new mongoose.Schema(
+	{
+		username: {
+			type: String,
+			required: true
+		}
+	},
+	options
+);
 
-module.exports = mongoose.model("User", User);
+module.exports = mongoose.model("User", userSchema);
