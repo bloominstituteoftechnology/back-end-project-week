@@ -46,7 +46,7 @@ Note
     res.status(200).json(response)
 })
 .catch(err=>{
-    res.status(500).json({err: "The collection of the brave responses of Griffindor could not be obtained."})
+    res.status(500).json({err: "The collection of notes could not be obtained."})
 })
 })
 router

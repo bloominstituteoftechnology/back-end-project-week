@@ -3,6 +3,10 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const notesRouter =require('./Notes/notesRouter')
 const Note = require('./Notes/notes')
+const userRouter = require('./Users/userRouter')
+const jwt = require('jsonwebtoken');
+const secret="jwt secret"
+const server = express();
 
 // const corsOptions = {
 //     origin: 'https://notejll.netlify.com',
@@ -10,7 +14,6 @@ const Note = require('./Notes/notes')
 //   }
 // server.use(cors(corsOptions))
 
-const server = express();
 server.use(cors())
 
 // var whitelist = ['https://notejll.netlify.com/']
@@ -24,7 +27,31 @@ server.use(cors())
 //     }
 //   }));
 server.use(express.json());
-server.use('/notes', notesRouter)
+
+getToken = userObj  =>{
+    return jwt.sign(userObj,secret, {expiresIn: "1h"})
+
+}
+
+const isTokenValid =(req,res,next)=>{
+    const token= req.headers.authorization;
+    if (!token){
+        res.status(422).json({error:'no auth token found'})
+    } else {
+        jwt.varify(token,secret,(err,decoded)=>{
+            if(err){
+                res.status(401).json({error:" token was invalid, please login again", message:err})
+            } else{
+                next()
+            }
+        })
+    }
+}
+
+
+
+server.use('/users',userRouter)
+server.use('/notes',isTokenValid, notesRouter)
 
 mongoose
 .connect('mongodb://JacobLeonLyerla:server1122@ds237770.mlab.com:37770/jlldb')
