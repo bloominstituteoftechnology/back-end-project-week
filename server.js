@@ -52,9 +52,9 @@ server.route('/notes')
   .post((req, res) => {
     const { title, body } = req.body;
 
-    Note.ceate({ title, body }, (note, err) => {
+    Note.ceate({ title, body }, err => {
       if(err) res.status(201).json(err);
-      else res.status(500).json(note);
+      else res.status(500).json('Create note success');
     });
   })
   .delete((req, res) => {
