@@ -32,7 +32,7 @@ router.put('/:id', (req, res) => {
   const obj = req.body
 
   User
-    .findByIdAndUpdate(id, obj)
+    .findByIdAndUpdate(id, obj, { new: true })
     .then(p => {
       res.status(200).json({ msg: '...user  updated successfully', p })
     })
