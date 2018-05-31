@@ -3,12 +3,19 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 
 const { mongoLAB } = require("./api/utils/config");
+const routes = require("./api/routes/routes");
 
 const server = express();
 const port = process.env.PORT || 3000;
 
-server.use(cors({}));
+const corsOptions = {
+  origin: "*",
+  credentials: true
+};
 
+server.use(cors(corsOptions));
+
+// ===== Connect to MongoDB =====
 mongoose
   .connect(mongoLAB)
   .then(() => {
@@ -18,6 +25,10 @@ mongoose
     console.log("\n --- Error connecting to MongoDB, send help! --- \n")
   );
 
+// Server routes
+routes(server);
+
+// ===== Verify API is working ======
 server.get("/", (req, res) => res.send("API is running!"));
 
 server.listen(port, () => console.log(`Listening on port ${port}`));
