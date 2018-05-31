@@ -58,13 +58,41 @@ router.route("/:id").delete((req, res) => {
 		.then(note => {
 			if (!note) {
 				res.status(400).json({ message: "Note does not exist" });
-			} else {
-				res.status(204).json({ message: "Note successfully deleted" });
 			}
+			res.status(204).json({ message: "Note successfully deleted" });
 		})
 		.catch(err => {
 			res.status(500).json({ errorMessage: "The note could not be removed" });
 		});
+});
+
+router.route("/:id").put((req, res) => {
+	const { id } = req.params;
+	const update = req.body;
+
+	if (!update.title || !update.content) {
+		res
+			.status(400)
+			.json({ errorMessage: "Please provide a title and text for the note" });
+	} else {
+		const query = Note.findByIdAndUpdate(id, update);
+
+		query
+			.then(note => {
+				if (!note) {
+					res.status(404).json({
+						message: "Note does not exist"
+					});
+				} else {
+					res.status(200).json(note);
+				}
+			})
+			.catch(err => {
+				res
+					.status(500)
+					.json({ errorMessage: "The note data could not be modified" });
+			});
+	}
 });
 
 module.exports = router;
