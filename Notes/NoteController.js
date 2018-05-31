@@ -55,7 +55,7 @@ const NoteController = {
         Note
           .findByIdAndRemove(id)
           .then(response => {
-            res.status(200).json({ note: deleted });
+            res.status(200).json({ deletedNote: deleted });
           })
           .catch(err => {
             res.status(500).json({ error: err });
@@ -72,7 +72,14 @@ const NoteController = {
     Note
       .findByIdAndUpdate(id, update)
       .then(response => {
-        res.status(200).json({ note: response });
+        Note
+          .findById(id)
+          .then(found => {
+            res.status(200).json({ updatedNote: found });
+          })
+          .catch(err => {
+            res.status(404).json({ error: 'Error fetching note', err });
+          });
       })
       .catch(err => {
         res.status(500).json({ error: 'Error updating note', err });
