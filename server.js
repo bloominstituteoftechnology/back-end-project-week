@@ -21,6 +21,9 @@ const corsOptions = {
   }
 }
 
+server.use(cors());
+server.use(express.json());
+
 mongoose
   .connect(`mongodb://${envUser}:${envPass}@ds239940.mlab.com:39940/lambda-notes`)
   .then(() => {
@@ -29,9 +32,6 @@ mongoose
   .catch(err => {
     console.log('Error connecting to database');
   });
-
-server.use(cors());
-server.use(express.json());
 
 server.get('/', (req, res) => {
   res.json({ message: 'Hello World!' });
