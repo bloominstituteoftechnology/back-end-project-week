@@ -4,7 +4,7 @@ const express = require('express');
 // const session = require('express-session');
 const helmet = require('helmet');
 // const cors = require('cors');
-const bodyParser = require('body-Parser');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const server = express();
