@@ -3,6 +3,7 @@ const router = express.Router();
 const Note = require('./Note');
 const jwt = require('jsonwebtoken');
 
+// Helper Function
 const validateToken = (req, res, next) => {
     const token = req.headers.authorization;
     if (!token) {

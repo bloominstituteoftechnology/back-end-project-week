@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const cors = require('cors');
 require('dotenv').config();
+const { jwtStrategy, localStrategy } = require('./login/login')
+const passport = require("passport");
 
 // Routes
 const noteRouter = require('./notes/noteRoutes');
