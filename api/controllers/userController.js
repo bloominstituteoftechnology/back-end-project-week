@@ -3,56 +3,105 @@ const router = express.Router();
 
 const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
-// const config = require('../config');
-// const { authenticate } = require("../utilities/middleware");
+const jwt = require("jsonwebtoken");
+const { authenticate, Secret } = require("../utilities/middleware");
 
-const Get = (req, res) => {
-  User
-    .find()
-    .then(users => {
-      users.length === 0 ?
-        res.status(204).json({ message: 'Database empty.' }) :
-        res.status(200).json(users)
-    })
-    .catch(err => res.status(500).json({ error: 'Server error fetching data.' }))
-}
-const Post = (req, res) => {
- 
-  User
-    .create(req.body)
-    .then(user => res.status(201).json(user))
-    .catch(err => res.status(500).json({ error: 'Server error with new user.' }))
-}
-const Get_Id = (req, res) => {
-  const { id } = req.params;
-  User
-    .findById(id)
-    .then(user => res.status(200).json(user))
-    .catch(err => res.status(500).json({ message: 'Server error: check Id.' }))
-}
-const Put = (req, res) => {
-  const { id } = req.params;
-  const updates = req.body;
-  User
-    .findByIdAndUpdate(id, updates, { new: true })
-    .then(updated => res.status(200).json(updated))
-    .catch(err => res.status(500).json({ error: 'Server error updating.' }))
-}
 
-const Delete = (req, res) => {
-  const { id } = req.params;
-  User
-    .findByIdAndRemove(id)
-    .then(deleted => res.status(200).json({ success: 'User deleted.' }))
-    .catch(err => res.status(500).json({ error: 'Server error deleting.' }))
-}
-router.route("/")
-  .get(Get)
-  .post(Post)
+router
+  .post("/login", (req, res) => {
+    const { username, password } = req.body;
+    User.findOne({ username }, (err, user) => {
+      if (err) {
+        res.status(403).json({ error: "Login error." });
+        return;
+      }
+      if (user === null) {
+        res.status(422).json({ error: "Invalid User Info." });
+        return;
+      }
+      const verified = user.validatePassword(password);
 
-router.route('/:id')
-  .get(Get_Id)
-  .put(Put)
-  .delete(Delete)
+      if (verified) {
+        const payload = {
+          username: user.username,
+          id: user._id
+        };
+        const token = jwt.sign(payload, Secret);
+        res.json({ token });
+      } else res.send("Invalid User Info.");
+    });
+  })
+  .post("/register", (req, res) => {
+    const userData = req.body;
+
+    const user = new User(userData);
+
+    if (!(req.body.username && req.body.password))
+      res.status(400).json({
+        errorMessage: "Please provide username and password."
+      });
+
+    user
+      .save()
+      .then(user => {
+        const payload = {
+          username: user.username,
+          id: user._id
+        };
+        const token = jwt.sign(payload, Secret);
+        res.status(201).json({ user, token });
+      })
+      .catch(err => {
+        res.status(500).json({
+          errorMessage: "Error Saving."
+        });
+      });
+  })
+  .get("/", authenticate, (req, res) => {
+    User
+      .find()
+      .then(users => {
+        users.length === 0 ?
+          res.status(204).json({ message: 'Database empty.' }) :
+          res.status(200).json(users)
+      })
+      .catch(err => res.status(500).json({ error: 'Server error fetching data.' }))
+  })
+
+  .get("/:id", authenticate, (req, res) => {
+    User.findById(req.params.id)
+      .select("-password")
+      .then(user => {
+        if (user === null)
+          res.status(404).json({
+            message: "User ID does not exist."
+          });
+        else res.status(200).json(user);
+      })
+      .catch(error => {
+        res
+          .status(500)
+          .json({ message: "Server error retreiving." }, err);
+      });
+  })
+
+  .delete("/:id", authenticate, (req, res) => {
+    User.findByIdAndRemove(req.params.id)
+      .select("-password")
+      .then(user => {
+        if (user === null)
+          res.status(404).json({
+            message: "User ID error."
+          });
+        else
+          res
+            .status(200)
+            .json({ message: "User deleted.", user: user });
+      })
+      .catch(error => {
+        res.status(500).json({ message: "Server error deleting." }, err);
+      });
+  })
+
 
 module.exports = router;
