@@ -5,7 +5,7 @@ const port = process.env.PORT || 3333;
 
 const db = require("./data/db");
 const usersRouter = require("./users/usersRouter");
-// const notesRouter = require("./notes/notesRouter");
+const notesRouter = require("./notes/notesRouter");
 
 const server = express();
 
@@ -25,7 +25,7 @@ server.use(express.json());
 
 // application routes
 server.use("/api/users", usersRouter);
-// server.use("/api/notes", notesRouter);
+server.use("/api/notes", notesRouter);
 
 // root route
 server.get("/", (req, res) => {
