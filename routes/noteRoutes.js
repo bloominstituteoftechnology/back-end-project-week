@@ -15,7 +15,17 @@ router.route('/')
       })
       .catch();
   });
-  
+
+router.route('/add')
+  .post((req, res) => {
+    const newNote = req.body;
+    
+    Note.create(newNote)
+      .then(newNote => {
+        res.status(201).json(newNote)
+      })
+      .catch(err => res.send({ error: err }));
+  });
   
 
 module.exports = router;
