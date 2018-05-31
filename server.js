@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const Sentiment = require('sentiment');
+const language = require('@google-cloud/language');
 
 const Note = require('./models/note');
 
@@ -13,6 +14,7 @@ server.use(cors());
 server.use(helmet());
 
 const sentiment = new Sentiment();
+const client = new language.LanguageServiceClient();
 
 if (process.env.NODE_ENV !== 'test') {
   const port = process.env.PORT || 5000;
@@ -46,10 +48,21 @@ server.get('/api/notes/:id', asyncHandler(async (req, res) => {
 }));
 
 server.put('/api/notes/:id', asyncHandler(async (req, res) => {
-  const sentScore = sentiment.analyze(req.body.content);
-  req.body.sentiment = sentScore.score;
-  req.body.comparative = sentScore.comparative;
-  req.body.title = `Score: ${sentScore.score}, Comparative: ${sentScore.comparative}`; 
+  // const sentScore = sentiment.analyze(req.body.content);
+  // req.body.sentiment = sentScore.score;
+  // req.body.comparative = sentScore.comparative;
+  // req.body.title = `Score: ${sentScore.score}, Comparative: ${sentScore.comparative}`; 
+
+  const document = {
+    content: req.body.content,
+    type: 'PLAIN_TEXT'
+  };
+
+  let score = await client.analyzeSentiment({ document });
+  score = score[0].documentSentiment.score;
+  console.log("score is ", score);
+  req.body.sentiment = score;
+  req.body.title = `Score: ${score}`; 
 
   const response = await Note.findByIdAndUpdate(req.params.id, req.body, { new: true})
     || `Note with id ${req.params.id} not found`;
