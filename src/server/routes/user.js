@@ -5,9 +5,13 @@ const { getSessionToken } = require('../util')
 const userRouter = express.Router()
 
 userRouter.post('/register', async (req, res, next) => {
-  const user = await User.create(req.body)
-  const token = getSessionToken(user)
-  res.status(201).send({ token })
+  try {
+    const user = await User.create(req.body)
+    const token = getSessionToken(user)
+    res.status(201).send({ token })
+  } catch (err) {
+    next(err)
+  }
 })
 
 userRouter.post('/login', async (req, res, next) => {
