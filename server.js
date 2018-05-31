@@ -8,11 +8,17 @@ const Note = require('./src/notes/Note');
 const noteRouter = require('./routes/noteRoutes');
 const userRouter = require('./routes/userRoutes');
 
-//const { dbURI } = require('./config/config')
+let dbURI;
+
+if (!process.env.MONGODB_URI) {
+  dbURI = require('./config/config').dbURI;
+} else {
+  dbURI = process.env.MONGODB_URI;
+}
 
 const server = express();
 
-mongoose.connect(MONGODB_URI)
+mongoose.connect(dbURI)
   .then(() => {
     console.log('\n ---=== connected to mlab database ===--- \n');
   })
