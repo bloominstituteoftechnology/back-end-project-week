@@ -3,6 +3,8 @@ const session = require('express-session');
 const helmet = require('helmet');
 const cors = require('cors');
 const port = process.env.PORT || 5000;
+const noteRouter = require('./noteModal/noteController');
+const userRouter = require('./userModal/userController');
 
 const server = express();
 
@@ -39,3 +41,8 @@ server.listen(port, err => {
 });
 
 
+//middleware
+server.use(express.json());
+server.use(cors());
+server.use('/api', noteRouter);
+server.use('/api', userRouter);
