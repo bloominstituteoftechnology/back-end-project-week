@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 
-const iconList = ['settings','account_circle','search','list','bookmarks','note']
+const iconList = ['settings', 'account_circle', 'search', 'list', 'bookmarks', 'note']
 
 const styles = theme => ({
   root: {
@@ -14,7 +14,7 @@ const styles = theme => ({
     alignItems: 'center',
   },
   mainButton: {
-    backgroundColor: theme.palette.primary.main,
+    // backgroundColor: theme.palette.primary.main,
     margin: theme.spacing.unit,
   },
   subButton: {
@@ -22,7 +22,7 @@ const styles = theme => ({
     position: 'absolute',
     cursor: 'pointer',
     '&:hover': {
-      color: theme.palette.primary.main
+      color: theme.palette.secondary.main
     }
   },
 });
@@ -32,24 +32,24 @@ class Wheel extends Component {
     if (icon === 'account_circle') {
       return 'account'
     }
-    return icon.replace('_',' ')
+    return icon.replace('_', ' ')
   }
   render() {
     const { classes } = this.props;
-    const distanceBetweenIcons = -180/(iconList.length-1)
-    const rotateDeg = 0-distanceBetweenIcons
+    const distanceBetweenIcons = -180 / (iconList.length - 1)
+    const rotateDeg = 0 - distanceBetweenIcons
     return (
       <div className={classes.root}>
         <Button variant="fab" color="secondary" aria-label="add" className={classes.mainButton}>
           <AddIcon />
         </Button>
-        { iconList.map((icon,index) => 
-            <div 
-              key={icon} 
-              className={classes.subButton} 
-              style={{transform: `rotate(${index*distanceBetweenIcons}deg) translateX(60px) rotate(${index*rotateDeg}deg)`}}>
-                <WheelIcon icon={icon} name={this.getName(icon)}/>
-            </div>
+        {iconList.map((icon, index) =>
+          <div
+            key={icon}
+            className={classes.subButton}
+            style={{ transform: `rotate(${index * distanceBetweenIcons}deg) translateX(60px) rotate(${index * rotateDeg}deg)` }}>
+            <WheelIcon icon={icon} name={this.getName(icon)} />
+          </div>
         )}
       </div>
     );

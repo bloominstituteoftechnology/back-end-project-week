@@ -4,5 +4,11 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import theme from './Helper/theme';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+
+ReactDOM.render(
+    <MuiThemeProvider theme={theme}>
+        <App />
+    </MuiThemeProvider>, document.getElementById('root'));
 registerServiceWorker();
