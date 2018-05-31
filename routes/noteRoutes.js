@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const Note = require('../src/notes/Note');
+const User = require('../src/users/User');
 
 router.route('/')
   .get((req, res) => {
