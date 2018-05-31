@@ -2,7 +2,7 @@ trello board: https://trello.com/b/e8ikX2b1/lambda-notesbackend-devon-bacon
 
 front end: https://github.com/metalogicoder/back-end-project-week-front-end/blob/master/README.md
 
-deployment: https://lambda-notes-project.netlify.com
+deployment: https://metalogicoder.github.io/back-end-project-week-front-end/
 
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
