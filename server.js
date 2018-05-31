@@ -10,6 +10,11 @@ const envPass = process.env.PASSWORD;
 const port = process.env.PORT || 3333;
 const server = express();
 
+const corsOptions = {
+  origin: 'https://lambda-notes-project.netlify.com',
+  credentials: true,
+};
+
 mongoose
   .connect(`mongodb://${envUser}:${envPass}@ds239940.mlab.com:39940/lambda-notes`)
   .then(() => {
@@ -19,7 +24,7 @@ mongoose
     console.log('Error connecting to database');
   });
 
-server.use(cors({}));
+server.use(cors(corsOptions));
 server.use(express.json());
 
 server.get('/', (req, res) => {
