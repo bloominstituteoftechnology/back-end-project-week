@@ -47,6 +47,7 @@ class Login extends Component {
         this.props.history.push('/')
     }
 
+
     render() {
         return(
             <div>
@@ -60,15 +61,15 @@ class Login extends Component {
                             </div>
                             <button style={login}>Login</button>
                             <button onClick={this.sendToRegister} style={login}>Register</button>
-
                             <div className="sweet-loading">
                                 <ClipLoader
                                 color={"#666"}
-                                size={80}
+                                size={40}
                                 loading={this.state.loading}
                                 />
                             </div>
                         </form>
+                        <a style={git} href="https://github.com/login/oauth/authorize?client_id=7e0997d4f79135cba0f9" className="github">Login With GitHub</a>
                     </div>
                 </div>
             </div>
@@ -84,6 +85,18 @@ const login = {
     paddingTop: "1%",
     height: "5vh",
     cursor: "pointer"
+}
+
+const git = {
+    textDecoration: "none",
+    backgroundColor: "rgb(120, 120, 120)",
+    border: "none",
+    width: "30%",
+    paddingTop: "1%",
+    height: "5vh",
+    cursor: "pointer",
+    // position: "relative",
+    // top: 5
 }
 
 // const displayNone = {

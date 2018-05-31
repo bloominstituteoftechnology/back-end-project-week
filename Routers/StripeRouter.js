@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router()
-
+const cors = require('cors');
 const keyPublishable = "pk_test_vpJZ7OT67atKUohQIOAPZyxT"
 const keySecret = "sk_test_aLfqAx3CG4EQnOHc5C5IhaW8";
 const stripe = require("stripe")(keySecret);

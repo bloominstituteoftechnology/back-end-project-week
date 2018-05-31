@@ -35,6 +35,20 @@ server.use('/users', userRouter)
 server.use("/charge", StripeRouter)
 
 
+server.get("user/signin/callback", (req, res) => {
+  console.log('query', req.query);
+  const {code} = code;
+
+  if(!code) {
+    return res.send({
+      success: false
+    })
+  }
+
+
+  console.log('code', code)
+})
+
 
 server.listen(process.env.PORT || 5000);
 

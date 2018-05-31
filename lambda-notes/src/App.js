@@ -7,7 +7,7 @@ import NoteView from "./Components/NoteView/NoteView"
 import EditNote from "./Components/EditNote/EditNote"
 import Login from "./Components/Login/Login";
 import Register from "./Components/Register/Register"
-
+// import GitHub from "./Components/GitHub/GitHub"
 
 class App extends Component {
   render() {
@@ -20,6 +20,7 @@ class App extends Component {
           <Route exact path="/new" component={CreateNote}/>
           <Route path="/edit" component={EditNote}/>
           <Route  path="/note" component={NoteView}/>
+          {/* <Route path="user/signin/callback" component={GitHub}/> */}
         </Switch>
       </div>
     );
