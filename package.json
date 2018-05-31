@@ -2,10 +2,9 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "description": "Backend for a note taking app called \"Lambda Notes.\"",
-
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +30,12 @@
     "express-mongoose-store": "^1.0.7",
     "express-session": "^1.15.6",
     "helmet": "^3.12.0",
-    "mongoose": "^5.0.16"
+    "jsonwebtoken": "^8.2.2",
+    "mongoose": "^5.0.16",
+    "morgan": "^1.9.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "pg": "^7.4.3"
   }
 }
