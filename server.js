@@ -1,21 +1,20 @@
 const express = require('express');
+const helmet = require('helmet');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const PORT = process.env.PORT || 8080;
+
+require('dotenv').config();
 
 const routes = require('./api/routes/index');
 
 const server = express();
 
 server.use(express.json());
+server.use(helmet());
 server.use(cors());
 server.use(bodyParser.json());
-
-// server.get('/', (req, res) => {
-//    res.json({Message: "Hello World!"});
-
-//})
 
 // routes(server);
 
