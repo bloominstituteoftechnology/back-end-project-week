@@ -26,6 +26,8 @@ server.get("/", (req, res) => {
   res.json({ Message: "Hello World" });
 });
 
+// Note routes ========================================================
+
 server.get("/notes", (req, res) => {
   Note.find()
     .then(notes => {
@@ -117,6 +119,102 @@ server.delete("/notes/:id", (req, res) => {
       res
         .status(404)
         .json({ errorMessage: "Could not get a note for that id." });
+    });
+});
+
+//User routes ========================================================
+
+server.get("/users", (req, res) => {
+  User.find()
+    .then(users => {
+      res.status(200).json(users);
+    })
+    .catch(err => {
+      res.status(500).json({ errorMessage: "Could not get users." });
+    });
+});
+
+server.get("/users/:id", (req, res) => {
+  const id = req.params.id;
+  User.findById(id)
+    .then(user => {
+      res.status(200).json(user);
+    })
+    .catch(err => {
+      res
+        .status(404)
+        .json({ errorMessage: "Could not get a user for that id." });
+    });
+});
+
+server.post("/users", (req, res) => {
+  const newUser = new User(req.body);
+  newUser
+    .save()
+    .then(user => {
+      res.status(201).json(user);
+    })
+    .catch(err => {
+      res.status(500).json({ errorMessage: "Could not post user." });
+    });
+});
+
+server.put("/users/:id", (req, res) => {
+  const id = req.params.id;
+  const changes = req.body;
+  const options = {
+    new: true
+  };
+  if (!changes.username && !changes.password) {
+    return res
+      .status(422)
+      .json({ errorMessage: "Please add a username and/or password field." });
+  }
+  User.findById(id)
+    .then(user => {
+      User.findByIdAndUpdate(id, changes, options)
+        .then(user => {
+          if (!user) {
+            return res
+              .status(404)
+              .json({ errorMessage: "No user with that id could be found." });
+          } else res.status(200).json(user);
+        })
+        .catch(err => {
+          res
+            .status(500)
+            .json({ errorMessage: "Could not update a user with that id." });
+        });
+    })
+    .catch(err => {
+      res
+        .status(404)
+        .json({ errorMessage: "Could not get a user for that id." });
+    });
+});
+
+server.delete("/users/:id", (req, res) => {
+  const id = req.params.id;
+  User.findById(id)
+    .then(user => {
+      User.findByIdAndRemove(id)
+        .then(user => {
+          if (!user) {
+            return res
+              .status(404)
+              .json({ errorMessage: "No user with that id could be found." });
+          } else res.status(200).json(user);
+        })
+        .catch(err => {
+          res
+            .status(500)
+            .json({ errorMessage: "Could not delete a user with that id." });
+        });
+    })
+    .catch(err => {
+      res
+        .status(404)
+        .json({ errorMessage: "Could not get a user for that id." });
     });
 });
 
