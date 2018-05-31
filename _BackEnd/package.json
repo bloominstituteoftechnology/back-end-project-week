@@ -1,6 +1,7 @@
 {
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "node": "^10.3.0"
   },
   "devDependencies": {
     "cors": "^2.8.4",

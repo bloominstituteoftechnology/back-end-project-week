@@ -1,3 +1,4 @@
+// To test with Postman: open 3 terminals: mongo, mongod, yarn start
 // Import Dependencies 
 const express = require('express'); // makes it easy to use node
 const helmet = require('helmet'); // secure express apps
