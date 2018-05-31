@@ -2,13 +2,11 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "description": "backend for lambda notes project",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest server/",
     "server": "node dist/index.js",
-    "build": "babel index.js -d dist",
-    "postinstall": "npm run build",
-    "dev": "nodemon --inspect --exec babel-node index.js"
+    "dev": "nodemon --inspect server/index.js"
   },
   "engines": {
     "node": ">=10"
@@ -26,11 +24,6 @@
   "devDependencies": {
     "@types/faker": "^4.1.2",
     "@types/mongoose": "^5.0.15",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-jest": "^23.0.1",
-    "babel-preset-env": "^1.7.0",
-    "babel-register": "^6.26.0",
     "faker": "^4.1.0",
     "jest": "^23.0.1",
     "jest-nyan-reporter": "^1.0.2",
@@ -38,9 +31,7 @@
     "supertest": "^3.1.0"
   },
   "jest": {
-    "transform": {
-      "^.+\\.jsx?$": "babel-jest"
-    },
+    "testEnvironment": "node",
     "reporters": [
       [
         "jest-nyan-reporter",
@@ -49,10 +40,6 @@
         }
       ]
     ]
-  },
-  "babel": {
-    "presets": "env",
-    "sourceMaps": true
   },
   "dependencies": {
     "bcrypt": "^2.0.1",

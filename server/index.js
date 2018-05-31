@@ -1,5 +1,5 @@
-import mongoose from 'mongoose'
-import server from './server'
+const mongoose = require('mongoose')
+const server = require('./server')
 
 async function connectDb(driver) {
   await driver.connect(process.env.MONGODB_URI)

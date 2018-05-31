@@ -1,4 +1,5 @@
-import mongoose, { Schema } from 'mongoose'
+const mongoose = require('mongoose')
+const { Schema } = mongoose
 const { ObjectId } = Schema.Types
 
 const NoteSchema = new Schema({
@@ -6,6 +7,4 @@ const NoteSchema = new Schema({
   content: { type: String, required: false }
 })
 
-const NoteModel = mongoose.model('Note', NoteSchema)
-
-export default NoteModel
+module.exports = mongoose.model('Note', NoteSchema)

@@ -1,5 +1,6 @@
-import mongoose, { Schema } from 'mongoose'
-import bcrypt from 'bcrypt'
+const mongoose = require('mongoose')
+const bcrypt = require('bcrypt')
+const { Schema } = mongoose
 const { ObjectId } = Schema.Types
 
 const UserSchema = new Schema({
@@ -15,23 +16,18 @@ const UserSchema = new Schema({
   }
 })
 
-UserSchema.pre('save', function(next) {
-  bcrypt.hash(this.password, 11, (err, hash) => {
-    if (err) return next(err)
-
-    this.password = hash
-    next()
-  })
+UserSchema.pre('save', async function(next) {
+  const hash = await bcrypt.hash(this.password, 11)
+  this.password = hash
+  next()
 })
 
 UserSchema.methods.checkPassword = function(passwordGuess, cb) {
   bcrypt.compare(passwordGuess, this.password, (err, isMatch) => {
     if (err) return cb(err)
 
-    cb(null, isMatch)
+    return cb(null, isMatch)
   })
 }
 
-const UserModel = mongoose.model('User', UserSchema)
-
-export default UserModel
+module.exports = mongoose.model('User', UserSchema)
