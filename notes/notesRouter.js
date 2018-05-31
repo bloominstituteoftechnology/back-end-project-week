@@ -58,9 +58,8 @@ router.route("/:id").delete((req, res) => {
 		.then(note => {
 			if (!note) {
 				res.status(400).json({ message: "Note does not exist" });
-			} else {
-				res.status(204).json(note);
 			}
+			res.status(204).json(note);
 		})
 		.catch(err => {
 			res.status(500).json({ errorMessage: "The note could not be removed" });
