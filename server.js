@@ -5,7 +5,7 @@ const notes = require('./routes/note');
 const users = require('./routes/user');
 const login = require('./routes/login');
 const register = require('./routes/register');
-const authenticate = require('./config/authenticate');
+const { authenticate } = require('./config/authenticate');
 
 server = express();
 
