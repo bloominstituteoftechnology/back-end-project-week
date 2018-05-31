@@ -4,8 +4,8 @@ const User = require("../modules/users");
 const router = express.Router();
 
 router
-  
-  .post('/register', (req, res) => {
+  .route('/register')
+  .post((req, res) => {
     const newUser = new User({
       username: req.body.username,
       password: req.body.password,

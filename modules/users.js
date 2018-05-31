@@ -32,7 +32,11 @@ UserSchema.pre('save', function(next) {
 
 UserSchema.methods.validatePassword = function(plainText, callback) {
   return bcrypt.compare(plainText, this.password, (err, valid) => {
-    return err ? callback(err) : callback(null, valid);
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, valid);
+    }
   });
 };
 

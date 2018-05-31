@@ -11,9 +11,10 @@ router
     .select('title body -_id')
     .then(notes => {
       if (notes.length === 0) {
-        res.status(404).json('You have not made any notes')
+        res.status(404).json('You have not made any notes');
+      } else {
+        res.status(200).json(notes);
       }
-      res.status(200).json(notes)
     })
     .catch(err => {
       res.status(500).json(err);
