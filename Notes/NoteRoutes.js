@@ -7,6 +7,6 @@ const { getNotes, getNote, createNote, deleteNote } = NoteController;
 NoteRouter.get('/', getNotes);
 NoteRouter.get('/:id', getNote);
 NoteRouter.post('/', createNote);
-NoteRouter.delete('/', deleteNote);
+NoteRouter.delete('/:id', deleteNote);
 
 module.exports = NoteRouter;
