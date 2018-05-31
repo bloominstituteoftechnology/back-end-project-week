@@ -39,7 +39,6 @@ const NoteController = {
       res.status(500).json({ error: 'A note requires a title and contents' });
     }
   },
-  deleteNote:
 }
 
 module.exports = NoteController;
