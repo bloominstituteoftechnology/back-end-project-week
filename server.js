@@ -60,9 +60,11 @@ server.put('/api/notes/:id', asyncHandler(async (req, res) => {
 
   let score = await client.analyzeSentiment({ document });
   score = score[0].documentSentiment.score;
+  score = Number.parseFloat(score).toPrecision(2);
   console.log("score is ", score);
   req.body.sentiment = score;
-  req.body.title = `Score: ${score}`; 
+  req.body.color = getSentimentColor(score);
+  req.body.title = `Sentiment Score: ${score}`; 
 
   const response = await Note.findByIdAndUpdate(req.params.id, req.body, { new: true})
     || `Note with id ${req.params.id} not found`;
@@ -77,5 +79,23 @@ server.delete('/api/notes/:id', asyncHandler(async (req, res) => {
 
 // needs to be last: https://expressjs.com/en/guide/error-handling.html
 server.use(errorLog);
+
+function getSentimentColor(score) {
+  if (between(score,  -1, -.8)) return "#0066CC";
+  if (between(score, -.8, -.6)) return "#00FFCC";
+  if (between(score, -.6, -.4)) return "#3399CC";
+  if (between(score, -.4, -.2)) return "#33FFCC";
+  if (between(score, -.2,   0)) return "#6699CC";
+  if (between(score,   0,  .2)) return "#66CCCC";
+
+  if (between(score,  .2,  .4)) return "#66CCCC";
+  if (between(score,  .4,  .6)) return "#9999CC";
+  if (between(score,  .6,  .8)) return "#FF6699";
+  if (between(score,  .8,   1)) return "#FF9999";
+}
+
+function between(x, min, max) {
+  return x >= min && x <= max;
+}
 
 module.exports = server;

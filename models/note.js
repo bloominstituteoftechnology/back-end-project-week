@@ -9,6 +9,7 @@ const noteSchema = mongoose.Schema({
     type: String,
     required: true
   }, 
+  color: String,
   sentiment: Number,
   comparative: Number,
   tags: String

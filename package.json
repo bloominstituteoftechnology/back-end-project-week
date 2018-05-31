@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/fmarkwong-lambda-school-cs9-coursework/back-end-project-week#readme",
   "dependencies": {
+    "@google-cloud/language": "^1.2.0",
     "cors": "^2.8.4",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
