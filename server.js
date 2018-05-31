@@ -29,45 +29,62 @@ server.use(bodyParser.json());
 server.use('/api/notes', noteController);
 
 // User Authentication
-// function authenticate(req, res, next) {
-//   if(req.session && req.session.username) {
-//     next();
-//   } else {
-//     res.status(401).send('MENE MENE TEKEL UPHARSIN');
-//   }
-// }
+function authenticate(req, res, next) {
+  if(req.session && req.session.username) {
+    next();
+  } else {
+    res.status(401).send('MENE MENE TEKEL UPHARSIN');
+  }
+}
 
-// server.use(
-//   session({
-//     secret: 'The goodness of God leadeth thee to repentence.',
-//     cookie: {
-//       maxAge: 1 * 24 * 60 * 60 * 1000,
-//     },
-//     httpOnly: true,
-//     secure: false,
-//     resave: true,
-//     saveUninitialized: false,
-//     name: 'GodIsWatchingYou',
-//     store: new MongoStore({
-//       url: 'mongodb://localhost/sessions',
-//       ttl: 60 * 10,
-//     })
-//   })
-// );
+server.use(
+  session({
+    secret: 'The goodness of God leadeth thee to repentence.',
+    cookie: {
+      maxAge: 1 * 24 * 60 * 60 * 1000,
+    },
+    httpOnly: true,
+    secure: false,
+    resave: true,
+    saveUninitialized: false,
+    name: 'GodIsWatchingYou',
+    store: new MongoStore({
+      url: 'mongodb://localhost/sessions',
+      ttl: 60 * 10,
+    })
+  })
+);
 
-// server.get('/api/users', authenticate, (req, res) => {
-//   User.find().then(users => res.send(users));
-// });
+server.get('/api/users', authenticate, (req, res) => {
+  User.find().then(users => res.send(users));
+});
 
-// server.post('/api/register', function(req, res) {
-//   const user = new User(req.body);
-//   user
-//     .save()
-//     .then(user => res.status(201).send(user))
-//     .catch(err => res.status(500).send(err));
-// })
+server.post('/api/register', function(req, res) {
+  const user = new User(req.body);
+  user
+    .save()
+    .then(user => res.status(201).send(user))
+    .catch(err => res.status(500).send(err));
+})
 
-// server.post('/api/login')
+server.post('/api/login', (req, res) => {
+  const { username, password } = req.body;
+
+  User.findOne({ username })
+    .then(user => {
+      if (user) {
+        user.isPasswordValid(password).then(isValid => {
+          if (isValid) {
+            req.session.username = user.username;
+            res.send('Cookie has been created.');
+          } else {
+            res.status(401).send('That username/password combination does not exist.');
+          }
+        })
+      }
+    })
+    .catch(err => res.send(err));
+});
 
 
 // Basic get test
