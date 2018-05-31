@@ -4,7 +4,7 @@
     "description": "Backend project",
     "main": "server.js",
     "scripts": {
-        "start": "node server.js"
+        "start": "nodemon server.js"
     },
     "author": "Jekm",
     "dependencies": {
