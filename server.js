@@ -49,7 +49,7 @@ server.use(
     saveUninitialized: false,
     name: 'GodIsWatchingYou',
     store: new MongoStore({
-      url: 'mongodb://localhost/sessions',
+      url: 'mongodb:://boaz:wasruthless@ds139970.mlab.com:39970/my-bible-app',
       ttl: 60 * 10,
     })
   })
