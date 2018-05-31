@@ -9,6 +9,14 @@ const noteModel = {
       type: String, 
       required: true, 
     },
+  tags: {
+    type: Array,
+    default: []
+  },
+  timestamp: {
+    type: Date,
+    default: Date.now()
+  },
 };
 
 const noteSchema = new mongoose.Schema(noteModel);
