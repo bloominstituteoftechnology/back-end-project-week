@@ -5,7 +5,7 @@ const User = require("./User");
 
 router.route("/").post((req, res) => {
 	const newUser = new User(req.body);
-
+	console.log(newUser);
 	if (!req.body.username) {
 		res.status(400).json({ errorMessage: "Please provide a username" });
 	}
