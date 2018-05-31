@@ -21,9 +21,6 @@ const corsOptions = {
   }
 }
 
-server.use(cors());
-server.use(express.json());
-
 mongoose
   .connect(`mongodb://${envUser}:${envPass}@ds239940.mlab.com:39940/lambda-notes`)
   .then(() => {
@@ -32,6 +29,9 @@ mongoose
   .catch(err => {
     console.log('Error connecting to database');
   });
+
+server.use(cors());
+server.use(express.json());
 
 server.get('/', (req, res) => {
   res.json({ message: 'Hello World!' });
@@ -50,7 +50,7 @@ server.route('/notes')
       .catch(err => res.status(500).json(err));
   })
   .post((req, res) => {
-    const { title, body } = req.body;
+    const { title, body } = req.body;ç
     const note = new Note({ title, body });
 
     note.save((note, err) => {
