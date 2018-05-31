@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import db from './dummyData.js';
 import { withStyles } from '@material-ui/core/styles';
 
 import Wheel from './Navigation/Wheel';

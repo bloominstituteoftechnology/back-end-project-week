@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
+
+import Notes from './Notes';
+
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
@@ -12,7 +16,7 @@ class NoteContainer extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        Something
+        <Route exact path='/' render={(props) => <Notes {...props} />} />
       </div>
     );
   }
