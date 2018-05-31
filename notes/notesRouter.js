@@ -9,7 +9,7 @@ router.route("/").post((req, res) => {
 			.status(400)
 			.json({ errorMessage: "Please provide a title and text for the note" });
 	} else {
-		const newNote = new newNote(req.body);
+		const newNote = new Note(req.body);
 
 		newNote
 			.save()
