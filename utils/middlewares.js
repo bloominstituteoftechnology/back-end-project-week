@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-const { mysecret } = require("./dbConfig");
+const mysecret = require("./dbConfig");
 
 const authenticate = (req, res, next) => {
   // You won't need to change anything in this file here.

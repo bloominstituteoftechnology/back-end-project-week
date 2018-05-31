@@ -13,7 +13,7 @@ const createNote = (req, res) => {
       res.status(201).json(newNote);
     })
     .catch(err => {
-      res.status(500).json({ message: "Error creating note", err });
+      res.json({ message: "Error creating note", err });
     });
 };
 
