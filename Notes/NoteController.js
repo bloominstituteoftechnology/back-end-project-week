@@ -49,7 +49,7 @@ const NoteController = {
         deleted = found;
 
         Note
-          .remove(Note.id)
+          .remove(id)
           .then(response => {
             res.status(200).json({ note: deleted })
           })
