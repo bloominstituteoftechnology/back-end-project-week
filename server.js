@@ -22,8 +22,8 @@ server.use(helmet());
 
 server.use('/notes', authenticate, notes);
 server.use('/users', users);
-server.use('/api/login', login);
-server.use('/api/register', register);
+server.use('/users', login);
+server.use('/users', register);
 
 server.get('/', (req, res) => {
   res.status(200).json({Message: 'Hello World'});

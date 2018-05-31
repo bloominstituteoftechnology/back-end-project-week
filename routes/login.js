@@ -7,7 +7,7 @@ const router = express.Router();
 router
   .route('/login')
   .post((req, res) => {
-    const { username, password } = req.body;
+    const { username, password, email } = req.body;
     User.findOne({ username })
       .then(user => {
         user.validatePassword(password, (noMatch, isValid) => {
@@ -16,7 +16,7 @@ router
           }
           if (isValid) {
             const payload = { username: user.username, id: user._id };
-            const token = jwt.sign(payload, process.env.SECRET);
+            const token = jwt.sign(payload, '1995TY11AR10');
             res.status(200).json({ token });
           }
         })
