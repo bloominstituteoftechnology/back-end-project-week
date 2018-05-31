@@ -15,6 +15,10 @@ const Note = new mongoose.Schema({
     type: String,
     required: true
   },
+  tags: {
+    type: Array,
+    default: []
+  },
   timestamp: {
     type: Date,
     default: Date.now()
