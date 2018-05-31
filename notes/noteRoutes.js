@@ -19,7 +19,7 @@ router.post('/notes', (req, res) => {
 router.get('/notes', (req, res) => {
 
     Note
-    .find().select('title body id userId').populate('userId', 'username -_id')
+    .find().select('title body id createdBy').populate('createdBy', 'username -_id')
     .then(notes => {
         res.status(200).json({ notes })
     })
@@ -33,7 +33,7 @@ router.get('/note/:id', (req, res) => {
     const id = req.params.id;
 
     Note
-    .findById(id).select('title body')
+    .findById(id).select('title body id createdBy').populate('createdBy', 'username -_id')
     .then(note => {
         res.status(200).json({ note })
     })
