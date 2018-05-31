@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const userRouter = require("./Routers/UserRouter")
 const notesRouter = require("./Routers/NotesRouter")
-
 //Variables 
 const keyPublishable = "pk_test_vpJZ7OT67atKUohQIOAPZyxT"
 const keySecret = "sk_test_aLfqAx3CG4EQnOHc5C5IhaW8";
@@ -45,7 +44,7 @@ server.get("/", (req, res) =>
 server.get('/testing', (req, res) => {
   res.send("API RUNNING")
 })
-server.post("/charge", (req, res) => {
+server.post("/charge", cors,  (req, res) => {
   let amount = 500;
 
   stripe.customers.create({

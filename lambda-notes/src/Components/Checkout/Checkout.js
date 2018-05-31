@@ -17,6 +17,7 @@ const errorPayment = data => {
 };
 
 const onToken = (amount, description) => token =>
+  // console.log(description, token.id,CURRENCY,fromEuroToCent(amount))
   axios.post("https://noteslambda.herokuapp.com/charge",
     {
       description,
@@ -33,8 +34,8 @@ const Checkout = ({ name, description, amount }) =>
     description={description}
     amount={fromEuroToCent(amount)}
     token={onToken(amount, description)}
-    currency={CURRENCY}
-    stripeKey={STRIPE_PUBLISHABLE}
+    currency={"EUR"}
+    stripeKey={"pk_test_vpJZ7OT67atKUohQIOAPZyxT"}
   />
 
 export default Checkout;
