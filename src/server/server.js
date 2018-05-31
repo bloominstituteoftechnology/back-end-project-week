@@ -22,7 +22,7 @@ server.get('/', (req, res) => {
 
 server.use((err, req, res, next) => {
   const status = err.status || 500
-  res.status(status).send({ error: err.message })
+  res.status(status).send(err.message)
 })
 
 module.exports = server
