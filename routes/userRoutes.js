@@ -51,7 +51,8 @@ router.route('/register')
     
     User.create(newUser)
       .then(newUser => {
-        res.status(201).json(newUser)
+        const token = getTokenForUser({ username: newUser.username });
+        res.status(201).json({ newUser, token });
       })
       .catch(err => res.send({ error: err }));
   });
