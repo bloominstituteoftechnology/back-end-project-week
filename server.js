@@ -31,7 +31,7 @@ server.get('/', (req, res) => {
 })
 
 // POST notes - Title + Body/Content
-server.post('/notes', (req, res) => {
+server.post('/api/notes', (req, res) => {
 
     Note
     .create(req.body)
@@ -44,7 +44,7 @@ server.post('/notes', (req, res) => {
 })
 
 // GET notes - Display Notes
-server.get('/notes', (req, res) => {
+server.get('/api/notes', (req, res) => {
 
     Note
     .find().select('title body id')
