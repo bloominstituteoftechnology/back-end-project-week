@@ -14,7 +14,7 @@ mongoose.connect('mongodb://localhost/backEndProject')
 });
 
 const notesController = require('./notes/notesController');
-const routes = require('./users/usersController');
+const {routes, authenticate} = require('./users/usersController');
 
 // mongoose
 //     .connect(`mongodb://${user}:${password}@ds123084.mlab.com:23084/lambda-notes`)
@@ -35,6 +35,6 @@ server.use(cors());
 server.use(express.json());
 
 routes(server);
-server.use('/api/notes', notesController)
+server.use('/api/notes', authenticate, notesController)
 
 server.listen(port, () => console.log(`\n === API running on port ${port} === \n`));

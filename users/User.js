@@ -28,8 +28,8 @@ userSchema.pre('save', function(next) {
         })
 })
 
-userSchema.methods.validatePassword = function(attempt) {
-    return bcrypt.compare(attempt, this.password);
+userSchema.methods.validatePassword = function(attempt, callback) {
+    return bcrypt.compare(attempt, this.password, callback);
 }
 
 module.exports = mongoose.model('User', userSchema);
