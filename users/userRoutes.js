@@ -28,4 +28,17 @@ router.get('/users', (req, res) => {
     })
 })
 
+// GET - retrieve a specific user using ID
+router.get('/user/:id', (req, res) => {
+    const id = req.params.id;
+
+    User
+    .findById(id).select('-_id -__v')
+    .then(user => {
+        res.status(200).json({ user })
+    })
+    .catch(err => {
+        res.status(404).json({ Message: "User not found" })
+    })
+})
 module.exports = router;
