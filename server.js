@@ -5,6 +5,7 @@ const notes = require('./routes/note');
 const users = require('./routes/user');
 const login = require('./routes/login');
 const register = require('./routes/register');
+const authenticate = require('./config/authenticate');
 
 server = express();
 
@@ -17,7 +18,7 @@ mongoose
 server.use(express.json());
 server.use(cors({}));
 
-server.use('/notes', notes);
+server.use('/notes', authenticate, notes);
 server.use('/users', users);
 server.use('/login', login);
 server.use('/register', register);
