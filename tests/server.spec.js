@@ -51,6 +51,18 @@ describe('server', () => {
         expect(Array.isArray(response.body)).toBe(false);
         done();
     });
+    test('should return 201', async (done) => {
+        const badNote = {
+            title: 'wowwwww',
+            body:'mmoooo',
+          };
+        const newNote = await Notes.create(badNote);
+        const response = await request(server)
+        .post('/notes')
+        .send(badNote)
+        expect(response.status).toBe(201);
+        done();
+    });
     test('should return 204 and delete', async (done) => {
         const badNote = {
             title: 'wow',
