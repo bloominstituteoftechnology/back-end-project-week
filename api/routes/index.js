@@ -1,4 +1,4 @@
-const { userRouter, notesRouter, loginRouter } = require("../controllers");
+const { userRouter, notesRouter, loginRouter, googleRouter } = require("../controllers");
 const { authenticate } = require("../middleware");
 
 module.exports = server => {
