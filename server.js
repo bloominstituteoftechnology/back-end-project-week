@@ -4,7 +4,7 @@ const server = require('./server');
 const express = require('express');
 // const session = require('express-session');
 const helmet = require('helmet');
-const cors = require('cors');
+// const cors = require('cors');
 const bodyParser = require('body-Parser');
 const mongoose = require('mongoose');
 
@@ -12,14 +12,14 @@ const server = express();
 
 // const routes = require('./routes/routes');
 
-const corsOptions = {
-  origin: 'https://amanda-lambdanotes.herokuapp.com/',
-  credentials: true
-};
+// const corsOptions = {
+//   origin: 'https://amanda-lambdanotes.herokuapp.com/',
+//   credentials: true
+// };
 
 server.use(express.json());
 server.use(helmet());
-server.use(cors(corsOptions));
+// server.use(cors(corsOptions));
 server.use(bodyParser.json());
 
 mongoose
