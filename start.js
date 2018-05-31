@@ -1,3 +1,4 @@
+require('dotenv').config()
 
 mongoose.connect(process.env.DATABASE, { useMongoClient: true });
 mongoose.Promise = global.Promise;
@@ -10,7 +11,8 @@ mongoose.connection
   });
 
 require('./models/Registration');
-const app = require('./app');require('dotenv').config();
+const app = require('./app');
+require('dotenv').config();
 const mongoose = require('mongoose');
 
 
