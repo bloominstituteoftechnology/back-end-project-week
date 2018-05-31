@@ -5,7 +5,7 @@ const Note = require('../src/notes/Note');
 
 router.route('/')
   .get((req, res) => {
-    Note.find({})
+    Note.find({}).populate('user')
       .then(notes => {
         if (!notes) {
           res.status(422).json({ error: "No notes found"})
