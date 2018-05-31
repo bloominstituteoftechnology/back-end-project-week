@@ -2,9 +2,12 @@ const mongoose = require('mongoose');
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const noteSchema = new mongoose.Schema({
-    title: String,
+    title: {
+        type: String,
+        required: true
+    },
     body: String,
-    userId: {
+    createdBy: {
         type: ObjectId,
         ref: 'User',
         required: true
