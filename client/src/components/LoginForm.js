@@ -21,9 +21,10 @@ class LoginForm extends Component {
         withCredentials: true
       })
       .then(response => {
-        this.props.history.push("/users").catch(err => {
-          console.log(err);
-        });
+        this.props.history.push("/displayNotes");
+      })
+      .catch(err => {
+        console.log(err);
       });
 
     this.setState({
