@@ -10,6 +10,14 @@ const getNotes = (req, res) => {
     .catch(err => res.status(500).json({ error: 'Error getting notes.' }));
 };
 
+const getNotesById = (req, res) => {
+  const { user } = req.body;
+  Note
+    .findById({ user })
+    .then(note => res.json(note))
+    .catch(err => res.status(500).json({ error: 'Error getting this note by ID.' }));
+};
+
 const createNote = (req, res) => {
   const { title, content } = req.body;
   if (title && content) {
@@ -53,6 +61,7 @@ const deleteNote = (req, res) => {
 
 module.exports = server => {
   server.route('/home').post(authenticate, getNotes);
+  server.route('/:id').post(authenticate, getNotesById);
   server.route('/create').post(authenticate, createNote);
   server.route('/edit/:id').put(authenticate, editNote);
   server.route('/note/:id').delete(authenticate, deleteNote);
