@@ -71,23 +71,20 @@ function makeToken(user) {
     return jwt.sign(payload, secret, options);
 }
 
-const router = require('express').Rotuer();
+module.exports = function (server) {
 
-router.post('/register', async (req, res, next) {
-    User.create(req.body)
-        .then(user => {
-            const token = makeToken(user);
-            res.status(201).json({ user, token });
-        })
-        .catch(err => res.status(500).json(err));
-});
+    server.post('/register', async (req, res, next) {
+        User.create(req.body)
+            .then(user => {
+                const token = makeToken(user);
+                res.status(201).json({ user, token });
+            })
+            .catch(err => res.status(500).json(err));
+    });
 
 
-router.post('/login', authenticate, (req, res) => {
-    res.status(200).json({ token: makeToken(req.user), user: req.user });
-});
+    server.post('/login', authenticate, (req, res) => {
+        res.status(200).json({ token: makeToken(req.user), user: req.user });
+    });
 
-module.exports = {
-    router,
-    protected
 }

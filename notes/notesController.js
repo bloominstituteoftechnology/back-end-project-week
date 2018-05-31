@@ -8,7 +8,7 @@ router
     .post(post);
 router
     .route('/:id')
-    .get(getById)
+    // .get(getById)
     // .put(put)
     // .delete(destroy);
 
