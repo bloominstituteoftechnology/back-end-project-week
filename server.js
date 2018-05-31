@@ -5,6 +5,16 @@ const { user, password } = require('./config/user');
 
 const port = process.env.PORT || 5000;
 
+mongoose.connect('mongodb://localhost/backEndProject')
+    .then(mongo => {
+        console.log('connected to mongo');
+    })
+    .catch(err => {
+        console.log('error conneccting to mongo');
+    });
+
+const noteController = require('/notes/notesController');
+
 // mongoose
 //     .connect(`mongodb://${user}:${password}@ds123084.mlab.com:23084/lambda-notes`)
 //     .then(res => {
@@ -22,5 +32,7 @@ server.get('/', (req,res) => {
 
 server.use(cors());
 server.use(express.json());
+
+server.use('/')
 
 server.listen(port, () => console.log(`\n === API running on port ${port} === \n`));
