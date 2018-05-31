@@ -3,6 +3,18 @@ const router = express.Router();
 
 const User = require("./User");
 
+router.route("/").get((req, res) => {
+	const query = User.find();
+
+	query
+		.then(users => {
+			res.status(200).json(users);
+		})
+		.catch(err => {
+			res.status(500).json({ errorMessage: "Users can not be retrieved" });
+		});
+});
+
 router.route("/").post((req, res) => {
 	if (!req.body.username) {
 		res.status(400).json({ errorMessage: "Please provide a username" });
