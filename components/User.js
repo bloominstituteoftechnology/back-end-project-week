@@ -11,7 +11,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    tags: [{ type: ObjectId, ref: 'Tag' }],
 });
 
 userSchema.pre('save', function(next) {
