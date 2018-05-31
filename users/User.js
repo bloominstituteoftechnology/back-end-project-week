@@ -6,7 +6,7 @@ const options = {
 };
 
 const User = new mongoose.Schema({
-	title: {
+	username: {
 		type: String,
 		required: true
 	}

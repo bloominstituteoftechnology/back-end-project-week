@@ -1,10 +1,7 @@
 const mongoose = require("mongoose");
 
 module.exports = {
-	connectTo: function(
-		database = "<dbuser>:<dbpassword>@ds139970.mlab.com:39970/lambdanotes-justinh"
-	) {
-		console.log(database);
-		return mongoose.connect(`mongodb://${database}`);
+	connectTo: function(database = "sandbox", host = "localhost") {
+		return mongoose.connect(`mongodb://${host}/${database}`);
 	}
 };
