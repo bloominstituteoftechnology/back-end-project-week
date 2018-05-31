@@ -26,7 +26,7 @@ mongoose
 
 // define root route
 server.get('/', (req, res) => {
-  res.json({ notes });
+  res.json({ message: 'Welcome to Lambda-Notes.' });
 });
 
 // Require notes routes
