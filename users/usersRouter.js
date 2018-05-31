@@ -7,7 +7,7 @@ router.route("/").post((req, res) => {
 	if (!req.body.username) {
 		res.status(400).json({ errorMessage: "Please provide a username" });
 	} else {
-		const newUser = req.body;
+		const newUser = new User(req.body);
 		newUser
 			.save()
 			.then(newUser => {
