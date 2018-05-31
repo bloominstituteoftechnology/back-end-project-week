@@ -35,9 +35,9 @@ server.use('/users', userRouter)
 server.use("/charge", StripeRouter)
 
 
-server.get("user/signin/callback", (req, res) => {
-  console.log('query', req.query);
-  const {code} = code;
+server.get("user/signin/callback", (req, res, next) => {
+  const {query} = req;
+  const {code} = query;
 
   if(!code) {
     return res.send({
