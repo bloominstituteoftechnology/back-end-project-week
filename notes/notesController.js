@@ -12,7 +12,7 @@ router
     .put(put)
     .delete(destroy);
 
-function get(req,res) {
+function get(req, res) {
     Note
         .find()
         .then(notes => {
@@ -35,7 +35,7 @@ function post(req, res) {
         });
 };
 
-function getById(req,res) {
+function getById(req, res) {
     const { id } = req.params;
 
     Note
@@ -48,11 +48,11 @@ function getById(req,res) {
         });
 };
 
-function put(req,res) {
+function put(req, res) {
     const { id } = req.params;
 
     Note
-        .findByIdAndUpdate(req.body)
+        .findByIdAndUpdate(id, req.body)
         .then(note => {
             res.status(200).json(note);
         })
@@ -61,16 +61,16 @@ function put(req,res) {
         });
 };
 
-function destroy(req,res) {
+function destroy(req, res) {
     const { id } = req.params;
 
     Note
-        .findByIdAndRemove(id)
+        .findByIdAndDelete(id)
         .then(note => {
             res.status(200).json(note);
         })
         .catch(err => {
-            res.status(500).json(console.log('error deleting note', err));
+            res.status(500).json({ message: 'error deleting note', error: err });
         });
 };
 
