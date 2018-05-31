@@ -38,7 +38,7 @@ router.post('/user', (req,res) => {
 })
 
 // GET - retrieve list of users created
-router.get('/users', (req, res) => {
+router.get('/users', validateToken, (req, res) => {
 
     User
     .find()
@@ -51,7 +51,7 @@ router.get('/users', (req, res) => {
 })
 
 // GET - retrieve a specific user using ID
-router.get('/user/:id', (req, res) => {
+router.get('/user/:id', validateToken, (req, res) => {
     const id = req.params.id;
 
     User
