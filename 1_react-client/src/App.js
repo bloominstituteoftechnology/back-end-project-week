@@ -1,16 +1,21 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 
-import Home from "./components/Home";
+import Login from "./components/Login";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         <p className="App-intro">NoteIt.</p>
-        <Route exact path="/" component={Home} />
+        <Route
+          exact
+          path="/"
+          render={() => <Redirect from="/" to="/login" />}
+        />
+        <Route exact path="/login" component={Login} />
         {/* <Route path="/notes" component={NoteList} /> */}
         {/* <Route path="/register" component={Home} /> */}
         {/* <Route path="/users" component={Home} /> */}

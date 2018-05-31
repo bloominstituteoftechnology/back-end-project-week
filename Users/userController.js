@@ -21,7 +21,7 @@ router.get("/", authenticate, (req, res) => {
         res.status(500).json(err);
       });
   } else {
-    return res.status(422).json({ error: `Can't get these jokes!` });
+    return res.status(422).json({ error: `Can't get the users!` });
   }
 });
 
