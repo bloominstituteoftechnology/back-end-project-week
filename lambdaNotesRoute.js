@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const Notes = require('./lambdaNotesModel.js')
+const authenticate = require('./authTokenMWR.js')
 
-router.get('/', (req, res) => {
+
+
+router.get('/', authenticate, (req, res) => {
   Notes
     .find({})
     .then(p => {
@@ -14,7 +17,12 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+  if (!req.body.title) {
+    res.status(500).json({ msg: 'no title' })
+  }
   const newNote = new Notes(req.body)
+
+
   newNote
     .save()
     .then(p => {
@@ -26,10 +34,12 @@ router.post('/', (req, res) => {
 })
 
 router.put('/:id', (req, res) => {
-  const id = req.params.id;
+  const { id } = req.params;
   const obj = req.body;
+  console.log(obj);
+  console.log(id);
   Notes
-    .findByIdAndUpdate(id, obj)
+    .findByIdAndUpdate(id, obj, { new: true })
     .then(p => {
       res.status(200).json({ msg: 'note updated successfully', p })
     })
@@ -37,6 +47,10 @@ router.put('/:id', (req, res) => {
       res.status(500).json({ msg: '... not able to update your note' })
     })
 })
+
+
+
+
 
 router.get('/:id', (req, res) => {
   const id = req.params.id;

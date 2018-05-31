@@ -13,11 +13,18 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const { username, password } = req.body
   console.log('username', username)
+  // if (req.body.username === '' || req.body.password === '') {
+  //   res.status(500).send('you can not have an empty logins')
+  // }
   User
     .findOne({ username })
     .then(p => {
       console.log('p', p);
       if (p) {
+
+
+
+
         p.checkPassWord(password)
           .then(result => {
             console.log('result', result)
