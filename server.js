@@ -26,13 +26,16 @@ server.use(express.json());
 server.get('/', function(req, res) {
     res.status(200).json({ api: 'running' });
   });
+  server.get('/working', function(req, res) {
+    res.status(200).json({ api: 'Still good' });
+  });
 // server.get('/', (req, res) => { // TEST API 
 //   res.status(200).json({ api: 'running' });
 // })
 server.get('/notes', (req, res) => { // GET ALL NOTES 
   Note
   .find()
-  .then(note => res.json(note))
+  .then(note => res.json({ msg: "Hello Note", note }))
   .catch( (err) => res.status(500).json({ errorMessage: "The note information could not be retrieved." }))
 })
 server.get('/notes/:id', (req, res) => { // GET NOTE BY ID 
