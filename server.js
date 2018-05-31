@@ -13,7 +13,7 @@ mongoose.connect('mongodb://localhost/backEndProject')
         console.log('error conneccting to mongo');
     });
 
-const noteController = require('/notes/notesController');
+const notesController = require('./notes/notesController');
 
 // mongoose
 //     .connect(`mongodb://${user}:${password}@ds123084.mlab.com:23084/lambda-notes`)
@@ -33,6 +33,6 @@ server.get('/', (req,res) => {
 server.use(cors());
 server.use(express.json());
 
-server.use('/')
+server.use('/', notesController)
 
 server.listen(port, () => console.log(`\n === API running on port ${port} === \n`));
