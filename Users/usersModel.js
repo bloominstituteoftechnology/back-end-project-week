@@ -1,25 +1,40 @@
-// const mongoose = require('mongoose');
-// const ObjectId = mongoose.Schema.Types.ObjectId;
-// //bcrypt & salt rounds
+const mongoose = require('mongoose');
+//const ObjectId = mongoose.Schema.Types.ObjectId;
+const bcrypt = require('bcrypt');
+const SALT_ROUNDS = 11;
 
-// //User Model Schema
-// const userSchema = new mongoose.Schema({
-//     username: {
-//         type: String,
-//         required: true,
-//         minlength: 5,
-//         lowercase: true,
-//     },
-//     password: {
-//         type: String, 
-//         required: true, 
-//         minlength: 5,
-//     },
-//     notes: [{ 
-//         type: ObjectId, 
-//         ref: 'Note'}]
-// });
+//User Model Schema
+const userModel = {
+    username: {
+        type: String,
+        required: true,
+    },
+    password: {
+        type: String, 
+        required: true, 
+    },
+};
 
-// //Add in Bcrypt for PW hashing
+const userSchema = new mongoose.Schema(userModel);
 
-// module.exports = mongoose.model("User", userSchema)
+//Add in Bcrypt for PW hashing
+userModel.pre('save', function(next) {
+    bcrypt.hash(this.password, SALT_ROUNDS, (err, hash) => {
+        if (err) return next(err);
+        this.password = hash;
+        return next();
+    })
+});
+
+userModel.methods.checkPassword = function (plainTextPW, callBack) {
+    return bcrypt.compare(plainTextPW, this.password, function(err, isValid) {
+        if(err) {
+            return callBack(err);
+        }
+        callBack(null, isValid)
+    })
+};
+
+module.exports = mongoose.model('User', userSchema);
+
+// const userModel = mongoose.model('Users', userSchema, 'users');

@@ -25,8 +25,14 @@ server.get('/', (req, res) => {
 
 //Routes
 server.use('/notes', notesRouter);
+// server.use('/users', usersRouter);
 
 server.listen(port, () => console.log(`Server Connected to ${port}`));
+
+
+
+
+
 
  // "engines": {
   //   "node": "8.9.4"

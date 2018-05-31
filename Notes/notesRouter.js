@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Note = require('./notesModel');
+// const User = require('./usersModel');
 
 //POST NOTES - Postman Test ok! http://localhost:8008/notes 
 router.route('/')
