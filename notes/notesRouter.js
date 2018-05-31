@@ -3,6 +3,18 @@ const router = express.Router();
 
 const Note = require("./Note");
 
+router.route("/").get((req, res) => {
+	const query = Note.find();
+
+	query
+		.then(notes => {
+			res.status(200).json(notes);
+		})
+		.catch(err => {
+			res.status(500).json({ errorMessage: "Notes could not be retrieved" });
+		});
+});
+
 router.route("/").post((req, res) => {
 	if (!req.body.title || !req.body.content) {
 		res
