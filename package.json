@@ -21,6 +21,7 @@
     "jsonwebtoken": "^8.2.1",
     "mongoose": "^5.1.2",
     "passport": "^0.4.0",
+    "passport-facebook-token": "^3.3.0",
     "passport-google-plus-token": "^2.1.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0"

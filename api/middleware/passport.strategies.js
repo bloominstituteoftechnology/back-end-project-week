@@ -1,7 +1,8 @@
 const passport = require('passport');
 const JwtStrategy = require('passport-jwt').Strategy;
 const LocalStrategy = require('passport-local').Strategy;
-const GoogleTokenStrategy = require("passport-google-plus-token")
+const GoogleTokenStrategy = require("passport-google-plus-token");
+const FacebookTokenStrategy = require('passport-facebook-token');
 const { ExtractJwt } = require('passport-jwt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/users.schema');
@@ -37,9 +38,28 @@ const GoogleStrategy = new GoogleTokenStrategy({
   try {
     const existingUser = await User.findOne({ "google.id": profile.id })
     if (existingUser) done(null, existingUser)
+
     const userData = { method: 'google', google: { id: profile.id, email: profile.emails[0].value } }
     const newUser = await User.create(userData)
     done(null, newUser)
+
+  } catch(error) {
+    done(error, false, error.message)
+  }
+})
+
+const FacebookStrategy = new FacebookTokenStrategy({
+  clientID: "967730106723439",
+  ClientSecret: "2d8eb9b59dc04bf74d8c7e965ff45c58"
+}, async (accessToken, refreshToken, profile, done) => {
+  try {
+    const existingUser = await User.findOne({ "facebook.id": profile.id })
+    if (existingUser) done(null, existingUser)
+
+    const userData = { method: 'facebook', facebook: { id: profile.id, email: profile.emails[0].value } }
+    const newUser = await User.create(userData)
+    done(null, newUser)
+
   } catch(error) {
     done(error, false, error.message)
   }
@@ -48,5 +68,6 @@ const GoogleStrategy = new GoogleTokenStrategy({
 module.exports = {
   localStrategy,
   JWTstrategy,
-  GoogleStrategy
+  GoogleStrategy,
+  FacebookStrategy
 }

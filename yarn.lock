@@ -2969,6 +2969,12 @@ pascalcase@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/pascalcase/-/pascalcase-0.1.1.tgz#b363e55e8006ca6fe21784d2db22bd15d7917f14"
 
+passport-facebook-token@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/passport-facebook-token/-/passport-facebook-token-3.3.0.tgz#7404ca6fdd3790e11060cc60c562b21f0d0481ee"
+  dependencies:
+    passport-oauth "1.0.0"
+
 passport-google-plus-token@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/passport-google-plus-token/-/passport-google-plus-token-2.1.0.tgz#15e69acebeea186c305965b93c6b2b582063244d"
