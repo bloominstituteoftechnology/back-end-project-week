@@ -3,10 +3,13 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const db = require('./utils/db');
+const APIroutes = require('./api/routes');
 
 const server = express();
 server.use(cors());
 server.use(express.json());
+
+APIroutes(server);
 
 db
 	.connect()

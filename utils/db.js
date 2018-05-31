@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-// const server = require('./server');
+const server = require('../server');
 const uri = process.env.MONGODB_URI;
 const { dbLogin, dbPw } = require('./dbConfig.js');
 

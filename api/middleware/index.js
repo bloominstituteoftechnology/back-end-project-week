@@ -1,5 +1,5 @@
-const { auth } = require('./auth');
+const { authenticate } = require('./authenticate');
 
 module.exports = {
-	auth,
+	authenticate,
 };
