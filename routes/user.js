@@ -12,8 +12,9 @@ router
       .then(users => {
         if (users.length === 0) {
           res.status(204).json('there are no current users in our database');
+        } else {
+          res.status(200).json(users);
         }
-        res.status(200).json(users);
       })
       .catch(err => {
         res.status(500).json('something went wrong');
