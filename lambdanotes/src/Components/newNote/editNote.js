@@ -10,7 +10,7 @@ class EditNote extends Component {
   };
   handleAddNote = () => {
     const { noteTitle, noteText } = this.state;
-    const noteData = { noteTitle, noteText };
+    const note = { noteTitle, noteText };
     this.setState({ noteTitle: '', noteText: ''});
   };
   render () {

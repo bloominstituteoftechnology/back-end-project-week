@@ -5,16 +5,25 @@ const NoteSchema = new Schema({
   title: {
     type: String,
     required: true,
+    unique: true,
   },
-  genre: {
+  content: {
     type: String,
     required: true,
   },
-  releaseDate: String,
-});
+  createdOn: {
+    type: Date,
+    default: Date.now
+}
+})
+
+const options = {
+timestamps: true
+};
 
 
 
-const Npte = mongoose.model('Note', NoteSchema);
+
+const Note = mongoose.model('Note', NoteSchema);
 
 module.exports = Note;
