@@ -1,13 +1,20 @@
 const mongoose = require("mongoose");
 
+const ObjectId = mongoose.Schema.Types.ObjectId;
+
 const noteSchema = mongoose.Schema({
   title: {
     type: String,
-    require: true
+    required: true
   },
   content: {
     type: String,
-    require: true
+    required: true
+  },
+  author: {
+    type: ObjectId,
+    required: true,
+    ref: "User"
   },
   timestamp: true
 });
