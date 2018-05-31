@@ -3,11 +3,20 @@ import { Link } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
+import axios from 'axios'; 
+
 const ViewNote = props => {
-  console.log("from viewNote...", props);
+  // console.log("from viewNote...", props);
   const id = props.match.params.id;
   const note = props.notes.filter(el => el._id == id)[0];
-  // console.log("from viewNote...", note);
+  // console.log("from viewNote...", id);
+
+
+  const deleteItem  = () => {
+    axios.delete(`https://boiling-wildwood-28100.herokuapp.com/delete/${id}`)
+    .then(resp => this.props.update())
+    .catch(err => console.log(err))
+  }
 
   const handleDelete = () => {
     confirmAlert({
@@ -18,7 +27,8 @@ const ViewNote = props => {
             <div className="delete-btns">
               <button
                 onClick={() => {
-                  props.delete(id);
+                  // console.log('from handle delete',props.delete)
+                  deleteItem();
                   onClose();
                 }}
                 className="deleteBtn"

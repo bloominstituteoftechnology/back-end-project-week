@@ -35,9 +35,9 @@ class App extends Component {
   
 
   deleteNote = id => {
-    const newNotes = this.state.notes.filter(note => note.id !== Number(id));
-    this.setState({notes: newNotes});
-    console.log('from app -- delete', newNotes)
+    // const newNotes = this.state.notes.filter(note => note.id !== Number(id));
+    // this.setState({notes: newNotes});
+    // console.log('from app -- delete', newNotes)
 
   }
 

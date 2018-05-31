@@ -36,7 +36,7 @@ server.post('/notes', (req, res) => {
 });
 
 
-server.delete('/notes/:id', function (req, res) {
+server.delete('/delete/:id', function (req, res) {
     const id = req.params.id;
     Note.remove({ _id: id })
         .then(response => {
