@@ -11,23 +11,19 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+
   const { username, password } = req.body
+
+
   console.log('username', username)
-  // if (req.body.username === '' || req.body.password === '') {
-  //   res.status(500).send('you can not have an empty logins')
-  // }
+
   User
     .findOne({ username })
     .then(p => {
-      console.log('p', p);
-      if (p) {
-
-
-
-
+      if (p && p.username !== "" && p.password !== "") {
         p.checkPassWord(password)
           .then(result => {
-            console.log('result', result)
+
             if (result) {
               const token = makeToken(p)
               res.status(200).json({ msg: "login successful", p, token })
@@ -41,15 +37,9 @@ router.post('/', (req, res) => {
       else {
         res.status(401).json({ msg: 'wrong username' })
       }
-
     })
     .catch(err => {
       res.status(500).json({ msg: err })
     })
-
-
 })
-
-
-
 module.exports = router;

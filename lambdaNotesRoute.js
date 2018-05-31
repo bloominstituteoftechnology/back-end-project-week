@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Notes = require('./lambdaNotesModel.js')
 const authenticate = require('./authTokenMWR.js')
-
+const emptyBody = require('./emptyBodyMWR')
 
 
 router.get('/', authenticate, (req, res) => {
@@ -16,10 +16,8 @@ router.get('/', authenticate, (req, res) => {
     })
 })
 
-router.post('/', (req, res) => {
-  if (!req.body.title) {
-    res.status(500).json({ msg: 'no title' })
-  }
+router.post('/', emptyBody, (req, res) => {
+
   const newNote = new Notes(req.body)
 
 
