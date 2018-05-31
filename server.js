@@ -14,6 +14,7 @@ if (!process.env.MONGODB_URI) {
   dbURI = require('./config/config').dbURI;
 } else {
   dbURI = process.env.MONGODB_URI;
+  console.log(dbURI);
 }
 
 const server = express();
