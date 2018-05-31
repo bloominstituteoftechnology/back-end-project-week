@@ -13,6 +13,7 @@ router.route("/").post((req, res) => {
 	newUser
 		.save()
 		.then(newUser => {
+			console.log(newUser);
 			res.status(201).json(newUser);
 		})
 		.catch(err => {
