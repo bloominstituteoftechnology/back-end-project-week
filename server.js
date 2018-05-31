@@ -4,8 +4,8 @@ const server = express();
 const mongoose = require('mongoose');
 
 
-const mlab =  `mongodb://imsdhk:123456a@ds121599.mlab.com:21599/backend_lambda`; 
-const localDb = 'mongodb://localhost/localDb_be'
+// const mlab =  `mongodb://imsdhk:123456a@ds121599.mlab.com:21599/backend_lambda`; 
+// const localDb = 'mongodb://localhost/localDb_be'
 
 const Note = require('./src/notes/noteModel'); 
 
