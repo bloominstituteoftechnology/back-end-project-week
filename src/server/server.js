@@ -1,10 +1,12 @@
 const express = require('express')
+const cors = require('cors')
 const userRouter = require('./routes/user')
 const noteRouter = require('./routes/note')
 
 const server = express()
 
 server.use(express.json())
+server.use(cors())
 server.use('/api/user', userRouter)
 server.use('/api/note', noteRouter)
 
