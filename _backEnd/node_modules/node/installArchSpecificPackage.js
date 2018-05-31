@@ -1,0 +1,1 @@
+require('node-bin-setup')("10.3.0", require)
