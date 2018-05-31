@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const morgan = require('morgan')
 const userRouter = require('./routes/user')
 const noteRouter = require('./routes/note')
 
@@ -7,6 +8,7 @@ const server = express()
 
 server.use(express.json())
 server.use(cors())
+server.use(morgan('tiny'))
 server.use('/api/user', userRouter)
 server.use('/api/note', noteRouter)
 
@@ -19,7 +21,6 @@ server.get('/', (req, res) => {
 })
 
 server.use((err, req, res, next) => {
-  console.log(err)
   const status = err.status || 500
   res.status(status).send({ error: err.message })
 })
