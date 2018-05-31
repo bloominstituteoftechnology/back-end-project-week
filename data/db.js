@@ -5,7 +5,8 @@ mongodb: module.exports = {
 		return mongoose.connect(
 			encodeURI(
 				"mongodb://<dbuser>:<dbpassword>@ds139970.mlab.com:39970/lambdanotes-justinh"
-			)
+			),
+			{ useMongoClient: true }
 		);
 	}
 };
