@@ -11,6 +11,17 @@ const NoteController = {
         res.status(404).json({ error: 'Error fetching notes', err });
       });
   },
+  getNote: (req, res) => {
+    const { id } = req.params;
+    Note
+      .findById(id)
+      .then(response => {
+        res.status(200).json({ note: response })
+      })
+      .catch(err => {
+        res.status(404).json({ error: 'Error fetching note', err });
+      });
+  },
   createNote: (req, res) => {
     const noteInfo = req.body;
 
@@ -28,6 +39,7 @@ const NoteController = {
       res.status(500).json({ error: 'A note requires a title and contents' });
     }
   },
+  deleteNote:
 }
 
 module.exports = NoteController;
