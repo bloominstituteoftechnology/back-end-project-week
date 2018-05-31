@@ -8,7 +8,7 @@ const userRouter = require("./Users/userController");
 
 const server = express();
 const corsOption = {
-  origin: "http://localhost: 3000",
+  origin: "http://localhost:3000",
   credentials: true
 };
 

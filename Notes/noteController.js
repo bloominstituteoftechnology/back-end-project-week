@@ -4,16 +4,24 @@ const router = express.Router();
 const Note = require("./noteModel");
 const User = require("../Users/userModel");
 
-router.get("/", (req, res) => {
+const { authenticate } = require("../middlewares");
+
+const secret = "something very random";
+
+router.get("/", authenticate, (req, res) => {
   let query = Note.find();
 
-  query
-    .then(notes => {
-      res.status(200).json(notes);
-    })
-    .catch(err => {
-      res.status(500).json(err);
-    });
+  if (req.decoded) {
+    query
+      .then(notes => {
+        res.status(200).json(notes);
+      })
+      .catch(err => {
+        res.status(500).json(err);
+      });
+  } else {
+    return res.status(422).json({ error: `Can't get the notes!` });
+  }
 });
 
 router.get("/:id", (req, res) => {

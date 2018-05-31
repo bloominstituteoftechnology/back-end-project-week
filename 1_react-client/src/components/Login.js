@@ -19,14 +19,14 @@ export default class Login extends Component {
   };
 
   submitHandler = e => {
-    const login = axios.post("http://localhost:5000/api/login", this.state);
+    const login = axios.post("http://localhost:5000/api/users/login", this.state);
 
     e.preventDefault();
 
     login
       .then(response => {
         localStorage.setItem("token", response.data.token);
-        this.props.history.push("/note");
+        this.props.history.push("/notes");
       })
       .catch(err => {
         localStorage.removeItem("token");
