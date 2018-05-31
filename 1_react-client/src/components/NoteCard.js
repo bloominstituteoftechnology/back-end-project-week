@@ -6,6 +6,7 @@ const NoteCard = props => {
     <div className="TextBoxContainer">
       <div className="CardTitle">{props.eachNote.title}</div>
       <div className="TextBox">{props.eachNote.content}</div>
+      <br />
     </div>
   );
 };
