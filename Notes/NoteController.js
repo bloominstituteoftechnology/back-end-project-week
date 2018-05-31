@@ -41,25 +41,34 @@ const NoteController = {
   },
   deleteNote: (req, res) => {
     const { id } = req.params;
-    let deleted;
 
     Note
-      .get(id)
-      .then(found => {
-        deleted = found;
-
-        Note
-          .remove(id)
-          .then(response => {
-            res.status(200).json({ note: deleted })
-          })
-          .catch(err => {
-            res.status(500).json({ error: err });
-          });
+      .remove(id)
+      .then(response => {
+        res.status(200).json({ response });
       })
       .catch(err => {
-        res.status(404).json({ error: 'Error fetching note', err });
+        res.status(500).json({ error: 'Error deleting the note', err });
       });
+    // let deleted;
+
+    // Note
+    //   .get(id)
+    //   .then(found => {
+    //     deleted = found;
+
+    //     Note
+    //       .remove(id)
+    //       .then(response => {
+    //         res.status(200).json({ note: deleted })
+    //       })
+    //       .catch(err => {
+    //         res.status(500).json({ error: err });
+    //       });
+    //   })
+    //   .catch(err => {
+    //     res.status(404).json({ error: 'Error fetching note', err });
+    //   });
   },
 }
 
