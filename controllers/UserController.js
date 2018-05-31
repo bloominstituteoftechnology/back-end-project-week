@@ -43,7 +43,7 @@ const login = (req, res) => {
           username: user.username
         }; // what will determine our payload.
         const token = jwt.sign(payload, mySecret); // creates our JWT with a secret and a payload and a hash.
-        res.json({ token }); // sends the token back to the client
+        res.json({ user, token }); // sends the token back to the client
       }
     });
   });
