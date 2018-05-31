@@ -14,12 +14,26 @@ const createUser = (req, res) => {
   user
     .save()
     .then(user => {
-      res.status(201).json(user);
+      const token = makeToken(user);
+      res.status(201).json(user, token);
     })
     .catch(err => {
       res.status(500).json({ Error: err });
     });
 };
+
+function makeToken(user) {
+  const timestamp = new Date().getTime();
+  const payload = {
+    sub: user._id,
+    iat: timestamp,
+    username: user.username
+  };
+  const options = {
+    expiresIn: "24h"
+  };
+  return jwt.sign(payload, mySecret, options);
+}
 
 const login = (req, res) => {
   const { username, password } = req.body;
@@ -39,10 +53,8 @@ const login = (req, res) => {
         return;
       }
       if (hashMatch) {
-        const payload = {
-          username: user.username
-        }; // what will determine our payload.
-        const token = jwt.sign(payload, mySecret); // creates our JWT with a secret and a payload and a hash.
+        // what will determine our payload.
+        const token = makeToken(user); // creates our JWT with a secret and a payload and a hash.
         res.json({ user, token }); // sends the token back to the client
       }
     });
