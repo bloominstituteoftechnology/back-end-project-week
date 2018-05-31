@@ -6,7 +6,7 @@ const secret = 'show me da wei';
 const authenticate = (req, res, next) => {
     const token = req.get('Authorization');
     if(token) {
-        jwt.verify(token, mysecret, (err, decoded) => {
+        jwt.verify(token, secret, (err, decoded) => {
             if (err) return res.status(422).json({err});
             req.decoded = decoded;
             next();
@@ -107,7 +107,7 @@ module.exports = {
         });
 
 
-        server.post('/login', authenticate, (req, res) => {
+        server.post('/login', (req, res) => {
             const {username, password } = req.body;
             User.findOne({ username }, (err, user) => {
                 if(err) {
@@ -122,7 +122,7 @@ module.exports = {
                         const payload = {
                             username: user.username
                         };
-                        const token = jwt.sign(payload, mysecret);
+                        const token = jwt.sign(payload, secret);
                         res.json({ token });
                     }
                 });
