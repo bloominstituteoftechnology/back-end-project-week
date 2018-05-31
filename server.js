@@ -29,6 +29,9 @@ server.get('/', (req, res) => {
   res.json({ message: 'Welcome to Lambda-Notes.' });
 });
 
+// Requite notes routes
+require('./app/routes/notes.routes.js');
+
 // listen for requests
 server.listen(Port, err => {
   if (err) console.log(err);
