@@ -4,7 +4,11 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 const noteSchema = new mongoose.Schema({
     title: String,
     body: String,
-    userId: ObjectId,
+    userId: {
+        type: ObjectId,
+        ref: 'User',
+        required: true
+    }
 })
 
 module.exports = mongoose.model('Note', noteSchema, 'notes');

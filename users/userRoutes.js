@@ -70,4 +70,5 @@ router.delete('/user/:id', (req, res) => {
         res.status(404).json({ Error: 'User not found' })
     })
 })
+
 module.exports = router;
