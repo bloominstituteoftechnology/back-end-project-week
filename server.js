@@ -17,7 +17,7 @@ server.use(bodyParser.json());
 
 //})
 
-routes(server);
+// routes(server);
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/lambda-notes', {}, err => {

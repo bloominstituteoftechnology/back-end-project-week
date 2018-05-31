@@ -32,8 +32,8 @@ describe('Server Tests', () => {
     beforeEach(async function() {
       let newUser = await Promise.resolve(
         new User({
-          username: 'Mega Man',
-          password: 'fish_tacos',
+          username: 'Tester',
+          password: 'hungry_panda',
       }).save()).catch(err => {
         return console.error(err);
       });
@@ -53,7 +53,7 @@ describe('Server Tests', () => {
       it('should add a new user', async function() {
         const user = {
           username: 'Tester',
-          password: 'fish_tacos'
+          password: 'hungry_panda'
         };
 
         const res = await Promise.resolve(request(server).post('/api/users').send(user)).catch(err => console.error(err));
@@ -64,7 +64,7 @@ describe('Server Tests', () => {
       it('should return HTTP status 422 when failing to save to the database', async function() {
         const user = {
           username: 'Tester',
-          password: 'fish_tacos'
+          password: 'hungry_panda'
         };
 
         const res = await Promise.resolve(request(server).post('/api/users').send(user)).catch(err => {
@@ -76,8 +76,8 @@ describe('Server Tests', () => {
     describe('[POST] /api/login', () => {
       it('should allow an authorized user to login', async function() {
         const user = {
-          username: 'Mega Man',
-          password: 'fish_tacos'
+          username: 'Tester',
+          password: 'hungry_panda'
         };
 
         const res = await Promise.resolve(request(server).post('/api/login').send(user)).catch(err => console.error(err));
@@ -89,7 +89,7 @@ describe('Server Tests', () => {
       it('should return HTTP status 422 when failing to login', async function() {
         const user = {
           username: 'Tester',
-          password: 'no_fish_tacos'
+          password: 'hungry_panda'
         };
 
         const res = await Promise.resolve(request(server).post('/api/login').send(user)).catch(err => {
