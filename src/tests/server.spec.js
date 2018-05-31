@@ -5,13 +5,13 @@ const User = require('../models/User')
 const Note = require('../models/Note')
 const faker = require('faker')
 const { getSessionToken } = require('../server/util')
-const { mongoUri, mongoOptions } = require('../server/config')
+const { mongoTestUri, mongoOptions } = require('../server/config')
 
 const { userName, password } = faker.internet
 const { sentence, paragraph } = faker.lorem
 
 describe('API server', () => {
-  beforeAll(() => mongoose.connect(mongoUri, mongoOptions))
+  beforeAll(() => mongoose.connect(mongoTestUri, mongoOptions))
   afterAll(() => mongoose.disconnect())
 
   it('says hello when greeted at the front door', async () => {

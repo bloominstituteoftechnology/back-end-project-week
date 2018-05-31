@@ -1,12 +1,12 @@
 const User = require('../models/User')
 const mongoose = require('mongoose')
 const { userName, password } = require('faker').internet
-const { mongoUri, mongoOptions } = require('../server/config')
+const { mongoTestUri, mongoOptions } = require('../server/config')
 
 describe('User', () => {
   let user, userData
   
-  beforeAll(() => mongoose.connect(mongoUri, mongoOptions))
+  beforeAll(() => mongoose.connect(mongoTestUri, mongoOptions))
   
   afterEach(() => User.remove())
   afterAll(() => mongoose.disconnect())
