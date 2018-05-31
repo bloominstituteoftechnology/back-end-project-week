@@ -1,0 +1,38 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "// https://trello.com/b/WkaGvm5L/lambda-notes-back-end-m-margo-nikolaisen",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "cross-env NODE_ENV=test jest --watch --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mmargo10/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "Margo Nikolaisen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mmargo10/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/mmargo10/back-end-project-week#readme",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "bcrypt": "^2.0.1",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "helmet": "^3.12.1",
+    "jsonwebtoken": "^8.2.1",
+    "mongoose": "^5.1.2",
+    "passport": "^0.4.0",
+    "supertest": "^3.1.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "jest": "^23.0.1"
+  }
+}
