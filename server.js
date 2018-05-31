@@ -51,10 +51,11 @@ server.route('/notes')
   })
   .post((req, res) => {
     const { title, body } = req.body;
+    const note = new Note({ title, body });
 
-    Note.ceate({ title, body }, err => {
+    note.save((note, err) => {
       if(err) res.status(201).json(err);
-      else res.status(500).json('Create note success');
+      else res.status(500).json(note);
     });
   })
   .delete((req, res) => {
