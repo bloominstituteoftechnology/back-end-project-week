@@ -8,7 +8,7 @@ router
     .post(post);
 router
     .route('/:id')
-    // .get(getById)
+    .get(getById)
     // .put(put)
     // .delete(destroy);
 
@@ -44,16 +44,34 @@ function getById(req,res) {
             res.status(200).json(note);
         })
         .catch(err => {
-            res.status(500).json(console.log('error fetching note', err))
+            res.status(500).json(console.log('error fetching note', err));
         });
 };
 
 function put(req,res) {
-    
-}
+    const { id } = req.params;
+
+    Note
+        .findByIdAndUpdate(req.body)
+        .then(note => {
+            res.status(200).json(note);
+        })
+        .catch(err => {
+            res.status(500).json(console.log('error updating note', err));
+        });
+};
 
 function destroy(req,res) {
-    
-}
+    const { id } = req.params;
+
+    Note
+        .findByIdAndRemove(id)
+        .then(note => {
+            res.status(200).json(note);
+        })
+        .catch(err => {
+            res.status(500).json(console.log('error deleting note', err));
+        });
+};
 
 module.exports = router;
