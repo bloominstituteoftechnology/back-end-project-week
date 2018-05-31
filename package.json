@@ -1,0 +1,44 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "backend for lambda notes project",
+  "main": "server/index.js",
+  "scripts": {
+    "test": "jest server/",
+    "server": "node dist/index.js",
+    "dev": "nodemon --inspect server/index.js"
+  },
+  "engines": {
+    "node": ">=10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/axhon/back-end-project-week.git"
+  },
+  "author": "axhon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/axhon/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/axhon/back-end-project-week#readme",
+  "devDependencies": {
+    "@types/faker": "^4.1.2",
+    "@types/mongoose": "^5.0.15",
+    "@types/supertest": "^2.0.4",
+    "faker": "^4.1.0",
+    "jest": "^23.0.1",
+    "jest-nyan-reporter": "^1.0.2",
+    "nodemon": "^1.17.5",
+    "supertest": "^3.1.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "dependencies": {
+    "bcrypt": "^2.0.1",
+    "express": "^4.16.3",
+    "helmet": "^3.12.1",
+    "mongoose": "^5.1.2",
+    "morgan": "^1.9.0"
+  }
+}
