@@ -1,32 +1,32 @@
 // npm or yarn init -y
-// 
 
+const server = require('./server');
 const express = require('express');
 // const session = require('express-session');
 const helmet = require('helmet');
-const mongoose = require('mongoose');
-const server = express();
 const cors = require('cors');
-const port = process.env.PORT || 5000;
+const bodyParser = require('body-Parser');
+const mongoose = require('mongoose');
+
+
+const server = express();
 
 // const routes = require('./routes/routes');
 
-
+const corsOptions = {
+  origin: 'https://amanda-lambdanotes.herokuapp.com/',
+  credentials: true
+};
 
 server.use(express.json());
-server.use(cors({}));
 server.use(helmet());
+server.use(cors(corsOptions));
+server.use(bodyParser.json());
 
-const uri = 'mongodb://amanda:amanda@ds133550.mlab.com:33550/lambdanotes-backend'
 mongoose
-  .connect(uri)
-  .then(() => console.log('Connected to Mongo'))
+  .connect('mongodb://amanda:amanda@ds133550.mlab.com:33550/lambdanotes-backend')
+  .then(() => console.log('mLab Connected to Mongo'))
   .catch((err) => console.log(err))
-
-server.listen(port, err => {
-  if (err) console.log(err);
-  console.log(`\n API running on ${port}`);
-});
 
 // routes(server);
 
@@ -34,4 +34,10 @@ server.get('/', (req, res) => {
   res.send({ API: 'Running' });
 });
 
-module.exports = { server };
+const port = process.env.PORT || 5000;
+
+server.listen(port, () =>
+  console.log(`API running on ${port}`)
+);
+
+// module.exports = { server };
