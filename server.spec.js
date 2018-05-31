@@ -56,7 +56,7 @@ describe('Server Tests', () => {
           password: 'fish_tacos'
         };
 
-        const res = await Promise.resolve(.request(server).post('/api/users').send(user)).catch(err => console.error(err));
+        const res = await Promise.resolve(request(server).post('/api/users').send(user)).catch(err => console.error(err));
         expect(res.status).to.equal(200);
         expect(res.body.savedUser.username).to.equal('tester');
       });
@@ -67,7 +67,7 @@ describe('Server Tests', () => {
           password: 'fish_tacos'
         };
 
-        const res = await Promise.resolve(.request(server).post('/api/users').send(user)).catch(err => {
+        const res = await Promise.resolve(request(server).post('/api/users').send(user)).catch(err => {
           return expect(err.status).to.equal(422);
         }); 
       });
@@ -80,7 +80,7 @@ describe('Server Tests', () => {
           password: 'fish_tacos'
         };
 
-        const res = await Promise.resolve(.request(server).post('/api/login').send(user)).catch(err => console.error(err));
+        const res = await Promise.resolve(request(server).post('/api/login').send(user)).catch(err => console.error(err));
         testToken = res.body.token;
         expect(res.status).to.equal(200);
         expect(res.body.token).to.have.length.least(1);
@@ -92,7 +92,7 @@ describe('Server Tests', () => {
           password: 'no_fish_tacos'
         };
 
-        const res = await Promise.resolve(.request(server).post('/api/login').send(user)).catch(err => {
+        const res = await Promise.resolve(request(server).post('/api/login').send(user)).catch(err => {
           return expect(err.status).to.equal(422);
         }); 
       });
@@ -137,7 +137,7 @@ describe('Server Tests', () => {
           title: 'New Note',
           body: 'New Note Body'
         };
-        const res = await Promise.resolve(.request(server).post('/api/notes').set(authHeaders).send(note)).catch(err => console.error(err));
+        const res = await Promise.resolve(request(server).post('/api/notes').set(authHeaders).send(note)).catch(err => console.error(err));
         expect(res.status).to.equal(200);
         expect(res.body.savedNote.title).to.equal('New Note');
         expect(res.body.savedNote.body).to.equal('New Note Body');
@@ -150,7 +150,7 @@ describe('Server Tests', () => {
           body: 'New Note Body'
         };
 
-        const res = await Promise.resolve(.request(server).post('/api/notes').set(authHeaders).send(note)).catch(err => {
+        const res = await Promise.resolve(request(server).post('/api/notes').set(authHeaders).send(note)).catch(err => {
           expect(err.name).to.equal('ValidationError');
           return expect(err.status).to.equal(422);
         }); 
@@ -159,13 +159,13 @@ describe('Server Tests', () => {
 
     describe('[GET] /api/notes', () => {
       it('should return all notes for authorized user in the database', async function() {
-        const res = await Promise.resolve(chai.request(server).get('/api/notes').set(authHeaders)).catch(err => console.error(err));
+        const res = await Promise.resolve(request(server).get('/api/notes').set(authHeaders)).catch(err => console.error(err));
         expect(res.status).to.equal(200);
         expect(res.body.allNotes.length).to.equal(1);
       });
 
       it('should return an array', async function() {
-        const res = await Promise.resolve(.request(server).get('/api/notes').set(authHeaders)).catch(err => console.error(err));
+        const res = await Promise.resolve(request(server).get('/api/notes').set(authHeaders)).catch(err => console.error(err));
         expect(Array.isArray(res.body.allNotes)).to.equal(true);
       });
     });
@@ -178,7 +178,7 @@ describe('Server Tests', () => {
           body: 'New Note Body'
         };
 
-        const res = await Promise.resolve(.request(server).put('/api/notes').send(note).set(authHeaders)).catch(err => console.error(err));
+        const res = await Promise.resolve(request(server).put('/api/notes').send(note).set(authHeaders)).catch(err => console.error(err));
         console.log(res.body);
         expect(res.body.title).to.equal('New Note');
         expect(res.body.body).to.equal('New Note Body');
@@ -189,7 +189,7 @@ describe('Server Tests', () => {
           body: 'New Note Body'
         };
 
-        const res = await Promise.resolve(.request(server).put('/api/game/update').send(note).set(authHeaders)).catch(err => {
+        const res = await Promise.resolve(request(server).put('/api/notes/update').send(note).set(authHeaders)).catch(err => {
           return expect(err.status).to.equal(422);
         }); 
       });
@@ -199,7 +199,7 @@ describe('Server Tests', () => {
           title: 'New Note',
         };
 
-        const res = await Promise.resolve(.request(server).put('/api/game/update').send(note).set(authHeaders)).catch(err => {
+        const res = await Promise.resolve(request(server).put('/api/notes/update').send(note).set(authHeaders)).catch(err => {
           return expect(err.status).to.equal(422);
         }); 
       });
@@ -207,14 +207,14 @@ describe('Server Tests', () => {
 
     describe('[DELETE] /api/notes:id', () => {
       it('should remove the specified note from the database', async function() {
-        const res = await Promise.resolve(.request(server).delete(`/api/notes/${noteId}`).set(authHeaders)).catch(err => console.error(err));
+        const res = await Promise.resolve(request(server).delete(`/api/notes/${noteId}`).set(authHeaders)).catch(err => console.error(err));
         const deletedNote = await Promise.resolve(Note.findById(noteId)).catch(err => console.error(err));
 
         expect(deletedNote).to.equal(null);
       });
 
       it('should return HTTP status 422 when an invalid ID is provided', async function() {
-        const res = await Promise.resolve(.request(server).delete(`/api/notes/I_am_an_invalid_ID`).set(authHeaders)).catch(err => {
+        const res = await Promise.resolve(request(server).delete(`/api/notes/I_am_an_invalid_ID`).set(authHeaders)).catch(err => {
           return expect(err.status).to.equal(422)
         });
       });
