@@ -14,13 +14,15 @@ class Update extends Component {
     handleTextInput = e => {
         this.setState({ [e.target.name]: e.target.value});
     }
-    newUpdate = () => {
+    newUpdate = async () => {
         const edited ={
             title: this.state.title,
             body: this.state.body,
             _id: this.props.location.state.currentNote._id
         }
-        this.props.editNotes(edited);
+        const pope = await this.props.editNotes(edited);
+        this.props.history.push('/');
+
     }
     render() {
         return (
@@ -45,7 +47,7 @@ placeholder="Note body Here"
 onChange={this.handleTextInput}
 
 />
-<Link onClick={() => this.newUpdate()} to={"/"}><button className="d-flex mt-3 col-2 justify-content-center tealButton" type="submit">Update</button></Link>
+<button onClick={() => this.newUpdate()} className="d-flex mt-3 col-2 justify-content-center tealButton" type="submit">Update</button>
 
     </div>
         )}

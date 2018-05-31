@@ -53,7 +53,7 @@ function deleteid(req, res) {
     }
     Note.findByIdAndRemove(id)
     .then(remove => {
-        res.status(201).json(remove);
+        res.status(204).json(remove);
     })
     .catch(err => {
         res.status(500).json({ errorMessage: "The note could not be removed" })
