@@ -6,7 +6,7 @@ const config = require("../config");
 router
   .route("/")
   .get((req, res) => {
-    Note.find({ userid: req.decoded.id})
+    Note.find({ userid: req.decoded.id })
       .then(notes => {
         res.status(200).json(notes);
       })
@@ -24,9 +24,9 @@ router
     const noteData = { ...req.body, userid };
     const note = new Note(noteData);
 
-    if (!(req.body.title && req.body.content))
+    if (!(req.body.title && req.body.text))
       res.status(400).json({
-        errorMessage: "Please provide title and content for the note."
+        errorMessage: "Please provide title and text for the note."
       });
 
     note
@@ -76,9 +76,9 @@ router
       });
   })
   .put((req, res) => {
-    if (!(req.body.title && req.body.content))
+    if (!(req.body.title && req.body.text))
       res.status(400).json({
-        errorMessage: "Please provide title and content for the note."
+        errorMessage: "Please provide title and text for the note."
       });
     else {
       Note.findByIdAndUpdate(req.params.id, req.body, { new: true })

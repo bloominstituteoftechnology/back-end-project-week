@@ -13,6 +13,7 @@ const authenticate = (req, res, next) => {
       next();
     });
   } else {
+    console.log("Repelled Invader");
     return res.status(403).json({
       error: "You're not allowed in here!"
     });
