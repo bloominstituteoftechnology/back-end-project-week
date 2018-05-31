@@ -10,7 +10,6 @@ export default class Edit extends Component {
     this.state = {
       noteTitle: '',
       noteBody: '',
-      notes: []
     };
   }
 
@@ -25,10 +24,6 @@ export default class Edit extends Component {
       noteTitle: this.state.noteTitle,
       noteBody: this.state.noteBody
     };
-
-    // console.log(this.props)
-    // axios.put(`https://boiling-wildwood-28100.herokuapp.com/edit/${this.props.match.params.id}`, afterEditObj)  
-    // .then(resp => console.log('here',resp)).catch(err => console.log('cant request'))
 
     axios.put(`https://boiling-wildwood-28100.herokuapp.com/edit/${this.props.match.params.id}`, afterEditObj)
     .then(resp => this.props.update())
