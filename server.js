@@ -65,9 +65,7 @@ server.delete('/notes/:id', function(req, res) {
 
 
 
-const port =  process.env.PORT || 3333
-server.listen(port, (err) => {
-    if(err) console.log(err);
 
-    console.log('connected to ' + port);
-})
+server.listen(process.env.PORT || 3000, function(){
+    console.log("Express server listening on port %d in %s mode", this.address().port, server.settings.env);
+  });
