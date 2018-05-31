@@ -17,5 +17,8 @@
   },
   "devDependencies": {
     "nodemon": "^1.17.5"
+  },
+  "scripts": {
+    "test": "nodemon server.js"
   }
 }

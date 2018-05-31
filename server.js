@@ -15,7 +15,7 @@ server.get('/', (req, res) => {
 });
 
 mongoose
-  .connect('mongodb://localhost/Back-End-Project')
+  .connect('mongodb://admin:Password123@ds239940.mlab.com:39940/shawn-stewarts-sensitive-data')
   .then(() => console.log('\n=== Successfully connected to MongoDB ==='))
   .catch(err => console.log('\n=== Error connecting to MongoDB ==='));
 
