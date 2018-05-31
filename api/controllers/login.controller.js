@@ -2,6 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const User = require('../models/users.schema');
 const router = express.Router();
+const { mysecret } = require('../../utils/dbConfig');
 
 const LOGIN = (req, res) => {
 	const { username, password } = req.body;

@@ -26,7 +26,7 @@ userSchema.pre('save', function(next) {
 	});
 });
 
-userSchema.methods.validatePassword = function(plainText, callback) {
+userSchema.methods.checkPassword = function(plainText, callback) {
 	return bcrypt.compare(plainText, this.password, (err, valid) => {
 		return err ? callback(err) : callback(null, valid);
 	});

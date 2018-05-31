@@ -43,10 +43,22 @@ const DELETE = (req, res) => {
 	const { id } = req.params;
 	User.findByIdAndRemove(id)
 		.then(deleted =>
-			res.status(200).json({ success: 'user  deleted successfully' }),
+			res.status(200).json({ success: 'user deleted successfully' }),
 		)
 		.catch(err => res.status(500).json({ error: 'can not delete this user' }));
 };
+
+// const LOGOUT = (req, res) => {
+// 	if (req.session) {
+// 		req.session.destroy(function(err) {
+// 			if (err) {
+// 				res.send('error');
+// 			} else {
+// 				res.send('good bye');
+// 			}
+// 		});
+// 	}
+// });
 
 router
 	.route('/')
