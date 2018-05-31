@@ -28,14 +28,6 @@ mongoose
 server.use(cors({}));
 server.use(express.json());
 server.use(morgan("combined"));
-server.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
 
 server.get("/", (req, res) => {
   res.json({ Message: "Server's not broken" });
