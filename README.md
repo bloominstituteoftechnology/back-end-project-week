@@ -1,5 +1,12 @@
 Trello Board: https://trello.com/b/MxggaAnm/lambda-notesbackend-cristian-garcia
 
+ORIGINAL GITHUB REPO LINK WITH ALL COMMITS HERE: (https://github.com/2940cristian/front-end-project-week/tree/Back-end-project-week)
+
+
+
+
+
+
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
