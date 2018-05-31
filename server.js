@@ -1,3 +1,7 @@
+// configuring the database
+const mongoose = require('mongoose');
+const dbConfig = require('./config/database.config');
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -9,6 +13,16 @@ const server = express();
 server.use(cors({}));
 // parse requests of content-type - application/json
 server.use(bodyParser.json());
+
+// Connecting to the database
+mongoose
+  .connect(dbConfig.url)
+  .then(() => {
+    console.log('Successfully connected to the database');
+  })
+  .catch(err => {
+    console.log(err, 'Could not connect to the database');
+  });
 
 // define root route
 server.get('/', (req, res) => {
