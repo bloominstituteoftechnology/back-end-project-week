@@ -3,7 +3,9 @@ const mongoose = require("mongoose");
 mongodb: module.exports = {
 	connectTo: function() {
 		return mongoose.connect(
-			"mongodb://<dbuser>:<dbpassword>@ds139970.mlab.com:39970/lambdanotes-justinh"
+			encodeURIComponent(
+				"mongodb://<dbuser>:<dbpassword>@ds139970.mlab.com:39970/lambdanotes-justinh"
+			)
 		);
 	}
 };
