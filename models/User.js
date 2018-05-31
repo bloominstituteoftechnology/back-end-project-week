@@ -35,4 +35,16 @@ userSchema.pre("save", function(next) {
     });
 });
 
+// Check hashed pw with plain text pw
+// response = true if valid
+userSchema.methods.checkPassword = function(plainTextPW, callBack) {
+  bcrypt.compare(plainTextPW, this.password, function(error, response) {
+    if (error) {
+      return callBack(error);
+    } else {
+      callBack(null, response);
+    }
+  });
+};
+
 module.exports = mongoose.model("User", userSchema);
