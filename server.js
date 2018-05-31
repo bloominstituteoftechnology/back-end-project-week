@@ -8,11 +8,11 @@ const Note = require('./src/notes/Note');
 const noteRouter = require('./routes/noteRoutes');
 const userRouter = require('./routes/userRoutes');
 
-const { dbURI } = require('./config/config')
+//const { dbURI } = require('./config/config')
 
 const server = express();
 
-mongoose.connect(dbURI || MONGODB_URI)
+mongoose.connect(MONGODB_URI)
   .then(() => {
     console.log('\n ---=== connected to mlab database ===--- \n');
   })
