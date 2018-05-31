@@ -20,7 +20,7 @@ router.get('/user', (req, res) => {
 })
 
 //grab user id
-  router.get('/:id', (req, res) => {
+router.get('/:id', (req, res) => {
   const {id} = req.params;
   User
     .findById(id)
@@ -46,9 +46,14 @@ router.post('/user', (req, res) => {
   User
     .create(req.body)
     .then(user => {
-      res.status(201).json({ user })
+      res
+        .status(201)
+        .json({user})
     })
     .catch(err => {
-      res.status(500).json({ Error: err })
+      res
+        .status(500)
+        .json({Error: err})
     })
 })
+
