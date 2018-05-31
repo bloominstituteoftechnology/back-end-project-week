@@ -3307,6 +3307,10 @@ send@0.16.2:
     range-parser "~1.2.0"
     statuses "~1.4.0"
 
+sentiment@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/sentiment/-/sentiment-5.0.0.tgz#bd4495bd211dbfcbe76c94f82a5f3a763ba36070"
+
 serve-static@1.13.2:
   version "1.13.2"
   resolved "https://registry.yarnpkg.com/serve-static/-/serve-static-1.13.2.tgz#095e8472fd5b46237db50ce486a43f4b86c6cec1"

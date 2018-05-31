@@ -24,7 +24,8 @@
     "express": "^4.16.3",
     "helmet": "^3.12.1",
     "mongoose": "^5.1.2",
-    "nodemon": "^1.17.5"
+    "nodemon": "^1.17.5",
+    "sentiment": "^5.0.0"
   },
   "devDependencies": {
     "faker": "^4.1.0",

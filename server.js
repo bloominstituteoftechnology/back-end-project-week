@@ -1,15 +1,18 @@
+require('dotenv').config();
 const express = require('express');
 const server = express();
 const helmet = require('helmet');
 const cors = require('cors');
 const mongoose = require('mongoose');
-require('dotenv').config();
+const Sentiment = require('sentiment');
 
 const Note = require('./models/note');
 
 server.use(express.json());
 server.use(cors());
 server.use(helmet());
+
+const sentiment = new Sentiment();
 
 if (process.env.NODE_ENV !== 'test') {
   const port = process.env.PORT || 5000;
@@ -43,6 +46,11 @@ server.get('/api/notes/:id', asyncHandler(async (req, res) => {
 }));
 
 server.put('/api/notes/:id', asyncHandler(async (req, res) => {
+  const sentScore = sentiment.analyze(req.body.content);
+  req.body.sentiment = sentScore.score;
+  req.body.comparative = sentScore.comparative;
+  req.body.title = `Score: ${sentScore.score}, Comparative: ${sentScore.comparative}`; 
+
   const response = await Note.findByIdAndUpdate(req.params.id, req.body, { new: true})
     || `Note with id ${req.params.id} not found`;
   res.status(200).json(response);
