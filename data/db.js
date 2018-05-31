@@ -4,7 +4,7 @@ mongodb: module.exports = {
 	connectTo: function() {
 		return mongoose.connect(
 			encodeURI(
-				"mongodb://<dbuser>:<dbpassword>@ds139970.mlab.com:39970/lambdanotes-justinh"
+				`mongodb://justin:password123@ds139970.mlab.com:39970/lambdanotes-justinh`
 			),
 			{ useMongoClient: true }
 		);
