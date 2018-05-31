@@ -51,9 +51,8 @@ server.route('/notes')
   })
   .post((req, res) => {
     const { title, body } = req.body;
-    const note = new Note({ title, body });
 
-    note.save((note, err) => {
+    Note.ceate({ title, body }, (note, err) => {
       if(err) res.status(201).json(err);
       else res.status(500).json(note);
     });
