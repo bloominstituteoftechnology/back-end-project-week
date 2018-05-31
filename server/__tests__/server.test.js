@@ -29,4 +29,13 @@ describe('server', () => {
       })
     )
   })
+
+  it('gets all the notes', () => {
+    request(server)
+      .get('/api/notes')
+      .then(res => {
+        expect(res.status).toBe(200)
+        expect(res.body.length).toBeGreaterThan(0)
+      })
+  })
 })

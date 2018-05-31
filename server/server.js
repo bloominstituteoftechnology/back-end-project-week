@@ -20,5 +20,14 @@ app.post('/api/notes', (req, res) => {
     res.status(500).json({ error: e.message })
   }
 })
+async function getAllNotes(noteModel) {
+  const notes = await noteModel.find()
+  return notes
+}
+app.get('/api/notes', (req, res) => {
+  getAllNotes(Notes)
+    .then(notes => res.status(200).json(Object.create({}, notes)))
+    .catch(e => res.status(500).send('Server Error'))
+})
 
 module.exports = app
