@@ -72,7 +72,7 @@ export default class Login extends Component {
               id="pwInput"
             />
             <br />
-            <input type="checkbox" onClick={this.pwToggle} />Show Password
+            <input type="checkbox" onClick={this.pwToggler} />Show Password
           </div>
           <div>
             <button>Sign in</button>

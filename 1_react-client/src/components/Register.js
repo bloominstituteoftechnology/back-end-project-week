@@ -58,11 +58,12 @@ export default class Regiseter extends Component {
               name="password"
               value={this.state.password}
               onChange={this.inputChangeHandler}
-              type="text"
+              type="password"
+              id="pwInput"
             />
           </div>
           <br />
-          <input type="checkbox" onClick={this.pwToggle} />Show Password
+          <input type="checkbox" onClick={this.pwToggler} />Show Password
           <div>
             <button>Create Account</button>
           </div>
