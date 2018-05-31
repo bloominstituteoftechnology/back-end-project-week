@@ -1,6 +1,27 @@
 const express = require('express');
 const router = express.Router();
 const User = require('./User');
+const jwt = require('jsonwebtoken');
+
+// Helper Functions
+const getTokenForUser = userObject => {
+    return jwt.sign(userObject, process.env.TOKEN_SECRET, { expiresIn: '1h' })
+}
+
+const validateToken = (req, res, next) => {
+    const token = req.headers.authorization;
+    if (!token) {
+        res.status(422).json({ Error: 'No token found' })
+    } else {
+        jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => {
+            if (err) {
+                res.status(401).json({ Error: "Token invalid", message: err });
+            } else {
+                next();
+            }
+        })
+    }
+}
 
 // POST - create a new user
 router.post('/user', (req,res) => {
@@ -8,7 +29,8 @@ router.post('/user', (req,res) => {
     User
     .create(req.body)
     .then(user => {
-        res.status(201).json({ user })
+        const token = getTokenForUser({ username: user.username })
+        res.status(201).json({ user, token })
     })
     .catch(err => {
         res.status(500).json({ Error: err})
