@@ -29,7 +29,13 @@ describe('User', () => {
   })
 
   it('Rejects an incorrect password', async () => {
-    authenticated = await User.login({ username: user.username, password: '' })
-    expect(authenticated).toBeNull()
+    let error
+    try {
+      const authenticated = await User.login({ username: user.username, password: '' })
+    } catch (e) {
+      error = e
+    } finally {
+      expect(error).toBeDefined()
+    }
   })
 })

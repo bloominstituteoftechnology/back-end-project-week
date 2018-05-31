@@ -11,12 +11,13 @@ userRouter.post('/register', async (req, res, next) => {
 })
 
 userRouter.post('/login', async (req, res, next) => {
-  const user = await User.login(req.body)
-  if (!user) {
-    res.status(400).send({ error: 'Invalid username or password' })
+  try {
+    const user = await User.login(req.body)
+    const token = getSessionToken(user)
+    res.status(200).send({ token })
+  } catch (err) {
+    next(err)
   }
-  const token = getSessionToken(user)
-  res.status(200).send({ token })
 })
 
 module.exports = userRouter
