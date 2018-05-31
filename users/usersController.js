@@ -73,7 +73,7 @@ function makeToken(user) {
 
 module.exports = function (server) {
 
-    server.post('/register', async (req, res, next) {
+    server.post('/register', function(req, res) {
         User.create(req.body)
             .then(user => {
                 const token = makeToken(user);
