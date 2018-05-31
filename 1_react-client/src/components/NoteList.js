@@ -24,7 +24,8 @@ export default class NoteList extends Component {
       .get("http://localhost:5000/api/notes", requestOption)
       .then(response => {
         this.setState({ isUnauthorized: false });
-        this.setSteate({ notes: response.data });
+        this.setState({ notes: response.data });
+        this.props.history.push("/notes");
       })
       .catch(err => {
         this.setState({ isUnauthorized: true });
@@ -38,6 +39,7 @@ export default class NoteList extends Component {
   };
 
   render() {
+    // console.log("Local Storage On NoteList", this.token);
     return (
       <div>
         {this.state.isUnauthorized

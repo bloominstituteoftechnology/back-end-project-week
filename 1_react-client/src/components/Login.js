@@ -19,7 +19,10 @@ export default class Login extends Component {
   };
 
   submitHandler = e => {
-    const login = axios.post("http://localhost:5000/api/users/login", this.state);
+    const login = axios.post(
+      "http://localhost:5000/api/users/login",
+      this.state
+    );
 
     e.preventDefault();
 
@@ -27,6 +30,7 @@ export default class Login extends Component {
       .then(response => {
         localStorage.setItem("token", response.data.token);
         this.props.history.push("/notes");
+        // console.log(localStorage.getItem("token"));
       })
       .catch(err => {
         localStorage.removeItem("token");
@@ -46,6 +50,7 @@ export default class Login extends Component {
   }
 
   render() {
+    // console.log("Login page",localStorage);
     return (
       <div>
         <h1>Sign in</h1>
