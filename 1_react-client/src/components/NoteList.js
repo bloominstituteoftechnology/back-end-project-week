@@ -7,6 +7,7 @@ export default class NoteList extends Component {
     this.state = {
       notes: [],
       isUnauthorized: false,
+      pwShowToggle: false,
       search: ""
     };
   }
@@ -37,9 +38,8 @@ export default class NoteList extends Component {
     localStorage.removeItem("token");
     this.props.history.push("/login");
   };
-
+  
   render() {
-    // console.log("Local Storage On NoteList", this.token);
     return (
       <div>
         {this.state.isUnauthorized
@@ -50,7 +50,7 @@ export default class NoteList extends Component {
 
         <h1>Your Notes:</h1>
         {this.state.notes.map(eachNote => (
-          <div key={eachNote.id}>
+          <div key={eachNote._id}>
             <h4>{eachNote.title}</h4>
             <p>{eachNote.content}</p>
           </div>

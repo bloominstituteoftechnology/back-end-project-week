@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default class Regiseter extends Component {
   constructor() {
@@ -29,6 +30,16 @@ export default class Regiseter extends Component {
       });
   };
 
+  pwToggler() {
+    const pwToggle = document.getElementById("pwInput");
+
+    if (pwToggle.type === "password") {
+      pwToggle.type = "text";
+    } else {
+      pwToggle.type = "password";
+    }
+  }
+
   render() {
     return (
       <div>
@@ -50,10 +61,17 @@ export default class Regiseter extends Component {
               type="text"
             />
           </div>
+          <br />
+          <input type="checkbox" onClick={this.pwToggle} />Show Password
           <div>
             <button>Create Account</button>
           </div>
         </form>
+        <br />
+        <p>Already have an account?</p>
+        <Link to="/login">
+          <button>Login right now!</button>
+        </Link>
       </div>
     );
   }
