@@ -25,10 +25,7 @@ export default class Edit extends Component {
       noteTitle: this.state.noteTitle,
       noteBody: this.state.noteBody
     };
-    console.log("From handleSubmit Edit.js..., afterSubmit", {
-      noteTitle: this.state.noteTitle,
-      noteBody: this.state.noteBody
-    });
+
     // console.log(this.props)
     // axios.put(`https://boiling-wildwood-28100.herokuapp.com/edit/${this.props.match.params.id}`, afterEditObj)  
     // .then(resp => console.log('here',resp)).catch(err => console.log('cant request'))
@@ -47,16 +44,16 @@ export default class Edit extends Component {
             <input
               type="text"
               name="noteTitle"
-              value={this.state.title}
+              value={this.state.noteTitle}
               placeholder="Note Title"
               onChange={this.handleChange}
             />
             <textarea
-              name="text"
+              type="text"
               placeholder="Note Content"
               rows="15"
               name="noteBody"
-              value={this.state.content}
+              value={this.state.noteBody}
               onChange={this.handleChange}
             />
           </form>

@@ -53,7 +53,6 @@ server.delete('/delete/:id', function (req, res) {
 
 
 server.put('/edit/:id', (req, res) => {
-    console.log('in server put')
     const { id } = req.params;
     const { noteTitle, noteBody } = req.body;
     Note.update({ _id: id }, req.body)
