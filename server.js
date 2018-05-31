@@ -8,7 +8,6 @@ const cors = require('cors');
 const bodyParser = require('body-Parser');
 const mongoose = require('mongoose');
 
-
 const server = express();
 
 // const routes = require('./routes/routes');
@@ -34,10 +33,10 @@ server.get('/', (req, res) => {
   res.send({ API: 'Running' });
 });
 
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
-server.listen(port, () =>
-  console.log(`API running on ${port}`)
+server.listen(PORT, () =>
+  console.log(`API running on ${PORT}`)
 );
 
 // module.exports = { server };
