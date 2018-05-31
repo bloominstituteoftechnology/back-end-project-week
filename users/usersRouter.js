@@ -44,7 +44,7 @@ router.post("/register", (req, res) => {
 router.post("/login", (req, res) => {
   const { username, password } = req.body;
 
-  User.authenticate(username, password, function(error, user) {
+  User.authenticate(username.toLowerCase(), password, function(error, user) {
     if (error || !user) {
       res.status(401).json({ error: "Wrong credentials - try again" });
     } else {

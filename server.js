@@ -3,22 +3,17 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
-const cors = require("cors");
 const helmet = require("helmet");
-
-const server = express();
+const cors = require("cors");
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true
+};
 
 const usersRouter = require("./users/usersRouter.js");
 const notesRouter = require("./notes/notesRouter.js");
 
-const corsOptions = {
-  origin: "https://dalambdanotes.herokuapp.com/",
-  credentials: true
-};
-
-server.use(bodyParser.json());
-server.use(cors(corsOptions));
-server.use(helmet());
+const server = express();
 
 const path = process.env.MONGO_URI;
 
@@ -35,6 +30,10 @@ server.use(
     name: "DontPWNmeh"
   })
 );
+
+server.use(bodyParser.json());
+server.use(cors(corsOptions));
+server.use(helmet());
 
 mongoose
   .connect(path)
