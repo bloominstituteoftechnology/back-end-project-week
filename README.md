@@ -1,3 +1,4 @@
+5/31/2018 -- For Attendances --- 10:57 AM EST
 # Important Commands
 1. Use yarn server if you want to use nodemon server.js
 1. Use yarn start if you want to use node server.js
