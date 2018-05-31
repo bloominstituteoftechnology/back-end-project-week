@@ -22,7 +22,7 @@
     "url": "git+https://github.com/mocamanda/back-end-project-week.git"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "bugs": {
     "url": "https://github.com/mocamanda/back-end-project-week/issues"
