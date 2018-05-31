@@ -1,17 +1,16 @@
 const express = require('express');
+const cors = require('cors');
+const mongoose = require('mongoose');
 
-const db = require('./config/db');
-const setupMiddleware = require('./config/middleware');
-const setupRoutes = require('./config/routes');
+const port = process.env.PORT || 5000;
 
 const server = express();
 
-db
-    .connecTo('backEnd')
-    .then(() => console.log('\n ... connected to backend database ... \n'))
-    .catch(err => {
-        console.log('\n ~~~ Error connecting to backend database ~~~ \n', err)
-    });
+server.get('/', (req,res) => {
+    res.status(200).json({ api: 'running' });
+});
 
-setupMiddleware(server);
-setupRoutes(server);
+server.use(cors());
+server.use(express.json());
+
+server.listen(port, () => console.log(`\n === API running on port ${port} === \n`))
