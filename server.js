@@ -2,14 +2,17 @@ const express = require('express');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const helmet = require('helmet');
 const users = require('./routes/api/users');
 const notes = require('./routes/api/notes');
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+
 
 app.use(passport.initialize());
+app.use(helmet());
+app.use(cors({}));
 require('./config/passport')(passport);
 //DB
 const db = require('./config/keys').mongoURL;
