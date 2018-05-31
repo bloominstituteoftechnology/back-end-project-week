@@ -1,18 +1,23 @@
 const mongoose = require('mongoose');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const NoteSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'users'
-  },
   title: {
     type: String,
-    unique: true,
-    required: true 
+    required: true,
   },
-  body: {
+  content: {
     type: String,
-    required: true 
+    required: true,
+  },
+  postedBy: {
+    type: ObjectId,
+    ref: 'User',
+    required: true,
+    createdAt: {
+      type: Date,
+      default: Date.now(),
+    },
   }
 });
 
