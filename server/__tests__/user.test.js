@@ -44,7 +44,6 @@ describe('users', () => {
     try {
       user.checkPassword('sd', (err, isMatch) => {
         if (err) done()
-        console.log(isMatch)
         expect(isMatch).toBe(false)
         done()
       })

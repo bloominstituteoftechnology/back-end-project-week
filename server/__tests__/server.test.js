@@ -10,4 +10,23 @@ describe('server', () => {
   it('runs a test', () => {
     expect(server).toBeTruthy()
   })
+
+  it('creates a new note', async () => {
+    const fakeNote = {
+      title: faker.random.words(4),
+      content: faker.random.words(15)
+    }
+    const res = await request(server)
+      .post('/api/notes')
+      .send(fakeNote)
+
+    expect(res.status).toBe(201)
+    expect(res.body).toMatchObject(
+      expect.objectContaining({
+        title: expect.any(String),
+        content: expect.any(String),
+        _id: expect.any(String)
+      })
+    )
+  })
 })

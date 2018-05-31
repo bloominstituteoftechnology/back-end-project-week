@@ -24,6 +24,7 @@
   "devDependencies": {
     "@types/faker": "^4.1.2",
     "@types/mongoose": "^5.0.15",
+    "@types/supertest": "^2.0.4",
     "faker": "^4.1.0",
     "jest": "^23.0.1",
     "jest-nyan-reporter": "^1.0.2",
@@ -31,15 +32,7 @@
     "supertest": "^3.1.0"
   },
   "jest": {
-    "testEnvironment": "node",
-    "reporters": [
-      [
-        "jest-nyan-reporter",
-        {
-          "suppressErrorReporter": false
-        }
-      ]
-    ]
+    "testEnvironment": "node"
   },
   "dependencies": {
     "bcrypt": "^2.0.1",
