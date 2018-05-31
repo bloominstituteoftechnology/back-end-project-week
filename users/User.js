@@ -24,6 +24,7 @@ userSchema.pre('save', function(next){
     })
 })
 
+
 userSchema.methods.validatePassword = function(guess, cb) {
     return bcrypt.compare(guess, this.password)
 }

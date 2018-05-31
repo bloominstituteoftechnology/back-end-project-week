@@ -41,4 +41,33 @@ router.get('/user/:id', (req, res) => {
         res.status(404).json({ Message: "User not found" })
     })
 })
+
+// PUT - edit user information 
+router.put('/user/:id', (req, res) => {
+    const id = req.params.id;
+    const updateUser = req.body;
+
+    User
+    .findByIdAndUpdate(id, updateUser)
+    .then(user => {
+        res.status(200).json({ updateUser })
+    })
+    .catch(err => {
+        res.status(400).json({ Message: "User not found" })
+    })
+})
+
+// DELETE - deletes a user
+router.delete('/user/:id', (req, res) => {
+    const id = req.params.id;
+
+    User
+    .findByIdAndRemove(id)
+    .then(user => {
+        res.status(200).send('User is deleted')
+    })
+    .catch(err => {
+        res.status(404).json({ Error: 'User not found' })
+    })
+})
 module.exports = router;
