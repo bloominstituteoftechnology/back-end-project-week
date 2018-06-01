@@ -2,6 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
+const secret = "Who but me? Loves JWT";
 
 const Note = require("./models/Note");
 const User = require("./models/User");
@@ -26,6 +29,86 @@ server.use(cors({}));
 
 server.get("/", (req, res) => {
   res.json({ Message: "Hello World" });
+});
+
+// Authentification and token stuff
+
+const getTokenForUser = userObject => {
+  return jwt.sign(userObject, secret, { expiresIn: "1h" });
+};
+
+const validateToken = (req, res, next) => {
+  const token = req.headers.authorization;
+  if (!token) {
+    res
+      .status(422)
+      .json({ error: "No authorization token found on Authorization header" });
+  } else {
+    jwt.verify(token, secret, (err, decoded) => {
+      if (err) {
+        res
+          .status(401)
+          .json({ error: "Token invalid, please login", message: err });
+      } else {
+        next();
+      }
+    });
+  }
+};
+
+server.post("/register", (req, res) => {
+  const { username, password } = req.body;
+  const user = new User({ username, password });
+
+  user.save((err, user) => {
+    if (err) return res.send(err);
+
+    const token = getTokenForUser({ username: user.username });
+    res.json({ token });
+  });
+});
+
+server.get("/users", validateToken, (req, res) => {
+  User.find({})
+    .select("username")
+    .then(users => {
+      res.send(users);
+    })
+    .catch(err => {
+      return res.send(err);
+    });
+});
+
+server.post("/login", (req, res) => {
+  const { username, password } = req.body;
+  User.findOne({ username }, (err, user) => {
+    if (err) {
+      return res.status(500).json({ error: "Invalid Username/Password" });
+    }
+
+    if (!user) {
+      return res
+        .status(422)
+        .json({ error: "No user with that username in our DB" });
+    }
+
+    user.checkPassword(password, (err, isMatch) => {
+      if (err) {
+        return res.status(422).json({ error: "passwords dont match" });
+      }
+
+      if (isMatch) {
+        const token = getTokenForUser({ username: user.username });
+        const userData = {
+          id: user._id,
+          username: user.username
+        };
+        res.json({ userData, token });
+      } else {
+        return res.status(422).json({ error: "passwords dont match" });
+      }
+    });
+  });
 });
 
 // Note routes ========================================================
