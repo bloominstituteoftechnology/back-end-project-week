@@ -12,22 +12,20 @@ const server = express();
 const userRouter = require('./routers/userRouter');
 const notesRouter = require('./routers/notesRouter');
 
-const corsOptions = {
-  origin: 'https://amanda-lambdanotes.netlify.com',
-  credentials: true
-};
+// const corsOptions = {
+//   origin: 'https://amanda-lambdanotes.netlify.com',
+//   credentials: true
+// };
 
 server.use(express.json());
 server.use(helmet());
-server.use(cors(corsOptions));
+server.use(cors());
 server.use(bodyParser.json());
 
 mongoose
   .connect('mongodb://amanda:amanda@ds133550.mlab.com:33550/lambdanotes-backend')
   .then(() => console.log('mLab Connected to Mongo'))
   .catch((err) => console.log(err))
-
-// routes(server);
 
 server.get('/', (req, res) => {
   res.send({ API: 'Running' });
