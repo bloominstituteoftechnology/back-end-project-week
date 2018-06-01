@@ -7,9 +7,9 @@ module.exports = server => {
         }).catch(err => res.status(500).json(err));
     });
     server.post('./newtag', (req, res) => {
-        const tag = new Tag(req.body);
-        tag.save()
-        .then(tag => res.status(201).send(tag))
+        const newTag = new Tag(req.body);
+        newTag.save()
+        .then(tags => res.status(201).send(tags))
         .catch(err => res.status(500).json(err))
     });
 }
