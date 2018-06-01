@@ -33,7 +33,7 @@ router.post('/notes', (req, res) => {
 })
 
 // GET notes - Display Notes
-router.get('/notes', validateToken, (req, res) => {
+router.get('/notes', (req, res) => {
 
     Note
     .find().select('title body id createdBy').populate('createdBy', 'username -_id')
