@@ -48,8 +48,8 @@ router.get("/:id", (req, res) => {
 
 // post
 router.post("/register", (req, res) => {
-  const { username, password, email } = req.body;
-  const user = new User({ username, password, email });
+  const { username, password} = req.body;
+  const user = new User({ username, password});
 
   user.save((err, user) => {
     if (err) return res.send(err);
