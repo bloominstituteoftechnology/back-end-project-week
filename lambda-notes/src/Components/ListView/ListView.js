@@ -29,7 +29,7 @@ class ListView extends Component {
             }
         }
 
-        if(nodeId === null) {
+        if(nodeId === null || token.length < 1) {
             axios.get('https://noteslambda.herokuapp.com/notes', requestOptions)
             .then(response => {
                 this.setState({

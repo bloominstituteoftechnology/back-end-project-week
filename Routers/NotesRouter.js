@@ -6,10 +6,10 @@ const Note = require('../Database/Notes/Note')
 
 const validateToken = (req, res, next) => {
     const token = req.headers.authorization;
-    const NodeId = req.headers.NodeId;
+    // const NodeId = req.headers.NodeId;
 
     if (!token) {
-        console.log('lol', token, NodeId)
+        // console.log('lol', token, NodeId)
       res
         .status(422)
         .json({ error: 'No authorization token found on Authorization header' });
