@@ -4,16 +4,17 @@ const cors = require('cors');
 const session = require('express-session');
 const helmet = require('helmet');
 
-const server = express();
 
 const UserRouter = require('./Users/UsersRouter.js');
 const NotesRouter = require('./Notes/NotesRouter.js');
+
+const server = express();
 
 server.use(cors());
 server.use(express.json());
 server.use(helmet());
 
-const path = process.env.MONGOLAB_URI ||'mongodb://sadrak8:lambdanotes10@ds231725.mlab.com:31725/heroku_ph95bkvg';
+const path = process.env.MONGOLAB_URI ||'mongodb://sadrak8:lambdanotes10@ds245250.mlab.com:45250/lambda-notes';
 
 mongoose.connect(path);
 
@@ -40,6 +41,6 @@ server.use('/api/users', UserRouter);
 
 server.get('/', (req, res) => res.send('API Is Running...!'));
 
-const PORT = process.env.PORT || 9000;
+const port = process.env.port || 9000;
 server
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+  .listen(port, () => console.log(`Running on ${ port }`));
