@@ -50,6 +50,27 @@ const validateToken = (req, res, next) => {
           .status(401)
           .json({ error: "Token invalid, please login", message: err });
       } else {
+        // User.findOne({ token }, (err, user) => {
+        //   if (err) {
+        //     return res.status(500).json({ error: "Invalid Username/Password" });
+        //   }
+
+        //   if (!user) {
+        //     return res
+        //       .status(422)
+        //       .json({ error: "No user with that username in our DB" });
+        //   }
+        //   if (user.checkToken(token) === true) {
+        //     next();
+        //   } else {
+        //     res.status(422).json({
+        //       error: "tokens dont match",
+        //       token: token,
+        //       USERTOKEN: user.token,
+        //       returnCheckToken: user.checkToken(token)
+        //     });
+        //   }
+        // });
         next();
       }
     });

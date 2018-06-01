@@ -36,4 +36,10 @@ User.methods.checkPassword = function(plainTextPW, callBack) {
   });
 };
 
+// User.methods.checkToken = token => {
+//   if (this.token === token) {
+//     return true;
+//   } else return this;
+// };
+
 module.exports = mongoose.model("User", User);
