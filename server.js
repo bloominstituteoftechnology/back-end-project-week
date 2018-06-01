@@ -114,7 +114,7 @@ server.post("/login", (req, res) => {
 // Note routes ========================================================
 
 server.get("/notes", (req, res) => {
-  Note.find()
+  Note.find({ user: req.user })
     .then(notes => {
       res.status(200).json(notes);
     })
@@ -199,6 +199,33 @@ server.delete("/notes/:id", (req, res) => {
             .status(500)
             .json({ errorMessage: "Could not delete a note with that id." });
         });
+    })
+    .catch(err => {
+      res
+        .status(404)
+        .json({ errorMessage: "Could not get a note for that id." });
+    });
+});
+
+// Test routes for finding and editing notes for a specific user ===================================
+
+server.get("/notes/:user", (req, res) => {
+  Note.find({ user: req.user })
+    .then(notes => {
+      res.status(200).json(notes);
+    })
+    .catch(err => {
+      res.status(500).json({ errorMessage: "Could not get notes." });
+    });
+});
+
+server.get("/notes/:user/:id", (req, res) => {
+  const id = req.params.id;
+  Note.findById(id)
+    .where("user")
+    .equals(req.user)
+    .then(note => {
+      res.status(200).json(note);
     })
     .catch(err => {
       res
