@@ -19,9 +19,10 @@ const userRegister = (req, res) => {
           error: "There was an error during registration."
         });
       });
-  } else {
+  }
+  if (!username || !password || !email) {
     res.status(422).json({
-      message: "Please provide a valid username, password, and email address."
+      message: "Please provide a valid username, password, AND email address."
     });
   }
 };
