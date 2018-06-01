@@ -52,9 +52,15 @@ color: rgb(93, 196, 196)
     top: 8vh;
 }
 
+.loginLoad {
+    position: relative;
+    top: 14vh;
+}
+
+
 .github {
     position: relative;
-    left: 44%;
+    left: 42%;
     color: white;
     text-align: center;
     padding: 3% 3% 1% 3%;

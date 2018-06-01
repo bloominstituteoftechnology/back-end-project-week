@@ -63,7 +63,7 @@ class Login extends Component {
                             </div>
                             <button style={login}>Login</button>
                             <button onClick={this.sendToRegister} style={login}>Register</button>
-                            <div className="sweet-loading">
+                            <div className="sweet-loading loginLoad">
                                 <ClipLoader
                                 color={"#666"}
                                 size={40}
@@ -97,8 +97,6 @@ const git = {
     paddingTop: "1%",
     height: "5vh",
     cursor: "pointer",
-    // position: "relative",
-    // top: 5
 }
 
 // const displayNone = {

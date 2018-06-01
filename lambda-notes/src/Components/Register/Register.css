@@ -50,6 +50,7 @@ button {
 }
 
 .sweet-loading {
-    height: 10vh;
-    padding-top: 8vh;
+    height: 7vh;
+    padding-top: 0vh;
+    padding-bottom: 2vh;
 }

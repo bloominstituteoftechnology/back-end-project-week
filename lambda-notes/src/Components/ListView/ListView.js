@@ -50,7 +50,6 @@ class ListView extends Component {
                 console.log(this.state.notes)
             }).catch(err => {
                 console.log(err)
-                alert('reached list')
                 this.props.history.push('/')
             })
         }
