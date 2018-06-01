@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 
 const SALT_ROUNDS = 11;
 
+//User
 const UserSchema = Schema({
     username: {
         type: String,
@@ -17,6 +18,7 @@ const UserSchema = Schema({
     },
 });
 
+//hashing for passwords
 UserSchema.pre("save", function(next) {
     bcrypt.hash(this.password, SALT_ROUNDS, (err, hash) => {
         if(err) return next(err);
@@ -25,6 +27,7 @@ UserSchema.pre("save", function(next) {
     });
 });
 
+//compare method for passwords
 UserSchema.methods.checkPassword = function(plainTextPW, callBack) {
     console.log(plainTextPW, this.password);
     return bcrypt.compare(plainTextPW, this.password, callBack);
