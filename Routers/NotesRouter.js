@@ -34,7 +34,7 @@ router.get("/", validateToken, (req, res) => {
     })
 })
 
-router.get("/gitHubLoggedIn", validateToken, (req, res) => {
+router.get("/gitHubLoggedIn", (req, res) => {
     Note.find().then(notes => {
         res.status(200).json(notes)
     }).catch(err => {
