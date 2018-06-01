@@ -6,8 +6,8 @@ const keySecret = "sk_test_aLfqAx3CG4EQnOHc5C5IhaW8";
 const stripe = require("stripe")(keySecret);
 
 
-router.post("/", cors,  (req, res) => {
-    res.status(200).jon
+router.post("/",  (req, res) => {
+    res.status(200)
     let amount = 500;
   
     stripe.customers.create({
