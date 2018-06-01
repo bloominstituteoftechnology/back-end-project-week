@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 // const Notes = require('../Notes/notesModel');
 
 
-//POST USERS - Postman Test ok! http://localhost:8008/users (able to successfully post new users with PW hasing enabled)
+//POST USERS - Postman Test ok! http://localhost:8008/users (able to successfully post new users with PW hashing enabled)
 router.route('/')
 .post((req, res) => {
     User.create(req.body)
@@ -42,7 +42,7 @@ router.route('/')
 //     }
 // });
 
-// //LOGIN USERS
+// // //LOGIN USERS
 // router.post('/login', (req, res) => {
 //     const { username, password } = req.body;
 

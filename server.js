@@ -20,7 +20,7 @@ server.use(cors());
 
 //Postman Test ok: http://localhost:8008 
 server.get('/', (req, res) => {
-    res.json({ Message: 'Server Works' });
+    res.status(200).json({ Message: 'Server Works' });
 });
 
 //Routes
@@ -29,7 +29,7 @@ server.use('/Users', usersRouter);
 
 server.listen(port, () => console.log(`Server Connected to ${port}`));
 
-
+module.exports = server;
 
 
 
@@ -60,4 +60,3 @@ server.listen(port, () => console.log(`Server Connected to ${port}`));
 //     res.json({ Message: 'Server Works' });
 // });
 
-// module.exports = server;
