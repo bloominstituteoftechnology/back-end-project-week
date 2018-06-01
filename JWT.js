@@ -1,10 +1,10 @@
-const User = require("../Users/User.js");
+const User = require('./Users/User.js');
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const { ExtractJwt } = require("passport-jwt");
 const JwtStrategy = require("passport-jwt").Strategy;
-const secret = "each night I wonder";
+const secret = "a time to be so small";
 
 function makeToken(user) {
   const timestamp = new Date().getTime();

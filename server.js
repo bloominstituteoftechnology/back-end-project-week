@@ -6,7 +6,7 @@ const helmet = require('helmet');
 
 const server = express();
 
-const UserRouter = require('./Users/UserRouter.js');
+const UserRouter = require('./Users/UsersRouter.js');
 const NotesRouter = require('./Notes/NotesRouter.js');
 
 server.use(cors());
@@ -21,7 +21,7 @@ const MS = require('express-mongoose-store')(session, mongoose);
 
 server.use(
   session({
-    secret: 'each night I wonder',
+    secret: 'a time to be so small',
     store: new MS(),
     resave: true,
     saveUninitialized: false,

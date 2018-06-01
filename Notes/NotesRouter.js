@@ -1,5 +1,5 @@
 const express = require('express');
-const User = require('../Users/User.js');
+const User = require('../Users/User');
 const Note = require('./Notes.js');
 const { protected } = require('../JWT');
 const router = express.Router();
@@ -76,5 +76,5 @@ router
       res.status(500).json("Error Deleting Note!!!");
     });
   });
-  
+
 module.exports = router;
