@@ -36,3 +36,29 @@ router.post('/', (req, res) => {
 			res.status(500).json({msg: "Try again"});
 		});
 })
+
+router.delete('/:id', (req, res) => {
+	const { id } = req.params;
+	Note
+		.findByIdAndRemove(id)
+		.then(removedNote => {
+			res.status(200).json(removedNote);
+		})
+		.catch(err => {
+			res.status(500).json({msg: "Try again"});
+		});
+})
+
+router.put('/:id', (req, res) => {
+	const { id } = req.params;
+	Note
+		.findByIdAndUpdate(id, req.body)
+		.then(updatedNote => {
+			res.status(200).json(updatedNote);
+		})
+		.catch(err => {
+			res.status(500).json({msg: "Try again"});
+		});
+})
+
+module.exports = router;
