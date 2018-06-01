@@ -36,29 +36,37 @@ class RegisterForm extends Component {
 
   render() {
     return (
-      <div className="App">
-        <h2>Register new user: </h2>
-        <form className="form">
-          <input
-            onChange={this.handleInputChange}
-            placeholder="name"
-            value={this.state.name}
-            name="name"
-          />
-          <input
-            onChange={this.handleInputChange}
-            placeholder="password"
-            value={this.state.password}
-            name="password"
-          />
-          <button
-            className="submitButton"
-            type="submit"
-            onClick={this.register}
-          >
-            Register
-          </button>
-        </form>
+      <div className="col-9 right__side">
+        <div className="row">
+          <div className="col-3 notes__head">
+            <h2>Register new user: </h2>
+          </div>
+        </div>
+        <div className="row">
+          <form className="add__form">
+            <input
+              className="input__title"
+              onChange={this.handleInputChange}
+              placeholder="name"
+              value={this.state.name}
+              name="name"
+            />
+            <input
+              className="input__title"
+              onChange={this.handleInputChange}
+              placeholder="password"
+              value={this.state.password}
+              name="password"
+            />
+            <button
+              className="save__button"
+              type="submit"
+              onClick={this.register}
+            >
+              Register
+            </button>
+          </form>
+        </div>
       </div>
     );
   }
