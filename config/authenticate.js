@@ -1,12 +1,13 @@
 const jwt = require('jsonwebtoken');
+const User = require('../modules/users');
 const secret = 'thesunisinyoureyes'
 
 const authenticate = (req, res, next) => {
-  const token = req.get('Authorization');
+  const token = req.get('token');
   if (token) {
     jwt.verify(token, secret, (err, decoded) => {
       if (err) return res.status(422).json(err);
-      req.decoded = decoded;
+      req.user = decoded;
       next();
     });
   } else {
