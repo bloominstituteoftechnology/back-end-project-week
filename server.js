@@ -17,6 +17,15 @@ server.use("/api/user", UserRouter);
 
 server.get('/', (req, res) => res.send('API Is Running...'));
 
+mongoose.connect(
+  "mongodb://<dbuser>:<dbpassword>@ds239940.mlab.com:39940/lambdanotes",
+  {},
+  err => {
+    if (err) return console.log("Error connecting to the database");
+    console.log("Connected to Mongo.");
+  }
+);
+
 const PORT = process.env.PORT || 5000;
 server
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));

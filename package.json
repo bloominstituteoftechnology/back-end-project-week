@@ -6,10 +6,7 @@
   "scripts": {
     "start": "nodemon server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mgchmiel/back-end-project-week"
-  },
+  "repository": "git+https://github.com/mgchmiel/back-end-project-week",
   "keywords": [],
   "author": "",
   "license": "ISC",
