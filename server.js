@@ -6,6 +6,7 @@ const mongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
 const routes = require('./components/UserRoutes')
 const noteRoutes = require('./components/NoteRoutes');
+const tagRoutes = require('./components/TagRoutes');
 const User = require('./components/User');
 
 mongoose
@@ -42,7 +43,7 @@ server.use(CORS({}));
 
 routes(server);
 noteRoutes(server);
-
+tagRoutes(server);
 
 server.get('/', (req, res) => {
     res.send(port);
