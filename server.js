@@ -7,21 +7,23 @@ const jwt = require("jsonwebtoken");
 
 require("dotenv").config();
 
-const noteRouter = require("./notes/noteRouter");
-const userRouter = require("./users/userRouter");
+const noteRouter = require("./routes/noteRouter");
+const userRouter = require("./routes/userRouter");
 
 const server = express();
 
 const uri = process.env.DB_HOST || "mongodb://localhost/notes";
-const port = process.env.PORT || 8888;
 
 if (process.env.NODE_ENV !== "test") {
-  server.listen(port, () => console.log(`\n=== API up on port: ${port} ===\n`));
+  const port = process.env.PORT || 8888;
+  server.listen(port, () =>
+    console.log(`\n>>>  API runnig on port: ${port}  <<<\n`)
+  );
 
   // mongoose.Promise = global.Promise;
   mongoose
     .connect(uri)
-    .then(() => console.log(`\n=== Successfully connected to mLab db @  ===\n`))
+    .then(() => console.log(`\n>>>  Successfully connected to mLab db  <<<\n`))
     .catch(err => console.log("Error connecting to mLab db"));
 }
 
