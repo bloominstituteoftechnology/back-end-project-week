@@ -5,6 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
+      // vscode jest
       "type": "node",
       "name": "vscode-jest-tests",
       "request": "launch",
