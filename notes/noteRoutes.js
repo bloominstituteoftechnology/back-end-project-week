@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const Note = require('./Note');
 const jwt = require('jsonwebtoken');
+
+const Note = require('./Note');
 
 // Helper Function
 const validateToken = (req, res, next) => {

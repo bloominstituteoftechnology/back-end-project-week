@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -24,7 +23,6 @@ userSchema.pre('save', function(next){
         return next()
     })
 })
-
 
 userSchema.methods.validatePassword = function(guess, cb) {
     return bcrypt.compare(guess, this.password)

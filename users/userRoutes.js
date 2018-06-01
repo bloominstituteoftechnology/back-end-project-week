@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const User = require('./User');
 const jwt = require('jsonwebtoken');
+
+const User = require('./User');
 
 // Helper Functions
 const getTokenForUser = userObject => {

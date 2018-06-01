@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const cors = require('cors');
 require('dotenv').config();
-const { jwtStrategy, localStrategy } = require('./login/login')
-const passport = require("passport");
 
 // Routes
 const noteRouter = require('./notes/noteRoutes');
@@ -23,7 +21,6 @@ mongoose
     .catch(err => {
         console.log('Not connected');
 })
-
 
 // Middleware
 server.use(express.json());
