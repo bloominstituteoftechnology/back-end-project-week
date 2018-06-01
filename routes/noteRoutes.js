@@ -19,9 +19,9 @@ router.route('/')
 
 router.route('/add')
   .post((req, res) => {
-    const newNote = req.body;
+    const input = req.body;
     
-    Note.create(newNote)
+    Note.create(input)
       .then(newNote => {
         res.status(201).json(newNote)
       })

@@ -9,7 +9,7 @@ const Note = require('./src/notes/Note');
 const noteRouter = require('./routes/noteRoutes');
 const userRouter = require('./routes/userRoutes');
 
-let dbURI = process.env.NOTES_APP_MONGODB_URI; 
+let dbURI = process.env.NOTES_APP_MONGODB_URI;
 
 const server = express();
 
