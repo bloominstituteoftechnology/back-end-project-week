@@ -25,13 +25,19 @@ class GitHub extends Component {
             console.log(this.state)
             axios.get(`https://api.github.com/user?access_token=${this.state.token}`)
             .then(response => {
-                console.log(response)
+                console.log(response);
+                localStorage.setItem("node_id", response.data.node_id);
+                const nodeId = localStorage.getItem("node_id");
+                alert(nodeId);
+                this.props.history.push("/home")
             }).catch(err => {
                 console.log(err);
+                this.props.history.push("/login")
             })
         })
         .catch(err => {
-            console.log(err)
+            console.log(err);
+            this.props.history.push("/login")
         })
     }
     render() {

@@ -19,27 +19,47 @@ class ListView extends Component {
     }
 
     fetchData() {
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem('token');
+        const nodeId = localStorage.getItem("node_id");
         const authtoken = `${token}`;
-
         const requestOptions = {
             headers: {
                 Authorization: authtoken,
             }
         }
 
-
-
-        axios.get('https://noteslambda.herokuapp.com/notes', requestOptions)
-        .then(response => {
-            this.setState({
-                notes: response.data
+        if(nodeId === null) {
+            axios.get('https://noteslambda.herokuapp.com/notes', requestOptions)
+            .then(response => {
+                this.setState({
+                    notes: response.data
+                })
+                console.log(this.state.notes)
+            }).catch(err => {
+                console.log(err)
+                this.props.history.push('/')
             })
-            console.log(this.state.notes)
-        }).catch(err => {
-            console.log(err)
-            this.props.history.push('/')
-        })
+        }
+
+        else {
+            const gitHubOptions = {
+                headers: {
+                    NodeId: nodeId
+                }
+            }
+
+            axios.get('https://noteslambda.herokuapp.com/notes', gitHubOptions)
+            .then(response => {
+                this.setState({
+                    notes: response.data
+                })
+                console.log(this.state.notes)
+            }).catch(err => {
+                console.log(err)
+                alert('reached list')
+                this.props.history.push('/')
+            })
+        }
     }
 
     signOut() {
