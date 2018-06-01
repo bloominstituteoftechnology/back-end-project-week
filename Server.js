@@ -37,27 +37,31 @@ server.use("/charge", StripeRouter)
 
 
 server.get("user/signin/callback", (req, res, next) => {
-  const {query} = req;
-  const {code} = query;
+ console.log(req)
+ res.send("LOL")
 
-  if(!code) {
-     res.send({
-      success: false
-    })
-  };
+  // if(!code) {
+  //    res.send({
+  //     success: false
+  //   })
+  // };
 
-  request
-  .post("https://github.com/login/oauth/access_token")
-  .send({
-    client_id: "7e0997d4f79135cba0f9",
-    client_secret: "6ecf33a0078cbff980b00c79ed03908477fd1d56",
-    code: code
-  })
-  .set("Accept", "application/json")
-  .then(function(result) {
-    const data = req.body;
-    result.send(data);
-  })
+  // if(code) {
+  //   res.send("JELLO")
+  // }
+
+  // request
+  // .post("https://github.com/login/oauth/access_token")
+  // .send({
+  //   client_id: "7e0997d4f79135cba0f9",
+  //   client_secret: "6ecf33a0078cbff980b00c79ed03908477fd1d56",
+  //   code: code
+  // })
+  // .set("Accept", "application/json")
+  // .then(function(result) {
+  //   const data = req.body;
+  //   result.send(data);
+  // })
 
   
 })
