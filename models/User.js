@@ -15,8 +15,7 @@ const User = new mongoose.Schema(
       minlength: 12
     },
     token: {
-      type: String,
-      minlength: 12
+      type: String
     }
   },
   { timestamps: true }

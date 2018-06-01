@@ -139,6 +139,17 @@ server.get("/testnotes/:id", (req, res) => {
 // Test routes for finding and editing notes for a specific user ===================================
 
 server.get("/notes/:username", validateToken, (req, res) => {
+  // User.find({ username: req.params.username }).then(res => {
+  //   if(res.data.token === localStorage.get('token')){
+  //     Note.find({ username: req.params.username })
+  //     .then(notes => {
+  //       res.status(200).json(notes);
+  //     })
+  //     .catch(err => {
+  //       res.status(500).send({ errorMessage: "Could not get notes." });
+  //     });
+  //   }
+  // })
   Note.find({ username: req.params.username })
     .then(notes => {
       res.status(200).json(notes);
@@ -242,7 +253,7 @@ server.delete("/notes/:username/:id", validateToken, (req, res) => {
 
 //User routes ========================================================
 
-server.get("/users", validateToken, (req, res) => {
+server.get("/users", (req, res) => {
   User.find()
     .then(users => {
       res.status(200).json(users);
@@ -252,7 +263,7 @@ server.get("/users", validateToken, (req, res) => {
     });
 });
 
-server.get("/users/:id", validateToken, (req, res) => {
+server.get("/users/:id", (req, res) => {
   const id = req.params.id;
   User.findById(id)
     .then(user => {
@@ -262,18 +273,6 @@ server.get("/users/:id", validateToken, (req, res) => {
       res
         .status(404)
         .json({ errorMessage: "Could not get a user for that id." });
-    });
-});
-
-server.post("/users", validateToken, (req, res) => {
-  const newUser = new User(req.body);
-  newUser
-    .save()
-    .then(user => {
-      res.status(201).json(user);
-    })
-    .catch(err => {
-      res.status(500).json({ errorMessage: "Could not post user." });
     });
 });
 
