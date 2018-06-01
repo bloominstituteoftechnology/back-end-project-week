@@ -1,10 +1,10 @@
 const User = require('../models/usersModel');
 
 const userCreate = (req, res) => {
-  const { username } = req.body;
+  const { username, password } = req.body;
 
-  if (username) {
-    const newUser = new User({ username });
+  if (username && password) {
+    const newUser = new User({ username, password });
     newUser
       .save()
       .then(savedUser => {
@@ -16,7 +16,7 @@ const userCreate = (req, res) => {
           .json({ Error: `There was an error creating the user`, err });
       });
     } else {
-      res.status(422).json({ Error: 'Username is required.' });
+      res.status(422).json({ Error: 'Username and Password are required.' });
   }
 };
 

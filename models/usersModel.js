@@ -18,10 +18,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  notes: {
-    type: ObjectId,
-    ref: 'Note'
-  }
+  // notes: {
+  //   type: ObjectId,
+  //   ref: 'Note'
+  // }
 });
 
 UserSchema.pre('save', function(next) {
