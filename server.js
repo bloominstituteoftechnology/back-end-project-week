@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 const { mongoLAB } = require("./api/utils/config");
@@ -14,10 +15,12 @@ const corsOptions = {
 };
 
 server.use(cors(corsOptions));
+server.use(bodyParser.json());
 
 // ===== Connect to MongoDB =====
 mongoose
-  .connect(mongoLAB)
+  //   .connect(mongoLAB)
+  .connect("mongodb://localhost/backendweek")
   .then(() => {
     console.log("\n~~~ Connected to MongoDB! ~~~\n");
   })

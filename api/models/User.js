@@ -18,7 +18,10 @@ const userSchema = mongoose.Schema({
     required: true,
     unique: true
   },
-  timestamps: true
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 // Hash pw before saving to db
@@ -38,11 +41,11 @@ userSchema.pre("save", function(next) {
 // Check hashed pw with plain text pw
 // response = true if valid
 userSchema.methods.checkPassword = function(plainTextPW, callBack) {
-  bcrypt.compare(plainTextPW, this.password, function(error, response) {
+  bcrypt.compare(plainTextPW, this.password, (error, isMatch) => {
     if (error) {
       return callBack(error);
     } else {
-      callBack(null, response);
+      callBack(null, isMatch);
     }
   });
 };
