@@ -8,16 +8,14 @@ const validateToken = (req, res, next) => {
     const token = req.headers.authorization;
     const NodeId = req.headers.NodeId;
 
-    if (!token && !NodeId) {
+    if (!token) {
         console.log('lol', token, NodeId)
       res
         .status(422)
         .json({ error: 'No authorization token found on Authorization header' });
-    } else if(NodeId.length > 1) {
-        next();
     }
-    
     else {
+        console.log('NodeId');
       jwt.verify(token, "testingSecret" , (err, decoded) => {
         if (err) {
           res
