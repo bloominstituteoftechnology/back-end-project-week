@@ -27,7 +27,6 @@ const userSchema = mongoose.Schema({
 
 // Hash pw before saving to db
 userSchema.pre("save", function(next) {
-  console.log("PRE SAVE HOOK!");
   bcrypt
     .hash(this.password, saltRounds)
     .then(hash => {
@@ -52,6 +51,6 @@ userSchema.methods.checkPassword = function(plainTextPW, callBack) {
 };
 
 // Unique validator
-userSchema.plugin(uniqueValidator)
+userSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model("User", userSchema);

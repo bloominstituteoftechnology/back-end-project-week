@@ -13,7 +13,7 @@ const noteSchema = mongoose.Schema({
   },
   author: {
     type: ObjectId,
-    ref: "User",
+    ref: "User"
     // required: true
   },
   createdAt: {

@@ -10,7 +10,7 @@ const server = express();
 const port = process.env.PORT || 3000;
 
 const corsOptions = {
-  origin: "*",
+  origin: "https://serene-crag-28345.herokuapp.com/",
   credentials: true
 };
 
@@ -19,8 +19,8 @@ server.use(bodyParser.json());
 
 // ===== Connect to MongoDB =====
 mongoose
-  //   .connect(mongoLAB)
-  .connect("mongodb://localhost/backendweek")
+  .connect(mongoLAB)
+  //   .connect("mongodb://localhost/backendweek")
   .then(() => {
     console.log("\n~~~ Connected to MongoDB! ~~~\n");
   })
