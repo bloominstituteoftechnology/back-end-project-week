@@ -12,6 +12,10 @@ const getNotes = (req, res) => {
           error: "Error retrieving notes."
         });
       });
+  } else {
+    return res.status(422).json({
+      error: "Please login to view notes."
+    });
   }
 };
 
