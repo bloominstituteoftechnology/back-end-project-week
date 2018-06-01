@@ -89,7 +89,7 @@ server.post('/api/login', (req, res) => {
 
 // Basic get test
 server.get('/', (req, res) => {
-  res.json({ Message: 'Hello World' });
+  res.json({ Message: "Hello.  You're not supposed to be here." });
 });
 
 // Open server to port
