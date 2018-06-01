@@ -1,0 +1,20 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "https://trello.com/b/bEtZWipD",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sadrak105/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sadrak105/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/sadrak105/back-end-project-week#readme"
+}
