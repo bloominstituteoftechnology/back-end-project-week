@@ -19,25 +19,25 @@ server.use(cors(corsOption));
 
 // mongoose
 // local
-mongoose
-  .connect("mongodb://localhost/lambda_notes")
-  .then(mongo => {
-    console.log("-=- connected to mongo database -=-");
-  })
-  .catch(err => {
-    console.log("!Error, trouble connecting to mongo DB!");
-  });
-
-// // mlab deployment
 // mongoose
-//   .connect("mongodb://admin:adminpw@ds239940.mlab.com:39940/lambda-note_h")
-
+//   .connect("mongodb://localhost/lambda_notes")
 //   .then(mongo => {
 //     console.log("-=- connected to mongo database -=-");
 //   })
 //   .catch(err => {
 //     console.log("!Error, trouble connecting to mongo DB!");
 //   });
+
+// // mlab deployment
+mongoose
+  .connect("mongodb://admin:adminpw@ds239940.mlab.com:39940/lambda-note_h")
+
+  .then(mongo => {
+    console.log("-=- connected to mongo database -=-");
+  })
+  .catch(err => {
+    console.log("!Error, trouble connecting to mongo DB!");
+  });
 
 // sanity check
 server.get("/", (req, res) => {

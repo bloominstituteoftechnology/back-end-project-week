@@ -25,7 +25,7 @@ router.get("/", authenticate, (req, res) => {
   }
 });
 
-router.get("/bypass", (req, res) => {
+router.get("/bypasser", (req, res) => {
   User.find()
     .then(users => {
       res.json(users);
