@@ -25,7 +25,7 @@ const createUser = (req, res) => {
   if (!username || !password) {
     res
       .status(422)
-      .json({ error: 'A valid Username and Password is required' });
+      .json({ error: 'A valid username and password is required' });
   } else {
     const newUser = new User({ username, password });
     newUser
@@ -124,8 +124,8 @@ const deleteNote = (req, res) => {
 module.exports = server => {
   server.route('/register').post(createUser);
   server.route('/login').post(login);
-  server.route('/home').post(authenticate, getNotes);
-  server.route('/:id').post(authenticate, getNotesById);
+  server.route('/home').get(authenticate, getNotes);
+  server.route('/:id').get(authenticate, getNotesById);
   server.route('/create').post(authenticate, createNote);
   server.route('/edit/:id').put(authenticate, editNote);
   server.route('/note/:id').delete(authenticate, deleteNote);
