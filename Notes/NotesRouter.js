@@ -1,7 +1,7 @@
 const express = require('express');
 const User = require('../Users/User.js');
 const Note = require('./Notes.js');
-const { protected } = require("../Utilities/JWT");
+const { protected } = require('../JWT');
 const router = express.Router();
 
 router

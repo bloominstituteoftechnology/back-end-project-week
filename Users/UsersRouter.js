@@ -1,6 +1,6 @@
 const express = require('express');
 const User = require('./User.js');
-const { authenticate, makeToken } = require("../Utilities/JWT");
+const { authenticate, makeToken } = require('../JWT');
 const router = express.Router();
 
 router
