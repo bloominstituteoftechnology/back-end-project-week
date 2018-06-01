@@ -68,16 +68,16 @@ server.post("/register", (req, res) => {
   });
 });
 
-server.get("/users", validateToken, (req, res) => {
-  User.find({})
-    .select("username")
-    .then(users => {
-      res.send(users);
-    })
-    .catch(err => {
-      return res.send(err);
-    });
-});
+// server.get("/users", validateToken, (req, res) => {
+//   User.find({})
+//     .select("username")
+//     .then(users => {
+//       res.send(users);
+//     })
+//     .catch(err => {
+//       return res.send(err);
+//     });
+// });
 
 server.post("/login", (req, res) => {
   const { username, password } = req.body;
@@ -113,7 +113,7 @@ server.post("/login", (req, res) => {
 
 // Note routes ========================================================
 
-server.get("/notes", (req, res) => {
+server.get("/notes", validateToken, (req, res) => {
   Note.find({ user: req.user })
     .then(notes => {
       res.status(200).json(notes);
@@ -123,7 +123,7 @@ server.get("/notes", (req, res) => {
     });
 });
 
-server.get("/notes/:id", (req, res) => {
+server.get("/notes/:id", validateToken, (req, res) => {
   const id = req.params.id;
   Note.findById(id)
     .then(note => {
@@ -136,7 +136,7 @@ server.get("/notes/:id", (req, res) => {
     });
 });
 
-server.post("/notes", (req, res) => {
+server.post("/notes", validateToken, (req, res) => {
   const newNote = new Note(req.body);
   newNote
     .save()
@@ -148,7 +148,7 @@ server.post("/notes", (req, res) => {
     });
 });
 
-server.put("/notes/:id", (req, res) => {
+server.put("/notes/:id", validateToken, (req, res) => {
   const id = req.params.id;
   const changes = req.body;
   const options = {
@@ -182,7 +182,7 @@ server.put("/notes/:id", (req, res) => {
     });
 });
 
-server.delete("/notes/:id", (req, res) => {
+server.delete("/notes/:id", validateToken, (req, res) => {
   const id = req.params.id;
   Note.findById(id)
     .then(note => {
@@ -209,21 +209,21 @@ server.delete("/notes/:id", (req, res) => {
 
 // Test routes for finding and editing notes for a specific user ===================================
 
-server.get("/notes/:user", (req, res) => {
-  Note.find({ user: req.user })
+server.get("/usernotes/:username", validateToken, (req, res) => {
+  Note.find({ username: req.params.username })
     .then(notes => {
       res.status(200).json(notes);
     })
     .catch(err => {
-      res.status(500).json({ errorMessage: "Could not get notes." });
+      res.status(500).send({ errorMessage: "Could not get notes." });
     });
 });
 
-server.get("/notes/:user/:id", (req, res) => {
+server.get("/usernotes/:username/:id", validateToken, (req, res) => {
   const id = req.params.id;
   Note.findById(id)
-    .where("user")
-    .equals(req.user)
+    .where("username")
+    .equals(req.params.username)
     .then(note => {
       res.status(200).json(note);
     })
@@ -236,7 +236,7 @@ server.get("/notes/:user/:id", (req, res) => {
 
 //User routes ========================================================
 
-server.get("/users", (req, res) => {
+server.get("/users", validateToken, (req, res) => {
   User.find()
     .then(users => {
       res.status(200).json(users);
@@ -246,7 +246,7 @@ server.get("/users", (req, res) => {
     });
 });
 
-server.get("/users/:id", (req, res) => {
+server.get("/users/:id", validateToken, (req, res) => {
   const id = req.params.id;
   User.findById(id)
     .then(user => {
@@ -259,7 +259,7 @@ server.get("/users/:id", (req, res) => {
     });
 });
 
-server.post("/users", (req, res) => {
+server.post("/users", validateToken, (req, res) => {
   const newUser = new User(req.body);
   newUser
     .save()
@@ -271,7 +271,7 @@ server.post("/users", (req, res) => {
     });
 });
 
-server.put("/users/:id", (req, res) => {
+server.put("/users/:id", validateToken, (req, res) => {
   const id = req.params.id;
   const changes = req.body;
   const options = {
@@ -305,7 +305,7 @@ server.put("/users/:id", (req, res) => {
     });
 });
 
-server.delete("/users/:id", (req, res) => {
+server.delete("/users/:id", validateToken, (req, res) => {
   const id = req.params.id;
   User.findById(id)
     .then(user => {
