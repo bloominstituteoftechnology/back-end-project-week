@@ -10,7 +10,7 @@ const UserRouter = require('./Users/UserRouter.js');
 const NotesRouter = require('./Notes/NotesRouter.js');
 
 const corsOptions = {
-  origin: '',
+  origin: 'https://mgclambdanotes.netlify.com/',
   credentials: true
 };
 
@@ -18,7 +18,7 @@ server.use(cors(corsOptions));
 server.use(express.json());
 server.use(helmet());
 
-const path = process.env.MONGOLAB_URI || 'mongodb://localhost/notes';
+const path = process.env.MONGOLAB_URI || 'mongodb://@ds239940.mlab.com:39940/lambdanotes';
 
 mongoose.connect(path);
 
@@ -26,7 +26,7 @@ const MS = require('express-mongoose-store')(session, mongoose);
 
 server.use(
   session({
-    secret: 'when I dream at night',
+    secret: 'each night I wonder',
     store: new MS(),
     resave: true,
     saveUninitialized: false,
@@ -34,7 +34,7 @@ server.use(
 );
 
 const isLoggedIn = function (req, res, next) {
-  if (!req.session.auth) res.status(422).json('not authorized');
+  if (!req.session.auth) res.status(422).json('Not Authorized');
   else if (req.session.id) {
     next();
   }
