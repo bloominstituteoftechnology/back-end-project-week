@@ -44,6 +44,10 @@ html, body {
   margin: 5%;
 }
 
+.APP__LOGININFO {
+  margin: 5px 0 0 5px;
+}
+
 /* APP MAIN WINDOW */
 .APP__BODY {
   display: flex;

@@ -18,6 +18,11 @@ class MenuBar extends Component {
     // this.storage = window.localStorage;
   }
 
+  userLogin = () => {
+    // axios.post('https://my-bible-app.herokuapp.com/api/login', this.state.user)
+    //   .then(res)
+  }
+
   render() {
     return (
       <div className='APP__MENUBAR'>
@@ -35,19 +40,20 @@ class MenuBar extends Component {
           <div className="APP__LOGINWRAPPER">
             <input className="APP__LOGININFO"
               type='text'
-              onChange={this.handleInput}
               placeholder='username'
               name='username'
-              value={this.state.username}
+              value={this.state.user.username}
+              onChange={e => this.setState({ [e.target.name]: e.target.value })}
             />
             <input className="APP__LOGININFO"
-              type='text'
+              type='password'
               onChange={this.handleInput}
               placeholder='password'
               name='password'
-              value={this.state.username}
+              value={this.state.user.password}
+              onChange={e => this.setState({ [e.target.name]: e.target.value })}
             />
-            <button>Login</button>
+            <button className="APP__LOGININFO" onClick={ this.userLogin }>Login</button>
           </div>
       </div>
     );
