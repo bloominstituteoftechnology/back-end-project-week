@@ -5,7 +5,7 @@ const app = require('./app');
 const mongoose = require('mongoose');
 
 mongoose.connect(process.env.DATABASE);
-mongoose.Promise = global.Promise;
+// mongoose.Promise = global.Promise;
 mongoose.connection
   .on('connected', () => {
     console.log(`Mongoose connection open on ${process.env.DATABASE}`);
