@@ -19,7 +19,8 @@ class EditNote extends Component {
     checkToken = () => {
         const token = localStorage.getItem('token');
         const NodeId = localStorage.getItem("node_id");
-        if((token === null && token === undefined) ||(NodeId === null || NodeId === undefined)) {
+        
+        if((token === null || token === undefined) && (NodeId === null || NodeId === undefined)) {
             this.props.history.push('/login');
         }
     }

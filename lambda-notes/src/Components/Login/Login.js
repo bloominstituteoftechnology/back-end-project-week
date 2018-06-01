@@ -39,9 +39,9 @@ class Login extends Component {
             localStorage.setItem("token", token)
             this.props.history.push('/home')
         }).catch(err => {
+            console.log(err);
             alert("Email and password are incorrect")
-            window.location.reload(true)
-            
+            window.location.reload(true);            
         })
     }
 
