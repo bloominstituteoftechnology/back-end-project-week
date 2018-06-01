@@ -60,36 +60,37 @@ const validateToken = (req, res, next) => {
           .status(401)
           .json({ error: "Token invalid, please login", message: err });
       } else {
-        User.findOne({ username: username, token: token })
-          .then(res => {
-            next();
-          })
-          .catch(err => {
-            res
-              .status(500)
-              .json({ error: "This token is for the wrong user!" });
-          });
-        // User.findOne({ token }, (err, user) => {
-        //   if (err) {
-        //     return res.status(500).json({ error: "Invalid Username/Password" });
-        //   }
-
-        //   if (!user) {
-        //     return res
-        //       .status(422)
-        //       .json({ error: "No user with that username in our DB" });
-        //   }
-        //   if (user.checkToken(token) === true) {
+        // User.findOne({ username: username, token: token })
+        //   .then(res => {
         //     next();
-        //   } else {
-        //     res.status(422).json({
-        //       error: "tokens dont match",
-        //       token: token,
-        //       USERTOKEN: user.token,
-        //       returnCheckToken: user.checkToken(token)
-        //     });
-        //   }
-        // });
+        //   })
+        //   .catch(err => {
+        //     res
+        //       .status(500)
+        //       .json({ error: "This token is for the wrong user!" });
+        //   });
+        next();
+        User.findOne({ token }, (err, user) => {
+          if (err) {
+            return res.status(500).json({ error: "Invalid Username/Password" });
+          }
+
+          if (!user) {
+            return res
+              .status(422)
+              .json({ error: "No user with that username in our DB" });
+          }
+          if (user.checkToken(token) === true) {
+            next();
+          } else {
+            res.status(422).json({
+              error: "tokens dont match",
+              token: token,
+              USERTOKEN: user.token,
+              returnCheckToken: user.checkToken(token)
+            });
+          }
+        });
       }
     });
   }
@@ -120,34 +121,27 @@ server.post("/register", (req, res) => {
 
 server.post("/login", (req, res) => {
   const { username, password } = req.body;
-  User.findOne({ username }, (err, user) => {
-    if (err) {
-      return res.status(500).json({ error: "Invalid Username/Password" });
-    }
-
-    if (!user) {
-      return res
-        .status(422)
-        .json({ error: "No user with that username in our DB" });
-    }
-
-    user.checkPassword(password, (err, isMatch) => {
-      if (err) {
-        return res.status(422).json({ error: "passwords dont match" });
+  User.findOne({ username })
+    .then(user => {
+      if (user) {
+        user
+          .checkPassword(password)
+          .then(isMatch => {
+            if (isMatch) {
+              const token = getTokenForUser({ username: user.username });
+              const userData = {
+                id: user._id,
+                username: user.username
+              };
+              res.json({ userData, token });
+            } else {
+              return res.status(422).json({ error: "passwords dont match" });
+            }
+          })
+          .catch(err => res.json(err));
       }
-
-      if (isMatch) {
-        const token = getTokenForUser({ username: user.username });
-        const userData = {
-          id: user._id,
-          username: user.username
-        };
-        res.json({ userData, token });
-      } else {
-        return res.status(422).json({ error: "passwords dont match" });
-      }
-    });
-  });
+    })
+    .catch(err => res.json(err));
 });
 
 // Note routes ========================================================
