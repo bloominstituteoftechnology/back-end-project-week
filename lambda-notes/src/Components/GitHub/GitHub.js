@@ -23,6 +23,7 @@ class GitHub extends Component {
             })
             axios.get(`https://api.github.com/user?access_token=${this.state.token}`)
             .then(response => {
+                console.log(response)
                 localStorage.setItem("node_id", response.data.node_id);
                 const nodeId = localStorage.getItem("node_id");
                 this.props.history.push("/home")
