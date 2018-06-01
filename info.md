@@ -14,4 +14,4 @@ Server documentation:
 /api/notes POST posts new note under logged in user
 /api/notes/:id GET DEL PUT gets, deletes, or updates the notes for given _id
 
-All routes except for login and register require server authentication.
+All routes except for login and register require server authentication via JWT.
