@@ -6,6 +6,7 @@ const getNotes = (req, res) => {
     Note.find({})
       .then(notes => {
         res.status(200).json(notes);
+        console.log('GET test success!')
       })
       .catch(error => {
         res.status(500).json({
@@ -37,4 +38,8 @@ const editNote = (req, res) => {
 const deleteNote = (req, res) => {
   if (req.decoded) {
   }
+};
+
+module.exports = {
+  getNotes
 };
