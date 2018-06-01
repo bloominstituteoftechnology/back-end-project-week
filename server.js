@@ -9,16 +9,11 @@ const server = express();
 const UserRouter = require('./Users/UserRouter.js');
 const NotesRouter = require('./Notes/NotesRouter.js');
 
-const corsOptions = {
-  origin: 'https://mgclambdanotes.netlify.com/',
-  credentials: true
-};
-
-server.use(cors(corsOptions));
+server.use(cors());
 server.use(express.json());
 server.use(helmet());
 
-const path = process.env.MONGOLAB_URI ||'mongodb://lambda:lambda1@ds231725.mlab.com:31725/heroku_ph95bkvg';
+const path = process.env.MONGOLAB_URI ||'mongodb://sadrak8:lambdanotes10@ds231725.mlab.com:31725/heroku_ph95bkvg';
 
 mongoose.connect(path);
 
