@@ -2,6 +2,9 @@ const bcrypt = require("bcrypt");
 
 const User = require("../models/User.js");
 
+// ====== POST /api/register =====
+// Username, password, email required
+// Username and email must be unique!
 const userRegister = (req, res) => {
   const { username, password, email } = req.body;
   const user = new User({ username, password, email });
@@ -10,8 +13,6 @@ const userRegister = (req, res) => {
     user
       .save()
       .then(newUser => {
-        // Check to see if user is made
-        console.log(newUser);
         res.status(201).json(newUser);
       })
       .catch(error => {

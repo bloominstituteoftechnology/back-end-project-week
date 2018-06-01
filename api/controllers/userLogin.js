@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User.js");
 const { secret } = require("../utils/config");
 
+// ====== POST /api/login =====
+// Remember to sign in with email/password!
 const userLogin = (req, res) => {
   const { username, password, email } = req.body;
 

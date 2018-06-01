@@ -1,6 +1,7 @@
 const User = require("../models/User.js");
 const Note = require("../models/Note");
 
+// ====== GET /api/notes =====
 const getNotes = (req, res) => {
   if (req.decoded) {
     Note.find({})
@@ -20,6 +21,22 @@ const getNotes = (req, res) => {
   }
 };
 
+// ====== GET /api/notes/:id =====
+const getNote = (req, res) => {
+  if (req.decoded) {
+    Note.findById(req.params.id)
+      .then(note => {
+        res.status(200).json(note);
+      })
+      .catch(error => {
+        res.status(500).json({
+          error: "Error retrieving specified note."
+        });
+      });
+  }
+};
+
+// ====== POST /api/notes =====
 const createNote = (req, res) => {
   const { title, content } = req.body;
   const note = new Note({
@@ -41,11 +58,6 @@ const createNote = (req, res) => {
   }
 };
 
-const getNote = (req, res) => {
-  if (req.decoded) {
-  }
-};
-
 const editNote = (req, res) => {
   if (req.decoded) {
   }
@@ -58,5 +70,6 @@ const deleteNote = (req, res) => {
 
 module.exports = {
   getNotes,
+  getNote,
   createNote
 };
