@@ -10,9 +10,8 @@ router.post("/",  (req, res) => {
     let amount = 500;
   
     stripe.customers.create({
-       email: req.body.stripeEmail,
-      source: req.body.stripeToken
-    }).then(customer => {
+       email: "foo-123@gmail.com"
+      }).then(customer => {
       res.status(200).json(customer)
     })
   });
