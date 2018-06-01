@@ -7,6 +7,7 @@ const stripe = require("stripe")(keySecret);
 
 
 router.post("/", cors,  (req, res) => {
+    res.status(200).jon
     let amount = 500;
   
     stripe.customers.create({
@@ -14,13 +15,15 @@ router.post("/", cors,  (req, res) => {
       source: req.body.stripeToken
     })
     .then(customer =>
+      console.log(customer),
+
       stripe.charges.create({
         amount,
         description: "Sample Charge",
-           currency: "usd",
+           currency: "EUR",
            customer: customer.id
       }))
-    .then(charge => res.render("charge.pug"));
+    .then(charge => res.render("charge"));
   });
   
 

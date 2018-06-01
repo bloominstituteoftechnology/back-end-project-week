@@ -35,6 +35,7 @@ const Checkout = ({ name, description, amount }) =>
     amount={fromEuroToCent(amount)}
     token={onToken(amount, description)}
     currency={"EUR"}
+    // customer="null"
     stripeKey={"pk_test_vpJZ7OT67atKUohQIOAPZyxT"}
   />
 
