@@ -68,7 +68,10 @@ const editNote = (req, res) => {
   if (req.decoded) {
     Note.findByIdAndUpdate(id, update)
       .then(note => {
-        res.status(200).json(note);
+        res.status(200).json({
+          note,
+          message: "Note successfully updated!"
+        });
       })
       .catch(error => {
         res.status(500).json({
@@ -78,8 +81,23 @@ const editNote = (req, res) => {
   }
 };
 
+// ====== DELETE /api/notes/:id =====
 const deleteNote = (req, res) => {
+  const { id } = req.params;
+
   if (req.decoded) {
+    Note.findByIdAndRemove(id)
+      .then(note => {
+        res.status(200).json({
+          note,
+          message: "Note successfully deleted!"
+        });
+      })
+      .catch(error => {
+        res.status(500).json({
+          error: "Error deleting the specified note."
+        });
+      });
   }
 };
 
@@ -87,5 +105,6 @@ module.exports = {
   getNotes,
   getNote,
   createNote,
-  editNote
+  editNote,
+  deleteNote
 };
