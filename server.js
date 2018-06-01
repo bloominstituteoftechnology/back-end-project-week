@@ -8,13 +8,7 @@ const Note = require('./src/notes/Note');
 const noteRouter = require('./routes/noteRoutes');
 const userRouter = require('./routes/userRoutes');
 
-let dbURI;
-
-if (!process.env.MONGODB_URI) {
-  dbURI = require('./config/config').dbURI;
-} else {
-  dbURI = process.env.MONGODB_URI;
-}
+let dbURI = process.env.MONGODB_URI; 
 
 const server = express();
 
