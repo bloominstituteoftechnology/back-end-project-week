@@ -1,4 +1,3 @@
- 
 const express = require('express'); 
 const router = express.Router(); 
  
@@ -26,9 +25,7 @@ router.route('/').post((req, res) => {
 				res.status(201).json(newUser); 
 			}) 
 			.catch(err => { 
-				res.status(500).json({ 
-					errorMessage: 'error saving' 
-				}); 
+				res.status(500).json({ errorMessage: 'error saving' }); 
 			}); 
 	} 
 }); 

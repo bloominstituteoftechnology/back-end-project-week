@@ -68,14 +68,14 @@ router.route('/:id').delete((req, res) => {
  
 router.route('/:id').put((req, res) => { 
 	const { id } = req.params; 
-	const putted = req.body; 
+	const put = req.body; 
  
-	if (!putted.title || !putted.content) { 
+	if (!put.title || !put.content) { 
 		res 
 			.status(400) 
 			.json({ errorMessage: 'no title and text' }); 
 	} else { 
-		const query = Note.findByIdAndUpdate(id, putted); 
+		const query = Note.findByIdAndUpdate(id, put); 
  
 		query 
 			.then(note => { 
