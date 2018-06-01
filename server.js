@@ -61,7 +61,7 @@ server.post("/register", (req, res) => {
   const user = new User({ username, password });
 
   user.save((err, user) => {
-    if (err) return res.send(err);
+    if (err) return res.status(500).send(err);
 
     const token = getTokenForUser({ username: user.username });
     res.json({ token });
