@@ -1,7 +1,7 @@
-import express from 'express';
-import Passport from 'passport';
-import UserController from './UserController';
-import Authorize from '../Middleware/authorize';
+const express = require('express');
+const Passport = require('passport');
+const UserController = require('./UserController');
+const Authorize = require('../Middleware/authorize');
 
 const UserRouter = express.Router();
 const { getUsers, createUser, login, logout } = UserController;
@@ -19,4 +19,4 @@ UserRouter.post('/register', createUser);
 UserRouter.post('/login', authenticate, login);
 UserRouter.get('/logout', logout);
 
-export default UserRouter;
+module.exports = UserRouter;

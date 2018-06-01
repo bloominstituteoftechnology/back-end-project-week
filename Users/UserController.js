@@ -1,10 +1,11 @@
-import User from './userSchema';
-import Token from '../Middleware/Token';
+const User = require ('./userSchema');
+const Token = require('../Middleware/Token');
 
 const UserController = {
 	getUsers: (req, res) => {
-		User.find()
-		  .select({ username: 1 })
+        User
+        .find()
+	    .select({ username: 1 })
 			.then(users => res.status(200).json(users))
 			.catch(err =>  res.status(404).json(err));
 	},
@@ -26,7 +27,6 @@ const UserController = {
 		}
 	},
 	login: (req, res) => {
-		// if we're here the user logged in correctly
 		res.status(200).json({ token: Token(req.user), user: req.user });
 	},
 	logout: (req, res) => {
@@ -41,4 +41,4 @@ const UserController = {
 	}
 };
 
-export default UserController;
+module.exports = UserController;

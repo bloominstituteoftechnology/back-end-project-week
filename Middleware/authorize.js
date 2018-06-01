@@ -1,15 +1,16 @@
-import LocalStrategy from 'passport-local';
-import PassportJWT, { ExtractJwt } from 'passport-jwt';
-import User from '../Users/userSchema';
+const LocalStrategy = require('passport-local');
+const PassportJWT = require('passport-jwt');
+const JwtStrategy = require('passport-jwt').Strategy;
+const { ExtractJwt } = require('passport-jwt');
+const User = require('../Users/userSchema');
 
-const JwtStrategy = PassportJWT.Strategy;
-const secret = 'that is what I shared yesterday lol';
+const secret = 'moonlanding';
 const jwtOptions = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  jwtFromRequest: ExtractJwt.fromHeader("Authorization"),
   secretOrKey: secret,
 };
 
-const authorize = {
+const Authorize = {
   localStrategy: new LocalStrategy((username, password, done) => {
     User
     	.findOne({ username })
@@ -52,4 +53,4 @@ const authorize = {
   }),
 } 
 
-export default Authorize;
+module.exports = Authorize;

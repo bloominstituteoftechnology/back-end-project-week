@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+const jwt = require('jsonwebtoken');
 
 const secret = 'moonlanding';
 const Token = user => {
@@ -15,4 +15,4 @@ const Token = user => {
   return jwt.sign(payload, secret, options);
 }
 
-export default Token;
+module.exports = Token;

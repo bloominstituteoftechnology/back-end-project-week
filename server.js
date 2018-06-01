@@ -11,7 +11,7 @@ server.use(express.json())
 server.use(cors({}));
 server.use(helmet());
 server.use('/notes', noteRoutes);
-server.use('/api/users', UserRouter);
+server.use('/users', UserRouter);
 
 mongoose
 	.connect("mongodb://faulk:backendserv11@ds139970.mlab.com:39970/lambda-notes-backend")
