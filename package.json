@@ -5,14 +5,14 @@
   "main": "index.js",
   "scripts": {
     "watch": "nodemon ./start.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/buddhaplex/back-end-project-week.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Eric Andrade",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/buddhaplex/back-end-project-week/issues"
   },

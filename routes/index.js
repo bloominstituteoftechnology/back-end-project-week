@@ -7,14 +7,15 @@ const { body, validationResult } = require('express-validator/check');
 const router = express.Router();
 const Registration = mongoose.model('Registration');
 const basic = auth.basic({
-  file: path.join(__dirname, '../users.httppasswd'),
+  file: path.join(__dirname, '../users.htpasswd'),
 });
 
 router.get('/', (req, res) => {
   res.render('form', { title: 'Registration form' });
 });
 
-router.post( '/',
+router.post( 
+  '/',
   [
     body('name')
       .isLength({ min: 1 })
@@ -29,11 +30,11 @@ router.post( '/',
     if (errors.isEmpty()) {
       const registration = new Registration(req.body);
       registration.save()
-        .then(() => { res.send('Thank you for your registration!'); })
+        .then(() => { res.send('Thank you for your note!'); })
         .catch(() => { res.send('Sorry! Something went wrong.'); });
     } else {
       res.render('form', {
-        title: 'Registration form',
+        title: 'Note Form',
         errors: errors.array(),
         data: req.body,
       });
