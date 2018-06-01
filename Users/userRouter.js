@@ -37,7 +37,7 @@ router
         }
   
         if (isMatch) {
-          const token = getTokenForUser({ username: user.username });
+          const token = getToken({ username: user.username });
           res.json({ token });
         } else {
           return res.status(422).json({ error: 'passwords dont match' });

@@ -29,22 +29,27 @@ server.use(cors())
 server.use(express.json());
 
 getToken = userObj  =>{
+    console.log('worked')
     return jwt.sign(userObj,secret, {expiresIn: "1h"})
 
 }
 
 const isTokenValid =(req,res,next)=>{
-    const token= req.headers.authorization;
-    if (!token){
-        res.status(422).json({error:'no auth token found'})
+    const token = req.headers.authorization;
+    if (!token) {
+      res
+        .status(422)
+        .json({ error: 'No authorization token found on Authorization header' });
     } else {
-        jwt.varify(token,secret,(err,decoded)=>{
-            if(err){
-                res.status(401).json({error:" token was invalid, please login again", message:err})
-            } else{
-                next()
-            }
-        })
+      jwt.verify(token, secret, (err, decoded) => {
+        if (err) {
+          res
+            .status(401)
+            .json({ error: 'Token invalid, please login', message: err });
+        } else {
+          next();
+        }
+      });
     }
 }
 
