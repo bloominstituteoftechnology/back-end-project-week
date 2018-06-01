@@ -14,14 +14,12 @@ router.post("/",  (req, res) => {
       source: req.body.stripeToken
     })
     .then(customer =>
-      res.status(200).json(customer)
-
-      // stripe.charges.create({
-      //   amount,
-      //   description: "Sample Charge",
-      //      currency: "EUR",
-      //      customer: customer.id
-      // })
+      stripe.charges.create({
+        amount,
+        description: "Sample Charge",
+           currency: "USD",
+           customer: customer.id
+      })
     )
     // .then(charge => res.render("charge"));
   });
