@@ -6,7 +6,7 @@ const MongoStore = require("connect-mongo")(session);
 const helmet = require("helmet");
 const cors = require("cors");
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "https://dalambdanotes.netlify.com",
   credentials: true
 };
 
