@@ -10,6 +10,7 @@ The main objective of this week is to develop a backend to support the LambdaNot
 
 Trello: https://trello.com/b/yqjqBYYW/lambda-notesbackend
 API: https://dalambdanotes.herokuapp.com/
+React: https://dalambdanotes.netlify.com/
 
 ## Git Commits
 
