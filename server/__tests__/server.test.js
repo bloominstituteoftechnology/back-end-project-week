@@ -38,4 +38,28 @@ describe('server', () => {
         expect(res.body.length).toBeGreaterThan(0)
       })
   })
+
+  it('gets one note', () => {
+    request(server)
+      .get('/api/notes/5b116a6d7e3cfd102869a279')
+      .then(res => {
+        expect(res.status).toBe(200)
+        expect(res.body).toBeTruthy()
+      })
+  })
+
+  it('updates notes', () => {
+    request(server)
+      .put('api/notes/5b116a6d7e3cfd102869a279')
+      .send({ title: 'different', content: 'very different' })
+      .then(data => expect(data).toBeTruthy())
+      .catch(e => console.error(e.message, e.stack))
+  })
+
+  it('deletes notes', () => {
+    request(server)
+      .delete('api/notes/5b116a6d7e3cfd102869a279')
+      .then(res => expect(res.status).toBe(200))
+      .catch(e => console.error(e))
+  })
 })
