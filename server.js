@@ -32,6 +32,9 @@ server.get('/', (req, res) => {
 });
 
 server.use('/Users', userRouter);
+server.use('/Notes', notesRouter);
+
+notesRouter(server);
 
 const PORT = process.env.PORT || 5000;
 
