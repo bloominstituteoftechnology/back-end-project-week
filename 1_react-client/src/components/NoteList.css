@@ -1,0 +1,54 @@
+.NavBar {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+}
+.Nav-left {
+  display: flex;
+  float: left;
+}
+
+.Nav-middle {
+  margin: auto;
+  margin-left: 22%;
+}
+
+.SearchBar_Input {
+  width: 500px; 
+}
+
+.Nav-right {
+  float: right;
+  /* margin: auto; */
+  /* margin-right: 0; */
+}
+
+.NoteList-body {
+  margin-top: 60px;
+}
+
+h3 {
+  margin: 0;
+}
+
+h3 a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+h3 a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #4caf50;
+}
