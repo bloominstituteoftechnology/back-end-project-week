@@ -33,7 +33,7 @@ server.get('/', (req, res) => {
   res.send({ API: 'Running' });
 });
 
-server.use('/users', userRouter);
+server.use('/Users', userRouter);
 
 const PORT = process.env.PORT || 5000;
 
