@@ -100,18 +100,20 @@ export default class NoteList extends Component {
           </div>
         </nav>
 
-        <body className='NoteList-body'>
+        <body className="NoteList-body">
           <h1>Your Notes:</h1>
-          {filteredNotes.map(eachNote => (
-            <div key={eachNote._id}>
-              <Link
-                to={`/notes/${eachNote._id}`}
-                style={{ textDecoration: "none" }}
-              >
-                <NoteCard eachNote={eachNote} props={this.props} />
-              </Link>
-            </div>
-          ))}
+          <div className="NoteList-card">
+            {filteredNotes.map(eachNote => (
+              <div key={eachNote._id} className="NoteList-card">
+                <Link
+                  to={`/notes/${eachNote._id}`}
+                  style={{ textDecoration: "none" }}
+                >
+                  <NoteCard eachNote={eachNote} props={this.props} />
+                </Link>
+              </div>
+            ))}
+          </div>
         </body>
       </div>
     );

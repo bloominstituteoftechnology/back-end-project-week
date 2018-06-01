@@ -33,6 +33,11 @@
   margin-top: 60px;
 }
 
+.NoteList-card {
+  display: flex;
+  margin: auto;
+}
+
 h3 {
   margin: 0;
 }
