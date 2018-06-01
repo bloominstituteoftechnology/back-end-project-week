@@ -283,7 +283,7 @@ server.put("/users/:id", validateToken, (req, res) => {
   const options = {
     new: true
   };
-  if (!changes.username && !changes.password) {
+  if (!changes.username && !changes.password && !changes.token) {
     return res
       .status(422)
       .json({ errorMessage: "Please add a username and/or password field." });
