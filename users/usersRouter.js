@@ -41,19 +41,20 @@ router.post("/register", (req, res) => {
   }
 });
 
-router.post("/login", (req, res) => {
+router.post("/login", (req, res, next) => {
   const { username, password } = req.body;
 
   User.authenticate(username.toLowerCase(), password, function(error, user) {
     if (error || !user) {
-      res.status(401).json({ error: "Wrong credentials - try again" });
+      var err = new Error("Wrong email or password.");
+      err.status = 401;
+      return next(err);
     } else {
       console.log("Logged in");
       req.session.auth = true;
       req.session._id = user._id;
       req.session.username = user.username;
       res.status(200).json({ success: true, user: user });
-      console.log(req.session._id);
     }
   });
 });

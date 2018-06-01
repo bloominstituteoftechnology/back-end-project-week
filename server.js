@@ -55,6 +55,4 @@ server.use("/api/users", usersRouter);
 server.get("/", (req, res) => res.send("API Running...!"));
 
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, () =>
-  console.log(`Listening on ${PORT} ${process.env.MONGO_URI}`)
-);
+server.listen(PORT, () => console.log(`Listening on ${PORT}`));

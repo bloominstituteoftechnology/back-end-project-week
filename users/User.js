@@ -22,13 +22,18 @@ const UserSchema = new mongoose.Schema({
 });
 
 UserSchema.pre("save", function(next) {
-  bcrypt.hash(this.password, 12, (err, hash) => {
-    if (err) {
-      return next(err);
-    }
-    this.password = hash;
+  if (this.isNew) {
+    bcrypt.hash(this.password, 12, (err, hash) => {
+      if (err) {
+        return next(err);
+      }
+      console.log("Hashing password");
+      this.password = hash;
+      return next();
+    });
+  } else {
     return next();
-  });
+  }
 });
 
 UserSchema.statics.authenticate = function(user, password, callback) {
