@@ -6,7 +6,7 @@ const getNotes = (req, res) => {
     Note.find({})
       .then(notes => {
         res.status(200).json(notes);
-        console.log('GET test success!')
+        console.log("GET test success!");
       })
       .catch(error => {
         res.status(500).json({
@@ -21,7 +21,23 @@ const getNotes = (req, res) => {
 };
 
 const createNote = (req, res) => {
+  const { title, content } = req.body;
+  const note = new Note({
+    title,
+    content
+  });
+
   if (req.decoded) {
+    note
+      .save()
+      .then(newNote => {
+        res.status(201).json(newNote);
+      })
+      .catch(error => {
+        res.status(500).json({
+          error: "There was an error creating a new note."
+        });
+      });
   }
 };
 
@@ -41,5 +57,6 @@ const deleteNote = (req, res) => {
 };
 
 module.exports = {
-  getNotes
+  getNotes,
+  createNote
 };
