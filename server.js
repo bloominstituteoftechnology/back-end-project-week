@@ -51,7 +51,7 @@ passportOptions = { session: false };
 const authenticate = passport.authenticate("local", passportOptions);
 
 server.use("/api/notes", authenticate, notesRouter);
-server.use("/api/user", authenticate, userRouter);
+server.use("/api/user", userRouter);
 
 server.listen(port, err => {
   if (err) console.log(err);
