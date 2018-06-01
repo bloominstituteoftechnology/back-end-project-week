@@ -11,6 +11,8 @@ const noteSchema = mongoose.Schema({
   }, 
   color: String,
   sentiment: Number,
+  sentimentTitle: String,
+  title: String,
   comparative: Number,
   tags: String
 });

@@ -150,7 +150,7 @@ server.put('/api/notes/:id',  asyncHandler(async (req, res) => {
   score = Number(score).toFixed(2);
   req.body.sentiment = score;
   req.body.color = getSentimentColor(score);
-  req.body.title = `Sentiment Score: ${score}`; 
+  req.body.sentimentTitle = `Sentiment Score: ${score}`; 
 
   const response = await Note.findByIdAndUpdate(req.params.id, req.body, { new: true})
     || `Note with id ${req.params.id} not found`;
