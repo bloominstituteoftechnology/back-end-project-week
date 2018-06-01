@@ -10,18 +10,24 @@ router.post("/",  (req, res) => {
     let amount = 500;
   
     stripe.customers.create({
-       email: req.body.stripeEmail,
-      source: req.body.stripeToken
+       email: "foo-customer@example.com",
     })
-    .then(customer =>
-      stripe.charges.create({
-        amount,
-        description: "Sample Charge",
-           currency: "USD",
-           customer: customer.id
+    .then(customer => {
+      return stripe.customer.createSource(customer.id, {
+        object: 'card',
+        exp_month: 10,
+        exp_year: 2018,
+        number: '4242 4242 4242 4242',
+        cvc: 100
       })
-    )
-    // .then(charge => res.render("charge"));
+    })
+    .then(source => {
+      return stripe.charges.create({
+        amount: 1600,
+        currency: "usd",
+        customer: source.customer
+      });
+    }).then(charge);
   });
   
 
