@@ -39,7 +39,7 @@ server.route('/notes')
       .catch(err => res.status(500).json(err));
   })
   .post((req, res) => {
-    const { title, body } = req.body;ç
+    const { title, body } = req.body;
     const note = new Note({ title, body });
 
     note.save((note, err) => {
@@ -49,7 +49,10 @@ server.route('/notes')
   })
   .delete((req, res) => {
     Note.findByIdAndRemove(req.body.id)
-      .then(() => res.json('Note successfully deleted'))
+      .then(note => {
+        if(note) res.json('Note successfully deleted');
+        else res.status(404).json('Note not found');
+      })
       .catch(err => res.status(500).json(err));
   })
   .put((req, res) => {
@@ -70,13 +73,16 @@ server.route('/notes')
       const user = new User(req.body);
 
       user.save((user, err) => {
-        if(err) res.status(201).json(err)
+        if(err) res.status(201).json(err);
         else res.status(500).json(user);
       });
     })
     .delete((req, res) => {
       User.findByIdAndRemove(req.body.id)
-        .then(() => res.json('User successfully deleted'))
+        .then(user => {
+          if(user) res.json('User successfully deleted');
+          else res.status(404).json('User not found');
+        })
         .catch(err => res.status(500).json(err));
     });
 
