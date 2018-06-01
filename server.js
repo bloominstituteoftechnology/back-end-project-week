@@ -11,11 +11,11 @@ server.use(bodyParser.json());
 
 const port = process.env.PORT || 3333;
 
-mongoose.connect('mongodb://localhost/').then(() => {
-    console.log('connected to production database');
-}).catch(err => {
-    console.log('Error connection to production database')
-})
+// mongoose.connect('mongodb://localhost/').then(() => {
+//     console.log('connected to production database');
+// }).catch(err => {
+//     console.log('Error connection to production database')
+// })
 
 
 server.get('/', (req, res) => {
