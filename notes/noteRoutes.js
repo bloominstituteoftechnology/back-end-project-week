@@ -20,7 +20,7 @@ const validateToken = (req, res, next) => {
 }
 
 // POST notes - Title + Body/Content
-router.post('/notes', validateToken, (req, res) => {
+router.post('/notes', (req, res) => {
 
     Note
     .create(req.body)
@@ -33,7 +33,7 @@ router.post('/notes', validateToken, (req, res) => {
 })
 
 // GET notes - Display Notes
-router.get('/notes', validateToken, (req, res) => {
+router.get('/notes', (req, res) => {
 
     Note
     .find().select('title body id createdBy').populate('createdBy', 'username -_id')
@@ -46,7 +46,7 @@ router.get('/notes', validateToken, (req, res) => {
 })
 
 // GET notes - Display a specific note
-router.get('/note/:id', validateToken, (req, res) => {
+router.get('/note/:id', (req, res) => {
     const id = req.params.id;
 
     Note
@@ -60,7 +60,7 @@ router.get('/note/:id', validateToken, (req, res) => {
 })
 
 // PUT /note - Edits a note
-router.put('/note/:id', validateToken, (req, res) => {
+router.put('/note/:id', (req, res) => {
     const id = req.params.id;
     const note = req.body;
 
@@ -75,7 +75,7 @@ router.put('/note/:id', validateToken, (req, res) => {
 })
 
 // DELETE /note
-router.delete('/note/:id', validateToken, (req, res) => {
+router.delete('/note/:id', (req, res) => {
     const id = req.params.id;
     
     Note

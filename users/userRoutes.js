@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 // Helper Functions
 const getTokenForUser = userObject => {
-    return jwt.sign(userObject, process.env.TOKEN_SECRET, { expiresIn: '1h' })
+    return jwt.sign(userObject, process.env.TOKEN_SECRET, { expiresIn: '24h' })
 }
 
 const validateToken = (req, res, next) => {
