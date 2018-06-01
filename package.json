@@ -1,0 +1,37 @@
+{
+  "name": "backend-project",
+  "version": "1.0.0",
+  "description": "",
+  "engines": {
+    "node": "^9.10.0",
+    "npm": "5.8.0"
+  },
+  "main": "server.js",
+  "scripts": {
+    "test": "cross-env NODE_ENV=test jest test --watch --verbose",
+    "start": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "Lukasz Busk",
+  "license": "ISC",
+  "devDependencies": {
+    "cross-env": "^5.1.6",
+    "jest": "^22.4.4",
+    "nodemon": "^1.17.5",
+    "supertest": "^3.1.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "dependencies": {
+    "bcrypt": "^2.0.1",
+    "body-parser": "^1.18.3",
+    "connect-mongo": "^2.0.1",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "helmet": "^3.12.1",
+    "mongoose": "^5.1.2",
+    "morgan": "^1.9.0"
+  }
+}
