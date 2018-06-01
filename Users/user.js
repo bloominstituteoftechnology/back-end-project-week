@@ -24,7 +24,6 @@ User.pre('save', function(next) {
 });
 
 User.methods.checkPassword = function(passwordGuess, cb) {
-  // example using callback instead of promises
   bcrypt.compare(passwordGuess, this.password, (err, isMatch) => {
     if (err) return cb(err);
 

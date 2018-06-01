@@ -7,6 +7,7 @@ const userRouter = require('./Users/userRouter')
 const jwt = require('jsonwebtoken');
 const secret="jwt secret"
 const server = express();
+const User = require('./Users/user')
 
 // const corsOptions = {
 //     origin: 'https://notejll.netlify.com',
@@ -30,33 +31,40 @@ server.use(express.json());
 
 getToken = userObj  =>{
     console.log('worked')
+    // const timestamp = new Date().getTime()
+    // const payload = {
+    //     sub: user._id,
+    //     iat:timestamp,
+    //     username:user.username,
+    // }
+
     return jwt.sign(userObj,secret, {expiresIn: "1h"})
 
 }
 
 const isTokenValid =(req,res,next)=>{
-    const token = req.headers.authorization;
-    if (!token) {
-      res
-        .status(422)
-        .json({ error: 'No authorization token found on Authorization header' });
+    const token= req.headers.authorization;
+    if (!token){
+        console.log("i failed")
+        res.status(422).json({error:'no auth token found'})
     } else {
-      jwt.verify(token, secret, (err, decoded) => {
-        if (err) {
-          res
-            .status(401)
-            .json({ error: 'Token invalid, please login', message: err });
-        } else {
-          next();
-        }
-      });
+        jwt.verify(token,secret,(err,decoded)=>{
+            if(err){
+                res.status(401).json({error:" token was invalid, please login again", message:err})
+            } else{
+                next()
+            }
+        })
     }
 }
 
 
 
+
 server.use('/users',userRouter)
 server.use('/notes',isTokenValid, notesRouter)
+
+  
 
 mongoose
 .connect('mongodb://JacobLeonLyerla:server1122@ds237770.mlab.com:37770/jlldb')
