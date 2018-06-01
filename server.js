@@ -113,8 +113,8 @@ server.post("/login", (req, res) => {
 
 // Note routes ========================================================
 
-server.get("/notes", validateToken, (req, res) => {
-  Note.find({ user: req.user })
+server.get("/testnotes", (req, res) => {
+  Note.find()
     .then(notes => {
       res.status(200).json(notes);
     })
@@ -123,7 +123,7 @@ server.get("/notes", validateToken, (req, res) => {
     });
 });
 
-server.get("/notes/:id", validateToken, (req, res) => {
+server.get("/testnotes/:id", (req, res) => {
   const id = req.params.id;
   Note.findById(id)
     .then(note => {
@@ -136,19 +136,48 @@ server.get("/notes/:id", validateToken, (req, res) => {
     });
 });
 
-server.post("/notes", validateToken, (req, res) => {
-  const newNote = new Note(req.body);
-  newNote
-    .save()
-    .then(note => {
-      res.status(201).json(note);
+// Test routes for finding and editing notes for a specific user ===================================
+
+server.get("/notes/:username", validateToken, (req, res) => {
+  Note.find({ username: req.params.username })
+    .then(notes => {
+      res.status(200).json(notes);
     })
     .catch(err => {
-      res.status(500).json({ errorMessage: "Could not post note." });
+      res.status(500).send({ errorMessage: "Could not get notes." });
     });
 });
 
-server.put("/notes/:id", validateToken, (req, res) => {
+server.get("/notes/:username/:id", validateToken, (req, res) => {
+  const id = req.params.id;
+  Note.findById(id)
+    .where("username")
+    .equals(req.params.username)
+    .then(note => {
+      res.status(200).json(note);
+    })
+    .catch(err => {
+      res
+        .status(404)
+        .json({ errorMessage: "Could not get a note for that id." });
+    });
+});
+
+server.post("/notes/:username", validateToken, (req, res) => {
+  const newNote = new Note(req.body);
+  if (req.params.username === newNote.user) {
+    newNote
+      .save()
+      .then(note => {
+        res.status(201).json(note);
+      })
+      .catch(err => {
+        res.status(500).json({ errorMessage: "Could not post note." });
+      });
+  } else res.status(500).json({ errorMessage: "Could not post note." });
+});
+
+server.put("/notes/:username/:id", validateToken, (req, res) => {
   const id = req.params.id;
   const changes = req.body;
   const options = {
@@ -160,6 +189,8 @@ server.put("/notes/:id", validateToken, (req, res) => {
       .json({ errorMessage: "Please add a title and/or content field." });
   }
   Note.findById(id)
+    .where("username")
+    .equals(req.params.username)
     .then(note => {
       Note.findByIdAndUpdate(id, changes, options)
         .then(note => {
@@ -182,9 +213,11 @@ server.put("/notes/:id", validateToken, (req, res) => {
     });
 });
 
-server.delete("/notes/:id", validateToken, (req, res) => {
+server.delete("/notes/:username/:id", validateToken, (req, res) => {
   const id = req.params.id;
   Note.findById(id)
+    .where("username")
+    .equals(req.params.username)
     .then(note => {
       Note.findByIdAndRemove(id)
         .then(note => {
@@ -199,33 +232,6 @@ server.delete("/notes/:id", validateToken, (req, res) => {
             .status(500)
             .json({ errorMessage: "Could not delete a note with that id." });
         });
-    })
-    .catch(err => {
-      res
-        .status(404)
-        .json({ errorMessage: "Could not get a note for that id." });
-    });
-});
-
-// Test routes for finding and editing notes for a specific user ===================================
-
-server.get("/usernotes/:username", validateToken, (req, res) => {
-  Note.find({ username: req.params.username })
-    .then(notes => {
-      res.status(200).json(notes);
-    })
-    .catch(err => {
-      res.status(500).send({ errorMessage: "Could not get notes." });
-    });
-});
-
-server.get("/usernotes/:username/:id", validateToken, (req, res) => {
-  const id = req.params.id;
-  Note.findById(id)
-    .where("username")
-    .equals(req.params.username)
-    .then(note => {
-      res.status(200).json(note);
     })
     .catch(err => {
       res
