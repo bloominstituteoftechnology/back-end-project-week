@@ -16,7 +16,7 @@ router
           username: req.session.username,
         });
   })
-  .post(authenticate,(req, res) => {
+  .post((req, res) => {
     if (!(req.body.username && req.body.password)) {
       res.status(422).json({ error: 'Provide Username And Password!' });
     } else {
