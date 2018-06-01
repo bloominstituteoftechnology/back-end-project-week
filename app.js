@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const server = require('./server');
 
-const port = process.env.PORT || 3333;
 
 mongoose.connect('mongodb://localhost/').then(() => {
     console.log('connected to production database');
