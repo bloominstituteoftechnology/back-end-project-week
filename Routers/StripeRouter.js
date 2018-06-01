@@ -7,7 +7,6 @@ const stripe = require("stripe")(keySecret);
 
 
 router.post("/",  (req, res) => {
-    res.status(200)
     let amount = 500;
   
     stripe.customers.create({
