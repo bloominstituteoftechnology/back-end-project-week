@@ -20,8 +20,9 @@ class ListView extends Component {
 
     fetchData() {
         const token = localStorage.getItem('token');
-        const nodeId = localStorage.getItem("node_id");
+        const node = localStorage.getItem("node_id");
         const authtoken = `${token}`;
+        const nodeId = `${node}`;
         const requestOptions = {
             headers: {
                 Authorization: authtoken,

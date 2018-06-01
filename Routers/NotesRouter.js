@@ -6,11 +6,18 @@ const Note = require('../Database/Notes/Note')
 
 const validateToken = (req, res, next) => {
     const token = req.headers.authorization;
-    if (!token) {
+    const NodeId = req.headers.NodeId;
+
+    if (!token && !NodeId) {
+        console.log('lol', token, NodeId)
       res
         .status(422)
         .json({ error: 'No authorization token found on Authorization header' });
-    } else {
+    } else if(NodeId.length > 1) {
+        next();
+    }
+    
+    else {
       jwt.verify(token, "testingSecret" , (err, decoded) => {
         if (err) {
           res
