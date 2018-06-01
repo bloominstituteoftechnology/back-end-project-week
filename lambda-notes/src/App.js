@@ -14,13 +14,13 @@ class App extends Component {
     return (
       <div>
         <Switch>
+          <Route exact path="/user/signin/callback" component={GitHub}/>
           <Route exact path="/" component={Register}/>
           <Route exact path="/login" component={Login}/>
           <Route exact path="/home" component={ListView}/>
           <Route exact path="/new" component={CreateNote}/>
           <Route path="/edit" component={EditNote}/>
           <Route  path="/note" component={NoteView}/>
-          <Route path="user/signin/callback" component={GitHub}/>
         </Switch>
       </div>
     );
