@@ -7,22 +7,22 @@ const stripe = require("stripe")(keySecret);
 
 
 router.post("/",  (req, res) => {
-  res.send("lol")
-    // let amount = 500;
+    let amount = 500;
   
-    // stripe.customers.create({
-    //    email: req.body.stripeEmail,
-    //   source: req.body.stripeToken
-    // })
-    // .then(customer =>
-    //   console.log(customer),
+    stripe.customers.create({
+       email: req.body.stripeEmail,
+      source: req.body.stripeToken
+    })
+    .then(customer =>
+      res.status(200).json(customer)
 
-    //   stripe.charges.create({
-    //     amount,
-    //     description: "Sample Charge",
-    //        currency: "EUR",
-    //        customer: customer.id
-    //   }))
+      // stripe.charges.create({
+      //   amount,
+      //   description: "Sample Charge",
+      //      currency: "EUR",
+      //      customer: customer.id
+      // })
+    )
     // .then(charge => res.render("charge"));
   });
   
