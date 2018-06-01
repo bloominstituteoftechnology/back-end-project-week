@@ -18,7 +18,7 @@ server.use(cors(corsOptions));
 server.use(express.json());
 server.use(helmet());
 
-const path = process.env.MONGOLAB_URI || 'mongodb://@ds239940.mlab.com:39940/lambdanotes';
+const path = process.env.MONGOLAB_URI || 'mongodb://heroku_ph95bkvg:eb7q32vf0rc5js8cddoar4cve2@ds231725.mlab.com:31725/heroku_ph95bkvg';
 
 mongoose.connect(path);
 
@@ -34,7 +34,7 @@ server.use(
 );
 
 const isLoggedIn = function (req, res, next) {
-  if (!req.session.auth) res.status(422).json('Not Authorized');
+  if (!req.session.auth) res.status(422).json('Not uthorized');
   else if (req.session.id) {
     next();
   }
