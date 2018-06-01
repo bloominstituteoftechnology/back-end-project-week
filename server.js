@@ -165,7 +165,7 @@ server.get("/notes/:username/:id", validateToken, (req, res) => {
 
 server.post("/notes/:username", validateToken, (req, res) => {
   const newNote = new Note(req.body);
-  if (req.params.username === newNote.user) {
+  if (newNote.username === req.params.username) {
     newNote
       .save()
       .then(note => {
