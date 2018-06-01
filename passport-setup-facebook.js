@@ -3,21 +3,21 @@ const FacebookStrategy = require('passport-facebook')
 const keys = require('./keys.js');
 const FacebookUser = require('./facebookModel.js')
 
-passport.serializeUser((user, done) => {
-  done(null, user.id)
-})// this function is after creating the user 
+// passport.serializeUser((user, done) => {
+//   done(null, user.id)
+// })// this function is after creating the user 
 
-passport.deserializeUser((id, done) => {
-  FacebookUser
-    .findById(id)
-    .then(p => {
-      done(null, p)
-    })
-})
+// passport.deserializeUser((id, done) => {
+//   FacebookUser
+//     .findById(id)
+//     .then(p => {
+//       done(null, p)
+//     })
+// })
 
 
 passport.use(new FacebookStrategy({
-  callbackURl: "/auth/facebook/callback",
+  callbackURl: "https://localhost:9000/auth/facebook/callback",
   clientID: keys.facebook.clientID,
   clientSecret: keys.facebook.clientSecret,
 

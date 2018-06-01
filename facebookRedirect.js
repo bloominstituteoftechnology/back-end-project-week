@@ -5,7 +5,7 @@ const passportSetup = require('./passport-setup-facebook.js');
 
 router.get('/', passport.authenticate('facebook', {
   successRedirect: '/',
-  failureRedirect: '/users'
+  failureRedirect: 'http://localhost:9000/google/login'
 }), (req, res) => {
 
   console.log('facebook redirecting.....!!!');
@@ -13,7 +13,10 @@ router.get('/', passport.authenticate('facebook', {
 
 })
 
+router.get('/', (req, res) => {
 
+  res.send('facebook redirect')
+})
 
 
 
