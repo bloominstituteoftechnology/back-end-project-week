@@ -28,10 +28,6 @@ UserSchema.pre('save', async function(next) {
 });
 
 UserSchema.methods.checkPassword = async function(plainTextPW, callBack) {
-  // https://github.com/kelektiv/node.bcrypt.js#usage
-  // Fill this method in with the Proper password comparing, bcrypt.compare()
-  // Your controller will be responsible for sending the information here for password comparison
-  // Once you have the user, you'll need to pass the encrypted pw and the plaintext pw to the compare function
   try {
     const match = await bcrypt.compare(plainTextPW, this.password);
     callBack(null, match);
@@ -41,6 +37,6 @@ UserSchema.methods.checkPassword = async function(plainTextPW, callBack) {
     callBack(err);
   }
 };
-
+//not actually using bcrypt here ... yet...
 
 module.exports = mongoose.model('User', UserSchema);
