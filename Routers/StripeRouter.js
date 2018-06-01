@@ -12,17 +12,9 @@ router.post("/",  (req, res) => {
     stripe.customers.create({
        email: req.body.stripeEmail,
       source: req.body.stripeToken
+    }).then(customer => {
+      res.status(200).json(customer)
     })
-    // .then(customer =>
-
-    //   stripe.charges.create({
-    //     amount,
-    //     description: "Sample Charge",
-    //        currency: "EUR",
-    //        customer: customer.id
-    //   })
-    // )
-    // .then(charge => res.render("charge"));
   });
   
 
