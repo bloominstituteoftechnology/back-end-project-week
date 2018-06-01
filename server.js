@@ -3,30 +3,43 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
+const jwt = require("jsonwebtoken");
 
-const noteController = require("./notes/notesController");
-const userController = require("./users/userController");
+require("dotenv").config();
 
-const port = process.env.PORT || 5000;
+const noteRouter = require("./notes/noteRouter");
+const userRouter = require("./users/userRouter");
 
 const server = express();
 
-if (process.env.NODE_ENV !== 'test') {
-  server.listen(port, () => {
-    console.log(`Server running on ${port}`);
-  });
-  mongoose.connect("mongodb://${loginInfo.username}:${loginInfo.password}@")
-		.then(() => console.log('Successfully connected to MongoDB'))
-		.catch(err => console.log('Error connecting to MongoDB'));
+const uri = process.env.DB_HOST || "mongodb://localhost/notes";
+const port = process.env.PORT || 8888;
+
+if (process.env.NODE_ENV !== "test") {
+  server.listen(port, () => console.log(`\n=== API up on port: ${port} ===\n`));
+
+  // mongoose.Promise = global.Promise;
+  mongoose
+    .connect(uri)
+    .then(() => console.log(`\n=== Successfully connected to mLab db @  ===\n`))
+    .catch(err => console.log("Error connecting to mLab db"));
 }
 
-server.use(helmet());
-server.use(cors());
+server.use(express.json()); //built in body parser
+server.use(cors()); //Cross Origin Resource Sharing
+server.use(helmet()); //helps you secure your Express apps by setting various HTTP headers
 server.use(morgan("combined"));
-server.use(express.json());
-server.use("/notes", noteController);
-server.use("/user", userController);
+server.use("/notes", noteRouter);
+server.use("/users", userRouter);
 
+// Generic error handler used by all endpoints.
+function handleError(res, reason, message, code) {
+  console.log("ERROR: " + reason);
+  res.status(code || 500).json({ error: message });
+}
 
+server.get("/", (req, res) => {
+  res.status(200).json({ api: "running" });
+});
 
 module.exports = server;

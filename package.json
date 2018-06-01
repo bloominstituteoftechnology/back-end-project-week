@@ -5,6 +5,9 @@
   "repository": "https://github.com/Sy-CoDe/back-end-project-week.git",
   "author": "<sycode@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": "9.7.0"
+  },
   "devDependencies": {
     "nodemon": "^1.17.3",
     "cross-env": "^5.1.6",
@@ -30,7 +33,8 @@
     "sinon": "^4.2.2"
   },
   "scripts": {
-    "start": "nodemon server.js",
+    "startnodemon": "nodemon server.js",
+    "start": "node server.js",
     "test": "cross-env NODE_ENV=test jest test --watch --verbose"
   }
 }
