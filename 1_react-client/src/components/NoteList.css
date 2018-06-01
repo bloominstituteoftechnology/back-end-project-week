@@ -8,7 +8,9 @@
   top: 0;
   width: 100%;
   display: flex;
+  box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
 .Nav-left {
   display: flex;
   float: left;
@@ -16,11 +18,13 @@
 
 .Nav-middle {
   margin: auto;
-  margin-left: 22%;
+  margin-left: 15%;
+  float: left;
 }
 
 .SearchBar_Input {
-  width: 500px; 
+  width: 500px;
+  height: 25px;
 }
 
 .Nav-right {
@@ -30,12 +34,18 @@
 }
 
 .NoteList-body {
-  margin-top: 60px;
+  padding-top: 40px;
 }
 
 .NoteList-card {
   display: flex;
   margin: auto;
+}
+
+.YourNotes {
+  color: white;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
 
 h3 {

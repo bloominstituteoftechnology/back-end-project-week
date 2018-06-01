@@ -101,7 +101,7 @@ export default class NoteList extends Component {
         </nav>
 
         <body className="NoteList-body">
-          <h1>Your Notes:</h1>
+          <h1 className="YourNotes">Your Notes:</h1>
           <div className="NoteList-card">
             {filteredNotes.map(eachNote => (
               <div key={eachNote._id} className="NoteList-card">
