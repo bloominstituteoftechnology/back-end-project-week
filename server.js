@@ -1,16 +1,26 @@
 const express = require('express');
+const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const port = process.env.PORT || 3333;
+
 const server = express();
+
 server.use(cors({}));
 server.use(bodyParser.json());
 
 server.get('/', (req, res) => {
-    res.json({Message: 'Hello World'});
+    res.json({Message: 'I am alive!'});
 });
 
-server.listen(port, err => {
-    if(err) console.log(err);
-    console.log(`The magic is happening ${port}`);
-});
+
+server.put('/:id', (req, res) => {
+    const {id} = req.params;
+    const changes = req.body;
+
+    if (!changes.paragraph) {
+        return res.status(442).json({error: 'Must provide a paragraph'})
+    }
+})
+
+
+
