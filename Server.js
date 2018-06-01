@@ -40,6 +40,7 @@ server.use("/charge", StripeRouter)
 //  console.log(req)
 //  res.send("LOL")
 
+
 //   if(!code) {
 //      res.send({
 //       success: false
