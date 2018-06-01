@@ -20,36 +20,34 @@ class ListView extends Component {
 
     fetchData() {
         const token = localStorage.getItem('token');
-        const node = localStorage.getItem("node_id");
+        const nodeId = localStorage.getItem("node_id").toString();
         const authtoken = `${token}`;
-        const nodeId = `${node}`;
         const requestOptions = {
             headers: {
                 Authorization: authtoken,
             }
         }
 
-        if(nodeId === null || token.length < 1) {
-            axios.get('https://noteslambda.herokuapp.com/notes', requestOptions)
-            .then(response => {
-                this.setState({
-                    notes: response.data
-                })
-                console.log(this.state.notes)
-            }).catch(err => {
-                console.log(err)
-                this.props.history.push('/')
+        if(nodeId === null)
+        axios.get('https://noteslambda.herokuapp.com/notes', requestOptions)
+        .then(response => {
+            this.setState({
+                notes: response.data
             })
-        }
+            console.log(this.state.notes)
+        }).catch(err => {
+            console.log(err)
+            this.props.history.push('/')
+        })
 
         else {
-            const gitHubOptions = {
-                headers: {
-                    NodeId: nodeId
-                }
-            }
+            // const gitHubOptions = {
+            //     headers: {
+            //         NodeId: nodeId
+            //     }
+            // }
 
-            axios.get('https://noteslambda.herokuapp.com/notes', gitHubOptions)
+            axios.get('https://noteslambda.herokuapp.com/notes/gitHubLoggedIn')
             .then(response => {
                 this.setState({
                     notes: response.data

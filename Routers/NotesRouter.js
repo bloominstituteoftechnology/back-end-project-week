@@ -34,6 +34,14 @@ router.get("/", validateToken, (req, res) => {
     })
 })
 
+router.get("/gitHubLoggedIn", validateToken, (req, res) => {
+    Note.find().then(notes => {
+        res.status(200).json(notes)
+    }).catch(err => {
+        res.status(404).json(err)
+    })
+})
+
 router.post("/", (req, res) => {
     const newNote = req.body;
     const note = new Note(newNote);
