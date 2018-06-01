@@ -9,7 +9,8 @@ const mongoose = require('mongoose');
 
 const server = express();
 
-// const routes = require('./routes/routes');
+const userRouter = require('./routers/userRouter');
+const notesRouter = require('./routers/notesRouter');
 
 const corsOptions = {
   origin: 'https://amanda-lambdanotes.netlify.com',
@@ -31,6 +32,8 @@ mongoose
 server.get('/', (req, res) => {
   res.send({ API: 'Running' });
 });
+
+server.use('/users', userRouter);
 
 const PORT = process.env.PORT || 5000;
 
