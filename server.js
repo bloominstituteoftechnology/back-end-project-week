@@ -59,6 +59,15 @@ const validateToken = (req, res, next) => {
           .status(401)
           .json({ error: "Token invalid, please login", message: err });
       } else {
+        User.findOne({ token: token })
+          .then(res => {
+            next();
+          })
+          .catch(err => {
+            res
+              .status(500)
+              .json({ error: "This token is for the wrong user!" });
+          });
         // User.findOne({ token }, (err, user) => {
         //   if (err) {
         //     return res.status(500).json({ error: "Invalid Username/Password" });
@@ -80,7 +89,6 @@ const validateToken = (req, res, next) => {
         //     });
         //   }
         // });
-        next();
       }
     });
   }
