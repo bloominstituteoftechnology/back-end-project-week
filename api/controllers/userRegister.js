@@ -15,9 +15,7 @@ const userRegister = (req, res) => {
         res.status(201).json(newUser);
       })
       .catch(error => {
-        res.status(500).json({
-          error: "There was an error during registration."
-        });
+        res.status(500).json(error);
       });
   }
   if (!username || !password || !email) {
