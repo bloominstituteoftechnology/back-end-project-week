@@ -1,10 +1,12 @@
 const express = require('express');
 const helmet = require('helmet');
-// const cors = require('cors');
+const cors = require('cors');
 
 const mongoose = require('mongoose');
 
 const server = express();
+
+const notesRouter = require('./notes/notesRouter');
 
 //MongoDB Connection
 mongoose
@@ -18,9 +20,11 @@ mongoose
 
 
 server.use(helmet());
-// server.use(cors());
+server.use(cors());
 server.use(express.json());
-    
+
+server.use('/api/notes', notesRouter);
+
 server.get('/', (req, res) => {
     res.status(200).json('API IS LIT');
 });
