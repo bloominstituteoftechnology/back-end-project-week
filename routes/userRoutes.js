@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../src/users/User');
 const Note = require('../src/notes/Note');
 
-let secret = process.env.SECRET;
+let secret = process.env.NOTES_APP_SECRET;
 
 const getTokenForUser = userObject => {
   return jwt.sign(userObject, secret, { expiresIn: '1h' });
