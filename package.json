@@ -4,7 +4,7 @@
   "description": "This week you will be building a backend for a note taking app called \"Lambda Notes.\"",
   "main": "index.js",
   "scripts": {
-    "start": "node app",
+    "start": "node start.js",
     "watch": "nodemon ./start.js"
   },
   "repository": {
@@ -30,5 +30,7 @@
   "devDependencies": {
     "nodemon": "^1.17.5"
   },
-  "keywords": []
+  "engines": {
+    "node": "10.1.0"
+  }
 }
