@@ -8,10 +8,6 @@ const server = express();
 server.use(cors({}));
 server.use(bodyParser.json());
 
-
-const port = process.env.PORT || 3333;
-
-
 server.get('/', (req, res) => {
     res.json({Message: 'I am alive!'});
 });
