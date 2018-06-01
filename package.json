@@ -4,7 +4,7 @@
   "description": "This week you will be building a backend for a note taking app called \"Lambda Notes.\"",
   "main": "index.js",
   "scripts": {
-    "watch": "nodemon ./start.js",
+    "watch": "nodemon ./start.js"
 
   },
   "repository": {
