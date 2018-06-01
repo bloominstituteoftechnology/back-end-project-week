@@ -11,14 +11,15 @@ router.post("/",  (req, res) => {
   
     stripe.customers.create({
        email: "foo-123@gmail.com"
-      }).then(customer => {
-      stripe.charges.create({
-        amount: 50,
-        currency: "usd",
-        description: 'test',
-        source: customer.id
       })
-    })
+    //   .then(customer => {
+    //   stripe.charges.create({
+    //     amount: 50,
+    //     currency: "usd",
+    //     description: 'test',
+    //     source: customer.id
+    //   })
+    // })
   });
   
 
