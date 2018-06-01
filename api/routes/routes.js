@@ -5,7 +5,8 @@ const {
   userLogin,
   getNotes,
   getNote,
-  createNote
+  createNote,
+  editNote
 } = require("../controllers");
 
 module.exports = server => {
@@ -14,4 +15,5 @@ module.exports = server => {
   server.route("/api/notes").get(authenticate, getNotes);
   server.route("/api/notes/:id").get(authenticate, getNote);
   server.route("/api/notes").post(authenticate, createNote);
+  server.route("/api/notes/:id").put(authenticate, editNote);
 };

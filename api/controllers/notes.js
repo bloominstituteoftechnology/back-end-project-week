@@ -23,8 +23,10 @@ const getNotes = (req, res) => {
 
 // ====== GET /api/notes/:id =====
 const getNote = (req, res) => {
+  const { id } = req.params;
+
   if (req.decoded) {
-    Note.findById(req.params.id)
+    Note.findById(id)
       .then(note => {
         res.status(200).json(note);
       })
@@ -58,8 +60,21 @@ const createNote = (req, res) => {
   }
 };
 
+// ====== PUT /api/notes/:id =====
 const editNote = (req, res) => {
+  const { id } = req.params;
+  const update = req.body;
+
   if (req.decoded) {
+    Note.findByIdAndUpdate(id, update)
+      .then(note => {
+        res.status(200).json(note);
+      })
+      .catch(error => {
+        res.status(500).json({
+          error: "Error updating the specified note."
+        });
+      });
   }
 };
 
@@ -71,5 +86,6 @@ const deleteNote = (req, res) => {
 module.exports = {
   getNotes,
   getNote,
-  createNote
+  createNote,
+  editNote
 };
