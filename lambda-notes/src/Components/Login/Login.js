@@ -21,6 +21,8 @@ class Login extends Component {
       }
 
       handleFormSubmit = (e) => {
+        localStorage.removeItem('node_id')
+        localStorage.removeItem("token")
         this.setState({
             loading: true
         })

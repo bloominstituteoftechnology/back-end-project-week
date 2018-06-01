@@ -20,7 +20,7 @@ class ListView extends Component {
 
     fetchData() {
         const token = localStorage.getItem('token');
-        const nodeId = localStorage.getItem("node_id").toString();
+        const nodeId = localStorage.getItem("node_id");
         const authtoken = `${token}`;
         const requestOptions = {
             headers: {
@@ -41,11 +41,6 @@ class ListView extends Component {
         })
 
         else {
-            // const gitHubOptions = {
-            //     headers: {
-            //         NodeId: nodeId
-            //     }
-            // }
 
             axios.get('https://noteslambda.herokuapp.com/notes/gitHubLoggedIn')
             .then(response => {
@@ -63,6 +58,7 @@ class ListView extends Component {
 
     signOut() {
         localStorage.removeItem('token');
+        localStorage.removeItem("node_id");
         window.location.reload(true)
     }
     
