@@ -38,7 +38,6 @@ server.use("/charge", StripeRouter)
 
 server.get("/user/signin/callback", (req, res, next) => {
   const {code} = req.query
-  console.log(code)
   if(!code) {
      res.send({
       success: false
@@ -55,7 +54,6 @@ server.get("/user/signin/callback", (req, res, next) => {
   .set("Accept", "application/json")
   .then(result => {
     const data = req.body;
-    console.log(result.body)
     return res.status(200).json(result.body)
   })
 })
