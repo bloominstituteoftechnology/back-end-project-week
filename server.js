@@ -12,6 +12,7 @@ const userRouter = require("./routes/userRouter");
 
 const server = express();
 
+
 const uri = process.env.DB_HOST || "mongodb://localhost/notes";
 
 if (process.env.NODE_ENV !== "test") {
@@ -29,7 +30,7 @@ if (process.env.NODE_ENV !== "test") {
 
 server.use(express.json()); //built in body parser
 server.use(cors()); //Cross Origin Resource Sharing
-server.use(helmet()); //helps you secure your Express apps by setting various HTTP headers
+server.use(helmet()); //helps secure Express apps by setting various HTTP headers
 server.use(morgan("combined"));
 server.use("/notes", noteRouter);
 server.use("/users", userRouter);
