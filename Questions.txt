@@ -1,0 +1,10 @@
+1. 
+How do I connect to mlab?
+mongoose.connect('mongodb://localhost/lambdaNotes')
+mongodb://<dbuser>:<dbpassword>@ds139920.mlab.com:39920/notes-lambda
+(Ryan said something abt hiding passwords?)
+
+2. Connecting a separate VS Code for front end
+
+3. Use Axios or something else
+
