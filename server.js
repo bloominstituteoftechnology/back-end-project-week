@@ -1,5 +1,6 @@
 const express = require('express');
 const helmet = require('helmet');
+const cors = require('cors');
 
 const mongoose = require('mongoose');
 const User = require('./src/users/User');
@@ -11,6 +12,13 @@ const userRouter = require('./routes/userRoutes');
 let dbURI = process.env.NOTES_APP_MONGODB_URI; 
 
 const server = express();
+
+const corsOptions = {
+  origin: '*',
+  credentials: true,
+};
+
+server.use(cors(corsOptions));
 
 mongoose.connect(dbURI)
   .then(() => {
