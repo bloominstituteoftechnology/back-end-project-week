@@ -12,7 +12,7 @@ const SideBar = () => {
         </div>
         <Link to="/home">View Your Notes</Link>
         <Link to="/new">+ Create New Note</Link>
-        <Checkout name="Dontation" description="Thank you for the support" amount="10"/>
+        <Checkout name="Donation" description="Thank you for the support" amount="10"/>
     </div>
     )
 }
