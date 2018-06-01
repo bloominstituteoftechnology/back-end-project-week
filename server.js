@@ -48,6 +48,7 @@ const getTokenForUser = user => {
 
 const validateToken = (req, res, next) => {
   const token = req.headers.authorization;
+  const username = req.headers.username;
   if (!token) {
     res
       .status(422)
@@ -59,7 +60,7 @@ const validateToken = (req, res, next) => {
           .status(401)
           .json({ error: "Token invalid, please login", message: err });
       } else {
-        User.findOne({ token: token })
+        User.findOne({ username: username, token: token })
           .then(res => {
             next();
           })
