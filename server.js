@@ -18,8 +18,7 @@ server.use(cors(corsOptions));
 server.use(express.json());
 server.use(helmet());
 
-const path = process.env.MONGOLAB_URI || 'mongodb://localhost/lambdanotes';
-//mongodb:lambda:lambda1@ds239940.mlab.com:39940/lambdanotes',
+const path = process.env.MONGOLAB_URI ||'mongodb://lambda:lambda1@ds231725.mlab.com:31725/heroku_ph95bkvg';
 
 mongoose.connect(path);
 
