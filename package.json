@@ -20,12 +20,17 @@
   "homepage": "https://github.com/fmarkwong-lambda-school-cs9-coursework/back-end-project-week#readme",
   "dependencies": {
     "@google-cloud/language": "^1.2.0",
+    "bcrypt": "^2.0.1",
     "cors": "^2.8.4",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "helmet": "^3.12.1",
+    "jsonwebtoken": "^8.2.2",
     "mongoose": "^5.1.2",
     "nodemon": "^1.17.5",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
     "sentiment": "^5.0.0"
   },
   "devDependencies": {

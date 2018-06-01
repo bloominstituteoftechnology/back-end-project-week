@@ -31,23 +31,109 @@ const errorLog = (err, req, res, next) => {
   res.status(500).json(err.message);
 }
 
-server.post('/api/notes', asyncHandler(async (req, res) => {
+/*** AUTH SETUP *****************/
+const jwt = require('jsonwebtoken');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+
+const JwtStrategy = require('passport-jwt').Strategy;
+const { ExtractJwt } = require('passport-jwt');
+
+const User = require('./models/user');
+const secret = 'yo dude';
+
+// for login
+const localStrategy = new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({ username: username }, function(err, user) {
+      if (err) return done(err);
+      if (!user) return done(null, false);
+      if (!user.verifyPassword(password)) return done(null, false);
+
+      return done(null, user); // user gets pass on to request
+    });
+  }
+);
+
+const jwtOptions = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: secret,
+};
+
+// for protect api routes
+const jwtStrategy = new JwtStrategy(jwtOptions, function(jwtPayload, done) {
+  // here the token was decoded successfully
+  User.findOne({id: jwtPayload.sub},'-_password -__v', function(err, user) {
+    if (err) return done(err);
+    if (user) return done(null, user);
+    if (!user) return done(null, false); 
+  });
+});
+//
+// passport global middleware
+passport.use(localStrategy);
+passport.use(jwtStrategy);
+
+// passport local middleware
+const passportOptions = { session: false };
+const authenticate = passport.authenticate('local', passportOptions); // authenticate using local strategy (for user login)
+const protected = passport.authenticate('jwt', passportOptions); // authenticate using jwt strategy (for api authentication)
+
+
+function makeToken(user) {
+  const timestamp = new Date().getTime();
+  const payload = {
+    sub: user._id,
+    iat: timestamp,
+    username: user.username,
+  };
+  const options = {
+    expiresIn: '24h',
+  };
+
+  return jwt.sign(payload, secret, options);
+}
+
+/*** ROUTES *****************/
+
+
+server.post('/register', asyncHandler(async (req, res) => {
+    // const response = await Category.find({}, '-_id -__v')
+  let user = await User.create(req.body);
+  const token = makeToken(user);
+
+  user = { _id: user._id, username: user.username };
+  res.status(201).json({ user, token })
+}));
+
+server.post('/login', authenticate, (req, res) => {
+  // if we're here the user logged in correctly
+  const user = { _id: req.user._id, username: req.user.username };
+  res.status(200).json({ token: makeToken(req.user), user: user });
+});
+
+server.get('/logout', asyncHandler((req, res) => {
+  req.logout();
+  res.redirect('/');
+}));
+
+server.post('/api/notes', protected, asyncHandler(async (req, res) => {
   const response = await Note.create(req.body)
   res.status(201).json(response);
 }));
 
-server.get('/api/notes', asyncHandler(async (req, res) => {
+server.get('/api/notes', protected, asyncHandler(async (req, res) => {
   const response = await Note.find()
   res.status(200).json(response);
 }));
 
-server.get('/api/notes/:id', asyncHandler(async (req, res) => {
+server.get('/api/notes/:id', protected, asyncHandler(async (req, res) => {
   const response = await Note.findById(req.params.id)
     || `Note with id ${req.params.id} not found`;
   res.status(200).json(response);
 }));
 
-server.put('/api/notes/:id', asyncHandler(async (req, res) => {
+server.put('/api/notes/:id', protected, asyncHandler(async (req, res) => {
   // const sentScore = sentiment.analyze(req.body.content);
   // req.body.sentiment = sentScore.score;
   // req.body.comparative = sentScore.comparative;
@@ -60,8 +146,8 @@ server.put('/api/notes/:id', asyncHandler(async (req, res) => {
 
   let score = await client.analyzeSentiment({ document });
   score = score[0].documentSentiment.score;
-  score = Number.parseFloat(score).toPrecision(2);
-  console.log("score is ", score);
+  console.log("raw score is ", score);
+  score = Number(score).toFixed(2);
   req.body.sentiment = score;
   req.body.color = getSentimentColor(score);
   req.body.title = `Sentiment Score: ${score}`; 
@@ -71,7 +157,7 @@ server.put('/api/notes/:id', asyncHandler(async (req, res) => {
   res.status(200).json(response);
 }));
 
-server.delete('/api/notes/:id', asyncHandler(async (req, res) => {
+server.delete('/api/notes/:id', protected, asyncHandler(async (req, res) => {
   const response = await Note.findByIdAndRemove(req.params.id)
     || `Note with id ${req.params.id} not found`;
   res.status(200).json({ message: `Note with id ${response._id} deleted.`});
