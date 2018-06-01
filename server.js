@@ -33,8 +33,17 @@ server.get("/", (req, res) => {
 
 // Authentification and token stuff
 
-const getTokenForUser = userObject => {
-  return jwt.sign(userObject, secret, { expiresIn: "1h" });
+const getTokenForUser = user => {
+  const timestamp = new Date().getTime();
+  const payload = {
+    sub: user._id,
+    iat: timestamp,
+    username: user.username
+  };
+  const options = {
+    expiresIn: "24h"
+  };
+  return jwt.sign(payload, secret, options);
 };
 
 const validateToken = (req, res, next) => {
