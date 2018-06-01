@@ -33,15 +33,20 @@ const usersRoute = require('./usersRoute.js');
 server.use('/users', usersRoute);
 const loginRoute = require('./loginRoute.js');
 server.use('/login', loginRoute);
-////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////// google Oauth
 const googleRoute = require('./googleRoute.js')
 server.use('/google', googleRoute);
-const googleLoginRoute = require('./googleLoginRoute.js');
-server.use('/google/login', googleLoginRoute);
-const googleLogoutRoute = require('./googleLogoutRoute.js')
-server.use('/google/logout', googleLogoutRoute);
+// const googleLoginRoute = require('./googleLoginRoute.js');
+// server.use('/google/login', googleLoginRoute);
+// const googleLogoutRoute = require('./googleLogoutRoute.js')
+// server.use('/google/logout', googleLogoutRoute);
 const googleRedirect = require('./googleRedirect.js')
 server.use('/auth/google/callback', googleRedirect);
+//////////////////////////////////////////////////////////////////facbookOauth
+const facebookRoute = require('./facebookRoute.js')
+server.use('/facebook', facebookRoute);
+const facebookRedirect = require('./facebookRedirect.js');
+server.use('/auth/facebook/callback', facebookRedirect);
 
 server.listen(port, () => {
   console.log(`\n=== server is running on ${port} ==`)

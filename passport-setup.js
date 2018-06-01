@@ -23,9 +23,6 @@ passport.use(
     clientID: keys.google.clientID,
     clientSecret: keys.google.clientSecret
   }, (accessToken, refreshToken, profile, done) => {
-    // console.log('passport callback function')
-    // console.log(profile);
-
     GoogleUser
       .findOne({ googleId: profile.id })
       .then(p => {
@@ -52,10 +49,7 @@ passport.use(
 
       })
 
-
-
-
-
-
-
+      .catch(err => {
+        console.log('err:', err)
+      })
   }))

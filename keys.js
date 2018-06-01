@@ -14,5 +14,11 @@ module.exports = {
   },
   session: {
     cookieKey: 'ilovefootballlikecrazy'
+  },
+  facebook: {
+    clientID: 'EAAGd65O9XeMBAKwtayLuZC4ctbzxm2sxUT9wgk6JdB9CQRvKoydv1U8gcnZCBwQMgZCM93PWrBzezrpGvEzT1FBWLqXwwSWF7INfOE8evoyFhMqfc72Nfq70y4aaIC8BvwG088FUQz9SRz1fYrrJX9hWqsvACXPXVOUmHQZBSN89TgBFrmoW0JxuHZASpXZBwZD',
+    clientSecret: '455110098247139|XJ3z3nmiC_8iHnRzN7NwEPfAEcA'
   }
+
+
 }
