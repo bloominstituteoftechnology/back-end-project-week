@@ -12,12 +12,11 @@ router.post("/",  (req, res) => {
     stripe.customers.create({
        email: "foo-123@gmail.com"
       }).then(customer => {
-      stripe.charges({
-        exp_month: 21,
-        exp_year: 2021,
-        number: "4242 4242 4242 4242",
-        cvc: 100,
-        customer: customer.id
+      stripe.charges.create({
+        amount: 50,
+        currency: "usd",
+        description: 'test',
+        source: customer.id
       })
     })
   });
