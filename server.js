@@ -41,7 +41,7 @@ server.use('/google/login', googleLoginRoute);
 const googleLogoutRoute = require('./googleLogoutRoute.js')
 server.use('/google/logout', googleLogoutRoute);
 const googleRedirect = require('./googleRedirect.js')
-server.use('/auth/google/redirect', googleRedirect);
+server.use('/auth/google/callback', googleRedirect);
 
 server.listen(port, () => {
   console.log(`\n=== server is running on ${port} ==`)

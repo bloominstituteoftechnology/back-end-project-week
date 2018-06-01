@@ -5,13 +5,15 @@ const authenticate = require('./authTokenMWR.js')
 const emptyBody = require('./emptyBodyMWR')
 
 
-router.get('/', authenticate, (req, res) => {
+router.get('/', (req, res) => {
   Notes
     .find({})
     .then(p => {
+      console.log('p', p)
       res.status(200).json({ notes: p })
     })
     .catch(err => {
+      console.log('d', err)
       res.status(500).json({ msg: err })
     })
 })

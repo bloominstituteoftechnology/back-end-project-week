@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const User = require('./usersModel.js');
 const { makeToken } = require('./makeTokenMWR.js')
+const authenticate = require('./authTokenMWR.js')
 
-router.get('/', (req, res) => {
+router.get('/', authenticate, (req, res) => {
   User
     .find({})
     .then(p => {

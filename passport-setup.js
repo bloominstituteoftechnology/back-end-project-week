@@ -2,7 +2,7 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20')
 const keys = require('./keys.js');
 const GoogleUser = require('./googleModel.js');
-
+const { makeToken } = require("./makeTokenMWR.js");
 
 passport.serializeUser((user, done) => {
   done(null, user.id)
@@ -19,18 +19,19 @@ passport.deserializeUser((id, done) => {
 
 passport.use(
   new GoogleStrategy({
-    callbackURL: '/auth/google/redirect',
+    callbackURL: '/auth/google/callback',
     clientID: keys.google.clientID,
     clientSecret: keys.google.clientSecret
   }, (accessToken, refreshToken, profile, done) => {
-    console.log('passport callback function')
-    console.log(profile);
+    // console.log('passport callback function')
+    // console.log(profile);
 
     GoogleUser
       .findOne({ googleId: profile.id })
       .then(p => {
         if (p) {
           console.log('existing user', p);
+
           done(null, p)
         }
         else {
@@ -44,6 +45,7 @@ passport.use(
             .save()
             .then(p => {
               console.log('new user:', p);
+
               don(null, p)
             })
         }
