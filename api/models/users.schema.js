@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
   method: {
     type: String,
     required: true,
-    enum: ['local', 'google', 'facebook']
+    enum: ['local', 'google']
   },
   local: {
     username: {
@@ -22,10 +22,6 @@ const userSchema = new mongoose.Schema({
     }
   },
   google: {
-    id: String,
-    email: { type: String, lowercase: true, unique: true }
-  },
-  facebook: {
     id: String,
     email: { type: String, lowercase: true, unique: true }
   }

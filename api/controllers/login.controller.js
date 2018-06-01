@@ -6,20 +6,17 @@ const User = require("../models/users.schema");
 const { 
   localStrategy, 
   JWTstrategy, 
-  GoogleStrategy,
-  FacebookStrategy
+  GoogleStrategy
 } = require("../middleware/passport.strategies");
 
 
-passport.use("local", localStrategy)
-passport.use("jwt", JWTstrategy)
-passport.use("GoogleToken", GoogleStrategy)
-passport.use("FacebookToken", FacebookStrategy)
+passport.use("local", localStrategy);
+passport.use("jwt", JWTstrategy);
+passport.use("GoogleToken", GoogleStrategy);
 
 const authenticate = passport.authenticate('local', { session: false });
 const validateToken = passport.authenticate('jwt', { session: false });
 const googleToken = passport.authenticate('GoogleToken', { session: false });
-const facebookToken = passport.authenticate('FacebookToken', { session: false });
 
 const signToken = user => {
   const payload = { id: user._id, iat: new Date().getTime() };
@@ -49,14 +46,8 @@ const googleLogin = async (req, res) => {
   res.status(200).json({ token })
 }
 
-const facebookLogin = async (req, res) => {
-  const token = await signToken(req.user)
-  res.status(200).json({ token })
-}
-
 router.route('/').post(authenticate, basicLogin)
 router.route('/register').post(newUser)
 router.route('/oauth/google').post(googleToken, googleLogin)
-router.route('/oauth/facebook').post(facebookToken, facebookLogin)
 
 module.exports = router;
