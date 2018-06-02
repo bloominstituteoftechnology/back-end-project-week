@@ -4,14 +4,13 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
-
+import injectSheet, { ThemeProvider } from 'react-jss';
 import theme from './Helper/theme';
-import { MuiThemeProvider } from '@material-ui/core/styles';
 
 ReactDOM.render(
     <Router>
-        <MuiThemeProvider theme={theme}>
+        <ThemeProvider theme={theme}>
             <App />
-        </MuiThemeProvider>
+        </ThemeProvider>
     </Router>, document.getElementById('root'));
 registerServiceWorker();

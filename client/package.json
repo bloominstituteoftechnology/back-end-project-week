@@ -3,9 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^1.1.0",
+    "@fortawesome/fontawesome": "^1.1.8",
+    "@fortawesome/fontawesome-free-brands": "^5.0.13",
+    "@fortawesome/fontawesome-free-regular": "^5.0.13",
+    "@fortawesome/fontawesome-free-solid": "^5.0.13",
+    "@fortawesome/react-fontawesome": "0.0.20",
+    "popmotion": "^8.2.3",
+    "popmotion-react": "^2.1.1",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
+    "react-jss": "^8.4.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4"
   },

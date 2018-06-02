@@ -1,6 +1,9 @@
 * {
     box-sizing: border-box;
 }
+html {
+  font-size: 62.5%;
+}
 html, body
 {
   height: 100%;
@@ -14,6 +17,7 @@ a {
 #root {
   height: 100%;
   display: flex;
+  font-size: 1.6em;
 }
 #root > div {
   flex-grow: 1;

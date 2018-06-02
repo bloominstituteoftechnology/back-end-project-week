@@ -1,36 +1,28 @@
 import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import './Helper/IconLibrary'; //build custom fontawsome library of icons
+import injectSheet from 'react-jss';
 
-import Wheel from './Navigation/Wheel';
+import BackgroundWrapper from './Helper/BackgroundWrapper';
 import NoteContainer from './Note/NoteContainer';
-
-const styles = theme => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundSize: 'cover'
-  },
-})
+import Wheel from './Navigation/Wheel';
 
 class App extends Component {
   state = {
     randomBgUrl: ''
   }
   componentDidMount = () => {
-    fetch('https://source.unsplash.com/3000x2000/?nature')
+    fetch('https://source.unsplash.com/2000x1800/?nature,sunset')
       .then(res => this.setState({ randomBgUrl: res.url }))
       .catch(err => console.log(err))
   }
   render() {
-    const { classes } = this.props;
-    const { randomBgUrl } = this.state;
     return (
-      <div className={classes.root} style={{ background: `url(${randomBgUrl}) no-repeat center` }}>
+      <BackgroundWrapper randomBgUrl={this.state.randomBgUrl}>
         <NoteContainer />
         <Wheel />
-      </div>
+      </BackgroundWrapper>
     );
   }
 }
 
-export default withStyles(styles)(App);
+export default App;

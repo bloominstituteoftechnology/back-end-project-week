@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
+import injectSheet from 'react-jss';
 
 import Notes from './Notes';
 
-import { withStyles } from '@material-ui/core/styles';
-
-const styles = theme => ({
+const styles = {
   root: {
     flexGrow: 1
   },
-})
+}
 
 class NoteContainer extends Component {
   render() {
@@ -22,4 +21,4 @@ class NoteContainer extends Component {
   }
 }
 
-export default withStyles(styles)(NoteContainer);
+export default injectSheet(styles)(NoteContainer);

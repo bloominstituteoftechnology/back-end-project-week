@@ -1,22 +1,63 @@
 import React, { Component } from 'react';
-import Icon from '@material-ui/core/Icon';
-import { withStyles } from '@material-ui/core/styles';
-import Tooltip from '@material-ui/core/Tooltip';
+import injectSheet from 'react-jss';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
-const styles = theme => ({
-  icon: {
-    margin: theme.spacing.unit * 2,
-  },
-})
-
-const WheelIcon = ({ classes, icon, name }) => {
-  return (
-    <Tooltip id="tooltip-top" title={name} placement="top">
-      <Icon className={classes.icon} style={{ fontSize: 25 }}>
-        {icon}
-      </Icon>
-    </Tooltip>
-  )
+class WheelIcon extends Component {
+    state = {
+        hover: false
+    }
+    handleMouseEnter = () => {
+        this.setState({ hover: true })
+    }
+    handleMouseLeave = () => {
+        this.setState({ hover: false })
+    }
+    render() {
+        const { classes, children, name } = this.props
+        const iconClassName = this.state.hover ? [classes.secondaryButton, classes.wheelDistance, classes.hover].join(' ') : [classes.secondaryButton, classes.wheelDistance].join(' ')
+        const tooltipClassName = this.state.hover ? [classes.tooltip, classes.tooltipDistance, classes.fadeIn].join(' ') : [classes.tooltip, classes.tooltipDistance, classes.fadeOut].join(' ')
+        return (
+            <div className={iconClassName} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
+                <div>
+                    {children}
+                </div>
+                <div className={tooltipClassName}>
+                    {name}
+                </div>
+            </div>
+        )
+    }
 }
 
-export default withStyles(styles)(WheelIcon);
+
+const styles = theme => ({
+    root: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    secondaryButton: theme.button.secondary,
+    wheelDistance: {
+        position: 'absolute',
+        transform: props => `rotate(${props.index * props.distance_between_icons}deg) translateX(55px) rotate(${props.index * props.rotateDeg}deg)`,
+    },
+    hover: {
+        transform: props => `rotate(${props.index * props.distance_between_icons}deg) translateX(60px) rotate(${props.index * props.rotateDeg}deg)`,
+        transition: 'transform 0.3s ease'
+    },
+    tooltip: theme.tooltip,
+    tooltipDistance: {
+        position: 'absolute',
+        transform: props => `rotate(${props.index * props.distance_between_icons}deg) translateX(40px) rotate(${props.index * props.rotateDeg}deg)`,
+    },
+    fadeIn: {
+        opacity: 1,
+        transition: 'opacity 0.5s ease'
+    },
+    fadeOut: {
+        opacity: 0,
+        transition: 'opacity 0.5s ease'
+    },
+})
+
+export default injectSheet(styles)(WheelIcon);
