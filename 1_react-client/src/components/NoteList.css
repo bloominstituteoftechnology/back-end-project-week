@@ -37,9 +37,14 @@
   padding-top: 40px;
 }
 
-.NoteList-card {
-  display: flex;
+.NoteList-card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(33%, 1fr));
+}
+
+.NoteList-card{
   margin: auto;
+  margin-bottom: 30px;
 }
 
 .YourNotes {

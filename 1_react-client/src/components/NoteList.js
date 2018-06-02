@@ -102,7 +102,7 @@ export default class NoteList extends Component {
 
         <body className="NoteList-body">
           <h1 className="YourNotes">Your Notes:</h1>
-          <div className="NoteList-card">
+          <div className="NoteList-card-container">
             {filteredNotes.map(eachNote => (
               <div key={eachNote._id} className="NoteList-card">
                 <Link
