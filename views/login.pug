@@ -1,0 +1,18 @@
+extends layout
+
+block content
+
+  .container(min-width: 576px)
+    p
+    h4 Please Login
+    form(method='POST', action='/users/login')
+      p
+      #form-group
+      label Username:
+      input.form-control(name='username', type='text')
+      p
+      #form-group
+      label Password:
+      input.form-control(name='password', type='password')
+      p
+      input.btn.btn-secondary(type='submit', value='Submit')

@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  p
+  div.card
+    each note, i in notes
+      a.h4.card-header(href="/notes/"+note._id)= note.title
+      div.card-body= note.body
+
+      p
+      p

@@ -1,0 +1,30 @@
+extends layout
+
+block content
+
+  .container(min-width: 576px)
+    p
+    h4 Please Register
+    form(method='POST', action='/users/register')
+      p
+      #form-group
+        label Name:
+        input.form-control(name='name', type='text')
+      p
+      #form-group
+      label Email:
+      input.form-control(name='email', type='text')
+      p
+      #form-group
+      label Username:
+      input.form-control(name='username', type='text')
+      p
+      #form-group
+      label Password:
+      input.form-control(name='password', type='password')
+      p
+      #form-group
+      label Confirm Password:
+      input.form-control(name='password2', type='password')
+      p
+      input.btn.btn-secondary(type='submit', value='Submit')
