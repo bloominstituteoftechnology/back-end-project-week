@@ -1,35 +1,25 @@
 {
-  "name": "back-end-project-week",
+  "name": "nodejswithpug",
   "version": "1.0.0",
-  "description": "This week you will be building a backend for a note taking app called \"Lambda Notes.\"",
-  "main": "index.js",
+  "description": "node with pug",
+  "main": "app.js",
   "scripts": {
-    "start": "node start.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/buddhaplex/back-end-project-week.git"
+    "start": "node app"
   },
   "author": "Eric Andrade",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/buddhaplex/back-end-project-week/issues"
-  },
-  "homepage": "https://github.com/buddhaplex/back-end-project-week#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
-    "dotenv": "^5.0.1",
-    "express": "^4.16.3",
+    "connect-flash": "^0.1.1",
+    "express-messages": "^1.0.1",
+    "express-session": "^1.15.6",
     "express-validator": "^5.2.0",
-    "http-auth": "^3.2.3",
-    "mongodb": "^3.1.0-beta4",
+    "jade": "^1.11.0",
+    "local": "^0.3.3",
     "mongoose": "^5.1.3",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "pug": "^2.0.3"
-  },
-  "devDependencies": {
-    "nodemon": "^1.17.5"
-  },
-  "engines": {
-    "node": "10.1.0"
   }
 }

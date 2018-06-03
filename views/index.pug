@@ -1,15 +1,11 @@
 extends layout
 
 block content
+  p
+  div.card
+    each note, i in notes
+      a.h4.card-header(href="/notes/"+note._id)= note.title
+      div.card-body= note.body
 
-  if registrations.length
-    table.listing-table.table-dark.table-striped
-      tr
-        th Name
-        th Email
-      each registration in registrations
-        tr
-          td= registration.name
-          td= registration.email
-  else
-    p No registrations yet :(
+      p
+      p

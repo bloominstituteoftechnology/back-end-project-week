@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  .container(min-width: 576px)
+    form(method='POST', action='/notes/add')
+      p
+      #form-group
+        label Title:
+        input.form-control(name='title', type='text')
+      p
+      #form-group
+      label Body:
+      textarea.form-control(name='body')
+      p
+      input.btn.btn-secondary(type='submit', value='Submit')

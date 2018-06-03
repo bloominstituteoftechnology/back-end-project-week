@@ -1,12 +1,47 @@
 doctype html
 html
   head
-    title= `${title}`
-    link(rel='stylesheet', href='/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/css/styles.css')
-
+    title Lambda Notes
+    link(rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css')
+    link(rel='stylesheet' href='/css/style.css')
+    
   body
-    div.container.listing-reg
-      h1 Please enter your name and email.
+    nav.navbar.navbar-expand-lg.navbar-dark(style="background-color: #9d1e26")
+      img.image(src='https://workew.com/wp-content/uploads/2018/04/Lambda-School.jpg' height='50' width='50')
+      a.navbar-brand(href='/') LAMBDA NOTES
+      button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarNav.collapse.navbar-collapse
+        ul.nav.navbar-nav
+          li.nav-item.active
+            a.nav-link(href='/')
+              | View Notes
+              span.sr-only (current)
+          if user
+            li.nav-item
+              a.nav-link(href='/notes/add') Add Note
+        ul.nav.navbar-nav.navbar-right
+          if user
+            li 
+              a.nav-link(href='/users/logout') Logout
+          else
+            li
+              a.nav-link(href='/users/register') Register
+            li
+              a.nav-link(href='/users/login') Login
 
+    .container
+      != messages('message', locals)
+      if errors 
+        each error, i in errors
+          p
+          div(class="alert alert-danger") #{error.msg}
       block content
+      br
+      hr
+      footer
+        p Copyright &copy; 2018 
+    
+    script(src='/bower_components/jquery/dist/jquery.js')
+    script(src='/bower_components/bootstrap/dist/js/bootstrap.js')
+    script(src='/js/main.js')

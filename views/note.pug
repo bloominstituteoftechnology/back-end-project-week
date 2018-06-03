@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  p
+  .card
+    h2.card-header= note.title
+    .card-body
+      h6.card-title Written by #{author}
+      p.card-text= note.body 
+      if user
+        if user.id == note.author
+          a.btn.btn-secondary(href='/notes/edit/'+note._id) Edit Note 
+          |
+          |
+          a.btn.btn-danger.delete-note(href='#', data-id=note._id) Delete Note

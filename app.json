@@ -1,6 +1,0 @@
-{
-  "name": "Back End Project Week",
-  "description": "Back end for Lambda Notes app",
-  "repository": "https://github.com/buddhaplex/back-end-project-week",
-  "keywords": ["node", "express", "static"]
-}
