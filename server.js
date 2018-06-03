@@ -9,7 +9,8 @@ server.use(helmet())
 server.use(cors({ 
   origin: "https://lambdanotes-jeffreyflynn.netlify.com", 
   credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  methods: ['GET', 'PUT', 'POST']
 }))
 
 APIroutes(server)
