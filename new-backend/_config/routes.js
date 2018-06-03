@@ -9,5 +9,5 @@ module.exports = function(server) {
 
   server.use("/api/users", userRoutes);
   // server.use("/api/notes", noteRoutes);
-  server.use("api/auth", authRoutes);
+  server.use("/api/auth", authRoutes);
 };
