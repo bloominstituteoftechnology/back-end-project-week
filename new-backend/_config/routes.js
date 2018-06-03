@@ -98,4 +98,57 @@ module.exports = function(server) {
         res.status(500).json(err);
       });
   });
+
+  server.get("/notes", protected, (req, res) => {
+    console.log("getting all notes");
+    Note.find()
+      .then(p => {
+        res.status(200).json(p);
+      })
+      .catch(err => {
+        res.status(500).json({ msg: "we cant display notes " });
+      });
+  });
+
+  server.post("/notes", protected, (req, res) => {
+    console.log("creating note");
+    const note = new Note(req.body);
+
+    note
+      .save()
+      .then(newNote => {
+        res.status(201).json(newNote);
+      })
+      .catch(err => {
+        res.json({ message: "Error creating note", err });
+      });
+  });
+
+  server.get("notes/:id", protected, (req, res) => {
+    console.log("fetching note");
+    const { id } = req.params;
+    Note.findById(id)
+      .then(p => {
+        res.status(200).json(p);
+      })
+      .catch(err => {
+        res.status(500).json({ msg: "we cant display the note " });
+      });
+  });
+
+  server.put("notes/", protected, (req, res) => {
+    console.log("updating note");
+    const { id, title, content } = new Note(req.body);
+    Note.findByIdAndUpdate(id, { title, content })
+      .then(updatedNote => res.json({ "note updated": updatedNote }))
+      .catch(err => res.status(500).json(err));
+  });
+
+  server.delete("/notes", protected, (req, res) => {
+    console.log("deleting note");
+    const id = req.body.id;
+    Note.findByIdAndRemove(id)
+      .then(deletedNote => res.json({ "note deleted": deletedNote }))
+      .catch(err => res.status(500).json(err));
+  });
 };
