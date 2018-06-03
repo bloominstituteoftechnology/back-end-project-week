@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
+const JwtStrategy = require("passport-jwt").Strategy;
+const { ExtractJwt } = require("passport-jwt");
 
 const User = require("../users/User");
 const mySecret = "Flint still doesnt have clean water";
@@ -29,7 +31,12 @@ const localStrategy = new LocalStrategy(function(username, password, done) {
     .catch(err => done(err));
 });
 
-const jwtStrategy = new jwtStrategy(jwtOptions, function(payload, done) {
+const jwtOptions = {
+  secretOrKey: mySecret,
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken
+};
+
+const jwtStrategy = new JwtStrategy(jwtOptions, function(payload, done) {
   User.findById(payload.sub)
     .then(user => {
       if (user) {
