@@ -29,9 +29,25 @@ const localStrategy = new LocalStrategy(function(username, password, done) {
     .catch(err => done(err));
 });
 
+const jwtStrategy = new jwtStrategy(jwtOptions, function(payload, done) {
+  User.findById(payload.sub)
+    .then(user => {
+      if (user) {
+        const { _id, username } = user;
+        done(null, { _id, username });
+      } else {
+        return done(null, false);
+      }
+    })
+    .catch(err => done(err));
+});
+
 passport.use(localStrategy);
+passport.use(jwtStrategy);
+
 const passportOptions = { session: false };
 const authenticate = passport.authenticate("local", passportOptions);
+const protected = passport.authenticate("jwt", passportOptions);
 
 function makeToken(user) {
   const timestamp = new Date().getTime();
@@ -63,5 +79,16 @@ module.exports = function(server) {
 
   server.post("/login", authenticate, (req, res) => {
     res.status(200).json({ user: req.user, token: makeToken(req.user) });
+  });
+
+  server.get("/users", protected, (req, res) => {
+    User.find()
+      .select("username")
+      .then(users => {
+        res.json(users);
+      })
+      .catch(err => {
+        res.status(500).json(err);
+      });
   });
 };
