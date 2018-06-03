@@ -25,9 +25,9 @@ const localStrategy = new LocalStrategy(function(username, password, done) {
     .catch(err => done(err));
 });
 
-passport.use(localStorage);
-
-const authenticate = passport.authenticate("local", { sessions: false });
+passport.use(localStrategy);
+const passportOptions = { session: false };
+const authenticate = passport.authenticate("local", passportOptions);
 
 function makeToken(user) {
   const timestamp = new Date().getTime();
@@ -51,7 +51,8 @@ module.exports = function(server) {
     User.create(req.body)
       .then(user => {
         const token = makeToken(user);
-        res.status(201).json({ user, token });
+        const { _id, username } = user;
+        res.status(201).json({ _id, username, token });
       })
       .catch(err => res.status(500).json(err));
   });
