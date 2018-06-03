@@ -6,7 +6,7 @@ let Note = require('../models/note');
 let User = require('../models/user');
 
 // Add Note
-router.get('/add', function(req,res){
+router.get('/add', ensureAuthenticated, function(req,res){
   res.render('add_note', {
     title:'Add Note'
   });
@@ -22,7 +22,7 @@ router.post('/add', function(req,res){
 
   if(errors){
     res.render('add_note', {
-      errors: errors
+      errors:errors
     });
   } else {
     let note = new Note();
@@ -43,7 +43,7 @@ router.post('/add', function(req,res){
 });
 
 // Load Edit Form of Single Note
-router.get('/edit/:id', function(req,res){
+router.get('/edit/:id', ensureAuthenticated, function(req,res){
   Note.findById(req.params.id, function(err, note){
     if(note.author != req.user._id){
       req.flash('danger', 'Not authorized.');
@@ -78,14 +78,14 @@ router.post('/edit/:id', function(req,res){
 // Delete Note
 router.delete('/:id', function(req, res){
   if(!req.user._id){
-    res.status(500).send();
+    res.status(422).send();
   }
 
   let query = {_id:req.params.id}
 
   Note.findById(req.params.id, function(err, note){
     if(note.author != req.user._id){
-      res.status(500).send();
+      res.status(422).send();
     } else {
       Note.remove(query, function(err){
         if(err){
@@ -102,14 +102,14 @@ router.get('/:id', function(req,res){
   Note.findById(req.params.id, function(err, note){
     User.findById(note.author, function(err, user){
       res.render('note', {
-        note: note,
+        note:note,
         author: user.name
       });
     });
   });
 });
 
-// Access control
+// Access Control here
 function ensureAuthenticated(req, res, next) {
   if(req.isAuthenticated()){
     return next();
