@@ -33,7 +33,7 @@ const localStrategy = new LocalStrategy(function(username, password, done) {
 
 const jwtOptions = {
   secretOrKey: mySecret,
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
 };
 
 const jwtStrategy = new JwtStrategy(jwtOptions, function(payload, done) {
