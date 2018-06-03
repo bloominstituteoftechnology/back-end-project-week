@@ -5,6 +5,7 @@ const JwtStrategy = require("passport-jwt").Strategy;
 const { ExtractJwt } = require("passport-jwt");
 
 const User = require("../users/User");
+const Note = require("../notes/Note");
 const mySecret = "Flint still doesnt have clean water";
 
 const localStrategy = new LocalStrategy(function(username, password, done) {
@@ -124,7 +125,7 @@ module.exports = function(server) {
       });
   });
 
-  server.get("notes/:id", protected, (req, res) => {
+  server.get("/notes/:id", protected, (req, res) => {
     console.log("fetching note");
     const { id } = req.params;
     Note.findById(id)
@@ -136,7 +137,7 @@ module.exports = function(server) {
       });
   });
 
-  server.put("notes/", protected, (req, res) => {
+  server.put("/notes", protected, (req, res) => {
     console.log("updating note");
     const { id, title, content } = new Note(req.body);
     Note.findByIdAndUpdate(id, { title, content })
