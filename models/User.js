@@ -35,10 +35,11 @@ User.pre("save", function(next) {
 });
 
 User.methods.validatePassword = function(passwordGuess) {
+  console.log(passwordGuess);
   return bcrypt.compare(passwordGuess, this.password);
 };
 
-// User.methods.checkPassword = function(plainTextPW, callBack) {
+// User.methods.validatePassword = function(plainTextPW, callBack) {
 //   // https://github.com/kelektiv/node.bcrypt.js#usage
 //   // Fill this method in with the Proper password comparing, bcrypt.compare()
 //   // Your controller will be responsible for sending the information here for password comparison

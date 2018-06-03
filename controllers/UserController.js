@@ -37,6 +37,7 @@ const createUser = (req, res) => {
 const login = (req, res) => {
   res.status(200).json({ token: makeToken(req.user), user: req.user });
 };
+
 // const login = (req, res) => {
 //   const { username, password } = req.body;
 //   User.findOne({ username }, (err, user) => {
