@@ -14,8 +14,12 @@ const localStrategy = new LocalStrategy(function(username, password, done) {
         user
           .validatePassword(password)
           .then(isValid => {
-            const { _id, username } = user;
-            return done(null, { _id, username });
+            if (isValid) {
+              const { _id, username } = user;
+              return done(null, { _id, username });
+            } else {
+              return done(null, false);
+            }
           })
           .catch(err => {
             return done(err);
@@ -58,6 +62,6 @@ module.exports = function(server) {
   });
 
   server.post("/login", authenticate, (req, res) => {
-    res.status(200).json({ token: makeToken(req.user), user: req.user });
+    res.status(200).json({ user: req.user, token: makeToken(req.user) });
   });
 };
