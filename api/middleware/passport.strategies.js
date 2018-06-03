@@ -21,7 +21,7 @@ const localStrategy = new LocalStrategy((username, password, done) => {
 // extracts token --> decodes token --> finds user from payload data
 const JWTstrategy = new JwtStrategy({
   jwtFromRequest: ExtractJwt.fromHeader('Authorization'), 
-  secretOrKey: 'secret' // process.env.SECRET
+  secretOrKey: process.env.SECRET
 }, async (payload, done) => {
   User
     .findById(payload.id)
