@@ -17,7 +17,7 @@ const userSchema = mongoose.Schema({
   }
 });
 
-User.pre("save", function(next) {
+userSchema.pre("save", function(next) {
   return bcrypt
     .hash(this.password, SALT_ROUNDS)
     .then(hash => {
@@ -33,4 +33,4 @@ userSchema.methods.validatePassword = function(passwordGuess) {
   return bcrypt.compare(passwordGuess, this.password);
 };
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("User", userSchema, "users");
