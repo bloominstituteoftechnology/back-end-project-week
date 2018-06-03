@@ -6,7 +6,7 @@ const server = express();
 
 server.use(express.json())
 server.use(helmet())
-server.use(cors())
+server.use(cors({origin: "https://lambdanotes-jeffreyflynn.netlify.com"}))
 
 APIroutes(server)
 
