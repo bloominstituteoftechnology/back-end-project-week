@@ -3,7 +3,7 @@ const User = require("./User");
 
 router.get("/", (req, res) => {
   User.find()
-    .select("username") //pulls out the hash of the pw
+    .select("username")
     .then(users => {
       res.json(users);
     })
