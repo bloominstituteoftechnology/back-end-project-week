@@ -1,49 +1,59 @@
-import React, { Component } from 'react';
-import Note from './Note';
-import { connect } from 'react-redux';
-
+import React, { Component } from "react";
+import Note from "./Note";
+import { connect } from "react-redux";
+import axios from "axios";
 
 class ListView extends Component {
+  componentDidMount() {
+    axios
+      .get("https://yasin-lambda-notes.herokuapp.com/notes")
+      .then(response => {
+        this.setState(() => {
+          notes: response.data;
+        }).catch(err => {
+          console.log("error retirving notes", err);
+        });
+      });
+  }
 
-	shouldComponentUpdate = nextProps => {
-		if(nextProps.notes !== this.props.notes) return true;
-		else return false;
-	}
+  shouldComponentUpdate = nextProps => {
+    if (nextProps.notes !== this.props.notes) return true;
+    else return false;
+  };
 
   render = () => {
     const { notes, history } = this.props;
     console.log(this.props);
     return (
       <div className="page list-view">
-      	<div>
-      		<h2>Your Notes</h2>
-      		<div className='notes'>
-      			{
-      				notes.map((note, i) => {
-      					const { id, title, text, completed } = note;
-      					return (
-                  <Note
-                    key={id}
-                    id={id}
-                    index={i}
-                    title={title}
-                    text={text}
-                    completed={completed}
-                    history={history} />
-                );
-      				})
-      			}
-      		</div>
-      	</div>
+        <div>
+          <h2>Your Notes</h2>
+          <div className="notes">
+            {notes.map((note, i) => {
+              const { id, title, text, completed } = note;
+              return (
+                <Note
+                  key={id}
+                  id={id}
+                  index={i}
+                  title={title}
+                  text={text}
+                  completed={completed}
+                  history={history}
+                />
+              );
+            })}
+          </div>
+        </div>
       </div>
     );
-  }
+  };
 }
 
 const mSTP = state => {
   return {
     notes: state
-  }
-}
+  };
+};
 
 export default connect(mSTP)(ListView);
