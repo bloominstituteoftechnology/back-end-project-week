@@ -1,6 +1,6 @@
 const express = require("express");
 
-// const port = process.env.PORT || 3333;
+const port = process.env.PORT || 3333;
 const db = require("./_config/db");
 const setupMiddleware = require("./_config/middleware");
 const setupRoutes = require("./_config/routes");
@@ -15,8 +15,7 @@ db
 setupMiddleware(server);
 setupRoutes(server);
 
-server.listen(process.env.PORT || 3333, err => {
+server.listen(port, err => {
   if (err) console.log(err);
   console.log(`server running on port ${port}`);
 });
-//
