@@ -45,10 +45,11 @@ const secret = 'yo dude';
 // for login
 const localStrategy = new LocalStrategy(
   function(username, password, done) {
-    User.findOne({ username: username }, function(err, user) {
+    User.findOne({ username: username }, async function(err, user) {
+      const passwordMatch = await user.verifyPassword(password);
       if (err) return done(err);
       if (!user) return done(null, false);
-      if (!user.verifyPassword(password)) return done(null, false);
+      if (!passwordMatch) return done(null, false);
 
       return done(null, user); // user gets pass on to request
     });
@@ -63,7 +64,8 @@ const jwtOptions = {
 // for protect api routes
 const jwtStrategy = new JwtStrategy(jwtOptions, function(jwtPayload, done) {
   // here the token was decoded successfully
-  User.findOne({id: jwtPayload.sub},'-_password -__v', function(err, user) {
+  User.findOne({_id: jwtPayload.sub}, function(err, user) {
+    console.log('got here!!!', user);
     if (err) return done(err);
     if (user) return done(null, user);
     if (!user) return done(null, false); 
@@ -90,7 +92,6 @@ function makeToken(user) {
   const options = {
     expiresIn: '24h',
   };
-
   return jwt.sign(payload, secret, options);
 }
 
@@ -98,7 +99,6 @@ function makeToken(user) {
 
 
 server.post('/register', asyncHandler(async (req, res) => {
-    // const response = await Category.find({}, '-_id -__v')
   let user = await User.create(req.body);
   const token = makeToken(user);
 
@@ -117,23 +117,23 @@ server.get('/logout', asyncHandler((req, res) => {
   res.redirect('/');
 }));
 
-server.post('/api/notes',  asyncHandler(async (req, res) => {
+server.post('/api/notes', protected, asyncHandler(async (req, res) => {
   const response = await Note.create(req.body)
   res.status(201).json(response);
 }));
 
-server.get('/api/notes',  asyncHandler(async (req, res) => {
+server.get('/api/notes', protected, asyncHandler(async (req, res) => {
   const response = await Note.find()
   res.status(200).json(response);
 }));
 
-server.get('/api/notes/:id',  asyncHandler(async (req, res) => {
+server.get('/api/notes/:id', protected, asyncHandler(async (req, res) => {
   const response = await Note.findById(req.params.id)
     || `Note with id ${req.params.id} not found`;
   res.status(200).json(response);
 }));
 
-server.put('/api/notes/:id',  asyncHandler(async (req, res) => {
+server.put('/api/notes/:id', protected, asyncHandler(async (req, res) => {
   // const sentScore = sentiment.analyze(req.body.content);
   // req.body.sentiment = sentScore.score;
   // req.body.comparative = sentScore.comparative;
@@ -157,7 +157,7 @@ server.put('/api/notes/:id',  asyncHandler(async (req, res) => {
   res.status(200).json(response);
 }));
 
-server.delete('/api/notes/:id',  asyncHandler(async (req, res) => {
+server.delete('/api/notes/:id', protected, asyncHandler(async (req, res) => {
   const response = await Note.findByIdAndRemove(req.params.id)
     || `Note with id ${req.params.id} not found`;
   res.status(200).json({ message: `Note with id ${response._id} deleted.`});
