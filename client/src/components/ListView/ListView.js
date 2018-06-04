@@ -8,8 +8,9 @@ class ListView extends Component {
     axios
       .get("https://yasin-lambda-notes.herokuapp.com/notes")
       .then(response => {
-        this.setState(() => {
-          notes: response.data;
+        const notes = response.data;
+        this.setState({
+          notes
         }).catch(err => {
           console.log("error retirving notes", err);
         });
