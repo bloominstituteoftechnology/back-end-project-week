@@ -1,1 +1,16 @@
+# Node build artifacts
+/node_modules
+*npm*
+npm-debug.log
+*config*
+
+# Local development
+*.env
+*.dev
 .DS_Store
+
+# Docker
+Dockerfile
+docker-compose.yml
+yarn-error.log
+yarn.lock
