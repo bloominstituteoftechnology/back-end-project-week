@@ -13,7 +13,6 @@ export default class App extends Component {
     this.state = {
       notes: []
     };
-    this.editNote = this.editNote.bind(this);
   }
 
   update = () => {
@@ -28,20 +27,6 @@ export default class App extends Component {
   componentDidMount() {
     this.update();
   }
-  editNote = newNote => {
-    console.log(newNote);
-    let { notes } = this.state;
-    const idx = notes.findIndex(el => el.id === newNote.id);
-    notes.splice(idx, 1, newNote);
-    console.log("editNote state", notes);
-    this.setState({ notes: notes });
-  };
-
-  deleteNote = id => {
-    const newNotes = this.state.notes.filter(note => note.id !== Number(id));
-    this.setState({ notes: newNotes });
-    console.log("from app -- delete", newNotes);
-  };
 
   render() {
     return (
