@@ -1,22 +1,8 @@
 import React, { Component } from "react";
 import Note from "./Note";
 import { connect } from "react-redux";
-import axios from "axios";
 
 class ListView extends Component {
-  componentDidMount() {
-    axios
-      .get("https://yasin-lambda-notes.herokuapp.com/notes")
-      .then(response => {
-        const notes = response.data;
-        this.setState({
-          notes
-        }).catch(err => {
-          console.log("error retirving notes", err);
-        });
-      });
-  }
-
   shouldComponentUpdate = nextProps => {
     if (nextProps.notes !== this.props.notes) return true;
     else return false;
