@@ -7,6 +7,7 @@ Mongodb hosted on mlabs
 Server documentation:
 /api/users GET gets a list of all users
 /api/users/:id GET DEL gets or deletes the given _id
+/api/users/:id/notes GET Returns an array of notes for the given userid
 /api/users/login POST for login
 /api/users/register POST for register
 

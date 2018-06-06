@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const User = require("./userModel");
+const Notes = require("../notes/noteModel");
 const config = require("../config");
 const { authenticate } = require("../middlewares/middlewares");
 
@@ -13,6 +14,20 @@ router
       })
       .catch(err => {
         res.status(500).json(err);
+      });
+  })
+  .get("/:id/notes", authenticate, (req, res) => {
+    let searchId = req.params.id;
+    Notes.find({ userid: searchId })
+      .then(notes => {
+        if (notes === null)
+          res.status(404).json({
+            message: "No notes exist for this user."
+          });
+        else res.status(200).json(notes);
+      })
+      .catch(error => {
+        res.status(500).json({ error: error });
       });
   })
   .delete("/:id", authenticate, (req, res) => {
@@ -29,7 +44,9 @@ router
             .json({ message: "User was successfully removed.", user: user });
       })
       .catch(error => {
-        res.status(500).json({ message: "The user could not be removed" }, err);
+        res
+          .status(500)
+          .json({ message: "The user could not be removed", error: error });
       });
   })
   .get("/:id", authenticate, (req, res) => {
