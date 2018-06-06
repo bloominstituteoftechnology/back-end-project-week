@@ -1,24 +1,37 @@
 const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const Note = require("./noteModel");
+const User = require("../users/userModel");
 const config = require("../config");
 
 router
   .route("/")
-  .get((req, res) => {
-    Note.find({ userid: req.decoded.id })
-      .then(notes => {
-        res.status(200).json(notes);
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json(
-            { errorMessage: "The notes information could not be retrieved." },
-            err
-          );
+  .get(async (req, res) => {
+    try {
+      const notes = await Note.find({ userid: req.decoded.id });
+      const name = await User.findById(req.decoded.id).select("username");
+      res.status(200).json({ notes, name });
+    } catch (error) {
+      res.status(500).json({
+        errorMessage: "There was an error retrieving your notes.",
+        error
       });
+    }
   })
+  //  working test code to populate the username instead of sending as a separate field
+  // .get((req, res) => {
+  //   Note.find({ userid: req.decoded.id })
+  //     .populate("userid", "username")
+  //     .then(notes => {
+  //       res.status(200).json(notes);
+  //     })
+  //     .catch(error => {
+  //       res.status(500).json({
+  //         errorMessage: "The notes information could not be retrieved.",
+  //         error
+  //       });
+  //     });
+  // })
   .post((req, res) => {
     const userid = req.decoded.id;
     const noteData = { ...req.body, userid };
@@ -34,7 +47,7 @@ router
       .then(note => {
         res.status(201).json(note);
       })
-      .catch(err => {
+      .catch(error => {
         res.status(500).json({
           errorMessage:
             "There was an error while saving the note to the database."
@@ -54,12 +67,10 @@ router
         else res.status(200).json(note);
       })
       .catch(error => {
-        res
-          .status(500)
-          .json(
-            { message: "The note information could not be retrieved." },
-            err
-          );
+        res.status(500).json({
+          message: "The note information could not be retrieved.",
+          error
+        });
       });
   })
   .delete((req, res) => {
@@ -72,7 +83,9 @@ router
         else res.status(200).json(note);
       })
       .catch(error => {
-        res.status(500).json({ message: "The note could not be removed" }, err);
+        res
+          .status(500)
+          .json({ message: "The note could not be removed", error });
       });
   })
   .put((req, res) => {
@@ -89,7 +102,7 @@ router
             });
           else res.status(200).json(note);
         })
-        .catch(err => {
+        .catch(error => {
           res.status(500).json({
             errorMessage: "The note information could not be modified."
           });

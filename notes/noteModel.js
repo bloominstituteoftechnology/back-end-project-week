@@ -12,7 +12,7 @@ const noteModel = new Schema({
   },
   userid: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "users",
+    ref: "User",
     required: true
   }
 });
