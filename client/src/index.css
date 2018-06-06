@@ -14,6 +14,12 @@ html, body
 a {
   color: inherit;
 }
+
+h4 {
+  margin-top: 0;
+  margin-bottom: 0.9em;
+}
+
 #root {
   height: 100%;
   display: flex;

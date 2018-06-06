@@ -18,6 +18,12 @@ exports.data = {
             content: 'What s up?',
             ownerId: 2
         },
+        {
+            id: 3,
+            title: 'Last note',
+            content: 'Anybody home?',
+            ownerId: 2
+        }
     ],
     users: [
         {

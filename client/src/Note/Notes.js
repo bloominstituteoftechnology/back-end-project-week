@@ -1,7 +1,19 @@
 import React, { Component } from 'react';
 import db from '../dummyData.js';
-
 import { Link } from 'react-router-dom';
+import injectSheet from 'react-jss';
+
+import Note from './Note';
+
+const styles = theme => ({
+  notes: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    width: '100%',
+    flexGrow: 1,
+    alignItems: 'flex-start'
+  }
+})
 
 class Notes extends Component {
   state = {
@@ -11,15 +23,16 @@ class Notes extends Component {
     this.setState({ notes: db.data.notes })
   }
   render() {
-    const { notes } = this.state;
+    const { notes } = this.state
+    const { classes } = this.props
     return (
-      <div>
+      <div className={classes.notes}>
         {notes.map((note, index) =>
-          <div key={index}>{note.title} - {note.content}</div>
+          <Note key={index} {...note} />
         )}
       </div>
     );
   }
 }
 
-export default Notes;
+export default injectSheet(styles)(Notes);

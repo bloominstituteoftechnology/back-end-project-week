@@ -18,7 +18,7 @@ class Wheel extends Component {
     const rotateDeg = 0 - distance_between_icons
     return (
       <div className={classes.root}>
-        <div className={classes.primaryButton}>
+        <div className={[classes.primaryButton, classes.highlightButton].join(' ')}>
           <FontAwesomeIcon icon='plus' />
         </div>
         {iconList.map((iconSet, index) =>
