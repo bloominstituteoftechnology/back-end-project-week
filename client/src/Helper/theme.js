@@ -65,8 +65,7 @@ const theme = {
         // border: '2px solid black',
         borderRadius: 4,
         boxShadow: `0 0 3px 1px ${core.palette.yellow.dark}`,
-        width: '20%',
-        marginTop: core.spacing * 2,
+        margin: core.spacing * 2,
         height: core.spacing * 30,
     }
 }

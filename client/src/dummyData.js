@@ -4,25 +4,41 @@ exports.data = {
             id: 0,
             title: 'First note',
             content: 'I am the first note',
-            ownerId: 1
+            ownerId: 1,
+            col: 0,
+            row: 0
         },
         {
             id: 1,
             title: 'Second note',
             content: 'Hello',
             ownerId: 1,
+            col: 0,
+            row: 1
         },
         {
             id: 2,
             title: 'Third note',
             content: 'What s up?',
-            ownerId: 2
+            ownerId: 2,
+            col: 2,
+            row: 0,
         },
         {
             id: 3,
-            title: 'Last note',
+            title: 'Third note',
             content: 'Anybody home?',
-            ownerId: 2
+            ownerId: 2,
+            col: 3,
+            row: 0
+        },
+        {
+            id: 4,
+            title: 'Last note',
+            content: 'Thuy was here',
+            ownerId: 2,
+            col: 1,
+            row: 0
         }
     ],
     users: [

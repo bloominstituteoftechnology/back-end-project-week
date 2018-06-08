@@ -32,7 +32,7 @@ class NoteContainer extends Component {
     //fetch all notes
     setTimeout(() => {
       this.setState({ isLoading: false })
-    }, 8000)
+    }, 1000)
   }
   render() {
     const { classes } = this.props;
