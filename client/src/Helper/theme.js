@@ -26,6 +26,25 @@ const core = {
 
 const theme = {
     spacing: 8,
+    input: {
+        border: 'none',
+        background: 'none',
+        width: '100%',
+        paddingBottom: '0.9em'
+    },
+    textarea: {
+        border: 'none',
+        background: 'none',
+        width: '100%',
+        paddingBottom: '0.9em',
+        resize: 'none'
+    },
+    typography: {
+        h4: {
+            fontSize: '1.2em',
+            fontWeight: 'bold'
+        }
+    },
     button: {
         primary: {
             backgroundColor: core.palette.primary.main,
@@ -67,7 +86,27 @@ const theme = {
         boxShadow: `0 0 3px 1px ${core.palette.yellow.dark}`,
         margin: core.spacing * 2,
         height: core.spacing * 30,
-    }
+        textAlign: 'left',
+    },
+    selectedNoteWrapper: {
+        position: 'absolute',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    },
+    selectedNote: {
+        backgroundColor: core.palette.yellow.main,
+        padding: core.spacing * 2,
+        borderRadius: 4,
+        boxShadow: `0 0 3px 1px ${core.palette.yellow.dark}`,
+        height: '50vh',
+        width: '50vw',
+        textAlign: 'left',
+        display: 'flex',
+        flexDirection: 'column'
+    },
+
 }
 
 export default theme;

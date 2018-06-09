@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Helper/IconLibrary'; //build custom fontawsome library of icons
 import injectSheet from 'react-jss';
 
-import NoteContainer from './Note/NoteContainer';
+import Container from './Navigation/Container';
 import Wheel from './Navigation/Wheel';
 
 const styles = {
@@ -18,7 +18,7 @@ class App extends Component {
     const { classes } = this.props
     return (
       <div className={classes.root}>
-        <NoteContainer />
+        <Container />
         <Wheel />
       </div>
     );

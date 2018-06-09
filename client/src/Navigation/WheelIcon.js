@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { withRouter } from 'react-router-dom';
 
 class WheelIcon extends Component {
     state = {
@@ -12,12 +13,20 @@ class WheelIcon extends Component {
     handleMouseLeave = () => {
         this.setState({ hover: false })
     }
+    handleClick = () => {
+        this.props.history.push(`/${this.props.name}`)
+    }
     render() {
         const { classes, children, name } = this.props
         const iconClassName = this.state.hover ? [classes.secondaryButton, classes.wheelDistance, classes.hover].join(' ') : [classes.secondaryButton, classes.wheelDistance].join(' ')
         const tooltipClassName = this.state.hover ? [classes.tooltip, classes.tooltipDistance, classes.fadeIn].join(' ') : [classes.tooltip, classes.tooltipDistance, classes.fadeOut].join(' ')
         return (
-            <div className={iconClassName} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
+            <div
+                className={iconClassName}
+                onMouseEnter={this.handleMouseEnter}
+                onMouseLeave={this.handleMouseLeave}
+                onClick={this.handleClick}
+            >
                 <div>
                     {children}
                 </div>
@@ -60,4 +69,4 @@ const styles = theme => ({
     },
 })
 
-export default injectSheet(styles)(WheelIcon);
+export default withRouter(injectSheet(styles)(WheelIcon));

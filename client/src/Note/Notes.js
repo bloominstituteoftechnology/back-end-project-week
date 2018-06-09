@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import db from '../dummyData.js';
 import { Link } from 'react-router-dom';
 import injectSheet from 'react-jss';
-import { applyDrag } from '../Helper/applyDrag';
 
 import Note from './Note';
 import Group from './Group';
@@ -66,23 +65,17 @@ class Notes extends Component {
 
     }
 
-    console.log(updatedNotes)
     this.setState({ [`notes${group}`]: updatedNotes });
-
-
-
-    // console.log(updatedNotes)
-    // this.setState({ notes: updatedNotes })
   }
   render() {
     const { notes0, notes1, notes2, notes3 } = this.state
     const { classes } = this.props
     return (
       <div className={classes.notes}>
-        <Group notes={notes0} group={0} handleDrop={this.handleDrop} />
-        <Group notes={notes1} group={1} handleDrop={this.handleDrop} />
-        <Group notes={notes2} group={2} handleDrop={this.handleDrop} />
-        <Group notes={notes3} group={3} handleDrop={this.handleDrop} />
+        <Group notes={notes0} group={0} handleDrop={this.handleDrop} handleOpenNote={this.props.handleOpenNote} />
+        <Group notes={notes1} group={1} handleDrop={this.handleDrop} handleOpenNote={this.props.handleOpenNote} />
+        <Group notes={notes2} group={2} handleDrop={this.handleDrop} handleOpenNote={this.props.handleOpenNote} />
+        <Group notes={notes3} group={3} handleDrop={this.handleDrop} handleOpenNote={this.props.handleOpenNote} />
 
       </div>
     );

@@ -11,7 +11,7 @@ exports.data = {
         {
             id: 1,
             title: 'Second note',
-            content: 'Hello',
+            content: '*Hello*',
             ownerId: 1,
             col: 0,
             row: 1
@@ -19,7 +19,7 @@ exports.data = {
         {
             id: 2,
             title: 'Third note',
-            content: 'What s up?',
+            content: '### What s up? `<code>newCodehere</code>`',
             ownerId: 2,
             col: 2,
             row: 0,

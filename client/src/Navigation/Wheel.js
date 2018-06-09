@@ -5,10 +5,10 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import WheelIcon from './WheelIcon';
 
 const iconList = [
-  { name: 'setting', icon: 'cog' },
+  { name: 'settings', icon: 'cog' },
   { name: 'account', icon: 'user' },
-  { name: 'list', icon: 'clipboard-list' },
-  { name: 'tag', icon: 'tags' },
+  { name: 'lists', icon: 'clipboard-list' },
+  { name: 'tags', icon: 'tags' },
   { name: 'notes', icon: 'sticky-note' }]
 
 class Wheel extends Component {
@@ -39,6 +39,8 @@ class Wheel extends Component {
 
 const styles = theme => ({
   root: {
+    position: 'absolute',
+    bottom: 0,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

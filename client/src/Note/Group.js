@@ -20,7 +20,7 @@ class Group extends Component {
                     orderedNotes.map(note => {
                         return (
                             <Draggable key={note.id}>
-                                <Note {...note} />
+                                <Note {...note} handleOpenNote={this.props.handleOpenNote} />
                             </Draggable>
                         );
                     })
