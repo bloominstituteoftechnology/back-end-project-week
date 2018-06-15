@@ -7,6 +7,7 @@ import * as supernote from '../supernote.json';
 
 import Notes from '../Note/Notes';
 import SelectedNote from '../Note/SelectedNote';
+import NewNote from '../Note/NewNote';
 
 const styles = {
   root: {
@@ -31,8 +32,6 @@ class Container extends Component {
   state = {
     notes: [],
     isLoading: true,
-    isSelectingNote: false,
-    selectedNoteId: ''
   }
   componentDidMount = () => {
     //fetch all notes
@@ -40,20 +39,8 @@ class Container extends Component {
       this.setState({ isLoading: false })
     }, 1000)
   }
-  handleOpenNote = (id) => {
-    this.setState({
-      isSelectingNote: true,
-      selectedNoteId: id
-    })
-  }
-  handleCloseNote = () => {
-    this.setState({
-      isSelectingNote: false,
-      selectedNoteId: ''
-    })
-  }
   render() {
-    const { classes } = this.props;
+    const { classes, isSelectingNote, isCreatingNote, selectedNoteId } = this.props;
     const defaultOptions = {
       loop: true,
       autoplay: true,
@@ -73,16 +60,21 @@ class Container extends Component {
           </div>
           :
           <div className={classes.width100}>
-            <Route exact path='/' render={(props) => <Notes {...props} handleOpenNote={this.handleOpenNote} />} />
-            <Route path='/notes' render={(props) => <Notes {...props} handleOpenNote={this.handleOpenNote} />} />
+            <Route exact path='/' render={(props) => <Notes {...props} handleOpenNote={this.props.handleOpenNote} />} />
+            <Route path='/notes' render={(props) => <Notes {...props} handleOpenNote={this.props.handleOpenNote} />} />
             {/* <Route path='/tags' render={(props) => <div {...props}></div>} />
             <Route path='/lists' render={(props) => <div {...props}></div>} />
             <Route path='/account' render={(props) => <div {...props}></div>} />
             <Route path='/settings' render={(props) => <div {...props}></div>} /> */}
           </div>
         }
-        {this.state.isSelectingNote ?
-          <SelectedNote id={this.state.selectedNoteId} handleCloseNote={this.handleCloseNote} />
+        {isSelectingNote ?
+          <SelectedNote id={selectedNoteId} handleCloseNote={this.props.handleCloseNote} />
+          :
+          ''
+        }
+        {isCreatingNote ?
+          <NewNote id={selectedNoteId} handleSaveNote={this.props.handleSaveNote} />
           :
           ''
         }

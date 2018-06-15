@@ -14,12 +14,54 @@ const styles = {
 }
 
 class App extends Component {
+  state = {
+    isSelectingNote: false,
+    selectedNoteId: '',
+    isCreatingNote: false,
+  }
+  handleOpenNote = (id) => {
+    this.setState({
+      isSelectingNote: true,
+      selectedNoteId: id
+    })
+  }
+  handleCloseNote = () => {
+    this.setState({
+      isSelectingNote: false,
+      selectedNoteId: ''
+    })
+  }
+  handleCreateNote = () => {
+    this.setState({
+      isCreatingNote: true,
+      selectedNoteId: Math.floor((Math.random() * 100) + 1)
+    })
+  }
+  handleSaveNote = () => {
+    // todo: add new note to db
+
+    // clear the new note
+    this.setState({
+      isCreatingNote: false,
+      selectedNoteId: ''
+    })
+  }
   render() {
     const { classes } = this.props
+    const { isSelectingNote, isCreatingNote, selectedNoteId } = this.state
     return (
       <div className={classes.root}>
-        <Container />
-        <Wheel />
+        <Container
+          handleOpenNote={this.handleOpenNote}
+          handleCloseNote={this.handleCloseNote}
+          handleSaveNote={this.handleSaveNote}
+          isSelectingNote={isSelectingNote}
+          isCreatingNote={isCreatingNote}
+          selectedNoteId={selectedNoteId}
+        />
+        <Wheel
+          handleCreateNote={this.handleCreateNote}
+        />
       </div>
     );
   }

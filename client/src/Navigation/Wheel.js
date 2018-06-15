@@ -18,7 +18,10 @@ class Wheel extends Component {
     const rotateDeg = 0 - distance_between_icons
     return (
       <div className={classes.root}>
-        <div className={[classes.primaryButton, classes.highlightButton].join(' ')}>
+        <div className={classes.rightCorner}>
+          <FontAwesomeIcon icon='trash-alt' />
+        </div>
+        <div className={[classes.primaryButton, classes.highlightButton].join(' ')} onClick={this.props.handleCreateNote}>
           <FontAwesomeIcon icon='plus' />
         </div>
         {iconList.map((iconSet, index) =>
@@ -39,6 +42,7 @@ class Wheel extends Component {
 
 const styles = theme => ({
   root: {
+    width: '100%',
     position: 'absolute',
     bottom: 0,
     display: 'flex',
@@ -46,6 +50,13 @@ const styles = theme => ({
     alignItems: 'center',
   },
   primaryButton: theme.button.primary,
+  rightCorner: {
+    ...theme.button.secondary,
+    position: 'absolute',
+    bottom: 10,
+    left: 10,
+    margin: '50px 50px 0 0'
+  }
 })
 
 export default injectSheet(styles)(Wheel);
