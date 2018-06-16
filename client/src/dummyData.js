@@ -6,7 +6,7 @@ exports.data = {
             content: 'I am the first note',
             ownerId: 1,
             col: 0,
-            row: 0
+            row: 1
         },
         {
             id: 1,
@@ -14,7 +14,7 @@ exports.data = {
             content: '*Hello*',
             ownerId: 1,
             col: 0,
-            row: 1
+            row: 0
         },
         {
             id: 2,
@@ -29,7 +29,7 @@ exports.data = {
             title: 'Third note',
             content: 'Anybody home?',
             ownerId: 2,
-            col: 3,
+            col: 1,
             row: 0
         },
         {
@@ -37,7 +37,7 @@ exports.data = {
             title: 'Last note',
             content: 'Thuy was here',
             ownerId: 2,
-            col: 1,
+            col: 3,
             row: 0
         }
     ],

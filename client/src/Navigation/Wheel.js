@@ -7,6 +7,7 @@ import WheelIcon from './WheelIcon';
 const iconList = [
   { name: 'settings', icon: 'cog' },
   { name: 'account', icon: 'user' },
+  { name: 'sort', icon: 'sort-alpha-down' },
   { name: 'lists', icon: 'clipboard-list' },
   { name: 'tags', icon: 'tags' },
   { name: 'notes', icon: 'sticky-note' }]

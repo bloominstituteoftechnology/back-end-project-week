@@ -62,6 +62,7 @@ class Container extends Component {
           <div className={classes.width100}>
             <Route exact path='/' render={(props) => <Notes {...props} handleOpenNote={this.props.handleOpenNote} />} />
             <Route path='/notes' render={(props) => <Notes {...props} handleOpenNote={this.props.handleOpenNote} />} />
+            <Route path='/sort' render={(props) => <Notes {...props} handleOpenNote={this.props.handleOpenNote} />} />
             {/* <Route path='/tags' render={(props) => <div {...props}></div>} />
             <Route path='/lists' render={(props) => <div {...props}></div>} />
             <Route path='/account' render={(props) => <div {...props}></div>} />

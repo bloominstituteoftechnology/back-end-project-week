@@ -6,8 +6,6 @@ import injectSheet from 'react-jss';
 import Note from './Note';
 import Group from './Group';
 
-const notes = db.data.notes
-
 const styles = theme => ({
   notes: {
     display: 'flex',
@@ -22,12 +20,33 @@ const styles = theme => ({
 
 class Notes extends Component {
   state = {
-    notes0: notes.filter(note => note.col === 0),
-    notes1: notes.filter(note => note.col === 1),
-    notes2: notes.filter(note => note.col === 2),
-    notes3: notes.filter(note => note.col === 3)
+    notes0: [],
+    notes1: [],
+    notes2: [],
+    notes3: []
   }
   componentDidMount = () => {
+    let resNotes = db.data.notes //to-do: get original notes from db
+    if (this.props.match.path === '/sort') {
+      resNotes = resNotes.sort((prev, next) => prev.title - next.title)
+      // placing each note to col
+      let col = 0, row = 0;
+      for (let i = 0; i < resNotes.length; i++) {
+        if (col === 4) {
+          col = 0
+          row++
+        }
+        resNotes[i].col = col
+        resNotes[i].row = row
+        col++
+      }
+    }
+    this.setState({
+      notes0: resNotes.filter(note => note.col === 0),
+      notes1: resNotes.filter(note => note.col === 1),
+      notes2: resNotes.filter(note => note.col === 2),
+      notes3: resNotes.filter(note => note.col === 3)
+    })
   }
   handleDrop = (group, notes, e) => {
     const { addedIndex, removedIndex, payload } = e

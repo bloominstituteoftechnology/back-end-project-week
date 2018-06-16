@@ -26,6 +26,7 @@ class App extends Component {
     })
   }
   handleCloseNote = () => {
+    //to-do: save the closed note's data
     this.setState({
       isSelectingNote: false,
       selectedNoteId: ''
