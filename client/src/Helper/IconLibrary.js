@@ -9,5 +9,6 @@ import faUser from '@fortawesome/fontawesome-free-solid/faUser'
 import faCog from '@fortawesome/fontawesome-free-solid/faCog'
 import faTrashAlt from '@fortawesome/fontawesome-free-solid/faTrashAlt'
 import faSortAlphaDown from '@fortawesome/fontawesome-free-solid/faSortAlphaDown'
+import faFileExcel from '@fortawesome/fontawesome-free-solid/faFileExcel'
 
-fontawesome.library.add(faPlus, faStickyNote, faTags, faClipboardList, faUser, faCog, faTrashAlt, faSortAlphaDown)
+fontawesome.library.add(faPlus, faStickyNote, faTags, faClipboardList, faUser, faCog, faTrashAlt, faSortAlphaDown, faFileExcel)

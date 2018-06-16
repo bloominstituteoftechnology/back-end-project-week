@@ -8,6 +8,7 @@ import * as supernote from '../supernote.json';
 import Notes from '../Note/Notes';
 import SelectedNote from '../Note/SelectedNote';
 import NewNote from '../Note/NewNote';
+import ExportNotes from '../Note/ExportNotes';
 
 const styles = {
   root: {
@@ -63,6 +64,7 @@ class Container extends Component {
             <Route exact path='/' render={(props) => <Notes {...props} handleOpenNote={this.props.handleOpenNote} />} />
             <Route path='/notes' render={(props) => <Notes {...props} handleOpenNote={this.props.handleOpenNote} />} />
             <Route path='/sort' render={(props) => <Notes {...props} handleOpenNote={this.props.handleOpenNote} />} />
+            <Route path='/export' render={(props) => <ExportNotes {...props} />} />
             {/* <Route path='/tags' render={(props) => <div {...props}></div>} />
             <Route path='/lists' render={(props) => <div {...props}></div>} />
             <Route path='/account' render={(props) => <div {...props}></div>} />
