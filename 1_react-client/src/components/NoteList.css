@@ -1,0 +1,74 @@
+.NavBar {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.Nav-left {
+  display: flex;
+  float: left;
+}
+
+.Nav-middle {
+  margin: auto;
+  margin-left: 15%;
+  float: left;
+}
+
+.SearchBar_Input {
+  width: 500px;
+  height: 25px;
+}
+
+.Nav-right {
+  float: right;
+  /* margin: auto; */
+  /* margin-right: 0; */
+}
+
+.NoteList-body {
+  padding-top: 40px;
+}
+
+.NoteList-card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(33%, 1fr));
+}
+
+.NoteList-card{
+  margin: auto;
+  margin-bottom: 30px;
+}
+
+.YourNotes {
+  color: white;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+h3 {
+  margin: 0;
+}
+
+h3 a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+h3 a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #4caf50;
+}

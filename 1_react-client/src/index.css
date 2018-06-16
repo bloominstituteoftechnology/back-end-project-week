@@ -1,0 +1,19 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+
+}
+
+h1 {
+  margin: 0;
+  padding: 20px;
+}
+
+.body-main {
+  background: url(https://stmed.net/sites/default/files/vector-wallpapers-25341-9610475.jpg);
+
+  /* background-position: center; */
+  background-repeat: no-repeat;
+  background-size: cover;
+}
