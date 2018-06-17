@@ -27,4 +27,6 @@ h4 {
 }
 #root > div {
   flex-grow: 1;
+  position: relative;
+  overflow: hidden;
 }

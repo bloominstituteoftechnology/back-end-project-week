@@ -26,6 +26,7 @@ const core = {
 
 const theme = {
     spacing: 8,
+    palette: core.palette,
     input: {
         border: 'none',
         background: 'none',

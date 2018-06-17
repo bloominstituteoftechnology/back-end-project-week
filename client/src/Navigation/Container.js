@@ -15,11 +15,14 @@ const styles = {
     flexGrow: 1,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     textAlign: 'center',
     width: '100%',
     padding: '0 5%',
+  },
+  lottieRoot: {
+    marginTop: '10%'
   },
   marginBottom: {
     marginBottom: '5%'
@@ -38,7 +41,7 @@ class Container extends Component {
     //fetch all notes
     setTimeout(() => {
       this.setState({ isLoading: false })
-    }, 1000)
+    }, 3000)
   }
   render() {
     const { classes, isSelectingNote, isCreatingNote, selectedNoteId } = this.props;
@@ -53,7 +56,7 @@ class Container extends Component {
     return (
       <div className={classes.root}>
         {this.state.isLoading ?
-          <div>
+          <div className={classes.lottieRoot}>
             <div className={classes.marginBottom}>It's a bird. It's a plane. Wait, it's <strong>Supernote</strong>!</div>
             <Lottie options={defaultOptions}
               height={400}
