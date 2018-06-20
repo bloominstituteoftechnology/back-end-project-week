@@ -34,6 +34,7 @@ Build an API Endpoint for each of the following, and connect it to your React Ap
 * [ ] View an existing note
 * [ ] Edit an existing note
 * [ ] Delete an existing note
+* [ ] Link up your Front End Project to your new and improved backend
 
 Upon your first commit, please submit a Pull Request and add _both_ the **Trello Set Up** and **Backend MVP Features** Task lists to your first Pull Request comment:
 
