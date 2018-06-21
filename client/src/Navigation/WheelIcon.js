@@ -14,7 +14,11 @@ class WheelIcon extends Component {
         this.setState({ hover: false })
     }
     handleClick = () => {
-        this.props.history.push(`/${this.props.name}`)
+        if (this.props.name === 'notes') {
+            this.props.history.push(`/${this.props.name}`)
+        } else {
+            this.props.openSideBar(this.props.name)
+        }
     }
     render() {
         const { classes, children, name } = this.props

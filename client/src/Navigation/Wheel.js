@@ -75,6 +75,7 @@ class Wheel extends Component {
             distance_between_icons={distance_between_icons}
             rotateDeg={rotateDeg}
             name={iconSet.name}
+            openSideBar={this.props.openSideBar}
           >
             <FontAwesomeIcon icon={iconSet.icon} />
           </WheelIcon>

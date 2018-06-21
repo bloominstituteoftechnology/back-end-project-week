@@ -4,13 +4,9 @@ import injectSheet from 'react-jss';
 
 import Container from './Navigation/Container';
 import Wheel from './Navigation/Wheel';
+import SideBar from './SideBar/SideBar';
 
 const styles = {
-  root: props => ({
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  })
 }
 
 class App extends Component {
@@ -18,6 +14,7 @@ class App extends Component {
     isSelectingNote: false,
     selectedNoteId: '',
     isCreatingNote: false,
+    showSideBar: false,
   }
   handleOpenNote = (id) => {
     this.setState({
@@ -47,11 +44,21 @@ class App extends Component {
       selectedNoteId: ''
     })
   }
+  openSideBar = (componentName) => {
+    if (componentName === 'tags' || componentName === 'lists') {
+      this.setState((prevState) => ({ showSideBar: !prevState.showSideBar }))
+    } else {
+      this.setState({ showSideBar: false })
+    }
+  }
+  handleCloseSideBar = () => {
+    this.setState({ showSideBar: false })
+  }
   render() {
     const { classes } = this.props
-    const { isSelectingNote, isCreatingNote, selectedNoteId } = this.state
+    const { isSelectingNote, isCreatingNote, selectedNoteId, showSideBar } = this.state
     return (
-      <div className={classes.root}>
+      <div>
         <Container
           handleOpenNote={this.handleOpenNote}
           handleCloseNote={this.handleCloseNote}
@@ -59,10 +66,18 @@ class App extends Component {
           isSelectingNote={isSelectingNote}
           isCreatingNote={isCreatingNote}
           selectedNoteId={selectedNoteId}
+          showSideBar={showSideBar}
+          handleCloseSideBar={this.handleCloseSideBar}
         />
         <Wheel
           handleCreateNote={this.handleCreateNote}
+          openSideBar={this.openSideBar}
         />
+        {showSideBar ?
+          <SideBar />
+          :
+          ''
+        }
       </div>
     );
   }

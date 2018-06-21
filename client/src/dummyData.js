@@ -60,5 +60,9 @@ exports.data = {
             id: 2,
             tag: 'Weekend Plan'
         },
+    ],
+    tags: [
+        'work',
+        'family'
     ]
 }

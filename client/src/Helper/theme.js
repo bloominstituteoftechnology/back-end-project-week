@@ -9,7 +9,7 @@ const core = {
         secondary: {
             main: 'rgba(174, 174, 174, 1)',
             transparent: 'rgba(174, 174, 174, 0.7)',
-            dark: 'rgba(174, 174, 174, 1)'
+            dark: 'rgba(132,132,132, 1)'
         },
         orange: {
             main: 'rgba(255,98,0,1)',
@@ -107,6 +107,18 @@ const theme = {
         display: 'flex',
         flexDirection: 'column'
     },
+    sideBar: {
+        position: 'absolute',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: core.palette.secondary.main,
+        boxShadow: `inset 3px -3px 10px 0 ${core.palette.secondary.dark}`,
+        top: 0,
+        right: 0,
+        width: 100,
+        height: '100%'
+    }
 
 }
 
