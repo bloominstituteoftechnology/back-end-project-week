@@ -48,7 +48,7 @@ class Notes extends Component {
       notes3: resNotes.filter(note => note.col === 3)
     })
   }
-  handleDrop = (group, notes, e) => {
+  handleNoteDrop = (group, notes, e) => {
     const { addedIndex, removedIndex, payload } = e
 
     if (removedIndex === null && addedIndex === null) return;
@@ -88,13 +88,13 @@ class Notes extends Component {
   }
   render() {
     const { notes0, notes1, notes2, notes3 } = this.state
-    const { classes } = this.props
+    const { classes, handleOpenNote } = this.props
     return (
       <div className={classes.notes}>
-        <Group notes={notes0} group={0} handleDrop={this.handleDrop} handleOpenNote={this.props.handleOpenNote} />
-        <Group notes={notes1} group={1} handleDrop={this.handleDrop} handleOpenNote={this.props.handleOpenNote} />
-        <Group notes={notes2} group={2} handleDrop={this.handleDrop} handleOpenNote={this.props.handleOpenNote} />
-        <Group notes={notes3} group={3} handleDrop={this.handleDrop} handleOpenNote={this.props.handleOpenNote} />
+        <Group notes={notes1} group={1} handleNoteDrop={this.handleNoteDrop} handleOpenNote={handleOpenNote} />
+        <Group notes={notes0} group={0} handleNoteDrop={this.handleNoteDrop} handleOpenNote={handleOpenNote} />
+        <Group notes={notes2} group={2} handleNoteDrop={this.handleNoteDrop} handleOpenNote={handleOpenNote} />
+        <Group notes={notes3} group={3} handleNoteDrop={this.handleNoteDrop} handleOpenNote={handleOpenNote} />
 
       </div>
     );

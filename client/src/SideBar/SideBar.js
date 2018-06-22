@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import posed from 'react-pose';
 import db from '../dummyData.js';
-import { Draggable } from 'react-smooth-dnd';
+import { Container, Draggable } from 'react-smooth-dnd';
 import Tag from './Tag';
 import injectSheet from 'react-jss';
 
@@ -39,13 +39,19 @@ class SideBar extends Component {
                 className={classes.sideBar}
                 pose={isVisible ? 'open' : 'close'}
             >
-                {
-                    tags.map(tag =>
-                        <Draggable key={tag}>
-                            <Tag tag />
-                        </Draggable>
-                    )
-                }
+                <h3>Tags</h3>
+                <Container
+                    groupName='tags'
+                    getChildPayload={i => tags[i]}
+                >
+                    {
+                        tags.map(tag =>
+                            <Draggable key={tag.id}>
+                                <Tag {...tag} />
+                            </Draggable>
+                        )
+                    }
+                </Container>
             </PosedSlideSideBar>
         )
     }

@@ -7,6 +7,7 @@ const core = {
             dark: 'rgba(0, 104, 25, 1)'
         },
         secondary: {
+            light: 'rgba(190, 190, 190, 1)',
             main: 'rgba(174, 174, 174, 1)',
             transparent: 'rgba(174, 174, 174, 0.7)',
             dark: 'rgba(132,132,132, 1)'
@@ -109,15 +110,26 @@ const theme = {
     },
     sideBar: {
         position: 'absolute',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: core.palette.secondary.main,
-        boxShadow: `inset 3px -3px 10px 0 ${core.palette.secondary.dark}`,
         top: 0,
         right: 0,
-        width: 100,
-        height: '100%'
+        height: '100%',
+        padding: core.spacing * 3,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'stretch',
+        backgroundColor: core.palette.secondary.light,
+        boxShadow: `inset 3px -3px 10px 0 ${core.palette.secondary.main}`,
+    },
+    tag: {
+        backgroundColor: core.palette.yellow.main,
+        padding: core.spacing,
+        // border: '2px solid black',
+        borderRadius: 4,
+        boxShadow: `0 0 3px 1px ${core.palette.secondary.dark}`,
+        margin: core.spacing,
+        height: core.spacing * 5,
+        textAlign: 'left',
     }
 
 }

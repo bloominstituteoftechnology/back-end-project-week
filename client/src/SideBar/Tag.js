@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
+import injectSheet from 'react-jss';
+
+const styles = theme => ({
+    tag: theme.tag,
+    tagBackgroundColor: {
+        backgroundColor: props => props.color
+    }
+})
 
 class Tag extends Component {
     render() {
-        const { tag } = this.props
+        const { classes, name } = this.props
         return (
-            <div>{tag}</div>
+            <div className={[classes.tag, classes.tagBackgroundColor].join(' ')}>{name}</div>
         )
     }
 }
 
-export default Tag;
+export default injectSheet(styles)(Tag);
