@@ -130,6 +130,10 @@ const theme = {
         margin: core.spacing,
         height: core.spacing * 5,
         textAlign: 'left',
+    },
+    inputTag: {
+        width: '100%',
+        border: 'none'
     }
 
 }
