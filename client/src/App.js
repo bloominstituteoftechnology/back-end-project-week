@@ -15,6 +15,7 @@ class App extends Component {
     selectedNoteId: '',
     isCreatingNote: false,
     showSideBar: false,
+    sideBarComponent: ''
   }
   handleOpenNote = (id) => {
     this.setState({
@@ -45,18 +46,22 @@ class App extends Component {
     })
   }
   openSideBar = (componentName) => {
-    if (componentName === 'tags' || componentName === 'lists') {
-      this.setState((prevState) => ({ showSideBar: !prevState.showSideBar }))
+    if (componentName === 'tags' || componentName === 'lists' || componentName === 'account') {
+      this.setState((prevState) => ({ showSideBar: false, sideBarComponent: componentName }))
     } else {
       this.setState({ showSideBar: false })
     }
+    setTimeout(() => {
+      this.setState({ showSideBar: true })
+    }, 300)
+
   }
   handleCloseSideBar = () => {
     this.setState({ showSideBar: false })
   }
   render() {
     const { classes } = this.props
-    const { isSelectingNote, isCreatingNote, selectedNoteId, showSideBar } = this.state
+    const { isSelectingNote, isCreatingNote, selectedNoteId, showSideBar, sideBarComponent } = this.state
     return (
       <div>
         <Container
@@ -74,7 +79,7 @@ class App extends Component {
           openSideBar={this.openSideBar}
         />
         {showSideBar ?
-          <SideBar />
+          <SideBar componentName={sideBarComponent} />
           :
           ''
         }

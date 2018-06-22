@@ -34,29 +34,49 @@ class SideBar extends Component {
     }
     render() {
         const { isVisible, tags } = this.state
-        const { classes } = this.props
+        const { classes, componentName } = this.props
+        let content;
+        if (componentName === 'tags') {
+            content = <Tags tags={tags} />
+        } else if (componentName === 'account') {
+            content = <Account />
+        } else {
+            content = ''
+        }
         return (
             <PosedSlideSideBar
                 className={classes.sideBar}
                 pose={isVisible ? 'open' : 'close'}
             >
-                <h3>Tags</h3>
-                <Container
-                    groupName='tags'
-                    getChildPayload={i => tags[i]}
-                >
-                    {
-                        tags.map(tag =>
-                            <Draggable key={tag.id}>
-                                <Tag {...tag} />
-                            </Draggable>
-                        )
-                    }
-                </Container>
-                <NewTag />
+                {content}
             </PosedSlideSideBar>
         )
     }
 }
+
+const Tags = ({ tags }) =>
+    <div>
+        <h3>Tags</h3>
+        <Container
+            groupName='tags'
+            getChildPayload={i => tags[i]}
+        >
+            {
+                tags.map(tag =>
+                    <Draggable key={tag.id}>
+                        <Tag {...tag} />
+                    </Draggable>
+                )
+            }
+        </Container>
+        <NewTag />
+    </div>
+
+const Account = () =>
+    <div>
+        <h3>Account</h3>
+
+    </div>
+
 
 export default injectSheet(styles)(SideBar);
