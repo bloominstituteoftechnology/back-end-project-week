@@ -1,3 +1,12 @@
+Trello Board: https://trello.com/b/MxggaAnm/lambda-notesbackend-cristian-garcia
+
+ORIGINAL GITHUB REPO LINK WITH ALL COMMITS HERE: (https://github.com/2940cristian/front-end-project-week/tree/Back-end-project-week)
+
+
+
+
+
+
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
@@ -86,5 +95,17 @@ Once your MVP has been approved, you have been given a feature list that the cli
 ## Super Duper Extra Credit Bonus Features
 * [ ] Add a payment form integrating with Stripe that allows Users to buy a "Premium" version of LambdaNotes.
 * [ ] Gate your favorite feature behind the premium paywall
+
+## API DOCS
+
+1. NOTES GET REQUEST AND POST 
+    -To get all notes (https://noteslambda.herokuapp.com/notes)
+2. NOTE GET BY ID, DELETE, AND PUT
+    -(https://noteslambda.herokuapp.com/notes/:id)
+3. USER CREATION POST METHOD
+    -(https://noteslambda.herokuapp.com/users)
+
+4. LOGIN POST METHOD
+    -(https://noteslambda.herokuapp.com/users/login)
 
 You will notice that this repository does not have any starter code.  This is on purpose.  You are to start from scratch using any files you have built throughout your time here at Lambda School.

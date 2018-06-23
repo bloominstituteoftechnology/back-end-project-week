@@ -1,0 +1,7 @@
+.pacman {
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    left: 50%;
+    top: 40vh;
+}
