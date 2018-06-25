@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 
 const User = require('../note/noteModel');
-const Note = require('../note/noteModel');
+const Note =  require('../note/noteModel');
 
 const server = express();
 
