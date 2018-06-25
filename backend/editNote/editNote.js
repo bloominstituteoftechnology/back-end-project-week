@@ -5,12 +5,12 @@ const Notes = require('../notesModel/notesModel.js')
 
 router
     .route('/:id')
-    .delete((req, res) => {
+    .put((req, res) => {
         const { id } = req.params;
         Notes
-            .findByIdAndRemove(id)
-            .then(deletedNote => {
-                res.status(201).json({ deletedNote })
+            .findByIdAndUpdate(id)
+            .then(updatedNote => {
+                res.status(201).json({ updatedNote })
             })
             .catch(err => {
                 conole.log(err)

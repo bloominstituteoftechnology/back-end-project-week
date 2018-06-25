@@ -10,6 +10,10 @@ const Notes = mongoose.Schema({
     content: {
         type: String,
         required: true
+    },
+    id: {
+        type: Number,
+        default: Date.now()
     }
 })
 
