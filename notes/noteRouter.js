@@ -5,7 +5,7 @@ const secret = "Wouldn't you like to know"
 const Note = require('./Note');
 
 router
-    .route('/api/notes')
+    .route('/')
     .get((req, res) => {
         Note
             .find()

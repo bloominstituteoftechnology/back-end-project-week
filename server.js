@@ -3,6 +3,7 @@ const helmet = require('helmet');
 const cors = require("cors");
 const mongoose = require("mongoose");
 
+const noteRouter = require('./notes/noteRouter');
 const feport = 3000;
 const beport = 5000;
 const server = express()
@@ -11,9 +12,13 @@ server.use(helmet());
 server.use(cors({ origin: `http://localhost:${feport}` }));
 server.use(express.json());
 
+
+
 server.get('/', (req, res) => {
     res.status(200).json({ api: 'running' });
 });
+
+server.use('/api/notes', noteRouter);
 
 //Mongoose
 mongoose.Promise = global.Promise;
