@@ -6,6 +6,8 @@ import SideBar from "./components/SideBar";
 import Notes from "./components/Notes";
 import Note from "./components/Note";
 import EditNote from './components/EditNote';
+import SignupForm from "./components/SignupForm";
+
 
 
 
@@ -19,7 +21,8 @@ class App extends Component {
         <div className="row custom-row">
           <Route path="/" component={SideBar} />
         {/* {localStorage.getItem('token') && (   */}
-        <Route exact path="/" component={Notes} /> 
+          <Route exact path="/" component={Notes} /> 
+          <Route exact path="/signup" component={SignupForm} />          
           <Route exact path="/create" component={CreateNote} />
           <Route exact path="/notes/:id" component={Note} />
           <Route exact path="/edit/:id" component={EditNote} />
