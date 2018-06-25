@@ -3,15 +3,15 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const PostSchema = new Schema({
-  user: {
+  username: {
     type: Schema.Types.ObjectId,
     ref: 'users'
   },
-  text: {
+  content: {
     type: String,
     required: true
   },
-  name: {
+  title: {
     type: String
   },
   date: {
