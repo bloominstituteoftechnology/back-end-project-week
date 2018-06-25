@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
 const User = require('../users/UserModel');
+const config = require('../config');
 
-const secret = 'hasta siempre Comandante';
+const secret = config.secret;
 
 function generateToken(user) {
     const options = {
