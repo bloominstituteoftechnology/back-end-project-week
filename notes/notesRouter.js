@@ -35,7 +35,28 @@ router
             });
     });
 
+    router
+    .route('/:id')
+    .get((req, res) => {
+        const { id } = req.params;
+        if(id.length !== 24) {
+            res.status(400).json({ error: 'A note id must contain 24 characters'})
+        }
 
+        Note.findById(id)
+            .then(note => {
+                if(note) {
+                    res.json(note)
+                } else {
+                    res.status(404).json({ error: `Note with id ${id} does not exist in the database`})
+                }
+            })
+            .catch(err => {
+                res.status(500).json({ error: 'Error fetching note'})
+            })
+    })
+    
+    
 
 
 
