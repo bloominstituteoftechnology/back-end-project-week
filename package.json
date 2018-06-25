@@ -1,0 +1,28 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "back end project for lambda note",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XangThao24/back-end-project-week.git"
+  },
+  "keywords": [
+    "javascript",
+    "react",
+    "redux",
+    "mongoose",
+    "mongo",
+    "express",
+    "node"
+  ],
+  "author": "Xang Thao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/XangThao24/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/XangThao24/back-end-project-week#readme"
+}
