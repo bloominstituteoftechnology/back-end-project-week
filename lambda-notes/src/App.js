@@ -7,10 +7,7 @@ import Notes from "./components/Notes";
 import Note from "./components/Note";
 import EditNote from './components/EditNote';
 import SignupForm from "./components/SignupForm";
-
-
-
-
+import LoginForm from "./components/LoginForm";
 
 
 class App extends Component {
@@ -22,7 +19,8 @@ class App extends Component {
           <Route path="/" component={SideBar} />
         {/* {localStorage.getItem('token') && (   */}
           <Route exact path="/" component={Notes} /> 
-          <Route exact path="/signup" component={SignupForm} />          
+          <Route exact path="/signup" component={SignupForm} />
+          <Route exact path="/login" component={LoginForm} />                    
           <Route exact path="/create" component={CreateNote} />
           <Route exact path="/notes/:id" component={Note} />
           <Route exact path="/edit/:id" component={EditNote} />
