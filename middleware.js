@@ -68,41 +68,16 @@ const deleteMiddleware = goose => {
 //middleware to sanitize the body
 const sanitizeMiddleware = type => {
   return (req, res, next) => {
-    if (type === "budget") {
-      const budget = ({ title, budgetAmount } = req.body);
-      if (budget.title === undefined || budget.budgetAmount === undefined) {
+    if (type === "note") {
+      const note = ({ title, textBody } = req.body);
+      if (note.title === undefined || note.textBody === undefined) {
         res
           .status(400)
-          .json({ errorMessage: "Please provide a title and budget amount." });
+          .json({ errorMessage: "Please provide a title and text body." });
       }
-      req.saneBody = budget;
+      req.saneBody = note;
     }
 
-    if (type === "category") {
-      const category = ({ title } = req.body);
-      if (category.title === undefined) {
-        res.status(400).json({ errorMessage: "Please provide a title." });
-      }
-      req.saneBody = category;
-    }
-
-    if (type === "expense") {
-      const expense = ({ amount, description, budget, category } = req.body);
-      if (
-        expense.amount === undefined ||
-        expense.description === undefined ||
-        expense.budget === undefined ||
-        expense.category === undefined
-      ) {
-        res
-          .status(400)
-          .json({
-            errorMessage:
-              "Please provide an amount, description, budget, and category."
-          });
-      }
-      req.saneBody = expense;
-    }
     next();
   };
 };
