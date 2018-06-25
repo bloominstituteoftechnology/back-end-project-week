@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
+const { objectIdValid } = require('../utils/objectIdValid');
 const ObjectId = mongoose.Schema.Types.ObjectId;
-
-const objectIdValid = (model, value, cb) => {
-  mongoose.model(model).count({ _id: value }, (error, count) => {
-    cb(error || count === 0 ? false : true);
-  });
-};
 
 const taskSchema = new mongoose.Schema({
   project: {
