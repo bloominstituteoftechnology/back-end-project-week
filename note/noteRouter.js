@@ -22,4 +22,15 @@ router.post('/', (req, res) => {
     })
 })
 
+router.get('/:id', (req, res) => {
+  const { id } = req.params
+  Note.findById(id)
+    .then( note => {
+      res.status(200).json(note)
+    })
+    .catch( err => {
+      res.status(500).json(err.message)
+    })
+})
+
 module.exports = router
