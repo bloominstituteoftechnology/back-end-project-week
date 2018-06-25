@@ -1,26 +1,18 @@
 const express = require('express');
-const mongoose = require('mongoose');
-const config = require('./config.js');
-const { dbuser, dbpassword, dbname } = config.secret;
-const server = express();
 
-const port = 5000;
+module.exports = (notesModel) => {
+  const noteRoutes = require('./routes/noteRoutes');
+  const server = express();
 
-// Connect to mlab
-mongoose
-    .connect(`mongodb://${dbuser}:${encodeURIComponent(dbpassword)}//${dbname}`)
-    .then(() => {
-        console.log('connected to production database');
-        if (process.env.NODE_ENV !== 'test') {
-            server.listen(port, () =>
-                console.log(`Backend is running at ${port}`)
-            )
-        } else {
-            server.listen(port, () =>
-                console.log(`Running in Test Environment at ${port}`)
-            )
-        }
+  server
+    .route('/')
+    .get((req, res) => {
+      res.status(200).json({ message: "API is running!" });
     })
-    .catch(err => {
-        console.log('error connecting to production database, is MongoDB running?');
-    });
+
+  server
+    .route('/notes')
+    .get(noteRoutes(notesModel).GET);
+
+  return server;
+};
