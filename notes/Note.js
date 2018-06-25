@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { ObjectId } = mongoose.Schema.Types;
 
 const definition = {
     title: {
@@ -10,6 +11,10 @@ const definition = {
         type: String,
         required: true,
         index: true
+    },
+    user: {
+        type: ObjectId,
+        ref: 'User'
     }
 }
 
