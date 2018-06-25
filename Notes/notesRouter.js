@@ -2,10 +2,7 @@ const express = require('express');
 const Note = require('./notesModel.js');
 const router = express.Router();
 
-router
-.route('/')
-.get((req, res) => {
-
+router.get('/', (req, res) => {
 Note
 .find()
 .then(notes => {
@@ -18,7 +15,7 @@ Note
 })
 })
 
-.post((req, res) => {
+router.post('/', (req, res) => {
 const { title, content } = req.body;
 const newNote = new Note({ title, content });
 
@@ -27,7 +24,8 @@ if(!title || !content) {
     res.json({ message: "Title or Content information missing" })
 }
 else { 
-newNote
+Note
+.create(newNote)
 .save()
 .then(savedNote => {
     res.status(200)
