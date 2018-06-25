@@ -31,4 +31,43 @@ router.post('/', (req, res) => {
     }
 })
 
+router.get('/:id', (req, res) => {
+    const { id } = req.params;
+    Note.findById(id)
+    .select('-__v -_id -author')
+        .then(note => {
+            if (note !== null) {
+                res.status(200).json({ note })
+            } else {
+                sendUserError(404, "This note is no longer available", res)
+            }
+        })
+        .catch(err => sendUserError(500, err.message, res))
+})
+
+router.put('/:id', (req, res) => {
+    const { id } = req.params;
+    const updates = req.body
+    Note.findByIdAndUpdate(id, updates, { new: true })
+        .then(updatedNote => {
+            res.status(200).json({ updatedNote })
+        })
+        .catch(err => {
+            sendUserError(500, err.message, res)
+        })
+})
+
+router.delete('/:id', (req, res) => {
+    const { id } = req.params;
+    Note.findByIdAndRemove(id)
+        .then(deletedNote => {
+            if (deletedNote !== null) {
+                res.json({ deletedNote })
+            } else {
+                sendUserError(404, "This note has already been removed.", res)
+            }
+        })
+        .catch(err => sendUserError(500, err.message, res))
+})
+
 module.exports = router
