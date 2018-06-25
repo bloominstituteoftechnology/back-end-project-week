@@ -49,4 +49,15 @@ router
       })
   })
 
+  .delete((req, res) => {
+    const { id } = req.params
+    Note.findByIdAndRemove(id)
+      .then( note => {
+        res.status(200).json(note)
+      })
+      .catch( err => {
+        res.status(500).json(err.message)
+      })
+  })
+
 module.exports = router
