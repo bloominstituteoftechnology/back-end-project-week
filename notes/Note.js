@@ -3,11 +3,13 @@ const mongoose = require('mongoose');
 const definition = {
     title: {
         type: String,
-        required: true
+        required: true,
+        index: true
     },
     body: {
         type: String,
-        required: true
+        required: true,
+        index: true
     }
 }
 
