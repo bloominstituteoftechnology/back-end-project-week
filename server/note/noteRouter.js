@@ -22,4 +22,24 @@ router
         }
     })
 
+router.route('/:id')
+    .delete((req, res) => {
+        const deletedId = req.params.id
+        Note.findByIdAndRemove({ _id: deletedId })
+            .then(response => res.status(200).json({ message: "The note is deleted." }))
+            .catch(err => res.status(500).json(err))
+    })
+    .put((req, res) => {
+        const editedNote = req.body
+        const editedNoteId = req.params.id
+        Note.findByIdAndUpdate(editedNoteId, {
+            $set: {
+                title: editedNote.title,
+                content: editedNote.content
+            }
+        })
+            .then(response => res.status(200).json({ message: "The note is updated." }))
+            .catch(err => res.status(500).json(err))
+    })
+
 module.exports = router;
