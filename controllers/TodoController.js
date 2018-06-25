@@ -38,5 +38,20 @@ router
             res.status(500).json({errorMessage: 'no Todo in the db'})
         });
     })
+    .delete((req, res) => {
+        const {id} = req.params
+        Todo.findByIdAndRemove(id)
+        .then(destroyTodo => {
+            console.log(destroyTodo)
+            if(destroyTodo === null){
+                res.status(404).json({errorMessage: "You must have completed everything get out while you can"});
+                return;
+            }
+            res.status(200).json({success: 'todos are actually terminated, you are free!!!', resource: destroyTodo})
+        })
+        .catch(err => {
+            res.status(500).json({errorMessage: 'no Todo to destory'})
+         });
+    })
 
 module.exports = router;
