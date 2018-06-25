@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const { ObjectId } = mongoose.Schema.Types;
 
 const definition = {
     username: {
@@ -11,7 +12,8 @@ const definition = {
     password: {
         type: String,
         required: true
-    }
+    },
+    notes: [{ type: ObjectId, ref: 'Note'}]
 }
 
 const options = {
