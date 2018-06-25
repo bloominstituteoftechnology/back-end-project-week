@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const note = require('./noteModel');
 
 const UserSchema = new mongoose.Schema({
     firstName: {
@@ -13,7 +14,13 @@ const UserSchema = new mongoose.Schema({
         type: Date,
         required: true,
         default: Date.now(),
-    }
+    }, 
+    notes: [
+        {
+            type: ObjectId,
+            ref: 'Note',
+        }
+    ]
 });
 
 const usersModel = mongoose.model('User', UserSchema);
