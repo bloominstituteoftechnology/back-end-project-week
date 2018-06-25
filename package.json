@@ -10,6 +10,9 @@
         "type": "git",
         "url": "git+https://github.com/udykas/back-end-project-week"
     },
+    "engines": {
+        "node": "8.9.4"
+    },
     "keywords": [],
     "author": "udykas",
     "license": "ISC",

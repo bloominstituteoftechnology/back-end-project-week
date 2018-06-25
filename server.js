@@ -16,10 +16,10 @@ server.get('/', (req, res) => {
 });
 
 //Mongoose
-mongoose.Promise = glbal.Promise;
+mongoose.Promise = global.Promise;
 
 mongoose
-    .conect('mongodb://localhost/lambdanotesdb')
+    .connect('mongodb://localhost/lambdanotesdb')
     .then(mongo => {
         console.log('\n... API Connected to LambdaNotes DB ...\n')
     })
