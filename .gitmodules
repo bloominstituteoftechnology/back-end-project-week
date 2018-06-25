@@ -1,0 +1,3 @@
+[submodule "server/lambdanotes-backend"]
+	path = server/lambdanotes-backend
+	url = git@github.com:Nedu/lambdanotes-backend.git
