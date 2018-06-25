@@ -16,7 +16,7 @@ router.route('/:id')
             .catch(err => res.status(500).json({ error: err.message }));
     })
     .post((req, res) => {
-        const newUser = ({ email, password } = req.params);
+        const newUser = ({ email, password } = req.body);
         User.create(newUser)
             .then(response => res.status(201).json(response))
             .catch(err => res.status(500).json({ error: err.message }));
