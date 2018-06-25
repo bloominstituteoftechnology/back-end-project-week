@@ -2,9 +2,9 @@
   "name": "Lambda-Notes",
   "version": "1.0.0",
   "description": "Creating a back end for the Lambda Notes front end project and combining the two for a full stack application.",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/d-vail/back-end-project-week#readme",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "mongoose": "^5.1.6"
   },
   "devDependencies": {
     "nodemon": "^1.17.5"
