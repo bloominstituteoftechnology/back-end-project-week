@@ -1,5 +1,11 @@
 const express = require('express');// common js modules
 //import express from 'express'; es2015 modules
+const keys = require('./config/keys');
+
+const mongoose = require('mongoose');
+
+
+mongoose.connect(keys.mongoURI);
 
 const app = express();//creates a running express server; this app object will set up to listen for http requests and route them
 
