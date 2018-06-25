@@ -1,12 +1,18 @@
 const express = require('express'); // remember to install your npm packages
 const cors = require('cors');
 const mongoose = require('mongoose');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
+
+const userRouter = require('./users/userRouter.js');
+const notesRouter = require('./notes/noteRouter.js');
 
 const server = express();
 server.use(cors());
 server.use(express.json());
 server.use(bodyParser.json());
+
+server.use('/api/usrs', userRouter);
+server.use('/api/notes', notesRouter);
 
 server.get('/', (req, res) => {
   res.status(200).json({ api: 'running' });
