@@ -7,7 +7,7 @@ const app = express();//creates a running express server; this app object will s
 app.get('/', (req, res) => { // creates a route handler; get is a method that gets some information about some record; req js object that represents incoming request
 //and has data about who is making request and some associated data within it
 // res has the data that will be returned to user that made request
-    res.send({ hi: 'there' });
+    res.send({ bye: 'buddy' });
 });
 
 
