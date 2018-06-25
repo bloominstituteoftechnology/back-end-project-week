@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
+const secretJWT = "I love programming";
 
 const User = require("../models/User");
 
@@ -36,6 +37,30 @@ router.post("/register", (req, res) => {
           })
         })
       }
+    })
+})
+
+router.post("/login", (req, res) => {
+  const { email, password } = req.body;
+  User.findOne({ email })
+    .then(user => {
+      bcrypt.compare(password, user.password)
+        .then(isMatch => {
+          if(isMatch) {
+            const { id, username, email } = user;
+            const payload = {id, username, email};
+          
+            jwt.sign(payload, secretJWT, { expiresIn: 10000}, (err, token) => {
+              res.json({login: "successfully", token: "Bearer " + token});
+            })
+          }
+        })
+        .catch(err => {
+          res.status(400).json({error: err.message});
+        })
+    })
+    .catch(err => {
+      res.status.json({error: err.message});
     })
 })
 
