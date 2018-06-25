@@ -73,7 +73,7 @@ router
         Note.findByIdAndUpdate(id, { title, body }, {new: true})
             .then(note => {
                 if(!note) {
-                    res.status(400).json({ error: `Note with ${id} does not exist`})
+                    res.status(400).json({ error: `Note with id ${id} does not exist`})
                 } else {
                     res.json(note);
                 }
@@ -81,6 +81,23 @@ router
             .catch(err => {
                 res.status(500).json({ error: 'The note could not be updated'})
             })
+    })
+
+    .delete((req, res) => {
+        const { id } = req.params;
+
+        Note.findByIdAndRemove(id)
+            .then(deletedNote => {
+                if(!deletedNote) {
+                    res.status(404).json({ error: `Note with id ${id} does not exist`})
+                } else {
+                    res.status(204)
+                }  
+            })
+            .catch(err => {
+                res.status(500).json({ error: 'The note could be deleted'})
+            })
+
     })
     
     
