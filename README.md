@@ -2,6 +2,10 @@
 
 https://trello.com/b/EP5Jlbhz/lambda-notes-backend-nando-theeßen
 
+# Additional Repository: 
+
+https://github.com/NandoTheessen/Back-End-Project-NodeJs-App
+
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
