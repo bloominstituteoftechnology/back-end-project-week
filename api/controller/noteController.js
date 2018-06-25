@@ -25,7 +25,11 @@ router.route('/:id')
         const updatedNote = ({ title, body } = req.body);
         const { id } = req.params;
         Note.findByIdAndUpdate(id, updatedNote)
-            .then(response => res.status(202).json(response))
+            .then(response => {
+                Note.findById(id)
+                    .then(response => res.status(202).json(response))
+                    .catch(err => res.status(500).json({ error: err.message }));
+            })
             .catch(err => res.status(500).json({ error: err.message }));
     })
     .delete((req, res) => {
