@@ -1,17 +1,24 @@
 const Task = require('../../database/models/TaskModel');
-const { notFound } = require('../../http_status_codes');
+const {
+  clientError: { notFound },
+  serverError
+} = require('../../http_status_codes');
 
 const taskFind = (req, res) => {
-  Task.find()
+  const { id } = req.params;
+
+  Task.findById(id)
     .then(task => {
-      if (task.length === 0)
-        return res.status(notFound).json({ message: 'You have no tasks' });
+      if (task === null)
+        return res.status(notFound).json({
+          status: `${ notFound } Not Found`,
+          statusMessage: 'There is no task with that ID'
+        });
       
       res.json(task);
     })
     .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
+      res.json(err);
     });
 };
 
