@@ -4,16 +4,24 @@ const { Schema } = mongoose;
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const UserSchema = new Schema({
-    username: {
+    email: {
         type: String,
         required: true,
         unique: true,
-        minlength: 1
+        minlength: 5
     },
     password: {
         type: String,
         required: true,
         minlength: 8
+    },
+    firstName: {
+        type: Stirng,
+        required: false
+    },
+    lastName: {
+        type: String,
+        required: false
     },
     notes: [{ type: ObjectId, ref: 'Note'}]
 });
