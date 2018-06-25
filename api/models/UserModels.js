@@ -13,6 +13,10 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  // notes: [{
+  //   type: ObjectId,
+  //   ref: 'Note'
+  // }]
 
 })
 
