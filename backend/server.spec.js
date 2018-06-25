@@ -23,7 +23,9 @@ describe('Server:', () => {
   });
 
   afterAll(async () => {
+    await Notes.remove();
     await mongoose.disconnect();
+    console.log('MongoDB connection terminated.');
   });
 
   it('Tests are testing.', () => {
@@ -38,18 +40,62 @@ describe('Server:', () => {
     expect(status).toBe(httpStatusCode.OK);
   });
 
-  it('accepts requests at \'notes\'', async () => {
-    const responseObject = await request(server).get('/notes');
-    // let responseObject;
-    // try {
-    //   responseObject = await request(server.get('/notes');
-    // } catch (error) {
-    //   console.log(error);
-    //   responseObject = error;
-    // }
-    const { status, body } = responseObject;
+  describe('POST route:', () => {
+    /* Some Test Data */
+    const testNote = {
+      "title": "My first note",
+      "text": "My brain is melting. Please send help.",
+      "author": "5b30101a8a63c231b8200da2"
+    };
+  
+    it("rejects POST request at '/notes' missing author.", async () => {
+      const { author, ...noAuthorNote } = testNote;
 
-    expect(status).toBe(httpStatusCode.OK);
-    expect(body).toEqual(expect.arrayContaining([]));
+      let responseObject;
+      try {
+        responseObject = await request(server).post('/notes').send(noAuthorNote);
+      } catch (error) {
+        console.log('acccepts POST requests at \'notes\' ERROR:',error);
+      }
+
+      const { status, body } = responseObject;
+      expect(status).toBe(httpStatusCode.badRequest);
+      expect(body).toMatchObject({ message: "Please let your admin or dev know an error has happened and show them the following:\n400: Bad Request\nThe 'author' field is missing but is required. Ensure it is a MongoDB ObjectID type." });
+    });
+    
+    it('acccepts POST requests at \'notes\'', async () => {
+      let responseObject;
+      try {
+        responseObject = await request(server).post('/notes').send(testNote);
+      } catch (error) {
+        console.log('acccepts POST requests at \'notes\' ERROR:',error);
+      }
+
+      const { status, body } = responseObject;
+      expect(status).toBe(httpStatusCode.created);
+      expect(body).toMatchObject(testNote);
+    });
   });
+
+  describe('GET route:', () => {
+    /* Some Test Data */
+    const testNote = {
+      "title": "My first note",
+      "text": "My brain is melting. Please send help.",
+      "author": "5b30101a8a63c231b8200da2"
+    };
+
+    it('accepts requests at \'notes\'', async () => {
+      let responseObject;
+      try {
+        responseObject = await request(server).get('/notes');
+      } catch (error) {
+        console.log('accepts requests at \'notes\' ERROR:',error);
+      }
+      const { status, body } = responseObject;
+
+      expect(status).toBe(httpStatusCode.OK);
+      expect(body).toEqual([expect.objectContaining(testNote)]);
+    });
+  })
 });
