@@ -15,14 +15,14 @@ const userSchema = new mongoose.Schema({
         validate: checkPasswordLength,
         msg: 'Password is too weak.',
     },
-    membership: {
-        type: String,
-        required: true,
-        validate: {
-            validator: /(free|premium)/i,
-            msg: 'Invalid input',
-        },
-    },
+    // membership: {
+    //     type: String,
+    //     required: true,
+    //     validate: {
+    //         validator: /(free|premium)/i,
+    //         msg: 'Invalid input',
+    //     },
+    // },
 });
 
 function checkPasswordLength(password) {

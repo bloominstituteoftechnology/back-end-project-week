@@ -23,7 +23,8 @@
     "express": "^4.16.3",
     "helmet": "^3.12.1",
     "jsonwebtoken": "^8.3.0",
-    "mongoose": "^5.1.6"
+    "mongoose": "^5.1.6",
+    "morgan": "^1.9.0"
   },
   "devDependencies": {
     "nodemon": "^1.17.5"
