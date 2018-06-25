@@ -1,3 +1,12 @@
+# TRELLO
+https://trello.com/b/R21iEHEM/lambda-notesbackend-justin-faulkenberry
+
+# Front End Side of the Back End Project
+https://github.com/faulkenfett11/frontend-backendproject
+
+# Netlify
+https://lambda-notes-faulkenberry.netlify.com/
+
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
