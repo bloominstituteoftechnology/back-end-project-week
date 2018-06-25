@@ -55,6 +55,33 @@ router
                 res.status(500).json({ error: 'Error fetching note'})
             })
     })
+
+    .put((req, res) => {
+        const { id } = req.params;
+        if(id.length !== 24) {
+            res.status(400).json({ error: 'A note id must contain 24 characters'})
+        }
+
+        const { title, body } = req.body;
+        if(!title) {
+            res.status(400).json({ error: 'Please provide a title for the note'})
+        }
+        if(!body) {
+            res.status(400).json({ error: 'Please provide content for the note'})
+        }
+
+        Note.findByIdAndUpdate(id, { title, body }, {new: true})
+            .then(note => {
+                if(!note) {
+                    res.status(400).json({ error: `Note with ${id} does not exist`})
+                } else {
+                    res.json(note);
+                }
+            })
+            .catch(err => {
+                res.status(500).json({ error: 'The note could not be updated'})
+            })
+    })
     
     
 
