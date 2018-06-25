@@ -8,7 +8,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const notesRouter = require('./api/Notes/NotesRouter');
 const UsersRouter = require('./api/Users/UsersRouter');
-
+////Note from Ellen: this URL will need to change when hosted on mLab
 mongoose.connect('mongodb://localhost/lambdaNotes')
     .then(
         () => {
@@ -32,6 +32,7 @@ const sessionOptions = {
     savedUninitialized: false,
     name: 'noname',
     store: new MongoStore({
+        //Note from Ellen: this URL will need to change when hosted on mLab
         url: 'mongodb://localhost/sessions',
         ttl: 60 * 10
     }),
