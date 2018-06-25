@@ -38,7 +38,7 @@ router.route('/get/:id')
                 if (err.name === "CastError") {
                     res.status(404).json({ errorMessage: 'Note with the specified ID not found' });
                 } else {
-                    res.status(500).json({ errorMessage: 'The note could not be retrieved' })
+                    res.status(500).json({ errorMessage: 'The note could not be retrieved' });
                 }
             })
     })
@@ -63,7 +63,27 @@ router.route('/edit/:id')
                 if (err.name === 'CastError') {
                     res.status(404).json({ errorMessage: 'Note with the specified ID not found' });
                 } else {
-                    res.status(500).json({ errorMessage: 'The note could not be modified' })
+                    res.status(500).json({ errorMessage: 'The note could not be modified' });
+                }
+            })
+    })
+
+router.route('/delete/:id')
+    .delete((req, res) => {
+        const { id } = req.params;
+        Notes.findByIdAndRemove(id)
+            .then(note => {
+                if (note === null) {
+                    res.status(404).json({ errorMessage: 'Note with the specified ID not found' });
+                } else {
+                    res.json(note)
+                }
+            })
+            .catch(err => {
+                if (err.name === 'CastError') {
+                    res.status(404).json({ errorMessage: 'Note with the specified ID not found' });
+                } else {
+                    res.status(500).json({ errorMessage: 'The note could not be removed' });
                 }
             })
     })
