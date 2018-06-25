@@ -21,7 +21,7 @@ server.use("/api/users", userRouter);
 
 mongoose.Promise = global.Promise;
 mongoose.connect(
-  "mongodb://localhost/lambdaNotes",
+  process.env.MLABSTRING,
   {},
   error => {
     if (error) console.log("Database connection failed");
