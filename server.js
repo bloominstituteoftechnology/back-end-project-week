@@ -11,7 +11,7 @@ server.use(cors());
 server.use(express.json());
 server.use(bodyParser.json());
 
-server.use('/api/usrs', userRouter);
+server.use('/api/users', userRouter);
 server.use('/api/notes', notesRouter);
 
 server.get('/', (req, res) => {
@@ -21,7 +21,7 @@ server.get('/', (req, res) => {
 const port = process.env.PORT || 5000;
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/notesApp', {}, err => {
+mongoose.connect('mongodb://localhost/notesapp', {}, err => {
   if (err) console.log(err);
   console.log('Mongoose connected us to our DB');
 });
