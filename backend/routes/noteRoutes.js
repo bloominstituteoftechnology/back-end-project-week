@@ -22,11 +22,25 @@ const validatePostBody = body => {
 module.exports = (notesModel) => {
   return {
     "GET": (req, res) => {
-      const query = req.query || {};
-
-      notesModel.find(query)
+      notesModel.find()
         .then(notes => {
           res.status(httpStatus.OK).json(notes);
+        })
+        .catch(error => {
+          console.log('noteRoutes--GET ERROR:',error);
+          res.status(500).json(error);
+        });
+    },
+    "GET_ONE_BY_ID": (req, res) => {
+      const id = req.params.id;
+
+      notesModel.findById(id)
+        .then(note => {
+          if (note === null) {
+            res.status(httpStatus.notFound).json({ message: "404: Not Found\nThe note with the specified ID cannot be found. The note is likely to have changed or not exist, though you may double check the ID in the URL for errors." });
+            return;
+          }
+          res.status(httpStatus.OK).json(note);
         })
         .catch(error => {
           console.log('noteRoutes--GET ERROR:',error);
@@ -57,7 +71,7 @@ module.exports = (notesModel) => {
       }
 
       const id = req.params.id;
-      const configObj = { new: true }; // have result be the updated record, not the original
+      const configObj = {new:true}; // have result be the updated record, not the original
 
       notesModel.findByIdAndUpdate(id, editedNote, configObj)
         .then(note => {

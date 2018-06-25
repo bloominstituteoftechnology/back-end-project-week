@@ -10,20 +10,18 @@ module.exports = (notesModel) => {
 
   useGeneralMiddleware(server);
 
-  server
-    .route('/')
+  server.route('/')
     .get((req, res) => {
       res.status(200).json({ message: "API is running!" });
     });
 
-  server
-    .route('/notes')
+  server.route('/notes')
     .get(noteRoutes(notesModel).GET)
     .post(noteRoutes(notesModel).POST)
     .put(noteRoutes(notesModel).NO_PUT);
 
-  server
-    .route('/notes/:id')
+  server.route('/notes/:id')
+    .get(noteRoutes(notesModel).GET_ONE_BY_ID)
     .put(noteRoutes(notesModel).PUT);
   
   return server;
