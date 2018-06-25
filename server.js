@@ -19,7 +19,7 @@ server.use("/api/notes", noteRouter);
 
 mongoose.Promise = global.Promise;
 mongoose.connect(
-  "mongodb://localhost/budgetTracker",
+  "mongodb://localhost/lambdaNotes",
   {},
   error => {
     if (error) console.log("Database connection failed");
