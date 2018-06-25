@@ -44,8 +44,7 @@ server.use((req, res, next) => {
 
 server.use(cors(corsOptions))
 
-server.use('/', noteRoute)
-
+server.use('/notes', noteRoute)
 
 server.listen(port, () => {
     console.log(`Server up and running on ${port}`)
