@@ -20,8 +20,11 @@ server.use("/api/notes", noteRouter);
 server.use("/api/users", userRouter);
 
 mongoose.Promise = global.Promise;
+
 mongoose.connect(
-  process.env.MLABSTRING,
+  `mongodb://${process.env.MLABUSER}:${
+    process.env.MLABPASS
+  }@ds217921.mlab.com:${process.env.MLABPORT}/lambdanotes`,
   {},
   error => {
     if (error) console.log("Database connection failed");
