@@ -1,12 +1,14 @@
 const express = require('express'); 
 const helmet = require('helmet');
 const mongoose = require('mongoose');
+const TodoController = require('./controllers/TodoController')
 
 const server = express();
 
-// add your server code
 server.use(helmet());
 server.use(express.json());
+
+server.use('/api/todo', TodoController);
 
 // root route
 server.get('/', (req, res) => {
@@ -14,9 +16,15 @@ server.get('/', (req, res) => {
 });
 
 
-// connecting mongoose to local host
+
+
+
+// connecting mongoose to local host and heroku
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/Todo-App');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/Todo-App', {}, (err) => {
+    if (err) console.log(err);
+    console.log('Mongoose connected to Database server')
+  });
 
 const port = process.env.PORT || 5000;
 server.listen(port, () => {
