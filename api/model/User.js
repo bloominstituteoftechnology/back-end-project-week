@@ -17,7 +17,7 @@ const UserSchema = new Schema({
         minlength: 8
     },
     firstName: {
-        type: Stirng,
+        type: String,
         required: false
     },
     lastName: {
