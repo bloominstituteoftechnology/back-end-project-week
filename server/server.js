@@ -1,27 +1,36 @@
 const express = require('express');
+const helmet = require('helmet');
 const mongoose = require('mongoose');
 const config = require('./config.js');
 const { dbuser, dbpassword, dbname } = config.secret;
 const server = express();
 
-const port = 5000;
+const port = process.env.PORT || 5000;
+
+// Router
+const noteRouter = require('./note/noteRouter.js');
+const userRouter = require('./user/userRouter.js');
+const tagRouter = require('./tag/tagRouter.js');
 
 // Connect to mlab
 mongoose
     .connect(`mongodb://${dbuser}:${encodeURIComponent(dbpassword)}@ds117711.mlab.com:17711/${dbname}`)
     .then(() => {
-        console.log('connected to production database');
-        if (process.env.NODE_ENV !== 'test') {
-            server.listen(port, () =>
-                console.log(`Backend is running at ${port}`)
-            )
-        } else {
-            server.listen(port, () =>
-                console.log(`Running in Test Environment at ${port}`)
-            )
-        }
+        console.log('Database is connected');
     })
     .catch(err => {
-        console.log('error connecting to production database, is MongoDB running?');
+        console.log('error connecting to dev database:', err);
     });
+
+// Api calls
+server.use(helmet());
+server.use(express.json());
+
+server.use('/api/note', noteRouter);
+server.use('/api/user', userRouter);
+server.use('/api/tag', tagRouter);
+
+server.listen(port, () => {
+    console.log(`Server up and running on ${port}`);
+});
 
