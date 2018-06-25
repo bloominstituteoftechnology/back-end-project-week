@@ -1,0 +1,10 @@
+{
+  "name": "jean_ariza",
+  "version": "1.0.0",
+  "description": "Backend project",
+  "main": "server.js",
+  "repository": "https://github.com/jesuarva/back-end-project-week.git",
+  "author": "jean surkouf ariza varela",
+  "license": "MIT",
+  "private": null
+}
