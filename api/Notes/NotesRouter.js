@@ -29,7 +29,7 @@ router
                     });
                 })
         })
-
+//GET, DELETE, & PUT requests w/ID
 router
     .route('/:id')
         .get((req, res) => {
