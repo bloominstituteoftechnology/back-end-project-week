@@ -6,6 +6,13 @@ const setupRoutes = require('./_config/routes');
 
 const server = express();
 
+const corsOptions = {
+	origin: 'http://localhost:3000',
+	credentials: true,
+};
+
+server.use(cors(corsOptions));
+
 setupMiddleware(server);
 setupRoutes(server);
 

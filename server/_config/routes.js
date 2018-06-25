@@ -8,8 +8,8 @@ module.exports = function(server) {
 		res.send({ api: 'running' });
 	});
 
-	server.use('/api/users', userRoutes);
-	server.use('/api/auth', authRoutes);
+	server.use('/notes/users', userRoutes);
+	server.use('/notes/auth', authRoutes);
 	server.use('/notes', noteRoutes);
 
 };
