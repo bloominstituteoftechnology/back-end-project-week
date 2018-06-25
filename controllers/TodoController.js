@@ -11,7 +11,14 @@ router
             res.status(201).json(todo)
         })
         .catch(e => {
-            res.status(400).json(e)
+            res.status(400).json(e)})
+    })
+    .get((req, res) => {
+        Todo.find().then(response => {
+            res.status(200).json({response})
+        })
+        .catch(e =>{
+            res.status(400).json({error: 'could not fetch todos'})
         })
     })
 
