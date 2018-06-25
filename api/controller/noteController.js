@@ -6,6 +6,12 @@ router.route('/')
         Note.find()
             .then(response => res.json(response))
             .catch(err => res.status(500).json({ error: err.message }));
+    })
+    .post((req, res) => {
+        const newNote = ({ title, body } = req.body);
+        Note.create(newNote)
+            .then(response => res.status(201).json(response))
+            .catch(err => res.status(500).json({ error: err.message }));
     });
 
 router.route('/:id')
@@ -13,12 +19,6 @@ router.route('/:id')
         const { id } = req.params;
         Note.findById(id)
             .then(response => res.json(response))
-            .catch(err => res.status(500).json({ error: err.message }));
-    })
-    .post((req, res) => {
-        const newNote = ({ title, body } = req.body);
-        Note.create(newNote)
-            .then(response => res.status(201).json(response))
             .catch(err => res.status(500).json({ error: err.message }));
     })
     .put((req, res) => {
