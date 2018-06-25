@@ -29,7 +29,6 @@ mongoose.connect('mongodb://localhost/LambdaNotes', {}, err => {
   console.log('Sucessfully connected to LambdaNotes db')
 })
 
-
 server.listen(port, () => {
     console.log(`Server up and running on ${port}`);
   });
