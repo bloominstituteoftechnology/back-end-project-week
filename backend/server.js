@@ -19,8 +19,13 @@ module.exports = (notesModel) => {
   server
     .route('/notes')
     .get(noteRoutes(notesModel).GET)
-    .post(noteRoutes(notesModel).POST);
+    .post(noteRoutes(notesModel).POST)
+    .put(noteRoutes(notesModel).NO_PUT);
 
+  server
+    .route('/notes/:id')
+    .put(noteRoutes(notesModel).PUT);
+  
   return server;
 };
 

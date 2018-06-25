@@ -47,6 +47,29 @@ module.exports = (notesModel) => {
           console.log('noteRoutes--POST ERROR:',error);
           res.status(500).json(error);
         });
-    }
+    },
+    "PUT": (req, res) => {
+      const editedNote = validatePostBody(req.body);
+
+      if (editedNote.error) {
+        const { status, message } = editedNote;
+        return res.status(status).json({ message });
+      }
+
+      const id = req.params.id;
+      const configObj = { new: true }; // have result be the updated record, not the original
+
+      notesModel.findByIdAndUpdate(id, editedNote, configObj)
+        .then(note => {
+          res.status(httpStatus.OK).json(note);
+        })
+        .catch(error => {
+          console.log('noteRoutes--PUT ERROR:',error);
+          res.status(500).json(error);
+        });
+    },
+    "NO_PUT": (req, res) => {
+      res.status(httpStatus.notFound).json({ message: "404: Not Found\nA valid note ID was not received with the PUT request. Please ensure the URL includes the ID of the note you wish to update." });
+    },
   };
 };
