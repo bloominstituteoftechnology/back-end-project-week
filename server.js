@@ -4,6 +4,8 @@ const helmet = require("helmet");
 const cors = require("cors");
 const mongoose = require("mongoose");
 
+const config = require('./config')
+
 //port me
 const port = process.env.port || 5000;
 
@@ -15,7 +17,7 @@ server.use(cors());
 
 // intializing mongoos unkill
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/lambdanotes')
+mongoose.connect(config.mongo)
 
 
 // route me in babi
@@ -25,7 +27,7 @@ server.use('/api/notes', noteRouter);
 
 
 server.get('/', (req,res) => {
-    console.log("yay") 
+    console.log(config.mongo) 
     res.send('API Running...')
 });
 
