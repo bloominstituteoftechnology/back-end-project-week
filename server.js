@@ -4,6 +4,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 
 const noteRouter = require("./notes/noteRouter.js");
+const userRouter = require("./users/userRouter.js");
 
 const server = express();
 
@@ -16,6 +17,7 @@ server.get("/", function(req, res) {
 });
 
 server.use("/api/notes", noteRouter);
+server.use("/api/users", userRouter);
 
 mongoose.Promise = global.Promise;
 mongoose.connect(

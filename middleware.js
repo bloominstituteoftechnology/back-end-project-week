@@ -68,14 +68,30 @@ const deleteMiddleware = goose => {
 //middleware to sanitize the body
 const sanitizeMiddleware = type => {
   return (req, res, next) => {
-    if (type === "note") {
-      const note = ({ title, textBody } = req.body);
-      if (note.title === undefined || note.textBody === undefined) {
-        res
-          .status(400)
-          .json({ errorMessage: "Please provide a title and text body." });
-      }
-      req.saneBody = note;
+    switch (type) {
+      case "note":
+        const note = ({ title, textBody } = req.body);
+        if (note.title === undefined || note.textBody === undefined) {
+          res
+            .status(400)
+            .json({ errorMessage: "Please provide a title and text body." });
+        }
+        req.saneBody = note;
+        break;
+      case "user":
+        const user = ({ username, password } = req.body);
+        if (user.username === undefined || user.password === undefined) {
+          res
+            .status(400)
+            .json({ errorMessage: "Please provide a username and password." });
+        }
+        req.saneBody = user;
+        break;
+      default:
+        res.status(500).json({
+          errorMessage:
+            "The sanitization middleware was given a type it doesn't understand!"
+        });
     }
 
     next();
