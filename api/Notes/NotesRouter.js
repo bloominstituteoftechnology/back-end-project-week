@@ -68,8 +68,8 @@ router
 
         .put((req, res) => {
             const { id } = req.params;
-            //Have to double-check naming convention of { title, content } in front-end
-            const { title, content } = req.body;
+            //Have to double-check naming convention of { title, contents } in front-end
+            const { title, contents } = req.body;
 
             if(!Note.findById(id)) {
                 res.status(404).json({
