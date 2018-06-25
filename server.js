@@ -14,6 +14,14 @@ app.get("/", (req, res) => {
   res.json({mes: "Api running"});
 });
 
+mongoose.connect("mongodb://localhost/lambdaNotes")
+  .then(() => {
+    console.log("Connected to Mongo");
+  })
+  .catch(() => {
+    console.log("Error can't connect to Mongo");
+  })
+
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
