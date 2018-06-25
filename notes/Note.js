@@ -12,7 +12,7 @@ const definition = {
 }
 
 const options = {
-    timestamp: true, 
+    timestamps: true, 
     strict: false
 }
 
