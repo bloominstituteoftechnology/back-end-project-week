@@ -1,11 +1,17 @@
 const express = require('express');
 const morgan = require('morgan');
-
+const cors = require('cors');
 const User = require('../note/noteModel');
 const Note =  require('../note/noteModel');
 
 const server = express();
 
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    credentials: true,
+};
+
+server.use(cors(corsOptions))
 server.use(express.json());
 server.use(morgan('combined'));
 
