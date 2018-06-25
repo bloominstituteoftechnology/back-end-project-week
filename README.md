@@ -1,3 +1,5 @@
+Trello Link: https://trello.com/invite/b/p88t63BS/d0b477365d34e1a7db3adff1fad8cf49/lambda-notesbackend-claudio-gonzalez
+
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
