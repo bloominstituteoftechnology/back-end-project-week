@@ -7,18 +7,18 @@ router.route('/')
             .then(response => res.json(response))
             .catch(err => res.status(500).json({ error: err.message }));
     })
+    .post((req, res) => {
+        const newUser = ({ email, password } = req.body);
+        User.create(newUser)
+            .then(response => res.status(201).json(response))
+            .catch(err => res.status(500).json({ error: err.message }));
+    })
 
 router.route('/:id')
     .get((req, res) => {
         const { id } = req.params;
         User.findById(id)
             .then(response => res.json(response))
-            .catch(err => res.status(500).json({ error: err.message }));
-    })
-    .post((req, res) => {
-        const newUser = ({ email, password } = req.body);
-        User.create(newUser)
-            .then(response => res.status(201).json(response))
             .catch(err => res.status(500).json({ error: err.message }));
     })
     .put((req, res) => {
