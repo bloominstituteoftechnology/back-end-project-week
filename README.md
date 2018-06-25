@@ -1,3 +1,14 @@
+#Trello
+https://trello.com/b/gIGKLfr2/lambda-notes-backend-brandon
+
+#API Endpoints
+- GET `http://64.190.90.127:5000/api/tasks`
+- POST `http://64.190.90.127:5000/api/tasks`
+
+- GET `http://64.190.90.127:5000/api/tasks/:id`
+- PUT `http://64.190.90.127:5000/api/tasks/:id`
+- DELETE `http://64.190.90.127:5000/api/tasks/:id`
+
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
