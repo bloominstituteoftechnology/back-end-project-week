@@ -213,3 +213,27 @@ body, html {
 .hidden {
   display: none;
 }
+
+.signup-buts {
+  display: flex;
+  justify-content: space-around
+}
+.signup-button {
+  background: #2BC1C4;
+  color: white;
+  border-radius: 6%;
+  width: 100px
+}
+
+.home-button {
+  background: #2BC1C4;
+  color: white;
+  border-radius: 6%;
+  width: 100px;
+}
+
+.signup-form-div {
+  width: 40%;
+  margin: 0 auto;
+  margin-top: 5%;
+}
