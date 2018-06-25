@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Backend_for_notes",
   "main": "server.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
   "repository": "https://github.com/wvandolah/back-end-project-week.git",
   "author": "William VanDolah <william.vandolah@gmail.com>",
   "license": "MIT",
