@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const User = require('../model/User.js');
+const Note = require('../model/Note.js');
+
 
 router.route('/')
     .get((req, res) => {
@@ -34,5 +36,14 @@ router.route('/:id')
             .then(response => res.json(response))
             .catch(err => res.status(500).json({ error: err.message }));
     });
+
+router.route('/:id/notes')
+    .get((req, res) => {
+        const { id } = req.params;
+        Note.find({ email: id })
+            .select('title body')
+            .then(response => res.json(response))
+            .catch(err => res.status(500).json({ error: err.message }));
+    })
 
 module.exports = router;
