@@ -1,0 +1,27 @@
+{
+    "name": "lambda-notes-backend",
+    "version": "1.0.0",
+    "description": "Backend Project",
+    "main": "server.js",
+    "scripts": {
+        "start": "nodemon server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/udykas/back-end-project-week"
+    },
+    "keywords": [],
+    "author": "udykas",
+    "license": "ISC",
+    "dependencies": {
+        "bcrypt": "^2.0.1",
+        "cors": "^2.8.4",
+        "express": "^4.16.3",
+        "helmet": "^3.12.1",
+        "jsonwebtoken": "^8.3.0",
+        "mongoose": "^5.1.6"
+    },
+    "devDependencies": {
+        "nodemon": "^1.17.5"
+    }
+}
