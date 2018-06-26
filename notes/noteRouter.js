@@ -15,5 +15,12 @@ router
             .then(result => res.status(201).json(result))
             .catch(err => res.status(500).json({error: err.message}))
         })
+        .get((req, res) => {
+            const {id} = req.params;
+            Note.findById(id)
+                .then(note => res.json(note))
+                .catch(err => res.status(500).json({error: err.message}))
+        })
+        
 
 module.exports = router;
