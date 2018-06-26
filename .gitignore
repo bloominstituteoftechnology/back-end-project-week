@@ -1,5 +1,6 @@
 .DS_Store
 node_modules
+secrets.js
 # Windows thumbnail cache files
 Thumbs.db
 ehthumbs.db
