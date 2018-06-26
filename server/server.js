@@ -3,6 +3,7 @@ const cors = require('cors');
 const db = require('./_config/db');
 const setupMiddleware = require('./_config/middleware');
 const setupRoutes = require('./_config/routes');
+const mongoose = require('mongoose');
 
 const server = express();
 
@@ -16,15 +17,14 @@ server.use(cors(corsOptions));
 setupMiddleware(server);
 setupRoutes(server);
 
-db.connectTo('notes')
-	.then(() => {
-		console.log('\n=== API connected to mongodb ===\n');
-		server.listen(8000,() =>
-			console.log('\n=== mongodb connected port 8000 ===\n')
-		);
-	})
-	.catch(err => {
-		console.log('\n === error connecting to mongodb === \n')
+mongoose.Promise = global.Promise;
+
+mongoose.connect(`mongodb://$(process.env.MLABUSER}:${process.env.MLABPASSWD}@ds018538.mlab.com:${process.env.MLABPORT}/notes`, {}, err => {
+	if (err) {
+		console.log('\n===error connecting to mongodb ===\n')
+		} else {
+		console.log('\n===connected to mongodb ===\n')
+		}
 	});
 
 const port = process.env.PORT || 8000;
