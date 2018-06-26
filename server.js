@@ -3,6 +3,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const noteRouter = require('./Routes/noteRouter');
+const studentRouter = require('./Routes/studentRouter');
 const localHost = 'localhost:27017';
 const database = 'lambdanotesdb';
 const server = express();
@@ -26,6 +27,7 @@ server.use(helmet());
 server.use(cors(corsOptions));
 server.use(express.json());
 server.use('/api/notes', noteRouter);
+server.use('/students/', studentRouter);
 
 server.get('/', (req, res) => {
     res.status(200).json({ api: 'running' });

@@ -30,13 +30,13 @@ function restricted(req, res, next) {
     }
 }
 
-router.get('/', restricted, (req, res) => {
+router.get('/users', restricted, (req, res) => {
     Student
         .find({})
-        .select('-password')
+        .select('-password -_id -__v')
         .then(students => {
             res.status(200).json({
-                users: students
+                students: students
             })
         })
         .catch(error => {
@@ -63,3 +63,43 @@ router.post('/register', function(req, res) {
             });
         });
 })
+
+router.post('/login', function(req, res) {
+    const { username, password } = req.body;
+    Student
+        .findOne({ username })
+        .then(student => {
+            if(!student) {
+                res.status(401).json({
+                    message: "INVALID CREDENTIALS"
+                })
+            } else {
+                student
+                    .validatePassword(password)
+                    .then(passwordsMatch => {
+                        if(passwordsMatch) {
+                            const token = generateToken(student)
+                            req.header.authorization = token;
+                            res.status(200).json({
+                                message: `Welcome ${username}`, 
+                                token
+                            })
+                        } else {
+                            res.status(401).json({
+                                message: "INVALID CREDENTIALS"
+                            })
+                        }
+                    })
+                    .catch(error => {
+                        res.status(500).json("Error Comparing Passwords")
+                    })
+            }
+        })
+        .catch(error => {
+            res.status(500).error({
+                error: error.message
+            })
+        })
+})
+
+module.exports = router;
