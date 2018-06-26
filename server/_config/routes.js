@@ -1,4 +1,4 @@
-const userRoutes = require('../../userController');
+const userRoutes = require('../../server/userController');
 
 module.exports = function(server) {
     //sanity check route
