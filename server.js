@@ -1,9 +1,11 @@
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 const mongoose = require("mongoose");
 
-const { MONGODB_URI } = require("./Config/config");
-
 mongoose.connect(
-  MONGODB_URI,
+  process.env.MONGODB_URI,
   {},
   err => {
     if (err) console.log("Database connection failed");
