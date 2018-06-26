@@ -22,16 +22,8 @@ const corsOptions = {
     preflightContinue: false,
     optionsSuccessStatus: 204
 };
+server.use(cors(corsOptions))
 
-mongoose.Promise = global.Promise;
-
-mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds217671.mlab.com:17671/lambdanotes`, {}, err => {
-    if (err) {
-        console.log(`That didn't go as planned`)
-    } else {
-    console.log(`Hurray for environment variables!`)
-    }
-})
 
 server.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -42,9 +34,21 @@ server.use((req, res, next) => {
       next();
     });
 
-server.use(cors(corsOptions))
+server.get('/', (req, res) => {
+    res.json({ api: 'Run away, run away!'})
+})
 
 server.use('/notes', noteRoute)
+
+mongoose.Promise = global.Promise;
+
+mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds217671.mlab.com:17671/lambdanotes`, {}, err => {
+    if (err) {
+        console.log(`That didn't go as planned`)
+    } else {
+    console.log(`Hurray for environment variables!`)
+    }
+})
 
 server.listen(port, () => {
     console.log(`Server up and running on ${port}`)
