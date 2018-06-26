@@ -49,6 +49,10 @@ describe('Server:', () => {
     }
   ];
 
+  const userRon = {
+    token: ""
+  };
+
   beforeAll(async () => {
     try {
       await mongoose.connect(MONGO_TEST_URI);
@@ -77,180 +81,6 @@ describe('Server:', () => {
     const { status } = responseObject;
 
     expect(status).toBe(httpStatusCode.OK);
-  });
-  
-  describe(`'/notes' Route:`, () => {
-
-    describe('POST Requests:', () => {
-      /* Some Test Data */
-      const testNote = {
-        "title": "My first note",
-        "text": "My brain is melting. Please send help.",
-        "author": "5b30101a8a63c231b8200da2"
-      };
-    
-      it("rejects POST request at '/notes' missing author.", async () => {
-        const { author, ...noAuthorNote } = testNote;
-  
-        let responseObject;
-        try {
-          responseObject = await request(server).post('/notes').send(noAuthorNote);
-        } catch(error) {
-          console.log('acccepts POST requests at \'notes\' ERROR:\n',error);
-        }
-  
-        const { status, body } = responseObject;
-        expect(status).toBe(httpStatusCode.badRequest);
-        expect(body).toMatchObject({ error: "400: Bad Request\nThe 'author' field is missing but is required. Ensure it is a MongoDB ObjectID type." });
-      });
-      
-      it('acccepts POST requests at \'notes\'', async () => {
-        let responseObject;
-        try {
-          responseObject = await request(server).post('/notes').send(testNote);
-        } catch(error) {
-          console.log('acccepts POST requests at \'notes\' ERROR:\n',error);
-        }
-  
-        const { status, body } = responseObject;
-        expect(status).toBe(httpStatusCode.created);
-        expect(body).toMatchObject(testNote);
-      });
-    });
-  
-    describe('GET Requests:', () => {
-      /* Some Test Data */
-      const testNote = {
-        "title": "My first note",
-        "text": "My brain is melting. Please send help.",
-        "author": "5b30101a8a63c231b8200da2"
-      };
-  
-      it('accepts requests at \'notes\'', async () => {
-        let responseObject;
-        try {
-          responseObject = await request(server).get('/notes');
-        } catch(error) {
-          console.log('accepts requests at \'notes\' ERROR:\n',error);
-        }
-        const { status, body } = responseObject;
-  
-        expect(status).toBe(httpStatusCode.OK);
-        expect(body).toEqual(expect.arrayContaining([expect.objectContaining(testNote)]));
-        expect(body.length).toBe(3);
-      });
-    });
-    
-    describe('PUT Requests:', () => {
-
-      /* Some Test Data */
-      const testNote = {
-        "title": "My first note",
-        "text": "My brain is melting. Please send help.",
-        "author": "5b30101a8a63c231b8200da2"
-      };
-
-      it(`rejects PUT requests at root '/notes'`, async () => {
-        let responseObject;
-        try {
-          responseObject = await request(server).put('/notes').send(testNote);
-        } catch(error) {
-          console.log(`rejects PUT requests at root '/notes'--ERROR:\n`,error);
-        }
-        const { status, body } = responseObject;
-        expect(status).toBe(httpStatusCode.notFound);
-        expect(body).toMatchObject({ error: "404: Not Found\nA valid note ID was not received with the PUT request. Please ensure the URL includes the ID of the note you wish to update." })
-      });
-    });
-  });
-
-  describe(`'/notes/:id' Route:`, () => {
-
-    describe('GET Requests', () => {
-      
-      it('retrieves a specified note.', async () => {
-        const idToRetrieve = testNotes[0]._id;
-        
-        let responseObject;
-        try {
-          responseObject = await request(server).get(`/notes/${idToRetrieve}`);
-        } catch(error) {
-          console.log(`retrieves a specified note--ERROR:\n`,error);
-        }
-        
-        const noteExpectedToReceive = testNotes[0];
-        const { status, body } = responseObject;
-        expect(status).toBe(httpStatusCode.OK);
-        expect(body).toMatchObject(noteExpectedToReceive);
-      });
-
-      it('returns a 404 status when it cannot find a note with the specified ID.', async () => {
-        const idToRetrieve = '5b30101a8a63c231b8200da2'; // this id does not exist
-
-        const responseObject = await request(server).get(`/notes/${idToRetrieve}`);
-        logError(responseObject);
-
-        const {status, body } = responseObject;
-        expect(status).toBe(httpStatusCode.notFound);
-        expect(body).toEqual({ error: "404: Not Found\nThe note with the specified ID cannot be found. The note is likely to have changed or not exist, though you may double check the ID in the URL for errors." });
-      })
-    });
-
-    describe('PUT Requests:', () => {
-      
-      it('modifies a note appropriately.', async () => {
-        const idToRetrieve = testNotes[1]._id;
-        const editedNote = {...testNotes[1], text: 'ABC123DOREMI' };
-
-        const responseObject = await request(server).put(`/notes/${idToRetrieve}`).send(editedNote);
-
-        logError(responseObject);
-
-        const noteExpectedToReceive = editedNote;
-        const { status, body } = responseObject;
-        expect(status).toBe(httpStatusCode.OK);
-        expect(body).toMatchObject(noteExpectedToReceive);
-      });
-
-      it('returns a 404 status when it cannot find a note with the specified ID.', async () => {
-        const idToRetrieve = '5b30101a8a63c231b8200da2'; // this ID does not exist
-        const editedNote = testNotes[0]; //just a random test note. We shouldn't be getting this back
-
-        const responseObject = await request(server).put(`/notes/${idToRetrieve}`).send(editedNote);
-        logError(responseObject, httpStatusCode.notFound);
-
-        const noteExpectedToReceive = editedNote;
-        const { status, body } = responseObject;
-        expect(status).toBe(httpStatusCode.notFound);
-        expect(body).toEqual({ error: "404: Not Found\nThe note with the specified ID cannot be found. The note is likely to have changed or not exist, though you may double check the ID in the URL for errors." });
-      });
-    });
-
-    describe('DELETE Requests:', () => {
-
-      it('deletes a note appproriately.', async () => {
-        const noteToDelete = testNotes[0];
-        const idOfNoteToDelete = noteToDelete._id;
-
-        const responseObject = await request(server).delete(`/notes/${idOfNoteToDelete}`);
-        logError(responseObject);
-
-        const { status, body } = responseObject;
-        expect(status).toBe(httpStatusCode.OK);
-        expect(body).toEqual({ "deleted": expect.objectContaining(noteToDelete) });
-      });
-
-      it('returns a 404 status when it cannot find a note with the specified ID.', async () => {
-        const idOfNoteToDelete ='5b30101a8a63c231b8200da2'; // this ID does not exist
-
-        const responseObject = await request(server).delete(`/notes/${idOfNoteToDelete}`);
-        logError(responseObject, httpStatusCode.notFound);
-
-        const { status, body } = responseObject;
-        expect(status).toBe(httpStatusCode.notFound);
-        expect(body).toEqual({ error: "404: Not Found\nThe note with the specified ID cannot be found. The note is likely to have changed or not exist, though you may double check the ID in the URL for errors." });
-      });
-    })
   });
 
   describe(`'/register' Route:`, () => {
@@ -325,11 +155,220 @@ describe('Server:', () => {
       logError(responseObject);
 
       const { status, body } = responseObject;
-
+      
+      // We'll use the token generated from this login test to check authentication for other tests in this file.
+      userRon.token = body.token;
+      
       expect(status).toBe(httpStatusCode.OK);
       expect(body).toMatchObject({ "Welcome": "Login Successful"});
       expect(body).toHaveProperty('token');
       expect(body.token).toBeTruthy();
     });
+  });
+  
+  describe(`'/notes' Route:`, () => {
+
+    describe('POST Requests:', () => {
+      /* Some Test Data */
+      const testNote = {
+        "title": "My first note",
+        "text": "My brain is melting. Please send help.",
+        "author": "5b30101a8a63c231b8200da2"
+      };
+    
+      it("rejects POST request at '/notes' missing author.", async () => {
+        const { author, ...noAuthorNote } = testNote;
+
+        const responseObject = 
+          await request(server)
+            .post('/notes')
+            .set('authorization', userRon.token)
+            .send(noAuthorNote);
+        logError(responseObject, httpStatusCode.badRequest);
+  
+        const { status, body } = responseObject;
+        expect(status).toBe(httpStatusCode.badRequest);
+        expect(body).toMatchObject({ error: "400: Bad Request\nThe 'author' field is missing but is required. Ensure it is a MongoDB ObjectID type." });
+      });
+      
+      it('rejects POST requests at \'notes\' without JWT', async () => {
+        const responseObject = await request(server)
+          .post('/notes')
+          .send(testNote);
+        logError(responseObject, httpStatusCode.unauthorized);
+  
+        const { status } = responseObject;
+        expect(status).toBe(httpStatusCode.unauthorized);
+      });
+
+      it('accepts POST requests at \'notes\' with JWT', async () => {
+        const responseObject = await request(server)
+          .post('/notes')
+          .set('authorization', userRon.token)
+          .send(testNote);
+        logError(responseObject);
+  
+        const { status, body } = responseObject;
+        expect(status).toBe(httpStatusCode.created);
+        expect(body).toMatchObject(testNote);
+      });
+    });
+  
+    describe('GET Requests:', () => {
+      /* Some Test Data */
+      const testNote = {
+        "title": "My first note",
+        "text": "My brain is melting. Please send help.",
+        "author": "5b30101a8a63c231b8200da2"
+      };
+  
+      it('rejects requests at \'notes\' without JWT', async () => {
+        console.log("userRon token:",userRon.token);
+        const responseObject = 
+          await request(server)
+            .get('/notes')
+        logError(responseObject, httpStatusCode.unauthorized);
+
+        const { status } = responseObject;
+  
+        expect(status).toBe(httpStatusCode.unauthorized);
+      });
+
+      it('accepts requests at \'notes\' with JWT', async () => {
+        console.log("userRon token:",userRon.token);
+        const responseObject = 
+          await request(server)
+            .get('/notes')
+            .set('authorization', userRon.token);
+        logError(responseObject);
+
+        const { status, body } = responseObject;
+  
+        expect(status).toBe(httpStatusCode.OK);
+        expect(body).toEqual(expect.arrayContaining([expect.objectContaining(testNote)]));
+        expect(body.length).toBe(3);
+      });
+    });
+    
+    describe('PUT Requests:', () => {
+
+      /* Some Test Data */
+      const testNote = {
+        "title": "My first note",
+        "text": "My brain is melting. Please send help.",
+        "author": "5b30101a8a63c231b8200da2"
+      };
+
+      it(`rejects PUT requests at root '/notes'`, async () => {
+        const responseObject = await request(server)
+          .put('/notes')
+          .set('authorization', userRon.token)
+          .send(testNote);
+        logError(responseObject, httpStatusCode.notFound);
+
+        const { status, body } = responseObject;
+        expect(status).toBe(httpStatusCode.notFound);
+        expect(body).toMatchObject({ error: "404: Not Found\nA valid note ID was not received with the PUT request. Please ensure the URL includes the ID of the note you wish to update." })
+      });
+    });
+  });
+
+  describe(`'/notes/:id' Route:`, () => {
+
+    describe('GET Requests', () => {
+      
+      it('retrieves a specified note.', async () => {
+        const idToRetrieve = testNotes[0]._id;
+        
+        const responseObject = await request(server)
+        .get(`/notes/${idToRetrieve}`)
+        .set('authorization', userRon.token);
+        logError(responseObject);
+
+        const noteExpectedToReceive = testNotes[0];
+        const { status, body } = responseObject;
+        expect(status).toBe(httpStatusCode.OK);
+        expect(body).toMatchObject(noteExpectedToReceive);
+      });
+
+      it('returns a 404 status when it cannot find a note with the specified ID.', async () => {
+        const idToRetrieve = '5b30101a8a63c231b8200da2'; // this id does not exist
+
+        const responseObject = await request(server)
+          .get(`/notes/${idToRetrieve}`)
+          .set('authorization', userRon.token);
+        logError(responseObject, httpStatusCode.notFound);
+
+        const {status, body } = responseObject;
+        expect(status).toBe(httpStatusCode.notFound);
+        expect(body).toEqual({ error: "404: Not Found\nThe note with the specified ID cannot be found. The note is likely to have changed or not exist, though you may double check the ID in the URL for errors." });
+      })
+    });
+
+    describe('PUT Requests:', () => {
+      
+      it('modifies a note appropriately.', async () => {
+        const idToRetrieve = testNotes[1]._id;
+        const editedNote = {...testNotes[1], text: 'ABC123DOREMI' };
+
+        const responseObject = await request(server)
+          .put(`/notes/${idToRetrieve}`)
+          .set('authorization', userRon.token)
+          .send(editedNote);
+
+        logError(responseObject);
+
+        const noteExpectedToReceive = editedNote;
+        const { status, body } = responseObject;
+        expect(status).toBe(httpStatusCode.OK);
+        expect(body).toMatchObject(noteExpectedToReceive);
+      });
+
+      it('returns a 404 status when it cannot find a note with the specified ID.', async () => {
+        const idToRetrieve = '5b30101a8a63c231b8200da2'; // this ID does not exist
+        const editedNote = testNotes[0]; //just a random test note. We shouldn't be getting this back
+
+        const responseObject = await request(server)
+          .put(`/notes/${idToRetrieve}`)
+          .set('authorization', userRon.token)
+          .send(editedNote);
+        logError(responseObject, httpStatusCode.notFound);
+
+        const noteExpectedToReceive = editedNote;
+        const { status, body } = responseObject;
+        expect(status).toBe(httpStatusCode.notFound);
+        expect(body).toEqual({ error: "404: Not Found\nThe note with the specified ID cannot be found. The note is likely to have changed or not exist, though you may double check the ID in the URL for errors." });
+      });
+    });
+
+    describe('DELETE Requests:', () => {
+
+      it('deletes a note appproriately.', async () => {
+        const noteToDelete = testNotes[0];
+        const idOfNoteToDelete = noteToDelete._id;
+
+        const responseObject = await request(server)
+          .delete(`/notes/${idOfNoteToDelete}`)
+          .set('authorization', userRon.token);
+        logError(responseObject);
+
+        const { status, body } = responseObject;
+        expect(status).toBe(httpStatusCode.OK);
+        expect(body).toEqual({ "deleted": expect.objectContaining(noteToDelete) });
+      });
+
+      it('returns a 404 status when it cannot find a note with the specified ID.', async () => {
+        const idOfNoteToDelete ='5b30101a8a63c231b8200da2'; // this ID does not exist
+
+        const responseObject = await request(server)
+          .delete(`/notes/${idOfNoteToDelete}`)
+          .set('authorization', userRon.token);
+        logError(responseObject, httpStatusCode.notFound);
+
+        const { status, body } = responseObject;
+        expect(status).toBe(httpStatusCode.notFound);
+        expect(body).toEqual({ error: "404: Not Found\nThe note with the specified ID cannot be found. The note is likely to have changed or not exist, though you may double check the ID in the URL for errors." });
+      });
+    })
   });
 });

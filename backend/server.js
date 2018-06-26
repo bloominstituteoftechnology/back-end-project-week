@@ -6,12 +6,12 @@ module.exports = (usersModel, notesModel) => {
   const noteRoutes = require('./controllers/noteRoutes')(notesModel);
   const noteIdRoutes = require('./controllers/noteIdRoutes')(notesModel);
   const userRoutes = require('./controllers/userRoutes')(usersModel);
-  const useGeneralMiddleware = require('./utils/server/middleware');
+  const useMiddlewareQueue = require('./utils/server/middleware');
   // Definitions
   const server = express();
   const httpStatusCodeOK = 200;
 
-  useGeneralMiddleware(server);
+  useMiddlewareQueue(server);
 
   server.route('/')
     .get((req, res) => {
@@ -23,8 +23,9 @@ module.exports = (usersModel, notesModel) => {
   
   server.route('/login')
     .post(userRoutes.LOGIN);
-    
+  
   server.route('/notes')
+    //Notes route are protected. An authentication middleware that checks for JWT should exist.
     .get(noteRoutes.GET)
     .post(noteRoutes.POST)
     .put(noteRoutes.NO_PUT);
