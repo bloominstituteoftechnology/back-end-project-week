@@ -54,5 +54,24 @@ router
                 res.status(500).json({ error: "The note could not be removed", err })
             })
     })
+    .put((req, res) => {
+        const { title, body } = req.body;
+        if(!title || !body){
+            res.status(400).json({ error: "Please provide a title and body to edit your note" });
+            return;
+        }
+        Note 
+            .findByIdAndUpdate(req.params.id, { title, body })
+            .then(note => {
+                if(note){
+                    res.status(200).json(note)
+                } else {
+                    res.status(404).json({ error: "The note with the specified id does not exist" })
+                }
+            })
+            .catch(err => {
+                res.status(500).json({ error: "The note information could not be modified", err })
+            })
+    })
 
 module.exports = router;
