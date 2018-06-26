@@ -1,15 +1,13 @@
-const express = require('express'); // remember to install your npm packages
+const express = require('express'); 
 const cors = require('cors');
 const mongoose = require('mongoose');
-var bodyParser = require('body-parser');
 
 const userRouter = require('./users/userRouter.js');
 const notesRouter = require('./notes/noteRouter.js');
 
 const server = express();
-server.use(cors());
+server.use(cors({}));
 server.use(express.json());
-server.use(bodyParser.json());
 
 server.use('/api/users', userRouter);
 server.use('/api/notes', notesRouter);
@@ -21,7 +19,7 @@ server.get('/', (req, res) => {
 const port = process.env.PORT || 5000;
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/notesapp', {}, err => {
+mongoose.connect('mongodb://localhost/notesApp', {}, err => {
   if (err) console.log(err);
   console.log('Mongoose connected us to our DB');
 });
