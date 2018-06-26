@@ -28,20 +28,4 @@ router
             })
     })
 
-// function restricted(req, res, next) {
-//     const token = req.headers.authorization;
-    
-//     if(token){
-//         jwt.verify(token, secret, (err) => {
-
-//         if(err){
-//             return res.status(401).json({ message: "Token was not decoded. Please log in with correct username and password to view notes." });
-//         }
-//             next();
-//         });
-//     } else {
-//         res.status(401).json({ message: "Error: no token. Please log in." })
-//     }
-// }
-
 module.exports = router;
