@@ -3,10 +3,12 @@ const Schema = mongoose.Schema; // same as const { Scheama } = mongoose;
 
 const Note = new Schema({
     title: {
-        type: String
+        type: String,
+        required: true
 },
     body: {
-        type: String
+        type: String,
+        required: true
 }
 });
 
