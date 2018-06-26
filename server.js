@@ -29,7 +29,17 @@ server.use(cors(corsOptions));
 server.use(express.json());
 setupMiddleware(server);
 
+// Simple Node Express App to show server is online
+
+server.get('/', (req, res) => {
+    res.send(`<h2>Server is online!</h2>`);
+});
+
 // HTTP METHODS FOR USERS
+
+server.get('/', (req, res) => {
+    res.send(`<h2>Server is online!</h2>`)
+});
 
 server.post('/api/register', (req, res) => {
     User.create(req.body)
