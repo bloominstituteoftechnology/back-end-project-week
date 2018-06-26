@@ -2,8 +2,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 // Utils
-const validators = require('../utils/modelValidators');
-const { hashPassword, validatePassword } = require('../utils/bcryptMethods');
+const validators = require('../utils/models/modelValidators');
+const { hashPassword, validatePassword } = require('../utils/models/bcryptMethods');
 // General Definitions
 const ObjectId = mongoose.Schema.Types.ObjectId;
 

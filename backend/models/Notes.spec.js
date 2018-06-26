@@ -46,6 +46,7 @@ describe('Notes Model:', () => {
     text: 'Cold-pressed locavore keytar 8-bit woke fixie, iPhone banh mi. Snackwave chicharrones skateboard meh, waistcoat tattooed vinyl subway tile raw denim PBR&B. VHS selfies pug actually craft beer food truck tote bag taiyaki shabby chic chillwave pickled air plant kogi vinyl. Vinyl slow-carb squid skateboard direct trade everyday carry, roof party umami cliche coloring book pickled. Next level kombucha pug, cold-pressed before they sold out seitan aesthetic.',
     author: testUser._id
   };
+  
   const { author, ...noteWithoutAuthor } = testNote;
 
   describe('Validation Tests:', () => {

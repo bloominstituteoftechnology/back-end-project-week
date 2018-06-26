@@ -87,21 +87,21 @@ describe('Server:', () => {
         let responseObject;
         try {
           responseObject = await request(server).post('/notes').send(noAuthorNote);
-        } catch (error) {
-          console.log('acccepts POST requests at \'notes\' ERROR:',error);
+        } catch(error) {
+          console.log('acccepts POST requests at \'notes\' ERROR:\n',error);
         }
   
         const { status, body } = responseObject;
         expect(status).toBe(httpStatusCode.badRequest);
-        expect(body).toMatchObject({ message: "Please let your admin or dev know an error has happened and show them the following:\n400: Bad Request\nThe 'author' field is missing but is required. Ensure it is a MongoDB ObjectID type." });
+        expect(body).toMatchObject({ message: "400: Bad Request\nThe 'author' field is missing but is required. Ensure it is a MongoDB ObjectID type." });
       });
       
       it('acccepts POST requests at \'notes\'', async () => {
         let responseObject;
         try {
           responseObject = await request(server).post('/notes').send(testNote);
-        } catch (error) {
-          console.log('acccepts POST requests at \'notes\' ERROR:',error);
+        } catch(error) {
+          console.log('acccepts POST requests at \'notes\' ERROR:\n',error);
         }
   
         const { status, body } = responseObject;
@@ -122,8 +122,8 @@ describe('Server:', () => {
         let responseObject;
         try {
           responseObject = await request(server).get('/notes');
-        } catch (error) {
-          console.log('accepts requests at \'notes\' ERROR:',error);
+        } catch(error) {
+          console.log('accepts requests at \'notes\' ERROR:\n',error);
         }
         const { status, body } = responseObject;
   
@@ -146,8 +146,8 @@ describe('Server:', () => {
         let responseObject;
         try {
           responseObject = await request(server).put('/notes').send(testNote);
-        } catch (error) {
-          console.log(`rejects PUT requests at root '/notes'--ERROR:`,error);
+        } catch(error) {
+          console.log(`rejects PUT requests at root '/notes'--ERROR:\n`,error);
         }
         const { status, body } = responseObject;
         expect(status).toBe(httpStatusCode.notFound);
@@ -156,7 +156,7 @@ describe('Server:', () => {
     });
   });
 
-  describe(`'/notes/:id' Routes:`, () => {
+  describe(`'/notes/:id' Route:`, () => {
 
     describe('GET Requests', () => {
       
@@ -166,8 +166,8 @@ describe('Server:', () => {
         let responseObject;
         try {
           responseObject = await request(server).get(`/notes/${idToRetrieve}`);
-        } catch (error) {
-          console.log(`retrieves a specified note--ERROR:`,error);
+        } catch(error) {
+          console.log(`retrieves a specified note--ERROR:\n`,error);
         }
         
         const noteExpectedToReceive = testNotes[0];
@@ -182,8 +182,8 @@ describe('Server:', () => {
         let responseObject;
         try {
           responseObject = await request(server).get(`/notes/${idToRetrieve}`);
-        } catch (error) {
-          console.log(`retrieves a specified note--ERROR:`,error);
+        } catch(error) {
+          console.log(`retrieves a specified note--ERROR:\n\n`,error);
         }
 
         const {status, body } = responseObject;
@@ -202,8 +202,8 @@ describe('Server:', () => {
         let responseObject;
         try {
           responseObject = await request(server).put(`/notes/${idToRetrieve}`).send(editedNote);
-        } catch (error) {
-          console.log(`retrieves a specified note--ERROR:`,error);
+        } catch(error) {
+          console.log(`retrieves a specified note--ERROR:\n`,error);
         }
         console.log(await Notes.find());
         const noteExpectedToReceive = editedNote;

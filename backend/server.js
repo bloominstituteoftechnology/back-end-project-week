@@ -3,7 +3,8 @@ const express = require('express');
 
 module.exports = (notesModel) => {
   // Dependencies
-  const noteRoutes = require('./routes/noteRoutes');
+  const noteRoutes = require('./controllers/noteRoutes')(notesModel);
+  const noteIdRoutes = require('./controllers/noteIdRoutes')(notesModel);
   const useGeneralMiddleware = require('./utils/server/middleware');
   // Definitions
   const server = express();
@@ -16,13 +17,13 @@ module.exports = (notesModel) => {
     });
 
   server.route('/notes')
-    .get(noteRoutes(notesModel).GET)
-    .post(noteRoutes(notesModel).POST)
-    .put(noteRoutes(notesModel).NO_PUT);
+    .get(noteRoutes.GET)
+    .post(noteRoutes.POST)
+    .put(noteRoutes.NO_PUT);
 
   server.route('/notes/:id')
-    .get(noteRoutes(notesModel).GET_ONE_BY_ID)
-    .put(noteRoutes(notesModel).PUT);
+    .get(noteIdRoutes.GET_ONE_BY_ID)
+    .put(noteIdRoutes.PUT);
   
   return server;
 };

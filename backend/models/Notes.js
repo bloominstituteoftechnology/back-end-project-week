@@ -19,8 +19,12 @@ const NotesSchema = new mongoose.Schema({
   },
   collaborators: [{
     type: ObjectId,
-    ref: 'User',
+    ref: 'User'
   }],
+  dateCreated: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 module.exports = mongoose.model('Note', NotesSchema);
