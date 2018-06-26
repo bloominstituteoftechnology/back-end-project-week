@@ -5,9 +5,11 @@ const { sendErrorMessage } = require('../utils/sendErrorMessage');
 router
   .post('/', (req, res) => {
     const { firstName, lastName, email, password } = req.body;
+
     User.create({ firstName, lastName, email, password })
       .then(user => {
-        res.status(201).json(user);
+        const { firstName, lastName, email } = user;
+        res.status(201).json({ firstName, lastName, email });
       })
       .catch(err => {
         sendErrorMessage(err, res, 'The user could not be created.');
@@ -25,11 +27,14 @@ router
         res.status(200).json(users);
       })
       .catch(err => {
-        res.status(500).json({ error: 'The list of users could not be retrieved.' });
+        res
+          .status(500)
+          .json({ error: 'The list of users could not be retrieved.' });
       });
   })
   .get('/:id', (req, res) => {
     const { id } = req.params;
+
     User.findById(id)
       .select({
         _id: 0,
@@ -41,11 +46,17 @@ router
         if (user) {
           res.status(200).json(user);
         } else {
-          res.status(404).json({ error: `The user with id ${id} does not exist.` });
+          res
+            .status(404)
+            .json({ error: `The user with id ${id} does not exist.` });
         }
       })
       .catch(err => {
-        sendErrorMessage(err, res, `The user with id ${id} could not be retrieved.`);
+        sendErrorMessage(
+          err,
+          res,
+          `The user with id ${id} could not be retrieved.`
+        );
       });
   })
   .put('/:id', (req, res) => {
@@ -56,7 +67,11 @@ router
       runValidators: true
     };
 
-    User.findByIdAndUpdate(id, { firstName, lastName, email, password }, options)
+    User.findByIdAndUpdate(
+      id,
+      { firstName, lastName, email, password },
+      options
+    )
       .select({
         _id: 0,
         firstName: 1,
@@ -67,14 +82,19 @@ router
         if (updatedUser) {
           res.status(200).json(updatedUser);
         } else {
-          res.status(404).json({ error: `The user with id ${id} does not exist.` });
+          res
+            .status(404)
+            .json({ error: `The user with id ${id} does not exist.` });
         }
       })
       .catch(err => {
-        sendErrorMessage(err, res, `The user with id ${id} could not be modified.`);
+        sendErrorMessage(
+          err,
+          res,
+          `The user with id ${id} could not be modified.`
+        );
       });
   });
-//   .delete();
 
 module.exports = {
   usersRouter: router
