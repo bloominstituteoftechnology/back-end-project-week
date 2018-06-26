@@ -17,14 +17,25 @@ const userRouter = require('./user/userRouter.js');
 const tagRouter = require('./tag/tagRouter.js');
 
 // Connect to mlab
-mongoose
-    .connect(`mongodb://${dbuser}:${encodeURIComponent(dbpassword)}@ds117711.mlab.com:17711/${dbname}`)
-    .then(() => {
-        console.log('Database is connected');
-    })
-    .catch(err => {
-        console.log('error connecting to dev database:', err);
-    });
+if (process.env.NODE_ENV === 'dev') {
+    mongoose
+        .connect(`mongodb://${dbuser}:${encodeURIComponent(dbpassword)}@ds117711.mlab.com:17711/${dbname}`)
+        .then(() => {
+            console.log('Database is connected');
+        })
+        .catch(err => {
+            console.log('error connecting to dev database:', err);
+        });
+} else {
+    mongoose
+        .connect(process.env.mongo)
+        .then(() => {
+            console.log('Database is connected');
+        })
+        .catch(err => {
+            console.log('error connecting to dev database:', err);
+        });
+}
 
 // Api calls
 server.use(helmet());
