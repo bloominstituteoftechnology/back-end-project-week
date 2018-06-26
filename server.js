@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5555;
 
 const db = require('./data/db');
 const notesRouter = require('./notes/notesRouter');
