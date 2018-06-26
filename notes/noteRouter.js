@@ -28,4 +28,17 @@ router
             })
     })
 
+router
+    route('/:id')
+    get((req, res) => {
+        Note
+            .findById(req.params.id)
+            .then(note => {
+                res.status(200).json(note);
+            })
+            .catch(err => {
+                res.status(500).json(err)
+            })
+    })
+
 module.exports = router;
