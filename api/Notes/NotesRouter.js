@@ -7,8 +7,8 @@ const Note = require('./noteSchema');
 router
     .get('/', (req, res) => {
         Note.find()
-            .then(notes => {
-                res.json(notes)
+            .then(note => {
+                res.json(note)
             })
             .catch(error => {
                 res.status(500).json({
@@ -18,8 +18,8 @@ router
     })
 
     .post('/', (req, res) => {
-        const Note = new Note(req.body);
-        Note.save()
+        const { title, contents } = req.body;
+        Note.save({ title, contents })
             .then(addNote => {
                 res.status(201).json(addNote)
             })
@@ -60,10 +60,10 @@ router.get('/:id', (req, res) => {
 
         .put('/:id', (req, res) => {
             const { id } = req.params;
+            const noteUpdate = ({ title, contents });
             //Have to double-check naming convention of { title, contents } in front-end
-            const { title, contents } = req.body;
 
-            Note.findByIdAndUpdate(id, req.body)
+            Note.findByIdAndUpdate(id, noteUpdate, { new: true })
                 .then(updateNote => {
                     res.status(201).json(updateNote)
                 })

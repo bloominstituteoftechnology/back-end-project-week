@@ -1298,7 +1298,7 @@ mongodb-core@3.0.9:
     bson "~1.0.4"
     require_optional "^1.0.1"
 
-mongodb@3.0.10:
+mongodb@3.0.10, mongodb@^3.0.10:
   version "3.0.10"
   resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-3.0.10.tgz#f948cb9595adcbfcad7444f6b24a040b653b23e8"
   dependencies:

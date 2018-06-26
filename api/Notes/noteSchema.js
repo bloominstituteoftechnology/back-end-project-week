@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
+let ObjectId = mongoose.Schema.Types.ObjectId;
 
-const Note = new mongoose.Schema({
+const NoteSchema = new mongoose.Schema({
+    
     title: {
         type: String,
         required: true,
@@ -20,7 +22,13 @@ const Note = new mongoose.Schema({
     timestamp: {
         type: Date,
         default: Date.now(),
+
+    user: {
+        type: ObjectId,
+        ref: "User"
+    }
+
     }
 });
 
-module.exports = mongoose.model('Note', Note);
+module.exports = mongoose.model('Note', NoteSchema);

@@ -21,25 +21,25 @@ mongoose.connect('mongodb://localhost/lambdaNotes')
 
 const server = express();
 
-const sessionOptions = {
-    secret: 'If you build it, they will come',
-    cookie: {
-        maxAge: 1000 * 60 * 60
-    },
-    httpOnly: true,
-    secure: false,
-    resave: true,
-    savedUninitialized: false,
-    name: 'noname',
-    store: new MongoStore({
-        //Note from Ellen: this URL will need to change when hosted on mLab
-        url: 'mongodb://localhost/sessions',
-        ttl: 60 * 10
-    }),
-}
+// const sessionOptions = {
+//     secret: 'If you build it, they will come',
+//     cookie: {
+//         maxAge: 1000 * 60 * 60
+//     },
+//     httpOnly: true,
+//     secure: false,
+//     resave: true,
+//     savedUninitialized: false,
+//     name: 'noname',
+//     store: new MongoStore({
+//         //Note from Ellen: this URL will need to change when hosted on mLab
+//         url: 'mongodb://localhost/sessions',
+//         ttl: 60 * 10
+//     }),
+// }
 
 server.use(express.json());
-server.use(session(sessionOptions));
+// server.use(session(sessionOptions));
 server.use(cors({}));
 server.use(helmet());
 // server.use(morgan());
