@@ -9,7 +9,7 @@ const server = express();
 const port = process.env.PORT || 5000;
 
 // Serve static files from the React app
-server.use(express.static(path.join(__dirname, 'client/build')));
+server.use(express.static(__dirname + '/client/build'));
 
 // Router
 const noteRouter = require('./note/noteRouter.js');
