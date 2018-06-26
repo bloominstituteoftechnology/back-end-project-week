@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 
 import './ListNotes.css';
-// import { connect } from 'react-redux';
-// import { fetchNotes } from '../actions/index';
 
 export default class ListNotes extends Component {
     constructor(props) {
@@ -12,10 +10,6 @@ export default class ListNotes extends Component {
             search: ''
          }
     }
-
-    // componentDidMount() {
-    //     this.props.fetchNotes();
-    // }
 
     handleSearch = e => {
         this.setState({ search: e.target.value });
@@ -88,11 +82,3 @@ function NoteDetails({ note }) {
     )
 }
 
-// const mapStateToProps = state => {
-//     console.log('State:', state)
-//     return {
-//         notes: state.noteReducer.notes
-//     }
-//   }
-  
-//   export default connect(mapStateToProps, { fetchNotes } )(ListNotes);

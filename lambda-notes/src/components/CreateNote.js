@@ -18,11 +18,21 @@ class CreateNote extends Component {
     saveNewNote = () => {
         const newNote = { title: this.state.title, body: this.state.body};
         const notes = this.props.notes;
-        notes.push(newNote);
-        this.setState({
-            title: '',
-            body: ''
-        })
+        axios
+            .post(`http://localhost:5000/api/notes`, newNote)
+            .then(savedNote => {
+                this.setState({ title: '', body: '' })
+                console.log(savedNote.data)
+            })
+            .catch(err => {
+                console.error(err);
+            })
+        window.location.reload();
+        // notes.push(newNote);
+        // this.setState({
+        //     title: '',
+        //     body: ''
+        // })
         
     }
 
