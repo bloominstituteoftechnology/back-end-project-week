@@ -10,6 +10,7 @@ const cors = require('cors');
 const User = require('../users/User');
 const Notes = require('../notes/Notes');
 const NotesRoutes = require('../notes/NotesRoutes');
+const config = require('../api/config.js');
 
 // const port = 5000;//port for Notes react app(frontend).
 
@@ -43,7 +44,6 @@ server.post('/api/notes', (req, res) => {
 server.get('/', (req, res) => {
     res.status(200).json({ api: 'running' });
 });
-
 
 
 module.exports = server;

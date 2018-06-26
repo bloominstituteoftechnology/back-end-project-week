@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
 const server = require('./api/server');
+const config = require('./api/config.js');
 
-const port = 8000;
+const port = config.port || 8000;
 mongoose
     .connect('mongodb://localhost/notesdb')
     .then(() => {
         console.log('connected to notes database');
-        server.listen(port, () => {
-            console.log(`Connected to port ${port}`);
+        server.listen(config.port, () => {
+            console.log(`Connected to port ${config.port}`);
         });
     })
     .catch(err => {
