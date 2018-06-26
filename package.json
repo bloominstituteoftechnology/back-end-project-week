@@ -19,14 +19,14 @@
   },
   "homepage": "https://github.com/masontmorrow/back-end-project-week#readme",
   "dependencies": {
-    "bcrypt": "^2.0.1",
-    "cors": "^2.8.4",
-    "express": "^4.16.3",
-    "helmet": "^3.12.1",
-    "mongoose": "^5.1.6"
+    "bcrypt": "2.0.1",
+    "cors": "2.8.4",
+    "express": "4.16.3",
+    "helmet": "3.12.1",
+    "mongoose": "5.1.6"
   },
   "devDependencies": {
-    "morgan": "^1.9.0",
-    "nodemon": "^1.17.5"
+    "morgan": "1.9.0",
+    "nodemon": "1.17.5"
   }
 }
