@@ -32,6 +32,10 @@ module.exports = (notesModel) => {
 
       notesModel.findByIdAndUpdate(id, editedNote, configObj)
         .then(note => {
+          if (!note) {
+            res.status(httpStatus.notFound).json({ error: "404: Not Found\nThe note with the specified ID cannot be found. The note is likely to have changed or not exist, though you may double check the ID in the URL for errors." });
+            return;
+          }
           res.status(httpStatus.OK).json(note);
         })
         .catch(error => {
@@ -52,7 +56,7 @@ module.exports = (notesModel) => {
         })
         .catch(error => {
           console.log('noteIdRoutes--DELETE ERROR:',error);
-          res.status(500).json({ error: `500 Internal Server Error:\n${error}`});
+          res.status(httpStatus.internalServerError).json({ error: `${httpStatus.internalServerError} Internal Server Error:\n${error}`});
         })
     }
   };

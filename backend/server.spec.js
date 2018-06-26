@@ -8,9 +8,9 @@ const server = require('./server')(Notes);
 // Utils
 const httpStatusCode = require('./utils/HTTPStatusCodes');
 const { MONGO_TEST_URI } = require('./utils/secrets');
-const logError = responseObject => {
-  const { error } = responseObject;
-  if (error) {
+const logError = (responseObject, blockedCode) => {
+  const { status, error } = responseObject;
+  if (error && status !== blockedCode) {
     console.log("Error:",error);
   }
 };
@@ -210,7 +210,18 @@ describe('Server:', () => {
         expect(body).toMatchObject(noteExpectedToReceive);
       });
 
-      it('returns a 404 error when an ID is not found.', async () => {});
+      it('returns a 404 status when it cannot find a note with the specified ID.', async () => {
+        const idToRetrieve = '5b30101a8a63c231b8200da2'; // this ID does not exist
+        const editedNote = testNotes[0]; //just a random test note. We shouldn't be getting this back
+
+        const responseObject = await request(server).put(`/notes/${idToRetrieve}`).send(editedNote);
+        logError(responseObject, httpStatusCode.notFound);
+
+        const noteExpectedToReceive = editedNote;
+        const { status, body } = responseObject;
+        expect(status).toBe(httpStatusCode.notFound);
+        expect(body).toEqual({ error: "404: Not Found\nThe note with the specified ID cannot be found. The note is likely to have changed or not exist, though you may double check the ID in the URL for errors." });
+      });
     });
 
     describe('DELETE Requests:', () => {
@@ -218,7 +229,7 @@ describe('Server:', () => {
       it('deletes a note appproriately.', async () => {
         const noteToDelete = testNotes[0];
         const idOfNoteToDelete = noteToDelete._id;
-        console.log('Current NOTE state:',await request(server).get('/notes'));
+
         const responseObject = await request(server).delete(`/notes/${idOfNoteToDelete}`);
         logError(responseObject);
 
@@ -227,11 +238,11 @@ describe('Server:', () => {
         expect(body).toEqual({ "deleted": expect.objectContaining(noteToDelete) });
       });
 
-      it('returns a 404 error when an ID is not found.', async () => {
+      it('returns a 404 status when it cannot find a note with the specified ID.', async () => {
         const idOfNoteToDelete ='5b30101a8a63c231b8200da2'; // this ID does not exist
 
         const responseObject = await request(server).delete(`/notes/${idOfNoteToDelete}`);
-        logError(responseObject);
+        logError(responseObject, httpStatusCode.notFound);
 
         const { status, body } = responseObject;
         expect(status).toBe(httpStatusCode.notFound);
