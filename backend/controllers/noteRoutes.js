@@ -16,9 +16,9 @@ module.exports = (notesModel) => {
     "POST": (req, res) => {
       const newNote = validatePostBody(req.body);
 
-      if (newNote.error) {
-        const { status, message } = newNote;
-        return res.status(status).json({ message });
+      if (newNote.errorState) {
+        const { status, error } = newNote;
+        return res.status(status).json({ error });
       }
       notesModel.create(newNote)
         .then(note => {
@@ -30,7 +30,7 @@ module.exports = (notesModel) => {
         });
     },
     "NO_PUT": (req, res) => {
-      res.status(httpStatus.notFound).json({ message: "404: Not Found\nA valid note ID was not received with the PUT request. Please ensure the URL includes the ID of the note you wish to update." });
+      res.status(httpStatus.notFound).json({ error: "404: Not Found\nA valid note ID was not received with the PUT request. Please ensure the URL includes the ID of the note you wish to update." });
     },
   };
 };

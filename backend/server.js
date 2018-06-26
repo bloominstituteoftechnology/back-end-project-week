@@ -23,7 +23,8 @@ module.exports = (notesModel) => {
 
   server.route('/notes/:id')
     .get(noteIdRoutes.GET_ONE_BY_ID)
-    .put(noteIdRoutes.PUT);
+    .put(noteIdRoutes.PUT)
+    .delete(noteIdRoutes.DELETE);
   
   return server;
 };

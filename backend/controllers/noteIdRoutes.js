@@ -9,7 +9,7 @@ module.exports = (notesModel) => {
       notesModel.findById(id)
         .then(note => {
           if (note === null) {
-            res.status(httpStatus.notFound).json({ message: "404: Not Found\nThe note with the specified ID cannot be found. The note is likely to have changed or not exist, though you may double check the ID in the URL for errors." });
+            res.status(httpStatus.notFound).json({ error: "404: Not Found\nThe note with the specified ID cannot be found. The note is likely to have changed or not exist, though you may double check the ID in the URL for errors." });
             return;
           }
           res.status(httpStatus.OK).json(note);
@@ -22,9 +22,9 @@ module.exports = (notesModel) => {
     "PUT": (req, res) => {
       const editedNote = validatePostBody(req.body);
 
-      if (editedNote.error) {
-        const { status, message } = editedNote;
-        return res.status(status).json({ message });
+      if (editedNote.errorState) {
+        const { status, error } = editedNote;
+        return res.status(status).json({ error });
       }
 
       const id = req.params.id;
@@ -39,5 +39,21 @@ module.exports = (notesModel) => {
           res.status(500).json(error);
         });
     },
+    "DELETE": (req, res) => {
+      const idOfNoteToDelete = req.params.id;
+
+      notesModel.findByIdAndRemove(idOfNoteToDelete)
+        .then(deletedDoc => {
+          if (!deletedDoc) {
+            res.status(httpStatus.notFound).json({ error: "404: Not Found\nThe note with the specified ID cannot be found. The note is likely to have changed or not exist, though you may double check the ID in the URL for errors." });
+            return;
+          }
+          res.status(httpStatus.OK).json({ deleted: deletedDoc });
+        })
+        .catch(error => {
+          console.log('noteIdRoutes--DELETE ERROR:',error);
+          res.status(500).json({ error: `500 Internal Server Error:\n${error}`});
+        })
+    }
   };
 };

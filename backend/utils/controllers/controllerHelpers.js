@@ -5,9 +5,9 @@ const validatePostBody = body => {
 
   if (!author) {
     return { 
-      error: true,
+      errorState: true,
       status: httpStatus.badRequest,
-      message: "400: Bad Request\nThe 'author' field is missing but is required. Ensure it is a MongoDB ObjectID type."
+      error: "400: Bad Request\nThe 'author' field is missing but is required. Ensure it is a MongoDB ObjectID type."
     };
   }
 
