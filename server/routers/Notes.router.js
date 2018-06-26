@@ -2,7 +2,7 @@ const express = require('express');
 
 const Notes = require('../../models/Notes.model');
 
-const RouterFactory = require('../../myTools/RouterFactory');
+const { RouterFactory } = require('express-router-factory');
 
 const router = express.Router();
 

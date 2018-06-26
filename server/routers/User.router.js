@@ -2,7 +2,7 @@ const express = require('express');
 
 const Users = require('../../models/Users.model');
 
-const RF = require('../../myTools/RouterFactory');
+const { RouterFactory } = require('express-router-factory');
 
 const router = express.Router();
 
