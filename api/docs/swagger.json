@@ -6,10 +6,492 @@
   },
   "servers": [
     {
-      "url": "/v1"
+      "url": "/"
     }
   ],
-  "paths": {},
+  "tags": [
+    {
+      "name": "projects",
+      "description": "Create and manage projects "
+    },
+    {
+      "name": "tasks",
+      "description": "Create and manage tasks within projects"
+    },
+    {
+      "name": "users",
+      "description":
+        "Create and manage users and user settings. Handle user sessions."
+    }
+  ],
+  "paths": {
+    "/api/projects": {
+      "post": {
+        "tags": ["projects"]
+      },
+      "get": {
+        "tags": ["projects"]
+      }
+    },
+    "/api/projects/{projectId}": {
+      "get": {
+        "tags": ["projects"]
+      },
+      "put": {
+        "tags": ["projects"]
+      },
+      "delete": {
+        "tags": ["projects"]
+      }
+    },
+    "/api/tasks": {
+      "post": {
+        "tags": ["tasks"]
+      },
+      "get": {
+        "tags": ["tasks"]
+      }
+    },
+    "/api/tasks/{taskId}": {
+      "get": {
+        "tags": ["tasks"]
+      },
+      "put": {
+        "tags": ["tasks"]
+      },
+      "delete": {
+        "tags": ["tasks"]
+      }
+    },
+    "/api/users": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Create a new user",
+        "operationId": "createUser",
+        "requestBody": {
+          "description": "New user object",
+          "required": "true",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully created new user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "String"
+                    },
+                    "firstName": {
+                      "type": "String"
+                    },
+                    "lastName": {
+                      "type": "String"
+                    },
+                    "email": {
+                      "type": "String"
+                    }
+                  },
+                  "example": {
+                    "_id": "5b31ce106d04832fd1e51f59",
+                    "firstName": "John",
+                    "lastName": "Smith",
+                    "email": "johnSmith@example.com"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request from validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "String"
+                    }
+                  },
+                  "example": {
+                    "error":
+                      "User validation failed: email: {EMAIL} is not a valid email address"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "String"
+                    }
+                  },
+                  "example": {
+                    "error": "The user could not be created."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["users"],
+        "summary": "Get all existing users",
+        "operationId": "getAllUsers",
+        "responses": {
+          "200": {
+            "description": "Successfully returned array of users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "String"
+                      },
+                      "firstName": {
+                        "type": "String"
+                      },
+                      "lastName": {
+                        "type": "String"
+                      },
+                      "email": {
+                        "type": "String"
+                      }
+                    }
+                  },
+                  "example": [
+                    {
+                      "_id": "5b31ce106d04832fd1e51f59",
+                      "firstName": "John",
+                      "lastName": "Smith",
+                      "email": "johnSmith@example.com"
+                    },
+                    {
+                      "_id": "5b31ce106d04832fd1e51f71",
+                      "firstName": "Jane",
+                      "lastName": "Smith",
+                      "email": "janeSmith@example.com"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "String"
+                    }
+                  },
+                  "example": {
+                    "error": "The list of users could not be retrieved."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/{userId}": {
+      "get": {
+        "tags": ["users"],
+        "summary": "Get user by id",
+        "operationId": "getUserById",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "schema": {
+              "type": "String"
+            },
+            "required": "true",
+            "description": "The user id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully returned user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "String"
+                    },
+                    "firstName": {
+                      "type": "String"
+                    },
+                    "lastName": {
+                      "type": "String"
+                    },
+                    "email": {
+                      "type": "String"
+                    }
+                  },
+                  "example": {
+                    "_id": "5b31ce106d04832fd1e51f59",
+                    "firstName": "John",
+                    "lastName": "Smith",
+                    "email": "johnSmith@example.com"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Document not found. Id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "String"
+                    }
+                  },
+                  "example": {
+                    "error":
+                      "The document with the specified ID does not exist."
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "String"
+                    }
+                  },
+                  "example": {
+                    "error": "The user with id {ID} could not be retrieved."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["users"],
+        "summary": "Update all fields for an existing user",
+        "operationId": "updateUser",
+        "requestBody": {
+          "description": "Updated user object",
+          "required": "true",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/User"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "schema": {
+              "type": "String"
+            },
+            "required": "true",
+            "description": "The user id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully updated user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "String"
+                    },
+                    "firstName": {
+                      "type": "String"
+                    },
+                    "lastName": {
+                      "type": "String"
+                    },
+                    "email": {
+                      "type": "String"
+                    }
+                  },
+                  "example": {
+                    "_id": "5b31ce106d04832fd1e51f59",
+                    "firstName": "John",
+                    "lastName": "Smith",
+                    "email": "johnSmith@example.com"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Document not found. Id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "String"
+                    }
+                  },
+                  "example": {
+                    "error":
+                      "The document with the specified ID does not exist."
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request from validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "String"
+                    }
+                  },
+                  "example": {
+                    "error":
+                      "User validation failed: email: {EMAIL} is not a valid email address"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "String"
+                    }
+                  },
+                  "example": {
+                    "error": "The user with id {ID} could not be modified."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["users"],
+        "summary": "Deletes a user",
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "schema": {
+              "type": "String"
+            },
+            "required": "true",
+            "description": "The user id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "String"
+                    }
+                  },
+                  "example": {
+                    "_id": "5b31ce106d04832fd1e51f59"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Document not found. Id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "String"
+                    }
+                  },
+                  "example": {
+                    "error":
+                      "The document with the specified ID does not exist."
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "String"
+                    }
+                  },
+                  "example": {
+                    "error": "The user with id ${ID} could not be removed."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
   "components": {
     "schemas": {
       "Project": {
@@ -39,7 +521,8 @@
             "items": {
               "type": "ObjectId"
             },
-            "example": "['5b1ed13e8cea93c6ba72b1da', '5b1ed13e8cea93c6ba72b1db', '5b1ed13e8cea93c6ba72b1dc']"
+            "example":
+              "['5b1ed13e8cea93c6ba72b1da', '5b1ed13e8cea93c6ba72b1db', '5b1ed13e8cea93c6ba72b1dc']"
           }
         }
       },

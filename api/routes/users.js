@@ -70,14 +70,10 @@ router
       { firstName, lastName, email, password },
       options
     )
-      .select({
-        firstName: 1,
-        lastName: 1,
-        email: 1
-      })
       .then(updatedUser => {
         if (updatedUser) {
-          res.status(200).json(updatedUser);
+          const { _id, firstName, lastName, email } = updatedUser;
+          res.status(200).json({ _id, firstName, lastName, email });
         } else {
           res
             .status(404)
@@ -102,7 +98,7 @@ router
           res.status(200).json({ _id });
         } else {
           res
-            .status(400)
+            .status(404)
             .json({ error: `The user with id ${id} does not exist.` });
         }
       })
