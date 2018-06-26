@@ -2,11 +2,11 @@
   "name": "jean_ariza",
   "version": "1.0.0",
   "description": "Backend project",
-  "main": "server.js",
+  "main": "index.js",
   "repository": "https://github.com/jesuarva/back-end-project-week.git",
   "author": "jean surkouf ariza varela",
   "license": "MIT",
-  "private": null,
+  "private": false,
   "dependencies": {
     "bcrypt": "^2.0.1",
     "cors": "^2.8.4",
@@ -17,6 +17,7 @@
     "morgan": "^1.9.0"
   },
   "devDependencies": {
+    "dotenv": "^6.0.0",
     "nodemon": "^1.17.5"
   }
 }
