@@ -68,3 +68,5 @@ router
                 res.status(500).json({ error: 'Your user account could not be deleted at this time.'})
             })
     })
+
+    module.exports = router;
