@@ -4,7 +4,7 @@ const helmet = require("helmet");
 const cors = require("cors");
 const mongoose = require("mongoose");
 
-const config = require('./config')
+const config = require('./config2')
 
 //port me
 const port = process.env.PORT || 5000;
