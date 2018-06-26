@@ -7,15 +7,12 @@ function generateToken(user) {
     const options = {
         expiresIn: '1h'
     };
-
     const payload = { name: user.username };
-
     return jwt.sign(payload, secret, options);
-}
+};
 
 router.post('/signup', (req, res) => {
     const { username, password } = req.body;
-
     User.findOne({ username })
         .then(user => {
             if (user) {
@@ -37,7 +34,6 @@ router.post('/signup', (req, res) => {
 
 router.post('/login', (req, res) => {
     const { username, password } = req.body;
-
     User.findOne({ username })
         .then(user => {
             if (user) {
@@ -46,7 +42,7 @@ router.post('/login', (req, res) => {
                     .then(passwordsMatch => {
                         if (passwordsMatch) {
                             const token = generateToken(user);
-                            res.status(200).json({ token, notes: user.notes });
+                            res.status(200).json({ token, id: user._id, notes: user.notes });
                             return;
                         }
                         else {
