@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const config = require('./config')
 
 //port me
-const port = process.env.port || 8000;
+const port = process.env.port || 5000;
 
 //initializing lib lib
 const server = express();
@@ -41,5 +41,5 @@ server.get('/', (req,res) => {
 
 
 server.listen(port, () => {
-    console.log(`server up and running on ${port}`);
+    console.log(` heyo server up and running on ${port}`);
 })
