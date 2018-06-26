@@ -34,7 +34,7 @@ router.post('/', (req, res) => {
 router.get('/:id', (req, res) => {
     const { id } = req.params;
     Note.findById(id)
-    .select('-__v -_id -author')
+    .select('-__v -author')
         .then(note => {
             if (note !== null) {
                 res.status(200).json({ note })
