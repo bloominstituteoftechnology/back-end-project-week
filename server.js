@@ -10,11 +10,11 @@ const noteController = require('./noteTracker/noteController');
 server.use(express.json());
 
 server.get('/', (req, res) => {
-    res.status(200).json({ api: 'runnig' }); 
+    res.status(200).json({ api: 'running' }); 
   });
 
   server.use('/api/note', noteController);
-
+  //server.use('/api/note/:id', noteController);
 mongoose.Promise = global.Promise;
 
 mongoose.connect('mongodb://localhost/dbnoteTracker', {}, err => {

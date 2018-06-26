@@ -30,7 +30,7 @@ router
 .route('/:id')   
 .delete((req, res) => {
         const { id } = req.params;
-        Note.findByIdAndRemove(id)
+        Note.findByIdAndRemove( id ) 
         .then(deletedNote => {
             if(deletedNote === null){
                 res.status(404).json({ error: 'The note with the specified ID does not exist.'});
@@ -41,6 +41,8 @@ router
         .catch(err => 
             res.status(500).json({ error: 'The note could not be removed.'}));
     })
+
+   
 .put((req, res) => {
         const { id } = req.params;
         const updates = ({ title, body } = req.body);
@@ -48,7 +50,7 @@ router
             res.status(400).json({ error: 'Please provide title & body' });
             return;
         }*/
-    Note.findByIDAndUpdate( id, updates, { new: true })
+    Note.findByIdAndUpdate( id, updates, { new: true })
             .then(updatedNote => {
                 if(updatedNote === null){
                     res.status(404).json({ error: 'The note with the specified ID does not exist.'});
