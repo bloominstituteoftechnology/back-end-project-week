@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
-const Note = new mongoose.Schema({
+const todo = new mongoose.Schema({
     title: {
         type: String,
         required: true,
@@ -9,9 +9,10 @@ const Note = new mongoose.Schema({
     content: {
         type: String,
         required: true
-    }
+    },
+    user:[{type: ObjectId, ref: 'User'}]
 })
 
 
 
-module.exports = mongoose.model('Note', Note) 
+module.exports = mongoose.model('todo', todo) 
