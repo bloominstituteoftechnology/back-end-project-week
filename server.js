@@ -20,7 +20,7 @@ server.use(cors());
 server.use(express.json());
 
 server.use('/api/notes', notesRouter);
-// server.use('/api/users', usersRouter);
+server.use('/api/users', usersRouter);
 
 server.get('/', (req, res) => res.send('API Running...'));
 
