@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const userSchema = new mongoose.Schema({
+const studentSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-userSchema.pre('save', function(next) {
+studentSchema.pre('save', function(next) {
     return bcrypt
         .hash(this.password, 10)
         .then(hash => {
@@ -26,8 +26,8 @@ userSchema.pre('save', function(next) {
         })
 });
 
-userSchema.methods.validatePassword = function(passwordGuess) {
+studentSchema.methods.validatePassword = function(passwordGuess) {
     return bcrypt.compare(passwordGuess, this.password);
 };
 
-module.exports = mongoose.model('User', userSchema, 'users');
+module.exports = mongoose.model('Student', studentSchema, 'students');
