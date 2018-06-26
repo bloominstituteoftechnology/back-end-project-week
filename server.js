@@ -43,7 +43,7 @@ const server = express();
 // }
 
 server.use(express.json());
-server.use(session(sessionOptions));
+// server.use(session(sessionOptions));
 server.use(cors({}));
 server.use(helmet());
 // server.use(morgan());
