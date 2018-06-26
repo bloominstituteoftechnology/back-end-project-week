@@ -8,8 +8,8 @@ router
 
     User.create({ firstName, lastName, email, password })
       .then(user => {
-        const { firstName, lastName, email } = user;
-        res.status(201).json({ firstName, lastName, email });
+        const { _id, firstName, lastName, email } = user;
+        res.status(201).json({ _id, firstName, lastName, email });
       })
       .catch(err => {
         sendErrorMessage(err, res, 'The user could not be created.');
@@ -18,7 +18,6 @@ router
   .get('/', (req, res) => {
     User.find({})
       .select({
-        _id: 0,
         firstName: 1,
         lastName: 1,
         email: 1
@@ -37,7 +36,6 @@ router
 
     User.findById(id)
       .select({
-        _id: 0,
         firstName: 1,
         lastName: 1,
         email: 1
@@ -73,7 +71,6 @@ router
       options
     )
       .select({
-        _id: 0,
         firstName: 1,
         lastName: 1,
         email: 1
@@ -92,6 +89,28 @@ router
           err,
           res,
           `The user with id ${id} could not be modified.`
+        );
+      });
+  })
+  .delete('/:id', (req, res) => {
+    const { id } = req.params;
+
+    User.findByIdAndRemove(id)
+      .then(deletedUser => {
+        if (deletedUser) {
+          const { _id } = deletedUser;
+          res.status(200).json({ _id });
+        } else {
+          res
+            .status(400)
+            .json({ error: `The user with id ${id} does not exist.` });
+        }
+      })
+      .catch(err => {
+        sendErrorMessage(
+          err,
+          res,
+          `The user with id ${id} could not be removed.`
         );
       });
   });
