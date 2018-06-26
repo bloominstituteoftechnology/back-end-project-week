@@ -2,9 +2,10 @@
 const request = require('supertest');
 const mongoose = require('mongoose');
 // Models
+const Users = require('./models/Users');
 const Notes = require('./models/Notes');
 // Dependencies
-const server = require('./server')(Notes);
+const server = require('./server')(Users, Notes);
 // Utils
 const httpStatusCode = require('./utils/HTTPStatusCodes');
 const { MONGO_TEST_URI } = require('./utils/secrets');
@@ -61,6 +62,7 @@ describe('Server:', () => {
 
   afterAll(async () => {
     await Notes.remove();
+    await Users.remove();
     await mongoose.disconnect();
     console.log('MongoDB connection terminated.');
   });
@@ -249,5 +251,85 @@ describe('Server:', () => {
         expect(body).toEqual({ error: "404: Not Found\nThe note with the specified ID cannot be found. The note is likely to have changed or not exist, though you may double check the ID in the URL for errors." });
       });
     })
+  });
+
+  describe(`'/register' Route:`, () => {
+
+    /* Test Data */
+    const testUser = {
+      email: "ron@ron.com",
+      password: "12345678"
+    };
+
+    it('rejects a malformed User object.', async () => {
+      const { password, ...userWithNoPassword } = testUser;
+
+      const responseObject = await request(server).post(`/register`).send(userWithNoPassword);
+      logError(responseObject, httpStatusCode.badRequest);
+
+      const { status, body } = responseObject;
+
+      expect(status).toBe(httpStatusCode.badRequest);
+    });
+
+    it('accepts a new user.', async () => {
+      const responseObject = await request(server).post('/register').send(testUser);
+      logError(responseObject);
+
+      const { status, body } = responseObject;
+
+      expect(status).toBe(httpStatusCode.created);
+      expect(body).toMatchObject({ email: testUser.email });
+      expect(body).toHaveProperty('token');
+      expect(body.token).toBeTruthy();
+    });
+  });
+
+  describe(`'/login' Route:`, () => {
+
+    /* Test Data */
+    const testUser = {
+      email: "ron@ron.com",
+      password: "12345678"
+    };
+
+    it('rejects a malformed User object.', async () => {
+      const { password, ...userWithNoPassword } = testUser;
+
+      const responseObject = await request(server).post(`/login`).send(userWithNoPassword);
+      logError(responseObject, httpStatusCode.badRequest);
+
+      const { status } = responseObject;
+
+      expect(status).toBe(httpStatusCode.badRequest);
+    });
+
+    it('rejects invalid logins.', async () => {
+      const userWithWrongPassword = {...testUser, password: "wrongwrongwrong" };
+
+      // should be noted that if the password inputted is less than 8 characters, it will trigger the controller validation error. Might be OK, but need to look into that.
+
+      const responseObject = await request(server).post('/login').send(userWithWrongPassword);
+      logError(responseObject, httpStatusCode.unauthorized);
+
+      const { status, body } = responseObject;
+
+      expect(status).toBe(httpStatusCode.unauthorized);
+      expect(body).toMatchObject({ "error": "Login Failed."});
+      expect(body).not.toHaveProperty('token');
+      expect(body.token).toBeFalsy();
+    });
+
+    it('logins an existing user.', async () => {
+      const responseObject = await request(server).post('/login').send(testUser);
+      logError(responseObject);
+
+      const { status, body } = responseObject;
+
+      expect(status).toBe(httpStatusCode.OK);
+      expect(body).toMatchObject({ "Welcome": "Login Successful"});
+      expect(body).toHaveProperty('token');
+      expect(body.token).toBeTruthy();
+    });
   });
 });

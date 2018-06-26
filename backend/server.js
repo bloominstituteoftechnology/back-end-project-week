@@ -1,21 +1,29 @@
 // Packages
 const express = require('express');
 
-module.exports = (notesModel) => {
+module.exports = (usersModel, notesModel) => {
   // Dependencies
   const noteRoutes = require('./controllers/noteRoutes')(notesModel);
   const noteIdRoutes = require('./controllers/noteIdRoutes')(notesModel);
+  const userRoutes = require('./controllers/userRoutes')(usersModel);
   const useGeneralMiddleware = require('./utils/server/middleware');
   // Definitions
   const server = express();
+  const httpStatusCodeOK = 200;
 
   useGeneralMiddleware(server);
 
   server.route('/')
     .get((req, res) => {
-      res.status(200).json({ message: "API is running!" });
+      res.status(httpStatusCodeOK).json({ message: "API is running!" });
     });
 
+  server.route('/register')
+    .post(userRoutes.REGISTER);
+  
+  server.route('/login')
+    .post(userRoutes.LOGIN);
+    
   server.route('/notes')
     .get(noteRoutes.GET)
     .post(noteRoutes.POST)

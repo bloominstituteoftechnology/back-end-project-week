@@ -1,5 +1,5 @@
 const httpStatus = require('../utils/HTTPStatusCodes');
-const { validatePostBody } = require('../utils/controllers/controllerHelpers');
+const { validateNotePostBody } = require('../utils/controllers/controllerHelpers');
 
 module.exports = (notesModel) => {
   return {
@@ -14,7 +14,7 @@ module.exports = (notesModel) => {
         });
     },
     "POST": (req, res) => {
-      const newNote = validatePostBody(req.body);
+      const newNote = validateNotePostBody(req.body);
 
       if (newNote.errorState) {
         const { status, error } = newNote;

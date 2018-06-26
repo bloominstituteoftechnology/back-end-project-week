@@ -1,5 +1,5 @@
 const httpStatus = require('../utils/HTTPStatusCodes');
-const { validatePostBody } = require('../utils/controllers/controllerHelpers');
+const { validateNotePostBody } = require('../utils/controllers/controllerHelpers');
 
 module.exports = (notesModel) => {
   return {
@@ -20,7 +20,7 @@ module.exports = (notesModel) => {
         });
     },
     "PUT": (req, res) => {
-      const editedNote = validatePostBody(req.body);
+      const editedNote = validateNotePostBody(req.body);
 
       if (editedNote.errorState) {
         const { status, error } = editedNote;
@@ -56,7 +56,8 @@ module.exports = (notesModel) => {
         })
         .catch(error => {
           console.log('noteIdRoutes--DELETE ERROR:',error);
-          res.status(httpStatus.internalServerError).json({ error: `${httpStatus.internalServerError} Internal Server Error:\n${error}`});
+          res.status(500).json(error);
+          // res.status(httpStatus.internalServerError).json({ error: `${httpStatus.internalServerError} Internal Server Error:\n${error}`});
         })
     }
   };
