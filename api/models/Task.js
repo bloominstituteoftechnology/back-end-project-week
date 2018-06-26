@@ -21,7 +21,7 @@ const taskSchema = new mongoose.Schema({
     type: String
   },
   assignee: {
-    type: ObjectId,
+    type: [ObjectId],
     ref: 'User',
     validate: {
       isAsync: true,
