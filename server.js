@@ -12,7 +12,7 @@ const server = express();
 server.use(express.json());
 
 // Serve static files
-server.use(express.static(path.join(__dirname, 'client/build')));
+server.use(express.static(path.resolve(__dirname, 'client/build')));
 
 // API Routes
 server.use('/api/projects', projectsRouter);
@@ -23,7 +23,7 @@ server.get('/api', (req, res) => {
   res.status(200).send('Lambda Notes API');
 });
 server.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
 });
 
 // UI Production Routing
