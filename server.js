@@ -8,6 +8,11 @@ const database = 'lambdanotesdb';
 const server = express();
 const port = process.env.PORT || 5555;
 
+const corsOptions = {
+    origin: 'http://localhost:3000', 
+    credentials: true
+}
+
 mongoose
     .connect(`mongodb://${localHost}/${database}`)
     .then(response => {
@@ -18,7 +23,7 @@ mongoose
     });
 
 server.use(helmet());
-server.use(cors());
+server.use(cors(corsOptions));
 server.use(express.json());
 server.use('/api/notes', noteRouter);
 
