@@ -1,6 +1,7 @@
 const express = require('express'); // remember to install your npm packages
 const helmet = require('helmet');
 const cors = require('cors');
+require('dotenv').config()
 
 const db = require('./_config/db.js'); //Creates a db server connection promise
 const setupMiddleware = require('./_config/middleware');
