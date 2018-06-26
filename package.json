@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "backend for lambdaNotes",
   "main": "server.js",
-  "scripts": {
-    "start": "nodemon server.js"
-  },
   "repository": "https://github.com/samarv/back-end-project-week.git",
   "author": "samar vir <samarvir1996@gmail.com>",
   "license": "MIT",
