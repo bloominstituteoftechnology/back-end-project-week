@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const server = require('./api/server');
 
 const port = 8000;
-
 mongoose
     .connect('mongodb://localhost/notesdb')
     .then(() => {
