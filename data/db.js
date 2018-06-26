@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 module.exports = {
     connectTo: function() {
-        return mongoose.connect('mongodb://iqra:P12345@ds217351.mlab.com:17351/notesprojectdb');
+        return mongoose.connect(process.env.mongo);
     },
 };
