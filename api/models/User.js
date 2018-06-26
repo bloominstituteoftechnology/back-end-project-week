@@ -39,15 +39,15 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-userSchema.pre('save', function (next) {
+userSchema.pre('save', function(next) {
   bcrypt.hash(this.password, 12, (err, hash) => {
     if (err) next(err);
     this.password = hash;
     next();
-  })
+  });
 });
 
-userSchema.methods.isValidPassword = function(password){
+userSchema.methods.isValidPassword = function(password) {
   return bcrypt.compare(password, this.password);
 };
 
