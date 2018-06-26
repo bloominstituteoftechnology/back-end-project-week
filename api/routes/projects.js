@@ -13,7 +13,7 @@ router
     .catch(err => {
       sendErrorMessage(err, res, 'The project could not be created.');
     });
-});
+})
 // .get('/', (req, res) => {})
 // .get('/:id', (req, res) => {})
 // .update('/:id', (req, res) => {})
