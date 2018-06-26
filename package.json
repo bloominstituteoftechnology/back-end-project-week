@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "axios": "^0.18.0",
     "bcrypt": "^2.0.1",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
@@ -8,8 +9,8 @@
     "mongoose": "^5.1.6",
     "nodemon": "^1.17.5"
   },
-  "scripts" : {
-    "start" : "nodemon server.js"
+  "scripts": {
+    "start": "nodemon server.js"
   },
   "name": "back-end-project-week",
   "version": "1.0.0",
