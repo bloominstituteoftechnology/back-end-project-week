@@ -5,6 +5,8 @@ const { tasksRouter } = require('./api/routes/tasks');
 const { usersRouter } = require('./api/routes/users');
 const swaggerDocs = require('./api/docs/swagger.json');
 
+server.use(require('express').json());
+
 server.use('/api/projects', projectsRouter);
 server.use('/api/tasks', tasksRouter);
 server.use('/api/users', usersRouter);
