@@ -20,7 +20,7 @@ server.use(helmet);
 server.use('/api/user', userRouter);
 server.use('/api/note', noteRouter);
 
-const port = process.env.PORT || 5005;
+const port = process.env.PORT || 5000;
 server.listen(port, () => {
   console.log(`*** Server up and running on ${port} ***`);
 });

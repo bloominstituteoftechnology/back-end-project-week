@@ -5,8 +5,7 @@ router
     .route('/')
     .get((req, res) => {
         Note
-            .find()
-            .select('title')
+            .find({})
             .then(foundNotes => {
                 res.status(200).json(foundNotes);
             })
@@ -14,8 +13,7 @@ router
     })
 
     .post((req, res) => {
-        const { title, content } = req.body;
-        const newNote = new Note({ title, content });
+        const newNote = req.body;
         Note
             .create(newNote)
             .then(saveNote => {
