@@ -66,7 +66,7 @@ class EditNote extends Component {
                         value={this.state.body}
                         placeholder='Type Notes Here!' >
                     </textarea>
-                    <Link to={`/`} >
+                    <Link to={`/note/:id`} >
                         <button onClick={this.updateNote} className="save-note">
                             Update
                         </button>

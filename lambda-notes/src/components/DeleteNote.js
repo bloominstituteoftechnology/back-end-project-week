@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalFooter } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './DeleteNote.css';
+import axios from 'axios';
 
-class DeleteNote extends Component {
+export default class DeleteNote extends Component {
     constructor(props) {
         super(props);
         this.state = { 
@@ -17,16 +18,21 @@ class DeleteNote extends Component {
         this.setState({
           modal: !this.state.modal
         });
+
+        axios
+            .delete(`http://localhost:5000/api/notes/${this.props.match.params.id}`)
+            .then(note => {
+                console.log(note, "Was successfully deleted")
+            })
+            .catch(err => {
+                console.error(err);
+            })
+        // window.location.reload();
     }
 
-    // deleteNote = () => {
-    //     const notes = this.props.notes;
-    //     const id = this.props.match.params.id
-    //     console.log("NOTES:", notes)
-    //     notes.splice(id, 1);
-    // }
-
     render() { 
+        console.log("DELETE PROPS", this.props)
+        console.log("DELETE STATE", this.state)
         return ( 
             <div>
                 <Button className="delete-link" 
@@ -51,7 +57,7 @@ class DeleteNote extends Component {
                         }} 
                         onClick={this.toggle}
                     >
-                        Do Something
+                        Delete Note
                     </Button>
                 </Link>
                     <Button style={{backgroundColor: 'aqua'}}  onClick={this.toggle}>Cancel</Button>
@@ -61,5 +67,3 @@ class DeleteNote extends Component {
          )
     }
 }
- 
-export default DeleteNote;
