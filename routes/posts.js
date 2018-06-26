@@ -88,4 +88,28 @@ router.put("/:id", passport.authenticate("jwt", {session: false}), (req,res) => 
     })
 })
 
+router.post("/comment/:id", passport.authenticate("jwt", {session: false}),(req, res)=> {
+  const { id } = req.params;
+  const { comment } = req.body
+  Post.findById(id)
+    .then(post => {
+      const newComment = {
+        comment,
+        username: req.user.username,
+        user: req.user.id
+      }
+      post.comments.push(newComment);
+      post.save()
+        .then(savedPost => {
+          res.json(post);
+        })
+        .catch(err => {
+          res.status(500).json({err: err.message});
+        })
+    })
+    .catch(err => {
+      res.status(400).json({err: err.message});
+    })
+})
+
 module.exports = router;

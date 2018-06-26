@@ -17,10 +17,23 @@ const PostSchema = new Schema({
     type: Date,
     default: Date.now()
   },
+  private: {
+    type: Boolean,
+    default: false
+  },
+  friends: {
+    type: Boolean,
+    default: false
+  },
+  public: {
+    type: Boolean,
+    default: true
+  },
   comments: [
     {
       comment: {
-        type: String
+        type: String,
+        required: true
       },
       username: {
         type: String,
