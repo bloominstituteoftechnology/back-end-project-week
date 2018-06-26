@@ -2,10 +2,11 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require("cors");
 const mongoose = require("mongoose");
+require('dotenv').config();
 
 const noteRouter = require('./notes/noteRouter');
 const feport = 3000;
-const beport = 5000;
+const beport = process.env.POTR || 5000;
 const server = express()
 
 server.use(helmet());
@@ -15,7 +16,7 @@ server.use(express.json());
 
 
 server.get('/', (req, res) => {
-    res.status(200).json({ api: 'running' });
+    res.status(200).send(`<h2>DB: ${process.env.mongo}</h2>`);
 });
 
 server.use('/api/notes', noteRouter);
