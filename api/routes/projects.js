@@ -74,8 +74,29 @@ router
           `The project with id ${id} could not be modified.`
         );
       });
+  })
+  .delete('/:id', (req, res) => {
+    const { id } = req.params;
+
+    Project.findByIdAndRemove(id)
+      .then(deletedProject => {
+        if (deletedProject) {
+          const { _id } = deletedProject;
+          res.status(200).json({ _id });
+        } else {
+          res
+            .status(404)
+            .json({ error: `The project with id ${id} does not exist.` });
+        }
+      })
+      .catch(err => {
+        sendErrorMessage(
+          err,
+          res,
+          `The project with id ${id} could not be removed.`
+        );
+      });
   });
-// .delete('/:id', (req, res) => {});
 
 module.exports = {
   projectsRouter: router
