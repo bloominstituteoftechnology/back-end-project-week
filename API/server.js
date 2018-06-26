@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const User = require('../note/noteModel');
 const Note =  require('../note/noteModel');
+const helmet = require('helmet');
 
 const server = express();
 
@@ -11,6 +12,7 @@ const corsOptions = {
     credentials: true,
 };
 
+server.use(helmet())
 server.use(cors(corsOptions))
 server.use(express.json());
 server.use(morgan('combined'));
