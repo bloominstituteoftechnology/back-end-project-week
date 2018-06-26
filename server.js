@@ -11,9 +11,7 @@ const server = express();
 
 const corsOptions = {
     origin: 'http://localhost:3000',
-    methods: 'GET, PUT, POST, DELETE',
-    preflightContinue: false,
-    optionsSuccessStatus: 204
+    credentials: true
  };
 server.use(helmet());
 server.use(express.json());
