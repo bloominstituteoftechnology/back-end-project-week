@@ -17,13 +17,19 @@ const User = require('./User');
 router
     .route('/register')
     .post((req, res) => {
-        const user = new User(req.body);
+        const { username, password } = req.body;
+        console.log(req.body.password)
+        if(req.body.password.length < 10) {
+            return res.status(400).json({error: 'Please provide a password that is at least 10 characters in length'}) 
+        }
+        const user = new User({ username, password });
+
         user.save()
             .then(user => {
-                res.status(201).json({user})
+                res.status(201).json({ user })
             })
             .catch(err => {
-                res.status(500).json({ error: 'Your registration could not be completed at this time. Please try again.'})
+                res.status(500).json({ error: 'Your registration could not be completed at this time. Please try again.' })
             })
     })
 
@@ -31,24 +37,24 @@ router
     .route('/login')
     .post((req, res) => {
         const { username, password } = req.body;
-        User.findOne({username})
+        User.findOne({ username })
             .then(user => {
-                if(user) {
+                if (user) {
                     // compare passwords
                     user.isPasswordValid(password)
                         .then(isValid => {
-                            if(isValid) {
-                                res.json({ success: 'Login Successful!'})
+                            if (isValid) {
+                                res.json({ success: 'Login Successful!' })
                             } else {
-                                res.status(401).json({error: 'Invalid credentials!'})
+                                res.status(401).json({ error: 'Invalid credentials!' })
                             }
                         })
                 } else {
-                    res.status(401).json({error: 'Invalid credentials!'}) // don't want to give away fact that username does not exist
+                    res.status(401).json({ error: 'Invalid credentials!' }) // don't want to give away fact that username does not exist
                 }
             })
             .catch(err => {
-                res.status(500).json({error: 'Error logging in. Please try again.'})
+                res.status(500).json({ error: 'Error logging in. Please try again.' })
             })
     })
 
@@ -58,15 +64,15 @@ router
         const { id } = req.params;
         User.findByIdAndRemove(id)
             .then(removedUser => {
-                if(!removedUser) {
-                    res.status(404).json({ error: `User with id ${id} does not exist`})
+                if (!removedUser) {
+                    res.status(404).json({ error: `User with id ${id} does not exist` })
                 } else {
-                    res.send({ success: 'Your account was deleted successfully.'})
-                }  
+                    res.send({ success: 'Your account was deleted successfully.' })
+                }
             })
             .catch(err => {
-                res.status(500).json({ error: 'Your user account could not be deleted at this time.'})
+                res.status(500).json({ error: 'Your user account could not be deleted at this time.' })
             })
     })
 
-    module.exports = router;
+module.exports = router;
