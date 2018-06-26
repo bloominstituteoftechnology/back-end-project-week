@@ -1,15 +1,27 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
 
 class EditNote extends Component {
     constructor(props) {
         super(props);
         const id = this.props.match.params.id
         this.state = {
-            id: id, 
-            title: this.props.notes[id].title,
-            body: this.props.notes[id].body
+            title: '',
+            body: '',
+            note: []
          }
+    }
+
+    componentDidMount() {
+        axios
+            .get(`http://localhost:5000/api/notes/${this.props.match.params.id}`)
+            .then(note => {
+                this.setState(() => ({ note: note.data }));
+            })
+            .catch(err => {
+                console.error("Server error:", err)
+            })
     }
 
     handleNoteInput = e => {
@@ -18,20 +30,22 @@ class EditNote extends Component {
 
     updateNote = () => {
         const id = this.props.match.params.id;
-        const newNote = {id: this.state.id, title: this.state.title, body: this.state.body};
+        const newNote = { title: this.state.title, body: this.state.body};
 
-        this.props.notes[id].title = newNote.title;
-        this.props.notes[id].body = newNote.body;
-
-        this.setState({
-            id: id, 
-            title: this.props.notes[id].title,
-            body: this.props.notes[id].body
-        })
-
+        axios
+            .put(`http://localhost:5000/api/notes/${this.props.match.params.id}`, newNote)
+            .then(editedNote => {
+                this.setState({ title: '', body: '' })
+            })
+            .catch(err => {
+                console.error(err);
+            })
+        window.location.reload();
     }
 
     render() { 
+        console.log("EDIT PROPS", this.props)
+        console.log("EDIT PROPS", this.state.note.title)
         return ( 
             <div className="new-note-container">
                 <h2>Edit Note:</h2>
@@ -52,7 +66,7 @@ class EditNote extends Component {
                         value={this.state.body}
                         placeholder='Type Notes Here!' >
                     </textarea>
-                    <Link to={`/`/*note/${this.props.match.params.id}*/} >
+                    <Link to={`/`} >
                         <button onClick={this.updateNote} className="save-note">
                             Update
                         </button>
