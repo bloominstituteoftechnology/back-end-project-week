@@ -8,7 +8,7 @@ const helmet = require('helmet');
 const server = express();
 
 const corsOptions = {
-    origin: 'https://tender-ptolemy-5e2918.netlify.com/',
+    origin: ['https://tender-ptolemy-5e2918.netlify.com/', 'http://localhost:3000/'],
     credentials: true,
 };
 
