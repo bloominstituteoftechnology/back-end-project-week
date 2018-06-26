@@ -11,9 +11,10 @@ router
             })
             .catch(err => res.status(500).json({ message: err.message }));
     })
-
+    
     .post((req, res) => {
-        const newNote = req.body;
+        const newNote = {title, content} = req.body;
+        console.log(newNote);
         Note
             .create(newNote)
             .then(saveNote => {
