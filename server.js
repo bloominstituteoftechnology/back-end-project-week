@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const config = require('./config')
 
 //port me
-const port = process.env.port || 5000;
+const port = process.env.PORT || 5000;
 
 //initializing lib lib
 const server = express();
