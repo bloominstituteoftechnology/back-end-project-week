@@ -18,7 +18,7 @@ const UserSchema = new mongoose.Schema({
 })
 
 UserSchema.pre('save', function(next) {
-    bcrypt
+    return bcrypt
         .hash(this.password, SALT_ROUNDS)
         .then(hash => {
             this.password = hash;
@@ -40,8 +40,8 @@ UserSchema.pre('save', function(next) {
 //             })
 //         }
 
-UserSchema.methods.isValidPassword = function(givenPassword) {
-    return bcrypt.compare(givenPassword, this.password);
+UserSchema.methods.isValidPassword = function(passwordGuess) {
+    return bcrypt.compare(passwordGuess, this.password);
 }
 
 module.exports = mongoose.model('User', UserSchema);

@@ -19,7 +19,9 @@ router
 
     .post('/', (req, res) => {
         const { title, contents } = req.body;
-        Note.save({ title, contents })
+        //The const note line below is only necessary when using the .save() function
+        // const note = new Note({ title, contents });
+        Note.create({ title, contents })
             .then(addNote => {
                 res.status(201).json(addNote)
             })
