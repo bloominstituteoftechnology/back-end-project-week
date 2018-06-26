@@ -8,7 +8,7 @@ router.route('/')
             .catch(err => res.status(500).json({ error: err.message }));
     })
     .post((req, res) => {
-        const newNote = ({ title, body } = req.body);
+        const newNote = ({ title, body, email } = req.body);
         Note.create(newNote)
             .then(response => res.status(201).json(response))
             .catch(err => res.status(500).json({ error: err.message }));
