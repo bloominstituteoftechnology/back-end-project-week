@@ -1,8 +1,8 @@
 Arguments: 
-  D:\Program Files\nodejs\node.exe D:\Program Files (x86)\Yarn\bin\yarn.js add mongosse
+  D:\Program Files\nodejs\node.exe D:\Program Files (x86)\Yarn\bin\yarn.js start
 
 PATH: 
-  C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\Python27\;C:\Python27\Scripts;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Skype\Phone\;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Common Files\Seagate\SnapAPI\;C:\Program Files\Git\cmd;D:\Program Files (x86)\Yarn\bin\;D:\Program Files\nodejs\;C:\WINDOWS\System32\OpenSSH\;C:\Users\wladi\AppData\Local\Microsoft\WindowsApps;d:\Program Files\Docker Toolbox;C:\Program Files\Microsoft VS Code\bin;C:\Users\wladi\AppData\Local\Yarn\bin;C:\Users\wladi\AppData\Roaming\npm;C:\Users\wladi\AppData\Local\hyper\app-2.0.0\resources\bin;D:\Program Files\MongoDB\Server\3.6\bin;
+  C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\Python27\;C:\Python27\Scripts;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Skype\Phone\;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Common Files\Seagate\SnapAPI\;D:\Program Files (x86)\Yarn\bin\;D:\Program Files\nodejs\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Users\wladi\AppData\Local\Microsoft\WindowsApps;d:\Program Files\Docker Toolbox;C:\Program Files\Microsoft VS Code\bin;C:\Users\wladi\AppData\Local\Yarn\bin;C:\Users\wladi\AppData\Roaming\npm;C:\Users\wladi\AppData\Local\hyper\app-2.0.0\resources\bin;D:\Program Files\MongoDB\Server\3.6\bin;d:\Program Files\Heroku\bin
 
 Yarn version: 
   1.5.1
@@ -19,7 +19,7 @@ npm manifest:
     "version": "1.0.0",
     "main": "server.js",
     "scripts": {
-      "start": "nodemon server.js"
+      "start": "server.js"
     },
     "license": "MIT",
     "dependencies": {
@@ -2154,14 +2154,17 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/yallist/-/yallist-3.0.2.tgz#8452b4bb7e83c7c188d8041c1a837c773d6d8bb9"
 
 Trace: 
-  Error: https://registry.yarnpkg.com/mongosse: Not found
-      at Request.params.callback [as _callback] (D:\Program Files (x86)\Yarn\lib\cli.js:65019:18)
-      at Request.self.callback (D:\Program Files (x86)\Yarn\lib\cli.js:132430:22)
+  Error: Command failed.
+  Exit code: 1
+  Command: C:\WINDOWS\system32\cmd.exe
+  Arguments: /d /s /c server.js
+  Directory: D:\LambdaSchool\back-end-project-week
+  Output:
+  
+      at ProcessTermError.MessageError (D:\Program Files (x86)\Yarn\lib\cli.js:186:110)
+      at new ProcessTermError (D:\Program Files (x86)\Yarn\lib\cli.js:226:113)
+      at ChildProcess.<anonymous> (D:\Program Files (x86)\Yarn\lib\cli.js:30281:17)
       at emitTwo (events.js:126:13)
-      at Request.emit (events.js:214:7)
-      at Request.<anonymous> (D:\Program Files (x86)\Yarn\lib\cli.js:133413:10)
-      at emitOne (events.js:116:13)
-      at Request.emit (events.js:211:7)
-      at IncomingMessage.<anonymous> (D:\Program Files (x86)\Yarn\lib\cli.js:133333:12)
-      at Object.onceWrapper (events.js:313:30)
-      at emitNone (events.js:111:20)
+      at ChildProcess.emit (events.js:214:7)
+      at maybeClose (internal/child_process.js:925:16)
+      at Process.ChildProcess._handle.onexit (internal/child_process.js:209:5)
