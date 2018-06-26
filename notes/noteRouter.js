@@ -5,13 +5,18 @@ const Note = require("./Note.js");
 
 router
   .route(["/", "/:id"])
-  .get(middleware.getMiddleware(Note), (req, res) => {
-    req.getResult.then(notes => {
-      if (notes) res.json({ notes });
-      else res.status(404).json({ errorMessage: "No documents found" });
-    });
-  })
+  .get(
+    middleware.authMiddleware,
+    middleware.getMiddleware(Note),
+    (req, res) => {
+      req.getResult.then(notes => {
+        if (notes) res.json({ notes });
+        else res.status(404).json({ errorMessage: "No documents found" });
+      });
+    }
+  )
   .post(
+    middleware.authMiddleware,
     middleware.sanitizeMiddleware("note"),
     middleware.postMiddleware(Note),
     (req, res) => {
@@ -19,14 +24,19 @@ router
     }
   )
   .put(
+    middleware.authMiddleware,
     middleware.sanitizeMiddleware("note"),
     middleware.putMiddleware(Note),
     (req, res) => {
       res.json(req.putResult);
     }
   )
-  .delete(middleware.deleteMiddleware(Note), (req, res) => {
-    res.json(req.deleteResult);
-  });
+  .delete(
+    middleware.authMiddleware,
+    middleware.deleteMiddleware(Note),
+    (req, res) => {
+      res.json(req.deleteResult);
+    }
+  );
 
 module.exports = router;
