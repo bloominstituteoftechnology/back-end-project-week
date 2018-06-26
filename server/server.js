@@ -9,9 +9,9 @@ const server = express();
 middleware(server);
 routes(server);
 
-database.connectTo('lambdaNotes')
+database.connectTo('lambda-Notes')
   .then(() => {
-    console.log('\n... API Connected to lambdaNotes Database ...\n');
+    console.log('\n... API Connected to lambda-Notes Database ...\n');
     server.listen(5000, () =>
       console.log('\n=== API running on port 5000 ===\n')
     );

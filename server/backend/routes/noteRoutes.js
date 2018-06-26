@@ -8,8 +8,8 @@ router
   .route("/")
   .get((req, res) => {
     Note.find()
-      .populate("user", "-notes -_id -__v -password")
-      .select("-__v")
+      .populate("user", "id/password")
+      .select("id")
       .then(notes => {
         res.json(notes);
       })
@@ -30,13 +30,12 @@ router
         } else {
           const newNote = new Note({ title, content, user: userId });
           newNote
-            .save() 
+            .save()
             .then(savedNote => {
               user.notes.push(savedNote._id);
-              User.create(user)
-                .catch(err => {
-                  res.status(500).json({ error: err.message });
-                });
+              User.create(user).catch(err => {
+                res.status(500).json({ error: err.message });
+              });
               res.status(201).json(savedNote);
             })
             .catch(err => {

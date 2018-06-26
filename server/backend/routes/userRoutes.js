@@ -7,7 +7,7 @@ const secret = config.secret;
 
 function generateToken(user) {
   const options = {
-    expiresIn: '1h',
+    expiresIn: '60Min',
   };
   const payload = { name: user.username };
 
@@ -16,8 +16,8 @@ function generateToken(user) {
 
 router.get('/', (req, res) => {
   User.find()
-    .populate("notes", "-_id -__v -user")
-    .select('-password')
+    .populate("notes", "id/user")
+    .select('password')
     .then(users => {
       res.json(users);
     })

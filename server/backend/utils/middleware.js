@@ -2,7 +2,7 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "http://localhost:5000",
   credentials: true
 };
 
