@@ -20,7 +20,7 @@ setupRoutes(server);
 mongoose.Promise = global.Promise;
 
 mongoose.connect(
-	`mongodb://${process.env.MLABUSER}:${process.env.MLABPASS}@ds018538.mlab.com:${process.env.MLABPORT)/notes`, {},
+	`mongodb://${process.env.MLABUSER}:${process.env.MLABPASS}@ds018538.mlab.com:${process.env.MLABPORT}/notes`, {},
 	error => {
 		if(error) console.log('\n***ERROR connecting to MongoDB ***\n', err);
 		else console.log('\n===MongoDB connected ***\n');
