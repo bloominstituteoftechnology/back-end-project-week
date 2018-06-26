@@ -7,7 +7,7 @@ const SALT_ROUNDS = 11;
 
 User.pre('save', function(next) {
   return bcrypt
-    .hash(this.password, 10)
+    .hash(this.password, SALT_ROUNDS)
     .then(hash => {
       this.password = hash
       return next()
@@ -21,7 +21,6 @@ UserSchema.methods.checkPassword = function(plainTextPW, callBack) {
   return bcrypt.compare(plainTextPW, this.password, (err, res) => {
     return callBack(err, res);
   });
-
 };
 
 module.exports = mongoose.model('User', UserSchema);
