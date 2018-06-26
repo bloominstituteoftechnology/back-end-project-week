@@ -1,6 +1,6 @@
 const express = require('express');
 const User = require('./User.js');
-const route = express.Router();
+const router = express.Router();
 
 router
     .route('/')
@@ -11,7 +11,7 @@ router
             return;
         }
         const newUser = new User({username, password});
-        newU.save()
+        newUser.save()
             .then(result => res.json(result))
             .catch(err => res.status(500).json({error: err.message}));
     });
