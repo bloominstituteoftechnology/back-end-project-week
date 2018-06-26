@@ -24,7 +24,22 @@ router
         res.status(500).json({ error: 'The list of projects could not be retrieved.'})
       });
   })
-// .get('/:id', (req, res) => {})
+  .get('/:id', (req, res) => {
+    const { id } = req.params;
+
+    Project.findById(id)
+      .populate('members', { firstName: 1, lastName: 1 })
+      .then(project => {
+        if(project){
+          res.status(200).json(project);
+        } else {
+          res.status(404).json({ error: `The project with id ${id} does not exist.`})
+        }
+      })
+      .catch(err => {
+        sendErrorMessage(err, res, `The project with id ${id} could not be retrieved.`)
+      });
+  })
 // .update('/:id', (req, res) => {})
 // .delete('/:id', (req, res) => {});
 
