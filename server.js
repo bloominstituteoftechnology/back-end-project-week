@@ -37,9 +37,9 @@ server.get('/', (req, res) => {
 
 // HTTP METHODS FOR USERS
 
-server.get('/', (req, res) => {
-    res.send(`<h2>Server is online!</h2>`)
-});
+// server.get('/', (req, res) => {
+//     res.send(`<h2>Server is online!</h2>`)
+// });
 
 server.post('/api/register', (req, res) => {
     User.create(req.body)
