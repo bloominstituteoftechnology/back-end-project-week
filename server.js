@@ -13,7 +13,7 @@ const usersRouter = require('./api/Users/usersRouter');
 require('dotenv').config();
 const { username, password } = process.env;
 
-mongoose.connect(`mongodb://${username}:${password}@ds018568.mlab.com:18568/lambdanotesbyhonda`)
+mongoose.connect(`process.env.mongoDB`)
     .then(
         () => {
             console.log('***\n Portal to DB Established \n*** ')
@@ -37,7 +37,7 @@ const server = express();
 //     name: 'noname',
 //     store: new MongoStore({
 //         //Note from Ellen: this URL will need to change when hosted on mLab
-//         url: `mongodb://${username}:${password}@ds018568.mlab.com:18568/lambdanotesbyhonda`,
+//         url: 'mongoDB',
 //         ttl: 60 * 10
 //     }),
 // }
