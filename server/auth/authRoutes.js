@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
-const User = require('../users/userSchema');
+const User = require('../users/User');
 const secret = 'The world is my playground!';
 
 function generateToken(user) {

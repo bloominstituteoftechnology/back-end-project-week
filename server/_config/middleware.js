@@ -8,4 +8,4 @@ module.exports = function(server) {
     server.use(morgan('dev')); 
     server.use(express.json()); 
     server.use(cors()); 
-}
+}; 
