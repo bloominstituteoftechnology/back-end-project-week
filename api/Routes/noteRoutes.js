@@ -22,20 +22,48 @@ router
       .catch(err => res.status(500).json({ error: err.message }));
   });
 
-router.route("/:id").get((req, res) => {
-  const { id } = req.params;
-  Note.findById(id)
-    .then(note => {
-      if (note) {
-        return res.json(note);
-      }
-      res
-        .status(404)
-        .json({
+router
+  .route("/:id")
+  .get((req, res) => {
+    const { id } = req.params;
+    Note.findById(id)
+      .then(note => {
+        if (note) {
+          return res.json(note);
+        }
+        res.status(404).json({
           error: `The note with the specified id (${id}) does not exist.`
         });
-    })
-    .catch(err => res.status(500).json({ error: err.message }));
-});
+      })
+      .catch(err => res.status(500).json({ error: err.message }));
+  })
+  .put((req, res) => {
+    const { id } = req.params;
+    const updates = ({ title, content, user } = req.body);
+
+    Note.findByIdAndUpdate(id, updates, { new: true })
+      .then(note => {
+        if (note) {
+          return res.json(note);
+        }
+        res.status(404).json({
+          error: `The note with the specified id (${id}) does not exist.`
+        });
+      })
+      .catch(err => res.status(500).json({ error: err.message }));
+  })
+  .delete((req, res) => {
+    const { id } = req.params;
+    Note.findByIdAndRemove(id)
+      .then(removed => {
+        if (removed) {
+          return res.json(removed);
+        }
+        res.status(404).json({
+          error: `The note with the specified id (${id}) does not exist.`
+        });
+      })
+      .catch(err => res.status(500).json({ error: err.message }));
+  });
 
 module.exports = router;

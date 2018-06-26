@@ -11,8 +11,8 @@ mongoose.connect(
   }
 );
 
-const setupMiddleware = require("./setup/middleware");
-const setupRoutes = require("./setup/routes");
+const setupMiddleware = require("./api/Setup/middleware");
+const setupRoutes = require("./api/Setup/routes");
 
 server = express();
 

@@ -1,4 +1,4 @@
-const noteRoutes = require("../api/Routes/noteRoutes");
+const noteRoutes = require("../Routes/noteRoutes");
 
 module.exports = function(server) {
   server.get("/", (req, res) => {
