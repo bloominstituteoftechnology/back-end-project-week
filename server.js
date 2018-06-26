@@ -23,9 +23,9 @@ server.get('/api', (req, res) => {
 // UI Production Routing
 if (process.env.NODE_ENV === 'production') {
   server.use(express.static(path.join(__dirname, 'client/build')));
-  server.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-  });
+  // server.get('/', (req, res) => {
+  //   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  // });
 }
 
 module.exports = {
