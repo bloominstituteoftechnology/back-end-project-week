@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "jest --watch --verbose",
-    "start": "nodemon server.js",
+    "dev": "cross-env NODE_ENV=dev nodemon server.js",
+    "start": "node server.js",
     "postinstall": "cd client && npm i && npm run build"
   },
   "author": "",
