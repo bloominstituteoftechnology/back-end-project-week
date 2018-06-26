@@ -5,13 +5,13 @@ const setupMiddleware = require('./_config/middleware');
 const setupRoutes = require('./_config/routes');
 
 const server = express();
-
+const port = process.env.PORT || 5000 // use npm install dotenv
 setupMiddleware(server);
 setupRoutes(server);
 
-db.connectTo('authii')
+db.connectTo('placeHolder')
   .then(() => {
-    console.log('\n... API Connected to authii Database ...\n');
+    console.log('\n... API Connected to  Database ...\n');
     server.listen(placeHolder, () => // need to figure out if port is needed for deployment
       console.log('\n=== API running...===\n')
     );
