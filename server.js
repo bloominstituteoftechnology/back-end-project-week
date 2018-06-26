@@ -9,6 +9,7 @@ const MongoStore = require('connect-mongo')(session);
 const notesRouter = require('./api/Notes/NotesRouter');
 const usersRouter = require('./api/Users/usersRouter');
 ////Note from Ellen: this URL will need to change when hosted on mLab
+require('dotenv').config();
 mongoose.connect('mongodb://localhost/lambdaNotes')
     .then(
         () => {
@@ -58,7 +59,7 @@ function protected(req, res, next) {
 
 server
     .get('/', (req, res) => {
-        res.json(`api: running`)
+        res.json(`<h3>Database: ${process.env.mongo}</h3>`)
     })
 
 const port = process.env.PORT || 5000;
