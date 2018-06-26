@@ -7,8 +7,9 @@ router
     .route('/:id')
     .put((req, res) => {
         const { id } = req.params;
+        const { title, content } = req.body;
         Notes
-            .findByIdAndUpdate(id)
+            .findByIdAndUpdate(id, { title, content })
             .then(updatedNote => {
                 res.status(201).json({ updatedNote })
             })
