@@ -3,9 +3,19 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 const Schema = mongoose.Schema;
 
 const User = new Schema({
-  username: String,
+  name: {
+    type: String,
+    require: true,
+  },
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
 });
-
-console.log(mongoose.connection);
 
 module.exports = mongoose.model('Users', User);

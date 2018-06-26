@@ -1,5 +1,6 @@
 const express = require('express'); // remember to install your npm packages
 const helmet = require('helmet');
+const morgan = require('morgan');
 const cors = require('cors');
 
 /**
