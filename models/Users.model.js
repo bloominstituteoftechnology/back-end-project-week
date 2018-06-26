@@ -31,4 +31,8 @@ User.pre('save', function(next) {
     });
 });
 
+User.method.validatePassword = function(noHashedPassword) {
+  return bcrypt.compare(noHashedPassword, this.password);
+};
+
 module.exports = mongoose.model('Users', User);
