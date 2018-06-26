@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const notesRouter = require('./api/Notes/NotesRouter');
-const UsersRouter = require('./api/Users/UsersRouter');
+const usersRouter = require('./api/Users/usersRouter');
 ////Note from Ellen: this URL will need to change when hosted on mLab
 mongoose.connect('mongodb://localhost/lambdaNotes')
     .then(
