@@ -11,7 +11,8 @@ function generateToken(user) {
     };
     const payload = { name: user.username };
 
-    return jwt.sign(payload, secret, options);
+
+    return jwt.sign(payload, secret, options); //returns the token
 }
 
 router.get('/', (req, res) => {
@@ -51,6 +52,7 @@ router.post('/login', (req, res) => {
                             const { _id } = user
                             const { username } = user
                             const token = generateToken(user)
+                            // req.headers.authorization = token
                             res.status(200).json({ 
                                 message: `welcome ${username}!`,
                                 token, 
@@ -68,6 +70,20 @@ router.post('/login', (req, res) => {
             }
         })
 })
+
+router.get('/logout', (req, res) => {
+    const token = req.headers.authorization;
+    console.log(req.headers)
+    if (token) {
+        token.destroy(err => {
+            if (err) {
+                res.send('error logging out');
+            } else {
+                res.send('Good bye, please come back again!');
+            } 
+        });
+    }
+});
 
 
 

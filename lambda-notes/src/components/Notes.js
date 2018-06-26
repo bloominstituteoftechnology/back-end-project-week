@@ -11,23 +11,36 @@ class Notes extends Component {
     search: "",
     titleCheck: true,
     contentCheck: false,
-    order: {}
+    order: {},
+    authorized: false,
+    token: ''
+  };
+  
+  // componentWillMount() {
+    
+  // }
+
+  logout = () => {
+    if (localStorage.getItem('token')) {
+      localStorage.removeItem('token');
+      this.props.history.push('/login');
+    }
   };
 
-  handleSearch(event) {
+  handleSearch = (event) => {
     this.setState({
       search: event.target.value.toLowerCase().substr(0, 20)
     });
   }
 
-  clickContent(event) {
+  clickContent = (event) => {
     this.setState({
       contentCheck: !this.state.contentCheck,
       titleCheck: this.state.contentCheck
     });
   }
 
-  clickTitle(event) {
+  clickTitle = (event) => {
     this.setState({
       titleCheck: !this.state.titleCheck,
       contentCheck: this.state.titleCheck
@@ -76,8 +89,7 @@ class Notes extends Component {
 
   render() {
     if(!localStorage.getItem('token')){
-      return <div>Notes are private. You may be able to view it by <a href=''>logging in.</a> Don't have an account? <a href='/signup'>Signup here.</a></div>
-              
+      return <div>Notes are private. You may be able to view it by <a href='/login'>logging in.</a> Don't have an account? <a href='/signup'>Signup here.</a></div>     
     }
     let filteredNotes = this.props.notes.filter(note => {
       if (this.state.search === "") {
@@ -99,6 +111,7 @@ class Notes extends Component {
           <button className="sort-but pt-sm-1" onClick={this.handleAlphaSort}>
             sort by title
           </button>
+          <button className="sort-but pt-sm-1" onClick={this.logout}>logout</button>          
         </div>
         <h4 className="your-notes">Your notes:</h4>
         <form>
@@ -106,7 +119,7 @@ class Notes extends Component {
             className="search-input"
             type="text"
             value={this.state.search}
-            onChange={this.handleSearch.bind(this)}
+            onChange={this.handleSearch}
             placeholder="Please choose a search type"
           />
           <div>
@@ -116,7 +129,7 @@ class Notes extends Component {
               type="radio"
               value={this.state.titleCheck}
               name="search"
-              onChange={this.clickTitle.bind(this)}
+              onChange={this.clickTitle}
             />
             <label className="search-label">Search Title</label>
             <input
@@ -124,7 +137,7 @@ class Notes extends Component {
               type="radio"
               value={this.state.contentCheck}
               name="search"
-              onChange={this.clickContent.bind(this)}
+              onChange={this.clickContent}
             />
             <label className="search-label">Search Content</label>
           </div>
