@@ -15,9 +15,8 @@ router
     }
     User.create(req.body)
       .then((user) => {
-        // const token = generateToken(user);
-        res.status(201).json(user);
-        console.log(user);
+        const token = generateToken(user);
+        res.status(201).json({ username: user.username, token });
       })
       .catch(err => res.status(500).json({ error: err.message }));
   });
@@ -48,5 +47,13 @@ router.post('/login', (req, res) => {
       res.send(err);
     });
 });
+
+function generateToken(user) {
+  const options = {
+    expiresIn: '1h',
+  };
+  const payload = { username: user.username };
+  return jwt.sign(payload, secret, options);
+}
 
 module.exports = router;
