@@ -12,7 +12,7 @@ server.use('/api/tasks', tasksRouter);
 server.use('/api/users', usersRouter);
 server.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-server.get('/', (req, res) => {
+server.get('/api', (req, res) => {
   res.status(200).send('Lambda Notes API');
 });
 

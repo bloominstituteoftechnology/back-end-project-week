@@ -4,7 +4,9 @@
   "description": "Creating a back end for the Lambda Notes front end project and combining the two for a full stack application.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "client": "cd client && yarn start",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "server": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +26,7 @@
     "swagger-ui-express": "^3.0.10"
   },
   "devDependencies": {
+    "concurrently": "^3.6.0",
     "nodemon": "^1.17.5"
   }
 }
