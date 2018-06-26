@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 
 const noteSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
     },
-    body: {
+    content: {
         type: String,
         required: true,
     },

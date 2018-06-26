@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
 const User = require('./users/User');
+const Note = require('./notes/Note');
 
 const db = require('./config/db');
 const setupMiddleware = require('./config/middleware');
@@ -23,12 +24,12 @@ const corsOptions = {
 //     .then(() => console.log('\n === API Connected to Database === \n'))
 //     .catch(err => console.log('\n *** Error Connecting to Database *** \n', err));
 
-// Server code here
-
 server.use(helmet());
 server.use(cors(corsOptions));
 server.use(express.json());
 setupMiddleware(server);
+
+// HTTP METHODS FOR USERS
 
 server.post('/api/register', (req, res) => {
     User.create(req.body)
@@ -105,6 +106,18 @@ server.get('/api/users', restricted, (req, res) => {
         })
         .catch(err => {
             return res.status(500).json(err);
+        });
+});
+
+// HTTP METHODS FOR NOTES
+
+server.post('/api/createnote', (req, res) => {
+    Note.create(req.body)
+        .then(note => {
+            res.status(201).json({ title: note.title, content: note.content });
+        })
+        .catch(err => {
+            res.status(500).json(err)
         });
 });
 

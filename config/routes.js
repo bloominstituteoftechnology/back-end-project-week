@@ -1,4 +1,5 @@
 const userRouter = require('../users/userRouter');
+const noteRouter = require('../notes/noteRouter');
 const authRouter = require('../auth/authRouter');
 
 module.exports = function(server) {
@@ -7,5 +8,6 @@ module.exports = function(server) {
     });
 
     server.use('/api/users', userRouter);
+    server.use('/api/notes', noteRouter);
     server.use('/api/auth', authRouter);
 };

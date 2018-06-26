@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        maxlength: 30,
+        maxlength: 333,
         validate: checkPasswordLength,
         msg: 'Password is too weak.',
     },
