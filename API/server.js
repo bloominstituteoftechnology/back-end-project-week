@@ -7,10 +7,20 @@ const helmet = require('helmet');
 
 const server = express();
 
-const corsOptions = {
-    origin: ['https://tender-ptolemy-5e2918.netlify.com/', 'http://localhost:3000/'],
-    credentials: true,
-};
+var whitelist = ['http://localhost:3000/', 'https://tender-ptolemy-5e2918.netlify.com/']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+// const corsOptions = {
+//     origin: ['https://tender-ptolemy-5e2918.netlify.com/', 'http://localhost:3000/'],
+//     credentials: true,
+// };
 
 server.use(helmet())
 server.use(cors(corsOptions))
