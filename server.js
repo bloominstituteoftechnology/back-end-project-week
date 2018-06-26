@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 
 const noteRouter = require("./notes/noteRouter.js");
 const userRouter = require("./users/userRouter.js");
+const authRouter = require("./authRouter.js");
 
 const server = express();
 
@@ -18,6 +19,7 @@ server.get("/", function(req, res) {
 
 server.use("/api/notes", noteRouter);
 server.use("/api/users", userRouter);
+server.use("/api/auth", authRouter);
 
 mongoose.Promise = global.Promise;
 

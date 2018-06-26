@@ -1,3 +1,23 @@
+const jwt = require("jsonwebtoken");
+
+const authMiddleware = (req, res, next) => {
+  const token = req.headers.authorization;
+  if (token) {
+    jwt.verify(token, process.env.SECRET, (err, decodedToken) => {
+      req.jwtPayload = decodedToken;
+      if (err) {
+        return res
+          .status(401)
+          .json({ message: "Invalid token.  Please log in again." });
+      }
+
+      next();
+    });
+  } else {
+    res.status(401).json({ message: "Please log in first." });
+  }
+};
+
 const getMiddleware = goose => {
   return (req, res, next) => {
     if (req.params.id) req.getResult = goose.findById(req.params.id);
@@ -103,5 +123,6 @@ module.exports = {
   getMiddleware: getMiddleware,
   postMiddleware: postMiddleware,
   putMiddleware: putMiddleware,
-  deleteMiddleware: deleteMiddleware
+  deleteMiddleware: deleteMiddleware,
+  authMiddleware: authMiddleware
 };

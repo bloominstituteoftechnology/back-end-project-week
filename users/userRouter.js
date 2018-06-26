@@ -29,6 +29,4 @@ router
     res.json(req.deleteResult);
   });
 
-router.route("/login").post((req, res) => {});
-
 module.exports = router;
