@@ -44,7 +44,7 @@ server.use(cors({}));
 server.use(helmet());
 // server.use(morgan());
 server.use('/notes', notesRouter);
-server.use('/users', UsersRouter);
+server.use('/users', usersRouter);
 
 function protected(req, res, next) {
     if (req.session) {
