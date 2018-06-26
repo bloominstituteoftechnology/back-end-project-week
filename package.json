@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "jest --watch --verbose",
-    "start": "cross-env NODE_ENV=dev nodemon server.js"
+    "start": "cross-env NODE_ENV=dev nodemon server.js",
+    "postinstall": "npm start"
   },
   "author": "",
   "license": "ISC",
@@ -21,5 +22,9 @@
     "morgan": "^1.9.0",
     "nodemon": "^1.17.5",
     "supertest": "^3.1.0"
+  },
+  "engines": {
+    "node": "8.9.1",
+    "npm": "5.8.0"
   }
 }
