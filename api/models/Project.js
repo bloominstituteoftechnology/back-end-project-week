@@ -19,15 +19,6 @@ const projectSchema = new mongoose.Schema({
       validator: (val, cb) => objectIdValid('User', val, cb),
       message: 'Must be an id for an existing user'
     }
-  },
-  tags: {
-    type: [ObjectId],
-    ref: 'Tag',
-    validate: {
-      isAsync: true,
-      validator: (val, cb) => objectIdValid('Tag', val, cb),
-      message: 'Must be an id for an existing tag'
-    }
   }
 });
 
