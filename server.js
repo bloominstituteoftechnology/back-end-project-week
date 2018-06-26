@@ -2,8 +2,6 @@ const express = require('express');
 const path = require('path');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
-const config = require('./config.js');
-const { dbuser, dbpassword, dbname } = config.secret;
 const server = express();
 
 const port = process.env.PORT || 5000;
@@ -18,6 +16,8 @@ const tagRouter = require('./tag/tagRouter.js');
 
 // Connect to mlab
 if (process.env.NODE_ENV === 'dev') {
+    const config = require('./config.js');
+    const { dbuser, dbpassword, dbname } = config.secret;
     mongoose
         .connect(`mongodb://${dbuser}:${encodeURIComponent(dbpassword)}@ds117711.mlab.com:17711/${dbname}`)
         .then(() => {

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --watch --verbose",
     "dev": "cross-env NODE_ENV=dev nodemon server.js",
-    "start": "NODE_ENV=prod node server.js",
+    "start": "node server.js",
     "postinstall": "cd client && npm i && npm run build"
   },
   "author": "",
