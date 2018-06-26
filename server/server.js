@@ -1,18 +1,21 @@
 const express = require('express');
 
-module.exports = (notesModel) => {
-  const noteRoutes = require('./routes/noteRoutes');
-  const server = express();
+const database = require('./backend/utils/database');
+const middleware = require('./backend/utils/middleware');
+const routes = require('./backend/utils/routes');
 
-  server
-    .route('/')
-    .get((req, res) => {
-      res.status(200).json({ message: "API is running!" });
-    })
+const server = express();
 
-  server
-    .route('/notes')
-    .get(noteRoutes(notesModel).GET);
+middleware(server);
+routes(server);
 
-  return server;
-};
+database.connectTo('lambdaNotes')
+  .then(() => {
+    console.log('\n... API Connected to lambdaNotes Database ...\n');
+    server.listen(5000, () =>
+      console.log('\n=== API running on port 5000 ===\n')
+    );
+  })
+  .catch(err => {
+    console.log('\n*** ERROR Connecting to MongoDB, is it running? ***\n', err);
+  });

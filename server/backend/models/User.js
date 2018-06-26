@@ -1,36 +1,65 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const validators = require('../utils/Validate');
-const { hashPassword, validatePassword } = require('../utils/bycrytHash');
-// General Definitions
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
-const UserSchema = new mongoose.Schema({
-  email: {
+const userSchema = new mongoose.Schema({
+  username: {
     type: String,
-    unique: true,
     required: true,
-    validate: {
-      validator: validators.email,
-      message: '{VALUE} is not a valid e-mail address!'
-    }
+    unique: true,
+    lowercase: true,
   },
   password: {
     type: String,
-    required: true
-  },
-  pref: {
-    theme: {
-      type: String,
-      default: 'default',
-      enum: ['default', 'dark']
-    }
-  },
-  notes: [{ type: ObjectId, ref: 'Note' }]
+    required: true,
+    minlength: 4,
+  }
+  , notes: [{
+    type: ObjectId,
+    ref: 'Note'
+  }]
+
 });
 
-UserSchema.pre('save', hashPassword);
+userSchema.pre('save', function (next) {
+  return bcrypt
+    .hash(this.password, 10)
+    .then(hash => {
+      this.password = hash;
+      return next();
+    })
+    .catch(err => {
+      return next(err);
+    });
+});
 
-UserSchema.methods.validatePassword = validatePassword;
+userSchema.methods.validatePassword = function (passwordGuess) {
+  return bcrypt.compare(passwordGuess, this.password);
+};
 
-module.exports = mongoose.model('User', UserSchema);
+userSchema.methods.addNote = function (note_id) {
+  let arr = Array.from(this.notes)
+  arr.push(note_id)
+  this.notes = arr
+  console.log(this.notes)
+}
+
+function restricted(req, res, next) {
+  const token = req.headers.authorization;
+
+  if (token) {
+    jwt.verify(token, secret, (err, decodedToken) => {
+      if (err) {
+        return res
+          .status(401)
+          .json({ message: 'Nope!' });
+      }
+
+      next();
+    });
+  } else {
+    res.status(401).json({ message: 'Nope!' });
+  }
+}
+
+module.exports = mongoose.model('User', userSchema);
