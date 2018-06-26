@@ -18,9 +18,10 @@ server.use('/note', noteController);
 const port = process.env.PORT || 5000;
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/lambdanotesdb', {}, (error) => {
+mongoose.connect('mongodb://braden:passw0rd@ds119161.mlab.com:19161/lambdanotesdb', {}, (error) => {
+    // also in mongo store
     if (error) console.log(error);
-    console.log('Mongoose connected us to lambdanotesdb');
+    console.log('Mongoose connected us to lambdanotesdb on mlab');
 })
 
 server.listen(port, () => console.log(`\n=== API up on port: ${port} ===\n`));
