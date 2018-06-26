@@ -30,7 +30,7 @@ router.post('/',(req, res) => {
 
 router.get('/:id', (req, res) => {
 	const { id } = req.params;
-	Notes.get (req.params.id)
+	Notes.findById (req.params.id)
 		.then(notes => {
 			if (notes) {
 				res.json ({ notes });
