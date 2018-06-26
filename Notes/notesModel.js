@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
-const todo = new mongoose.Schema({
+const Note = new mongoose.Schema({
     title: {
         type: String,
         required: true,
@@ -15,4 +15,4 @@ const todo = new mongoose.Schema({
 
 
 
-module.exports = mongoose.model('todo', todo) 
+module.exports = mongoose.model('Note', Note) 

@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const session = require('express-session');
-const TodosRouter = require('./Notes/notesRouter.js');
+const NotesRouter = require('./Notes/notesRouter.js');
 const UserRouter = require('./Users/userRouter.js');
 
 
@@ -22,7 +22,7 @@ server.use(cors(corsOptions))
 server.get('/', (req, res) => res.send('API Running...'));
 
 server.use('/api/users', UserRouter);
-server.use('/api/todos', TodosRouter);
+server.use('/api/notes', NotesRouter);
 
 
 const port = process.env.PORT || 5000;

@@ -1,16 +1,14 @@
 const express = require('express');
-const todo = require('./notesModel.js');
+const Note = require('./notesModel.js');
 const router = express.Router();
 
 router
 .get('/', (req, res) => {
-
-todo
+Note
 .find()
-.populate('user', {_id: 0, __v: 0})
-.then(todos => {
+.then(notes => {
     res.status(200)
-    res.json({ todos })
+    res.json({ notes })
 })
 .catch(error => {
     res.status(500)
@@ -19,36 +17,36 @@ todo
 })
 
 router
-.get('/ViewNote/:id', (req, res) => {
+.get('/:id', (req, res) => {
 const { id } = req.params;
 
-todo
+Note
 .findById(id)
-.then(todo => {
+.then(note => {
     res.status(200)
-    res.json({ todo })
+    res.json({ note })
 })
 .catch(error => {
     res.status(500)
-    res.json({ message: "Error in finding note"})
+    res.json({ message: "Error in fetching Note" })
 })
 })
 
 router
-.post('/CreateNewNote', (req, res) => {
+.post('/', (req, res) => {
 const { title, content } = req.body;
-const newtodo = new todo({ title, content });
+const newNote = new Note({ title, content });
 
 if(!title || !content) {
     res.status(400)
     res.json({ message: "Title or Content information missing" })
 }
 else { 
-newtodo
+newNote
 .save()
-.then(todo => {
+.then(savedNote => {
     res.status(200)
-    res.json({ todo })
+    res.json({ savedNote })
 })
 .catch(error => {
     res.status(500)
@@ -56,16 +54,30 @@ newtodo
 })
 }})
 
+router
+.put('/:id', (req, res) => {
+const { id } = req.params;
+const updatedNote = req.body;
+
+Note
+.findByIdAndUpdate(id, updatedNote, { new: true })
+.then(updatedNote => {
+    res.status(200).json({ updatedNote })
+})
+.catch(err => {
+    sendUserError(500, err.message, res)
+})
+})
 
 router
 .delete('/:id', (req, res) => {
 const { id } = req.params;
 
-todo
+Note
 .findByIdAndRemove(id)
-.then(todo => {
+.then(deletedNote => {
     res.status(200)
-    res.json({ todo })
+    res.json({ deletedNote })
 })
 .catch( err => {
     res.status(500)
