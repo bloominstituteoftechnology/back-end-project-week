@@ -1,5 +1,6 @@
 const express = require('express');
 const server = express();
+const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 
@@ -8,6 +9,7 @@ const userController = require('./controller/userController.js');
 const noteController = require('./controller/noteController.js');
 
 // Global Middleware
+server.use(morgan('combined'));
 server.use(helmet());
 server.use(cors());
 server.use(express.json());
