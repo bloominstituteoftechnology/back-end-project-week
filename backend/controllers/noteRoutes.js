@@ -4,7 +4,9 @@ const { validateNotePostBody } = require('../utils/controllers/controllerHelpers
 module.exports = (notesModel) => {
   return {
     "GET": (req, res) => {
-      notesModel.find()
+      const { _id } = req.plainToken;
+      console.log('plainToken:',req.plainToken);
+      notesModel.find({ author: _id })
         .then(notes => {
           res.status(httpStatus.OK).json(notes);
         })

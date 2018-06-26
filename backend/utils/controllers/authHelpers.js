@@ -3,6 +3,7 @@ const { secret: mySecret } = require('../secrets');
 
 const generateToken = user => {
   const payload = {
+    _id: user._id,
     email: user.email
   };
   const secret = mySecret;

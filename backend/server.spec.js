@@ -49,7 +49,7 @@ describe('Server:', () => {
     }
   ];
 
-  const userRon = {
+  const userToken = {
     token: ""
   };
 
@@ -61,6 +61,7 @@ describe('Server:', () => {
       return;
     }
     console.log('MongoDB connection successful.');
+    await Users.create(testUsers);
     await Notes.create(testNotes);
   });
 
@@ -118,10 +119,12 @@ describe('Server:', () => {
   describe(`'/login' Route:`, () => {
 
     /* Test Data */
-    const testUser = {
-      email: "ron@ron.com",
-      password: "12345678"
-    };
+    // const testUser = {
+    //   email: "ron@ron.com",
+    //   password: "12345678"
+    // };
+
+    const testUser = testUsers[1];
 
     it('rejects a malformed User object.', async () => {
       const { password, ...userWithNoPassword } = testUser;
@@ -157,7 +160,7 @@ describe('Server:', () => {
       const { status, body } = responseObject;
       
       // We'll use the token generated from this login test to check authentication for other tests in this file.
-      userRon.token = body.token;
+      userToken.token = body.token;
       
       expect(status).toBe(httpStatusCode.OK);
       expect(body).toMatchObject({ "Welcome": "Login Successful"});
@@ -182,7 +185,7 @@ describe('Server:', () => {
         const responseObject = 
           await request(server)
             .post('/notes')
-            .set('authorization', userRon.token)
+            .set('authorization', userToken.token)
             .send(noAuthorNote);
         logError(responseObject, httpStatusCode.badRequest);
   
@@ -204,7 +207,7 @@ describe('Server:', () => {
       it('accepts POST requests at \'notes\' with JWT', async () => {
         const responseObject = await request(server)
           .post('/notes')
-          .set('authorization', userRon.token)
+          .set('authorization', userToken.token)
           .send(testNote);
         logError(responseObject);
   
@@ -223,7 +226,7 @@ describe('Server:', () => {
       };
   
       it('rejects requests at \'notes\' without JWT', async () => {
-        console.log("userRon token:",userRon.token);
+        console.log("userToken token:",userToken.token);
         const responseObject = 
           await request(server)
             .get('/notes')
@@ -235,18 +238,19 @@ describe('Server:', () => {
       });
 
       it('accepts requests at \'notes\' with JWT', async () => {
-        console.log("userRon token:",userRon.token);
+        console.log("userToken token:",userToken.token);
         const responseObject = 
           await request(server)
             .get('/notes')
-            .set('authorization', userRon.token);
+            .set('authorization', userToken.token);
         logError(responseObject);
 
         const { status, body } = responseObject;
   
         expect(status).toBe(httpStatusCode.OK);
         expect(body).toEqual(expect.arrayContaining([expect.objectContaining(testNote)]));
-        expect(body.length).toBe(3);
+        expect(body.length).toBe(2);
+        // There should be three notes in total in the server, but only two notes related to the user whose token is being passed to the route.
       });
     });
     
@@ -262,7 +266,7 @@ describe('Server:', () => {
       it(`rejects PUT requests at root '/notes'`, async () => {
         const responseObject = await request(server)
           .put('/notes')
-          .set('authorization', userRon.token)
+          .set('authorization', userToken.token)
           .send(testNote);
         logError(responseObject, httpStatusCode.notFound);
 
@@ -282,7 +286,7 @@ describe('Server:', () => {
         
         const responseObject = await request(server)
         .get(`/notes/${idToRetrieve}`)
-        .set('authorization', userRon.token);
+        .set('authorization', userToken.token);
         logError(responseObject);
 
         const noteExpectedToReceive = testNotes[0];
@@ -296,7 +300,7 @@ describe('Server:', () => {
 
         const responseObject = await request(server)
           .get(`/notes/${idToRetrieve}`)
-          .set('authorization', userRon.token);
+          .set('authorization', userToken.token);
         logError(responseObject, httpStatusCode.notFound);
 
         const {status, body } = responseObject;
@@ -313,7 +317,7 @@ describe('Server:', () => {
 
         const responseObject = await request(server)
           .put(`/notes/${idToRetrieve}`)
-          .set('authorization', userRon.token)
+          .set('authorization', userToken.token)
           .send(editedNote);
 
         logError(responseObject);
@@ -330,7 +334,7 @@ describe('Server:', () => {
 
         const responseObject = await request(server)
           .put(`/notes/${idToRetrieve}`)
-          .set('authorization', userRon.token)
+          .set('authorization', userToken.token)
           .send(editedNote);
         logError(responseObject, httpStatusCode.notFound);
 
@@ -349,7 +353,7 @@ describe('Server:', () => {
 
         const responseObject = await request(server)
           .delete(`/notes/${idOfNoteToDelete}`)
-          .set('authorization', userRon.token);
+          .set('authorization', userToken.token);
         logError(responseObject);
 
         const { status, body } = responseObject;
@@ -362,7 +366,7 @@ describe('Server:', () => {
 
         const responseObject = await request(server)
           .delete(`/notes/${idOfNoteToDelete}`)
-          .set('authorization', userRon.token);
+          .set('authorization', userToken.token);
         logError(responseObject, httpStatusCode.notFound);
 
         const { status, body } = responseObject;
