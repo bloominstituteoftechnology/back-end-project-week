@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('./User');
 const Note = require('../notes/Note');
 const secret = 'The world is my playground!';
+let decoded;
 
 function restricted(req, res, next) {
     const token = req.headers.authorization;
@@ -12,6 +13,7 @@ function restricted(req, res, next) {
                 res.status(401).json('You must login to create, edit and view notes.');
                 return;
             }
+            decoded = jwt.verify(token, secret);
             next();
         });
     }
@@ -26,6 +28,10 @@ router.get('/:userId/notes/', restricted, (req, res) => {
         .populate('notes', '_id title text')
         .then(user => {
             if (user === null) {
+                res.status(401).json('Resource not found.');
+                return;
+            }
+            else if (user.username !== decoded.name) {
                 res.status(401).json('Resource not found.');
                 return;
             }
@@ -46,6 +52,10 @@ router.get('/:userId/notes/:noteId', restricted, (req, res) => {
                 res.status(401).json('Resource not found.');
                 return;
             }
+            else if (user.username !== decoded.name) {
+                res.status(401).json('Resource not found.');
+                return;
+            }
             else {
                 Note.findById(noteId)
                     .then(note => {
@@ -58,7 +68,7 @@ router.get('/:userId/notes/:noteId', restricted, (req, res) => {
                         }
                     })
                     .catch(error => {
-                        res.status(401).json({ Error: error.message });
+                        res.status(500).json({ Error: error.message });
                     })
             }
         })
@@ -70,45 +80,77 @@ router.get('/:userId/notes/:noteId', restricted, (req, res) => {
 router.post('/:userId/notes/', restricted, (req, res) => {
     const { userId } = req.params;
     const { title, text } = req.body;
-    Note.create({ title, text })
-        .then(note => {
-            User.findByIdAndUpdate(userId, { $push: { notes: note._id } }, { new: true })
-                .then(user => {
-                    if (user === null) {
-                        Note.remove({ _id: note.id })
-                            .then(note => {
-                                res.status(401).json('Resource not found.')
+    User.findById(userId)
+        .then(user => {
+            if (user === null) {
+                res.status(401).json('Resource not found.');
+                return;
+            }
+            else if (user.username !== decoded.name) {
+                res.status(401).json('Resource not found.');
+                return;
+            }
+            else {
+                Note.create({ title, text })
+                    .then(note => {
+                        User.findByIdAndUpdate(userId, { $push: { notes: note._id } }, { new: true })
+                            .then(user => {
+                                if (user === null) {
+                                    Note.remove({ _id: note.id })
+                                        .then(note => {
+                                            res.status(401).json('Resource not found.')
+                                        })
+                                        .catch(error => {
+                                            res.status(500).json({ Error: error.message });
+                                        })
+                                }
+                                else {
+                                    res.status(201).json({ id: user._id, notes: user.notes })
+                                }
                             })
                             .catch(error => {
                                 res.status(500).json({ Error: error.message });
                             })
-                    }
-                    else {
-                        res.status(201).json({ id: user._id, notes: user.notes })
-                    }
-                })
-                .catch(error => {
-                    res.status(500).json({ Error: error.message });
-                })
+                    })
+                    .catch(error => {
+                        res.status(500).json({ Error: error.message });
+                    })
+            }
         })
         .catch(error => {
-            res.status(500).json({ Error: error.message });
+            res.status(500).json({ Error: error.message }); 
         })
 });
 
 router.put('/:userId/notes/:noteId', restricted, (req, res) => {
     const { userId, noteId } = req.params;
     const { title, text } = req.body;
-    User.findOne({ _id: userId, notes: noteId })
+    User.findById(userId)
         .then(user => {
             if (user === null) {
                 res.status(401).json('Resource not found.');
                 return;
             }
+            else if (user.username !== decoded.name) {
+                res.status(401).json('Resource not found.');
+                return;
+            }
             else {
-                Note.findByIdAndUpdate(noteId, { title, text }, { new: true, runValidators: true })
-                    .then(note => {
-                        res.status(200).json({ title: note.title, text: note.text });
+                User.findOne({ _id: userId, notes: noteId })
+                    .then(user => {
+                        if (user === null) {
+                            res.status(401).json('Resource not found.');
+                            return;
+                        }
+                        else {
+                            Note.findByIdAndUpdate(noteId, { title, text }, { new: true, runValidators: true })
+                                .then(note => {
+                                    res.status(200).json({ title: note.title, text: note.text });
+                                })
+                                .catch(error => {
+                                    res.status(500).json({ Error: error.message });
+                                })
+                        }
                     })
                     .catch(error => {
                         res.status(500).json({ Error: error.message });
@@ -116,27 +158,43 @@ router.put('/:userId/notes/:noteId', restricted, (req, res) => {
             }
         })
         .catch(error => {
-            res.status(500).json({ Error: error.message });
+            res.status(500).json({ Error: error.message }); 
         })
 });
 
 router.delete('/:userId/notes/:noteId', restricted, (req, res) => {
     const { userId, noteId } = req.params;
-    User.findByIdAndUpdate(userId, { $pull: { notes: noteId } }, { new: true })
+    User.findById(userId)
         .then(user => {
             if (user === null) {
                 res.status(401).json('Resource not found.');
                 return;
             }
+            else if (user.username !== decoded.name) {
+                res.status(401).json('Resource not found.');
+                return;
+            }
             else {
-                Note.remove({ _id: noteId })
-                    .then(note => {
-                        if (note.n === 0) {
-                            res.status(401).json('Resource not found.'); 
-                            return; 
+                User.findByIdAndUpdate(userId, { $pull: { notes: noteId } }, { new: true })
+                    .then(user => {
+                        if (user === null) {
+                            res.status(401).json('Resource not found.');
+                            return;
                         }
                         else {
-                            res.status(200).json('The note was deleted successfully.');
+                            Note.remove({ _id: noteId })
+                                .then(note => {
+                                    if (note.n === 0) {
+                                        res.status(401).json('Resource not found.');
+                                        return;
+                                    }
+                                    else {
+                                        res.status(200).json('The note was deleted successfully.');
+                                    }
+                                })
+                                .catch(error => {
+                                    res.status(500).json({ Error: error.message });
+                                })
                         }
                     })
                     .catch(error => {
@@ -145,7 +203,7 @@ router.delete('/:userId/notes/:noteId', restricted, (req, res) => {
             }
         })
         .catch(error => {
-            res.status(500).json({ Error: error.message });
+            res.status(500).json({ Error: error.message }); 
         })
 });
 
