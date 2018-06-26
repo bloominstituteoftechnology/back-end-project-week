@@ -9,32 +9,34 @@ class Note extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            showNote: true
+            showNote: true,
+            note: []
          }
     }
 
-    // componentDidMount() {
-    //     this.fetchNote();
-    // }
-
-    // fetchNote = () => {
-    //     axios.get(`https://killer-notes.herokuapp.com/note/get/id`)
-    //         .then( response => {
-    //             console.log('respone', response)
-    //         })
-    // }
+    componentDidMount() {
+        axios
+            .get(`http://localhost:5000/api/notes/${this.props.match.params.id}`)
+            .then(note => {
+                this.setState(() => ({ note: note.data }));
+            })
+            .catch(err => {
+                console.error("Server error:", err)
+            })
+    }
 
     updateDisplay = () => {
         this.state.showNote = !this.state.showNote;
     }
 
-    render() { 
+    render() {  
         const id = this.props.match.params.id;
-        const { title, body } = this.props.notes[id];
+        const { title, body } = this.state.note;
+        console.log("NOTE", this.state.note.title)
 
-        if(this.state.showNote === false){
-            return <span></span>;
-        }
+        // if(this.state.showNote === false){
+        //     return <span></span>;
+        // }
 
         return (
             <div className='note-container'> 

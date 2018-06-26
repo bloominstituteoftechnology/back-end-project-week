@@ -50,7 +50,7 @@ export default class ListNotes extends Component {
                 <div className="note-list">
                     {this.props.notes.map(note => {
                         if(this.state.search === "") {
-                            return <NoteDetails key={note.id} note={note} />
+                            return <NoteDetails key={note._id} note={note} />
                         } else if(
                             note.title.toLowerCase().includes(this.state.search.toLowerCase()) ||
                             note.body.toLowerCase().includes(this.state.search.toLowerCase())
@@ -73,7 +73,7 @@ function NoteDetails({ note }) {
     return (
         <div>
             <div className="note-card">
-                <Link to={`/note/${note.id}`} >
+                <Link to={`/note/${note._id}`} >
                     <h2>{title}</h2>
                     <p>{body}</p>
                 </Link>
