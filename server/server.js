@@ -7,6 +7,7 @@ const cors = require('cors');
  * IMPORT ROUTERS: import any needed Router.
  */
 const notesRouter = require('./routers/Notes.router');
+const registerUser = require('../auth/register.router');
 const userRouter = require('./routers/User.router');
 
 /**
@@ -30,8 +31,11 @@ server.use(express.json());
  * DEFINE: Endpoints.
  */
 server.get('/', (req, res) => res.send('API Running...'));
-server.use('/api/notes', notesRouter);
+
+server.use('/api/register/', registerUser);
 server.use('/api/users', userRouter);
+
+server.use('/api/notes', notesRouter);
 
 /**
  * DEFINE: global Post-Middlewares if any
