@@ -2,8 +2,14 @@ const express = require('express');
 const User = require('./User.js');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const config = require('../config.js');
-const { jwtSecret } = config.secret;
+let jwtSecret = '';
+
+if (process.env.NODE_ENV === 'dev') {
+    const config = require('../config.js');
+    jwtSecret = config.secret.jwtSecret;
+} else {
+    jwtSecret = process.env.jwtSecret;
+}
 
 router
     .route('/')
