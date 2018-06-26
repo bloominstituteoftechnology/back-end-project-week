@@ -10,7 +10,7 @@ const keys = require('./config/keys');
 //const User = mongoose.model('users');
 
 
-mongoose.connect(keys.mongoURI);
+//mongoose.connect(keys.mongoURI);
 
 const app = express();//creates a running express server; this app object will set up to listen for http requests and route them
 
