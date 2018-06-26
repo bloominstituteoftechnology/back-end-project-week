@@ -16,7 +16,22 @@ const PostSchema = new Schema({
   date: {
     type: Date,
     default: Date.now()
-  }
+  },
+  comments: [
+    {
+      comment: {
+        type: String
+      },
+      username: {
+        type: String,
+        required: true
+      },
+      date: {
+        type: Date,
+        default: Date.now()
+      }
+    }
+  ]
 });
 
 module.exports = Post = mongoose.model('Post', PostSchema);

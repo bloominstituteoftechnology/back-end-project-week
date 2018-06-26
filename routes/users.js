@@ -64,10 +64,72 @@ router.post("/login", (req, res) => {
     })
 })
 
-router.get("/current", passport.authenticate('jwt', { session: false }), (req, res) => {
-  const { id, name, email } = req.user;
-  res.json({ id, name, email });
+router.get("/current", passport.authenticate("jwt", { session: false }), (req, res) => {
+  const { id, username, email, friends, friendsRequest } = req.user;
+  res.json({ id, username, email, friends, friendsRequest });
 
 });
+
+router.get("/request/:id", passport.authenticate("jwt", {session: false}), (req, res) => {
+  const { id } = req.params;
+  const currentUserID = req.user.id;
+  User.findById(id)
+    .then(user => {
+      if(!user) {
+        return res.status(400).json({msg: "Can't find that user"})
+      }
+      user.friendsRequest.push({user: currentUserID});
+      user.save()
+        .then(saveUser => {
+          res.json(saveUser);
+        })
+        .catch(err => {
+          res.status(500).json({msg: "Can't save user"});
+        })
+    })
+    .catch(err => {
+      res.status(500).json({msg: err.message});
+    })
+})
+
+router.post("/accept/:id", passport.authenticate("jwt", {session: false}), (req, res) => {
+  const { id } = req.params;
+  const currentUserID = req.user.id;
+  User.findById(currentUserID)
+    .then(user => {
+      console.log("current user: ", user.friendsRequest);
+      let foundUserIndex;
+      for(let i = 0; i < user.friendsRequest.length; i ++) {
+        if(user.friendsRequest[i].user.toString() === id.toString()) {
+          foundUserIndex = i;
+        }
+      }
+      if(foundUserIndex >= 0) {
+        console.log("Array, CoreMongoose",foundUserIndex);
+        let moveFriend = user.friendsRequest.splice(foundUserIndex, 1);
+        console.log(moveFriend[0]);
+        user.save(function(err, friend) {
+          User.findById(currentUserID)
+            .then(currentUser => {
+              currentUser.friends.push({user: id});
+              currentUser.save()
+                .then(savedFriend => {
+                  res.json(savedFriend);
+                })
+                .catch(err => {
+                  res.status(500).json({msg: "Error accepting friend"});
+                })
+            })
+            .catch(err => {
+              res.status(500).json({msg: "Can't find user"});
+            })
+        })
+      }
+    })
+    .catch(err => {
+      res.status(500).json({error: err.message});
+    })
+})
+
 
 module.exports = router;
