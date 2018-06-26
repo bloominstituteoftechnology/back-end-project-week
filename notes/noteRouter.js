@@ -16,16 +16,6 @@ router
             .then(result => res.status(201).json(result))
             .catch(err => res.status(500).json({ error: err.message }));
     })
-     // .get((req, res) => {
-     //     Note.find({
-     //         user: ObjectId('5b3176454146a31a9c9aa2bd')
-     //     })
-     //     .populate('user')
-     //     .then(notes => {
-     //         res.status(200).json(notes);
-     //     })
-     //     .catch(err => res.status(500).json({ errorMessage: "The notes could not be retrieved." }));
-     // });
 
 router
     .route('/:id')
