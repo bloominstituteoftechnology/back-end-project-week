@@ -30,6 +30,7 @@ server.use(express.json());
 setupMiddleware(server);
 
 // Simple Node Express App to show server is online
+// Testing Node Express 
 
 server.get('/', (req, res) => {
     res.send(`<h2>Server is online!</h2>`);
