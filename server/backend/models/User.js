@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const userSchema = new mongoose.Schema({
@@ -7,21 +7,22 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    lowercase: true,
+    lowercase: true
   },
   password: {
     type: String,
     required: true,
-    minlength: 4,
-  }
-  , notes: [{
-    type: ObjectId,
-    ref: 'Note'
-  }]
-
+    minlength: 4
+  },
+  notes: [
+    {
+      type: ObjectId,
+      ref: "Note"
+    }
+  ]
 });
 
-userSchema.pre('save', function (next) {
+userSchema.pre("save", function(next) {
   return bcrypt
     .hash(this.password, 10)
     .then(hash => {
@@ -33,16 +34,16 @@ userSchema.pre('save', function (next) {
     });
 });
 
-userSchema.methods.validatePassword = function (passwordGuess) {
+userSchema.methods.validatePassword = function(passwordGuess) {
   return bcrypt.compare(passwordGuess, this.password);
 };
 
-userSchema.methods.addNote = function (note_id) {
-  let arr = Array.from(this.notes)
-  arr.push(note_id)
-  this.notes = arr
-  console.log(this.notes)
-}
+userSchema.methods.addNote = function(note_id) {
+  let arr = Array.from(this.notes);
+  arr.push(note_id);
+  this.notes = arr;
+  console.log(this.notes);
+};
 
 function restricted(req, res, next) {
   const token = req.headers.authorization;
@@ -50,16 +51,14 @@ function restricted(req, res, next) {
   if (token) {
     jwt.verify(token, secret, (err, decodedToken) => {
       if (err) {
-        return res
-          .status(401)
-          .json({ message: 'Nope!' });
+        return res.status(401).json({ message: "Nope!" });
       }
 
       next();
     });
   } else {
-    res.status(401).json({ message: 'Nope!' });
+    res.status(401).json({ message: "Nope!" });
   }
 }
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model("User", userSchema);

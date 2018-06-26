@@ -1,21 +1,22 @@
-const express = require('express');
+const express = require("express");
 
-const database = require('./backend/utils/database');
-const middleware = require('./backend/utils/middleware');
-const routes = require('./backend/utils/routes');
+const database = require("./backend/utils/database");
+const middleware = require("./backend/utils/middleware");
+const routes = require("./backend/utils/routes");
 
 const server = express();
 
 middleware(server);
 routes(server);
 
-database.connectTo('lambda-Notes')
+database
+  .connectTo("lambda-Notes")
   .then(() => {
-    console.log('\n... API Connected to lambda-Notes Database ...\n');
+    console.log("\n... API Connected to lambda-Notes Database ...\n");
     server.listen(5000, () =>
-      console.log('\n=== API running on port 5000 ===\n')
+      console.log("\n=== API running on port 5000 ===\n")
     );
   })
   .catch(err => {
-    console.log('\n*** ERROR Connecting to MongoDB, is it running? ***\n', err);
+    console.log("\n*** ERROR Connecting to MongoDB, is it running? ***\n", err);
   });
