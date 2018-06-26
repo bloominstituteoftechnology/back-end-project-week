@@ -9,7 +9,7 @@ const userRouter = require("./users/userRouter.js");
 const server = express();
 
 server.use(helmet());
-server.use(cors({ origin: "https://front-end-project-zc.herokuapp.com" }));
+server.use(cors({ origin: process.env.CORSORIGIN }));
 server.use(express.json());
 
 server.get("/", function(req, res) {
