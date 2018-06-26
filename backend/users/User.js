@@ -32,10 +32,8 @@ User.pre('save', function(next) {
     })
 });
 
-UserSchema.methods.checkPassword = function(plainTextPW, callBack) {
-  return bcrypt.compare(plainTextPW, this.password, (err, res) => {
-    return callBack(err, res);
-  });
+User.methods.validatePassword = function(passwordGuess) {
+  return bcrypt.compare(passwordGuess, this.password);
 };
 
 module.exports = mongoose.model('User', User);

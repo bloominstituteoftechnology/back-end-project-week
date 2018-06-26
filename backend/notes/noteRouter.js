@@ -1,3 +1,4 @@
+const router = require('express').Router();
 const Note = require('./Note');
 
 router
@@ -9,7 +10,7 @@ router
             .then(foundNotes => {
                 res.status(200).json(foundNotes);
             })
-            .catch(err => res.status(500).json({ message: 'Error Fetching Notes' }));
+            .catch(err => res.status(500).json({ message: err.message }));
     })
 
     .post((req, res) => {
@@ -21,7 +22,7 @@ router
                 res.status(201).json(saveNote);
             })
             .catch(err => {
-                res.status(500).json({ message: 'Error Saving Note' });
+                res.status(500).json({ message: err.message });
             });
     });
 
@@ -35,7 +36,7 @@ router
                 res.status(200).json(foundNote);
             })
             .catch(err => {
-                res.status(404).json({ message: 'No note by that id in DB to get' });
+                res.status(404).json({ message: err.message });
             });
     })
 
@@ -46,7 +47,7 @@ router
                 res.status(204).json(byeNote).end();
             })
             .catch(err => {
-                res.status(404).json({ error: 'No note by that id in DB to delete' });
+                res.status(404).json({ message: err.message });
             })
     })
 
@@ -62,7 +63,7 @@ router
                 res.status(200).json(updateNote);
             })
             .catch(err => {
-                res.status(404).json({ error: 'No note by that id in DB to update' })
+                res.status(404).json({ message: err.message })
             })
     });
 

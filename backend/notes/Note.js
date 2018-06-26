@@ -8,14 +8,14 @@ const Note = new mongoose.Schema({
         required: true
     },
 
-    body: {
+    content: {
         type: String,
         required: true
     },
 
-    username: {
-        type: ObjecId, ref: 'User' 
-    }
+    // username: {
+    //     type: ObjecId, ref: 'User' 
+    // }
 });
 
 module.exports = mongoose.model('Note', Note);
