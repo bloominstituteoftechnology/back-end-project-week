@@ -1,16 +1,16 @@
 const express = require('express');
 const cors = require('cors');
-
+require('dotenv').config()
 const routes = require('./api/routes/routes')
-const config = require('./config')
+
 
 const server = express();
 
-const { frontEndLocation: { address } } = config;
+
 
 const corsOptions = {
-  origin: address,
-  credentials: true
+  // origin: 'http://localhost:3000',
+  // credentials: true
 }
 
 server.use(express.json());
