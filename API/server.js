@@ -7,6 +7,11 @@ const helmet = require('helmet');
 
 const server = express();
 
+server.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 var whitelist = ['http://localhost:3000/', 'https://tender-ptolemy-5e2918.netlify.com/']
 var corsOptions = {
   origin: function (origin, callback) {
