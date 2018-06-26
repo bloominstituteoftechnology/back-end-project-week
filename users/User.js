@@ -11,9 +11,10 @@ const definition = {
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        minlength: 10
     },
-    notes: [{ type: ObjectId, ref: 'Note'}]
+    notes: [{ type: ObjectId, ref: 'Note' }]
 }
 
 const options = {
@@ -22,9 +23,9 @@ const options = {
 
 const userSchema = new mongoose.Schema(definition, options);
 
-userSchema.pre('save', function(next) {
+userSchema.pre('save', function(next) { // this has to be a regular function, can not be arrow function
     bcrypt
-        .hash(this.password, 10)
+        .hash(this.password, 10 )
         .then(hashedPassword => {
             this.password = hashedPassword;
             next();
@@ -34,4 +35,7 @@ userSchema.pre('save', function(next) {
         })
 })
 
+userSchema.methods.isPasswordValid = function(passwordGuess) {
+    return bcrypt.compare(passwordGuess, this.password); // this returns a promise, which will be handled in the userRoutes
+}
 module.exports = mongoose.model('User', userSchema);
