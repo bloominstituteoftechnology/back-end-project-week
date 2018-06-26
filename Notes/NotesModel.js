@@ -12,4 +12,4 @@ const NotesModel = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('NotesModel', NotesModel); 
+module.exports = mongoose.model('Notes', NotesModel, 'notes'); 

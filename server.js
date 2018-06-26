@@ -5,18 +5,18 @@ const mongoose = require ('mongoose');
 
 const server = express();
 
-const notesModel = require('./Notes/NotesModel.js');
-const usersModel = require('./Users/UsersModel.js');
+const notesRouter = require('./Notes/NotesRouter.js');
+const usersRouter = require('./Users/UsersRouter.js');
 
 server.use(helmet());
 server.use(cors());
 server.use(express.json());
 
-server.use('/notes', notesModel);
-server.use('/users', usersModel); 
+server.use('/notes', notesRouter);
+server.use('/users', usersRouter); 
 
 server.get('/', (req, res) => {
-    res.status(200).json({ api: running }); 
+    res.status(200).json('API up and running!'); 
 }); 
 
 const port = process.env.PORT || 5000; 
