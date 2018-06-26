@@ -2,12 +2,15 @@ const express = require('express'); // remember to install your npm packages
 const helmet = require('helmet');
 const cors = require('cors');
 
-const db = require('./data/db.js'); //Creates a db server connection promise
+const db = require('./_config/db.js'); //Creates a db server connection promise
+const setupMiddleware = require('./_config/middleware');
 
 //Create API sub-applications routers here
 // const modelsRouter = require('./models/modelsRouter.js');
 const notesRouter = require('./notes/notesRouter.js');
-// const usersRouter = require('./users/usersRouter.js');
+const usersRouter = require('./users/usersRouter.js');
+const authRouter = require('./auth/authRouter.js');
+
 
 const server = express();
 
@@ -26,9 +29,8 @@ server.use(express.json());
 server.get('/', (req, res) => res.send('Lambda Notes API Running...')); //Main route
 
 server.use('/api/notes', notesRouter);
-
-
-
+server.use('/api/users', usersRouter);
+server.use('/api/auth', authRouter);
 
 const port = process.env.PORT || 5000;
 server.listen(port, () => {
