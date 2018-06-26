@@ -29,8 +29,8 @@ router
     })
 
 router
-    route('/:id')
-    get((req, res) => {
+    .route('/:id')
+    .get((req, res) => {
         Note
             .findById(req.params.id)
             .then(note => {
