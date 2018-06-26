@@ -14,7 +14,7 @@ import { Tag } from '../Forms/ViewNote';
 class NoteList extends Component {
 
   componentDidMount() {
-    console.log("Does this.props.user exist?",this.props.user ? "YES":"NO");
+    console.log("Does this.props.user exist? ",this.props.user ? "YES":"NO");
     if (this.props.user) this.props.fetchNotes(this.props.user.uid);
     if (this.props.user) {
         console.log("It's happening at NotesList");
@@ -28,6 +28,12 @@ class NoteList extends Component {
 
     // If you're not logged in, you can't be here.
     if (!this.props.user) return <Redirect to ="/" />;
+
+    if (!this.props.notes) return (
+      <div>
+        <h2>We still be loadin'. Hang on tight!</h2>
+      </div>
+    );
 
     // If you don't have any notes, let's make some!
     if (this.props.notes.length === 0) {
@@ -90,20 +96,6 @@ const NoteCard = (props) => {
     </div>
   );
 };
-
-// const NoteCard = (props) => {
-//   const { id, title, text } = props;
-//   const truncTitle = title.length > 12 ? title.substring(0,10) + '...' : title;
-//   const truncText = text.length > 82 ? text.substring(0,80) + '...' : text;
-//   return (
-//     <Link to={`/notes/${id}`} className="note-card">
-      // <h3 style={{color:'var(--color-bg--button-main)'}}>{truncTitle}</h3>
-      // <hr style={{borderColor:'var(--color--main)'}} />
-//       <p>{truncText}</p>
-//       {/* <ReactMarkdown source={truncText} /> */}
-//     </Link>
-//   );
-// }
 
 const mapStateToProps = (state) => {
   return {

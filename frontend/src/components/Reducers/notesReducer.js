@@ -12,22 +12,22 @@ const initialState = {
 export const notesReducer = ( state = initialState, action ) => {
   switch(action.type) {
     case FETCH:
-      let newState = [];
-      for (let key in action.payload) {
-        const { title, text, date, tags } = action.payload[key];
-        console.log(tags);
-        const tagArr = typeof tags === "string" ? tags.split(',').map(tag => tag.trim().toLowerCase()) : []; 
-        newState.push({
-          id: key,
-          title: title,
-          text: text,
-          date: date,
-          tags: tagArr,
-        });
-      }
+      // let newState = [];
+      // for (let key in action.payload) {
+      //   const { title, text, date, tags } = action.payload[key];
+      //   console.log(tags);
+      //   const tagArr = typeof tags === "string" ? tags.split(',').map(tag => tag.trim().toLowerCase()) : []; 
+      //   newState.push({
+      //     id: key,
+      //     title: title,
+      //     text: text,
+      //     date: date,
+      //     tags: tagArr,
+      //   });
+      // }
       return {
         ...state,
-        notes: newState,
+        notes: action.payload,
       };
     case LOGOUT:
       return {

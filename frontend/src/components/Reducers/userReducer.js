@@ -16,12 +16,15 @@ export const userReducer = (state = initialState, action) => {
     case LOGIN:
       return {
         ...state,
-        user: action.payload,
+        user: {
+          uid: action.payload,
+        }
       };
     case LOGOUT:
       return {
         ...state,
         user: null,
+        theme: "default"
       }
     case THEME:
       return {

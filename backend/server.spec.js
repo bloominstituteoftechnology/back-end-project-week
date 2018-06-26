@@ -176,23 +176,23 @@ describe('Server:', () => {
       const testNote = {
         "title": "My first note",
         "text": "My brain is melting. Please send help.",
-        "author": "5b30101a8a63c231b8200da2"
       };
     
-      it("rejects POST request at '/notes' missing author.", async () => {
-        const { author, ...noAuthorNote } = testNote;
+      /* Test is irrelevant because we grab the author from _id in the user's JWT */
+      // it("rejects POST request at '/notes' missing author.", async () => {
+      //   const { author, ...noAuthorNote } = testNote;
 
-        const responseObject = 
-          await request(server)
-            .post('/notes')
-            .set('authorization', userToken.token)
-            .send(noAuthorNote);
-        logError(responseObject, httpStatusCode.badRequest);
+      //   const responseObject = 
+      //     await request(server)
+      //       .post('/notes')
+      //       .set('authorization', userToken.token)
+      //       .send(noAuthorNote);
+      //   logError(responseObject, httpStatusCode.badRequest);
   
-        const { status, body } = responseObject;
-        expect(status).toBe(httpStatusCode.badRequest);
-        expect(body).toMatchObject({ error: "400: Bad Request\nThe 'author' field is missing but is required. Ensure it is a MongoDB ObjectID type." });
-      });
+      //   const { status, body } = responseObject;
+      //   expect(status).toBe(httpStatusCode.badRequest);
+      //   expect(body).toMatchObject({ error: "400: Bad Request\nThe 'author' field is missing but is required. Ensure it is a MongoDB ObjectID type." });
+      // });
       
       it('rejects POST requests at \'notes\' without JWT', async () => {
         const responseObject = await request(server)

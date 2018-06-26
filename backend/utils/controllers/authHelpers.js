@@ -26,7 +26,7 @@ const verifyToken = token => {
 
 const checkAuth = (req, res, next) => {
   const token = req.headers.authorization;
-  console.log('checkAuth token:',token);
+  // console.log('checkAuth token:',token);
   const isTokenValid = verifyToken(token);
   // ***
   if (token && isTokenValid) {

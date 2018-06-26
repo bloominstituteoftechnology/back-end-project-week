@@ -1,15 +1,16 @@
 // Packages
 const mongoose = require('mongoose');
 // Models
+const Users = require('./models/Users');
 const Notes = require('./models/Notes');
 // Dependencies
 const server = require('./server');
 // Definitions
-const { MONGO_TEST_URI } = require('./utils/secrets');
+const { MONGO_DEMO_URI } = require('./utils/secrets');
 
 const startServer = async (server) => {
   try {
-    await mongoose.connect(MONGO_TEST_URI);
+    await mongoose.connect(MONGO_DEMO_URI);
   } catch(error) {
     console.log('\n=== MongoDB Connection Error ===',error);
     console.log(error);
@@ -24,4 +25,4 @@ const startServer = async (server) => {
   });
 };
 
-startServer(server(Notes));
+startServer(server(Users, Notes));
