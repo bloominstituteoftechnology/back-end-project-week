@@ -26,7 +26,7 @@ const corsOptions = {
 server.use(helmet())
 server.use(cors(corsOptions))
 server.use(express.json());
-server.use(morgan('combined'));
+// server.use(morgan('combined'));
 
 server.get('/', (req, res) => {
     res.status(200).json({ api: 'running' });
