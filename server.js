@@ -8,9 +8,12 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const notesRouter = require('./api/Notes/NotesRouter');
 const usersRouter = require('./api/Users/usersRouter');
-////Note from Ellen: this URL will need to change when hosted on mLab
+
+
 require('dotenv').config();
-mongoose.connect('mongodb://localhost/lambdaNotes')
+const { username, password } = process.env;
+
+mongoose.connect(`mongodb://${username}:${password}@ds018568.mlab.com:18568/lambdanotesbyhonda`)
     .then(
         () => {
             console.log('***\n Portal to DB Established \n*** ')
@@ -22,25 +25,25 @@ mongoose.connect('mongodb://localhost/lambdaNotes')
 
 const server = express();
 
-// const sessionOptions = {
-//     secret: 'If you build it, they will come',
-//     cookie: {
-//         maxAge: 1000 * 60 * 60
-//     },
-//     httpOnly: true,
-//     secure: false,
-//     resave: true,
-//     savedUninitialized: false,
-//     name: 'noname',
-//     store: new MongoStore({
-//         //Note from Ellen: this URL will need to change when hosted on mLab
-//         url: 'mongodb://localhost/sessions',
-//         ttl: 60 * 10
-//     }),
-// }
+const sessionOptions = {
+    secret: 'If you build it, they will come',
+    cookie: {
+        maxAge: 1000 * 60 * 60
+    },
+    httpOnly: true,
+    secure: false,
+    resave: true,
+    savedUninitialized: false,
+    name: 'noname',
+    store: new MongoStore({
+        //Note from Ellen: this URL will need to change when hosted on mLab
+        url: `mongodb://${username}:${password}@ds018568.mlab.com:18568/lambdanotesbyhonda`,
+        ttl: 60 * 10
+    }),
+}
 
 server.use(express.json());
-// server.use(session(sessionOptions));
+server.use(session(sessionOptions));
 server.use(cors({}));
 server.use(helmet());
 // server.use(morgan());
