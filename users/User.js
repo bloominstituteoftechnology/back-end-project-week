@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 
 const User = mongoose.Schema({
     username: {
@@ -15,20 +15,20 @@ const User = mongoose.Schema({
     },
 });
 
-// User.pre('create', function(next) {
-//     return bcrypt
-//       .hash(this.password, 10)
-//       .then(hash => {
-//         this.password = hash;
-//         return next();
-//       })
-//       .catch(err => {
-//         return next(err);
-//       });
-// });
+User.pre('save', function(next) {
+    return bcrypt
+      .hash(this.password, 10)
+      .then(hash => {
+        this.password = hash;
+        return next();
+      })
+      .catch(err => {
+        return next(err);
+      });
+});
 
-// User.methods.validatePassword = function(passwordGuess) {
-//   return bcrypt.compare(passwordGuess, this.password);
-// };
+User.methods.validatePassword = function(passwordGuess) {
+  return bcrypt.compare(passwordGuess, this.password);
+};
   
 module.exports = mongoose.model('User', User);
