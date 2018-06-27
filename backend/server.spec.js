@@ -328,8 +328,8 @@ describe('Server:', () => {
       
       it('modifies a note appropriately.', async () => {
         const idToRetrieve = testNotes[1]._id;
-        const editedNote = {...testNotes[1], text: 'ABC123DOREMI' };
-
+        const { author, ...noteWithNoAuthor } = testNotes[1];
+        const editedNote = {...noteWithNoAuthor, text: 'ABC123DOREMI' };
         const responseObject = await request(server)
           .put(`/notes/${idToRetrieve}`)
           .set('authorization', userToken.token)

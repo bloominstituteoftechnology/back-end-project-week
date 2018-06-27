@@ -3,7 +3,7 @@ const express = require('express');
 
 module.exports = (usersModel, notesModel) => {
   // Dependencies
-  const noteRoutes = require('./controllers/noteRoutes')(notesModel);
+  const noteRoutes = require('./controllers/noteRoutes')(usersModel, notesModel);
   const noteIdRoutes = require('./controllers/noteIdRoutes')(notesModel);
   const userRoutes = require('./controllers/userRoutes')(usersModel);
   const useMiddlewareQueue = require('./utils/server/middleware');
@@ -28,7 +28,7 @@ module.exports = (usersModel, notesModel) => {
     .get(noteRoutes.GET)
     .post(noteRoutes.POST)
     .put(noteRoutes.NO_PUT);
-  //Notes route are protected. An authentication middleware that checks for JWT should exist in `useMiddlewareQueue`
+  //Notes route is protected. An authentication middleware that checks for JWT should exist in `useMiddlewareQueue`
     
   server.route('/notes/:id')
     .get(noteIdRoutes.GET_ONE_BY_ID)

@@ -1,7 +1,7 @@
 const httpStatus = require('../utils/HTTPStatusCodes');
 const { validateNotePostBody } = require('../utils/controllers/controllerHelpers');
 
-module.exports = (notesModel) => {
+module.exports = (usersModel, notesModel) => {
   return {
     "GET": (req, res) => {
       console.log('plainToken:',req.plainToken);
@@ -26,7 +26,14 @@ module.exports = (notesModel) => {
       }
       notesModel.create(newNote)
         .then(note => {
-          res.status(httpStatus.created).json(note);
+          usersModel.update({ _id: note.author }, { $push: { notes: note._id }})
+            .then(() => {
+              res.status(httpStatus.created).json(note);
+            })
+            .catch(error => {
+              console.log('noteRoutes--POST ERROR:',error); 
+              res.status(500).json(error);
+            });
         })
         .catch(error => {
           console.log('noteRoutes--POST ERROR:',error); 
