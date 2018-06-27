@@ -1,9 +1,30 @@
 const router = require('express').Router();
+const jwt = require('jsonwebtoken');
 const Note = require('../Models/noteModel');
+
+const secret="freezing trap";
+
+function restricted(req, res, next) {
+    const token = req.headers.authorization;
+    if(token) {
+        jwt.verify(token, secret, (err, decodedToken) => {
+            if(err) {
+                return res.status(401).json({
+                    message: 'Token NOT Decoded'
+                })
+            }
+            next();
+        })
+    } else {
+        res.status(401).json({
+            message: 'There is NO Token'
+        })
+    }
+}
 
 router
     .route('/')
-    .get((req, res) => {
+    .get(restricted, (req, res) => {
         Note
             .find()
             .then(listOfNotes => {
