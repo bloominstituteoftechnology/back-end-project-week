@@ -18,7 +18,6 @@ router
     .route('/register')
     .post((req, res) => {
         const { username, password } = req.body;
-        console.log(req.body.password)
         if(req.body.password.length < 10) {
             return res.status(400).json({error: 'Please provide a password that is at least 10 characters in length'}) 
         }
