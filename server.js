@@ -3,6 +3,7 @@ const helmet = require('helmet');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
+const morgan = require('morgan');
 
 const TodoController = require('./controllers/TodoController');
 const AuthController = require('./controllers/AuthController');
@@ -19,6 +20,7 @@ server.use(
   })
 );
 
+server.use(morgan('combined'))
 server.use('/api/todo', TodoController);
 server.use('/api/user', AuthController);
 
