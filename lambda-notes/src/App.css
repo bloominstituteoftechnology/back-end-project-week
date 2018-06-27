@@ -36,9 +36,9 @@ body, html {
 }
 
 .card {
-  width: 280px;
+  /* width: 280px; */
   max-width: 310px;
-  min-width: 270px;
+  min-width: 210px;
   height: 300px;
   color: black;
   margin: 1%;
