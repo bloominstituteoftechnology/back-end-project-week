@@ -5,10 +5,10 @@ const passport = require("passport");
 const Post = require("../models/Post");
 const User = require("../models/User");
 
-router.get("/", passport.authenticate("jwt", {session: false}),(req, res) => {
+router.get("/all", passport.authenticate("jwt", {session: false}),(req, res) => {
   const currentUserId = req.user.id;
+  const currentUserName = req.user.username;
   Post.find()
-    .populate("user")
     // get by latest
     .sort({date: -1 })
     .then(posts => {
@@ -25,7 +25,7 @@ router.get("/", passport.authenticate("jwt", {session: false}),(req, res) => {
       let friendspost = allPosts.filter(post => {
         return post.friends === true; 
       })
-      //console.log("friends post", friendspost);
+      console.log("friends post", friendspost);
       // get all private post
       let privatePost = allPosts.filter(post => {
         return post.private == true;
@@ -43,14 +43,24 @@ router.get("/", passport.authenticate("jwt", {session: false}),(req, res) => {
               }
             }
           }
+          let myPostFriend = [];
+          for(let x = 0; x < friendspost.length; x ++) {
+            if(friendspost[x].user.toString() == currentUserId) {
+              myPostFriend.push(friendspost[x]);
+            }
+          }
+
+          mainPost = mainPost.concat(myPostFriend);
+          //console.log("===Mypost===", myPostFriend);
           //console.log("===currentUsers Friend===",currentUserFriendsPosts);
           let currentUserPrivate = [];
+          //console.log("=== private ==", privatePost);
           for(let k = 0; k < privatePost.length; k ++) {
             if(privatePost[k].user.toString() == currentUserId) {
               currentUserPrivate.push(privatePost[k]);
             }
           }
-          console.log("===currentUsers private===", currentUserPrivate);
+          //console.log("===currentUsers private===", currentUserPrivate);
           mainPost = mainPost.concat(currentUserFriendsPosts)
           mainPost = mainPost.concat(currentUserPrivate);
           mainPost.sort(function(a, b) {
@@ -81,17 +91,6 @@ router.post("/", passport.authenticate("jwt", {session: false}), (req, res) => {
     })
     .catch(err => {
       res.status(500).json({error: err.message});
-    })
-})
-
-router.get("/:id", passport.authenticate("jwt", {session: false}), (req, res) => {
-  const { id } = req.params;
-  Post.findById(id)
-    .then(post => {
-      res.json(post);
-    })
-    .catch(err => {
-      res.status(500).json({msg: "Can't find by that ID"});
     })
 })
 
@@ -143,14 +142,36 @@ router.put("/:id", passport.authenticate("jwt", {session: false}), (req,res) => 
     })
 })
 
-router.get("/friends/:id", passport.authenticate("jwt", {session: false}), (req, res) => {
+router.get("/users/:id", passport.authenticate("jwt", {session: false}), (req, res) => {
   const { id } = req.params;
+  const currentUserID = req.user.id;
   Post.find({user: id})
     .then(friendPosts => {
       let filterOutPrivate = friendPosts.filter(post => {
         return post.private !== true; 
       })
-      res.json(filterOutPrivate);
+      User.findById(currentUserID)
+        .then(currentUser => {
+          let isFriend = false;
+          let currentUserFriends = currentUser.friends;
+          for(let i = 0; i< currentUserFriends.length; i ++) {
+            if(currentUserFriends[i].user.toString() == id) {
+              isFriend = true;
+            }
+          }
+          if(isFriend) {
+            res.json(filterOutPrivate);
+          } else {
+            let filterOutFriend = filterOutPrivate.filter(post => {
+              return post.friends !== true;
+            })
+            res.json(filterOutFriend);
+          }
+        })
+        .catch(err => {
+          res.status(400).json({error: err.message});
+        })
+        //res.json(filterOutPrivate);
     })
     .catch(err => {
       res.status(500).json({error: err.message});

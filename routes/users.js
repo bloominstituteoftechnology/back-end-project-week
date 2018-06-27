@@ -70,6 +70,18 @@ router.get("/current", passport.authenticate("jwt", { session: false }), (req, r
 
 });
 
+router.get("/friends/all", passport.authenticate("jwt", {session: false}), (req, res) => {
+  const currentUserID = req.user.id;
+  User.findById(currentUserID)
+    .populate("user")
+    .then(currentUser => {
+      res.json(currentUser.friends);
+    })
+    .catch(err => {
+      res.status(400).json({msg: "can't find user"});
+    })
+})
+
 router.get("/request/:id", passport.authenticate("jwt", {session: false}), (req, res) => {
   const { id } = req.params;
   const currentUserID = req.user.id;
