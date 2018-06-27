@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const Task = require('../models/Task');
-const { sendErr } = require('../utils/apiResponses');
+const { sendErr, sendRes } = require('../utils/apiResponses');
 
 router
   .post('/', (req, res) => {
@@ -8,7 +8,7 @@ router
 
     Task.create(newTask)
       .then(task => {
-        res.status(201).json(task);
+        sendRes(res, '201', task);
       })
       .catch(err => {
         sendErr(res, err, 'The task could not be created.');
@@ -17,7 +17,7 @@ router
   .get('/', (req, res) => {
     Task.find()
       .then(tasks => {
-        res.status(200).json(tasks);
+        sendRes(res, '200', tasks);
       })
       .catch(err => {
         sendErr(res, err, 'The list of tasks could not be retrieved.');
@@ -28,13 +28,7 @@ router
 
     Task.findById(id)
       .then(task => {
-        if (task) {
-          res.status(200).json(task);
-        } else {
-          res
-            .status(404)
-            .json({ error: `The task with id ${id} does not exist.` });
-        }
+        sendRes(res, '200', task);
       })
       .catch(err => {
         sendErr(res, err, `The task with id ${id} could not be retrieved.`);
@@ -50,13 +44,7 @@ router
 
     Task.findByIdAndUpdate(id, updatedTask, options)
       .then(updatedTask => {
-        if (updatedTask) {
-          res.status(200).json(updatedTask);
-        } else {
-          res
-            .status(404)
-            .json({ error: `The task with id ${id} does not exist.` });
-        }
+        sendRes(res, '200', updatedTask);
       })
       .catch(err => {
         sendErr(res, err, `The task with id ${id} could not be modified.`);
@@ -67,14 +55,7 @@ router
 
     Task.findByIdAndRemove(id)
       .then(deletedTask => {
-        if (deletedTask) {
-          const { _id } = deletedTask;
-          res.status(200).json({ _id });
-        } else {
-          res
-            .status(404)
-            .json({ error: `The task with id ${id} does not exist.` });
-        }
+        sendRes(res, '200', deletedTask ? { _id: deletedTask._id } : null);
       })
       .catch(err => {
         sendErr(res, err, `The task with id ${id} could not be removed.`);
