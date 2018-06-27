@@ -8,7 +8,7 @@ const Notes = new Schema({
     required: true,
     unique: true,
   },
-  note: {
+  content: {
     type: String,
     default: 'Add your fancy notes here.',
   },
