@@ -91,7 +91,11 @@ const sanitizeMiddleware = type => {
     switch (type) {
       case "note":
         const note = ({ title, textBody } = req.body);
-        if (note.title === undefined || note.textBody === undefined) {
+        if (
+          note.title === undefined ||
+          note.textBody === undefined ||
+          note.owner === undefined
+        ) {
           res
             .status(400)
             .json({ errorMessage: "Please provide a title and text body." });
