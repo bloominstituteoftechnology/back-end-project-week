@@ -15,7 +15,7 @@ const PostSchema = new Schema({
   },
   date: {
     type: Date,
-    default: Date.now()
+    default: Date.now
   },
   private: {
     type: Boolean,
@@ -41,7 +41,11 @@ const PostSchema = new Schema({
       },
       date: {
         type: Date,
-        default: Date.now()
+        default: Date.now
+      },
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
       }
     }
   ]

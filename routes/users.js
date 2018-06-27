@@ -76,19 +76,67 @@ router.get("/request/:id", passport.authenticate("jwt", {session: false}), (req,
   User.findById(id)
     .then(user => {
       if(!user) {
-        return res.status(400).json({msg: "Can't find that user"})
+        return res.status(400).json({msg: "Can't find that user"}).catch(err => {
+          res.json({error: "something was not rite"});
+        })
       }
-      user.friendsRequest.push({user: currentUserID});
-      user.save()
-        .then(saveUser => {
-          res.json(saveUser);
-        })
-        .catch(err => {
-          res.status(500).json({msg: "Can't save user"});
-        })
+      let isUserExist = false;
+      for(let i = 0; i < user.friendsRequest.length; i ++) {
+        if(user.friendsRequest[i].user.toString() == currentUserID) {
+          isUserExist = true;
+        }
+      }
+      for(let j = 0; j < user.friends.length; j ++) {
+        if(user.friends[j].user.toString() == currentUserID) {
+          isUserExist = true;
+        }
+      }
+      console.log(isUserExist);
+      if(isUserExist) {
+        res.status(500).json({msg: "You are already a friend or still pending"});
+      } else {
+        user.friendsRequest.push({user: currentUserID});
+        user.save()
+          .then(saveUser => {
+            res.json(saveUser);
+          })
+          .catch(err => {
+            res.status(500).json({msg: "Can't save user"});
+          })
+        
+      }
     })
     .catch(err => {
-      res.status(500).json({msg: err.message});
+      res.status(500).json({msg: "Something went wrong"});
+    })
+})
+
+router.delete("/request/:id", passport.authenticate("jwt", {session: false}), (req, res) => {
+  const { id } = req.params;
+  const currentUserID = req.user.id;
+  User.findById(currentUserID)
+    .then(currentUser => {
+      let foundUserIndex;
+      for(let i = 0; i < currentUser.friendsRequest.length; i ++) {
+        if(currentUser.friendsRequest[i].user.toString() === id.toString()) {
+          foundUserIndex = i;
+        }
+      }
+      if(foundUserIndex >= 0) {
+        currentUser.friendsRequest.splice(foundUserIndex, 1);
+        currentUser.save()
+          .then(user => {
+            res.json(user);
+          })
+          .catch(err => {
+            res.status(400).json({error: err.message});
+          })
+      } else {
+        res.status(400).json({msg: "Can't find the user"});
+      }
+    })
+    .catch(err => {
+      res.status(500).json({err: err.message});
     })
 })
 
@@ -96,34 +144,86 @@ router.post("/accept/:id", passport.authenticate("jwt", {session: false}), (req,
   const { id } = req.params;
   const currentUserID = req.user.id;
   User.findById(currentUserID)
-    .then(user => {
-      console.log("current user: ", user.friendsRequest);
+    .then(currentUser => {
       let foundUserIndex;
-      for(let i = 0; i < user.friendsRequest.length; i ++) {
-        if(user.friendsRequest[i].user.toString() === id.toString()) {
+      for(let i = 0; i < currentUser.friendsRequest.length; i ++) {
+        if(currentUser.friendsRequest[i].user.toString() === id.toString()) {
           foundUserIndex = i;
         }
       }
       if(foundUserIndex >= 0) {
-        console.log("Array, CoreMongoose",foundUserIndex);
-        let moveFriend = user.friendsRequest.splice(foundUserIndex, 1);
-        console.log(moveFriend[0]);
-        user.save(function(err, friend) {
-          User.findById(currentUserID)
-            .then(currentUser => {
-              currentUser.friends.push({user: id});
-              currentUser.save()
-                .then(savedFriend => {
-                  res.json(savedFriend);
+          currentUser.friendsRequest.splice(foundUserIndex, 1);
+          currentUser.friends.push({user: id});
+          currentUser.save()
+            .then(savedFriend => {
+              User.findById(id)
+                .then(newFriend => {
+                  newFriend.friends.push({user: currentUser});
+                  newFriend.save()
+                    .then(friend => {
+                      res.json(friend);
+                    })
+                    .catch(err => {
+                      res.status(500).json({msg: "can't add friend"});
+                    })
                 })
-                .catch(err => {
-                  res.status(500).json({msg: "Error accepting friend"});
-                })
+              res.json(savedFriend);
             })
             .catch(err => {
-              res.status(500).json({msg: "Can't find user"});
+              res.status(500).json({msg: "Error accepting friend"});
             })
-        })
+      } else {
+        res.status(404).json({msg: "can't find that user"})
+      }
+    })
+    .catch(err => {
+      res.status(500).json({error: err.message});
+    })
+})
+
+router.delete("/friends/:id", passport.authenticate("jwt", {session: false}), (req, res) => {
+  const currentUserID  = req.user.id;
+  const { id } = req.params;
+  User.findById(currentUserID)
+    .then(currentUser => {
+      let foundUserIndex;
+      for(let i = 0; i < currentUser.friends.length; i ++) {
+        if(currentUser.friends[i].user.toString() === id.toString()) {
+          foundUserIndex = i;
+        }
+      }
+      if(foundUserIndex >= 0) {
+        currentUser.friends.splice(foundUserIndex, 1);
+        currentUser.save()
+          .then(user => {
+            User.findById(id)
+              .then(deletedFriend => {
+                let foundUserIndex;
+                for(let i = 0; i < deletedFriend.friends.length; i ++) {
+                  if(deletedFriend.friends[i].user.toString() === currentUserID) {
+                    foundUserIndex = i;
+                  }
+                }
+                if(foundUserIndex >= 0) {
+                  deletedFriend.friends.splice(foundUserIndex, 1);
+                  deletedFriend.save()
+                  .then(unfriend => {
+                    res.json(unfriend);
+                  })
+                  .catch(err => {
+                    res.json({msg: "can't delete friend"});
+                  })
+                }
+              })
+              .catch(err => {
+                res.status(500).json({msg: "can't find friend"});
+              })
+          })
+          .catch(err => {
+            res.status(400).json({error: err.message});
+          })
+      } else {
+        res.status(400).json({msg: "Can't find the user"});
       }
     })
     .catch(err => {

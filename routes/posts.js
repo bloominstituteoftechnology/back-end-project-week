@@ -77,7 +77,7 @@ router.put("/:id", passport.authenticate("jwt", {session: false}), (req,res) => 
       }
       post.update({title, content})
         .then(updatedPost => {
-          res.json(updatedPost);
+          res.json({msg: "Update successfully"});
         })
         .catch(err => {
           res.status(400).json({msg: err.message});
@@ -111,5 +111,33 @@ router.post("/comment/:id", passport.authenticate("jwt", {session: false}),(req,
       res.status(400).json({err: err.message});
     })
 })
+
+router.delete("/:id/comment/:comment_id", passport.authenticate("jwt", {session: false}), (req, res) => {
+  const { id, comment_id } = req.params;
+  const currentUserID = req.user.id;
+  Post.findById(id)
+    .then(post => {
+      const removeIndex = post.comments.map(item => item._id.toString())
+          .indexOf(comment_id);
+        let comment = post.comments.splice(removeIndex, 1);
+        console.log(comment[0].user.toString() === currentUserID);
+        if(comment[0].user.toString() === currentUserID) {
+          post.save()
+            .then(savedpost => {
+              res.json(savedpost);
+            })
+            .catch(err => {
+              res.status(500).json({msg: "err saving"});
+            })
+        }  else {
+            res.status(403).json({msg: "You are not authorize to delete this comment"})
+        }
+    })
+    .catch(err => {
+      res.status(500).json({error: err.message});
+    })
+})
+
+
 
 module.exports = router;
