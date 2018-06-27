@@ -30,7 +30,7 @@
 
 .note-list{
     display: flex;
-    width: 100%;
+    width: 95%;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
@@ -45,7 +45,7 @@
     padding: 10px;
     background-color: white;
     overflow: hidden;
-    margin-top: 20px;
+    margin: 20px;
     box-shadow: -3px -3px 10px #2BC1C4, 3px 3px 10px #2BC1C4;
     border-radius: 5%;
 }

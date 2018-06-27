@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './Note.css';
 import { Link } from 'react-router-dom';
-import  DeleteNote  from './DeleteNote';
 import axios from 'axios';
 
 
@@ -25,9 +24,9 @@ class Note extends Component {
             })
     }
 
-    updateDisplay = () => {
-        this.state.showNote = !this.state.showNote;
-    }
+    // updateDisplay = () => {
+    //     this.state.showNote = !this.state.showNote;
+    // }
 
     render() {  
         const id = this.props.match.params.id;
@@ -41,10 +40,10 @@ class Note extends Component {
         return (
             <div className='note-container'> 
                 <div className="note-links">
-                    <Link className='edit-delete' onClick={this.updateDisplay()} to={`/note/${id}/edit`}>
+                    <Link className='edit-delete' to={`/note/${id}/edit`}>
                         Edit
                     </Link>
-                    <Link className='edit-delete' onClick={this.updateDisplay()} to={`/note/${id}/delete`}>
+                    <Link className='edit-delete' to={`/note/${id}/delete`}>
                         Delete
                     </Link>
                        
