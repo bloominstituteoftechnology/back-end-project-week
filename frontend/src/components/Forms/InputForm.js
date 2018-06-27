@@ -34,6 +34,7 @@ class InputForm extends Component {
     if (this.props.match.path === "/notes/edit/:id") {
       // Find the note we're editing from our state of notes
       const id = this.props.match.params.id;
+      console.log('InputForm CDM id:',id);
       const note = this.props.notes.filter(note => note._id === id)[0];
       // Set state, thus setting values for the input fields
       const { title, text, date, tags } = note; 

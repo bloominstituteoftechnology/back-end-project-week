@@ -25,6 +25,8 @@ module.exports = (notesModel) => {
         });
     },
     "PUT": (req, res) => {
+      req.body.author = req.plainToken._id;
+
       const editedNote = validateNotePostBody(req.body);
 
       if (editedNote.errorState) {

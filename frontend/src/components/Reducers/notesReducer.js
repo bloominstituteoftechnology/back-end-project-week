@@ -1,6 +1,7 @@
 import {
   ADD,
   EDIT,
+  ERROR,
   FETCH,
   LOGOUT,
 } from '../Actions';
@@ -23,6 +24,11 @@ export const notesReducer = ( state = initialState, action ) => {
       return {
         ...state,
         notes: [...state.notes, action.payload]
+      };
+    case ERROR:
+      return {
+        ...state,
+        error: action.payload
       };
     case LOGOUT:
       return {

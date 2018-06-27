@@ -23,7 +23,17 @@ export const addNote = (uid, note) => async dispatch => {
 
 export const editNote = (uid, id, note) => async dispatch => {
   const header = { "headers": { "authorization": uid } };
-  const response = await axios.post(`${domain}/notes/${id}`, note, header);
+  // const response = await axios.put(`${domain}/notes/${id}`, note, header);
+  // console.log('editNote response:',response);
+  let response;
+  try {
+    response = await axios.put(`${domain}/notes/${id}`, note, header);
+  } catch(error) {
+    return dispatch({
+      type: ERROR,
+      payload: error
+    });
+  }
   return dispatch({
     type: EDIT,
     payload: response.data
