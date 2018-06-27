@@ -4,21 +4,13 @@ const User = require('./userModel');
 const jwt = require('jsonwebtoken');
 const secret = 'supersecretsauce';
 
-function restricted(req, res, next) {
-    const token = req.headers.authorization;
+function generateToken(user) {
+    const options = {
+        expiresIn: '1h',
+    };
+    const payload = { name: user.username };
 
-    if (token) {
-        jwt.verify(token, secret, (err, decodedToken) => {
-            req.jwtPayload = decodedToken;
-            if (err) {
-                return res.status(401).json({ errorMessage: 'Please sign in' })
-            }
-
-            next();
-        })
-    } else {
-        res.status(401).json({ errorMessage: 'Please sign in' });
-    }
+    return jwt.sign(payload, secret, options);
 }
 
 // base route = '/user'
@@ -44,6 +36,39 @@ router.route('/register')
                 }
             })
             .catch(err => res.status(500).json({ errorMessage: 'Could not look for existing user' }))
+    })
+
+router.route('/login')
+    .post((req, res) => {
+        let { username, password } = req.body;
+        if (!username || !password) {
+            res.status(400).json({ errorMessage: 'Please provide a username and a password' });
+        } else {
+            User.findOne({ username })
+                .then(user => {
+                    if (user) {
+                        user.validatePassword(password)
+                            .then(passwordsMatch => {
+                                if (passwordsMatch) {
+                                    const token = generateToken(user);
+
+                                    res.status(200).json({ Success: `Welcome ${username}!`, token })
+                                } else {
+                                    res.status(401).json({ errorMessage: 'Invalid credentials' })
+                                }
+                            })
+                            .catch(err => {
+                                res.status(500).json({ errorMessage: 'Error comparing password' })
+                            });
+                    } else {
+                        res.status(401).send('invalid credentials');
+                    }
+                })
+                .catch(err => {
+                    res.status(500).json({ errorMessage: 'Could not findOne user' })
+                })
+        }
+
     })
 
 module.exports = router;
