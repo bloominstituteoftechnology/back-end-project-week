@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { fetchNotes } from '../actions';
 
 class NoteList extends Component {
     state = {
@@ -9,6 +10,10 @@ class NoteList extends Component {
         titleCheck: true,
         bodyCheck: false,
         order: {}
+    }
+
+    componentDidMount() {
+        this.props.fetchNotes;
     }
 
     updateSearch = (event) => {
@@ -205,4 +210,4 @@ const mapStateToProps = store => {
     };
 };
 
-export default connect(mapStateToProps)(NoteList);
+export default connect(mapStateToProps, { fetchNotes })(NoteList);
