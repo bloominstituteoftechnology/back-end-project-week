@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "This week you will be building a backend for a note taking app called \"Lambda Notes.\"",
   "main": "server.js",
+  "engines": {
+    "node": "8.11.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
