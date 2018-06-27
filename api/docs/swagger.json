@@ -27,40 +27,541 @@
   "paths": {
     "/api/projects": {
       "post": {
-        "tags": ["projects"]
+        "tags": ["projects"],
+        "summary": "Create a new project",
+        "operationId": "createProject",
+        "requestBody": {
+          "description": "New project object",
+          "required": "true",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/Project"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully created new project",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "ObjectId"
+                    },
+                    "title": {
+                      "type": "String"
+                    },
+                    "description": {
+                      "type": "String"
+                    }
+                  },
+                  "example": {
+                    "_id": "5b33c45d8d8bf66d4d44f1ec",
+                    "title": "Task Managament App Development",
+                    "description": "An example description."
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request from validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "String"
+                    }
+                  },
+                  "example": {
+                    "error":
+                      "Project validation failed: title: Project title required"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "String"
+                    }
+                  },
+                  "example": {
+                    "error": "The project could not be created."
+                  }
+                }
+              }
+            }
+          }
+        }
       },
       "get": {
-        "tags": ["projects"]
+        "tags": ["projects"],
+        "summary": "Get all existing projects",
+        "operationId": "getAllProjects",
+        "responses": {
+          "200": {
+            "description": "Successfully returned array of projects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "Array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "ObjectId"
+                      },
+                      "title": {
+                        "type": "String"
+                      },
+                      "members": {
+                        "type": "Array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "ObjectId"
+                            },
+                            "firstName": {
+                              "type": "String"
+                            },
+                            "lastName": {
+                              "type": "String"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": [
+                    {
+                      "_id": "5b31ea59d62eb33eb93014e7",
+                      "title": "Example Project 1",
+                      "members": [
+                        {
+                          "_id": "5b31ce106d04832fd1e51f59",
+                          "firstName": "John",
+                          "lastName": "Smith"
+                        },
+                        {
+                          "_id": "5b31ce106d04832fd1e51f71",
+                          "firstName": "Jane",
+                          "lastName": "Smith"
+                        }
+                      ]
+                    },
+                    {
+                      "_id": "5b33c45d8d8bf66d4d44f1ec",
+                      "title": "Example Project 2",
+                      "members": [
+                        {
+                          "_id": "5b31ce106d04832fd1e51f59",
+                          "firstName": "John",
+                          "lastName": "Smith"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "String"
+                    }
+                  },
+                  "example": {
+                    "error": "The list of projects could not be retrieved."
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/projects/{projectId}": {
       "get": {
-        "tags": ["projects"]
+        "tags": ["projects"],
+        "summary": "Get project by id",
+        "operationId": "getProjectById",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "projectId",
+            "schema": {
+              "type": "String"
+            },
+            "required": "true",
+            "description": "The project id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully returned project",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "String"
+                    },
+                    "title": {
+                      "type": "String"
+                    },
+                    "description": {
+                      "type": "String"
+                    },
+                    "members": {
+                      "type": "Array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "ObjectId"
+                          },
+                          "firstName": {
+                            "type": "String"
+                          },
+                          "lastName": {
+                            "type": "String"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "_id": "5b33c45d8d8bf66d4d44f1ec",
+                    "title": "Example Project 2",
+                    "description": "An example project description.",
+                    "members": [
+                      {
+                        "_id": "5b31ce106d04832fd1e51f59",
+                        "firstName": "John",
+                        "lastName": "Smith"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Document not found. Id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "String"
+                    }
+                  },
+                  "example": {
+                    "error":
+                      "The document with the specified ID does not exist."
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "String"
+                    }
+                  },
+                  "example": {
+                    "error": "The project with id {ID} could not be retrieved."
+                  }
+                }
+              }
+            }
+          }
+        }
       },
       "put": {
-        "tags": ["projects"]
+        "tags": ["projects"],
+        "summary": "Update all required fields for an existing project",
+        "operationId": "updateProject",
+        "requestBody": {
+          "description": "Updated project object",
+          "required": "true",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/Project"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "projectId",
+            "schema": {
+              "type": "String"
+            },
+            "required": "true",
+            "description": "The project id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully updated project",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "String"
+                    },
+                    "title": {
+                      "type": "String"
+                    },
+                    "description": {
+                      "type": "String"
+                    },
+                    "members": {
+                      "type": "Array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "ObjectId"
+                          },
+                          "firstName": {
+                            "type": "String"
+                          },
+                          "lastName": {
+                            "type": "String"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "_id": "5b33c45d8d8bf66d4d44f1ec",
+                    "title": "Example Project 2",
+                    "description": "An example project description.",
+                    "members": [
+                      {
+                        "_id": "5b31ce106d04832fd1e51f59",
+                        "firstName": "John",
+                        "lastName": "Smith"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Document not found. Id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "String"
+                    }
+                  },
+                  "example": {
+                    "error":
+                      "The document with the specified ID does not exist."
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request from validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "String"
+                    }
+                  },
+                  "example": {
+                    "error":
+                      "Project validation failed: title: Project title required"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "String"
+                    }
+                  },
+                  "example": {
+                    "error": "The project could not be updated."
+                  }
+                }
+              }
+            }
+          }
+        }
       },
       "delete": {
-        "tags": ["projects"]
+        "tags": ["projects"],
+        "summary": "Delete a project",
+        "operationId": "deleteProject",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "projectId",
+            "schema": {
+              "type": "String"
+            },
+            "required": "true",
+            "description": "The project id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted project",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "String"
+                    }
+                  },
+                  "example": {
+                    "_id": "5b31ea59d62eb33eb93014e7"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Document not found. Id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "String"
+                    }
+                  },
+                  "example": {
+                    "error":
+                      "The document with the specified ID does not exist."
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "String"
+                    }
+                  },
+                  "example": {
+                    "error": "The project with id ${ID} could not be removed."
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/tasks": {
       "post": {
-        "tags": ["tasks"]
+        "tags": ["tasks"],
+        "summary": "Create a new task",
+        "operationId": "createTask",
+        "requestBody": {
+          "description": "New task object",
+          "required": "true",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/Task"
+              }
+            }
+          }
+        },
+        "responses": {}
       },
       "get": {
-        "tags": ["tasks"]
+        "tags": ["tasks"],
+        "summary": "Get all existing tasks",
+        "operationId": "getAllTasks",
+        "responses": {}
       }
     },
     "/api/tasks/{taskId}": {
       "get": {
-        "tags": ["tasks"]
+        "tags": ["tasks"],
+        "summary": "Get task by id",
+        "operationId": "getTaskById",
+        "parameters": {},
+        "responses": {}
       },
       "put": {
-        "tags": ["tasks"]
+        "tags": ["tasks"],
+        "summary": "Update all required fields for an existing task",
+        "operationId": "updateTask",
+        "requestBody": {},
+        "parameters": {},
+        "responses": {}
       },
       "delete": {
-        "tags": ["tasks"]
+        "tags": ["tasks"],
+        "summary": "Delete a task",
+        "operationId": "deleteTask",
+        "parameters": {},
+        "responses": {}
       }
     },
     "/api/users": {
@@ -304,7 +805,7 @@
       },
       "put": {
         "tags": ["users"],
-        "summary": "Update all fields for an existing user",
+        "summary": "Update all required fields for an existing user",
         "operationId": "updateUser",
         "requestBody": {
           "description": "Updated user object",
@@ -500,23 +1001,16 @@
         "properties": {
           "title": {
             "description": "Descriptive title for project",
-            "type": "String"
+            "type": "String",
+            "example": "Task Managament App Development"
           },
           "description": {
             "description": "Additional details regarding project",
-            "type": "String"
+            "type": "String",
+            "example": "An example description."
           },
           "members": {
             "description": "Array of user id's assigned to project",
-            "type": "Array",
-            "items": {
-              "type": "ObjectId"
-            },
-            "example":
-              "['5b1ed13e8cea93c6ba72b1da', '5b1ed13e8cea93c6ba72b1db', '5b1ed13e8cea93c6ba72b1dc']"
-          },
-          "tags": {
-            "description": "Array of tag id's belonging to project",
             "type": "Array",
             "items": {
               "type": "ObjectId"
@@ -537,11 +1031,13 @@
           },
           "title": {
             "description": "Descriptive title for task",
-            "type": "String"
+            "type": "String",
+            "example": "An example task title"
           },
           "description": {
             "description": "Additional details regarding task",
-            "type": "String"
+            "type": "String",
+            "example": "An example task description."
           },
           "assignee": {
             "description": "Array of user id's assigned to task",

@@ -12,7 +12,7 @@ const server = express();
 server.use(express.json());
 
 // Serve static files
-server.use(express.static(path.resolve(__dirname, 'client/build')));
+// server.use(express.static(path.resolve(__dirname, 'client/build')));
 
 // API Routes
 server.use('/api/projects', projectsRouter);
@@ -22,9 +22,9 @@ server.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 server.get('/api', (req, res) => {
   res.status(200).send('Lambda Notes API');
 });
-server.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
-});
+// server.get('*', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
+// });
 
 module.exports = {
   server

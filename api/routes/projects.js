@@ -8,7 +8,8 @@ router
 
     Project.create({ title, description, members })
       .then(project => {
-        res.status(201).json(project);
+        const { _id, title, description } = project;
+        res.status(201).json({ _id, title, description });
       })
       .catch(err => {
         sendErrorMessage(err, res, 'The project could not be created.');
@@ -17,6 +18,7 @@ router
   .get('/', (req, res) => {
     Project.find({})
       .populate('members', { firstName: 1, lastName: 1 })
+      .select({ _id: 1, title: 1, members: 1 })
       .then(projects => {
         res.status(200).json(projects);
       })
@@ -31,6 +33,7 @@ router
 
     Project.findById(id)
       .populate('members', { firstName: 1, lastName: 1 })
+      .select({ _id: 1, title: 1, description: 1, members: 1 })
       .then(project => {
         if (project) {
           res.status(200).json(project);
@@ -58,6 +61,7 @@ router
 
     Project.findByIdAndUpdate(id, { title, description, members }, options)
       .populate('members', { firstName: 1, lastName: 1 })
+      .select({ _id: 1, title: 1, description: 1, members: 1 })
       .then(updatedProject => {
         if (updatedProject) {
           res.status(200).json(updatedProject);
