@@ -14,6 +14,10 @@ export default class DeleteNote extends Component {
          this.toggle = this.toggle.bind(this);
     }
 
+    componentWillUnmount() {
+        window.location.reload();
+    }
+
     toggle() {
         this.setState({
           modal: !this.state.modal
@@ -27,7 +31,6 @@ export default class DeleteNote extends Component {
             .catch(err => {
                 console.error(err);
             })
-        // window.location.reload();
     }
 
     render() { 

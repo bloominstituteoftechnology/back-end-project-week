@@ -5,7 +5,6 @@ import axios from 'axios';
 class EditNote extends Component {
     constructor(props) {
         super(props);
-        const id = this.props.match.params.id
         this.state = {
             title: '',
             body: '',
@@ -24,12 +23,15 @@ class EditNote extends Component {
             })
     }
 
+    componentWillUnmount() {
+        window.location.reload();
+    }
+
     handleNoteInput = e => {
         this.setState({ [e.target.name]: e.target.value })
     }
 
     updateNote = () => {
-        const id = this.props.match.params.id;
         const newNote = { title: this.state.title, body: this.state.body};
 
         axios
@@ -40,7 +42,6 @@ class EditNote extends Component {
             .catch(err => {
                 console.error(err);
             })
-        window.location.reload();
     }
 
     render() { 
@@ -66,7 +67,7 @@ class EditNote extends Component {
                         value={this.state.body}
                         placeholder='Type Notes Here!' >
                     </textarea>
-                    <Link to={`/note/:id`} >
+                    <Link to={`/`} >
                         <button onClick={this.updateNote} className="save-note">
                             Update
                         </button>
