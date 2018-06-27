@@ -37,89 +37,11 @@ server.get('/', (req, res) => {
     res.send(`<h2>DB:${process.env.mongo}</h2>`);
 });
 
-// HTTP METHODS FOR USERS
-
 // server.get('/', (req, res) => {
 //     res.send(`<h2>Server is online!</h2>`)
 // });
 
-server.post('/api/register', (req, res) => {
-    User.create(req.body)
-        .then(user => {
-            const token = generateToken(user);
-            res.status(201).json({ username: user.username, token });
-        })
-        .catch(err => res.status(500).json(err));
-});
-
-server.post('/api/login', (req, res) => {
-    const { username, password } = req.body;
-
-    User.findOne({ username })
-        .then(user => {
-            if(user) {
-                user
-                    .validatePassword(password)
-                    .then(passwordsMatch => {
-                        if(passwordsMatch) {
-                            const token = generateToken(user);
-                            res.status(200).json({ message: `Welcome, ${username}!`, token });
-                        } else {
-                            res.status(401).send('Invalid credentials');
-                        }
-                    })
-                    .catch(err => {
-                        res.send('Error comparing passwords.');
-                    });
-            } else {
-                res.status(401).send('Invalid credentials.');
-            }
-        })
-        .catch(err => {
-            res.send(err);
-        });
-});
-
-function generateToken(user) {
-    const options = {
-        expiresIn: '1h',
-    };
-
-    const payload = { name: user.username };
-
-    return jwt.sign(payload, secret, options);
-}
-
-function restricted(req, res, next) {
-    const token = req.headers.authorization;
-
-    if(token) {
-        jwt.verify(token, secret, (err, decodedToken) => {
-            if (err) {
-                res
-                    .status(401)
-                    .json({ message: 'Not decoded. You shall not pass.' });
-            }
-
-            next();
-        });
-    } else {
-        res
-            .status(401)
-            .json({ Message: 'No token, no entry.' });
-    }
-}
-
-server.get('/api/users', restricted, (req, res) => {
-    User.find({})
-        .select('username')
-        .then(users => {
-            res.status(200).json(users);
-        })
-        .catch(err => {
-            return res.status(500).json(err);
-        });
-});
+server.use('/api/users', userRouter);
 
 // HTTP METHODS FOR NOTES
 
