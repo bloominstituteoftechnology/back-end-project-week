@@ -65,7 +65,7 @@ class Wheel extends Component {
           </Container>
         </div>
 
-        <div className={[classes.primaryButton, classes.highlightButton].join(' ')} onClick={this.props.handleCreateNote}>
+        <div className={classes.primaryButton} onClick={this.props.handleCreateNote}>
           <FontAwesomeIcon icon='plus' />
         </div>
         {iconList.map((iconSet, index) =>

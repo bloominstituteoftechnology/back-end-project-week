@@ -54,7 +54,7 @@ class Container extends Component {
     //fetch all notes
     setTimeout(() => {
       this.setState({ isLoading: false })
-    }, 15000)
+    }, 3000)
   }
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.showSideBar !== this.props.showSideBar) {

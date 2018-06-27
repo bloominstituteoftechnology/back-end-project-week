@@ -28,11 +28,19 @@ const core = {
 const theme = {
     spacing: 8,
     palette: core.palette,
-    input: {
+    noteInput: {
         border: 'none',
         background: 'none',
         width: '100%',
         paddingBottom: '0.9em'
+    },
+    formInput: {
+        borderRadius: core.spacing / 2,
+        boxShadow: `0 0 3px 1px ${core.palette.yellow.dark}`,
+        border: 'none',
+        width: '100%',
+        padding: core.spacing,
+        marginBottom: core.spacing
     },
     textarea: {
         border: 'none',
@@ -72,6 +80,19 @@ const theme = {
                 color: core.palette.secondary.main,
             }
         },
+        third: {
+            color: core.palette.secondary.main,
+            borderRadius: '50%',
+            height: core.spacing * 6,
+            width: core.spacing * 6,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            cursor: 'pointer',
+            '&:hover': {
+                color: core.palette.secondary.main,
+            }
+        },
     },
     tooltip: {
         backgroundColor: core.palette.secondary.main,
@@ -84,7 +105,7 @@ const theme = {
         backgroundColor: core.palette.yellow.main,
         padding: core.spacing * 2,
         // border: '2px solid black',
-        borderRadius: 4,
+        borderRadius: core.spacing / 2,
         boxShadow: `0 0 3px 1px ${core.palette.yellow.dark}`,
         margin: core.spacing * 2,
         height: core.spacing * 30,

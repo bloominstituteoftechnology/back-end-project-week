@@ -13,7 +13,7 @@ const styles = theme => ({
     note: theme.selectedNote,
     title: {
         ...theme.typography.h4,
-        ...theme.input,
+        ...theme.noteInput,
         borderBottom: '2px dotted black',
     },
     content: {

@@ -5,6 +5,7 @@ const router = express.Router();
 router
     .route('/')
     .get((req, res) => {
+        console.log('here')
         Note
             .find({})
             .then(response => res.status(200).json({ data: response }))

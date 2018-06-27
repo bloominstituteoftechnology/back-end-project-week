@@ -4,11 +4,12 @@ const helmet = require('helmet');
 const mongoose = require('mongoose');
 const server = express();
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3001;
 
 // Serve static files from the React app
-server.use(express.static(__dirname + '/client/build'));
-
+if (process.env.NODE_ENV !== 'dev') {
+    server.use(express.static(__dirname + '/client/build'));
+}
 // Router
 const noteRouter = require('./note/noteRouter.js');
 const userRouter = require('./user/userRouter.js');
@@ -47,9 +48,12 @@ server.use('/api/tag', tagRouter);
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
-server.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + '/client/build/index.html'));
-});
+// console.log(process.env.NODE_ENV)
+if (process.env.NODE_ENV !== 'dev') {
+    server.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname + '/client/build/index.html'));
+    });
+}
 
 server.listen(port, () => {
     console.log(`Server up and running on ${port}`);

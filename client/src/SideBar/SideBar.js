@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import posed from 'react-pose';
 import db from '../dummyData.js';
-import { Container, Draggable } from 'react-smooth-dnd';
-import Tag from './Tag';
 import injectSheet from 'react-jss';
 import NewTag from './NewTag';
+import Tags from './Tags';
+import Account from './Account';
 
 const styles = theme => ({
     sideBar: theme.sideBar
@@ -53,30 +53,5 @@ class SideBar extends Component {
         )
     }
 }
-
-const Tags = ({ tags }) =>
-    <div>
-        <h3>Tags</h3>
-        <Container
-            groupName='tags'
-            getChildPayload={i => tags[i]}
-        >
-            {
-                tags.map(tag =>
-                    <Draggable key={tag.id}>
-                        <Tag {...tag} />
-                    </Draggable>
-                )
-            }
-        </Container>
-        <NewTag />
-    </div>
-
-const Account = () =>
-    <div>
-        <h3>Account</h3>
-
-    </div>
-
 
 export default injectSheet(styles)(SideBar);
