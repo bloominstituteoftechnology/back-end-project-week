@@ -4,8 +4,9 @@
   "description": "",
   "main": "startServer.js",
   "scripts": {
-    "start": "nodemon startServer.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node startServer.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "devstart": "nodemon startServer.js"
   },
   "keywords": [],
   "author": "",
