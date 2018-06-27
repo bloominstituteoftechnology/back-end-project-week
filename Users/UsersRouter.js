@@ -1,6 +1,7 @@
 const router = require('express').Router(); 
 
 const User = require('./UsersModel.js');
+const Note = require('../Notes/NotesModel.js')
 
 router
     .get('/', (req, res) => {
@@ -43,4 +44,13 @@ router
             });
     })
 
-    module.exports = router; 
+router.route('/:id/notes')
+    .get((req, res) => {
+        const { id } = req.params; 
+        Note.findById(id)
+            .select('title text')
+            .then(response => res.json(response))
+            .catch(error => res.status(500).json({ error: error.message })); 
+    })
+
+module.exports = router; 

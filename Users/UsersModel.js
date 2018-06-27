@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const UsersModel = new mongoose.Schema({
-    username: {
+    email: {
         type: String,
         required: true,
         unique: true,
@@ -14,7 +15,11 @@ const UsersModel = new mongoose.Schema({
         minlength: 4,
         maxlength: 25,         
         validate: checkPasswordLength,  
-    }
+    },
+    notes: [{
+        type: ObjectId,
+        ref: 'Note'
+    }]
 });
 
 function checkPasswordLength(password) {
@@ -28,7 +33,7 @@ UsersModel.pre('save', function(next) {
 
         return next();
         })
-        .catch(err => {
+        .catch(error => {
             return next(error); 
         }); 
 }); 

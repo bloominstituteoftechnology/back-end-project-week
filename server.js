@@ -34,19 +34,19 @@ server.post('/register', (req, res) => {
         .then(user => {
             const token = generateToken(user); 
             
-            res.status(201).json({ username: user.username, token });
+            res.status(201).json({ email: user.email, token });
         })
         .catch(error => res.status(500).json({ error: error.message })); 
 }); 
 
 server.post('/login', (req, res) => {
-    const { username, password } = req.body;
-    if (!username || !password) {
+    const { email, password } = req.body;
+    if (!email || !password) {
         res.status(400).json({ error: error.message });
         return; 
     } 
 
-    User.findOne({ username })
+    User.findOne({ email })
         .then(user => {
             if(user) {
                 user
@@ -55,7 +55,7 @@ server.post('/login', (req, res) => {
                         if(passwordsMatch) {
                             const token = generateToken(user);
 
-                        res.status(200).json({ message: `Welcome, ${username}!`, token }); 
+                        res.status(200).json({ message: `Welcome, ${email}!`, token }); 
                     } else {
                         res.status(401).send('Invalid credentials');
                     }
@@ -76,7 +76,7 @@ server.post('/login', (req, res) => {
         const options = {
             expiresIn: '1h',
         };
-        const payload = { name: user.username }; 
+        const payload = { name: user.email }; 
 
         return jwt.sign(payload, secret, options); 
     }
@@ -100,10 +100,10 @@ server.post('/login', (req, res) => {
 
 // server.put('/users/:id', (req, res) => {
 //         const { id } = req.params; 
-//         const { username, password } = req.body;
-//         const updatedUser = { username, password }; 
-//         if (!username || !password) {
-//             res.status(400).json({ error: 'Please enter username and password.' }); 
+//         const { email, password } = req.body;
+//         const updatedUser = { email, password }; 
+//         if (!email || !password) {
+//             res.status(400).json({ error: 'Please enter email and password.' }); 
 //             return;
 //         } 
 //         User    
@@ -118,7 +118,7 @@ server.post('/login', (req, res) => {
 
 server.get('/users', restricted, (req, res) => {
     User.findByIdAndRemove({})
-        .select('username')
+        .select('email')
         .then(users => {
             res.status(200).json(users); 
         })
@@ -140,3 +140,7 @@ mongoose
     .catch(error => {
         console.log('\n=== Error connecting to database server ===\n', error);
     });
+
+
+    
+
