@@ -18,8 +18,8 @@ router.post('/', restricted, (req, res) => {
 })
 
 router
-    .route('/:id')
-        .get(restricted, (req, res) => {
+    .route('/:id', restricted)
+        .get((req, res) => {
             const { id } = req.params;
             Note.find({
                 user: ObjectId(id)
@@ -27,13 +27,13 @@ router
             .then(note => res.json(note))
             .catch(err => res.status(500).json({ error: err.message }))
         })
-        .delete(restricted, (req, res) => {
+        .delete((req, res) => {
             const { id } = req.params;
             Note.findByIdAndRemove(id)
                 .then(note => res.json(note))
                 .catch(err => res.status(500).json({ error: err.message }))
         })
-        .put(restricted, (req, res) => {
+        .put((req, res) => {
             const { id } = req.params;
             const { title, body } = req.body;
              Note.findByIdAndUpdate(id, { title, body })

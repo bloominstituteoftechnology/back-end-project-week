@@ -34,17 +34,21 @@ router.post('/login', (req, res) => {
               res.status(200).json({ user, token });
             } else {
               res.status(401).send('invalid credentials');
+              console.log('bad password');
             }
           })
           .catch(err => {
             res.send('error comparing passwords');
+            console.log('error comparing passwords');
           });
       } else {
         res.status(401).send('invalid credentials');
+        console.log('no such user');
       }
     })
     .catch(err => {
       res.send(err);
+      console.log(err);
     });
 });
 
