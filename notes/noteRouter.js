@@ -20,10 +20,7 @@ router
             req.jwtPayload.username === "root"
           );
         });
-
-        if (notes.length) {
-          res.json({ notes });
-        } else res.status(404).json({ errorMessage: "No documents found" });
+        res.json({ notes });
       });
     }
   )
