@@ -3,7 +3,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 
-const User = new Schema({
+const Users = new Schema({
   name: {
     type: String,
     require: true,
@@ -17,9 +17,10 @@ const User = new Schema({
     type: String,
     required: true,
   },
+  notes: [{ type: ObjectId, ref: 'Notes' }],
 });
 
-User.pre('save', function(next) {
+Users.pre('save', function(next) {
   return bcrypt
     .hash(this.password, 12)
     .then(hash => {
@@ -31,8 +32,8 @@ User.pre('save', function(next) {
     });
 });
 
-User.methods.validatePassword = function(noHashedPassword) {
+Users.methods.validatePassword = function(noHashedPassword) {
   return bcrypt.compare(noHashedPassword, this.password);
 };
 
-module.exports = mongoose.model('Users', User);
+module.exports = mongoose.model('Users', Users);

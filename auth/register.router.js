@@ -14,9 +14,9 @@ RF.POST('/', registerUser);
 function registerUser(req, res, next) {
   // console.log(req.body);
   Users.create(req.body)
-    .then(({ name, username, password }) => {
+    .then(({ _id, name, username, password }) => {
       // console.log({ name, username, password });
-      const jwt = utils.createToken({ name, username });
+      const jwt = utils.createToken({ _id, username });
       console.log(jwt);
       res.status(201).json({ name, username, jwt });
     })

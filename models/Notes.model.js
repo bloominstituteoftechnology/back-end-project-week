@@ -16,6 +16,13 @@ const Notes = new Schema({
     type: Date,
     default: Date.now,
   },
+  users: [
+    {
+      type: ObjectId,
+      ref: 'Users',
+      required: true,
+    },
+  ],
 });
 
 module.exports = mongoose.model('Notes', Notes);

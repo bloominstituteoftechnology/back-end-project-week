@@ -11,9 +11,9 @@ RF.POST('/', loginUser);
 
 function loginUser(req, res, next) {
   const { username, password } = req.body;
-  Users.findOne({ username }, { name: 1, password: 1, _id: 0 })
+  Users.findOne({ username }, { name: 1, password: 1, _id: 1 })
     .then(user => {
-      const { name } = user;
+      const { _id, name } = user;
       console.log(name);
       user
         .validatePassword(password)
@@ -23,7 +23,7 @@ function loginUser(req, res, next) {
               .status(422)
               .json({ 'Bad Credentials': 'Please, check your credentials, there are some wrong data.' });
 
-          const jwt = utils.createToken({ name, username });
+          const jwt = utils.createToken({ _id, username });
           res.status(200).json({ username, jwt });
         })
         .catch(e => {

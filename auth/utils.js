@@ -15,10 +15,6 @@ module.exports = {
     jwt.verify(token, jwk_secret, (err, tokenDecoded) => {
       req.token = token;
       req.decodedToken = tokenDecoded;
-      console.log({
-        token,
-        tokenDecoded,
-      });
       err ? res.status(500).json({ Error: 'Oh ohh, We can not validate your credentials, try again!' }) : next();
     });
   },
