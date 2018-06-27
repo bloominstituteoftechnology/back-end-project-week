@@ -1,29 +1,24 @@
 const router = require('express').Router();
 const User = require('../models/User');
-const { sendErr } = require('../utils/apiResponses');
+const { sendErr, sendRes } = require('../utils/apiResponses');
 
 router
   .post('/', (req, res) => {
-    const { firstName, lastName, email, password } = req.body;
+    const newUser = req.body;
 
-    User.create({ firstName, lastName, email, password })
-      .then(user => {
-        const { _id, firstName, lastName, email } = user;
-        res.status(201).json({ _id, firstName, lastName, email });
+    User.create(newUser)
+      .then(({ _id, firstName, lastName, email }) => {
+        sendRes(res, '201', { _id, firstName, lastName, email });
       })
       .catch(err => {
         sendErr(res, err, 'The user could not be created.');
       });
   })
   .get('/', (req, res) => {
-    User.find({})
-      .select({
-        firstName: 1,
-        lastName: 1,
-        email: 1
-      })
+    User.find()
+      .select({ firstName: 1, lastName: 1, email: 1 })
       .then(users => {
-        res.status(200).json(users);
+        sendRes(res, '200', users);
       })
       .catch(err => {
         sendErr(res, err, 'The list of users could not be created.');
@@ -33,19 +28,9 @@ router
     const { id } = req.params;
 
     User.findById(id)
-      .select({
-        firstName: 1,
-        lastName: 1,
-        email: 1
-      })
+      .select({ firstName: 1, lastName: 1, email: 1 })
       .then(user => {
-        if (user) {
-          res.status(200).json(user);
-        } else {
-          res
-            .status(404)
-            .json({ error: `The user with id ${id} does not exist.` });
-        }
+        sendRes(res, '200', user);
       })
       .catch(err => {
         sendErr(res, err, `The user with id ${id} could not be retrieved.`);
@@ -53,26 +38,20 @@ router
   })
   .put('/:id', (req, res) => {
     const { id } = req.params;
-    const { firstName, lastName, email, password } = req.body;
+    const updatedUser = req.body;
     const options = {
       new: true,
       runValidators: true
     };
 
-    User.findByIdAndUpdate(
-      id,
-      { firstName, lastName, email, password },
-      options
-    )
+    User.findByIdAndUpdate(id, updatedUser, options)
       .then(updatedUser => {
-        if (updatedUser) {
-          const { _id, firstName, lastName, email } = updatedUser;
-          res.status(200).json({ _id, firstName, lastName, email });
-        } else {
-          res
-            .status(404)
-            .json({ error: `The user with id ${id} does not exist.` });
-        }
+        const { _id, firstName, lastName, email } = updatedUser;
+        sendRes(
+          res,
+          '200',
+          updatedUser ? { _id, firstName, lastName, email } : null
+        );
       })
       .catch(err => {
         sendErr(res, err, `The user with id ${id} could not be modified.`);
@@ -83,14 +62,7 @@ router
 
     User.findByIdAndRemove(id)
       .then(deletedUser => {
-        if (deletedUser) {
-          const { _id } = deletedUser;
-          res.status(200).json({ _id });
-        } else {
-          res
-            .status(404)
-            .json({ error: `The user with id ${id} does not exist.` });
-        }
+        sendRes(res, '200', deletedUser ? { _id: deletedUser._id } : null);
       })
       .catch(err => {
         sendErr(res, err, `The user with id ${id} could not be removed.`);
