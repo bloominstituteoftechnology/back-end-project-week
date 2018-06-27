@@ -7,7 +7,7 @@ router
 .route('/')
 .get((req, res) => {
     Note.find()
-    .select('title')
+    //.select('title')
     .then(note => 
         res.json(note))
     .catch(err => res.status(500).json({ error: 'The category information could not be retrieved.' }));

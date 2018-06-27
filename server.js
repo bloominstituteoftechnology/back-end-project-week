@@ -2,6 +2,8 @@ const express = require('express');// common js modules
 //import express from 'express'; es2015 modules
 const mongoose = require('mongoose');
 //const keys = require('./config/keys');
+const cors = require('cors');
+
 
 //mongoose.connect(keys.mongoURI)
 const server = express();//creates a running express server; this app object will set up to listen for http requests and route them
@@ -9,12 +11,17 @@ const noteController = require('./noteTracker/noteController');
 
 server.use(express.json());
 
+server.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}));
+
 server.get('/', (req, res) => {
     res.status(200).json({ api: 'running' }); 
   });
 
-  server.use('/api/note', noteController);
-  //server.use('/api/note/:id', noteController);
+server.use('/api/note', noteController);
+
 mongoose.Promise = global.Promise;
 
 mongoose.connect('mongodb://localhost/dbnoteTracker', {}, err => {
