@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const User = require('../models/User');
-const { sendErrorMessage } = require('../utils/sendErrorMessage');
+const { sendErr } = require('../utils/apiResponses');
 
 router
   .post('/', (req, res) => {
@@ -12,7 +12,7 @@ router
         res.status(201).json({ _id, firstName, lastName, email });
       })
       .catch(err => {
-        sendErrorMessage(err, res, 'The user could not be created.');
+        sendErr(res, err, 'The user could not be created.');
       });
   })
   .get('/', (req, res) => {
@@ -26,9 +26,7 @@ router
         res.status(200).json(users);
       })
       .catch(err => {
-        res
-          .status(500)
-          .json({ error: 'The list of users could not be retrieved.' });
+        sendErr(res, err, 'The list of users could not be created.');
       });
   })
   .get('/:id', (req, res) => {
@@ -50,11 +48,7 @@ router
         }
       })
       .catch(err => {
-        sendErrorMessage(
-          err,
-          res,
-          `The user with id ${id} could not be retrieved.`
-        );
+        sendErr(res, err, `The user with id ${id} could not be retrieved.`);
       });
   })
   .put('/:id', (req, res) => {
@@ -81,11 +75,7 @@ router
         }
       })
       .catch(err => {
-        sendErrorMessage(
-          err,
-          res,
-          `The user with id ${id} could not be modified.`
-        );
+        sendErr(res, err, `The user with id ${id} could not be modified.`);
       });
   })
   .delete('/:id', (req, res) => {
@@ -103,11 +93,7 @@ router
         }
       })
       .catch(err => {
-        sendErrorMessage(
-          err,
-          res,
-          `The user with id ${id} could not be removed.`
-        );
+        sendErr(res, err, `The user with id ${id} could not be removed.`);
       });
   });
 

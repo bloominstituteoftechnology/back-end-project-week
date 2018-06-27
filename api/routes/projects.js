@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const Project = require('../models/Project');
-const { sendErrorMessage } = require('../utils/sendErrorMessage');
+const { sendErr } = require('../utils/apiResponses');
 
 router
   .post('/', (req, res) => {
@@ -12,7 +12,7 @@ router
         res.status(201).json({ _id, title, description });
       })
       .catch(err => {
-        sendErrorMessage(err, res, 'The project could not be created.');
+        sendErr(res, err, 'The project could not be created.');
       });
   })
   .get('/', (req, res) => {
@@ -23,9 +23,7 @@ router
         res.status(200).json(projects);
       })
       .catch(err => {
-        res
-          .status(500)
-          .json({ error: 'The list of projects could not be retrieved.' });
+        sendErr(res, err, 'The list of projects could not be retrieved.');
       });
   })
   .get('/:id', (req, res) => {
@@ -44,11 +42,7 @@ router
         }
       })
       .catch(err => {
-        sendErrorMessage(
-          err,
-          res,
-          `The project with id ${id} could not be retrieved.`
-        );
+        sendErr(res, err, `The project with id ${id} could not be retrieved.`);
       });
   })
   .put('/:id', (req, res) => {
@@ -72,11 +66,7 @@ router
         }
       })
       .catch(err => {
-        sendErrorMessage(
-          err,
-          res,
-          `The project with id ${id} could not be modified.`
-        );
+        sendErr(res, err, `The project with id ${id} could not be modified.`);
       });
   })
   .delete('/:id', (req, res) => {
@@ -94,11 +84,7 @@ router
         }
       })
       .catch(err => {
-        sendErrorMessage(
-          err,
-          res,
-          `The project with id ${id} could not be removed.`
-        );
+        sendErr(res, err, `The project with id ${id} could not be removed.`);
       });
   });
 

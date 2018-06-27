@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const Task = require('../models/Task');
-const { sendErrorMessage } = require('../utils/sendErrorMessage');
+const { sendErr } = require('../utils/apiResponses');
 
 router
   .post('/', (req, res) => {
@@ -11,7 +11,7 @@ router
         res.status(201).json(task);
       })
       .catch(err => {
-        sendErrorMessage(err, res, 'The task could not be created.');
+        sendErr(res, err, 'The task could not be created.');
       });
   })
   .get('/', (req, res) => {
@@ -20,7 +20,7 @@ router
         res.status(200).json(tasks);
       })
       .catch(err => {
-        sendErrorMessage(err, res, 'The list of tasks could not be retrieved.');
+        sendErr(res, err, 'The list of tasks could not be retrieved.');
       });
   })
   .get('/:id', (req, res) => {
@@ -37,11 +37,7 @@ router
         }
       })
       .catch(err => {
-        sendErrorMessage(
-          err,
-          res,
-          `The task with id ${id} could not be retrieved.`
-        );
+        sendErr(res, err, `The task with id ${id} could not be retrieved.`);
       });
   })
   .put('/:id', (req, res) => {
@@ -63,11 +59,7 @@ router
         }
       })
       .catch(err => {
-        sendErrorMessage(
-          err,
-          res,
-          `The task with id ${id} could not be modified.`
-        );
+        sendErr(res, err, `The task with id ${id} could not be modified.`);
       });
   })
   .delete('/:id', (req, res) => {
@@ -85,11 +77,7 @@ router
         }
       })
       .catch(err => {
-        sendErrorMessage(
-          err,
-          res,
-          `The task with id ${id} could not be removed.`
-        );
+        sendErr(res, err, `The task with id ${id} could not be removed.`);
       });
   });
 
