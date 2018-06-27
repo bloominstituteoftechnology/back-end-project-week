@@ -16,7 +16,7 @@ class Login extends Component{
         const {email, password} = this.state
     
         axios
-        .post('', {email, password})
+        .post('http://localhost:5000/api/user/login', {email, password})
         .then((response) => {
             this.setState({login: response.data, email:'', password:''})
         })
