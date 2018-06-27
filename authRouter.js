@@ -21,7 +21,7 @@ router.route("/").post((req, res) => {
         user.validatePassword(password).then(passwordsMatch => {
           if (passwordsMatch) {
             const token = generateToken(username);
-            res.status(200).json({ message: `Welcome, ${username}!`, token });
+            res.status(200).json({ username, token });
           } else {
             res.status(401).send("invalid credentials");
           }

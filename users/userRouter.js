@@ -29,7 +29,7 @@ router
     middleware.postMiddleware(User),
     (req, res) => {
       const token = generateToken(req.postResult.username);
-      res.json({ message: `Welcome, ${req.postResult.username}!`, token });
+      res.json({ username: req.postResult.username, token });
     }
   )
   .put(
