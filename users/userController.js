@@ -28,9 +28,7 @@ router.route('/register')
                 } else {
                     User.create({ username, password })
                         .then(newUser => {
-                            const token = generateToken(newUser);
-                            
-                            res.status(201).json(newUser, token);
+                            res.status(201).json(newUser);
                         })
                         .catch(err => {
                             res.status(500).json({ errorMessage: 'Could not create new user' })
