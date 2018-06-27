@@ -23,7 +23,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/Todo-App'
     console.log('Mongoose connected to Database server')
   });
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4000;
 server.listen(port, () => {
   console.log(`Server up and running on ${port}`);
 });
