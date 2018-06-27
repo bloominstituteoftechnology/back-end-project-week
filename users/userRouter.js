@@ -16,7 +16,7 @@ router
     User.create(req.body)
       .then((user) => {
         const token = generateToken(user);
-        res.status(201).json({ username: user.username, token });
+        res.status(201).json({ user, token });
       })
       .catch(err => res.status(500).json({ error: err.message }));
   });
@@ -30,8 +30,8 @@ router.post('/login', (req, res) => {
           .validatePassword(password)
           .then(passwordsMatch => {
             if (passwordsMatch) {
-              // const token = generateToken(user);
-              res.status(200).json(user);
+              const token = generateToken(user);
+              res.status(200).json({ user, token });
             } else {
               res.status(401).send('invalid credentials');
             }
