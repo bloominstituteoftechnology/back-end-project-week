@@ -34,10 +34,10 @@ class InputForm extends Component {
     if (this.props.match.path === "/notes/edit/:id") {
       // Find the note we're editing from our state of notes
       const id = this.props.match.params.id;
-      const note = this.props.notes.filter(note => note.id === id)[0];
+      const note = this.props.notes.filter(note => note._id === id)[0];
       // Set state, thus setting values for the input fields
       const { title, text, date, tags } = note; 
-      const nTags = tags.join(',');
+      const nTags = tags.join(', ');
       this.setState({ id: id, title: title, text: text, date: date, tags: nTags, });
     } else {
       // If we're not editing, make sure all the fields are empty.
@@ -54,7 +54,7 @@ class InputForm extends Component {
       title: this.state.title,
       text: this.state.text,
       date: this.state.date,
-      tags: this.state.tags,
+      tags: this.state.tags ? this.state.tags.trim().split(', ') : []
     }
 
     const myResetObj = {
@@ -63,7 +63,7 @@ class InputForm extends Component {
       text: "",
       date: "",
       tags: "",
-      go: "no",
+      go: "no"
     };
 
     if (this.props.match.path === "/notes/new") {

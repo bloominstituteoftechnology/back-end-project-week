@@ -4,3 +4,4 @@ backend/node_modules
 
 backend/utils/secrets.js
 frontend/src/config/dev.js
+backend/.env

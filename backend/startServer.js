@@ -1,4 +1,5 @@
 // Packages
+require('dotenv').config();
 const mongoose = require('mongoose');
 // Models
 const Users = require('./models/Users');
@@ -6,7 +7,7 @@ const Notes = require('./models/Notes');
 // Dependencies
 const server = require('./server');
 // Definitions
-const { MONGO_DEMO_URI } = require('./utils/secrets');
+const { MONGO_DEMO_URI } = process.env;
 
 const startServer = async (server) => {
   try {

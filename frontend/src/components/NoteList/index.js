@@ -60,9 +60,9 @@ class NoteList extends Component {
           { 
             path === "/notes/tag/:tag" ?
               this.props.notes.filter(obj => obj.tags.includes(tag))
-                .map(obj => <NoteCard key={obj.id} {...obj} />)
+                .map(obj => <NoteCard key={obj._id} {...obj} />)
             :
-              this.props.notes.map(obj => <NoteCard key={obj.id} {...obj} />)
+              this.props.notes.map(obj => <NoteCard key={obj._id} {...obj} />)
           }
         </div>
       </div>
@@ -77,17 +77,17 @@ const NoteCard = (props) => {
     fontSize: `10px`,
   }
 
-  const { id, title, text, tags } = props;
+  const { _id, title, text, tags } = props;
     const truncTitle = title.length > 20 ? title.substring(0,17) + '...' : title;
     const truncText = text.length > 82 ? text.substring(0,72) + '...' : text;
   return (
     <div>
-      <Link to={`/notes/${id}`}>
+      <Link to={`/notes/${_id}`}>
         <Card className="note-card">
           <CardBody>
             <h3 style={{color:'var(--color-bg--button-main)'}}>{truncTitle}</h3>
             <hr style={{borderColor:'var(--color--main)',margin:'0'}} />
-            { tags.map((tag, i) => <Link key={id} to={`/notes/tag/${tag}`}><Tag key={i} style={styl}>{tag}</Tag></Link>) }
+            { tags.map((tag, i) => <Link key={_id} to={`/notes/tag/${tag}`}><Tag key={i} style={styl}>{tag}</Tag></Link>) }
             <br />
             <CardText>{truncText}</CardText>
           </CardBody>

@@ -5,14 +5,19 @@ module.exports = (notesModel) => {
   return {
     "GET_ONE_BY_ID": (req, res) => {
       const id = req.params.id;
-
+      const { _id } = req.plainToken;
       notesModel.findById(id)
         .then(note => {
           if (note === null) {
             res.status(httpStatus.notFound).json({ error: "404: Not Found\nThe note with the specified ID cannot be found. The note is likely to have changed or not exist, though you may double check the ID in the URL for errors." });
             return;
           }
-          res.status(httpStatus.OK).json(note);
+          
+          if (note.author == _id) {
+            res.status(httpStatus.OK).json(note);
+          } else {
+            res.status(httpStatus.unauthorized).json({ error: "401: Unauthorized\nYou don't appear to have permission to view this note." });
+          }
         })
         .catch(error => {
           console.log('noteRoutes--GET ERROR:',error);

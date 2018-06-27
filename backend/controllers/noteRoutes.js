@@ -17,6 +17,7 @@ module.exports = (notesModel) => {
     },
     "POST": (req, res) => {
       req.body.author = req.plainToken._id;
+
       const newNote = validateNotePostBody(req.body);
 
       if (newNote.errorState) {
@@ -28,7 +29,7 @@ module.exports = (notesModel) => {
           res.status(httpStatus.created).json(note);
         })
         .catch(error => {
-          console.log('noteRoutes--POST ERROR:',error);
+          console.log('noteRoutes--POST ERROR:',error); 
           res.status(500).json(error);
         });
     },

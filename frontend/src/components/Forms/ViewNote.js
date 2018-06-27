@@ -56,7 +56,7 @@ class ViewNote extends React.Component {
     // Did you just delete something? Go back to the list.
     if (this.state.go === true) return <Redirect to="/notes" />;
     // Some variable management
-    const note = this.props.notes.filter(note => note.id === this.props.id)[0];
+    const note = this.props.notes.filter(note => note._id === this.props.id)[0];
     const { title, text, tags } = note; 
     console.log("ViewNote.js tags",tags);
 

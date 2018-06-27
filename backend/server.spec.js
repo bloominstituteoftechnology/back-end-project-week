@@ -1,4 +1,5 @@
 // Packages
+require('dotenv').config();
 const request = require('supertest');
 const mongoose = require('mongoose');
 // Models
@@ -8,7 +9,8 @@ const Notes = require('./models/Notes');
 const server = require('./server')(Users, Notes);
 // Utils
 const httpStatusCode = require('./utils/HTTPStatusCodes');
-const { MONGO_TEST_URI } = require('./utils/secrets');
+const { MONGO_TEST_URI } = process.env;
+
 const logError = (responseObject, blockedCode) => {
   const { status, error } = responseObject;
   if (error && status !== blockedCode) {
@@ -282,21 +284,34 @@ describe('Server:', () => {
     describe('GET Requests', () => {
       
       it('retrieves a specified note.', async () => {
-        const idToRetrieve = testNotes[0]._id;
+        const idToRetrieve = testNotes[1]._id;
         
         const responseObject = await request(server)
-        .get(`/notes/${idToRetrieve}`)
-        .set('authorization', userToken.token);
+          .get(`/notes/${idToRetrieve}`)
+          .set('authorization', userToken.token);
         logError(responseObject);
 
-        const noteExpectedToReceive = testNotes[0];
+        const noteExpectedToReceive = testNotes[1];
         const { status, body } = responseObject;
         expect(status).toBe(httpStatusCode.OK);
         expect(body).toMatchObject(noteExpectedToReceive);
       });
 
+      it('denies access to a specified note from another user.', async () => {
+        const idToRetrieve = testNotes[0]._id; // this note belongs to testUsers[0]. Remember that testUsers[1] is logged in.
+        
+        const responseObject = await request(server)
+          .get(`/notes/${idToRetrieve}`)
+          .set('authorization', userToken.token);
+        logError(responseObject, httpStatusCode.unauthorized);
+
+        const { status, body } = responseObject;
+        expect(status).toBe(httpStatusCode.unauthorized);
+        expect(body).toMatchObject({ error: "401: Unauthorized\nYou don't appear to have permission to view this note." });
+      });
+
       it('returns a 404 status when it cannot find a note with the specified ID.', async () => {
-        const idToRetrieve = '5b30101a8a63c231b8200da2'; // this id does not exist
+        const idToRetrieve = '5b30101a8a63c231b8200da2'; // a note with this id should not exist within the test environment
 
         const responseObject = await request(server)
           .get(`/notes/${idToRetrieve}`)
@@ -329,7 +344,7 @@ describe('Server:', () => {
       });
 
       it('returns a 404 status when it cannot find a note with the specified ID.', async () => {
-        const idToRetrieve = '5b30101a8a63c231b8200da2'; // this ID does not exist
+        const idToRetrieve = '5b30101a8a63c231b8200da2'; // a note with this id should not exist within the test environment
         const editedNote = testNotes[0]; //just a random test note. We shouldn't be getting this back
 
         const responseObject = await request(server)
@@ -362,7 +377,7 @@ describe('Server:', () => {
       });
 
       it('returns a 404 status when it cannot find a note with the specified ID.', async () => {
-        const idOfNoteToDelete ='5b30101a8a63c231b8200da2'; // this ID does not exist
+        const idOfNoteToDelete = '5b30101a8a63c231b8200da2'; // a note with this id should not exist within the test environment
 
         const responseObject = await request(server)
           .delete(`/notes/${idOfNoteToDelete}`)
