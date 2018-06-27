@@ -4,6 +4,11 @@ const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    credentials: true,
+};
+
 // API Route Controllers
 const userController = require('./controller/userController.js');
 const noteController = require('./controller/noteController.js');
@@ -12,7 +17,7 @@ const authController = require('./controller/authController.js');
 // Global Middleware
 server.use(morgan('combined'));
 server.use(helmet());
-server.use(cors());
+server.use(cors(corsOptions));
 server.use(express.json());
 
 // API Routes
