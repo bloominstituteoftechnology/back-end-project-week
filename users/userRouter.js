@@ -40,7 +40,6 @@ router
       res.json(req.putResult);
     }
   )
-<<<<<<< HEAD
   .delete(
     middleware.authMiddleware,
     middleware.deleteMiddleware(User),
@@ -48,10 +47,5 @@ router
       res.json(req.deleteResult);
     }
   );
-=======
-  .delete(middleware.deleteMiddleware(User), (req, res) => {
-    res.json(req.deleteResult);
-  });
->>>>>>> 7c3552da35b87c0d0b57139662bc633dd1fa9b64
 
 module.exports = router;
