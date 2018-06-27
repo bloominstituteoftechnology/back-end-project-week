@@ -11,7 +11,7 @@ const NoteSchema = new Schema({
         type: String,
         required: true
     },
-    email: { type: ObjectId, ref: 'User' }
+    userId: { type: ObjectId, ref: 'User' }
 });
 
 module.exports = mongoose.model('Note', NoteSchema);
