@@ -5,9 +5,11 @@ const {
   serverError
 } = require('../../http_status_codes');
 
-const taskCreate = (req, res) => {
-  const task = ({ taskName, taskDescription } = req.body);
-  
+const taskCreate = async (req, res) => {
+  const { taskName, taskDescription, jwtToken } = req.body;
+  const { _id: userId } = await Task.verifyToken(jwtToken);
+  const task = { userId, taskName, taskDescription };
+
   Task.create(task)
     .then(task => {
       res.status(created).json(task);
