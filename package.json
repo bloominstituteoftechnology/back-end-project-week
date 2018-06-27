@@ -1,0 +1,12 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/mr-burton/back-end-project-week.git",
+  "author": "Lavell Burton <taylormade800@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3",
+    "mongoose": "^5.1.7"
+  }
+}
