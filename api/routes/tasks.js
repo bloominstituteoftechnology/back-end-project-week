@@ -4,31 +4,7 @@ const { sendErrorMessage } = require('../utils/sendErrorMessage');
 
 router
   .post('/', (req, res) => {
-    const {
-      project,
-      title,
-      description,
-      assignee,
-      dueDate,
-      subtasks,
-      tags,
-      completed,
-      comments,
-      attachments
-    } = req.body;
-
-    Task.create({
-      project,
-      title,
-      description,
-      assignee,
-      dueDate,
-      subtasks,
-      tags,
-      completed,
-      comments,
-      attachments
-    })
+    Task.create(req.body)
       .then(task => {
         res.status(201).json(task);
       })
@@ -65,13 +41,34 @@ router
           `The task with id ${id} could not be retrieved.`
         );
       });
+  })
+  .put('/:id', (req, res) => {
+    const { id } = req.params;
+    const options = {
+      new: true,
+      runValidators: true
+    };
+
+    Task.findByIdAndUpdate(id, req.body, options)
+      .then(updatedTask => {
+        if (updatedTask) {
+          res.status(200).json(updatedTask);
+        } else {
+          res
+            .status(404)
+            .json({ error: `The task with id ${id} does not exist.` });
+        }
+      })
+      .catch(err => {
+        sendErrorMessage(
+          err,
+          res,
+          `The task with id ${id} could not be modified.`
+        );
+      });
   });
 
-// router
-//   .post()
-//   .get()
-//   .get()
-//   .put()
+
 //   .delete();
 
 module.exports = {
