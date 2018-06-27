@@ -2,6 +2,15 @@ const middleware = require("../middleware.js");
 const express = require("express");
 const router = express.Router();
 const User = require("./User.js");
+const jwt = require("jsonwebtoken");
+
+const generateToken = username => {
+  const options = {
+    expiresIn: "1h"
+  };
+  const payload = { username };
+  return jwt.sign(payload, process.env.SECRET, options);
+};
 
 router
   .route(["/", "/:id"])
@@ -19,7 +28,8 @@ router
     middleware.sanitizeMiddleware("user"),
     middleware.postMiddleware(User),
     (req, res) => {
-      res.json(req.postResult);
+      const token = generateToken(req.postResult.username);
+      res.json({ message: `Welcome, ${req.postResult.username}!`, token });
     }
   )
   .put(
