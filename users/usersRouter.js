@@ -6,7 +6,7 @@ const LocalStrategy = require('passport-local');
 const JwtStrategy = require('passport-jwt').Strategy;
 const { ExtractJwt } = require('passport-jwt')
 
-// const secret = 'this is my secret'
+const secret = 'this is my secret'
 
 require('dotenv').config();
 
@@ -34,8 +34,8 @@ const localStrategy = new LocalStrategy(function(username, password, done) {
 
 const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), 
-    secretOrKey: process.env.secret
-    // secretOrKey: secret
+    // secretOrKey: process.env.secret
+    secretOrKey: secret
 }
 
 const jwtStrategy = new JwtStrategy(jwtOptions, function(payload, done) {
@@ -108,7 +108,7 @@ router
         const options = {
             expiresIn: '24h'
         };
-        return jwt.sign(payload, process.env.secret, options);
+        return jwt.sign(payload, secret, options);
     }
 
 
