@@ -7,16 +7,16 @@ const generateToken = user => {
     const options = {
         expiresIn: '24h'
     };
-    const payload = { email: user.email, fistName: user.firstName };
+    const payload = { id: user._id };
     return jwt.sign(payload, process.env.JWT_secret, options);
 }
 
 router.route('/register')
     .post((req, res) => {
         User.create(req.body)
-            .then(({ email, firstName }) => {
-                const token = generateToken({ email, firstName });
-                res.status(201).json({ email, firstName, token });
+            .then(user => {
+                const token = generateToken(user);
+                res.status(201).json({ token });
             })
             .catch(err => res.status(500).json({ error: err.message }));
     });
@@ -33,7 +33,7 @@ router.route('/login')
                     .then(match => {
                         if (match) {
                             const token = generateToken(user);
-                            return res.json({ message: `Welcome ${user.firstName}`, token});
+                            return res.json({ token });
                         } else {
                             return res.status(401).json({ error: `Invalid credentials.`});
                         }
