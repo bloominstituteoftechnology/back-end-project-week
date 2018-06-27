@@ -98,23 +98,23 @@ server.post('/login', (req, res) => {
     }
 
 
-server.put('/users/:id', (req, res) => {
-        const { id } = req.params; 
-        const { username, password } = req.body;
-        const updatedUser = { username, password }; 
-        if (!username || !password) {
-            res.status(400).json({ error: 'Please enter username and password.' }); 
-            return;
-        } 
-        User    
-            .findByIdAndUpdate(id, updatedUser)
-            .then(response => {
-                res.json(response);                 
-            })
-            .catch(error => {
-                res.status(500).json({ error: 'User cannot be modified.' })
-        });
-});
+// server.put('/users/:id', (req, res) => {
+//         const { id } = req.params; 
+//         const { username, password } = req.body;
+//         const updatedUser = { username, password }; 
+//         if (!username || !password) {
+//             res.status(400).json({ error: 'Please enter username and password.' }); 
+//             return;
+//         } 
+//         User    
+//             .findByIdAndUpdate(id, updatedUser)
+//             .then(response => {
+//                 res.json(response);                 
+//             })
+//             .catch(error => {
+//                 res.status(500).json({ error: 'User cannot be modified.' })
+//         });
+// });
 
 server.get('/users', restricted, (req, res) => {
     User.findByIdAndRemove({})
