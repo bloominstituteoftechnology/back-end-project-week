@@ -15,7 +15,6 @@ class EditNote extends Component {
 
   
   componentDidMount() {
-    // console.log(this.props.notes)
     let token = localStorage.getItem('token');
     let requestOptions = {
       headers: {
@@ -31,17 +30,6 @@ class EditNote extends Component {
           content: response.data.content
         })
       })
-
-  //  let matchedNote = this.props.notes.filter(note => {
-  //     return note.id == this.props.match.params.id;
-  //   })[0];
-  //   if(matchedNote !== undefined){
-  //     this.setState({
-  //       id: this.props.match.params.id,
-  //       title: matchedNote.title,
-  //       content: matchedNote.content
-  //     });
-  //   }
   }
 
   handleNoteInput = e => {
@@ -65,17 +53,10 @@ class EditNote extends Component {
     .catch(err => {
       console.log(err)
     })
-    // this.setState({
-    //   id: `${this.props.match.params.id}`,
-    //   title: `${this.props.match.params.title}`,
-    //   content: `${this.props.match.params.content}`
-    // });
+
   };
 
   render() {
-    // let matchedNote = this.props.notes.filter(note => {
-    //   return note.id == this.props.match.params.id;
-    // })[0];
     return (
       <div className="col-sm-9 create-div">
         <div className="create-form">
