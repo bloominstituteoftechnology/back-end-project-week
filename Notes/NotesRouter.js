@@ -53,7 +53,7 @@ router
                 res.json('Note was successfully removed!');
             })
             .catch(error => {
-                res.status(500).json({ error: 'Error removing friend.' }); 
+                res.status(500).json({ error: 'Error removing note.' }); 
             }); 
     })
     .put((req, res) => {

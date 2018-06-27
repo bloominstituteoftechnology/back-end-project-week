@@ -1,15 +1,25 @@
 const express = require('express'); 
 const cors = require('cors'); 
+const morgan = require('morgan'); 
 const helmet = require('helmet');
 const mongoose = require ('mongoose');
-
-const server = express();
+const jwt = require('jsonwebtoken'); 
 
 const notesRouter = require('./Notes/NotesRouter.js');
 const usersRouter = require('./Users/UsersRouter.js');
+const User = require('./Users/UsersModel.js'); 
+const Note = require('./Notes/NotesModel.js'); 
+
+const server = express();
+const secret = 'No woman, No cry!';
+
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    credentials: true, 
+}; 
 
 server.use(helmet());
-server.use(cors());
+server.use(cors(corsOptions));
 server.use(express.json());
 
 server.use('/notes', notesRouter);
@@ -17,6 +27,104 @@ server.use('/users', usersRouter);
 
 server.get('/', (req, res) => {
     res.status(200).json('API up and running!'); 
+}); 
+
+server.post('/register', (req, res) => {
+    User.create(req.body)
+        .then(user => {
+            const token = generateToken(user); 
+            
+            res.status(201).json({ username: user.username, token });
+        })
+        .catch(error => res.status(500).json({ error: error.message })); 
+}); 
+
+server.post('/login', (req, res) => {
+    const { username, password } = req.body;
+    if (!username || !password) {
+        res.status(400).json({ error: error.message });
+        return; 
+    } 
+
+    User.findOne({ username })
+        .then(user => {
+            if(user) {
+                user
+                    .validatePassword(password)
+                    .then(passwordsMatch => { 
+                        if(passwordsMatch) {
+                            const token = generateToken(user);
+
+                        res.status(200).json({ message: `Welcome, ${username}!`, token }); 
+                    } else {
+                        res.status(401).send('Invalid credentials');
+                    }
+                })
+                .catch(error => {
+                    res.send('Error comparing passwords');
+                });
+            } else {
+                res.status(401).send('Invalid credentials');
+            }
+        })
+        .catch(error => {
+            res.send({error: error.message }); 
+        });
+    });
+
+    function generateToken(user) {
+        const options = {
+            expiresIn: '1h',
+        };
+        const payload = { name: user.username }; 
+
+        return jwt.sign(payload, secret, options); 
+    }
+
+    function restricted(req, res, next) {
+        const token = req.headers.authorization; 
+
+        if(token) {
+            jwt.verify(token, secret, (error, decodedToken) => {
+                if(error) {
+                    res.status(401).json({ message: 'Denied access. Not decoded.' });
+                }
+
+                next(); 
+            }); 
+        } else {
+            res.status(401).json({ message: 'Access not allowed. No token.' }); 
+        }
+    }
+
+
+server.put('/users/:id', (req, res) => {
+        const { id } = req.params; 
+        const { username, password } = req.body;
+        const updatedUser = { username, password }; 
+        if (!username || !password) {
+            res.status(400).json({ error: 'Please enter username and password.' }); 
+            return;
+        } 
+        User    
+            .findByIdAndUpdate(id, updatedUser)
+            .then(response => {
+                res.json(response);                 
+            })
+            .catch(error => {
+                res.status(500).json({ error: 'User cannot be modified.' })
+        });
+});
+
+server.get('/users', restricted, (req, res) => {
+    User.findByIdAndRemove({})
+        .select('username')
+        .then(users => {
+            res.status(200).json(users); 
+        })
+        .catch(error => {
+            return res.status(500).json(error); 
+        }); 
 }); 
 
 const port = process.env.PORT || 5000; 
@@ -32,4 +140,3 @@ mongoose
     .catch(error => {
         console.log('\n=== Error connecting to database server ===\n', error);
     });
-
