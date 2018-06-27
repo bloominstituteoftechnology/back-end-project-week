@@ -12,22 +12,22 @@ const LocalStrategy = require('passport-local')
 const { ExtractJwt } = require('passport-jwt')
 const JwtStrategy = require('passport-jwt').Strategy
 
-function makeToken(user) {
+function makeToken (user) {
   const timestamp = new Date().getTime()
   const payload = { sub: user._id, iat: timestamp, username: user.username }
   const options = { expiresIn: '1h' }
   return jwt.sign(payload, secret, options)
 }
 
-const localStrategy = new LocalStrategy(function(username, password, done) {
-  User.findOne({ username }, function(err, user) {
+const localStrategy = new LocalStrategy(function (username, password, done) {
+  User.findOne({ username }, function (err, user) {
     if (err) {
       done(err)
     }
     if (!user) {
       done(null, false)
     }
-    user.verifyPassword(password, function(err, isValid) {
+    user.verifyPassword(password, function (err, isValid) {
       if (err) {
         return done(err)
       }
@@ -40,10 +40,10 @@ const localStrategy = new LocalStrategy(function(username, password, done) {
   })
 })
 const jwtOptions = {
-  jwtFromRequest: ExtractJwt.fromHeader(),
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: secret
 }
-const jwtStrategy = new JwtStrategy(jwtOptions, function(payload, done) {
+const jwtStrategy = new JwtStrategy(jwtOptions, function (payload, done) {
   User.findById(payload.sub)
     .select('-password')
     .then(user => {
