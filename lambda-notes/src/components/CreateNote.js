@@ -39,7 +39,7 @@ class CreateNote extends Component {
 
   render() {
       return <div className="col-sm-9 create-div">
-          <div>
+          <div className='create-form-div'>
             <div className="form-group">
               <h4>Create New Note:</h4>
             </div>
