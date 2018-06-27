@@ -28,6 +28,8 @@ router.route('/register')
                 } else {
                     User.create({ username, password })
                         .then(newUser => {
+                            const token = generateToken(newUser);
+                            
                             res.status(201).json(newUser);
                         })
                         .catch(err => {
