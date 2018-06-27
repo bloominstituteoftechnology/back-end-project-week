@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const UserSchema = new mongoose.Schema({
     username: {
@@ -14,7 +15,11 @@ const UserSchema = new mongoose.Schema({
         required: true,
         lowercase: true,
         minlength: 4,
-    } 
+    },
+    notes: [{
+        type: ObjectId,
+        ref: 'Note'
+    }] 
 });
 
 const User = mongoose.model('User', UserSchema);
