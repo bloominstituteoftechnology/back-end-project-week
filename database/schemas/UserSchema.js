@@ -19,4 +19,15 @@ User.pre('save', function(next) {
   });
 });
 
+// custom model method
+User.statics.verifyPassword = function(plainPassword) {
+  return bcrypt.compare(plainPassword, this.password)
+    .then(bool => {
+      return bool;
+    })
+    .catch(err => {
+      console.log(err);
+    })
+};
+
 module.exports = User;
