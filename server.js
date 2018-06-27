@@ -3,11 +3,12 @@ const helmet = require('helmet');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
+const env = require('dotenv').config();
 
 const User = require('./users/User');
 const Note = require('./notes/Note');
 
-const db = require('./config/db');
+// const db = require('./config/db');
 const setupMiddleware = require('./config/middleware');
 const setupRoutes = require('./config/routes');
 
@@ -33,7 +34,7 @@ setupMiddleware(server);
 // Testing Node Express 
 
 server.get('/', (req, res) => {
-    res.send(`<h2>Server is online!</h2>`);
+    res.send(`<h2>DB:${process.env.mongo}</h2>`);
 });
 
 // HTTP METHODS FOR USERS
@@ -129,6 +130,27 @@ server.post('/api/createnote', (req, res) => {
         })
         .catch(err => {
             res.status(500).json(err)
+        });
+});
+
+server.get('/api/notes', (req, res) => {
+    Note.find({})
+      .select('title')
+      .then(users => {
+        res.status(200).json(users);
+      })
+      .catch(err => {
+        return res.status(500).json(err);
+      });
+  });
+
+server.get('/api/notes/:_id', (req, res) => {
+    const { id } = req.params;
+    Note.findById(req.params)
+        // .select('_id')
+        .then(note => res.json(note))
+        .catch(err => {
+            res.status(500).json(err);
         });
 });
 
