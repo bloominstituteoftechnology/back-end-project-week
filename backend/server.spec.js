@@ -228,7 +228,7 @@ describe('Server:', () => {
       };
   
       it('rejects requests at \'notes\' without JWT', async () => {
-        console.log("userToken token:",userToken.token);
+        // console.log("userToken token:",userToken.token);
         const responseObject = 
           await request(server)
             .get('/notes')
@@ -240,7 +240,7 @@ describe('Server:', () => {
       });
 
       it('accepts requests at \'notes\' with JWT', async () => {
-        console.log("userToken token:",userToken.token);
+        // console.log("userToken token:",userToken.token);
         const responseObject = 
           await request(server)
             .get('/notes')

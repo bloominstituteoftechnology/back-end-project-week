@@ -29,6 +29,9 @@ module.exports = (usersModel, notesModel) => {
     .post(noteRoutes.POST)
     .put(noteRoutes.NO_PUT);
   //Notes route is protected. An authentication middleware that checks for JWT should exist in `useMiddlewareQueue`. Moreover, the routes depend on the `_id` embedded in the JWT to even function.
+
+  server.route('/notes/search')
+    .get(noteRoutes.SEARCH);
     
   server.route('/notes/:id')
     .get(noteIdRoutes.GET_ONE_BY_ID)
