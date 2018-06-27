@@ -13,12 +13,11 @@ router
     })
     
     .post((req, res) => {
-        const newNote = {title, content} = req.body;
-        console.log(newNote);
+        const newNote = req.body;
         Note
             .create(newNote)
-            .then(saveNote => {
-                res.status(201).json(saveNote);
+            .then(savedNote => {
+                res.status(201).json(savedNote);
             })
             .catch(err => {
                 res.status(500).json({ message: err.message });
