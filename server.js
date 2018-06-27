@@ -11,9 +11,8 @@ const usersRouter = require('./api/Users/usersRouter');
 
 
 require('dotenv').config();
-const { username, password } = process.env;
 
-mongoose.connect(`process.env.mongoDB`)
+mongoose.connect(process.env.MONGO_DB)
     .then(
         () => {
             console.log('***\n Portal to DB Established \n*** ')
@@ -62,7 +61,7 @@ function protected(req, res, next) {
 
 server
     .get('/', (req, res) => {
-        res.json(`<h3>Database: ${process.env.mongo}</h3>`)
+        res.json(`<h3>Database: ${port}</h3>`)
     })
 
 const port = process.env.PORT || 5000;
@@ -70,4 +69,5 @@ const port = process.env.PORT || 5000;
 server.listen(port, () => {
     console.log(`API running on port ${port}`);
 });
+
 server.use(bodyParser.json());
