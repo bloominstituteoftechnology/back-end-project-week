@@ -23,7 +23,7 @@ server.use('/api/auth', authController);
 
 // Test API
 server.get('/', (req, res) => {
-    res.json({ api: running });
+    res.json({ api: `running` });
 });
 
 module.exports = server;
