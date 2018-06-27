@@ -7,18 +7,25 @@ const initialState = [{
 }];
 
 export const notesReducer = (state = initialState, action) => {
+    const stateCopy = JSON.parse(JSON.stringify(state));
     switch (action.type) {
         case PENDING_NOTES:
-            return Object.assign({}, state, { pending: true });
+            // return Object.assign({}, state, { pending: true });
+            stateCopy[0].pending = true;
+            return stateCopy;
         case SUCCESS_NOTES:
-            return Object.assign({}, state, {
-                pending: false,
-                notes: action.payload //this concats 2 arrays
-            });
+            stateCopy[0].pending = false;
+            stateCopy[0].notes = action.payload;
+            // console.log("state copy", stateCopy[0])
+            return stateCopy;
+            // return Object.assign({}, state, {
+                // pending: false,
+                // notes: action.payload //this concats 2 arrays
+            // });
         case ERROR_NOTES:
             return Object.assign({}, state, {
                 pending: false,
-                notes: action.payload
+                notes: [action.payload]
             });
         default:
             return state;

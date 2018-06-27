@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { fetchNotes } from '../actions';
 
@@ -13,7 +14,7 @@ class NoteList extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchNotes;
+        this.props.fetchNotes();
     }
 
     updateSearch = (event) => {
@@ -103,7 +104,7 @@ class NoteList extends Component {
             if (this.state.titleCheck) {
                 return note.title.toLowerCase().indexOf(this.state.search) !== -1;
             } else if (this.state.bodyCheck) {
-                return note.body.toLowerCase().indexOf(this.state.search) !== -1;
+                return note.content.toLowerCase().indexOf(this.state.search) !== -1;
             }
             // return this.props.notes;
             return JSON.parse(localStorage.getItem('array'));
@@ -192,7 +193,7 @@ class NoteList extends Component {
                             >
                             <div>
                                 <h4>{note.title}</h4>
-                                <p>{note.body}</p>
+                                <p>{note.content}</p>
                             </div>
                         </Link>
                         )
@@ -206,7 +207,7 @@ class NoteList extends Component {
 
 const mapStateToProps = store => {
     return {
-        notes: store
+        notes: store[0].notes
     };
 };
 
