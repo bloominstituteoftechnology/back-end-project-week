@@ -9,20 +9,24 @@ const UserSchema = new Schema({
         type: String,
         required: true,
         unique: true,
-        minlength: 5
+        minlength: 5,
+        trim: true
     },
     password: {
         type: String,
         required: true,
-        minlength: 8
+        minlength: 8,
+        trim: true
     },
     firstName: {
         type: String,
-        required: false
+        required: false,
+        trim: true
     },
     lastName: {
         type: String,
-        required: false
+        required: false,
+        trim: true
     },
     notes: [{ type: ObjectId, ref: 'Note'}]
 });
