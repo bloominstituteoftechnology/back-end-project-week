@@ -10,6 +10,13 @@ const server = express();
 
 server.use(helmet());
 server.use(express.json());
+const server = express();
+server.use(
+  cors({
+  origin: "localhost://3000",
+  credentials: true
+  })
+);
 
 server.use('/api/todo', TodoController);
 server.use('/api/user', AuthController);

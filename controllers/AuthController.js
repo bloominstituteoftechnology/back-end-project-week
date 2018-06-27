@@ -1,4 +1,6 @@
 const router = require('express').Router();
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 const User = require('../models/User');
 
@@ -66,8 +68,45 @@ router
         .catch(err => {
             res.status(500).json({errorMessage: 'No User in the system to update'})
         });
-    })
-
+    });
+    function createToken(user){
+        const options = {
+          expires: '30mins'
+        };
+        const payload = {name: user.username};
+      
+        return jwt.sign(payload, secret, options);
+      }
+      
+      const secret = "there is nothing to fear, but fear itself";
+      
+  
+    router.post('/login', (req, res) => {
+        const {email, password} = req.body;
+          User.findOne({email})
+          .then(user => {
+            if(user){
+              bcrypt.compare(password, user.password)
+                .then(matchPw => {
+                  console.log(matchPw);
+                  if(matchPw){
+                    const {username, race} = user
+                    const token = createToken(user)
+                    res.status(200).json({username, token})
+                 }else {
+                    res.status(401).json({error: "wrong pw"})
+                  }
+                })
+                .catch(err => {
+                  res.status(404).json({error: "please try again."})
+                })
+            }
+          })
+          .catch(err => {
+            res.status(500).json({error: err.message})
+        })
+      })
+    
 
 
 module.exports = router;
