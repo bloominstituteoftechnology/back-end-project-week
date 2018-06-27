@@ -13,6 +13,7 @@ const mongoose = require('mongoose');
     },
   };
 
+
 // mongoose.connect('mongodb://localhost/dbLambdaNotes', {}, (err) => {
 //     if(err) {
 //         console.log(err);
