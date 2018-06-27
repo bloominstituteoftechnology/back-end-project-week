@@ -90,7 +90,7 @@ router
                 .then(matchPw => {
                   console.log(matchPw);
                   if(matchPw){
-                    const {username, race} = user
+                    const {username} = user
                     const token = createToken(user)
                     res.status(200).json({username, token})
                  }else {
