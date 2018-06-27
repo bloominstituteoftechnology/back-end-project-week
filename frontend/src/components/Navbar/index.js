@@ -2,9 +2,9 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-// import { auth } from '../../config/firebase';
+import { loadToken } from '../../config/localStorage';
 // Redux actions
-import { loginUser, logoutUser, fetchTheme } from '../Actions';
+import { sendToken, loginUser, logoutUser, fetchTheme } from '../Actions';
 // Components
 import { Button, RLink } from '../Button';
 // CSS
@@ -12,7 +12,14 @@ import './Navbar.css';
 
 class Navbar extends Component {
 
-    render() {
+    componentDidMount = () => {
+        const token = loadToken();
+        if (token !== undefined) {
+            this.props.sendToken(token);
+        }
+    }
+
+    render = () => {
         const { classes } = this.props;
         return (
             <div className={`navbar ${classes}`}>
@@ -31,8 +38,11 @@ class Navbar extends Component {
                         </div>
                     </Fragment>)
                     :
-                    <Button className="my-2" onClick={() => this.props.history.push('/login')}>Log In</Button>
-                }
+                    <Fragment>
+                        <Button className="my-2" onClick={() => this.props.history.push('/login')}>Log In</Button>
+                        <Button className="my-2" onClick={() => this.props.history.push('/register')}>Register</Button>
+                    </Fragment>
+                }   
             </div>
         );
     }
@@ -44,4 +54,4 @@ const mapStateToProps = state => {
     }
 };
 
-export default withRouter(connect(mapStateToProps, { loginUser, logoutUser, fetchTheme })(Navbar));
+export default withRouter(connect(mapStateToProps, { sendToken, loginUser, logoutUser, fetchTheme })(Navbar));

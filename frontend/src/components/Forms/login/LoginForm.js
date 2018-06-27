@@ -3,6 +3,8 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { sendToken } from '../../Actions';
 import { Button, Form, Input } from 'semantic-ui-react';
+import { domain } from '../../../config/dev';
+import { saveToken } from '../../../config/localStorage';
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -32,7 +34,7 @@ class LoginForm extends React.Component {
   }
 
   submitAndRegister = (loginObject) => {
-    axios.post('http://localhost:5500/register',loginObject)
+    axios.post(`${domain}/register`,loginObject)
       .then(res => {
         console.log(res.data.token);
         this.props.sendToken(res.data.token);
@@ -46,10 +48,12 @@ class LoginForm extends React.Component {
   }
 
   submitAndLogin = (loginObject) => {
-    axios.post('http://localhost:5500/login',loginObject)
+    axios.post(`${domain}/login`,loginObject)
       .then(res => {
         console.log("submitAndLogin `this`:",this);
-        this.props.sendToken(res.data.token);
+        const token = res.data.token;
+        saveToken(token);
+        this.props.sendToken(token);
         this.setState({ ...this.reset });
         this.props.history.push('/notes');
       })

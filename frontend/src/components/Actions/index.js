@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { domain } from '../../config/dev';
 
 export const ADD = "ADD";
 export const EDIT = "EDIT";
@@ -13,7 +14,7 @@ const port = 5500;
 // To notesReducer
 export const addNote = (uid, note) => async dispatch => {
   const header = { "headers": { "authorization": uid } };
-  const response = await axios.post(`http://localhost:${port}/notes`, note, header);
+  const response = await axios.post(`${domain}/notes`, note, header);
   return dispatch({
     type: ADD,
     payload: response.data
@@ -22,7 +23,7 @@ export const addNote = (uid, note) => async dispatch => {
 
 export const editNote = (uid, id, note) => async dispatch => {
   const header = { "headers": { "authorization": uid } };
-  const response = await axios.post(`http://localhost:${port}/notes/${id}`, note, header);
+  const response = await axios.post(`${domain}/notes/${id}`, note, header);
   return dispatch({
     type: EDIT,
     payload: response.data
@@ -31,7 +32,7 @@ export const editNote = (uid, id, note) => async dispatch => {
 
 export const fetchNotes = (uid) => async dispatch => {
   const header = { "headers": { "authorization": uid } };
-  const response = await axios.get(`http://localhost:${port}/notes`,header);
+  const response = await axios.get(`${domain}/notes`,header);
   console.log('fetchNotes-response:',response);
   return dispatch({
     type: FETCH,
@@ -41,7 +42,7 @@ export const fetchNotes = (uid) => async dispatch => {
 
 export const deleteNote = (uid, id) => async dispatch => {
   const header = { "headers": { "authorization": uid } };
-  const response = await axios.delete(`http://localhost:${port}/notes/${id}`,header);
+  const response = await axios.delete(`${domain}/notes/${id}`,header);
   return fetchNotes(uid);
 };
 
