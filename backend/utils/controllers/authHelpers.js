@@ -7,16 +7,15 @@ const generateToken = user => {
     _id: user._id,
     email: user.email
   };
-  const secret = mySecret;
   const options = {
     expiresIn: '1h'
   };
   // Returning signed token
-  return jwt.sign(payload, secret, options);
+  return jwt.sign(payload, SECRET, options);
 };
 
 const verifyToken = token => {
-  return jwt.verify(token, mySecret, function(err, decodedToken) {
+  return jwt.verify(token, SECRET, function(err, decodedToken) {
     if (err) {
       console.log("@verifyToken - Error:",err);
       return false;
