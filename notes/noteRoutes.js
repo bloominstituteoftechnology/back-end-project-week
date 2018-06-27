@@ -53,12 +53,9 @@ router
             .get((req, res) => {
                 const { id } = req.params;
                 Note.findById(id)
+                    .populate('user', 'username')
                     .then(note =>  {
-                        User.find({ notes: id })
-                            .then(notes => {
-                                const note = { user: notes}
-                                res.json(note)
-                            })
+                        res.json(note)
                     })
             })
             .delete((req, res) => {
@@ -89,7 +86,7 @@ router
                     sendError(400, "Must provide title and content to update the note", res);
                     return;
                 }
-                Note.findByIdAndUpdate(id, req.body)
+                Note.findByIdAndUpdate(id, { title, content })
                     .then(updatedNote => {
                         if (updatedNote === null) {
                             res

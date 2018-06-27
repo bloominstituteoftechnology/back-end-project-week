@@ -1,23 +1,47 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { editNote } from "../actions";
+import axios from "axios";
+
 
 class EditNote extends Component {
-  state = {
-    id: this.props.match.params.id,
-    title: "",
-    content: ""
-  };
+  constructor(){
+    super();
+    this.state = {
+      id: '',
+      title: "",
+      content: ""
+    };
+}
 
-  matchedNote = this.props.notes.filter(note => {
-    return note.id == this.props.match.params.id;
-  })[0];
-
+  
   componentDidMount() {
-    this.setState({
-      title: this.matchedNote.title,
-      content: this.matchedNote.content
-    });
+    // console.log(this.props.notes)
+    let token = localStorage.getItem('token');
+    let requestOptions = {
+      headers: {
+        Authorization: token
+      }
+    }
+    axios.get(`http://localhost:5000/notes/${this.props.match.params.id}`, requestOptions)
+      .then(response => {
+        console.log(response)
+        this.setState({
+          id: response.data._id,
+          title: response.data.title,
+          content: response.data.content
+        })
+      })
+
+  //  let matchedNote = this.props.notes.filter(note => {
+  //     return note.id == this.props.match.params.id;
+  //   })[0];
+  //   if(matchedNote !== undefined){
+  //     this.setState({
+  //       id: this.props.match.params.id,
+  //       title: matchedNote.title,
+  //       content: matchedNote.content
+  //     });
+  //   }
   }
 
   handleNoteInput = e => {
@@ -28,17 +52,30 @@ class EditNote extends Component {
 
   handleEdit = e => {
     e.preventDefault();
-    this.props.editNote(this.state);
-    this.setState({
-      id: `${this.props.match.params.id}`,
-      title: `${this.props.match.params.title}`,
-      content: `${this.props.match.params.content}`
-    });
-    // this.props.history.push(`/notes/${this.state.id}`);
-    window.location.href = "/";
+    let token = localStorage.getItem('token');
+    let requestOptions = {
+      headers: {
+        Authorization: token
+      }
+    }
+    axios.put(`http://localhost:5000/notes/${this.state.id}`, this.state, requestOptions)
+    .then(() => {
+      this.props.history.push(`/notes/${this.state.id}`);
+    })
+    .catch(err => {
+      console.log(err)
+    })
+    // this.setState({
+    //   id: `${this.props.match.params.id}`,
+    //   title: `${this.props.match.params.title}`,
+    //   content: `${this.props.match.params.content}`
+    // });
   };
 
   render() {
+    // let matchedNote = this.props.notes.filter(note => {
+    //   return note.id == this.props.match.params.id;
+    // })[0];
     return (
       <div className="col-sm-9 create-div">
         <div className="create-form">
@@ -80,8 +117,8 @@ class EditNote extends Component {
 
 const mapStateToProps = state => {
   return {
-    notes: state
+    notes: state[0].requestedUser.notes 
   };
 };
 
-export default connect(mapStateToProps, { editNote })(EditNote);
+export default connect(mapStateToProps, {  })(EditNote);

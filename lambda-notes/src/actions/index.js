@@ -6,8 +6,9 @@ export const FETCHED_NOTES = "FETCHED_NOTES";
 export const ERROR_FETCHING_NOTES = "ERROR_FETCHING_NOTES";
 export const CREATING_NOTE = "CREATING_NOTE";
 export const CREATED_NOTE = "CREATED_NOTE";
-export const EDITING_NOTE = "EDITING_NOTE";
-export const DELETE_NOTE = "DELETE_NOTE";
+export const DELETING_NOTE = "DELETING_NOTE";
+export const DELETED_NOTE = "DELETED_NOTE";
+export const ERROR_DELETING_NOTES = "ERROR_DELETING_NOTES";
 export const ORDER_NOTE = "ORDER_NOTE";
 
 export const fetchNotes = (userId) => {
@@ -27,14 +28,3 @@ export const fetchNotes = (userId) => {
 
 
 
-export const editNote = note => {
-  
-}
-
-export const orderNote = note => {
-  
-}
-
-export const deleteNote = id => {
-  
-};

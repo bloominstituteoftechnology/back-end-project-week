@@ -19,12 +19,12 @@ class Notes extends Component {
   componentDidMount() {
     let userId = localStorage.getItem('userId')
     if(userId) this.props.fetchNotes(userId)
-
   }
 
   logout = () => {
     if (localStorage.getItem('token')) {
       localStorage.removeItem('token');
+      localStorage.removeItem('userId');      
       this.props.history.push('/login');
     }
   };
@@ -150,7 +150,7 @@ class Notes extends Component {
             return (
               <Link
                 to={`notes/${note._id}`}
-                key={note._id}
+                key={note._id + ''}
                 className="link-wrap note"
                 id={note._id}
                 onMouseUp={this.savedPosition}

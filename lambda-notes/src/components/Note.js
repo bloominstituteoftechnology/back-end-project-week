@@ -3,7 +3,8 @@ import "../App.css";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Modal, ModalBody, ModalFooter, Button } from 'reactstrap';
-import { deleteNote, fetchNotes } from "../actions";
+import { fetchNotes } from "../actions";
+import axios from "axios";
 
 
 class Note extends Component {
@@ -25,10 +26,20 @@ class Note extends Component {
     }
     
     handleDeleteButton = (e, id) => {
-        e.preventDefault();
-        this.props.deleteNote(id);
-        window.location.href="/";
+      e.preventDefault();
+      let token = localStorage.getItem('token');
+      let requestOptions = {
+        headers: {
+          Authorization: token
+        }
+      }
+      // this.props.deleteNote(id, requestOptions);
+      axios.delete(`http://localhost:5000/notes/${id}`, requestOptions)
+        .then(() => {
+          this.props.history.push('/')
+        })
     }
+
     componentWillMount() {
       let userId = localStorage.getItem('userId')
       if (userId) this.props.fetchNotes(userId)
@@ -38,23 +49,14 @@ class Note extends Component {
       // if (found) this.setState({ note: found });
     }
 
-    componentDidMount() {
-      // let result = this.props.notes.filter(note => note._id == this.props.match.params.id);      
-      // let found = result[0]
-      // console.log('found', found)
-      // if(found) this.setState({note: found});
-    }
-
     render() {
+      console.log(localStorage.getItem('token'))
       let found = {
         title: 'fetching title...',
         content: 'fetching content...'
       }
       let result = this.props.notes.filter(note => note._id == this.props.match.params.id);
       if(result[0]) found = result[0]
-      console.log('found', found)
-      console.log(this.props)
-      console.log(this.state)
         return <div className="col-sm-9 note-view">
             <div className="note-links-wrap">
               <Link to={`/edit/${found._id}`} className="note-link">
@@ -75,7 +77,7 @@ class Note extends Component {
               </ModalBody>
               <ModalFooter className="but-wrapper">
                 <Button color="danger" className="modal-but" onClick={e => {
-                    this.handleDeleteButton(e, this.props.match.params.id);
+                this.handleDeleteButton(e, this.props.match.params.id);
                   }}>
                   Delete
                 </Button> <Button className="no-button modal-but" onClick={this.toggle}>
@@ -93,5 +95,5 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { deleteNote, fetchNotes })(Note);
+export default connect(mapStateToProps, { fetchNotes })(Note);
 
