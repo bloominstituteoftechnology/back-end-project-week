@@ -69,9 +69,29 @@ router
           `The task with id ${id} could not be modified.`
         );
       });
-  });
+  })
+  .delete('/:id', (req, res) => {
+    const { id } = req.params;
 
-//   .delete();
+    Task.findByIdAndRemove(id)
+      .then(deletedTask => {
+        if (deletedTask) {
+          const { _id } = deletedTask;
+          res.status(200).json({ _id });
+        } else {
+          res
+            .status(404)
+            .json({ error: `The task with id ${id} does not exist.` });
+        }
+      })
+      .catch(err => {
+        sendErrorMessage(
+          err,
+          res,
+          `The task with id ${id} could not be removed.`
+        );
+      });
+  });
 
 module.exports = {
   tasksRouter: router
