@@ -2,6 +2,7 @@ const express = require('express'); // remember to install your npm packages
 const helmet = require('helmet');
 const morgan = require('morgan');
 const cors = require('cors');
+const utils = require('../auth/utils');
 
 /**
  * IMPORT ROUTERS: import any needed Router.
@@ -37,6 +38,8 @@ server.use('/api/register/', registerUser);
 server.use('/api/login', loginUser);
 server.use('/api/users', userRouter);
 
+// CONTROL ACCESS TO ONLY REGISTERED USERS
+server.use(utils.userHasToken);
 server.use('/api/notes', notesRouter);
 
 /**
