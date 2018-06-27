@@ -15,5 +15,30 @@ router
             .then(result => res.json(result))
             .catch(err => res.status(500).json({error: err.message}));
     });
-
+router
+    .post('/login', (req, res) => {
+        const {username, password} = req.body;
+        User.findOne({username})
+            .then(user => {
+                if (user) {
+                    user
+                        .confirmPW(password)
+                        .then(pwMatch => {
+                            if(pwMatch == true){
+                                res.status(200).json(user);
+                            }else{
+                                res.status(401).send('invalid creds, please try again.');
+                            }
+                        })
+                        .catch(err => {
+                            res.send('error comparing passwords');
+                        });
+                } else {
+                    res.status(401).send('invalid creds, please try again.');
+                }
+            })
+            .catch(err => {
+                res.send(err);
+            });
+    });
     module.exports = router;
