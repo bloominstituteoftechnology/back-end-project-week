@@ -183,7 +183,9 @@ body, html {
   height: 9%;
   margin-left: 2%;
   margin-top: 2%;
+  font-size: 10px;
 }
+
 
 .sort-but:hover {
   background: white;
@@ -242,4 +244,20 @@ body, html {
 /* create-form */
 .create-form-div {
   width: 80%;
+}
+
+.logout-but {
+  border-radius: 3px;
+  background: red;
+  color: white;
+  width: 9%;
+  height: 9%;
+  margin-left: 2%;
+  margin-top: 2%;
+  font-size: 10px;
+}
+
+.logout-but:hover {
+  background: white;
+  color: red;
 }

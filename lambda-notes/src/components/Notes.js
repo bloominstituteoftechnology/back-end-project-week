@@ -114,7 +114,7 @@ class Notes extends Component {
           <button className="sort-but pt-sm-1" onClick={this.handleAlphaSort}>
             sort by title
           </button>
-          <button className="sort-but pt-sm-1" onClick={this.logout}>logout</button>          
+          <button className="logout-but pt-sm-1" onClick={this.logout}>logout</button>          
         </div>
         <h4 className="your-notes">Your notes:</h4>
         <form>
