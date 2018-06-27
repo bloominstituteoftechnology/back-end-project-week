@@ -4,7 +4,7 @@ const express = require('express');
 module.exports = (usersModel, notesModel) => {
   // Dependencies
   const noteRoutes = require('./controllers/noteRoutes')(usersModel, notesModel);
-  const noteIdRoutes = require('./controllers/noteIdRoutes')(notesModel);
+  const noteIdRoutes = require('./controllers/noteIdRoutes')(usersModel, notesModel);
   const userRoutes = require('./controllers/userRoutes')(usersModel);
   const useMiddlewareQueue = require('./utils/server/middleware');
   // Definitions
@@ -28,7 +28,7 @@ module.exports = (usersModel, notesModel) => {
     .get(noteRoutes.GET)
     .post(noteRoutes.POST)
     .put(noteRoutes.NO_PUT);
-  //Notes route is protected. An authentication middleware that checks for JWT should exist in `useMiddlewareQueue`
+  //Notes route is protected. An authentication middleware that checks for JWT should exist in `useMiddlewareQueue`. Moreover, the routes depend on the `_id` embedded in the JWT to even function.
     
   server.route('/notes/:id')
     .get(noteIdRoutes.GET_ONE_BY_ID)

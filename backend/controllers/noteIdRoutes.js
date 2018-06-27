@@ -1,7 +1,7 @@
 const httpStatus = require('../utils/HTTPStatusCodes');
 const { validateNotePostBody } = require('../utils/controllers/controllerHelpers');
 
-module.exports = (notesModel) => {
+module.exports = (usersModel, notesModel) => {
   return {
     "GET_ONE_BY_ID": (req, res) => {
       const id = req.params.id;
