@@ -27,6 +27,30 @@ router.get('/', (req, res) => {
         });
 });
 
+router.get('/:id', (req, res) => {
+        const { id } = req.params;
+        User.findById(id)
+            .populate("notes", "-_id -__v -user")
+            .select('-password')
+            .then(foundUser => {
+
+                if (foundUser === null) {
+                    res.status(404).json({
+                            error: `No user with id${id} found. Can't retrieve it!`
+                        });
+                    return;
+                }
+                res.json({ requestedUser: foundUser });
+            })
+            .catch(err => {
+                res
+                    .status(500)
+                    .json({
+                        error: "The Uuer information could not be retrieved."
+                    });
+            });
+    })
+
 router.post('/register', function (req, res) {
     const { username, password } = req.body;
     if (!username || !password) {

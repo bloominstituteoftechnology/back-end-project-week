@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "../App.css";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { orderNote } from "../actions";
+import {  } from "../actions";
 
 
 
@@ -186,4 +186,4 @@ const mapStateToProps = state => {
 };
 
 
-export default connect(mapStateToProps, { orderNote })(Notes);
+export default connect(mapStateToProps, {  })(Notes);
