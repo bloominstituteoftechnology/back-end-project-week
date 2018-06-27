@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const setupMiddleware = require('./_config/middleware');
-const setupRoutes = require('./_config/setupRoutes');
+const setupRoutes = require('./_config/routes');
 
 const server = express();
 
