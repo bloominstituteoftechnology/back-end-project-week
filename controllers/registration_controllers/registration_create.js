@@ -1,5 +1,8 @@
+const jwt = require('jsonwebtoken');
+
 const User = require('../../database/models/UserModel');
-const { 
+const { JWT_SECRET } = process.env;
+const {
   successful: { created },
   clientError: { badRequest },
   serverError
@@ -9,10 +12,21 @@ const registrationCreate = (req, res) => {
   const user = ({ username, password } = req.body);
 
   User.create(user)
-    .then(() => {
-      res.status(created).json({
-        status: created,
-        statusMessage: 'Account successfully created.'
+    .then(user => {
+      // create a JWT
+      jwt.sign({ username: user.username }, JWT_SECRET, (err, token) => {
+        if (err)
+          return res.status(badRequest).json({
+            status: badRequest,
+            statusMessage: 'Error while attempting to create your web token. Try again in a few minutes'
+          });
+
+        // return JWT and more to user
+        res.status(201).json({
+          token,
+          status: created,
+          statusMessage: 'Account successfully created.'
+        });
       });
     })
     .catch(err => {
