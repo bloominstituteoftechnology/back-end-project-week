@@ -27,4 +27,7 @@ const NotesSchema = new mongoose.Schema({
   }
 });
 
+// Allows $text operator on these fields (?)
+NotesSchema.index({ title: 'text', text: 'text', tags: 'text' });
+
 module.exports = mongoose.model('Note', NotesSchema);
