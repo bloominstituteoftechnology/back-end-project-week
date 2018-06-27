@@ -15,8 +15,8 @@ router
     }
     User.create(req.body)
       .then((user) => {
-        res.status(201).json(user);
-        console.log(user);
+        const token = generateToken(user);
+        res.status(201).json({ user, token });
       })
       .catch(err => res.status(500).json({ error: err.message }));
   });
@@ -30,21 +30,34 @@ router.post('/login', (req, res) => {
           .validatePassword(password)
           .then(passwordsMatch => {
             if (passwordsMatch) {
-              res.status(200).json(user);
+              const token = generateToken(user);
+              res.status(200).json({ user, token });
             } else {
               res.status(401).send('invalid credentials');
+              console.log('bad password');
             }
           })
           .catch(err => {
             res.send('error comparing passwords');
+            console.log('error comparing passwords');
           });
       } else {
         res.status(401).send('invalid credentials');
+        console.log('no such user');
       }
     })
     .catch(err => {
       res.send(err);
+      console.log(err);
     });
 });
+
+function generateToken(user) {
+  const options = {
+    expiresIn: '1h',
+  };
+  const payload = { username: user.username };
+  return jwt.sign(payload, secret, options);
+}
 
 module.exports = router;
