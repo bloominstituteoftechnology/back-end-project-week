@@ -10,8 +10,20 @@ router
     middleware.getMiddleware(Note),
     (req, res) => {
       req.getResult.then(notes => {
-        if (notes) res.json({ notes });
-        else res.status(404).json({ errorMessage: "No documents found" });
+        if (!Array.isArray(notes)) notes = [notes];
+        console.log(notes);
+        console.log(req.jwtPayload.username);
+        notes = notes.filter(note => {
+          console.log(note + " compared to " + req.jwtPayload.username);
+          return (
+            note.owner === req.jwtPayload.username ||
+            req.jwtPayload.username === "root"
+          );
+        });
+
+        if (notes.length) {
+          res.json({ notes });
+        } else res.status(404).json({ errorMessage: "No documents found" });
       });
     }
   )
@@ -25,6 +37,7 @@ router
   )
   .put(
     middleware.authMiddleware,
+    middleware.ownerMiddleware(Note),
     middleware.sanitizeMiddleware("note"),
     middleware.putMiddleware(Note),
     (req, res) => {
@@ -33,6 +46,7 @@ router
   )
   .delete(
     middleware.authMiddleware,
+    middleware.ownerMiddleware(Note),
     middleware.deleteMiddleware(Note),
     (req, res) => {
       res.json(req.deleteResult);

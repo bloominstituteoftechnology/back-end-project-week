@@ -12,8 +12,8 @@ const generateToken = username => {
   return jwt.sign(payload, process.env.SECRET, options);
 };
 
-router.route("/").post((req, res) => {
-  const { username, password } = req.body;
+router.route("/").post(middleware.sanitizeMiddleware("user"), (req, res) => {
+  const { username, password } = req.saneBody;
 
   User.findOne({ username })
     .then(user => {

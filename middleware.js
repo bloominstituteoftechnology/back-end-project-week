@@ -6,7 +6,7 @@ const authMiddleware = (req, res, next) => {
     jwt.verify(token, process.env.SECRET, (err, decodedToken) => {
       req.jwtPayload = decodedToken;
       if (err) {
-        return res
+        res
           .status(401)
           .json({ message: "Invalid token.  Please log in again." });
       }
@@ -16,6 +16,19 @@ const authMiddleware = (req, res, next) => {
   } else {
     res.status(401).json({ message: "Please log in first." });
   }
+};
+
+const ownerMiddleware = goose => {
+  return async (req, res, next) => {
+    const target = await goose.findById(req.params.id);
+    if (
+      target &&
+      (target.owner === req.jwtPayload.username ||
+        req.jwtPayload.username === "root")
+    ) {
+      next();
+    } else res.status(422).json({ error: "No such document found" });
+  };
 };
 
 const getMiddleware = goose => {
@@ -91,6 +104,7 @@ const sanitizeMiddleware = type => {
     switch (type) {
       case "note":
         const note = ({ title, textBody } = req.body);
+        note.owner = req.jwtPayload.username;
         if (
           note.title === undefined ||
           note.textBody === undefined ||
@@ -104,6 +118,7 @@ const sanitizeMiddleware = type => {
         break;
       case "user":
         const user = ({ username, password } = req.body);
+        user.username = user.username.toLowerCase();
         if (user.username === undefined || user.password === undefined) {
           res
             .status(400)
@@ -128,5 +143,6 @@ module.exports = {
   postMiddleware: postMiddleware,
   putMiddleware: putMiddleware,
   deleteMiddleware: deleteMiddleware,
-  authMiddleware: authMiddleware
+  authMiddleware: authMiddleware,
+  ownerMiddleware: ownerMiddleware
 };
