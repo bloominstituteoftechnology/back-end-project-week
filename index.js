@@ -8,7 +8,7 @@ const db = require('./db/db');
 db.connectTo('lambda_notes_sandbox')
   .then(() => console.log('\n... API Connected to Database ...\n'))
   .catch(err => console.log('\n*** ERROR Connecting to Database ***\n', err));
-
+console.log(process.env);
 /**
  *  SERVER: Launch the API
  */
