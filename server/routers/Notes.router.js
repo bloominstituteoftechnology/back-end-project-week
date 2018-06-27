@@ -11,7 +11,7 @@ const RF = new RouterFactory(router, Notes);
 // Set Population
 RF.setPopulate({ users: { __v: 0, notes: 0, password: 0 } });
 
-RF.GET('/', sendUserNotes);
+// RF.GET('/', sendUserNotes);
 
 // Create all CRUD endpoints.
 RF.CRUD();
