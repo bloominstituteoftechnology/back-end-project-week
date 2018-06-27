@@ -1,17 +1,16 @@
 const router = require('express').Router();
-const jwt = require('jsonwebtoken');
-const secret = "toss me, but don't tell the elf!";
 
 const User = require('../users/User');
+const generateToken = require('../auth/token');
 
 router.post('/register', function(req, res) {
   User.create(req.body)
-    .then(({ username, race }) => {
+    .then(({ username, }) => {
       // we destructure the username and race to avoid returning the hashed password
-      const token = generateToken( { username, race });
+      const token = generateToken( { username });
 
       // then we assemble a new object and return it
-      res.status(201).json({ username, race, token });
+      res.status(201).json({ username, token });
     })
     .catch(err => res.status(500).json(err));
 });
@@ -46,16 +45,5 @@ router.post('/login', (req, res) => {
       res.send(err);
     });
 });
-
-function generateToken(user) {
-  const options = {
-    expiresIn: '1h',
-  };
-  const payload = { name: user.username, race: user.race };
-
-  // sign the token
-  return jwt.sign(payload, secret, options);
-}
-
 
 module.exports = router;

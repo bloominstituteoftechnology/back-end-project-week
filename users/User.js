@@ -14,7 +14,6 @@ const User = new mongoose.Schema({
       minlength: 4, // make this at least 12 in production
     }
   }
-
 );
 
 User.pre('save', function (next) {

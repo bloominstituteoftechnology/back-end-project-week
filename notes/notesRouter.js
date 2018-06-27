@@ -1,13 +1,14 @@
 const express = require('express');
+const router = express.Router();
 
+const restricted = require('../auth/restricted');
 const Note = require('./Note.js');
 
-const router = express.Router();
 
 //End Points
 router
   .route('/')
-  .post((req, res) => {
+  .post(restricted, (req, res) => {
     Note.create(req.body)
       .then(note => {
         res.status(201).json(note);
@@ -18,7 +19,7 @@ router
           .json({ message: 'Error saving data to the DB', error: err });
       });
   })
-  .get((req, res) => {
+  .get(restricted, (req, res) => {
     Note.find()
       .then(notes => {
         res.status(200).json(notes);
@@ -29,7 +30,7 @@ router
           .json({ message: 'Something really bad happened', error: err });
       });
   })
-  .put((req, res) => {
+  .put(restricted, (req, res) => {
     res.status(422).json({ message: 'Id not provided' });
   })
   .delete((req, res) => {
@@ -38,7 +39,7 @@ router
 
 router
   .route('/:id')
-  .get((req, res) => {
+  .get(restricted, (req, res) => {
     const { id } = req.params;
     Note.findById(id)
       .then(note => {
@@ -54,7 +55,7 @@ router
           .json({ message: 'Something really bad happened', error: err });
       });
   })
-  .put((req, res) => {
+  .put(restricted, (req, res) => {
     const { id } = req.params;
     const changes = req.body;
 
@@ -76,7 +77,7 @@ router
           .json({ message: 'Something really bad happened', error: err });
       });
   })
-  .delete((req, res) => {
+  .delete(restricted, (req, res) => {
     const { id } = req.params;
     Note.findByIdAndRemove(id)
       .then(note => {
@@ -88,6 +89,5 @@ router
        })
        .catch(err => res.status(500).json(err));
 });
-
 
 module.exports = router;
