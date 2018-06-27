@@ -1,7 +1,6 @@
 const router = require('express').Router();
 
 const User = require('./userModel');
-const jwt = require('jsonwebtoken');
 const secret = 'supersecretsauce';
 
 function generateToken(user) {
@@ -28,7 +27,9 @@ router.route('/register')
                 } else {
                     User.create({ username, password })
                         .then(newUser => {
-                            res.status(201).json(newUser);
+                            const token = generateToken(user);
+
+                            res.status(201).json(newUser, token);
                         })
                         .catch(err => {
                             res.status(500).json({ errorMessage: 'Could not create new user' })
