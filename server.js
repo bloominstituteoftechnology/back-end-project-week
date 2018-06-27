@@ -26,10 +26,17 @@ server.use(function(req, res, next) {
 mongoose.Promise = global.Promise;
 mongoose.connect(config.mongo)
 
+// auth me in babi
+const authRouter = require('./auth/authRoutes')
+server.use('/api/auth', authRouter);
 
 // route me in babi
 const noteRouter = require('./notes/noteRouter')
 server.use('/api/notes', noteRouter);
+
+// user me in babi
+const userRouter = require('./users/userRouter')
+server.use('/api/users', userRouter);
 
 
 
