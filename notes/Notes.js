@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const notesSchema = new mongoose.Schema({
     title: {
@@ -11,6 +12,7 @@ const notesSchema = new mongoose.Schema({
         required: true,
     },
     notesDate: String,
+    notesAuthor:[{type: ObjectId, ref: 'User'}]
 });
 
 notesSchema.methods.getNotesTitle = function () {

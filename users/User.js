@@ -1,13 +1,20 @@
 
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
+        required: true,
         unique: true,
     },
-    password: String,
+    password: {
+        type: String,
+        required: true,
+        minimumLength: 10,
+    },
+    Notes:[{type: ObjectId, ref: 'User'}]
 });
 
 userSchema.pre('save', function () {
@@ -22,5 +29,9 @@ userSchema.pre('save', function () {
             console.log(err);
         });
 });
+
+userSchema.methods.validatePassword = function (inputPassword) {
+    return bcrypt.compare(inputPassword, this.password);
+}
 
 module.exports = mongoose.model('User', userSchema);
