@@ -3,10 +3,12 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 const posts = require("./routes/posts");
 const users = require("./routes/users");
+const cors = require("cors");
 
 const app = express();
 app.use(express.json());
 app.use(passport.initialize());
+app.use(cors());
 
 require("./passport")(passport);
 
