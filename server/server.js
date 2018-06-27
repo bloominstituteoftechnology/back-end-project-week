@@ -39,7 +39,7 @@ server.use('/api/login', loginUser);
 server.use('/api/users', userRouter);
 
 // CONTROL ACCESS TO ONLY REGISTERED USERS
-server.use(utils.userHasToken);
+// server.use(utils.userHasToken);
 server.use('/api/notes', notesRouter);
 
 /**
