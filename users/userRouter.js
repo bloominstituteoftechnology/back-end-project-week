@@ -5,12 +5,16 @@ const User = require("./User.js");
 
 router
   .route(["/", "/:id"])
-  .get(middleware.getMiddleware(User), (req, res) => {
-    req.getResult.then(users => {
-      if (users) res.json({ users });
-      else res.status(404).json({ errorMessage: "No documents found" });
-    });
-  })
+  .get(
+    middleware.authMiddleware,
+    middleware.getMiddleware(User),
+    (req, res) => {
+      req.getResult.then(users => {
+        if (users) res.json({ users });
+        else res.status(404).json({ errorMessage: "No documents found" });
+      });
+    }
+  )
   .post(
     middleware.sanitizeMiddleware("user"),
     middleware.postMiddleware(User),
@@ -19,14 +23,19 @@ router
     }
   )
   .put(
+    middleware.authMiddleware,
     middleware.sanitizeMiddleware("user"),
     middleware.putMiddleware(User),
     (req, res) => {
       res.json(req.putResult);
     }
   )
-  .delete(middleware.deleteMiddleware(User), (req, res) => {
-    res.json(req.deleteResult);
-  });
+  .delete(
+    middleware.authMiddleware,
+    middleware.deleteMiddleware(User),
+    (req, res) => {
+      res.json(req.deleteResult);
+    }
+  );
 
 module.exports = router;
