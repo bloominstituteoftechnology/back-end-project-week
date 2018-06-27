@@ -6,9 +6,10 @@ const cors = require('cors');
 /**
  * IMPORT ROUTERS: import any needed Router.
  */
-const notesRouter = require('./routers/Notes.router');
 const registerUser = require('../auth/register.router');
+const loginUser = require('../auth/loign.router');
 const userRouter = require('./routers/User.router');
+const notesRouter = require('./routers/Notes.router');
 
 /**
  * DEFINE: Server.
@@ -33,6 +34,7 @@ server.use(express.json());
 server.get('/', (req, res) => res.send('API Running...'));
 
 server.use('/api/register/', registerUser);
+server.use('/api/login', loginUser);
 server.use('/api/users', userRouter);
 
 server.use('/api/notes', notesRouter);
