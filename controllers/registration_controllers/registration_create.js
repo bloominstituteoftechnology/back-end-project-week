@@ -9,8 +9,7 @@ const registrationCreate = (req, res) => {
   const user = ({ username, password } = req.body);
 
   User.create(user)
-    .then(user => {
-      console.log(user);
+    .then(() => {
       res.status(created).json({
         status: created,
         statusMessage: 'Account successfully created.'

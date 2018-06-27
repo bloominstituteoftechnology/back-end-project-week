@@ -1,2 +1,4 @@
 node_modules
+
 connection.js
+.env*
