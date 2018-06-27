@@ -1,4 +1,5 @@
 const userRoutes = require('../../server/userController');
+const port = process.env.PORT || 3333;
 
 module.exports = function(server) {
     //sanity check route

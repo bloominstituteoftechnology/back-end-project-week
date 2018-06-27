@@ -5,14 +5,15 @@ const NoteSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
+        index: true,
     },
     body: {
         type: String,
         required: true,
+        index: true,
     },
     createdAt: {
         type: Date,
-        required: true,
         default: Date.now(),
     },
     user: {
@@ -21,6 +22,6 @@ const NoteSchema = new mongoose.Schema({
     }
 });
 
-const notesModel = mongoose.model('Note', NoteSchema);
+const noteModel = mongoose.model('Note', NoteSchema);
 
-module.exports = notesModel; 
+module.exports = noteModel; 

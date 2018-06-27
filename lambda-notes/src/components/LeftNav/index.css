@@ -1,0 +1,36 @@
+.nav_container {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    width: 220px;
+    min-width: 220px;
+    max-width: 220px;
+    /* height: 90vh; */
+    height: 100vh;
+    background-color: #D3D3D3;
+    border: 1px solid rgb(122, 122, 122);
+    border-radius: 0.1rem;
+}
+
+.nav_header {
+    margin: 0; /* to remove default h1 maring;*/
+}
+
+.nav_buttons_container {
+    margin: 0.5rem 0 0 0 ;
+    display: flex;
+    flex-direction: column; /* default flex direction is 'row' */
+}
+
+.nav_button {
+    display: flex; /*To center text inside divButtons*/ 
+    justify-content: center; 
+    align-items: center;
+    font-weight: 600; 
+    color: white; 
+    background-color: #23B8BE;
+    border: 1px solid white;
+    margin: 0.5rem 0; 
+    height: 40px;
+    border-radius: 0.1rem;
+}

@@ -52,6 +52,6 @@ UserSchema.methods.validatePassword = function(passwordGuess) {
 };
 
 
-const usersModel = mongoose.model('User', UserSchema);
+const userModel = mongoose.model('User', UserSchema);
 
-module.exports = usersModel;
+module.exports = userModel;
