@@ -1,3 +1,7 @@
+# Frontend
+https://lambda-notes-93fbe.firebaseapp.com/
+- Repo: https://github.com/bbenefield89/front-end-project-week
+
 # Trello  
 https://trello.com/b/gIGKLfr2/lambda-notes-backend-brandon
 
