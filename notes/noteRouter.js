@@ -24,9 +24,8 @@ router
             Note.find({
                 user: ObjectId(id)
             })
-            .populate('user')
-                .then(note => res.json(note))
-                .catch(err => res.status(500).json({ error: err.message }))
+            .then(note => res.json(note))
+            .catch(err => res.status(500).json({ error: err.message }))
         })
         .delete((req, res) => {
             const { id } = req.params;

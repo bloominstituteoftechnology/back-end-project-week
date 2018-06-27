@@ -1,4 +1,5 @@
 const express = require('express'); 
+require('dotenv').config();
 const cors = require('cors');
 const mongoose = require('mongoose');
 
@@ -19,7 +20,7 @@ server.get('/', (req, res) => {
 const port = process.env.PORT || 5000;
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/notesApp', {}, err => {
+mongoose.connect(`${process.env.mongo}`, {}, err => {
   if (err) console.log(err);
   console.log('Mongoose connected us to our DB');
 });
