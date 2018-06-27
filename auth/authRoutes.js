@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
-const User = require('../users/User');
+const User = require('../users/userRoutes');
 
 const secret = "toss me, but don't tell the elf!";
 

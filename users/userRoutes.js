@@ -2,7 +2,7 @@ const router = require('express').Router();
 const mongoose = require('mongoose');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-const User = require('./User');
+const User = require('../models/userModel');
 
 function restricted(req, res, next) {
   const token = req.headers.authorization;

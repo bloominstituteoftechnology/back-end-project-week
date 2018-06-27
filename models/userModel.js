@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 
 
-const UserSchema = Schema({
+const userSchema = Schema({
 
   username: {
     type: String,
@@ -43,4 +43,4 @@ userSchema.methods.validatePassword = function (passwordGuess) {
   return bcrypt.compare(passwordGuess, this.password);
 };
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('userModel', userSchema);

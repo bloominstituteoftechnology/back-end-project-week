@@ -1,6 +1,6 @@
 const userRoutes = require('../users/userRoutes');
 const authRoutes = require('../auth/authRoutes');
-const noteRoutes = require('../notes/noteRoutes')
+const noteRoutes = require('../notes/notesRoutes')
 
 module.exports = function (server) {
   server.get('/', function (req, res) {
