@@ -20,58 +20,68 @@ const taskSchema = new mongoose.Schema({
   description: {
     type: String
   },
-  assignee: {
-    type: [ObjectId],
-    ref: 'User',
-    validate: {
-      isAsync: true,
-      validator: (val, cb) => objectIdValid('User', val, cb),
-      message: 'Must be an id for an existing user'
+  assignee: [
+    {
+      type: ObjectId,
+      ref: 'User',
+      validate: {
+        isAsync: true,
+        validator: (val, cb) => objectIdValid('User', val, cb),
+        message: 'Must be an id for an existing user'
+      }
     }
-  },
+  ],
   dueDate: {
     type: Date
   },
-  subtasks: {
-    type: [ObjectId],
-    ref: 'Subtask',
-    validate: {
-      isAsync: true,
-      validator: (val, cb) => objectIdValid('Subtask', val, cb),
-      message: 'Must be and id for an existing subtask'
+  subtasks: [
+    {
+      type: ObjectId,
+      ref: 'Subtask',
+      validate: {
+        isAsync: true,
+        validator: (val, cb) => objectIdValid('Subtask', val, cb),
+        message: 'Must be and id for an existing subtask'
+      }
     }
-  },
-  tags: {
-    type: [ObjectId],
-    ref: 'Tag',
-    validate: {
-      isAsync: true,
-      validator: (val, cb) => objectIdValid('Tag', val, cb),
-      message: 'Must be an id for an existing tag'
+  ],
+  tags: [
+    {
+      type: ObjectId,
+      ref: 'Tag',
+      validate: {
+        isAsync: true,
+        validator: (val, cb) => objectIdValid('Tag', val, cb),
+        message: 'Must be an id for an existing tag'
+      }
     }
-  },
+  ],
   completed: {
     type: Boolean,
     default: false
   },
-  comments: {
-    type: [ObjectId],
-    ref: 'Comment',
-    validate: {
-      isAsync: true,
-      validator: (val, cb) => objectIdValid('Comment', val, cb),
-      message: 'Must be an id for an existing user'
+  comments: [
+    {
+      type: ObjectId,
+      ref: 'Comment',
+      validate: {
+        isAsync: true,
+        validator: (val, cb) => objectIdValid('Comment', val, cb),
+        message: 'Must be an id for an existing user'
+      }
     }
-  },
-  attachments: {
-    type: [ObjectId],
-    ref: 'Attachment',
-    validate: {
-      isAsync: true,
-      validator: (val, cb) => objectIdValid('Attachment', val, cb),
-      message: 'Must be an id for an existing attachment'
+  ],
+  attachments: [
+    {
+      type: ObjectId,
+      ref: 'Attachment',
+      validate: {
+        isAsync: true,
+        validator: (val, cb) => objectIdValid('Attachment', val, cb),
+        message: 'Must be an id for an existing attachment'
+      }
     }
-  }
+  ]
 });
 
 module.exports = mongoose.model('Task', taskSchema);

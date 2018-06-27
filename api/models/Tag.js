@@ -15,8 +15,7 @@ const tagSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   color: {
     type: String,
