@@ -31,7 +31,7 @@ User.pre('save', function(next) {
     });
 });
 
-User.method.validatePassword = function(noHashedPassword) {
+User.methods.validatePassword = function(noHashedPassword) {
   return bcrypt.compare(noHashedPassword, this.password);
 };
 
