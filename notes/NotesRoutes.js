@@ -1,12 +1,14 @@
-// const Notes = require('./notes/Notes');
-
 const express = require('express');
-const cors = require('cors');
+const Notes = require('./Notes');
+const router = express.Router();
+
 
 let ObjectID = require('mongodb').ObjectID;
 
 
-router.route('api/notes').post((req, res) => {
+
+//create note with title and content.
+router.post('/api/notes',(req, res) => {
     const note = { title: req.body.body, content: req.body.text };
     db.collection('Notes').insert(note, (err, results) => { 
         if (err) {
@@ -17,7 +19,7 @@ router.route('api/notes').post((req, res) => {
     })
 });
 
-router.route('/api/notes/:id').get((req, res) => {
+router.get('/api/notes/:id',(req, res) => {
     const id = req.params.id;
     const details = { '_id': new ObjectID(id) };
     db.collection('Notes').findOne(details, (err, item) => {
@@ -29,8 +31,8 @@ router.route('/api/notes/:id').get((req, res) => {
     });
 });
 
-
-router.route('/api/notes/:id').delete((req, res) => {
+//remove a note
+router.delete('/api/notes/:id',(req, res) => {
     const id = req.params.id;
     const details = { '_id': new ObjectID(id) };
     db.collection('Notes').remove(details, (err, item) => {
@@ -42,7 +44,8 @@ router.route('/api/notes/:id').delete((req, res) => {
     });
 });
 
-router.route('/api/notes/:id').put((req, res) => {
+//Edit a note
+router.put('/api/notes/:id',(req, res) => {
     const id = req.params.id;
     const details = { '_id': new ObjectID(id) };
     const note = { title: req.body.body, content: req.body.text };
@@ -52,9 +55,15 @@ router.route('/api/notes/:id').put((req, res) => {
         } else {
             res.send('Notes' + id + 'deleted!!!');
         }
+        // .catch (err => {
+        //     res
+        //         .status(500)
+        //         .json({ message: 'ERROR', error: err });
+        // });
     });
+    
 });
 
 
-// module.exports = function (app, db) { };
-module.exports = NotesRoutes;
+
+module.exports = router;
