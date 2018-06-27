@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const NotesSchema = new mongoose.Schema({
@@ -29,5 +30,7 @@ const NotesSchema = new mongoose.Schema({
 
 // Allows $text operator on these fields (?)
 NotesSchema.index({ title: 'text', text: 'text', tags: 'text' });
+// Mongoose Paginate! Will it work?
+schema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Note', NotesSchema);
