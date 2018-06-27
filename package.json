@@ -7,6 +7,10 @@
   "author": "jean surkouf ariza varela",
   "license": "MIT",
   "private": false,
+  "scripts": {
+    "start": "index.js",
+    "nodemon": "nodemon index.js"
+  },
   "dependencies": {
     "bcrypt": "^2.0.1",
     "cors": "^2.8.4",
