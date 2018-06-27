@@ -14,7 +14,7 @@ router
                 res.status(201).json({ note })
             })
             .catch(err =>{ 
-                conole.log(err)
+                console.log(err)
                 res.status(500).json({errorMessage : err})
             })
     })

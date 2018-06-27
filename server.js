@@ -12,15 +12,13 @@ const getNote = require('./backend/getNote/getNote.js');
 const createNote = require('./backend/createNote/createNote.js')
 const deleteNote = require('./backend/deleteNote/deleteNote.js')
 const editNote = require('./backend/editNote/editNote.js')
-
-
-const Notes = require('./backend/notesModel/notesModel.js')
-
+const userLogin = require('./backend/users/userController.js')
 
 server.use('/api/get', getNote);
 server.use('/api/create', createNote);
 server.use('/api/delete', deleteNote);
 server.use('/api/edit', editNote);
+server.use('/api/user/', userLogin);
 
 
 server.get('/', (req, res)=>{
