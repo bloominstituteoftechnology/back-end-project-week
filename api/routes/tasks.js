@@ -4,7 +4,9 @@ const { sendErrorMessage } = require('../utils/sendErrorMessage');
 
 router
   .post('/', (req, res) => {
-    Task.create(req.body)
+    const newTask = req.body;
+
+    Task.create(newTask)
       .then(task => {
         res.status(201).json(task);
       })
@@ -13,7 +15,7 @@ router
       });
   })
   .get('/', (req, res) => {
-    Task.find({})
+    Task.find()
       .then(tasks => {
         res.status(200).json(tasks);
       })
@@ -44,12 +46,13 @@ router
   })
   .put('/:id', (req, res) => {
     const { id } = req.params;
+    const updatedTask = req.body;
     const options = {
       new: true,
       runValidators: true
     };
 
-    Task.findByIdAndUpdate(id, req.body, options)
+    Task.findByIdAndUpdate(id, updatedTask, options)
       .then(updatedTask => {
         if (updatedTask) {
           res.status(200).json(updatedTask);
@@ -67,7 +70,6 @@ router
         );
       });
   });
-
 
 //   .delete();
 
