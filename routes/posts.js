@@ -8,6 +8,7 @@ const User = require("../models/User");
 router.get("/", passport.authenticate("jwt", {session: false}),(req, res) => {
   const currentUserId = req.user.id;
   Post.find()
+    .populate("user")
     // get by latest
     .sort({date: -1 })
     .then(posts => {
@@ -139,6 +140,20 @@ router.put("/:id", passport.authenticate("jwt", {session: false}), (req,res) => 
     })
     .catch(err => {
       res.status(500).json({msg: err.message});
+    })
+})
+
+router.get("/friends/:id", passport.authenticate("jwt", {session: false}), (req, res) => {
+  const { id } = req.params;
+  Post.find({user: id})
+    .then(friendPosts => {
+      let filterOutPrivate = friendPosts.filter(post => {
+        return post.private !== true; 
+      })
+      res.json(filterOutPrivate);
+    })
+    .catch(err => {
+      res.status(500).json({error: err.message});
     })
 })
 
