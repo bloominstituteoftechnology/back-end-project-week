@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "../App.css";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import {  } from "../actions";
+import { fetchNotes } from "../actions";
 
 
 
@@ -16,9 +16,11 @@ class Notes extends Component {
     token: ''
   };
   
-  // componentWillMount() {
-    
-  // }
+  componentDidMount() {
+    let userId = localStorage.getItem('userId')
+    if(userId) this.props.fetchNotes(userId)
+
+  }
 
   logout = () => {
     if (localStorage.getItem('token')) {
@@ -88,6 +90,7 @@ class Notes extends Component {
   };
 
   render() {
+    console.log(this.props.notes )
     if(!localStorage.getItem('token')){
       return <div>Notes are private. You may be able to view it by <a href='/login'>logging in.</a> Don't have an account? <a href='/signup'>Signup here.</a></div>     
     }
@@ -146,10 +149,10 @@ class Notes extends Component {
           {filteredNotes.map(note => {
             return (
               <Link
-                to={`notes/${note.id}`}
-                key={note.id}
+                to={`notes/${note._id}`}
+                key={note._id}
                 className="link-wrap note"
-                id={note.id}
+                id={note._id}
                 onMouseUp={this.savedPosition}
               >
                 <div className="card mb-sm-4 col-sm-3 ui-state-default">
@@ -181,9 +184,9 @@ class Notes extends Component {
 
 const mapStateToProps = state => {
   return {
-    notes: state
+    notes: state[0].requestedUser.notes
   };
 };
 
 
-export default connect(mapStateToProps, {  })(Notes);
+export default connect(mapStateToProps, { fetchNotes })(Notes);

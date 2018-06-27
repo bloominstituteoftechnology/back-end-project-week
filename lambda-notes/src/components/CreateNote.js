@@ -1,14 +1,21 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { createNote } from "../actions";
+// import { createNote } from "../actions";
+import axios from "axios";
+
 
 
 
 class CreateNote extends Component {
   state = {
-    title: '', content: ''
+    title: '', content: '', userId: ''
   };
 
+  componentDidMount() {
+    this.setState({
+      userId: localStorage.getItem('userId')
+    })
+  }
 
 
   handleNoteInput = e => {
@@ -19,10 +26,15 @@ class CreateNote extends Component {
 
   handleSave = e => {
       e.preventDefault();
-      this.props.createNote(this.state);
-      this.setState({ title: "", content: ""});
-    //   this.props.history.push('/');
-    window.location.href="/";
+      let token = localStorage.getItem('token');
+      axios.post(`http://localhost:5000/notes`, this.state, {headers: { authorization: token } })
+        .then(() => {
+          this.setState({ title: "", content: ""});
+          this.props.history.push('/');
+        })
+        .catch(err => {
+          console.log(err.message)
+        })
   }
 
   render() {
@@ -47,4 +59,4 @@ class CreateNote extends Component {
 
 }
 
-export default connect(null, { createNote })(CreateNote);
+export default connect(null, { })(CreateNote);

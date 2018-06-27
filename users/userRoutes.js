@@ -2,16 +2,16 @@ const router = require('express').Router();
 const jwt = require('jsonwebtoken');
 const User = require('../users/UserModel');
 const config = require('../config');
+const bcrypt = require('bcrypt');
+
 
 const secret = config.secret;
 
 function generateToken(user) {
     const options = {
-        expiresIn: '1h',
+        expiresIn: '1y',
     };
     const payload = { name: user.username };
-
-
     return jwt.sign(payload, secret, options); //returns the token
 }
 
@@ -30,10 +30,9 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
         const { id } = req.params;
         User.findById(id)
-            .populate("notes", "-_id -__v -user")
+            .populate("notes", "-user")
             .select('-password')
             .then(foundUser => {
-
                 if (foundUser === null) {
                     res.status(404).json({
                             error: `No user with id${id} found. Can't retrieve it!`
@@ -51,18 +50,28 @@ router.get('/:id', (req, res) => {
             });
     })
 
+
+
 router.post('/register', function (req, res) {
     const { username, password } = req.body;
     if (!username || !password) {
         res.status(400).json({ error: "Can't submit an empty field!" });
         return;
     }
-    User.create(req.body)
-        .then(({ username }) => {
-            const token = generateToken({ username });
-            res.status(201).json({ username, token });
-        })
-        .catch(err => res.status(500).json(err));
+    bcrypt.hash(password, 10)
+            .then(hash => {
+                User.create({ username, password: hash})
+                    .then(({ username }) => {
+                        const token = generateToken({ username });
+                        res.status(201).json({ username, token });
+                    })
+                    .catch(err => res.status(500).json(err));
+            })
+            .catch(err => {
+                console.log({ error: err })
+            });
+    const newUser =  new User;
+    
 });
 
 router.post('/login', (req, res) => {
@@ -76,7 +85,6 @@ router.post('/login', (req, res) => {
                             const { _id } = user
                             const { username } = user
                             const token = generateToken(user)
-                            // req.headers.authorization = token
                             res.status(200).json({ 
                                 message: `welcome ${username}!`,
                                 token, 
@@ -95,19 +103,6 @@ router.post('/login', (req, res) => {
         })
 })
 
-router.get('/logout', (req, res) => {
-    const token = req.headers.authorization;
-    console.log(req.headers)
-    if (token) {
-        token.destroy(err => {
-            if (err) {
-                res.send('error logging out');
-            } else {
-                res.send('Good bye, please come back again!');
-            } 
-        });
-    }
-});
 
 
 

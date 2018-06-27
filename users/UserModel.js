@@ -18,20 +18,24 @@ const userSchema = new mongoose.Schema({
         type: ObjectId,
         ref: 'Note'
     }]
-
 });
 
-userSchema.pre('save', function (next) {
-    return bcrypt
-        .hash(this.password, 10)
-        .then(hash => {
-            this.password = hash;
-            return next();
-        })
-        .catch(err => {
-            return next(err);
-        });
-});
+// ---------------
+//pre doesnt work cuz everytime we add a note to a user, it hashes the password again so u cant 
+//log in 
+
+
+// userSchema.methods.hashPassword = function(password) {
+//     return bcrypt
+//         .hash(password, 10)
+//         .then(hash => {
+//             this.password = hash;
+//             return next();
+//         })
+//         .catch(err => {
+//             return next(err);
+//         });
+// };
 
 userSchema.methods.validatePassword = function (passwordGuess) {
     return bcrypt.compare(passwordGuess, this.password);
@@ -43,6 +47,7 @@ userSchema.methods.addNote = function(note_id) {
     arr.push(note_id)
     this.notes = arr
     console.log(this.notes)
+    return;
 }
 
 
