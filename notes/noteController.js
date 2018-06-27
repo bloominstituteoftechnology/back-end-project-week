@@ -1,6 +1,25 @@
 const router = require('express').Router();
 
 const Notes = require('./noteModel');
+const jwt = require('jsonwebtoken');
+const secret = 'supersecretsauce';
+
+function restricted(req, res, next) {
+    const token = req.headers.authorization;
+
+    if (token) {
+        jwt.verify(token, secret, (err, decodedToken) => {
+            req.jwtPayload = decodedToken;
+            if (err) {
+                return res.status(401).json({ errorMessage: 'Please Sign In' })
+            }
+
+            next();
+        })
+    } else {
+        res.status(401).json({ errorMessage: 'Please Sign In' });
+    }
+}
 
 // base route = '/note'
 

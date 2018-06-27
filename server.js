@@ -3,10 +3,11 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 const noteController = require('./notes/noteController');
+const userController = require('./users/userController');
 
 const server = express();
 
-server.use(cors({ origin: 'http://localhost:3000'}));
+server.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 server.use(express.json());
 
 server.get('/', (req, res) => {
@@ -14,6 +15,7 @@ server.get('/', (req, res) => {
 });
 
 server.use('/note', noteController);
+server.use('/user', userController);
 
 const port = process.env.PORT || 5000;
 
