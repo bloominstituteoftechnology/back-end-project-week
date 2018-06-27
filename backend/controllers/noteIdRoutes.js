@@ -43,7 +43,15 @@ module.exports = (notesModel) => {
             res.status(httpStatus.notFound).json({ error: "404: Not Found\nThe note with the specified ID cannot be found. The note is likely to have changed or not exist, though you may double check the ID in the URL for errors." });
             return;
           }
-          res.status(httpStatus.OK).json(note);
+          usersModel.update({ _id: note.author }, { $pull: { notes: note._id }})
+          .then(() => {
+            res.status(httpStatus.OK).json(note);
+          })
+          .catch(error => {
+            console.log('noteRoutes--POST ERROR:',error); 
+            res.status(500).json(error);
+          });
+
         })
         .catch(error => {
           console.log('noteRoutes--PUT ERROR:',error);
