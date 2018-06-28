@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const Project = require('../models/Project');
+const Tag = require('../models/Tag');
 const { sendErr, sendRes } = require('../utils/apiResponses');
 
 router
@@ -38,6 +39,17 @@ router
         sendErr(res, err, `The project with id ${id} could not be retrieved.`);
       });
   })
+  .get('/:id/tags', (req, res) => {
+    const { id } = req.params;
+
+    Tag.find({ project: id })
+      .then(tags => {
+        sendRes(res, '200', tags);
+      })
+      .catch(err => {
+        sendErr(res, err, `The tags for project ${id} could not be retrieved.`);
+      });
+  })
   .put('/:id', (req, res) => {
     const { id } = req.params;
     const updatedProject = req.body;
@@ -61,7 +73,11 @@ router
 
     Project.findByIdAndRemove(id)
       .then(deletedProject => {
-        sendRes(res, '200', deletedProject ? { _id: deletedProject._id } : null);
+        sendRes(
+          res,
+          '200',
+          deletedProject ? { _id: deletedProject._id } : null
+        );
       })
       .catch(err => {
         sendErr(res, err, `The project with id ${id} could not be removed.`);
