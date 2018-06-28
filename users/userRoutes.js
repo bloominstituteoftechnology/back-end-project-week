@@ -1,18 +1,21 @@
+require('dotenv').config();
+
+
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
 const User = require('../users/UserModel');
-const config = require('../config');
+// const config = require('../config');
 const bcrypt = require('bcrypt');
 
 
-const secret = config.secret;
+// const secret = config.secret;
 
 function generateToken(user) {
     const options = {
         expiresIn: '1y',
     };
     const payload = { name: user.username };
-    return jwt.sign(payload, secret, options); //returns the token
+    return jwt.sign(payload, process.env.jwtSecret, options); //returns the token
 }
 
 router.get('/', (req, res) => {
