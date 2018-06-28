@@ -18,6 +18,81 @@ tags:
   - name: users
     description: Create and manage users and user settings. Handle user sessions.
 paths:
+  /api/comments:
+    post:
+      tags:
+        - comments
+      summary: Create a new comment
+      operationId: createComment
+      requestBody:
+        description: New comment object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Comment'
+      responses:
+        '201':
+          description: Successfully created new comment
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Comment'
+        '400':
+          $ref: '#components/responses/400BadRequest'
+        '500':
+          $ref: '#components/responses/500InternalServerError'
+  /api/comments/{commentId}:
+    put:
+      tags:
+        - comments
+      summary: Update an existing comment. Replaces entire object.
+      operationId: updateComment
+      requestBody:
+        description: Updated comment object
+        required: 'true'
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Comment'
+      parameters:
+        - $ref: '#/components/parameters/commentId'
+      responses:
+        '200':
+          description: Successfully updated comment
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Comment'
+        '400':
+          $ref: '#components/responses/400BadRequest'
+        '404':
+          $ref: '#components/responses/404NotFound'
+        '500':
+          $ref: '#components/responses/500InternalServerError'
+    delete:
+      tags:
+        - comments
+      summary: Delete a comment
+      operationId: deleteComment
+      parameters:
+        - $ref: '#/components/parameters/commentId'
+      responses:
+        '200':
+          description: Successfully deleted comment
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                example:
+                  _id: 5b3472c43d17952525612f9a
+        '404':
+          $ref: '#components/responses/404NotFound'
+        '500':
+          $ref: '#components/responses/500InternalServerError'
   /api/projects:
     post:
       tags:
@@ -522,6 +597,27 @@ paths:
           $ref: '#components/responses/404NotFound'
         '500':
           $ref: '#components/responses/500InternalServerError'
+  /api/tasks/{taskId}/comments:
+    get:
+      tags:
+        - tasks
+      summary: Get comments by task id
+      operationId: getCommentsByTaskId
+      parameters:
+        - $ref: '#/components/parameters/taskId'
+      responses:
+        '200':
+          description: Successfully returned array of comments for specified task
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Comment'
+        '404':
+          $ref: '#components/responses/404NotFound'
+        '500':
+          $ref: '#components/responses/500InternalServerError'
   /api/users:
     post:
       tags:
@@ -713,10 +809,16 @@ components:
     Comment:
       title: Comment
       required:
+        - task
         - comment
         - author
         - date
       properties:
+        task:
+          description: Id of existing task that comment belongs to
+          type: string
+          format: objectId
+          example: 5b33e5328f5db17933878482
         comment:
           description: Comment body
           type: string
@@ -836,13 +938,6 @@ components:
           type: Boolean
           example: false
           default: false
-        comments:
-          description: Array of comment id's belonging to task
-          type: array
-          items:
-            type: string
-            format: objectId
-          example: ['5b1ed13e8cea93c6ba72b1da', '5b1ed13e8cea93c6ba72b1db', '5b1ed13e8cea93c6ba72b1dc']
         attachments:
           description: Array of attachment id's belonging to task
           type: array
@@ -882,6 +977,15 @@ components:
   # Reusable operation parameters
   #-------------------------------
   parameters:
+    commentId:
+      name: commentId
+      in: path
+      description: The comment id assigned by the database
+      required: true
+      schema:
+        type: string
+        format: objectId
+      example: 5b3472c43d17952525612f9a
     projectId:
       name: projectId
       in: path
