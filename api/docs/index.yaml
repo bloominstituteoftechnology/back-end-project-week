@@ -138,12 +138,7 @@ paths:
       summary: Get project by id
       operationId: getProjectById
       parameters:
-      - in: path
-        name: projectId
-        schema:
-          type: string
-        required: true
-        description: The project id
+        - $ref: '#/components/parameters/projectId'
       responses:
         '200':
           description: Successfully returned project
@@ -213,12 +208,7 @@ paths:
             schema:
               $ref: '#components/schemas/Project'
       parameters:
-      - in: path
-        name: projectId
-        schema:
-          type: string
-        required: 'true'
-        description: The project id
+        - $ref: '#/components/parameters/projectId'
       responses:
         '200':
           description: Successfully updated project
@@ -292,12 +282,7 @@ paths:
       summary: Delete a project
       operationId: deleteProject
       parameters:
-      - in: path
-        name: projectId
-        schema:
-          type: string
-        required: 'true'
-        description: The project id
+        - $ref: '#/components/parameters/projectId'
       responses:
         '200':
           description: Successfully deleted project
@@ -406,12 +391,7 @@ paths:
       summary: Get task by id
       operationId: getTaskById
       parameters:
-      - in: path
-        name: taskId
-        schema:
-          type: string
-        required: true
-        description: The task id
+        - $ref: '#/components/parameters/taskId'
       responses:
         '200':
           description: Successfully returned task
@@ -454,12 +434,7 @@ paths:
             schema:
               $ref: '#components/schemas/Task'
       parameters:
-      - in: path
-        name: taskId
-        schema:
-          type: string
-        required: true
-        description: The task id
+        - $ref: '#/components/parameters/taskId'
       responses:
         '200':
           description: Successfully updated task
@@ -506,12 +481,7 @@ paths:
       summary: Delete a task
       operationId: deleteTask
       parameters:
-      - in: path
-        name: taskId
-        schema:
-          type: string
-        required: true
-        description: The task id
+        - $ref: '#/components/parameters/taskId'
       responses:
         '200':
           description: Successfully deleted task
@@ -653,12 +623,7 @@ paths:
       summary: Get user by id
       operationId: getUserById
       parameters:
-      - in: path
-        name: userId
-        schema:
-          type: string
-        required: 'true'
-        description: The user id
+        - $ref: '#/components/parameters/userId'
       responses:
         '200':
           description: Successfully returned user
@@ -715,12 +680,7 @@ paths:
             schema:
               $ref: '#components/schemas/User'
       parameters:
-      - in: path
-        name: userId
-        schema:
-          type: string
-        required: 'true'
-        description: The user id
+        - $ref: '#/components/parameters/userId'
       responses:
         '200':
           description: Successfully updated user
@@ -782,12 +742,7 @@ paths:
       summary: Deletes a user
       operationId: deleteUser
       parameters:
-      - in: path
-        name: userId
-        schema:
-          type: string
-        required: 'true'
-        description: The user id
+        - $ref: '#/components/parameters/userId'
       responses:
         '200':
           description: Successfully deleted user
@@ -823,6 +778,9 @@ paths:
                 example:
                   error: The user with id ${ID} could not be removed.
 components:
+  #-------------------------------
+  # Reusable schemas (data models)
+  #-------------------------------
   schemas:
     Attachment:
       title: Attachment
@@ -1007,3 +965,39 @@ components:
           format: password
           minLength: 8
           example: Password@1
+  #-------------------------------
+  # Reusable operation parameters
+  #-------------------------------
+  parameters:
+    projectId:
+      name: projectId
+      in: path
+      description: The project id assigned by the database
+      required: true
+      schema:
+        type: string
+        format: objectId
+      example: 5b33c45d8d8bf66d4d44f1ec
+    taskId:
+      name: taskId
+      in: path
+      description: The task id assigned by the database
+      required: true
+      schema:
+        type: string
+        format: objectId
+      example: 5b33e2dfc55019773e08217d
+    userId:
+      name: userId
+      in: path
+      description: The user id assigned by the database
+      required: true
+      schema:
+        type: string
+        format: objectId
+      example: 5b31ce106d04832fd1e51f59
+  #-------------------------------
+  # Reusable responses
+  #-------------------------------
+  responses:
+
