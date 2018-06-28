@@ -1,4 +1,5 @@
-const router = require('express').Router();
+const express = require("express");
+const router = express.Router();
 // const mongoose = require('mongoose');
 // const server = express();
 
@@ -25,7 +26,8 @@ function restricted (req, res, next) {
     }
 }
 
-router.get('/', restricted, (req, res) => {
+module.exports = getUser = router.get('/user', restricted, (req, res) => {
+    
     User.find()
     .select('password')
     .then(users => {
@@ -36,4 +38,21 @@ router.get('/', restricted, (req, res) => {
     });
 });
 
-module.exports = router;
+module.exports = createUser = (req, res) => {
+    const { userName, password} = req.body;
+    User.create({ userName, password})
+    .then(user => {
+        const payload = {
+            userName: user.userName
+        };
+        const token = jswt.sign(payload, secret);
+        res.status(201).json({ user: user.userName, token});
+    })
+    .catch(err => res.status(500).json(err));
+
+};
+
+function restricted (user) {
+
+}
+

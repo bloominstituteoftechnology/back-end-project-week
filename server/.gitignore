@@ -9,3 +9,5 @@ node_modules/
 
 # front-end app
 lambda-notes/
+
+.env

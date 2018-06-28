@@ -1,4 +1,4 @@
-const express  = require('express');
+const express = require('express');
 const port = process.env.PORT || 3333;
 
 const setupMiddleware = require('./_config/middleware');
@@ -14,7 +14,7 @@ db.connectTo('dbLambdaNotes')
   .then(() => {
     console.log('\n... API Connected to dbLambdaNotes Database ...\n');
     server.listen(`${port}`, () =>
-      console.log('\n=== API running on port 3333 ===\n')
+      console.log(`API running on port ${port}`)
     );
   })
   .catch(err => {
