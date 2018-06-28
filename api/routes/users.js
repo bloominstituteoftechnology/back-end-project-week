@@ -32,6 +32,39 @@ router
         sendErr(res, err, 'The user could not be created.');
       });
   })
+  .post('/login', (req, res) => {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      sendErr(res, 'ValidationError', 'Email and password required.');
+      return;
+    }
+
+    User.findOne({ email })
+      .then(user => {
+        if (user) {
+          user.isValidPassword(password).then(login => {
+            if (login) {
+              const fullName = `${user.firstName} ${user.lastName}`;
+              const token = generateToken({
+                userid: user._id,
+                name: fullName,
+                email: user.email
+              });
+
+              sendRes(res, '200', { name: fullName, token });
+            } else {
+              sendErr(res, '401', 'Invalid credentials');
+            }
+          });
+        } else {
+          sendErr(res, '401', 'Invalid credentials');
+        }
+      })
+      .catch(err => {
+        sendErr(res, err, err.message);
+      });
+  })
   .get('/', (req, res) => {
     User.find()
       .select({ firstName: 1, lastName: 1, email: 1 })
