@@ -51,7 +51,7 @@ server.use('/api/tag', tagRouter);
 // console.log(process.env.NODE_ENV)
 if (process.env.NODE_ENV !== 'dev') {
     server.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname + '/client/build/index.html'));
+        res.sendFile(path.join(__dirname, '/client/build/index.html'));
     });
 }
 
