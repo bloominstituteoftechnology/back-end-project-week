@@ -3,8 +3,16 @@ info:
   version: 1.0.0
   title: Lambda Notes API Documentation
 tags:
+  - name: attachments
+    description: Manage links to uploaded attachments
+  - name: comments
+    description: Create and manage comments within tasks
   - name: projects
     description: Create and manage projects
+  - name: subtasks
+    description: Create and manage subtasks for checklists in tasks
+  - name: tags
+    description: Create and manage tags within projects
   - name: tasks
     description: Create and manage tasks within projects
   - name: users
