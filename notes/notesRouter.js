@@ -3,6 +3,7 @@ const router = express.Router();
 const Note = require('./Note');
 
 ////
+const secret = 'this is my secret'
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
