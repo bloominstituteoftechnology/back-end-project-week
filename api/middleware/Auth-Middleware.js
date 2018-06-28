@@ -1,6 +1,7 @@
 const User = require('../models/UserModels');
 const LocalStrategy = require('passport-local');
 const PassportJWT = require("passport-jwt");
+const jwt = require("jsonwebtoken");
 
 const ExtractJwt = PassportJWT.ExtractJwt;
 const JwtStrategy = PassportJWT.Strategy;
@@ -11,7 +12,7 @@ const jwtOptions = {
   secretOrKey: secret,
 };
 
-const localStrategy = new LocalStrategy(function(username, password, done) {
+const localStrategy = new LocalStrategy((username, password, done) => {
   console.log('this')
   User.findOne({ username })
     .then(user => {
@@ -52,8 +53,21 @@ const ppJwt = new JwtStrategy(jwtOptions, (payload, done) => {
     })
 })
 
+const letsMakeAToken = user => {
+  const timestamp = new Date().getTime();
+  const payload = {
+    sub: user._id,
+    iat: timestamp,
+    username: user.username
+  };
+  const options = {
+    expiresIn: '5m'
+  };
+  return jwt.sign(payload, secret, options)
+}
 
 module.exports = {
   localStrategy,
   ppJwt,
+  letsMakeAToken
 }

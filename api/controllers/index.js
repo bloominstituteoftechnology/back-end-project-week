@@ -1,4 +1,4 @@
-const { createUser, login } = require('./user');
+const { createUser, login, } = require('./user');
 
 const { newNote, getNoteById, deleteNote, editNote } = require('./note')
 const { getNoteByUser } = require('./userNotes')
