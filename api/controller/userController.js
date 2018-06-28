@@ -40,7 +40,7 @@ router.route('/:id')
 router.route('/:id/notes')
     .get((req, res) => {
         const { id } = req.params;
-        Note.findById(id)
+        Note.find({ userId: id })
             .select('title body')
             .then(response => res.json(response))
             .catch(err => res.status(500).json({ error: err.message }));
