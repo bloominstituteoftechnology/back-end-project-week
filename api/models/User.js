@@ -47,8 +47,8 @@ userSchema.pre('save', function(next) {
   });
 });
 
-userSchema.methods.isValidPassword = function(password) {
-  return bcrypt.compare(password, this.password);
+userSchema.methods.isValidPassword = function(password, cb) {
+  return bcrypt.compare(password, this.password, cb);
 };
 
 module.exports = mongoose.model('User', userSchema);

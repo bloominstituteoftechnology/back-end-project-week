@@ -12,6 +12,7 @@ const sendErr = (res, err, message) => {
     case UNAUTHORIZED:
       res.status(401);
       res.json({ error: message });
+      return;
     case CAST_ERROR:
       res.status(404);
       res.json({ error: 'The document with the specified ID does not exist.' });

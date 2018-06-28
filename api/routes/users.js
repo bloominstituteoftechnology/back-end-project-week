@@ -43,19 +43,17 @@ router
     User.findOne({ email })
       .then(user => {
         if (user) {
-          user.isValidPassword(password).then(login => {
-            if (login) {
-              const fullName = `${user.firstName} ${user.lastName}`;
-              const token = generateToken({
-                userid: user._id,
-                name: fullName,
-                email: user.email
-              });
+          user.isValidPassword(password, (err, match) => {
+            if (err || !match) return sendErr(res, '401', 'Invalid credentials');
 
-              sendRes(res, '200', { name: fullName, token });
-            } else {
-              sendErr(res, '401', 'Invalid credentials');
-            }
+            const fullName = `${user.firstName} ${user.lastName}`;
+            const token = generateToken({
+              userid: user._id,
+              name: fullName,
+              email: user.email
+            });
+
+            sendRes(res, '200', { name: fullName, token });
           });
         } else {
           sendErr(res, '401', 'Invalid credentials');
