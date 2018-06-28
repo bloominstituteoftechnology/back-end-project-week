@@ -722,13 +722,6 @@ components:
           type: string
           format: date
           example: 06/24/2018
-        subtasks:
-          description: Array of child subtask id's
-          type: array
-          items:
-            type: string
-            format: objectId
-          example: ['5b1ed13e8cea93c6ba72b1da', '5b1ed13e8cea93c6ba72b1db', '5b1ed13e8cea93c6ba72b1dc']
         tags:
           description: Array of tag id's belonging to task
           type: array
