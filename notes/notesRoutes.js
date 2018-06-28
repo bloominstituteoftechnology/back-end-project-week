@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const Notes = require('../models/notesModel.js')
+const Note = require('../models/notesModel.js')
 // get notes
 router
   .route('/')
   .get((req, res) => {
-    Notes
+    Note
       .find()
       .then(note => {
         res.status(200).json({
@@ -27,7 +27,7 @@ router
     const {
       id
     } = req.params;
-    Notes
+    Note
       .findById(id)
       .then(note => {
         res.status(200).json({
@@ -49,7 +49,7 @@ router
       title,
       content
     } = req.body;
-    const newNote = new Notes({
+    const newNote = new Note({
       title,
       content
     });
@@ -74,7 +74,7 @@ router
     const {
       id
     } = req.params;
-    Notes
+    Note
       .findByIdAndUpdate(id)
       .then(updatedNote => {
         res.status(201).json({
@@ -95,7 +95,7 @@ router
     const {
       id
     } = req.params;
-    Notes
+    Note
       .findByIdAndRemove(id)
       .then(deletedNote => {
         res.status(201).json({

@@ -4,7 +4,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 
 const corsOptions = {
-  origin: 'http://placeHolder', // Need to fix the url
+  origin: 'http://localhost:3000', // Need to fix the url
   credentials: true,
 };
 module.exports = function (server) {
