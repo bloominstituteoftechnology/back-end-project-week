@@ -31,6 +31,6 @@ const NotesSchema = new mongoose.Schema({
 // Allows $text operator on these fields (?)
 NotesSchema.index({ title: 'text', text: 'text', tags: 'text' });
 // Mongoose Paginate! Will it work?
-schema.plugin(mongoosePaginate);
+NotesSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Note', NotesSchema);

@@ -7,7 +7,9 @@ const { checkAuth } = require('../controllers/authHelpers')
 
 module.exports = function(server) {
   server.use(helmet());
-  server.use(cors());
+  server.use(cors({
+    origin: 'http://localhost:3000'
+  }));
   server.use(morgan('dev'));
   server.use(express.json());
   // Specific Routes
