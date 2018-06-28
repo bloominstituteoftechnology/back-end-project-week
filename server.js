@@ -16,7 +16,7 @@ const server = express();
 const secret = "Can you keep a secret?"
 
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: 'process.env.CORSORIGIN',
     credentials: true,
 };
 
