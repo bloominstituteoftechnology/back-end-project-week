@@ -35,6 +35,26 @@ router.delete('/:id', (req, res) => {
     })
 });
 
+router.put('/:id', (req, res) => {
+    const { title, body } = req.body;
+    const { id } = req.params;
+
+    Note.findById(id)
+    .then(note => {
+    Note.update({ title, body })
+    .then(updatedNote => {
+        res.json({note: updatedNote, message: 'Your note has been updated.'});
+    })
+    .catch(err => {
+        res.status(400).json({error: 'You cannot update this note.'});
+    })
+    })
+    .catch(err => {
+        res.status(500).json({error: err.message});
+    })  
+});
+
+
 
 module.exports = router;
 

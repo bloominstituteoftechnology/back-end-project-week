@@ -11,7 +11,8 @@ module.exports = server => {
 
     server.get('/notelist', notes); 
     server.post('/createnote', notes);
-    server.delete('/:id', notes);  
+    server.delete('/:id', notes);
+    server.put('/:id', notes);   
     server.use('/users', userRoutes);
     server.use('/users', createUser);
 
