@@ -12,21 +12,12 @@ const usersRouter = require('./api/Users/usersRouter');
 
 require('dotenv').config();
 
-mongoose.connect(process.env.MONGO_DB)
-    .then(
-        () => {
-            console.log('***\n Portal to DB Established \n*** ')
-        }
-    )
-    .catch(error => {
-        errorMessage: error.message;
-    })
 
 const server = express();
 
 // const sessionOptions = {
-//     secret: 'If you build it, they will come',
-//     cookie: {
+    //     secret: 'If you build it, they will come',
+    //     cookie: {
 //         maxAge: 1000 * 60 * 60
 //     },
 //     httpOnly: true,
@@ -35,19 +26,20 @@ const server = express();
 //     savedUninitialized: false,
 //     name: 'noname',
 //     store: new MongoStore({
-//         //Note from Ellen: this URL will need to change when hosted on mLab
-//         url: 'mongoDB',
-//         ttl: 60 * 10
-//     }),
-// }
-
-server.use(express.json());
-// server.use(session(sessionOptions));
-server.use(cors({ origin: '*' }));
+    //         //Note from Ellen: this URL will need to change when hosted on mLab
+    //         url: 'mongoDB',
+    //         ttl: 60 * 10
+    //     }),
+    // }
+    
+    server.use(express.json());
+    // server.use(session(sessionOptions));
+    server.use(cors({ origin: '*' }));
 server.use(helmet());
 // server.use(morgan());
 server.use('/notes/', notesRouter);
 server.use('/users', usersRouter);
+// server.use(bodyParser.json());
 
 function protected(req, res, next) {
     if (req.session) {
@@ -60,14 +52,24 @@ function protected(req, res, next) {
 }
 
 server
-    .get('/', (req, res) => {
-        res.json(`<h3>Database: ${port}</h3>`)
-    })
+.get('/', (req, res) => {
+    res.json(`<h3>Database: ${port}</h3>`)
+})
 
 const port = process.env.PORT || 5000;
+
+mongoose.Promise = global.Promise;
+
+mongoose.connect(process.env.MONGO_DB)
+.then(
+    () => {
+        console.log('***\n Portal to DB Established \n*** ')
+    }
+)
+.catch(error => {
+    errorMessage: error.message;
+})
 
 server.listen(port, () => {
     console.log(`API running on port ${port}`);
 });
-
-// server.use(bodyParser.json());
