@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
+const Note = require('../notes/Note');
+
 const SALT_ROUNDS = 11;
 
 const User = new mongoose.Schema({
@@ -17,10 +19,15 @@ const User = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 4,
-      }
+      },
+
+      notes: [{
+        type:ObjectId,
+        ref: 'Note'
+      }]
 });
 
-User.pre('save', function(next) {
+userSchema.pre('save', function(next) {
   bcrypt
     .hash(this.password, SALT_ROUNDS)
     .then(hash => {
@@ -32,7 +39,7 @@ User.pre('save', function(next) {
     })
 });
 
-User.methods.validatePassword = function(passwordGuess) {
+userSchema.methods.validatePassword = function(passwordGuess) {
   return bcrypt.compare(passwordGuess, this.password);
 };
 

@@ -13,9 +13,6 @@ const Note = new mongoose.Schema({
         required: true
     },
 
-    // username: {
-    //     type: ObjecId, ref: 'User' 
-    // }
 });
 
 module.exports = mongoose.model('Note', Note);

@@ -2,16 +2,18 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
+const morgan = require('morgan');
 
 const server = express();
 
 const userRouter = require('./users/userRouter');
 const noteRouter = require('./notes/noteRouter');
+const authRouter = require('./auth/authRouter');
 
 const db = process.env.mongo || 'mongodb://localhost/backendDB'
 mongoose
     .connect(db)
-    .then(() => console.log('\n=== Connected to DB ===\n'))
+    .then(() => console.log('=== Connected to DB ==='))
     .catch(error => console.log('\n!!! Error connecting to DB !!!\n', error))
 
 server.use(express.json());
