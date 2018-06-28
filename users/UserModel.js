@@ -25,6 +25,17 @@ const userSchema = new mongoose.Schema({
 //log in 
 
 
+// userSchema.methods.hashPassword = function(password) {
+//     return bcrypt
+//         .hash(password, 10)
+//         .then(hash => {
+//             this.password = hash;
+//             return next();
+//         })
+//         .catch(err => {
+//             return next(err);
+//         });
+// };
 
 userSchema.methods.validatePassword = function (passwordGuess) {
     return bcrypt.compare(passwordGuess, this.password);
