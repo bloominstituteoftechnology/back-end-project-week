@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const Notes = require('./Notes');
 
+//this is the main file I used for linking to the front end
 router.get('/', (req, res) => {
 	Notes.find()
 		.then(notes => {
@@ -27,6 +28,7 @@ router.post('/',(req, res) => {
 			})
 		}
 	});
+//the POST request makes sure the note includes required fields before creating a new one
 
 router.get('/:id', (req, res) => {
 	const { id } = req.params;
@@ -42,6 +44,7 @@ router.get('/:id', (req, res) => {
 			res.status(500).json({ error: 'The note information could not be retrieved.' });
 		});
 	});
+//I don't think I ever use this one in my front end because of the way it is written. But it would be useful if the front end was rewritten using the id numbers in the routes.
 
 router.put('/:id', (req, res) => {
 	const { title, content } = req.body;

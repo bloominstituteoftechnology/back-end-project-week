@@ -9,3 +9,4 @@ module.exports = function(server) {
 	server.use(express.json());
 	server.use(cors());
 };
+//I'm pretty sure all this does is save me a few lines in my server.js file. But if I ever need more middleware, this is where I'd put it.

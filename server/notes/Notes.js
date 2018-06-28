@@ -13,3 +13,4 @@ const notesSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Notes', notesSchema, 'notes');
+//my lovely notes schema. It's pretty boring, but very functional.

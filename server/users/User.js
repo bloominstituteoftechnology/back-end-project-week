@@ -32,4 +32,6 @@ userSchema.methods.validatePassword = function(passwordGuess) {
 	return bcrypt.compare(passwordGuess, this.password);
 };
 
+//I think this is pretty standard as far as user schemas go. You need to have at least a username and password. Then you hash it and set up the validate method later used in authRoutes.
+
 module.exports = mongoose.model('User', userSchema, 'users');
