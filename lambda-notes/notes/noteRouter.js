@@ -22,7 +22,7 @@ router
             const {id} = req.params;
             console.log(req);
             Note.find({
-                userId: mongoose.Types.ObjectId(id)
+                userId: id
             })
             .populate('user')
                 .then(note => res.json(note))
