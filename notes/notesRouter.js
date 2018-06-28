@@ -35,7 +35,7 @@ router
             });
     });
 
-    router
+router
     .route('/:id')
     .get((req, res) => {
         const { id } = req.params;
@@ -55,8 +55,7 @@ router
                 res.status(500).json({ error: 'Error fetching note'})
             })
     })
-router
-    .route('/edit/:id')
+
     .put((req, res) => {
         const { id } = req.params;
         if(id.length !== 24) {
@@ -92,7 +91,8 @@ router
                 if(!deletedNote) {
                     res.status(404).json({ error: `Note with id ${id} does not exist`})
                 } else {
-                    res.status(204)
+                    // res.status(204)
+                    res.json(deletedNote.id)
                 }  
             })
             .catch(err => {
