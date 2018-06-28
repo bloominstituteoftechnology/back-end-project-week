@@ -90,9 +90,9 @@ router
             .then(deletedNote => {
                 if(!deletedNote) {
                     res.status(404).json({ error: `Note with id ${id} does not exist`})
+                    return;
                 } else {
-                    // res.status(204)
-                    res.json(deletedNote.id)
+                    res.status(204).json(deletedNote)
                 }  
             })
             .catch(err => {
