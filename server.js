@@ -21,17 +21,7 @@ const corsOptions = {
     methods: 'GET, PUT, POST, DELETE',
     optionsSuccessStatus: 204
 };
-server.use(cors(corsOptions))
-
-
-server.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader(
-        'Access-Control-Allow-Headers',
-        'Origin, X-Requested-With, Content-Type, Accept'
-      );
-      next();
-    });
+server.use(cors({ origin: process.env.CORSORIGIN }))
 
 server.get('/', (req, res) => {
     res.json({ api: 'Run away, run away!'})
