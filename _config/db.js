@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 require('dotenv').config()
+console.log(process.env.mongo)
 
 module.exports = {
   connectTo: () => {
