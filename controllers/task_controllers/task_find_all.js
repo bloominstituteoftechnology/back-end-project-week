@@ -34,4 +34,5 @@ const taskFindAll = async (req, res) => {
     });
   }
 };
+
 module.exports = taskFindAll;

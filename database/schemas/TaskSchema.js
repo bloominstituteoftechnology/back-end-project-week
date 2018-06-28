@@ -13,17 +13,22 @@ const Task = new Schema({
 });
 
 // verifyToken
-Task.statics.verifyToken = jwtToken => {
-  const { username } = jwt.verify(jwtToken, JWT_SECRET);
+Task.statics.verifyToken = async jwtToken => {
+  try {
+    const { username } = jwt.verify(jwtToken, JWT_SECRET);
 
-  return User.findOne({ username })
-    .select('username')
-    .then(user => {
-      return user;
-    })
-    .catch(err => {
-      console.log(err);
-    });
+    return await User.findOne({ username })
+      .select('username')
+      .then(user => {
+        return user;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+  catch (err) {
+    return { err: 'Error' };
+  }
 }
 
 module.exports = Task;

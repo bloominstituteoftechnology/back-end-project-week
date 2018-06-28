@@ -1,28 +1,31 @@
+const jwt = require('jsonwebtoken');
+
 const Task = require('../../database/models/TaskModel');
+const User = require('../../database/models/UserModel');
 const { 
   successful: { created },
   clientError: { badRequest },
   serverError
 } = require('../../http_status_codes');
 
-const taskCreate = async (req, res) => {
-  const { taskName, taskDescription, jwtToken } = req.body;
-  const { _id: userId } = await Task.verifyToken(jwtToken);
-  const task = { userId, taskName, taskDescription };
+const { JWT_SECRET } = process.env;
 
-  Task.create(task)
-    .then(task => {
-      res.status(created).json(task);
-    })
-    .catch(err => {
-      if (!taskName)
-        res.status(badRequest).json({
-          status: badRequest,
-          statusMessage: 'Please provide a task name'
-        });
-      
-      res.status(serverError).json(err);
-    });
+const taskCreate = async (req, res) => {
+  const { taskName, taskDescription, token } = req.body;
+
+  try {
+    const { username } = jwt.verify(token, JWT_SECRET);
+    const { _id: userId } = await User.findOne({ username });
+    const taskData = { taskName, taskDescription, userId };
+    const task = await Task.create(taskData);
+  
+    console.log(task);
+    res.status(created).json(task);
+  }
+  catch (err) {
+    console.log(err);
+    res.json(err);
+  }
 };
 
 module.exports = taskCreate;
