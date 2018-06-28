@@ -1,9 +1,11 @@
 const express = require('express'); 
+require('dotenv').config(); 
 const cors = require('cors'); 
 const morgan = require('morgan'); 
 const helmet = require('helmet');
 const mongoose = require ('mongoose');
 const jwt = require('jsonwebtoken'); 
+
 
 const notesRouter = require('./Notes/NotesRouter.js');
 const usersRouter = require('./Users/UsersRouter.js');
@@ -25,8 +27,12 @@ server.use(express.json());
 server.use('/notes', notesRouter);
 server.use('/users', usersRouter); 
 
+// server.get('/', (req, res) => {
+//     res.status(200).json('API up and running!'); 
+// }); 
+
 server.get('/', (req, res) => {
-    res.status(200).json('API up and running!'); 
+    res.send(`<h2>DB: ${process.env.mongo}</h2>`)
 }); 
 
 server.post('/register', (req, res) => {
