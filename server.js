@@ -18,7 +18,7 @@ const apiDocOptions = {
 };
 
 server.use(express.json());
-server.use(express.static(path.resolve(__dirname, 'client/build')));
+server.use(express.static(path.resolve(__dirname, './client/build')));
 
 server.use('/api/attachments', attachmentsRouter);
 server.use('/api/comments', commentsRouter);
@@ -27,14 +27,19 @@ server.use('/api/subtasks', subtasksRouter);
 server.use('/api/tags', tagsRouter);
 server.use('/api/tasks', tasksRouter);
 server.use('/api/users', usersRouter);
-server.use('/api/docs', swaggerUi.serve, swaggerUi.setup(apiDoc, apiDocOptions));
+server.use(
+  '/api/docs',
+  swaggerUi.serve,
+  swaggerUi.setup(apiDoc, apiDocOptions)
+);
 
-server.get('/api', (req, res) => {
-  res.status(200).send('Lambda Notes API');
+server.get('/api', function (req, res) {
+  res.set('Content-Type', 'application/json');
+  res.send('{"message":"Lambda Notes API"}');
 });
 
-server.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
+server.get('*', function (request, response) {
+  response.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
 });
 
 module.exports = {

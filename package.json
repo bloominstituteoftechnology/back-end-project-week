@@ -2,14 +2,14 @@
   "name": "Lambda-Notes",
   "version": "1.0.0",
   "description": "Creating a back end for the Lambda Notes front end project and combining the two for a full stack application.",
-  "main": "index.js",
   "scripts": {
-    "client": "cd client && yarn start",
-    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
-    "heroku-postbuild": "cd client && yarn install && yarn install --only=dev --no-shrinkwrap && yarn run build",
-    "server": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index",
+    "heroku-postbuild": "cd client/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
+  "cacheDirectories": [
+    "node_modules",
+    "client/node_modules"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/d-vail/back-end-project-week.git"
@@ -29,7 +29,5 @@
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
-    "concurrently": "^3.6.0",
-    "nodemon": "^1.17.5"
   }
 }
