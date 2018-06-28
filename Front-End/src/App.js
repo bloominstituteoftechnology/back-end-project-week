@@ -3,6 +3,7 @@ import axios from 'axios'
 import FirstView from './components/Firstview';
 import { Route, withRouter } from 'react-router';
 import Input from './components/Input';
+import NoteList from "./components/NoteList";
 
 class App extends Component {
   constructor(props) {
@@ -20,8 +21,8 @@ class App extends Component {
         this.setState((prevState, props) => {
           return { notes: data.data.notes, loggedin: true, userid: data.data.userid }
         })
-        localStorage.setItem('token', data.token)
-        this.props.history.push('/notelist')
+        localStorage.setItem('token', data.data.token)
+        this.props.history.push('/notes')
       })
   }
   register = (newUser) => {
@@ -30,7 +31,7 @@ class App extends Component {
         this.setState((prevState, props) => {
           return { notes: data.notes, loggedin: true, userid: data.userid }
         })
-        localStorage.setItem('token', data.token)
+        localStorage.setItem('token', data.data.token)
       })
   }
   logout = () => {
@@ -44,6 +45,7 @@ class App extends Component {
       <div className="App">
         <Route exact path='/' component={FirstView} />
         <Route exact path='/login' render={(props) => <Input {...props} login={this.login} page='login' />} />
+        <Route exact path='/notes' render={(props) => <NoteList {...props} notes={this.state.notes} />} />
       </div>
     );
   }

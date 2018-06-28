@@ -39,24 +39,11 @@ class InputComponent extends React.Component {
                     <label htmlFor="username">Username</label>
                     <input id="username" name="username" onChange={this.handleChange} value={this.state.username} />
                 </Form.Field>
-                {/* <Form.Field>
-                    <label htmlFor="race"><span classname='label'>Race</label>
-                    <input id="race" name="race" onChange={this.handleChange} value={this.state.race} />
-                </Form.Field> */}
                 <Form.Field required>
                     <label htmlFor="password">Password</label>
                     <input type="text" id="password" name="password" onChange={this.handleChange} value={this.state.password} />
                 </Form.Field>
-                <Button text="Register" function={() => {
-                    let user = {
-                        username: this.state.username,
-                        password: this.state.password
-                    }
-                    this.props.register(user)
-                    setTimeout(() => {
-                        this.props.fetch()
-                    }, 300)
-                }} />
+                <Button text="Register" function={() => this.props.register({ username: this.state.username, password: this.state.password })} />
             </Form>
         );
     }
