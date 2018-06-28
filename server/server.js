@@ -8,6 +8,7 @@ const server = express();
 
 const corsOptions = {
 	origin: 'https://nostalgic-kilby-8372d8.netlify.com',
+	origin: 'http://nostalgic-kilby-8372d8.netlify.com',
 	credentials: true,
 };
 server.use(cors(corsOptions));
