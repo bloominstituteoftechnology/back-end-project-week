@@ -86,7 +86,9 @@ router.route('/delete/:id')
                 if (note === null) {
                     res.status(404).json({ errorMessage: 'Note with the specified ID not found' });
                 } else {
-                    res.json(note)
+                    User.findOneAndUpdate({notes: id}, { $pull: {notes: id} }, {new: true})
+                        .then(user => res.json(note))
+                        .catch(err => res.json({ errorMessage: 'could not delete note reference from user' }))
                 }
             })
             .catch(err => {
