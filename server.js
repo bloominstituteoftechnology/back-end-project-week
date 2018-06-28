@@ -39,7 +39,7 @@ setupMiddleware(server);
 // Testing Node Express 
 
 server.get('/', (req, res) => {
-    res.send(`<h2>DB: ${process.env.mongo}</h2>`);
+    res.send(`<h2>DB: Server connected...</h2>`);
 });
 
 // HTTP METHODS FOR USERS
@@ -196,7 +196,7 @@ const port = process.env.PORT || 5333;
 mongoose.Promise = global.Promise;
 
 mongoose
-    .connect(`mongodb://${process.env.dbuser}:${process.env.dbpassword}@ds018248.mlab.com:18248/lambdanotesdb`)
+    .connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds018248.mlab.com:18248/lambdanotesdb`)
     .then(() => {
         console.log('\n === Connected to MongoDB === \n');
         // server.listen(port, (req, res) => {
@@ -211,4 +211,3 @@ server.listen(port, () => {
     console.log(`Server is up and running on port ${port}`);
 });
 
-// .connect('mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds018248.mlab.com:18248/lambdanotesdb')
