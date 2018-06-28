@@ -9,7 +9,7 @@ const subtaskSchema = new mongoose.Schema({
     required: true,
     validate: {
       isAsync: true,
-      validator: (val, cb) => objectIdValid('Project', val, cb),
+      validator: (val, cb) => objectIdValid('Task', val, cb),
       message: 'Must be an id for an existing task'
     }
   },
