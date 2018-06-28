@@ -137,7 +137,7 @@ server.get('/users', restricted, (req, res) => {
 const port = process.env.PORT || 5000; 
 
 mongoose
-    .connect('mongodb://localhost/lambdaNotesDb')
+    .connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds018538.mlab.com:18538/lambdanotesdb`)
     .then(() => {
         console.log('\=== Connected to database server ===\n');
         server.listen(port, (req, res) => {
