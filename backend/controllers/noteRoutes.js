@@ -3,6 +3,19 @@ const { validateNotePostBody } = require('../utils/controllers/controllerHelpers
 
 module.exports = (usersModel, notesModel) => {
   return {
+    // "GET": (req, res) => {
+    //   // console.log('plainToken:',req.plainToken);
+    //   const { _id } = req.plainToken;
+    //   notesModel.find({ author: _id })
+    //     .sort({ dateCreated: 'descending' })
+    //     .then(notes => {
+    //       res.status(httpStatus.OK).json(notes);
+    //     })
+    //     .catch(error => {
+    //       console.log('noteRoutes--GET ERROR:',error);
+    //       res.status(500).json(error);
+    //     });
+    // },
     "GET": (req, res) => {
       // console.log('plainToken:',req.plainToken);
       const { _id } = req.plainToken;
