@@ -3,7 +3,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-const env = require('dotenv').config();
+require('dotenv').config();
 
 const User = require('./users/User');
 const Note = require('./notes/Note');
@@ -34,7 +34,7 @@ setupMiddleware(server);
 // Testing Node Express 
 
 server.get('/', (req, res) => {
-    res.send(`<h2>DB:${process.env.mongo}</h2>`);
+    res.send(`<h2>DB: ${process.env.mongo}</h2>`);
 });
 
 // HTTP METHODS FOR USERS
@@ -193,7 +193,7 @@ server.delete('/api/notes/:id', (req, res) => {
 const port = process.env.PORT || 5333;
 
 mongoose
-    .connect('mongodb://ds018248.mlab.com:18248/lambdanotesdb')
+    .connect('mongodb://localhost/lambdanotesdb')
     .then(() => {
         console.log('\n === Connected to MongoDB === \n');
         server.listen(port, (req, res) => {
