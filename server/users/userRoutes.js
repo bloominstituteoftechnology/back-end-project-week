@@ -118,7 +118,7 @@ router.post('/:userId/notes/', restricted, (req, res) => {
             }
         })
         .catch(error => {
-            res.status(500).json({ Error: error.message }); 
+            res.status(500).json({ Error: error.message });
         })
 });
 
@@ -158,7 +158,7 @@ router.put('/:userId/notes/:noteId', restricted, (req, res) => {
             }
         })
         .catch(error => {
-            res.status(500).json({ Error: error.message }); 
+            res.status(500).json({ Error: error.message });
         })
 });
 
@@ -203,7 +203,7 @@ router.delete('/:userId/notes/:noteId', restricted, (req, res) => {
             }
         })
         .catch(error => {
-            res.status(500).json({ Error: error.message }); 
+            res.status(500).json({ Error: error.message });
         })
 });
 

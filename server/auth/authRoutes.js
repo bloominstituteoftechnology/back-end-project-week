@@ -16,7 +16,7 @@ router.post('/signup', (req, res) => {
     User.findOne({ username })
         .then(user => {
             if (user) {
-                res.status(400).json('Username already exists.');
+                res.status(400).json('That username is taken. Try another.');
                 return;
             }
             else {
@@ -46,7 +46,7 @@ router.post('/login', (req, res) => {
                             return;
                         }
                         else {
-                            res.status(401).json('Invalid credentials.');
+                            res.status(401).json('Invalid credentials. Try again.');
                             return;
                         }
                     })
@@ -55,7 +55,7 @@ router.post('/login', (req, res) => {
                     })
             }
             else {
-                res.status(401).json('Invalid credentials.');
+                res.status(401).json('Invalid credentials. Try again.');
             }
         })
         .catch(error => {

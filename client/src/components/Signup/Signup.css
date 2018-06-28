@@ -1,0 +1,45 @@
+.signup {
+    background: #F3F3F3; 
+    height: 100%; 
+    width: 75%; 
+}
+
+.signup form {
+    margin: 115px auto; 
+    width: 45%; 
+}
+
+.signup form input {
+    border: 1.5px solid #979797; 
+    font-family: Raleway; 
+    font-weight: bold; 
+    height: 47px;
+    width: 100%;  
+}
+
+.secondDiv {
+    margin: 14px 0 0 0; 
+}
+
+.thirdDiv {
+    width: 34%; 
+    margin: 0 auto; 
+}
+
+.signup form button {
+    background: #2BC1C4; 
+    border: 1.5px solid #979797; 
+    color: #FFFFFF; 
+    font-family: Raleway; 
+    font-weight: bold; 
+    margin: 14px 0 0 0; 
+    width: 100%; 
+}
+
+.error {
+    width: 53%;
+    color: red;
+    font-weight: bold;
+    font-size: 9px;
+    margin: 0 auto;
+}
