@@ -20,7 +20,7 @@ const User = mongoose.Schema({
         ref: 'Note',
 
     }]
-});
+}); 
 
 User.pre('save', function(next) {
     return bcrypt
