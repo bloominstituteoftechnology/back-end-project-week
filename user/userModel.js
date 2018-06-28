@@ -36,6 +36,7 @@ UserSchema.pre('save', function(next) {
 });
 
 UserSchema.methods.validatePassword = function(passwordGuess) {
+    console.log("validating")
     return bcrypt.compare(passwordGuess, this.password);
 }
 
