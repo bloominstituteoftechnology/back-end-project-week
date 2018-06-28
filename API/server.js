@@ -35,50 +35,50 @@ const corsOptions = {
 };
 
 server.use(helmet());
-server.use(cors(corsOptions));
+server.use(cors());
 server.use(express.json());
 server.use(bodyParser());
 // server.use(morgan('combined'));
 
 // auth routes
 
-// server.post('/api/register', (req, res) => {
-//     User.create(req.body)
-//     .then(({ username }) => {
-//         const token = generateToken(username);
-//         res.status(201).json({ username, token });
-//     })
-//     .catch(err => {
-//         res.status(500).json({ error: err.message });
-//     });
-// });
+server.post('/api/register', (req, res) => {
+    User.create(req.body)
+    .then(({ username }) => {
+        const token = generateToken(username);
+        res.status(201).json({ username, token });
+    })
+    .catch(err => {
+        res.status(500).json({ error: err.message });
+    });
+});
 
-// server.post("/api/login", (req, res) => {
-//     const { username, password } = req.body;
-//     User.findOne({ username })
-//         .then(user => {
-//             if (user) {
-//                 user
-//                     .validatePassword(password)
-//                     .then(passwordsMatch => {
-//                         if(passwordsMatch) {
-//                             const token = generateToken(user);
-//                             res.status(200).json({ message: `welcome ${username}`, token })
-//                         } else {
-//                             res.status(401).send("invalid credentials");
-//                         }
-//                     })
-//                     .catch(err => {
-//                         err.send("error comparing passwords");
-//                     });
-//             } else {
-//                 res.status(401).send("invalid creds")
-//             }
-//         })
-//         .catch(err => {
-//             res.send(err);
-//         });
-// });
+server.post("/api/login", (req, res) => {
+    const { username, password } = req.body;
+    User.findOne({ username })
+        .then(user => {
+            if (user) {
+                user
+                    .validatePassword(password)
+                    .then(passwordsMatch => {
+                        if(passwordsMatch) {
+                            const token = generateToken(user);
+                            res.status(200).json({ message: `welcome ${username}`, token })
+                        } else {
+                            res.status(401).send("invalid credentials");
+                        }
+                    })
+                    .catch(err => {
+                        err.send("error comparing passwords");
+                    });
+            } else {
+                res.status(401).send("invalid creds")
+            }
+        })
+        .catch(err => {
+            res.send(err);
+        });
+});
 
 
 // Notes Routes
