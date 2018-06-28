@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const Task = require('../models/Task');
+const Subtask = require('../models/Subtask');
 const { sendErr, sendRes } = require('../utils/apiResponses');
 
 router
@@ -32,6 +33,17 @@ router
       })
       .catch(err => {
         sendErr(res, err, `The task with id ${id} could not be retrieved.`);
+      });
+  })
+  .get('/:id/subtasks', (req, res) => {
+    const { id } = req.params;
+
+    Subtask.find({ task: id })
+      .then(subtasks => {
+        sendRes(res, '200', subtasks);
+      })
+      .catch(err => {
+        sendErr(res, err, `The subtasks for task ${id} could not be retrieved.`);
       });
   })
   .put('/:id', (req, res) => {
