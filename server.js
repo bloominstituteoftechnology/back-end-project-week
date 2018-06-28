@@ -37,11 +37,89 @@ server.get('/', (req, res) => {
     res.send(`<h2>DB:${process.env.mongo}</h2>`);
 });
 
+// HTTP METHODS FOR USERS
+
 // server.get('/', (req, res) => {
 //     res.send(`<h2>Server is online!</h2>`)
 // });
 
-server.use('/api/users', userRouter);
+server.post('/api/register', (req, res) => {
+    User.create(req.body)
+        .then(user => {
+            const token = generateToken(user);
+            res.status(201).json({ username: user.username, token });
+        })
+        .catch(err => res.status(500).json(err));
+});
+
+server.post('/api/login', (req, res) => {
+    const { username, password } = req.body;
+
+    User.findOne({ username })
+        .then(user => {
+            if(user) {
+                user
+                    .validatePassword(password)
+                    .then(passwordsMatch => {
+                        if(passwordsMatch) {
+                            const token = generateToken(user);
+                            res.status(200).json({ message: `Welcome, ${username}!`, token });
+                        } else {
+                            res.status(401).send('Invalid credentials');
+                        }
+                    })
+                    .catch(err => {
+                        res.send('Error comparing passwords.');
+                    });
+            } else {
+                res.status(401).send('Invalid credentials.');
+            }
+        })
+        .catch(err => {
+            res.send(err);
+        });
+});
+
+function generateToken(user) {
+    const options = {
+        expiresIn: '1h',
+    };
+
+    const payload = { name: user.username };
+
+    return jwt.sign(payload, secret, options);
+}
+
+function restricted(req, res, next) {
+    const token = req.headers.authorization;
+
+    if(token) {
+        jwt.verify(token, secret, (err, decodedToken) => {
+            if (err) {
+                res
+                    .status(401)
+                    .json({ message: 'Not decoded. You shall not pass.' });
+            }
+
+            next();
+        });
+    } else {
+        res
+            .status(401)
+            .json({ Message: 'No token, no entry.' });
+    }
+}
+
+server.get('/api/users', restricted, (req, res) => {
+    User.find({})
+        .select('username')
+        .then(users => {
+            res.status(200).json(users);
+        })
+        .catch(err => {
+            return res.status(500).json(err);
+        });
+});
 
 // HTTP METHODS FOR NOTES
 
@@ -57,14 +135,14 @@ server.post('/api/createnote', (req, res) => {
 
 server.get('/api/notes', (req, res) => {
     Note.find({})
-      .select('title')
-      .then(users => {
+        .select('title')
+        .then(users => {
         res.status(200).json(users);
-      })
-      .catch(err => {
-        return res.status(500).json(err);
-      });
-  });
+            })
+        .catch(err => {
+            return res.status(500).json(err);
+        });
+});
 
 server.get('/api/notes/:_id', (req, res) => {
     const { id } = req.params;
@@ -73,6 +151,37 @@ server.get('/api/notes/:_id', (req, res) => {
         .then(note => res.json(note))
         .catch(err => {
             res.status(500).json(err);
+        });
+});
+
+server.put('/api/notes/:id', (req, res) => {
+    const { id } = req.params;
+    const titleAndContent = ({ title, content } = req.body);
+    Note.findByIdAndUpdate(id, titleAndContent, {new: true})
+        .then(response => {
+            if (response === null) {
+                res.status(404).json({  error: 'Error'});
+                return;
+            }
+            res.json({ success: 'Sucess', resource: response });
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        });
+});
+
+server.delete('/api/notes/:id', (req, res) => {
+    const { id } = req.params;
+    Note.findByIdAndRemove(id)
+        .then(response => {
+            if (response === null) {
+                res.status(404).json({ error: 'Error!' });
+                return;
+            }
+            res.json({ success: 'Success' });
+        })
+        .catch(err => {
+            res.status(500).json({  error: 'Error' })
         });
 });
 
