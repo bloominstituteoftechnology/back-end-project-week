@@ -201,15 +201,15 @@ mongoose
     .connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds018248.mlab.com:18248/lambdanotesdb`)
     .then(() => {
         console.log('\n === Connected to MongoDB === \n');
-        server.listen(port, (req, res) => {
-            console.log(`\n === API up on port ${port} === \n`)
-        });
+        // server.listen(port, (req, res) => {
+        //     console.log(`\n === API up on port ${port} === \n`)
+        // });
     })
     .catch(err => 
     console.log('\n === Error connecting to MongoDB, is it running? === \n', err)
 );
 
-// server.listen(port, () => {
-//     console.log(`Server is up and running on port ${port}`);
-// });
+server.listen(port, () => {
+    console.log(`Server is up and running on port ${port}`);
+});
 
