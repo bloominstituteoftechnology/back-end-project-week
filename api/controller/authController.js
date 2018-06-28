@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
 const User = require('../model/User.js');
 
 const generateToken = user => {
@@ -8,7 +7,7 @@ const generateToken = user => {
         expiresIn: '24h'
     };
     const payload = { id: user._id };
-    return jwt.sign(payload, process.env.JWT_secret, options);
+    return jwt.sign(payload, process.env.JWT_SECRET, options);
 }
 
 router.route('/register')
