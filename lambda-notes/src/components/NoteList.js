@@ -14,7 +14,9 @@ class NoteList extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchNotes();
+        if (this.props.notes.length < 1) {
+            this.props.fetchNotes();
+        }
     }
 
     updateSearch = (event) => {
@@ -64,29 +66,6 @@ class NoteList extends Component {
     //     }
     //     localStorage.setItem('array', JSON.stringify(this.props.notes));
     // }
-
-    savedPosition = () => {
-        setTimeout(() => {
-            let source = Array.from(document.getElementsByClassName('note'));
-            let currentOrder = [];
-            let savedOrder = {};
-            source.forEach((item, index) => {
-                currentOrder.push(item._id)
-            });
-            this.setState({ order: currentOrder });
-            // console.log(typeof this.state.order);
-            
-            for (let i = 0; i < this.state.order.length; i++) {
-                savedOrder[this.props.notes[i]._id] = this.props.notes[i];
-                // console.log("order notes", this.state.order)
-            }
-            for (let i = 0; i < this.state.order.length; i++) {
-                this.props.notes[i] = savedOrder[this.state.order[i]];
-                // console.log("prop notes", this.props.notes)
-            }
-            // localStorage.setItem('array', JSON.stringify(this.props.notes));
-        }, 500);
-    }
 
     render() {
         // console.log(Date.now())
