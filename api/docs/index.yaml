@@ -242,6 +242,81 @@ paths:
           $ref: '#components/responses/404NotFound'
         '500':
           $ref: '#components/responses/500InternalServerError'
+  /api/subtasks:
+    post:
+      tags:
+        - subtasks
+      summary: Create a new subtask
+      operationId: createSubtask
+      requestBody:
+        description: New subtask object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Subtask'
+      responses:
+        '201':
+          description: Successfully created new subtask
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Subtask'
+        '400':
+          $ref: '#components/responses/400BadRequest'
+        '500':
+          $ref: '#components/responses/500InternalServerError'
+  /api/subtasks/{subtaskId}:
+    put:
+      tags:
+        - subtasks
+      summary: Update an existing subtask. Replaces entire object.
+      operationId: updateSubtask
+      requestBody:
+        description: Updated subtask object
+        required: 'true'
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Subtask'
+      parameters:
+        - $ref: '#/components/parameters/subtaskId'
+      responses:
+        '200':
+          description: Successfully updated subtask
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Subtask'
+        '400':
+          $ref: '#components/responses/400BadRequest'
+        '404':
+          $ref: '#components/responses/404NotFound'
+        '500':
+          $ref: '#components/responses/500InternalServerError'
+    delete:
+      tags:
+        - subtasks
+      summary: Delete a subtask
+      operationId: deleteSubtask
+      parameters:
+        - $ref: '#/components/parameters/subtaskId'
+      responses:
+        '200':
+          description: Successfully deleted subtask
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                example:
+                  _id: 5b346872f7f83a206b0aeee7
+        '404':
+          $ref: '#components/responses/404NotFound'
+        '500':
+          $ref: '#components/responses/500InternalServerError'
   /api/tags:
     post:
       tags:
@@ -422,6 +497,27 @@ paths:
                     type: string
                 example:
                   _id: 5b33e2dfc55019773e08217d
+        '404':
+          $ref: '#components/responses/404NotFound'
+        '500':
+          $ref: '#components/responses/500InternalServerError'
+  /api/tasks/{taskId}/subtasks:
+    get:
+      tags:
+        - tasks
+      summary: Get subtasks by task id
+      operationId: getSubtasksByTaskId
+      parameters:
+        - $ref: '#/components/parameters/taskId'
+      responses:
+        '200':
+          description: Successfully returned array of subtasks for specified task
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Subtask'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
@@ -659,9 +755,15 @@ components:
     Subtask:
       title: Subtask
       required:
+        - task
         - description
         - completed
       properties:
+        task:
+          description: Id of existing task that subtask belongs to
+          type: string
+          format: objectId
+          example: 5b33e5328f5db17933878482
         description:
           description: A description of the subtask
           type: string
@@ -789,6 +891,15 @@ components:
         type: string
         format: objectId
       example: 5b33c45d8d8bf66d4d44f1ec
+    subtaskId:
+      name: subtaskId
+      in: path
+      description: The subtask id assigned by the database
+      required: true
+      schema:
+        type: string
+        format: objectId
+      example: 5b346872f7f83a206b0aeee7
     tagId:
       name: tagId
       in: path
