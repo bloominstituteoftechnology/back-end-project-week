@@ -146,8 +146,8 @@ paths:
           $ref: '#components/responses/500InternalServerError'
     put:
       tags:
-      - projects
-      summary: Update all required fields for an existing project
+        - projects
+      summary: Update an existing project. Replaces entire object.
       operationId: updateProject
       requestBody:
         description: Updated project object
@@ -200,7 +200,7 @@ paths:
           $ref: '#components/responses/500InternalServerError'
     delete:
       tags:
-      - projects
+        - projects
       summary: Delete a project
       operationId: deleteProject
       parameters:
@@ -217,6 +217,102 @@ paths:
                     type: string
                 example:
                   _id: 5b31ea59d62eb33eb93014e7
+        '404':
+          $ref: '#components/responses/404NotFound'
+        '500':
+          $ref: '#components/responses/500InternalServerError'
+  /api/projects/{projectId}/tags:
+    get:
+      tags:
+        - projects
+      summary: Get tags by project id
+      operationId: getTagsByProjectId
+      parameters:
+        - $ref: '#/components/parameters/projectId'
+      responses:
+        '200':
+          description: Successfully returned array of tags for specified project
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Tag'
+        '404':
+          $ref: '#components/responses/404NotFound'
+        '500':
+          $ref: '#components/responses/500InternalServerError'
+  /api/tags:
+    post:
+      tags:
+        - tags
+      summary: Create a new tag
+      operationId: createTag
+      requestBody:
+        description: New tag object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Tag'
+      responses:
+        '201':
+          description: Successfully created new project
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Tag'
+        '400':
+          $ref: '#components/responses/400BadRequest'
+        '500':
+          $ref: '#components/responses/500InternalServerError'
+  /api/tags/{tagId}:
+    put:
+      tags:
+        - tags
+      summary: Update an existing tag. Replaces entire object.
+      operationId: updateTag
+      requestBody:
+        description: Updated tag object
+        required: 'true'
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Tag'
+      parameters:
+        - $ref: '#/components/parameters/tagId'
+      responses:
+        '200':
+          description: Successfully updated tag
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Tag'
+        '400':
+          $ref: '#components/responses/400BadRequest'
+        '404':
+          $ref: '#components/responses/404NotFound'
+        '500':
+          $ref: '#components/responses/500InternalServerError'
+    delete:
+      tags:
+      - tags
+      summary: Delete a tag
+      operationId: deleteTag
+      parameters:
+        - $ref: '#/components/parameters/tagId'
+      responses:
+        '200':
+          description: Successfully deleted tag
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                example:
+                  _id: 5b34370580f5b90ff8494ac4
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
@@ -283,7 +379,7 @@ paths:
     put:
       tags:
         - tasks
-      summary: Update all required fields for an existing task
+      summary: Update an existing task. Replaces entire object.
       operationId: updateTask
       requestBody:
         description: New task object
@@ -438,7 +534,7 @@ paths:
     put:
       tags:
       - users
-      summary: Update all required fields for an existing user
+      summary: Update an existing user. Replaces entire object.
       operationId: updateUser
       requestBody:
         description: Updated user object
@@ -700,6 +796,15 @@ components:
         type: string
         format: objectId
       example: 5b33c45d8d8bf66d4d44f1ec
+    tagId:
+      name: tagId
+      in: path
+      description: The tag id assigned by the database
+      required: true
+      schema:
+        type: string
+        format: objectId
+      example: 5b34370580f5b90ff8494ac4
     taskId:
       name: taskId
       in: path
