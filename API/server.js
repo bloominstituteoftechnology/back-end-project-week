@@ -7,16 +7,16 @@ const helmet = require('helmet');
 const jwt = require('jsonwebtoken');
 const server = express();
 
-// const secret = "its a secret";
+const secret = "its a secret";
 
-// function generateToken(user) {
-//   const options = {
-//     expiresIn: "1h"
-//   };
-//   const payload = { name: user.username };
+function generateToken(user) {
+  const options = {
+    expiresIn: "1h"
+  };
+  const payload = { name: user.username };
   
-//   return jwt.sign(payload, secret, options);
-// }
+  return jwt.sign(payload, secret, options);
+}
 
 
 // var whitelist = ['http://localhost:3000/', 'https://tender-ptolemy-5e2918.netlify.com/']
@@ -35,7 +35,7 @@ const corsOptions = {
 };
 
 server.use(helmet())
-server.use(cors())
+server.use(cors(corsOptions))
 server.use(express.json());
 // server.use(morgan('combined'));
 
