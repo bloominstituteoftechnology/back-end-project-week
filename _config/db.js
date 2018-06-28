@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 module.exports = {
     connectTo: function (database = 'sandbox', host = 'localhost') {
-        return mongoose.connect(process.env.mongo); //fetches from .env
+        return mongoose.connect('mongodb://erinc6:abcd35@ds115396.mlab.com:15396/lambdanotes'); //fetches from .env
     },
 };
 
