@@ -14,7 +14,7 @@ const corsOptions = {
 		} else {
 			callback(new Error('Not allowed by CORS'))
 		}
-	}
+	},
 	credentials: true,
 };
 //My husband tried to create and edit on my site and it turns out I had httpsEverywhere activated and then just cut and pasted the link here. CORS accepted all of my edits because it was coming from https://nostalgic.kilby but not his because his was coming from http://nostalgic.kilby. Important lesson learned.
