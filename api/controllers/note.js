@@ -20,7 +20,7 @@ const getNoteById = (req, res) => {
   const { id } = req.params;
   
   Notes.findById(id)
-    .populate('owner', '-_id username')
+    .populate('createdBy', '-_id username')
     .then(note => {
       if(note){
         res.json(note)

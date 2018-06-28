@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrpyt = require('bcrypt');
 const Schema = mongoose.Schema;
+const ObjectId = Schema.Types.ObjectId;
 
 const UserSchema = new Schema({
   username: {
@@ -13,10 +14,10 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  // notes: [{
-  //   type: ObjectId,
-  //   ref: 'Note'
-  // }]
+  notes: [{
+    type: ObjectId,
+    ref: 'Note'
+  }]
 
 })
 

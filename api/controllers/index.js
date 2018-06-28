@@ -1,7 +1,7 @@
 const { createUser, login, } = require('./user');
 
 const { newNote, getNoteById, deleteNote, editNote } = require('./note')
-const { getNoteByUser } = require('./userNotes')
+const { getNoteByUser, addShareUser, getSharedNotes } = require('./userNotes')
 
 module.exports = {
   login,
@@ -11,4 +11,6 @@ module.exports = {
   deleteNote,
   getNoteByUser, 
   editNote,
+  addShareUser,
+  getSharedNotes
 }
