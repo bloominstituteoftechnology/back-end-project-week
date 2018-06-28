@@ -3,11 +3,13 @@ import { Form, Input } from 'semantic-ui-react';
 import axios from 'axios';
 import { domain } from '../../config/dev';
 import { connect } from 'react-redux';
+import { putResultsToStore } from '../Actions';
+import { withRouter } from 'react-router-dom';
 
 class SearchBar extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       search: ''
     };
@@ -15,11 +17,14 @@ class SearchBar extends Component {
 
   getSearchResults = e => {
     e.preventDefault();
+    console.log('this.props',this.props);
     console.log('uid',this.props.user.uid);
     const header = { "headers": { "authorization": this.props.user.uid } };
     axios.get(`${domain}/notes/search?terms=${this.state.search}`,header)
       .then(results => {
         console.log('search results:', results);
+        this.props.putResultsToStore(results.data);
+        this.props.history.push('/notes/search');
       })
       .catch(error => {
         console.log('getSearchResults ERROR:',error);
@@ -43,6 +48,7 @@ class SearchBar extends Component {
             style={style} 
             icon='search' 
             name='search' 
+            onChange={this.handleTextChange}
             placeholder='Search...' 
           />
         </Form.Field>
@@ -57,4 +63,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, null)(SearchBar);
+export default withRouter(connect(mapStateToProps, { putResultsToStore })(SearchBar));

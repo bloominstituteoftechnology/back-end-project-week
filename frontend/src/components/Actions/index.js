@@ -7,6 +7,7 @@ export const ERROR = "ERROR";
 export const FETCH = "FETCH";
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
+export const SEARCH = "SEARCH";
 export const THEME = "THEME";
 
 const port = 5500;
@@ -49,6 +50,13 @@ export const fetchNotes = (uid) => async dispatch => {
     payload: response.data
   });
 };
+
+export const putResultsToStore = (results) => {
+  return {
+    type: SEARCH,
+    payload: results
+  };
+}
 
 export const deleteNote = (uid, id) => async dispatch => {
   const header = { "headers": { "authorization": uid } };

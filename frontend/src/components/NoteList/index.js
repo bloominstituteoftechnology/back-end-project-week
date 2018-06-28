@@ -15,10 +15,10 @@ import { Tag } from '../Forms/ViewNote';
 class NoteList extends Component {
 
   componentDidMount = () => {
-    console.log("Does this.props.user exist? ",this.props.user ? "YES":"NO");
+    // console.log("Does this.props.user exist? ",this.props.user ? "YES":"NO");
     if (this.props.user) this.props.fetchNotes(this.props.user.uid);
     if (this.props.user) {
-        console.log("It's happening at NotesList");
+        // console.log("It's happening at NotesList");
         this.props.fetchTheme(this.props.user.uid);
     }
   }
@@ -54,13 +54,19 @@ class NoteList extends Component {
             <h2>We still be loadin'. Hang on tight!</h2>
           </div>
         );
-      case this.props.notes.length === 0:
+      case !this.props.results:
         return (
-          <div className={`note-list ${classes}`}>
-            <h3>You don't have any notes.</h3>
-            <p>Let's get started by clicking on "Create New Note"!</p>
+          <div>
+            <h2>We still be loadin'. Hang on tight!</h2>
           </div>
         );
+      // case this.props.notes.length === 0:
+      //   return (
+      //     <div className={`note-list ${classes}`}>
+      //       <h3>You don't have any notes.</h3>
+      //       <p>Let's get started by clicking on "Create New Note"!</p>
+      //     </div>
+      //   );
       default:
          return (
         <div className={`note-list ${classes}`}>
@@ -167,6 +173,7 @@ const NoteCard = (props) => {
 const mapStateToProps = (state) => {
   return {
     notes: state.notesReducer.notes,
+    results: state.notesReducer.results,
     user: state.userReducer.user,
   }
 }

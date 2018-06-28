@@ -4,12 +4,14 @@ import {
   ERROR,
   FETCH,
   LOGOUT,
+  SEARCH
 } from '../Actions';
 
 const initialState = {
-  notes: [],
-  loading: false,
   error: null,
+  loading: false,
+  notes: [],
+  results: []
 }
 
 export const notesReducer = ( state = initialState, action ) => {
@@ -35,6 +37,11 @@ export const notesReducer = ( state = initialState, action ) => {
         ...state,
         notes: [],
       };
+    case SEARCH:
+      return {
+        ...state,
+        results: action.payload
+      }
     default:
       return {
         ...state,
