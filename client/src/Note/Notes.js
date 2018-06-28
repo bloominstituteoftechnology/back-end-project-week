@@ -26,7 +26,30 @@ class Notes extends Component {
     notes3: []
   }
   componentDidMount = () => {
-    let resNotes = db.data.notes //to-do: get original notes from db
+    let resNotes = []
+    fetch('/api/note', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        if (response.ok) {
+          response.json().then(data => {
+            const { notes } = data
+            this.displayNote(notes)
+          })
+        } else {
+          //todo: show err message to user
+          console.log('Something went wrong')
+        }
+      })
+      .catch(err => {
+        //todo: show err message to user
+        console.log(err)
+      })
+  }
+  displayNote = (resNotes) => {
     if (this.props.match.path === '/sort') {
       resNotes = resNotes.sort((prev, next) => prev.title - next.title)
       // placing each note to col

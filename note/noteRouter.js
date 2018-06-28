@@ -1,14 +1,22 @@
 const express = require('express');
 const Note = require('./Note.js');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
+let jwtSecret = '';
+
+if (process.env.NODE_ENV === 'dev') {
+    const config = require('../config.js');
+    jwtSecret = config.secret.jwtSecret;
+} else {
+    jwtSecret = process.env.jwtSecret;
+}
 
 router
     .route('/')
     .get((req, res) => {
-        console.log('here')
         Note
             .find({})
-            .then(response => res.status(200).json({ data: response }))
+            .then(response => res.status(200).json({ notes: response }))
             .catch(err => res.status(500).json(err))
     })
     .post((req, res) => {
@@ -24,6 +32,12 @@ router
     })
 
 router.route('/:id')
+    .get((req, res) => {
+        const selectedId = req.params.id
+        Note.findById(selectedId)
+            .then(response => res.status(200).json(response))
+            .catch(err => res.status(500).json(err))
+    })
     .delete((req, res) => {
         const deletedId = req.params.id
         Note.findByIdAndRemove({ _id: deletedId })

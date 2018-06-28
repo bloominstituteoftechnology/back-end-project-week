@@ -35,12 +35,12 @@ router
         User.findOne({ username }, (err, user) => {
             // check if user has existed account
             if (err) {
-                res.status(403).json({ message: 'Invalid Username/Password' });
-                return;
+                return res.status(403).json({ message: 'Invalid Username/Password' });
+
             }
             if (user === null) {
-                res.status(422).json({ message: 'No user with that username in our DB' });
-                return;
+                return res.status(422).json({ message: 'No user with that username in our DB' });
+
             }
             user.checkPassword(password, (nonMatch, hashMatch) => {
                 if (nonMatch) {
@@ -52,7 +52,9 @@ router
                         username: user.username
                     };
                     // creates our JWT with a secret and a payload and a hash.
-                    const token = jwt.sign(payload, jwtSecret);
+                    const token = jwt.sign(payload, jwtSecret, {
+                        expiresIn: 60 * 60 * 24 // expires in 24 hours
+                    });
                     // sends the token back to the client
                     res.status(200).json({ message: 'You are logged in', username: user.username, token: token });
                 }
@@ -61,6 +63,28 @@ router
                 }
             })
         });
+    })
+
+router
+    .route('/revisit')
+    .post((req, res) => {
+        let token = req.headers.authorization;
+
+        if (token) {
+            token = token.replace('Bearer ', '');
+            //verify token
+            jwt.verify(token, jwtSecret, (err, decodedToken) => {
+                if (err) {
+                    return res.status(401).json({ message: 'You shall not pass!' })
+                } else {
+                    return res.status(200).json({ message: 'You are auto-signed in' })
+                }
+            })
+        }
+        else {
+            return res.status(401).json({ message: 'You shall not pass!' })
+        }
+
     })
 
 module.exports = router;

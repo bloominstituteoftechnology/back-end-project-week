@@ -15,12 +15,13 @@ class App extends Component {
     selectedNoteId: '',
     isCreatingNote: false,
     showSideBar: false,
-    sideBarComponent: ''
+    sideBarComponent: '',
+    isAuthenticate: false,
   }
-  handleOpenNote = (id) => {
+  handleOpenNote = (_id) => {
     this.setState({
       isSelectingNote: true,
-      selectedNoteId: id
+      selectedNoteId: _id
     })
   }
   handleCloseNote = () => {
@@ -59,9 +60,50 @@ class App extends Component {
   handleCloseSideBar = () => {
     this.setState({ showSideBar: false })
   }
+  handleCompleteSignIn = () => {
+    this.setState({ isAuthenticate: true })
+  }
+  componentDidMount = () => {
+    let token = sessionStorage.getItem('jwtToken');
+    if (!token || token === '') {//if there is no token, dont bother
+      this.setState({ showSideBar: true, sideBarComponent: 'account' })
+      //todo: handle message
+      console.log('Please sign in to see your notes.')
+      return;
+    }
+    this.autoSignIn(token)
+  }
+  autoSignIn = (token) => {
+    const payload = JSON.stringify({ token })
+    fetch('/api/user/revisit', {
+      method: 'post',
+      body: payload,
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        if (response.ok) {
+          response.json().then(data => {
+            this.setState({ isAuthenticate: true })
+          })
+        } else {
+          sessionStorage.removeItem('jwtToken');
+          this.setState({ showSideBar: true, sideBarComponent: 'account' })
+          //todo: show err message to user
+          console.log('Unable to auto-sign in. Try signing in manually.')
+        }
+      })
+      .catch(err => {
+        sessionStorage.removeItem('jwtToken');
+        //todo: show err message to user
+        console.log(err)
+      })
+  }
   render() {
     const { classes } = this.props
-    const { isSelectingNote, isCreatingNote, selectedNoteId, showSideBar, sideBarComponent } = this.state
+    const { isSelectingNote, isCreatingNote, selectedNoteId, showSideBar, sideBarComponent, isAuthenticate } = this.state
     return (
       <div>
         <Container
@@ -73,13 +115,14 @@ class App extends Component {
           selectedNoteId={selectedNoteId}
           showSideBar={showSideBar}
           handleCloseSideBar={this.handleCloseSideBar}
+          isAuthenticate={isAuthenticate}
         />
         <Wheel
           handleCreateNote={this.handleCreateNote}
           openSideBar={this.openSideBar}
         />
         {showSideBar ?
-          <SideBar componentName={sideBarComponent} />
+          <SideBar componentName={sideBarComponent} handleCompleteSignIn={this.handleCompleteSignIn} />
           :
           ''
         }

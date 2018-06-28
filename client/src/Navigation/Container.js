@@ -63,7 +63,7 @@ class Container extends Component {
   }
   render() {
     const { isVisible } = this.state
-    const { classes, isSelectingNote, isCreatingNote, selectedNoteId, handleCloseSideBar } = this.props;
+    const { classes, isSelectingNote, isCreatingNote, selectedNoteId, handleCloseSideBar, isAuthenticate } = this.props;
     const defaultOptions = {
       loop: true,
       autoplay: true,
@@ -87,10 +87,16 @@ class Container extends Component {
             </div>
             :
             <div className={classes.width100}>
-              <Route exact path='/' render={(props) => <Notes {...props} handleOpenNote={this.props.handleOpenNote} />} />
-              <Route path='/notes' render={(props) => <Notes {...props} handleOpenNote={this.props.handleOpenNote} />} />
-              <Route path='/sort' render={(props) => <Notes {...props} handleOpenNote={this.props.handleOpenNote} />} />
-              <Route path='/export' render={(props) => <ExportNotes {...props} />} />
+              {isAuthenticate ?
+                <div>
+                  <Route exact path='/' render={(props) => <Notes {...props} handleOpenNote={this.props.handleOpenNote} />} />
+                  <Route path='/notes' render={(props) => <Notes {...props} handleOpenNote={this.props.handleOpenNote} />} />
+                  <Route path='/sort' render={(props) => <Notes {...props} handleOpenNote={this.props.handleOpenNote} />} />
+                  <Route path='/export' render={(props) => <ExportNotes {...props} />} />
+                </div>
+                :
+                'You need to sign in'
+              }
               {/* <Route path='/tags' render={(props) => <div {...props}></div>} />
             <Route path='/lists' render={(props) => <div {...props}></div>} />
             <Route path='/account' render={(props) => <div {...props}></div>} />

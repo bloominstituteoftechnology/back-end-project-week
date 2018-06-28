@@ -35,14 +35,14 @@ class SignUpForm extends Component {
                     })
                 } else {
                     this.setState({ username: '', password: '' })
-                    sessionStorage.removeItem('jwtToken');
+                    // sessionStorage.removeItem('jwtToken');
                     //todo: show err message to user
                     console.log('Username and Password are invalid')
                 }
             })
             .catch(err => {
                 this.setState({ username: '', password: '' })
-                sessionStorage.removeItem('jwtToken');
+                // sessionStorage.removeItem('jwtToken');
                 //todo: show err message to user
                 console.log(err)
             })

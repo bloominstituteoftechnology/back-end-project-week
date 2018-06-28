@@ -24,6 +24,7 @@ const styles = theme => ({
 
 const PosedSelectedNote = posed.div({
     fullscreen: {
+        opacity: 1,
         width: '100%',
         height: '100%',
         transition: {
@@ -32,6 +33,7 @@ const PosedSelectedNote = posed.div({
         flip: true
     },
     thumbnail: {
+        opacity: 0,
         width: 0,
         height: 0,
         flip: true
@@ -45,12 +47,32 @@ class SelectedNote extends Component {
         isVisible: false
     }
     componentDidMount = () => {
-        let selectedNote = notes.filter(note => note.id === this.props.id)[0]
-        this.setState({
-            title: selectedNote.title,
-            content: selectedNote.content,
-            isVisible: true
+        const selectedNoteId = this.props.id
+        fetch(`/api/note/${selectedNoteId}`, {
+            method: 'get',
+            headers: {
+                'Content-Type': 'application/json'
+            }
         })
+            .then(response => {
+                if (response.ok) {
+                    response.json().then(selectedNote => {
+                        this.setState({
+                            title: selectedNote.title,
+                            content: selectedNote.content,
+                            isVisible: true
+                        })
+                    })
+                } else {
+                    //todo: show err message to user
+                    console.log('Something went wrong.')
+                }
+            })
+            .catch(err => {
+                //todo: show err message to user
+                console.log(err)
+            })
+
     }
     handleCloseNote = (e) => {
         if (e.target === e.currentTarget) {

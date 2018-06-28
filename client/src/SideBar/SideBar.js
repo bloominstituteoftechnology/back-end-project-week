@@ -39,7 +39,7 @@ class SideBar extends Component {
         if (componentName === 'tags') {
             content = <Tags tags={tags} />
         } else if (componentName === 'account') {
-            content = <Account />
+            content = <Account handleCompleteSignIn={this.props.handleCompleteSignIn} />
         } else {
             content = ''
         }

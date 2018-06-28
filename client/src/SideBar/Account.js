@@ -50,6 +50,7 @@ class Account extends Component {
     }
     handleCompleteSignIn = ({ username }) => {
         this.setState({ completeSignedIn: true, username })
+        this.props.handleCompleteSignIn()
     }
     render() {
         const { classes } = this.props

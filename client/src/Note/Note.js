@@ -20,10 +20,10 @@ class Note extends Component {
 
     }
     render() {
-        const { classes, id, title, tags, content, handleOpenNote } = this.props
+        const { classes, _id, title, tags, content, handleOpenNote } = this.props
         return (
 
-            <div className={classes.note} onClick={() => handleOpenNote(id)}>
+            <div className={classes.note} onClick={() => handleOpenNote(_id)}>
                 <div className={classes.title}><h4>{title}</h4></div>
                 <div className={classes.hiddenOverflow}><Markdown>{content}</Markdown></div>
                 <Container
