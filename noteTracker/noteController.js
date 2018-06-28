@@ -39,7 +39,7 @@ router
             res.json({ success: 'note deleted.',  resource: deletedNote});
         })
         .catch(err => 
-            res.status(500).json({ error: 'The note could not be removed.'}));
+            res.status(500).json({ error: 'The note could not be removed.'})) ;
     })
 
    
