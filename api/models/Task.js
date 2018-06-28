@@ -48,18 +48,7 @@ const taskSchema = new mongoose.Schema({
   completed: {
     type: Boolean,
     default: false
-  },
-  attachments: [
-    {
-      type: ObjectId,
-      ref: 'Attachment',
-      validate: {
-        isAsync: true,
-        validator: (val, cb) => objectIdValid('Attachment', val, cb),
-        message: 'Must be an id for an existing attachment'
-      }
-    }
-  ]
+  }
 });
 
 module.exports = mongoose.model('Task', taskSchema);
