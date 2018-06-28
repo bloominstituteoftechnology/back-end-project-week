@@ -6,7 +6,7 @@
   "repository": "https://github.com/AKolumbic/back-end-project-week.git",
   "license": "MIT",
   "scripts": {
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "devDependencies": {
     "nodemon": "^1.17.5"

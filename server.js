@@ -16,7 +16,8 @@ const corsOptions = {
 }
 
 mongoose
-    .connect(`mongodb://${localHost}/${database}`)
+    //.connect(`mongodb://${localHost}/${database}`) // local mongo instance
+    .connect(process.env.mongo) // mlab DB
     .then(response => {
         console.log("Connection Successful")
     })
@@ -32,7 +33,6 @@ server.use('/students/', studentRouter);
 
 server.get('/', (req, res) => {
     res.status(200).json({ api: 'running' });
-    // res.send(`<h3>DB:${process.env.mongo}</h3>`)
 });
   
 server.listen(port, () => console.log(`API running on port: ${port}`));
