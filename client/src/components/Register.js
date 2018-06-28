@@ -9,14 +9,20 @@ class Register extends Component{
             email: '',
             password: ''
         }
+        this.handleInput = this.handleInput.bind(this);
+        this.register = this.register.bind(this);
     }
-
+    
+    handleInput = e => {
+        this.setState({[e.target.name]: e.target.value})
+    }
+    
     register = event => {
         event.preventDefault();
         const {email, password} = this.state
     
         axios
-        .post('http://localhost:5000/api/user', {email, password})
+        .post('http://localhost:5001/api/user', {email, password})
         .then((response) => {
             this.setState({login: response.data, email:'', password:''})
         })
@@ -24,10 +30,6 @@ class Register extends Component{
             console.log('error', err)
         })
     }
-    
-    handleInput = e => {
-        this.setState({[e.target.name]: e.target.value})
-    }    
     
     render() {
         return (
