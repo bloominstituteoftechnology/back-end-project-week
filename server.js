@@ -38,9 +38,9 @@ setupMiddleware(server);
 // Simple Node Express App to show server is online
 // Testing Node Express 
 
-server.get('/', (req, res) => {
-    res.send(`<h2>DB: Server connected...</h2>`);
-});
+// server.get('/', (req, res) => {
+//     res.send(`<h2>DB: Server connected...</h2>`);
+// });
 
 // HTTP METHODS FOR USERS
 
@@ -135,6 +135,7 @@ server.post('/api/createnote', (req, res) => {
 });
 
 server.get('/api/notes', (req, res) => {
+    console.log('Here...');
     Note.find({})
         .select('title')
         .then(users => {
