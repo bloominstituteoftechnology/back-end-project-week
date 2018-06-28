@@ -29,6 +29,17 @@ router
       .catch(err => {
         sendErr(res, err, `The tag with id ${id} could not be modified.`);
       });
+  })
+  .delete('/:id', (req, res) => {
+    const { id } = req.params;
+
+    Tag.findByIdAndRemove(id)
+      .then(deletedTag => {
+        sendRes(res, '200', deletedTag ? { _id: deletedTag._id } : null);
+      })
+      .catch(err => {
+        sendErr(res, err, `The tag with id ${id} could not be removed.`);
+      });
   });
 
 module.exports = {
