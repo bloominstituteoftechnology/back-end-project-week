@@ -12,7 +12,7 @@ const UserRouter = require('./Users/userRouter.js');
 
 const server = express();
 
-server.use(cors({ origin:'https://arcane-ridge-76389.herokuapp.com' }));
+server.use(cors({ origin:'https://thirsty-spence-6c1f2e.netlify.com' }));
 
 server.use(helmet());
 server.use(express.json());
