@@ -7,7 +7,7 @@ const NoteSchema = new mongoose.Schema({
     },
     content: {
         type: String,
-        maxlength: 240,
+        maxlength: 1040,
     }
 });
 
