@@ -43,7 +43,7 @@ const server = express();
 
 server.use(express.json());
 // server.use(session(sessionOptions));
-server.use(cors({}));
+server.use(cors({ origin: '*' }));
 server.use(helmet());
 // server.use(morgan());
 server.use('/notes/', notesRouter);
