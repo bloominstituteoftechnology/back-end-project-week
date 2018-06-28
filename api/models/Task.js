@@ -34,17 +34,6 @@ const taskSchema = new mongoose.Schema({
   dueDate: {
     type: Date
   },
-  subtasks: [
-    {
-      type: ObjectId,
-      ref: 'Subtask',
-      validate: {
-        isAsync: true,
-        validator: (val, cb) => objectIdValid('Subtask', val, cb),
-        message: 'Must be and id for an existing subtask'
-      }
-    }
-  ],
   tags: [
     {
       type: ObjectId,
