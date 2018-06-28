@@ -9,6 +9,10 @@ const noteModel = mongoose.Schema({
     note: {
         type: String,
         required: true
+    },
+    uid: {
+        type: String,
+        required: true
     }
 })
 

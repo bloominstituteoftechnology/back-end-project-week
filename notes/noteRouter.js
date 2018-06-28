@@ -2,13 +2,14 @@ const express = require('express');
 const router = express.Router();
 
 const noteModel = require("./noteModel")
+const userModel = require("../users/userModel")
 
 router
     .route('/')
         .post((req,res) => {
-            const { title, note } = req.body;
-            console.log({ title, note });
-            const newNote = new noteModel({ title, note})
+            const { title, note, uid } = req.body;
+            console.log({ title, note, uid });
+            const newNote = new noteModel({ title, note, uid})
             newNote.save()
                 .then(item => {
                     res.status(201).json(item)
@@ -34,8 +35,10 @@ router
     .route('/:id')
         .get((req,res) => {
             const {id} = req.params
-            noteModel.findById(id)
+            console.log(id)
+            noteModel.find({"uid": id})
                 .then(item => {
+                    console.log(item)
                     res.status(200).json(item)
                 })
         })

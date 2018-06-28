@@ -40,8 +40,8 @@ router.post('/login', function(req,res){
           .then(passMatch => {
             if(passMatch){
               const token = generateToken(user)
-
-              res.status(200).json({ message: `come in ${username}`, token})
+              console.log("user", user)
+              res.status(200).json({ uid: `${user._id}`, token})
             }
             else{
               res.status(401).json({ message: `inccorect password`}) 
