@@ -1,19 +1,22 @@
 const mongoose = require('mongoose');
-const ObjId = mongoose.Schema.Types.ObjectId;
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const Note = mongoose.Schema({
     title: {
         type: String,
-        unique: true,
         required: true
     },
     body: {
         type: String,
         required: true
     },
-    user: {
-        type: ObjId,
-        ref: 'User'
+    userId: {
+        type: ObjectId,
+        required: true
+    },
+    key: {
+        type: Number,
+        unique: true
     }
 });
 

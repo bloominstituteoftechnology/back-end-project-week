@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const ObjId = mongoose.Schema.Types.ObjectId;
 const bcrypt = require('bcrypt');
+const Note = require('../notes/Note.js');
 
 const User = mongoose.Schema({
     username: {
@@ -13,7 +14,12 @@ const User = mongoose.Schema({
         type: String,
         require: true,
         minLength: 5
-    }
+    },
+    notes: [{
+        type: ObjId,
+        ref: 'Note',
+
+    }]
 });
 
 User.pre('save', function(next) {

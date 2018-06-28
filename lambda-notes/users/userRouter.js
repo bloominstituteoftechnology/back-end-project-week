@@ -1,6 +1,7 @@
 const express = require('express');
 const User = require('./User.js');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 
 router
     .route('/')
@@ -10,10 +11,14 @@ router
             res.status(400).json({errMessage: 'Please provide both username and password'})
             return;
         }
-        const newUser = new User({username, password});
-        newUser.save()
-            .then(result => res.json(result))
-            .catch(err => res.status(500).json({error: err.message}));
+        User.create(req.body)
+            .then((user) => {
+                console.log(user);
+                res.status(201).json(user);
+            })
+            .catch(err => {
+                res.status(500).json({error: err.message});
+            });
     });
 router
     .post('/login', (req, res) => {
@@ -25,6 +30,7 @@ router
                         .confirmPW(password)
                         .then(pwMatch => {
                             if(pwMatch == true){
+                                console.log(pwMatch);
                                 res.status(200).json(user);
                             }else{
                                 res.status(401).send('invalid creds, please try again.');
