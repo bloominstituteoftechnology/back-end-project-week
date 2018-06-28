@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const subtaskSchema = new mongoose.Schema({
   description: {
     type: String,
-    required: true
+    required: [true, 'Subtask description required']
   },
   completed: {
     type: Boolean,
-    required: true,
+    required: [true, 'Completed flag required'],
     default: false
   }
 });

@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const attachmentSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: [true, 'Attachment name required']
   },
   link: {
     type: String,
-    required: true
+    required: [true, 'Attachment link required']
   }
 });
 

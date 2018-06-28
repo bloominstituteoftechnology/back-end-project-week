@@ -5,12 +5,12 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 const commentSchema = new mongoose.Schema({
   comment: {
     type: String,
-    required: true
+    required: [true, 'Comment required']
   },
   author: {
     type: ObjectId,
     ref: 'User',
-    required: true,
+    required: [true, 'Authur of comment required'],
     validate: {
       isAsync: true,
       validator: (val, cb) => objectIdValid('User', val, cb),
@@ -19,7 +19,7 @@ const commentSchema = new mongoose.Schema({
   },
   date: {
     type: Date,
-    required: true,
+    required: [true, 'Comment date required'],
     default: Date.now()
   }
 });

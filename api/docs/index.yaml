@@ -824,6 +824,41 @@ paths:
                   error: The user with id ${ID} could not be removed.
 components:
   schemas:
+    Attachment:
+      title: Attachment
+      required:
+        - name
+        - link
+      properties:
+        name:
+          description: Name of attached file
+          type: string
+          example: home-page-mockup.pdf
+        link:
+          description: Cloud storage link for saved file
+          type: string
+          example: https://example.s3.amazonaws.com/attachment.pdf
+    Comment:
+      title: Comment
+      required:
+        - comment
+        - author
+        - date
+      properties:
+        comment:
+          description: Comment body
+          type: string
+          example: An example comment.
+        author:
+          description: User id of person who wrote the comment
+          type: string
+          format: objectId
+          example: 5b1ed13e8cea93c6ba72b1da
+        date:
+          description: Date the comment was posted
+          type: string
+          format: date
+          example: 06/27/2018
     Project:
       title: Project
       required:
@@ -845,6 +880,41 @@ components:
             type: string
             format: objectId
           example: ['5b1ed13e8cea93c6ba72b1da', '5b1ed13e8cea93c6ba72b1db', '5b1ed13e8cea93c6ba72b1dc']
+    Subtask:
+      title: Subtask
+      required:
+        - description
+        - completed
+      properties:
+        description:
+          description: A description of the subtask
+          type: string
+          example: An example description.
+        completed:
+          description: Subtasks' completed status
+          type: boolean
+          default: false
+          example: false
+    Tag:
+      title: Tag
+      required:
+        - project
+        - description
+        - color
+      properties:
+        project:
+          description: Id of existing project that tag belongs to
+          type: string
+          format: objectId
+          example: 5b1ed13e8cea93c6ba72b1da
+        description:
+          description: Descriptive title for tag
+          type: string
+          example: High Priority
+        color:
+          description: "Background color for tag. Allowed values: black, white, blue, green, red, yellow, purple"
+          type: string
+          example: red
     Task:
       title: Task
       required:
