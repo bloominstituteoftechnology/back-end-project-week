@@ -1,13 +1,16 @@
+require('dotenv').config();
+
 const mongoose = require('mongoose');
 const { server } = require('./server/server');
-const { port } = require('./config');
-const { dbURI } = require('./config');
+const PORT = process.env.PORT;
+const DB_URI = process.env.MONGODB_URI;
 
-mongoose.connect(dbURI)
+mongoose
+  .connect(DB_URI)
   .then(() => {
     console.log('\n*** CONNECTED to database ***\n');
-    server.listen(port, () => {
-      console.log(`\n*** Listening on port ${port} ***\n`);
+    server.listen(PORT, () => {
+      console.log(`\n*** Listening on port ${PORT} ***\n`);
     });
   })
   .catch(err => {

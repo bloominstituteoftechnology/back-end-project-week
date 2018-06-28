@@ -26,6 +26,7 @@
   "homepage": "https://github.com/d-vail/back-end-project-week#readme",
   "dependencies": {
     "bcrypt": "^2.0.1",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "mongoose": "^5.1.6",
     "swagger-ui-express": "^3.0.10",
