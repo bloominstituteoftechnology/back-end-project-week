@@ -162,6 +162,7 @@ server.post('/api/createnote', (req, res) => {
 // });
 
 server.get('/api/notes', (req, res) => {
+    console.log('Can you see this?')
     Note.find({})
     .then(notes => {
     res.send('Hey! Where are you?') //<--- This line should send directly to client
