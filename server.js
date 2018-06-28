@@ -31,7 +31,7 @@ const secret = "Can you keep a secret?"
 //     .catch(err => console.log('\n *** Error Connecting to Database *** \n', err));
 
 server.use(helmet());
-server.use(cors(corsOptions));
+// server.use(cors(corsOptions));
 server.use(express.json());
 setupMiddleware(server);
 
