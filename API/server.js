@@ -6,7 +6,7 @@ const Note =  require('../note/noteModel');
 const helmet = require('helmet');
 const jwt = require('jsonwebtoken');
 const server = express();
-
+const bodyParser = require('body-parser');
 const secret = "its a secret";
 
 function generateToken(user) {
@@ -34,9 +34,10 @@ const corsOptions = {
     credentials: true,
 };
 
-server.use(helmet())
-server.use(cors(corsOptions))
+server.use(helmet());
+server.use(cors(corsOptions));
 server.use(express.json());
+server.use(bodyParser());
 // server.use(morgan('combined'));
 
 // auth routes
