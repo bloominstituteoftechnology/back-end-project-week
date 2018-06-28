@@ -128,7 +128,7 @@ server.put('/api/notes/:id', (req, res) => {
 server.delete('/api/notes/:id', (req, res) => {
     const { id } = req.params;
 
-    User.findByIdAndRemove(id)
+    Note.findByIdAndRemove(id)
         .then(removedNote => {
             if(removedNote) {
                 res.status(204).end();
