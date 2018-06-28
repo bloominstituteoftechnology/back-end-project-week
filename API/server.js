@@ -56,7 +56,7 @@ server.post('/api/register', (req, res) => {
 
 server.post("/api/login", (req, res) => {
     const { username, password } = req.body;
-    User.findOne({ username })
+    User.find({ username })
         .then(user => {
             if (user) {
                 user
