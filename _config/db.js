@@ -5,7 +5,7 @@ const mlabUrl = config.mlab
 
 module.exports = {
     connectTo: function (database = 'sandbox', host = 'localhost') {
-        return mongoose.connect(process.env.mongo);
+        return mongoose.connect(process.env.mongo); //fetches from .env
     },
 };
 
