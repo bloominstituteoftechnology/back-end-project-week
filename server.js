@@ -31,6 +31,7 @@ server.use('/users', usersRouter);
 //     res.status(200).json('API up and running!'); 
 // }); 
 
+// added dotenv
 server.get('/', (req, res) => {
     res.send(`<h2>DB: ${process.env.mongo}</h2>`)
 }); 
