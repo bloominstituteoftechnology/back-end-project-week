@@ -26,13 +26,23 @@ class SignUpForm extends Component {
             body: payload,
             headers: { "Content-Type": "application/json" }
         })
-            .then(response => response.json())
-            .then(data => {
-                const { username, token } = data
-                this.props.handleCompleteSignIn({ username, token })
+            .then(response => {
+                if (response.ok) {
+                    response.json().then(data => {
+                        const { username, token } = data
+                        sessionStorage.setItem('jwtToken', token);
+                        this.props.handleCompleteSignIn({ username })
+                    })
+                } else {
+                    this.setState({ username: '', password: '' })
+                    sessionStorage.removeItem('jwtToken');
+                    //todo: show err message to user
+                    console.log('Username and Password are invalid')
+                }
             })
             .catch(err => {
                 this.setState({ username: '', password: '' })
+                sessionStorage.removeItem('jwtToken');
                 //todo: show err message to user
                 console.log(err)
             })

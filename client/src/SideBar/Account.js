@@ -35,7 +35,6 @@ class Account extends Component {
         completeSignedUp: false,
         completeSignedIn: false,
         username: '',
-        token: ''
     }
     handleSignUp = () => {
         this.setState({
@@ -49,9 +48,8 @@ class Account extends Component {
     handleSignInWithSupernoteAccount = () => {
         this.setState({ signInWithSupernoteAccount: true })
     }
-    handleCompleteSignIn = ({ username, token }) => {
+    handleCompleteSignIn = ({ username }) => {
         this.setState({ completeSignedIn: true, username })
-        //todo: set session with token
     }
     render() {
         const { classes } = this.props
