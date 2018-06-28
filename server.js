@@ -1,4 +1,4 @@
-const express = require('express'); 
+const express = require('express');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -12,27 +12,35 @@ const server = express();
 
 server.use(helmet());
 server.use(express.json());
-server.use(cors());
-server.use(morgan('dev'))
+server.use(cors({
+    origin: "localhost://3000",
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: origin
+  }
+));
+server.use(morgan('combined'))
 server.use('/api/todo', TodoController);
 server.use('/api/user', AuthController);
 server.use(express.static(path.join(__dirname, 'client/build')));
 
 // root route
 server.get('/', (req, res) => {
-  res.status(200).json({api: 'running'})
+  res.status(200).json({
+    api: 'running'
+  })
 });
 
 server.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/client/build/index.html'));
+  res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
 
 // connecting mongoose to local host and heroku
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/Todo-App', {}, (err) => {
-    if (err) console.log(err);
-    console.log('Mongoose connected to Database server')
-  });
+  if (err) console.log(err);
+  console.log('Mongoose connected to Database server')
+});
 
 const port = process.env.PORT || 5001;
 server.listen(port, () => {
