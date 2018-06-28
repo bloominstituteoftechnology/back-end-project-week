@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const User = require('../models/User');
 const { sendErr, sendRes } = require('../utils/apiResponses');
+const { generateToken } = require('../../server/middleware');
 
 router
   .post('/', (req, res) => {
@@ -9,6 +10,23 @@ router
     User.create(newUser)
       .then(({ _id, firstName, lastName, email }) => {
         sendRes(res, '201', { _id, firstName, lastName, email });
+      })
+      .catch(err => {
+        sendErr(res, err, 'The user could not be created.');
+      });
+  })
+  .post('/register', (req, res) => {
+    const newUser = req.body;
+
+    User.create(newUser)
+      .then(({ _id, firstName, lastName, email }) => {
+        const fullName = `${firstName} ${lastName}`;
+        const token = generateToken({
+          userid: _id,
+          name: fullName,
+          email: email
+        });
+        sendRes(res, '201', { name: fullName, token });
       })
       .catch(err => {
         sendErr(res, err, 'The user could not be created.');
