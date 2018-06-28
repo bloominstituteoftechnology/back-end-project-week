@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const cors = require ('cors');
 const helmet = require('helmet');
 // const morgan = require('morgan');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const notesRouter = require('./api/Notes/NotesRouter');
@@ -70,4 +70,4 @@ server.listen(port, () => {
     console.log(`API running on port ${port}`);
 });
 
-server.use(bodyParser.json());
+// server.use(bodyParser.json());
