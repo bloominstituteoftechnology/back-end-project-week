@@ -14,7 +14,7 @@ server.use('/api/users', userRouter);
 server.use('/api/notes', notesRouter);
 
 server.get('/', (req, res) => {
-  res.status(200).json({ api: 'running' });
+  res.status(200).json({ api: 'running', server: `Server up and running on ${port}` });
 });
 
 const port = process.env.PORT || 5000;
