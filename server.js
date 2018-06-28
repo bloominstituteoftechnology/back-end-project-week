@@ -2,13 +2,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
-const morgan = require('morgan');
+// const morgan = require('morgan');
 
 const server = express();
 
-const userRouter = require('./users/userRouter');
+// const userRouter = require('./users/userRouter');
 const noteRouter = require('./notes/noteRouter');
-const authRouter = require('./auth/authRouter');
+// const authRouter = require('./auth/authRouter');
 
 const db = process.env.mongo || 'mongodb://localhost/backendDB'
 mongoose
@@ -20,7 +20,7 @@ server.use(express.json());
 server.use(cors());
 server.use(helmet());
 
-server.use('/api/user', userRouter);
+// server.use('/api/user', userRouter);
 server.use('/api/note', noteRouter);
 
 server.get('/', (req, res) => {
