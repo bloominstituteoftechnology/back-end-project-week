@@ -31,6 +31,7 @@ router.get('/api/notes/:id',(req, res) => {
     });
 });
 
+//list notes
 router.get('api/notes/:id', (req, res) => {
     const { id } = req.params;
     Notes.findById(id).select('__v-id-notesAuthor')

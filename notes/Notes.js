@@ -11,8 +11,9 @@ const notesSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    notesDate: String,
-    notesAuthor:[{type: ObjectId, ref: 'User'}]
+    // key: { type: Number, unique: true },
+    //key stops my db and cant figure out why so rollin.
+    notesAuthor: [{ type: ObjectId, ref: 'User' }],
 });
 
 notesSchema.methods.getNotesTitle = function () {

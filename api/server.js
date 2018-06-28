@@ -19,12 +19,12 @@ const config = require('../api/config.js');
 
 const server = express();
 
-// server.use(helmet());
+server.use(helmet());
 server.use(express.json());
 server.use(morgan('combined'));
 server.use(cors());
 
-// server.use('/api/notes', NotesRoutes);
+server.use('/api/notes', NotesRoutes);
 // server.use(cors({ origin: 'http://localhost:8000', methods: ['GET', 'POST'], credentials: true }));
 
 

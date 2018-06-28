@@ -12,7 +12,8 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        minimumLength: 10,
+        unique: true,
+        minLength: 10,
     },
     Notes:[{type: ObjectId, ref: 'User'}]
 });
