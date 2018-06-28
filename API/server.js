@@ -43,7 +43,8 @@ server.use(bodyParser());
 // auth routes
 
 server.post('/api/register', (req, res) => {
-    User.create(req.body)
+    const { username, password } = req.body
+    User.create({ username, password })
     .then(({ username }) => {
         const token = generateToken(username);
         res.status(201).json({ username, token });
