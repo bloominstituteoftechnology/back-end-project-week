@@ -2,7 +2,6 @@ import { FETCHING_NOTES, NOTES_FETCHED, FETCHING_SINGLE_NOTE, SINGLE_NOTE_FETCHE
 
 const initialState = {
     userData: {},
-    notes: [],
     note: {},
     fetchingNotes: false,
     notesFetched: false,

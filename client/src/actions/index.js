@@ -43,7 +43,13 @@ export const getSingleNote = (userId, noteId) => {
 }
 
 export const addNote = (userId, obj) => {
-    const createNote = axios.post(`http://localhost:1433/api/users/${userId}/notes`, obj);
+    const token = localStorage.getItem('jwt');
+    const requestOptions = {
+        headers: {
+            Authorization: token
+        }
+    }
+    const createNote = axios.post(`http://localhost:1433/api/users/${userId}/notes`, obj, requestOptions);
     return function (dispatch) {
         dispatch({ type: SAVING_NOTES });
         createNote

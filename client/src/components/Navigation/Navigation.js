@@ -11,8 +11,8 @@ const Navigation = () => {
                 <h1>Lambda</h1>
                 <h1>Notes</h1>
             </Link>
-            {localStorage.getItem('jwt') ? <Link to=''><button>View Your Notes</button></Link> : <Link to='/signup'><button>Sign Up</button></Link>}
-            {localStorage.getItem('jwt') ? <Link to=''><button>+ Create New Note</button></Link> : <Link to='/login'><button>Log In</button></Link>}
+            {localStorage.getItem('jwt') ? <Link to='/'><button>View Your Notes</button></Link> : <Link to='/signup'><button>Sign Up</button></Link>}
+            {localStorage.getItem('jwt') ? <Link to='/createnote'><button>+ Create New Note</button></Link> : <Link to='/login'><button>Log In</button></Link>}
         </div>
     )
 }
