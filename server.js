@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const noteRouter = require('./notes/noteRouter');
 const feport = 3000;
-const beport = process.env.POTR || 5000;
+const beport = process.env.PORT || 5000;
 const server = express()
 
 server.use(helmet());

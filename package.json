@@ -4,7 +4,8 @@
     "description": "Backend Project",
     "main": "server.js",
     "scripts": {
-        "start": "nodemon server.js"
+        "start": "nodemon server.js",
+        "heroku-postbuild": "cd lambda-notes && yarn && yarn run build"
     },
     "repository": {
         "type": "git",
