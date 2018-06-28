@@ -12,7 +12,7 @@ const UserRouter = require('./Users/userRouter.js');
 
 const server = express();
 
-server.use(cors({ origin:'https://thirsty-spence-6c1f2e.netlify.com' }));
+server.use(cors({ origin:'https://vibrant-darwin-54252a.netlify.com' }));
 
 server.use(helmet());
 server.use(express.json());
