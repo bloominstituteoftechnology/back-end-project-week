@@ -2,10 +2,16 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 const server = express();
 
-server.use(cors());
+const corsOptions = {
+    origin: 'http://localhost:3000', //allow only the React application to connect
+    credentials: true, // sets the Acess-Control-Allow-Credential CORS header
+};
+
+server.use(cors( corsOptions ));
 server.use(express.json());
 
 const getNote = require('./backend/getNote/getNote.js');
@@ -22,11 +28,11 @@ server.use('/api/user/', userLogin);
 
 
 server.get('/', (req, res)=>{
-    res.status(200).json({ api: 'running'})
+    res.status(200).json({ DB: `${process.env.mongoUrl}`})
 })
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://oagboghi2:Avatar299@ds217671.mlab.com:17671/obo_lambda_notes', {}, (err => {
+mongoose.connect(process.env.mongoUrl, {}, (err => {
     err ? console.log(err) : console.log('Mongoose is connected to our Database')
 }))
 

@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const secret = 'Secret is yours';
 
 const User = require('../userModel/userModel.js')
+const Notes = require('../notesModel/notesModel.js')
 
 function generateToken(user){
     console.log("testing helper function");
@@ -27,6 +28,24 @@ function restricted(res, req, next){
         res.status(401).json({ message: "Does not pass token" })
     }
 }
+
+router
+    .get('/list', (req, res) => {
+            User
+                .find()
+                .select('username')
+                .then(user => {
+                    console.log("/list : ", user)
+                    res.status(200).json({ user })
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(500).json({ errorMessage: err })
+                })
+        })
+        
+    
+    
 
 router
     .post('/register', (req, res) => {
