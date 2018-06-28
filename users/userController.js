@@ -52,7 +52,7 @@ router.route('/login')
                                 if (passwordsMatch) {
                                     const token = generateToken(user);
 
-                                    res.status(200).json({ Success: `Welcome ${username}!`, token })
+                                    res.status(200).json({ user, token })
                                 } else {
                                     res.status(401).json({ errorMessage: 'Invalid credentials' })
                                 }
