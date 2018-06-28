@@ -327,46 +327,217 @@ paths:
   /api/tasks:
     post:
       tags:
-      - tasks
+        - tasks
       summary: Create a new task
       operationId: createTask
       requestBody:
         description: New task object
-        required: 'true'
+        required: true
         content:
           application/json:
             schema:
               $ref: '#components/schemas/Task'
-      responses: {}
+      responses:
+        '201':
+          description: Successfully created new task
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Task'
+        '400':
+          description: Bad request from validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example:
+                  error: 'Task validation failed: title: Task title required'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example:
+                  error: The task could not be created.
     get:
       tags:
-      - tasks
+        - tasks
       summary: Get all existing tasks
       operationId: getAllTasks
-      responses: {}
+      responses:
+        '200':
+          description: Successfully returned array of tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Task'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example:
+                  error: The list of tasks could not be retrieved.
   /api/tasks/{taskId}:
     get:
       tags:
-      - tasks
+        - tasks
       summary: Get task by id
       operationId: getTaskById
-      parameters: {}
-      responses: {}
+      parameters:
+      - in: path
+        name: taskId
+        schema:
+          type: string
+        required: true
+        description: The task id
+      responses:
+        '200':
+          description: Successfully returned task
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Task'
+        '404':
+          description: Document not found. Id does not exist.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example:
+                  error: The document with the specified ID does not exist.
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example:
+                  error: The task with id {ID} could not be retrieved.
     put:
       tags:
-      - tasks
+        - tasks
       summary: Update all required fields for an existing task
       operationId: updateTask
-      requestBody: {}
-      parameters: {}
-      responses: {}
+      requestBody:
+        description: New task object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Task'
+      parameters:
+      - in: path
+        name: taskId
+        schema:
+          type: string
+        required: true
+        description: The task id
+      responses:
+        '200':
+          description: Successfully updated task
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Task'
+        '400':
+          description: Bad request from validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example:
+                  error: 'Task validation failed: title: Task title required'
+        '404':
+          description: Document not found. Id does not exist.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example:
+                  error: The document with the specified ID does not exist.
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example:
+                  error: The task with id {ID} could not be updated.
     delete:
       tags:
-      - tasks
+        - tasks
       summary: Delete a task
       operationId: deleteTask
-      parameters: {}
-      responses: {}
+      parameters:
+      - in: path
+        name: taskId
+        schema:
+          type: string
+        required: true
+        description: The task id
+      responses:
+        '200':
+          description: Successfully deleted task
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                example:
+                  _id: 5b33e2dfc55019773e08217d
+        '404':
+          description: Document not found. Id does not exist.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example:
+                  error: The document with the specified ID does not exist.
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example:
+                  error: The task with id {ID} could not be deleted.
   /api/users:
     post:
       tags:
