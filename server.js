@@ -46,7 +46,7 @@ server.use(express.json());
 server.use(cors({}));
 server.use(helmet());
 // server.use(morgan());
-server.use('/notes', notesRouter);
+server.use('/notes/', notesRouter);
 server.use('/users', usersRouter);
 
 function protected(req, res, next) {
