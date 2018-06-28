@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
@@ -31,6 +32,7 @@ server.use('/students/', studentRouter);
 
 server.get('/', (req, res) => {
     res.status(200).json({ api: 'running' });
+    // res.send(`<h3>DB:${process.env.mongo}</h3>`)
 });
   
 server.listen(port, () => console.log(`API running on port: ${port}`));

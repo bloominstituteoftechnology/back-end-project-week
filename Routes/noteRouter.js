@@ -24,7 +24,7 @@ function restricted(req, res, next) {
 
 router
     .route('/')
-    .get(restricted, (req, res) => {
+    .get((req, res) => {
         Note
             .find()
             .then(listOfNotes => {
