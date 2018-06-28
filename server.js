@@ -34,10 +34,8 @@ setupMiddleware(server);
 // Testing Node Express 
 
 server.get('/', (req, res) => {
-    res.send(`<h2>After 48 years, your server is finally up...</h2>`);
+    res.send(`<h2>DB: ${process.env.mongo}</h2>`);
 });
-
-// DB: ${process.env.mongo}
 
 // HTTP METHODS FOR USERS
 
