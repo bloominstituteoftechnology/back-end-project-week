@@ -20,6 +20,11 @@ const corsOptions = {
     credentials: true,
 };
 
+// const corsOptions = {
+//     origin: 'http://localhost:3000',
+//     credentials: true,
+// };
+
 // db
 //     .connectTo('lambda-notes-db')
 //     .then(() => console.log('\n === API Connected to Database === \n'))
@@ -38,10 +43,6 @@ server.get('/', (req, res) => {
 });
 
 // HTTP METHODS FOR USERS
-
-// server.get('/', (req, res) => {
-//     res.send(`<h2>Server is online!</h2>`)
-// });
 
 server.post('/api/register', (req, res) => {
     User.create(req.body)
@@ -192,7 +193,7 @@ server.delete('/api/notes/:id', (req, res) => {
 
 const port = process.env.PORT || 5333;
 
-
+mongoose.Promise = global.Promise;
 
 mongoose
     .connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds018248.mlab.com:18248/lambdanotesdb`)
@@ -207,7 +208,7 @@ mongoose
 );
 
 server.listen(port, () => {
-    console.log(`Server is up and running on port ${5333}`);
+    console.log(`Server is up and running on port ${port}`);
 });
 
 // .connect('mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds018248.mlab.com:18248/lambdanotesdb')
