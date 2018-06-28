@@ -5,7 +5,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: `${process.env.cors}`,
     credentials: true,
 };
 
