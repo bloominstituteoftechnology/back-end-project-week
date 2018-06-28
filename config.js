@@ -1,4 +1,4 @@
-const secret = 'hasta siempre Comandante';
+// const secret = 'hasta siempre Comandante';
 
 
-module.exports = { secret };
+// module.exports = { secret };

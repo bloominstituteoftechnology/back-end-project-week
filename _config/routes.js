@@ -1,8 +1,11 @@
+require('dotenv').config();
+
 const noteRoutes = require('../notes/noteRoutes');
 const userRoutes = require('../users/userRoutes');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
-const secret = config.secret;
+// const secret = config.secret;
+
 
 
 function restricted(req, res, next) {
@@ -10,7 +13,7 @@ function restricted(req, res, next) {
     const token = req.headers.authorization;
 
     if (token) {
-        jwt.verify(token, secret, (err, decodedToken) => {
+        jwt.verify(token, process.env.jwtSecret, (err, decodedToken) => {
             // req.jwtPayload(decodedToken);
             if (err) {
                 return res
