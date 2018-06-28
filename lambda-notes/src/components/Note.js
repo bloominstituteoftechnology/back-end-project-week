@@ -20,22 +20,22 @@ class Note extends Component {
     }
 
     matchedNote = this.props.notes.filter(note => {
-        return note.id == this.props.match.params.id
+        return note._id == this.props.match.params._id
     })[0];
 
-    handleRemoveNote = (event, id) => {
+    handleRemoveNote = (event, _id) => {
         event.preventDefault();
-        this.props.removeNote(id)
-        window.location.href = "/";
+        this.props.removeNote(_id)
+        this.props.history.push('/')
     };
 
     render() {
-        // console.log(this.props.notes)
-        // console.log(this.matchedNote)
+        console.log(this.props.notes)
+        console.log(this.matchedNote)
         return (
             <div className="note-view">
                 <div className="button-group">
-                    <Link to={`/editNote/${this.matchedNote.id}`} className="edit-button">
+                    <Link to={`/editNote/${this.matchedNote._id}`} className="edit-button">
                         <button>Edit</button>
                     </Link>
                     <button
@@ -46,7 +46,7 @@ class Note extends Component {
                 </div>
                 <div className="full-note">
                     <h4 className="note-title">{this.matchedNote.title}</h4>
-                    <p className="note-body">{this.matchedNote.body}</p>
+                    <p className="note-body">{this.matchedNote.content}</p>
                 </div>
                 <Modal isOpen={this.state.modalActive} toggle={this.toggle} className="modal-style">
                     <ModalBody className="modal-body">
@@ -54,7 +54,7 @@ class Note extends Component {
                     </ModalBody>
                     <ModalFooter className="button-wrapper">
                         <button style={{ backgroundColor: "#D1001A"}} className="modal-button1 modal-button" onClick={event => {
-                            this.handleRemoveNote(event, this.matchedNote.id);
+                            this.handleRemoveNote(event, this.matchedNote._id);
                         }}>
                             Delete
                         </button> 

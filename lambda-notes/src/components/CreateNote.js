@@ -6,7 +6,7 @@ import { addNote } from '../actions';
 class CreateNote extends Component {
     state = {
         title: '',
-        body: ''
+        content: ''
     }
 
     handleNewNote = (event) => {
@@ -16,15 +16,15 @@ class CreateNote extends Component {
 
     addNote = (event) => {
         event.preventDefault();
-        let noteObj = { 
-            title: this.state.title, 
-            body: this.state.body, 
-            id: this.state.id,
-            createAt: this.state.createAt }
+        let noteObj = {
+            title: this.state.title,
+            content: this.state.content
+            // id: this.state.id,
+            // createAt: this.state.createAt
+        }
         this.props.addNote(noteObj);
-        this.setState({title: '', body: ''});
-        // this.props.history.push('/');
-        window.location.href="/";
+        this.setState({title: '', content: ''});
+        this.props.history.push('/');
     }
 
     render() {
@@ -42,8 +42,8 @@ class CreateNote extends Component {
                     <textarea
                     type="text"
                     placeholder="Write note here..."
-                    name="body"
-                    value={this.state.body}
+                    name="content"
+                    value={this.state.content}
                     onChange={this.handleNewNote}
                     />
                     <button onClick={this.addNote}>

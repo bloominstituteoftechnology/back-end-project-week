@@ -75,25 +75,25 @@ class NoteList extends Component {
             let currentOrder = [];
             let savedOrder = {};
             source.forEach((item, index) => {
-                currentOrder.push(item.id)
+                currentOrder.push(item._id)
             });
             this.setState({ order: currentOrder });
             // console.log(typeof this.state.order);
             
             for (let i = 0; i < this.state.order.length; i++) {
-                savedOrder[this.props.notes[i].id] = this.props.notes[i];
+                savedOrder[this.props.notes[i]._id] = this.props.notes[i];
                 // console.log("order notes", this.state.order)
             }
             for (let i = 0; i < this.state.order.length; i++) {
                 this.props.notes[i] = savedOrder[this.state.order[i]];
                 // console.log("prop notes", this.props.notes)
             }
-            localStorage.setItem('array', JSON.stringify(this.props.notes));
+            // localStorage.setItem('array', JSON.stringify(this.props.notes));
         }, 500);
     }
 
     render() {
-        console.log(Date.now())
+        // console.log(Date.now())
         // console.log(document.getElementsByClassName("note"))
         // console.log('body',this.state.bodyCheck)
         // console.log('title',this.state.titleCheck)
@@ -185,9 +185,9 @@ class NoteList extends Component {
                         return (
                         <Link 
                             style={{textDecoration: "none", color: "black"}} 
-                            key={note.id} 
-                            to={`/note/${note.id}`} 
-                            id = {note.id}
+                            key={note._id} 
+                            to={`/note/${note._id}`} 
+                            id = {note._id}
                             onMouseUp={this.savedPosition}
                             className="note-link note ui-state-default"
                             >

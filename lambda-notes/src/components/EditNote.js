@@ -6,16 +6,16 @@ import { editNote } from '../actions';
 class EditNote extends Component {
     state = {
         title: ``,
-        body: ``,
-        id: this.props.match.params.id
+        content: ``,
+        _id: this.props.match.params._id
     };
 
     matchedNote = this.props.notes.filter(note => {
-        return note.id == this.props.match.params.id
+        return note._id == this.props.match.params._id
     })[0];
 
     componentDidMount() {
-        this.setState({title: this.matchedNote.title, body: this.matchedNote.body})
+        this.setState({title: this.matchedNote.title, content: this.matchedNote.content})
     };
 
     handleEditNote = (event) => {
@@ -26,10 +26,10 @@ class EditNote extends Component {
         event.preventDefault();
         this.props.editNote(this.state);
         this.setState({ 
-            id: `${this.props.match.params.id}`,
+            _id: `${this.props.match.params._id}`,
             title: `${this.props.match.params.title}`,
-            body: `${this.props.match.params.body}` });
-        // console.log("params id", this.props.match.params.id);
+            content: `${this.props.match.params.content}` });
+        console.log("params id", this.props.match.params._id);
         window.location.href = "/";
     };
 
@@ -43,8 +43,8 @@ class EditNote extends Component {
                         onChange={this.handleEditNote}
                     />
                     <textarea
-                        name="body"
-                        value={this.state.body}
+                        name="content"
+                        value={this.state.content}
                         onChange={this.handleEditNote}
                     />
                     <button onClick={this.edit}>Submit</button>
