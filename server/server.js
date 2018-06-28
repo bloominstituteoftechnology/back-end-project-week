@@ -9,7 +9,7 @@ const UserRouter = require('./Users/userRouter.js');
 
 const server = express();
 
-server.use(cors({ origin: 'http://localhost:3000' }));
+server.use(cors({ origin:'https://arcane-ridge-76389.herokuapp.com' }));
 
 server.use(helmet());
 server.use(express.json());
