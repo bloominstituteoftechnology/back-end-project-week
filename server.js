@@ -15,14 +15,10 @@ db
     .then(() => console.log('\n... API Connected to Database ...\n'))
     .catch(err => console.log('\n*** ERROR Connecting to Database ***\n', err));
 
-    const corsOptions = {
-        origin: process.env.origin,
-        credentials: true
-    };
 
 
 server.use(helmet());
-server.use(cors(corsOptions));
+server.use(cors());
 server.use(express.json());
 
 server.use('/api/notes', notesRouter);
