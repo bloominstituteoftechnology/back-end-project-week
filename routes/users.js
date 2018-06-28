@@ -73,9 +73,10 @@ router.get("/current", passport.authenticate("jwt", { session: false }), (req, r
 router.get("/friends/all", passport.authenticate("jwt", {session: false}), (req, res) => {
   const currentUserID = req.user.id;
   User.findById(currentUserID)
-    .populate("user")
+    .populate("user.friends")
+    .exec()
     .then(currentUser => {
-      res.json(currentUser.friends);
+      res.json(currentUser);
     })
     .catch(err => {
       res.status(400).json({msg: "can't find user"});
