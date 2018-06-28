@@ -18,6 +18,54 @@ tags:
   - name: users
     description: Create and manage users and user settings. Handle user sessions.
 paths:
+  /api/attachments:
+    post:
+      tags:
+        - attachments
+      summary: Create a new attachment
+      operationId: createAttachment
+      requestBody:
+        description: New attachment object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Attachment'
+      responses:
+        '201':
+          description: Successfully created new attachment
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Attachment'
+        '400':
+          $ref: '#components/responses/400BadRequest'
+        '500':
+          $ref: '#components/responses/500InternalServerError'
+  /api/attachments/{attachmentId}:
+    delete:
+      tags:
+        - attachments
+      summary: Delete an attachment
+      operationId: deleteAttachment
+      parameters:
+        - $ref: '#/components/parameters/attachmentId'
+      responses:
+        '200':
+          description: Successfully deleted attachment
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                example:
+                  _id: 5b347ac4beac9f299e644244
+        '404':
+          $ref: '#components/responses/404NotFound'
+        '500':
+          $ref: '#components/responses/500InternalServerError'
   /api/comments:
     post:
       tags:
@@ -618,6 +666,27 @@ paths:
           $ref: '#components/responses/404NotFound'
         '500':
           $ref: '#components/responses/500InternalServerError'
+  /api/tasks/{taskId}/attachments:
+    get:
+      tags:
+        - tasks
+      summary: Get attachments by task id
+      operationId: getAttachmentsByTaskId
+      parameters:
+        - $ref: '#/components/parameters/taskId'
+      responses:
+        '200':
+          description: Successfully returned array of attachments for specified task
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Attachment'
+        '404':
+          $ref: '#components/responses/404NotFound'
+        '500':
+          $ref: '#components/responses/500InternalServerError'
   /api/users:
     post:
       tags:
@@ -795,9 +864,15 @@ components:
     Attachment:
       title: Attachment
       required:
+        - task
         - name
         - link
       properties:
+        task:
+          description: Id of existing task that attachment belongs to
+          type: string
+          format: objectId
+          example: 5b33e5328f5db17933878482
         name:
           description: Name of attached file
           type: string
@@ -938,13 +1013,6 @@ components:
           type: Boolean
           example: false
           default: false
-        attachments:
-          description: Array of attachment id's belonging to task
-          type: array
-          items:
-            type: string
-            format: objectId
-          example: ['5b1ed13e8cea93c6ba72b1da', '5b1ed13e8cea93c6ba72b1db', '5b1ed13e8cea93c6ba72b1dc']
     User:
       title: User
       required:
@@ -977,6 +1045,15 @@ components:
   # Reusable operation parameters
   #-------------------------------
   parameters:
+    attachmentId:
+      name: attachmentId
+      in: path
+      description: The attachment id assigned by the database
+      required: true
+      schema:
+        type: string
+        format: objectId
+      example: 5b347ac4beac9f299e644244
     commentId:
       name: commentId
       in: path
