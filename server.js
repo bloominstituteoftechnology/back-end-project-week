@@ -15,8 +15,8 @@ server.use(express.json());
 server.use(cors({
     origin: "localhost://3000",
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: origin
+    methods: ['GET', 'POST', 'PUT'],
+    allowedHeaders: 'origin'
   }
 ));
 server.use(morgan('combined'))
