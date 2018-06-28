@@ -2,17 +2,34 @@ const router = require('express').Router();
 const Subtask = require('../models/Subtask');
 const { sendErr, sendRes } = require('../utils/apiResponses');
 
-router.post('/', (req, res) => {
-  const newSubtask = req.body;
+router
+  .post('/', (req, res) => {
+    const newSubtask = req.body;
 
-  Subtask.create(newSubtask)
-    .then(subtask => {
-      sendRes(res, '201', subtask);
-    })
-    .catch(err => {
-      sendErr(res, err, 'The subtask could not be created.');
-    });
-});
+    Subtask.create(newSubtask)
+      .then(subtask => {
+        sendRes(res, '201', subtask);
+      })
+      .catch(err => {
+        sendErr(res, err, 'The subtask could not be created.');
+      });
+  })
+  .put('/:id', (req, res) => {
+    const { id } = req.params;
+    const updatedSubtask = req.body;
+    const options = {
+      new: true,
+      runValidators: true
+    };
+
+    Subtask.findByIdAndUpdate(id, updatedSubtask, options)
+      .then(updatedSubtask => {
+        sendRes(res, '200', updatedSubtask);
+      })
+      .catch(err => {
+        sendErr(res, err, `The subtask with id ${id} could not be modified.`);
+      });
+  });
 
 module.exports = {
   subtasksRouter: router
