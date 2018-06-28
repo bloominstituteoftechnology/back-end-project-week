@@ -16,11 +16,6 @@ server.use(morgan('combined'))
 
 const port = process.env.PORT || 5000
 
-const corsOptions = {
-    origin: '*',
-    methods: 'GET, PUT, POST, DELETE',
-    optionsSuccessStatus: 204
-};
 server.use(cors({ origin: process.env.CORSORIGIN }))
 
 server.get('/', (req, res) => {
