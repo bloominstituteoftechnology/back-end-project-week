@@ -43,15 +43,7 @@ module.exports = (usersModel, notesModel) => {
             res.status(httpStatus.notFound).json({ error: "404: Not Found\nThe note with the specified ID cannot be found. The note is likely to have changed or not exist, though you may double check the ID in the URL for errors." });
             return;
           }
-          usersModel.update({ _id: note.author }, { $pull: { notes: note._id }})
-          .then(() => {
-            res.status(httpStatus.OK).json(note);
-          })
-          .catch(error => {
-            console.log('noteRoutes--POST ERROR:',error); 
-            res.status(500).json(error);
-          });
-
+          res.status(httpStatus.OK).json(note);
         })
         .catch(error => {
           console.log('noteRoutes--PUT ERROR:',error);
@@ -63,11 +55,21 @@ module.exports = (usersModel, notesModel) => {
 
       notesModel.findByIdAndRemove(idOfNoteToDelete)
         .then(deletedDoc => {
+
           if (!deletedDoc) {
             res.status(httpStatus.notFound).json({ error: "404: Not Found\nThe note with the specified ID cannot be found. The note is likely to have changed or not exist, though you may double check the ID in the URL for errors." });
             return;
           }
-          res.status(httpStatus.OK).json({ deleted: deletedDoc });
+
+          usersModel.update({ _id: deletedDoc.author }, { $pull: { notes: deletedDoc._id }})
+            .then(() => {
+              res.status(httpStatus.OK).json({ deleted: deletedDoc });
+            })
+            .catch(error => {
+              console.log('noteRoutes--POST ERROR:',error); 
+              res.status(500).json(error);
+            });
+
         })
         .catch(error => {
           console.log('noteIdRoutes--DELETE ERROR:',error);

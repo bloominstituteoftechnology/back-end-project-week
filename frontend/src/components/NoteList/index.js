@@ -49,11 +49,6 @@ class NoteList extends Component {
       case !this.props.user:
         return <Redirect to="/" />;
       case !this.props.notes:
-        return (
-          <div>
-            <h2>We still be loadin'. Hang on tight!</h2>
-          </div>
-        );
       case !this.props.results:
         return (
           <div>
