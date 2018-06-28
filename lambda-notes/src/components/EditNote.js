@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-import { editNote } from '../actions';
+import axios from 'axios';
 
 class EditNote extends Component {
     state = {
         title: ``,
-        content: ``,
-        _id: this.props.match.params._id
+        content: ``
     };
 
     matchedNote = this.props.notes.filter(note => {
-        return note._id == this.props.match.params._id
+        return note._id == this.props.match.params.id
     })[0];
 
     componentDidMount() {
@@ -24,13 +22,17 @@ class EditNote extends Component {
     
     edit = (event) => {
         event.preventDefault();
-        this.props.editNote(this.state);
-        this.setState({ 
-            _id: `${this.props.match.params._id}`,
-            title: `${this.props.match.params.title}`,
-            content: `${this.props.match.params.content}` });
-        console.log("params id", this.props.match.params._id);
-        window.location.href = "/";
+        const noteObj = {
+            title: this.state.title,
+            content: this.state.content
+        }
+        axios.put(`http://localhost:5000/notes/${this.props.match.params.id}`, noteObj)
+            .then(() => {
+                this.props.history.push('/')
+            })
+            .catch(err => {
+                console.log(err);
+            })
     };
 
     render() {
@@ -56,8 +58,8 @@ class EditNote extends Component {
 
 const mapStateToProps = store => {
     return {
-        notes: store
+        notes: store[0].notes
     };
 };
 
-export default connect(mapStateToProps, { editNote })(EditNote);
+export default connect(mapStateToProps)(EditNote);

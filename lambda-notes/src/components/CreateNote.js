@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-
-import { addNote } from '../actions';
+import axios from 'axios';
 
 class CreateNote extends Component {
     state = {
@@ -16,15 +14,13 @@ class CreateNote extends Component {
 
     addNote = (event) => {
         event.preventDefault();
-        let noteObj = {
-            title: this.state.title,
-            content: this.state.content
-            // id: this.state.id,
-            // createAt: this.state.createAt
-        }
-        this.props.addNote(noteObj);
-        this.setState({title: '', content: ''});
-        this.props.history.push('/');
+        axios.post("http://localhost:5000/notes", this.state)
+            .then(() => {
+                this.props.history.push('/');
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
     render() {
@@ -55,4 +51,4 @@ class CreateNote extends Component {
     }
 }
 
-export default connect(null, { addNote })(CreateNote);
+export default CreateNote;

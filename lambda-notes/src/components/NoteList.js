@@ -38,16 +38,12 @@ class NoteList extends Component {
             return note.title;
         })
         noteTitles = noteTitles.sort();
-        // console.log(noteTitles);
         for (let i = 0; i < noteTitles.length; i++) {
             noteOrder[this.props.notes[i].title] = this.props.notes[i];
-            // console.log(this.state.order)
         }
         for (let i = 0; i < noteTitles.length; i++) {
             this.props.notes[i] = noteOrder[noteTitles[i]];
-            // console.log(this.props.notes)
         }
-        localStorage.setItem('array', JSON.stringify(this.props.notes));
     }
 
     // handleDateSort = (event) => {
@@ -106,8 +102,6 @@ class NoteList extends Component {
             } else if (this.state.bodyCheck) {
                 return note.content.toLowerCase().indexOf(this.state.search) !== -1;
             }
-            // return this.props.notes;
-            return JSON.parse(localStorage.getItem('array'));
         });
         return (
             <div className="notelist-container">

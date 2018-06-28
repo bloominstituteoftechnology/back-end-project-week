@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Modal, ModalBody, ModalFooter } from 'reactstrap';
-import { removeNote } from '../actions';
+import axios from 'axios';
 
 class Note extends Component {
     constructor(props) {
@@ -20,18 +20,24 @@ class Note extends Component {
     }
 
     matchedNote = this.props.notes.filter(note => {
-        return note._id == this.props.match.params._id
+        // console.log("note: ", note);
+        return note._id == this.props.match.params.id
     })[0];
 
     handleRemoveNote = (event, _id) => {
         event.preventDefault();
-        this.props.removeNote(_id)
-        this.props.history.push('/')
+        axios.delete(`http://localhost:5000/notes/${_id}`)
+            .then(() => {
+                this.props.history.push('/')
+            })
+            .catch(err => {
+                console.log(err);
+            })
     };
 
     render() {
-        console.log(this.props.notes)
-        console.log(this.matchedNote)
+        console.log("this.props.notes: ", this.props.notes)
+        // console.log(this.matchedNote)
         return (
             <div className="note-view">
                 <div className="button-group">
@@ -70,8 +76,8 @@ class Note extends Component {
 
 const mapStateToProps = store => {
     return {
-        notes: store
+        notes: store[0].notes
     };
 };
 
-export default connect(mapStateToProps, { removeNote })(Note);
+export default connect(mapStateToProps)(Note);
