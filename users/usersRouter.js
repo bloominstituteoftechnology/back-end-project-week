@@ -63,7 +63,8 @@ const protected = passport.authenticate('jwt', passportOptions);
 
 router
     .route('/')
-    .get(protected, (req, res) => {
+    // .get(protected, (req, res) => {
+        .get((req, res) => {
         User.find()
         .select('username')
         .then(users => {
