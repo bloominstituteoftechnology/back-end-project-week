@@ -2,9 +2,6 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "main": "server.js",
-  "scripts": {
-    "start": "nodemon server.js"
-  },
   "repository": "https://github.com/annecourtney/back-end-project-week.git",
   "author": "Anne Courtney <annecourtney_1@yahoo.com>",
   "license": "MIT",
