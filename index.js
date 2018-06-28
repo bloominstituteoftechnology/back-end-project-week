@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { server } = require('./server');
+const { server } = require('./server/server');
 const { port } = require('./config');
 const { dbURI } = require('./config');
 
