@@ -163,8 +163,8 @@ server.post('/api/createnote', (req, res) => {
 
 server.get('/api/notes', (req, res) => {
     Note.find({})
-    .then(users => {
-        return res.status(200).json(users);
+    .then(notes => {
+    res.send('Hey! Where are you?') //<--- This line should send directly to client
         })
     .catch(err => {
         return res.status(500).json(err);
