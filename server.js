@@ -15,10 +15,10 @@ const setupRoutes = require('./config/routes');
 const server = express();
 const secret = "Can you keep a secret?"
 
-const corsOptions = {
-    origin: 'process.env.CORSORIGIN',
-    credentials: true,
-};
+// const corsOptions = {
+//     origin: 'process.env.CORSORIGIN',
+//     credentials: true,
+// };
 
 // const corsOptions = {
 //     origin: 'http://localhost:3000',
@@ -163,13 +163,13 @@ server.post('/api/createnote', (req, res) => {
 
 server.get('/api/notes', (req, res) => {
     console.log('Here...');
-    console.log(Note); //<----add this
+    // console.log(Note); //<----add this
     Note.find({})
         .select('title')
-        .then(users => {
+        .then(users => { 
             console.log(users); // <---- add this
-        res.status(200).json(users);
-            })
+            res.status(200).json(users);
+        })
         .catch(err => {
             return res.status(500).json(err);
         });
