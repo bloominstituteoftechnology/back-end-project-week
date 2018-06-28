@@ -3,7 +3,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+require('dotenv').config(); // This is for the .env file
 
 const User = require('./users/User');
 const Note = require('./notes/Note');
