@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { getNotes } from '../../actions';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -21,7 +22,8 @@ class Login extends Component {
             .then(response => {
                 if (response.data.token) {
                     localStorage.setItem('jwt', response.data.token);
-                    this.props.history.push(`/api/users/${response.data.id}/notes`);
+                    this.props.getNotes(response.data.id);
+                    this.props.history.push('/');
                 }
             })
             .catch(error => {
@@ -54,4 +56,4 @@ class Login extends Component {
     }
 }
 
-export default withRouter(connect(null)(Login)); 
+export default withRouter(connect(null, { getNotes })(Login)); 

@@ -14,11 +14,20 @@ export const REDIRECT_FORPUT = 'REDIRECT_FORPUT';
 export const ERROR = 'ERROR';
 
 export const getNotes = (userId) => {
-    const receiveNotes = axios.get(`http://localhost:1433/api/users/${userId}/notes`);
+    const token = localStorage.getItem('jwt');
+    const requestOptions = {
+        headers: {
+            Authorization: token
+        }
+    }
+    const receiveNotes = axios.get(`http://localhost:1433/api/users/${userId}/notes`, requestOptions);
     return function (dispatch) {
         dispatch({ type: FETCHING_NOTES });
         receiveNotes
-            .then(response => dispatch({ type: NOTES_FETCHED, payload: response.data }))
+            .then(response => {
+                console.log('Response Get', response)
+                return dispatch({ type: NOTES_FETCHED, payload: response.data })
+            })
             .catch(error => dispatch({ type: ERROR, payload: error }))
     }
 }

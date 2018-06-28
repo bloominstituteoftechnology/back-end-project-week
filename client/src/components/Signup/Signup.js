@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Popover, PopoverBody } from 'reactstrap';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { Redirect, withRouter } from 'react-router-dom';

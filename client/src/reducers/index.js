@@ -1,6 +1,7 @@
 import { FETCHING_NOTES, NOTES_FETCHED, FETCHING_SINGLE_NOTE, SINGLE_NOTE_FETCHED, SAVING_NOTES, NOTES_SAVED, DELETING_NOTE, NOTE_DELETED, UPDATING_NOTE, NOTE_UPDATED, REDIRECT_FORPUT, ERROR } from '../actions';
 
 const initialState = {
+    userData: {},
     notes: [],
     note: {},
     fetchingNotes: false,
@@ -22,7 +23,7 @@ export const notesReducer = (state = initialState, action) => {
         case FETCHING_NOTES:
             return Object.assign({}, state, { fetchingNotes: true });
         case NOTES_FETCHED:
-            return Object.assign({}, state, { notes: action.payload, fetchingNotes: false, notesFetched: true, secondRedirect: false });
+            return Object.assign({}, state, { userData: action.payload, fetchingNotes: false, notesFetched: true, secondRedirect: false });
         case FETCHING_SINGLE_NOTE:
             return Object.assign({}, state, { fetchingSingleNote: true, redirect: false });
         case SINGLE_NOTE_FETCHED:
