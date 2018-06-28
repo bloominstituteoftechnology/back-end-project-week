@@ -7,34 +7,50 @@ let ObjectID = require('mongodb').ObjectID;
 
 
 
-//create note with title and content.
-router.post('/api/notes',(req, res) => {
-    const note = { title: req.body.body, content: req.body.body, notesDate: req.body.body };
-    db.collection('Notes').insert(note, (err, results) => { 
-        if (err) {
-            res.send({ 'error': 'Error has occured' });
-        } else {
-            res.send(result.ops[0]);
-        }
-    })
+router.post('/', (req, res) => {
+    const { title, content, notesAuthor } = req.body;
+    if (!title || !content || !notesAuthor) {
+        res.status(400).json({ message: 'Missing fields for Note', error: error });
+    } else {
+        Notes.create({ title, content, notesAuthor })
+        .then(note => {
+            res.status(201).json(note);
+        })
+        .catch(err => {
+            res.status(500).json({ message: 'Error saving to database'});
+        })
+    }
 });
+
+
+
+
+//create note with title and content.
+// router.post('/notes',(req, res) => {
+//     const note = { title: req.body.body, content: req.body.body, notesAuthor: req.body.body };
+//     db.collection('Notes').insert(note, (err, results) => { 
+//         if (err) {
+//             res.status(500).json({ message: 'Error saving to database'});
+//         } else {
+//             res.send(result.ops[0]);
+//         }
+//     })
+// });
+
 //View a note
-router.get('/api/notes/:id',(req, res) => {
+router.get('/',(req, res) => {
     const id = req.params.id;
-    const details = { '_id': new ObjectID(id) };
-    db.collection('Notes').findOne(details, (err, item) => {
-        if (err) {
-            res.send({ 'error': 'Error has occurred' });
-        } else {
-            res.send(item);
-        }
-    });
+    Notes.find()
+        .then(note => { 
+            res.status(200).json(note);
+        })
+        .catch(err => res.status(500).json(err)); 
 });
 
 //list notes
-router.get('api/notes/:id', (req, res) => {
+router.get('/:id', (req, res) => {
     const { id } = req.params;
-    Notes.findById(id).select('__v-id-notesAuthor')
+    Notes.findById(id).select('-__v -_id -notesAuthor')
         .then(note => {
             if (note !== null) {
                 res.status(200).json({ note })
@@ -50,7 +66,7 @@ router.get('api/notes/:id', (req, res) => {
 
 
 //remove a note
-router.delete('/api/notes/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
     const { id } = req.params;
     if (!id) {
         res.status(422).json({ message: 'NEED an ID' });
@@ -71,21 +87,19 @@ router.delete('/api/notes/:id', (req, res) => {
 
 
 //Edit a note
-router.put('/api/notes/:id',(req, res) => {
-    const id = req.params.id;
-    const details = { '_id': new ObjectID(id) };
-    const note = { title: req.body.body, content: req.body.text };
-    db.collection('Notes').update(details, note, (err, result) => {
-        if (err) {
-            res.send({ 'error': 'Error has occurred' });
-        } else {
-            res.send('Notes' + id + 'deleted!!!');
-        }
-        
-    })
+router.put('/:id',(req, res) => {
+    const { id } = req.params;
+    const { title, content, notesAuthor } = req.body;
+    Notes.findByIdAndUpdate(id, { title, content, notesAuthor }).select('-__v -_id -notesAuthor')
+        .then(note => { 
+            if (note) {
+                res.status(200).json(note);
+            } else {
+                res.status(404).json({ message: 'Note not found' });
+            }
+        })
         .catch(err => res.status(500).json(err));
-});
-
-
+    }) 
+        
 
 module.exports = router;
