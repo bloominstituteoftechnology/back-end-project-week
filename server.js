@@ -1,5 +1,5 @@
 const express = require('express');
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
 
@@ -8,8 +8,9 @@ const server = express();
 const userRouter = require('./users/userRouter');
 const noteRouter = require('./notes/noteRouter');
 
+const db = process.env.mongo || 'mongodb://localhost/backendDB'
 mongoose
-    .connect(process.env.mongo)
+    .connect(db)
     .then(() => console.log('\n=== Connected to DB ===\n'))
     .catch(error => console.log('\n!!! Error connecting to DB !!!\n', error))
 
