@@ -19,5 +19,5 @@ db.connectTo('notes')
     })
   })
   .catch( err => {
-    console.log('*** Failed to connect to the server ***')
+    console.log('*** Failed to connect to the Database ***')
   })
