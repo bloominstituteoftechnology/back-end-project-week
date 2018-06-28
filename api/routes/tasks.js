@@ -2,6 +2,7 @@ const router = require('express').Router();
 const Task = require('../models/Task');
 const Subtask = require('../models/Subtask');
 const Comment = require('../models/Comment');
+const Attachment = require('../models/Attachment');
 const { sendErr, sendRes } = require('../utils/apiResponses');
 
 router
@@ -50,12 +51,23 @@ router
   .get('/:id/comments', (req, res) => {
     const { id } = req.params;
 
-    Comment.find()
+    Comment.find({ task: id })
       .then(comments => {
         sendRes(res, '200', comments);
       })
       .catch(err => {
         sendErr(res, err, `The comments for task ${id} could not be retrieved.`);
+      });
+  })
+  .get('/:id/attachments', (req, res) => {
+    const { id } = req.params;
+
+    Attachment.find({ task: id })
+      .then(attachments => {
+        sendRes(res, '200', attachments);
+      })
+      .catch(err => {
+        sendErr(res, err, `The attachments for task ${id} could not be retrieved.`);
       });
   })
   .put('/:id', (req, res) => {
