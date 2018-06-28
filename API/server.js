@@ -131,6 +131,7 @@ server.delete('/api/notes/:id', (req, res) => {
     Note.findByIdAndRemove(id)
         .then(removedNote => {
             if(removedNote) {
+                res.status(200).json(removedNote)
                 res.redirect('/api/notes')
             } else {
                 res.status(404).json({ message: "Note not found" });
