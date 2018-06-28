@@ -49,17 +49,6 @@ const taskSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  comments: [
-    {
-      type: ObjectId,
-      ref: 'Comment',
-      validate: {
-        isAsync: true,
-        validator: (val, cb) => objectIdValid('Comment', val, cb),
-        message: 'Must be an id for an existing user'
-      }
-    }
-  ],
   attachments: [
     {
       type: ObjectId,

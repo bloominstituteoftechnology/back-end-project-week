@@ -3,6 +3,15 @@ const { objectIdValid } = require('../utils/objectIdValid');
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const commentSchema = new mongoose.Schema({
+  task: {
+    type: ObjectId,
+    ref: 'Task',
+    validate: {
+      isAsync: true,
+      validator: (val, cb) => objectIdValid('Task', val, cb),
+      message: 'Must be an id for an existing task'
+    }
+  },
   comment: {
     type: String,
     required: [true, 'Comment required']
