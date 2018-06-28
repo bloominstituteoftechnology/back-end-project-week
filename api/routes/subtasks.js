@@ -29,6 +29,17 @@ router
       .catch(err => {
         sendErr(res, err, `The subtask with id ${id} could not be modified.`);
       });
+  })
+  .delete('/:id', (req, res) => {
+    const { id } = req.params;
+
+    Subtask.findByIdAndRemove(id)
+      .then(deletedSubtask => {
+        sendRes(res, '200', deletedSubtask ? { _id: deletedSubtask._id } : null);
+      })
+      .catch(err => {
+        sendErr(res, err, `The subtask with id ${id} could not be removed.`);
+      });
   });
 
 module.exports = {
