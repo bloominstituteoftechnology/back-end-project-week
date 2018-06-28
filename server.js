@@ -38,20 +38,6 @@ setupMiddleware(server);
 // Simple Node Express App to show server is online
 // Testing Node Express 
 
-mongoose.Promise = global.Promise;
-
-mongoose
-    .connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds018248.mlab.com:18248/lambdanotesdb`)
-    .then(() => {
-        console.log('\n === Connected to MongoDB === \n');
-        // server.listen(port, (req, res) => {
-        //     console.log(`\n === API up on port ${port} === \n`)
-        // });
-    })
-    .catch(err => 
-    console.log('\n === Error connecting to MongoDB, is it running? === \n', err)
-);
-
 server.get('/', (req, res) => {
     res.send(`<h2>DB: Server up and running...</h2>`);
 });
@@ -149,31 +135,15 @@ server.post('/api/createnote', (req, res) => {
         });
 });
 
-// server.get('/api/notes', (req, res) => {
-//     console.log('Here...');
-//     Note.find({})
-//         .select('title')
-//         .then(notes => {
-//         res.status(200).json(notes);
-//             })
-//         .catch(err => {
-//             return res.status(500).json(err);
-//         });
-// });
-
 server.get('/api/notes', (req, res) => {
-    console.log('Here...');
-    // console.log(Note); //<----add this
     Note.find({})
         .select('title')
-        .then(users => { 
-            console.log(users); // <---- add this
-            res.status(200).json(users);
+        .then(notes => { 
+            res.status(200).json(notes);
         })
         .catch(err => {
             return res.status(500).json(err);
         });
-    console.log('I am lost'); // <----- add this
 });
 
 server.get('/api/notes/:_id', (req, res) => {
@@ -217,10 +187,19 @@ server.delete('/api/notes/:id', (req, res) => {
         });
 });
 
-// server.use('/api/users', userRouter);
-// server.use('/api/notes', userRouter);
+mongoose.Promise = global.Promise;
 
-// server.get('/', (req, res) => res.send('API Running...'));
+mongoose
+    .connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds018248.mlab.com:18248/lambdanotesdb`)
+    .then(() => {
+        console.log('\n === Connected to MongoDB === \n');
+        // server.listen(port, (req, res) => {
+        //     console.log(`\n === API up on port ${port} === \n`)
+        // });
+    })
+    .catch(err => 
+    console.log('\n === Error connecting to MongoDB, is it running? === \n', err)
+);
 
 const port = process.env.PORT || 5333;
 
