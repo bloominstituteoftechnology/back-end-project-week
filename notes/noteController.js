@@ -26,8 +26,10 @@ router.route('/create/:id')
 
 router.route('/get/all')
     .get((req, res) => {
-        Notes.find()
-            .then(notes => res.json(notes))
+        const { _id } = req.query;
+        User.findById(_id)
+            .populate('notes')
+            .then(currentUser => res.json(currentUser.notes))
             .catch(err => res.status(500).json({ errorMessage: 'The notes information could not be retrieved' }))
     })
 
