@@ -12,6 +12,11 @@ const createUser = (req, res) => {
     });
 };
 
+const login = (req, res) => {
+  res.status(200).json({user: req.user, test: 'test'})
+}
+
 module.exports = {
-  createUser
+  createUser,
+  login
 }

@@ -34,7 +34,7 @@ UserSchema.pre('save', function(next) {
 
 
 UserSchema.methods.checkPassword = function(plainTextPW) {
-  bcrpyt.compare(plainTextPW, this.password)
+  return bcrpyt.compare(plainTextPW, this.password)
 }
 
 module.exports = mongoose.model('User', UserSchema)
