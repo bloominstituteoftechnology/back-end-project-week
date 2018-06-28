@@ -22,7 +22,7 @@ class Register extends Component{
         const {email, password} = this.state
     
         axios
-        .post('http://localhost:5001/api/user', {email, password})
+        .post('http://localhost:5001', {email, password})
         .then((response) => {
             this.setState({login: response.data, email:'', password:''})
         })

@@ -6,6 +6,7 @@ import {Route} from 'react-router-dom';
 import Buttons from './components/Button';
 import Register from './components/Register'
 import Login from './components/Login';
+import TodoList from './components/TodoList';
 
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
         <Route exact path='/' component={Buttons} />
         <Route path='/register' component={Register} />
         <Route path='/login' component={Login} />
+        <Route path='/todos' component={TodoList}></Route>
       </div>
     );
   }
