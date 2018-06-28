@@ -34,7 +34,7 @@ router.route('/:id')
     })
     .delete((req, res) => {
         const { id } = req.params;
-        Note.findByIdAndRemove(id)
+        Note.findByIdAndDelete(id)
             .then(response => res.json(response))
             .catch(err => res.status(500).json({ error: err.message }));
     });
