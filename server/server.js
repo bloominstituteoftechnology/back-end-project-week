@@ -1,6 +1,6 @@
 const express = require ('express');
 const cors = require('cors');
-//const db = require('./_config/db');
+//const db = require('./_config/db'); I don't ever actually use this file because I do my mongoose.connect below
 const setupMiddleware = require('./_config/middleware');
 const setupRoutes = require('./_config/routes');
 const mongoose = require('mongoose');
