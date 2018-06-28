@@ -55,7 +55,8 @@ router
                 res.status(500).json({ error: 'Error fetching note'})
             })
     })
-
+router
+    .route('/edit/:id')
     .put((req, res) => {
         const { id } = req.params;
         if(id.length !== 24) {
