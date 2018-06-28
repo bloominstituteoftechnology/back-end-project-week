@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './index.css';
-import { deleteNote } from '../../actions';
+import '../style/deleteNote.css';
+import { deleteNote } from '../actions';
 import { connect } from 'react-redux';
 
 class DeleteNote extends Component {

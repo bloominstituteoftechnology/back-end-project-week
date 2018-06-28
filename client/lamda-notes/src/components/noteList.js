@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-//import "./index.css";
+import "../style/noteList.css"
 
 const mapStateToProps = state => {
   return {
@@ -20,8 +20,6 @@ class NotesList extends Component {
     console.log("reversed in CWM is:", reversed);
     this.setState({ notesArray: reversed });
   }
-
-  //   <Link to ={'/note/' + what._id}>
 
   generateNotes = (what, where) => {
     return (

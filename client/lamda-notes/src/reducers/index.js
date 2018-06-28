@@ -1,6 +1,6 @@
 import { DELETE_NOTE, EDIT_NOTE, CREATE_NOTE } from "../actions";
 
-const intialState = {
+const initialState = {
   notes: [
     {
       title: "Note 1",
@@ -70,9 +70,8 @@ const intialState = {
   error: null
 };
 
-const notesReducer = (state = initialState, action) => {
-  //works great for getting rid of an element inside of an array without mutating the state/array
-  let temp = Array.from(state); //shallow copy of state to not mutate state
+export const notesReducer = (state = initialState, action) => {
+  let temp = Array.from(state);
   switch (action.type) {
     case "DELETE_NOTE":
       state.forEach((item, index) => {
@@ -99,4 +98,4 @@ const notesReducer = (state = initialState, action) => {
   }
 };
 
-export default notesReducer;
+

@@ -15,4 +15,7 @@ class App extends Component {
   }
 }
 
+// componentDidMount() {
+//   const api = process.env
+// }
 export default App;

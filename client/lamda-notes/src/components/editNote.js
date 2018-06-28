@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { editNote } from "../actions";
-//import '.css'; Remember to make me look pretty
+import "../style/editNote.css" 
 
 const mapStateToProps = state => {
   return {

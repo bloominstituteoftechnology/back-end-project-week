@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import DeleteNote from "../components/deleteNote";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-//import "./index.css";
+import "../style/noteView.css"
 
 const mapStateToProps = state => {
   return {
