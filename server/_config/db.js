@@ -8,23 +8,8 @@ const mongoose = require('mongoose');
 //   };
 
   module.exports = {
-    connectTo: function(database = 'dbLambdaNotes', host = 'localhost') {
-      return mongoose.connect(`mongodb://${host}/${database}`);
+    connectTo: function() {
+      return mongoose.connect('mongodb://govi:password1234@ds121321.mlab.com:21321/dblambdanotes');
     },
   };
 
-
-// mongoose.connect('mongodb://localhost/dbLambdaNotes', {}, (err) => {
-//     if(err) {
-//         console.log(err);
-//         return;
-//     } 
-//     console.log("Successfully Connected to MongoDB");
-// });
-
-
-
-// // sanity check 
-// server.listen(port, () => {
-//     console.log(`Server up and running on port ${port}`);
-// });
