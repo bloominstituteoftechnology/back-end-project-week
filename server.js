@@ -196,7 +196,7 @@ const port = process.env.PORT || 5333;
 mongoose.Promise = global.Promise;
 
 mongoose
-    .connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds018248.mlab.com:18248/lambdanotesdb`)
+    .connect(`mongodb://${process.env.dbuser}:${process.env.dbpassword}@ds018248.mlab.com:18248/lambdanotesdb`)
     .then(() => {
         console.log('\n === Connected to MongoDB === \n');
         // server.listen(port, (req, res) => {
