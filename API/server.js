@@ -64,7 +64,7 @@ server.post("/api/login", (req, res) => {
                     .then(passwordsMatch => {
                         if(passwordsMatch) {
                             const token = generateToken(user);
-                            res.status(200).json({ message: `welcome ${username}`, token })
+                            res.status(201).json({ message: `welcome ${username}`, token })
                         } else {
                             res.status(401).send("invalid credentials");
                         }
