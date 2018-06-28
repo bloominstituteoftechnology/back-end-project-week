@@ -149,16 +149,26 @@ server.post('/api/createnote', (req, res) => {
         });
 });
 
+// server.get('/api/notes', (req, res) => {
+//     console.log('Here...');
+//     Note.find({})
+//         .select('title')
+//         .then(notes => {
+//         res.status(200).json(notes);
+//             })
+//         .catch(err => {
+//             return res.status(500).json(err);
+//         });
+// });
+
 server.get('/api/notes', (req, res) => {
-    console.log('Here...');
     Note.find({})
-        .select('title')
-        .then(notes => {
-        res.status(200).json(notes);
-            })
-        .catch(err => {
-            return res.status(500).json(err);
-        });
+    .then(users => {
+        return res.status(200).json(users);
+        })
+    .catch(err => {
+        return res.status(500).json(err);
+    });
 });
 
 server.get('/api/notes/:_id', (req, res) => {
