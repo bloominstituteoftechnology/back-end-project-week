@@ -4,10 +4,13 @@ import { Link } from 'react-router-dom';
 import { CSVLink } from 'react-csv';
 
 function homeLink() {
-    return window.location.href = "/";
+    return this.props.history.push('/');
 }
 
 class SideBar extends Component {
+    constructor(props) {
+        super(props)
+    }
     render() {
         // console.log(this.props.notes)
         return (
@@ -30,7 +33,7 @@ class SideBar extends Component {
 
 const mapStateToProps = store => {
     return {
-        notes: store
+        notes: store[0].notes
     };
 };
 

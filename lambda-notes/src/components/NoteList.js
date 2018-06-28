@@ -161,7 +161,6 @@ class NoteList extends Component {
                             key={note._id} 
                             to={`/note/${note._id}`} 
                             id = {note._id}
-                            onMouseUp={this.savedPosition}
                             className="note-link note ui-state-default"
                             >
                             <div>
