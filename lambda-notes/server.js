@@ -3,7 +3,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const server = express();
-
+require('dotenv').config();
 const userRouter = require('./users/userRouter.js');
 const noteRouter = require('./notes/noteRouter.js');
 
@@ -24,7 +24,7 @@ mongoose.connect('mongodb://localhost:27017/notesapp', {}, err => {
     console.log("Mongoose is connected to your db!");
 })
 
-const port = 5001;
+const port = process.env.port || 5001;
 server.listen(port, () => {
     console.log(`\n===API running on http://localhost:${port} ===\n`);
 });
