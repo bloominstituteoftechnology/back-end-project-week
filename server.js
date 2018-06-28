@@ -38,9 +38,9 @@ setupMiddleware(server);
 // Simple Node Express App to show server is online
 // Testing Node Express 
 
-server.get('/', (req, res) => {
-    res.send(`<h2>DB: Server up and running...</h2>`);
-});
+// server.get('/', (req, res) => {
+//     res.send(`<h2>DB: Server up and running...</h2>`);
+// });
 
 // HTTP METHODS FOR USERS
 
