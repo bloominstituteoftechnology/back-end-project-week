@@ -29,6 +29,17 @@ router
       .catch(err => {
         sendErr(res, err, `The comment with id ${id} could not be modified.`);
       });
+  })
+  .delete('/:id', (req, res) => {
+    const { id } = req.params;
+
+    Comment.findByIdAndRemove(id)
+      .then(deletedComment => {
+        sendRes(res, '200', deletedComment ? { _id: deletedComment._id } : null);
+      })
+      .catch(err => {
+        sendErr(res, err, `The comment with id ${id} could not be removed.`);
+      });
   });
 
 module.exports = {
