@@ -2,10 +2,69 @@ const express = require('express');
 const router = express.Router();
 const Note = require('./Note');
 
+////
+const jwt = require('jsonwebtoken');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const JwtStrategy = require('passport-jwt').Strategy;
+const { ExtractJwt } = require('passport-jwt')
+////
+
+////
+// helper function
+const localStrategy = new LocalStrategy(function(username, password, done) {
+    User.findOne({username}).then(user => {
+        if(!user) {
+            done(null, false);
+        } else {
+            user
+            .validatePassword(password)
+            .then(isValid => {
+                const { _id, username } = user;
+                return done(null, { _id, username });
+            })
+            .catch(err => {
+                return done(err);
+            })
+        }
+    }).catch(err => done(err))
+})
+
+
+const jwtOptions = {
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), 
+    // secretOrKey: process.env.secret
+    secretOrKey: secret
+}
+
+const jwtStrategy = new JwtStrategy(jwtOptions, function(payload, done) {
+    User.findById(payload.sub)
+    .then(user => {
+        if(user) {
+            done(null, user)
+        } else {
+            return done(null, false)
+        }
+    })
+    .catch(err => {
+        return done(err);
+    })
+});
+
+// passport global middleware
+passport.use(localStrategy);
+passport.use(jwtStrategy);
+
+// passport local middleware
+const passportOptions = { session: false };
+const authenticate = passport.authenticate('local', passportOptions);
+const protected = passport.authenticate('jwt', passportOptions);
+////
+
 router
     .route('/')
 
-    .get((req, res) => {
+    .get(protected, (req, res) => {
         Note.find()
             .then(notes => {
                 res.json(notes);
@@ -15,7 +74,7 @@ router
             })
     })
 
-    .post((req, res) => {
+    .post(protected, (req, res) => {
         const { title, body } = req.body;
         const newNote = new Note({title, body})
 
@@ -37,7 +96,7 @@ router
 
 router
     .route('/:id')
-    .get((req, res) => {
+    .get(protected, (req, res) => {
         const { id } = req.params;
         if(id.length !== 24) {
             res.status(400).json({ error: 'A note id must contain 24 characters'})
@@ -56,7 +115,7 @@ router
             })
     })
 
-    .put((req, res) => {
+    .put(protected, (req, res) => {
         const { id } = req.params;
         if(id.length !== 24) {
             res.status(400).json({ error: 'A note id must contain 24 characters'})
@@ -83,7 +142,7 @@ router
             })
     })
 
-    .delete((req, res) => {
+    .delete(protected, (req, res) => {
         const { id } = req.params;
 
         Note.findByIdAndRemove(id)
