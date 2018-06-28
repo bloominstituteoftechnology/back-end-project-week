@@ -3,6 +3,12 @@ const bcrypt = require('bcrypt');
 const { ObjectId } = mongoose.Schema.Types;
 
 const definition = {
+    email: {
+        type: String,
+        required: true,
+        lowercase: true,
+        unique: true
+    },
     username: {
         type: String,
         required: true,
