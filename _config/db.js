@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const mongoose = require('mongoose');
-// const config = require('../config');
+const config = require('../config');
 // const mlabUrl = config.mlab
 
 module.exports = {
