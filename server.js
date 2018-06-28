@@ -162,14 +162,18 @@ server.post('/api/createnote', (req, res) => {
 // });
 
 server.get('/api/notes', (req, res) => {
-    console.log('Can you see this?')
+    console.log('Here...');
+    console.log(Note); //<----add this
     Note.find({})
-    .then(notes => {
-    res.send('Hey! Where are you?') //<--- This line should send directly to client
-        })
-    .catch(err => {
-        return res.status(500).json(err);
-    });
+        .select('title')
+        .then(users => {
+            console.log(users); // <---- add this
+        res.status(200).json(users);
+            })
+        .catch(err => {
+            return res.status(500).json(err);
+        });
+    console.log('I am lost'); // <----- add this
 });
 
 server.get('/api/notes/:_id', (req, res) => {
