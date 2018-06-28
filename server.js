@@ -3,7 +3,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-require('dotenv').config(); // This is for the .env file
+require('dotenv').config();
 
 const User = require('./users/User');
 const Note = require('./notes/Note');
@@ -192,13 +192,15 @@ server.delete('/api/notes/:id', (req, res) => {
 
 const port = process.env.PORT || 5333;
 
+
+
 mongoose
-    .connect('mongodb://localhost/lambdanotesdb')
+    .connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds018248.mlab.com:18248/lambdanotesdb`)
     .then(() => {
         console.log('\n === Connected to MongoDB === \n');
-        server.listen(port, (req, res) => {
-            console.log(`\n === API up on port ${port} === \n`)
-        });
+        // server.listen(port, (req, res) => {
+        //     console.log(`\n === API up on port ${port} === \n`)
+        // });
     })
     .catch(err => 
     console.log('\n === Error connecting to MongoDB, is it running? === \n', err)
