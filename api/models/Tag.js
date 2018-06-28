@@ -15,11 +15,11 @@ const tagSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    required: true
+    required: [true, 'Tag description required']
   },
   color: {
     type: String,
-    required: true,
+    required: [true, 'Color required'],
     enum: ['black', 'white', 'blue', 'green', 'red', 'yellow', 'purple']
   }
 });
