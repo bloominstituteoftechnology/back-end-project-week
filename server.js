@@ -39,7 +39,7 @@ setupMiddleware(server);
 // Testing Node Express 
 
 server.get('/', (req, res) => {
-    res.send(`<h2>DB: Server connected...</h2>`);
+    res.send(`<h2>DB: ${process.env.mongo}</h2>`);
 });
 
 // HTTP METHODS FOR USERS
