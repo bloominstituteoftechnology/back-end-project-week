@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { fetchNotes } from '../actions';
 const config = require("../_config");
 
 class EditNote extends Component {
@@ -29,6 +30,7 @@ class EditNote extends Component {
         }
         axios.put(`${config.devBackend}/notes/${this.props.match.params.id}`, noteObj)
             .then(() => {
+                this.props.fetchNotes();
                 this.props.history.push('/')
             })
             .catch(err => {
@@ -63,4 +65,4 @@ const mapStateToProps = store => {
     };
 };
 
-export default connect(mapStateToProps)(EditNote);
+export default connect(mapStateToProps, { fetchNotes })(EditNote);

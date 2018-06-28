@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Modal, ModalBody, ModalFooter } from 'reactstrap';
+import { fetchNotes } from '../actions';
 import axios from 'axios';
 const config = require("../_config");
 
@@ -29,6 +30,7 @@ class Note extends Component {
         event.preventDefault();
         axios.delete(`${config.devBackend}/notes/${_id}`)
             .then(() => {
+                this.props.fetchNotes();
                 this.props.history.push('/')
             })
             .catch(err => {
@@ -81,4 +83,4 @@ const mapStateToProps = store => {
     };
 };
 
-export default connect(mapStateToProps)(Note);
+export default connect(mapStateToProps, { fetchNotes })(Note);

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
+import { fetchNotes } from '../actions';
 const config = require("../_config");
 
 class CreateNote extends Component {
@@ -17,6 +19,7 @@ class CreateNote extends Component {
         event.preventDefault();
         axios.post(`${config.devBackend}/notes`, this.state)
             .then(() => {
+                this.props.fetchNotes();
                 this.props.history.push('/');
             })
             .catch(err => {
@@ -52,4 +55,10 @@ class CreateNote extends Component {
     }
 }
 
-export default CreateNote;
+const mapStateToProps = store => {
+    return {
+        notes: store[0].notes
+    };
+};
+
+export default connect(mapStateToProps, { fetchNotes })(CreateNote);
