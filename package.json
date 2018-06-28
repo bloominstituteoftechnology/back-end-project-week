@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Creating a back end for the Lambda Notes front end project and combining the two for a full stack application.",
   "scripts": {
+    "client": "cd client && npm start",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "server": "nodemon index",
     "start": "node index",
     "heroku-postbuild": "cd client/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
@@ -28,5 +31,8 @@
     "swagger-ui-express": "^3.0.10",
     "yamljs": "^0.3.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "concurrently": "^3.6.0",
+    "nodemon": "^1.17.5"
+  }
 }
