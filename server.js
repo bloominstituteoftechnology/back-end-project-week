@@ -112,6 +112,7 @@ function restricted(req, res, next) {
 }
 
 server.get('/api/users', restricted, (req, res) => {
+    console.log('Users here...');
     User.find({})
         .select('username')
         .then(users => {
