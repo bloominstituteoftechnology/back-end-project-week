@@ -12,18 +12,10 @@ const server = express();
 
 server.use(helmet());
 server.use(express.json());
-
-server.use(
-  cors({
-  origin: "localhost://3000",
-  credentials: true
-  })
-);
-
-server.use(morgan('combined'))
+server.use(cors());
+server.use(morgan('dev'))
 server.use('/api/todo', TodoController);
 server.use('/api/user', AuthController);
-
 server.use(express.static(path.join(__dirname, 'client/build')));
 
 // root route
