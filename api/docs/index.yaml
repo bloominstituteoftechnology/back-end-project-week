@@ -48,30 +48,12 @@ paths:
                     type: string
                 example:
                   _id: 5b33c45d8d8bf66d4d44f1ec
-                  title: Task Managament App Development
+                  title: Example Project 1
                   description: An example description.
         '400':
-          description: Bad request from validation error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: 'Project validation failed: title: Project title required'
+          $ref: '#components/responses/400BadRequest'
         '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: The project could not be created.
+          $ref: '#components/responses/500InternalServerError'
     get:
       tags:
         - projects
@@ -114,23 +96,8 @@ paths:
                     - _id: 5b31ce106d04832fd1e51f71
                       firstName: Jane
                       lastName: Smith
-                  - _id: 5b33c45d8d8bf66d4d44f1ec
-                    title: Example Project 2
-                    members:
-                    - _id: 5b31ce106d04832fd1e51f59
-                      firstName: John
-                      lastName: Smith
         '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: The list of projects could not be retrieved.
+          $ref: '#components/responses/500InternalServerError'
   /api/projects/{projectId}:
     get:
       tags:
@@ -174,27 +141,9 @@ paths:
                     firstName: John
                     lastName: Smith
         '404':
-          description: Document not found. Id does not exist.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: The document with the specified ID does not exist.
+          $ref: '#components/responses/404NotFound'
         '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: The project with id {ID} could not be retrieved.
+          $ref: '#components/responses/500InternalServerError'
     put:
       tags:
       - projects
@@ -244,38 +193,11 @@ paths:
                     firstName: John
                     lastName: Smith
         '400':
-          description: Bad request from validation error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: 'Project validation failed: title: Project title required'
+          $ref: '#components/responses/400BadRequest'
         '404':
-          description: Document not found. Id does not exist.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: The document with the specified ID does not exist.
+          $ref: '#components/responses/404NotFound'
         '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: The project could not be updated.
+          $ref: '#components/responses/500InternalServerError'
     delete:
       tags:
       - projects
@@ -296,27 +218,9 @@ paths:
                 example:
                   _id: 5b31ea59d62eb33eb93014e7
         '404':
-          description: Document not found. Id does not exist.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: The document with the specified ID does not exist.
+          $ref: '#components/responses/404NotFound'
         '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: The project with id ${ID} could not be removed.
+          $ref: '#components/responses/500InternalServerError'
   /api/tasks:
     post:
       tags:
@@ -338,27 +242,9 @@ paths:
               schema:
                 $ref: '#components/schemas/Task'
         '400':
-          description: Bad request from validation error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: 'Task validation failed: title: Task title required'
+          $ref: '#components/responses/400BadRequest'
         '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: The task could not be created.
+          $ref: '#components/responses/500InternalServerError'
     get:
       tags:
         - tasks
@@ -374,16 +260,7 @@ paths:
                 items:
                   $ref: '#components/schemas/Task'
         '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: The list of tasks could not be retrieved.
+          $ref: '#components/responses/500InternalServerError'
   /api/tasks/{taskId}:
     get:
       tags:
@@ -400,27 +277,9 @@ paths:
               schema:
                 $ref: '#components/schemas/Task'
         '404':
-          description: Document not found. Id does not exist.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: The document with the specified ID does not exist.
+          $ref: '#components/responses/404NotFound'
         '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: The task with id {ID} could not be retrieved.
+          $ref: '#components/responses/500InternalServerError'
     put:
       tags:
         - tasks
@@ -443,38 +302,11 @@ paths:
               schema:
                 $ref: '#components/schemas/Task'
         '400':
-          description: Bad request from validation error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: 'Task validation failed: title: Task title required'
+          $ref: '#components/responses/400BadRequest'
         '404':
-          description: Document not found. Id does not exist.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: The document with the specified ID does not exist.
+          $ref: '#components/responses/404NotFound'
         '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: The task with id {ID} could not be updated.
+          $ref: '#components/responses/500InternalServerError'
     delete:
       tags:
         - tasks
@@ -495,27 +327,9 @@ paths:
                 example:
                   _id: 5b33e2dfc55019773e08217d
         '404':
-          description: Document not found. Id does not exist.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: The document with the specified ID does not exist.
+          $ref: '#components/responses/404NotFound'
         '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: The task with id {ID} could not be deleted.
+          $ref: '#components/responses/500InternalServerError'
   /api/users:
     post:
       tags:
@@ -551,28 +365,9 @@ paths:
                   lastName: Smith
                   email: johnSmith@example.com
         '400':
-          description: Bad request from validation error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: 'User validation failed: email: {EMAIL} is not a valid email
-                    address'
+          $ref: '#components/responses/400BadRequest'
         '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: The user could not be created.
+          $ref: '#components/responses/500InternalServerError'
     get:
       tags:
       - users
@@ -606,16 +401,7 @@ paths:
                   lastName: Smith
                   email: janeSmith@example.com
         '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: The list of users could not be retrieved.
+          $ref: '#components/responses/500InternalServerError'
   /api/users/{userId}:
     get:
       tags:
@@ -646,27 +432,9 @@ paths:
                   lastName: Smith
                   email: johnSmith@example.com
         '404':
-          description: Document not found. Id does not exist.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: The document with the specified ID does not exist.
+          $ref: '#components/responses/404NotFound'
         '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: The user with id {ID} could not be retrieved.
+          $ref: '#components/responses/500InternalServerError'
     put:
       tags:
       - users
@@ -703,39 +471,11 @@ paths:
                   lastName: Smith
                   email: johnSmith@example.com
         '400':
-          description: Bad request from validation error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: 'User validation failed: email: {EMAIL} is not a valid email
-                    address'
+          $ref: '#components/responses/400BadRequest'
         '404':
-          description: Document not found. Id does not exist.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: The document with the specified ID does not exist.
+          $ref: '#components/responses/404NotFound'
         '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: The user with id {ID} could not be modified.
+          $ref: '#components/responses/500InternalServerError'
     delete:
       tags:
       - users
@@ -756,27 +496,9 @@ paths:
                 example:
                   _id: 5b31ce106d04832fd1e51f59
         '404':
-          description: Document not found. Id does not exist.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: The document with the specified ID does not exist.
+          $ref: '#components/responses/404NotFound'
         '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                example:
-                  error: The user with id ${ID} could not be removed.
+          $ref: '#components/responses/500InternalServerError'
 components:
   #-------------------------------
   # Reusable schemas (data models)
@@ -1000,4 +722,37 @@ components:
   # Reusable responses
   #-------------------------------
   responses:
+    400BadRequest:
+      description: Bad request from validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: 'Validation failed: {ADDITIONAL DETAILS}'
+    404NotFound:
+      description: Document not found. Id does not exist.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: The document with the specified ID does not exist.
+    500InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: The action could not be completed.
 
