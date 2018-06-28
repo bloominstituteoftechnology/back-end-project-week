@@ -193,7 +193,7 @@ server.delete('/api/notes/:id', (req, res) => {
 const port = process.env.PORT || 5333;
 
 mongoose
-    .connect('mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds018248.mlab.com:18248/lambdanotesdb')
+    .connect('mongodb://localhost/lambdanotesdb')
     .then(() => {
         console.log('\n === Connected to MongoDB === \n');
         server.listen(port, (req, res) => {
@@ -207,3 +207,5 @@ mongoose
 server.listen(port, () => {
     console.log(`Server is up and running on port ${5333}`);
 });
+
+// .connect('mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds018248.mlab.com:18248/lambdanotesdb')
