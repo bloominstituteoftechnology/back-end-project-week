@@ -77,16 +77,21 @@ router
 router
     .route('/register')
     .post((req, res) => {
-        const { username, password } = req.body;
+        const { email, username, password } = req.body;
 
         if(!req.body.password || req.body.password.length < 10) {
             return res.status(400).json({error: 'Please provide a password that is at least 10 characters in length'}) 
         }
+
+        if(!req.body.email) {
+            return res.status(400).json({ error: 'Please provide an email for your account'})
+        }
+
         if(!req.body.username) {
             return res.status(400).json({ error: 'Please provide a username for your account'})
         }
 
-        const user = new User({ username, password });
+        const user = new User({ email, username, password });
 
         user.save()
             .select('-password')
