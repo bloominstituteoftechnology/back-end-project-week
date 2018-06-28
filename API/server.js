@@ -7,16 +7,16 @@ const helmet = require('helmet');
 const jwt = require('jsonwebtoken');
 const server = express();
 
-const secret = "its a secret";
+// const secret = "its a secret";
 
-function generateToken(user) {
-  const options = {
-    expiresIn: "1h"
-  };
-  const payload = { name: user.username };
+// function generateToken(user) {
+//   const options = {
+//     expiresIn: "1h"
+//   };
+//   const payload = { name: user.username };
   
-  return jwt.sign(payload, secret, options);
-}
+//   return jwt.sign(payload, secret, options);
+// }
 
 
 // var whitelist = ['http://localhost:3000/', 'https://tender-ptolemy-5e2918.netlify.com/']
@@ -41,43 +41,43 @@ server.use(express.json());
 
 // auth routes
 
-server.post('/api/register', (req, res) => {
-    User.create(req.body)
-    .then(({ username }) => {
-        const token = generateToken(username);
-        res.status(201).json({ username, token });
-    })
-    .catch(err => {
-        res.status(500).json({ error: err.message });
-    });
-});
+// server.post('/api/register', (req, res) => {
+//     User.create(req.body)
+//     .then(({ username }) => {
+//         const token = generateToken(username);
+//         res.status(201).json({ username, token });
+//     })
+//     .catch(err => {
+//         res.status(500).json({ error: err.message });
+//     });
+// });
 
-server.post("/login", (req, res) => {
-    const { username, password } = req.body;
-    User.findOne({ username })
-        .then(user => {
-            if (user) {
-                user
-                    .validatePassword(password)
-                    .then(passwordsMatch => {
-                        if(passwordsMatch) {
-                            const token = generateToken(user);
-                            res.status(200).json({ message: `welcome ${username}`, token })
-                        } else {
-                            res.status(401).send("invalid credentials");
-                        }
-                    })
-                    .catch(err => {
-                        err.send("error comparing passwords");
-                    });
-            } else {
-                res.status(401).send("invalid creds")
-            }
-        })
-        .catch(err => {
-            res.send(err);
-        });
-});
+// server.post("/api/login", (req, res) => {
+//     const { username, password } = req.body;
+//     User.findOne({ username })
+//         .then(user => {
+//             if (user) {
+//                 user
+//                     .validatePassword(password)
+//                     .then(passwordsMatch => {
+//                         if(passwordsMatch) {
+//                             const token = generateToken(user);
+//                             res.status(200).json({ message: `welcome ${username}`, token })
+//                         } else {
+//                             res.status(401).send("invalid credentials");
+//                         }
+//                     })
+//                     .catch(err => {
+//                         err.send("error comparing passwords");
+//                     });
+//             } else {
+//                 res.status(401).send("invalid creds")
+//             }
+//         })
+//         .catch(err => {
+//             res.send(err);
+//         });
+// });
 
 
 // Notes Routes
