@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+const config = require("../_config");
 
 class CreateNote extends Component {
     state = {
@@ -14,7 +15,7 @@ class CreateNote extends Component {
 
     addNote = (event) => {
         event.preventDefault();
-        axios.post("http://localhost:5000/notes", this.state)
+        axios.post(`${config.devBackend}/notes`, this.state)
             .then(() => {
                 this.props.history.push('/');
             })

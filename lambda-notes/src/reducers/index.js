@@ -3,7 +3,7 @@ import { PENDING_NOTES, SUCCESS_NOTES, ERROR_NOTES } from "../actions";
 const initialState = [{
     pending: false,
     error: null,
-    notes: [{}]
+    notes: []
 }];
 
 export const notesReducer = (state = initialState, action) => {

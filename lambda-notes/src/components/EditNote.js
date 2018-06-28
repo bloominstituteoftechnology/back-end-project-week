@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+const config = require("../_config");
 
 class EditNote extends Component {
     state = {
@@ -26,7 +27,7 @@ class EditNote extends Component {
             title: this.state.title,
             content: this.state.content
         }
-        axios.put(`http://localhost:5000/notes/${this.props.match.params.id}`, noteObj)
+        axios.put(`${config.devBackend}/notes/${this.props.match.params.id}`, noteObj)
             .then(() => {
                 this.props.history.push('/')
             })

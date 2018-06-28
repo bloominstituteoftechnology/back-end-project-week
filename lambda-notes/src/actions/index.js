@@ -1,5 +1,5 @@
 import axios from "axios";
-
+const config = require("../_config");
 export const PENDING_NOTES = "PENDING_NOTES";
 export const SUCCESS_NOTES = "SUCCESS_NOTES";
 export const ERROR_NOTES = "ERROR_NOTES";
@@ -10,7 +10,7 @@ export const ERROR_NOTES = "ERROR_NOTES";
    D - deleteNote
 */
 export const fetchNotes = () => {
-    const notes = axios.get("http://localhost:5000/notes");
+    const notes = axios.get(`${config.devBackend}/notes`);
     return dispatch => {
         dispatch({ type: PENDING_NOTES });
         notes

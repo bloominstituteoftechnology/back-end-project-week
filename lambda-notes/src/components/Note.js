@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Modal, ModalBody, ModalFooter } from 'reactstrap';
 import axios from 'axios';
+const config = require("../_config");
 
 class Note extends Component {
     constructor(props) {
@@ -26,7 +27,7 @@ class Note extends Component {
 
     handleRemoveNote = (event, _id) => {
         event.preventDefault();
-        axios.delete(`http://localhost:5000/notes/${_id}`)
+        axios.delete(`${config.devBackend}/notes/${_id}`)
             .then(() => {
                 this.props.history.push('/')
             })
