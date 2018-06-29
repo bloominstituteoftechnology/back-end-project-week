@@ -25,10 +25,13 @@ server.use('/api/note', noteController);
 
 mongoose.Promise = global.Promise;
 //mongoose.connect(keys.mongoURI);
-/*mongoose.connect('mongodb://localhost/dbnoteTracker', {}, err => {
-  if (err) console.log(err);
-  console.log('Mongoose connected us to our DB');
-});*/
+mongoose.connect(process.env.mongo)
+  .then(() => {
+   console.log('Database is connected');
+  })
+  .catch(err => {
+    console.log('error connecting to dev database:', err);
+});
 
 
 
