@@ -1,25 +1,12 @@
 require('dotenv').load()
 const express = require('express')
 const router = require('express').Router()
-const session = require('express-session')
-const MongoStore = require('connect-mongo')(session)
 
 const User = require('../models/userModel.js');
 
 const server = express()
 
-server.use(session({
-    secret: process.env.SECRET,
-    cookie: { maxAge: 1 * 24 * 60 * 60 * 1000 },
-    secure: false,
-    saveUninitialized: false,
-    resave: true,
-    name: 'none',
-    store: new MongoStore({
-        url: `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds121341.mlab.com:21341/lambdatakenotesessions`,
-        ttl: 60 * 10,
-    })
-}))
+
 router.post('/register', function(req, res) {
     const { username, password } = req.body
     User.create(req.body)

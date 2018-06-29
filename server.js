@@ -5,6 +5,8 @@ const mongoose = require('mongoose')
 const helmet = require('helmet')
 const morgan = require('morgan')
 const cors = require('cors')
+const session = require('express-session')
+const MongoStore = require('connect-mongo')(session)
 
 const noteRoute = require('./routes/noteRoutes.js')
 const userRoute = require('./routes/userRoutes.js')
