@@ -54,7 +54,7 @@ server.post("/api/register", (req, res) => {
     });
 });
 
-router.post("/api/login", function(req, res) {
+server.post("/api/login", function(req, res) {
   const { username, password } = req.body;
   User.findOne({ username })
     .then(user => {
