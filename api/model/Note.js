@@ -12,6 +12,8 @@ const NoteSchema = new Schema({
         required: true
     },
     userId: { type: ObjectId, ref: 'User' }
+}, {
+    timestamps: { createdAt: 'created', updatedAt: 'updated'}
 });
 
 module.exports = mongoose.model('Note', NoteSchema);
