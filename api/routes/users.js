@@ -77,8 +77,8 @@ router
   })
   .put('/:id', authenticate, (req, res) => {
     const { id } = req.params;
-    const { currentUser } = req.tokenPayload;
     const updatedUser = req.body;
+    const currentUser  = req.tokenPayload.userid;
     const options = {
       new: true,
       runValidators: true
@@ -98,19 +98,24 @@ router
           sendErr(res, err, `The user with id ${id} could not be modified.`);
         });
     } else {
-      sendErr(res, '403', 'The user is not authorized to perform this operation.');
+      sendErr(res, '403', 'User is not authorized to perform this action.');
     }
   })
   .delete('/:id', authenticate, (req, res) => {
     const { id } = req.params;
+    const currentUser = req.tokenPayload.userid;
 
-    User.findByIdAndRemove(id)
-      .then(deletedUser => {
-        sendRes(res, '200', deletedUser ? { _id: deletedUser._id } : null);
-      })
-      .catch(err => {
-        sendErr(res, err, `The user with id ${id} could not be removed.`);
-      });
+    if (currentUser === id) {
+      User.findByIdAndRemove(id)
+        .then(deletedUser => {
+          sendRes(res, '200', deletedUser ? { _id: deletedUser._id } : null);
+        })
+        .catch(err => {
+          sendErr(res, err, `The user with id ${id} could not be removed.`);
+        });
+    } else {
+      sendErr(res, '403', 'User is not authorized to perform this action.');
+    }
   });
 
 module.exports = {
