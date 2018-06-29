@@ -20,7 +20,7 @@ const sendUserError = (status, message, res) => {
 };
 
 function restricted (req, res, next) {
-    const token = req.headers.authorization;
+    const token = req.headers.Authorization;
     if (token) {
         jwt.verify(token, secret, (err, decodedToken) => {
             req.jwtPayload = decodedToken

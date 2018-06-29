@@ -34,8 +34,8 @@ router.post('/login', (req, res) => {
                 .then(passwordMatch => {
                     if (passwordMatch) {
                         const token = generateToken(username)
-                        console.log(res)
-                        res.status(200).json({ message: `Welcome to Lambda Take Note, ${username}!`, token})
+                        console.log('response from server', res)
+                        res.status(200).json({ message: `Welcome to Lambda Take Note, ${username}!`, token })
                     } else {
                         res.status(401).send('invalid credentials')
                     }
