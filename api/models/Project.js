@@ -23,7 +23,7 @@ const projectSchema = new mongoose.Schema({
       }
     }
   ],
-  createdBy: {
+  admin: {
     type: ObjectId,
     ref: 'User',
     required: [true, 'Project must be created by an existing user']

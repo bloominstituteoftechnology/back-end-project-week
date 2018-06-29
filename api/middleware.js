@@ -43,7 +43,7 @@ const isProjectAdmin = (req, res, next) => {
 
   Project.findById(projectId)
     .then(project => {
-      req.projectAdmin = project.createdBy.toString() === currentUser;
+      req.projectAdmin = project.admin.toString() === currentUser;
       next();
     })
     .catch(err => {
@@ -57,11 +57,11 @@ const getProjectAdmin = (req, res, next) => {
 
   Project.findById(projectId)
     .then(project => {
-      req.createdBy = project.createdBy.toString();
+      req.admin = project.admin.toString();
       next();
     })
     .catch(err => {
-      req.createdBy = null;
+      req.admin = null;
       next();
     });
 };

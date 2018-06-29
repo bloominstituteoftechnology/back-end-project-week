@@ -13,16 +13,16 @@ const {
 router
   .post('/', authenticate, (req, res) => {
     const { title, description, members } = req.body;
-    const createdBy = req.tokenPayload.userid;
+    const admin = req.tokenPayload.userid;
     const memberList = members ? members : [];
 
-    if (!memberList.includes(createdBy)) memberList.push(createdBy);
+    if (!memberList.includes(admin)) memberList.push(admin);
 
     const newProject = {
       title: title,
       description: description,
       members: memberList,
-      createdBy: createdBy
+      admin: admin
     };
 
     Project.create(newProject)
@@ -86,7 +86,7 @@ router
   })
   .put('/:id', authenticate, isProjectUser, getProjectAdmin, (req, res) => {
     const { id } = req.params;
-    const { title, description, members, createdBy } = req.body;
+    const { title, description, members, admin } = req.body;
     const authorized = req.validUser;
     const updatedProject = { title, description, members };
     const options = {
@@ -94,14 +94,12 @@ router
       runValidators: true
     };
 
-    if (createdBy) {
-      sendErr(res, '403', 'User cannot reassign project admin.');
-      return;
+    if (admin) {
+      return sendErr(res, '403', 'User cannot reassign project admin.');
     }
 
-    if (!members.includes(req.createdBy)) {
-      sendErr(res, '403', 'User cannot remove project admin from members.');
-      return;
+    if (!members.includes(req.admin)) {
+      return sendErr(res, '403', 'User cannot remove project admin from members.');
     }
 
     if (authorized) {

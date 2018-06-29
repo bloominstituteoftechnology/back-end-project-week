@@ -1049,7 +1049,7 @@ components:
             type: string
             format: objectId
           example: ['5b1ed13e8cea93c6ba72b1da', '5b1ed13e8cea93c6ba72b1db', '5b1ed13e8cea93c6ba72b1dc']
-        createdBy:
+        admin:
           description: User id of person who created project
           type: string
           format: objectId
