@@ -19,7 +19,7 @@ module.exports = (usersModel, notesModel) => {
     "GET": (req, res) => {
       // console.log('plainToken:',req.plainToken);
       const { _id } = req.plainToken;
-      notesModel.find({ author: _id })
+      notesModel.find({ $or: [{ author: _id }, { collaborators: _id }]})
         .populate('collaborators','email')
         .sort({ dateCreated: 'descending' })
         .then(notes => {

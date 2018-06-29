@@ -7,14 +7,17 @@ module.exports = (usersModel, notesModel) => {
       const id = req.params.id;
       const userId = req.plainToken._id;
       notesModel.findById(id)
-        .populate('collaborators','-_id email')
+        .populate('collaborators','email')
         .then(note => {
           if (note === null) {
             res.status(httpStatus.notFound).json({ error: "404: Not Found\nThe note with the specified ID cannot be found. The note is likely to have changed or not exist, though you may double check the ID in the URL for errors." });
             return;
           }
-          
-          if (note.author == userId) {
+
+          const isInArray = note.collaborators.some(collab => collab._id.equals(userId));
+          // const isInArray = false;
+
+          if (note.author == userId ||isInArray) {
             res.status(httpStatus.OK).json(note);
           } else {
             res.status(httpStatus.unauthorized).json({ error: "401: Unauthorized\nYou don't appear to have permission to view this note." });
@@ -109,12 +112,14 @@ module.exports = (usersModel, notesModel) => {
       notesModel.findById(idOfNote)
         .then(note => {
           if (note === null) {
-            res.status(httpStatus.notFound).json({ error: "404: Not Found\nThe note with the specified ID cannot be found. The note is likely to have changed or not exist, though you may double check the ID in the URL for errors." });
+            res.statusMessage = "The note with the specified ID cannot be found. The note is likely to have changed or not exist, though you may double check the ID in the URL for errors.";
+            res.status(httpStatus.notFound).end();
             return;
           }
 
           if (note.author != userId) {
-            res.status(httpStatus.unauthorized).json({ error: "401: Unauthorized\nYou don't appear to have permission to view this note." });
+            res.statusMessage = 'You don\'t appear to have permission to view this note.';
+            res.status(httpStatus.unauthorized).end();
             return;
           }
           
@@ -122,7 +127,8 @@ module.exports = (usersModel, notesModel) => {
             .then(user => {
               
               if (user === null) {
-                res.status(httpStatus.notFound).json({ error: "404: Not Found\nNo user with that e-mail was found." });
+                res.statusMessage = 'No user with that e-mail was found.';
+                res.status(httpStatus.notFound).end();
                 return;
               }
 

@@ -156,14 +156,12 @@ class ViewNote extends React.Component {
           <ReactMarkdown source={text} />
           <hr style={{borderColor:'var(--color--main)'}} />
             <h6>Users you're sharing this note with:</h6>
-            <ul>
             {
               collaborators ? 
-              collaborators.map(user => <li>{user.email}</li>)
+              collaborators.map(user => <Button style={{"width":"auto"}}>{user.email}</Button>)
               :
               <p><em>No collaborators</em></p>
             }
-            </ul>
         </div>
       </div>
     );

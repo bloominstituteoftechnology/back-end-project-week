@@ -114,6 +114,7 @@ export const loginUser = () => {
 };
 
 export const logoutUser = () => {
+  localStorage.removeItem('token');
   return {
     type: LOGOUT
   };
