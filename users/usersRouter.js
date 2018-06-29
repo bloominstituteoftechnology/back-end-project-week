@@ -6,11 +6,22 @@ const LocalStrategy = require('passport-local');
 const JwtStrategy = require('passport-jwt').Strategy;
 const { ExtractJwt } = require('passport-jwt')
 
-// const secret = 'this is my secret'
 
 require('dotenv').config();
 
 const User = require('./User');
+
+function makeToken(user) {
+    const timestamp = new Date().getTime();
+    const payload = {
+        sub: user._id, // subject
+        iat: timestamp, // issued at
+    };
+    const options = {
+        expiresIn: '24h'
+    };
+    return jwt.sign(payload, process.env.secret, options);
+}
 
 // helper function
 const localStrategy = new LocalStrategy(function(username, password, done) {
@@ -35,7 +46,6 @@ const localStrategy = new LocalStrategy(function(username, password, done) {
 const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), 
     secretOrKey: process.env.secret
-    // secretOrKey: secret
 }
 
 const jwtStrategy = new JwtStrategy(jwtOptions, function(payload, done) {
@@ -104,18 +114,6 @@ router
                 res.status(500).json({ error: 'Your registration could not be completed at this time. Please try again.' })
             })
     });
-
-    function makeToken(user) {
-        const timestamp = new Date().getTime();
-        const payload = {
-            sub: user._id, // subject
-            iat: timestamp, // issued at
-        };
-        const options = {
-            expiresIn: '24h'
-        };
-        return jwt.sign(payload, process.env.secret, options);
-    }
 
 
 // router 
