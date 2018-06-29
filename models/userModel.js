@@ -17,14 +17,12 @@ const userSchema = new mongoose.Schema({
 })
 
 userSchema.pre('save', function(next) {
-    return bcrypt.hash(this.password, 10)
-        .then(hash => {
-            this.password = hash;
-            
-            return next()
-        })
-        .catch(err => {
+    return bcrypt.hash(this.password, 12, (err, hash) => {
+        if (err) {
             return next(err);
+        }
+        this.password = hash;
+        next();
         });
     });
 
