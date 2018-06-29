@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const Note = require('./Note');
 
+require('dotenv').config();
+
 ////
-// const secret = 'this is my secret'
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
