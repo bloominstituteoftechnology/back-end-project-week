@@ -12,7 +12,7 @@ server.use(session({
     secret: process.env.SECRET,
     cookie: { maxAge: 1 * 24 * 60 * 60 * 1000 },
     saveUninitialized: true,
-    resave: true,
+    resave: false,
     name: 'none',
     store: new MongoStore({
         url: `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds217671.mlab.com:17671/lambdanotes`,
