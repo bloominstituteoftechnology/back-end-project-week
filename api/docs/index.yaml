@@ -372,6 +372,7 @@ paths:
       tags:
         - projects
       summary: Get tags by project id
+      description: Returns list of tags by project id if requesting user is a member of that project. It can only be performed by an authenticated user.
       operationId: getTagsByProjectId
       parameters:
         - $ref: '#/components/parameters/projectId'

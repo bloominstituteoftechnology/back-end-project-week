@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Project = require('../models/Project');
 const Tag = require('../models/Tag');
 const { sendErr, sendRes } = require('../utils/apiResponses');
-const { authenticate } = require('../../server/middleware');
+const { authenticate } = require('../middleware');
 
 router
   .post('/', authenticate, (req, res) => {
@@ -50,6 +50,7 @@ router
   })
   .get('/:id/tags', authenticate, (req, res) => {
     const { id } = req.params;
+    const currentUser = req.tokenPayload.userid;
 
     Tag.find({ project: id })
       .then(tags => {
