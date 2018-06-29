@@ -2,9 +2,10 @@ const router = require('express').Router();
 const Project = require('../models/Project');
 const Tag = require('../models/Tag');
 const { sendErr, sendRes } = require('../utils/apiResponses');
+const { authenticate } = require('../../server/middleware');
 
 router
-  .post('/', (req, res) => {
+  .post('/', authenticate, (req, res) => {
     const newProject = req.body;
 
     Project.create(newProject)
@@ -15,7 +16,7 @@ router
         sendErr(res, err, 'The project could not be created.');
       });
   })
-  .get('/', (req, res) => {
+  .get('/', authenticate, (req, res) => {
     Project.find()
       .populate('members', { firstName: 1, lastName: 1 })
       .select({ title: 1, members: 1 })
@@ -26,7 +27,7 @@ router
         sendErr(res, err, 'The list of projects could not be retrieved.');
       });
   })
-  .get('/:id', (req, res) => {
+  .get('/:id', authenticate, (req, res) => {
     const { id } = req.params;
 
     Project.findById(id)
@@ -39,7 +40,7 @@ router
         sendErr(res, err, `The project with id ${id} could not be retrieved.`);
       });
   })
-  .get('/:id/tags', (req, res) => {
+  .get('/:id/tags', authenticate, (req, res) => {
     const { id } = req.params;
 
     Tag.find({ project: id })
@@ -50,7 +51,7 @@ router
         sendErr(res, err, `The tags for project ${id} could not be retrieved.`);
       });
   })
-  .put('/:id', (req, res) => {
+  .put('/:id', authenticate, (req, res) => {
     const { id } = req.params;
     const updatedProject = req.body;
     const options = {
@@ -68,7 +69,7 @@ router
         sendErr(res, err, `The project with id ${id} could not be modified.`);
       });
   })
-  .delete('/:id', (req, res) => {
+  .delete('/:id', authenticate, (req, res) => {
     const { id } = req.params;
 
     Project.findByIdAndRemove(id)
