@@ -390,7 +390,7 @@ describe('Server:', () => {
         const responseObject = await request(server)
           .post(`/notes/${idOfNoteToShare}/share`)
           .set('authorization', userToken.token)
-          .send({ email: emailOfUserToShareTo });
+          .send({ email: emailOfUserToShareTo, share: true });
         logError(responseObject, httpStatusCode.unauthorized);
         
         const idOfUserToShareTo = testUsers[1]._id;
@@ -406,7 +406,24 @@ describe('Server:', () => {
         const responseObject = await request(server)
           .post(`/notes/${idOfNoteToShare}/share`)
           .set('authorization', userToken.token)
-          .send({ email: emailOfUserToShareTo });
+          .send({ email: emailOfUserToShareTo, share: true });
+        logError(responseObject);
+        
+        const idOfUserToShareTo = testUsers[0]._id;
+        const { status, body } = responseObject;
+        expect(status).toBe(httpStatusCode.OK);
+        // expect(body).toMatchObject({ cookies: 'cookies' })
+      });
+
+      it('removes another user to a note\'s collaborators', async () => {
+        const noteToShare = testNotes[1];
+        const idOfNoteToShare = testNotes[1]._id;
+        const emailOfUserToShareTo = testUsers[0].email;
+        
+        const responseObject = await request(server)
+          .post(`/notes/${idOfNoteToShare}/share`)
+          .set('authorization', userToken.token)
+          .send({ email: emailOfUserToShareTo, share: false });
         logError(responseObject);
         
         const idOfUserToShareTo = testUsers[0]._id;

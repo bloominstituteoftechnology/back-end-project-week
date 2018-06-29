@@ -101,7 +101,7 @@ module.exports = (usersModel, notesModel) => {
         });
     },
     "SHARE": (req, res) => {
-      const { email } = req.body;
+      const { email, share } = req.body;
       const  idOfNote = req.params.id;
       const userId = req.plainToken._id;
 
@@ -125,12 +125,27 @@ module.exports = (usersModel, notesModel) => {
                 return;
               }
 
-              console.log(note);
-              note.collaborators = [...note.collaborators, user._id];
+              console.log("BEFORE:",note);
+              console.log("SHARE:",share);
+              if (share) {
+                note.collaborators = [...note.collaborators, user._id];
+              } else {
+                const result = note.collaborators.filter(x => {
+                  /* Note to self:
+                  If you want to do comparisons between IDs, remember to use .equals(). This will convert BSON objectIDs to comparable values.
+                  Normal comparisons will NOT work
+                  */
+                  console.log(x," != ",user._id, !x.equals(user._id), !user._id.equals(x));
+                  return !x.equals(user._id);
+                  // return false;
+                });
+                console.log("RESULT:",result);
+                note.collaborators = result;
+              }
 
               note.save()
                 .then(count => {
-                  console.log("COUNT:",count);
+                  console.log("AFTER:",count);
                   if (count < 1) {
                     res.status(500).json({ error: "Could not share note with user." });
                     return;
@@ -161,6 +176,6 @@ module.exports = (usersModel, notesModel) => {
           console.log('noteIdRoutes--SHARE ERROR:',error);
           res.status(500).json(error);
         });
-    }
+    },
   };
 };
