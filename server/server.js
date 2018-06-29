@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 const server = express();
 
-//I tried setting up multiple origins with CORS but was never able to get it working correctly. Eventually I gave up and just stuck with the one origin due to time constraints. I would like to eventually figure this out, however.
+//29 June - finally got multiple origins with CORS working correctly. I gave up for awhile but came back to it and now it blocks what it's supposed to block and allows what it is supposed to allow. I tried multiple variations of the three origins below and tested them all out thoroughly so I hope the results for these three extrapolate to the world at large, and that these are the only three allowed.
 const whitelist = ['http://localhost:3000', 'https://nostalgic-kilby-8372d8.netlify.com', 'http://nostalgic-kilby-8372d8.netlify.com']
 const corsOptions = {
 	origin: function (origin, cb) {
@@ -23,6 +23,7 @@ const corsOptions = {
 //	credentials: true,
 //};
 //My husband tried to create and edit on my site and it turns out I had httpsEverywhere activated and then just cut and pasted the link here. CORS accepted all of my edits because it was coming from https://nostalgic.kilby but not his because his was coming from http://nostalgic.kilby. Important lesson learned.
+//See above --> I finally figured it out. And the crowd roars!
 
 server.use(cors(corsOptions));
 
