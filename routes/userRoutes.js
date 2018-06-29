@@ -10,14 +10,13 @@ const server = express()
 
 server.use(session({
     secret: process.env.SECRET,
-    cookie: { maxAge: 1 * 24 * 60 * 60 * 1000 },
-    secure: false,
+    cookie: { maxAge: 1 * 24 * 60 * 60 * 1000, secure: true },
     saveUninitialized: false,
     resave: true,
     name: 'none',
     store: new MongoStore({
         url: `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds217671.mlab.com:17671/lambdanotes`,
-        ttl: 60 * 10,
+        mongoOptions: advancedOptions
     })
 }))
 
@@ -33,6 +32,7 @@ router.post('/register', function(req, res) {
     const { username, password } = req.body
     User.create(req.body)
     .then(user => {
+        req.session.username = user.username;
         res.status(201).json({ username })
     })
     .catch(err => res.status(500).json(err))
