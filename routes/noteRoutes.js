@@ -7,8 +7,23 @@ const sendUserError = (status, message, res) => {
     return;
 };
 
-router.get('/', (req, res) => {
-    Note.find()
+function restricted (req, res, next) {
+    const token = req.headers.authorization;
+    if (token) {
+        jwt.verify(token, secret, (err, decodedToken) => {
+            req.jwtPayload = decodedToken
+            if (err) {
+                return res.status(401).json({ message: 'No notes for you.  Your decoder ring is invalid.' })
+            }
+            next();
+        })
+    } else {
+        res.status(401).json({ message: 'Hey buddy, where is your hall pass?' })
+    }
+}
+
+router.get('/', restricted, (req, res) => {
+    Note.find({ username: req.username })
         .select('-__v -id')
         .then(notes => {
             res.status(200).json({ notes })
@@ -16,7 +31,7 @@ router.get('/', (req, res) => {
         .catch(err => sendUserError(500, err.message, res))
 })
 
-router.post('/', (req, res) => {
+router.post('/', restricted, (req, res) => {
     const { title, body } = req.body;
     if (!title || !body) {
         sendUserError(400, "All notes must contain a title and body", res)
@@ -31,7 +46,7 @@ router.post('/', (req, res) => {
     }
 })
 
-router.get('/:id', (req, res) => {
+router.get('/:id', restricted, (req, res) => {
     const { id } = req.params;
     Note.findById(id)
     .select('-__v -author')
@@ -45,7 +60,7 @@ router.get('/:id', (req, res) => {
         .catch(err => sendUserError(500, err.message, res))
 })
 
-router.put('/:id', (req, res) => {
+router.put('/:id', restricted, (req, res) => {
     const { id } = req.params;
     const updates = req.body
     Note.findByIdAndUpdate(id, updates, { new: true })
@@ -57,7 +72,7 @@ router.put('/:id', (req, res) => {
         })
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', restricted, (req, res) => {
     const { id } = req.params;
     Note.findByIdAndRemove(id)
         .then(deletedNote => {
