@@ -1,10 +1,7 @@
 const router = require('express').Router();
 const Notes = require('./Notes');
-const cors = require('cors');
 
 //this is the main file I used for linking to the front end
-
-//I moved cors here while attempting to get it to accept multiple origins. It works better here because I can put the options directly in to the get request. That seems to be the only one that needs the options right now. I hope that's not because it's not working.
 
 const whitelist = ['http://nostalgic-kilby-8372d8.netlify.com', 'https://nostalgic-kilby-8372d8.netlify.com']
 const corsOptions = {

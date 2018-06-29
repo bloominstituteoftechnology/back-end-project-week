@@ -12,7 +12,7 @@ const server = express();
 //};
 //My husband tried to create and edit on my site and it turns out I had httpsEverywhere activated and then just cut and pasted the link here. CORS accepted all of my edits because it was coming from https://nostalgic.kilby but not his because his was coming from http://nostalgic.kilby. Important lesson learned.
 
-//server.use(cors(corsOptions));
+server.use(cors());
 
 setupMiddleware(server);
 setupRoutes(server);
