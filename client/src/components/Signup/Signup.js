@@ -17,11 +17,13 @@ class Signup extends Component {
         event.preventDefault();
         axios.post('http://localhost:1433/api/auth/signup', { username: this.state.username, password: this.state.password })
             .then(response => {
-                this.props.history('/login');
+                this.props.history.push('/login');
             })
             .catch(error => {
-                if (error.response.status === 400) {
-                    this.setState({ error: error.response.data });
+                if (error.response.status) {
+                    if (error.response.status === 400) {
+                        this.setState({ error: error.response.data });
+                    }
                 }
                 else {
                     console.log(`Error: ${error}`)
