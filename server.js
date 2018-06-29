@@ -19,8 +19,9 @@ server.use(morgan('combined'))
 
 
 const corsOptions = {
-    origin: process.env.CORSORIGIN,
-    credentials: true
+    // origin: process.env.CORSORIGIN,
+    // credentials: true
+    origin: '*'
 }
 server.use(cors(corsOptions))
 
