@@ -13,7 +13,6 @@ const sendUserError = (status, message, res) => {
 };
 
 function restricted (req, res, next) {
-    const token = req.headers.authorization;
     if (req.session && req.session.username) {
         next()
     } else {
@@ -21,9 +20,7 @@ function restricted (req, res, next) {
     }
 }
 
-router.use(restricted)
-
-router.get('/', (req, res) => {
+router.get('/', restricted, (req, res) => {
     User.find({ username: req.session.username })
         .populate('notes', '-_id -__v')      
         .select('-__v -id')
@@ -33,7 +30,7 @@ router.get('/', (req, res) => {
         .catch(err => sendUserError(500, err.message, res))
 })
 
-router.post('/', (req, res) => {
+router.post('/', restricted, (req, res) => {
     const { title, body } = req.body;
     if (!title || !body) {
         sendUserError(400, "All notes must contain a title and body", res)
@@ -48,7 +45,7 @@ router.post('/', (req, res) => {
     }
 })
 
-router.get('/:id',  (req, res) => {
+router.get('/:id',  restricted, (req, res) => {
     const { id } = req.params;
     Note.findById(id)
     .select('-__v -author')
@@ -62,7 +59,7 @@ router.get('/:id',  (req, res) => {
         .catch(err => sendUserError(500, err.message, res))
 })
 
-router.put('/:id', (req, res) => {
+router.put('/:id', restricted, (req, res) => {
     const { id } = req.params;
     const updates = req.body
     Note.findByIdAndUpdate(id, updates, { new: true })
@@ -74,7 +71,7 @@ router.put('/:id', (req, res) => {
         })
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', restricted, (req, res) => {
     const { id } = req.params;
     Note.findByIdAndRemove(id)
         .then(deletedNote => {
@@ -85,6 +82,19 @@ router.delete('/:id', (req, res) => {
             }
         })
         .catch(err => sendUserError(500, err.message, res))
+})
+
+router.get('/logout', (req, res) => {
+    if (req.session) {
+        let name = req.session.username
+        req.session.destroy(function(err) {
+            if (err) {
+                res.send(err);
+            } else {
+                res.send(`Goodbye, ${name}, thank you for using Lambda Take Note!`)
+            }
+        })
+    }
 })
 
 module.exports = router
