@@ -21,7 +21,7 @@ function restricted (req, res, next) {
 }
 
 router.get('/', restricted, (req, res) => {
-    Note.find({ author: req.session.username })   
+    Note.findOne({ author: req.session.username })   
         .select('-__v -id')
         .then(notes => {
             res.status(200).json({ notes })
