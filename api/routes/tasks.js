@@ -4,6 +4,7 @@ const Subtask = require('../models/Subtask');
 const Comment = require('../models/Comment');
 const Attachment = require('../models/Attachment');
 const { sendErr, sendRes } = require('../utils/apiResponses');
+const { authenticate } = require('../../server/middleware');
 
 router
   .post('/', (req, res) => {
@@ -45,7 +46,11 @@ router
         sendRes(res, '200', subtasks);
       })
       .catch(err => {
-        sendErr(res, err, `The subtasks for task ${id} could not be retrieved.`);
+        sendErr(
+          res,
+          err,
+          `The subtasks for task ${id} could not be retrieved.`
+        );
       });
   })
   .get('/:id/comments', (req, res) => {
@@ -56,7 +61,11 @@ router
         sendRes(res, '200', comments);
       })
       .catch(err => {
-        sendErr(res, err, `The comments for task ${id} could not be retrieved.`);
+        sendErr(
+          res,
+          err,
+          `The comments for task ${id} could not be retrieved.`
+        );
       });
   })
   .get('/:id/attachments', (req, res) => {
@@ -67,7 +76,11 @@ router
         sendRes(res, '200', attachments);
       })
       .catch(err => {
-        sendErr(res, err, `The attachments for task ${id} could not be retrieved.`);
+        sendErr(
+          res,
+          err,
+          `The attachments for task ${id} could not be retrieved.`
+        );
       });
   })
   .put('/:id', (req, res) => {
