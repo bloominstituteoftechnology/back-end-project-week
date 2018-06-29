@@ -19,7 +19,7 @@ server.use(morgan('combined'))
 
 
 const corsOptions = {
-    origin: process.env.CORSORIGIN,
+    origin: process.env.CORSORIGIN || 'localhost:3000',
     credentials: true
 }
 server.use(cors(corsOptions))
