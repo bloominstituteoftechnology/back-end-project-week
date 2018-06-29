@@ -1,0 +1,55 @@
+* {
+   box-sizing: border-box;  /*to ensure we do not exceed the size of the box when we add padding */
+   font-family: 'Open Sans', 'Helvetica', 'sans-serif'; 
+  }
+
+body {
+  margin: 0;
+  padding: 1rem;
+  font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: rgb(66,66,66);
+  height: 100vh;
+}
+
+.app_container {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  min-width: 450px;
+}
+
+.content-header {
+  margin: 1rem 0.5rem;
+}
+
+.button_link {
+  text-decoration: none;
+}
+
+.unstyledLink :visited {
+  text-decoration: none;
+  color: rgb(66,66,66);
+}
+
+.unstyledLink {
+  text-decoration: none;
+  color: rgb(66,66,66); 
+}
+
+.button {
+  width: 200px;
+  display: flex; /*To center text inside divButtons*/ 
+  justify-content: center; 
+  align-items: center;
+  font-weight: 600; 
+  color: white; 
+  background-color: #23B8BE;
+  border: 1px solid white;
+  margin: 0.5rem 0.5rem; 
+  height: 40px;
+  border-radius: 0.1rem;
+}
+
+.button--danger {
+  background-color: red;
+}

@@ -1,0 +1,13 @@
+# Mac files
+.DS_Store
+
+# VSCode settings
+.vscode/
+
+# Dependency directories
+node_modules/
+
+# front-end app
+lambda-notes/
+
+.env

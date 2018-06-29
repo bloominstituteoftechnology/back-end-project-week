@@ -1,0 +1,38 @@
+.notesList_container {
+    display: flex;
+    flex-direction: column;
+    width: 100%
+    
+}
+
+.notes_list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.note {
+    margin: 0.5rem 0.5rem;
+    width: 200px;
+    min-height: 170px; /*min-height used instead of height because parent is over-riding with flex*/
+    overflow: hidden; /*default: hidden*/
+    border: 1px solid black;
+    padding: 0.5rem 1rem;
+    background-color: white;
+    
+}
+
+.note h4 {
+    margin: 0;
+}
+
+.note h4 {
+    margin: 0.25rem 0 0.5rem 0; /* to get rid of default maring on h4 */
+}
+
+.note p {
+    margin: 0; /* to get rid of default maring on p */
+    height: 6.8rem;
+    overflow: hidden;
+}
+
