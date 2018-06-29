@@ -25,4 +25,8 @@ const projectSchema = new mongoose.Schema({
   ]
 });
 
+projectSchema.methods.isValidUser = function (userId) {
+  return this.members.includes(userId);
+}
+
 module.exports = mongoose.model('Project', projectSchema);
