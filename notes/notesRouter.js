@@ -76,8 +76,8 @@ router
     })
 
     .post((req, res) => {
-        const { title, body } = req.body;
-        const newNote = new Note({title, body})
+        const { title, body, user } = req.body;
+        const newNote = new Note({title, body, user})
 
         if(!title) {
             res.status(400).json({ error: 'Please provide a title for the note'})
