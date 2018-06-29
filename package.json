@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "repository": "https://github.com/ilhoKim/back-end-project-week.git",
   "author": "Il Ho Kim",
