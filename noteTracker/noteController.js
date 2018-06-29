@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const Note = require('./note');
+const Note = require('./Note');
 
 router
 .route('/')

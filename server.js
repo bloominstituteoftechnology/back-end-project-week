@@ -3,6 +3,7 @@ const express = require('express');// common js modules
 const mongoose = require('mongoose');
 //const keys = require('./config/keys');
 const cors = require('cors');
+const keys = require('./config/keys');
 
 
 //mongoose.connect(keys.mongoURI)
@@ -23,11 +24,11 @@ server.get('/', (req, res) => {
 server.use('/api/note', noteController);
 
 mongoose.Promise = global.Promise;
-
-mongoose.connect('mongodb://localhost/dbnoteTracker', {}, err => {
+mongoose.connect(keys.mongoURI);
+/*mongoose.connect('mongodb://localhost/dbnoteTracker', {}, err => {
   if (err) console.log(err);
   console.log('Mongoose connected us to our DB');
-});
+});*/
 
 
 
