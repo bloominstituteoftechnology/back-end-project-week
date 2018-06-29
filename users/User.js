@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const { ObjectId } = mongoose.Schema.Types;
 
-const validateEmail = function(email) {
-    let re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    return re.test(email)
-};
 
 const definition = {
     email: {
@@ -13,8 +9,6 @@ const definition = {
         required: true,
         lowercase: true,
         unique: true,
-        validate: [validateEmail, 'Please fill a valid email address'],
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
     },
     username: {
         type: String,
