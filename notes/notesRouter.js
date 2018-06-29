@@ -17,11 +17,11 @@ var pusher = new Pusher({
   encrypted: true
 });
 
-// const triggerUpdate = function () {
-//   pusher.trigger('notes', 'updated', {
-//     "message": "triggerUpdate"
-//   });
-// };
+const triggerUpdate = function () {
+  pusher.trigger('notes', 'updated', {
+    "message": "triggerUpdate"
+  });
+};
 
 const triggerUpdate = function () {};
 
@@ -31,7 +31,6 @@ router
   .post(restricted, (req, res) => {
     Note.create(req.body)
       .then(note => {
-        console.log(pusher)
         triggerUpdate();
         res.status(201).json(note);
       })
