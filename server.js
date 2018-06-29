@@ -7,7 +7,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 
 const noteRoute = require('./routes/noteRoutes.js')
-const userRouter = require('./auth-routes/userRoutes.js')
+const userRoute = require('./routes/userRoutes.js')
 
 const server = express()
 
@@ -23,7 +23,7 @@ server.get('/', (req, res) => {
     res.json({ api: 'Run away, run away!'})
 })
 
-server.use('/', userRoutes)
+server.use('/', userRoute)
 server.use('/notes', noteRoute)
 
 
