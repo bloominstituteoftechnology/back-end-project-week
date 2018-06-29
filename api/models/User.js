@@ -55,6 +55,15 @@ userSchema.pre('findOneAndUpdate', function(next) {
   });
 });
 
+userSchema.pre('findOneAndRemove', function (next) {
+  const userId = this._conditions._id;
+
+  // before deleting a user
+  // - find all projects user is an admin for and delete them
+  // - find all projects user is a member of and remove user
+  // - find all tasks assiged to user and remove them as assignee
+});
+
 userSchema.methods.isValidPassword = function(password, cb) {
   return bcrypt.compare(password, this.password, cb);
 };
