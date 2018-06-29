@@ -25,7 +25,7 @@ class NoteList extends Component {
   componentDidMount = async () => {
     // console.log("Does this.props.user exist? ",this.props.user ? "YES":"NO");
     if (this.props.user) {
-
+      this.setState({ loading: true });
       // this.props.fetchTheme(this.props.user.uid);
       await this.props.fetchNotes(this.props.user.uid);
 
