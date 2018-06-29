@@ -4,9 +4,12 @@ const User = require('../users/User');
 const generateToken = require('../auth/token');
 
 router.post('/register', function(req, res) {
-  User.create(req.body)
-    .then(({ username, }) => {
-      // we destructure the username and race to avoid returning the hashed password
+  const { username, password } = req.body;
+  const user = { username, password }
+  
+  User.create(user)
+    .then(({ username }) => {
+      // we destructure the username to avoid returning the hashed password
       const token = generateToken( { username });
 
       // then we assemble a new object and return it

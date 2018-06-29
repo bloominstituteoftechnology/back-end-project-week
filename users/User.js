@@ -17,7 +17,7 @@ const User = new mongoose.Schema({
 );
 
 User.pre('save', function (next) {
-    return bcrypt.hash(this.password, process.env.hash_times).then(hash => {
+    return bcrypt.hash(this.password, Number(process.env.hash_times)).then(hash => {
       this.password = hash;
       return next();
     }).catch(err => {
