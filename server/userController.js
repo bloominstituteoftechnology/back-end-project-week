@@ -119,12 +119,11 @@ router.get('/profile', (req, res) => {
 });
 
 router.delete('/profile/:id', (req, res) => {
-    const { _id } = req.body;
-    const loggedInId = req.user._id;
+    const { id } = req.body;
 
-    User.remove( { _id }  )
-    .then(loggedInId => {
-        res.json({ loggedInId });
+    User.remove({ id })
+    .then(deletedUser => {
+        res.json({user: deletedUser, message: 'The user has been deleted'});
     })
     .catch(err => {
         res.json({error: err.message});
