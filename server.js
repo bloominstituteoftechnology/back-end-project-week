@@ -42,7 +42,7 @@ server.post('/register', (req, res) => {
             const token = generateToken(user); 
             
             // res.status(201).json({ email: user.email, token });
-            res.status(201).json({ token });
+            res.status(201).json({ name: user.email, token });
         })
         .catch(error => res.status(500).json({ error: error.message })); 
 }); 
