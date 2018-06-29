@@ -11,7 +11,7 @@ const newNote = (req, res) => {
       
     })
     .catch(err => {
-      res.status(500).json({error: "error creating note", err: err.message})
+      res.status(500).send(err.message)
     });
 };
 
@@ -20,7 +20,7 @@ const getNoteById = (req, res) => {
   const { id } = req.params;
   
   Notes.findById(id)
-    .populate('owner', '-_id username')
+    .populate('createdBy', '-_id username')
     .then(note => {
       if(note){
         res.json(note)

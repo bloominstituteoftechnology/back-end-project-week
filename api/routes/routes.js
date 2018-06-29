@@ -6,7 +6,9 @@ const {
   getNoteById,
   getNoteByUser,
   deleteNote,
-  editNote
+  editNote,
+  addShareUser,
+  getSharedNotes
 } = require('../controllers');
 
 const { localStrategy, ppJwt } = require('../middleware/Auth-Middleware');
@@ -25,12 +27,14 @@ module.exports = server => {
 
   // routes by user
   server.route('/api/user/:id').get(doWeHaveAToken, getNoteByUser)
+  server.route('/api/sharedNotes/:noteId').put(addShareUser)
+  server.route('/api/sharedNotes/:userId').get(getSharedNotes)
 
   // routes by note
   server.route('/api/note').post(newNote);
   server.route('/api/note/:id')
-    .get(getNoteById)
-    .delete(deleteNote)
-    .put(editNote);
+    .get(doWeHaveAToken, getNoteById)
+    .delete(doWeHaveAToken, deleteNote)
+    .put(doWeHaveAToken, editNote);
 
 }

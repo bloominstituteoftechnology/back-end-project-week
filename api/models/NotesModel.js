@@ -18,7 +18,8 @@ const NotesSchema = new Schema({
     type: ObjectId,
     ref: 'User',
     required: true,
-  }
+  },
+ 
 })
 
 
