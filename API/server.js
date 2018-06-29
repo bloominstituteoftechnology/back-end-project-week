@@ -22,17 +22,15 @@ function generateToken(user) {
 
 
 function restricted(req, res, next) {
-    const token = req.cookies.auth;
+    const token = req.headers.authorization;
   
     if (token) {
       jwt.verify(token, secret, (err, decodedToken) => {
         
         if (err) {
           return res.status(401).json({ message: "No Entry, your decoder ring is incorrect" });
-        } else {
-            res.user_data = token_data;
-            next();
         }
+        next();
       });
     } else {
       res
@@ -58,7 +56,6 @@ const corsOptions = {
   credentials: true
 };
 
-server.use(cookieParser());
 server.use(helmet());
 server.use(cors());
 server.use(express.json());
@@ -89,7 +86,6 @@ server.post("/api/login", function(req, res) {
           .then(passwordsMatch => {
             if (passwordsMatch) {
               const token = generateToken(user);
-              res.cookie('auth', token)
               res.status(200).json({ message: `welcome ${username}`, token });
             } else {
               res.status(401).send("invalid credentials");
@@ -176,15 +172,7 @@ server.post("/api/notes", (req, res) => {
       res.status(500).json({ message: err.message });
     });
 });
-// server.post("/api/notes", (req, res) => {
-//   Note.create(req.body)
-//     .then(note => {
-//       res.status(201).json(note);
-//     })
-//     .catch(err => {
-//       res.status(500).json({ message: err.message });
-//     });
-// });
+
 // *** end notes routes ***
 
 module.exports = server;
