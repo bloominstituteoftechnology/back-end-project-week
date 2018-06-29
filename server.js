@@ -16,7 +16,7 @@ const server = express();
 const secret = 'No woman, No cry!';
 
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds018538.mlab.com:18538/lambdanotesdb`,
     credentials: true, 
 }; 
 
