@@ -17,12 +17,13 @@ var pusher = new Pusher({
   encrypted: true
 });
 
-const triggerUpdate = function () {
-  pusher.trigger('notes', 'updated', {
-    "message": "triggerUpdate"
-  });
-};
+// const triggerUpdate = function () {
+//   pusher.trigger('notes', 'updated', {
+//     "message": "triggerUpdate"
+//   });
+// };
 
+const triggerUpdate = function () {};
 
 //End Points
 router
