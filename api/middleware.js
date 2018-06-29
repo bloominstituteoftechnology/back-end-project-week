@@ -22,7 +22,7 @@ const authenticate = (req, res, next) => {
   });
 };
 
-const isValidProjectUser = (req, res, next) => {
+const isProjectUser = (req, res, next) => {
   const projectId = req.params.id;
   const currentUser = req.tokenPayload.userid;
 
@@ -52,9 +52,24 @@ const isProjectAdmin = (req, res, next) => {
     });
 };
 
+const getProjectAdmin = (req, res, next) => {
+  const projectId = req.params.id;
+
+  Project.findById(projectId)
+    .then(project => {
+      req.createdBy = project.createdBy.toString();
+      next();
+    })
+    .catch(err => {
+      req.createdBy = null;
+      next();
+    });
+};
+
 module.exports = {
   generateToken: generateToken,
   authenticate: authenticate,
-  isValidProjectUser: isValidProjectUser,
-  isProjectAdmin: isProjectAdmin
+  isProjectUser: isProjectUser,
+  isProjectAdmin: isProjectAdmin,
+  getProjectAdmin: getProjectAdmin
 };

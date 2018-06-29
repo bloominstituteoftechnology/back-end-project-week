@@ -5,8 +5,9 @@ const Tag = require('../models/Tag');
 const { sendErr, sendRes } = require('../utils/apiResponses');
 const {
   authenticate,
-  isValidProjectUser,
-  isProjectAdmin
+  isProjectUser,
+  isProjectAdmin,
+  getProjectAdmin
 } = require('../middleware');
 
 router
@@ -63,7 +64,7 @@ router
         sendErr(res, err, `The project with id ${id} could not be retrieved.`);
       });
   })
-  .get('/:id/tags', authenticate, isValidProjectUser, (req, res) => {
+  .get('/:id/tags', authenticate, isProjectUser, (req, res) => {
     const { id } = req.params;
     const authorized = req.validUser;
 
@@ -83,14 +84,25 @@ router
       sendErr(res, '403', 'User is not authorized to perform this action.');
     }
   })
-  .put('/:id', authenticate, isValidProjectUser, (req, res) => {
+  .put('/:id', authenticate, isProjectUser, getProjectAdmin, (req, res) => {
     const { id } = req.params;
-    const updatedProject = req.body;
+    const { title, description, members, createdBy } = req.body;
     const authorized = req.validUser;
+    const updatedProject = { title, description, members };
     const options = {
       new: true,
       runValidators: true
     };
+
+    if (createdBy) {
+      sendErr(res, '403', 'User cannot reassign project admin.');
+      return;
+    }
+
+    if (!members.includes(req.createdBy)) {
+      sendErr(res, '403', 'User cannot remove project admin from members.');
+      return;
+    }
 
     if (authorized) {
       Project.findByIdAndUpdate(id, updatedProject, options)

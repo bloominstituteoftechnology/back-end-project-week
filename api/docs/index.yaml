@@ -289,8 +289,8 @@ paths:
     put:
       tags:
         - projects
-      summary: Update an existing project. Replaces entire object.
-      description: Updates project with {projectId} if the requesting user is a member of that project. It can only be performed by an authenticated user.
+      summary: Update an existing project.
+      description: Updates project with {projectId} if the requesting user is a member of that project. It can only be performed by an authenticated user and the project admin cannot be removed or modified.
       operationId: updateProject
       requestBody:
         description: Updated project object
