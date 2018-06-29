@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const Notes = require('./Notes');
-const cors = require('./cors');
+const cors = require('cors');
 
 
 const whitelist = ['http://nostalgic-kilby-8372d8.netlify.com', 'https://nostalgic-kilby-8372d8.netlify.com']
