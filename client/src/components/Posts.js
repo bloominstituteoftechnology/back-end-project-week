@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import Post from "./Post";
 
 class Posts extends React.Component {
   constructor() {
@@ -9,7 +10,7 @@ class Posts extends React.Component {
     }
   }
   componentDidMount() {
-    axios.get('http://localhost:5000/api/posts/all', {
+    axios.get('http://localhost:5555/api/posts/all', {
       headers: { authorization: localStorage.getItem('jwt') } 
 //take the token from localStorage and put it on headers ('authorization is my own header')
   })
@@ -23,7 +24,18 @@ class Posts extends React.Component {
   }
   render() {
     return (
-      <div>Posts</div>
+      <div className="notes-list">
+        {this.state.posts.map((post, index) => {
+         return <Post
+          key={index}
+          title={post.title}
+          content={post.content}
+          author={post.user}
+          id={post._id}
+          />
+         
+        })}
+      </div>
     )
   }
 }

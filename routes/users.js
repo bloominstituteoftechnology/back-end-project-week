@@ -73,8 +73,8 @@ router.get("/current", passport.authenticate("jwt", { session: false }), (req, r
 router.get("/friends/all", passport.authenticate("jwt", {session: false}), (req, res) => {
   const currentUserID = req.user.id;
   User.findById(currentUserID)
-    .populate("user.friends")
-    .exec()
+    // .populate("user.friends")
+    // .exec()
     .then(currentUser => {
       res.json(currentUser);
     })
@@ -86,6 +86,8 @@ router.get("/friends/all", passport.authenticate("jwt", {session: false}), (req,
 router.get("/request/:id", passport.authenticate("jwt", {session: false}), (req, res) => {
   const { id } = req.params;
   const currentUserID = req.user.id;
+  const currentUserName = req.user.username;
+  console.log(currentUserName);
   User.findById(id)
     .then(user => {
       if(!user) {
@@ -108,7 +110,7 @@ router.get("/request/:id", passport.authenticate("jwt", {session: false}), (req,
       if(isUserExist) {
         res.status(500).json({msg: "You are already a friend or still pending"});
       } else {
-        user.friendsRequest.push({user: currentUserID});
+        user.friendsRequest.push({user: currentUserID, username: currentUserName});
         user.save()
           .then(saveUser => {
             res.json(saveUser);
@@ -156,6 +158,7 @@ router.delete("/request/:id", passport.authenticate("jwt", {session: false}), (r
 router.post("/accept/:id", passport.authenticate("jwt", {session: false}), (req, res) => {
   const { id } = req.params;
   const currentUserID = req.user.id;
+  const currentUserName = req.user.username;
   User.findById(currentUserID)
     .then(currentUser => {
       let foundUserIndex;
@@ -165,13 +168,14 @@ router.post("/accept/:id", passport.authenticate("jwt", {session: false}), (req,
         }
       }
       if(foundUserIndex >= 0) {
-          currentUser.friendsRequest.splice(foundUserIndex, 1);
-          currentUser.friends.push({user: id});
+          let acceptedFriend = currentUser.friendsRequest.splice(foundUserIndex, 1);
+          console.log(acceptedFriend);
+          currentUser.friends.push(acceptedFriend[0]);
           currentUser.save()
             .then(savedFriend => {
               User.findById(id)
                 .then(newFriend => {
-                  newFriend.friends.push({user: currentUser});
+                  newFriend.friends.push({user: currentUserID, username: currentUserName});
                   newFriend.save()
                     .then(friend => {
                       res.json(friend);

@@ -10,6 +10,7 @@ router.get("/all", passport.authenticate("jwt", {session: false}),(req, res) => 
   const currentUserName = req.user.username;
   Post.find()
     // get by latest
+    // .populate("user")
     .sort({date: -1 })
     .then(posts => {
       let mainPost = [];
@@ -38,14 +39,15 @@ router.get("/all", passport.authenticate("jwt", {session: false}),(req, res) => 
           let currentUserFriends = currentUser.friends;
           for(let i = 0; i < currentUserFriends.length; i ++) {
             for(let j = 0; j < friendspost.length; j ++) {
-              if(friendspost[j].user.toString() == currentUserFriends[i].user.toString()) {
+              console.log("check type",friendspost[j].user.userID)
+              if(friendspost[j].user.userID.toString() == currentUserFriends[i].user.toString()) {
                 currentUserFriendsPosts.push(friendspost[j]);
               }
             }
           }
           let myPostFriend = [];
           for(let x = 0; x < friendspost.length; x ++) {
-            if(friendspost[x].user.toString() == currentUserId) {
+            if(friendspost[x].user.userID.toString() == currentUserId) {
               myPostFriend.push(friendspost[x]);
             }
           }
@@ -56,7 +58,7 @@ router.get("/all", passport.authenticate("jwt", {session: false}),(req, res) => 
           let currentUserPrivate = [];
           //console.log("=== private ==", privatePost);
           for(let k = 0; k < privatePost.length; k ++) {
-            if(privatePost[k].user.toString() == currentUserId) {
+            if(privatePost[k].user.userID.toString() == currentUserId) {
               currentUserPrivate.push(privatePost[k]);
             }
           }
@@ -83,14 +85,34 @@ router.get("/all", passport.authenticate("jwt", {session: false}),(req, res) => 
 
 
 router.post("/", passport.authenticate("jwt", {session: false}), (req, res) => {
+  
   const { title, content, public, private, friends} = req.body;
   const currentUserId = req.user.id;
-  Post.create({title, content, user: currentUserId, public, private, friends})
+  const currentUserName = req.user.username;
+  //console.log(currentUserName);
+  const currentUser = {
+    userID: currentUserId,
+    username: currentUserName
+  };
+  console.log("====",title, content, public, private, friends, currentUser, "====");
+  Post.create({title, content, user: currentUser, public, private, friends})
     .then(post => {
       res.json(post);
     })
     .catch(err => {
-      res.status(500).json({error: err.message});
+      res.status(500).json({error: err});
+    })
+})
+
+// Come And make this route more strict
+router.get("/:id", passport.authenticate("jwt", {session: false}), (req, res) => {
+  const { id } = req.params;
+  Post.findById(id)
+    .then(post => {
+      res.json(post)
+    })
+    .catch(err => {
+      res.status(400).json({msg: "cant find by that id"});
     })
 })
 
@@ -102,7 +124,7 @@ router.delete("/:id", passport.authenticate("jwt", {session: false}), (req, res)
   Post.findById(id)
     .then(post => {
       console.log("post that you get back", post);
-      if(post.user.toString() !== currentUserId) {
+      if(post.user.userID.toString() !== currentUserId) {
         return res.status(400).json({msg: "This is not your post so you can't delete this post"});
       }
       post.remove()
@@ -126,7 +148,7 @@ router.put("/:id", passport.authenticate("jwt", {session: false}), (req,res) => 
   const currentUserId = req.user.id;
   Post.findById(id)
     .then(post => {
-      if(post.user.toString() !== currentUserId) {
+      if(post.user.userID.toString() !== currentUserId) {
         return res.status(400).json({msg: "This is not your post so you can't update this post"});
       }
       post.update({title, content})
@@ -142,41 +164,41 @@ router.put("/:id", passport.authenticate("jwt", {session: false}), (req,res) => 
     })
 })
 
-router.get("/users/:id", passport.authenticate("jwt", {session: false}), (req, res) => {
-  const { id } = req.params;
-  const currentUserID = req.user.id;
-  Post.find({user: id})
-    .then(friendPosts => {
-      let filterOutPrivate = friendPosts.filter(post => {
-        return post.private !== true; 
-      })
-      User.findById(currentUserID)
-        .then(currentUser => {
-          let isFriend = false;
-          let currentUserFriends = currentUser.friends;
-          for(let i = 0; i< currentUserFriends.length; i ++) {
-            if(currentUserFriends[i].user.toString() == id) {
-              isFriend = true;
-            }
-          }
-          if(isFriend) {
-            res.json(filterOutPrivate);
-          } else {
-            let filterOutFriend = filterOutPrivate.filter(post => {
-              return post.friends !== true;
-            })
-            res.json(filterOutFriend);
-          }
-        })
-        .catch(err => {
-          res.status(400).json({error: err.message});
-        })
-        //res.json(filterOutPrivate);
-    })
-    .catch(err => {
-      res.status(500).json({error: err.message});
-    })
-})
+// router.get("/users/:id", passport.authenticate("jwt", {session: false}), (req, res) => {
+//   const { id } = req.params;
+//   const currentUserID = req.user.id;
+//   Post.find({user: {userID: id}})
+//     .then(friendPosts => {
+//       let filterOutPrivate = friendPosts.filter(post => {
+//         return post.private !== true; 
+//       })
+//       User.findById(currentUserID)
+//         .then(currentUser => {
+//           let isFriend = false;
+//           let currentUserFriends = currentUser.friends;
+//           for(let i = 0; i< currentUserFriends.length; i ++) {
+//             if(currentUserFriends[i].user.toString() == id) {
+//               isFriend = true;
+//             }
+//           }
+//           if(isFriend) {
+//             res.json(filterOutPrivate);
+//           } else {
+//             let filterOutFriend = filterOutPrivate.filter(post => {
+//               return post.friends !== true;
+//             })
+//             res.json(filterOutFriend);
+//           }
+//         })
+//         .catch(err => {
+//           res.status(400).json({error: err.message});
+//         })
+//         //res.json(filterOutPrivate);
+//     })
+//     .catch(err => {
+//       res.status(500).json({error: err.message});
+//     })
+// })
 
 router.post("/comment/:id", passport.authenticate("jwt", {session: false}),(req, res)=> {
   const { id } = req.params;
@@ -227,7 +249,6 @@ router.delete("/:id/comment/:comment_id", passport.authenticate("jwt", {session:
       res.status(500).json({error: err.message});
     })
 })
-
 
 
 module.exports = router;

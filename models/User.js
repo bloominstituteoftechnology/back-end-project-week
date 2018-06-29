@@ -25,6 +25,10 @@ const UserSchema = new Schema({
       user: {
         type: Schema.Types.ObjectId,
         ref: 'User'
+      },
+      username: {
+        type: String,
+        required: true
       }
     }
   ],
@@ -33,6 +37,10 @@ const UserSchema = new Schema({
       user: {
         type: Schema.Types.ObjectId,
         ref: 'User'
+      },
+      username: {
+        type: String,
+        required: true
       }
     }
   ]
