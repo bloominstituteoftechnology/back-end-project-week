@@ -4,7 +4,7 @@ const User = require('./UsersModel.js');
 const Note = require('../Notes/NotesModel.js')
 
 router
-    .get('/api', (req, res) => {
+    .get('/api/', (req, res) => {
         User.find()
             .select('-password')
             .then(users => {
