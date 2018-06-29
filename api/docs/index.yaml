@@ -387,6 +387,8 @@ paths:
                   $ref: '#components/schemas/Tag'
         '401':
           $ref: '#components/responses/401Unauthorized'
+        '403':
+          $ref: '#components/responses/403Forbidden'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':

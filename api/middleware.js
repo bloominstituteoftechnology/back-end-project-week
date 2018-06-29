@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const jwt = require('jsonwebtoken');
+const Project = require('./models/Project');
 
 const generateToken = payload => {
   const options = {
@@ -21,7 +22,23 @@ const authenticate = (req, res, next) => {
   });
 };
 
+const isValidProjectUser = (req, res, next) => {
+  const projectId = req.params.id;
+  const currentUser = req.tokenPayload.userid;
+
+  Project.findById(projectId)
+    .then(project => {
+      req.validUser = project.isValidUser(currentUser);
+      next();
+    })
+    .catch(err => {
+      req.validUser = false;
+      next();
+    });
+};
+
 module.exports = {
   generateToken: generateToken,
-  authenticate: authenticate
+  authenticate: authenticate,
+  isValidProjectUser: isValidProjectUser
 };

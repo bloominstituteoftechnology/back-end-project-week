@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Project = require('../models/Project');
 const Tag = require('../models/Tag');
 const { sendErr, sendRes } = require('../utils/apiResponses');
-const { authenticate } = require('../middleware');
+const { authenticate, isValidProjectUser } = require('../middleware');
 
 router
   .post('/', authenticate, (req, res) => {
@@ -48,17 +48,25 @@ router
         sendErr(res, err, `The project with id ${id} could not be retrieved.`);
       });
   })
-  .get('/:id/tags', authenticate, (req, res) => {
+  .get('/:id/tags', authenticate, isValidProjectUser, (req, res) => {
     const { id } = req.params;
-    const currentUser = req.tokenPayload.userid;
+    const authorized = req.validUser;
 
-    Tag.find({ project: id })
-      .then(tags => {
-        sendRes(res, '200', tags);
-      })
-      .catch(err => {
-        sendErr(res, err, `The tags for project ${id} could not be retrieved.`);
-      });
+    if (authorized) {
+      Tag.find({ project: id })
+        .then(tags => {
+          sendRes(res, '200', tags);
+        })
+        .catch(err => {
+          sendErr(
+            res,
+            err,
+            `The tags for project ${id} could not be retrieved.`
+          );
+        });
+    } else {
+      sendErr(res, '403', 'User is not authorized to perform this action.');
+    }
   })
   .put('/:id', authenticate, (req, res) => {
     const { id } = req.params;
