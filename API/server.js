@@ -18,7 +18,26 @@ function generateToken(user) {
 
   return jwt.sign(payload, secret, options);
 }
-
+function restricted(req, res, next) {
+    const token = req.headers.authorization;
+  
+    if (token) {
+      jwt.verify(token, secret, (err, decodedToken) => {
+        
+        if (err) {
+          return res.status(401).json({ message: "No Entry, your decoder ring is incorrect" });
+        }
+        next();
+      });
+    } else {
+      res
+        .status(401)
+        .json({
+          message:
+            "You have no token sir! Kindly remove yourself from the premises!"
+        });
+    }
+  }
 // var whitelist = ['http://localhost:3000/', 'https://tender-ptolemy-5e2918.netlify.com/']
 // var corsOptions = {
 //   origin: function (origin, callback) {
@@ -86,7 +105,7 @@ server.get("/", (req, res) => {
   res.status(200).json({ api: "running" });
 });
 
-server.get("/api/notes", (req, res) => {
+server.get("/api/notes", restricted, (req, res) => {
   Note.find()
     .then(notes => {
       res.status(200).json(notes);
