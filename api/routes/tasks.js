@@ -7,7 +7,7 @@ const { sendErr, sendRes } = require('../utils/apiResponses');
 const { authenticate } = require('../../server/middleware');
 
 router
-  .post('/', (req, res) => {
+  .post('/', authenticate, (req, res) => {
     const newTask = req.body;
 
     Task.create(newTask)
@@ -18,7 +18,7 @@ router
         sendErr(res, err, 'The task could not be created.');
       });
   })
-  .get('/', (req, res) => {
+  .get('/', authenticate, (req, res) => {
     Task.find()
       .then(tasks => {
         sendRes(res, '200', tasks);
@@ -27,7 +27,7 @@ router
         sendErr(res, err, 'The list of tasks could not be retrieved.');
       });
   })
-  .get('/:id', (req, res) => {
+  .get('/:id', authenticate, (req, res) => {
     const { id } = req.params;
 
     Task.findById(id)
@@ -38,7 +38,7 @@ router
         sendErr(res, err, `The task with id ${id} could not be retrieved.`);
       });
   })
-  .get('/:id/subtasks', (req, res) => {
+  .get('/:id/subtasks', authenticate, (req, res) => {
     const { id } = req.params;
 
     Subtask.find({ task: id })
@@ -53,7 +53,7 @@ router
         );
       });
   })
-  .get('/:id/comments', (req, res) => {
+  .get('/:id/comments', authenticate, (req, res) => {
     const { id } = req.params;
 
     Comment.find({ task: id })
@@ -68,7 +68,7 @@ router
         );
       });
   })
-  .get('/:id/attachments', (req, res) => {
+  .get('/:id/attachments', authenticate, (req, res) => {
     const { id } = req.params;
 
     Attachment.find({ task: id })
@@ -83,7 +83,7 @@ router
         );
       });
   })
-  .put('/:id', (req, res) => {
+  .put('/:id', authenticate, (req, res) => {
     const { id } = req.params;
     const updatedTask = req.body;
     const options = {
@@ -99,7 +99,7 @@ router
         sendErr(res, err, `The task with id ${id} could not be modified.`);
       });
   })
-  .delete('/:id', (req, res) => {
+  .delete('/:id', authenticate, (req, res) => {
     const { id } = req.params;
 
     Task.findByIdAndRemove(id)
