@@ -41,6 +41,7 @@ router.route('/:id/notes')
     .get((req, res) => {
         const { id } = req.params;
         Note.find({ userId: id })
+            .sort('-updated')
             .select('title body')
             .then(response => res.json(response))
             .catch(err => res.status(500).json({ error: err.message }));
