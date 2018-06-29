@@ -4,17 +4,6 @@ const { sendErr, sendRes } = require('../utils/apiResponses');
 const { generateToken } = require('../../server/middleware');
 
 router
-  .post('/', (req, res) => {
-    const newUser = req.body;
-
-    User.create(newUser)
-      .then(({ _id, firstName, lastName, email }) => {
-        sendRes(res, '201', { _id, firstName, lastName, email });
-      })
-      .catch(err => {
-        sendErr(res, err, 'The user could not be created.');
-      });
-  })
   .post('/register', (req, res) => {
     const newUser = req.body;
 
@@ -44,7 +33,8 @@ router
       .then(user => {
         if (user) {
           user.isValidPassword(password, (err, match) => {
-            if (err || !match) return sendErr(res, '401', 'Invalid credentials');
+            if (err || !match)
+              return sendErr(res, '401', 'Invalid credentials');
 
             const fullName = `${user.firstName} ${user.lastName}`;
             const token = generateToken({
@@ -70,7 +60,7 @@ router
         sendRes(res, '200', users);
       })
       .catch(err => {
-        sendErr(res, err, 'The list of users could not be created.');
+        sendErr(res, err, 'The list of users could not be retrieved.');
       });
   })
   .get('/:id', (req, res) => {

@@ -688,46 +688,9 @@ paths:
         '500':
           $ref: '#components/responses/500InternalServerError'
   /api/users:
-    post:
-      tags:
-      - users
-      summary: Create a new user
-      operationId: createUser
-      requestBody:
-        description: New user object
-        required: 'true'
-        content:
-          application/json:
-            schema:
-              $ref: '#components/schemas/User'
-      responses:
-        '201':
-          description: Successfully created new user
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  _id:
-                    type: string
-                  firstName:
-                    type: string
-                  lastName:
-                    type: string
-                  email:
-                    type: string
-                example:
-                  _id: 5b31ce106d04832fd1e51f59
-                  firstName: John
-                  lastName: Smith
-                  email: johnSmith@example.com
-        '400':
-          $ref: '#components/responses/400BadRequest'
-        '500':
-          $ref: '#components/responses/500InternalServerError'
     get:
       tags:
-      - users
+        - users
       summary: Get all existing users
       operationId: getAllUsers
       responses:
@@ -759,10 +722,88 @@ paths:
                   email: janeSmith@example.com
         '500':
           $ref: '#components/responses/500InternalServerError'
+  /api/users/register:
+    post:
+      tags:
+        - users
+      summary: Create a new user
+      operationId: createUser
+      requestBody:
+        description: New user object
+        required: 'true'
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/User'
+      responses:
+        '201':
+          description: Successfully created new user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  token:
+                    type: string
+                    format: jsonWebToken
+                example:
+                  name: John Smith
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c@example.com
+        '400':
+          $ref: '#components/responses/400BadRequest'
+        '500':
+          $ref: '#components/responses/500InternalServerError'
+  /api/users/login:
+    post:
+      tags:
+        - users
+      summary: Log user in
+      operationId: loginUser
+      requestBody:
+        description: User credentials
+        required: 'true'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+              example:
+                email: johnsmith@example.com
+                password: Password@1
+      responses:
+        '200':
+          description: Successfully logged user in
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  token:
+                    type: string
+                    format: jsonWebToken
+                example:
+                  name: John Smith
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c@example.com
+        '400':
+          $ref: '#components/responses/400BadRequest'
+        '401':
+          $ref: '#components/responses/401Unauthorized'
+        '500':
+          $ref: '#components/responses/500InternalServerError'
   /api/users/{userId}:
     get:
       tags:
-      - users
+        - users
       summary: Get user by id
       operationId: getUserById
       parameters:
@@ -787,14 +828,14 @@ paths:
                   _id: 5b31ce106d04832fd1e51f59
                   firstName: John
                   lastName: Smith
-                  email: johnSmith@example.com
+                  email: johnsmith@example.com
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
           $ref: '#components/responses/500InternalServerError'
     put:
       tags:
-      - users
+        - users
       summary: Update an existing user. Replaces entire object.
       operationId: updateUser
       requestBody:
@@ -835,7 +876,7 @@ paths:
           $ref: '#components/responses/500InternalServerError'
     delete:
       tags:
-      - users
+        - users
       summary: Deletes a user
       operationId: deleteUser
       parameters:
@@ -1123,6 +1164,17 @@ components:
                 type: string
             example:
               error: 'Validation failed: {ADDITIONAL DETAILS}'
+    401Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: 'Invalid credentials'
     404NotFound:
       description: Document not found. Id does not exist.
       content:
