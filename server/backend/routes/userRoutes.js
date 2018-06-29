@@ -1,72 +1,47 @@
 const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-const config = require("/Users/Max_Gavin/LamdaSchool/Week 13 Backend/back-end-project-week/server/config.js");
-
+const config = require("../../config");
 const secret = config.secret;
 
-function generateToken(user) {
-  const options = {
-    expiresIn: "60Min"
-  };
-  const payload = { name: user.username };
+function restricted(req, res, next) {
+  const token = req.headers.authorization;
 
-  return jwt.sign(payload, secret, options);
+  if (token) {
+    jwt.verify(token, secret, (err, decodedToken) => {
+      req.jwtPayload = decodedToken;
+      if (err) {
+        return res.status(401).json({ message: "Please sign in" });
+      }
+      next();
+    });
+  } else {
+    res.status(401).json({ message: "Please create account by registering" });
+  }
 }
 
-router.get("/", (req, res) => {
+module.exports = getUser = router.get("/user", restricted, (req, res) => {
   User.find()
-    .populate("notes", "id/user")
     .select("password")
     .then(users => {
       res.json(users);
     })
     .catch(err => {
-      res.status(500).json({ error: err.message });
+      res.status(500).json(err);
     });
 });
 
-router.post("/register", function(req, res) {
-  const { username, password } = req.body;
-  if (!username || !password) {
-    res.status(400).json({ error: "Username and Password required." });
-    return;
-  }
-  User.create(req.body)
-    .then(({ username }) => {
-      const token = generateToken({ username });
-      res.status(201).json({ username, token });
+module.exports = createUser = (req, res) => {
+  const { userName, password } = req.body;
+  User.create({ userName, password })
+    .then(user => {
+      const payload = {
+        userName: user.userName
+      };
+      const token = jswt.sign(payload, secret);
+      res.status(201).json({ user: user.userName, token });
     })
-    .catch(err => res.status(500).json({ error: err.message }));
-});
+    .catch(err => res.status(500).json(err));
+};
 
-router.post("/login", (req, res) => {
-  const { username, password } = req.body;
-  User.findOne({ username }).then(user => {
-    if (user) {
-      user
-        .validatePassword(password)
-        .then(isPasswordValid => {
-          if (isPasswordValid) {
-            const { _id } = user;
-            const { username } = user;
-            const token = generateToken(user);
-            res.status(200).json({
-              message: `welcome ${username}!`,
-              token,
-              userId: _id
-            });
-          } else {
-            res.status(401).json({ error: "Invalid username or password." });
-          }
-        })
-        .catch(err => {
-          res.status(500).json({ error: err.message });
-        });
-    } else {
-      res.status(401).json({ error: "Invalid username or password." });
-    }
-  });
-});
-
-module.exports = router;
+function restricted(user) {}

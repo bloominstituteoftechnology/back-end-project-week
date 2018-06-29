@@ -2,3 +2,5 @@
 node_modules
 config.js
 yarn.lock
+env.local
+.env

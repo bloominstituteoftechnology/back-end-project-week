@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const userSchema = new mongoose.Schema({
-  username: {
+  userName: {
     type: String,
     required: true,
     unique: true,
@@ -12,7 +12,14 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    minlength: 4
+    minlength: 4,
+    validate: checkPasslength,
+    msg: "you gonna get hacked!"
+  },
+  createdOn: {
+    type: Date,
+    required: true,
+    default: Date.now()
   },
   notes: [
     {
@@ -22,7 +29,11 @@ const userSchema = new mongoose.Schema({
   ]
 });
 
-userSchema.pre("save", function(next) {
+function checkPasslength(password) {
+  return password.length > 4;
+}
+
+UserSchema.pre("save", function(next) {
   return bcrypt
     .hash(this.password, 10)
     .then(hash => {
@@ -34,31 +45,8 @@ userSchema.pre("save", function(next) {
     });
 });
 
-userSchema.methods.validatePassword = function(passwordGuess) {
+UserSchema.methods.validatePassword = function(passwordGuess) {
   return bcrypt.compare(passwordGuess, this.password);
 };
-
-userSchema.methods.addNote = function(note_id) {
-  let arr = Array.from(this.notes);
-  arr.push(note_id);
-  this.notes = arr;
-  console.log(this.notes);
-};
-
-function restricted(req, res, next) {
-  const token = req.headers.authorization;
-
-  if (token) {
-    jwt.verify(token, secret, (err, decodedToken) => {
-      if (err) {
-        return res.status(401).json({ message: "Nope!" });
-      }
-
-      next();
-    });
-  } else {
-    res.status(401).json({ message: "Nope!" });
-  }
-}
 
 module.exports = mongoose.model("User", userSchema);

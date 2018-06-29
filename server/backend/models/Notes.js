@@ -4,18 +4,21 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 const NotesSchema = new mongoose.Schema({
   title: {
     type: String,
-    default: "Untitled",
     required: true,
-    unique: true
+    index: true
   },
-  content: {
+  body: {
     type: String,
-    required: true
+    required: true,
+    index: true
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now()
   },
   user: {
     type: ObjectId,
-    ref: "User",
-    required: true
+    ref: "User"
   }
 });
 

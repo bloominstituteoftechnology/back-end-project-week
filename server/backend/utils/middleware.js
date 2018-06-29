@@ -1,8 +1,9 @@
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
+const config = require("../../config")
 const corsOptions = {
-  origin: "http://localhost:5000",
+  origin: config.origin, //Only the localhost can connect
   credentials: true
 };
 

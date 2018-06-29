@@ -3,12 +3,6 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import "../style/noteList.css"
 
-const mapStateToProps = state => {
-  return {
-    notesArray: state
-  };
-};
-
 class NotesList extends Component {
   constructor() {
     super();
@@ -49,5 +43,12 @@ class NotesList extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    notesArray: state
+  };
+};
+
 
 export default connect(mapStateToProps)(NotesList);
