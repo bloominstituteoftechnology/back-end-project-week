@@ -13,6 +13,12 @@ class CreateNote extends Component {
         }
     }
 
+    componentDidMount() {
+        if (!localStorage.getItem('jwt') || !localStorage.getItem('userId')) {
+            this.props.history.push('/');
+        }
+    }
+
     submitHandler = (event) => {
         event.preventDefault();
         const token = localStorage.getItem('jwt');

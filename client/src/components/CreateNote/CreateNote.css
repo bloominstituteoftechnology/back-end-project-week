@@ -1,6 +1,6 @@
 .createNote {
     background: #F3F3F3; 
-    height: 100%;
+    min-height: 100%;
     width: 75%; 
 }
 
@@ -34,7 +34,7 @@
     color: #FFFFFF; 
     font-family: Raleway Medium; 
     font-weight: bold; 
-    margin: 10px 0 0 4%; 
+    margin: 28px 0 28px 4% !important; 
     padding: 10px; 
     width: 28% !important;  
 }

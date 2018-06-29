@@ -43,7 +43,7 @@ class NotesContainer extends Component {
                     this.setState({ username: response.data.username, notes: response.data.notes });
                 })
                 .catch(error => {
-                    console.log(`Error: ${error}`); 
+                    console.log(`Error: ${error}`);
                 })
         }
     }

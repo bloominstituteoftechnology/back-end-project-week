@@ -60,6 +60,7 @@ class EditNote extends Component {
                     <input type='submit' value='Update' className='submit' />
                 </form>
                 {this.state.redirect ? <Redirect to={`/${localStorage.getItem('userId')}/notes/${this.props.match.params.noteId}`} /> : null}
+                {!localStorage.getItem('jwt') || !localStorage.getItem('userId') ? this.props.history.push('/') : null}
             </div>
         )
     }

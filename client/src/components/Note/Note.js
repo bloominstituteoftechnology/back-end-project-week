@@ -69,6 +69,7 @@ class Note extends Component {
                         <Button className='cancelButton' color='info' onClick={this.toggle}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
+                {!localStorage.getItem('jwt') || !localStorage.getItem('userId') ? this.props.history.push('/') : null}
             </div>
         )
     }
