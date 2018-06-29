@@ -19,18 +19,6 @@ server.use(express.json());
 // https://cocky-ride-fcf8cb.netlify.com
 // http://localhost:3000
 
-app.use(function(req, res, next) {
-    var allowedOrigins = ['http://localhost:3000', 'https://cocky-ride-fcf8cb.netlify.com'];
-    var origin = req.headers.origin;
-    if(allowedOrigins.indexOf(origin) > -1){
-         res.setHeader('Access-Control-Allow-Origin', origin);
-    }
-    res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.header('Access-Control-Allow-Credentials', true);
-    return next();
-  });
-
 function restricted(req, res, next) {
     const token = req.headers.authorization;
 
