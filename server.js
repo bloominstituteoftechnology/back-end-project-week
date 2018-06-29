@@ -15,13 +15,28 @@ server.use(helmet())
 server.use(express.json())
 server.use(morgan('combined'))
 
-const port = process.env.PORT || 5000
 
 const corsOptions = {
     origin: process.env.CORSORIGIN,
     credentials: true
 }
 server.use(cors(corsOptions))
+
+server.use(session({
+    secret: process.env.SECRET,
+    cookie: { maxAge: 1 * 24 * 60 * 60 * 1000 },
+    secure: false,
+    saveUninitialized: false,
+    resave: true,
+    name: 'none',
+    store: new MongoStore({
+        url: `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds121341.mlab.com:21341/lambdatakenotesessions`,
+        ttl: 60 * 10,
+    })
+}))
+
+const port = process.env.PORT || 5000
+
 
 server.get('/', (req, res) => {
     res.json({ api: 'Run away, run away!'})
