@@ -11,7 +11,7 @@ const noteSchema = new mongoose.Schema({
         required: true
     },
     tag: String,
-    owner: [{ type: String, required: true }]
+    author: { type: String,}
 })
 
 module.exports = mongoose.model('Note', noteSchema)

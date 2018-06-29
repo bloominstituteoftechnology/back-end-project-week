@@ -1,7 +1,10 @@
+require('dotenv').load()
 const express = require('express')
 const router = require('express').Router()
+const session = require('express-session')
+const MongoStore = require('connect-mongo')(session)
 const Note = require('../models/noteModel.js');
-
+const User = require('../models/userModel')
 
 
 const sendUserError = (status, message, res) => {
@@ -9,9 +12,20 @@ const sendUserError = (status, message, res) => {
     return;
 };
 
+function restricted (req, res, next) {
+    const token = req.headers.authorization;
+    if (req.session && req.session.username) {
+        next()
+    } else {
+        res.status(401).send('Not today.')
+    }
+}
+
+router.use(restricted)
 
 router.get('/', (req, res) => {
-    Notes.find()      
+    User.find({ username: req.session.username })
+        .populate('notes', '-_id -__v')      
         .select('-__v -id')
         .then(notes => {
             res.status(200).json({ notes })
@@ -71,6 +85,6 @@ router.delete('/:id', (req, res) => {
             }
         })
         .catch(err => sendUserError(500, err.message, res))
-})  
+})
 
 module.exports = router

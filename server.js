@@ -1,6 +1,7 @@
 require('dotenv').load()
-const mongoose = require('mongoose')
+const MongoClient = require('mongodb').MongoClient;
 const express = require('express')
+const mongoose = require('mongoose')
 const helmet = require('helmet')
 const morgan = require('morgan')
 const cors = require('cors')
@@ -16,7 +17,11 @@ server.use(morgan('combined'))
 
 const port = process.env.PORT || 5000
 
-server.use(cors({ origin: process.env.CORSORIGIN }))
+const corsOptions = {
+    origin: process.env.CORSORIGIN,
+    credentials: true
+}
+server.use(cors(corsOptions))
 
 server.get('/', (req, res) => {
     res.json({ api: 'Run away, run away!'})
