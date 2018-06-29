@@ -1,9 +1,10 @@
 const router = require('express').Router();
 const Tag = require('../models/Tag');
 const { sendErr, sendRes } = require('../utils/apiResponses');
+const { authenticate } = require('../../server/middleware');
 
 router
-  .post('/', (req, res) => {
+  .post('/', authenticate, (req, res) => {
     const newTag = req.body;
 
     Tag.create(newTag)
@@ -14,7 +15,7 @@ router
         sendErr(res, err, 'The tag could not be created.');
       });
   })
-  .put('/:id', (req, res) => {
+  .put('/:id', authenticate, (req, res) => {
     const { id } = req.params;
     const updatedTag = req.body;
     const options = {
@@ -30,7 +31,7 @@ router
         sendErr(res, err, `The tag with id ${id} could not be modified.`);
       });
   })
-  .delete('/:id', (req, res) => {
+  .delete('/:id', authenticate, (req, res) => {
     const { id } = req.params;
 
     Tag.findByIdAndRemove(id)
