@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const { Schema } = mongoose;
 const ObjectId = mongoose.Schema.Types.ObjectId;
-const SALT_ROUNDS = 10;
+const SALT_ROUNDS = 12;
 
 const UserSchema = new Schema({
     email: {
         type: String,
         required: true,
         unique: true,
-        minlength: 5,
+        minlength: 6,
         trim: true
     },
     password: {
