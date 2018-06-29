@@ -1,9 +1,10 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
 const User = require('../user/User');
+const wala = require('../wala');
 
 
-const secret = "I'm just here so I don't get fined";
+const secret = wala.secret;
 
 function generateToken(user) {
     const options = {
@@ -29,7 +30,7 @@ router.get('/', (req, res) => {
 
 router.post('/register', (req, res) => {
     const { username, password, email } = req.body;
-    if (!username || !password || !email) {
+    if (!username || !password ) {
         res.status(400).json({ error: "Please provide a username, password and email!" });
         return;
     }
