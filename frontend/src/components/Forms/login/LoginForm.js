@@ -43,7 +43,11 @@ class LoginForm extends React.Component {
       })
       .catch(err => {
         console.log("submitAndRegister ERROR:",err);
-        alert('Registration unsuccessful. Please try again.')
+        if (err.response) {
+          alert(`Registration unsuccessful. Please try again.\n${err.response.status}: ${err.response.statusText}`);
+        } else {
+          alert(`Registration unsuccessful.\n${err}`);
+        }
       });
   }
 
@@ -59,7 +63,12 @@ class LoginForm extends React.Component {
       })
       .catch(err => {
         console.log("submitAndLogin ERROR:",err);
-        alert('Login unsuccessful. Please try again.')
+        // alert(`Login unsuccessful. \n${err.response.status}: ${err.response.statusText}`)
+        if (err.response) {
+          alert(`Login unsuccessful. Please try again.\n${err.response.status}: ${err.response.statusText}`);
+        } else {
+          alert(`Login unsuccessful.\n${err}`);
+        }
       });
   }
 
@@ -90,10 +99,21 @@ class LoginForm extends React.Component {
           <label>Password</label>
           {this.inputSpitter('password', 'password')}
         </Form.Field>
+        {/* {
+          this.props.error &&
+          <p style={{"color":"red"}}><u>Error</u><br/>
+          {this.props.error.response.status}: {this.props.error.response.statusText}</p>
+        } */}
         <Button>Submit</Button>
       </Form>
     );
   }
 }
 
-export default connect(null, { sendToken  })(LoginForm);
+const mapStateToProps = state => {
+  return {
+    error: state.userReducer.error,
+  }
+}
+
+export default connect(mapStateToProps, { sendToken })(LoginForm);

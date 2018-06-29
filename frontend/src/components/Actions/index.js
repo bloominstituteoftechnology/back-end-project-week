@@ -20,7 +20,16 @@ export const clearError = () => {
 // To notesReducer
 export const addNote = (uid, note) => async dispatch => {
   const header = { "headers": { "authorization": uid } };
-  const response = await axios.post(`${domain}/notes`, note, header);
+  // const response = await axios.post(`${domain}/notes`, note, header);
+  let response;
+  try {
+    response = await axios.post(`${domain}/notes`, note, header);
+  } catch(error) {
+    return dispatch({
+      type: ERROR,
+      payload: error
+    });
+  }
   return fetchNotes(uid);
 };
 
@@ -37,10 +46,11 @@ export const editNote = (uid, id, note) => async dispatch => {
       payload: error
     });
   }
-  return dispatch({
-    type: EDIT,
-    payload: response.data
-  });
+  // return dispatch({
+  //   type: EDIT,
+  //   payload: response.data
+  // });
+  return fetchNotes(uid);
 };
 
 export const fetchNotes = (uid) => async dispatch => {
@@ -72,24 +82,24 @@ export const putResultsToStore = (results) => {
 
 export const deleteNote = (uid, id) => async dispatch => {
   const header = { "headers": { "authorization": uid } };
-  const response = await axios.delete(`${domain}/notes/${id}`,header);
+  try {
+    const response = await axios.delete(`${domain}/notes/${id}`, header);
+    console.log('deleteNote response:',response);
+  } catch (error) {
+    console.log('deleteNote error:',error);
+    return dispatch({
+      type: ERROR,
+      payload: error
+    });
+  }
   return fetchNotes(uid);
 };
 
 export const shareNote = (uid, id, info) => async dispatch => {
   const header = { "headers": { "authorization": uid } };
-  console.log('is anything here happening?');
-  // const response = await axios.post(`${domain}/notes/${id}/share`, info, header);
   try {
-    console.log('are you even trying?');
     const response = await axios.post(`${domain}/notes/${id}/share`, info, header);
     console.log('shareNote response:',response);
-    if (response.status !== 200) {
-      return dispatch({
-        type: ERROR,
-        payload: response
-      });
-    }
   } catch (error) {
     console.log('shareNote error:',error);
     return dispatch({

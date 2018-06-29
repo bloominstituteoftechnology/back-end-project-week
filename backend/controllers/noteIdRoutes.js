@@ -13,10 +13,9 @@ module.exports = (usersModel, notesModel) => {
             res.status(httpStatus.notFound).json({ error: "404: Not Found\nThe note with the specified ID cannot be found. The note is likely to have changed or not exist, though you may double check the ID in the URL for errors." });
             return;
           }
-
+          
+          // Checking if the user hitting the route is either an author or a collaborator
           const isInArray = note.collaborators.some(collab => collab._id.equals(userId));
-          // const isInArray = false;
-
           if (note.author == userId ||isInArray) {
             res.status(httpStatus.OK).json(note);
           } else {
@@ -54,7 +53,12 @@ module.exports = (usersModel, notesModel) => {
             return;
           }
 
-          notesModel.findByIdAndUpdate(noteId, editedNote, configObj)
+          const { title, text, tags } = editedNote;
+          note.title = title;
+          note.text = text;
+          note.tags = tags;
+
+          note.save()
             .then(noteB => {
               res.status(httpStatus.OK).json(noteB);
             })
@@ -62,6 +66,14 @@ module.exports = (usersModel, notesModel) => {
               console.log('noteRoutes--PUT ERROR:',error);
               res.status(500).json(error);
             });
+          // notesModel.findByIdAndUpdate(noteId, editedNote, configObj)
+          //   .then(noteB => {
+          //     res.status(httpStatus.OK).json(noteB);
+          //   })
+          //   .catch(error => {
+          //     console.log('noteRoutes--PUT ERROR:',error);
+          //     res.status(500).json(error);
+          //   });
 
         })
         .catch(error => {
@@ -77,12 +89,14 @@ module.exports = (usersModel, notesModel) => {
       notesModel.findById(idOfNoteToDelete)
         .then(note => {
           if (note === null) {
-            res.status(httpStatus.notFound).json({ error: "404: Not Found\nThe note with the specified ID cannot be found. The note is likely to have changed or not exist, though you may double check the ID in the URL for errors." });
+            es.statusMessage = "The note with the specified ID cannot be found. The note is likely to have changed or not exist, though you may double check the ID in the URL for errors."
+            res.status(httpStatus.notFound).end();
             return;
           }
 
           if (note.author != userId) {
-            res.status(httpStatus.unauthorized).json({ error: "401: Unauthorized\nYou don't appear to have permission to view this note." });
+            res.statusMessage = "Only the author of this note can delete it."
+            res.status(httpStatus.unauthorized).end();
             return;
           }
 

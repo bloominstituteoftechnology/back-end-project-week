@@ -9,17 +9,32 @@ import SearchBar from './SearchBar';
 import './NoteList.css';
 // Components
 import connect from 'react-redux/lib/connect/connect';
-import { fetchNotes, fetchTheme } from '../Actions';
+import { clearError, fetchNotes, fetchTheme, logoutUser } from '../Actions';
 import { Tag } from '../Forms/ViewNote';
 
 class NoteList extends Component {
 
-  componentDidMount = () => {
+  constructor() {
+    super();
+    this.state = {
+      loading: false,
+      error: false
+    }
+  }
+
+  componentDidMount = async () => {
     // console.log("Does this.props.user exist? ",this.props.user ? "YES":"NO");
-    if (this.props.user) this.props.fetchNotes(this.props.user.uid);
     if (this.props.user) {
-        // console.log("It's happening at NotesList");
-        this.props.fetchTheme(this.props.user.uid);
+
+      // this.props.fetchTheme(this.props.user.uid);
+      await this.props.fetchNotes(this.props.user.uid);
+
+      if (this.props.error) {
+        this.setState({ error: true, loading: false });
+      } else {
+        this.props.clearError();
+        this.setState({ error: false, loading: false });
+      }
     }
   }
 
@@ -49,13 +64,24 @@ class NoteList extends Component {
     const notesToDisplay = getNotes();
 
     switch (true) {
+      case this.state.loading:
+        return (
+          <div className="note-list">
+            <h2>We still be loadin'. Hang on tight!</h2>
+          </div>
+        );
       case !this.props.user:
         return <Redirect to="/" />;
-      case !this.props.notes:
-      case !this.props.results:
+      case this.state.error:
+        setTimeout(() => {
+          this.props.clearError();
+          this.props.logoutUser();
+          this.props.history.push('/login');
+        }, 2500);
         return (
-          <div>
-            <h2>We still be loadin'. Hang on tight!</h2>
+          <div className="note-list">
+            <h3>We weren't able to retrieve your notes.</h3>
+            <h5>Sending you back to log-in page...</h5>
           </div>
         );
       default:
@@ -114,7 +140,8 @@ const mapStateToProps = (state) => {
     notes: state.notesReducer.notes,
     results: state.notesReducer.results,
     user: state.userReducer.user,
+    error: state.userReducer.error
   }
 }
 
-export default withRouter(connect(mapStateToProps, { fetchNotes, fetchTheme })(NoteList));
+export default withRouter(connect(mapStateToProps, { clearError, fetchNotes, fetchTheme, logoutUser })(NoteList));

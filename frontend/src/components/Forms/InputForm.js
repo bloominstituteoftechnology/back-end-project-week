@@ -92,7 +92,7 @@ class InputForm extends Component {
     return (
       <div style={{background: "var(--color-bg--main)", height: "100%"}} className="input-form p-3">
         <h3>{ path === "/notes/new" ? `Create New ` : `Edit ` } Note:</h3>
-        <Form autocomplete="off" onSubmit={(e) => {
+        <Form autoComplete="off" onSubmit={(e) => {
           e.preventDefault();
           this.submitNote();
         }}>

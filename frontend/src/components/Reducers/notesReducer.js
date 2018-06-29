@@ -24,11 +24,23 @@ export const notesReducer = ( state = initialState, action ) => {
         notes: action.payload,
       };
     case ADD:
-    case EDIT:
       return {
         ...state,
         error: null,
         notes: [...state.notes, action.payload]
+      };
+    case EDIT:
+      const editedNote = action.payload;
+      return {
+        ...state,
+        error: null,
+        notes: state.notes.map(note => {
+          if (note._id == editedNote._id) {
+            return editedNote;
+          } else {
+            return note;
+          }
+        })
       };
     case ERROR:
       return {

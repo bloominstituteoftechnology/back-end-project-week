@@ -44,18 +44,24 @@ module.exports = (usersModel) => {
                   const token = generateToken(user);
                   res.status(httpStatus.OK).json({ "Welcome": "Login Successful", token});
                 } else {
-                  res.status(httpStatus.unauthorized).json({ error: "Login Failed."});
+                  res.statusMessage = "Login failed.";
+                  res.status(httpStatus.unauthorized).end();
                 }
               })
               .catch(err => {
                 console.log(`${user.username} Validation Error:`,err);
-                res.status(httpStatus.unauthorized).json({ error: "Login Failed."});
+                res.statusMessage = "Login failed.";
+                res.status(httpStatus.unauthorized).end();
               });
           } else {
-            res.status(httpStatus.unauthorized).json({ error: "Login Failed." });
+            res.statusMessage = "Login failed.";
+            res.status(httpStatus.unauthorized).end();
           }
         })
-      
+      .catch(error => {
+        console.log('LOGIN route ERROR:',error);
+        res.status(http.internalServerError).end();
+      });
     },
   };
 }

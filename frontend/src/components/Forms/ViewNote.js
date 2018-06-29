@@ -26,13 +26,26 @@ class ViewNote extends React.Component {
       email: '',
       modalA: false,
       modalB: false,
+      modalC: false,
       go: false,
+      loading: false,
+      error: false,
     }
   }
 
-  componentDidMount() {
+  componentDidMount = async () => {
+    // console.log("Does this.props.user exist? ",this.props.user ? "YES":"NO");
     if (this.props.user) {
-      this.props.fetchNotes(this.props.user.uid);
+      this.setState({ loading: true });
+      // this.props.fetchTheme(this.props.user.uid);
+      await this.props.fetchNotes(this.props.user.uid);
+
+      if (this.props.error) {
+        this.setState({ error: true, loading: false });
+      } else {
+        this.props.clearError();
+        this.setState({ error: false, loading: false });
+      }
     }
   }
 
@@ -54,6 +67,7 @@ class ViewNote extends React.Component {
     this.setState({
       modalA: !this.state.modalA
     });
+    this.props.clearError();
   }
 
   toggleShare = (e) => {
@@ -64,14 +78,31 @@ class ViewNote extends React.Component {
     this.props.clearError();
   }
 
-  deleteMethod = (e) => {
-    e.preventDefault();
-    this.props.deleteNote(this.props.user.uid, this.props.id);
+  toggleUnshare = (email = "") => {
+    const toSend = this.state.modalC ? "" : email;
+    console.log("toSend:",toSend);
     this.setState({
-      modalA: false,
-      modalB: false,
-      go: true,
+      email: toSend,
+      modalC: !this.state.modalC
     });
+    this.props.clearError();
+  }
+
+  deleteMethod = async (e) => {
+    e.preventDefault();
+    await this.props.deleteNote(this.props.user.uid, this.props.id);
+    if (this.props.error) {
+      console.log("ERROR:",this.props.error);
+    } else {
+      this.setState({
+        email: '',
+        modalA: false,
+        modalB: false,
+        modalC: false,
+        go: true,
+      });
+      this.props.clearError();
+    }
   }
 
   shareMethod = async (event) => {
@@ -86,8 +117,26 @@ class ViewNote extends React.Component {
     if (this.props.error) {
       console.log("ERROR:",this.props.error);
     } else {
-      console.log("i came");
+      this.setState({ email: '' });
       this.toggleShare();
+    }
+  }
+
+  unshareMethod = async (event) => {
+    event.preventDefault();
+    const infoObj = {
+      "email": this.state.email,
+      "share": false
+    }
+    // console.log(event);
+    // console.log('this.props.user.uid',this.props.user.uid,'this.props.id',this.props.id);
+    await this.props.shareNote(this.props.user.uid, this.props.id, infoObj);
+    console.log('made it to line 83');
+    if (this.props.error) {
+      console.log("ERROR:",this.props.error);
+    } else {
+      this.setState({ email: '' });
+      this.toggleUnshare();
     }
   }
 
@@ -107,6 +156,11 @@ class ViewNote extends React.Component {
         <Modal isOpen={this.state.modalA} toggle={this.toggle} className={this.props.className}>
           <ModalBody>
             <h5 className="text-center">Are you sure you want to delete this?</h5>
+            {
+              this.props.error &&
+              <p style={{"color":"red"}}><u>Error</u><br/>
+              {this.props.error.response.status}: {this.props.error.response.statusText}</p>
+            }
           </ModalBody>
           <ModalFooter>
             <Button delete onClick={this.deleteMethod}>Delete</Button>{' '}
@@ -120,7 +174,7 @@ class ViewNote extends React.Component {
             <h5 className="text-center">Enter the email of the user you want to share the note with.</h5>
             {
               this.props.error &&
-              <p style={{"color":"red"}}><u>Network Error</u><br/>
+              <p style={{"color":"red"}}><u>Error</u><br/>
               {this.props.error.response.status}: {this.props.error.response.statusText}</p>
             }
             <Form onSubmit={this.shareMethod}>
@@ -136,6 +190,17 @@ class ViewNote extends React.Component {
           </ModalFooter>
         </Modal>
       {/* End of Share Modal */}
+      {/* Unshare Modal */}
+        <Modal isOpen={this.state.modalC} toggle={this.toggleUnshare} className={this.props.className}>
+          <ModalBody>
+          <h5 className="text-center">Are you sure you want to no longer share this note?</h5>
+          </ModalBody>
+          <ModalFooter>
+          <Button delete onClick={this.unshareMethod}>Unshare</Button>{' '}
+            <Button onClick={this.toggleUnshare}>Cancel</Button>
+          </ModalFooter>
+        </Modal>
+      {/* End of UnShare Modal */}
         <div className="actions d-flex pt-3 justify-content-end">
           <Link style={cssMakesMeCry} to={`/notes/edit/${this.props.id}`} className="mx-2">edit</Link>
           <a style={cssMakesMeCry} href="" onClick={this.toggleShare} className="mx-2">share</a>
@@ -157,8 +222,8 @@ class ViewNote extends React.Component {
           <hr style={{borderColor:'var(--color--main)'}} />
             <h6>Users you're sharing this note with:</h6>
             {
-              collaborators ? 
-              collaborators.map(user => <Button style={{"width":"auto"}}>{user.email}</Button>)
+              collaborators.length > 0 ? 
+              collaborators.map(user => <Button onClick={() => this.toggleUnshare(user.email)} email={user.email} style={{"width":"auto"}}>{user.email}</Button>)
               :
               <p><em>No collaborators</em></p>
             }
