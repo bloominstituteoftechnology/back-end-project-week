@@ -33,8 +33,8 @@ module.exports = server => {
   // routes by note
   server.route('/api/note').post(newNote);
   server.route('/api/note/:id')
-    .get(getNoteById)
-    .delete(deleteNote)
-    .put(editNote);
+    .get(doWeHaveAToken, getNoteById)
+    .delete(doWeHaveAToken, deleteNote)
+    .put(doWeHaveAToken, editNote);
 
 }
