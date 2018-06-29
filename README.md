@@ -47,6 +47,7 @@ Upon your first commit, please submit a Pull Request and add _both_ the **Trello
 * [ ] Fill in the `backlog` list with all the extra features listed below
 * [ ] Share your board with the project manager that has been assigned to you.  If you have not been assigned yet, reach out to your Section Lead for guidance
 * [ ] Add your Trello URL to your project's README.md file.  Commit the change, push it to your repository & submit a pull request
+https://trello.com/b/mQiudkWt/lambda-notes-backend-kelly-f
 
 ## Backend MVP Features:
 * [ ] Create a Database for your app
@@ -62,6 +63,7 @@ Build an API Endpoint in your Node App for each of the following, and connect th
 * [ ] Edit an existing note
 * [ ] Delete an existing note
 * [ ] Link up your Front End Project to your new and improved backend
+https://nostalgic-kilby-8372d8.netlify.com/
 ```
 
 ***
