@@ -22,21 +22,6 @@ router.post('/', (req, res) => {
     }
 });
 
-
-
-
-//create note with title and content.
-// router.post('/notes',(req, res) => {
-//     const note = { title: req.body.body, content: req.body.body, notesAuthor: req.body.body };
-//     db.collection('Notes').insert(note, (err, results) => { 
-//         if (err) {
-//             res.status(500).json({ message: 'Error saving to database'});
-//         } else {
-//             res.send(result.ops[0]);
-//         }
-//     })
-// });
-
 //View a note
 router.get('/',(req, res) => {
     const id = req.params.id;

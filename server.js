@@ -11,18 +11,10 @@ const Notes = require('./notes/Notes');
 const NotesRoutes = require('./notes/NotesRoutes.js');
 const config = require('./api/config.js');
 
-// const port = 5000;//port for Notes react app(frontend).
 
 const port = config.port || 8000;
 
-// const corsOptions = {
-//     origin: '*',
-//     methods: 'GET, POST, PUT, DELETE',
-//     optionsSuccessStatus: 204
 
-// };
- 
-// server.use(cors(corsOptions))
 
 mongoose
     .connect('mongodb://localhost/notesdb')
@@ -49,7 +41,7 @@ server.use('/api/notes', NotesRoutes);
 
 
 server.get('/', (req, res) => {
-    res.status(200).json({ api: 'running' });
+    res.status(200).json({ api: 'running on dat sbux vanilla cream cold brew' });
 });
 
 
