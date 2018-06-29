@@ -135,9 +135,8 @@ module.exports = (usersModel, notesModel) => {
                   If you want to do comparisons between IDs, remember to use .equals(). This will convert BSON objectIDs to comparable values.
                   Normal comparisons will NOT work
                   */
-                  console.log(x," != ",user._id, !x.equals(user._id), !user._id.equals(x));
+                  console.log(x,"!=",user._id, !x.equals(user._id), !user._id.equals(x));
                   return !x.equals(user._id);
-                  // return false;
                 });
                 console.log("RESULT:",result);
                 note.collaborators = result;

@@ -398,7 +398,8 @@ describe('Server:', () => {
         expect(status).toBe(httpStatusCode.unauthorized);
       });
       
-      it('adds another user to a note\'s collaborators', async () => {
+      /* The two below tests may give false positives */
+      xit('adds another user to a note\'s collaborators', async () => {
         const noteToShare = testNotes[1];
         const idOfNoteToShare = testNotes[1]._id;
         const emailOfUserToShareTo = testUsers[0].email;
@@ -412,10 +413,9 @@ describe('Server:', () => {
         const idOfUserToShareTo = testUsers[0]._id;
         const { status, body } = responseObject;
         expect(status).toBe(httpStatusCode.OK);
-        // expect(body).toMatchObject({ cookies: 'cookies' })
       });
 
-      it('removes another user to a note\'s collaborators', async () => {
+      xit('removes another user to a note\'s collaborators', async () => {
         const noteToShare = testNotes[1];
         const idOfNoteToShare = testNotes[1]._id;
         const emailOfUserToShareTo = testUsers[0].email;

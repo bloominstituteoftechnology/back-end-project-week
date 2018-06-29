@@ -58,12 +58,12 @@ module.exports = (usersModel, notesModel) => {
       res.status(httpStatus.notFound).json({ error: "404: Not Found\nA valid note ID was not received with the PUT request. Please ensure the URL includes the ID of the note you wish to update." });
     },
     "SEARCH": (req, res) => {
-      const { _id } = req.plainToken;
+      const userId = req.plainToken._id;
       const { terms } = req.query;
       console.log('terms:',terms);
       // thanks to https://medium.com/@apurvashastry/build-a-cool-database-search-using-these-mongodb-full-text-search-features-on-mongoose-cf2803257f9
       notesModel
-        .find({ $text: { $search: terms }}, { score: { $meta: 'textScore' }})
+        .find({ $text: { $search: terms }, author: userId }, { score: { $meta: 'textScore' }})
         .sort({ score: { $meta: 'textScore' }})
         .then(notes => {
           res.status(httpStatus.OK).json(notes);

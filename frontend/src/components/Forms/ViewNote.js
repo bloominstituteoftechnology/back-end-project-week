@@ -22,7 +22,8 @@ class ViewNote extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false,
+      modalA: false,
+      modalB: false,
       go: false,
     }
   }
@@ -36,7 +37,14 @@ class ViewNote extends React.Component {
   toggle = (e) => {
     e.preventDefault();
     this.setState({
-      modal: !this.state.modal
+      modalA: !this.state.modalA
+    });
+  }
+
+  toggleShare = (e) => {
+    e.preventDefault();
+    this.setState({
+      modalB: !this.state.modalB
     });
   }
 
@@ -44,10 +52,14 @@ class ViewNote extends React.Component {
     e.preventDefault();
     this.props.deleteNote(this.props.user.uid, this.props.id);
     this.setState({
-      modal: false,
+      modalA: false,
+      modalB: false,
       go: true,
-    })
-    
+    });
+  }
+
+  shareMethod = (e) => {
+    e.preventDefault();
   }
 
   render() {
@@ -63,7 +75,7 @@ class ViewNote extends React.Component {
     return (
       <div style={{background: "var(--color-bg--main)", height: "100%"}} className="pr-3">
       {/* Delete Modal */}
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+        <Modal isOpen={this.state.modalA} toggle={this.toggle} className={this.props.className}>
           <ModalBody>
             <h5 className="text-center">Are you sure you want to delete this?</h5>
           </ModalBody>
@@ -73,8 +85,20 @@ class ViewNote extends React.Component {
           </ModalFooter>
         </Modal>
       {/* End of Delete Modal */}
+      {/* Delete Modal */}
+        <Modal isOpen={this.state.modalB} toggle={this.toggleShare} className={this.props.className}>
+          <ModalBody>
+            <h5 className="text-center">Test!</h5>
+          </ModalBody>
+          <ModalFooter>
+            <Button delete onClick={this.shareMethod}>Share</Button>{' '}
+            <Button onClick={this.toggleShare}>No</Button>
+          </ModalFooter>
+        </Modal>
+      {/* End of Delete Modal */}
         <div className="actions d-flex pt-3 justify-content-end">
           <Link style={cssMakesMeCry} to={`/notes/edit/${this.props.id}`} className="mx-2">edit</Link>
+          <a style={cssMakesMeCry} href="" onClick={this.toggleShare} className="mx-2">share</a>
           <a style={cssMakesMeCry} href="" onClick={this.toggle} className="mx-2">delete</a>
         </div>
         <div className="view-note p-4">
