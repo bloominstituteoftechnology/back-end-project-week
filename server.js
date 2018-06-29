@@ -1,7 +1,6 @@
 const express = require('express');// common js modules
 //import express from 'express'; es2015 modules
 const mongoose = require('mongoose');
-//const keys = require('./config/keys');
 const cors = require('cors');
 const keys = require('./config/keys');
 
