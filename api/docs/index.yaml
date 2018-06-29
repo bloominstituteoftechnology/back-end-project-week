@@ -692,6 +692,7 @@ paths:
       tags:
         - users
       summary: Get all existing users
+      description: This returns a list of all users. It can only be performed by an authenticated user.
       operationId: getAllUsers
       responses:
         '200':
@@ -715,11 +716,11 @@ paths:
                 - _id: 5b31ce106d04832fd1e51f59
                   firstName: John
                   lastName: Smith
-                  email: johnSmith@example.com
+                  email: johnsmith@example.com
                 - _id: 5b31ce106d04832fd1e51f71
                   firstName: Jane
                   lastName: Smith
-                  email: janeSmith@example.com
+                  email: janesmith@example.com
         '500':
           $ref: '#components/responses/500InternalServerError'
   /api/users/register:
@@ -727,6 +728,7 @@ paths:
       tags:
         - users
       summary: Create a new user
+      description: This creates a new user, ideally with data submitted via a form. Returns a token to make further requests.
       operationId: createUser
       requestBody:
         description: New user object
@@ -760,6 +762,7 @@ paths:
       tags:
         - users
       summary: Log user in
+      description: This allows registered users to log into the system and recieve a token to make further requests
       operationId: loginUser
       requestBody:
         description: User credentials
@@ -805,6 +808,7 @@ paths:
       tags:
         - users
       summary: Get user by id
+      description: This returns a single user. It can only be performed by an authenticated user.
       operationId: getUserById
       parameters:
         - $ref: '#/components/parameters/userId'
@@ -837,6 +841,7 @@ paths:
       tags:
         - users
       summary: Update an existing user. Replaces entire object.
+      description: This updates a user profile. It can only be performed by an authenticated user and users may only edit their own profile.
       operationId: updateUser
       requestBody:
         description: Updated user object
@@ -867,9 +872,11 @@ paths:
                   _id: 5b31ce106d04832fd1e51f59
                   firstName: John
                   lastName: Smith
-                  email: johnSmith@example.com
+                  email: johnsmith@example.com
         '400':
           $ref: '#components/responses/400BadRequest'
+        '403':
+          $ref: '#components/responses/403Forbidden'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
@@ -878,6 +885,7 @@ paths:
       tags:
         - users
       summary: Deletes a user
+      description: This deletes a user. It can only be performed by an authenticated user and users may only delete their own profile.
       operationId: deleteUser
       parameters:
         - $ref: '#/components/parameters/userId'
@@ -893,6 +901,8 @@ paths:
                     type: string
                 example:
                   _id: 5b31ce106d04832fd1e51f59
+        '403':
+          $ref: '#components/responses/403Forbidden'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
@@ -1175,6 +1185,17 @@ components:
                 type: string
             example:
               error: 'Invalid credentials'
+    403Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: User is not authorized to perform this action.
     404NotFound:
       description: Document not found. Id does not exist.
       content:
