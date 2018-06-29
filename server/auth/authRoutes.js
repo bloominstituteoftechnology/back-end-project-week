@@ -28,7 +28,7 @@ router.post('/signup', (req, res) => {
             }
         })
         .catch(error => {
-            res.status(500).json({ Error: error.message });
+            res.status(500).json('An internal server error occurred while signing up for an account.');
         })
 });
 
@@ -51,7 +51,7 @@ router.post('/login', (req, res) => {
                         }
                     })
                     .catch(error => {
-                        res.status(500).json('An error occurred while validating credentials.');
+                        res.status(500).json('An internal server error occurred while validating credentials.');
                     })
             }
             else {
@@ -59,7 +59,7 @@ router.post('/login', (req, res) => {
             }
         })
         .catch(error => {
-            res.status(500).json('An error occurred while validating credentials.');
+            res.status(500).json('An internal server error occurred while validating credentials.');
         })
 });
 

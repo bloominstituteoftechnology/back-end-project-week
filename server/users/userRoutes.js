@@ -36,11 +36,11 @@ router.get('/:userId/notes/', restricted, (req, res) => {
                 return;
             }
             else {
-                res.status(200).json({ username: user.username, notes: user.notes })
+                res.status(200).json({ id: user._id, username: user.username, notes: user.notes })
             }
         })
         .catch(error => {
-            res.status(500).json({ Error: error.message });
+            res.status(500).json('An internal server error occurred while retrieving notes from the database.');
         })
 });
 
@@ -64,11 +64,11 @@ router.get('/:userId/notes/:noteId', restricted, (req, res) => {
                             return;
                         }
                         else {
-                            res.status(200).json({ title: note.title, text: note.text });
+                            res.status(200).json({ id: note._id, title: note.title, text: note.text });
                         }
                     })
                     .catch(error => {
-                        res.status(500).json({ Error: error.message });
+                        res.status(500).json('An internal server error occurred while retrieving a note from the database.');
                     })
             }
         })
@@ -93,7 +93,8 @@ router.post('/:userId/notes/', restricted, (req, res) => {
             else {
                 Note.create({ title, text })
                     .then(note => {
-                        User.findByIdAndUpdate(userId, { $push: { notes: note._id } }, { new: true })
+                        User.findByIdAndUpdate(userId, { $push: { notes: note._id } }, { new: true, runValidators: true })
+                            .populate('notes', '_id title text')
                             .then(user => {
                                 if (user === null) {
                                     Note.remove({ _id: note.id })
@@ -101,24 +102,24 @@ router.post('/:userId/notes/', restricted, (req, res) => {
                                             res.status(401).json('Resource not found.')
                                         })
                                         .catch(error => {
-                                            res.status(500).json({ Error: error.message });
+                                            res.status(500).json('An internal server error occurred while adding a note to the database.');
                                         })
                                 }
                                 else {
-                                    res.status(201).json({ id: user._id, notes: user.notes })
+                                    res.status(201).json({ id: user._id, username: user.username, notes: user.notes })
                                 }
                             })
                             .catch(error => {
-                                res.status(500).json({ Error: error.message });
+                                res.status(500).json('An internal server error occurred while adding a note to the database.');
                             })
                     })
                     .catch(error => {
-                        res.status(500).json({ Error: error.message });
+                        res.status(500).json('An internal server error occurred while adding a note to the database.');
                     })
             }
         })
         .catch(error => {
-            res.status(500).json({ Error: error.message });
+            res.status(500).json('An internal server error occurred while adding a note to the database.');
         })
 });
 
@@ -148,17 +149,17 @@ router.put('/:userId/notes/:noteId', restricted, (req, res) => {
                                     res.status(200).json({ title: note.title, text: note.text });
                                 })
                                 .catch(error => {
-                                    res.status(500).json({ Error: error.message });
+                                    res.status(500).json('An internal server error occurred while modifying a note from the database.');
                                 })
                         }
                     })
                     .catch(error => {
-                        res.status(500).json({ Error: error.message });
+                        res.status(500).json('An internal server error occurred while modifying a note from the database.');
                     })
             }
         })
         .catch(error => {
-            res.status(500).json({ Error: error.message });
+            res.status(500).json('An internal server error occurred while modifying a note from the database.');
         })
 });
 
@@ -175,7 +176,7 @@ router.delete('/:userId/notes/:noteId', restricted, (req, res) => {
                 return;
             }
             else {
-                User.findByIdAndUpdate(userId, { $pull: { notes: noteId } }, { new: true })
+                User.findByIdAndUpdate(userId, { $pull: { notes: noteId } }, { new: true, runValidators: true })
                     .then(user => {
                         if (user === null) {
                             res.status(401).json('Resource not found.');
@@ -193,17 +194,17 @@ router.delete('/:userId/notes/:noteId', restricted, (req, res) => {
                                     }
                                 })
                                 .catch(error => {
-                                    res.status(500).json({ Error: error.message });
+                                    res.status(500).json('An internal server error occurred while deleting a note from the database.');
                                 })
                         }
                     })
                     .catch(error => {
-                        res.status(500).json({ Error: error.message });
+                        res.status(500).json('An internal server error occurred while modifying a note from the database.');
                     })
             }
         })
         .catch(error => {
-            res.status(500).json({ Error: error.message });
+            res.status(500).json('An internal server error occurred while modifying a note from the database.');
         })
 });
 

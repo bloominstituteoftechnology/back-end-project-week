@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { connect } from 'react-redux';
-import { Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import './Signup.css';
 
 class Signup extends Component {
@@ -10,24 +9,22 @@ class Signup extends Component {
         this.state = {
             username: '',
             password: '',
-            redirect: null,
             error: ''
         }
     }
 
     submitHandler = (event) => {
         event.preventDefault();
-
         axios.post('http://localhost:1433/api/auth/signup', { username: this.state.username, password: this.state.password })
             .then(response => {
-                this.setState({ redirect: true });
+                this.props.history('/login');
             })
             .catch(error => {
                 if (error.response.status === 400) {
                     this.setState({ error: error.response.data });
                 }
                 else {
-                    alert(`Error: ${error.response.status} ${error.response.data}`)
+                    console.log(`Error: ${error}`)
                 }
             })
     };
@@ -45,11 +42,10 @@ class Signup extends Component {
                     {this.state.error ? <div className='error'>{this.state.error}</div> : null}
                     <div className='secondDiv'><input name='password' type='password' minLength='4' placeholder='Password' value={this.state.password} onChange={this.handleOnChange} required /></div>
                     <div className='thirdDiv'><button type='submit'>Sign Up</button></div>
-                    {this.state.redirect ? <Redirect to='/login' /> : null}
                 </form>
             </div>
         )
     }
-}
+};
 
-export default withRouter(connect(null)(Signup)); 
+export default withRouter(Signup); 

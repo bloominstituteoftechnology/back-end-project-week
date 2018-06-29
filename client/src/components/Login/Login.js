@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { getNotes } from '../../actions';
 import axios from 'axios';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import './Login.css';
 
@@ -17,13 +15,12 @@ class Login extends Component {
 
     submitHandler = (event) => {
         event.preventDefault();
-
         axios.post('http://localhost:1433/api/auth/login', { username: this.state.username, password: this.state.password })
             .then(response => {
                 if (response.data.token) {
                     localStorage.setItem('jwt', response.data.token);
-                    this.props.getNotes(response.data.id);
-                    this.props.history.push('/');
+                    localStorage.setItem('userId', response.data.id);
+                    this.props.history.push(`/${response.data.id}`);
                 }
             })
             .catch(error => {
@@ -31,7 +28,7 @@ class Login extends Component {
                     this.setState({ invalid: error.response.data });
                 }
                 else {
-                    alert(`Error: ${error.response.status} ${error.response.data}`);
+                    alert(`Error: ${error}`);
                 }
             })
     };
@@ -54,6 +51,6 @@ class Login extends Component {
             </div>
         )
     }
-}
+}; 
 
-export default withRouter(connect(null, { getNotes })(Login)); 
+export default withRouter(Login); 

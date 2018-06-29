@@ -1,21 +1,66 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Card, CardBody, CardTitle, CardText } from 'reactstrap';
 import './NotesContainer.css';
 
 class NotesContainer extends Component {
+    constructor() {
+        super();
+        this.state = {
+            username: '',
+            notes: []
+        }
+    }
+
+    componentDidMount() {
+        const token = localStorage.getItem('jwt');
+        const requestOptions = {
+            headers: {
+                Authorization: token
+            }
+        }
+        axios.get(`http://localhost:1433/api/users/${localStorage.getItem('userId')}/notes`, requestOptions)
+            .then(response => {
+                this.setState({ username: response.data.username, notes: response.data.notes });
+            })
+            .catch(error => {
+                console.log(`Error: ${error}`)
+            })
+    }
+
+    componentWillReceiveProps(newProps) {
+        if (this.props.match.params.userId === localStorage.getItem('userId')) {
+            const token = localStorage.getItem('jwt');
+            const requestOptions = {
+                headers: {
+                    Authorization: token
+                }
+            }
+            axios.get(`http://localhost:1433/api/users/${localStorage.getItem('userId')}/notes`, requestOptions)
+                .then(response => {
+                    this.setState({ username: response.data.username, notes: response.data.notes });
+                })
+                .catch(error => {
+                    console.log(`Error: ${error}`); 
+                })
+        }
+    }
+
     render() {
-        console.log('Username', this.props.username);
+        if (!this.state.username) {
+            return <div className='loading'><h4>Loading notes information...</h4></div>
+        }
         return (
             <div className='notesContainer'>
-                <h4>{this.props.username} Notes:</h4>
+                <h4>{this.state.username} Notes:</h4>
+                {this.state.notes.length === 0 ? <h5 className='empty'>You currently do not have any notes. Click on the create note button to create one.</h5> : null}
                 <div className='notes'>
-                    {this.props.notes !== undefined ?
-                        this.props.notes.map(note => {
+                    {this.state.notes.length > 0 ?
+                        this.state.notes.map(note => {
                             return (
-                                <Link className='link' key={note.id} to={`/notes/${note.id}`}>
+                                <Link className='link' key={note._id} to={`/${localStorage.getItem('userId')}/notes/${note._id}`}>
                                     <Card>
                                         <CardBody>
                                             <CardTitle>{note.title}</CardTitle>
@@ -31,13 +76,4 @@ class NotesContainer extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return (
-        {
-            username: state.userData.username,
-            notes: state.userData.notes
-        }
-    )
-}
-
-export default withRouter(connect(mapStateToProps)(NotesContainer)); 
+export default withRouter(NotesContainer); 
