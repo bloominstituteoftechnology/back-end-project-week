@@ -19,12 +19,12 @@ server.use('/api/notes', noteRouter);
 server.use('/api/users', userRouter);
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/notesapp', {}, err => {
+mongoose.connect(process.env.mongo, {}, err => {
     if (err) console.log(err);
     console.log("Mongoose is connected to your db!");
 })
 
-const port = process.env.port || 5001;
+const port = process.env.PORT || 5001;
 server.listen(port, () => {
     console.log(`\n===API running on http://localhost:${port} ===\n`);
 });

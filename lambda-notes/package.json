@@ -20,7 +20,7 @@
     "reactstrap": "^6.0.1"
   },
   "scripts": {
-    "server": "nodemon ./backend/server.js",
+    "server": "nodemon ./lambda-notes/server.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
