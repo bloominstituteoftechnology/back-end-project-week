@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { CSVLink } from 'react-csv';
 
 function homeLink() {
-    return this.props.history.push('/');
+    window.location.href = "/";;
 }
 
 class SideBar extends Component {
