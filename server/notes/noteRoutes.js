@@ -2,7 +2,7 @@ const router = require('express').Router();
 const Notes = require('./Notes');
 
 //this is the main file I used for linking to the front end
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
 	Notes.find()
 		.then(notes => {
 			res.status(200).json(notes);
