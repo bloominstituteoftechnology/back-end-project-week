@@ -11,13 +11,13 @@ const server = express();
 const port = process.env.PORT || 5555;
 
 const corsOptions = {
-    origin: 'http://localhost:3000', 
+    origin: 'https://lambda-notes-kolumbic.herokuapp.com', 
     credentials: true
 }
 
 mongoose
     //.connect(`mongodb://${localHost}/${database}`) // local mongo instance
-    .connect(process.env.mongo) // mlab DB
+    .connect('mongodb://admin:DBjack1@ds018238.mlab.com:18238/lambda-notes') // mlab DB
     .then(response => {
         console.log("Connection Successful")
     })
