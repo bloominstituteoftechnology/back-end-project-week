@@ -16,7 +16,8 @@ server.use(session({
     resave: true,
     name: 'none',
     store: new MongoStore({
-        mongoose_connection: mongoose.connections[0]
+        url: `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds217671.mlab.com:17671/sessions`,
+        ttl: 60 * 10,
     })
 }))
 router.post('/register', function(req, res) {
