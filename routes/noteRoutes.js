@@ -1,18 +1,11 @@
 require('dotenv').load()
+const express = require('express')
 const router = require('express').Router()
-const jwt = require('jsonwebtoken')
-
-const secret = process.env.JW_SECRET
-
+const session = require('express-session')
+const MongoStore = require('connect-mongo')(session)
 const Note = require('../models/noteModel.js');
 
-function generateToken(username) {
-    const options = {
-        expiresIn: '1h'
-    };
-    const payload = { username };
-    return jwt.sign(payload, secret, options)
-}
+
 
 const sendUserError = (status, message, res) => {
     res.status(status).json({ error: message });
@@ -21,21 +14,17 @@ const sendUserError = (status, message, res) => {
 
 function restricted (req, res, next) {
     const token = req.headers.Authorization;
-    if (token) {
-        jwt.verify(token, secret, (err, decodedToken) => {
-            req.jwtPayload = decodedToken
-            if (err) {
-                return res.status(401).json({ message: 'No notes for you.  Your decoder ring is invalid.' })
-            }
-            next();
-        })
-    } else {
-        res.status(401).json({ message: 'Hey buddy, where is your hall pass?' })
-    }
+   if (req.session && req.session.username) {
+       next()
+   } else {
+       res.status(401).send('Not today.')
+   }
 }
 
+router.use(restricted)
+
 router.get('/', restricted, (req, res) => {
-    Note.find({ username: req.username })
+    Note.find({ username: req.session.username })
         .select('-__v -id')
         .then(notes => {
             res.status(200).json({ notes })
