@@ -15,6 +15,29 @@ function generateToken(user){
     return jwt.sign(payload, secret, options)
 }
 
+const validateToken = (req, res, next) => {
+    // this piece of middleware is taking the token delivered up to the server and verifying it
+    // if no token is found in the header, you'll get a 422 status code
+    // if token is not valid, you'll receive a 401 status code
+    const token = req.headers.authorization;
+    if (!token) {
+        res
+            .status(422)
+            .json({ error: 'No authorization token found on Authorization header' });
+    } else {
+        jwt.verify(token, secret, (err, decoded) => {
+            if (err) {
+                res
+                    .status(401)
+                    .json({ error: 'Token invalid, please login', message: err });
+            } else {
+                // token is valid, so continue on to the next middleware/request handler function
+                next();
+            }
+        });
+    }
+};
+
 function restricted(res, req, next){
     const token = req.headers.authorization;
     if(token){
@@ -48,17 +71,19 @@ router
     
 
 router
-    .post('/register', (req, res) => {
-        User.create(req.body)
-            .then(({ username }) => {
-                const token = generateToken({ username })
-                res.status(201).json({ username, token })
-            })
-            .catch(err => {
-                console.log(err);
-                res.status(500).json({ errormessage: err})
-            })
-    })
+     .post('/register', (req, res) => {
+        const { username, password } = req.body;
+        const user = new User({ username, password });
+
+        user.save((err, user) => {
+            if (err) return res.send(err);
+
+            const token = generateToken({ username: user.username });
+            res.json({ token });
+        });
+    });
+
+    
 
 router  
     .post('/signin', (req, res) => {
@@ -97,4 +122,14 @@ router
                 })
         })
 
+
+        //     User.create(req.body)
+    //         .then(({ username }) => {
+    //             const token = generateToken({ username })
+    //             res.status(201).json({ username, token })
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //             res.status(500).json({ errormessage: err})
+    //         })
 module.exports = router;
