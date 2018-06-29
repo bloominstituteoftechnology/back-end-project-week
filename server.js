@@ -79,30 +79,30 @@ server.post('/login', (req, res) => {
         });
     });
 
-    function generateToken(user) {
-        const options = {
-            expiresIn: '1h',
-        };
-        const payload = { name: user.email }; 
+function generateToken(user) {
+    const options = {
+        expiresIn: '1h',
+    };
+    const payload = { name: user.email }; 
 
-        return jwt.sign(payload, secret, options); 
+    return jwt.sign(payload, secret, options); 
+}
+
+function restricted(req, res, next) {
+    const token = req.headers.authorization; 
+
+    if(token) {
+        jwt.verify(token, secret, (error, decodedToken) => {
+            if(error) {
+                res.status(401).json({ message: 'Denied access. Not decoded.' });
+            }
+
+            next(); 
+        }); 
+    } else {
+        res.status(401).json({ message: 'Access not allowed. No token.' }); 
     }
-
-    function restricted(req, res, next) {
-        const token = req.headers.authorization; 
-
-        if(token) {
-            jwt.verify(token, secret, (error, decodedToken) => {
-                if(error) {
-                    res.status(401).json({ message: 'Denied access. Not decoded.' });
-                }
-
-                next(); 
-            }); 
-        } else {
-            res.status(401).json({ message: 'Access not allowed. No token.' }); 
-        }
-    }
+}
 
 
 // server.put('/users/:id', (req, res) => {

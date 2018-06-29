@@ -31,7 +31,7 @@ UsersModel.pre('save', function(next) {
         .then(hash => {
             this.password = hash;
 
-        return next();
+            return next();
         })
         .catch(error => {
             return next(error); 
