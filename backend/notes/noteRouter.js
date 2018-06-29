@@ -21,10 +21,8 @@ router
         .get((req, res) => {
             const {id} = req.params;
             console.log(req);
-            Note.find({
-                userId: id
-            })
-            .populate('user')
+            Note.findById(id)
+            // .populate('user')//maybe this need not be there?
                 .then(note => res.json(note))
                 .catch(err => res.status(500).json({error: err.message}))
         })

@@ -12,8 +12,8 @@ const User = mongoose.Schema({
     },
     password: {
         type: String,
-        require: true,
-        minLength: 5
+        require: true
+        // minLength: 5
     },
     notes: [{
         type: ObjId,
