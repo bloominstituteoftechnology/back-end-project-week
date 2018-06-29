@@ -11,7 +11,7 @@ const server = express()
 server.use(session({
     secret: process.env.SECRET,
     cookie: { maxAge: 1 * 24 * 60 * 60 * 1000 },
-    secure: true,
+    secure: false,
     saveUninitialized: false,
     resave: true,
     name: 'none',

@@ -23,7 +23,7 @@ server.get('/', (req, res) => {
     res.json({ api: 'Run away, run away!'})
 })
 
-server.use('/', userRoute)
+server.use('/auth', userRoute)
 server.use('/notes', noteRoute)
 
 
