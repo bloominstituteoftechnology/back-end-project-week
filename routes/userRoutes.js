@@ -16,7 +16,7 @@ function generateToken(username) {
 }
 
 router.post('/register', function(req, res) {
-    User.create(({ username }))
+    User.create(req.body)
     .then(user => {
         const token = generateToken(username)
         res.status(201).json({ username, token })
