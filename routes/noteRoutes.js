@@ -1,4 +1,3 @@
-require('dotenv').load()
 const express = require('express')
 const router = require('express').Router()
 const session = require('express-session')
@@ -22,7 +21,7 @@ function restricted (req, res, next) {
 
 router.use(restricted)
 
-router.get('/', restricted, (req, res) => {
+router.get('/', (req, res) => {
     User.find({ username: req.session.username })
         .populate('notes', '-_id -__v')        
         .select('-__v -id')
@@ -32,7 +31,7 @@ router.get('/', restricted, (req, res) => {
         .catch(err => sendUserError(500, err.message, res))
 })
 
-router.post('/', restricted, (req, res) => {
+router.post('/', (req, res) => {
     const { title, body } = req.body;
     if (!title || !body) {
         sendUserError(400, "All notes must contain a title and body", res)
@@ -47,7 +46,7 @@ router.post('/', restricted, (req, res) => {
     }
 })
 
-router.get('/:id', restricted, (req, res) => {
+router.get('/:id', (req, res) => {
     const { id } = req.params;
     Note.findById(id)
     .select('-__v -author')
@@ -61,7 +60,7 @@ router.get('/:id', restricted, (req, res) => {
         .catch(err => sendUserError(500, err.message, res))
 })
 
-router.put('/:id', restricted, (req, res) => {
+router.put('/:id', (req, res) => {
     const { id } = req.params;
     const updates = req.body
     Note.findByIdAndUpdate(id, updates, { new: true })
@@ -73,7 +72,7 @@ router.put('/:id', restricted, (req, res) => {
         })
 })
 
-router.delete('/:id', restricted, (req, res) => {
+router.delete('/:id', (req, res) => {
     const { id } = req.params;
     Note.findByIdAndRemove(id)
         .then(deletedNote => {
