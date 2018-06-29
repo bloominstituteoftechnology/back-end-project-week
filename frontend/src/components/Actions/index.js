@@ -2,6 +2,7 @@ import axios from 'axios';
 import { domain } from '../../config/dev';
 
 export const ADD = "ADD";
+export const CLEAR_ERROR = "CLEAR_ERROR";
 export const EDIT = "EDIT";
 export const ERROR = "ERROR";
 export const FETCH = "FETCH";
@@ -10,7 +11,11 @@ export const LOGOUT = "LOGOUT";
 export const SEARCH = "SEARCH";
 export const THEME = "THEME";
 
-const port = 5500;
+export const clearError = () => {
+  return {
+    type: CLEAR_ERROR
+  };
+};
 
 // To notesReducer
 export const addNote = (uid, note) => async dispatch => {
@@ -70,6 +75,30 @@ export const deleteNote = (uid, id) => async dispatch => {
   const response = await axios.delete(`${domain}/notes/${id}`,header);
   return fetchNotes(uid);
 };
+
+export const shareNote = (uid, id, info) => async dispatch => {
+  const header = { "headers": { "authorization": uid } };
+  console.log('is anything here happening?');
+  // const response = await axios.post(`${domain}/notes/${id}/share`, info, header);
+  try {
+    console.log('are you even trying?');
+    const response = await axios.post(`${domain}/notes/${id}/share`, info, header);
+    console.log('shareNote response:',response);
+    if (response.status !== 200) {
+      return dispatch({
+        type: ERROR,
+        payload: response
+      });
+    }
+  } catch (error) {
+    console.log('shareNote error:',error);
+    return dispatch({
+      type: ERROR,
+      payload: error
+    });
+  }
+  return fetchNotes(uid);
+}
 
 // To userReducer
 

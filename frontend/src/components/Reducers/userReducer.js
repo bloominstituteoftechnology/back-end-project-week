@@ -2,6 +2,7 @@ import {
   LOGIN,
   LOGOUT,
   ERROR,
+  CLEAR_ERROR,
   THEME,
 } from '../Actions';
 
@@ -35,6 +36,11 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.payload,
+      };
+    case CLEAR_ERROR:
+      return {
+        ...state,
+        error: null
       };
     default:
       return state;

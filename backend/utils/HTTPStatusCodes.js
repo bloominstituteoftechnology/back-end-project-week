@@ -3,6 +3,7 @@ module.exports = {
   'created': 201,
   'accepted': 202,
   'noContent': 204,
+  'notModified': 304,
   'badRequest': 400,
   'unauthorized': 401,
   'forbidden': 403,

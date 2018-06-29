@@ -1,5 +1,6 @@
 import {
   ADD,
+  CLEAR_ERROR,
   EDIT,
   ERROR,
   FETCH,
@@ -19,12 +20,14 @@ export const notesReducer = ( state = initialState, action ) => {
     case FETCH:
       return {
         ...state,
+        error: null,
         notes: action.payload,
       };
     case ADD:
     case EDIT:
       return {
         ...state,
+        error: null,
         notes: [...state.notes, action.payload]
       };
     case ERROR:
@@ -32,14 +35,21 @@ export const notesReducer = ( state = initialState, action ) => {
         ...state,
         error: action.payload
       };
+    case CLEAR_ERROR:
+      return {
+        ...state,
+        error: null
+      };
     case LOGOUT:
       return {
         ...state,
+        error: null,
         notes: [],
       };
     case SEARCH:
       return {
         ...state,
+        error: null,
         results: action.payload
       }
     default:

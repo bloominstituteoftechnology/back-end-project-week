@@ -7,6 +7,7 @@ module.exports = (usersModel, notesModel) => {
       const id = req.params.id;
       const userId = req.plainToken._id;
       notesModel.findById(id)
+        .populate('collaborators','-_id email')
         .then(note => {
           if (note === null) {
             res.status(httpStatus.notFound).json({ error: "404: Not Found\nThe note with the specified ID cannot be found. The note is likely to have changed or not exist, though you may double check the ID in the URL for errors." });
@@ -128,28 +129,36 @@ module.exports = (usersModel, notesModel) => {
               console.log("BEFORE:",note);
               console.log("SHARE:",share);
               if (share) {
-                note.collaborators = [...note.collaborators, user._id];
+                const isInArray = note.collaborators.some(id => id.equals(user._id));
+                if (isInArray) {
+                  // Thanks https://stackoverflow.com/a/36507614
+                  res.statusMessage = 'This note is already being shared with the user.';
+                  res.status(httpStatus.notModified).end();
+                  return;
+                } else {
+                  note.collaborators = [...note.collaborators, user._id];
+                }
               } else {
-                const result = note.collaborators.filter(x => {
+                const result = note.collaborators.filter(id => {
                   /* Note to self:
                   If you want to do comparisons between IDs, remember to use .equals(). This will convert BSON objectIDs to comparable values.
-                  Normal comparisons will NOT work
+                  Normal comparisons will NOT work.
                   */
-                  console.log(x,"!=",user._id, !x.equals(user._id), !user._id.equals(x));
-                  return !x.equals(user._id);
+                  console.log(id,"!=",user._id, !id.equals(user._id), !user._id.equals(id));
+                  return !id.equals(user._id);
                 });
                 console.log("RESULT:",result);
                 note.collaborators = result;
               }
 
               note.save()
-                .then(count => {
-                  console.log("AFTER:",count);
-                  if (count < 1) {
+                .then(updatedUser => {
+                  console.log("AFTER:",updatedUser);
+                  if (updatedUser === null) {
                     res.status(500).json({ error: "Could not share note with user." });
                     return;
                   }
-                  res.status(httpStatus.OK).json({ "Success" : "Successfully shared note with user. "});
+                  res.status(httpStatus.OK).json(updatedUser);
                 })
                 .catch(error => {
                   console.log('noteIdRoutes--SHARE ERROR:',error);

@@ -399,7 +399,7 @@ describe('Server:', () => {
       });
       
       /* The two below tests may give false positives */
-      xit('adds another user to a note\'s collaborators', async () => {
+      it('adds another user to a note\'s collaborators', async () => {
         const noteToShare = testNotes[1];
         const idOfNoteToShare = testNotes[1]._id;
         const emailOfUserToShareTo = testUsers[0].email;
@@ -415,7 +415,7 @@ describe('Server:', () => {
         expect(status).toBe(httpStatusCode.OK);
       });
 
-      xit('removes another user to a note\'s collaborators', async () => {
+      it('removes another user to a note\'s collaborators', async () => {
         const noteToShare = testNotes[1];
         const idOfNoteToShare = testNotes[1]._id;
         const emailOfUserToShareTo = testUsers[0].email;

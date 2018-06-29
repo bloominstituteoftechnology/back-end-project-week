@@ -20,6 +20,7 @@ module.exports = (usersModel, notesModel) => {
       // console.log('plainToken:',req.plainToken);
       const { _id } = req.plainToken;
       notesModel.find({ author: _id })
+        .populate('collaborators','email')
         .sort({ dateCreated: 'descending' })
         .then(notes => {
           res.status(httpStatus.OK).json(notes);

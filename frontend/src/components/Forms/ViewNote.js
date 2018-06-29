@@ -6,8 +6,9 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import ReactMarkdown from 'react-markdown';
 import styled from 'styled-components';
 // Components
-import { fetchNotes, deleteNote } from '../Actions';
+import { fetchNotes, deleteNote, shareNote, clearError } from '../Actions';
 import { Button } from '../Button';
+import { Form, Input } from 'semantic-ui-react';
 // CSS
 import './ViewNote.css';
 
@@ -22,6 +23,7 @@ class ViewNote extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      email: '',
       modalA: false,
       modalB: false,
       go: false,
@@ -34,6 +36,19 @@ class ViewNote extends React.Component {
     }
   }
 
+  handleInputChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  inputSpitter = (name, type="text", handler=this.handleInputChange) => {
+    return <Input 
+      type={type} 
+      name={name} 
+      value= {this.state[name]} 
+      onChange={handler}
+    />;
+  }
+
   toggle = (e) => {
     e.preventDefault();
     this.setState({
@@ -42,10 +57,11 @@ class ViewNote extends React.Component {
   }
 
   toggleShare = (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     this.setState({
       modalB: !this.state.modalB
     });
+    this.props.clearError();
   }
 
   deleteMethod = (e) => {
@@ -58,8 +74,21 @@ class ViewNote extends React.Component {
     });
   }
 
-  shareMethod = (e) => {
-    e.preventDefault();
+  shareMethod = async (event) => {
+    event.preventDefault();
+    const infoObj = {
+      "email": this.state.email,
+      "share": true
+    }
+    console.log('this.props.user.uid',this.props.user.uid,'this.props.id',this.props.id);
+    await this.props.shareNote(this.props.user.uid, this.props.id, infoObj);
+    console.log('made it to line 83');
+    if (this.props.error) {
+      console.log("ERROR:",this.props.error);
+    } else {
+      console.log("i came");
+      this.toggleShare();
+    }
   }
 
   render() {
@@ -69,7 +98,7 @@ class ViewNote extends React.Component {
     if (this.state.go === true) return <Redirect to="/notes" />;
     // Some variable management
     const note = this.props.notes.filter(note => note._id === this.props.id)[0];
-    const { title, text, tags } = note; 
+    const { title, text, tags, collaborators } = note; 
     console.log("ViewNote.js tags",tags);
 
     return (
@@ -85,17 +114,28 @@ class ViewNote extends React.Component {
           </ModalFooter>
         </Modal>
       {/* End of Delete Modal */}
-      {/* Delete Modal */}
+      {/* Share Modal */}
         <Modal isOpen={this.state.modalB} toggle={this.toggleShare} className={this.props.className}>
           <ModalBody>
-            <h5 className="text-center">Test!</h5>
+            <h5 className="text-center">Enter the email of the user you want to share the note with.</h5>
+            {
+              this.props.error &&
+              <p style={{"color":"red"}}><u>Network Error</u><br/>
+              {this.props.error.response.status}: {this.props.error.response.statusText}</p>
+            }
+            <Form onSubmit={this.shareMethod}>
+                <Form.Field>
+                  <label>E-mail</label>
+                  {this.inputSpitter('email')}
+                </Form.Field>
+                <Button>Submit</Button>
+              </Form>
           </ModalBody>
           <ModalFooter>
-            <Button delete onClick={this.shareMethod}>Share</Button>{' '}
-            <Button onClick={this.toggleShare}>No</Button>
+            <Button onClick={this.toggleShare}>Cancel</Button>
           </ModalFooter>
         </Modal>
-      {/* End of Delete Modal */}
+      {/* End of Share Modal */}
         <div className="actions d-flex pt-3 justify-content-end">
           <Link style={cssMakesMeCry} to={`/notes/edit/${this.props.id}`} className="mx-2">edit</Link>
           <a style={cssMakesMeCry} href="" onClick={this.toggleShare} className="mx-2">share</a>
@@ -114,6 +154,16 @@ class ViewNote extends React.Component {
           </div>
           <br />
           <ReactMarkdown source={text} />
+          <hr style={{borderColor:'var(--color--main)'}} />
+            <h6>Users you're sharing this note with:</h6>
+            <ul>
+            {
+              collaborators ? 
+              collaborators.map(user => <li>{user.email}</li>)
+              :
+              <p><em>No collaborators</em></p>
+            }
+            </ul>
         </div>
       </div>
     );
@@ -140,7 +190,8 @@ const mapDispatchToProps = state => {
   return {
     notes: state.notesReducer.notes,
     user: state.userReducer.user,
+    error: state.userReducer.error
   };
 };
 
-export default withRouter(connect(mapDispatchToProps, { fetchNotes, deleteNote })(ViewNote));
+export default withRouter(connect(mapDispatchToProps, { fetchNotes, deleteNote, shareNote, clearError })(ViewNote));
