@@ -1,3 +1,4 @@
+require('dotenv').load()
 const passport = require('passport')
 
 const User = require('../models/userModel')

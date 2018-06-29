@@ -1,6 +1,18 @@
+require('dotenv').load()
 const router = require('express').Router()
+const jwt = require('jsonwebtoken')
+
+const secret = process.env.JW_SECRET
 
 const Note = require('../models/noteModel.js');
+
+function generateToken(username) {
+    const options = {
+        expiresIn: '1h'
+    };
+    const payload = { username };
+    return jwt.sign(payload, secret, options)
+}
 
 const sendUserError = (status, message, res) => {
     res.status(status).json({ error: message });
