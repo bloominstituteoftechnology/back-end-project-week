@@ -8,13 +8,10 @@ const UserSchema = new mongoose.Schema({
         required: true,
         unique: true,
         lowercase: true,
-        minlength: 3,
     },
     password: {
         type: String,
         required: true,
-        lowercase: true,
-        minlength: 4,
     },
     notes: [{
         type: ObjectId,
@@ -22,17 +19,20 @@ const UserSchema = new mongoose.Schema({
     }] 
 });
 
-const User = mongoose.model('User', UserSchema);
+
 
 UserSchema.pre('save', function(next) {
     bcrypt
-        .hash(this.password, 12, (error, hash) => {
-            if (error) {
-                return next(error);
-            }
-            this.password = hash
-            return next();
-        });
+    return bcrypt
+    .hash(this.password, 10)
+    .then(hash => {
+      this.password = hash;
+
+      return next();
+    })
+    .catch(err => {
+      return next(err);
+    });
 });
 
 UserSchema.methods.validatePassword = function(passwordGuess) {
@@ -40,4 +40,4 @@ UserSchema.methods.validatePassword = function(passwordGuess) {
 }
 
 
-module.exports = User;
+module.exports = mongoose.model('User', UserSchema);
