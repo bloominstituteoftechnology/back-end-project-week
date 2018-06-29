@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const server = express();
 
 //I tried setting up multiple origins with CORS but was never able to get it working correctly. Eventually I gave up and just stuck with the one origin due to time constraints. I would like to eventually figure this out, however.
-const whitelist = ['http://localhost:3000', 'http://nostalgic-kilby-8372d8.netlify.com', 'https://nostalgic-kilby-8372d8.netlify.com']
+const whitelist = ['https://nostalgic-kilby-8372d8.netlify.com']
 const corsOptions = {
 	origin: function (origin, cb) {
 		if(whitelist.indexOf(origin) !== -1) {
