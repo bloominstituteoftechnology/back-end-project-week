@@ -15,6 +15,17 @@ server.use(express.json());
 // https://cocky-ride-fcf8cb.netlify.com
 // http://localhost:3000 
 
+let allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+}
+
+app.configure(function() {
+    app.use(allowCrossDomain);
+});
+
 function restricted(req, res, next) {
     const token = req.headers.authorization;
 
