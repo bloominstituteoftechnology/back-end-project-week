@@ -62,8 +62,9 @@ router.get('/:id', (req, res) => {
 
         .put('/:id', (req, res) => {
             const { id } = req.params;
-            const noteUpdate = ({ title, contents });
-            //Have to double-check naming convention of { title, contents } in front-end
+            const { title, contents } = req.body;
+            const noteUpdate = { title, contents };
+            console.log(noteUpdate);
 
             Note.findByIdAndUpdate(id, noteUpdate, { new: true })
                 .then(updateNote => {
