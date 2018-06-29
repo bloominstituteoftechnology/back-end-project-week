@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const User = require('../models/User');
 const { sendErr, sendRes } = require('../utils/apiResponses');
-const { generateToken } = require('../../server/middleware');
+const { generateToken, authenticate } = require('../../server/middleware');
 
 router
   .post('/register', (req, res) => {
@@ -53,7 +53,7 @@ router
         sendErr(res, err, err.message);
       });
   })
-  .get('/', (req, res) => {
+  .get('/', authenticate, (req, res) => {
     User.find()
       .select({ firstName: 1, lastName: 1, email: 1 })
       .then(users => {
@@ -63,7 +63,7 @@ router
         sendErr(res, err, 'The list of users could not be retrieved.');
       });
   })
-  .get('/:id', (req, res) => {
+  .get('/:id', authenticate, (req, res) => {
     const { id } = req.params;
 
     User.findById(id)
@@ -75,7 +75,7 @@ router
         sendErr(res, err, `The user with id ${id} could not be retrieved.`);
       });
   })
-  .put('/:id', (req, res) => {
+  .put('/:id', authenticate, (req, res) => {
     const { id } = req.params;
     const updatedUser = req.body;
     const options = {
@@ -96,7 +96,7 @@ router
         sendErr(res, err, `The user with id ${id} could not be modified.`);
       });
   })
-  .delete('/:id', (req, res) => {
+  .delete('/:id', authenticate, (req, res) => {
     const { id } = req.params;
 
     User.findByIdAndRemove(id)
