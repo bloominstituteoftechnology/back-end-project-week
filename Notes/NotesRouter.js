@@ -3,7 +3,7 @@ const router = express.Router();
 const Note = require('./NotesModel.js');
 
 router 
-    .route('/api/')
+    .route('/api/notes')
     .get((req, res) => {
         console.log('Here')
         Note.find()
@@ -30,7 +30,7 @@ router
     });
 
 router
-    .route('/:id')
+    .route('/api/notes/:id')
     .get((req, res) => {
         const { id } = req.params;
         Note

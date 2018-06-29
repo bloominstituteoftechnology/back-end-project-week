@@ -4,7 +4,7 @@ const User = require('./UsersModel.js');
 const Note = require('../Notes/NotesModel.js')
 
 router
-    .get('/api/', (req, res) => {
+    .get('/api/users', (req, res) => {
         User.find()
             .select('-password')
             .then(users => {
@@ -16,7 +16,7 @@ router
     });
 
 router
-    .route('/:id')
+    .route('/api/users/:id')
     .get((req, res) => {
         const { id } = req.params; 
         User 
@@ -44,7 +44,7 @@ router
             });
     })
 
-router.route('/:id/notes')
+router.route('/api/users/:id/notes')
     .get((req, res) => {
         const { id } = req.params; 
         Note.findById(id)
