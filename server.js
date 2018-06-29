@@ -9,7 +9,11 @@ const secret = 'supersecretsauce';
 
 const server = express();
 
-// server.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+const allowedOrigins = ['http://localhost:3000', 'https://cocky-ride-fcf8cb.netlify.com'];
+let origin = req.headers.origin;
+if(allowedOrigins.indexOf(origin) < 0) origin = null;
+
+server.use(cors({ origin: origin, credentials: true }));
 server.use(express.json());
 
 // https://cocky-ride-fcf8cb.netlify.com
