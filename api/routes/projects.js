@@ -3,7 +3,11 @@ const mongoose = require('mongoose');
 const Project = require('../models/Project');
 const Tag = require('../models/Tag');
 const { sendErr, sendRes } = require('../utils/apiResponses');
-const { authenticate, isValidProjectUser } = require('../middleware');
+const {
+  authenticate,
+  isValidProjectUser,
+  isProjectAdmin
+} = require('../middleware');
 
 router
   .post('/', authenticate, (req, res) => {
@@ -18,7 +22,7 @@ router
       description: description,
       members: memberList,
       createdBy: createdBy
-    }
+    };
 
     Project.create(newProject)
       .then(({ _id, title, description }) => {
@@ -102,20 +106,25 @@ router
       sendErr(res, '403', 'User is not authorized to perform this action.');
     }
   })
-  .delete('/:id', authenticate, (req, res) => {
+  .delete('/:id', authenticate, isProjectAdmin, (req, res) => {
     const { id } = req.params;
+    const authorized = req.projectAdmin;
 
-    Project.findByIdAndRemove(id)
-      .then(deletedProject => {
-        sendRes(
-          res,
-          '200',
-          deletedProject ? { _id: deletedProject._id } : null
-        );
-      })
-      .catch(err => {
-        sendErr(res, err, `The project with id ${id} could not be removed.`);
-      });
+    if (authorized) {
+      Project.findByIdAndRemove(id)
+        .then(deletedProject => {
+          sendRes(
+            res,
+            '200',
+            deletedProject ? { _id: deletedProject._id } : null
+          );
+        })
+        .catch(err => {
+          sendErr(res, err, `The project with id ${id} could not be removed.`);
+        });
+    } else {
+      sendErr(res, '403', 'User is not authorized to perform this action.');
+    }
   });
 
 module.exports = {

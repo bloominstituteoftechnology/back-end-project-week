@@ -37,8 +37,24 @@ const isValidProjectUser = (req, res, next) => {
     });
 };
 
+const isProjectAdmin = (req, res, next) => {
+  const projectId = req.params.id;
+  const currentUser = req.tokenPayload.userid;
+
+  Project.findById(projectId)
+    .then(project => {
+      req.projectAdmin = project.createdBy.toString() === currentUser;
+      next();
+    })
+    .catch(err => {
+      req.projectAdmin = false;
+      next();
+    });
+};
+
 module.exports = {
   generateToken: generateToken,
   authenticate: authenticate,
-  isValidProjectUser: isValidProjectUser
+  isValidProjectUser: isValidProjectUser,
+  isProjectAdmin: isProjectAdmin
 };
