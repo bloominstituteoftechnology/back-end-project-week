@@ -19,8 +19,7 @@ server.use(express.json());
 server.use(morgan('combined'));
 server.use('/api/notes', NotesRoutes);
 
-
-// const port = config.port || 8000;
+const port = process.env.PORT || 8000; // added line to load to heroku
 
 mongoose.Promise = global.Promise;
 
