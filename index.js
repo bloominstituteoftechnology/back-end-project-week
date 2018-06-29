@@ -1,8 +1,9 @@
 const express = require('express');// common js modules
 //import express from 'express'; es2015 modules
+require('dotenv').config();
 const mongoose = require('mongoose');
 const cors = require('cors');
-const keys = require('./config/keys');
+//const keys = require('./config/keys');
 
 
 //mongoose.connect(keys.mongoURI)
@@ -17,13 +18,13 @@ server.use(cors({
 }));
 
 server.get('/', (req, res) => {
-    res.status(200).json({ api: 'running' }); 
-  });
+    res.send("working")}); 
+  
 
 server.use('/api/note', noteController);
 
 mongoose.Promise = global.Promise;
-mongoose.connect(keys.mongoURI);
+//mongoose.connect(keys.mongoURI);
 /*mongoose.connect('mongodb://localhost/dbnoteTracker', {}, err => {
   if (err) console.log(err);
   console.log('Mongoose connected us to our DB');

@@ -2,20 +2,21 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "engines": {
     "node": "8.11.2",
     "npm": "5.6.0"
   },
   "scripts": {
-    "start": "node server.js"
-    
+    "start": "nf start"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.4",
+    "dotenv": "6.0.0",
     "express": "^4.16.3",
+    "foreman": "3.0.1",
     "mongoose": "^5.1.6",
     "nodemon": "^1.17.5"
   }
