@@ -290,6 +290,7 @@ paths:
       tags:
         - projects
       summary: Update an existing project. Replaces entire object.
+      description: Updates an existing project if the requesting user is a member of that project. It can only be performed by an authenticated user.
       operationId: updateProject
       requestBody:
         description: Updated project object
@@ -338,6 +339,8 @@ paths:
           $ref: '#components/responses/400BadRequest'
         '401':
           $ref: '#components/responses/401Unauthorized'
+        '403':
+          $ref: '#components/responses/403Forbidden'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':

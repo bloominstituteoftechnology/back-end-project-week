@@ -68,23 +68,28 @@ router
       sendErr(res, '403', 'User is not authorized to perform this action.');
     }
   })
-  .put('/:id', authenticate, (req, res) => {
+  .put('/:id', authenticate, isValidProjectUser, (req, res) => {
     const { id } = req.params;
     const updatedProject = req.body;
+    const authorized = req.validUser;
     const options = {
       new: true,
       runValidators: true
     };
 
-    Project.findByIdAndUpdate(id, updatedProject, options)
-      .populate('members', { firstName: 1, lastName: 1 })
-      .select({ title: 1, description: 1, members: 1 })
-      .then(updatedProject => {
-        sendRes(res, '200', updatedProject);
-      })
-      .catch(err => {
-        sendErr(res, err, `The project with id ${id} could not be modified.`);
-      });
+    if(authorized){
+      Project.findByIdAndUpdate(id, updatedProject, options)
+        .populate('members', { firstName: 1, lastName: 1 })
+        .select({ title: 1, description: 1, members: 1 })
+        .then(updatedProject => {
+          sendRes(res, '200', updatedProject);
+        })
+        .catch(err => {
+          sendErr(res, err, `The project with id ${id} could not be modified.`);
+        });
+    } else {
+      sendErr(res, '403', 'User is not authorized to perform this action.');
+    }
   })
   .delete('/:id', authenticate, (req, res) => {
     const { id } = req.params;
