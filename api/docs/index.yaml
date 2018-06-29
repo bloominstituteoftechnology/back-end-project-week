@@ -24,6 +24,8 @@ paths:
         - attachments
       summary: Create a new attachment
       operationId: createAttachment
+      security:
+        - bearerAuth: []
       requestBody:
         description: New attachment object
         required: true
@@ -50,6 +52,8 @@ paths:
         - attachments
       summary: Delete an attachment
       operationId: deleteAttachment
+      security:
+        - bearerAuth: []
       parameters:
         - $ref: '#/components/parameters/attachmentId'
       responses:
@@ -76,6 +80,8 @@ paths:
         - comments
       summary: Create a new comment
       operationId: createComment
+      security:
+        - bearerAuth: []
       requestBody:
         description: New comment object
         required: true
@@ -102,6 +108,8 @@ paths:
         - comments
       summary: Update an existing comment. Replaces entire object.
       operationId: updateComment
+      security:
+        - bearerAuth: []
       requestBody:
         description: Updated comment object
         required: 'true'
@@ -131,6 +139,8 @@ paths:
         - comments
       summary: Delete a comment
       operationId: deleteComment
+      security:
+        - bearerAuth: []
       parameters:
         - $ref: '#/components/parameters/commentId'
       responses:
@@ -156,6 +166,8 @@ paths:
       summary: Create a new project
       description: This creates a new project and automatically assigns requesting user to createdBy and members. It can only be performed by an authenticated user.
       operationId: createProject
+      security:
+        - bearerAuth: []
       requestBody:
         description: New project object
         required: true
@@ -194,6 +206,8 @@ paths:
       summary: Get all existing projects
       description: Returns a list of all projects the user requesting belongs to. It can only be performed by an authenticated user. If the user does not belong to any projects it returns an empty array. 
       operationId: getAllProjects
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: Successfully returned array of projects
@@ -242,6 +256,8 @@ paths:
       summary: Get project by id
       description: Returns project with {projectId} if requesting user is a member of that project. It can only be performed by an authenticated user.
       operationId: getProjectById
+      security:
+        - bearerAuth: []
       parameters:
         - $ref: '#/components/parameters/projectId'
       responses:
@@ -292,6 +308,8 @@ paths:
       summary: Update an existing project.
       description: Updates project with {projectId} if the requesting user is a member of that project. It can only be performed by an authenticated user and the project admin cannot be removed or modified.
       operationId: updateProject
+      security:
+        - bearerAuth: []
       requestBody:
         description: Updated project object
         required: 'true'
@@ -351,6 +369,8 @@ paths:
       summary: Delete a project
       description: This deletes an existing project. It can only be performed by an authenticated user and the user must be the user who created the project.
       operationId: deleteProject
+      security:
+        - bearerAuth: []
       parameters:
         - $ref: '#/components/parameters/projectId'
       responses:
@@ -380,6 +400,8 @@ paths:
       summary: Get tags by project id
       description: Returns list of tags by project id if requesting user is a member of that project. It can only be performed by an authenticated user.
       operationId: getTagsByProjectId
+      security:
+        - bearerAuth: []
       parameters:
         - $ref: '#/components/parameters/projectId'
       responses:
@@ -405,6 +427,8 @@ paths:
         - subtasks
       summary: Create a new subtask
       operationId: createSubtask
+      security:
+        - bearerAuth: []
       requestBody:
         description: New subtask object
         required: true
@@ -431,6 +455,8 @@ paths:
         - subtasks
       summary: Update an existing subtask. Replaces entire object.
       operationId: updateSubtask
+      security:
+        - bearerAuth: []
       requestBody:
         description: Updated subtask object
         required: 'true'
@@ -460,6 +486,8 @@ paths:
         - subtasks
       summary: Delete a subtask
       operationId: deleteSubtask
+      security:
+        - bearerAuth: []
       parameters:
         - $ref: '#/components/parameters/subtaskId'
       responses:
@@ -486,6 +514,8 @@ paths:
         - tags
       summary: Create a new tag
       operationId: createTag
+      security:
+        - bearerAuth: []
       requestBody:
         description: New tag object
         required: true
@@ -512,6 +542,8 @@ paths:
         - tags
       summary: Update an existing tag. Replaces entire object.
       operationId: updateTag
+      security:
+        - bearerAuth: []
       requestBody:
         description: Updated tag object
         required: 'true'
@@ -541,6 +573,8 @@ paths:
       - tags
       summary: Delete a tag
       operationId: deleteTag
+      security:
+        - bearerAuth: []
       parameters:
         - $ref: '#/components/parameters/tagId'
       responses:
@@ -567,6 +601,8 @@ paths:
         - tasks
       summary: Create a new task
       operationId: createTask
+      security:
+        - bearerAuth: []
       requestBody:
         description: New task object
         required: true
@@ -592,6 +628,8 @@ paths:
         - tasks
       summary: Get all existing tasks
       operationId: getAllTasks
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: Successfully returned array of tasks
@@ -611,6 +649,8 @@ paths:
         - tasks
       summary: Get task by id
       operationId: getTaskById
+      security:
+        - bearerAuth: []
       parameters:
         - $ref: '#/components/parameters/taskId'
       responses:
@@ -631,6 +671,8 @@ paths:
         - tasks
       summary: Update an existing task. Replaces entire object.
       operationId: updateTask
+      security:
+        - bearerAuth: []
       requestBody:
         description: New task object
         required: true
@@ -660,6 +702,8 @@ paths:
         - tasks
       summary: Delete a task
       operationId: deleteTask
+      security:
+        - bearerAuth: []
       parameters:
         - $ref: '#/components/parameters/taskId'
       responses:
@@ -686,6 +730,8 @@ paths:
         - tasks
       summary: Get subtasks by task id
       operationId: getSubtasksByTaskId
+      security:
+        - bearerAuth: []
       parameters:
         - $ref: '#/components/parameters/taskId'
       responses:
@@ -709,6 +755,8 @@ paths:
         - tasks
       summary: Get comments by task id
       operationId: getCommentsByTaskId
+      security:
+        - bearerAuth: []
       parameters:
         - $ref: '#/components/parameters/taskId'
       responses:
@@ -732,6 +780,8 @@ paths:
         - tasks
       summary: Get attachments by task id
       operationId: getAttachmentsByTaskId
+      security:
+        - bearerAuth: []
       parameters:
         - $ref: '#/components/parameters/taskId'
       responses:
@@ -756,6 +806,8 @@ paths:
       summary: Get all existing users
       description: This returns a list of all users. It can only be performed by an authenticated user.
       operationId: getAllUsers
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: Successfully returned array of users
@@ -874,6 +926,8 @@ paths:
       summary: Get user by id
       description: This returns a single user. It can only be performed by an authenticated user.
       operationId: getUserById
+      security:
+        - bearerAuth: []
       parameters:
         - $ref: '#/components/parameters/userId'
       responses:
@@ -909,6 +963,8 @@ paths:
       summary: Update an existing user. Replaces entire object.
       description: This updates a user profile. It can only be performed by an authenticated user and users may only edit their own profile.
       operationId: updateUser
+      security:
+        - bearerAuth: []
       requestBody:
         description: Updated user object
         required: 'true'
@@ -955,6 +1011,8 @@ paths:
       summary: Deletes a user
       description: This deletes a user. It can only be performed by an authenticated user and users may only delete their own profile.
       operationId: deleteUser
+      security:
+        - bearerAuth: []
       parameters:
         - $ref: '#/components/parameters/userId'
       responses:
@@ -978,6 +1036,14 @@ paths:
         '500':
           $ref: '#components/responses/500InternalServerError'
 components:
+  #-------------------------------
+  # Security scheme definitions
+  #-------------------------------
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   #-------------------------------
   # Reusable schemas (data models)
   #-------------------------------
