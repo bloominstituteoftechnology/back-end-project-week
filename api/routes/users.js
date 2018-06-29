@@ -77,24 +77,29 @@ router
   })
   .put('/:id', authenticate, (req, res) => {
     const { id } = req.params;
+    const { currentUser } = req.tokenPayload;
     const updatedUser = req.body;
     const options = {
       new: true,
       runValidators: true
     };
 
-    User.findByIdAndUpdate(id, updatedUser, options)
-      .then(updatedUser => {
-        const { _id, firstName, lastName, email } = updatedUser;
-        sendRes(
-          res,
-          '200',
-          updatedUser ? { _id, firstName, lastName, email } : null
-        );
-      })
-      .catch(err => {
-        sendErr(res, err, `The user with id ${id} could not be modified.`);
-      });
+    if (currentUser === id) {
+      User.findByIdAndUpdate(id, updatedUser, options)
+        .then(updatedUser => {
+          const { _id, firstName, lastName, email } = updatedUser;
+          sendRes(
+            res,
+            '200',
+            updatedUser ? { _id, firstName, lastName, email } : null
+          );
+        })
+        .catch(err => {
+          sendErr(res, err, `The user with id ${id} could not be modified.`);
+        });
+    } else {
+      sendErr(res, '403', 'The user is not authorized to perform this operation.');
+    }
   })
   .delete('/:id', authenticate, (req, res) => {
     const { id } = req.params;

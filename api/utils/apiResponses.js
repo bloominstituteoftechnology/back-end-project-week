@@ -2,6 +2,7 @@ const VALIDATION_ERROR = 'ValidationError';
 const CAST_ERROR = 'CastError';
 const NOT_FOUND = '404';
 const UNAUTHORIZED = '401';
+const FORBIDDEN = '403';
 
 const sendErr = (res, err, message) => {
   switch (err.name || err) {
@@ -11,6 +12,10 @@ const sendErr = (res, err, message) => {
       return;
     case UNAUTHORIZED:
       res.status(401);
+      res.json({ error: message });
+      return;
+    case FORBIDDEN:
+      res.status(403);
       res.json({ error: message });
       return;
     case CAST_ERROR:
