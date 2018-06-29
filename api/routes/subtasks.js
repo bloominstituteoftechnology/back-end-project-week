@@ -1,9 +1,10 @@
 const router = require('express').Router();
 const Subtask = require('../models/Subtask');
 const { sendErr, sendRes } = require('../utils/apiResponses');
+const { authenticate } = require('../../server/middleware');
 
 router
-  .post('/', (req, res) => {
+  .post('/', authenticate, (req, res) => {
     const newSubtask = req.body;
 
     Subtask.create(newSubtask)
@@ -14,7 +15,7 @@ router
         sendErr(res, err, 'The subtask could not be created.');
       });
   })
-  .put('/:id', (req, res) => {
+  .put('/:id', authenticate, (req, res) => {
     const { id } = req.params;
     const updatedSubtask = req.body;
     const options = {
@@ -30,12 +31,16 @@ router
         sendErr(res, err, `The subtask with id ${id} could not be modified.`);
       });
   })
-  .delete('/:id', (req, res) => {
+  .delete('/:id', authenticate, (req, res) => {
     const { id } = req.params;
 
     Subtask.findByIdAndRemove(id)
       .then(deletedSubtask => {
-        sendRes(res, '200', deletedSubtask ? { _id: deletedSubtask._id } : null);
+        sendRes(
+          res,
+          '200',
+          deletedSubtask ? { _id: deletedSubtask._id } : null
+        );
       })
       .catch(err => {
         sendErr(res, err, `The subtask with id ${id} could not be removed.`);
