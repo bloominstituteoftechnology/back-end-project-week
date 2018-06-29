@@ -1,6 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 const express = require('express');
-const morgan = require('morgan');
+// const morgan = require('morgan');
 const helmet = require('helmet');
 require('dotenv').config();
 const mongoose = require('mongoose');
@@ -16,7 +16,7 @@ const NotesRoutes = require('./notes/NotesRoutes.js');
 const server = express();
 server.use(helmet());
 server.use(express.json());
-server.use(morgan('combined'));
+// server.use(morgan('combined'));
 server.use('/api/notes', NotesRoutes);
 
 const port = process.env.PORT || 8000; // added line to load to heroku
