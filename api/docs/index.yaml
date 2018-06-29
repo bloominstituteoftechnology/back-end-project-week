@@ -40,6 +40,8 @@ paths:
                 $ref: '#components/schemas/Attachment'
         '400':
           $ref: '#components/responses/400BadRequest'
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '500':
           $ref: '#components/responses/500InternalServerError'
   /api/attachments/{attachmentId}:
@@ -62,6 +64,8 @@ paths:
                     type: string
                 example:
                   _id: 5b347ac4beac9f299e644244
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
@@ -88,6 +92,8 @@ paths:
                 $ref: '#components/schemas/Comment'
         '400':
           $ref: '#components/responses/400BadRequest'
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '500':
           $ref: '#components/responses/500InternalServerError'
   /api/comments/{commentId}:
@@ -114,6 +120,8 @@ paths:
                 $ref: '#components/schemas/Comment'
         '400':
           $ref: '#components/responses/400BadRequest'
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
@@ -175,6 +183,8 @@ paths:
                   description: An example description.
         '400':
           $ref: '#components/responses/400BadRequest'
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '500':
           $ref: '#components/responses/500InternalServerError'
     get:
@@ -219,6 +229,8 @@ paths:
                     - _id: 5b31ce106d04832fd1e51f71
                       firstName: Jane
                       lastName: Smith
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '500':
           $ref: '#components/responses/500InternalServerError'
   /api/projects/{projectId}:
@@ -263,6 +275,8 @@ paths:
                   - _id: 5b31ce106d04832fd1e51f59
                     firstName: John
                     lastName: Smith
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
@@ -317,6 +331,8 @@ paths:
                     lastName: Smith
         '400':
           $ref: '#components/responses/400BadRequest'
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
@@ -340,6 +356,8 @@ paths:
                     type: string
                 example:
                   _id: 5b31ea59d62eb33eb93014e7
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
@@ -361,6 +379,8 @@ paths:
                 type: array
                 items:
                   $ref: '#components/schemas/Tag'
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
@@ -387,6 +407,8 @@ paths:
                 $ref: '#components/schemas/Subtask'
         '400':
           $ref: '#components/responses/400BadRequest'
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '500':
           $ref: '#components/responses/500InternalServerError'
   /api/subtasks/{subtaskId}:
@@ -413,6 +435,8 @@ paths:
                 $ref: '#components/schemas/Subtask'
         '400':
           $ref: '#components/responses/400BadRequest'
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
@@ -436,6 +460,8 @@ paths:
                     type: string
                 example:
                   _id: 5b346872f7f83a206b0aeee7
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
@@ -462,6 +488,8 @@ paths:
                 $ref: '#components/schemas/Tag'
         '400':
           $ref: '#components/responses/400BadRequest'
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '500':
           $ref: '#components/responses/500InternalServerError'
   /api/tags/{tagId}:
@@ -488,6 +516,8 @@ paths:
                 $ref: '#components/schemas/Tag'
         '400':
           $ref: '#components/responses/400BadRequest'
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
@@ -511,6 +541,8 @@ paths:
                     type: string
                 example:
                   _id: 5b34370580f5b90ff8494ac4
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
@@ -537,6 +569,8 @@ paths:
                 $ref: '#components/schemas/Task'
         '400':
           $ref: '#components/responses/400BadRequest'
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '500':
           $ref: '#components/responses/500InternalServerError'
     get:
@@ -553,6 +587,8 @@ paths:
                 type: array
                 items:
                   $ref: '#components/schemas/Task'
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '500':
           $ref: '#components/responses/500InternalServerError'
   /api/tasks/{taskId}:
@@ -570,6 +606,8 @@ paths:
             application/json:
               schema:
                 $ref: '#components/schemas/Task'
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
@@ -597,6 +635,8 @@ paths:
                 $ref: '#components/schemas/Task'
         '400':
           $ref: '#components/responses/400BadRequest'
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
@@ -620,6 +660,8 @@ paths:
                     type: string
                 example:
                   _id: 5b33e2dfc55019773e08217d
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
@@ -641,6 +683,8 @@ paths:
                 type: array
                 items:
                   $ref: '#components/schemas/Subtask'
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
@@ -662,6 +706,8 @@ paths:
                 type: array
                 items:
                   $ref: '#components/schemas/Comment'
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
@@ -683,6 +729,8 @@ paths:
                 type: array
                 items:
                   $ref: '#components/schemas/Attachment'
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
@@ -1226,4 +1274,3 @@ components:
                 type: string
             example:
               error: The action could not be completed.
-
