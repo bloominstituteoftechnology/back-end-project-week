@@ -154,6 +154,7 @@ paths:
       tags:
         - projects
       summary: Create a new project
+      description: This creates a new project. It can only be performed by an authenticated user.
       operationId: createProject
       requestBody:
         description: New project object
