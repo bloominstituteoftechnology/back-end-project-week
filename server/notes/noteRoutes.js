@@ -3,17 +3,6 @@ const Notes = require('./Notes');
 
 //this is the main file I used for linking to the front end
 
-const whitelist = ['http://nostalgic-kilby-8372d8.netlify.com', 'https://nostalgic-kilby-8372d8.netlify.com']
-const corsOptions = {
-	origin: function (origin, cb) {
-		if(whitelist.indexOf(origin) !== -1) {
-			cb(null, true)
-		} else {
-			cb(new Error('Not allowed by CORS'))
-		}
-	}
-}
-
 router.get('/', (req, res) => {
 	Notes.find()
 		.then(notes => {
