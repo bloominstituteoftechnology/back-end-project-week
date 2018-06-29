@@ -96,11 +96,11 @@ router
 
                 if(user){
                     user
-                    .validatePassword(password)
+                    .validatePassword(password, )
                     .then(Match => {
                         console.log("Match : ", Match)
                         if(Match){
-                            const token = generateToken(user);
+                            const token = generateToken({user: user.username });
                             //send token back to the client
                             console.log("Match : ", Match)
                             res.status(200).json({ message : `${username}!`, token })
