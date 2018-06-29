@@ -169,6 +169,15 @@ server.post("/api/notes", (req, res) => {
       res.status(500).json({ message: err.message });
     });
 });
+// server.post("/api/notes", (req, res) => {
+//   Note.create(req.body)
+//     .then(note => {
+//       res.status(201).json(note);
+//     })
+//     .catch(err => {
+//       res.status(500).json({ message: err.message });
+//     });
+// });
 // *** end notes routes ***
 
 module.exports = server;
