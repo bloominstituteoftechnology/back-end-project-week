@@ -18,7 +18,9 @@ router
       });
   })
   .get('/', authenticate, (req, res) => {
-    Project.find()
+    const currentUser = mongoose.Types.ObjectId(req.tokenPayload.userid);
+
+    Project.find({ members: currentUser })
       .populate('members', { firstName: 1, lastName: 1 })
       .select({ title: 1, members: 1 })
       .then(projects => {

@@ -192,6 +192,7 @@ paths:
       tags:
         - projects
       summary: Get all existing projects
+      description: Returns a list of all projects the user requesting belongs to. It can only be performed by an authenticated user.
       operationId: getAllProjects
       responses:
         '200':
