@@ -16,7 +16,7 @@ server.use(session({
     name: 'none',
     store: new MongoStore({
         url: `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds217671.mlab.com:17671/lambdanotes`,
-        mongoOptions: advancedOptions
+        ttl: 60 * 10,
     })
 }))
 
