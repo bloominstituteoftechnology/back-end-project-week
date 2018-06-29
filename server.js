@@ -33,7 +33,7 @@ server.use('/users', usersRouter);
 
 // added dotenv
 server.get('/', (req, res) => {
-    res.send(`<h2>DB: ${process.env.mongo}</h2>`)
+    res.send(`<h2>DB: Server is up! </h2>`)
 }); 
 
 server.post('/register', (req, res) => {
