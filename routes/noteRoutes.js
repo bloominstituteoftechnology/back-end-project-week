@@ -21,8 +21,7 @@ function restricted (req, res, next) {
 
 
 router.get('/', (req, res) => {
-    User.find({ username: req.session.username })
-        .populate('notes', '-_id -__v')        
+    Notes.find()      
         .select('-__v -id')
         .then(notes => {
             res.status(200).json({ notes })
@@ -83,18 +82,5 @@ router.delete('/:id', restricted, (req, res) => {
         })
         .catch(err => sendUserError(500, err.message, res))
 })  
-
-router.get('/logout', (req, res) => {
-    if (req.session) {
-        let name = req.session.username
-        req.session.destroy(function(err) {
-            if (err) {
-                res.send(err);
-            } else {
-                res.send(`Goodbye, ${name}, ye shall be missed.`)
-            }
-        })
-    }
-})
 
 module.exports = router
