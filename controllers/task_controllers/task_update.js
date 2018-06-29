@@ -12,7 +12,7 @@ const { JWT_SECRET } = process.env;
 const taskUpdate = async (req, res) => {
   const { id } = req.params;
   const task = ({ taskName, taskDescription, token } = req.body);
-  
+
   try {
     const { username } = jwt.verify(token, JWT_SECRET);
     const user = await User.findOne({ username });
@@ -23,7 +23,7 @@ const taskUpdate = async (req, res) => {
       // find the correct task
       if (findTask) {
         findTask.taskName = taskName || findTask.taskName;
-        taskDescription = taskDescription;
+        findTask.taskDescription = taskDescription;
         const updateTask = await findTask.save();
 
         // if task is updated successfully
