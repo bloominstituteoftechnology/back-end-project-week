@@ -18,6 +18,6 @@ db.connectTo('notes')
       console.log(`*** Listening on port ${PORT} ***`)
     })
   })
-  .catch( err => {
-    console.log('*** Failed to connect to the server ***')
+  .catch( err => {      
+    console.log('*** Failed to connect to the server ***', err)
   })

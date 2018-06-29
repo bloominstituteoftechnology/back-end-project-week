@@ -1,7 +1,7 @@
 {
   "name": "back-end-project-week",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "repository": "https://github.com/AquilaVirtual/back-end-project-week.git",
   "author": "David <AquilaVirtual>",
   "license": "MIT",
