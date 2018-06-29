@@ -192,7 +192,7 @@ paths:
       tags:
         - projects
       summary: Get all existing projects
-      description: Returns a list of all projects the user requesting belongs to. It can only be performed by an authenticated user.
+      description: Returns a list of all projects the user requesting belongs to. It can only be performed by an authenticated user. If the user does not belong to any projects it returns an empty array. 
       operationId: getAllProjects
       responses:
         '200':
@@ -240,7 +240,7 @@ paths:
       tags:
         - projects
       summary: Get project by id
-      description: Returns project of specified id if user is a member of that project. It can only be performed by an authenticated user.
+      description: Returns project with {projectId} if requesting user is a member of that project. It can only be performed by an authenticated user.
       operationId: getProjectById
       parameters:
         - $ref: '#/components/parameters/projectId'
@@ -290,7 +290,7 @@ paths:
       tags:
         - projects
       summary: Update an existing project. Replaces entire object.
-      description: Updates an existing project if the requesting user is a member of that project. It can only be performed by an authenticated user.
+      description: Updates project with {projectId} if the requesting user is a member of that project. It can only be performed by an authenticated user.
       operationId: updateProject
       requestBody:
         description: Updated project object
