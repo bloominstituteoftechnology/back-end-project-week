@@ -9,14 +9,11 @@ class TodoList extends Component{
         super(props);
         this.state = {
            todos: [],
-           title: '',
-           text: '',
-           completed: false
         }
     }
 
     componentDidMount(){
-        const api = process.env.MONGODB_URI || 'http://localhost:5001';
+        const api = process.env.MONGODB_URI || `http://localhost:5001/api/todo`;
         axios
         .get(api)
         .then(response => {
@@ -31,9 +28,9 @@ class TodoList extends Component{
         return (
             <div>
                 <ul>
-                {this.state.todos.map((todo, i)=> {
+                {this.state.todos.map((todo, value) => {
                     return (
-                        <li todo={todo} key={i}>
+                        <li key={value}>
                         <Card>
                             <CardTitle>{todo.title}</CardTitle>
                             <CardText>Text: {todo.text}</CardText>
@@ -49,3 +46,4 @@ class TodoList extends Component{
     }
 }
 export default TodoList;
+

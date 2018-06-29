@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import {Button} from 'reactstrap';
 
 class Login extends Component{
     constructor(props){
@@ -16,7 +17,7 @@ class Login extends Component{
         const {email, password} = this.state
     
         axios
-        .post('http://localhost:5001', {email, password})
+        .post('http://localhost:5001/api/login', {email, password})
         .then((response) => {
             this.setState({login: response.data, email:'', password:''})
         })
@@ -45,10 +46,10 @@ class Login extends Component{
                     value={this.password}
                     name="password"
                 />
-                 <button onSubimt={this.register}>Submit</button>
-                 {" "}
-                 <Link to="/"><button>Home</button></Link>
-                </form>
+                <Button color='success' onClick={this.register}>Submit</Button>
+                {" "}
+                <Link to="/"><Button color='primary'>Home</Button></Link>
+               </form>
             </div>
         )
     }    

@@ -69,6 +69,8 @@ router
             res.status(500).json({errorMessage: 'No User in the system to update'})
         });
     });
+
+    
     function createToken(user){
         const options = {
           expires: '30mins'
