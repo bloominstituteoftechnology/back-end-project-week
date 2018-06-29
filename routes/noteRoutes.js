@@ -1,7 +1,5 @@
 const express = require('express')
 const router = require('express').Router()
-const session = require('express-session')
-const MongoStore = require('connect-mongo')(session)
 const Note = require('../models/noteModel.js');
 
 
@@ -10,14 +8,6 @@ const sendUserError = (status, message, res) => {
     res.status(status).json({ error: message });
     return;
 };
-
-function restricted (req, res, next) {
-   if (req.session && req.session.username) {
-       next()
-   } else {
-       res.status(401).send('Not today.')
-   }
-}
 
 
 router.get('/', (req, res) => {
@@ -29,7 +19,7 @@ router.get('/', (req, res) => {
         .catch(err => sendUserError(500, err.message, res))
 })
 
-router.post('/', restricted, (req, res) => {
+router.post('/', (req, res) => {
     const { title, body } = req.body;
     if (!title || !body) {
         sendUserError(400, "All notes must contain a title and body", res)
@@ -70,7 +60,7 @@ router.put('/:id', (req, res) => {
         })
 })
 
-router.delete('/:id', restricted, (req, res) => {
+router.delete('/:id', (req, res) => {
     const { id } = req.params;
     Note.findByIdAndRemove(id)
         .then(deletedNote => {
