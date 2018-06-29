@@ -32,12 +32,17 @@ router
   })
   .get('/:id', authenticate, (req, res) => {
     const { id } = req.params;
+    const currentUser = req.tokenPayload.userid;
 
     Project.findById(id)
       .populate('members', { firstName: 1, lastName: 1 })
       .select({ title: 1, description: 1, members: 1 })
       .then(project => {
-        sendRes(res, '200', project);
+        if (project.isValidUser(currentUser)) {
+          sendRes(res, '200', project);
+        } else {
+          sendErr(res, '403', 'User is not authorized to perform this action.');
+        }
       })
       .catch(err => {
         sendErr(res, err, `The project with id ${id} could not be retrieved.`);

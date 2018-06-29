@@ -240,6 +240,7 @@ paths:
       tags:
         - projects
       summary: Get project by id
+      description: Returns project of specified id if user is a member of that project. It can only be performed by an authenticated user.
       operationId: getProjectById
       parameters:
         - $ref: '#/components/parameters/projectId'
@@ -279,6 +280,8 @@ paths:
                     lastName: Smith
         '401':
           $ref: '#components/responses/401Unauthorized'
+        '403':
+          $ref: '#components/responses/403Forbidden'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':

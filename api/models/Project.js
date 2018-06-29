@@ -25,4 +25,10 @@ const projectSchema = new mongoose.Schema({
   ]
 });
 
+projectSchema.methods.isValidUser = function(userId) {
+  return (
+    this.members.filter(member => member._id.toString() === userId).length === 1
+  );
+};
+
 module.exports = mongoose.model('Project', projectSchema);
