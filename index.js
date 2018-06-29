@@ -12,10 +12,14 @@ const noteController = require('./noteTracker/noteController');
 
 server.use(express.json());
 
-server.use(cors({
+//server.use(cors({
+  const corsOptions = {
   origin: 'https://frosty-brahmagupta-26a4e9.netlify.com/',
+  //origin:'http://localhost:3000/',
   credentials: true
-}));
+};
+
+server.use(cors(corsOptions));
 
 server.get('/', (req, res) => {
     res.send("working")}); 
