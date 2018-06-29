@@ -721,6 +721,8 @@ paths:
                   firstName: Jane
                   lastName: Smith
                   email: janesmith@example.com
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '500':
           $ref: '#components/responses/500InternalServerError'
   /api/users/register:
@@ -833,6 +835,8 @@ paths:
                   firstName: John
                   lastName: Smith
                   email: johnsmith@example.com
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
@@ -875,6 +879,8 @@ paths:
                   email: johnsmith@example.com
         '400':
           $ref: '#components/responses/400BadRequest'
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '403':
           $ref: '#components/responses/403Forbidden'
         '404':
@@ -901,6 +907,8 @@ paths:
                     type: string
                 example:
                   _id: 5b31ce106d04832fd1e51f59
+        '401':
+          $ref: '#components/responses/401Unauthorized'
         '403':
           $ref: '#components/responses/403Forbidden'
         '404':
