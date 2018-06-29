@@ -16,7 +16,7 @@ server.use(session({
     resave: true,
     name: 'none',
     store: new MongoStore({
-        url: `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds217671.mlab.com:17671/sessions`,
+        url: `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds121341.mlab.com:21341/lambdatakenotesessions`,
         ttl: 60 * 10,
     })
 }))
