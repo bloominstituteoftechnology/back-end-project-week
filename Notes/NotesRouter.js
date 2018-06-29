@@ -3,7 +3,7 @@ const router = express.Router();
 const Note = require('./NotesModel.js');
 
 router 
-    .route('/')
+    .route('/api')
     .get((req, res) => {
         console.log('Here')
         Note.find()
