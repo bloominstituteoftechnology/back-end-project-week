@@ -1,9 +1,10 @@
 const router = require('express').Router();
 const Comment = require('../models/Comment');
 const { sendErr, sendRes } = require('../utils/apiResponses');
+const { authenticate } = require('../../server/middleware');
 
 router
-  .post('/', (req, res) => {
+  .post('/', authenticate, (req, res) => {
     const newComment = req.body;
 
     Comment.create(newComment)
@@ -14,7 +15,7 @@ router
         sendErr(res, err, 'The comment could not be created.');
       });
   })
-  .put('/:id', (req, res) => {
+  .put('/:id', authenticate, (req, res) => {
     const { id } = req.params;
     const updatedComment = req.body;
     const options = {
@@ -30,12 +31,16 @@ router
         sendErr(res, err, `The comment with id ${id} could not be modified.`);
       });
   })
-  .delete('/:id', (req, res) => {
+  .delete('/:id', authenticate, (req, res) => {
     const { id } = req.params;
 
     Comment.findByIdAndRemove(id)
       .then(deletedComment => {
-        sendRes(res, '200', deletedComment ? { _id: deletedComment._id } : null);
+        sendRes(
+          res,
+          '200',
+          deletedComment ? { _id: deletedComment._id } : null
+        );
       })
       .catch(err => {
         sendErr(res, err, `The comment with id ${id} could not be removed.`);
