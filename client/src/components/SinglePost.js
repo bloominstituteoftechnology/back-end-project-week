@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Comments from "./Comments";
+import { SSL_OP_TLS_BLOCK_PADDING_BUG } from "constants";
 
 class SinglePost extends React.Component {
   constructor(props) {
@@ -52,19 +53,46 @@ class SinglePost extends React.Component {
       })
   }
 
+  signout = () => {
+    if (localStorage.getItem('jwt')) {
+      localStorage.removeItem('jwt');
+
+      this.props.history.push('/signin');
+    }
+  };
+
   render() {
     console.log(this.state);
+    // if(this.state.post.user.userID == localStorage.getItem("id")) {
+    //   console.log(true);
+    // }
+
+    let displayDelete;
+    if(this.state.post.user === undefined) {
+      displayDelete = <p>Loading...</p>;
+    } else {
+      if(this.state.post.user.userID == localStorage.getItem("id")){
+        displayDelete = (<button onClick={() => this.handleDeleteNote(this.state.post._id)}>
+        delete
+      </button>);
+      }
+    }
     return (
       <div className="show-wrapper">
         <section className="edit-delete">
           <Link to="/posts">
             <button >
-              edit
+            {"Posted by: " + localStorage.getItem("username")}
             </button>
           </Link>
+          {/* {this.state.post.user.userID &&
+          this.state.post.user.userID == localStorage.getItem("id") ? (
           <button onClick={() => this.handleDeleteNote(this.state.post._id)}>
             delete
           </button>
+          ) : (null)
+          } */}
+          {displayDelete}
         </section>
         
         <section className="show-content">

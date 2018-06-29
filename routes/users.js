@@ -51,7 +51,7 @@ router.post("/login", (req, res) => {
             const payload = {id, username, email};
           
             jwt.sign(payload, secretJWT, { expiresIn: 10000}, (err, token) => {
-              res.json({login: "successfully", token: "Bearer " + token});
+              res.json({login: "successfully", token: "Bearer " + token, username, id});
             })
           }
         })

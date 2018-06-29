@@ -90,7 +90,8 @@ class Signin extends React.Component {
       .post('http://localhost:5555/api/users/login', this.state)
       .then(response => {
         localStorage.setItem('jwt', response.data.token);
-
+        localStorage.setItem("username", response.data.username);
+        localStorage.setItem("id", response.data.id);
         console.log('signing props', this.props);
         this.setState({email: "", password: ""});
         this.props.history.push('/posts');

@@ -183,9 +183,13 @@ header nav a {
   padding: 5px 15px;
 }
 
-/* .comment-content {
+.comment-content {
+  padding: 0 0 10px 30px;
+}
+
+hr {
   background-color: black;
-} */
+}
 
 .delete-comment {
   margin: 30px 0;
@@ -200,13 +204,15 @@ header nav a {
 }
 
 /* tr:nth-child(even) {background: #CCC} */
-.comment:nth-child(even) {
-  background-color: black;
-}
-.comment:nth-child(odd) {
+.comment {
   background-color: white;
   color: black;
+  margin-bottom: 0;
 }
+/* .comment:nth-child(odd) {
+  background-color: white;
+  color: black;
+} */
 
 .show-wrapper {
   flex: 1;
@@ -244,6 +250,17 @@ header nav a {
 }
 
 .delete-comment-div {
-  background-color: black;
+  background-color: white;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 30px;
 }
+
+/* delete-comment-div button {
+  margin-top: 30px;
+background-color: black;
+color: white;
+font-size: 16px;
+padding: 5px 15px;
+} */
 
