@@ -1,6 +1,6 @@
 let config = {
     env: process.env,
-    port: process.env.PORT || 8000,
+    port: process.env.PORT
 };
 
 module.exports = config;

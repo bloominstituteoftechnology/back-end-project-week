@@ -9,26 +9,7 @@ const UsersRoutes = require('./users/UsersRoutes');
 // const User = require('../users/User');
 const Notes = require('./notes/Notes');
 const NotesRoutes = require('./notes/NotesRoutes.js');
-const config = require('./api/config.js');
-
-
-const port = config.port || 8000;
-
-
-
-mongoose
-    .connect('mongodb://localhost/notesdb')
-    .then(() => {
-        console.log('connected to notes database');
-        server.listen(config.port, () => {
-            console.log(`Connected to port ${config.port}`);
-        });
-    })
-    .catch(err => {
-        console.log('error connecting to notes database');
-    });
-
-
+// const config = require('./api/config.js');
 
 
 
@@ -39,6 +20,24 @@ server.use(morgan('combined'));
 server.use('/api/notes', NotesRoutes);
 
 
+// const port = config.port || 8000;
+
+mongoose.Promise = global.Promise;
+
+mongoose
+    .connect('mongodb://Carlos:loss12@ds121341.mlab.com:21341/marconotesdb')
+    .then(() => {
+        console.log('connected to notes database');
+        
+    })
+    .catch(err => {
+        console.log('error connecting to notes database');
+    });
+
+server.listen(process.env.PORT, () => {
+    console.log(`Connected to port ${process.env.PORT}`);
+});
+
 
 server.get('/', (req, res) => {
     res.status(200).json({ api: 'running on dat sbux vanilla cream cold brew' });
@@ -46,4 +45,4 @@ server.get('/', (req, res) => {
 
 
 
-module.exports = server;
+// module.exports = server;
