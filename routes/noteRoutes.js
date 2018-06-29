@@ -21,8 +21,7 @@ function restricted (req, res, next) {
 }
 
 router.get('/', restricted, (req, res) => {
-    User.find({ username: req.session.username })
-        .populate('notes', '-_id -__v')      
+    Notes.find({ username: req.session.username })   
         .select('-__v -id')
         .then(notes => {
             res.status(200).json({ notes })
