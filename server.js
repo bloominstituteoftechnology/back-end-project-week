@@ -17,7 +17,7 @@ server.use(morgan('combined'))
 
 const port = process.env.PORT || 5000
 
-server.use(cors({ origin: process.env.CORSORIGIN }))
+server.use(cors({ origin: '*' }))
 
 server.get('/', (req, res) => {
     res.json({ api: 'Run away, run away!'})
