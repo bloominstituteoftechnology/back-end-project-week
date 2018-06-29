@@ -5,11 +5,7 @@
   "repository": "https://github.com/mag16/back-end-project-week.git",
   "author": "Marco A Guzman <marcoguzman16@gmail.com>",
   "license": "MIT",
-  "scripts": {
-    "start": "nodemon server.js",
-    "test": "jest --watch --verbose"
-    
-  },
+  
   "jest": {
     "testEnvironment": "node"
   },
