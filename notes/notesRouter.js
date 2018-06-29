@@ -4,37 +4,12 @@ const router = express.Router();
 const restricted = require('../auth/restricted');
 const Note = require('./Note.js');
 
-
-//This for test real-time database
-
-var Pusher = require('pusher');
-
-var pusher = new Pusher({
-  appId: process.env.pusher_appId,
-  key: process.env.pusher_key,
-  secret: process.env.pusher_secret,
-  cluster: process.env.pusher_cluster,
-  encrypted: true
-});
-
-// const triggerUpdate = function () {
-//   pusher.trigger('notes', 'updated', {
-//     "message": "triggerUpdate"
-//   });
-// };
-
-const triggerUpdate = function () {
-
-};
-
 //End Points
 router
   .route('/')
   .post(restricted, (req, res) => {
     Note.create(req.body)
       .then(note => {
-        console.log(pusher)
-        triggerUpdate();
         res.status(201).json(note);
       })
       .catch(err => {
@@ -90,7 +65,6 @@ router
     Note.findByIdAndUpdate(id, changes, options )
       .then(note => {
         if (note) {
-          triggerUpdate();
           res.json(note);
         } else {
           res.status(404).json({ message: 'Note not found' });
