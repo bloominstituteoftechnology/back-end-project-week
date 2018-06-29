@@ -11,13 +11,12 @@ const server = express()
 server.use(session({
     secret: process.env.SECRET,
     cookie: { maxAge: 1 * 24 * 60 * 60 * 1000 },
-    secure: true,
-    saveUninitialized: true,
+    secure: false,
+    saveUninitialized: false,
     resave: true,
     name: 'none',
     store: new MongoStore({
-        url: `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds217671.mlab.com:17671/lambdanotes`,
-        ttl: 60 * 10,
+        mongoose_connection: mongoose.connections[0]
     })
 }))
 router.post('/register', function(req, res) {
