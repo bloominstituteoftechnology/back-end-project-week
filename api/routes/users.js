@@ -107,9 +107,12 @@ router
   .delete('/:id', authenticate, (req, res) => {
     const { id } = req.params;
     const currentUser = req.tokenPayload.userid;
+    const conditions = {
+      _id: id
+    };
 
     if (currentUser === id) {
-      User.findByIdAndRemove(id)
+      User.findOneAndRemove(conditions)
         .then(deletedUser => {
           sendRes(res, '200', deletedUser ? { _id: deletedUser._id } : null);
         })
