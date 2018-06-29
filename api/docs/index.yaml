@@ -349,6 +349,7 @@ paths:
       tags:
         - projects
       summary: Delete a project
+      description: This deletes an existing project. It can only be performed by an authenticated user and the user must be the user who created the project.
       operationId: deleteProject
       parameters:
         - $ref: '#/components/parameters/projectId'
@@ -366,6 +367,8 @@ paths:
                   _id: 5b31ea59d62eb33eb93014e7
         '401':
           $ref: '#components/responses/401Unauthorized'
+        '403':
+          $ref: '#components/responses/403Forbidden'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
