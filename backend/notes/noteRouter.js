@@ -6,6 +6,15 @@ const mongoose =  require('mongoose');
 
 router 
     .route('/')
+        .get((req, res) => {
+            Note.find()
+            .then(res => {
+                console.log(res)
+                res.status(200).send(res)
+            })
+            .catch(err => res.status(404).json({err}))
+            
+        })
         .post((req, res) => {
             const {title, body, userId} = req.body;
             if (!title || !body || !userId) {
@@ -20,11 +29,18 @@ router
     .route('/:id')
         .get((req, res) => {
             const {id} = req.params;
-            console.log(req);
+            // console.log(req);
             Note.findById(id)
             // .populate('user')//maybe this need not be there?
-                .then(note => res.json(note))
-                .catch(err => res.status(500).json({error: err.message}))
+                .then(note => {
+                    console.log(note)
+                    res.json(note)
+                })
+                
+                .catch(err => {
+                    console.log(err.message)
+                    res.status(500).json({error: err.message})
+                })
         })
         
 
