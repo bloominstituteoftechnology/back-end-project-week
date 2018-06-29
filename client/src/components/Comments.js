@@ -47,6 +47,7 @@ class Comments extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <div>
         <h3>Comments</h3>
@@ -68,6 +69,11 @@ class Comments extends React.Component {
             <Comment 
               key={index}
               comment={comment.comment}
+              commentID={comment._id}
+              postID={this.props.id}
+              createdBy={comment.username}
+              creatorID={comment.user}
+              reset={this.props.reset}
             />
           )
         })}

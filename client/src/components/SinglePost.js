@@ -77,21 +77,24 @@ class SinglePost extends React.Component {
       </button>);
       }
     }
+    let displayCreater;
+    if(this.state.post.user === undefined) {
+      displayCreater = <p>Loading...</p>;
+    } else {
+      if(this.state.post.user.username) {
+        displayCreater = (
+          <button>Posted by: {this.state.post.user.username}</button>
+        )
+      }
+    
+
+    }
     return (
       <div className="show-wrapper">
         <section className="edit-delete">
           <Link to="/posts">
-            <button >
-            {"Posted by: " + localStorage.getItem("username")}
-            </button>
+            {displayCreater}
           </Link>
-          {/* {this.state.post.user.userID &&
-          this.state.post.user.userID == localStorage.getItem("id") ? (
-          <button onClick={() => this.handleDeleteNote(this.state.post._id)}>
-            delete
-          </button>
-          ) : (null)
-          } */}
           {displayDelete}
         </section>
         
