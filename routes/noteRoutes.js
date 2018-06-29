@@ -20,7 +20,7 @@ function restricted (req, res, next) {
 }
 
 
-router.get('/', restricted, (req, res) => {
+router.get('/', (req, res) => {
     User.find({ username: req.session.username })
         .populate('notes', '-_id -__v')        
         .select('-__v -id')
@@ -45,7 +45,7 @@ router.post('/', restricted, (req, res) => {
     }
 })
 
-router.get('/:id', restricted, (req, res) => {
+router.get('/:id',  (req, res) => {
     const { id } = req.params;
     Note.findById(id)
     .select('-__v -author')
