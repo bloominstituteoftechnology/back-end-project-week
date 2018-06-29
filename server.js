@@ -9,22 +9,23 @@ const secret = 'supersecretsauce';
 
 const server = express();
 
-server.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+// server.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 server.use(express.json());
 
 // https://cocky-ride-fcf8cb.netlify.com
-// http://localhost:3000 
+// http://localhost:3000
 
-let allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', "https://cocky-ride-fcf8cb.netlify.com");
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-}
-
-app.configure(function() {
-    app.use(allowCrossDomain);
-});
+app.use(function(req, res, next) {
+    var allowedOrigins = ['http://localhost:3000', 'https://cocky-ride-fcf8cb.netlify.com'];
+    var origin = req.headers.origin;
+    if(allowedOrigins.indexOf(origin) > -1){
+         res.setHeader('Access-Control-Allow-Origin', origin);
+    }
+    res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.header('Access-Control-Allow-Credentials', true);
+    return next();
+  });
 
 function restricted(req, res, next) {
     const token = req.headers.authorization;
