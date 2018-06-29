@@ -75,7 +75,7 @@ router
             })
     })
 
-    .post(protected, (req, res) => {
+    .post((req, res) => {
         const { title, body } = req.body;
         const newNote = new Note({title, body})
 
@@ -97,7 +97,7 @@ router
 
 router
     .route('/:id')
-    .get(protected, (req, res) => {
+    .get((req, res) => {
         const { id } = req.params;
         if(id.length !== 24) {
             res.status(400).json({ error: 'A note id must contain 24 characters'})
@@ -116,7 +116,7 @@ router
             })
     })
 
-    .put(protected, (req, res) => {
+    .put((req, res) => {
         const { id } = req.params;
         if(id.length !== 24) {
             res.status(400).json({ error: 'A note id must contain 24 characters'})
@@ -143,7 +143,7 @@ router
             })
     })
 
-    .delete(protected, (req, res) => {
+    .delete((req, res) => {
         const { id } = req.params;
 
         Note.findByIdAndRemove(id)
