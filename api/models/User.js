@@ -47,6 +47,14 @@ userSchema.pre('save', function(next) {
   });
 });
 
+userSchema.pre('findOneAndUpdate', function(next) {
+  bcrypt.hash(this._update.password, 12, (err, hash) => {
+    if (err) next(err);
+    this._update.password = hash;
+    next();
+  });
+});
+
 userSchema.methods.isValidPassword = function(password, cb) {
   return bcrypt.compare(password, this.password, cb);
 };

@@ -78,14 +78,17 @@ router
   .put('/:id', authenticate, (req, res) => {
     const { id } = req.params;
     const updatedUser = req.body;
-    const currentUser  = req.tokenPayload.userid;
+    const currentUser = req.tokenPayload.userid;
+    const conditions = {
+      _id: id
+    };
     const options = {
       new: true,
       runValidators: true
     };
 
     if (currentUser === id) {
-      User.findByIdAndUpdate(id, updatedUser, options)
+      User.findOneAndUpdate(conditions, updatedUser, options)
         .then(updatedUser => {
           const { _id, firstName, lastName, email } = updatedUser;
           sendRes(
