@@ -12,7 +12,7 @@ const noteRouter = require('./notes/noteRouter');
 // const authRouter = require('./auth/authRouter');
 
 // const db = process.env.MONGODB_URI || 'mongodb://localhost/backendDB'
-const db = process.env.mongo || process.env.MONGO_MLAB
+const db = process.env.mongo || process.env.MONGODB_MLAB
 mongoose
     .connect(db)
     .then(() => console.log('=== Connected to DB ==='))
