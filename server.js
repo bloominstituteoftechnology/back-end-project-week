@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
+require('dotenv').config();
 // const morgan = require('morgan');
 
 const server = express();
@@ -10,7 +11,8 @@ const server = express();
 const noteRouter = require('./notes/noteRouter');
 // const authRouter = require('./auth/authRouter');
 
-const db = process.env.mongo || 'mongodb://localhost/backendDB'
+// const db = process.env.MONGODB_URI || 'mongodb://localhost/backendDB'
+const db = process.env.mongo || process.env.MONGO_MLAB
 mongoose
     .connect(db)
     .then(() => console.log('=== Connected to DB ==='))
