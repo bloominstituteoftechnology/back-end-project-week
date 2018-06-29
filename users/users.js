@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
+const users = require('./usersModel');
 
 
 router
@@ -29,3 +30,4 @@ router
     })
 
 module.exports = router;
+
