@@ -11,10 +11,11 @@ const generateToken = payload => {
 };
 
 const authenticate = (req, res, next) => {
-  const token = req.headers.authorization.replace(/^Bearer /, '');
+  const token = req.headers.authorization
+    ? req.headers.authorization.replace(/^Bearer /, '')
+    : '';
 
   jwt.verify(token, process.env.JWT_SECRET, (error, decodedToken) => {
-    console.log('error', error);
     if (error) {
       return res.status(401).json({ error: 'Access denied. Invalid token.' });
     } else {
