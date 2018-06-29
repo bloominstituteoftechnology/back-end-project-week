@@ -1,3 +1,12 @@
+TRELLO URL:
+https://trello.com/b/YpT5SOOU/lambda-notes-backend-anne-courtney
+
+frontend link: 
+https://vibrant-darwin-54252a.netlify.com
+
+backend link:
+https://arcane-dawn-82898.herokuapp.com/
+
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
