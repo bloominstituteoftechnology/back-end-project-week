@@ -84,10 +84,6 @@ export const loginUser = () => {
 
 };
 
-export const persistUser = () => {
-
-}
-
 export const logoutUser = () => {
   return {
     type: LOGOUT
@@ -95,7 +91,6 @@ export const logoutUser = () => {
 };
 
 export const changeTheme = (uid, theme) => {
-
   return {
     type: THEME,
     payload: theme,

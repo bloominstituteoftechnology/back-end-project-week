@@ -26,13 +26,13 @@ describe('Server:', () => {
       '_id': '5b30103ce1b2f831b8b04010',
       'email': 'john@doe.com',
       'password': 'arewemarriedorarewesiblings',
-      'notes': ['5b3010a706ae9531b8a9b421']
+      'notes': ['5b3010a706ae9531b8a9b421'],
     },
     {
       '_id': '5b30101a8a63c231b8200da2',
       'email': 'jane@doe.com',
       'password': 'porquenolosdos',
-      'notes': ['5b3010deec60a131b830e565']
+      'notes': ['5b3010deec60a131b830e565'],
     },
   ];
 
@@ -41,13 +41,15 @@ describe('Server:', () => {
       '_id': '5b3010a706ae9531b8a9b421',
       'title': 'Hey',
       'text': 'You there! Hey! Over there!',
-      'author': '5b30103ce1b2f831b8b04010'
+      'author': '5b30103ce1b2f831b8b04010',
+      'collaborators': []
     },
     {
       '_id': '5b3010deec60a131b830e565',
       'title': 'One look',
       'text': 'That\'s all it takes. Possibilities!',
-      'author': '5b30101a8a63c231b8200da2'
+      'author': '5b30101a8a63c231b8200da2',
+      'collaborators': []
     }
   ];
 
@@ -376,6 +378,44 @@ describe('Server:', () => {
       });
     });
 
+    describe('Sharing Notes:', () => {
+
+      /* Test Data */
+
+      it('rejects sharing a note if the sharer is not the note\'s author', async () => {
+        const noteToShare = testNotes[0];
+        const idOfNoteToShare = testNotes[0]._id;
+        const emailOfUserToShareTo = testUsers[1].email;
+        
+        const responseObject = await request(server)
+          .post(`/notes/${idOfNoteToShare}/share`)
+          .set('authorization', userToken.token)
+          .send({ email: emailOfUserToShareTo });
+        logError(responseObject, httpStatusCode.unauthorized);
+        
+        const idOfUserToShareTo = testUsers[1]._id;
+        const { status, body } = responseObject;
+        expect(status).toBe(httpStatusCode.unauthorized);
+      });
+      
+      it('adds another user to a note\'s collaborators', async () => {
+        const noteToShare = testNotes[1];
+        const idOfNoteToShare = testNotes[1]._id;
+        const emailOfUserToShareTo = testUsers[0].email;
+        
+        const responseObject = await request(server)
+          .post(`/notes/${idOfNoteToShare}/share`)
+          .set('authorization', userToken.token)
+          .send({ email: emailOfUserToShareTo });
+        logError(responseObject);
+        
+        const idOfUserToShareTo = testUsers[0]._id;
+        const { status, body } = responseObject;
+        expect(status).toBe(httpStatusCode.OK);
+        // expect(body).toMatchObject({ cookies: 'cookies' })
+      });
+    });
+
     describe('DELETE Requests:', () => {
 
       it('deletes a note appproriately.', async () => {
@@ -417,6 +457,6 @@ describe('Server:', () => {
         expect(status).toBe(httpStatusCode.notFound);
         expect(body).toEqual({ error: "404: Not Found\nThe note with the specified ID cannot be found. The note is likely to have changed or not exist, though you may double check the ID in the URL for errors." });
       });
-    })
+    });
   });
 });
