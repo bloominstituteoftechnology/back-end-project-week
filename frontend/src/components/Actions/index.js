@@ -16,10 +16,7 @@ const port = 5500;
 export const addNote = (uid, note) => async dispatch => {
   const header = { "headers": { "authorization": uid } };
   const response = await axios.post(`${domain}/notes`, note, header);
-  return dispatch({
-    type: ADD,
-    payload: response.data
-  });
+  return fetchNotes(uid);
 };
 
 export const editNote = (uid, id, note) => async dispatch => {
@@ -43,7 +40,17 @@ export const editNote = (uid, id, note) => async dispatch => {
 
 export const fetchNotes = (uid) => async dispatch => {
   const header = { "headers": { "authorization": uid } };
-  const response = await axios.get(`${domain}/notes`,header);
+
+  let response;
+  try {
+    response = await axios.get(`${domain}/notes`,header);
+  } catch(error) {
+    return dispatch({
+      type: ERROR,
+      payload: error
+    });
+  }
+
   console.log('fetchNotes-response:',response);
   return dispatch({
     type: FETCH,

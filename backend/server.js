@@ -32,6 +32,9 @@ module.exports = (usersModel, notesModel) => {
 
   server.route('/notes/search')
     .get(noteRoutes.SEARCH);
+  
+  server.route('/notes/share')
+    .post(noteIdRoutes.SHARE);
     
   server.route('/notes/:id')
     .get(noteIdRoutes.GET_ONE_BY_ID)

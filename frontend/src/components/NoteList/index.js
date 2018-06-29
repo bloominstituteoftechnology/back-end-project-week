@@ -29,7 +29,7 @@ class NoteList extends Component {
     const path = this.props.match.path;
     const tag = this.props.match.params.tag;
 
-    const notesToDisplay = () => {
+    const getNotes = () => {
       // console.log("!!!",this.props.match.path, this.props.match.params.tag)
       let result;
       switch (this.props.match.path) {
@@ -44,7 +44,10 @@ class NoteList extends Component {
           // console.log('!!!',result);
           return result;
       }
-    }
+    };
+
+    const notesToDisplay = getNotes();
+
     switch (true) {
       case !this.props.user:
         return <Redirect to="/" />;
@@ -55,13 +58,6 @@ class NoteList extends Component {
             <h2>We still be loadin'. Hang on tight!</h2>
           </div>
         );
-      // case this.props.notes.length === 0:
-      //   return (
-      //     <div className={`note-list ${classes}`}>
-      //       <h3>You don't have any notes.</h3>
-      //       <p>Let's get started by clicking on "Create New Note"!</p>
-      //     </div>
-      //   );
       default:
          return (
         <div className={`note-list ${classes}`}>
@@ -73,15 +69,11 @@ class NoteList extends Component {
               <h4>Your Notes:</h4>
           }
           <div className={`note-view d-flex flex-wrap`}>
-            {/* { 
-              path === "/notes/tag/:tag" ?
-                this.props.notes.filter(obj => obj.tags.includes(tag))
-                  .map(obj => <NoteCard key={obj._id} {...obj} />)
-              :
-                this.props.notes.map(obj => <NoteCard key={obj._id} {...obj} />)
-            } */}
             {
-              notesToDisplay().map(obj => <NoteCard key={obj._id} {...obj} />)
+              notesToDisplay.length > 0 ?
+                notesToDisplay.map(obj => <NoteCard key={obj._id} {...obj} />)
+              :
+                <h4 style={{"margin":"1rem"}}>No notes to display here. :(</h4>
             }
           </div>
         </div>
@@ -89,54 +81,6 @@ class NoteList extends Component {
     }
   }
 }
-
-  // render = () => {
-  //   console.log(this.props.match? this.props.match : "undefined");
-  //   const { classes } = this.props;
-
-  //   // If you're not logged in, you can't be here.
-  //   if (!this.props.user) return <Redirect to ="/" />;
-
-  //   if (!this.props.notes) return (
-  //     <div>
-  //       <h2>We still be loadin'. Hang on tight!</h2>
-  //     </div>
-  //   );
-
-  //   // If you don't have any notes, let's make some!
-  //   if (this.props.notes.length === 0) {
-  //     return (
-  //       <div className={`note-list ${classes}`}>
-  //         <h3>You don't have any notes.</h3>
-  //         <p>Let's get started by clicking on "Create New Note"!</p>
-  //       </div>
-  //     );
-  //   }
-    
-  //   Note list
-  //   const path = this.props.match.path;
-  //   const tag = this.props.match.params.tag;
-  //   return (
-  //     <div className={`note-list ${classes}`}>
-  //     <SearchBar />
-  //     {
-  //       path === "/notes/tag/:tag" ?
-  //         <h4>Notes with <Tag>{tag}</Tag></h4>
-  //       :
-  //         <h4>Your Notes:</h4>
-  //     }
-  //       <div className={`note-view d-flex flex-wrap`}>
-  //         { 
-  //           path === "/notes/tag/:tag" ?
-  //             this.props.notes.filter(obj => obj.tags.includes(tag))
-  //               .map(obj => <NoteCard key={obj._id} {...obj} />)
-  //           :
-  //             this.props.notes.map(obj => <NoteCard key={obj._id} {...obj} />)
-  //         }
-  //       </div>
-  //     </div>
-  //   );
-
 
 const NoteCard = (props) => {
   const styl = {

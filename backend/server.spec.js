@@ -343,6 +343,22 @@ describe('Server:', () => {
         expect(body).toMatchObject(noteExpectedToReceive);
       });
 
+      it('rejects modification if user is not the author of the note', async () => {
+        const idToRetrieve = testNotes[0]._id;
+        const { author, ...noteWithNoAuthor } = testNotes[1];
+        const editedNote = {...noteWithNoAuthor, text: 'ABC123DOREMI' };
+        const responseObject = await request(server)
+          .put(`/notes/${idToRetrieve}`)
+          .set('authorization', userToken.token)
+          .send(editedNote);
+
+        logError(responseObject, httpStatusCode.unauthorized);
+
+        const { status, body } = responseObject;
+        expect(status).toBe(httpStatusCode.unauthorized);
+        expect(body).toMatchObject({ error: "401: Unauthorized\nYou don't appear to have permission to view this note." });
+      });
+
       it('returns a 404 status when it cannot find a note with the specified ID.', async () => {
         const idToRetrieve = '5b30101a8a63c231b8200da2'; // a note with this id should not exist within the test environment
         const editedNote = testNotes[0]; //just a random test note. We shouldn't be getting this back
@@ -363,7 +379,7 @@ describe('Server:', () => {
     describe('DELETE Requests:', () => {
 
       it('deletes a note appproriately.', async () => {
-        const noteToDelete = testNotes[0];
+        const noteToDelete = testNotes[1];
         const idOfNoteToDelete = noteToDelete._id;
 
         const responseObject = await request(server)
@@ -373,7 +389,20 @@ describe('Server:', () => {
 
         const { status, body } = responseObject;
         expect(status).toBe(httpStatusCode.OK);
-        expect(body).toEqual({ "deleted": expect.objectContaining(noteToDelete) });
+        expect(body).toEqual({"success": "Note successfully deleted."});
+      });
+
+      it('rejects deletion if the user is not the author of the note to be deleted.', async () => {
+        const noteToDelete = testNotes[0];
+        const idOfNoteToDelete = noteToDelete._id;
+
+        const responseObject = await request(server)
+          .delete(`/notes/${idOfNoteToDelete}`)
+          .set('authorization', userToken.token);
+        logError(responseObject,httpStatusCode.unauthorized);
+
+        const { status, body } = responseObject;
+        expect(status).toBe(httpStatusCode.unauthorized);
       });
 
       it('returns a 404 status when it cannot find a note with the specified ID.', async () => {
