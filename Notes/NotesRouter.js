@@ -5,6 +5,7 @@ const Note = require('./NotesModel.js');
 router 
     .route('/')
     .get((req, res) => {
+        console.log('Here')
         Note.find()
             .then(notes => {
                 res.status(200).json(notes); 
