@@ -7,7 +7,18 @@ const { authenticate, isValidProjectUser } = require('../middleware');
 
 router
   .post('/', authenticate, (req, res) => {
-    const newProject = req.body;
+    const { title, description, members } = req.body;
+    const createdBy = req.tokenPayload.userid;
+    const memberList = members ? members : [];
+
+    if (!memberList.includes(createdBy)) memberList.push(createdBy);
+
+    const newProject = {
+      title: title,
+      description: description,
+      members: memberList,
+      createdBy: createdBy
+    }
 
     Project.create(newProject)
       .then(({ _id, title, description }) => {
@@ -77,7 +88,7 @@ router
       runValidators: true
     };
 
-    if(authorized){
+    if (authorized) {
       Project.findByIdAndUpdate(id, updatedProject, options)
         .populate('members', { firstName: 1, lastName: 1 })
         .select({ title: 1, description: 1, members: 1 })

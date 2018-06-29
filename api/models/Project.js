@@ -22,7 +22,12 @@ const projectSchema = new mongoose.Schema({
         message: 'Must be an id for an existing user'
       }
     }
-  ]
+  ],
+  createdBy: {
+    type: ObjectId,
+    ref: 'User',
+    required: [true, 'Project must be created by an existing user']
+  }
 });
 
 projectSchema.methods.isValidUser = function(userId) {
