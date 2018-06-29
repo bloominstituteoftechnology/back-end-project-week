@@ -11,7 +11,6 @@ const server = express();
 const noteRouter = require('./notes/noteRouter');
 // const authRouter = require('./auth/authRouter');
 
-// const db = process.env.MONGODB_URI || 'mongodb://localhost/backendDB'
 const db = process.env.mongo || process.env.MONGODB_MLAB
 mongoose
     .connect(db)
