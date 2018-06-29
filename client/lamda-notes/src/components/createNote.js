@@ -15,11 +15,7 @@ class CreateNote extends Component {
   }
 
   handleSave = () => {
-    console.log("My note is: ", this.state.note);
     let craftedNote = { ...this.state.note };
-    craftedNote["_id"] = Date.now() + craftedNote.title;
-    craftedNote.createdAt = Date.now();
-    console.log("My Crafted Note is: ", craftedNote);
     this.props.createNote(craftedNote);
     this.props.history.push("/");
   };

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
-const NotesSchema = new mongoose.Schema({
+const NoteSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -22,4 +22,4 @@ const NotesSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model("Note", NotesSchema);
+module.exports = mongoose.model("Note", NoteSchema);

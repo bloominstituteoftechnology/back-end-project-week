@@ -33,7 +33,7 @@ function checkPasslength(password) {
   return password.length > 4;
 }
 
-UserSchema.pre("save", function(next) {
+userSchema.pre("save", function(next) {
   return bcrypt
     .hash(this.password, 10)
     .then(hash => {
@@ -45,7 +45,7 @@ UserSchema.pre("save", function(next) {
     });
 });
 
-UserSchema.methods.validatePassword = function(passwordGuess) {
+userSchema.methods.validatePassword = function(passwordGuess) {
   return bcrypt.compare(passwordGuess, this.password);
 };
 

@@ -29,7 +29,7 @@ export const createNote = noteData => {
 
 // export const fetchNotes = reqOpt => {
 //   const getNotes = axios.get(
-//     "https://lambda-note.herokuapp.com/api/notes",
+//     "https://lambda-note.herokuapp.com/notelist",
 //     reqOpt
 //   );
 //   return function(dispatch) {
@@ -46,7 +46,7 @@ export const createNote = noteData => {
 
 // export const editNote = (id, editedNote) => {
 //   const modifyNote = axios.put(
-//     `https://max-lambda-notes-app.herokuapp.com.api/note/${id}`,
+//     `https://max-lambda-notes-app.herokuapp.com/:${id}`,
 //     editedNote
 //   );
 //   return function(dispatch) {
@@ -63,7 +63,7 @@ export const createNote = noteData => {
 
 // export const deleteNote = id => {
 //   const noteDeletion = axios.delete(
-//     `https://max-lambda-notes-app.herokuapp.com/api/note/${id}`
+//     `https://max-lambda-notes-app.herokuapp.com/:${id}`
 //   );
 //   return function(dispatch) {
 //     noteDeletion
@@ -79,7 +79,7 @@ export const createNote = noteData => {
 
 // export const createNote = noteData => {
 //   const createANote = axios.post(
-//     "https://max-lambda-notes-app.herokuapp.com/api/note",
+//     "https://max-lambda-notes-app.herokuapp.com/createnote",
 //     noteData
 //   );
 //   return function(dispatch) {
