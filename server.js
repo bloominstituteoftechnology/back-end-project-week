@@ -26,7 +26,7 @@ mongoose
     });
 
 server.use(helmet());
-server.use(cors(corsOptions));
+server.use(cors());
 server.use(express.json());
 server.use('/api/notes', noteRouter);
 server.use('/students/', studentRouter);
