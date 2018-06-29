@@ -11,17 +11,17 @@ require('dotenv').config();
 
 const User = require('./User');
 
-function makeToken(user) {
-    const timestamp = new Date().getTime();
-    const payload = {
-        sub: user._id, // subject
-        iat: timestamp, // issued at
-    };
-    const options = {
-        expiresIn: '24h'
-    };
-    return jwt.sign(payload, process.env.secret, options);
-}
+// function makeToken(user) {
+//     const timestamp = new Date().getTime();
+//     const payload = {
+//         sub: user._id, // subject
+//         iat: timestamp, // issued at
+//     };
+//     const options = {
+//         expiresIn: '24h'
+//     };
+//     return jwt.sign(payload, process.env.secret, options);
+// }
 
 // helper function
 const localStrategy = new LocalStrategy(function(username, password, done) {
@@ -114,6 +114,18 @@ router
                 res.status(500).json({ error: 'Your registration could not be completed at this time. Please try again.' })
             })
     });
+
+    function makeToken(user) {
+        const timestamp = new Date().getTime();
+        const payload = {
+            sub: user._id, // subject
+            iat: timestamp, // issued at
+        };
+        const options = {
+            expiresIn: '24h'
+        };
+        return jwt.sign(payload, process.env.secret, options);
+    }
 
 
 // router 
