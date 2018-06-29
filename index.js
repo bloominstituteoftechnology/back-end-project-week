@@ -13,7 +13,7 @@ const noteController = require('./noteTracker/noteController');
 server.use(express.json());
 
 server.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'https://frosty-brahmagupta-26a4e9.netlify.com/',
   credentials: true
 }));
 
