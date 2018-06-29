@@ -12,9 +12,8 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        minLength: 12,
     },
-    notes: [{type: ObjectId, ref: 'User'}]
+    notes: [{type: ObjectId, ref: 'Note'}]
 })
 
 userSchema.pre('save', function(next) {
@@ -33,5 +32,5 @@ userSchema.methods.validatePassword = function(inputPassword) {
     return bcrypt.compare(inputPassword, this.password);
 };
 
-module.exports = userSchema, mongoose.model('User', userSchema)
+module.exports = mongoose.model('User', userSchema)
 
