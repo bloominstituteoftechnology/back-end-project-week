@@ -13,7 +13,7 @@
     "node.jwt": "^0.1.5"
   },
   "scripts": {
-    "start": "nodemon ./backend/server.js"
+    "start": "node ./backend/server.js"
   },
   "devDependencies": {
     "nodemon": "^1.17.5"
