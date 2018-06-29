@@ -8,6 +8,7 @@ const helmet = require("helmet");
 const jwt = require("jsonwebtoken");
 const server = express();
 const bodyParser = require("body-parser");
+const cookieParser = require('cookie-parser');
 const secret = "its a secret";
 
 function generateToken(user) {
@@ -18,16 +19,20 @@ function generateToken(user) {
 
   return jwt.sign(payload, secret, options);
 }
+
+
 function restricted(req, res, next) {
-    const token = req.headers.authorization;
+    const token = req.cookies.auth;
   
     if (token) {
       jwt.verify(token, secret, (err, decodedToken) => {
         
         if (err) {
           return res.status(401).json({ message: "No Entry, your decoder ring is incorrect" });
+        } else {
+            res.user_data = token_data;
+            next();
         }
-        next();
       });
     } else {
       res
@@ -53,6 +58,7 @@ const corsOptions = {
   credentials: true
 };
 
+server.use(cookieParser());
 server.use(helmet());
 server.use(cors());
 server.use(express.json());
@@ -83,6 +89,7 @@ server.post("/api/login", function(req, res) {
           .then(passwordsMatch => {
             if (passwordsMatch) {
               const token = generateToken(user);
+              res.cookie('auth', token)
               res.status(200).json({ message: `welcome ${username}`, token });
             } else {
               res.status(401).send("invalid credentials");
