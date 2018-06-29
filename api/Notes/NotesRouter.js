@@ -5,7 +5,8 @@ const Note = require('./noteSchema');
 
 //GET & POST requests w/o ID
 router
-    .get('/', (req, res) => {
+.route('/')
+    .get((req, res) => {
         Note.find()
             .then(note => {
                 res.json(note)
@@ -17,8 +18,9 @@ router
             })
     })
 
-    .post('/', (req, res) => {
+    .post((req, res) => {
         const { title, contents } = req.body;
+        console.log({title, contents});
         //The const note line below is only necessary when using the .save() function
         // const note = new Note({ title, contents });
         Note.create({ title, contents })
@@ -32,7 +34,9 @@ router
             })
     })
 //GET, DELETE, & PUT requests w/ID
-router.get('/:id', (req, res) => {
+router
+.route('/:id')
+.get((req, res) => {
             const { id } = req.params;
 
             Note.findById(id)
@@ -46,7 +50,7 @@ router.get('/:id', (req, res) => {
             })
         })
 
-        .delete('/:id', (req, res) => {
+        .delete((req, res) => {
             const { id } = req.params;
 
             Note.findByIdAndRemove(id)
@@ -60,10 +64,13 @@ router.get('/:id', (req, res) => {
                 })
         })
 
-        .put('/:id', (req, res) => {
+        .put((req, res) => {
+            // console.log('HERE')
             const { id } = req.params;
-            const noteUpdate = ({ title, contents });
-            //Have to double-check naming convention of { title, contents } in front-end
+            // console.log(req.body);
+            const { title, contents } = req.body;
+            const noteUpdate = { title, contents };
+            // console.log(noteUpdate);
 
             Note.findByIdAndUpdate(id, noteUpdate, { new: true })
                 .then(updateNote => {

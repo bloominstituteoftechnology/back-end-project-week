@@ -37,7 +37,7 @@ const server = express();
     server.use(cors({ origin: '*' }));
 server.use(helmet());
 // server.use(morgan());
-server.use('/notes/', notesRouter);
+server.use('/notes', notesRouter);
 server.use('/users', usersRouter);
 // server.use(bodyParser.json());
 
