@@ -108,7 +108,7 @@ server.get("/", (req, res) => {
   res.status(200).json({ api: "running" });
 });
 
-server.get("/api/notes", restricted, (req, res) => {
+server.get("/api/notes", (req, res) => {
   Note.find()
     .then(notes => {
       res.status(200).json(notes);
