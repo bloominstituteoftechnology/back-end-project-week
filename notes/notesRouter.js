@@ -81,7 +81,6 @@ router
     Note.findByIdAndRemove(id)
       .then(note => {
         if (note) {
-          triggerUpdate();
           res.json({ message: 'Note deleted' });
         } else {
           res.status(404).json({ message: 'Note not found' });
