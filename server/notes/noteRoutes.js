@@ -1,8 +1,21 @@
 const router = require('express').Router();
 const Notes = require('./Notes');
+const cors = require('./cors');
+
+
+const whitelist = ['http://nostalgic-kilby-8372d8.netlify.com', 'https://nostalgic-kilby-8372d8.netlify.com']
+const corsOptions = {
+	origin: function (origin, cb) {
+		if(whitelist.indexOf(origin) !== -1) {
+			cb(null, true)
+		} else {
+			cb(new Error('Not allowed by CORS'))
+		}
+	}
+}
 
 //this is the main file I used for linking to the front end
-router.get('/', (req, res, next) => {
+router.get('/', cors(corsOptions), (req, res, next) => {
 	Notes.find()
 		.then(notes => {
 			res.status(200).json(notes);
