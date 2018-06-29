@@ -1,7 +1,23 @@
 const router = require('express').Router();
 const User = require('../model/User.js');
 const Note = require('../model/Note.js');
+const jwt = require('jsonwebtoken');
 
+const protectedPath = (req, res, next) => {
+  const token = req.headers.authorization;
+  if (token) {
+    jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+      if (err) {
+        return res.status(401).json({ err });
+      }
+      next();
+    })
+  } else {
+    return res.status(401).json({ message:  `You shall not pass` });
+  }
+}
+
+router.all('/*', protectedPath);
 
 router.route('/')
     .get((req, res) => {
