@@ -78,6 +78,7 @@ router
             if (err) return res.send(err);
 
             const token = generateToken({ username: user.username });
+            console.log(token);
             res.json({ token });
         });
     });
@@ -97,7 +98,7 @@ router
                     user
                     .validatePassword(password)
                     .then(passwordsMatch => {
-                        console.log("(passwordsMatch  : ", passwordsMatch )
+                        console.log("passwordsMatch  : ", passwordsMatch )
                         if (passwordsMatch){
                             //generate token
                             const token = generateToken(user);
