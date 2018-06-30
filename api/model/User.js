@@ -29,6 +29,8 @@ const UserSchema = new Schema({
         trim: true
     },
     notes: [{ type: ObjectId, ref: 'Note'}]
+}, {
+    timestamps: { createdAt: 'created', updatedAt: 'updated'}
 });
 
 UserSchema.pre('save', function(next) {
