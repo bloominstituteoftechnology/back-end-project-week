@@ -76,7 +76,6 @@ router
 
         user.save((err, user) => {
             if (err) return res.send(err);
-
             const token = generateToken({ username: user.username });
             console.log(token);
             res.json({ token });
@@ -92,17 +91,13 @@ router
         console.log(typeof password);
         User.findOne({ username })
             .then(user => {
-                consoe.log("user : ", user)
-
                 if(user){
                     user
                     .validatePassword(password)
                     .then(passwordsMatch => {
-                        console.log("passwordsMatch  : ", passwordsMatch )
                         if (passwordsMatch){
                             //generate token
                             const token = generateToken(user);
-                            console.log("check to if code block is triggered", token)
                             //send token back to the client
                             res.status(200).json({ message : `welcome ${username}!`, token })
                         } else {
