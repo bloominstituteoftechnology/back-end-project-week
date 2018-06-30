@@ -101,6 +101,7 @@ router
                         if (passwordsMatch){
                             //generate token
                             const token = generateToken(user);
+                            console.log("check to if code block is triggered", token)
                             //send token back to the client
                             res.status(200).json({ message : `welcome ${username}!`, token })
                         } else {
