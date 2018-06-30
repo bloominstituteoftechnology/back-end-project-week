@@ -95,21 +95,19 @@ router
 
                 if(user){
                     user
-                    .validatePassword(password, )
-                    .then(Match => {
-                        console.log("Match : ", Match)
-                        if(Match){
+                    .validatePassword(password)
+                    .then(passwordsMatch => {
+                        console.log("(passwordsMatch  : ", passwordsMatch )
+                        if (passwordsMatch){
+                            //generate token
                             const token = generateToken({user: user.username });
                             //send token back to the client
-                            console.log("Match : ", Match)
-                            res.status(200).json({ message : `${username}!`, token })
+                            res.status(200).json({ message : `welcome ${username}!`, token })
                         } else {
-                            console.log(Match)
                             res.status(401).json({ errorMessage: 'Passwords fail to match invalid credentials' })
                         }
                     })
                     .catch(err => {
-                        console.log(err);
                         res.send('error comparing passwords');
                     });
                     } else {
@@ -120,15 +118,5 @@ router
                     res.send(err);
                 })
         })
-
-
-        //     User.create(req.body)
-    //         .then(({ username }) => {
-    //             const token = generateToken({ username })
-    //             res.status(201).json({ username, token })
-    //         })
-    //         .catch(err => {
-    //             console.log(err);
-    //             res.status(500).json({ errormessage: err})
-    //         })
+        
 module.exports = router;
