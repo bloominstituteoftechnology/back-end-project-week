@@ -2,9 +2,13 @@ const express = require('express');
 const router = express.Router();
 
 const Notes = require('../notesModel/notesModel.js')
+const restricted = require('../users/userController.js');
+
+
+
 
 router
-    .route('/')
+    .route('/', restricted)
     .get((req, res) => {
         Notes
         .find()
@@ -18,7 +22,7 @@ router
     })
 
     router
-    .route('/:id')
+    .route('/:id', restricted)
     .get((req, res) => {
         const { id } = req.params;
         Notes

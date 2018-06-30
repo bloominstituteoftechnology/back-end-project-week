@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const Notes = require('../notesModel/notesModel.js')
+const Notes = require('../notesModel/notesModel.js');
+const restricted = require('../users/userController.js');
+
 
 router
-    .route('/:id')
+    .route('/:id', restricted)
     .delete((req, res) => {
         const { id } = req.params;
         Notes
