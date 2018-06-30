@@ -100,7 +100,7 @@ router
                         console.log("(passwordsMatch  : ", passwordsMatch )
                         if (passwordsMatch){
                             //generate token
-                            const token = generateToken({user: user.username });
+                            const token = generateToken(user);
                             //send token back to the client
                             res.status(200).json({ message : `welcome ${username}!`, token })
                         } else {
