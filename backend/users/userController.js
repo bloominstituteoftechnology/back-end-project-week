@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 const secret = 'Secret is yours';
 
 const User = require('../userModel/userModel.js')
-const Notes = require('../notesModel/notesModel.js')
 
 function generateToken(user){
     console.log("testing helper function");
@@ -38,19 +37,19 @@ const validateToken = (req, res, next) => {
     }
 };
 
-function restricted(res, req, next){
-    const token = req.headers.authorization;
-    if(token){
-        jwt.verify(token, secret, (err, decodedToken => {
-            if(err){
-                res.status(401).json({ message: "Does not pass verification" })
-            }
-            next();
-        }))
-    }else{
-        res.status(401).json({ message: "Does not pass token" })
-    }
-}
+// function restricted(res, req, next){
+//     const token = req.headers.authorization;
+//     if(token){
+//         jwt.verify(token, secret, (err, decodedToken => {
+//             if(err){
+//                 res.status(401).json({ message: "Does not pass verification" })
+//             }
+//             next();
+//         }))
+//     }else{
+//         res.status(401).json({ message: "Does not pass token" })
+//     }
+// }
 
 router
     .get('/list', (req, res) => {
