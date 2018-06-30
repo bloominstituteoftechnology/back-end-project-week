@@ -2,11 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 const Notes = require('../notesModel/notesModel.js');
-const restricted = require('../users/userController.js');
 
 
 router
-    .route('/:id', restricted)
+    .route('/:id')
     .put((req, res) => {
         const { id } = req.params;
         const { title, content } = req.body;

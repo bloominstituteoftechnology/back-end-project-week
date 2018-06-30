@@ -13,7 +13,23 @@ const corsOptions = {
 server.use(cors( corsOptions ));
 server.use(express.json());
 
-const restricted = require('./backend/users/userController.js')
+function restricted(req, res, next) {
+    const token = req.headers.authorization;
+    console.log(token)
+    if (token) {
+        console.log("if successful, run this block of code", token)
+        jwt.verify(token, secret, (err, decodedToken => {
+            req.jwtPayload = decodedToken;
+            if (err) {
+                return res.status(401).json({ message: "Does not pass verification" })
+            }
+            next();
+        }))
+    } else {
+        return res.status(401).json({ message: "Does not pass token" })
+    }
+}
+
 const getNote = require('./backend/getNote/getNote.js');
 const createNote = require('./backend/createNote/createNote.js')
 const deleteNote = require('./backend/deleteNote/deleteNote.js')
