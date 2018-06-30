@@ -21,13 +21,13 @@ function restricted(req, res, next) {
     console.log(token)
     if (token) {
         console.log("if successful, run this block of code", token)
-        jwt.verify(token, secret, (err, decodedToken => {
+        jwt.verify(token, secret, (err, decodedToken) => {
             req.jwtPayload = decodedToken;
             if (err) {
                 return res.status(401).json({ message: "Does not pass verification" })
             }
             next();
-        }))
+        })
     } else {
         return res.status(401).json({ message: "Does not pass token" })
     }
