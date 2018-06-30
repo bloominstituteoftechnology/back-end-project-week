@@ -39,11 +39,14 @@ function generateToken(user){
 
 function restricted(res, req, next){
     const token = req.headers.authorization;
+    console.log(token)
     if(token){
+        console.log("if successful, run this block of code", token)
+
         jwt.verify(token, secret, (err, decodedToken => {
             req.jwtPayload = decodedToken;
             if(err){
-                res.status(401).json({ message: "Does not pass verification" })
+                return res.status(401).json({ message: "Does not pass verification" })
             }
             next();
         }))
