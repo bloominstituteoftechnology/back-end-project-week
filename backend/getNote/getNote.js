@@ -21,7 +21,7 @@ router
     })
 
     router
-    .route('/:id', restricted)
+    .route('/:id')
     .get((req, res) => {
         const { id } = req.params;
         Notes
