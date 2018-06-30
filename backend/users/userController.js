@@ -37,12 +37,11 @@ function generateToken(user){
 //     }
 // };
 
-function restricted(res, req, next){
+function restricted(req, res, next){
     const token = req.headers.authorization;
     console.log(token)
     if(token){
         console.log("if successful, run this block of code", token)
-
         jwt.verify(token, secret, (err, decodedToken => {
             req.jwtPayload = decodedToken;
             if(err){
@@ -51,7 +50,7 @@ function restricted(res, req, next){
             next();
         }))
     }else{
-        res.status(401).json({ message: "Does not pass token" })
+        return res.status(401).json({ message: "Does not pass token" })
     }
 }
 
