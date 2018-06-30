@@ -52,7 +52,7 @@ const validateToken = (req, res, next) => {
 // }
 
 router
-    .get('/list', (req, res) => {
+    .get('/list', validateToken, (req, res) => {
             User
                 .find()
                 .select('username')
@@ -118,5 +118,5 @@ router
                     res.send(err);
                 })
         })
-        
+
 module.exports = router;
