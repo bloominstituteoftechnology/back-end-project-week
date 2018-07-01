@@ -10,7 +10,7 @@ const corsOptions = {
   origin: '*',
   methods:'GET, HEAD, PUT, PATCH, POST, DELETE',
   preflightContinue: false,
-  //optionsSuccessStatus: 204
+  optionsSuccessStatus: 204
 };
 server.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*' );
@@ -37,8 +37,8 @@ server.use(express.json());
 };*/
 
 
-/*server.get('/', (req, res) => {
-    res.send("working")});*/ 
+server.get('/', (req, res) => {
+    res.send("working")}); 
   
 
 server.use('/api/note', noteController);
