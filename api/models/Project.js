@@ -30,7 +30,7 @@ const projectSchema = new mongoose.Schema({
   }
 });
 
-projectSchema.methods.isValidUser = function(userId) {
+projectSchema.methods.isMember = function(userId) {
   return (
     this.members.filter(member => member._id.toString() === userId).length === 1
   );

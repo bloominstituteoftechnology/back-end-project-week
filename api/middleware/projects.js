@@ -1,16 +1,16 @@
 const Project = require('../models/Project');
 
-const isProjectUser = (req, res, next) => {
+const isProjectMember = (req, res, next) => {
   const projectId = req.params.id;
   const currentUser = req.tokenPayload.userid;
 
   Project.findById(projectId)
     .then(project => {
-      req.validUser = project.isValidUser(currentUser);
+      req.validMember = project.isMember(currentUser);
       next();
     })
     .catch(err => {
-      req.validUser = false;
+      req.validMember = false;
       next();
     });
 };
@@ -45,7 +45,7 @@ const getProjectAdmin = (req, res, next) => {
 };
 
 module.exports = {
-  isProjectUser: isProjectUser,
+  isProjectMember: isProjectMember,
   isProjectAdmin: isProjectAdmin,
   getProjectAdmin: getProjectAdmin
 };

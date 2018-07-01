@@ -5,7 +5,7 @@ const Tag = require('../models/Tag');
 const { sendErr, sendRes } = require('../utils/apiResponses');
 const { authenticate } = require('../middleware/auth');
 const {
-  isProjectUser,
+  isProjectMember,
   isProjectAdmin,
   getProjectAdmin
 } = require('../middleware/projects');
@@ -54,7 +54,7 @@ router
       .populate('members', { firstName: 1, lastName: 1 })
       .select({ title: 1, description: 1, members: 1 })
       .then(project => {
-        if (project.isValidUser(currentUser)) {
+        if (project.isMember(currentUser)) {
           sendRes(res, '200', project);
         } else {
           sendErr(res, '403', 'User is not authorized to perform this action.');
@@ -64,9 +64,9 @@ router
         sendErr(res, err, `The project with id ${id} could not be retrieved.`);
       });
   })
-  .get('/:id/tags', authenticate, isProjectUser, (req, res) => {
+  .get('/:id/tags', authenticate, isProjectMember, (req, res) => {
     const { id } = req.params;
-    const authorized = req.validUser;
+    const authorized = req.validMember;
 
     if (authorized) {
       Tag.find({ project: id })
@@ -84,10 +84,10 @@ router
       sendErr(res, '403', 'User is not authorized to perform this action.');
     }
   })
-  .put('/:id', authenticate, isProjectUser, getProjectAdmin, (req, res) => {
+  .put('/:id', authenticate, isProjectMember, getProjectAdmin, (req, res) => {
     const { id } = req.params;
     const { title, description, members, admin } = req.body;
-    const authorized = req.validUser;
+    const authorized = req.validMember;
     const updatedProject = { title, description, members };
     const options = {
       new: true,

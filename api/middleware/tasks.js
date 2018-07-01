@@ -6,7 +6,7 @@ const isProjectMember = (req, res, next) => {
 
   Project.findById(projectId)
     .then(project => {
-      req.validMember = project.isValidUser(currentUser);
+      req.validMember = project.isMember(currentUser);
       next();
     })
     .catch(err => {
