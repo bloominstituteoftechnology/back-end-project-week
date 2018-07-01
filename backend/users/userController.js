@@ -33,7 +33,7 @@ function generateToken(user){
 // }
 
 router
-    .get('/list', restricted, (req, res) => {
+    .get('/list',(req, res) => {
             User
                 .find()
                 .select('username')
