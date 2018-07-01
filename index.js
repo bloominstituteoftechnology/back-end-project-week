@@ -13,7 +13,7 @@ const corsOptions = {
   optionSuccessStatus: 204
 };
 server.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', 'https://pedantic-engelbart-e826a9.netlify.com');
   res.setHeader(
     'Access-Control-Allow-Headers',
     'Origin, x-Requested-With, Content-Type, Accept'
