@@ -5,18 +5,24 @@ const Comment = require('../models/Comment');
 const Attachment = require('../models/Attachment');
 const { sendErr, sendRes } = require('../utils/apiResponses');
 const { authenticate } = require('../middleware/auth');
+const { isProjectMember } = require('../middleware/tasks');
 
 router
-  .post('/', authenticate, (req, res) => {
+  .post('/', authenticate, isProjectMember, (req, res) => {
     const newTask = req.body;
+    const authorized = req.validMember;
 
-    Task.create(newTask)
-      .then(task => {
-        sendRes(res, '201', task);
-      })
-      .catch(err => {
-        sendErr(res, err, 'The task could not be created.');
-      });
+    if (authorized) {
+      Task.create(newTask)
+        .then(task => {
+          sendRes(res, '201', task);
+        })
+        .catch(err => {
+          sendErr(res, err, 'The task could not be created.');
+        });
+    } else {
+      sendErr(res, '403', 'User is not authorized to perform this action.');
+    }
   })
   .get('/', authenticate, (req, res) => {
     Task.find()
