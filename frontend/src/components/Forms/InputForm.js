@@ -72,9 +72,20 @@ class InputForm extends Component {
       this.props.addNote(this.props.user.uid, noteToSend);
     } else {
       myResetObj.go = "edit";
-      this.props.editNote(this.props.user.uid, this.state.id, {
-        ...noteToSend,
-      });
+      try {
+        this.props.editNote(this.props.user.uid, this.state.id, {
+          ...noteToSend,
+        });
+      } catch (error) {
+        console.log("submitAndRegister ERROR:",error);
+        if (error.response) {
+          alert(`Update unsuccessful. Please try again.\n${error.response.status}: ${error.response.statusText}`);
+          return;
+        } else {
+          alert(`Update unsuccessful.\n${error}`);
+          return;
+        }
+      }
     }
     this.setState(myResetObj);
 

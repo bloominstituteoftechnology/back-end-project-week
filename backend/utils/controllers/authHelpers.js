@@ -33,7 +33,8 @@ const checkAuth = (req, res, next) => {
     req.plainToken = isTokenValid;
     next();
   } else {
-    res.status(401).json({ "error": "401 Unauthorized\nAuthentication token is missing or invalid." });
+    res.statusMessage = 'Authentication token is missing or invalid.';
+    res.status(401).end();
   }
 };
 

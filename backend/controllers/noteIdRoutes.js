@@ -103,14 +103,14 @@ module.exports = (usersModel, notesModel) => {
           note.remove()
             .then(count => {
               if (count < 1) {
-                res.status(500).json({ error: "500: Internal Server Error\nThe note could not be removed." });
+                res.status(httpStatus.internalServerError).json({ error: "500: Internal Server Error\nThe note could not be removed." });
                 return
               }
-              res.status(200).json({ "success": "Note successfully deleted." });
+              res.status(httpStatus.OK).json({ "success": "Note successfully deleted." });
             })
             .catch(error => {
               console.log('noteIdRoutes--DELETE ERROR:', error);
-              res.status(500).json({ error: "500: Internal Server Error\nThe note could not be removed." });
+              res.status(httpStatus.internalServerError).json({ error: "500: Internal Server Error\nThe note could not be removed." });
             });
         })
         .catch(error => {
@@ -175,10 +175,10 @@ module.exports = (usersModel, notesModel) => {
                 .then(updatedUser => {
                   console.log("AFTER:",updatedUser);
                   if (updatedUser === null) {
-                    res.status(500).json({ error: "Could not share note with user." });
+                    res.status(httpStatus.internalServerError).json({ error: "Could not share note with user." });
                     return;
                   }
-                  res.status(httpStatus.OK).json(updatedUser);
+                  res.status(httpStatus.internalServerError).json(updatedUser);
                 })
                 .catch(error => {
                   console.log('noteIdRoutes--SHARE ERROR:',error);
@@ -197,12 +197,12 @@ module.exports = (usersModel, notesModel) => {
             })
             .catch(error => {
               console.log('noteIdRoutes--SHARE ERROR:',error);
-              res.status(500).json(error);
+              res.status(httpStatus.internalServerError).json(error);
             });
         })
         .catch(error => {
           console.log('noteIdRoutes--SHARE ERROR:',error);
-          res.status(500).json(error);
+          res.status(httpStatus.internalServerError).json(error);
         });
     },
   };

@@ -30,7 +30,7 @@ export const addNote = (uid, note) => async dispatch => {
       payload: error
     });
   }
-  return fetchNotes(uid);
+  return fetchNotes(uid)(dispatch);
 };
 
 export const editNote = (uid, id, note) => async dispatch => {
@@ -50,7 +50,7 @@ export const editNote = (uid, id, note) => async dispatch => {
   //   type: EDIT,
   //   payload: response.data
   // });
-  return fetchNotes(uid);
+  return fetchNotes(uid)(dispatch);
 };
 
 export const fetchNotes = (uid) => async dispatch => {
@@ -92,7 +92,7 @@ export const deleteNote = (uid, id) => async dispatch => {
       payload: error
     });
   }
-  return fetchNotes(uid);
+  return fetchNotes(uid)(dispatch);
 };
 
 export const shareNote = (uid, id, info) => async dispatch => {
@@ -107,7 +107,7 @@ export const shareNote = (uid, id, info) => async dispatch => {
       payload: error
     });
   }
-  return fetchNotes(uid);
+  return fetchNotes(uid)(dispatch);
 }
 
 // To userReducer
