@@ -7,7 +7,7 @@ const CORS = require('cors');
 //const keys = require('./config/keys');
 const server = express();//creates a running express server; this app object will set up to listen for http requests and route them
 const corsOptions = {
-  origin: 'process.env.URL',
+  origin: '*',
   methods:'GET, HEAD, PUT, PATCH, POST, DELETE',
   preflightContinue: false,
   optionSuccessStatus: 204
