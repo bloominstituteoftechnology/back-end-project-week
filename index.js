@@ -37,8 +37,8 @@ server.use(express.json());
 };*/
 
 
-server.get('/', (req, res) => {
-    res.send("working")}); 
+/*server.get('/', (req, res) => {
+    res.send("working")});*/ 
   
 
 server.use('/api/note', noteController);
