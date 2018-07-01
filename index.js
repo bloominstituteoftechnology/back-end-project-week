@@ -10,7 +10,7 @@ const corsOptions = {
   origin: '*',
   methods:'GET, HEAD, PUT, PATCH, POST, DELETE',
   preflightContinue: false,
-  optionSuccessStatus: 204
+  optionsSuccessStatus: 204
 };
 server.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*' );
