@@ -13,7 +13,7 @@ const corsOptions = {
   optionSuccessStatus: 204
 };
 server.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', process.env.URL );
+  res.setHeader('Access-Control-Allow-Origin', '*' );
   res.setHeader(
     'Access-Control-Allow-Headers',
     'Origin, x-Requested-With, Content-Type, Accept'
