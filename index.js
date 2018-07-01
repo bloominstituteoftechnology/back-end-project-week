@@ -7,13 +7,13 @@ const CORS = require('cors');
 //const keys = require('./config/keys');
 const server = express();//creates a running express server; this app object will set up to listen for http requests and route them
 const corsOptions = {
-  origin: '*',
+  origin: 'process.env.URL',
   methods:'GET, HEAD, PUT, PATCH, POST, DELETE',
   preflightContinue: false,
   optionSuccessStatus: 204
 };
 server.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://pedantic-engelbart-e826a9.netlify.com');
+  res.setHeader('Access-Control-Allow-Origin', process.env.URL );
   res.setHeader(
     'Access-Control-Allow-Headers',
     'Origin, x-Requested-With, Content-Type, Accept'
