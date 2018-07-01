@@ -1,1 +1,3 @@
 .DS_Store
+lambda-notes/functions/node_modules/
+.env
