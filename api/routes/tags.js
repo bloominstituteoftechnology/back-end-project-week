@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const Tag = require('../models/Tag');
 const { sendErr, sendRes } = require('../utils/apiResponses');
-const { authenticate } = require('../middleware');
+const { authenticate } = require('../middleware/auth');
 
 router
   .post('/', authenticate, (req, res) => {

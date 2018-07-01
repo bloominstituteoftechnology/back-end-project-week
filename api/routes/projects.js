@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 const Project = require('../models/Project');
 const Tag = require('../models/Tag');
 const { sendErr, sendRes } = require('../utils/apiResponses');
+const { authenticate } = require('../middleware/auth');
 const {
-  authenticate,
   isProjectUser,
   isProjectAdmin,
   getProjectAdmin
-} = require('../middleware');
+} = require('../middleware/projects');
 
 router
   .post('/', authenticate, (req, res) => {
@@ -99,7 +99,11 @@ router
     }
 
     if (!members.includes(req.admin)) {
-      return sendErr(res, '403', 'User cannot remove project admin from members.');
+      return sendErr(
+        res,
+        '403',
+        'User cannot remove project admin from members.'
+      );
     }
 
     if (authorized) {
