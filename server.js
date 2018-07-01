@@ -16,22 +16,30 @@ const corsOptions = {
 server.use(cors( corsOptions ));
 server.use(express.json());
 
-function restricted(req, res, next) {
-    const token = req.headers.authorization;
-    console.log(token)
-    if (token) {
-        console.log("if successful, run this block of code", token)
-        jwt.verify(token, secret, (err, decodedToken) => {
-            req.jwtPayload = decodedToken;
-            if (err) {
-                return res.status(401).json({ message: "Does not pass verification" })
-            }
-            next();
-        })
-    } else {
-        return res.status(401).json({ message: "Does not pass token" })
-    }
-}
+
+
+const validateToken = (req, res, next) => {
+  // this piece of middleware is taking the token delivered up to the server and verifying it
+  // if no token is found in the header, you'll get a 422 status code
+  // if token is not valid, you'll receive a 401 status code
+  const token = req.headers.authorization;
+  if (!token) {
+    res
+      .status(422)
+      .json({ error: 'No authorization token found on Authorization header' });
+  } else {
+    jwt.verify(token, secret, (err, decoded) => {
+      if (err) {
+        res
+          .status(401)
+          .json({ error: 'Token invalid, please login', message: err });
+      } else {
+        // token is valid, so continue on to the next middleware/request handler function
+        next();
+      }
+    });
+  }
+};
 
 const getNote = require('./backend/getNote/getNote.js');
 const createNote = require('./backend/createNote/createNote.js')
@@ -39,10 +47,10 @@ const deleteNote = require('./backend/deleteNote/deleteNote.js')
 const editNote = require('./backend/editNote/editNote.js')
 const userLogin = require('./backend/users/userController.js')
 
-server.use('/api/get', restricted, getNote);
-server.use('/api/create', restricted, createNote);
-server.use('/api/delete', restricted, deleteNote);
-server.use('/api/edit', restricted, editNote);
+server.use('/api/get', validateToken, getNote);
+server.use('/api/create', validateToken, createNote);
+server.use('/api/delete', validateToken, deleteNote);
+server.use('/api/edit', validateToken, editNote);
 server.use('/api/user/', userLogin);
 
 
