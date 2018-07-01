@@ -2,6 +2,7 @@ const express = require('express');// common js modules
 //import express from 'express'; es2015 modules
 const bodyParser = require('body-parser');
 require('dotenv').config();
+const helmet = require('helmet');
 const mongoose = require('mongoose');
 const CORS = require('cors');
 //const keys = require('./config/keys');
@@ -22,6 +23,7 @@ server.use((req, res, next) => {
 });
 server.use(bodyParser.json());
 server.use(CORS(corsOptions));
+server.use(helmet());
 
 //mongoose.connect(keys.mongoURI)
 
