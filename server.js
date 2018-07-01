@@ -40,10 +40,10 @@ const deleteNote = require('./backend/deleteNote/deleteNote.js')
 const editNote = require('./backend/editNote/editNote.js')
 const userLogin = require('./backend/users/userController.js')
 
-server.use('/api/get', authenticate, getNote);
-server.use('/api/create', authenticate, createNote);
-server.use('/api/delete', authenticate, deleteNote);
-server.use('/api/edit', authenticate, editNote);
+server.use('/api/get',  getNote);
+server.use('/api/create',  createNote);
+server.use('/api/delete',  deleteNote);
+server.use('/api/edit',  editNote);
 server.use('/api/user/', userLogin);
 
 
