@@ -28,11 +28,11 @@ router.get('/:userId/notes/', restricted, (req, res) => {
         .populate('notes', '_id title text')
         .then(user => {
             if (user === null) {
-                res.status(401).json('Resource not found.');
+                res.status(404).json('The requested resource was not found.');
                 return;
             }
             else if (user.username !== decoded.name) {
-                res.status(401).json('Resource not found.');
+                res.status(404).json('The requested resource was not found.');
                 return;
             }
             else {
@@ -49,18 +49,18 @@ router.get('/:userId/notes/:noteId', restricted, (req, res) => {
     User.findOne({ _id: userId, notes: noteId })
         .then(user => {
             if (user === null) {
-                res.status(401).json('Resource not found.');
+                res.status(404).json('The requested resource was not found.');
                 return;
             }
             else if (user.username !== decoded.name) {
-                res.status(401).json('Resource not found.');
+                res.status(404).json('The requested resource was not found.');
                 return;
             }
             else {
                 Note.findById(noteId)
                     .then(note => {
                         if (note === null) {
-                            res.status(401).json('Resource not found.');
+                            res.status(404).json('The requested resource was not found.');
                             return;
                         }
                         else {
@@ -73,7 +73,7 @@ router.get('/:userId/notes/:noteId', restricted, (req, res) => {
             }
         })
         .catch(error => {
-            res.status(500).json({ Error: error.message });
+            res.status(500).json('An internal server error occurred while retrieving a note from the database.');
         })
 });
 
@@ -83,11 +83,11 @@ router.post('/:userId/notes/', restricted, (req, res) => {
     User.findById(userId)
         .then(user => {
             if (user === null) {
-                res.status(401).json('Resource not found.');
+                res.status(404).json('The requested resource was not found.');
                 return;
             }
             else if (user.username !== decoded.name) {
-                res.status(401).json('Resource not found.');
+                res.status(404).json('The reqested resource was not found.');
                 return;
             }
             else {
@@ -96,18 +96,7 @@ router.post('/:userId/notes/', restricted, (req, res) => {
                         User.findByIdAndUpdate(userId, { $push: { notes: note._id } }, { new: true, runValidators: true })
                             .populate('notes', '_id title text')
                             .then(user => {
-                                if (user === null) {
-                                    Note.remove({ _id: note.id })
-                                        .then(note => {
-                                            res.status(401).json('Resource not found.')
-                                        })
-                                        .catch(error => {
-                                            res.status(500).json('An internal server error occurred while adding a note to the database.');
-                                        })
-                                }
-                                else {
-                                    res.status(201).json({ id: user._id, username: user.username, notes: user.notes })
-                                }
+                                res.status(201).json({ id: user._id, username: user.username, notes: user.notes }); 
                             })
                             .catch(error => {
                                 res.status(500).json('An internal server error occurred while adding a note to the database.');
@@ -129,18 +118,18 @@ router.put('/:userId/notes/:noteId', restricted, (req, res) => {
     User.findById(userId)
         .then(user => {
             if (user === null) {
-                res.status(401).json('Resource not found.');
+                res.status(404).json('The requested resource was not found.');
                 return;
             }
             else if (user.username !== decoded.name) {
-                res.status(401).json('Resource not found.');
+                res.status(404).json('The requested resource was not found.');
                 return;
             }
             else {
                 User.findOne({ _id: userId, notes: noteId })
                     .then(user => {
                         if (user === null) {
-                            res.status(401).json('Resource not found.');
+                            res.status(404).json('The requested resource was not found.');
                             return;
                         }
                         else {
@@ -168,25 +157,25 @@ router.delete('/:userId/notes/:noteId', restricted, (req, res) => {
     User.findById(userId)
         .then(user => {
             if (user === null) {
-                res.status(401).json('Resource not found.');
+                res.status(404).json('The requested resource was not found.');
                 return;
             }
             else if (user.username !== decoded.name) {
-                res.status(401).json('Resource not found.');
+                res.status(404).json('The requested resource was not found.');
                 return;
             }
             else {
                 User.findByIdAndUpdate(userId, { $pull: { notes: noteId } }, { new: true, runValidators: true })
                     .then(user => {
                         if (user === null) {
-                            res.status(401).json('Resource not found.');
+                            res.status(404).json('The requested resource was not found.');
                             return;
                         }
                         else {
                             Note.remove({ _id: noteId })
                                 .then(note => {
                                     if (note.n === 0) {
-                                        res.status(401).json('Resource not found.');
+                                        res.status(404).json('The requested resource was not found.');
                                         return;
                                     }
                                     else {

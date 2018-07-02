@@ -1,12 +1,21 @@
 .signup {
     background: #F3F3F3; 
+    margin: 0; 
     min-height: 100%; 
     width: 75%; 
 }
 
 .signup form {
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: space-around; 
     margin: 115px auto; 
-    width: 45%; 
+    width: 80%; 
+}
+
+.signup form div {
+    width: 37%;
+    margin: 0 0 14px 0; 
 }
 
 .signup form input {
@@ -17,29 +26,44 @@
     width: 100%;  
 }
 
-.secondDiv {
-    margin: 14px 0 0 0; 
+.submitButton {
+    cursor: pointer;
+    width: 27% !important; 
+    margin: 0 auto !important; 
 }
 
-.thirdDiv {
-    width: 34%; 
-    margin: 0 auto; 
-}
-
-.signup form button {
+.submitButton button {
     background: #2BC1C4; 
     border: 1.5px solid #979797; 
     color: #FFFFFF; 
+    cursor: pointer;
+    display: block; 
     font-family: Raleway; 
     font-weight: bold; 
-    margin: 14px 0 0 0; 
-    width: 100%; 
+    width: 70%;
+    margin: 0 auto;  
 }
 
-.error {
-    width: 53%;
+.usernameError {
+    width: 80% !important;
     color: red;
     font-weight: bold;
     font-size: 9px;
-    margin: 0 auto;
+    margin: 0 auto !important;
+}
+
+.emailError {
+    color: red; 
+    font-weight: bold; 
+    font-size: 9px; 
+    margin: 0 auto !important; 
+    width: 100% !important; 
+}
+
+.passwordError {
+    color: red; 
+    font-weight: bold; 
+    font-size: 9px; 
+    margin: 0 auto !important; 
+    width: 55% !important; 
 }
