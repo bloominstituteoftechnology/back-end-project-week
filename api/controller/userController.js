@@ -2,6 +2,8 @@ const router = require('express').Router();
 const User = require('../model/User.js');
 const Note = require('../model/Note.js');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const SALT_ROUNDS = 12;
 
 const protectedPath = (req, res, next) => {
   const token = req.headers.authorization;
@@ -20,11 +22,6 @@ const protectedPath = (req, res, next) => {
 router.all('/*', protectedPath);
 
 router.route('/')
-    .get((req, res) => {
-        User.find()
-            .then(response => res.json(response))
-            .catch(err => res.status(500).json({ error: err.message }));
-    })
     .post((req, res) => {
         const newUser = ({ email, password } = req.body);
         User.create(newUser)
@@ -40,11 +37,25 @@ router.route('/:id')
             .catch(err => res.status(500).json({ error: err.message }));
     })
     .put((req, res) => {
-        const updateUser = ({ email, password, firstName, lastName } = req.body);
-        const { id } = req.params;
-        User.findByIdAndUpdate(id, updateUser)
-            .then(response => res.status(202).json(response))
-            .catch(err => res.status(500).json({ error: err.message }));
+        if (req.body.password !== '') {
+            bcrypt.hash(req.body.password, SALT_ROUNDS)
+            .then(hash => {
+                req.body.password = hash;
+                const updateUser = ({ email, firstName, lastName, password } = req.body);
+                const { id } = req.params;
+                User.findByIdAndUpdate(id, (updateUser))
+                    .then(response => {
+                        res.status(202).json(response)})
+                    .catch(err => res.status(500).json({ error: err.message }));
+                })
+            .catch(err => console.log(err));
+        } else {
+            const updateUser = ({ email, firstName, lastName, password } = req.body);
+            const { id } = req.params;
+            User.findByIdAndUpdate(id, (updateUser))
+                .then(response => res.status(202).json(response))
+                .catch(err => res.status(500).json({ error: err.message }));
+        }
     })
     .delete((req, res) => {
         const { id } = req.params;
