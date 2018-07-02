@@ -19,11 +19,6 @@ const protectedPath = (req, res, next) => {
 router.all('/*', protectedPath);
 
 router.route('/')
-    .get((req, res) => {
-        Note.find()
-            .then(response => res.json(response))
-            .catch(err => res.status(500).json({ error: err.message }));
-    })
     .post((req, res) => {
         const newNote = ({ title, body, email } = req.body);
         Note.create(newNote)
