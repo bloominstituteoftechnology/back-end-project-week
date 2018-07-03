@@ -744,6 +744,7 @@ paths:
       tags:
         - tasks
       summary: Get subtasks by task id
+      description: Returns subtasks belonging to {taskId} if requesting user is a member of the project {taskId} belongs to. It can only be performed by an authenticated user.
       operationId: getSubtasksByTaskId
       security:
         - bearerAuth: []
@@ -760,6 +761,8 @@ paths:
                   $ref: '#components/schemas/Subtask'
         '401':
           $ref: '#components/responses/401Unauthorized'
+        '403':
+          $ref: '#components/responses/403Forbidden'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':

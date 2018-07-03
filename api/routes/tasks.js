@@ -55,20 +55,25 @@ router
       sendErr(res, '403', 'User is not authorized to perform this action.');
     }
   })
-  .get('/:id/subtasks', authenticate, (req, res) => {
+  .get('/:id/subtasks', authenticate, isTaskAccessible, (req, res) => {
     const { id } = req.params;
+    const authorized = req.taskAccessible;
 
-    Subtask.find({ task: id })
-      .then(subtasks => {
-        sendRes(res, '200', subtasks);
-      })
-      .catch(err => {
-        sendErr(
-          res,
-          err,
-          `The subtasks for task ${id} could not be retrieved.`
-        );
-      });
+    if (authorized) {
+      Subtask.find({ task: id })
+        .then(subtasks => {
+          sendRes(res, '200', subtasks);
+        })
+        .catch(err => {
+          sendErr(
+            res,
+            err,
+            `The subtasks for task ${id} could not be retrieved.`
+          );
+        });
+    } else {
+      sendErr(res, '403', 'User is not authorized to perform this action.');
+    }
   })
   .get('/:id/comments', authenticate, (req, res) => {
     const { id } = req.params;
