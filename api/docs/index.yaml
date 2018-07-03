@@ -654,6 +654,7 @@ paths:
       tags:
         - tasks
       summary: Get task by id
+      description: Returns task with {taskId} if requesting user is a member of the project {taskId} belongs to. It can only be performed by an authenticated user.
       operationId: getTaskById
       security:
         - bearerAuth: []
@@ -668,6 +669,8 @@ paths:
                 $ref: '#components/schemas/Task'
         '401':
           $ref: '#components/responses/401Unauthorized'
+        '403':
+          $ref: '#components/responses/403Forbidden'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':

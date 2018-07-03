@@ -1,9 +1,6 @@
-// {
-//   "project": "5b35c93a04378a66dba8d1a3",
-//     "title": "Model data"
-// }
-
 const Project = require('../models/Project');
+const Task = require('../models/Task');
+const { sendErr } = require('../utils/apiResponses');
 
 const isProjectMember = (req, res, next) => {
   const projectId = req.body.project;
@@ -17,6 +14,23 @@ const isProjectMember = (req, res, next) => {
     .catch(err => {
       req.validMember = false;
       next();
+    });
+};
+
+const isTaskAccessible = (req, res, next) => {
+  const taskId = req.params.id;
+  const currentUser = req.tokenPayload.userid;
+
+  Task.findById(taskId)
+    .populate('project')
+    .then(task => {
+      req.taskAccessible =
+        task.project.members.filter(member => member.toString() === currentUser)
+          .length === 1;
+      next();
+    })
+    .catch(err => {
+      sendErr(res, err, `The task with id ${taskId} could not be retrieved.`);
     });
 };
 
@@ -36,5 +50,6 @@ const getProjects = (req, res, next) => {
 
 module.exports = {
   isProjectMember: isProjectMember,
+  isTaskAccessible: isTaskAccessible,
   getProjects: getProjects
 };

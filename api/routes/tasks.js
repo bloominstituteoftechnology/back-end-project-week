@@ -5,7 +5,11 @@ const Comment = require('../models/Comment');
 const Attachment = require('../models/Attachment');
 const { sendErr, sendRes } = require('../utils/apiResponses');
 const { authenticate } = require('../middleware/auth');
-const { isProjectMember, getProjects } = require('../middleware/tasks');
+const {
+  isProjectMember,
+  isTaskAccessible,
+  getProjects
+} = require('../middleware/tasks');
 
 router
   .post('/', authenticate, isProjectMember, (req, res) => {
@@ -27,7 +31,7 @@ router
   .get('/', authenticate, getProjects, (req, res) => {
     const validProjects = req.projects;
 
-    Task.find({ project: { $in: validProjects}})
+    Task.find({ project: { $in: validProjects } })
       .then(tasks => {
         sendRes(res, '200', tasks);
       })
@@ -35,16 +39,21 @@ router
         sendErr(res, err, 'The list of tasks could not be retrieved.');
       });
   })
-  .get('/:id', authenticate, (req, res) => {
+  .get('/:id', authenticate, isTaskAccessible, (req, res) => {
     const { id } = req.params;
+    const authorized = req.taskAccessible;
 
-    Task.findById(id)
-      .then(task => {
-        sendRes(res, '200', task);
-      })
-      .catch(err => {
-        sendErr(res, err, `The task with id ${id} could not be retrieved.`);
-      });
+    if (authorized) {
+      Task.findById(id)
+        .then(task => {
+          sendRes(res, '200', task);
+        })
+        .catch(err => {
+          sendErr(res, err, `The task with id ${id} could not be retrieved.`);
+        });
+    } else {
+      sendErr(res, '403', 'User is not authorized to perform this action.');
+    }
   })
   .get('/:id/subtasks', authenticate, (req, res) => {
     const { id } = req.params;
