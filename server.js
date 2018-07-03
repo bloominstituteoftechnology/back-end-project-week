@@ -49,7 +49,7 @@ server.use('/api/user/', userLogin);
 
 
 server.get('/', (req, res)=>{
-    res.status(200).json({ DB: `${process.env.mongoUrl}`})
+    res.status(200).json({ DB: `${process.env.mongoUrl}`, cors: corsOptions})
 })
 
 mongoose.Promise = global.Promise;
