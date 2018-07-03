@@ -2,7 +2,7 @@ const express = require( 'express' );
 const router = express.Router();
 
 const Notes = require( '../notesModel/notesModel.js' )
-
+//this router will allow me to post new info to my database 
 router
     .route( '/note' )
     .post( ( req, res ) =>

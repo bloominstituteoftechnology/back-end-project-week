@@ -2,7 +2,7 @@ const express = require( 'express' );
 const router = express.Router();
 
 const Notes = require( '../notesModel/notesModel.js' )
-
+// this  get note
 router
     .route( '/' )
     .get( ( req, res ) =>
@@ -16,7 +16,7 @@ router
             .catch( err =>
             {
                 console.log( err );
-                res.status( 500 ).json( { errorMessage: err } )
+                res.status( 500 ).json( { errorMessage: 'can not find note' } )
             } )
     } )
 
