@@ -164,7 +164,7 @@ paths:
       tags:
         - projects
       summary: Create a new project
-      description: This creates a new project and automatically assigns requesting user to createdBy and members. It can only be performed by an authenticated user.
+      description: Creates a new project and automatically assigns requesting user to admin and members. It can only be performed by an authenticated user.
       operationId: createProject
       security:
         - bearerAuth: []
@@ -367,7 +367,7 @@ paths:
       tags:
         - projects
       summary: Delete a project
-      description: This deletes an existing project. It can only be performed by an authenticated user and the user must be the user who created the project.
+      description: Deletes an existing project. It can only be performed by an authenticated user and the user must be the user who created the project.
       operationId: deleteProject
       security:
         - bearerAuth: []
@@ -602,7 +602,7 @@ paths:
       tags:
         - tasks
       summary: Create a new task
-      description: This creates a new task for a project. It can only be performed by an authenticated user and that user must be a member of the project.
+      description: Creates a new task for a project. It can only be performed by an authenticated user and that user must be a member of the project.
       operationId: createTask
       security:
         - bearerAuth: []
@@ -819,7 +819,7 @@ paths:
       tags:
         - users
       summary: Get all existing users
-      description: This returns a list of all users. It can only be performed by an authenticated user.
+      description: Returns a list of all users. It can only be performed by an authenticated user.
       operationId: getAllUsers
       security:
         - bearerAuth: []
@@ -859,7 +859,7 @@ paths:
       tags:
         - users
       summary: Create a new user
-      description: This creates a new user, ideally with data submitted via a form. Returns a token to make further requests.
+      description: Creates a new user, ideally with data submitted via a form. Returns a token to make further requests.
       operationId: createUser
       requestBody:
         description: New user object
@@ -893,7 +893,7 @@ paths:
       tags:
         - users
       summary: Log user in
-      description: This allows registered users to log into the system and recieve a token to make further requests
+      description: Allows a registered user to log into the system and recieve a token to make further requests
       operationId: loginUser
       requestBody:
         description: User credentials
@@ -939,7 +939,7 @@ paths:
       tags:
         - users
       summary: Get user by id
-      description: This returns a single user. It can only be performed by an authenticated user.
+      description: Returns a single user. It can only be performed by an authenticated user.
       operationId: getUserById
       security:
         - bearerAuth: []
@@ -975,8 +975,8 @@ paths:
     put:
       tags:
         - users
-      summary: Update an existing user. Replaces entire object.
-      description: This updates a user profile. It can only be performed by an authenticated user and users may only edit their own profile.
+      summary: Update an existing user.
+      description: Updates a user profile. It can only be performed by an authenticated user and users may only edit their own profile.
       operationId: updateUser
       security:
         - bearerAuth: []
@@ -1024,7 +1024,7 @@ paths:
       tags:
         - users
       summary: Deletes a user
-      description: This deletes a user. It can only be performed by an authenticated user and users may only delete their own profile.
+      description: Deletes a user. It can only be performed by an authenticated user and users may only delete their own profile.
       operationId: deleteUser
       security:
         - bearerAuth: []
