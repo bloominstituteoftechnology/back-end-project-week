@@ -95,20 +95,25 @@ router
       sendErr(res, '403', 'User is not authorized to perform this action.');
     }
   })
-  .get('/:id/attachments', authenticate, (req, res) => {
+  .get('/:id/attachments', authenticate, isTaskAccessible, (req, res) => {
     const { id } = req.params;
+    const authorized = req.taskAccessible;
 
-    Attachment.find({ task: id })
-      .then(attachments => {
-        sendRes(res, '200', attachments);
-      })
-      .catch(err => {
-        sendErr(
-          res,
-          err,
-          `The attachments for task ${id} could not be retrieved.`
-        );
-      });
+    if (authorized) {
+      Attachment.find({ task: id })
+        .then(attachments => {
+          sendRes(res, '200', attachments);
+        })
+        .catch(err => {
+          sendErr(
+            res,
+            err,
+            `The attachments for task ${id} could not be retrieved.`
+          );
+        });
+    } else {
+      sendErr(res, '403', 'User is not authorized to perform this action.');
+    }
   })
   .put('/:id', authenticate, isTaskAccessible, (req, res) => {
     const { id } = req.params;

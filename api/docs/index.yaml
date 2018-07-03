@@ -800,6 +800,7 @@ paths:
       tags:
         - tasks
       summary: Get attachments by task id
+      description: Returns attachments belonging to {taskId} if requesting user is a member of the project {taskId} belongs to. It can only be performed by an authenticated user.
       operationId: getAttachmentsByTaskId
       security:
         - bearerAuth: []
@@ -816,6 +817,8 @@ paths:
                   $ref: '#components/schemas/Attachment'
         '401':
           $ref: '#components/responses/401Unauthorized'
+        '403':
+          $ref: '#components/responses/403Forbidden'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
