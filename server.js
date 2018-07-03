@@ -20,7 +20,8 @@ server.use(express.json());
 
 
 const authenticate = (req, res, next) => {
-    const token = req.get('Authorization');
+    //const token = req.get('Authorization');
+    const token = req.headers.authorization;
     console.log(token);
     if (token) {
         jwt.verify(token, mysecret, (err, decoded) => {
