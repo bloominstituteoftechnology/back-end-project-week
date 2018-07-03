@@ -75,20 +75,25 @@ router
       sendErr(res, '403', 'User is not authorized to perform this action.');
     }
   })
-  .get('/:id/comments', authenticate, (req, res) => {
+  .get('/:id/comments', authenticate, isTaskAccessible, (req, res) => {
     const { id } = req.params;
+    const authorized = req.taskAccessible;
 
-    Comment.find({ task: id })
-      .then(comments => {
-        sendRes(res, '200', comments);
-      })
-      .catch(err => {
-        sendErr(
-          res,
-          err,
-          `The comments for task ${id} could not be retrieved.`
-        );
-      });
+    if (authorized) {
+      Comment.find({ task: id })
+        .then(comments => {
+          sendRes(res, '200', comments);
+        })
+        .catch(err => {
+          sendErr(
+            res,
+            err,
+            `The comments for task ${id} could not be retrieved.`
+          );
+        });
+    } else {
+      sendErr(res, '403', 'User is not authorized to perform this action.');
+    }
   })
   .get('/:id/attachments', authenticate, (req, res) => {
     const { id } = req.params;

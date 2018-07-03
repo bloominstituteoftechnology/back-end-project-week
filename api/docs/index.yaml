@@ -772,6 +772,7 @@ paths:
       tags:
         - tasks
       summary: Get comments by task id
+      description: Returns comments belonging to {taskId} if requesting user is a member of the project {taskId} belongs to. It can only be performed by an authenticated user.
       operationId: getCommentsByTaskId
       security:
         - bearerAuth: []
@@ -788,6 +789,8 @@ paths:
                   $ref: '#components/schemas/Comment'
         '401':
           $ref: '#components/responses/401Unauthorized'
+        '403':
+          $ref: '#components/responses/403Forbidden'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
