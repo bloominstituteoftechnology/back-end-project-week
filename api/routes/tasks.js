@@ -121,16 +121,21 @@ router
       sendErr(res, '403', 'User is not authorized to perform this action.');
     }
   })
-  .delete('/:id', authenticate, (req, res) => {
+  .delete('/:id', authenticate, isTaskAccessible, (req, res) => {
     const { id } = req.params;
+    const authorized = req.taskAccessible;
 
-    Task.findByIdAndRemove(id)
-      .then(deletedTask => {
-        sendRes(res, '200', deletedTask ? { _id: deletedTask._id } : null);
-      })
-      .catch(err => {
-        sendErr(res, err, `The task with id ${id} could not be removed.`);
-      });
+    if (authorized) {
+      Task.findByIdAndRemove(id)
+        .then(deletedTask => {
+          sendRes(res, '200', deletedTask ? { _id: deletedTask._id } : null);
+        })
+        .catch(err => {
+          sendErr(res, err, `The task with id ${id} could not be removed.`);
+        });
+    } else {
+      sendErr(res, '403', 'User is not authorized to perform this action.');
+    }
   });
 
 module.exports = {

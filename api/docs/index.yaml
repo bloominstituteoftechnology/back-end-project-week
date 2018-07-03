@@ -713,6 +713,7 @@ paths:
       tags:
         - tasks
       summary: Delete a task
+      description: Deletes task with {taskId} if requesting user is a member of the project {taskId} belongs to. It can only be performed by an authenticated user.
       operationId: deleteTask
       security:
         - bearerAuth: []
@@ -732,6 +733,8 @@ paths:
                   _id: 5b33e2dfc55019773e08217d
         '401':
           $ref: '#components/responses/401Unauthorized'
+        '403':
+          $ref: '#components/responses/403Forbidden'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
