@@ -5,7 +5,7 @@ const Comment = require('../models/Comment');
 const Attachment = require('../models/Attachment');
 const { sendErr, sendRes } = require('../utils/apiResponses');
 const { authenticate } = require('../middleware/auth');
-const { isProjectMember } = require('../middleware/tasks');
+const { isProjectMember, getProjects } = require('../middleware/tasks');
 
 router
   .post('/', authenticate, isProjectMember, (req, res) => {
@@ -24,8 +24,10 @@ router
       sendErr(res, '403', 'User is not authorized to perform this action.');
     }
   })
-  .get('/', authenticate, (req, res) => {
-    Task.find()
+  .get('/', authenticate, getProjects, (req, res) => {
+    const validProjects = req.projects;
+
+    Task.find({ project: { $in: validProjects}})
       .then(tasks => {
         sendRes(res, '200', tasks);
       })

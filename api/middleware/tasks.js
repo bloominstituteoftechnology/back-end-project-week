@@ -1,3 +1,8 @@
+// {
+//   "project": "5b35c93a04378a66dba8d1a3",
+//     "title": "Model data"
+// }
+
 const Project = require('../models/Project');
 
 const isProjectMember = (req, res, next) => {
@@ -15,6 +20,21 @@ const isProjectMember = (req, res, next) => {
     });
 };
 
+const getProjects = (req, res, next) => {
+  const currentUser = req.tokenPayload.userid;
+
+  Project.find({ members: currentUser })
+    .then(projects => {
+      req.projects = projects.map(project => project._id);
+      next();
+    })
+    .catch(err => {
+      req.projects = [];
+      next();
+    });
+};
+
 module.exports = {
-  isProjectMember: isProjectMember
+  isProjectMember: isProjectMember,
+  getProjects: getProjects
 };

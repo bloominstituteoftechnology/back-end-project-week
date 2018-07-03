@@ -513,7 +513,6 @@ paths:
       tags:
         - tags
       summary: Create a new tag
-      description: This creates a new task for a project. It can only be performed by an authenticated user and that user must be a member of the project.
       operationId: createTag
       security:
         - bearerAuth: []
@@ -603,6 +602,7 @@ paths:
       tags:
         - tasks
       summary: Create a new task
+      description: This creates a new task for a project. It can only be performed by an authenticated user and that user must be a member of the project.
       operationId: createTask
       security:
         - bearerAuth: []
@@ -624,12 +624,15 @@ paths:
           $ref: '#components/responses/400BadRequest'
         '401':
           $ref: '#components/responses/401Unauthorized'
+        '403':
+          $ref: '#components/responses/403Forbidden'
         '500':
           $ref: '#components/responses/500InternalServerError'
     get:
       tags:
         - tasks
       summary: Get all existing tasks
+      description: Returns a list of all tasks from projects the requesting user is a member of. It can only be performed by an authenticated user. If the user does not belong to any projects it returns an empty array. 
       operationId: getAllTasks
       security:
         - bearerAuth: []
