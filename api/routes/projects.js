@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 const Project = require('../models/Project');
 const Tag = require('../models/Tag');
 const { sendErr, sendRes } = require('../utils/apiResponses');
-const { authenticate } = require('../middleware/auth');
+const { authenticate } = require('../middleware/authentication');
+const { getProjectAdmin } = require('../middleware/getters');
 const {
-  isProjectMember,
   isProjectAdmin,
-  getProjectAdmin
-} = require('../middleware/projects');
+  isProjectMember
+} = require('../middleware/permissions');
 
 router
   .post('/', authenticate, (req, res) => {

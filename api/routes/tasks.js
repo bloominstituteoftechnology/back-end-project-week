@@ -4,12 +4,12 @@ const Subtask = require('../models/Subtask');
 const Comment = require('../models/Comment');
 const Attachment = require('../models/Attachment');
 const { sendErr, sendRes } = require('../utils/apiResponses');
-const { authenticate } = require('../middleware/auth');
+const { authenticate } = require('../middleware/authentication');
+const { getProjects } = require('../middleware/getters');
 const {
   isProjectMember,
-  isTaskAccessible,
-  getProjects
-} = require('../middleware/tasks');
+  isTaskAccessible
+} = require('../middleware/permissions');
 
 router
   .post('/', authenticate, isProjectMember, (req, res) => {

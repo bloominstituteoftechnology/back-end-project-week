@@ -2,8 +2,23 @@ const Project = require('../models/Project');
 const Task = require('../models/Task');
 const { sendErr } = require('../utils/apiResponses');
 
+const isProjectAdmin = (req, res, next) => {
+  const projectId = req.params.id;
+  const currentUser = req.tokenPayload.userid;
+
+  Project.findById(projectId)
+    .then(project => {
+      req.projectAdmin = project.admin.toString() === currentUser;
+      next();
+    })
+    .catch(err => {
+      req.projectAdmin = false;
+      next();
+    });
+};
+
 const isProjectMember = (req, res, next) => {
-  const projectId = req.body.project;
+  const projectId = req.body.project || req.params.id;
   const currentUser = req.tokenPayload.userid;
 
   Project.findById(projectId)
@@ -34,22 +49,8 @@ const isTaskAccessible = (req, res, next) => {
     });
 };
 
-const getProjects = (req, res, next) => {
-  const currentUser = req.tokenPayload.userid;
-
-  Project.find({ members: currentUser })
-    .then(projects => {
-      req.projects = projects.map(project => project._id);
-      next();
-    })
-    .catch(err => {
-      req.projects = [];
-      next();
-    });
-};
-
 module.exports = {
+  isProjectAdmin: isProjectAdmin,
   isProjectMember: isProjectMember,
-  isTaskAccessible: isTaskAccessible,
-  getProjects: getProjects
+  isTaskAccessible: isTaskAccessible
 };

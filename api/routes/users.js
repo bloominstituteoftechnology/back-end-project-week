@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const User = require('../models/User');
 const { sendErr, sendRes } = require('../utils/apiResponses');
-const { generateToken, authenticate } = require('../middleware/auth');
+const { generateToken, authenticate } = require('../middleware/authentication');
 
 router
   .post('/register', (req, res) => {
