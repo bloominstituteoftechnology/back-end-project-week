@@ -678,7 +678,8 @@ paths:
     put:
       tags:
         - tasks
-      summary: Update an existing task. Replaces entire object.
+      summary: Update an existing task.
+      description: Updates task with {taskId} if requesting user is a member of the project {taskId} belongs to. It can only be performed by an authenticated user.
       operationId: updateTask
       security:
         - bearerAuth: []
@@ -702,6 +703,8 @@ paths:
           $ref: '#components/responses/400BadRequest'
         '401':
           $ref: '#components/responses/401Unauthorized'
+        '403':
+          $ref: '#components/responses/403Forbidden'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':

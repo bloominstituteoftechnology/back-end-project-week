@@ -100,21 +100,26 @@ router
         );
       });
   })
-  .put('/:id', authenticate, (req, res) => {
+  .put('/:id', authenticate, isTaskAccessible, (req, res) => {
     const { id } = req.params;
     const updatedTask = req.body;
+    const authorized = req.taskAccessible;
     const options = {
       new: true,
       runValidators: true
     };
 
-    Task.findByIdAndUpdate(id, updatedTask, options)
-      .then(updatedTask => {
-        sendRes(res, '200', updatedTask);
-      })
-      .catch(err => {
-        sendErr(res, err, `The task with id ${id} could not be modified.`);
-      });
+    if (authorized) {
+      Task.findByIdAndUpdate(id, updatedTask, options)
+        .then(updatedTask => {
+          sendRes(res, '200', updatedTask);
+        })
+        .catch(err => {
+          sendErr(res, err, `The task with id ${id} could not be modified.`);
+        });
+    } else {
+      sendErr(res, '403', 'User is not authorized to perform this action.');
+    }
   })
   .delete('/:id', authenticate, (req, res) => {
     const { id } = req.params;
