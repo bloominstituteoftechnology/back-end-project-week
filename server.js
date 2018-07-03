@@ -9,8 +9,8 @@ require('dotenv').config();
 const server = express();
 
 const corsOptions = {
-    //origin: "https://clever-einstein-e635c5.netlify.com", //allow only the React application to connect
-    origin: "http://localhost:3000/",
+    origin: "https://clever-einstein-e635c5.netlify.com", //allow only the React application to connect
+    //origin: "http://localhost:3000/",
     credentials: true, // sets the Acess-Control-Allow-Credential CORS header
 };
 
