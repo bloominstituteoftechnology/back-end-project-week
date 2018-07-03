@@ -20,7 +20,6 @@ server.use(express.json());
 
 
 const authenticate = (req, res, next) => {
-    //const token = req.get('Authorization');
     const token = req.headers.authorization;
     console.log(token);
     if (token) {
@@ -43,9 +42,9 @@ const editNote = require('./backend/editNote/editNote.js')
 const userLogin = require('./backend/users/userController.js')
 
 server.use('/api/get', authenticate, getNote);
-server.use('/api/create', authenticate, createNote);
+server.use('/api/create',  createNote);
 server.use('/api/delete', authenticate, deleteNote);
-server.use('/api/edit', authenticate, editNote);
+server.use('/api/edit',  editNote);
 server.use('/api/user/', userLogin);
 
 
