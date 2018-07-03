@@ -9,8 +9,8 @@ require('dotenv').config();
 const server = express();
 
 const corsOptions = {
-    origin: "https://clever-einstein-e635c5.netlify.com", //allow only the React application to connect
-    //origin: "http://localhost:3000/",
+    //origin: "https://clever-einstein-e635c5.netlify.com", //allow only the React application to connect
+    origin: "http://localhost:3000/",
     credentials: true, // sets the Acess-Control-Allow-Credential CORS header
 };
 
@@ -42,9 +42,9 @@ const editNote = require('./backend/editNote/editNote.js')
 const userLogin = require('./backend/users/userController.js')
 
 server.use('/api/get', authenticate, getNote);
-server.use('/api/create',  createNote);
+server.use('/api/create', createNote);
 server.use('/api/delete', authenticate, deleteNote);
-server.use('/api/edit',  editNote);
+server.use('/api/edit', editNote);
 server.use('/api/user/', userLogin);
 
 
