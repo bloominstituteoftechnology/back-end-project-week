@@ -2,6 +2,7 @@ const router = require('express').Router();
 const Tag = require('../models/Tag');
 const { sendErr, sendRes } = require('../utils/apiResponses');
 const { authenticate } = require('../middleware/authentication');
+const { getProjectByTag } = require('../middleware/getters');
 const { isProjectMember } = require('../middleware/permissions');
 
 router
@@ -21,21 +22,26 @@ router
       sendErr(res, '403', 'User is not authorized to perform this action.');
     }
   })
-  .put('/:id', authenticate, (req, res) => {
+  .put('/:id', authenticate, getProjectByTag, isProjectMember, (req, res) => {
     const { id } = req.params;
     const updatedTag = req.body;
+    const authorized = req.validMember;
     const options = {
       new: true,
       runValidators: true
     };
 
-    Tag.findByIdAndUpdate(id, updatedTag, options)
-      .then(updatedTag => {
-        sendRes(res, '200', updatedTag);
-      })
-      .catch(err => {
-        sendErr(res, err, `The tag with id ${id} could not be modified.`);
-      });
+    if (authorized) {
+      Tag.findByIdAndUpdate(id, updatedTag, options)
+        .then(updatedTag => {
+          sendRes(res, '200', updatedTag);
+        })
+        .catch(err => {
+          sendErr(res, err, `The tag with id ${id} could not be modified.`);
+        });
+    } else {
+      sendErr(res, '403', 'User is not authorized to perform this action.');
+    }
   })
   .delete('/:id', authenticate, (req, res) => {
     const { id } = req.params;

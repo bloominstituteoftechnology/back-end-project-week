@@ -1,7 +1,22 @@
 const Project = require('../models/Project');
 const Subtask = require('../models/Subtask');
 const Comment = require('../models/Comment');
+const Tag = require('../models/Tag');
 const { sendErr } = require('../utils/apiResponses');
+
+const getProjectByTag = (req, res, next) => {
+  const tagId = req.params.id;
+
+  Tag.findById(tagId)
+    .then(tag => {
+      req.project = tag.project;
+      next();
+    })
+    .catch(err => {
+      sendErr(res, err, `The tag with id ${tagId} could not be retrieved.`);
+    });
+};
+
 const getProjects = (req, res, next) => {
   const currentUser = req.tokenPayload.userid;
 
@@ -65,6 +80,7 @@ const getTaskByComment = (req, res, next) => {
 };
 
 module.exports = {
+  getProjectByTag: getProjectByTag,
   getProjects: getProjects,
   getProjectAdmin: getProjectAdmin,
   getTaskByComment: getTaskByComment,

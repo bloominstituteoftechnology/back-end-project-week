@@ -561,7 +561,8 @@ paths:
     put:
       tags:
         - tags
-      summary: Update an existing tag. Replaces entire object.
+      summary: Update an existing tag
+      description: Updates an existing tag. It can only be performed by an authenticated user and that user must be a member of the project the tag belongs to.
       operationId: updateTag
       security:
         - bearerAuth: []
@@ -585,6 +586,8 @@ paths:
           $ref: '#components/responses/400BadRequest'
         '401':
           $ref: '#components/responses/401Unauthorized'
+        '403':
+          $ref: '#components/responses/403Forbidden'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':

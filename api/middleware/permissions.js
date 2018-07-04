@@ -42,7 +42,7 @@ const isProjectAdmin = (req, res, next) => {
 };
 
 const isProjectMember = (req, res, next) => {
-  const projectId = req.body.project || req.params.id;
+  const projectId = req.project || req.body.project || req.params.id;
   const currentUser = req.tokenPayload.userid;
 
   Project.findById(projectId)
