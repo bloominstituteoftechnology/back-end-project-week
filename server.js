@@ -40,12 +40,7 @@ server.use("/api/notes", noteController);
 server.get("/", (req, res) => {
     res.send({Success: "api is working..."});
 });
-server.get("/api/users", (req, res) => {
-    res.send({Success: "api/users is working..."});
-});
-server.get("/api/notes", (req, res) => {
-    res.send({Success: "api/notes is working..."});
-});
+
 
 server.listen(port, () => {
     console.log(`Server is listening on ${port}`)
