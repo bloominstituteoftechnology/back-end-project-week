@@ -3,12 +3,22 @@ const express = require( 'express' );
 const cors = require( 'cors' );
 const bodyParser = require( 'body-parser' );
 const mongoose = require( 'mongoose' );
+const jwt = require( 'jsonwebtoken' );
+const mysecret = 'April is gonna kick ass';
+
+require( 'dotenv' ).config();
 
 const server = express();
+
+const corsOptions = {
+    origin: "http://localhost:5000",
+    credentials: true,
+};
 //my server commmands
 
 server.use( cors() );
 server.use( express.json() );
+
 
 //where my information is getting imported from
 const getNote = require( './backend/getNote/getNote.js' );
@@ -24,12 +34,12 @@ server.use( '/api/get', getNote );
 server.use( '/api/create', createNote );
 server.use( '/api/delete', deleteNote );
 server.use( '/api/edit', editNote );
-
+ 
 //this shows me me that my server is running
 server.get( '/', ( req, res ) =>
 {
-    res.status( 200 ).json( { api: 'running' } )
-} )
+    res.send( '<h2>DB:${process.env.mongo}</h2>' );
+} );
 
 // mongoose.Promise = global.Promise;
 // mongoose.connect( 'mongo ds123981.mlab.com:23981/april ', {}, ( err =>

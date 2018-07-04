@@ -1,5 +1,9 @@
 const express = require( 'express' );
 const router = express.Router();
+const jwt = require( "jsonwebtoken" );
+
+
+
 
 const Notes = require( '../notesModel/notesModel.js' )
 //this router will allow me to post new info to my database 
