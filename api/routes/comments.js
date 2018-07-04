@@ -13,7 +13,8 @@ router
       task: task,
       comment: comment,
       author: author,
-      date: Date.now()
+      date: Date.now(),
+      edited: false
     };
 
     if (authorized) {
@@ -30,7 +31,11 @@ router
   })
   .put('/:id', authenticate, (req, res) => {
     const { id } = req.params;
-    const updatedComment = req.body;
+    const { comment } = req.body;
+    const updatedComment = {
+      comment: comment,
+      edited: true
+    };
     const options = {
       new: true,
       runValidators: true
