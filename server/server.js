@@ -11,7 +11,7 @@ db.connectTo('back-end-server')
     .then(() => {
         console.log('\n=== API connected to the back-end database. ===\n');
         server.listen(1433, () => {
-            console.log('\n=== API running on port 1433. ===\n')
+            console.log('\n=== API running on port 1433. ===\n');
         });
     })
     .catch(error => {

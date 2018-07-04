@@ -64,69 +64,36 @@ router.post('/signup', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-    const { username, password, email } = req.body;
-    if (username) {
-        User.findOne({ username })
-            .then(user => {
-                if (user) {
-                    user
-                        .validatePassword(password)
-                        .then(passwordsMatch => {
-                            if (passwordsMatch) {
-                                const token = generateToken(user);
-                                res.status(200).json({ id: user._id, notes: user.notes, token });
-                                return;
-                            }
-                            else {
-                                res.status(401).json('Invalid credentials. Try again.');
-                                return;
-                            }
-                        })
-                        .catch(error => {
-                            let errorReceived = errorReturn(error.errors, 'An internal server error occured while logging in.');
-                            res.status(errorReceived.status).json([errorReceived.path, errorReceived.message]);
-                        })
-                }
-                else {
-                    res.status(401).json('Invalid credentials. Try again.');
-                }
-            })
-            .catch(error => {
-                let errorReceived = errorReturn(error.errors, 'An internal server error occured while logging in.');
-                res.status(errorReceived.status).json([errorReceived.path, errorReceived.message]);
-            })
-    }
-    else if (email) {
-        User.findOne({ email })
-            .then(user => {
-                if (user) {
-                    user
-                        .validatePassword(password)
-                        .then(passwordsMatch => {
-                            if (passwordsMatch) {
-                                const token = generateToken(user);
-                                res.status(200).json({ id: user._id, notes: user.notes, token });
-                                return;
-                            }
-                            else {
-                                res.status(401).json('Invalid credentials. Try again.');
-                                return;
-                            }
-                        })
-                        .catch(error => {
-                            let errorReceived = errorReturn(error.errors, 'An internal server error occured while logging in.');
-                            res.status(errorReceived.status).json([errorReceived.path, errorReceived.message]);
-                        })
-                }
-                else {
-                    res.status(401).json('Invalid credentials. Try again.');
-                }
-            })
-            .catch(error => {
-                let errorReceived = errorReturn(error.errors, 'An internal server error occured while logging in.');
-                res.status(errorReceived.status).json([errorReceived.path, errorReceived.message]);
-            })
-    }
+    const { username, email, password, } = req.body;
+    User.findOne({ $or: [{ username }, { email }] })
+        .then(user => {
+            if (user) {
+                user
+                    .validatePassword(password)
+                    .then(passwordsMatch => {
+                        if (passwordsMatch) {
+                            const token = generateToken(user);
+                            res.status(200).json({ id: user._id, notes: user.notes, token });
+                            return;
+                        }
+                        else {
+                            res.status(401).json('Invalid credentials. Try again.');
+                            return;
+                        }
+                    })
+                    .catch(error => {
+                        let errorReceived = errorReturn(error.errors, 'An internal server error occured while logging in.');
+                        res.status(errorReceived.status).json([errorReceived.path, errorReceived.message]);
+                    })
+            }
+            else {
+                res.status(401).json('Invalid credentials. Try again.');
+            }
+        })
+        .catch(error => {
+            let errorReceived = errorReturn(error.errors, 'An internal server error occured while logging in.');
+            res.status(errorReceived.status).json([errorReceived.path, errorReceived.message]);
+        })
 });
 
 module.exports = router; 

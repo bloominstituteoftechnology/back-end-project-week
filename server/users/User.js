@@ -7,18 +7,19 @@ const User = new mongoose.Schema({
     firstname: {
         type: String,
         required: [true, 'The first name field is required.'],
-        maxlength: [20, 'The first name field may only be a maximum of 20 characters.'],
+        maxlength: [30, 'The first name field may only contain a maximum of 30 characters.'],
         validate: [validate.alpha, 'The first name field may only contain lowercase and uppercase letters.'],
     },
     lastname: {
         type: String,
         required: [true, 'The last name field is required.'],
-        maxlength: [20, 'The last name field may only be a maximum of 20 characters.'],
+        maxlength: [30, 'The last name field may only be a maximum of 30 characters.'],
         validate: [validate.alpha, 'The last name field may only contain lowercase and uppercase letters.']
     },
     email: {
         type: String,
         required: [true, 'The email field is required.'],
+        maxlength: [30, 'The email field may only contain a maximum of 30 characters.'],
         unique: true,
         lowercase: [true, 'The email field may only contain lowercase characters.'],
         validate: [validate.email, 'The email provided is invalid.']
@@ -49,7 +50,6 @@ User.pre('save', function (next) {
         .hash(this.password, 10)
         .then(hash => {
             this.password = hash;
-
             return next();
         })
         .catch(error => {

@@ -22,6 +22,26 @@ function restricted(req, res, next) {
     }
 };
 
+function errorReturn(error, msg) {
+    const fields = ['title', 'text']
+    for (let key in error) {
+        for (let field = 0; field < fields.length; field++) {
+            if (key === fields[field]) {
+                return {
+                    path: key,
+                    status: 400,
+                    message: error[key].message
+                }
+            }
+        }
+    }
+    return {
+        path: null,
+        status: 500,
+        message: msg
+    }
+};
+
 router.get('/:userId/notes/', restricted, (req, res) => {
     const { userId } = req.params;
     User.findById(userId)
@@ -36,6 +56,7 @@ router.get('/:userId/notes/', restricted, (req, res) => {
                 return;
             }
             else {
+                console.log('Notes', user.notes);
                 res.status(200).json({ id: user._id, username: user.username, notes: user.notes })
             }
         })
@@ -96,14 +117,15 @@ router.post('/:userId/notes/', restricted, (req, res) => {
                         User.findByIdAndUpdate(userId, { $push: { notes: note._id } }, { new: true, runValidators: true })
                             .populate('notes', '_id title text')
                             .then(user => {
-                                res.status(201).json({ id: user._id, username: user.username, notes: user.notes }); 
+                                res.status(201).json({ id: user._id, username: user.username, notes: user.notes });
                             })
                             .catch(error => {
                                 res.status(500).json('An internal server error occurred while adding a note to the database.');
                             })
                     })
                     .catch(error => {
-                        res.status(500).json('An internal server error occurred while adding a note to the database.');
+                        let errorReceived = errorReturn(error.errors, 'An internal server error occurred while adding a note to the database.');
+                        res.status(errorReceived.status).json([errorReceived.path, errorReceived.message]);
                     })
             }
         })
@@ -138,7 +160,8 @@ router.put('/:userId/notes/:noteId', restricted, (req, res) => {
                                     res.status(200).json({ title: note.title, text: note.text });
                                 })
                                 .catch(error => {
-                                    res.status(500).json('An internal server error occurred while modifying a note from the database.');
+                                    let errorReceived = errorReturn(error.errors, 'An internal server error occurred while modifying a note from the database.');
+                                    res.status(errorReceived.status).json([errorReceived.path, errorReceived.message]);
                                 })
                         }
                     })
@@ -165,21 +188,22 @@ router.delete('/:userId/notes/:noteId', restricted, (req, res) => {
                 return;
             }
             else {
-                User.findByIdAndUpdate(userId, { $pull: { notes: noteId } }, { new: true, runValidators: true })
-                    .then(user => {
-                        if (user === null) {
-                            res.status(404).json('The requested resource was not found.');
+                Note.findByIdAndRemove(noteId)
+                    .then(note => {
+                        if (note.n === 0) {
+                            res.status(404).json('The reqested resource was not found.');
                             return;
                         }
                         else {
-                            Note.remove({ _id: noteId })
-                                .then(note => {
-                                    if (note.n === 0) {
+                            User.findByIdAndUpdate(userId, { $pull: { notes: noteId } }, { new: true, runValidators: true })
+                                .then(user => {
+                                    if (user === null) {
                                         res.status(404).json('The requested resource was not found.');
                                         return;
                                     }
                                     else {
-                                        res.status(200).json('The note was deleted successfully.');
+                                        console.log('user', user);
+                                        res.status(200).json('The note was succesfully deleted.');
                                     }
                                 })
                                 .catch(error => {
@@ -188,12 +212,12 @@ router.delete('/:userId/notes/:noteId', restricted, (req, res) => {
                         }
                     })
                     .catch(error => {
-                        res.status(500).json('An internal server error occurred while modifying a note from the database.');
+                        res.status(500).json('An internal server error occurred while deleting a note from the database.');
                     })
             }
         })
         .catch(error => {
-            res.status(500).json('An internal server error occurred while modifying a note from the database.');
+            res.status(500).json('An internal server error occurred while deleting a note from the database.');
         })
 });
 
