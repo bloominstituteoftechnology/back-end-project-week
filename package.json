@@ -1,0 +1,22 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ckopecky/back-end-project-week.git",
+  "author": "Christina Kopecky <kopecky12112@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^2.0.1",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "helmet": "^3.12.1",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  },
+  "scripts": {
+    "start": "nodemon server.js"
+  }
+}
