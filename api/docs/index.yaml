@@ -79,6 +79,7 @@ paths:
       tags:
         - comments
       summary: Create a new comment
+      description: Creates a new comment for a task and automatically assigns requesting user as author and current date/time as date. It can only be performed by an authenticated user.
       operationId: createComment
       security:
         - bearerAuth: []
@@ -100,6 +101,8 @@ paths:
           $ref: '#components/responses/400BadRequest'
         '401':
           $ref: '#components/responses/401Unauthorized'
+        '403':
+          $ref: '#components/responses/403Forbidden'
         '500':
           $ref: '#components/responses/500InternalServerError'
   /api/comments/{commentId}:
