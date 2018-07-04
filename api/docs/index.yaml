@@ -531,6 +531,7 @@ paths:
       tags:
         - tags
       summary: Create a new tag
+      description: Creates a tag for specified project. It can only be performed by an authenticated user and that user must be a member of the project.
       operationId: createTag
       security:
         - bearerAuth: []

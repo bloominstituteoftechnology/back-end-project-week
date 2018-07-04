@@ -2,18 +2,24 @@ const router = require('express').Router();
 const Tag = require('../models/Tag');
 const { sendErr, sendRes } = require('../utils/apiResponses');
 const { authenticate } = require('../middleware/authentication');
+const { isProjectMember } = require('../middleware/permissions');
 
 router
-  .post('/', authenticate, (req, res) => {
+  .post('/', authenticate, isProjectMember, (req, res) => {
     const newTag = req.body;
+    const authorized = req.validMember;
 
-    Tag.create(newTag)
-      .then(tag => {
-        sendRes(res, '201', tag);
-      })
-      .catch(err => {
-        sendErr(res, err, 'The tag could not be created.');
-      });
+    if (authorized) {
+      Tag.create(newTag)
+        .then(tag => {
+          sendRes(res, '201', tag);
+        })
+        .catch(err => {
+          sendErr(res, err, 'The tag could not be created.');
+        });
+    } else {
+      sendErr(res, '403', 'User is not authorized to perform this action.');
+    }
   })
   .put('/:id', authenticate, (req, res) => {
     const { id } = req.params;
