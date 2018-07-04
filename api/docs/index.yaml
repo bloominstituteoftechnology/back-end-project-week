@@ -109,7 +109,8 @@ paths:
     put:
       tags:
         - comments
-      summary: Update an existing comment. Replaces entire object.
+      summary: Update an existing comment
+      description: Updates comment with {commentId} if requesting user is a member of the project {commentId} belongs to and the original author of the comment. It can only be performed by an authenticated user.
       operationId: updateComment
       security:
         - bearerAuth: []
@@ -133,6 +134,8 @@ paths:
           $ref: '#components/responses/400BadRequest'
         '401':
           $ref: '#components/responses/401Unauthorized'
+        '403':
+          $ref: '#components/responses/403Forbidden'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
@@ -308,7 +311,7 @@ paths:
     put:
       tags:
         - projects
-      summary: Update an existing project.
+      summary: Update an existing project
       description: Updates project with {projectId} if the requesting user is a member of that project. It can only be performed by an authenticated user and the project admin cannot be removed or modified.
       operationId: updateProject
       security:
@@ -690,7 +693,7 @@ paths:
     put:
       tags:
         - tasks
-      summary: Update an existing task.
+      summary: Update an existing task
       description: Updates task with {taskId} if requesting user is a member of the project {taskId} belongs to. It can only be performed by an authenticated user.
       operationId: updateTask
       security:
@@ -996,7 +999,7 @@ paths:
     put:
       tags:
         - users
-      summary: Update an existing user.
+      summary: Update an existing user
       description: Updates a user profile. It can only be performed by an authenticated user and users may only edit their own profile.
       operationId: updateUser
       security:
