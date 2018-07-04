@@ -596,6 +596,7 @@ paths:
       tags:
       - tags
       summary: Delete a tag
+      description: Deletes a tag. It can only be performed by an authenticated user and that user must be a member of the project the tag belongs to.
       operationId: deleteTag
       security:
         - bearerAuth: []
@@ -615,6 +616,8 @@ paths:
                   _id: 5b34370580f5b90ff8494ac4
         '401':
           $ref: '#components/responses/401Unauthorized'
+        '403':
+          $ref: '#components/responses/403Forbidden'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':

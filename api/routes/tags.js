@@ -43,17 +43,28 @@ router
       sendErr(res, '403', 'User is not authorized to perform this action.');
     }
   })
-  .delete('/:id', authenticate, (req, res) => {
-    const { id } = req.params;
+  .delete(
+    '/:id',
+    authenticate,
+    getProjectByTag,
+    isProjectMember,
+    (req, res) => {
+      const { id } = req.params;
+      const authorized = req.validMember;
 
-    Tag.findByIdAndRemove(id)
-      .then(deletedTag => {
-        sendRes(res, '200', deletedTag ? { _id: deletedTag._id } : null);
-      })
-      .catch(err => {
-        sendErr(res, err, `The tag with id ${id} could not be removed.`);
-      });
-  });
+      if (authorized) {
+        Tag.findByIdAndRemove(id)
+          .then(deletedTag => {
+            sendRes(res, '200', deletedTag ? { _id: deletedTag._id } : null);
+          })
+          .catch(err => {
+            sendErr(res, err, `The tag with id ${id} could not be removed.`);
+          });
+      } else {
+        sendErr(res, '403', 'User is not authorized to perform this action.');
+      }
+    }
+  );
 
 module.exports = {
   tagsRouter: router
