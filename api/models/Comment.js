@@ -20,7 +20,7 @@ const commentSchema = new mongoose.Schema({
   author: {
     type: ObjectId,
     ref: 'User',
-    required: [true, 'Authur of comment required'],
+    required: [true, 'Author of comment required'],
     validate: {
       isAsync: true,
       validator: (val, cb) => objectIdValid('User', val, cb),
@@ -31,6 +31,11 @@ const commentSchema = new mongoose.Schema({
     type: Date,
     required: [true, 'Comment date required'],
     default: Date.now()
+  },
+  edited: {
+    type: Boolean,
+    required: [true, 'Edited status required.'],
+    default: false
   }
 });
 

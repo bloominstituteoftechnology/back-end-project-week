@@ -1111,6 +1111,7 @@ components:
         - comment
         - author
         - date
+        - edited
       properties:
         task:
           description: Id of existing task that comment belongs to
@@ -1131,6 +1132,11 @@ components:
           type: string
           format: date
           example: 06/27/2018
+        edited:
+          description: Comment's edited status
+            type: boolean
+            default: false
+            example: false
     Project:
       title: Project
       required:
