@@ -12,14 +12,20 @@ const noteDefinition = {
         required: true,
         
     },
-    createdOn: {
-        type: Date,
-        default: Date.now
+    key: {
+        type: Number,
+        unique: true
     },
-    tag: { //comes from tags
+    tag_ids: {
+        type: [Number],
+    },
+    tag: [{ //comes from tags
         type: mongoose.Schema.Types.ObjectId,
         ref:"Tag"
-    },
+    }],
+    author_id: { 
+        type: Number
+    },   
     author: { //comes from users
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"

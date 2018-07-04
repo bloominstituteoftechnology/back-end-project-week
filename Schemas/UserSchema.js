@@ -10,20 +10,29 @@ const userDefinition = {
         type: String,
         required: true
     },
+    username_ids: {
+        type: Number
+    },
+    username: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Auth"
+    },
+    cohort_ids: {
+        type: Number
+    },
     cohort: { //comes from cohorts
         type: mongoose.Schema.Types.ObjectId,
         required: false,
         ref: 'Cohort'
+    },
+    note_ids: {
+        type: Number
     },
     notesWritten: { //comes from notes
         type: mongoose.Schema.Types.ObjectId,
         required: false,
         ref: 'Note'
     },
-    createdOn: {
-        type: Date,
-        default: Date.now
-    }
 };
 
 const userOptions = {

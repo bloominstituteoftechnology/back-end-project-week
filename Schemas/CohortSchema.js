@@ -6,7 +6,7 @@ const cohortSchema = new mongoose.Schema({
     }
 });
 
-const cohortModel = mongoose.model("Cohort", tagSchema, "cohorts");
+const cohortModel = mongoose.model("Cohort", cohortSchema, "cohorts");
 
 module.exports = cohortModel;
 

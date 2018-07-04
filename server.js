@@ -9,6 +9,9 @@ const port = process.env.PORT;
 
 const noteController = require("./Controllers/NoteController");
 const userController = require("./Controllers/UserController");
+const tagController = require("./Controllers/TagController");
+const cohortController = require("./Controllers/CohortController");
+const authController = require("./Controllers/AuthController");
 
 const cors = require("cors");
 const helmet = require("helmet");
@@ -36,6 +39,12 @@ server.use(helmet());
 
 server.use("/api/users", userController);
 server.use("/api/notes", noteController);
+server.use("/api/tags", tagController);
+server.use("/api/cohorts", cohortController);
+server.use("/api/auth", authController);
+
+
+
 
 server.get("/", (req, res) => {
     res.send({Success: "api is working..."});
