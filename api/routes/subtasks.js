@@ -2,6 +2,7 @@ const router = require('express').Router();
 const Subtask = require('../models/Subtask');
 const { sendErr, sendRes } = require('../utils/apiResponses');
 const { authenticate } = require('../middleware/authentication');
+const { getTaskBySubtask } = require('../middleware/getters');
 const { isTaskAccessible } = require('../middleware/permissions');
 
 router
@@ -42,21 +43,32 @@ router
       sendErr(res, '403', 'User is not authorized to perform this action.');
     }
   })
-  .delete('/:id', authenticate, (req, res) => {
-    const { id } = req.params;
+  .delete(
+    '/:id',
+    authenticate,
+    getTaskBySubtask,
+    isTaskAccessible,
+    (req, res) => {
+      const { id } = req.params;
+      const authorized = req.taskAccessible;
 
-    Subtask.findByIdAndRemove(id)
-      .then(deletedSubtask => {
-        sendRes(
-          res,
-          '200',
-          deletedSubtask ? { _id: deletedSubtask._id } : null
-        );
-      })
-      .catch(err => {
-        sendErr(res, err, `The subtask with id ${id} could not be removed.`);
-      });
-  });
+      if(authorized){
+        Subtask.findByIdAndRemove(id)
+          .then(deletedSubtask => {
+            sendRes(
+              res,
+              '200',
+              deletedSubtask ? { _id: deletedSubtask._id } : null
+            );
+          })
+          .catch(err => {
+            sendErr(res, err, `The subtask with id ${id} could not be removed.`);
+          });
+      } else {
+        sendErr(res, '403', 'User is not authorized to perform this action.');
+      }
+    }
+  );
 
 module.exports = {
   subtasksRouter: router

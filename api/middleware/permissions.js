@@ -33,7 +33,7 @@ const isProjectMember = (req, res, next) => {
 };
 
 const isTaskAccessible = (req, res, next) => {
-  const taskId = req.body.task || req.params.id;
+  const taskId = req.task || req.body.task || req.params.id;
   const currentUser = req.tokenPayload.userid;
 
   Task.findById(taskId)
