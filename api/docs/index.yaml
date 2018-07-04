@@ -144,6 +144,7 @@ paths:
       tags:
         - comments
       summary: Delete a comment
+      description: Deletes comment with {commentId} if requesting user is a member of the project {commentId} belongs to and the original author of the comment. It can only be performed by an authenticated user.
       operationId: deleteComment
       security:
         - bearerAuth: []
@@ -161,6 +162,8 @@ paths:
                     type: string
                 example:
                   _id: 5b3472c43d17952525612f9a
+        '403':
+          $ref: '#components/responses/403Forbidden'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':

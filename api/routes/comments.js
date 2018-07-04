@@ -36,13 +36,13 @@ router
   .put(
     '/:id',
     authenticate,
-    isCommentAccessible, 
+    isCommentAccessible,
     getTaskByComment,
     isTaskAccessible,
     (req, res) => {
       const { id } = req.params;
       const { comment } = req.body;
-      const authorized = req.taskAccessible;
+      const authorized = req.taskAccessible && req.commentAuthor;
       const updatedComment = {
         comment: comment,
         edited: true
@@ -69,21 +69,37 @@ router
       }
     }
   )
-  .delete('/:id', authenticate, (req, res) => {
-    const { id } = req.params;
+  .delete(
+    '/:id',
+    authenticate,
+    isCommentAccessible,
+    getTaskByComment,
+    isTaskAccessible,
+    (req, res) => {
+      const { id } = req.params;
+      const authorized = req.taskAccessible && req.commentAuthor;
 
-    Comment.findByIdAndRemove(id)
-      .then(deletedComment => {
-        sendRes(
-          res,
-          '200',
-          deletedComment ? { _id: deletedComment._id } : null
-        );
-      })
-      .catch(err => {
-        sendErr(res, err, `The comment with id ${id} could not be removed.`);
-      });
-  });
+      if (authorized) {
+        Comment.findByIdAndRemove(id)
+          .then(deletedComment => {
+            sendRes(
+              res,
+              '200',
+              deletedComment ? { _id: deletedComment._id } : null
+            );
+          })
+          .catch(err => {
+            sendErr(
+              res,
+              err,
+              `The comment with id ${id} could not be removed.`
+            );
+          });
+      } else {
+        sendErr(res, '403', 'User is not authorized to perform this action.');
+      }
+    }
+  );
 
 module.exports = {
   commentsRouter: router
