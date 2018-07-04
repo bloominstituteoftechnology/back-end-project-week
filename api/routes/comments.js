@@ -2,7 +2,11 @@ const router = require('express').Router();
 const Comment = require('../models/Comment');
 const { sendErr, sendRes } = require('../utils/apiResponses');
 const { authenticate } = require('../middleware/authentication');
-const { isTaskAccessible } = require('../middleware/permissions');
+const { getTaskByComment } = require('../middleware/getters');
+const {
+  isCommentAccessible,
+  isTaskAccessible
+} = require('../middleware/permissions');
 
 router
   .post('/', authenticate, isTaskAccessible, (req, res) => {
@@ -29,26 +33,42 @@ router
       sendErr(res, '403', 'User is not authorized to perform this action.');
     }
   })
-  .put('/:id', authenticate, (req, res) => {
-    const { id } = req.params;
-    const { comment } = req.body;
-    const updatedComment = {
-      comment: comment,
-      edited: true
-    };
-    const options = {
-      new: true,
-      runValidators: true
-    };
+  .put(
+    '/:id',
+    authenticate,
+    isCommentAccessible, 
+    getTaskByComment,
+    isTaskAccessible,
+    (req, res) => {
+      const { id } = req.params;
+      const { comment } = req.body;
+      const authorized = req.taskAccessible;
+      const updatedComment = {
+        comment: comment,
+        edited: true
+      };
+      const options = {
+        new: true,
+        runValidators: true
+      };
 
-    Comment.findByIdAndUpdate(id, updatedComment, options)
-      .then(updatedComment => {
-        sendRes(res, '200', updatedComment);
-      })
-      .catch(err => {
-        sendErr(res, err, `The comment with id ${id} could not be modified.`);
-      });
-  })
+      if (authorized) {
+        Comment.findByIdAndUpdate(id, updatedComment, options)
+          .then(updatedComment => {
+            sendRes(res, '200', updatedComment);
+          })
+          .catch(err => {
+            sendErr(
+              res,
+              err,
+              `The comment with id ${id} could not be modified.`
+            );
+          });
+      } else {
+        sendErr(res, '403', 'User is not authorized to perform this action.');
+      }
+    }
+  )
   .delete('/:id', authenticate, (req, res) => {
     const { id } = req.params;
 

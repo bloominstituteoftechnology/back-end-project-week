@@ -1,5 +1,6 @@
 const Project = require('../models/Project');
 const Subtask = require('../models/Subtask');
+const Comment = require('../models/Comment');
 const { sendErr } = require('../utils/apiResponses');
 const getProjects = (req, res, next) => {
   const currentUser = req.tokenPayload.userid;
@@ -38,12 +39,34 @@ const getTaskBySubtask = (req, res, next) => {
       next();
     })
     .catch(err => {
-      sendErr(res, err, `The subtask with id ${subtaskId} could not be retrieved.`);
+      sendErr(
+        res,
+        err,
+        `The subtask with id ${subtaskId} could not be retrieved.`
+      );
+    });
+};
+
+const getTaskByComment = (req, res, next) => {
+  const commentId = req.params.id;
+
+  Comment.findById(commentId)
+    .then(comment => {
+      req.task = comment.task;
+      next();
+    })
+    .catch(err => {
+      sendErr(
+        res,
+        err,
+        `The subtask with id ${commentId} could not be retrieved.`
+      );
     });
 };
 
 module.exports = {
   getProjects: getProjects,
   getProjectAdmin: getProjectAdmin,
+  getTaskByComment: getTaskByComment,
   getTaskBySubtask: getTaskBySubtask
 };

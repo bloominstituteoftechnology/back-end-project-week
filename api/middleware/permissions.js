@@ -1,6 +1,30 @@
 const Project = require('../models/Project');
 const Task = require('../models/Task');
+const Comment = require('../models/Comment');
 const { sendErr } = require('../utils/apiResponses');
+
+const isCommentAccessible = (req, res, next) => {
+  // is requesint user the user on the comment?
+  const commentId = req.params.id;
+  const currentUser = req.tokenPayload.userid;
+
+  Comment.findById(commentId)
+    .then(comment => {
+      if (comment.author.toString() === currentUser) {
+        req.commentAuthor = true;
+        next();
+      } else {
+        sendErr(res, '403', 'User is not authorized to perform this action.');
+      }
+    })
+    .catch(err => {
+      sendErr(
+        res,
+        err,
+        `The comment with id ${commentId} could not be retrieved.`
+      );
+    });
+};
 
 const isProjectAdmin = (req, res, next) => {
   const projectId = req.params.id;
@@ -39,7 +63,6 @@ const isTaskAccessible = (req, res, next) => {
   Task.findById(taskId)
     .populate('project')
     .then(task => {
-
       req.taskAccessible =
         task.project.members.filter(member => member.toString() === currentUser)
           .length === 1;
@@ -51,6 +74,7 @@ const isTaskAccessible = (req, res, next) => {
 };
 
 module.exports = {
+  isCommentAccessible: isCommentAccessible,
   isProjectAdmin: isProjectAdmin,
   isProjectMember: isProjectMember,
   isTaskAccessible: isTaskAccessible
