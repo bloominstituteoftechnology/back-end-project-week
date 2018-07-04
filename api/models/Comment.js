@@ -14,7 +14,8 @@ const commentSchema = new mongoose.Schema({
   },
   comment: {
     type: String,
-    required: [true, 'Comment required']
+    required: [true, 'Comment required'],
+    minlength: [1, 'Comment required']
   },
   author: {
     type: ObjectId,

@@ -39,6 +39,7 @@ const isTaskAccessible = (req, res, next) => {
   Task.findById(taskId)
     .populate('project')
     .then(task => {
+
       req.taskAccessible =
         task.project.members.filter(member => member.toString() === currentUser)
           .length === 1;
