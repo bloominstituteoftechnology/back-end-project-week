@@ -21,21 +21,26 @@ router
       sendErr(res, '403', 'User is not authorized to perform this action.');
     }
   })
-  .put('/:id', authenticate, (req, res) => {
+  .put('/:id', authenticate, isTaskAccessible, (req, res) => {
     const { id } = req.params;
     const updatedSubtask = req.body;
+    const authorized = req.taskAccessible;
     const options = {
       new: true,
       runValidators: true
     };
 
-    Subtask.findByIdAndUpdate(id, updatedSubtask, options)
-      .then(updatedSubtask => {
-        sendRes(res, '200', updatedSubtask);
-      })
-      .catch(err => {
-        sendErr(res, err, `The subtask with id ${id} could not be modified.`);
-      });
+    if (authorized) {
+      Subtask.findByIdAndUpdate(id, updatedSubtask, options)
+        .then(updatedSubtask => {
+          sendRes(res, '200', updatedSubtask);
+        })
+        .catch(err => {
+          sendErr(res, err, `The subtask with id ${id} could not be modified.`);
+        });
+    } else {
+      sendErr(res, '403', 'User is not authorized to perform this action.');
+    }
   })
   .delete('/:id', authenticate, (req, res) => {
     const { id } = req.params;

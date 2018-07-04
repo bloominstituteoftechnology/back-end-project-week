@@ -426,7 +426,7 @@ paths:
       tags:
         - subtasks
       summary: Create a new subtask
-      description: Creates a new subtask for a task. It can only be performed by an authenticated user and that user must be a member of the project the task belongs to.
+      description: Creates a new subtask for a task. It can only be performed by an authenticated user and that user must be a member of the project the subtask belongs to.
       operationId: createSubtask
       security:
         - bearerAuth: []
@@ -456,7 +456,8 @@ paths:
     put:
       tags:
         - subtasks
-      summary: Update an existing subtask. Replaces entire object.
+      summary: Update an existing subtask
+      description: Updates an existing subtask. It can only be performed by an authenticated user and that user must be a member of the project the subtask belongs to.
       operationId: updateSubtask
       security:
         - bearerAuth: []
@@ -480,6 +481,8 @@ paths:
           $ref: '#components/responses/400BadRequest'
         '401':
           $ref: '#components/responses/401Unauthorized'
+        '403':
+          $ref: '#components/responses/403Forbidden'
         '404':
           $ref: '#components/responses/404NotFound'
         '500':
