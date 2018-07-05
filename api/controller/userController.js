@@ -16,35 +16,36 @@ const protectedPath = (req, res, next) => {
       next();
     })
   } else {
-    return res.status(401).json({ message:  `You shall not pass` });
+    return res.status(401).json({ message:  `Not authorized.` });
   }
 }
 
 router.all('/*', protectedPath);
 
 router.route('/:id')
+
     .get((req, res) => {
         const { id } = req.params;
         const { userId } = req;
         if (id !== userId) {
-            return res.status(403).json({ message: `Wrong token.`});
+            return res.status(403).json({ message: `Not authorized.`});
         }
         User.findById(id)
             .then(response => res.json(response))
             .catch(err => res.status(500).json({ error: err.message }));
     })
+
     .put((req, res) => {
         const { id } = req.params;
         const { userId } = req;
         if (id !== userId) {
-            return res.status(403).json({ message: `Wrong token.`});
+            return res.status(403).json({ message: `Not authorized.`});
         }
         if (req.body.password) {
             bcrypt.hash(req.body.password, SALT_ROUNDS)
             .then(hash => {
                 req.body.password = hash;
                 const updateUser = ({ email, firstName, lastName, password } = req.body);
-                const { id } = req.params;
                 User.findByIdAndUpdate(id, (updateUser))
                     .then(response => {
                         res.status(202).json(response)})
@@ -53,7 +54,6 @@ router.route('/:id')
             .catch(err => res.status(500).json({ error: err.message }));
         } else {
             const updateUser = ({ email, firstName, lastName } = req.body);
-            const { id } = req.params;
             User.findByIdAndUpdate(id, updateUser)
                 .then(() => {
                     User.findById(id)
@@ -63,11 +63,12 @@ router.route('/:id')
                 .catch(err => res.status(500).json({ error: err.message }));
         }
     })
+
     .delete((req, res) => {
         const { id } = req.params;
         const { userId } = req;
         if (id !== userId) {
-            return res.status(403).json({ message: `Wrong token.`});
+            return res.status(403).json({ message: `Not authorized.`});
         }
         User.findByIdAndRemove(id)
             .then(response => res.json(response))
@@ -79,7 +80,7 @@ router.route('/:id/notes')
         const { id } = req.params;
         const { userId } = req;
         if (id !== userId) {
-            return res.status(403).json({ message: `Wrong token.`});
+            return res.status(403).json({ message: `Not authorized.`});
         }
         Note.find({ userId: id })
             .sort('-updated')
