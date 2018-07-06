@@ -52,8 +52,14 @@ router
   .delete((req, res) => {
     const { id } = req.params
     Note.findByIdAndRemove(id)
-      .then( note => {
-        res.status(200).json(note)
+      .then( deletedNote => {
+        Note.find()
+          .then( notes => {
+            res.status(200).json(notes)
+          })
+          .catch( err => {
+            res.status(500).json(err.message)
+          })
       })
       .catch( err => {
         res.status(500).json(err.message)
