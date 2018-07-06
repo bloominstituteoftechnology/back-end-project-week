@@ -26,7 +26,7 @@ router.route('/login')
         User.findOne({ email })
             .then(user => {
                 if (user === null) {
-                    return res.status(401).json({ error: `Invalid credentials.`});
+                    return res.status(404).json({ error: `Invalid credentials.`});
                 }
                 user.checkPassword(password)
                     .then(match => {
