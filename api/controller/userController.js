@@ -12,7 +12,7 @@ const protectedPath = (req, res, next) => {
       if (err) {
         return res.status(500).json({ message: `Error processing request.` });
       } 
-      req.userId = decoded.id;
+      req.tokenId = decoded.id;
       next();
     })
   } else {
@@ -26,8 +26,8 @@ router.route('/:id')
 
     .get((req, res) => {
         const { id } = req.params;
-        const { userId } = req;
-        if (id !== userId) {
+        const { tokenId } = req;
+        if (id !== tokenId) {
             return res.status(403).json({ message: `Not authorized.`});
         }
         User.findById(id)
@@ -37,8 +37,8 @@ router.route('/:id')
 
     .put((req, res) => {
         const { id } = req.params;
-        const { userId } = req;
-        if (id !== userId) {
+        const { tokenId } = req;
+        if (id !== tokenId) {
             return res.status(403).json({ message: `Not authorized.`});
         }
         if (req.body.password) {
@@ -46,19 +46,67 @@ router.route('/:id')
             .then(hash => {
                 req.body.password = hash;
                 const updateUser = ({ email, firstName, lastName, password } = req.body);
-                User.findByIdAndUpdate(id, (updateUser))
-                    .then(response => {
-                        res.status(202).json(response)})
+                User.findById(id)
+                    .then(currentUser => {
+                        if (currentUser.email !== updateUser.email) {
+                            User.find({ email: `${updateUser.email}`})
+                                .then(response => {
+                                    if (response === null || response === currentUser || response.length === 0) {
+                                        User.findByIdAndUpdate(id, updateUser)
+                                            .then(() => {
+                                                User.findById(id)
+                                                    .then(response => res.status(202).json(response))
+                                                    .catch(err => res.status(500).json({ error: err.message }));
+                                            })
+                                            .catch(err => res.status(500).json({ error: err.message }));
+                                    } else {
+                                        return res.status(409).json({ message: `Email already exists.`});
+                                    }
+                                })
+                                .catch(err => res.status(500).json({ error: err.message }));
+                        } else {
+                            User.findByIdAndUpdate(id, updateUser)
+                                .then(() => {
+                                    User.findById(id)
+                                        .then(response => res.status(202).json(response))
+                                        .catch(err => res.status(500).json({ error: err.message }));
+                                })
+                                .catch(err => res.status(500).json({ error: err.message }));
+                        } 
+                    })
                     .catch(err => res.status(500).json({ error: err.message }));
-                })
+            })
             .catch(err => res.status(500).json({ error: err.message }));
+
         } else {
             const updateUser = ({ email, firstName, lastName } = req.body);
-            User.findByIdAndUpdate(id, updateUser)
-                .then(() => {
-                    User.findById(id)
-                        .then(response => res.status(202).json(response))
-                        .catch(err => res.status(500).json({ error: err.message }));
+            User.findById(id)
+                .then(currentUser => {
+                    if (currentUser.email !== updateUser.email) {
+                        User.find({ email: `${updateUser.email}`})
+                            .then(response => {
+                                if (response === null || response === currentUser) {
+                                    User.findByIdAndUpdate(id, updateUser)
+                                        .then(() => {
+                                            User.findById(id)
+                                                .then(response => res.status(202).json(response))
+                                                .catch(err => res.status(500).json({ error: err.message }));
+                                        })
+                                        .catch(err => res.status(500).json({ error: err.message }));
+                                } else {
+                                    return res.status(409).json({ message: `Email already exists.`});
+                                }
+                            })
+                            .catch(err => res.status(500).json({ error: err.message }));
+                    } else {
+                        User.findByIdAndUpdate(id, updateUser)
+                            .then(() => {
+                                User.findById(id)
+                                    .then(response => res.status(202).json(response))
+                                    .catch(err => res.status(500).json({ error: err.message }));
+                            })
+                            .catch(err => res.status(500).json({ error: err.message }));
+                    } 
                 })
                 .catch(err => res.status(500).json({ error: err.message }));
         }
@@ -66,8 +114,8 @@ router.route('/:id')
 
     .delete((req, res) => {
         const { id } = req.params;
-        const { userId } = req;
-        if (id !== userId) {
+        const { tokenId } = req;
+        if (id !== tokenId) {
             return res.status(403).json({ message: `Not authorized.`});
         }
         User.findByIdAndRemove(id)
@@ -78,8 +126,8 @@ router.route('/:id')
 router.route('/:id/notes')
     .get((req, res) => {
         const { id } = req.params;
-        const { userId } = req;
-        if (id !== userId) {
+        const { tokenId } = req;
+        if (id !== tokenId) {
             return res.status(403).json({ message: `Not authorized.`});
         }
         Note.find({ userId: id })
