@@ -18,8 +18,5 @@
     "mongoose": "^5.2.0",
     "mongoose-validate": "^0.0.5",
     "morgan": "^1.9.0"
-  },
-  "devDependencies": {
-    "nodemon": "^1.17.5"
   }
 }
