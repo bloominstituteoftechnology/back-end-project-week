@@ -30,7 +30,7 @@ module.exports = function(server) {
     res.send({ api: 'running' })
   })
 
-  server.use('/api/notes', restricted);
+//   server.use('/api/notes', restricted);
   server.use('/api/notes', noteRoutes);
   server.use('/api/users', userRoutes);
 
