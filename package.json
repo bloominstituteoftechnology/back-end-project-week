@@ -4,7 +4,7 @@
   "description": "Back-End Server",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "Edward Gonzalez",
