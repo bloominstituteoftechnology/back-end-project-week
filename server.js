@@ -2,7 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const server = express();
 
-const port = process.env.PORT;
+const port = "25851";
 
 const noteController = require("./Controllers/NoteController");
 const authController = require("./Controllers/AuthController");
@@ -13,9 +13,8 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 
 //database connection
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect("mongodb://cmvnk:temp1234@ds125851.mlab.com:25851/heroku_nq1462wx")
     .then(()=> {
-        console.log(process.env.MONGO_URI);
         console.log(`Connected to database on mlab`);
     })
     .catch(err => {
