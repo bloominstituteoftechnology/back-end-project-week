@@ -15,7 +15,8 @@ const jwt = require("jsonwebtoken");
 //database connection
 mongoose.connect(process.env.MONGO_URI)
     .then(()=> {
-        console.log(`Connected to database on mlab`)
+        console.log(process.env.MONGO_URI);
+        console.log(`Connected to database on mlab`);
     })
     .catch(err => {
         console.log({Error: err.message, message: "Did you start an instance of Mongo? || have you checked dbUser and dbPswd?"});
@@ -62,7 +63,7 @@ server.get("/", (req, res) => {
 
 
 server.listen(port, () => {
-    console.log(`Server is listening`)
+    console.log(`Server is listening on ${port}`)
 })
 
 
