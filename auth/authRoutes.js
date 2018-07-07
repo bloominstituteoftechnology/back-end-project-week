@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
 const User = require('../users/User');
-const secret = 'The world is my playground!';
+require('dotenv').config();
+const secret = process.env.secret;
 
 function generateToken(user) {
     const options = {};

@@ -3,17 +3,18 @@ const db = require('./_config/db');
 const setupMiddleware = require('./_config/middleware');
 const setupRoutes = require('./_config/routes');
 const server = express();
+const port = process.env.PORT || 1433;
 
 setupMiddleware(server);
 setupRoutes(server);
 
-db.connectTo('back-end-server')
+db.connectTo()
     .then(() => {
         console.log('\n=== API connected to the back-end database. ===\n');
-        server.listen(1433, () => {
-            console.log('\n=== API running on port 1433. ===\n');
+        server.listen(port, () => {
+            console.log(`\n=== API running on port ${port}. ===\n`);
         });
     })
     .catch(error => {
-        console.log('\n*** Error connecting to MongoDB! Is it running?', error);
+        console.log('\n*** An error occurred while trying to connect to the MongoDB.', error);
     })

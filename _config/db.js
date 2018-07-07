@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 module.exports = {
-    connectTo: function (database = 'back-end-server', host = 'localhost') {
-        return mongoose.connect(`mongodb://${host}:27017/${database}`);
+    connectTo: function () {
+        return mongoose.connect(process.env.mongo);
     },
 }; 

@@ -2,7 +2,8 @@ const router = require('express').Router();
 const jwt = require('jsonwebtoken');
 const User = require('./User');
 const Note = require('../notes/Note');
-const secret = 'The world is my playground!';
+require('dotenv').config();
+const secret = process.env.secret;
 let decoded;
 
 function restricted(req, res, next) {
