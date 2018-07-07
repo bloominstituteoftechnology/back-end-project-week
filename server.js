@@ -51,7 +51,7 @@ server.use(express.json());
 server.use(cors({credentials:true}));
 server.use(helmet());
 
-server.use("/api/notes", restricted, noteController);
+server.use("/api/notes", noteController);
 server.use("/auth", authController);
 
 
