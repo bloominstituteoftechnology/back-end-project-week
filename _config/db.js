@@ -3,6 +3,8 @@ require('dotenv').config();
 
 module.exports = {
     connectTo: function () {
-        return mongoose.connect(process.env.mongo);
-    },
+        return mongoose.connect(process.env.mongo, {
+            uri_decode_auth: true
+        });
+    }
 }; 
