@@ -1,6 +1,6 @@
 const router = require( 'express' ).Router();
 const jwt = require( 'jsonwebtoken' );
-const secret = 'Secret is yours';
+const secret = 'April is amazing';
 
 const User = require( '../userModel/userModel.js' )
 

@@ -1,6 +1,7 @@
 const mongoose = require( 'mongoose' );
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
+
 const Notes = mongoose.Schema( {
     title: {
         type: String,
@@ -9,7 +10,8 @@ const Notes = mongoose.Schema( {
     },
     content: {
         type: String,
-        required: true
+        required: true,
+        unique:true
     },
     id: {
         type: Number,

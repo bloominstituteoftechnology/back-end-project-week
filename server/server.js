@@ -59,12 +59,14 @@ server.get( '/', ( req, res ) =>
     res.send( 'DB:${process.env.mongo}' );
 } );
 
-// mongoose.Promise = global.Promise;
-// mongoose.connect( 'mongo ds123981.mlab.com:23981/april ', {}, ( err =>
-// {
-//     err ? console.log( err ) : console.log( 'Mongoose is connected to our Database' )
-// } ) )
-//this show me what port my server is going use 
+mongoose.Promise = global.Promise;
+// 'mongo ds123981.mlab.com:23981/april -u april7299 -p charles7229'
+// 'mongodb://april7299:charles7229@ds123981.mlab.com:23981/april'
+mongoose.connect('mongodb://april7229:charles7229@ds123981.mlab.com:23981/april',  ( err =>
+{
+    err ? console.log( err ) : console.log( 'Mongoose is connected to our Database' )
+} ) )
+// this show me what port my server is going use 
 const port = process.env.PORT || 5000;
 server.listen( port, () =>
 {
