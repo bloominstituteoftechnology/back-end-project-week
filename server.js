@@ -10,11 +10,11 @@ setupRoutes(server);
 
 db.connectTo()
     .then(() => {
-        console.log('\n=== API connected to the back-end database. ===\n');
+        console.log('API connected to the database server.');
         server.listen(port, () => {
-            console.log(`\n=== API running on port ${port}. ===\n`);
+            console.log(`API running on port ${port}.`);
         });
     })
     .catch(error => {
-        console.log('\n*** An error occurred while trying to connect to the MongoDB.', error);
+        console.log('An error occurred while trying to connect to the MongoDB.', error);
     })
