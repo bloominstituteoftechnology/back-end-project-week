@@ -2,9 +2,6 @@ const express = require("express");
 require("dotenv").config();
 const server = express();
 
-const database = "heroku_nq1462wx";
-const dbUser = process.env.DBUSER;
-const dbPswd = process.env.DBPSWD;
 const port = process.env.PORT;
 
 const noteController = require("./Controllers/NoteController");
@@ -16,9 +13,9 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 
 //database connection
-mongoose.connect(`mongodb://${dbUser}:${dbPswd}@ds1${port}.mlab.com:${port}/${database}`)
+mongoose.connect(process.env.MONGO_URI)
     .then(()=> {
-        console.log(`Connected to ${database} database on mlab`)
+        console.log(`Connected to database on mlab`)
     })
     .catch(err => {
         console.log({Error: err.message, message: "Did you start an instance of Mongo? || have you checked dbUser and dbPswd?"});
@@ -65,7 +62,7 @@ server.get("/", (req, res) => {
 
 
 server.listen(port, () => {
-    console.log(`Server is listening on ${port}`)
+    console.log(`Server is listening`)
 })
 
 
