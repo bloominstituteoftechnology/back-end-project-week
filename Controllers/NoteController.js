@@ -11,8 +11,21 @@ const post = (req, res) => {
             res.status(500).json({Error: err.message});
         });
 };
+
+const get = (req, res) => {
+    Notes.find()
+        .then(notes => {
+            res.status(200).json(notes);
+        })
+        .catch(err => {
+            res.status(500).json(err.message);
+        });
+}
 // "https://lambnotes.herokuapp.com/api/notes/"
-router.route("/").post(post);
+router.route("/")
+    .post(post)
+    .get(get);
+
 
 
 

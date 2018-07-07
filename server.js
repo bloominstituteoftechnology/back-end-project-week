@@ -37,11 +37,11 @@ server.use(express.json());
 server.use(cors({credentials:true}));
 server.use(helmet());
 
-server.use("/api/users", userController);
-server.use("/api/notes", noteController);
-server.use("/api/tags", tagController);
-server.use("/api/cohorts", cohortController);
-server.use("/api/auth", authController);
+server.use("/users", userController);
+server.use("/notes", noteController);
+server.use("/tags", tagController);
+server.use("/cohorts", cohortController);
+server.use("/auth", authController);
 
 
 
