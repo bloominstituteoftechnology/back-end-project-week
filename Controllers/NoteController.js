@@ -15,6 +15,9 @@ const post = (req, res) => {
 const get = (req, res) => {
     Notes.find()
         .then(notes => {
+            if(!notes){
+                res.status(404).json({Message: "notes not found"})
+            }
             res.status(200).json(notes);
         })
         .catch(err => {
