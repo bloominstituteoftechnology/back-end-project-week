@@ -81,7 +81,7 @@ const updateId = (req, res) => {
     } else if(!title, !body, !author){
         res.status(400).json({Error: "Note must include title, body, and author"});
     } else { 
-        Notes.findByIdAndUpdate(id, {title, body, tags, author})
+        Notes.findByIdAndUpdate(id, {title, body, author})
             .then(note => {
                 res.status(200).json({Success: `${id} has been updated`, note});
             })
