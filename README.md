@@ -1,5 +1,7 @@
 # back-end-project-week
 
+https://trello.com/b/qnVWlQ1b/lambda-notes-backend-christina-kopecky
+
 1. cd into server and install dependencies with 'yarn install'
 2. 'yarn start' ... should start a server on localhost:5000
 
