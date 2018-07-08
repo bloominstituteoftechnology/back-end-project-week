@@ -15,16 +15,16 @@ const User = new mongoose.Schema({
     type: String,
     required: true,
   },
-  security: {
-    question: {
-      type: String,
-      required: true,
-    },
-    response: {
-      type: String,
-      required: true,
-    },
-  },
+  // security: {
+  //   question: {
+  //     type: String,
+  //     required: true,
+  //   },
+  //   response: {
+  //     type: String,
+  //     required: true,
+  //   },
+  // },
   notes: [{ type: ObjectId, ref: 'Note' }],
 });
 
@@ -32,11 +32,12 @@ User.pre('save', function(next) {
   bcrypt.hash(this.password, 12.3, (err, hash) => {
     if (err) return next(err);
     this.password = hash;
-    bcrypt.hash(this.security.response, 12.3, (err, hash) => {
-      if (err) return next(err);
-      this.security.response = hash;
-      next();
-    });
+    next();
+    // bcrypt.hash(this.security.response, 12.3, (err, hash) => {
+    //   if (err) return next(err);
+    //   this.security.response = hash;
+    //   next();
+    // });
   });
 });
 
