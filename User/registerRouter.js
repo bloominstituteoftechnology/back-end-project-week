@@ -5,22 +5,22 @@ const { makeToken } = require('../secrets/security');
 
 router.post('/', (req, res) => {
   const { username, password } = req.body;
-  // const { question, response } = req.body.security;
+  const { question, response } = req.body.security;
 
   if (!username || !password) {
     res.status(422).json({ message: 'Username and Password are required' });
-    // } else if (!question || !response) {
-    //   res
-    //     .status(422)
-    //     .json({ message: 'Security question and response are required' });
+  } else if (!question || !response) {
+    res
+      .status(422)
+      .json({ message: 'Security question and response are required' });
   } else {
     const user = {
       username,
       password,
-      // security: {
-      //   question,
-      //   response,
-      // },
+      security: {
+        question,
+        response,
+      },
     };
     User.findOne({ username }).then(response => {
       if (!response) {
@@ -32,7 +32,6 @@ router.post('/', (req, res) => {
             res.json({ token, user: response });
           })
           .catch(err => {
-            console.log(err);
             res.status(500).json({ message: 'Server Error' });
           });
       } else {
