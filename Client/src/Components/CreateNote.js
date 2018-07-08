@@ -2,12 +2,8 @@ import React, { Component } from 'react';
 import Sidebar from './Sidebar';
 import axios from 'axios';
 
-const token = localStorage.getItem("jwt")
-const requestOptions = {
-    headers: {
-        Authorization: token
-    }
-}
+const port = "5000"
+
 
 class CreateNote extends Component {
     constructor(props) {
@@ -23,7 +19,7 @@ class CreateNote extends Component {
     }
 
     handleClick = () => { //works
-        axios.post("http://localhost:25851/api/notes", this.state, requestOptions)
+        axios.post(`http://localhost:${port}/api/notes`, this.state)
             .then(response => {
                 this.props.history.push("/notes");
             })
@@ -39,11 +35,31 @@ class CreateNote extends Component {
                         <h3>Create a New Note</h3>
                         <div className="new-note-wrapper">
                         <label className="label">Note Title:</label>
-                        <input className= "input-title" placeholder="note title" onChange={this.handleChange} name="note_title" type="text-area"value={this.state.note_title}/>
+                        <input 
+                            className= "input-title" 
+                            placeholder="note title" 
+                            onChange={this.handleChange} 
+                            name="title" type="text-area"value={this.state.title}/>
                         </div>
                         <div className="new-note-wrapper">
                         <label className="label">Note Body:</label>
-                        <textarea className="input-body" placeholder="note content" onChange={this.handleChange} name="note_body" type="text-area" value={this.state.note_body}/>
+                        <textarea 
+                            className="input-body" 
+                            placeholder="note content" 
+                            onChange={this.handleChange} 
+                            name="body" 
+                            type="text-area" 
+                            value={this.state.body}/>
+                        </div>
+                        <div className="new-note-wrapper">
+                            <label className="label">Author:</label>
+                            <input 
+                                className= "input-title" 
+                                placeholder="note author" 
+                                onChange={this.handleChange} 
+                                name="author" 
+                                type="text-area"
+                                value={this.state.author}/>
                         </div>
                         <div className="button login-button" onClick={this.handleClick}>Save</div>
                     </div>

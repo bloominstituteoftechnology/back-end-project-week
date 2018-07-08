@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+const port = "5000"
 
 class Login extends Component {
     constructor(props) {
@@ -17,7 +18,7 @@ class Login extends Component {
     }
 
     handleClick = () => { //works
-        axios.post("https://lambnotes.herokuapp.com/auth/login", this.state)
+        axios.post("http://localhost:5000/auth/login", this.state)
             .then(response => {
                 localStorage.setItem("jwt", response.data.token);
                 this.props.history.push("/");

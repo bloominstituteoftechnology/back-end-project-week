@@ -144,10 +144,6 @@ body {
   font-size:1.2rem;
 }
 .delete-modal{
-  display:flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   background-color: #FFFFFF;
   border: 1px solid #979797;
   width: 50%;
@@ -172,8 +168,7 @@ body {
   display: none;
 }
 .modal-open{
-  margin-top: -200px;
-  margin-left: -300px;
+  z-index: 3000;
 }
 
 

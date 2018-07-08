@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+const port = "5000"
+
 class Register extends Component {
     constructor(props){
         super(props);
@@ -19,7 +21,7 @@ class Register extends Component {
     //handleClick
 
     handleClick = (e) => {
-        axios.post("http://localhost:25851/auth/register", this.state)
+        axios.post(`http://localhost:${port}/auth/register`, this.state)
             .then(response => {
                 localStorage.setItem("jwt", response.data.token);
                 this.props.history.push("/notes");

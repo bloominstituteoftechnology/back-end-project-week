@@ -2,12 +2,12 @@ const router = require("express").Router();
 const Notes = require("../Schemas/NoteSchema");
 
 const post = (req, res) => { //works
-    const { title, body, cohort, tags, author } = req.body;
-    if(!title || !body || !tags || !author || !cohort){
-        res.status(401).json({Message: "Note must have title, body, tags, cohort, author"})
+    const { title, body, author } = req.body;
+    if(!title || !body || !author){
+        res.status(401).json({Message: "Note must have title, body, tags, author"})
     }
     else{
-        Notes.create({ title, body, cohort, tags, author })
+        Notes.create({ title, body, author })
         .then(note => {
             if(!note){
                 res.status(404).json({Message: "note not found"});
@@ -75,13 +75,13 @@ const deleteId = (req, res) => { //works
 
 const updateId = (req, res) => {
     const { id } = req.params;
-    const { title, body, cohort, tags, author } = req.body;
+    const { title, body, author } = req.body;
     if(!id){
         res.status(400).json({Error: "The specified id doesn't exist"});
-    } else if(!title, !body, !cohort, !tags, !author){
-        res.status(400).json({Error: "Note must include title, body, cohort, tags and author"});
+    } else if(!title, !body, !author){
+        res.status(400).json({Error: "Note must include title, body, and author"});
     } else { 
-        Notes.findByIdAndUpdate(id, {title, body, cohort, tags, author})
+        Notes.findByIdAndUpdate(id, {title, body, tags, author})
             .then(note => {
                 res.status(200).json({Success: `${id} has been updated`, note});
             })
@@ -90,7 +90,7 @@ const updateId = (req, res) => {
             });
     };
 };
-// "https://lambnotes.herokuapp.com/api/notes/"
+// "http://localhost:25851/api/notes/"
 router.route("/")
     .post(post)
     .get(get);

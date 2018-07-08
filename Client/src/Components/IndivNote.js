@@ -6,9 +6,10 @@ const IndivNote = (props) =>{
         <div className="indiv-note-container">
             <div className="indiv-note-wrapper"> 
                 <div>
-                    <h3 className="note-title">{props.note_title}</h3>
+                    <h3 className="note-title">{props.title}</h3>
                     <hr />
-                    <p className="note-body">{props.note_body}</p>
+                    <p className="note-body">{props.body}</p>
+                    <p>~ {props.author}</p>
                 </div>
             </div>
         </div>

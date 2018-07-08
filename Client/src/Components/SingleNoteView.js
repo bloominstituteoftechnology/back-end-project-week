@@ -30,7 +30,7 @@ class SingleNoteView extends Component {
                     <div className="nav">
                         <Link to=
                             {{pathname:`/notes/edit/${this.state.note.id}`, 
-                            state: {note_title: this.state.note.note_title, note_body: this.state.note.note_body, id: this.state.note.id
+                            state: {title: this.state.note.title, body: this.state.note.body, author: this.state.note.author, id: this.state.note.id
                             }}}
                               
                               >
@@ -53,8 +53,9 @@ class SingleNoteView extends Component {
                     </div>
                 </div> {/*end single note nav bar */}
                 <IndivNote 
-                    note_title={this.state.note.note_title}
-                    note_body={this.state.note.note_body}
+                    title={this.state.note.title}
+                    body={this.state.note.body}
+                    author={this.state.note.author}
                 />
                 </div>
             </div>

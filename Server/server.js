@@ -2,7 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const server = express();
 
-const port = "25851";
+const port = "5000";
 
 const noteController = require("./Controllers/NoteController");
 const authController = require("./Controllers/AuthController");
@@ -11,14 +11,15 @@ const cors = require("cors");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
+const database = "lambnotesdb";
 
 //database connection
-mongoose.connect("mongodb://cmvnk:temp1234@ds125851.mlab.com:25851/heroku_nq1462wx")
+mongoose.connect(`mongodb://localhost:27017/${database}`)
     .then(()=> {
-        console.log(`Connected to database on mlab`);
+        console.log(`Connected to ${database} on MongoDB`);
     })
     .catch(err => {
-        console.log({Error: err.message, message: "Did you start an instance of Mongo? || have you checked dbUser and dbPswd?"});
+        console.log({Error: err.message, message: "Did you start an instance of Mongo?"});
     });
 
 //middleware
@@ -45,7 +46,7 @@ const restricted = (req, res, next) => {
 //global
 
 server.use(express.json());
-server.use(cors({credentials:true}));
+server.use(cors());
 server.use(helmet());
 
 server.use("/api/notes", noteController);

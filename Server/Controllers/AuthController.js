@@ -48,13 +48,13 @@ const tokenGenerator = authUser => {
   }
 
   const register = (req, res) => { //works
-      const {username, password, confirmedPassword, firstName, lastName, cohort} = req.body;
+      const {username, password, confirmedPassword, firstName, lastName} = req.body;
         if(password !== confirmedPassword){
             res.status(400).json({Error: "passwords do not match"})
-        } else if(!username, !password, !firstName, !lastName, !cohort){
-                res.status(400).json({Error: "must include username, password, firstName, lastName and cohort"})
+        } else if(!username, !password, !firstName, !lastName){
+                res.status(400).json({Error: "must include username, password, firstName, lastName"})
         }
-        Auths.create({username, password, firstName, lastName, cohort})
+        Auths.create({username, password, firstName, lastName})
             .then(auth => {
                 res.status(201).json(auth);
             })

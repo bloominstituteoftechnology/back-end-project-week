@@ -4,6 +4,8 @@ import Sidebar from './Sidebar';
 import axios from 'axios';
 import IndivNote from './IndivNote';
 
+const port = "5000";
+
 
 class NotesList extends Component {
     constructor(props){
@@ -13,11 +15,12 @@ class NotesList extends Component {
         }
     }
     
-    componentDidMount(){
-        let promise = axios.get("http://localhost:25851/api/notes" );
+    componentWillMount(){
+        let promise = axios.get(`http://localhost:${port}/api/notes`);
         promise
             .then(response => {
-                this.setState(response.data)
+                this.setState({notes: response.data});
+                console.log(this.state.notes);
             })
             .catch(err => {
                 console.log(err.message);
@@ -33,18 +36,19 @@ class NotesList extends Component {
                     <h3 className="page-header">Your Notes</h3>
                     <ul className="noteslist-wrapper">
                         {this.state.notes.map(item => {
-                            console.log(item._id);
+                            console.log(item);
                             return(
-                                <li className="indiv-note" key={item.note_title + item.note_body}>
+                                <li className="indiv-note" key={item.title + item.body}>
                                     <Link 
                                         className="note-body"
                                         to={{ 
                                         pathname: `notes/${item._id}`, 
-                                        state: {id: item._id, note_title: item.note_title, note_body: item.note_body}
+                                        state: {id: item._id, title: item.title, body: item.body, author: item.author}
                                     }}>
                                     <IndivNote
-                                        note_title={item.note_title}
-                                        note_body={item.note_body}
+                                        title={item.title}
+                                        body={item.body}
+                                        author={item.author}
                                         id={item._id}
                                     /></Link>
                                 </li>
