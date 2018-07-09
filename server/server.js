@@ -9,6 +9,8 @@ const server = express();
 setupMiddleware(server);
 setupRoutes(server);
 
+mongoose.Promise = global.Promise;
+
 mongoose
     .connect('mongodb://localhost/back-end-server')
     .then(console.log('\n=== API connected to back-end-server database ===\n'))
