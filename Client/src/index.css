@@ -23,6 +23,12 @@ body {
   flex-direction:column;
   border-right: 1px solid #979797;
 }
+.noteslist-wrapper-with-sidebar{
+  width:100%;
+  display:flex;
+  flex-direction:row;
+  height: 100vh;
+}
 .headline-wrapper{
   font-size: 2.0rem;
   font-weight: bold;
@@ -37,9 +43,6 @@ body {
   align-items: center;
   font-weight: bold;
   cursor: pointer;
-}
-.noteslist-wrapper-with-sidebar{
-  display:flex;
 }
 .minus-sidebar{
   display:flex;
@@ -96,17 +99,18 @@ body {
 }
 .create-note-app-page{
   display:flex;
-  width:1200px;
+  width:100%;
 }
 .create-note-wrapper{
   display:flex;
   flex-direction:column;
   align-items:flex-start;
-  width:800px;
+  width:75%;
 }
 .new-note-wrapper{
   display:flex;
   margin-top:15px;
+  width:100%;
 }
 .input-title{
   width: 300px;
@@ -126,6 +130,9 @@ body {
   display:flex;
   width:100%;
   z-index: 10;
+}
+.indiv-note-wrapper{
+  width:75%;
 }
 .single-note-nav-bar{
   display: inline-flex;
