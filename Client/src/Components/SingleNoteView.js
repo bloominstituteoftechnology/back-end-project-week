@@ -70,12 +70,13 @@ class SingleNoteView extends Component {
                             <button className="modal-buttons teal">No</button>
                         </div>
                     </div>
-                  
+                   <div className="indiv-note-wrapper">
                    <IndivNote 
                         title={this.state.note.title}
                         body={this.state.note.body}
                         author={this.state.note.author}
                     />
+                    </div>
                 </div>
             </div>
          );

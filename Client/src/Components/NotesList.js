@@ -36,23 +36,29 @@ class NotesList extends Component {
                     <h3 className="page-header">Your Notes</h3>
                     <ul className="noteslist-wrapper">
                         {this.state.notes.map(item => {
-                            console.log(item);
-                            return(
-                                <li className="indiv-note" key={item.title + item.body}>
-                                    <Link 
-                                        className="note-body"
-                                        to={{ 
-                                        pathname: `notes/${item._id}`, 
-                                        state: {id: item._id, title: item.title, body: item.body, author: item.author}
-                                    }}>
-                                    <IndivNote
-                                        title={item.title}
-                                        body={item.body}
-                                        author={item.author}
-                                        id={item._id}
-                                    /></Link>
-                                </li>
-                            )
+                            if(!item){
+                                return(
+                                    <h3>Notes go here! Start by clicking on '+ Create a Note'</h3>
+                                )
+                            } else {
+                                return(
+                                    <li className="indiv-note" key={item.title + item.body}>
+                                        <Link 
+                                            className="note-body"
+                                            to={{ 
+                                            pathname: `notes/${item._id}`, 
+                                            state: {id: item._id, title: item.title, body: item.body, author: item.author}
+                                        }}>
+                                        <IndivNote
+                                            title={item.title}
+                                            body={item.body}
+                                            author={item.author}
+                                            id={item._id}
+                                        /></Link>
+                                    </li>
+                                )
+                            }
+                            
                         })}
                     </ul>
                 </div>

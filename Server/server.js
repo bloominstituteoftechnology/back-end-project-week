@@ -59,9 +59,9 @@ server.get("/", (req, res) => {
     res.send({Success: "api is working..."});
 });
 
-
-
-module.exports = server;
+server.listen(port, () => {
+  console.log(`Server listening on port 5000`)
+});
 
 
 
