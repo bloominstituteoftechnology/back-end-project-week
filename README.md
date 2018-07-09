@@ -9,16 +9,20 @@ The main objective of this week is to develop a backend to support the LambdaNot
 * You are required to showcase progress with at least 1 commit a day.  This will let your project manager know where you are and if you need help.  This also allows the client to get progress reports from the company in a real world setting. This also protects you from losing your work if your computer blows up.
 
 ## Trello Set Up:
-* [ ] Use your existing Trello account from the Front End Project, or create a new one
-* [ ] Create a new board called "Lambda Notes(Backend) - {Your Name}"
-* [ ] Create lists titled `backlog`,`To Do`, `In Progress`, and `Done`
-* [ ] Fill in the `To Do` list with the Backend MVP features listed below
-* [ ] Fill in the `backlog` list with all the extra features listed below
-* [ ] Share your board with the project manager that has been assigned to you.  If you have not been assigned yet, reach out to your Section Lead for guidance
-* [ ] Add your Trello URL to your project's README.md file.  Commit the change, push it to your repository & submit a pull request
+* [x ] Use your existing Trello account from the Front End Project, or create a new one
+* [ x] Create a new board called "Lambda Notes(Backend) - {Your Name}"
+* [x ]create lists titled `backlog`,`To Do`, `In Progress`, and `Done`
+* [x ] Fill in the `To Do` list with the Backend MVP features listed below
+* [ x] Fill in the `backlog` list with all the extra features listed below
+* [ x] Share your board with the project manager that has been assigned to you.  If you have not been assigned yet, reach out to your Section Lead for guidance
+
+* [ x] Add your Trello URL to your project's README.md file.  Commit the change, push it to your repository & submit a pull request
+https://trello.com/b/B6eVnWfo/backend-project
+
 
 ## Backend MVP Features:
 It is suggested that you deploy the server and database first, before you undergo implementing the logic. Doing this makes the deployment process much simpler, since there's no code yet to complicate the deployment step. We recommend you deploy your server to [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction), and your Mongo database to [mlab](https://docs.mlab.com/). The recommended deployment site for the front end is [netlify](https://www.netlify.com/blog/2016/09/29/a-step-by-step-guide-deploying-on-netlify/). 
+
 
 Once you have empty projects deployed to these platforms, they can be easily updated with the code you implement as you write it. Additionally, it is recommended that you keep your front end and backend codebases in separate github repos, not under a single umbrella repo. This helps with separation of concerns, plus it helps with deploying, since the different parts of your full-stack codebase need to live on different platforms. 
 
