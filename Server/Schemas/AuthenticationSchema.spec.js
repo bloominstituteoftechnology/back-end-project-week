@@ -50,5 +50,5 @@ describe('auth model', () => {
     it("should have newUser that is an object", async () => {
         const newUser = await AuthSchema.create(newAuth);
         expect(typeof newUser).toBe("object");
-    })
-})
+    });
+});

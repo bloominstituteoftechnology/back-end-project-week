@@ -48,4 +48,4 @@ describe('note model', () => {
         expect(newNote.author).toBe("Tom Baker");
         expect(typeof newNote.author).toBe("string");
     });
-})
+});
