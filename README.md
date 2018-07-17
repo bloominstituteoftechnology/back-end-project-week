@@ -1,3 +1,33 @@
+My Trello:
+https://trello.com/b/W4TurebI/lambda-notes-back-end-lisacee
+
+My Heroku URL:
+https://lambda-notes-back-end.herokuapp.com/
+
+## Trello Set Up:
+* [ ] Use your existing Trello account from the Front End Project, or create a new one
+* [X] Create a new board called "Lambda Notes(Backend) - {Your Name}"
+* [X] Create lists titled `backlog`,`To Do`, `In Progress`, and `Done`
+* [X] Fill in the `To Do` list with the MVP features listed below
+* [X] Fill in the `backlog` list with all the extra features listed below
+* [X] Share your board with the project manager that has been assigned to you.  If you have not been assigned yet, reach out to your Section Lead for guidance
+* [X] Add your Trello URL to your project's README.md file.  Commit the change, push it to your repository & submit a pull request
+
+## Backend MVP Features:
+* [ ] Create a Database for your app
+* [ ] Design your models for your app. You should have a model for notes and for users. (The users model will come in handy when building out your stretch goals).
+* [ ] Deploy your application to the web
+* [ ] Create a Node app and connect it to your database
+* [ ] Store Notes in your Database
+
+Build an API Endpoint in your Node App for each of the following, and connect them to your React App. These should all be read from your Database and scoped to the logged in user.
+* [ ] Display a list of notes
+* [ ] Create a note with a title and content
+* [ ] View an existing note
+* [ ] Edit an existing note
+* [ ] Delete an existing note
+* [ ] Link up your Front End Project to your new and improved backend
+
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
