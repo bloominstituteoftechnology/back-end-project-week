@@ -1,0 +1,26 @@
+{
+  "name": "lambda-school-back-end-server",
+  "version": "1.0.0",
+  "description": "Lambda School Back End Week Server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "Derrick Mei",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^2.0.1",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "helmet": "^3.12.1",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.1.7",
+    "morgan": "^1.9.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.0.1",
+    "eslint-plugin-react": "^7.10.0",
+    "nodemon": "^1.17.5"
+  }
+}
