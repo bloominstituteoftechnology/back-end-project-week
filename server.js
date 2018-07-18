@@ -3,12 +3,12 @@ const morgan = require('morgan');
 
 // const Note = require('./models/Note');
 
-const app = express();
+const server = express();
 
-app.use(express.json());
-app.use(morgan('combined'));
+server.use(express.json());
+server.use(morgan('combined'));
 
-// app.post('/api/create', (req, res) => {
+// server.post('/api/create', (req, res) => {
 //     Note.create(req.body)
 //         .then(note => {
 //             res.status(201).json(note);
@@ -20,7 +20,7 @@ app.use(morgan('combined'));
 //         });
 // });
 
-app.get('/api/', (req, res) => {
+server.get('/api/', (req, res) => {
     Note.find()
         .then(notes => {
             res.status(200).json(notes);
@@ -32,7 +32,7 @@ app.get('/api/', (req, res) => {
         });
 });
 
-// app.get('/api/view/:id', (req, res) => {
+// server.get('/api/view/:id', (req, res) => {
 //     Note.find()
 //         .then(notes => {
 //             res.status(200).json(notes);
@@ -44,7 +44,7 @@ app.get('/api/', (req, res) => {
 //         });
 // });
 
-// app.put('/api/edit/:id', (req, res) => {
+// server.put('/api/edit/:id', (req, res) => {
 //     const { id } = req.params;
 //     const changes = req.body;
 
