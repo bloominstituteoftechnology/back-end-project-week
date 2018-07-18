@@ -11,7 +11,7 @@ const server = require('./server')
 mongoose
     .connect('mongodb://LisaCee:TU4aFT_PRN@ds239681.mlab.com:39681/lambda-notes')
     .then(() => {
-        console.log('Connected!!')
+        console.log('Connected to mongodb!!')
         server.listen(PORT, () => {
             console.log(`Listening on ${PORT}`)
         })
