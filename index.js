@@ -1,10 +1,10 @@
-const express = require('express')
+// const express = require('express')
 const PORT = process.env.PORT || 5000;
 const mongoose = require('mongoose');
 
-express()
-    .get('/', (req, res) => res.json({ msg: '###--Connected--###' }))
-    .listen(PORT, () => console.log(`Listening on ${PORT}`))
+// express()
+//     .get('/', (req, res) => res.json({ msg: '###--Connected--###' }))
+//     .listen(PORT, () => console.log(`Listening on ${PORT}`))
 
 
 mongoose
