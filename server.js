@@ -1,36 +1,36 @@
 const express = require('express');
 const morgan = require('morgan');
 
-// const Note = require('./models/Note');
+const Note = require('./models/Note');
 
 const server = express();
 
 server.use(express.json());
 server.use(morgan('combined'));
 
-// server.post('/api/create', (req, res) => {
-//     Note.create(req.body)
-//         .then(note => {
-//             res.status(201).json(note);
-//         })
-//         .catch(err => {
-//             res
-//                 .status(500)
-//                 .json({ message: 'Error saving note to the DB', error: err });
-//         });
-// });
+server.post('/create', (req, res) => {
+    Note.create(req.body)
+        .then(note => {
+            res.status(201).json(note);
+        })
+        .catch(err => {
+            res
+                .status(500)
+                .json({ message: 'Error saving note to the DB', error: err });
+        });
+});
 
 server.get('/', (req, res) => {
     res.json({msg: "Connected"})
-    // Note.find()
-    //     .then(notes => {
-    //         res.status(200).json(notes);
-    //     })
-    //     .catch(err => {
-    //         res
-    //             .status(500)
-    //             .json({ message: 'There was a problem getting your notes', error: err });
-    //     });
+    Note.find()
+        .then(notes => {
+            res.status(200).json(notes);
+        })
+        .catch(err => {
+            res
+                .status(500)
+                .json({ message: 'There was a problem getting your notes', error: err });
+        });
 });
 
 // server.get('/api/view/:id', (req, res) => {

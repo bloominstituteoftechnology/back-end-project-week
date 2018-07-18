@@ -14,8 +14,8 @@ https://lambda-notes-back-end.herokuapp.com/
 * [X] Add your Trello URL to your project's README.md file.  Commit the change, push it to your repository & submit a pull request
 
 ## Backend MVP Features:
-* [ ] Create a Database for your app
-* [ ] Design your models for your app. You should have a model for notes and for users. (The users model will come in handy when building out your stretch goals).
+* [X] Create a Database for your app
+* [X] Design your models for your app. You should have a model for notes and for users. (The users model will come in handy when building out your stretch goals).
 * [ ] Deploy your application to the web
 * [ ] Create a Node app and connect it to your database
 * [ ] Store Notes in your Database
