@@ -1,7 +1,8 @@
 const server = require('express')()
+const PORT = process.env.PORT || 8888
 
 server.get('/',(req,res) => {
-    res.send('Up and running')
+    res.json({status:'Up and running'})
 })
 
-server.listen(8080)
+server.listen(PORT, () => console.log(`Listenining on ${PORT}`))
