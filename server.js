@@ -1,11 +1,13 @@
 const express = require('express');
 const morgan = require('morgan');
-
+const helmet = require('helmet');
 const Note = require('./models/Note');
+// const noteRoutes = require('./routes/noteRoutes');
 
 const server = express();
 
 server.use(express.json());
+server.use(helmet());
 server.use(morgan('combined'));
 
 server.post('/create', (req, res) => {
@@ -22,19 +24,6 @@ server.post('/create', (req, res) => {
 
 server.get('/', (req, res) => {
     res.json({msg: "Connected"})
-});
-
-server.get('/notes', (req, res) => {
-    // res.json({msg: "Connected"})
-    Note.find()
-        .then(notes => {
-            res.status(200).json(notes);
-        })
-        .catch(err => {
-            res
-                .status(500)
-                .json({ message: 'There was a problem getting your notes', error: err });
-        });
 });
 
 server.get('/notes', (req, res) => {
