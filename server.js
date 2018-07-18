@@ -22,6 +22,10 @@ server.post('/create', (req, res) => {
 
 server.get('/', (req, res) => {
     res.json({msg: "Connected"})
+});
+
+server.get('/notes', (req, res) => {
+    // res.json({msg: "Connected"})
     Note.find()
         .then(notes => {
             res.status(200).json(notes);
@@ -33,17 +37,31 @@ server.get('/', (req, res) => {
         });
 });
 
-// server.get('/api/view/:id', (req, res) => {
-//     Note.find()
-//         .then(notes => {
-//             res.status(200).json(notes);
-//         })
-//         .catch(err => {
-//             res
-//                 .status(500)
-//                 .json({ message: 'There was a problem getting your notes', error: err });
-//         });
-// });
+server.get('/notes', (req, res) => {
+    Note.find()
+        .then(notes => {
+            res.status(200).json(notes);
+        })
+        .catch(err => {
+            res
+                .status(500)
+                .json({ message: 'There was a problem getting your notes', error: err });
+        });
+});
+
+server.get('/notes/:id', (req, res) => {
+    const { id } = req.params;
+
+    Note.findById(id)
+        .then(note => {
+            res.status(200).json(note);
+        })
+        .catch(err => {
+            res
+                .status(500)
+                .json({ message: 'There was a problem getting your note', error: err });
+        });
+});
 
 // server.put('/api/edit/:id', (req, res) => {
 //     const { id } = req.params;
