@@ -1,6 +1,7 @@
 // const express = require('express')
 const PORT = process.env.PORT || 5000;
 const mongoose = require('mongoose');
+const server = require('./server')
 
 // express()
 //     .get('/', (req, res) => res.json({ msg: '###--Connected--###' }))
