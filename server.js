@@ -52,33 +52,33 @@ server.get('/notes/:id', (req, res) => {
         });
 });
 
-// server.put('/api/edit/:id', (req, res) => {
-//     const { id } = req.params;
-//     const changes = req.body;
+server.put('/edit/:id', (req, res) => {
+    const { id } = req.params;
+    const changes = req.body;
 
-//     // All we care about is the game title and id. Don't worry about genre or date.
-//     // if (!changes.title || !id) {
-//     //   return res.status(422).json({ error: 'Must Provide a title && Id' });
-//     // }
+    //All we care about is the game title and id. Don't worry about genre or date.
+    if (!changes.title || !id) {
+      return res.status(422).json({ error: 'Must Provide a title && Id' });
+    }
 
-//     // const options = {
-//     //   new: true,
-//     // };
+    const options = {
+      new: true,
+    };
 
-//     Note.findByIdAndUpdate(id, changes, options)
-//         .then(note => {
-//             if (note) {
-//                 res.status(200).json(note);
-//             } else {
-//                 res.status(404).json({ message: 'Note not found' });
-//             }
-//         })
-//         .catch(err => {
-//             res
-//                 .status(500)
-//                 .json({ message: 'There was a problem finding that note', error: err });
-//         });
-// });
+    Note.findByIdAndUpdate(id, changes, options)
+        .then(note => {
+            if (note) {
+                res.status(200).json(note);
+            } else {
+                res.status(404).json({ message: 'Note not found' });
+            }
+        })
+        .catch(err => {
+            res
+                .status(500)
+                .json({ message: 'There was a problem finding that note', error: err });
+        });
+});
 
 // server.delete('/api/games/:id', (req, res) => {
 //   const { id } = req.params;
