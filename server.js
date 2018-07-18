@@ -20,16 +20,17 @@ server.use(morgan('combined'));
 //         });
 // });
 
-server.get('/api/', (req, res) => {
-    Note.find()
-        .then(notes => {
-            res.status(200).json(notes);
-        })
-        .catch(err => {
-            res
-                .status(500)
-                .json({ message: 'There was a problem getting your notes', error: err });
-        });
+server.get('/', (req, res) => {
+    res.json({msg: "Connected"})
+    // Note.find()
+    //     .then(notes => {
+    //         res.status(200).json(notes);
+    //     })
+    //     .catch(err => {
+    //         res
+    //             .status(500)
+    //             .json({ message: 'There was a problem getting your notes', error: err });
+    //     });
 });
 
 // server.get('/api/view/:id', (req, res) => {
