@@ -23,6 +23,7 @@
   "homepage": "https://github.com/LisaCee/back-end-project-week#readme",
   "dependencies": {
     "express": "^4.16.3",
+    "helmet": "^3.12.1",
     "jest": "^23.4.1",
     "mongoose": "^5.2.4",
     "morgan": "^1.9.0",
