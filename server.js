@@ -80,22 +80,22 @@ server.put('/edit/:id', (req, res) => {
         });
 });
 
-// server.delete('/api/games/:id', (req, res) => {
-//   const { id } = req.params;
+server.delete('/notes/:id', (req, res) => {
+  const { id } = req.params;
 
-//   if (!id) {
-//     res.status(422).json({ message: 'You need to give me an ID' });
-//   } else {
-//     Game.findByIdAndRemove(id)
-//       .then(game => {
-//         if (game) {
-//           res.status(204).end();
-//         } else {
-//           res.status(404).json({ message: 'Game not found' });
-//         }
-//       })
-//       .catch(err => res.status(500).json(err));
-//   }
-// });
+  if (!id) {
+    res.status(422).json({ message: 'You need to give me an ID' });
+  } else {
+    Note.findByIdAndRemove(id)
+      .then(note => {
+        if (note) {
+          res.status(204).end();
+        } else {
+          res.status(404).json({ message: 'Note not found' });
+        }
+      })
+      .catch(err => res.status(500).json(err));
+  }
+});
 
 module.exports = server;

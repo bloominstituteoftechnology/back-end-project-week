@@ -23,8 +23,8 @@ https://lambda-notes-back-end.herokuapp.com/
 Build an API Endpoint in your Node App for each of the following, and connect them to your React App. These should all be read from your Database and scoped to the logged in user.
 * [X] Display a list of notes
 * [X] Create a note with a title and content
-* [ ] View an existing note
-* [ ] Edit an existing note
+* [X] View an existing note
+* [X] Edit an existing note
 * [ ] Delete an existing note
 * [ ] Link up your Front End Project to your new and improved backend
 
