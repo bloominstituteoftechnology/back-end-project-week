@@ -2,12 +2,13 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "description": "This week you will be building a backend for a note taking app called \"Lambda Notes.\"",
-  "engines": {
-    "node": "8.11.1"
-  },
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cross-env NODE_ENV=test jest --watch --verbose",
+    "start": "nodemon server.js"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
   "homepage": "https://github.com/LisaCee/back-end-project-week#readme",
   "dependencies": {
     "express": "^4.16.3",
+    "jest": "^23.4.1",
     "mongoose": "^5.2.4",
     "morgan": "^1.9.0"
   }
