@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/LisaCee/back-end-project-week#readme",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "mongoose": "^5.2.4"
   }
 }
