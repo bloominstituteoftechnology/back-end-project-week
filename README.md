@@ -17,12 +17,12 @@ https://lambda-notes-back-end.herokuapp.com/
 * [X] Create a Database for your app
 * [X] Design your models for your app. You should have a model for notes and for users. (The users model will come in handy when building out your stretch goals).
 * [ ] Deploy your application to the web
-* [ ] Create a Node app and connect it to your database
-* [ ] Store Notes in your Database
+* [X] Create a Node app and connect it to your database
+* [X] Store Notes in your Database
 
 Build an API Endpoint in your Node App for each of the following, and connect them to your React App. These should all be read from your Database and scoped to the logged in user.
-* [ ] Display a list of notes
-* [ ] Create a note with a title and content
+* [X] Display a list of notes
+* [X] Create a note with a title and content
 * [ ] View an existing note
 * [ ] Edit an existing note
 * [ ] Delete an existing note
