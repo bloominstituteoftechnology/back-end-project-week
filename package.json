@@ -24,6 +24,7 @@
   "dependencies": {
     "bcrypt": "^3.0.0",
     "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "helmet": "^3.12.1",
     "jest": "^23.4.1",

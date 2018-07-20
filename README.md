@@ -57,33 +57,7 @@ Build an API Endpoint for each of the following, and connect it to your React Ap
 * [ ] Delete an existing note
 * [ ] Link up your Front End Project to your new and improved backend
 
-Upon your first commit, please submit a Pull Request and add _both_ the **Trello Set Up** and **Backend MVP Features** Task lists to your first Pull Request comment:
 
-```markdown
-## Trello Set Up:
-* [ ] Use your existing Trello account from the Front End Project, or create a new one
-* [ ] Create a new board called "Lambda Notes(Backend) - {Your Name}"
-* [ ] Create lists titled `backlog`,`To Do`, `In Progress`, and `Done`
-* [ ] Fill in the `To Do` list with the MVP features listed below
-* [ ] Fill in the `backlog` list with all the extra features listed below
-* [ ] Share your board with the project manager that has been assigned to you.  If you have not been assigned yet, reach out to your Section Lead for guidance
-* [ ] Add your Trello URL to your project's README.md file.  Commit the change, push it to your repository & submit a pull request
-
-## Backend MVP Features:
-* [ ] Create a Database for your app
-* [ ] Design your models for your app. You should have a model for notes and for users. (The users model will come in handy when building out your stretch goals).
-* [ ] Deploy your application to the web
-* [ ] Create a Node app and connect it to your database
-* [ ] Store Notes in your Database
-
-Build an API Endpoint in your Node App for each of the following, and connect them to your React App. These should all be read from your Database and scoped to the logged in user.
-* [ ] Display a list of notes
-* [ ] Create a note with a title and content
-* [ ] View an existing note
-* [ ] Edit an existing note
-* [ ] Delete an existing note
-* [ ] Link up your Front End Project to your new and improved backend
-```
 
 ***
 ## Once you have completed the Backend Minimum Viable Product requirements, direct message your project manager for approval.  If approved, you may continue working on the Extra Features. Please add the Extra Features to your Task List in the first comment on your PR.
