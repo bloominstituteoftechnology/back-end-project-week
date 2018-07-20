@@ -5,7 +5,7 @@ const User = require('../models/User');
 describe('The User Model', () => {
     beforeAll(() => {
         return mongoose
-            .connect('mongodb://LisaCee:TU4aFT_PRN@ds141631.mlab.com:41631/lambdatest')
+            .connect('mongodb://LisaCee:t3st_pw@ds141631.mlab.com:41631/lambdatest')
             .then(() => console.log('\n=== connected to TEST DB ==='))
             .catch(err => {
                 console.log('error connecting to TEST database');

@@ -3,10 +3,16 @@ const server = require('../server');
 const Note = require('../models/Note')
 const mongoose = require('mongoose');
 
+const options = {
+    user: process.env.DB_USER,
+    pass: process.env.DB_PASS,
+    useNewUrlParser: true
+}
+
 describe('noteRoutes', () => {
     beforeAll(() => {
         return mongoose
-            .connect('mongodb://LisaCee:TU4aFT_PRN@ds141631.mlab.com:41631/lambdatest')
+            .connect('mongodb://LisaCee:t3st_pw@ds141631.mlab.com:41631/lambdatest')
             .then(() => console.log('\n=== connected to TEST DB ==='))
             .catch(err => {
                 console.log('error connecting to TEST database', err);
