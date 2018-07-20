@@ -3,7 +3,7 @@ const router = require('express').Router()
 
 router.get('/', (req,res) => {
     notes.find({},(err,results) => {
-        res.status(200).json(results)
+       
     })
 })
 
