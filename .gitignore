@@ -1,4 +1,8 @@
 node_modules/
 
 .DS_Store
+<<<<<<< HEAD
 .env
+=======
+process.env
+>>>>>>> 1ad154acdfed4eabea764fb88ba3d8db2f8f5c47
