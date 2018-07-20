@@ -34,6 +34,7 @@ Build an API Endpoint for each of the following, and connect it to your React Ap
 * [ ] View an existing note
 * [ ] Edit an existing note
 * [ ] Delete an existing note
+* [ ] Link up your Front End Project to your new and improved backend
 
 Upon your first commit, please submit a Pull Request and add _both_ the **Trello Set Up** and **Backend MVP Features** Task lists to your first Pull Request comment:
 
@@ -60,6 +61,7 @@ Build an API Endpoint in your Node App for each of the following, and connect th
 * [ ] View an existing note
 * [ ] Edit an existing note
 * [ ] Delete an existing note
+* [ ] Link up your Front End Project to your new and improved backend
 ```
 
 ***
@@ -68,7 +70,6 @@ Build an API Endpoint in your Node App for each of the following, and connect th
 Once your MVP has been approved, you have been given a feature list that the client would love to have completed.  Your goal would be to finish MVP as soon as you can and get working the list of features.
 
 ## Extra Features:
-* [ ] Link up your Front End Project to your new and improved backend
 * [ ] Create a Registration Page that allows users to create accounts for your app and sign in with email/password
 * [ ] Write tests for your endpoints and models
 * [ ] Be sure to provide documentation for how to interface with your api
