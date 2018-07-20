@@ -1,15 +1,16 @@
-// const express = require('express')
+require('dotenv').config();
 const PORT = process.env.PORT || 5000;
 const mongoose = require('mongoose');
 const server = require('./server')
 
-// express()
-//     .get('/', (req, res) => res.json({ msg: '###--Connected--###' }))
-//     .listen(PORT, () => console.log(`Listening on ${PORT}`))
-
-
+const options = {
+    user: process.env.DB_USER,
+    pass: process.env.DB_PASS,
+    useNewUrlParser: true
+}
+console.log('ENV', process.env.DB_HOST)
 mongoose
-    .connect('mongodb://LisaCee:TU4aFT_PRN@ds239681.mlab.com:39681/lambda-notes')
+    .connect(process.env.DB_HOST, options)
     .then(() => {
         console.log('Connected to mongodb!!')
         server.listen(PORT, () => {

@@ -56,45 +56,42 @@ describe('noteRoutes', () => {
             .send(titleNote)
             expect(response.body.title).toBe(titleNote.title)
     })
-
     
-    // it('should return an error for an incomplete signup', async () => {
-    //     const incomplete = {
-    //         username: 'Lisa'
-    //     }
-    //     await request(server)
-    //         .post('/user/signup')
-    //         .send(incomplete)
-    //     expect(500)
-    //     expect({ message: 'Error saving data to the DB' })
-    // })
-    // it('deletes a user from the database', async () => {
-    //     const deleteUser = await User.create({
-    //         email: 'lisa@lambdaschool.edu',
-    //         username: 'LisaCee',
-    //         password: 'password123'
-    //     })
+    it('should return an error for an incomplete note', async () => {
+        const incomplete = {
+            username: 'Lisa'
+        }
+        await request(server)
+            .post('/notes/create')
+            .send(incomplete)
+        expect(500)
+        expect({ message: 'Error saving note to the DB' })
+    })
 
-    //     const response = await request(server)
-    //         .delete(`/user/delete/${deleteUser._id}`)
-    //     console.log(response.statusCode)
-    //     expect(204)
-    // })
-    // it('returns an error when deleting a non-existant user', async () => {
-    //     const deleteUser = await User.create({
-    //         email: 'lisa@lambdaschool.edu',
-    //         username: 'LisaCee',
-    //         password: 'password123'
-    //     })
+    it('deletes a note from the database', async () => {
+        const deletedNote = await Note.create({
+            title: 'lisa',
+            content: 'LisaCee'
+        })
 
-    //     const response = await request(server)
-    //         .delete(`/user/delete/${deleteUser._id}`)
-    //         console.log(response.statusCode)
-    //     expect(204);
+        await request(server)
+            .delete(`/notes/delete/${deletedNote._id}`)
+        expect(204)
+    })
 
-    //     await request(server)
-    //         .delete(`/user/delete/${deleteUser._id}`)
-    //     expect(404)
-    // })
-    //false positives
+    it('returns an error when deleting a non-existant user', async () => {
+        const deletedNote = await Note.create({
+            title: 'lisa',
+            content: 'LisaCee'
+        })
+
+        const response = await request(server)
+            .delete(`/notes/delete/${deletedNote._id}`)
+            console.log(response.statusCode)
+        expect(204);
+
+        await request(server)
+            .delete(`/notes/delete/${deletedNote._id}`)
+        expect(404)
+    })
 })
