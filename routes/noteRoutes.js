@@ -48,10 +48,10 @@ server.put('/edit/:id', (req, res) => {
     const { id } = req.params;
     const changes = req.body;
 
-    //All we care about is the game title and id. Don't worry about genre or date.
-    if (!changes.title || !id) {
-        return res.status(422).json({ error: 'Must Provide a title && Id' });
-    }
+    // //All we care about is the game title and id. Don't worry about genre or date.
+    // if (!changes.title || !id) {
+    //     return res.status(422).json({ error: 'Must Provide a title && Id' });
+    // }
 
     const options = {
         new: true,

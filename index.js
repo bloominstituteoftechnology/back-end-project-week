@@ -8,7 +8,7 @@ const options = {
     pass: process.env.DB_PASS,
     useNewUrlParser: true
 }
-console.log('ENV', process.env.DB_HOST)
+
 mongoose
     .connect(process.env.DB_HOST, options)
     .then(() => {
