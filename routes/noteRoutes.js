@@ -32,7 +32,7 @@ server.get('/:id', (req, res) => {
         });
 });
 
-server.post('/', async (req, res) => {
+server.post('/create', async (req, res) => {
     Note.create(req.body)
         .then(note => {
             res.status(201).json(note);
@@ -47,12 +47,6 @@ server.post('/', async (req, res) => {
 server.put('/edit/:id', (req, res) => {
     const { id } = req.params;
     const changes = req.body;
-
-    // //All we care about is the game title and id. Don't worry about genre or date.
-    // if (!changes.title || !id) {
-    //     return res.status(422).json({ error: 'Must Provide a title && Id' });
-    // }
-
     const options = {
         new: true,
     };
