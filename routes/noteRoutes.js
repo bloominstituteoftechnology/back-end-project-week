@@ -44,7 +44,7 @@ server.post('/create', async (req, res) => {
         });
 });
 
-server.put('/edit/:id', (req, res) => {
+server.put('/:id/edit', (req, res) => {
     const { id } = req.params;
     const changes = req.body;
     const options = {
