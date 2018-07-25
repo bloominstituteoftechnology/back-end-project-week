@@ -2,7 +2,7 @@ const server = require('express').Router();
 
 const Note = require('../models/Note');
 
-server.get('/notes/', async (req, res) => {
+server.get('/notes', async (req, res) => {
     Note.find()
         .then(notes => {
             res.status(200).json(notes);
