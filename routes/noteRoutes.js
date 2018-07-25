@@ -2,7 +2,7 @@ const server = require('express').Router();
 
 const Note = require('../models/Note');
 
-server.get('/', async (req, res) => {
+server.get('/notes/', async (req, res) => {
     Note.find()
         .then(notes => {
             res.status(200).json(notes);
@@ -32,7 +32,7 @@ server.get('/:id', (req, res) => {
         });
 });
 
-server.post('/create', async (req, res) => {
+server.post('/', async (req, res) => {
     Note.create(req.body)
         .then(note => {
             res.status(201).json(note);
@@ -44,7 +44,7 @@ server.post('/create', async (req, res) => {
         });
 });
 
-server.put('notes/:id', (req, res) => {
+server.put('/:id', (req, res) => {
     const { id } = req.params;
     const changes = req.body;
     const options = {
