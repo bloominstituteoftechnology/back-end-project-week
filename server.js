@@ -17,7 +17,7 @@ server.get('/', (req, res) => {
     res.json({ msg: "Connected" })
 });
 
-server.use('/notes', noteRoutes);
-server.use('/user', userRoutes);
+server.use('/api/notes', noteRoutes);
+// server.use('/api/user', userRoutes);
 
 module.exports = server;
