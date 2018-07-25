@@ -44,7 +44,7 @@ server.post('/create', async (req, res) => {
         });
 });
 
-server.put('notes/:id/edit', (req, res) => {
+server.put('notes/:id', (req, res) => {
     const { id } = req.params;
     const changes = req.body;
     const options = {
@@ -66,7 +66,7 @@ server.put('notes/:id/edit', (req, res) => {
         });
 });
 
-server.delete('/delete/:id', (req, res) => {
+server.delete('/:id', (req, res) => {
     const { id } = req.params;
 
     if (!id) {
