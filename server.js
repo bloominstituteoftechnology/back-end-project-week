@@ -18,6 +18,6 @@ server.get('/', (req, res) => {
 });
 
 server.use('/api/notes', noteRoutes);
-// server.use('/api/user', userRoutes);
+server.use('/api/user', userRoutes);
 
 module.exports = server;
