@@ -3,7 +3,13 @@ const router = require('express').Router()
 
 router.get('/', (req,res) => {
     notes.find({},(err,results) => {
-       res.status(200).json(result)
+       res.status(200).json(results)
+    })
+})
+
+router.get('/:id', (req,res) => {
+    notes.findById(req.params.id,(err,result) => {
+        res.status(200).json(result)
     })
 })
 
