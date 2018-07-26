@@ -1,6 +1,7 @@
 const server = require('express')()
 const json = require('express').json
 const PORT = process.env.PORT || 8888
+const cors = require('cors')
 const mongoose = require('mongoose')
 const users = require('./users/userRouter')
 const notes = require('./notes/noteRouter')
@@ -14,6 +15,7 @@ else {
 }
 
 server.use(json())
+app.use(cors())
 server.use('/api/users', users)
 server.use('/api/notes', notes)
 
