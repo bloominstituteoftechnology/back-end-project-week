@@ -13,9 +13,8 @@ if (process.env.NODE_ENV === 'PROD') {
 else {
     mongoose.connect('mongodb://localhost/notesapp')
 }
-
+server.use(cors())
 server.use(json())
-app.use(cors())
 server.use('/api/users', users)
 server.use('/api/notes', notes)
 
