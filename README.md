@@ -1,3 +1,33 @@
+My Trello:
+https://trello.com/b/W4TurebI/lambda-notes-back-end-lisacee
+
+My Heroku URL:
+https://lambda-notes-back-end.herokuapp.com/
+
+## Trello Set Up:
+* [X] Use your existing Trello account from the Front End Project, or create a new one
+* [X] Create a new board called "Lambda Notes(Backend) - {Your Name}"
+* [X] Create lists titled `backlog`,`To Do`, `In Progress`, and `Done`
+* [X] Fill in the `To Do` list with the MVP features listed below
+* [X] Fill in the `backlog` list with all the extra features listed below
+* [X] Share your board with the project manager that has been assigned to you.  If you have not been assigned yet, reach out to your Section Lead for guidance
+* [X] Add your Trello URL to your project's README.md file.  Commit the change, push it to your repository & submit a pull request
+
+## Backend MVP Features:
+* [X] Create a Database for your app
+* [X] Design your models for your app. You should have a model for notes and for users. (The users model will come in handy when building out your stretch goals).
+* [ ] Deploy your application to the web
+* [X] Create a Node app and connect it to your database
+* [X] Store Notes in your Database
+
+Build an API Endpoint in your Node App for each of the following, and connect them to your React App. These should all be read from your Database and scoped to the logged in user.
+* [X] Display a list of notes
+* [X] Create a note with a title and content
+* [X] View an existing note
+* [X] Edit an existing note
+* [X] Delete an existing note
+* [ ] Link up your Front End Project to your new and improved backend
+
 # Back End Project Week
 This week you will be building a backend for a note taking app called "Lambda Notes."
 
@@ -7,15 +37,6 @@ The main objective of this week is to develop a backend to support the LambdaNot
 
 ## Git Commits
 * You are required to showcase progress with at least 1 commit a day.  This will let your project manager know where you are and if you need help.  This also allows the client to get progress reports from the company in a real world setting. This also protects you from losing your work if your computer blows up.
-
-## Trello Set Up:
-* [ ] Use your existing Trello account from the Front End Project, or create a new one
-* [ ] Create a new board called "Lambda Notes(Backend) - {Your Name}"
-* [ ] Create lists titled `backlog`,`To Do`, `In Progress`, and `Done`
-* [ ] Fill in the `To Do` list with the Backend MVP features listed below
-* [ ] Fill in the `backlog` list with all the extra features listed below
-* [ ] Share your board with the project manager that has been assigned to you.  If you have not been assigned yet, reach out to your Section Lead for guidance
-* [ ] Add your Trello URL to your project's README.md file.  Commit the change, push it to your repository & submit a pull request
 
 ## Backend MVP Features:
 It is suggested that you deploy the server and database first, before you undergo implementing the logic. Doing this makes the deployment process much simpler, since there's no code yet to complicate the deployment step. We recommend you deploy your server to [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction), and your Mongo database to [mlab](https://docs.mlab.com/). The recommended deployment site for the front end is [netlify](https://www.netlify.com/blog/2016/09/29/a-step-by-step-guide-deploying-on-netlify/). 
@@ -36,33 +57,7 @@ Build an API Endpoint for each of the following, and connect it to your React Ap
 * [ ] Delete an existing note
 * [ ] Link up your Front End Project to your new and improved backend
 
-Upon your first commit, please submit a Pull Request and add _both_ the **Trello Set Up** and **Backend MVP Features** Task lists to your first Pull Request comment:
 
-```markdown
-## Trello Set Up:
-* [ ] Use your existing Trello account from the Front End Project, or create a new one
-* [ ] Create a new board called "Lambda Notes(Backend) - {Your Name}"
-* [ ] Create lists titled `backlog`,`To Do`, `In Progress`, and `Done`
-* [ ] Fill in the `To Do` list with the MVP features listed below
-* [ ] Fill in the `backlog` list with all the extra features listed below
-* [ ] Share your board with the project manager that has been assigned to you.  If you have not been assigned yet, reach out to your Section Lead for guidance
-* [ ] Add your Trello URL to your project's README.md file.  Commit the change, push it to your repository & submit a pull request
-
-## Backend MVP Features:
-* [ ] Create a Database for your app
-* [ ] Design your models for your app. You should have a model for notes and for users. (The users model will come in handy when building out your stretch goals).
-* [ ] Deploy your application to the web
-* [ ] Create a Node app and connect it to your database
-* [ ] Store Notes in your Database
-
-Build an API Endpoint in your Node App for each of the following, and connect them to your React App. These should all be read from your Database and scoped to the logged in user.
-* [ ] Display a list of notes
-* [ ] Create a note with a title and content
-* [ ] View an existing note
-* [ ] Edit an existing note
-* [ ] Delete an existing note
-* [ ] Link up your Front End Project to your new and improved backend
-```
 
 ***
 ## Once you have completed the Backend Minimum Viable Product requirements, direct message your project manager for approval.  If approved, you may continue working on the Extra Features. Please add the Extra Features to your Task List in the first comment on your PR.
