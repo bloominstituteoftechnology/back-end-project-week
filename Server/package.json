@@ -1,0 +1,36 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ckopecky/back-end-project-week.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ckopecky/back-end-project-week/issues"
+  },
+  "author": "Christina Kopecky <kopecky12112@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^2.0.1",
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "helmet": "^3.12.1",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.2.0"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "jest": "^23.3.0",
+    "nodemon": "^1.17.5",
+    "supertest": "^3.1.0"
+  },
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "cross-env NODE_ENV=test jest --watch --verbose"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
