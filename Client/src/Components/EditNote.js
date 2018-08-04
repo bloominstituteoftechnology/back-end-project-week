@@ -31,7 +31,7 @@ class EditNote extends Component {
                 <Sidebar />
                 <div className="main-form-container">
                     <div className="create-note-wrapper">
-                        <h3>Edit Note</h3>
+                        <h3 className="create-new-note">Edit Note</h3>
                         <div className="new-note-wrapper">
                             <label className="label">Note Title:</label>
                             <input 

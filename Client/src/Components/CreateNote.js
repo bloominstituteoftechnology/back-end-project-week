@@ -32,24 +32,24 @@ class CreateNote extends Component {
                 <Sidebar />
                 <div className="main-form-container">
                     <div className="create-note-wrapper">
-                        <h3>Create a New Note</h3>
+                        <h3 className="create-new-note">Create a New Note</h3>
                         <div className="new-note-wrapper">
-                        <label className="label">Note Title:</label>
-                        <input 
-                            className= "input-title" 
-                            placeholder="note title" 
-                            onChange={this.handleChange} 
-                            name="title" type="text-area"value={this.state.title}/>
+                            <label className="label">Note Title:</label>
+                            <input 
+                                className= "input-title" 
+                                placeholder="note title" 
+                                onChange={this.handleChange} 
+                                name="title" type="text-area"value={this.state.title}/>
                         </div>
                         <div className="new-note-wrapper">
-                        <label className="label">Note Body:</label>
-                        <textarea 
-                            className="input-body" 
-                            placeholder="note content" 
-                            onChange={this.handleChange} 
-                            name="body" 
-                            type="text-area" 
-                            value={this.state.body}/>
+                            <label className="label">Note Body:</label>
+                            <textarea 
+                                className="input-body" 
+                                placeholder="note content" 
+                                onChange={this.handleChange} 
+                                name="body" 
+                                type="text-area" 
+                                value={this.state.body}/>
                         </div>
                         <div className="new-note-wrapper">
                             <label className="label">Author:</label>

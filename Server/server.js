@@ -2,7 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const server = express();
 
-const port = "5000";
+const port = process.env.PORT || 5000;
 
 const noteController = require("./Controllers/NoteController");
 const authController = require("./Controllers/AuthController");
@@ -14,7 +14,7 @@ const jwt = require("jsonwebtoken");
 const database = "lambnotesdb";
 
 //database connection
-mongoose.connect(`mongodb://localhost:27017/${database}`)
+mongoose.connect(`mongodb://cmvnk:temp1234@ds125851.mlab.com:25851/heroku_nq1462wx`)
     .then(()=> {
         console.log(`Connected to ${database} on MongoDB`);
     })
@@ -43,10 +43,28 @@ const restricted = (req, res, next) => {
       res.send({message: "Error in retrieving token."})
     }
   }
+
+
 //global
 
+const corsOptions = {
+  origin: '*',
+  methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+};
+
+server.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*'); // Cross Site Allowance
+  res.setHeader(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept'
+  );
+  next();
+});
+
 server.use(express.json());
-server.use(cors());
+server.use(cors(corsOptions));
 server.use(helmet());
 
 server.use("/api/notes", noteController);
@@ -60,7 +78,7 @@ server.get("/", (req, res) => {
 });
 
 server.listen(port, () => {
-  console.log(`Server listening on port 5000`)
+  console.log(`Server listening on port ${port}`)
 });
 
 
