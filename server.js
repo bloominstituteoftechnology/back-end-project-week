@@ -34,7 +34,7 @@ server.use('/api/users', userRouter)
 
 
 mongoose
-.connect('mongodb://markstez05:Cheese12!@ds139970.mlab.com:39970/lambdanotes')
+
 .then(conn => {
     console.log('\n=== Connected to M-Lab Server! ===\n');
 })
