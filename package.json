@@ -1,0 +1,23 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "Back-End Server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "Edward Gonzalez",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^2.0.1",
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "helmet": "^3.12.1",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.2.0",
+    "mongoose-validate": "^0.0.5",
+    "morgan": "^1.9.0"
+  }
+}
