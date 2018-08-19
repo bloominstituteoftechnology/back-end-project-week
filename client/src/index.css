@@ -1,0 +1,149 @@
+body {
+  margin: 0 auto;
+  padding: 0;
+  color: #4a4a4a;
+  max-width: 1200px;
+}
+.App {
+  height: 90vh;
+  width: 1200px;
+  margin: 0 auto;
+  background: #f3f3f3;
+  display: flex;
+}
+.sidebar-wrapper {
+  background: #d8d8d8;
+  height: auto;
+  width: 20%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #979797;
+}
+.headline-wrapper {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 100px;
+}
+.button {
+  background: pink;
+  color: white;
+  margin-top: 20px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  text-decoration: none !important;
+}
+.noteslist-wrapper-with-sidebar {
+  display: flex;
+}
+.minus-sidebar {
+  display: flex;
+  flex-direction: column;
+  padding-left: 15px;
+  width: 75%;
+  height: auto;
+}
+.noteslist-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+.indiv-note {
+  width: 225px;
+  height: 250px;
+  padding: 5px;
+  background: #f5f5f5;
+  border: 1px solid #979797;
+  list-style-type: none;
+  margin: 15px;
+  overflow-wrap: break-word;
+  overflow: hidden;
+}
+.indiv-note-container {
+  width: 75%;
+  padding: 10px;
+}
+.formContainer {
+  margin: 0 auto;
+  height: 90vh;
+}
+.form-wrapper {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid purple;
+  margin: 50 auto;
+}
+.input-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 15px;
+}
+.label {
+  width: 80px;
+}
+.login-button {
+  width: 100px;
+  margin: 15px auto;
+}
+.register-here {
+  margin: 15px auto;
+}
+.create-note-app-page {
+  display: flex;
+  width: 1200px;
+}
+.create-note-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 800px;
+}
+.new-note-wrapper {
+  display: flex;
+  margin-top: 15px;
+}
+.input-title {
+  width: 300px;
+  height: 30px;
+  font-size: 1.3rem;
+}
+.input-body {
+  width: 700px;
+  height: 500px;
+  font-family: "Times New Roman";
+  font-size: 1rem;
+}
+.log-out-button {
+  margin-top: 30px;
+  margin-right: 50px;
+  text-align: right;
+}
+.link {
+  color: black;
+}
+.indiv-note-single {
+  display: flex;
+  width: 100%;
+}
+.single-note-nav-bar {
+  display: flex;
+  justify-content: flex-end;
+}
+.nav {
+  width: 70px;
+}
+
+.note-body {
+  text-decoration: none;
+  color: #4a4a4a;
+}
+.note-title {
+  height: 20px;
+  font-size: 1.2rem;
+}
+.link2 {
+  text-decoration: none;
+}
