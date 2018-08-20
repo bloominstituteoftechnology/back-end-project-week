@@ -1,10 +1,10 @@
 {
   "name": "back-end-project-week",
   "version": "1.0.0",
-  "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
+  "description": "Backend for a note taking app called \"Lambda Notes\".",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -13,6 +13,7 @@
   "author": "Tyson Gushiken",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.4",
     "express": "^4.16.3",
     "helmet": "^3.13.0",
     "knex": "^0.14.4",
