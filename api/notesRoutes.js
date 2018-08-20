@@ -37,4 +37,17 @@ router.post('/', (req, res, next) => {
     .catch(err => console.log(err))
 })
 
+router.put('/:id', (req, res, next) => {
+  const id = req.params.id;
+  const note = req.body;
+  db
+    .editNote(id, note)
+    .then(response => {
+      res
+        .status(200)
+        .json(response)
+    })
+    .catch(err => console.log(err))
+})
+
 module.exports = router;
