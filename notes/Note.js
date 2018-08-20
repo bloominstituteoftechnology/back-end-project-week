@@ -26,18 +26,14 @@ const NoteSchema = new Schema({
   },
   tags: {
     type: Array
-  },
-  note_id: {
-    type: Number,
-    unique: true
   }
 })
 
-let id = 1
-NoteSchema.pre('save', function (next) {
-  this.note_id = id
-  id++
-  next()
-})
+// let id = 1
+// NoteSchema.pre('save', function (next) {
+//   this.note_id = id
+//   id++
+//   next()
+// })
 
 module.exports = mongoose.model('Note', NoteSchema)

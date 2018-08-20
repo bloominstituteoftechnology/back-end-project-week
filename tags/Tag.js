@@ -22,7 +22,7 @@ const TagSchema = new Schema({
   },
   notes: {
     type: ObjectId,
-    ref: 'Tag'
+    ref: 'Note'
   }
 })
 
