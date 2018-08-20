@@ -17,7 +17,8 @@ server.get('/api/notes', (req, res) => {
    res.status(500).send({ error: "Server Error" })
   })
 });
-//Get note by idea
+
+//Get note by id
 server.get("/api/notes/:id", (req, res) => {
   const { id } = req.params;
   db.select().from('notes').where('id', id)
@@ -29,4 +30,15 @@ server.get("/api/notes/:id", (req, res) => {
     })
   });
 
+//Create new note
+server.post("/api/notes", (req, res) => {
+  const { title, content } = req.body;
+  db.insert({"title": title,
+              "content" : content})
+              .into('notes')
+    .then(response => (res.json(response)))
+    .catch(error => {
+     res.status(500).send({ error: "Server Error" })
+   })
+});
 server.listen(port, () => { console.log(`Server is running on port ${port}`)});
