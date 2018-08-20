@@ -36,7 +36,7 @@ server.post("/api/notes", (req, res) => {
   if(!title || !content){
     res.status(422).json({"Message": "Need title/content"})
   }
-  else { 
+  else {
   db.insert({"title": title,
               "content" : content})
               .into('notes')
@@ -45,4 +45,25 @@ server.post("/api/notes", (req, res) => {
      res.status(500).send({ error: "Server Error" })
    })}
 });
+
+//edit existing note
+server.put("/api/notes/:id", (req, res) => {
+    const { id } = req.params;
+    const { title, content } = req.body;
+
+    if(!title || !content){
+      res.status(422).json({"Message": "Need title/content"})
+    }
+    else {
+      db.update({
+                  "title": title,
+                  "content": content,
+                }).into('notes').where('id', id)
+        .then(response => (res.status(200).json(response)))
+        .catch(error => {
+         res.status(500).send({ error: "Server Error" })
+       })
+    }
+});
+
 server.listen(port, () => { console.log(`Server is running on port ${port}`)});
