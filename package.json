@@ -3,5 +3,27 @@
     "express": "^4.16.3",
     "knex": "^0.15.2",
     "sqlite3": "^4.0.2"
-  }
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  },
+  "name": "back-end-project-week",
+  "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
+  "version": "1.0.0",
+  "main": "knexfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nchen0/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nchen0/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/nchen0/back-end-project-week#readme"
 }
