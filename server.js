@@ -55,7 +55,7 @@ server.get('/', (req, res) => {
 });
 
 
-//********GET Users Endpoint******************
+//********USERS Endpoint******************
 server.get('/users', restricted, (req, res) => {
     db('users').select('id', 'name', 'password', 'email')
     .then(response => {
@@ -65,6 +65,8 @@ server.get('/users', restricted, (req, res) => {
         res.status(500).json('Sorry, you do not have access');
     })
 });
+
+
 
 server.post('/register', function(req, res) {
   const user = req.body;
@@ -91,6 +93,119 @@ server.post('/register', function(req, res) {
     .catch(function(error) {
       res.status(500).json({ error });
     });
+});
+
+
+server.post('/api/login', (req, res) => {
+	const identity = req.body;
+
+	db('users')
+		.where({ name: identity.name})
+		.first()
+		.then(function(user){
+			const passwordsMatch = bcrypt.compareSync(
+			  	identity.password, user.password
+			);
+				if (user && passwordsMatch) {
+					 const token = generateToken(user);
+					res.send(token);
+				} else {
+					return res.status(401).json({ error: 'Opps..Login unsuccessful, Please try again'});
+				}
+		})
+			.catch(function(error) {
+				res.send(500).json({ error });
+			})
+});
+server.get('/users/:id', (req, res) => {
+    const { id } = req.params;
+    db('users').where({id: Number(id)})
+    .then(response => {
+        res.status(200).json(response);
+    }).catch(err => {
+        res.status(500).json({error: 'Unable to retrieve user information.'})
+    })
+});
+
+server.put('/users/:id', (req, res) => {
+    const { id } = req.params;
+    const user = req.body;
+    db('users').where({id: Number(id)})
+    .update(user)
+    .then(response => {
+        res.status(201).json({response})
+    }).catch(err => {res.status(500).json(err)
+    })
+});
+
+server.delete('/users/:id', (req, res) => {
+    const { id } = req.params;
+    const user = req.body;
+    db('users').where({id: Number(id)})
+    .delete(user)
+    .then(response => {
+        res.status(201).json({response})
+    }).catch(err => {res.status(500).json(err)
+    })
+});
+
+//*********NOTES ENDPOINTS*********************************
+server.get('/notes', (req, res) => {
+    db('notes')
+        .then( notes => {
+            res.status(200).json(notes)
+        })
+        .catch( error => {
+            res.status(500).json({ error: "Error retrieving posts" })
+        })
+});
+
+server.get('/notes/:id', (req, res) => {
+    const { id } = req.params;
+    db('notes').where({id: Number(id)})
+    .then(response => {
+        res.status(200).json(response);
+    }).catch(err => {
+        res.status(500).json({error: 'Unable to retrieve note information.'})
+    })
+});
+
+server.post('/api/notes', (req,res) => {
+  const newNoteInfo = req.body;
+  db('notes')
+    .insert(newNoteInfo)
+    .then(response => {
+      res.status(201).json(response);
+    })
+    .catch(error => {
+      if(err.error === 19){
+      	res.status(400).json({ errorMessage: "Please provide title and contents for the post." });
+      } else {
+      	res.status(500).json({ error: "There was an error while saving the post to the database" });
+      }
+    });
+});
+
+server.put('/notes/:id', (req, res) => {
+    const { id } = req.params;
+    const note = req.body;
+    db('notes').where({id: Number(id)})
+    .update(note)
+    .then(response => {
+        res.status(201).json({response})
+    }).catch(err => {res.status(500).json(err)
+    })
+});
+
+server.delete('/notes/:id', (req, res) => {
+    const { id } = req.params;
+    const note = req.body;
+    db('notes').where({id: Number(id)})
+    .delete()
+    .then(response => {
+        res.status(201).json({response})
+    }).catch(err => {res.status(500).json(err)
+    })
 });
 
 
