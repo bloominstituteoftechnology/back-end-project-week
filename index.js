@@ -45,6 +45,19 @@ server.post('/notes', async (req,res) => {
     }
 })
 
+server.put('/notes/:id', async (req,res) => {
+    const changes = req.body;
+    const {id} = req.params;
+    const {title, content} = changes;
+    try {
+        await db('notes').where({id}).update(changes);
+        res.status(200).json({msg: `Note #${id} has successfully been updated as:`, title, content });
+    }
+    catch(err){
+        res.status(500).json({error:'Note could not be updated.'});
+    }
+})
+
 const port = 8000;
 server.listen(port, function() {
   console.log(`\n=== Web API Listening on http://localhost:${port} ===\n`);
