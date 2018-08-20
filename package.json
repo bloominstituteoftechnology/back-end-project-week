@@ -4,7 +4,7 @@
   "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
   "main": "server.js",
   "scripts": {
-    "test": "jest --watch --verbose",
+    "test": "jest --watch --verbose --detectOpenHandles",
     "start": "node server.js",
     "debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand"
   },

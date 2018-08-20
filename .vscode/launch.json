@@ -9,7 +9,8 @@
       "name": "vscode-jest-tests",
       "request": "launch",
       "args": [
-        "--runInBand"
+        "--runInBand",
+        "--detectOpenHandles"
       ],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
