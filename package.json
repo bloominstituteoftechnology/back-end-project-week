@@ -1,0 +1,16 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ekm79/back-end-project-week.git",
+  "author": "Erin Meredith <ekmeredith@att.net>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3",
+    "jest": "^23.5.0",
+    "knex": "^0.15.2",
+    "nodemon": "^1.18.3",
+    "sqlite": "^2.9.2",
+    "supertest": "^3.1.0"
+  }
+}
