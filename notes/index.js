@@ -34,6 +34,15 @@ router.get('/', async (req, res) => {
     } catch (err) {
         res.status(500).json(err);
     }
-})
+}).delete('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const droppedNote = await db.get(id);
+        const note = await db.drop(id);
+        res.status(200).json(droppedNote);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 
 module.exports = router;
