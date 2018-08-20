@@ -4,6 +4,10 @@ const server = express();
 
 server.use(express.json());
 
+server.get('/', (req, res) => {
+    res.send('up and running...')
+})
+
 const port = 3500;
 
 server.listen(port, function() {
