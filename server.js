@@ -22,6 +22,15 @@ server.get("/notes", (req, res) => {
   });
 });
 
+server.get("/notes/:id", (req, res) => {
+  const { id } = req.params;
+  db("notes")
+    .where("id", id)
+    .then(note => {
+      res.status(200).json(note);
+    });
+});
+
 server.post("/notes", (req, res) => {
   const note = req.body;
   db.insert(note)
