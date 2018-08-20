@@ -26,8 +26,30 @@ server.get('/get/:id', (req,res,next) => {
         .where({id})
         .first()
         .then(note => {
-            res.status(200).json(note)
+            if(!note){
+                res.status(404).json({error: true, message: "No note with that ID"})
+            }else{
+                res.status(200).json(note)
+            }
+            
         })
         .catch(next)
 })
+
+server.post('/post', (req, res, next) => {
+    const newNote = req.body
+
+    if(!newNote.title || !newNote.textBody){
+        res.status(418).json({error: true, message: "Missing title or textBody"})
+    }
+
+    db('notes')
+        .insert(newNote)
+        .into('notes')
+        .then(id => {
+            res.status(200).json({ inserted_id: id, inserted: newNote })
+        })
+        .catch(next)
+})
+
 module.exports = server
