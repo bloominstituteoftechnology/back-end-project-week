@@ -1,6 +1,5 @@
 const express = require('express');
 const knex = require('knex');
-// const db = require('./data/db.js');
 const cors = require('cors');
 
 const knexConfig = require('./knexfile');
@@ -28,9 +27,25 @@ server.post('/notes', (req, res) => {
 })
 server.get('/notes/:id', (req, res) => {
   const id = req.params.id
-  console.log(typeof(id));
   db('notes')
     .where('id', id)
+    .then(response => {
+      if (response.length === 0) {
+        res.status(404).json({ error: 'The note with the specified ID does not exist'})
+      }
+      res.status(200).json(response)
+    })
+    .catch(err => {res.status(500).json({ error: '.GET /notes/:id' })})
+})
+server.put('/notes/:id', (req, res) => {
+  const id = req.params.id
+  const { title, content } = req.body
+  if (!title || !content) {
+    res.status(400).json({ error: 'Title and Content are required'})
+  }
+  db('notes')
+    .where('id', id)
+    .update({ title, content })
     .then(response => res.status(200).json(response))
     .catch(err => {res.status(500).json({ error: '.GET /notes/:id' })})
 })
