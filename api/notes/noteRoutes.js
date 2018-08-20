@@ -1,5 +1,6 @@
 const express = require('express');
 const notesDb = require('../../data/helpers/notesDb');
+const tagsDb = require('../../data/helpers/tagsDb');
 const { noteCheck } = require('../../middleware/checks');
 
 const router = express.Router();
@@ -34,9 +35,16 @@ router.get('/:id', async (req, res, next) => {
 
 router.put('/:id', noteCheck, async (req, res, next) => {
     try {
+        if (req.tagId) {
+            await tagsDb.remove(req.tagId);
+        }
+        if (req.tag) {
+            await tagsDb.insert(req.params.id, req.tag);
+            req.tags.push({ ...req.tag });
+        }
         const note = await notesDb.update(req.params.id, req.note);
         if (!note) return next({ code: 404, message: "The note with the specified ID does not exist." });
-        res.status(200).json({ id: note, ...req.note });
+        res.status(200).json({ id: note, ...req.note, tags: req.tags });
     } catch (err) {
         next({ code: 500, error: "The note information could not be modified." });
     }

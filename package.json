@@ -9,6 +9,7 @@
   "author": "DirupT <iamcooled@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.4",
     "express": "^4.16.3",
     "knex": "^0.15.2"
   },
