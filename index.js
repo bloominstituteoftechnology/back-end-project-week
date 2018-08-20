@@ -14,7 +14,6 @@ server.get('/', (req, res) => {
 server.get('/api/notes', (req, res) => {
   db('notes')
     .then(notes => {
-      console.log(notes)
       if (notes.length === 0) {
         res.status(404).json({ message: "notes could not be found" })
         return;
@@ -38,6 +37,38 @@ server.post('/api/notes', (req, res) => {
     .catch(() => res.status(500).json({ message: "Note could not be saved" }))
 })
 
+server.get('/api/notes/:id', (req, res) => {
+  const { id } = req.params;
+  db('notes')
+    .where({ id })
+    .then(note => {
+      res.status(200).json(note);
+    })
+    .catch((err) => res.status(500).json(err));
+});
+
+server.delete('/api/notes/:id', (req, res) => {
+  const { id } = req.params;
+  db('notes')
+    .where({ id })
+    .del()
+    .then(id => {
+      res.status(200).json({ id });
+    })
+    .catch((err) => res.status(500).json(err));
+});
+
+server.put('/api/notes/:id', (req, res) => {
+  const { id } = req.params;
+  const { title, message } = req.body;
+  db('notes')
+    .where({ id })
+    .update({ title, message })
+    .then(id => {
+      res.status(200).json(id);
+    })
+    .catch((err) => res.status(500).json(err));
+});
 
 
 server.listen(8000, () => {

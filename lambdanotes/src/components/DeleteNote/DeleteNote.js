@@ -18,7 +18,7 @@ export default class DeleteNote extends Component {
   render() {
     console.log('this.props', this.props)
     return (
-      <div className="modal fade container" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className="modal fade container" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-body text-center">
