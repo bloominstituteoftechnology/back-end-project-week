@@ -1,0 +1,38 @@
+{
+  "name": "back-end-project-week",
+  "description": "A backend for a note taking app called \"Lambda Notes\".",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon",
+    "test": "jest --watch --verbose"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tgreenhalgh/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tgreenhalgh/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/tgreenhalgh/back-end-project-week#readme",
+  "devDependencies": {
+    "jest": "^23.5.0",
+    "supertest": "^3.1.0"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "helmet": "^3.13.0",
+    "jsonwebtoken": "^8.3.0",
+    "knex": "^0.15.2",
+    "sqlite3": "^4.0.2",
+    "uuid": "^3.3.2"
+  }
+}
