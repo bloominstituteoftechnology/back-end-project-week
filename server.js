@@ -1,9 +1,10 @@
 const codes = require("./data/statusCodes");
 const express = require("express");
+const cors = require('cors');
 const server = express();
 const noteRoutes = require("./api/notesRouter");
 server.use(express.json());
-
+server.use(cors())
 server.use("/api/notes", noteRoutes);
 
 server.use((err, req, res, next) => {
