@@ -38,10 +38,7 @@ router.post('/', async (req, res, next) => {
 
     try {
         const response = await db.add(req.body);
-        res.status(200).json({
-            id: response,
-            ...req.body
-        });
+        res.status(200).json(response);
     } catch (error) {
         next(sendError(500, 'Failed to save note to database.', error.message))
     }
@@ -71,8 +68,7 @@ router.delete('/:id', async (req, res, next) => {
 
     try {
         const response = await db.remove(id);
-        const notes = await db.get();
-        res.status(200).json(notes);
+        res.status(200).json(response);
     } catch (error) {
         next(sendError(500, "Failed to remove note.", error.message))
     }
