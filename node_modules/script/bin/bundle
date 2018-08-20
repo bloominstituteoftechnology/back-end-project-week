@@ -1,0 +1,72 @@
+#!/usr/bin/env node
+
+// builtin
+var path = require('path');
+var fs = require('fs');
+
+// local
+var script = require('../');
+
+var argv = require('optimist')
+    .usage('Usage: bundle {OPTIONS} [entry file]')
+    .wrap(80)
+    .option('name', {
+        alias : 'n',
+        desc : 'the variable name to assign the module output to'
+    })
+    .boolean('minify', {
+        alias : 'm',
+        desc : 'minify the javascipt output',
+        default : false,
+    })
+    .option('help', {
+        alias : 'h',
+        desc : 'Show this message'
+    })
+    .check(function (argv) {
+        if (argv.help) throw ''
+        if (process.argv.length <= 2) throw 'specify a javascript filename.'
+    })
+    .argv
+
+var filename = argv._.shift();
+var minify = argv.minify;
+
+// name to assign main module output
+var export_name = argv.name;
+
+var script_file = path.resolve(process.cwd, filename);
+
+var bundle = script.file(script_file, {
+    main: true
+});
+
+bundle.generate(function(err, source) {
+    if (err) {
+        throw err;
+    }
+
+    var req_src = fs.readFileSync(__dirname + '/../client/require.js', 'utf8');
+
+    var src = '';
+    if (export_name) {
+        src = export_name + ' = ';
+    }
+
+    src += '(function() {\n'
+    src += req_src;
+    src += '\nreturn ' + source + '})();';
+
+    if (minify) {
+        var uglifyjs = require('uglify-js');
+        var uglify = uglifyjs.uglify;
+        var ast = uglifyjs.parser.parse(src);
+        ast = uglify.ast_mangle(ast);
+        ast = uglify.ast_squeeze(ast);
+        src = uglify.gen_code(ast);
+    }
+
+    console.log(src);
+});
+
+// vim: ft=javascript
