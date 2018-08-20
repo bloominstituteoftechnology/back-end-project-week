@@ -12,6 +12,7 @@ You are required to showcase progress with at least 4 commits a day. This will l
 
 ## Trello Set Up
 
+- [Trello Link](https://trello.com/b/etpVUcnf/back-end-project 'trello for back-end-project')
 - <a href="https://trello.com/b/etpVUcnf/back-end-project" target="_blank">Trello for back-end project</a>
 
 * Create a new board called "Lambda Notes(Backend) - {Your Name}".
