@@ -1,10 +1,10 @@
 const express = require('express');
 const notesDb = require('../../data/helpers/notesDb');
-const { postCheck } = require('../../middleware/checks');
+const { noteCheck } = require('../../middleware/checks');
 
 const router = express.Router();
 
-router.post('/', postCheck, async (req, res, next) => {
+router.post('/', noteCheck, async (req, res, next) => {
     try {
         const notes = await notesDb.insert(req.note);
         res.status(201).json({ id: notes.id, ...req.note });
@@ -29,6 +29,16 @@ router.get('/:id', async (req, res, next) => {
         res.status(200).json(note);
     } catch (err) {
         next({ code: 500, error: "The note information could not be retrieved." });
+    }
+});
+
+router.put('/:id', noteCheck, async (req, res, next) => {
+    try {
+        const note = await notesDb.update(req.params.id, req.note);
+        if (!note) return next({ code: 404, message: "The note with the specified ID does not exist." });
+        res.status(200).json({ id: note, ...req.note });
+    } catch (err) {
+        next({ code: 500, error: "The note information could not be modified." });
     }
 });
 

@@ -7,5 +7,8 @@ module.exports = {
     },
     insert: note => {
         return db('notes').insert(note).then(ids => ({ id: ids[0] }));
+    },
+    update: (id, note) => {
+        return db('notes').where('id', id).update(note);
     }
 }
