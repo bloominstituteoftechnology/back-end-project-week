@@ -61,5 +61,16 @@ server.put('/update-note/:id', (req, res) => {
         })
 })
 
+server.delete('/delete-note/:id', (req, res) => {
+    const { id } = req.params;
+    db('notes')
+        .where({ id })
+        .del()
+        .then(note => {
+            res.status(200).json(note)
+        })
+        .catch(err => res.status(500).json(err))
+}) 
+
 
 server.listen(port, () => console.log('\n==== API is running ====\n'));
