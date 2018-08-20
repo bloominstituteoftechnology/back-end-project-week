@@ -32,4 +32,16 @@ app.get("/note/get/:id", (req, res) => {
     });
 });
 
+app.post("/note/create", (req, res) => {
+  const note = req.body;
+  database
+    .insert(note)
+    .then(response => {
+      res.json(response);
+    })
+    .catch(error => {
+      return error;
+    });
+});
+
 app.listen(4000, () => console.log("listening on port 4000!"));
