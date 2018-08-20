@@ -1,0 +1,21 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": "https://github.com/rushman7/back-end-project-week.git",
+  "author": "<arthurpisakhov1@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "knex": "^0.15.2",
+    "nodemon": "^1.18.3",
+    "script": "^0.1.4",
+    "sqlite3": "^4.0.2",
+    "start": "^5.1.0"
+  }
+}
