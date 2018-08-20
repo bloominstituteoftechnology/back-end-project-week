@@ -4,6 +4,9 @@ const server = express();
 
 server.use(express.json());
 
+const apiRouter = require('./routes/apiRouter');
+server.use('/', apiRouter);
+
 server.get('/', (req, res) => {
     res.send('up and running...')
 })
