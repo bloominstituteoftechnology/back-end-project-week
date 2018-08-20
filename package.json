@@ -4,7 +4,10 @@
   "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
   "main": "server.js",
   "scripts": {
-    "test": "jest --watch --runInBand",
+    "kmr" : "knex migrate:rollback",
+    "kml" : "knex migrate:latest",
+    "ksr" : "knex seed:run",
+    "test": "npm run kmr && npm run kml && npm run ksr && jest --watch --runInBand",
     "start": "nodemon server.js"
   },
   "repository": {

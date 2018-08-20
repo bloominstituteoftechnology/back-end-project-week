@@ -127,3 +127,16 @@ describe('POST Method to /notes', () => {
   })
 })
 
+describe('PUT Method to /notes/id with an invalid id', () => {
+  it('return a message saying invalid id', async () => {
+    const res = await req(server).patch('/notes/29').send({
+      title:'Title via Jest',
+      content:'Content via Jest. The best testing framework out right now!'
+    })
+
+    expect(res.status).toEqual(statusCodeFail)
+    expect(res.body).toEqual({msg:'error'})
+
+  })
+})
+
