@@ -26,9 +26,9 @@ server.get('/notes/:id', async (req, res) => {
   }
 });
 
-server.post('/notes', async(req, res) => {
+server.post('/notes', async(req, res) => { //May want to rename description to content
   const {title, description} = req.body;
-  console.log(title, description);
+
   try {
     const ids = await db.insert({title, description}).into('notes');
     const id = ids[0];
@@ -37,7 +37,24 @@ server.post('/notes', async(req, res) => {
   } catch (err) {
     res.status(404).send(`${err}...notes could not be created`);
   }
+})
 
+server.put('/notes/:id', async(req, res) => {
+  const {title, description} = req.body;
+  try {
+    const id = await db('notes').where('id', req.params.id).first().update({
+      title,
+      description
+    });
+    console.log('IDDD', id);
+    console.log('REQSSS', req.params.id);
+    
+    if(id > 0) {
+      return res.status(200).json(await db('notes').where('id', req.params.id).first());
+    };
+  } catch(err) {
+    res.status(500).send(`${err}...did not put`)
+  }
 })
 
 server.listen(8000, () => console.log('App is listening...'));
