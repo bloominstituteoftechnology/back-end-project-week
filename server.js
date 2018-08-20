@@ -17,11 +17,6 @@ server.get('/', (req, res) => {
   res.send('it is working...');
 });
 
-// base endpoints here
-server.get('/', (req, res) => {
-  res.send('working...');
-});
-
 // API routes
 server.use('/api/users', usersRoutes);
 server.use('/api/notes', notesRoutes);
