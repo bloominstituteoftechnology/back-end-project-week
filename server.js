@@ -31,5 +31,7 @@ server.use((err, req, res, next) => {
 });
 const port = 8001;
 server.listen(port, (req, res) => console.log(`Port ${port} is in use`));
+module.exports = {
+  server,
   paths
 };
