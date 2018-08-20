@@ -19,7 +19,7 @@ router.get("/:id", (req, res, next) => {
   db("notes")
     .where("_id", "=", id)
     .then(response => {
-      res.status(codes.OK).json(response);
+      res.status(codes.OK).json(...response);
     })
     .catch(err => {
       next(err);
