@@ -1,0 +1,22 @@
+{
+    "name": "back-end-project-week",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "start": "nodemon index.js"
+    },
+    "repository": "https://github.com/Dilstom/back-end-project-week.git",
+    "license": "MIT",
+    "devDependencies": {
+        "nodemon": "^1.18.3"
+    },
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "corn": "^0.0.1",
+        "cors": "^2.8.4",
+        "express": "^4.16.3",
+        "helmet": "^3.13.0",
+        "knex": "^0.15.2",
+        "sqlite3": "^4.0.2"
+    }
+}
