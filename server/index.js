@@ -35,7 +35,7 @@ server.get('/notes/:id', async (req, res) => {
         if (n[0]) {
             res.status(200).json(n)
         } else {
-            res.status(404).json({ message: 'note not found' })
+            res.status(404).json({ message: 'The note with specified ID does not exist' })
         }
     })
         .catch(err => res.status(500).json(err))
@@ -73,6 +73,24 @@ server.post('/notes', reqCheck, async (req, res) => {
     } catch (err) {
         return res.status(500).json({ error: 'There was an error while saving the note to the database.' })
     }
+})
+server.put('/notes/:id', reqCheck, async (req, res) => {
+    const { id } = req.params;
+    const titleContent = req.body;
+
+    db('notes')
+        .where({ id })
+        .update(titleContent)
+        .then(p => {
+            if (p) {
+                res.status(200).json({ message: 'The note updated.' })
+            } else {
+                res.status(404).json({ error: 'The note with specified ID does not exist' })
+            }
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        });
 })
 
 server.listen(port, err => {
