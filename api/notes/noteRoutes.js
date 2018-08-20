@@ -5,11 +5,11 @@ const { postCheck } = require('../../middleware/checks');
 const router = express.Router();
 
 router.post('/', postCheck, async (req, res, next) => {
-    console.log(req.note);
     try {
-        const notes = await notesDb.insert();
+        const notes = await notesDb.insert(req.note);
+        res.status(201).json({ id: notes.id, ...req.note });
     } catch (err) {
-
+        next({ code: 500, error: "There was an error while saving the note to the database." });
     }
 });
 
