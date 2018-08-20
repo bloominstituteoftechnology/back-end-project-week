@@ -1,7 +1,7 @@
 {
   "name": "back-end-project-week",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "index.js",
   "repository": "https://github.com/Jameson13B/back-end-project-week.git",
   "license": "MIT",
     "scripts": {
