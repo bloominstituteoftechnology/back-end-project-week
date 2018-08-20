@@ -37,6 +37,7 @@ class SingleNoteView extends Component {
 
     render() { 
         console.log(' any props in single view note?: ', this.props)
+        console.log(' any props in single view note props?: ', this.props.note)
         return ( 
             <div>
                 
@@ -64,12 +65,12 @@ class SingleNoteView extends Component {
 const mapStateToProps = (state, ownProps) => {
     console.log( 'state in single note view: ', state);
     const id = ownProps.match.params.id
-    console.log('ownProps: ', ownProps)
+    console.log('ownProps: ', ownProps.match.params.id)
     console.log('note in single: ', state.notes)
     return {
         
-        note: state.notes.filter(note=>{
-             note.id === ownProps.match.params.id
+        note: state.notes.find(note=>{
+            return note.id == id
         })
     }
 

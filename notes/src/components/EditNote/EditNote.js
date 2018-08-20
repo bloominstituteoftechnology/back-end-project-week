@@ -8,7 +8,7 @@ class EditNote extends Component {
         super(props);
         this.state = { 
             title: '',
-            textBody: '',
+            content: '',
          }
     }
 
@@ -16,7 +16,7 @@ class EditNote extends Component {
         
         this.setState({
             title: this.props.note.title,
-            textBody: this.props.note.textBody
+            content: this.props.note.content
         })
     }
 
@@ -29,7 +29,7 @@ class EditNote extends Component {
         const newObj = {
             id: this.props.match.params.id,
             title: this.state.title,
-            textBody: this.state.textBody
+            content: this.state.content
         }
         this.props.editingNote(newObj)
         this.props.history.push('/');
@@ -43,7 +43,7 @@ class EditNote extends Component {
 
                 <div className='formCreate'>
                     <input className='inputField inputTitle' placeholder='Note Title' name='title' value={this.state.title} type='text' onChange={this.handleChange} />
-                    <textarea className='inputField inputText' placeholder='Note Content' name='textBody' value={this.state.textBody} type='text' onChange={this.handleChange} />
+                    <textarea className='inputField inputText' placeholder='Note Content' name='content' value={this.state.content} type='text' onChange={this.handleChange} />
                     <button className='saveButton' onClick={this.handleSave}>Update</button>
                 </div>
             </div>
@@ -58,7 +58,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         
         note: state.notes.find(note=>{
-            return note._id === id
+            return note.id == id
         })
     }
 }

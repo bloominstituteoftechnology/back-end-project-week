@@ -8,7 +8,7 @@ class CreateNote extends Component {
         super(props);
         this.state = { 
             title: '',
-            text: '',
+            content: '',
          }
     }
     
@@ -21,7 +21,7 @@ class CreateNote extends Component {
         e.preventDefault();
         const newObj = {
             title: this.state.title,
-            textBody: this.state.text
+            content: this.state.content
         }
         this.props.addingNote(newObj);
         this.props.history.push('/');
@@ -35,7 +35,7 @@ class CreateNote extends Component {
 
                 <div className='formCreate'>
                     <input className='inputField inputTitle' placeholder='Note Title' name='title' value={this.state.title} type='text' onChange={this.handleChange} />
-                    <textarea className='inputField inputText' placeholder='Note Content' name='text' value={this.state.text} type='text' onChange={this.handleChange} />
+                    <textarea className='inputField inputText' placeholder='Note Content' name='content' value={this.state.content} type='text' onChange={this.handleChange} />
                     <button className='saveButton' onClick={this.handleSave}>Save</button>
                 </div>
             </div>
