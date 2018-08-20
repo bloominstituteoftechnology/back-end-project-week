@@ -23,6 +23,10 @@ server.use((error, req, res, next) => {
     return res.status(error.code).json({message: error.message, error: error.error})
 })
 
+app.use(function (req, res, next) {
+    res.status(404).send("Sorry this page doesn't exist.")
+  })
+
 const port=8000;
 server.listen(port, () => {
     console.log(`=== API is listening at ${port} ===`);
