@@ -1,6 +1,8 @@
 # Back End Project Week
 
 Trello Link: https://trello.com/b/6cvpCkUb/lambda-notesbackend-william-difulvio
+Front-End-Project GitHub Link: https://github.com/LambdaSchool/front-end-project-week/pull/274
+
 
 This week you will build a backend for a note taking app called "Lambda Notes".
 
