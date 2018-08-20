@@ -127,15 +127,29 @@ describe('POST Method to /notes', () => {
   })
 })
 
-describe('PUT Method to /notes/id with an invalid id', () => {
+describe('POST Method to /notes/id with an invalid id', () => {
   it('return a message saying invalid id', async () => {
-    const res = await req(server).patch('/notes/29').send({
+    const res = await req(server).post('/notes/29').send({
       title:'Title via Jest',
       content:'Content via Jest. The best testing framework out right now!'
     })
 
     expect(res.status).toEqual(statusCodeFail)
-    expect(res.body).toEqual({msg:'error'})
+    expect(res.body).toEqual({msg:'ID not found'})
+
+  })
+})
+
+describe('POST Method to /notes/id with an valid id', () => {
+  it('return the updated note', async () => {
+    const res = await req(server).post('/notes/11').send({
+      title:'Title via Jest',
+      content:'Content via Jest. The best testing framework out right now!'
+    })
+
+    expect(res.status).toEqual(statusCodePass)
+    expect(res.body).toHaveProperty("content", "Content via Jest. The best testing framework out right now!")
+    expect(res.body).toHaveProperty("id",11)
 
   })
 })

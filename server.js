@@ -46,8 +46,14 @@ server.post('/notes', async (req,res) =>{
     res.status(statusCodeInc).json({msg: 'required fields missing'})
   else{
     try{
+
+      //Since the body is valid, we can insert the body
       const id = await baseTbl.insert('notes', body)
-      const data = await baseTbl.get('notes', id[0])      
+
+      //Then get the record for the newly returned id
+      const data = await baseTbl.get('notes', id[0]) 
+      
+      //Pass the data back to the client
       res.status(statusCodePass).json(data[0])
       
     }
@@ -57,6 +63,39 @@ server.post('/notes', async (req,res) =>{
     }
   }
 
+})
+
+server.post('/notes/:id', async (req,res) => {
+  const {id} = req.params
+  const {body} = req
+
+  try{
+
+    //Check if the ID is valid
+    const data = await baseTbl.get('notes', id)
+    
+    // if not, pass an error
+    if (data.length <= 0) res.status(statusCodeFail).json({msg:'ID not found'})
+    
+    // if it's valid...
+    else {
+
+      // update that ID record
+      const data = await baseTbl.update('notes', id, body)
+      
+      //If it updates successfully...
+      if (data >= 1){
+
+        //Grab that record:
+        const data = await baseTbl.get('notes', id)
+
+        //Send it back
+        res.status(statusCodePass).json(data[0])
+      }
+    }
+    
+  }
+  catch(err) {res.status(statusCodeFail).json({err})} 
 })
 
 module.exports = server
