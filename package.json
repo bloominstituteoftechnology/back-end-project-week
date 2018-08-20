@@ -1,0 +1,22 @@
+{
+  
+  "name": "Back_end_project",
+  "version": "1.0.0",
+  "description": "Project to implement back end skills",
+  "main": "index.js",
+  "repository": "https://github.com/kevten22/back-end-project-week.git",
+  "author": "Kevin Tena",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  },
+  "dependencies": {
+    "express": "^4.16.3",
+    "knex": "^0.15.2",
+    "sqlite3": "^4.0.2"
+  },
+  "scripts": {
+    "start": "nodemon index.js"
+  }
+}
