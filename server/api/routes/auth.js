@@ -52,7 +52,7 @@ sequelize.sync()
 // })
 
 function getToken (user) {
-  console.log('IN TOKEN', user)
+  console.log('IN TOKKEN', user)
   const payload = {
     userId: user.id
   }
