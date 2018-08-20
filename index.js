@@ -66,4 +66,14 @@ server.put("/api/notes/:id", (req, res) => {
     }
 });
 
+//delete note
+server.delete("/api/notes/:id", (req, res) => {
+  const { id } = req.params
+  db('notes').where("id", id).delete()
+    .then(response => (res.status(200).json(response)))
+    .catch(error => {
+     res.status(500).send({ error: "Server Error" })
+   })
+});
+
 server.listen(port, () => { console.log(`Server is running on port ${port}`)});
