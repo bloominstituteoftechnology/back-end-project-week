@@ -23,4 +23,19 @@ server.get('/notes', (req,res) => {
     {id:3, title :'Title3', content:'Content3'},
    ])
 })
+
+server.get('/notes/:id', (req, res) => {
+  const {id} = req.params
+
+  // Create a array of IDs
+  notes.map(cv => cv.id).includes(Number(id)) ?
+  
+  // If it contains the ID return:
+  res.status(200).json({msg:'valid id'}) : 
+  
+  // Otherwise return:
+  res.status(404).json({msg:'ID not found'})
+  
+})
+
 module.exports = server
