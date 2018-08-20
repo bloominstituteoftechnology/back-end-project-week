@@ -37,4 +37,16 @@ router.put("/:id", (req, res, next) => {
       next(err);
     });
 });
+router.delete("/:id", (req, res, next) => {
+  const { id } = req.params;
+  db("notes")
+    .where("id", "=", id)
+    .del()
+    .then(response => {
+      res.status(codes.OK).json(response);
+    })
+    .catch(err => {
+      next(err);
+    });
+});
 module.exports = router;
