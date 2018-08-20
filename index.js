@@ -13,11 +13,18 @@ server.use(express.json());
 server.get('/', (req, res) => {res.status(200).json({ api: 'API is running'})})
 server.get('/notes', (req, res) => {
   db('notes')
-    .then(response => res.status(200).json({response}))
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ error: err })
-    })
+    .then(response => res.status(200).json(response))
+    .catch(err => {res.status(500).json({ error: '.GET /notes' })})
+})
+server.post('/notes', (req, res) => {
+  const { title, content } = req.body;
+  if (!title || !content) {
+    res.status(400).json({ error: 'Title and Content are required'})
+  }
+  db.insert({ title, content })
+    .into('notes')
+    .then(response => res.status(201).json(response))
+    .catch(err => {res.status(500).json({ error: '.POST /notes' })})
 })
 
 server.listen(8000, () => console.log('API is running on 8000'))
