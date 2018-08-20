@@ -14,6 +14,18 @@ router.get("/", (req, res, next) => {
     });
 });
 
+router.get("/:id", (req, res, next) => {
+  const { id } = req.params;
+  db("notes")
+    .where("id", "=", id)
+    .then(response => {
+      res.status(codes.OK).json(response);
+    })
+    .catch(err => {
+      next(err);
+    });
+});
+
 router.post("/", (req, res, next) => {
   db("notes")
     .insert(req.body)
