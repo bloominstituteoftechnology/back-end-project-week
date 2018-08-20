@@ -21,6 +21,6 @@ module.exports = {
 
   deleteNote: id => {
     id = Number(id);
-    return db('note').where({ id }).del();
+    return db('notes').where({ id }).del();
   }
 }
