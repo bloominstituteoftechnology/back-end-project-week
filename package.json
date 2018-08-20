@@ -1,0 +1,33 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "back end project",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeffyjkang/back-end-project-week.git"
+  },
+  "author": "jeff kang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeffyjkang/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/jeffyjkang/back-end-project-week#readme",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "helmet": "^3.13.0",
+    "knex": "^0.15.2",
+    "morgan": "^1.9.0",
+    "npm": "^6.4.0",
+    "script": "^0.1.4",
+    "sqlite3": "^4.0.2",
+    "start": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  }
+}
