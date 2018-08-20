@@ -27,7 +27,7 @@ router.get('/:id(\\d+)', async (req, res, next) => {
         const response = await db.get(id);
         res.status(200).json(response);
     } catch (error) {
-        next(sendError(500, 'Failed to retrieve notes.', error.message))
+        next(sendError(500, 'Failed to retrieve note.', error.message))
     }
 })
 
@@ -62,7 +62,19 @@ router.put('/:id', async (req, res, next) => {
         const updated = await db.get(id);
         res.status(200).json(updated);
     } catch (error) {
-        next(sendError(500, 'Failed to save note to database.', error.message))
+        next(sendError(500, 'Failed to update note.', error.message))
+    }
+})
+
+router.delete('/:id', async (req, res, next) => {
+    const id = req.params.id;
+
+    try {
+        const response = await db.remove(id);
+        const notes = await db.get();
+        res.status(200).json(notes);
+    } catch (error) {
+        next(sendError(500, "Failed to remove note.", error.message))
     }
 })
 
