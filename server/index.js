@@ -14,7 +14,7 @@ const PORT = 5000
 
 server.get('/notes', (req, res) => {
     db('notes')
-   
+    .select('id', 'title', 'content')
     .then(notes => {
         res.json(notes);
     })
