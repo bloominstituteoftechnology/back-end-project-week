@@ -1,0 +1,20 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/chainchompa/back-end-project-week.git",
+  "author": "chainchompa <chainchompa@gmail.com>",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+   "start": "nodemon index.js"
+ },
+  "dependencies": {
+    "express": "^4.16.3",
+    "knex": "^0.15.2",
+    "sqlite3": "^4.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  }
+}
