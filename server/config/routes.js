@@ -1,9 +1,9 @@
-const db = require('../database/dbConfig');
+const db = require('../data/dbConfig');
 
 module.exports = server => {
-    server.get('/', home);
+    server.get('/', test);    
 };
 
-function home(req, res) {
+function test(req, res) {
     res.send('<h1>Rock-n-Roll!!</h1>');
 };
