@@ -25,6 +25,12 @@ router.post("/", (req, res, next) => {
     });
 });
 
+router.put("/:id", (req, res, next) => {
+  const { id } = req.params;
+  db("notes")
+    .where("id", "=", id)
+    .update(req.body)
+    .then(response => {
       res.status(codes.OK).json(response);
     })
     .catch(err => {
