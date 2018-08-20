@@ -26,5 +26,13 @@ server.post('/notes', (req, res) => {
     .then(response => res.status(201).json(response))
     .catch(err => {res.status(500).json({ error: '.POST /notes' })})
 })
+server.get('/notes/:id', (req, res) => {
+  const id = req.params.id
+  console.log(typeof(id));
+  db('notes')
+    .where('id', id)
+    .then(response => res.status(200).json(response))
+    .catch(err => {res.status(500).json({ error: '.GET /notes/:id' })})
+})
 
 server.listen(8000, () => console.log('API is running on 8000'))
