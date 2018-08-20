@@ -23,7 +23,7 @@ function get(id) {
 function add(note) {
     return db('Notes')
     .insert(note)
-    // .then(ids => ({id: ids[0]}))
+    .then(ids => ids[0])
 }
 function update(id, note) {
     return db('Notes')

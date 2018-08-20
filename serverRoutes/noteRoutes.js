@@ -31,4 +31,20 @@ router.get('/:id(\\d+)', async(req, res, next) => {
     }
 })
 
+router.post('/', async(req, res, next) => {
+    if (!(req.body.title && req.body.content)) {
+        return next(sendError(400, "Failed to save note to database.", "Please provide both title and content."))
+    }
+
+    try {
+        const response = await db.add(req.body);
+        res.status(200).json({
+            id: response,
+            ...req.body
+        });
+    } catch (error) {
+        next(sendError(500, 'Failed to save note to database.', error.message))
+    }
+})
+
 module.exports = router;
