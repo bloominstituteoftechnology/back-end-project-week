@@ -1,0 +1,23 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "Back End Project for Lambda School",
+  "main": "index.js",
+  "repository": "https://github.com/AKolumbic/back-end-project-week.git",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  },
+  "dependencies": {
+    "bcrypt": "^2.0.1",
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "helmet": "^3.12.1",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.1.6"
+  }
+}
