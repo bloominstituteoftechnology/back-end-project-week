@@ -14,4 +14,5 @@ server.get('/', (req, res) => {
 //   res.status
 // })
 
-server.listen(8888, () => console.log("Node-Express API running on port 8888. . ."));
+const port = process.env.PORT || 8888;
+server.listen(port, () => console.log("Node-Express API running on process.env.PORT || 8888. . ."));
