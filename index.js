@@ -16,6 +16,17 @@ server.get('/notes', async (req, res) => {
     }
 })
 
+server.get('/notes/:id', async (req, res) => {
+    const {id} = req.params;
+    try{
+        const note = await db('notes').where({id});
+        res.status(200).json(note);
+    }
+    catch(err){
+        res.status(500).json({error: 'Note could not be retrieved'});
+    }
+})
+
 server.post('/notes', async (req,res) => {
     let note = req.body;
     if(!('title') in note){
