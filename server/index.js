@@ -54,16 +54,6 @@ server.delete('/notes/:id', async (req, res) => {
             return res.status(500).json({ message: "Cannot delete the note" });
         })
 })
-//     try {
-//         const noteId = await db.remove(req.params.id);
-//         if (!noteId) {
-//             return res.status(404).json({ error: `Note with this id does not exist` })
-//         }
-//         return res.status(200).json(noteId);
-//     } catch (error) {
-//         return res.status(500).json({ message: "Cannot delete the note" });
-//     }
-// });
 
 server.post('/notes', reqCheck, async (req, res) => {
     try {
@@ -74,6 +64,7 @@ server.post('/notes', reqCheck, async (req, res) => {
         return res.status(500).json({ error: 'There was an error while saving the note to the database.' })
     }
 })
+
 server.put('/notes/:id', reqCheck, async (req, res) => {
     const { id } = req.params;
     const titleContent = req.body;
