@@ -46,8 +46,26 @@ server.put('/notes/:id', (req, res) => {
   db('notes')
     .where('id', id)
     .update({ title, content })
-    .then(response => res.status(200).json(response))
-    .catch(err => {res.status(500).json({ error: '.GET /notes/:id' })})
+    .then(response => {
+      if (response === 0) {
+        res.status(404).json({ error: 'The note with the specified ID does not exist'})
+      }
+      res.status(200).json(response)
+    })
+    .catch(err => {res.status(500).json({ error: '.PUT /notes/:id' })})
+})
+server.delete('/notes/:id', (req, res) => {
+  const id = req.params.id
+  db('notes')
+    .where('id', id)
+    .del()
+    .then(response => {
+      if (response === 0) {
+        res.status(404).json({ error: 'The note with the specified ID does not exist'})
+      }
+      res.status(200).json(response)
+    })
+    .catch(err => {res.status(500).json({ error: '.DELETE /notes/:id' })})
 })
 
 server.listen(8000, () => console.log('API is running on 8000'))
