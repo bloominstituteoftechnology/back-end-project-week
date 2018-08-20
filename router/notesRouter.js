@@ -44,7 +44,7 @@ router.post('/', noteConstraints, async (req, res) => {
 
   try {
     const note = await notesDB.insert(NOTE);
-    res.status(200).json({ message: `Note id:${note.id} has been posted.` });
+    res.status(200).json({ success: `${note.id}` });
   } catch (err) {
     res.status(500).send(`${err}`);
   }
@@ -56,7 +56,7 @@ router.put('/:id', noteConstraints, async (req, res) => {
   // middleware sets the req
   const { TITLE, CONTENT } = req;
 
-  const NOTE = { title: TITLE, content: CONTENT };
+  const NOTE = { title: TITLE, content: CONTENT, id: ID };
 
   // make sure we have the note to update
   try {
@@ -67,7 +67,7 @@ router.put('/:id', noteConstraints, async (req, res) => {
       // we do! try to update the note
       try {
         const note = await notesDB.update(ID, NOTE);
-        res.status(200).json({ message: `Note id:${ID} has been updated.` });
+        res.status(200).json({ success: NOTE });
       } catch (err) {
         res.status(500).send(`${err}`);
       }

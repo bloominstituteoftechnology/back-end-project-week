@@ -6,7 +6,6 @@ module.exports = {
     if (id) {
       query.where('id', Number(id)).first();
     }
-
     return query;
   },
   update: function(id, user) {
