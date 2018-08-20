@@ -42,18 +42,28 @@ server.post('/notes', async(req, res) => { //May want to rename description to c
 server.put('/notes/:id', async(req, res) => {
   const {title, description} = req.body;
   try {
-    const id = await db('notes').where('id', req.params.id).first().update({
+    const result = await db('notes').where('id', req.params.id).first().update({
       title,
       description
     });
-    console.log('IDDD', id);
-    console.log('REQSSS', req.params.id);
-    
-    if(id > 0) {
+
+    if(result > 0) {
       return res.status(200).json(await db('notes').where('id', req.params.id).first());
     };
   } catch(err) {
     res.status(500).send(`${err}...did not put`)
+  }
+});
+
+server.delete('/notes/:id', async(req, res) => {
+  try {
+    const result = await db('notes').where('id', req.params.id).del();
+
+    if(result > 0) {
+      return res.status(200).json({result: "DELETED"})
+    }
+  } catch (err) {
+    res.status(500).send(`Server error...${err}`)
   }
 })
 
