@@ -1,6 +1,7 @@
 const express = require('express');
 const db = require('../data/db');
 const router = express.Router();
+
 /* 
  Make get endpoint to get all notes in DB
  Make a get endpoint for note/:id
@@ -35,7 +36,13 @@ router.post('/', (req, res) => {
 })
 
 router.put('/:id', (req, res) => {
-    
+    const { id } = req.params
+    const { title, content} = req.body
+    db('notes').where({id: id}).update({title, content}).then(note => {
+        res.status(200).json(note)
+    }).catch(err => {
+        res.status(500).json(err)
+    })
 })
 
 
