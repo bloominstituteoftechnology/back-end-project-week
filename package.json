@@ -1,0 +1,28 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tysonism/back-end-project-week.git"
+  },
+  "author": "Tyson Gushiken",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "helmet": "^3.13.0",
+    "knex": "^0.14.4",
+    "sqlite3": "^4.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  },
+  "bugs": {
+    "url": "https://github.com/tysonism/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/tysonism/back-end-project-week#readme"
+}
