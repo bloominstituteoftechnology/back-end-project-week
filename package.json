@@ -1,0 +1,27 @@
+{
+  "name": "back_end_project_week",
+  "version": "n",
+  "description": "n",
+  "main": "y",
+  "repository": "https://github.com/ari7946/back-end-project-week.git",
+  "author": "Ari",
+  "license": "y",
+  "private": false,
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "helmet": "^3.13.0",
+    "jsonwebtoken": "^8.3.0",
+    "knex": "^0.15.2",
+    "morgan": "^1.9.0",
+    "sqlite3": "^4.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  }
+}
