@@ -5,6 +5,7 @@ module.exports = server => {
   server.get("/api/notes", get_notes);
   server.post("/api/notes", post_notes);
   server.get("/api/notes/:id", get_note_id);
+  server.put("/api/notes/:id", put_note_id);
 };
 
 const root = (req, res) => {
@@ -46,4 +47,17 @@ const get_note_id = (req, res) => {
     .where("id", Number(id))
     .then(note => res.status(200).json(note))
     .catch(error => res.status(500).json(error.message));
+};
+
+const put_note_id = (req, res) => {
+  const id = req.params.id;
+  const changes = req.body;
+  db("notes")
+    .where("id", id)
+    .update(changes)
+    .then(ids => {
+      const id = ids[0];
+      res.status(200).json({ id, ...changes });
+    })
+    .catch(error => res.status(500).json(error));
 };
