@@ -12,7 +12,6 @@ You are required to showcase progress with at least 4 commits a day. This will l
 
 ## Trello Set Up
 
-- [Trello Link](https://trello.com/b/etpVUcnf/back-end-project 'trello for back-end-project')
 - <a href="https://trello.com/b/etpVUcnf/back-end-project" target="_blank">Trello for back-end project</a>
 
 * Create a new board called "Lambda Notes(Backend) - {Your Name}".
@@ -44,7 +43,7 @@ Upon your first commit, please submit a Pull Request and add _both_ the **Trello
 
 ## Deployment
 
-After your PM certifies that all MVP features are complente, it's time to work on deploying it online for the world to see. We recommend you deploy your server to [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction), and your front end to [netlify](https://www.netlify.com/blog/2016/09/29/a-step-by-step-guide-deploying-on-netlify/). Both services provide free tiers and easy to use interfaces.
+After your PM certifies that all MVP features are complete, it's time to work on deploying it online for the world to see. We recommend you deploy your server to [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction), and your front end to [netlify](https://www.netlify.com/blog/2016/09/29/a-step-by-step-guide-deploying-on-netlify/). Both services provide free tiers and easy to use interfaces.
 
 Additionally, it is recommended that you keep your front end and backend codebases in separate GitHub repositories. This helps with deploying, since the different parts of your application will be deployed on different platforms.
 
