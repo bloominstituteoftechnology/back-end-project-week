@@ -5,6 +5,10 @@
   "repository": "https://github.com/ekm79/back-end-project-week.git",
   "author": "Erin Meredith <ekmeredith@att.net>",
   "license": "MIT",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "jest --watch --verbose"
+  },
   "dependencies": {
     "express": "^4.16.3",
     "jest": "^23.5.0",
