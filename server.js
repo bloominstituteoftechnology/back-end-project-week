@@ -38,4 +38,25 @@ server.get('/notes/:id', async (req, res) => {
   
 })
 
+server.post('/notes', async (req,res) =>{
+  const {body} = req
+
+  //Check if both the content and title sent
+  if (!body.title || !body.content)
+    res.status(statusCodeInc).json({msg: 'required fields missing'})
+  else{
+    try{
+      const id = await baseTbl.insert('notes', body)
+      const data = await baseTbl.get('notes', id[0])      
+      res.status(statusCodePass).json(data[0])
+      
+    }
+    catch(err) {
+      console.log(err)
+      res.status(statusCodeFail).json(err)
+    }
+  }
+
+})
+
 module.exports = server

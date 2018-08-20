@@ -5,7 +5,6 @@ exports.up = function(knex, Promise) {
       tbl.increments('id').primary();
       tbl.string('title').notNullable();
       tbl.text('content').notNullable();
-      tbl.timestamp('created_at').defaultTo(knex.fn.now());
     })
   ])
 };
