@@ -32,8 +32,11 @@ module.exports = {
             if (result) {
                 db('notes').where({
                     user_id: result.id
-                }).then(result => {
-                    res.status(200).json(result)
+                }).then(notes_Result => {
+                    result.notes = notes_Result
+                    res.status(200).json({
+                        result
+                    })
                 })
             } else {
                 next({
@@ -92,36 +95,18 @@ module.exports = {
     postNote: (req, res, next) => {
         const newNote = req.body;
         newNote.user_id = req.params.user_id;
-        if (newNote.text && newNote.user_id) {
+        if (newNote.text) {
             // check if the user exist in db
-            db('users')
-                .where({
-                    id: newNote.user_id
-                }).first()
-                .then(result => {
-                    // add new note if result isnt not undefined
-                    if (result) {
-                        db('notes').insert(newNote).then(result => {
-                            res.status(200).json(result)
-                        }).catch(error => next({
-                            // handle error incase db didnt add the new note
-                            message: error.message,
-                            status: 401
-                        }))
-                    } else {
-                        next({
-                            message: "wrong user id, try again",
-                            status: 401
-                        })
-                    }
-                }).catch(error => next({
-                    // handle error incase user didnt exist
-                    message: error.message,
-                    status: 500
-                }))
+            db('notes').insert(newNote).then(result => {
+                res.status(200).json(result)
+            }).catch(error => next({
+                // handle error incase db didnt add the new note
+                message: error.message,
+                status: 401
+            }))
         } else {
             next({
-                message: "user id and text is reqired",
+                message: "text is reqired",
                 status: 401
             })
         }
