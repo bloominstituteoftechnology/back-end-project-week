@@ -1,7 +1,17 @@
 const express = require('express');
 const notesDb = require('../../data/helpers/notesDb');
+const { postCheck } = require('../../middleware/checks');
 
 const router = express.Router();
+
+router.post('/', postCheck, async (req, res, next) => {
+    console.log(req.note);
+    try {
+        const notes = await notesDb.insert();
+    } catch (err) {
+
+    }
+});
 
 router.get('/', async (req, res, next) => {
     try {
