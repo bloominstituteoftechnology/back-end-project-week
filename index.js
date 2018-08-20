@@ -1,8 +1,10 @@
 const express = require('express');
 const db = require('./data/db');
+const cors = require('cors'); 
 const server = express();
 
 server.use(express.json());
+server.use(cors());
 
 server.get('/', (req, res) => {
     res.send('We runnin....')
@@ -21,12 +23,12 @@ server.get('/api/notes', (req, res) => {
 //Post New Note
 //Endpoint Works
 server.post('/api/notes', (req, res) => {
-    const note = req.body;
+    const {title, content} = req.body;
     db()
-    .insert(note)
+    .insert({title, content})
     .into('notes')
-    .then(note => {
-        res.status(201).json(note)
+    .then(response => {
+        res.status(201).json({title, content})
     })
     .catch(err => {
         res.status(500).json(err);
