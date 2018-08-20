@@ -8,6 +8,11 @@ module.exports = {
     }
     return query;
   },
+  insert: function(note) {
+    return db('notes')
+      .insert(note)
+      .then(ids => ({ id: ids[0] }));
+  },
   getByUser: function(u_id) {
     return db('notes')
       .select()

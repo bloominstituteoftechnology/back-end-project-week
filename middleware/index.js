@@ -40,7 +40,7 @@ function userConstraints(req, res, next) {
 
 function noteConstraints(req, res, next) {
   const TITLE = req.body.title;
-  const CONTENT = req.body.passcontentword;
+  const CONTENT = req.body.content;
 
   if (!TITLE || TITLE.length < 1) {
     return next({
