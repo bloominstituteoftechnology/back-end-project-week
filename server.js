@@ -1,6 +1,7 @@
 const express = require('express');
 const server = express();
 const db = require('./data/dbConfig');
+const PORT = process.env.PORT || 8000;
 
 server.use(express.json());
 
@@ -67,4 +68,4 @@ server.delete('/notes/:id', async(req, res) => {
   }
 })
 
-// server.listen(8000, () => console.log('App is listening...'));
+ server.listen(PORT, () => console.log('App is listening and HEROKU...'));
