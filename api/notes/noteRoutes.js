@@ -42,4 +42,14 @@ router.put('/:id', noteCheck, async (req, res, next) => {
     }
 });
 
+router.delete('/:id', async (req, res, next) => {
+    try {
+        const note = await notesDb.remove(req.params.id);
+        if (!note) return next({ code: 404, message: "The note with the specified ID does not exist." });
+        res.status(200).json(note);
+    } catch (err) {
+        next({ code: 500, error: "The note could not be removed" });
+    }
+});
+
 module.exports = router;
