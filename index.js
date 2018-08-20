@@ -17,7 +17,16 @@ server.get('/api/notes', (req, res) => {
    res.status(500).send({ error: "Server Error" })
   })
 });
-
-
+//Get note by idea
+server.get("/api/notes/:id", (req, res) => {
+  const { id } = req.params;
+  db.select().from('notes').where('id', id)
+    .then(response => {
+      res.json({"Message": response});
+    })
+    .catch(response => {
+      res.status(500).send({ error: "Server Error" });
+    })
+  });
 
 server.listen(port, () => { console.log(`Server is running on port ${port}`)});
