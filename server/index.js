@@ -29,6 +29,41 @@ server.get('/notes', async (req, res) => {
         return res.status(500).json({ message: "There is an error while retrieving Notes" });
     }
 });
+server.get('/notes/:id', async (req, res) => {
+    const id = req.params.id;
+    db('notes').where({ id }).then(n => {
+        if (n[0]) {
+            res.status(200).json(n)
+        } else {
+            res.status(404).json({ message: 'note not found' })
+        }
+    })
+        .catch(err => res.status(500).json(err))
+});
+
+server.delete('/notes/:id', async (req, res) => {
+    const { id } = req.params
+    db('notes').where({ id }).del().then(p => {
+        // const id = p[0]
+        if (!p) {
+            res.status(404).json({ error: `Note with this id does not exist` })
+        }
+        res.status(200).json({ message: 'The note has been deleted' });
+    })
+        .catch(error => {
+            return res.status(500).json({ message: "Cannot delete the note" });
+        })
+})
+//     try {
+//         const noteId = await db.remove(req.params.id);
+//         if (!noteId) {
+//             return res.status(404).json({ error: `Note with this id does not exist` })
+//         }
+//         return res.status(200).json(noteId);
+//     } catch (error) {
+//         return res.status(500).json({ message: "Cannot delete the note" });
+//     }
+// });
 
 server.post('/notes', reqCheck, async (req, res) => {
     try {
