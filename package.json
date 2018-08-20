@@ -6,10 +6,13 @@
   "author": "Simon <Simon_Freelance@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "test": "jest --watch --verbose"
   },
   "devDependencies": {
-    "nodemon": "^1.18.3"
+    "jest": "^23.5.0",
+    "nodemon": "^1.18.3",
+    "supertest": "^3.1.0"
   },
   "dependencies": {
     "cors": "^2.8.4",
