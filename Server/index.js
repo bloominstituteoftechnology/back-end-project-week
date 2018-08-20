@@ -15,5 +15,20 @@ server.get('/notes', (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
+server.post('/new-note', (req, res) => {
+    const note = req.body;
+    db('notes')
+        .insert(note)
+        .then(ids => {
+            db('notes')
+                .where({ id: ids[0] })
+                .first()
+                .then( note => {
+                    res.status(201).json(note)
+                })
+        })
+        .catch( err =>  res.status(500).json(err))
+})
+
 
 server.listen(port, () => console.log('\n==== API is running ====\n'));
