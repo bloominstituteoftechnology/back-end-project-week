@@ -1,7 +1,7 @@
 const express = require('express');
 const server = express();
 const db = require('./data/dbConfig');
-const PORT = 8000;
+const PORT = process.env.PORT;
 
 server.use(express.json());
 
@@ -68,4 +68,4 @@ server.delete('/notes/:id', async(req, res) => {
   }
 })
 
- server.listen(PORT, () => console.log('App is listening herok...'));
+ server.listen(PORT, () => console.log('App is listening hero...'));
