@@ -16,7 +16,6 @@ export default class NoteView extends Component {
   componentDidMount() {
     axios
       .get(`http://localhost:8000/api/notes/${this.props.match.params.id}`)
-      // .then(response => console.log(response.data[0].title))
       .then(res => this.setState({ 
         title: res.data[0].title,
         message: res.data[0].message
@@ -24,7 +23,6 @@ export default class NoteView extends Component {
   }
 
   render() {
-    console.log('this.state.note', this.state.title);
     return (
       <div className="container">
         <div className="top-content float-right mt-0">
