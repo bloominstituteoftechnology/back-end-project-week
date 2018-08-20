@@ -57,4 +57,16 @@ app.put("/note/edit/:id", (req, res) => {
     });
 });
 
+app.delete("/note/delete/:id", (req, res) => {
+  const { id } = req.params;
+  database
+    .remove(id)
+    .then(response => {
+      res.json({ response });
+    })
+    .catch(error => {
+      return error;
+    });
+});
+
 app.listen(4000, () => console.log("listening on port 4000!"));
