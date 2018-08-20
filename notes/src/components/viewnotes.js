@@ -10,18 +10,22 @@ class Notes extends Component {
     render() {
         return (
             <div className="Notes">
+                
             <ul> 
                  {this.state.notes.map(note => {
+                     return(
                     <li 
                     key={note.id}>
-                    {note.title}
-                    {note.content}
+                   <h1>  {note.title}</h1>
+                    <p>{note.content}</p>
                     </li>
+                     )
                     })}
 
              </ul>
 
             </div>
+                
         )
     }
 
@@ -31,6 +35,7 @@ class Notes extends Component {
         .get('http://localhost:5000/notes')
         .then(res => {
             this.setState({ notes: res.data})
+            console.log(res.data)
         })
         .catch(err => {
             console.log('Axios failed')

@@ -40,6 +40,18 @@ server.post('/addnote', function(req, res) {
     })
 })
 
+server.get('/notes/:id', (req, res) =>{
+    const id = req.params.id;
+    db('notes')
+    .get(id)
+    .then(response => {
+        res.status(200).json(response)
+    })
+    .catch(() => {
+        res.status(500).json({error})
+    })
+})
+
 
 
 
