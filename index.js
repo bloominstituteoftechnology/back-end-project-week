@@ -58,6 +58,17 @@ server.put('/notes/:id', async (req,res) => {
     }
 })
 
+server.delete('/notes/:id', async (req, res) => {
+    const {id} = req.params;
+    try{
+        await db('notes').where({id}).del();
+        res.status(200).json({msg: `Note #${id} has successfully been deleted.`})
+    }
+    catch(err){
+        res.status(500).json({error:'Note could not be deleted'});
+    }
+})
+
 const port = 8000;
 server.listen(port, function() {
   console.log(`\n=== Web API Listening on http://localhost:${port} ===\n`);
