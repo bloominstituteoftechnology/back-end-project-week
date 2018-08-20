@@ -1,16 +1,22 @@
 const db = require('../dbConfig.js');
+const notesDb = db('notes');
 
 module.exports = {
-  readAll: () => {
-    return db('notes');
-  },
-  read: id => {
-    return db('notes')
-      .where({ id: Number(id) });
-  },
   create: note => {
-    return db('notes')
+    return notesDb
       .insert(note)
       .then(ids => ({ id: ids[0] }));
+  },
+  readAll: () => {
+    return notesDb;
+  },
+  read: id => {
+    return notesDb
+      .where({ id: Number(id) });
+  },
+  update: (id, note) => {
+    return notesDb
+      .where('id', Number(id))
+      .update(note);
   }
 };
