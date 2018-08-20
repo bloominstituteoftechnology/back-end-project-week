@@ -46,7 +46,7 @@ describe('GET Method /notes/id - valid id', () => {
     const res = await req(server).get('/notes/2')
   
     expect(res.status).toEqual(statusCodePass)
-    expect(res.body).toEqual({msg: 'valid id'})
+    expect(res.body).toEqual({id:2, title :'Title2', content:'Content2'})
   })  
 })
 

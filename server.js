@@ -31,7 +31,7 @@ server.get('/notes/:id', (req, res) => {
   notes.map(cv => cv.id).includes(Number(id)) ?
   
   // If it contains the ID return:
-  res.status(200).json({msg:'valid id'}) : 
+  res.status(200).json(notes[id]) : 
   
   // Otherwise return:
   res.status(404).json({msg:'ID not found'})
