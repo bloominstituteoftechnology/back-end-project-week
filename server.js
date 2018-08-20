@@ -1,4 +1,5 @@
 const express = require('express');
+const helmet = require('helmet');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
@@ -7,7 +8,8 @@ const db = require('./data/dbConfig');
 const server = express();
 
 server.use(express.json());
-server.use(cors());
+server.use(helmet());
+server.use(cors({ origin: 'http://localhost:3300' }));
 
 
 // configure jwt
@@ -66,8 +68,6 @@ server.get('/users', restricted, (req, res) => {
     })
 });
 
-
-
 server.post('/register', function(req, res) {
   const user = req.body;
 
@@ -94,7 +94,6 @@ server.post('/register', function(req, res) {
       res.status(500).json({ error });
     });
 });
-
 
 server.post('/api/login', (req, res) => {
 	const identity = req.body;
