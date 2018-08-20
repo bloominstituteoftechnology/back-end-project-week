@@ -6,7 +6,10 @@
     "url": "git://github.com/coetry/back-end-project-week.git"
   },
   "main": "server.js",
-  "scripts": {},
+  "scripts": {
+    "test": "jest --watch --verbose",
+    "start": "nodemon server.js"
+  },
   "dependencies": {
     "cors": "^2.8.4",
     "express": "^4.16.3",
