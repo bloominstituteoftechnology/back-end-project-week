@@ -14,7 +14,9 @@ function get(id) {
     }
 
     return query.then(notes => {
-        console.log(notes);
+        if (notes.length === 1) {
+            return notes[0];
+        }
         return notes
     });
 }

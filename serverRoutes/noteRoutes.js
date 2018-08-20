@@ -20,4 +20,15 @@ router.get('/', async(req, res, next) => {
     }
 })
 
+router.get('/:id(\\d+)', async(req, res, next) => {
+    const id = req.params.id;
+
+    try {
+        const response = await db.get(id);
+        res.status(200).json(response);
+    } catch (error) {
+        next(sendError(500, 'Failed to retrieve notes.', error.message))
+    }
+})
+
 module.exports = router;
