@@ -1,3 +1,10 @@
+======================= TRELLO ADDRESS ========================
+
+https://trello.com/b/Ld4ZnW8G/lambda-notesbackend-jacob-layton
+
+===============================================================
+
+
 # Back End Project Week
 
 This week you will build a backend for a note taking app called "Lambda Notes".
