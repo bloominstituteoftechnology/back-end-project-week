@@ -4,18 +4,28 @@ const server = require('./server');
 const noteSeedArray = require('./dummyData/noteSeedArray');
 
 describe('Note api', () => {
-  let baseNotes = [];
-  beforeEach(done => db('notes')
-    .truncate()
-    .then(() => db('notes').insert(noteSeedArray))
-    .then(() => db('notes').select())
-    .then(res => baseNotes = res)
-    .then(() => done()));
   describe('get all notes request', () => {
+    let baseNotes = [];
+    beforeEach(done => db('notes')
+      .truncate()
+      .then(() => db('notes').insert(noteSeedArray))
+      .then(() => db('notes').select())
+      .then(res => (baseNotes = res))
+      .then(() => done()));
     it('returns all notes in database', async () => {
-      console.log(process.env.PATH_GET_NOTES);
       const { body } = await request(server).get(process.env.PATH_GET_NOTES);
       expect(body).toEqual(baseNotes);
+    });
+
+    it('returns an empty array when there are no notes', () => {
+      db('notes')
+        .truncate()
+        .then(() => request(server).get(process.env.PATH_GET_NOTES))
+        .then(({ body }) => {
+          expect(body instanceof Array).toBe(true);
+          expect(body.length).toBe(0);
+          return;
+        });
     });
   });
 });
