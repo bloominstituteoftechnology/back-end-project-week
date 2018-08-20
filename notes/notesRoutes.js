@@ -12,7 +12,16 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-
+  try {
+    const note = await notesModel.read(req.params.id);
+    if (note.length === 0) {
+      res.status(404).send({ error: 'A note with the specified ID does not exist.'});
+    } else {
+      res.status(200).json(note);
+    }
+  } catch (err) {
+    res.status(500).send({ error: 'Your note information could not be retrieved.' });
+  }
 });
 
 router.post('/', async (req, res) => {
@@ -22,7 +31,8 @@ router.post('/', async (req, res) => {
   } else {
     try {
       const added = await notesModel.create(req.body);
-      res.status(201).json({ id: added.id});
+      const note = await notesModel.read(added.id);
+      res.status(201).json(note);
     } catch (e) {
       res.status(500).send({ error: 'There was an error while saving your note to the database.' });
     }

@@ -4,6 +4,10 @@ module.exports = {
   readAll: () => {
     return db('notes');
   },
+  read: id => {
+    return db('notes')
+      .where({ id: Number(id) });
+  },
   create: note => {
     return db('notes')
       .insert(note)
