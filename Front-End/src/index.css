@@ -1,0 +1,62 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background: rgb(70, 66, 66);
+  color: white;
+}
+
+.description {
+  font-weight: bold;
+}
+
+.form {
+  max-width: 350px;
+  width: 250px;
+  position: relative;
+  margin: 30px auto;
+  text-align: center;
+}
+
+button {
+  background: rgb(119, 111, 111);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  height: 30px;
+  width: 100px;
+  border-radius: 5%;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.welcome {
+  max-width: 600px;
+  width: 40%;
+  position: relative;
+  margin: 0px auto;
+  text-align: center;
+  padding-top: 30vh;
+}
+
+#login {
+  background: lightgreen;
+  color: black;
+}
+
+.label {
+  color: white;
+}
+
+.joke-wrapper {
+  position: relative;
+  margin: 50px auto;
+  text-align: center;
+  width: 80%;
+}
+
+#logout {
+  position: absolute;
+  top: 5px;
+  right: 0px;
+  background: lightcoral;
+}
