@@ -45,7 +45,21 @@ server.post('/new-note', (req, res) => {
         .catch( err =>  res.status(500).json(err))
 })
 
-server.put()
+server.put('/update-note/:id', (req, res) => {
+    const note = req.body;
+    const { id } = req.params;
+    db('notes')
+        .where({ id })
+        .update({ title: note.title, content: note.content })
+        .into('notes')
+        .then(note => {
+            if (note){
+                res.status(200).json(note)
+            } else {
+                res.status(404).json({ message: 'The note with the specified ID could not be found' })
+            }
+        })
+})
 
 
 server.listen(port, () => console.log('\n==== API is running ====\n'));
