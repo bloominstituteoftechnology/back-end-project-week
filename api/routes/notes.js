@@ -64,4 +64,16 @@ server.delete('/delete/:id', (req,res,next) => {
         .catch(next)
 })
 
+server.put('/edit/:id', (req,res,next) => {
+    const { id } = req.params
+    const updated = req.body
+
+    db('notes')
+        .where({id})
+        .update(updated)
+        .then(response => {
+            res.status(200).json({response})
+        })
+})
+
 module.exports = server
