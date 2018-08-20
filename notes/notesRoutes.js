@@ -55,7 +55,8 @@ router.put('/:id', async (req, res) => {
         if (numUpdatedRows === 0) {
           throw new Error(500);
         } else {
-          res.status(200).json(noteId);
+          note = await notesModel.read(noteId);
+          res.status(200).json(note);
         }
       }
     }
@@ -65,7 +66,21 @@ router.put('/:id', async (req, res) => {
 });
 
 router.delete('/:id', async (req, res) => {
-
+  try {
+    const note = await notesModel.read(req.params.id);
+    if (note.length === 0) {
+      res.status(404).send({ error: 'A note with the specified ID does not exist.' })
+    } else {
+      const numUpdatedRows = await notesModel.remove(req.params.id);
+      if (numUpdatedRows === 0) {
+        throw new Error(500);
+      } else {
+        res.status(200).json(note);
+      }
+    }
+  } catch (err) {
+    res.status(500).send({ error: 'The note could not be removed.' });
+  }
 });
 
 module.exports = router;
