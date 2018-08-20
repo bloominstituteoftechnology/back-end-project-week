@@ -21,7 +21,8 @@ router.get('/notes', async (req, res) => {
 router.get('/notes/:id', async (req, res) => {
   try {
     const note = await notes.get(req.params.id);
-    if (note === null) {
+    console.log(note);
+    if (note === null || note === undefined) {
       return res.status(404).json({ message: "Note does not exist." });
     }
     return res.status(200).json(note);
