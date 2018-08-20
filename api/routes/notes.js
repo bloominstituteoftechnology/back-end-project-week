@@ -2,11 +2,11 @@ const server = require('express')()
 const db = require('../../data/db')
 
 
-server.get('/', (req, res) => {
+server.get('/', (req,res) => {
     res.status(200).json("App is currently running (better go out and catch it!)")
 })
 
-server.get('/get/all', (req,res, next) => {
+server.get('/get/all', (req,res,next) => {
     db('notes')
         .select('*')
         .then(notes => {
@@ -36,7 +36,7 @@ server.get('/get/:id', (req,res,next) => {
         .catch(next)
 })
 
-server.post('/post', (req, res, next) => {
+server.post('/post', (req,res,next) => {
     const newNote = req.body
 
     if(!newNote.title || !newNote.textBody){
@@ -48,6 +48,18 @@ server.post('/post', (req, res, next) => {
         .into('notes')
         .then(id => {
             res.status(200).json({ inserted_id: id, inserted: newNote })
+        })
+        .catch(next)
+})
+
+server.delete('/delete/:id', (req,res,next) => {
+    const { id } = req.params
+
+    db('notes')
+        .where({id})
+        .del()
+        .then(id => {
+            res.status(200).json({ deleted_id: id })
         })
         .catch(next)
 })
