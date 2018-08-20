@@ -1,10 +1,16 @@
 const db = require('../db');
-let query = db('notes as t');
+const tbl = 'notes';
 
 module.exports = {
     get: function (id) {
-        if(id) {
-            return query.where('t.id', id).first();
+        let query = db(`${tbl} as t`);
+        if (id) {
+            query.where('t.id', id).first();
+            const promises = [query];
+            return Promise.all(promises).then(function (results) {
+                let [note] = results;
+                return this.recordToBody(note);
+            });
         }
 
         return query.then(notes => {
@@ -12,10 +18,15 @@ module.exports = {
         });
     },
     add: function (record) {
+        let query = db(`${tbl} as t`);
         return query.insert(record).then(([id]) => this.get(id));
     },
-    edit: function () {
-
+    edit: function (id, changes) {
+        let query = db(`${tbl} as t`);
+        return query
+            .where('t.id', id)
+            .update(changes)
+            .then(count => (count > 0 ? this.get(id) : null));
     },
     drop: function () {
 
