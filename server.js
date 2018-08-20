@@ -17,9 +17,30 @@ server.get(process.env.PATH_GET_NOTES, (req, res, next) => {
     .catch(err => next(new HttpError(404, 'Database did not supply requested resources.')));
 });
 
+server.get(`${process.env.PATH_GET_NOTES}/:id`, (req, res, next) => {
+  const { id } = req.params;
+  if (id) {
+    db('notes')
+      .select()
+      .where('id', '=', Number(id))
+      .first()
+      .then((response) => {
+        if (response) {
+          return res.status(200).json(response);
+        }
+        throw new HttpError(404, 'Database did not return a resource for this id.');
+      })
+      .catch((err) => {
+         next(new HttpError(404, 'Database could not return a resource with the id provided'));
+      });
+  } else {
+    next(new HttpError(404, 'A usable id parameter was not received for this request.'));
+  }
+});
+
 server.use((err, req, res, next) => {
   if (err instanceof HttpError) {
-    const { code, message } = HttpError;
+    const { code, message } = err;
     console.log(HttpError);
     return res.status(code).json({ message });
   }

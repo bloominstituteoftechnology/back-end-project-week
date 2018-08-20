@@ -4,32 +4,46 @@ const server = require('./server');
 const noteSeedArray = require('./dummyData/noteSeedArray');
 
 describe('Note api', () => {
+  let baseNotes = [];
+  beforeEach(done => db('notes')
+    .truncate()
+    .then(() => db('notes').insert(noteSeedArray))
+    .then(() => db('notes').select())
+    .then((res) => {
+      baseNotes = res;
+    })
+    .then(() => done()));
   it('responds with a 404 error when a bad url is sent', async () => {
-      const response = await request(server).get('/badurl');
-      expect(response.status).toEqual(404);
+    const response = await request(server).get('/badurl');
+    expect(response.status).toEqual(404);
   });
   describe('get all notes request', () => {
-    let baseNotes = [];
-    beforeEach(done => db('notes')
-      .truncate()
-      .then(() => db('notes').insert(noteSeedArray))
-      .then(() => db('notes').select())
-      .then(res => (baseNotes = res))
-      .then(() => done()));
     it('returns all notes in database', async () => {
-      const { body } = await request(server).get(process.env.PATH_GET_NOTES);
+      const { body, status } = await request(server).get(process.env.PATH_GET_NOTES);
+      expect(status).toEqual(200);
       expect(body).toEqual(baseNotes);
     });
-
     it('returns an empty array when there are no notes', () => {
       db('notes')
         .truncate()
         .then(() => request(server).get(process.env.PATH_GET_NOTES))
-        .then(({ body }) => {
+        .then(({ body, status }) => {
+          expect(status).toEqual(200)
           expect(body instanceof Array).toBe(true);
           expect(body.length).toBe(0);
-          return;
         });
+    });
+  });
+  describe('for a single note', () => {
+    it('returns a note when url contains an id for an existing note', async () => {
+      const { body, status } = await request(server).get(`${process.env.PATH_GET_NOTES}/2`);
+      expect(status).toEqual(200);
+      expect(body).toEqual(baseNotes[1]);
+    });
+    it('returns a 404 when a request for a non-existent id is made', async () => {
+      const { body, status } = await request(server).get(`${process.env.PATH_GET_NOTES}/9`);
+      expect(status).toEqual(404);
+      expect(body.message).toBeDefined();
     });
   });
 });

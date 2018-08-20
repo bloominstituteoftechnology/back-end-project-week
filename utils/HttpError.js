@@ -1,6 +1,6 @@
 class HttpError extends Error {
-  constructor({ code, ...rest }) {
-    super(rest);
+  constructor(code, message) {
+    super(message);
     this.code = code;
   }
 }
