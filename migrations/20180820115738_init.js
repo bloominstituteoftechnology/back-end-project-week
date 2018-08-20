@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable('notes', tbl => {
       tbl.increments('id').primary();
       tbl.string('title').notNullable();
-      tbl.string('content').notNullable();
+      tbl.text('content').notNullable();
       tbl.timestamp('created_at').defaultTo(knex.fn.now());
     })
   ])
