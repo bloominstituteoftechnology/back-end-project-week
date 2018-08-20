@@ -12,7 +12,7 @@ You are required to showcase progress with at least 4 commits a day. This will l
 
 ## Trello Set Up
 
-- [Trello Link](https://trello.com/b/etpVUcnf/back-end-project 'trello for back-end-project')
+- <a href="https://trello.com/b/etpVUcnf/back-end-project" target="_blank">Trello for back-end project</a>
 
 * Create a new board called "Lambda Notes(Backend) - {Your Name}".
 * Create lists titled `Backlog`,`To do`, `Blocked`, `In Progress`, and `Done`.
@@ -25,7 +25,7 @@ You are required to showcase progress with at least 4 commits a day. This will l
 
 We recommend that you finish all the MVP features before trying to deploy.
 
-- Add data persistenc using a Relational Database. We suggest you start with `SQLite3`.
+- Add data persistence using a Relational Database. We suggest you start with `SQLite3`.
 - Create a Web API for the React application you built in the front-end project week.
 - Build endpoints for each of the following features:
   - Display a list of notes.
