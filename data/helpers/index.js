@@ -6,9 +6,10 @@ module.exports = {
         let query = db(`notes as t`);
         if (id) {
             query.where('t.id', id).first();
-            const promises = [query];
+            const promises = [query, this.getTags(id)];
             return Promise.all(promises).then(function (results) {
-                let [note] = results;
+                let [note, tags] = results;
+                note.tags = tags;
                 return m.recordToBody(note);
             });
         }
@@ -17,19 +18,21 @@ module.exports = {
             return notes.map(note => m.recordToBody(note));
         });
     },
+    getTags: function (id) {
+        return db('tags')
+            .where('noteId', id)
+            .then(tags => tags.map(tag => m.subRecordToBody(tag)));
+    },
     add: function (record) {
-        // let query = db(`${tbl} as t`);
         return db('notes as t').insert(record).then(([id]) => this.get(id));
     },
     edit: function (id, changes) {
-        // let query = db(`${tbl} as t`);
         return db('notes as t')
             .where('t.id', id)
             .update(changes)
             .then(count => (count > 0 ? this.get(id) : null));
     },
     drop: function (id) {
-        // let query = db(`${tbl} as t`);
         return db('notes as t').where('t.id', id).del();
     }
 }
