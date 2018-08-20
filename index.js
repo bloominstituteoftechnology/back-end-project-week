@@ -3,7 +3,7 @@ const axios = require('axios');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const db = require('../database/dbConfig.js');
+const db = require('./database/dbConfig.js');
 
 const server = express();
 server.use(express.json());
