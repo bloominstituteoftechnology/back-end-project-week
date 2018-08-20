@@ -25,4 +25,16 @@ router.get('/:id', (req, res, next) => {
     .catch(err => console.log(err))
 })
 
+router.post('/', (req, res, next) => {
+  const note = req.body;
+  db
+    .addNote(note)
+    .then(response => {
+      res
+        .status(200)
+        .json(response)
+    })
+    .catch(err => console.log(err))
+})
+
 module.exports = router;
