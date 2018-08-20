@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../data/helpers/notesDb');
+const db = require('../data/helpers/allDb');
+
+const table = 'notes';
 
 router.get('/', (req, res, next) => {
   db
-    .getNotes()
+    .get(table)
     .then(response => {
       res
         .status(200)
@@ -16,7 +18,7 @@ router.get('/', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
   const id = req.params.id;
   db
-    .getNote(id)
+    .getById(table, id)
     .then(response => {
       res
         .status(200)
@@ -28,7 +30,7 @@ router.get('/:id', (req, res, next) => {
 router.post('/', (req, res, next) => {
   const note = req.body;
   db
-    .addNote(note)
+    .add(table, note)
     .then(response => {
       res
         .status(200)
@@ -41,7 +43,7 @@ router.put('/:id', (req, res, next) => {
   const id = req.params.id;
   const note = req.body;
   db
-    .editNote(id, note)
+    .editNote(table, id, note)
     .then(response => {
       res
         .status(200)
@@ -53,7 +55,7 @@ router.put('/:id', (req, res, next) => {
 router.delete('/:id', (req, res, next) => {
   const id = req.params.id;
   db
-    .deleteNote(id)
+    .delete(table, id)
     .then(response => {
       res
         .status(200)
