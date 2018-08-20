@@ -5,10 +5,10 @@ exports.up = function(knex, Promise) {
 
     tbl.string('title').notNullable();
     tbl.text('description');
-    tbl.boolean('completed').notNullable();
+    tbl.boolean('completed').defaultTo(false);
   })
 };
 
 exports.down = function(knex, Promise) {
   return knex.schema.dropTableIfExists('notes');
-}; 
+};
