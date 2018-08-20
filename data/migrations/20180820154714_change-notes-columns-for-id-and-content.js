@@ -1,13 +1,13 @@
 exports.up = function(knex, Promise) {
     return knex.schema.table('notes', function(table) {
         table.renameColumn('id', '_id');
-        table.renameColumn('content', 'textContent');
+        table.renameColumn('content', 'textBody');
     });
 };
 
 exports.down = function(knex, Promise) {
     return knex.schema.table('notes', function(table) {
         table.renameColumn('_id', 'id');
-        table.renameColumn('textContent', 'content');
+        table.renameColumn('textBody', 'content');
     });
 };
