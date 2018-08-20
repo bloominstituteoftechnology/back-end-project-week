@@ -1,11 +1,14 @@
 const codes = require("./data/statusCodes");
 const express = require("express");
-const cors = require('cors');
+const cors = require("cors");
 const server = express();
 const noteRoutes = require("./api/notesRouter");
 server.use(express.json());
-server.use(cors())
-server.use("/api/notes", noteRoutes);
+server.use(cors());
+const paths = {
+  notes: "/api/notes"
+}
+server.use(paths.notes, noteRoutes);
 
 server.use((err, req, res, next) => {
   err.code = err.code !== undefined ? err.code : codes.INTERNAL_SERVER_ERROR;
@@ -28,3 +31,5 @@ server.use((err, req, res, next) => {
 });
 const port = 8001;
 server.listen(port, (req, res) => console.log(`Port ${port} is in use`));
+  paths
+};
