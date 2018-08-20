@@ -16,6 +16,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
   },
+  "engines": {
+    "npm": "6.1.0",
+    "node": "10.5.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nchen0/back-end-project-week.git"
