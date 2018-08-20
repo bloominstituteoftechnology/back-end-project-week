@@ -67,4 +67,4 @@ server.delete('/notes/:id', async(req, res) => {
   }
 })
 
-server.listen(8000, () => console.log('App is listening...'));
+// server.listen(8000, () => console.log('App is listening...'));
