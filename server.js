@@ -3,11 +3,20 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
 
+const noteRoutes = require('./serverRoutes/noteRoutes');
+
 const server = express();
 server.use(express.json());
-server.use(morgan('server'));
+server.use(morgan('dev'));
 server.use(helmet());
 server.use(cors({origin: true}));
+
+server.get('/', (req, res) => {
+    res.send('Welcome to Lambda Notes');
+})
+
+//Endpoints for Notes
+server.use('/api/notes', noteRoutes);
 
 //Error handler
 server.use((error, req, res, next) => {

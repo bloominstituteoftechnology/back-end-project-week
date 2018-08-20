@@ -2,7 +2,7 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
-  "main": "./server/server.js",
+  "main": "server.js",
   "scripts": {
     "start": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"

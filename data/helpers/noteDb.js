@@ -13,7 +13,10 @@ function get(id) {
         query.where('id', id);
     }
 
-    return query;
+    return query.then(notes => {
+        console.log(notes);
+        return notes
+    });
 }
 function add(note) {
     return db('Notes')
