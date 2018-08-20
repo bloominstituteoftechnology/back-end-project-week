@@ -44,4 +44,17 @@ app.post("/note/create", (req, res) => {
     });
 });
 
+app.put("/note/edit/:id", (req, res) => {
+  const { id } = req.params;
+  const changes = req.body;
+  database
+    .update(id, changes)
+    .then(response => {
+      res.json(response);
+    })
+    .catch(error => {
+      return error;
+    });
+});
+
 app.listen(4000, () => console.log("listening on port 4000!"));
