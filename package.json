@@ -1,13 +1,27 @@
 {
   "name": "back-end-project-week",
   "version": "1.0.0",
+  "description": "Lambdanotes backend",
   "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
   "repository": "https://github.com/Sgoal2/back-end-project-week.git",
   "license": "MIT",
+  "dependencies": {
+    "3": "^2.1.0",
+    "express": "^4.16.3",
+    "helmet": "^3.13.0",
+    "knex": "^0.15.2",
+    "morgan": "^1.9.0",
+    "script": "^0.1.4",
+    "sqlite": "^2.9.2",
+    "sqlite3": "^4.0.2",
+    "start": "^5.1.0"
+  },
   "devDependencies": {
     "nodemon": "^1.18.3"
-  },
-  "dependencies": {
-    "express": "^4.16.3"
   }
 }
+
+
