@@ -33,6 +33,7 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
     const note = req.body;
+
     try {
         if (!note.title || !note.content) { throw new ServerError(501, 'Please fill out title and content') }
         else {
