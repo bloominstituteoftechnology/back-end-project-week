@@ -4,7 +4,7 @@
   "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --watch --verbose",
     "start": "node server.js"
   },
   "repository": {
@@ -22,8 +22,10 @@
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "helmet": "^3.13.0",
+    "jest": "^23.5.0",
     "knex": "^0.15.2",
     "morgan": "^1.9.0",
-    "sqlite3": "^4.0.2"
+    "sqlite3": "^4.0.2",
+    "supertest": "^3.1.0"
   }
 }
