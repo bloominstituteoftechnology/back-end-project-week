@@ -6,6 +6,7 @@ module.exports = server => {
   server.post("/api/notes", post_notes);
   server.get("/api/notes/:id", get_note_id);
   server.put("/api/notes/:id", put_note_id);
+  server.delete("/api/notes/:id", del_note_id);
 };
 
 const root = (req, res) => {
@@ -58,6 +59,18 @@ const put_note_id = (req, res) => {
     .then(ids => {
       const id = ids[0];
       res.status(200).json({ id, ...changes });
+    })
+    .catch(error => res.status(500).json(error));
+};
+
+const del_note_id = (req, res) => {
+  const id = req.params.id;
+  db("notes")
+    .where("id", id)
+    .del()
+    .then(ids => {
+      const id = ids[0];
+      res.status(200).json("POST DELETED SUCCESSFULLY");
     })
     .catch(error => res.status(500).json(error));
 };
