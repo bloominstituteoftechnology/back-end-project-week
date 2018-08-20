@@ -15,6 +15,21 @@ server.get('/notes', (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
+server.get('/view-note/:id', (req, res) => {
+    const { id } = req.params;
+    db('notes')
+        .where({ id })
+        .first()
+        .then( note => {
+            if (note) {
+                res.status(200).json(note)
+            } else {
+                res.status(404).json({ message: 'the note with the specified id could not be found' })
+            }
+        })
+        .catch(err => res.status(500).json(err))
+})
+
 server.post('/new-note', (req, res) => {
     const note = req.body;
     db('notes')
@@ -29,6 +44,8 @@ server.post('/new-note', (req, res) => {
         })
         .catch( err =>  res.status(500).json(err))
 })
+
+server.put()
 
 
 server.listen(port, () => console.log('\n==== API is running ====\n'));
