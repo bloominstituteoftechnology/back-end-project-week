@@ -2,7 +2,7 @@
   "name": "back-end-project-week",
   "version": "3.3.3",
   "description": "Backend Project Week",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "start": "nodemon index.js"
   },
