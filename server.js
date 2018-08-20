@@ -24,7 +24,19 @@ server.get('/notes/:id', async (req, res) => {
       return res.status(500).send(`Ya done goofed with error: ${err}`)
     }
   }
+});
 
+server.post('/notes', async(req, res) => {
+  const {title, description} = req.body;
+  console.log(title, description);
+  try {
+    const ids = await db.insert({title, description}).into('notes');
+    const id = ids[0];
+
+    res.status(201).json(await db('notes').where('id', id).first());
+  } catch (err) {
+    res.status(404).send(`${err}...notes could not be created`);
+  }
 
 })
 
