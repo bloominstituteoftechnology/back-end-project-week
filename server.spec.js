@@ -4,6 +4,10 @@ const server = require('./server');
 const noteSeedArray = require('./dummyData/noteSeedArray');
 
 describe('Note api', () => {
+  it('responds with a 404 error when a bad url is sent', async () => {
+      const response = await request(server).get('/badurl');
+      expect(response.status).toEqual(404);
+  });
   describe('get all notes request', () => {
     let baseNotes = [];
     beforeEach(done => db('notes')
