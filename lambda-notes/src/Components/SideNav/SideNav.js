@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 const styled = {
     textDecoration: 'none',
+    // color: 'rgb(97, 76, 76)'
     color: 'black'
 }
 
@@ -11,15 +12,15 @@ const SideNav = () => {
         <div className="sideNav" >
             <div className="sideNav__directory" >
                 <div className="directory__title" >
-                    <Link to="/api" style={styled} >
+                    <Link to="/api/" style={styled} >
                     Lambda Notes
                     </Link>
                 </div>
                 <div className="directory__links" >
-                    <Link to="/api" >
+                    <Link to="/api/" >
                         <button className="link__button" > View Your Notes </button>
                     </Link>
-                    <Link to="/api/NewNote" >
+                    <Link to="/api/newNote" >
                         <button className="link__button" > + Create New Note </button>
                     </Link>
                 </div>
