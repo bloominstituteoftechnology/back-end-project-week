@@ -68,4 +68,4 @@ server.delete('/notes/:id', async(req, res) => {
   }
 })
 
- server.listen(PORT, () => console.log('App is listening and HEROKU...'));
+ server.listen(PORT, () => console.log('App is listening herok...'));
