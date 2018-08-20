@@ -3,10 +3,10 @@ exports.up = function(knex, Promise) {
     notes.increments();
 
     notes
-      .string("note_title", 128)
+      .string("title", 128)
       .notNullable()
       .unique();
-    notes.string("note_body").notNullable();
+    notes.string("text_body").notNullable();
   });
 };
 
