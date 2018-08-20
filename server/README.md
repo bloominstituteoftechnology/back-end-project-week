@@ -1,3 +1,5 @@
+Trello: https://trello.com/b/2mYOJ2kx/back-end-project-week-arthur-pisakhov
+
 # Back End Project Week
 
 This week you will build a backend for a note taking app called "Lambda Notes".
