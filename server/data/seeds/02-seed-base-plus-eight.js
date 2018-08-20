@@ -6,6 +6,11 @@ exports.seed = function(knex, Promise) {
       // Inserts seed entries
       return knex('notes').insert([
         {
+          id: 1, 
+          title: '1-title',
+          content: 'content placeholder'
+        },
+        {
           id: 2, 
           title: '2-title',
           content: 'CONTENT PLACEHOLDER: Aliqua esse non enim id do irure laboris aliqua magna sit. Non ipsum laboris aute cupidatat commodo labore non ullamco magna veniam. Consectetur sunt nostrud non elit sunt. Exercitation aliquip sint culpa amet eu magna reprehenderit cillum aliquip ipsum Lorem excepteur Lorem quis. Veniam mollit consequat do Lorem pariatur enim ipsum in eiusmod.'
