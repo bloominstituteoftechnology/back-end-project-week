@@ -20,4 +20,16 @@ app.get("/note/get/all", (req, res) => {
     });
 });
 
+app.get("/note/get/:id", (req, res) => {
+  const { id } = req.params;
+  database
+    .get(id)
+    .then(response => {
+      res.json(response);
+    })
+    .catch(error => {
+      return error;
+    });
+});
+
 app.listen(4000, () => console.log("listening on port 4000!"));
