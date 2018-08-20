@@ -63,23 +63,12 @@ class Login extends Component {
       hasRegistered: !prevState.hasRegistered
     }))
   }
-
   render () {
     const { handleSubmit } = this.props
 
     return (
       <div>
-        <div
-          style={
-            this.state.hasRegistered ? (
-              { display: 'none' }
-            ) : (
-              { display: 'block' }
-            )
-          }
-        >
-          {props.status}
-        </div>
+        <HandleDisplay hasRegistered={this.state.hasRegistered} />
         <form
           onSubmit={
             this.state.hasRegistered ? (
@@ -101,11 +90,22 @@ class Login extends Component {
             placeholder='password'
             component={this.renderField}
           />
-          <button type='submit'>Log in</button>
+          <button type='submit'>
+            {this.state.hasRegistered ? 'Login' : 'Sign Up'}
+          </button>
         </form>
-        <div onClick={this.handleSwitch}>Or Register</div>
+        <div onClick={this.handleSwitch}>
+          {this.state.hasRegistered ? 'Or SignUp!' : 'Or Login'}
+        </div>
       </div>
     )
+  }
+}
+const HandleDisplay = (props) => {
+  if (props.hasRegistered === true) {
+    return <div>Login</div>
+  } else {
+    return <div>Register</div>
   }
 }
 function validate (values) {
