@@ -22,4 +22,14 @@ router.get('/', async (req, res, next) => {
     }
 });
 
+router.get('/:id', async (req, res, next) => {
+    try {
+        const note = await notesDb.get(req.params.id);
+        if (!note) return next({ code: 404, message: "The note with the specified ID does not exist." });
+        res.status(200).json(note);
+    } catch (err) {
+        next({ code: 500, error: "The note information could not be retrieved." });
+    }
+});
+
 module.exports = router;
