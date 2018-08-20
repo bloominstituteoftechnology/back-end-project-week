@@ -4,7 +4,7 @@
   "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
   "main": "server.js",
   "scripts": {
-    "test": "jest --watch --verbose",
+    "test": "jest --watch",
     "start": "nodemon server.js"
   },
   "repository": {
@@ -26,5 +26,9 @@
     "jest": "^23.5.0",
     "nodemon": "^1.18.3",
     "supertest": "^3.1.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "verbose":false
   }
 }
