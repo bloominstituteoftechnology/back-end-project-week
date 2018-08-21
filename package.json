@@ -8,7 +8,7 @@
     "kml": "knex migrate:latest",
     "ksr": "knex seed:run",
     "test": "npm run kmr && npm run kml && npm run ksr && jest --watch --runInBand",
-    "start": "server.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
