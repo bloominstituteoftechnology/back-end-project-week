@@ -17,11 +17,11 @@ exports.up = function(knex, Promise) {
   
   
         action
-        .integer('project_id')
+        .integer('note_id')
         .unsigned()
         .notNullable()
         .references('id')
-        .inTable('projects')
+        .inTable('notes')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
         
