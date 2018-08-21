@@ -2,9 +2,6 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "main": "index.js",
-  "engines": {
-    "yarn": "1.6.0"
-  }, 
   "repository": "https://github.com/Wdifulvio523/back-end-project-week.git",
   "author": "Wdifulvio523 <w.difulvio523@gmail.com>",
   "license": "MIT",
@@ -16,6 +13,7 @@
     "express": "^4.16.3",
     "knex": "^0.15.2",
     "node": "^10.8.0",
+    "pg": "^7.4.3",
     "script": "^0.1.4",
     "sqlite3": "^4.0.2",
     "start": "^5.1.0"

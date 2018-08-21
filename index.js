@@ -1,6 +1,10 @@
 const express = require('express');
 const db = require('./data/db');
 const cors = require('cors'); 
+const knex = require('knex');
+const knexConfig = require('./knexfile');
+const db = knex(knexConfig[ process.env.NODE_ENV || development])
+
 const server = express();
 
 server.use(express.json());
@@ -92,12 +96,7 @@ server.delete('/api/notes/:id', (req, res) => {
 
 
 
-
-
-  const PORT = process.env.PORT || 8000;
-
-
 server.listen(
-    PORT,
+    process.env.PORT || 8000,
     console.log(`\n=== Web API Listening on http://localhost:${PORT} ===\n`),
   );
