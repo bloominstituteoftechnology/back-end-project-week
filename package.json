@@ -1,7 +1,4 @@
 {
-  "devDependencies": {
-    "nodemon": "^1.18.3"
-  },
   "dependencies": {
     "cors": "^2.8.4",
     "express": "^4.16.3",
@@ -9,6 +6,8 @@
     "sqlite3": "^4.0.2"
   },
   "scripts": {
-    "start": "nodemon index.js"
-  }
+    "start": "node index.js"
+  },
+  "author": "Kevin Brack",
+  "liscense": "ISC"
 }
