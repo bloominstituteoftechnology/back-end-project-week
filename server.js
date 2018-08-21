@@ -43,6 +43,24 @@ server.post('/api/notes', (req, res) => {
     }).catch(err => res.status(500).json(err))
 })
 
+server.delete('/api/notes/:id', (req, res) => {//delete user
+    const id = req.params.id;
+    // posts = posts.filter(p => p.id != id)
+    db('notes')
+    .where('id', '=', id)
+    .del()
+      .then(note => {
+        if (note === 0) {
+          res.status(404)
+          .json({ error: "The u with the specified ID does not exist." })
+        }
+        res.status(200).json(note)
+      }).catch(error => {
+        res.status(500)
+          .json({ error: "error 2." })
+      });
+  })
+
 const port = 6500;
 server.listen(port, function () {
     console.log(`\n=== Web API Listening on http://localhost:${port} ===\n`);
