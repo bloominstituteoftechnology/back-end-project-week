@@ -2,11 +2,17 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
   "repository": "https://github.com/seanchavez/back-end-project-week.git",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "sqlite3": "^4.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
   }
 }
