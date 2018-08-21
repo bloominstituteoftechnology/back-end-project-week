@@ -6,6 +6,8 @@ module.exports = {
         let query = db(`notes as t`);
 
         if (id) {
+            query.where('t.id', id).first();
+
             const promises = [query, this.getTags(id)];
 
             return Promise.all(promises).then(function (results) {
