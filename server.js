@@ -54,8 +54,6 @@ server.post('/notes', async(req, res) => {
 });
 
 server.post('/create-tag', async (req, res) => {
-  req.body.note = 2;
-  console.log(req.body);
   const {text, note_id} = req.body;
 
   try {
@@ -67,6 +65,17 @@ server.post('/create-tag', async (req, res) => {
     res.status(500).send(`${err}...tag could not be created`)
   }
 });
+
+server.delete('/delete-tag/:id', async (req, res) => {
+  try {
+    const result = await db('tags').where('id', req.params.id).del();
+    if (result > 0) {
+      return res.status(200).json(status:'DELETED :)');
+    }
+  } catch(err) {
+    return res.status(500).send(`Server error... ->${err}`)
+  }
+})
 
 server.put('/notes/:id', async(req, res) => {
   const {title, textBody} = req.body;
