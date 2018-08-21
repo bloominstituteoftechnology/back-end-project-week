@@ -24,5 +24,9 @@ module.exports = {
 
   delete: (id) => {
     return db('notes').where('id', id).del();
+  },
+
+  getNoteOrdering: (id) => {
+    return db('users').where('id', id).select('noteOrdering').first();
   }
 }

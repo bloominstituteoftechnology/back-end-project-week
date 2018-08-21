@@ -11,8 +11,17 @@ const noteCheck = (req, res, next) => {
 
 router.get('/notes', async (req, res) => {
   try {
-    const allNotes = await notes.get();
-    return res.status(200).json(allNotes);
+    const allNotes = await notes.get().orderBy('id', 'desc');
+    const noteOrderingString = await notes.getNoteOrdering(1);
+    const noteOrderingArray = JSON.parse(noteOrderingString.noteOrdering);
+    if (noteOrderingArray.length === 0) {
+      return res.status(200).json(allNotes);
+    } else {
+      const orderedNotes = noteOrderingArray.map(ordering => {
+        return allNotes.find(note => note.id === ordering);
+      });
+      return res.status(200).json(orderedNotes);
+    }
   } catch (error) {
     return res.status(500).json({ message: "Notes could not be retrieved.", error: error.message });
   }
