@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+
 function noteCheck(req, res, next) {
     const { title, content, tagId, tags, tag } = req.body;
     if (!title || !content) return next({ code: 400, errorMessage: "Please provide title and content!" });
@@ -8,4 +10,22 @@ function noteCheck(req, res, next) {
     next();
 }
 
-module.exports.noteCheck = noteCheck;
+function loginPostCheck(req, res, next) {
+    const { username, password } = req.body;
+    if (!username || !password) return next({ code: 400, errorMessage: "Please provide a username and password!" });
+    req.credentials = { username, password };
+    next();
+}
+
+function generateToken(user) {
+    const payload = { userId: user.id };
+    const options = { expiresIn: '1h' }
+
+    return jwt.sign(payload, config.secret, options);
+}
+
+module.exports = {
+    noteCheck,
+    loginPostCheck,
+    generateToken
+}
