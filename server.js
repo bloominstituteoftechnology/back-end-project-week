@@ -12,7 +12,7 @@ const cors = require('cors');
 server.use(cors());
 
 server.use(express.json());
-const PORT = 3007;
+const PORT = process.env.PORT || 3007;
 
 // base endpoints here
 server.get('/', (req, res) => {
