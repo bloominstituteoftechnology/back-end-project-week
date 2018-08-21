@@ -1,57 +1,91 @@
-const express = require('express');
-const db  = require('../data/db');
+const express = require("express");
+const notesDB = require("../data/db.js");
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  db('notes')
-    .then(note => {res.status(200).json(note)})
-    .catch(err => res.status(500).json(err))
+function protect(req, res, next) {
+  if (!req.body.title || !req.body.textBody) {
+    res.status(400).json({ error: "Please insert a title and textbody for the note" });
+  } else {
+    next();
+  }
+}
+
+router.get("/", async (req, res) => {
+  try {
+    const notes = await notesDB.select().from("notes");
+    res.status(200).json(notes);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-router.get('/:id', (req, res) => {
-  const id = req.params.id
-  db('notes')
-    .where({id})
-    .then( note => {
-      if (note.length > 0){res.status(200).json(note)
-      } else {res.status(400).json({err: 'Unable to find note ID.'})}  
-      })
-      .catch(err => res.status(500).json(err))
-})
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const note = await notesDB
+      .select()
+      .from("notes")
+      .where({ id })
+      .first();
+    if (note) {
+      res.status(200).json(note);
+    } else {
+      res.status(400).json({ error: "The note with the id could not be found." });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
-router.put('/:id', (req, res) => {
-  const id = req.params.id
-  const body= req.body
-  db('notes')
-    .where({id})
-    .update(body)
-    .then(note => {
-      if (note === 1){res.status(200).json({ message: 'note updated!'})}
-        else {res.status(400).json({err: 'note not found!'})}})
-      .catch(err => res.status(500).json(err))
-})
+router.post("/", protect, async (req, res) => {
+  const addNote = req.body;
+  try {
+    const ids = await notesDB.insert(addNote).into("notes");
+    res.status(201).json(ids[0]);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
 
-router.post('/', (req, res) => {
-  const note = req.body
-  db
-    .insert(note)
-    .into('notes')
-    .then( data => {
-      if (data.length === 1){res.status(201).json({message: 'note added'})}
-    })
-    .catch(err => res.status(500).json(err))
-})
+router.delete("/:id", async (req, res) => {
+  try {
+    const count = await notesDB
+      .where(req.params)
+      .from("notes")
+      .del();
+    if (count !== 0) {
+      res.status(200).json(count);
+    } else {
+      res.status(400).json({ error: "The project to be deleted couldn't be found." });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
-router.delete('/:id', (req,res) => {
-  const id = req.params.id
-  db('notes')
-    .where({id})
-    .delete()
-    .then( data => {
-      if (data === 1){res.status(201).json({message: `1 note deleted`})
-      } else {res.status(400).json({message: 'note with that ID not found'})}
-    })
-    .catch(err => res.status(500).json(err))
-})
+router.put("/:id", protect, async (req, res) => {
+  const toAdd = req.body;
+  try {
+    const count = await notesDB
+      .where(req.params)
+      .from("notes")
+      .update(toAdd);
+    if (count !== 0) {
+      try {
+        const updatedNote = await notesDB
+          .select()
+          .from("notes")
+          .where(req.params);
+        res.status(200).json(updatedNote);
+      } catch (err) {
+        res.status(404).json({ message: "The specific project does not exist." });
+      }
+    } else {
+      res.status(400).json({ err: "That specific project couldn't be found." });
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
 module.exports = router;
