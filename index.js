@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const secret = 'secret';
+const secret = 'secreting';
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('./data/db');
@@ -22,16 +22,13 @@ function generateToken(user) {
   return jwt.sign(payload, secret, options);
 }
 
-server.get('/', (req, res) => {
-  res.send('Running....');
-});
-
 //! middleware
 function protected(req, res, next) {
   const token = req.headers.authorization;
   if (token) {
     jwt.verify(token, secret, (err, decodedToken) => {
       if (err) {
+        console.log(err)
         return res
           .status(401)
           .json({ error: 'Token is not valid' });
@@ -48,11 +45,10 @@ function protected(req, res, next) {
 // ! ====================== Login and register ENDPOINTS
 
 //! register
-server.post('/api/register', protected, (req, res) => {
+server.post('/api/register', (req, res) => {
   const user = req.body;
   const hash = bcrypt.hashSync(user.password, 14);
   user.password = hash;
-  console.log(user);
   db    
     .insert(user)
     .into('users')
@@ -61,7 +57,7 @@ server.post('/api/register', protected, (req, res) => {
         .then(users => {
           const user = users.pop();
           const token = generateToken(user);
-          res.send(token);
+          res.json({ token, username: user.username })
         })
     })
     .catch(err => console.log(err));
@@ -87,7 +83,7 @@ server.post('/api/login', function(req, res) {
 });
 
 //! get users
-server.get('/api/users', protected, (req, res) => {
+server.get('/api/users', (req, res) => {
   db('users')
     .then(users => {
       res.json(users);
@@ -100,8 +96,9 @@ server.get('/api/users', protected, (req, res) => {
 server.get('/api/notes', protected, (req, res) => {
   db('notes')
     .then(notes => {
+      notes = notes.filter(note => note.username === req.headers.username);
       if (notes.length === 0) {
-        res.status(404).json({ message: "notes could not be found" })
+        res.status(200).json({ notes })
         return;
       } else {
         res.status(200).json({ notes })
@@ -115,19 +112,20 @@ server.get('/api/notes', protected, (req, res) => {
 })
 
 server.post('/api/notes', (req, res) => {
-  const { title, message } = req.body;
+  const { title, message, username } = req.body;
   if (!title || !message) return res.status(400).json({ message: "Title and message are required" })
   db('notes')
-    .insert({ title, message })
-    .then(result => res.status(201).json({ title, message }))
+    .insert({ title, message, username })
+    .then(result => res.status(201).json({ title, message, username }))
     .catch(() => res.status(500).json({ message: "Note could not be saved" }))
 })
 
-server.get('/api/notes/:id', (req, res) => {
+server.get('/api/notes/:id', protected, (req, res) => {
   const { id } = req.params;
   db('notes')
     .where({ id })
     .then(note => {
+      note = note.filter(note => note.username === req.headers.username && id == note.id);
       res.status(200).json(note);
     })
     .catch((err) => res.status(500).json(err));
