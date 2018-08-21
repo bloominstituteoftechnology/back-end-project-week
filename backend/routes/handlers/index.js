@@ -1,8 +1,22 @@
 const bcrypt = require('bcryptjs');
 const db = require('../../data/knexConfig');
+const jwt = require('jsonwebtoken');
+
 module.exports = {
     error: (error, req, res, next) => {
         res.status(error.status || 500).json(error.message || "request couldnt be found")
+    },
+    tokenGenerator: user => {
+        console.log('genereting token')
+        const {
+            id,
+            username
+        } = user
+        const token = jwt.sign({
+            id,
+            username
+        }, process.env.SECERETKEY)
+        return token;
     },
     getUsers: (req, res, next) => {
         const qurey = db('users')
@@ -69,13 +83,30 @@ module.exports = {
             db('users').where({
                 username: newUser.username
             }).first().then(result => {
-                if (bcrypt.compareSync(newUser.password, result.password)) {
-                    res.status(200).json(result)
+                // check if the user has signed up
+                if (result) {
+                    // authenticate user
+                    if (bcrypt.compareSync(newUser.password, result.password)) {
+                        const token = module.exports.tokenGenerator(result);
+                        const {
+                            name,
+                            username
+                        } = result;
+                        res.status(200).json({
+                            token,
+                            name,
+                            username
+                        })
+                    } else {
+                        next({
+                            message: 'incorrect password '
+                        })
+                    };
                 } else {
                     next({
-                        message: 'incorrect password '
+                        message: 'username has not signed up'
                     })
-                };
+                }
             })
         } else {
             next({
@@ -192,5 +223,20 @@ module.exports = {
                 status: 401
             })
         }
+    },
+    deleteUser: (req, res, next) => {
+        db('users')
+            .where({
+                id: req.params.user_id
+            })
+            .first()
+            .del()
+            .then(result => {
+                res.status(200).json(result)
+            }).catch(error => next({
+                // handle error incase db didnt delete the note
+                message: error.message,
+                status: 401
+            }))
     }
 }

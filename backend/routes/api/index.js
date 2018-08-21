@@ -13,5 +13,6 @@ server.post('/register', handlers.register)
 server.post('/signin', handlers.signIn)
 
 server.delete('/user/:user_id/note/:note_id', handlers.verifyUser, handlers.verifyNote, handlers.deleteNote)
+server.delete('/user/:user_id/', handlers.verifyUser, handlers.deleteUser)
 
 module.exports = server;
