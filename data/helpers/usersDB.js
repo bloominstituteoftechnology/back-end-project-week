@@ -8,6 +8,11 @@ module.exports = {
     }
     return query;
   },
+  insert: function(user) {
+    return db('users')
+      .insert(user)
+      .then(ids => ({ id: ids[0] }));
+  },
   update: function(id, user) {
     return db('users')
       .where('id', id)

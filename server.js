@@ -4,6 +4,8 @@ const server = express();
 // routes
 const usersRoutes = require('./router/usersRouter');
 const notesRoutes = require('./router/notesRouter');
+const registerRoutes = require('./router/registerRouter');
+// middlewar
 const errors = require('./middleware/errors');
 // turn on cors
 const cors = require('cors');
@@ -20,6 +22,7 @@ server.get('/', (req, res) => {
 // API routes
 server.use('/api/users', usersRoutes);
 server.use('/api/notes', notesRoutes);
+server.use('/api/register', registerRoutes);
 
 // error handling
 server.use(errors);
