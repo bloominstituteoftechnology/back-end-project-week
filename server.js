@@ -54,6 +54,7 @@ server.post('/notes', async(req, res) => {
 });
 
 server.post('/create-tags', async (req, res) => {
+  console.log('HI');
   const {text, note_id} = req.body;
 
   try {
