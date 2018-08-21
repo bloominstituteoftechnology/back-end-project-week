@@ -21,6 +21,30 @@ server.get('/api/notes', (req, res) => {
         res.status(200).json(note)
     }).catch(err => res.status(500).json(err))
 });
+server.get('/api/notes/:id', (req, res) => {
+    const id = req.params.id;
+    db('notes')
+    .where('id', '=', id)
+    .then(note => {
+        res.status(200).json(note)
+    }).catch(err => res.status(500).json(err))
+});
+server.put('/api/notes/:id', (req, res) => {// update users
+    const changes = req.body;
+    const id = req.params.id;
+  
+    db('notes')
+      .where('id', '=', id) // or .where({ id: id })
+      .update(changes)
+      .then(count => {
+        // count === number of records updated
+        res.status(200).json(count);
+      })
+      .catch(err => {
+        res.status(500).json(err);
+      });
+      
+  });
 
 server.post('/api/notes', (req, res) => {
     console.log(req.body)
