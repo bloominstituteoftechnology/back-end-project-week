@@ -186,7 +186,9 @@ label {
   background-color: #f2f1f2;
   padding: 1em;
 }
-
+.credentials-msg {
+  color: red;
+}
 .newNote-header {
   margin-top: 2em;
 }

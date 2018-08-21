@@ -28,6 +28,7 @@ class NewNote extends Component {
   }
 
   handlePost = (values) => {
+    console.log(values)
     const token = localStorage.getItem('token')
     this.props.postNote(values, token)
     this.props.history.push('/')

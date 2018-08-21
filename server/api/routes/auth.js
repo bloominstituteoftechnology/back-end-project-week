@@ -21,8 +21,7 @@ var Notes = sequelize.define('Notes', {
   title: {
     type: Sequelize.STRING
   },
-  context: Sequelize.STRING,
-  tags: Sequelize.STRING
+  context: Sequelize.TEXT
 })
 
 let Tags = sequelize.define('Tags', {
@@ -98,11 +97,26 @@ function getNotes (req, res, next) {
   Notes.findAll({
     where: {
       userId
+    },
+    include: {
+      model: Tags
     }
   }).then((response) => {
-    const notes = response.map((Notes) => Notes.dataValues).map((notes) => {
-      return notes
+    const notes = response.map((Notes) => {
+      return Object.assign(
+        {},
+        {
+          id: Notes.dataValues.id,
+          user_id: Notes.dataValues.UserId,
+          title: Notes.dataValues.title,
+          context: Notes.dataValues.context,
+          tags: Notes.dataValues.Tags.map((Tag) => {
+            return Tag.dataValues.value
+          })
+        }
+      )
     })
+    console.log('HERE SHOULD BE ALL USERS NOTES', notes)
     res.status(200).json(notes)
   })
 }
@@ -116,14 +130,25 @@ function getNote (req, res, next) {
 function newNote (req, res, next) {
   const { userId } = req.token
   const { title, context, tags } = req.body
-  Notes.create({
-    title: title,
-    context: context,
-    UserId: userId,
-    tags: tags
-  }).then((note) => {
-    note.createTag({ value: tags })
-  })
+  if (!tags) {
+    Notes.create({
+      title: title,
+      context: context,
+      UserId: userId
+    })
+  } else {
+    Notes.create({
+      title: title,
+      context: context,
+      UserId: userId
+    }).then((note) => {
+      console.log(tags)
+      const tagArray = tags.split(' ')
+      tagArray.forEach((tag) => {
+        note.createTag({ value: tag })
+      })
+    })
+  }
 }
 
 const restricted = (req, res, next) => {

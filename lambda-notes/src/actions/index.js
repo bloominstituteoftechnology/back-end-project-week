@@ -44,7 +44,7 @@ export const fetchNotes = (token) => {
   }
 }
 
-export const getNote = (id) => {
+export const getNote = (id, cb) => {
   const request = axios.get(`${url}/auth/note/${id}`)
   return (dispatch) => {
     dispatch({ type: GETTING_NOTE, payload: true })
@@ -53,6 +53,7 @@ export const getNote = (id) => {
         console.log(res.data)
         dispatch({ type: GETTING_NOTE, payload: false })
         dispatch({ type: GET_NOTE, payload: res.data })
+        cb()
       })
       .catch((error) => dispatch({ type: ERROR, payload: error }))
   }

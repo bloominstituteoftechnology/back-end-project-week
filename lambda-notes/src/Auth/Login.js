@@ -6,7 +6,8 @@ class Login extends Component {
   constructor () {
     super()
     this.state = {
-      hasRegistered: true
+      hasRegistered: true,
+      wrongCredentials: false
     }
   }
 
@@ -31,11 +32,13 @@ class Login extends Component {
     axios
       .post('http://localhost:8000/auth/login', values)
       .then((res) => {
-        console.log(res)
         localStorage.setItem('token', JSON.stringify(res.data.token))
         cb()
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        console.log(err)
+        this.setState({ wrongCredentials: true })
+      })
   }
   handleRegister = (values, cb) => {
     console.log('METHOD')
@@ -68,8 +71,21 @@ class Login extends Component {
 
     return (
       <div>
-        <HandleDisplay hasRegistered={this.state.hasRegistered} />
+        <HandleFormDisplay hasRegistered={this.state.hasRegistered} />
+        <label
+          className='credentials-msg'
+          style={
+            this.state.wrongCredentials ? (
+              { display: 'block' }
+            ) : (
+              { display: 'none' }
+            )
+          }
+        >
+          Invalid Credentials, please try again or Sign up!
+        </label>
         <form
+          className='needs-validation'
           onSubmit={
             this.state.hasRegistered ? (
               handleSubmit(this.onSubmit)
@@ -95,19 +111,20 @@ class Login extends Component {
           </button>
         </form>
         <div onClick={this.handleSwitch}>
-          {this.state.hasRegistered ? 'Or SignUp!' : 'Or Login'}
+          {this.state.hasRegistered ? 'Or SignUp!' : 'Back to login'}
         </div>
       </div>
     )
   }
 }
-const HandleDisplay = (props) => {
+const HandleFormDisplay = (props) => {
   if (props.hasRegistered === true) {
-    return <div>Login</div>
+    return <div>Login Form</div>
   } else {
-    return <div>Register</div>
+    return <div>Register Form</div>
   }
 }
+
 function validate (values) {
   const errors = {}
   if (!values.username) {
