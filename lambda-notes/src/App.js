@@ -7,7 +7,7 @@ import {Route} from 'react-router-dom';
 import EditNoteForm from './Components/EditNotePage/editnoteform';
 
 class App extends Component {
-  componentDidMount() {
+  componentDidMount() { 
   }
   render() {
     return (

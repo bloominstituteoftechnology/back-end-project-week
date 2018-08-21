@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import Sidebar from '../Sidebar/sidebar';
-import { updateNote } from '../../actions';
+import { updateNote, fetchSingleNote } from '../../actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 
 class EditNoteForm extends Component {
     state = {
      note: {
-        _id: 0,
+        id: 0,
         title: '',
         content: ''
      },
 
-      _id: -1,
+      id: -1,
       title: '',
       content: ''
     }
@@ -20,11 +21,13 @@ class EditNoteForm extends Component {
     handleInputChange = e => {
         this.setState({ [e.target.name]: e.target.value});
     };
-    //array.splice(index, howmany, item1, ....., itemX)
 
     updateHandler = () => {
-        const _id = this.props.match.params.id;
+        const id = this.props.match.params.id;
         const {title, content} = this.state;
+        this.props.updateNote({id, title, content});
+
+        //Non-API code
         // const nuNotes = this.props.notes.slice();
 
         // function isindex(note) { 
@@ -33,15 +36,16 @@ class EditNoteForm extends Component {
 
         // const idFinder = nuNotes.indexOf(nuNotes.find(isindex));
         // nuNotes.splice(idFinder, 1, {id, title, content});
-        this.props.updateNote({_id, title, content});
     }
 
     componentDidMount(){
         const id = this.props.match.params.id;
+        this.props.fetchSingleNote(id);
         const newNote =  this.props.notes.filter((note) => {
-            return note._id == id});
+            return note.id == id});
         this.setState( {note: newNote[0]} );
-        this.setState( {_id: id});
+        this.setState( {id: id});
+        console.log(this.state, this.props);
     }
 
     render () {
@@ -52,7 +56,7 @@ class EditNoteForm extends Component {
                 <h1 className="notes-title create"> Edit Note: </h1>
                 <form className="create-form">
                     <textarea
-                        placeholder={this.state.note.title}
+                        placeholder={this.props.note.title}
                         onChange={this.handleInputChange}
                         className='title-input'
                         value={this.state.title}
@@ -60,14 +64,14 @@ class EditNoteForm extends Component {
                         >
                         </textarea>
                      <textarea 
-                        placeholder={this.state.note.content}
+                        placeholder={this.props.note.content}
                         onChange={this.handleInputChange}
                         className='content-input'
                         value={this.state.content}
                         name='content'
                         >
                         </textarea>
-                    <Link to={`/note/${this.state._id}`}>
+                    <Link to={`/note/${this.state.id}`}>
                     <button className='create-button' type='button' onClick={() => this.updateHandler()}> Update </button>  
                     </Link> 
                 </form>
@@ -78,8 +82,9 @@ class EditNoteForm extends Component {
 }
 const mapStateToProps = state => {
     return{
-        notes: state.notes
+        notes: state.notes,
+        note: state.note
     };
 }
 
-export default connect(mapStateToProps, {updateNote})(EditNoteForm);
+export default connect(mapStateToProps, {updateNote, fetchSingleNote})(EditNoteForm);

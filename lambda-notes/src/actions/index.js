@@ -50,7 +50,7 @@ export const fetchSingleNote = id => {
     }
 
 export const updateNote = noteEdit => {
-    const noteData = axios.put(`${url}/${noteEdit._id}`, noteEdit);
+    const noteData = axios.put(`${url}/${noteEdit.id}`, noteEdit);
   return function(dispatch) {
     dispatch({ type: UPDATING_NOTE });
     noteData.then(({data}) => {

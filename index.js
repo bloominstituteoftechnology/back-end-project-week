@@ -24,7 +24,7 @@ server.get('/notes/:id', async (req, res) => {
     const {id} = req.params;
     try{
         const note = await db('notes').where({id});
-        res.status(200).json(note);
+        res.status(200).json({note});
     }
     catch(err){
         res.status(500).json({error: 'Note could not be retrieved'});

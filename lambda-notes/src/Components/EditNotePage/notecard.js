@@ -66,7 +66,7 @@ class NoteCard extends Component {
                          </Link>  
                          <a onClick={() => this.showDeleteHandler()}> delete </a>
                      </div>
-                    <h1 className="notes-title card "> {this.props.note.title}</h1>
+                    <h1 className="notes-title card "> {console.log(this.props)} {this.props.note.title}</h1>
                     <a className="single-notes-content"> {this.props.note.content} </a>
                  </div>
             </div>
