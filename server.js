@@ -15,8 +15,21 @@ server.use(express.json());
 server.get(process.env.PATH_GET_NOTES, (req, res, next) => {
   db('notes')
     .select()
-    .then(notes => res.status(200).json(notes))
-    .catch(err => next(new HttpError(404, 'Database did not supply requested resources.')));
+    .then((notes) => {
+      const promiseNotes = notes.map(
+        note => new Promise((resolve) => {
+          db('notesTagsJoin')
+            .select(['name', 'notesTagsJoin.tagId as id'])
+            .where('id', '=', note.id)
+            .join('tags', 'notesTagsJoin.tagId', 'tags.id')
+            .then(tags => resolve({ ...note, tags }))
+            .catch(() => resolve(note));
+        }),
+      );
+      return Promise.all(promiseNotes);
+    })
+    .then(tagArr => res.status(200).json(tagArr))
+    .catch(() => next(new HttpError(404, 'Database did not supply requested resources.')));
 });
 
 server.get(`${process.env.PATH_GET_NOTE}/:id`, (req, res, next) => {
@@ -25,7 +38,7 @@ server.get(`${process.env.PATH_GET_NOTE}/:id`, (req, res, next) => {
     return Promise.all([
       db('notes')
         .select()
-        .where('id', '=', Number(id))
+        .where('id', '=', id)
         .first(),
       db('notesTagsJoin')
         .select(['name', 'notesTagsJoin.tagId as id'])
@@ -38,7 +51,7 @@ server.get(`${process.env.PATH_GET_NOTE}/:id`, (req, res, next) => {
         }
         throw new HttpError(404, 'Database did not return a resource for this id.');
       })
-      .catch((err) => {
+      .catch(() => {
         next(new HttpError(404, 'Database could not return a resource with the id provided'));
       });
   }
