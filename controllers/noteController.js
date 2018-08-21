@@ -62,18 +62,14 @@ module.exports = {
 
   updateNote: (req, res, next) => {
     const { title, content, tags } = req.body
-    console.log('IN PUT /api/notes', title, content, tags)
     Note.findById(req.params.id)
       .then(note => {
-        console.log('Found note to update', note)
-
         note
           .update({
             title: title || note.title,
             content: content || note.content
           })
           .then(updateNote => {
-            console.log('updateNote', updateNote)
             Note.findAll({
               where: { userId: req.user.id },
               include: [
