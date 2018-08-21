@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import NavBar from './binder/NavBar';
 import { Route, Switch } from "react-router-dom";
 import NotesList from './binder/NotesList';
+import NoteView from './binder/NoteView';
+
 //import Create from './binder/Create';
-//import NoteView from './binder/NoteView';
 import { connect } from 'react-redux';
 import { getData } from '../actions/notesActions';
 
@@ -26,8 +27,8 @@ class App extends Component {
           <div className="page">
             <Switch>
               <Route exact path="/" component={NotesList} />
-              {/* <Route path="/create" component={Create} />
-              <Route exact path="/notes:id" component={NoteView} /> */}
+              <Route exact path="/notes/:id" component={NoteView} />
+              {/* <Route path="/create" component={Create} />*/}
             </Switch> 
           </div>         
         </div>  

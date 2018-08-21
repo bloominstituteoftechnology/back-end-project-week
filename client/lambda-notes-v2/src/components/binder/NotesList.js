@@ -1,26 +1,33 @@
 import React, { Component } from 'react';
-import Note from './Note';
+//import Note from './Note';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 
 class NotesList extends Component {
     render() {
         return (
-            <div className="notes-list">
+            <React.Fragment>
                 <h2 className="page-title">Your Notes:</h2>
                 <div className="page-content">
-                    {this.props.notes.map((mappedNote, index) => {
-                        return(
+                    <div className="notes-list">
+                        {this.props.notes.map((mappedNote, index) => {
+                            return(
 
-                            <Note 
-                                mappedNote={mappedNote}
-                                key={index}
-                            />
+                                <Link to={`/notes/${mappedNote.id}`} key={index} className="note">
+                                    <h3 className="note-title">
+                                        {mappedNote.title}
+                                    </h3>
+                                    <p className="note-body">
+                                        {mappedNote.content}
+                                    </p>
+                                </Link>
 
-                        );
-                    })}
+                            );
+                        })}
+                    </div>
                 </div>
-            </div>
+            </React.Fragment>
         );
     };
 };
