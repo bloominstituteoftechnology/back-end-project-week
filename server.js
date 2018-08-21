@@ -98,4 +98,34 @@ server.post('/notes/:id', async (req,res) => {
   catch(err) {res.status(statusCodeFail).json({err})} 
 })
 
+server.delete('/notes/:id', async (req,res) => {
+  const {id} = req.params
+
+  try{
+
+    //Check if the ID is valid
+    const data = await baseTbl.get('notes', id)
+    
+    // if not, pass an error
+    if (data.length <= 0) res.status(statusCodeFail).json({msg:'ID not found'})
+    
+    // if it's valid...
+    else {
+
+      // delete the record for that ID
+      const data = await baseTbl.delete('notes', id)
+      
+      //If it deletes successfully...
+      if (data >= 1){
+
+        //Send it back
+        res.status(statusCodePass).json({msg: "Your record has been deleted"})
+      }
+    }
+    
+  }
+  catch(err) {res.status(statusCodeFail).json({err})} 
+
+})
+
 module.exports = server

@@ -154,3 +154,21 @@ describe('POST Method to /notes/id with an valid id', () => {
   })
 })
 
+describe('DEL Method to /notes/id with an invalid id', () => {
+  it('return a message saying invalid id', async () => {
+    const res = await req(server).delete('/notes/30')
+
+    expect(res.status).toEqual(statusCodeFail)
+    expect(res.body).toEqual({msg:'ID not found'})
+  })
+})
+
+describe('DEL Method to /notes/id with an valid id', () => {
+  it('return a message saying invalid id', async () => {
+    const res = await req(server).delete('/notes/11')
+
+    expect(res.status).toEqual(statusCodePass)
+    expect(res.body).toEqual({msg:'Your record has been deleted'})
+  })
+})
+
