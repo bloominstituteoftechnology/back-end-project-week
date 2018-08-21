@@ -30,12 +30,39 @@ server.get(`${process.env.PATH_GET_NOTES}/:id`, (req, res, next) => {
         }
         throw new HttpError(404, 'Database did not return a resource for this id.');
       })
-      .catch((err) => {
+      .catch(() => {
         next(new HttpError(404, 'Database could not return a resource with the id provided'));
       });
   } else {
     next(new HttpError(404, 'A usable id parameter was not received for this request.'));
   }
+});
+
+server.post(process.env.PATH_POST_NOTE, (req, res, next) => {
+  const { body } = req;
+  if (!body.title || body.title === '') {
+    return next(new HttpError(400, 'Must provide a non-empty title for this request.'));
+  }
+  return db('notes')
+    .insert(body)
+    .returning('id')
+    .then(([id]) => {
+      if (!id) {
+        throw new HttpError(500, 'Database did not create a new instance');
+      }
+      return res.status(201).json({ id });
+    })
+    .catch((err) => {
+      if (err instanceof HttpError) {
+        return next(err);
+      }
+      return next(
+        new HttpError(
+          403,
+          'Database was not able to create a new instance. Resource may violate database constraint',
+        ),
+      );
+    });
 });
 
 server.delete(`${process.env.PATH_DELETE_NOTE}/:id`, (req, res, next) => {

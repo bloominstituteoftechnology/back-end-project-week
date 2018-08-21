@@ -11,7 +11,7 @@ function basicPopulate() {
         notes.increments('id'),
         notes.string('title', 20).unique(),
         notes.text('textBody'),
-        notes.timestamp('createdAt'),
+        notes.timestamp('createdAt').defaultTo(db.fn.now()),
       ])))
       .then(() => db('notes').insert(noteSeedArray))
       .then(() => db('notes').select())
@@ -84,7 +84,7 @@ describe('Note api', () => {
           .first())
         .then(({ count }) => {
           expect(count).toEqual(baseNotes.length - 1);
-          return done()
+          return done();
         });
     });
     it('returns a 404 error if a bad id is sent', (done) => {
@@ -98,6 +98,71 @@ describe('Note api', () => {
         })
         .then(({ count }) => {
           expect(count).toEqual(baseNotes.length);
+          done();
+        });
+    });
+  });
+  describe('create a note', () => {
+    const newNote = {
+      title: 'New note',
+      textBody: 'This is a new note',
+    };
+    const noTitle = {
+      textBody: 'Text with no title',
+    };
+    const zeroString = {
+      title: '',
+      textBody: 'Title is zero string',
+    };
+    beforeEach(done => basicPopulate()
+      .then((res) => {
+        baseNotes = res;
+      })
+      .then(() => done()));
+    it('creates a note successfully', (done) => {
+      request(server)
+        .post(process.env.PATH_POST_NOTE)
+        .send(newNote)
+        .then(({ status, body }) => {
+          expect(status).toEqual(201);
+          expect(body.id).toBeGreaterThanOrEqual(1);
+          return body.id;
+        })
+        .then(id => db('notes')
+          .where('id', '=', id)
+          .first())
+        .then((response) => {
+          const { createdAt, ...rest } = response;
+          expect(createdAt).toBeDefined();
+          expect(rest).toEqual({ ...rest, id: 4 });
+          return done();
+        });
+    });
+    it('rejects a note with an undefined title', (done) => {
+      request(server)
+        .post(process.env.PATH_POST_NOTE)
+        .send(noTitle)
+        .then((res) => {
+          const {
+            status,
+            body: { message },
+          } = res;
+          expect(status).toEqual(400);
+          expect(message).toBeDefined();
+          done();
+        });
+    });
+    it('rejects a note with a zero-string title', (done) => {
+      request(server)
+        .post(process.env.PATH_POST_NOTE)
+        .send(zeroString)
+        .then((res) => {
+          const {
+            status,
+            body: { message },
+          } = res;
+          expect(status).toEqual(400);
+          expect(message).toBeDefined();
           done();
         });
     });
