@@ -29,7 +29,7 @@ server.use((err, req, res, next) => {
       res.status(codes.INTERNAL_SERVER_ERROR).json(errorInfo);
   }
 });
-const port = 8001;
+const port = 4000;
 server.listen(port, (req, res) => console.log(`Port ${port} is in use`));
 module.exports = {
   server,
