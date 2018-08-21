@@ -1,5 +1,5 @@
 const express = require('express');
-const db  = require('../data/db');
+const db = require('../data/helpers/noteDb');
 const router = express.Router();
 
 router.get('/', (req, res) => {
