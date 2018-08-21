@@ -27,7 +27,8 @@
     "npm": "^6.4.0",
     "sqlite3": "^4.0.2"
   },
-  "devDependencies": {
-    "nodemon": "^1.18.3"
+  "devDependencies": {},
+  "engines": {
+    "node": "8.10.0"
   }
 }
