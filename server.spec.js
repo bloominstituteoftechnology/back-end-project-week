@@ -3,7 +3,7 @@ const server = require('./server');
 
 describe('Lambda Notes Server API Testing', () => {
 
-  describe('GET REQUESTS, Documentation [/api]', () => {
+  describe('GET REQUESTS, Root [/api]', () => {
     it('should return a status code of 200', async () => {
       const expected = 200;
       const result = await request(server)
@@ -36,6 +36,8 @@ describe('Lambda Notes Server API Testing', () => {
 
   });
   
-  
+  describe('GET REQUESTS, ', () => {
+    
+  });
 });
 
