@@ -1,16 +1,14 @@
 import React from 'react';
+import axios from 'axios'
 
-Storage.prototype.setObj = function(key, obj) {
-  return this.setItem(key, JSON.stringify(obj))
-}
-Storage.prototype.getObj = function(key) {
-    return JSON.parse(this.getItem(key))
-}
+
 
 class Note extends React.Component {
   constructor(props) {
+    // eslint-disable-next-line
     super(props),
     this.state = {
+      auth: {},
       note: {},
       delMenu: 'hidden',
       openNote: null,
@@ -43,59 +41,54 @@ class Note extends React.Component {
   }
 
   deleteNote = e => {
-    let path = this.props.location.pathname;
-    let arr = path.match(/\d+$/);
-    let id = arr[0];
-    let notes = localStorage.getObj('l-notes-storage-bin')
-    let newnotes = [];
-    for (var i = 0; i < notes.length; i++) {
-      if (notes[i].id != id) {
-         newnotes.push(notes[i])
-      }
-    }
-    localStorage.setObj('l-notes-storage-bin', newnotes)
-    this.setState({delMenu: 'hidden'})
-    window.location.reload()
-    this.props.history.push('/')
+    let id = this.props.match.id
+    let auth = this.state.auth
+
+    axios
+      .delete(`Http://localhost:5000/api/notes/${id}`, { id: id}, auth)
+      .then(response => {console.log(response)})
+      .catch(err => {console.log(err.message)})
+
+    this.props.history.push('/home')
   }
 
   updateNote = e => {
-    let path = this.props.location.pathname;
-    let arr = path.match(/\d+$/);
-    let id = arr[0];
-    let notes = localStorage.getObj('l-notes-storage-bin')
-    let newnotes = [];
-    for (var i = 0; i < notes.length; i++) {
-      if (notes[i].id != id) {
-         newnotes.push(notes[i])
-      }
-    }
-    let today = new Date()
-    let date = (today.getMonth()+1)+'-'+today.getDate()+'-'+today.getFullYear();
-    let time = today.getHours() + ":" + today.getMinutes();
-    let dateTime = date+' '+time;
-    newnotes.push({
-      id: id,
+    let id = this.props.match.id
+    let auth = this.state.auth
+
+    let note = {
       title: this.state.editTitle,
       topic: this.state.editTopic,
-      text: this.state.editText,
-      time: dateTime
-    })
-    localStorage.setObj('l-notes-storage-bin', newnotes)
+      text: this.state.editText
+    }
+
+    axios
+      .put(`Http://localhost:5000/api/notes/${id}`, {note}, auth)
+      .then(response => {console.log(response)})
+      .catch(err => {console.log(err.message)})
     this.props.history.push(`/notes/${id}`)
   }
 
   componentDidMount() {
-    let path = this.props.location.pathname;
-    let arr = path.match(/\d+$/);
-    let id = arr[0];
-    let notes = localStorage.getObj('l-notes-storage-bin')
-    for (var i = 0; i < notes.length; i++) {
-      if (notes[i].id == id) {
-        this.setState({note: notes[i], editTitle: notes[i].title, editTopic: notes[i].topic, editText: notes[i].text})
+    const token = localStorage.getItem('jwt')
+
+    const auth = {
+      headers: {
+        authorization: token
       }
     }
-  }
+
+    this.setState({ auth: auth })
+
+    let id = this.props.match.id
+
+    axios
+      .get(`Http://localhost:5000/api/notes/${id}`, auth)
+      .then(response => {
+        this.setState({note: response})
+      })
+      .catch(err => {console.log(err.message)})
+}
 
   render() {
 
