@@ -24,7 +24,7 @@ router.get('/:id', async (req, res, next) => {
     try {
         const note = await db('notes').where('id', id);
         if (!note.length) { throw new ServerError(500, 'Note could not be found with that id'); }
-        else { res.status(200).json(note) }
+        else { res.status(200).json( note ) }
     }
     catch (err) {
         next(err)
