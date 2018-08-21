@@ -113,7 +113,7 @@ describe('notesRoutes', () => {
         .expect(200);
     });
 
-    it('should respond with an array of all notes', async () => {
+    it('should respond with an success of true', async () => {
       const res = await request(route).del('/123');
       expect(res.body.success).toBe(true);
     });
