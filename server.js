@@ -1,8 +1,10 @@
 const express = require('express');
 const server = express();
+const cors = require('cors');
 const postRoutes = require('./api/post');
 
 server.use(express.json())
+server.use(cors());
 server.use('/api/post', postRoutes);
 
 

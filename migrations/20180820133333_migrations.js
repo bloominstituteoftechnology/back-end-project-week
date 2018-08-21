@@ -11,7 +11,7 @@ exports.up = function(knex, Promise) {
       table.increments();
       table.string('title', 128).notNullable;
       table.integer('userId').references('id').inTable('user');
-      table.string('content');
+      table.string('textBody');
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(knex.fn.now());
   })

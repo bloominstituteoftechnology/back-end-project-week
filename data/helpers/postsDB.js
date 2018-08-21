@@ -8,6 +8,7 @@ module.exports = {
     getById: function(id) {
         return db('post')
         .where('id', id)
+        .first()
     },
 
     insert: function(post) {
