@@ -29,7 +29,6 @@ server.get('/', (req, res) => {
 //! middleware
 function protected(req, res, next) {
   const token = req.headers.authorization;
-  console.log(token)
   if (token) {
     jwt.verify(token, secret, (err, decodedToken) => {
       if (err) {
@@ -46,21 +45,20 @@ function protected(req, res, next) {
   }
 }
 
-// ! ====================== NOTES ENDPOINTS
+// ! ====================== Login and register ENDPOINTS
 
 //! register
-server.post('/api/register', (req, res) => {
+server.post('/api/register', protected, (req, res) => {
   const user = req.body;
   const hash = bcrypt.hashSync(user.password, 14);
   user.password = hash;
-  console.log(user)
+  console.log(user);
   db    
     .insert(user)
     .into('users')
     .then(id => {
       db('users') 
         .then(users => {
-          console.log(users)
           const user = users.pop();
           const token = generateToken(user);
           res.send(token);
@@ -78,7 +76,7 @@ server.post('/api/login', function(req, res) {
     .then(function(user) {
       if (user && bcrypt.compareSync(credentials.password, user.password)) {
         const token = generateToken(user);
-        res.send(token);
+        res.json({ token, username: user.username })
       } else {
         return res.status(401).json({ error: 'Incorrect Username or Password' });
       }
