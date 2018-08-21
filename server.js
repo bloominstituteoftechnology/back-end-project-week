@@ -53,7 +53,7 @@ server.post('/notes', async(req, res) => {
   }
 });
 
-server.post('/create-tags', await (req, res) => {
+server.post('/create-tags', async (req, res) => {
   const {text, note_id} = req.body;
 
   try {
