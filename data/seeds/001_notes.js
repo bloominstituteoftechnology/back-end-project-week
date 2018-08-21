@@ -6,20 +6,20 @@ exports.seed = function(knex, Promise) {
       // Inserts seed entries
       return knex("notes").insert([
         {
-          id: 1,
+          _id: 1,
           title: "A note",
-          content: "This has some content"
+          textBody: "This has some textBody"
         },
         {
-          id: 2,
+          _id: 2,
           title: "Another note",
-          content:
+          textBody:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut numquam ab, aliquid et pariatur delectus temporibus magni, asperiores consequuntur fugit dolor porro officia. Soluta ullam nesciunt ab, voluptatum minima tempore reprehenderit quisquam, et optio recusandae maxime obcaecati distinctio vitae quos."
         },
         {
-          id: 3,
+          _id: 3,
           title: "I'm a long title to test out a lot of different stuff",
-          content: "The dragon is near the castle, knights! protect the royal blood with your lives!"
+          textBody: "The dragon is near the castle, knights! protect the royal blood with your lives!"
         }
       ]);
     });
