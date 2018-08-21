@@ -69,4 +69,4 @@ server.delete('/notes/:id', (req, res) => {
     .catch(err => {res.status(500).json({ error: '.DELETE /notes/:id' })})
 })
 
-server.listen(8000, () => console.log('API is running on 8000'))
+server.listen(process.env.PORT || 8000, () => console.log('API is running on 8000'))
