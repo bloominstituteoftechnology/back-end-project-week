@@ -46,10 +46,13 @@ server.post('/notes', (req, res) => {
 server.put('/notes/:id', (req, res) => {
   const { id } = req.params;
   const note = req.body;
+  console.log(req.body);
+  // req is request obj coming from the client
+  // req.body.note is coming from the client
   db('notes')
     .where({ id })
     .update(note)
-    .then((note) => {
+    .then(() => {
       res.status(201).json(note);
     })
     .catch((err) => res.status(500).json(err));
