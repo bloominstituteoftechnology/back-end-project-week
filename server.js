@@ -22,6 +22,8 @@ server.get('/notes/:id', async (req, res) => {
   } else {
     try {
       const note = await db('notes').where('id', req.params.id).first();
+      const tags = await db('tags').where('note_id', req.params.id);
+      note.tags = tags;
       res.status(200).json(note);
     } catch (err) {
       return res.status(500).send(`Ya done goofed with error: ${err}`)
