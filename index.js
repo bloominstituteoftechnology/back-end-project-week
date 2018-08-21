@@ -18,21 +18,6 @@ server.get('/api/notes', (req, res) =>  {
   })
 })
 
-server.post('/api/notes', (req, res) => {
-  const { title, content } = req.body;
-  if (!title || !content) {
-    res.status(400).json({ error: 'Please provide a title and content for the note'})
-  }
-  db.insert({ title, content })
-  .into('notes')
-  .then(response => {
-    res.status(201).json(response)
-  })
-  .catch(err => {
-    res.status(500).json({ error: 'Could not create new note' })
-  })
-})
-
 server.get('/api/notes/:id', (req, res) => {
   const id = req.params.id
   db('notes')
@@ -46,6 +31,35 @@ server.get('/api/notes/:id', (req, res) => {
     .catch(err => {
       res.status(500).json({ error: 'Could not retrieve note'})
     })
+})
+
+server.post('/api/notes', (req, res) => {
+  const { title, content } = req.body;
+  if (!title || !content) {
+    res.status(400).json({ error: 'Please provide a title and content for the note'})
+  }
+  db.insert({ title, content })
+  .into('notes')
+  .then(response => {
+    res.status(201).json(response)
+  })
+  .catch(err => {
+    res.status(500).json({ error: 'Could not create a new note' })
+  })
+})
+
+server.put('/api/notes/:id', (req, res) => {
+  const { title, content } = req.body;
+  const { id } = req.params;
+  db('notes')
+  .where('id', id)
+  .update({ title, content })
+  .then(response => {
+      res.status(200).json(response)
+  })
+  .catch(err => {
+    res.status(500).json({ error: 'Could not edit the note'})
+  })
 })
 
 server.delete('/api/notes/:id', (req, res) => {
