@@ -11,7 +11,7 @@ server.get("/", (req, res) => {
   res.send("up and running...");
 });
 
-// Display List of notes
+//* Display List of notes
 server.get("/all", (req, res) => {
   db("notes")
     .then(notes => {
@@ -40,6 +40,41 @@ server.post("/create", (req, res) => {
       res.status(201).json({ id, ...user });
     })
     .catch(err => res.status(500).json(err));
+});
+
+//* GET with id CAn View Data
+server.get("/:id", (req, res) => {
+  const { id } = req.params;
+
+  db("notes")
+    .select() //! <------ Knex SELECT
+    .where("_id", id) //! <----- WHERE id =
+    .then(notes => {
+      res.status(200).json(notes);
+    })
+    .catch(err => res.status(500).json(err));
+});
+
+// DELETE  by id
+server.delete("/:id", (req, res) => {
+  const { id } = req.params;
+  db("notes")
+    .where("_id", id)
+    .del()
+    .then(response => {
+      if (!response) {
+        res
+          .status(404)
+          .json({ response, message: `Action ${id} doesn't exist.` });
+        return;
+      }
+      res
+        .status(200)
+        .json({ response, message: `Action ${id} has been deleted.` });
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
 });
 
 const port = 3300;
