@@ -2,6 +2,9 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
   "repository": "https://github.com/JacobLayton/back-end-project-week.git",
   "author": "JacobLayton <jlayjlay3@gmail.com>",
   "license": "MIT",
