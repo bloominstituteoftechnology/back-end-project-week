@@ -29,11 +29,11 @@ server.get('/notes/:id', async (req, res) => {
   }
 });
 
-server.post('/notes', async(req, res) => { //May want to rename description to content
-  const {title, description} = req.body;
+server.post('/notes', async(req, res) => {
+  const {title, textBody} = req.body;
 
   try {
-    const ids = await db.insert({title, description}).into('notes');
+    const ids = await db.insert({title, textBody}).into('notes');
     const id = ids[0];
 
     res.status(201).json(await db('notes').where('id', id).first());
@@ -43,11 +43,11 @@ server.post('/notes', async(req, res) => { //May want to rename description to c
 })
 
 server.put('/notes/:id', async(req, res) => {
-  const {title, description} = req.body;
+  const {title, textBody} = req.body;
   try {
     const result = await db('notes').where('id', req.params.id).first().update({
       title,
-      description
+      textBody
     });
 
     if(result > 0) {
