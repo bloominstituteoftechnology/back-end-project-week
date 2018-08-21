@@ -18,8 +18,14 @@ class NoteView extends Component {
         
         return(
             <div>
-                <h1>{title}</h1>
-                <p>{content}</p>
+                <nav>
+                    <Link to={`/notes/${id}/edit`}>edit</Link>
+                    <Link to={`/notes/${id}/delete`}>delete</Link>
+                </nav>
+                <div>
+                    <h2 className="page-title">{title}</h2>
+                    <p>{content}</p>
+                </div>
             </div>
         );
     };
