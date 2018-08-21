@@ -4,7 +4,7 @@
   "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
   "main": "index.js",
   "scripts": {
-    "start":"node index.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
     "helmet": "^3.13.0",
     "knex": "^0.15.2",
     "morgan": "^1.9.0",
+    "node": "^10.8.0",
     "script": "^0.1.4",
     "sqlite3": "^4.0.2",
     "start": "^5.1.0"
