@@ -1,8 +1,24 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { createStore, applyMiddleware } from 'redux';
+import notesReducer from './reducers/notesReducer';
+import thunk from 'redux-thunk';
+import { render } from 'react-dom';
+import Root from './components/Root';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import './index.css';
+
+
+const store = createStore(
+    notesReducer,
+    applyMiddleware(thunk)
+);
+
+
+render(
+
+    <Root store={store} />,
+
+document.getElementById('root'));
 registerServiceWorker();
+ 

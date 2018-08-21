@@ -1,6 +1,6 @@
 const express = require('express');
 
-//const cors = require('cors');
+const cors = require('cors');
 
 const configureRoutes = require('./config/routes');
 
@@ -9,7 +9,7 @@ const server = express();
 //const corsOptions {  };
 
 server.use(express.json());
-//server.use(cors());
+server.use(cors());
 
 configureRoutes(server);
 
