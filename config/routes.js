@@ -80,5 +80,3 @@ async function deleteNote(req, res) {
     res.status(500).json(err);
   }
 }
-
-// Modify your front-end so that it uses your newly created Web API.
