@@ -11,7 +11,7 @@ class NoteView extends Component {
       note: {
         id: null,
         title: '',
-        noteContent: ''
+        content: ''
       }
     };
   }
@@ -40,14 +40,16 @@ class NoteView extends Component {
     let id;
     if(prevProps.notes !== this.props.notes) {
       if (this.props.match) {
+        
         let notes = this.props.notes.slice();
         id = this.props.match.params.noteID;
-        notes = notes.filter(item => item.id === id);
+        console.log('props don\'t match', notes, id);
+        notes = notes.filter(item => item.id === Number(id));
         if (notes[0]) {
           this.setState({ note: {
             id: notes[0].id,
             title: notes[0].title,
-            noteContent: notes[0].noteContent
+            content: notes[0].content
           }});
         }
       }
@@ -64,7 +66,7 @@ class NoteView extends Component {
           <button className="note-view-control__button" onClick={e => this.onClickShowDelete(e)}>delete</button>
         </div>
         <h2>{this.state.note.title}</h2>
-        <span className="markdown-body">{mdReact()(this.state.note.noteContent)}</span>
+        <span className="markdown-body">{mdReact()(this.state.note.content)}</span>
         <DeleteView isDeleteShowing={this.state.isDeleteShowing} onClickDelete={this.onClickDelete} onClickHideDelete={this.onClickHideDelete} />
       </main>
     );

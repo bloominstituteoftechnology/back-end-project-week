@@ -9,7 +9,7 @@ const ListItem = props => {
   return (
     <li className="list-item" onClick={gotoNoteView}>
       <span className="list-item__title">{props.note.title}</span>
-      <span className="list-item__content">{props.note.noteContent}</span>
+      <span className="list-item__content">{props.note.content}</span>
     </li>
   );
 };

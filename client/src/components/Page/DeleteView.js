@@ -21,7 +21,6 @@ const DeleteView = props => {
         </div>
       </div>
     </div>
-    // <button type={props.type} onClick={e => onSubmit(e)}>{props.text}</button>
   );
 };
 

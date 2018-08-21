@@ -32,8 +32,8 @@ router.post('/', async (req, res) => {
   } else {
     try {
       const added = await notesModel.create(req.body);
-      const note = await notesModel.read(added.id);
-      res.status(201).json(note);
+      const notes = await notesModel.readAll();
+      res.status(200).json(notes);
     } catch (e) {
       res.status(500).send({ error: 'There was an error while saving your note to the database.' });
     }
@@ -55,8 +55,8 @@ router.put('/:id', async (req, res) => {
         if (numUpdatedRows === 0) {
           throw new Error(500);
         } else {
-          note = await notesModel.read(noteId);
-          res.status(200).json(note);
+          const notes = await notesModel.readAll();
+          res.status(200).json(notes);
         }
       }
     }
@@ -75,7 +75,8 @@ router.delete('/:id', async (req, res) => {
       if (numUpdatedRows === 0) {
         throw new Error(500);
       } else {
-        res.status(200).json(note);
+        const notes = await notesModel.readAll();
+        res.status(200).json(notes);
       }
     }
   } catch (err) {

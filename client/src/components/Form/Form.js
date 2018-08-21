@@ -8,7 +8,7 @@ class Form extends Component {
       note: {
         id: null,
         title: '',
-        noteContent: ''
+        content: ''
       }
     };
   }
@@ -24,7 +24,7 @@ class Form extends Component {
     this.setState({note: {
       id: null,
       title: '',
-      noteContent: ''
+      content: ''
     }});
     console.log('click save', this.state.note);
   };
@@ -35,7 +35,7 @@ class Form extends Component {
         note: {
           id: this.props.note.id,
           title: this.props.note.title,
-          noteContent: this.props.note.noteContent
+          content: this.props.note.content
         }
       });
     }
@@ -45,7 +45,7 @@ class Form extends Component {
       this.setState({note: {
         id: Date.now(),
         title: '',
-        noteContent: ''
+        content: ''
       }});   
   };
 
@@ -62,11 +62,11 @@ class Form extends Component {
           value={this.state.note.title}
           onChange={this.handleInputChange} />
         <textarea 
-          id="noteContent" 
-          name="noteContent" 
+          id="content" 
+          name="content" 
           className="form__content" 
           wrap="hard" placeholder="Note Content"
-          value={this.state.note.noteContent}
+          value={this.state.note.content}
           onChange={this.handleInputChange} />
         <Button 
           type="submit" 

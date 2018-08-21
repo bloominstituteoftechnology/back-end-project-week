@@ -5,7 +5,10 @@ import CreateNewView from '../Page/CreateNewView';
 import EditView from '../Page/EditView';
 import NoteView from '../Page/NoteView';
 import Nav from '../Nav';
+import axios from 'axios';
 import './App.css';
+
+const API_URL = 'http://localhost:8000/notes';
 
 class App extends Component {
   constructor(props) {
@@ -19,16 +22,35 @@ class App extends Component {
 
   onAddNote = note => {   
     console.log('add', note);
-
+    axios
+      .post(API_URL, note)
+      .then(res=> {
+        console.log('posted', res);
+        window.location.href = '/';
+      })
+      .catch(e => console.log(e));   
   }
 
-  onUpdateNote = (note) => {
+  onUpdateNote = note => {
     console.log('update', note);
-
+    axios
+      .put(`${API_URL}/${note.id}`, note)
+      .then(res => {
+        console.log('posted', res);
+        window.location.href = `/note/${note.id}`;
+      })
+      .catch(e => console.log(e));
   }
 
   onDeleteNote = id => {
     console.log('delete', id);
+    axios
+      .delete(`${API_URL}/${id}`)
+      .then(res => {
+        console.log('posted', res);
+        window.location.href = '/';
+      })
+      .catch(e => console.log(e));
   }
 
   onSearchNotes = (event, term) => {
@@ -40,14 +62,22 @@ class App extends Component {
     let newData = this.state.notes.slice();
     if (term.trim() !== '') {
       newData = newData.filter((element) => {
-        return element.title.includes(term) || element.noteContent.includes(term);
+        return element.title.includes(term) || element.content.includes(term);
       } );
     }
     this.setState({searchNotes: newData, searchTerm: term});
   }
 
   componentDidMount() {
-
+    axios
+      .get(API_URL)
+      .then(res => {
+        this.setState(() => ({ notes: res.data }));
+        this.searchNotes('');
+      })
+      .catch(e => {
+        console.error('Server Error', e);
+      });
   }
 
   render() {
