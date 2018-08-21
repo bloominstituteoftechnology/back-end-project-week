@@ -23,6 +23,7 @@ server.get('/api/notes', (req, res) => {
 });
 
 server.post('/api/notes', (req, res) => {
+    console.log(req.body)
     const note = req.body;
     // const { title, content } = req.body;
     // const note = { title, content };
