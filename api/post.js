@@ -16,7 +16,7 @@ function checkLogIn (req, res, next) {
     }
 }
 
-router.get('/', (req, res) => {
+router.get('/', checkLogIn, (req, res) => {
     db.get()
     .then(response => {
         res.status(200).json(response);

@@ -33,6 +33,10 @@ export const LOGGING_IN = 'LOGGING_IN';
 export const LOGGED_IN = 'LOGGED_IN';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
 
+export const LOGGING_OUT = 'LOGGING_OUT';
+export const LOGGED_OUT = 'LOGGED_OUT';
+export const LOGOUT_FAILED = 'LOGOUT_FAILED';
+
 export const TOGGLE_MODAL = 'TOGGLE_MODAL';
 export const TOGGLE_DELETE = 'TOGGLE_DELETE';
 export const TOGGLE_UPDATE = 'TOGGLE_UPDATE';
@@ -134,7 +138,7 @@ export function searchNotes (searchTerm) {
 export function createUser (user) {
     return(dispatch) =>{
     dispatch({type: CREATING_USER});
-    axios.post('http://localhost:5000/api/user', user)
+    axios.post('http://localhost:5000/api/user/register', user)
       .then(({data}) => {
           console.log(data)
           localStorage.setItem("token", JSON.stringify(data));
@@ -150,7 +154,7 @@ export function createUser (user) {
 export function loginUser (user) {
     return(dispatch) =>{
     dispatch({type: LOGGING_IN});
-    axios.post('http://localhost:5000/api/user', user)
+    axios.post('http://localhost:5000/api/user/login', user)
       .then(({data}) => {
           console.log(data)
           localStorage.setItem("token", JSON.stringify(data));
@@ -160,6 +164,18 @@ export function loginUser (user) {
           console.log(err);
           dispatch({type: LOGIN_FAILED, error: err})
       })
+    }
+}
+
+export function logoutUser () {
+    return(dispatch) => {
+        dispatch({type: LOGGING_OUT});
+        localStorage.removeItem('token')  
+        .then(() =>{
+        dispatch({type: LOGGED_OUT})}) 
+        .catch(err => {
+            dispatch({type: LOGOUT_FAILED})
+        }) 
     }
 }
 

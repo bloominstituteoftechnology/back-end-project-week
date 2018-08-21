@@ -31,6 +31,7 @@ class Register extends React.Component {
     }
 
     handleSubmit = event => {
+        event.preventDefault();
         const user = this.state;
         this.props.createUser(user);
 
@@ -39,7 +40,7 @@ class Register extends React.Component {
     render() {
         return (
             <div>
-                <RegisterContainer>
+                <RegisterContainer onSubmit={this.handleSubmit}>
                     <InputField
                         type='text'
                         name='username'

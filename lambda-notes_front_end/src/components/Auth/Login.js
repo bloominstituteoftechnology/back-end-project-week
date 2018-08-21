@@ -33,16 +33,17 @@ handleChange = event => {
 }
 
 handleSubmit = event => {
+    event.preventDefault();
     const user = this.state;
     this.props.loginUser(user);
     console.log(this.state)
-
+    
 }
 
     render() {
         return (
             <div>
-                <LoginContainer>
+                <LoginContainer onSubmit={this.loginUser}>
                     <InputField
                         type='text'
                         name='username'

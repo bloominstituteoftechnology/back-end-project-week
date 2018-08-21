@@ -18,6 +18,16 @@ function generateToken(user) {
     return jwt.sign(payload, secret, options)
 }
 
+router.get('/', (req, res) => {
+    db.get()
+    .then(response => {
+        res.status(200).json(response)
+    })
+    .catch(err => {
+        res.status(500).json(err)
+    })
+})
+
 router.post('/register', (req, res) => {
     const {username, password }= req.body;
     if(!username || !password) {
@@ -29,7 +39,7 @@ router.post('/register', (req, res) => {
     db.insert(user)
     .then(user => {
         const token = generateToken(user)
-        res.status(201).json(token);
+        res.redirect(201, 'http://localhost:3000').json(token);
     })
     .catch(err => {
         res.status(500).json({error: 'There was an error saving user to the database.'})
@@ -42,7 +52,7 @@ router.post('/login', (req, res) => {
     .then(user => {
         if(user && bcrypt.compareSync(credentials.password, user.password)) {
             const token = generateToken(user);
-            res.status(201).json(token)
+            res.redirect(201, 'http://localhost:3000').json(token)
         }
         else {
             return res.status(401).send('Incorrect credentials')

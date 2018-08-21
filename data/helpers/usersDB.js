@@ -1,7 +1,10 @@
 const db = require('../db.js');
 
 module.exports = {
-
+    get: function() {
+        return db('user')
+    },
+    
     insert: function(user) {
         return db('user')
         .insert(user)
