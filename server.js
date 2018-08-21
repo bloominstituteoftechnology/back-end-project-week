@@ -67,7 +67,7 @@ server.post(process.env.PATH_POST_NOTE, (req, res, next) => {
 
 server.delete(`${process.env.PATH_DELETE_NOTE}/:id`, (req, res, next) => {
   const { id } = req.params;
-  db('notes')
+  return db('notes')
     .where('id', '=', Number(id))
     .del()
     .then((response) => {
@@ -81,6 +81,28 @@ server.delete(`${process.env.PATH_DELETE_NOTE}/:id`, (req, res, next) => {
         return next(err);
       }
       return next(new HttpError(404, 'Database could not complete deletion request.'));
+    });
+});
+
+server.put(`${process.env.PATH_EDIT_NOTE}/:id`, (req, res, next) => {
+  if (req.body.title === '') {
+    throw new HttpError(400, 'Cannot edit a note to have an empty string as title.');
+  }
+  const id = Number(req.params.id);
+  return db('notes')
+    .where('id', '=', id)
+    .update(req.body)
+    .then((editedNum) => {
+      if (editedNum > 0) {
+        return res.status(204).end();
+      }
+      throw new HttpError(404, 'Requested resource could not be found in database for editing.');
+    })
+    .catch((err) => {
+      if (err instanceof HttpError) {
+        return next(err);
+      }
+      return next(new HttpError(500, 'Database could not complete edit request.'));
     });
 });
 

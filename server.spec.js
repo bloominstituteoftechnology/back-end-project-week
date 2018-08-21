@@ -4,7 +4,7 @@ const server = require('./server');
 const noteSeedArray = require('./dummyData/noteSeedArray');
 
 function basicPopulate() {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     db.schema
       .dropTableIfExists('notes', () => {})
       .then(() => db.schema.createTable('notes', notes => Promise.all([
@@ -98,7 +98,7 @@ describe('Note api', () => {
         })
         .then(({ count }) => {
           expect(count).toEqual(baseNotes.length);
-          done();
+          return done();
         });
     });
   });
@@ -149,7 +149,7 @@ describe('Note api', () => {
           } = res;
           expect(status).toEqual(400);
           expect(message).toBeDefined();
-          done();
+          return done();
         });
     });
     it('rejects a note with a zero-string title', (done) => {
@@ -163,7 +163,62 @@ describe('Note api', () => {
           } = res;
           expect(status).toEqual(400);
           expect(message).toBeDefined();
-          done();
+          return done();
+        });
+    });
+  });
+  describe('for a put request', () => {
+    const updateNote = {
+      title: 'New note',
+      textBody: 'This is a new note',
+    };
+    const zeroString = {
+      title: '',
+    };
+    let baseNotes;
+    beforeEach(done => basicPopulate()
+      .then((res) => {
+        baseNotes = res;
+      })
+      .then(() => done()));
+    it('edits a note', (done) => {
+      const { id } = baseNotes[1];
+      request(server)
+        .put(`${process.env.PATH_EDIT_NOTE}/${id}`)
+        .send(updateNote)
+        .then(({ status }) => {
+          expect(status).toEqual(204);
+          return db('notes')
+            .where('id', '=', id)
+            .select(Object.keys(updateNote))
+            .first();
+        })
+        .then((editedObj) => {
+          expect(editedObj).toEqual(updateNote);
+          return done();
+        });
+    });
+    it('throws a 404 error for a bad id', done => request(server)
+      .put(`${process.env.PATH_EDIT_NOTE}/305`)
+      .send(updateNote)
+      .then(({ status }) => {
+        expect(status).toEqual(404);
+        return done();
+      }));
+    it('throws a 400 error for a 0-string title', (done) => {
+      const { id } = baseNotes[1];
+      request(server)
+        .put(`${process.env.PATH_EDIT_NOTE}/${id}`)
+        .send(zeroString)
+        .then(({ status }) => {
+          expect(status).toEqual(400);
+          return db('notes')
+            .where('id', '=', id)
+            .first();
+        })
+        .then((editedObj) => {
+          expect(editedObj).toEqual(baseNotes[1]);
+          return done();
         });
     });
   });
