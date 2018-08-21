@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const config = require('../data/config');
 
 function noteCheck(req, res, next) {
     const { title, content, tagId, tags, tag } = req.body;

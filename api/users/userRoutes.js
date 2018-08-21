@@ -16,4 +16,20 @@ router.post('/login', loginPostCheck, async (req, res, next) => {
     }
 });
 
+router.post('/register', loginPostCheck, async (req, res, next) => {
+    const users = await usersDb.get();
+    for (let i = 0; i < users.length; i++) {
+        if (users[i].username.toLowerCase() === req.credentials.username.toLowerCase()) {
+            return next({ code: 400, errorMessage: 'There is already a user with that name.' })
+        }
+    }
+    try {
+        const user = await usersDb.register(req.credentials);
+        const token = generateToken({ id: user.id, ...req.credentials });
+        return res.status(201).json({ id: user.id, ...req.credentials, token });
+    } catch (err) {
+        next({ code: 500, error: "Couldn't save the user to the database." })
+    }
+});
+
 module.exports = router;
