@@ -1,7 +1,20 @@
 const express = require('express');
 const db = require('./../data/helpers/postsDB');
+const jwt = require('jsonwebtoken');
+const { secret } = require('./user');
 
 const router = express.Router();
+
+function checkLogIn (req, res, next) {
+    const token = req.headers.authorization;
+    if(token) {
+        jwt.verify(token, secret, (err, decodedToken) => {
+            next()
+        })
+    } else {
+        return res.status(401).json({error: 'You must be logged in to view notes.'})
+    }
+}
 
 router.get('/', (req, res) => {
     db.get()
