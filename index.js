@@ -1,5 +1,6 @@
 const express = require('express');
-const db = require('./data/db')
+const cors = require('cors');
+const db = require('./data/db');
 
 const server = express();
 server.use(express.json());
@@ -30,7 +31,7 @@ server.get('/api/notes', (req,res) => {
     });
 });
 
-server.get('api/notes/:id', (req, res) => {
+server.get('/api/notes/:id', (req, res) => {
   const id = req.params.id;
   db('notes').where('id', id)
     .then(response => {
@@ -41,10 +42,21 @@ server.get('api/notes/:id', (req, res) => {
     });
 });
 
-server.put('api/notes/:id', (req, res) => {
+server.put('/api/notes/:id', (req, res) => {
   const id = req.params.id;
   const note = req.body;
   db('notes').where('id', id).update(project)
+    .then(response => {
+      res.status(200).json(response);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
+
+server.delete('/api/notes:id', (req, res) => {
+  const id = req.params.id;
+  db('notes').where('id', id).del()
     .then(response => {
       res.status(200).json(response);
     })
