@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Route} from 'react-router-dom';
+import {Route, Link} from 'react-router-dom';
 import './App.css';
 
 import Notes from './components/viewnotes';
@@ -10,9 +10,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-       <Route path ="/notes" component={Notes}></Route>
+       <Route exact path ="/" component={Notes}></Route>
         <Route path ='/addnote' component={Addnote}></Route>
        <Route path ='/notes/:id' component={Singlenote}></Route>
+       <Link to='/addnote'>Add a note!</Link>
       </div>
     );
   }

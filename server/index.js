@@ -43,7 +43,8 @@ server.post('/addnote', function(req, res) {
 server.get('/notes/:id', (req, res) =>{
     const id = req.params.id;
     db('notes')
-    .get(id)
+    .where({id})
+    
     .then(response => {
         res.status(200).json(response)
     })
@@ -52,6 +53,18 @@ server.get('/notes/:id', (req, res) =>{
     })
 })
 
+server.delete('/notes/:id', (req, res) => {
+    const id = req.params.id;
+    db('notes')
+    .where({id})
+    .del()
+    .then(response => {
+        res.status(200).json(response)
+    })
+    .catch(() => {
+        res.status(500).json({error})
+    })
+})
 
 
 

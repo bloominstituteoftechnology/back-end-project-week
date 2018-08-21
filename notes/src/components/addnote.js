@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
+import {Route, Link} from 'react-router-dom';
 class Addnote extends Component {
     state={
         title: '',
@@ -38,7 +38,7 @@ class Addnote extends Component {
                 </div>
 
                 </form>
-
+                <Link to='/'> View All Notes</Link> 
                 </div>
         )
     }

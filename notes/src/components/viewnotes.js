@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import axios from 'axios';
+import {Route, Link} from 'react-router-dom';
 
 class Notes extends Component {
     state={
@@ -18,6 +19,7 @@ class Notes extends Component {
                     key={note.id}>
                    <h1>  {note.title}</h1>
                     <p>{note.content}</p>
+                        <Link to={`/notes/${note.id}`}>View Note </Link>
                     </li>
                      )
                     })}
