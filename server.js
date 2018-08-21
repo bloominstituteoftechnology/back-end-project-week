@@ -15,9 +15,11 @@ server.get('/api', (req, res, next) => {
   res.status(200).json({'message':'API server running'})
 })
 
-// const port = 8000;
-// server.listen(port, ()=>{
-//   console.log(`---Server Running on Port ${port}`);
-// })
+const port = 8000;
+if(process.env.NODE_ENV !=='test') {
+  server.listen(port, ()=>{
+    console.log(`---Server Running on Port ${port}`);
+  })
+}
 
 module.exports = server;
