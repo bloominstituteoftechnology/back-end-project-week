@@ -16,13 +16,44 @@ describe("server.js", () => {
       expect(response.status).toEqual(expected);
     });
     test("should return db", async () => {
-      const expected = [{ id: 1, textBody: "hi", title: "hello" }];
+      const expected = [
+        { id: 1, textBody: "hi", title: "hello" },
+        { id: 2, textBody: "goodbye", title: "bye" }
+      ];
       const response = await request(server).get("/notes");
       expect(response.body).toEqual(expected);
     });
     test("should return json", async () => {
       const response = await request(server).get("/notes");
       expect(response.type).toEqual("application/json");
+    });
+  });
+  describe("(/notes/:id endpoint", () => {
+    test("should return status 200 ok", async () => {
+      const expected = 200;
+      const response = await request(server).get(`/notes/${1}`);
+      expect(response.status).toEqual(expected);
+    });
+    test("should return note with specified id", async () => {
+      const expected = [{ id: 1, textBody: "hi", title: "hello" }];
+      const response = await request(server).get(`/notes/${1}`);
+      expect(response.body).toEqual(expected);
+    });
+    test("should return json", async () => {
+      const response = await request(server).get(`/notes/${1}`);
+      expect(response.type).toEqual("application/json");
+    });
+    test("should return status 404 when id does not exist", async () => {
+      const expected = 404;
+      const response = await request(server).get(`/notes/${5}`);
+      expect(response.status).toEqual(expected);
+    });
+    test("should return error message when id does not exist", async () => {
+      const expected = {
+        message: "The note with the specified ID does not exist"
+      };
+      const response = await request(server).get(`/notes/${5}`);
+      expect(response.body).toEqual(expected);
     });
   });
 });
