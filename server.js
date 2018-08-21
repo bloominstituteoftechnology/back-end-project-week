@@ -51,7 +51,7 @@ server.post('/notes', async(req, res) => {
   } catch (err) {
     res.status(404).send(`${err}...notes could not be created`);
   }
-})
+});
 
 server.post('/create-tags', await (req, res) => {
   const {text, note_id} = req.body;
@@ -64,7 +64,7 @@ server.post('/create-tags', await (req, res) => {
   } catch(err) {
     res.status(500).send(`${err}...tag could not be created`)
   }
-})
+});
 
 server.put('/notes/:id', async(req, res) => {
   const {title, textBody} = req.body;
