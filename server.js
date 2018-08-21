@@ -29,7 +29,7 @@ server.get('/notes/:id', async (req, res) => {
   }
 });
 
-server.get('/notes/tags', async (req, res) => {
+server.get('/tags', async (req, res) => {
   try {
     const tags = await db('tags');
     res.status(200).json(tags);
