@@ -3,6 +3,11 @@ exports.up = function(knex, Promise) {
     table.increments();
     table.string('title', 40).notNullable();
     table.text('content').notNullable();
+    table.integer('user_id')
+         .references('id')
+         .inTable('users')
+         .onUpdate('CASCADE')
+         .onDelete('CASCADE')
   })
 };
 
