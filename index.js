@@ -33,6 +33,18 @@ server.post('/api/notes', (req, res) => {
   })
 })
 
+server.get('/api/notes/:id', (req, res) => {
+  const id = req.params.id
+  db('notes')
+    .where('id', id)
+    .then(response => {
+      if (response.length === 0) {
+        res.status(404).json({ error: 'The note with the specified ID does not exist'})
+      }
+      res.status(200).json(response)
+    })
+    .catch(err => {res.status(500).json({ error: '.GET /notes/:id' })})
+})
 
 
 const port = 8000;
