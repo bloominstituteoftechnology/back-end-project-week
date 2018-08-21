@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 8000; //This line is critical, must have proces
 server.use(express.json());
 
 server.get('/', (req, res) => {
-  res.status(200).send('App is runninggggg');
+  res.status(200).send('App is running');
 })
 
 server.get('/notes/:id', async (req, res) => {
@@ -68,4 +68,4 @@ server.delete('/notes/:id', async(req, res) => {
   }
 })
 
- server.listen(PORT, () => console.log('App is listening hero...'));
+ server.listen(PORT, () => console.log('App is listening with Heroku :)...'));
