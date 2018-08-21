@@ -5,6 +5,9 @@
   "scripts": {
     "start": "nodemon server.js"
   },
+  "engines": {
+    "node": "8.11.1"
+  },
   "repository": "https://github.com/TangledTessellations/back-end-project-week.git",
   "author": "TangledTessellations <mcevoya@oregonstate.edu>",
   "license": "MIT",

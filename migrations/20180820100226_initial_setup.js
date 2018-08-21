@@ -8,8 +8,6 @@ exports.up = function(knex, Promise) {
             .notNullable()
         tbl
             .string('textBody')
-        tbl 
-            .specificType('tags', 'text[]')
     })
 };
 

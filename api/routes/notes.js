@@ -7,13 +7,28 @@ server.get('/', (req,res) => {
 })
 
 server.get('/get/all', (req,res,next) => {
+
     db('notes')
         .select('*')
         .then(notes => {
-            notes.forEach(note => note.tags = note.tags ? note.tags.split(',').map(tag => tag.trim()) : [])
-            res.status(200).json(notes)
-        })
-        .catch(next)
+            const promises = notes.map(note => {
+                return new Promise((resolve, reject) => 
+                    db('tags')
+                        .where({ note_id: note.id })
+                        .then(tagsIn => {
+                            newTags = tagsIn.map(tagObject => tagObject.tag)
+                            note['tags'] = newTags
+                            resolve(note)
+                        }) 
+                    ) 
+            })
+            Promise.all(promises)
+                .then(results => {
+                    console.log(results)
+                    res.status(200).json(results)
+                })
+                .catch(next)
+        }).catch(next)
 })
 
 server.get('/get/:id', (req,res,next) => {
@@ -30,8 +45,13 @@ server.get('/get/:id', (req,res,next) => {
             if(!note){
                 res.status(404).json({error: true, message: "No note with that ID"})
             }else{
-                if(note.tags) note.tags = note.tags.split(',').map(tag => tag.trim())
-                res.status(200).json(note)
+                db('tags')
+                    .where({ note_id: note.id })
+                    .then(tags => {
+                        note['tags'] = tags.map(tagObject => tagObject.tag)
+                        res.status(200).json(note)
+                    })
+                
             }
             
         })
