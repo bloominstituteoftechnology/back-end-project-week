@@ -21,7 +21,7 @@ server.post('/api/notes', (req, res) => {
 });
 
 server.get('/api/notes', (req,res) => {
-  db('projects')
+  db('notes')
     .then(response => {
       res.status(200).json(response);
     })
@@ -32,7 +32,19 @@ server.get('/api/notes', (req,res) => {
 
 server.get('api/notes/:id', (req, res) => {
   const id = req.params.id;
-  db('projects').where('id', id)
+  db('notes').where('id', id)
+    .then(response => {
+      res.status(200).json(response);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
+
+server.put('api/notes/:id', (req, res) => {
+  const id = req.params.id;
+  const note = req.body;
+  db('notes').where('id', id).update(project)
     .then(response => {
       res.status(200).json(response);
     })
