@@ -11,6 +11,7 @@ server.get("/", (req, res) => {
   res.send("up and running...");
 });
 
+// Display List of notes
 server.get("/all", (req, res) => {
   db("notes")
     .then(notes => {
