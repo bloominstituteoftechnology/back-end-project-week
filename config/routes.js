@@ -6,6 +6,9 @@ module.exports = server => {
   server.get('/notes', getAllNotes);
   server.get('/notes/:id', getSpecificNote);
   server.post('/notes', createNote);
+  server.put('/notes/:id', updateNote);
+  server.delete('/notes/:id', deleteNote);
+
 }
 
 function index(req, res) {
@@ -50,10 +53,32 @@ async function createNote(req, res) {
   }
 }
 
-// UPDATE | Edit an existing note.
+// PUT | (UPDATE) Edit an existing note.
+async function updateNote(req, res) {
+  const { title, content } = req.body;
+  const noteParams = { title, content };
+  const id = req.params.id;
 
+  try {
+    const newNote = await noteCRUD.update(id, noteParams);
+    const getNote = await noteCRUD.read(id);
+    res.status(200).json({getNote, message: "Successfully updated existing note."});
+  } catch (err) {
+    res.status(500).json(err);
+  }
+}
 
 // DELETE | Delete an existing note.
+async function deleteNote(req, res) {
+  const id = req.params.id;
 
+  try {
+    const deleteNote = await noteCRUD.remove(id);
+    const getNotes = await noteCRUD.readAll();
+    res.status(200).json({getNotes, message: `Successfully deleted note ${id}.`});
+  } catch (err) {
+    res.status(500).json(err);
+  }
+}
 
 // Modify your front-end so that it uses your newly created Web API.
