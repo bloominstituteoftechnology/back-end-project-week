@@ -94,7 +94,7 @@ server.delete('/api/notes/:id', (req, res) => {
 
 
 
-  const port = process.env.PORT || 8000;
+  const PORT = process.env.PORT || 8000;
 
 
 server.listen(
