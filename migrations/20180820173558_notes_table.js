@@ -1,7 +1,7 @@
 
 exports.up = function(knex, Promise) {
  return knex.schema.createTable('notes', notes => {
-     project.increments()
+     notes.increments()
 
      notes
      .string('title')
@@ -9,7 +9,8 @@ exports.up = function(knex, Promise) {
      .unique()
 
      notes
-     .boolean('completed').defaultTo(false);
+     .string('textBody')
+     .notNullable()
  }) 
 };
 
