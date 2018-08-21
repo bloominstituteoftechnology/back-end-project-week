@@ -39,7 +39,7 @@ router.post('/register', (req, res) => {
     db.insert(user)
     .then(user => {
         const token = generateToken(user)
-        res.redirect(201, 'http://localhost:3000').json(token);
+        res.status(201).json(token);
     })
     .catch(err => {
         res.status(500).json({error: 'There was an error saving user to the database.'})
@@ -49,10 +49,10 @@ router.post('/register', (req, res) => {
 router.post('/login', (req, res) => {
     const credentials = req.body;
     db.login(credentials)
-    .then(user => {
+    .then(function(user) {
         if(user && bcrypt.compareSync(credentials.password, user.password)) {
             const token = generateToken(user);
-            res.redirect(201, 'http://localhost:3000').json(token)
+            res.status(201).json(token)
         }
         else {
             return res.status(401).send('Incorrect credentials')
