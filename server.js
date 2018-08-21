@@ -110,6 +110,6 @@ server.put("/notes/:id", (req, res) => {
 });
 
 const PORT = proccess.env.PORT || 9000;
-server.listen(9000, () => console.log("API running..."));
+server.listen(PORT, () => console.log("API running..."));
 
 module.exports = { server, db };
