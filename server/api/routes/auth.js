@@ -121,9 +121,29 @@ function getNotes (req, res, next) {
   })
 }
 function getNote (req, res, next) {
-  Notes.findById(req.params.id).then((insertedNote) => {
-    console.log('GET A NOTE', insertedNote)
-    res.status(200).json(insertedNote)
+  Notes.findAll({
+    where: { id: req.params.id },
+    include: { model: Tags }
+  }).then((insertedNote) => {
+    // console.log('GET A NOTE', insertedNote)
+    // const note = Object.assign({}, { title: insertedNote })
+    // res.status(200).json(insertedNote)
+    const note = insertedNote.map((Notes) => {
+      return Object.assign(
+        {},
+        {
+          id: Notes.dataValues.id,
+          title: Notes.dataValues.title,
+          context: Notes.dataValues.context,
+          tags: Notes.dataValues.Tags.map((Tag) => {
+            return Tag.dataValues.value
+          })
+        }
+      )
+    })
+
+    console.log('GET A NOTE', note)
+    res.status(200).json(note[0])
   })
 }
 
