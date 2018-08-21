@@ -21,6 +21,16 @@ server.get('/api/notes', async (req, res, next) =>{
  res.status(200).json(result);
 })
 
+server.post('/api/notes', async(req, res, next) =>{
+  const { note_title, text_body, tags } = req.body
+  const newNote = {note_title, text_body, tags};
+  const result = await notes.insert(newNote)
+  .then(response =>{
+    res.status(201).json({"success": "new note added", "note": newNote})
+  })
+  console.log(newNote)
+})
+
 const port = 8000;
 if(process.env.NODE_ENV !=='test') {
   server.listen(port, ()=>{

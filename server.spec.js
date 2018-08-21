@@ -43,13 +43,13 @@ describe('Lambda Notes Server API Testing', () => {
   describe('GET REQUESTS [/api/notes], ', () => {
 
     beforeEach(() =>{
-     knex.migrate.rollback()
+     return knex.migrate.rollback()
     .then(() => knex.migrate.latest())
-    .then(() => knex.seed.run())
+    .then(()=> knex.seed.run())
     })
-    // afterEach(()=>{
-    //   knex.migrate.rollback();
-    // })
+    afterEach(()=>{
+     return knex.migrate.rollback();
+    })
     it('should return status code 200 with attempt to get all notes', async () => {
       const expected = 200;
       const result = await request(server)
@@ -97,6 +97,23 @@ describe('Lambda Notes Server API Testing', () => {
 
   });
 
+  describe('POST Requests [/api/notes]', () => {
+    beforeEach(() =>{ 
+       return knex.migrate.latest()
+      .then(knex.seed.run());
+    });
+
   
+    //start adding tests for note creation, beforeEach to wipe dB to seeded migration
+    it('should return a status code of 201 when a new note is added', async () => {
+      const expected = 201;
+      const testNote = {'note_title': 'test note', 'text_body':'this is the body of the note', 'tags': 'TEST TEST1'}
+      const result = await request(server).post('/api/notes')
+      .send(testNote);
+      expect(result.status).toBe(expected);
+
+    });
+  });  
+
 });
 

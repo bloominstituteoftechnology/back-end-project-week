@@ -7,7 +7,12 @@ function find(id) {
 
 }
 
+function insert(note) {
+  return db('notes').insert(note);
+}
+
 module.exports = {
-  find
+  find,
+  insert
 }
 
