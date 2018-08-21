@@ -1,8 +1,10 @@
 const express = require('express')
+const cors = require('cors')
 const baseTbl = require('./data/baseTbl')
 
 const server = express()
 
+server.use(cors())
 server.use(express.json())
 
 const statusCodePass = 200
@@ -41,8 +43,8 @@ server.get('/notes/:id', async (req, res) => {
 server.post('/notes', async (req,res) =>{
   const {body} = req
 
-  //Check if both the content and title sent
-  if (!body.title || !body.content)
+  //Check if both the textBody and title sent
+  if (!body.title || !body.textBody)
     res.status(statusCodeInc).json({msg: 'required fields missing'})
   else{
     try{
@@ -127,5 +129,9 @@ server.delete('/notes/:id', async (req,res) => {
   catch(err) {res.status(statusCodeFail).json({err})} 
 
 })
+
+// server.listen('4000', () => {
+//   console.log('==== API Is RUnning on port 4000 ====')
+// })
 
 module.exports = server

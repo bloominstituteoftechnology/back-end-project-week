@@ -4,9 +4,9 @@
   "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
   "main": "server.js",
   "scripts": {
-    "kmr" : "knex migrate:rollback",
-    "kml" : "knex migrate:latest",
-    "ksr" : "knex seed:run",
+    "kmr": "knex migrate:rollback",
+    "kml": "knex migrate:latest",
+    "ksr": "knex seed:run",
     "test": "npm run kmr && npm run kml && npm run ksr && jest --watch --runInBand",
     "start": "nodemon server.js"
   },
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/snowcoding/back-end-project-week#readme",
   "dependencies": {
+    "cors": "^2.8.4",
     "express": "^4.16.3",
     "knex": "^0.15.2",
     "sqlite3": "^4.0.2"
@@ -32,6 +33,6 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "verbose":false
+    "verbose": false
   }
 }
