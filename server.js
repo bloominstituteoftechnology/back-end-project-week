@@ -29,6 +29,15 @@ server.get('/notes/:id', async (req, res) => {
   }
 });
 
+server.get('/notes/tags', async (req, res) => {
+  try {
+    const tags = await db('tags');
+    res.status(200).json(tags);
+  } catch(err) {
+    return res.status(500).send(`Error${err}...no tags for you`)
+  }
+})
+
 server.post('/notes', async(req, res) => {
   const {title, textBody} = req.body;
 
