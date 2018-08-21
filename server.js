@@ -130,8 +130,8 @@ server.delete('/notes/:id', async (req,res) => {
 
 })
 
-server.listen('4000', () => {
-  console.log('==== API Is RUnning on port 4000 ====')
+server.listen(process.env.PORT || 4000, () => {
+  console.log('==== API Is Running! ====')
 })
 
 module.exports = server
