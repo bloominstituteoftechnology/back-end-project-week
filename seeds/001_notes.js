@@ -5,9 +5,12 @@ exports.seed = function(knex, Promise) {
   .del()
   .then(function () {
       // Inserts seed entries
-      return knex('notes').insert([
+      return knex('notes')
+      .insert([
         
-        {name: 'Paint the House'},
+        {title: 'Paint the House',
+         textBody: 'testing'},
+
       ]);
     });
 };

@@ -18,31 +18,21 @@ server.get('/notes/:_id', (req, res) => {
 
     db('notes')
     .where({ id })
-    .first()
     .then(notes => {
-        if(notes) {
-            db('actions')
-            .where({ notes_id: id })
-            .then(actions => {
-                notes.actions = actions;
-
-             res.status(200).json(notes)
-            })
+         res.status(200).json(notes)
+    })
             .catch(err => res.json(err));
-    } else {
-        res.status(404).json({ message: 'nope, did not locate note' })
-    }
-})
-    .catch(err => res.json(err));
+            res.status(404).json({ message: 'nope, did not locate note' })
 });
 
-server.get('/actions', (req, res) => {
-    db('actions')
-    .then(actions => {
-        res.status(200).json(action)
+server.get('/notes', (req, res) => {
+
+    db('notes')
+    .then(notes => {
+        res.status(200).json(notes)
     })
     .catch(() => {
-        res.status(500).json({ message: "action not found" })
+        res.status(500).json({ message: "notes not found" })
     })
 });
 
@@ -59,7 +49,7 @@ server.post('/notes', (req, res) => {
     .catch(err => res.status(500).json(err));
   });
 
-  server.put('/notes/:id', (req, res) => {
+  server.put('/notes/:_id', (req, res) => {
     const changes = req.body;
     const { id } = req.params;
   
