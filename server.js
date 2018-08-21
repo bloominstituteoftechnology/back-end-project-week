@@ -126,6 +126,13 @@ server.put(`${process.env.PATH_EDIT_NOTE}/:id`, (req, res, next) => {
     });
 });
 
+server.get(process.env.PATH_GET_TAGS, (req, res, next) => {
+  return db('tags')
+    .select()
+    .then(tags => res.status(200).json(tags))
+    .catch(() => next(new HttpError(500, 'Database error occured when fetching tags')));
+});
+
 server.use((err, req, res, next) => {
   if (err instanceof HttpError) {
     const { code, message } = err;
