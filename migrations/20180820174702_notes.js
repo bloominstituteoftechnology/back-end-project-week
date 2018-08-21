@@ -5,7 +5,8 @@ exports.up = function(knex, Promise) {
 
     notes
       .string('title')
-      .notNullable();
+      .notNullable()
+      .unique();
 
     notes
       .string('content')
