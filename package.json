@@ -4,11 +4,8 @@
   "main": "index.js",
   "repository": "https://github.com/Jameson13B/back-end-project-week.git",
   "license": "MIT",
-  "engines": {
-    "yarn": "1..9.2"
-  },
   "scripts": {
-    "start": "node"
+    "start": "node index.js"
   },
   "dependencies": {
     "cors": "^2.8.4",
