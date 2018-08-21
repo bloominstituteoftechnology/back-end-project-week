@@ -29,7 +29,13 @@ router.get("/:id", async (req, res) => {
       .where({ id })
       .first();
     if (note) {
-      res.status(200).json(note);
+      try {
+        const tag = await notesDB.where("note_id", req.params.id).from("tags");
+        note.tags = tag;
+        res.status(200).json(note);
+      } catch (err) {
+        res.status(404).json({ message: err.message });
+      }
     } else {
       res.status(400).json({ error: "The note with the id could not be found." });
     }
@@ -39,10 +45,31 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", protect, async (req, res) => {
-  const addNote = req.body;
+  const tags = req.body["tags"];
+  const newTag = {};
+  delete req.body["tags"];
   try {
-    const ids = await notesDB.insert(addNote).into("notes");
-    res.status(201).json(ids[0]);
+    const ids = await notesDB.insert(req.body).into("notes");
+    let str = tags.toString();
+    let newArr = str.split(", ");
+    for (let i = 0; i < newArr.length; i++) {
+      newTag.title = newArr[i];
+      newTag.note_id = ids[0];
+      try {
+        const tagId = await notesDB.insert(newTag).into("tags");
+        res.status(201).json(ids[0]);
+      } catch (err) {
+        res.status(400).json({ error: err.message });
+      }
+    }
+    /*newTag.title = tags[0];
+    newTag.note_id = ids[0];
+    try {
+      const tagId = await notesDB.insert(newTag).into("tags");
+      res.status(201).json(ids[0]);
+    } catch (err) {
+      res.status(400).json({ error: err.message });
+    }*/
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
