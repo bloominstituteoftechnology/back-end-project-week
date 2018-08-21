@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
 
     note.string('title').notNullable();
 
-    note.string('text').notNullable();
+    note.string('textBody').notNullable();
   });
 };
 

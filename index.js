@@ -30,7 +30,7 @@ server.get('/notes/:id', (req, res) => {
 
 server.post('/notes', (req, res) => {
   const note = req.body;
-  if (!note.title || !note.text)
+  if (!note.title || !note.textBody)
     res.status(400).json({ errorMessage: 'Provide a title and text please' });
   db('notes')
     .insert(note)
