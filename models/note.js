@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Note.hasMany(models.Tag, {
       foreignKey: 'noteId',
+      onDelete: 'CASCADE',
       as: 'tags'
     })
   }
