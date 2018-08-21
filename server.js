@@ -1,14 +1,14 @@
 const express = require('express');
 const server = express();
 const db = require('./data/dbConfig');
-const cores = require('cors');
+const cors = require('cors');
 const PORT = process.env.PORT || 8000; //This line is critical, must have process.env.PORT
 
 server.use(express.json());
 server.use(cors());
 
 server.get('/', (req, res) => {
-  res.status(200).send('App is rUnning');
+  res.status(200).send('App is running');
 })
 
 server.get('/notes/:id', async (req, res) => {
