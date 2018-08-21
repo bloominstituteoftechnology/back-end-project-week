@@ -2,21 +2,31 @@ const request = require('supertest');
 const db = require('knex')(require('./knexfile').development);
 const server = require('./server');
 const noteSeedArray = require('./dummyData/noteSeedArray');
+const tagSeedArray = require('./dummyData/tagSeedArray');
+const notesTagsJoinArray = require('./dummyData/notesTagsJoinArray');
+const seed = require('./seeds/01notes');
 
 function basicPopulate() {
-  return new Promise((resolve) => {
-    db.schema
-      .dropTableIfExists('notes', () => {})
-      .then(() => db.schema.createTable('notes', notes => Promise.all([
-        notes.increments('id'),
-        notes.string('title', 20).unique(),
-        notes.text('textBody'),
-        notes.timestamp('createdAt').defaultTo(db.fn.now()),
-      ])))
-      .then(() => db('notes').insert(noteSeedArray))
-      .then(() => db('notes').select())
-      .then(res => resolve(res));
-  });
+  return new Promise(resolve => db.schema
+    .dropTableIfExists('notes', () => {})
+    .then(() => db.schema.dropTableIfExists('tags', () => {}))
+    .then(() => db.schema.dropTableIfExists('notesTagsJoin', () => {}))
+    .then(() => db.schema.createTable('notes', notes => Promise.all([
+      notes.increments('id'),
+      notes.string('title', 20).unique(),
+      notes.text('textBody'),
+      notes.timestamp('createdAt').defaultTo(db.fn.now()),
+    ])))
+    .then(() => db.schema.createTable('tags', tags => Promise.all([tags.increments('id'), tags.string('name', 18)])))
+    .then(() => db.schema.createTable('notesTagsJoin', (ntj) => {
+      ntj.integer('noteId').references('notes.id');
+      ntj.integer('tagId').references('tags.id');
+      ntj.primary(['noteId', 'tagId']);
+    }))
+    .then(() => db('notes').insert(noteSeedArray))
+    .then(() => db('tags').insert(tagSeedArray))
+    .then(() => db('notesTagsJoin').insert(notesTagsJoinArray))
+    .then(res => resolve(res)));
 }
 
 describe('Note api', () => {
@@ -57,13 +67,13 @@ describe('Note api', () => {
       })
       .then(() => done()));
     it('returns a note when url contains an id for an existing note', async (done) => {
-      const { body, status } = await request(server).get(`${process.env.PATH_GET_NOTES}/2`);
+      const { body, status } = await request(server).get(`${process.env.PATH_GET_NOTE}/2`);
       expect(status).toEqual(200);
       expect(body).toEqual(baseNotes[1]);
       done();
     });
     it('returns a 404 when a request for a non-existent id is made', async (done) => {
-      const { body, status } = await request(server).get(`${process.env.PATH_GET_NOTES}/9`);
+      const { body, status } = await request(server).get(`${process.env.PATH_GET_NOTE}/9`);
       expect(status).toEqual(404);
       expect(body.message).toBeDefined();
       done();

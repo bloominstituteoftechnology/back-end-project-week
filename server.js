@@ -1,11 +1,13 @@
 const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
+const cors = require('cors');
 require('dotenv').config();
 const db = require('knex')(require('./knexfile').development);
 const HttpError = require('./utils/HttpError');
 
 const server = express();
+server.use(cors());
 server.use(helmet());
 server.use(morgan('dev'));
 server.use(express.json());
@@ -17,25 +19,30 @@ server.get(process.env.PATH_GET_NOTES, (req, res, next) => {
     .catch(err => next(new HttpError(404, 'Database did not supply requested resources.')));
 });
 
-server.get(`${process.env.PATH_GET_NOTES}/:id`, (req, res, next) => {
-  const { id } = req.params;
+server.get(`${process.env.PATH_GET_NOTE}/:id`, (req, res, next) => {
+  const id = Number(req.params.id);
   if (id) {
-    db('notes')
-      .select()
-      .where('id', '=', Number(id))
-      .first()
-      .then((response) => {
-        if (response) {
-          return res.status(200).json(response);
+    return Promise.all([
+      db('notes')
+        .select()
+        .where('id', '=', Number(id))
+        .first(),
+      db('notesTagsJoin')
+        .select(['name', 'notesTagsJoin.tagId as id'])
+        .innerJoin('tags', 'notesTagsJoin.tagId', 'tags.id')
+        .where('noteId', '=', Number(id)),
+    ])
+      .then(([note, tags]) => {
+        if (note) {
+          return res.status(200).json({ ...note, tags });
         }
         throw new HttpError(404, 'Database did not return a resource for this id.');
       })
-      .catch(() => {
+      .catch((err) => {
         next(new HttpError(404, 'Database could not return a resource with the id provided'));
       });
-  } else {
-    next(new HttpError(404, 'A usable id parameter was not received for this request.'));
   }
+  next(new HttpError(404, 'A usable id parameter was not received for this request.'));
 });
 
 server.post(process.env.PATH_POST_NOTE, (req, res, next) => {
