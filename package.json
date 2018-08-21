@@ -1,9 +1,9 @@
 {
   "name": "back-end-project-week",
-  "main": "server.js",
+  "main": "index.js",
   "license": "UNLICENSED",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon index.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
