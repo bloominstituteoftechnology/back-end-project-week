@@ -24,7 +24,8 @@
     "helmet": "^3.13.0",
     "jest": "^23.5.0",
     "knex": "^0.15.2",
-    "sqlite3": "^4.0.2"
+    "sqlite3": "^4.0.2",
+    "supertest": "^3.1.0"
   },
   "devDependencies": {
     "morgan": "^1.9.0",
