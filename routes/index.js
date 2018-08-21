@@ -1,5 +1,5 @@
-import userRoutes from './userRoutes';
-import noteRoutes from './noteRoutes';
+const userRoutes = require('./userRoutes');
+const noteRoutes = require('./noteRoutes');
 
 module.exports = app => {
   app.use('/api/users', userRoutes);
