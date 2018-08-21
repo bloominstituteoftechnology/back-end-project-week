@@ -96,5 +96,5 @@ const PORT = process.env.PORT || 8000;
 
 server.listen(
   PORT,
-  () => console.log(`\n=== Web API Listening on http://localhost:${PORT} ===\n`)
+  () => console.log(`\n=== Web API Listening on http://localhost:8000 ===\n`)
 );
