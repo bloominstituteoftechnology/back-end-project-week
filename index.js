@@ -55,7 +55,7 @@ server.get("/:id", (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-// DELETE  by id
+//* DELETE  by id Successfully
 server.delete("/:id", (req, res) => {
   const { id } = req.params;
   db("notes")
