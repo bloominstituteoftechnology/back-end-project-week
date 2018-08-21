@@ -3,8 +3,18 @@ exports.up = function(knex, Promise) {
   return knex.schema.createTable('note_tags', function (table) {
       table.increments();
 
-      table.integer('noteId').references('id').inTable('notes');
-      table.integer('tagId').references('id').inTable('tags');
+      table
+        .integer('noteId')
+        .unsigned()
+        .notNullable()
+        .references('id')
+        .inTable('notes');
+      table
+        .integer('tagId')
+        .unsigned()
+        .notNullable()
+        .references('id')
+        .inTable('tags');
       table.timestamp('created_at').defaultTo(knex.fn.now());
   });
 };
