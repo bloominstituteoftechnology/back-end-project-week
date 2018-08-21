@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 
 require('./middleware')(app);
+require('./routes')(app);
 
 const PORT = process.env.PORT || 8000;
 

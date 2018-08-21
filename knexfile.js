@@ -7,7 +7,8 @@ module.exports = {
       filename: './dev.sqlite3'
     },
     migrations: {
-      tableName: 'knex_migrations'
+      tableName: 'knex_migrations',
+      directory: './data/migrations'
     },
     useNullAsDefault: true
   },
