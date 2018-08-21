@@ -85,6 +85,7 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   const credentials = req.body;
+  console.log("req.body is: ", req.body);
   const username = credentials.username;
   try {
     const getUser = await usersDB
@@ -94,6 +95,8 @@ router.post("/login", async (req, res) => {
       .first();
     if (getUser && bcrypt.compareSync(credentials.password, getUser.password)) {
       console.log("getUser in Login is: ", getUser);
+      console.log("credentials.password is: ", credentials.password);
+      console.log("getUser.password is: ", getUser.password);
       const token = generateToken(getUser);
       res.send(token);
     } else {
