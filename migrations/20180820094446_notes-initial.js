@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
     notes.increments('id');
     notes.string('title', 20).unique();
     notes.text('textBody');
-    notes.timestamp('createdAt').defaultTo(db.fn.now()),
+    notes.timestamp('createdAt').defaultTo(knex.fn.now());
   });
 };
 
