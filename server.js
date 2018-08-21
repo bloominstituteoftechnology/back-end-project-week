@@ -53,6 +53,19 @@ server.post('/notes', async(req, res) => {
   }
 })
 
+server.post('/create-tags', await (req, res) => {
+  const {text, note_id} = req.body;
+
+  try {
+    const ids = await db.insert({text, note_id}).into('tags');
+    const id = ids[0];
+
+    res.status(201).json(await db('tags').where('id', id).first());
+  } catch(err) {
+    res.status(500).send(`${err}...tag could not be created`)
+  }
+})
+
 server.put('/notes/:id', async(req, res) => {
   const {title, textBody} = req.body;
   try {
