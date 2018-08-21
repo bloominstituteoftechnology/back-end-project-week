@@ -70,7 +70,7 @@ server.delete('/delete-tag/:id', async (req, res) => {
   try {
     const result = await db('tags').where('id', req.params.id).del();
     if (result > 0) {
-      return res.status(200).json(status:'DELETED :)');
+      return res.status(200).json({status:'DELETED :)'});
     }
   } catch(err) {
     return res.status(500).send(`Server error... ->${err}`)
