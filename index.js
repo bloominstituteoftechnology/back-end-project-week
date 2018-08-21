@@ -77,6 +77,33 @@ server.delete("/:id", (req, res) => {
     });
 });
 
+//* UPDATE Request postDb update().
+server.put("/:id", (req, res) => {
+  const { title, textBody } = req.body;
+  const { id } = req.params;
+
+  if (!title && !textBody) {
+    res.status(400).json({
+      errorMessage: "Please provide title and user id for the posts."
+    });
+  }
+  db("notes")
+    .where("_id", id)
+    .update({ title: title, textBody: textBody })
+    .then(response => {
+      if (!response) {
+        res
+          .status(404)
+          .json({ message: "The user with the specified ID does not exist." });
+      } else {
+        res.status(200).json({ title, textBody });
+      }
+    })
+    .catch(err =>
+      res.status(500).json({ error: "The user could not be updated" })
+    );
+});
+
 const port = 3300;
 server.listen(port, function() {
   console.log(`\n=== Web API Listening on http://localhost:${port} ===\n`);
