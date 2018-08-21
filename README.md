@@ -52,7 +52,8 @@ Additionally, it is recommended that you keep your front end and backend codebas
 
 Once your MVP has been approved, you have been given a feature list that the client would love to have completed. Your goal would be to finish MVP as soon as you can and get working the list of extra features.
 
-- Setup Auto-Deploy on Heroku
+- Setup Auto-Deploy on Heroku 
+* Heroku API link: https://cs11-lambda-notes.herokuapp.com/ 
 - Provide documentation for how to interface with your api.
 - Add pagination for long lists of notes.
 - Create and display tags that can be added to notes and stored in the Database.
