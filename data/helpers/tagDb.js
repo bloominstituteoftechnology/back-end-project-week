@@ -2,32 +2,27 @@ const db = require('../db');
 const m = require('./mapper');
 
 module.exports = {
-    get: function (id) {
-        let query = db(`tags as t`);
-        if (id) {
-            query.where('t.id', id).first();
-            const promises = [query, this.getTags(id)];
-            return Promise.all(promises).then(function (results) {
-                let [note, tags] = results;
-                note.tags = tags;
-                return m.recordToBody(note);
-            });
-        }
-
-        return query.then(notes => {
-            return notes.map(note => m.recordToBody(note));
-        });
+    get: function(id) {
+      let query = db('tags');
+      if (id) {
+        query.where('id', id).first();
+      }
+  
+      return query;
     },
-    add: function (record) {
-        return db('tags as t').insert(record).then(([id]) => this.get(id));
+    add: function(tag) {
+      return db('tags')
+        .insert(tag)
+        .then(ids => ({ id: ids[0] }));
     },
-    edit: function (id, changes) {
-        return db('tags as t')
-            .where('t.id', id)
-            .update(changes)
-            .then(count => (count > 0 ? this.get(id) : null));
+    edit: function(id, tag) {
+      return db('tags')
+        .where('id', id)
+        .update(tag);
     },
-    drop: function (id) {
-        return db('tags as t').where('t.id', id).del();
-    }
-}
+    drop: function(id) {
+      return db('tags')
+        .where('id', id)
+        .del();
+    },
+  };
