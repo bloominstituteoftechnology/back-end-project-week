@@ -1,0 +1,25 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/LBWright/back-end-project-week.git",
+  "author": "LBWright <lwright.js@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "jest --watchAll"
+  },
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "helmet": "^3.13.0",
+    "jsonwebtoken": "^8.3.0",
+    "knex": "^0.15.2",
+    "sqlite3": "^4.0.2"
+  },
+  "devDependencies": {
+    "jest": "^23.5.0",
+    "nodemon": "^1.18.3",
+    "supertest": "^3.1.0"
+  }
+}
