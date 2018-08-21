@@ -94,11 +94,10 @@ server.delete('/api/notes/:id', (req, res) => {
 
 
 
-  const port = 8000;
-//   server.listen(port, function() {
-//       console.log(`\n===Yo buddy,your Web API is Listening on http://localhost:${port} ===\n`);
-//   });
+  const port = process.env.PORT || 8000;
 
-  app.listen(process.env.PORT || 8000, function(){
-    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
-  });
+
+server.listen(
+    PORT,
+    console.log(`\n=== Web API Listening on http://localhost:${PORT} ===\n`),
+  );
