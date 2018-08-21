@@ -50,18 +50,18 @@ Additionally, it is recommended that you keep your front end and backend codebas
 
 Once your MVP has been approved, you have been given a feature list that the client would love to have completed. Your goal would be to finish MVP as soon as you can and get working the list of extra features.
 
-- Setup Auto-Deploy on Heroku
-- Provide documentation for how to interface with your api.
-- Add pagination for long lists of notes.
-- Create and display tags that can be added to notes and stored in the Database.
-- Allow users to clone notes.
-- Search functionality.
-- Create a Registration Page that allows users to create accounts for your app and sign in with email/password.
-- Allow users to sign in with a third party service (google, facebook, github, club penguin, etc...)
-- Allow users to create Lists and assign notes to a list.
-- Allow users to attach images to notes.
-- Allow multiple users to collaborate on notes.
-- Add Unit and Integration Tests.
+- [] Setup Auto-Deploy on Heroku
+- [] Provide documentation for how to interface with your api.
+- [] Add pagination for long lists of notes.
+- [] Create and display tags that can be added to notes and stored in the Database.
+- [] Allow users to clone notes.
+- [] Search functionality.
+- [] Create a Registration Page that allows users to create accounts for your app and sign in with email/password.
+- [] Allow users to sign in with a third party service (google, facebook, github, club penguin, etc...)
+- [] Allow users to create Lists and assign notes to a list.
+- [] Allow users to attach images to notes.
+- [] Allow multiple users to collaborate on notes.
+- [] Add Unit and Integration Tests.
 
 ## Super Duper Extra Credit Bonus Features
 

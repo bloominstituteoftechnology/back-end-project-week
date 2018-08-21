@@ -3,6 +3,6 @@ require('./api/middleware')(server) // Pass that instance to both middleware and
 require('./api/apiRouter')(server)
 
 const port = 3300
-server.listen(port, () => {
+server.listen((process.env.PORT || port), () => {
     console.log(`server running on port ${port}\n`)
 })
