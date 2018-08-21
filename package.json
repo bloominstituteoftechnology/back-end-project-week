@@ -4,7 +4,11 @@
   "description": "back end project",
   "main": "server.js",
   "scripts": {
+    "test": "jest --watch --verbose",
     "start": "nodemon server.js"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "repository": {
     "type": "git",
@@ -28,6 +32,8 @@
     "start": "^5.1.0"
   },
   "devDependencies": {
-    "nodemon": "^1.18.3"
+    "jest": "^23.5.0",
+    "nodemon": "^1.18.3",
+    "supertest": "^3.1.0"
   }
 }

@@ -13,7 +13,7 @@ server.use(morgan("dev"));
 server.use(cors());
 
 server.get("/", (req, res) => {
-  res.send("<h1>Hello<h1>");
+  res.send("Hello");
 });
 
 server.get("/notes", (req, res) => {
@@ -110,3 +110,5 @@ server.put("/notes/:id", (req, res) => {
 });
 
 server.listen(9000, () => console.log("API running..."));
+
+module.exports = { server, db };
