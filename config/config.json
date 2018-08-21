@@ -5,20 +5,16 @@
     "database": "lambdaNotesDB",
     "host": "127.0.0.1",
     "dialect": "sqlite",
-    "storage": "./data/lambdaNotesDB"
-  },
-  "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "storage": "./data/lambdaNotesDB",
+    "operatorsAliases": false
   },
   "production": {
     "username": "root",
     "password": null,
-    "database": "database_production",
+    "database": "lambdaNotesDB",
     "host": "127.0.0.1",
-    "dialect": "sqlite"
+    "dialect": "sqlite",
+    "storage": "./data/lambdaNotesDB",
+    "operatorsAliases": false
   }
 }

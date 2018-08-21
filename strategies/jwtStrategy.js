@@ -10,7 +10,6 @@ const jwtOptions = {
 }
 
 const jwtStrategy = new JwtStrategy(jwtOptions, function (payload, done) {
-  console.log('in JWT Protected route')
   User.findById(payload.sub)
     .then(user => {
       if (user) {
