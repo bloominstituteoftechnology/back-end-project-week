@@ -43,9 +43,26 @@ server.get('/api/notes/:id', (req, res) => {
       }
       res.status(200).json(response)
     })
-    .catch(err => {res.status(500).json({ error: '.GET /notes/:id' })})
+    .catch(err => {
+      res.status(500).json({ error: 'Could not retrieve note'})
+    })
 })
 
+server.delete('/api/notes/:id', (req, res) => {
+    const id = req.params.id;
+    db('notes')
+    .where('id', id)
+    .delete()
+    .then(response => {
+        if(response.length === 0) {
+            res.status(404).json({ error: 'The note with the specified ID does not exist'});
+        }
+        res.status(200).json(response);
+    })
+    .catch(error => {
+        res.status(500).json({ error: "Could not delete the note"})
+    })
+})
 
 const port = 8000;
 server.listen(port, function() {
