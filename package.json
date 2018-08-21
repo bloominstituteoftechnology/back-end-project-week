@@ -15,7 +15,7 @@
   "version": "1.0.0",
   "main": "knexfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --watch --verbose",
     "start": "nodemon server.js"
   },
   "engines": {
