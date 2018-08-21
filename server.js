@@ -53,7 +53,7 @@ server.post('/notes', async(req, res) => {
   }
 });
 
-server.post('/create-tags', async (req, res) => {
+server.post('/create-tag', async (req, res) => {
   console.log('HI');
   const {text, note_id} = req.body;
 
@@ -95,4 +95,4 @@ server.delete('/notes/:id', async(req, res) => {
   }
 })
 
- server.listen(PORT, () => console.log('App is listening with Heroku :)...'));
+ server.listen(PORT, () => console.log(`App is listening with Heroku :)...on port ${PORT}`));
