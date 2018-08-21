@@ -66,6 +66,22 @@ server.delete('/notes/:id', (req, res) => {
     })
 })
 
+server.put('/notes/:id', (req, res) => {
+    const note = req.body;
+    const { id } = req.params;
+    db('notes')
+        .where({ id })
+        .update({ title: note.title, content: note.content })
+        .into('notes')
+        .then(note => {
+            if (note){
+                res.status(200).json(note)
+            } else {
+                res.status(404).json({ message: 'The note with the specified ID could not be found' })
+            }
+        })
+})
+
 
 
 

@@ -9,6 +9,7 @@ class Addnote extends Component {
 
     render() {
         return (
+            
             <div className="Addnote">
                 <h1> Add a Note!</h1>
                 <form onSubmit={this.submitHandler}>
@@ -43,6 +44,7 @@ class Addnote extends Component {
         )
     }
 
+    
     inputChangeHandler = event => {
         const {name, value} = event.target 
         this.setState({[name]: value})
@@ -61,6 +63,7 @@ class Addnote extends Component {
         })
         console.log('state', this.state)
     }
+    
 }
 
 export default Addnote

@@ -22,7 +22,7 @@ class Singlenote extends Component {
                     <p>{note.content}</p>
                     <Link to='/'> View All Notes</Link>
                    
-                    <form onSubmit={this.deleteHandler} >
+                    <form onSubmit={this.deleteHandler}>
                     
                       <button type='submit'>
                         Delete note
@@ -30,12 +30,52 @@ class Singlenote extends Component {
                         </button>
                         
                     </form>
+                    <div className='editnote'>
+              
+              
+             <p> Edit this note</p>
+                <form onSubmit={this.editHandler}>
+
+                <div className='title'>
+                    <label htmlFor='title'/>
+                    <input
+                    name='title'
+                    value={note.title}
+                    onChange={this.inputChangeHandler}
+                    type='text' />
+                </div>
+
+                <div className='content'>
+                    <label htmlFor='content'/>
+                    <input
+                    name='content'
+                    value={note.title}
+                    onChange={this.inputChangeHandler}
+                    type='text' />
+                </div>
+
+                <div className='editbuton'>
+                <button type="submit">
+                     Save changes
+                </button>
+                </div>
+
+                </form>
+ 
+               </div>
+                    
                     
                     </li>
+                
+
+                      
                      )
                     })}
 
              </ul>
+
+           
+            
 
             </div>
                 
@@ -56,6 +96,25 @@ class Singlenote extends Component {
         })
 
         console.log('state', this.state)
+    }
+
+    inputChangeHandler = event => {
+      const {name, value} = event.target 
+      this.setState({[name]: value})
+  };
+
+    editHandler = event => {
+      const id = this.props.match.params.id;
+      
+      event.preventDefault();
+
+      axios
+      .put(`http://localhost:5000/notes/${id}`, this.state.note)
+      .then(res => {
+        window.location.reload();
+      })
+      console.log('edited');
+
     }
 
     deleteHandler = event => {
