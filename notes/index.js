@@ -7,7 +7,7 @@ const tagDb = require('../data/helpers/tagDb');
 router.get('/', async (req, res) => {
     try {
         let notes = await db.get();
-        notes.map(note => note.tags = note.tags.split(','));
+        notes.map(note => note.tags = note.tags.split(', '));
 
         res.status(200).json(notes);
     } catch (err) {
@@ -17,26 +17,18 @@ router.get('/', async (req, res) => {
     try {
         const { id } = req.params;
         const note = await db.get(id);
+        note.map(n => n.tags = n.tags.split(', '));
+
         res.status(200).json(note);
     } catch (err) {
         res.status(500).json(err);
     }
 }).post('/', async (req, res) => {
     try {
-        const noteBody = {
-            title: req.body.title,
-            content: req.body.content
-        };
-        const tagBody = {
-            tags: req.body.tags
-        };
+        const newNote = { ...req.body };
+        const note = await db.add(newNote);
 
-        res.status(200).json(noteBody);
-
-        // const newNote = { ...req.body };
-        const note = await db.add(noteBody);
-
-        res.status(200).json(noteBody);
+        res.status(200).json(newNote);
     } catch (err) {
         res.status(500).json(err);
     }
