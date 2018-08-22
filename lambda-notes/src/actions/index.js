@@ -14,7 +14,7 @@ export const FETCHING = 'FETCHING';
 export const SINGLE_FETCHED = 'SINGLE_FETCHED';
 export const FETCHING_SINGLE = 'FETCHING_SINGLE';
 
-const url = "http://localhost:3300/notes";
+const url = "https://lambda-notes-backend-kevintena.herokuapp.com/notes";
 export const fetchNotes = () => {
     const noteData = axios.get(url);
     return function(dispatch) {
