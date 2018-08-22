@@ -12,7 +12,7 @@ function insert(note) {
 }
 
 function update(id, note) {
-    return db('notes').update(id, note);
+    return db('notes').where({id}).update(note);
 }
 
 function remove(id) {
