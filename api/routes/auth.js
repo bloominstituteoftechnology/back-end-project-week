@@ -155,21 +155,17 @@ const restricted = (req, res, next) => {
   let token = req.headers.authorization
   console.log('token innn Restricted ,', token)
   if (token) {
-    jtw.verify(
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTUzNDk2Nzc3MCwiZXhwIjoxNTM1MDU0MTcwfQ.kcmGddYpOQlvXEWWcS-Sm8L9XzxgZerh3bGmXpKowMk',
-      process.env.SECRET,
-      (err, decodedToken) => {
-        if (err) {
-          console.log('THERE WAS AN ERROR')
-          return res
-            .status(401)
-            .json({ error: 'you shall not pass!! - token invalid' })
-        }
-        console.log('decoded', decodedToken)
-        req.token = decodedToken
-        next()
+    jtw.verify(token, process.env.SECRET, (err, decodedToken) => {
+      if (err) {
+        console.log('THERE WAS AN ERROR')
+        return res
+          .status(401)
+          .json({ error: 'you shall not pass!! - token invalid' })
       }
-    )
+      console.log('decoded', decodedToken)
+      req.token = decodedToken
+      next()
+    })
   } else {
     console.log('NO HEREEEE')
     return res.status(401).json({ error: 'you shall not pass!! - no token' })
