@@ -121,7 +121,7 @@ server.post('/register', async (req, res) => {
       const ids = await db.insert(user).into('users');
       const createdUser = await db('users').where('id', ids[0]);
       createdUser.token = token;
-      res.status(200).json(createdUser);
+      res.status(200).json(user: createdUser, token: token);
     }
   } catch (err) {
     res.status(500).send(`Server error...${err}`)
