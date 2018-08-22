@@ -36,7 +36,7 @@ router.get('/:id', async (req, res) => {
         if (notes.length > 0) {
           displayObj = notes;
         } else {
-          displayObj = 'none';
+          displayObj = [];
         }
         res.status(200).json(displayObj);
       } catch (err) {
