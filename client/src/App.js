@@ -4,12 +4,13 @@ import "./App.css";
 
 import Layout from "./component/layout/Layout";
 import NoteList from "./container/notes/NoteList";
+import Auth from "./container/auth/Auth";
 class App extends Component {
 	render() {
-		console.log("[app.js] testing");
 		return (
 			<Layout>
 				<Route path="/" component={NoteList} />
+				<Route path="/Auth" component={Auth} />
 			</Layout>
 		);
 	}

@@ -7,3 +7,9 @@ export const DELETE__NOTE = "DELETE__NOTE";
 export const ADD__ERROR = "ADD__ERROR";
 export const DELETE__ERROR = "DELETE__ERROR";
 export const GET__NOTES = "GET__NOTES";
+
+// User
+export const GET__USERS = "GET__USERS";
+export const ADD__USER = "ADD__USER";
+export const READ__USER = "READ__USER";
+export const DELETE__USER = "DELETE__USER";

@@ -1,3 +1,4 @@
+import * as actionTypes from '../actions/actionTypes';
 const istate = {
     user: {},
     users: []
@@ -5,7 +6,18 @@ const istate = {
 
 function userReduceer(state = istate, action) {
     switch (action.type) {
-        default: return state;
+        case actionTypes.ADD__USER:
+            return {
+                ...state,
+                users: [...state.users, action.user]
+            }
+        case actionTypes.READ__USER:
+            return {
+                ...state,
+                user: action.user
+            }
+        default:
+            return state;
     }
 }
 export default userReduceer;

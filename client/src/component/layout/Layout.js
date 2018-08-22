@@ -6,6 +6,7 @@ const Layout = props => (
 		<nav>
 			<Link to="/notes"> All Notes </Link>
 			<Link to="/notes/new"> Create New Note </Link>
+			<Link to="/auth"> sign In / sign Up </Link>
 		</nav>
 		<main> {props.children} </main>
 	</Aux>
