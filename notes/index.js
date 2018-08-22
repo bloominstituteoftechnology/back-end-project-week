@@ -5,8 +5,7 @@ const db = require('../data/helpers/index');
 
 router.get('/', async (req, res) => {
     try {
-        let notes = await db.get();
-        notes.map(note => note.tags = note.tags.split(', '));
+        const notes = await db.get();
 
         res.status(200).json(notes);
     } catch (err) {
@@ -16,7 +15,6 @@ router.get('/', async (req, res) => {
     try {
         const { id } = req.params;
         const note = await db.get(id);
-        note.map(n => n.tags = n.tags.split(', '));
 
         res.status(200).json(note);
     } catch (err) {
@@ -26,7 +24,6 @@ router.get('/', async (req, res) => {
     try {
         const newNote = { ...req.body };
         const note = await db.add(newNote);
-        note.map(n => n.tags = n.tags.split(', '));
 
         res.status(200).json(note);
     } catch (err) {
@@ -38,7 +35,6 @@ router.get('/', async (req, res) => {
         const newNote = { ...req.body };
         const edit = await db.edit(id, newNote);
         const note = await db.get(id);
-        note.map(n => n.tags = n.tags.split(', '));
 
         res.status(200).json(note);
     } catch (err) {
@@ -47,11 +43,10 @@ router.get('/', async (req, res) => {
 }).delete('/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const note = await db.get(id);
-        note.map(n => n.tags = n.tags.split(', '));
+        // const note = await db.get(id);
         const drop = await db.drop(id);
 
-        res.status(200).json(note);
+        res.status(200).json(`Note ${id} deleted`);
     } catch (err) {
         res.status(500).json(err);
     }

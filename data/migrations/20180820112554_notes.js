@@ -5,7 +5,6 @@ exports.up = function (knex, Promise) {
 
         table.string('title', 128).notNullable();
         table.text('content').notNullable();
-        table.text('tags');
         table.timestamp('created_at').defaultTo(knex.fn.now());
     });
 };
