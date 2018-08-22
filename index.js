@@ -29,6 +29,16 @@ server.get('/api/notes/:_id', (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
+server.post('/api/notes', (req, res) => {
+  const note = req.body;
+
+  db.insert(note).into('notes').then(ids => {
+    const id = ids[0];
+    res.status(201).json({ id, ...note})
+  })
+  .catch(err => res.status(500).json(err));
+});
+
 server.listen(port, function() {
   console.log(`\n ==== Web API listening on http://localhost:${port} ==== \n`);
 });
