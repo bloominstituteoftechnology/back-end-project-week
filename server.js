@@ -5,13 +5,8 @@ const server = express()
 server.use(express.json())
 
 server.post('/notes', async (req, res, next) => {
-  console.log('REQ BODY', req.body)
-  if (!req.body || !req.body.title || !req.body.content) {
-    next({
-      code: 400, 
-      message: 'please provide title and content fields'
-    })
-  }
+
+  checkRequestBody(req, next)
 
   try {
     const ids = await db('notes').insert(req.body)
@@ -52,10 +47,40 @@ server.get('/notes/:id', async (req, res) => {
   }
 })
 
+server.put('/notes/:id', async (req, res, next) => {
+  
+  checkRequestBody(req, next)
+  
+  const id = +req.params.id
+  
+  try {
+    const success = await db('notes')
+      .where('id', '=', id)
+      .update(req.body)
+
+    success && res.status(200).json({ id, ...req.body })
+
+  } catch (e) {
+    next({
+      code: 500,
+      message: e.message
+    })
+  }
+})
+
 
 server.use((err, req, res, next) => {
   res.status(err.code).json(err.message)
 })
+
+function checkRequestBody(req, next) {
+  if (!req.body || !req.body.title || !req.body.content) {
+    next({
+      code: 400, 
+      message: 'please provide title and content fields'
+    })
+  }
+}
 
 server.listen(1234, () => console.log('... 1234 ...'))
 
