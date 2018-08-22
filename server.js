@@ -1,3 +1,4 @@
+require('dotenv').config()
 const server = require('express')() // Create instance of Express
 require('./api/middleware')(server) // Pass that instance to both middleware and route handlers
 require('./api/apiRouter')(server)

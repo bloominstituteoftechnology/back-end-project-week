@@ -94,23 +94,66 @@ server.delete('/delete/:id', (req,res,next) => {
         .where({id})
         .del()
         .then(id => {
+            db('tabs')
+                .where({note_id: id})
+                .del()
             res.status(200).json({ deleted_id: id })
         })
         .catch(next)
 })
 
+
+
 server.put('/edit/:id', (req,res,next) => {
     const { id } = req.params
-    const updated = req.body
+    const updated = { title: req.body.title, textBody: req.body.textBody }
+    const tags = req.body.tags
 
-    updated.tags = updated.tags.join(',')
+    const promise1 = new Promise((resolve,reject) => {
+        return db('tags')
+        .where({ note_id: id })
+        .del()
+        .then(response => {
+            resolve(response)
+        })
+        .catch(next)
+    })
 
-    db('notes')
+    const promise2 = new Promise((resolve,reject) => {
+        return db('notes')
         .where({id})
         .update(updated)
         .then(response => {
-            res.status(200).json({response})
+            resolve(response)
         })
+    })
+
+    const tagPromises = tags.map(tag => {
+        return new Promise((resolve, reject) => {
+            db('tags')
+                .insert({ note_id: id, tag: tag })
+                .then(response => {
+                    resolve(tag)
+                })
+                .catch(next)
+        })
+    })
+    console.log("promise1!!!!!". promise1)
+    console.log("promise2!!!!!". promise2)
+
+    Promise.all(promise1, promise2)
+        .then(response => {
+            console.log(response)
+            Promise.all(tagPromises)
+            .then(response => {
+                console.log("All promises completed")
+                res.status(200).json({response})
+            })
+            .catch(next)
+        })
+        .catch(next)
 })
+
+    
 
 module.exports = server
