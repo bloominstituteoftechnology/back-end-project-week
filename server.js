@@ -59,19 +59,49 @@ server.get(`${process.env.PATH_GET_NOTE}/:id`, (req, res, next) => {
 });
 
 server.post(process.env.PATH_POST_NOTE, (req, res, next) => {
-  const { body } = req;
-  if (!body.title || body.title === '') {
+  const {
+    body: { tags, ...note },
+  } = req;
+  if (!note.title || note.title === '') {
     return next(new HttpError(400, 'Must provide a non-empty title for this request.'));
   }
   return db('notes')
-    .insert(body)
+    .insert(note)
     .returning('id')
-    .then(([id]) => {
-      if (!id) {
+    .then(([noteId]) => {
+      if (!noteId) {
         throw new HttpError(500, 'Database did not create a new instance');
       }
-      return res.status(201).json({ id });
+      return new Promise((resolve, reject) => { 
+        if (tags && tags.length > 0) {
+          const tagPromises = tags.map(name => db('tags')
+            .select('id')
+            .where('name', '=', name)
+            .first()
+            .then((existingId) => {
+              if (existingId) {
+                return [existingId.id];
+              } 
+              return db('tags').insert({ name }).returning('id')
+            }));
+          return Promise.all(tagPromises)
+            .then(tagIds => {
+              const mappings = tagIds.map(([tagId]) => ({ noteId, tagId }));
+              return  db('notesTagsJoin').insert(mappings);
+            })
+            .then((res) => {
+              return resolve(noteId);
+            })
+            .catch((err) => {
+              console.log(`warning: note was created but an error occurred in tag creation: ${err}`);
+              return noteId;
+            });
+        } else {
+          return resolve(noteId);
+        }
+      });
     })
+    .then(id => res.status(201).json({ id }))
     .catch((err) => {
       if (err instanceof HttpError) {
         return next(err);
@@ -126,12 +156,10 @@ server.put(`${process.env.PATH_EDIT_NOTE}/:id`, (req, res, next) => {
     });
 });
 
-server.get(process.env.PATH_GET_TAGS, (req, res, next) => {
-  return db('tags')
-    .select()
-    .then(tags => res.status(200).json(tags))
-    .catch(() => next(new HttpError(500, 'Database error occured when fetching tags')));
-});
+server.get(process.env.PATH_GET_TAGS, (req, res, next) => db('tags')
+  .select()
+  .then(tags => res.status(200).json(tags))
+  .catch(() => next(new HttpError(500, 'Database error occured when fetching tags'))));
 
 server.use((err, req, res, next) => {
   if (err instanceof HttpError) {
