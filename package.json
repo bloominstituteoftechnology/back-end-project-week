@@ -1,11 +1,13 @@
 {
   "name": "back_end_project_week",
-  "version": "n",
+  "version": "1.0.0",
   "description": "n",
-  "main": "y",
+  "main": "index.js",
   "author": "Ari",
-  "license": "y",
-  "private": false,
+  "license": "ISC",
+  "jest": {
+    "testEnvironment": "node"
+  },
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js"

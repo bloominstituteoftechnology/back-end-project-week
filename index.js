@@ -46,7 +46,7 @@ function protected(req, res, next) {
 }
 
 server.get('/', (req, res) => {
-  const nums = [1,2, 3, 4];
+  const nums = [1, 2, 3, 4];
   res.json({ nums });
 })
 
