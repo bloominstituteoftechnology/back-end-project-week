@@ -12,7 +12,7 @@ server.use(express.json());
 server.use(cors());
 
 server.get("/", (req, res) => {
-  res.send("We runnin....");
+  res.send("We are runnin....");
 });
 
 //Get Notes
