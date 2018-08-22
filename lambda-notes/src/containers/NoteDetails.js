@@ -11,12 +11,15 @@ class NoteDetails extends Component {
       modal: false,
       editModal: false,
       isEditing: false,
-      note: this.props.note
+      note: this.props.note,
+      title: this.props.note.title,
+      context: this.props.note.context,
+      tags: this.props.note.tags
     }
   }
-  componentDidMount = () => {
-    this.setState({ note: this.props.note })
-    const tags = this.props.note.tags
+
+  componentWillReceiveProps = (nextProps) => {
+    this.setState({ note: nextProps.note })
   }
 
   toggle = () => {
@@ -37,6 +40,7 @@ class NoteDetails extends Component {
   }
 
   handleChange = (e) => {
+    console.log('inhere', e.target.value)
     this.setState({ [e.target.name]: e.target.value })
   }
 
@@ -53,14 +57,13 @@ class NoteDetails extends Component {
     this.setState({ isEditing: true })
   }
   handleUpdate = () => {
-    console.log('ijhere')
     this.setState({ title: this.props.note.title })
   }
 
   render () {
-    const { note } = this.state
-    console.log('in DETAILS', note)
-    if (!note || !this.props.note) {
+    // const { note } = this.state
+    // console.log('in DETAILS', note)
+    if (!this.state.note || !this.props.note) {
       return <div>Loading...</div>
     }
     const tags = this.props.note.tags
@@ -97,7 +100,7 @@ class NoteDetails extends Component {
                       className='edit-title'
                       type='text'
                       name='title'
-                      value={note.title}
+                      value={this.state.title}
                       onChange={this.handleChange}
                       style={{ padding: '10px' }}
                     />
@@ -109,7 +112,7 @@ class NoteDetails extends Component {
                       className='edit-title'
                       type='text'
                       name='tags'
-                      value={note.tags}
+                      value={this.state.tags}
                       onChange={this.handleChange}
                     />
                     <label style={{ fontWeight: 'bold' }}>Note:</label>
@@ -118,7 +121,7 @@ class NoteDetails extends Component {
                       className='edit-context'
                       type='text'
                       name='context'
-                      value={note.context}
+                      value={this.state.context}
                       onChange={this.handleChange}
                     />
                   </form>
@@ -172,7 +175,6 @@ class NoteDetails extends Component {
             <h1 className='title-header'>{this.props.note.title}</h1>
             <p className='noteBody'>{this.props.note.context}</p>
             {tags.map((tag, index) => {
-              console.log(note.tags)
               return (
                 <div className='fas fa-tags' key={tag + index}>
                   {tag}
