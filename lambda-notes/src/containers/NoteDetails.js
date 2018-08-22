@@ -16,6 +16,7 @@ class NoteDetails extends Component {
   }
   componentDidMount = () => {
     this.setState({ note: this.props.note })
+    const tags = this.props.note.tags
   }
 
   toggle = () => {
@@ -59,10 +60,14 @@ class NoteDetails extends Component {
   render () {
     const { note } = this.state
     console.log('in DETAILS', note)
-    if (!note) {
+    if (!note || !this.props.note) {
       return <div>Loading...</div>
     }
     const tags = this.props.note.tags
+    if (!tags) {
+      return <div>Loading...</div>
+    }
+
     console.log('tags', tags)
     return (
       <div className='noteDetails-container'>
@@ -164,13 +169,12 @@ class NoteDetails extends Component {
             {/* end of delete modal */}
           </div>
           <div onClick={this.editToggle} className='detail-div'>
-            <h1 className='title-header'>{note.title}</h1>
-            <p className='noteBody'>{note.context}</p>
+            <h1 className='title-header'>{this.props.note.title}</h1>
+            <p className='noteBody'>{this.props.note.context}</p>
             {tags.map((tag, index) => {
               console.log(note.tags)
               return (
                 <div className='fas fa-tags' key={tag + index}>
-                  {' '}
                   {tag}
                 </div>
               )
