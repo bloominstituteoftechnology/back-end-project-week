@@ -1,9 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const knex = require('knex');
 const cors = require('cors');
 
-const env = process.env.NODE_ENV || 'development'
-const knexConfig = require('./knexfile')[env];
+const knexConfig = require('./knexfile');
 const db = knex(knexConfig.development);
 
 const server = express();
@@ -15,7 +15,7 @@ server.get('/', (req, res) => {res.status(200).json({ api: 'API is running'})})
 server.get('/notes', (req, res) => {
   db('notes')
     .then(response => res.status(200).json(response))
-    .catch(err => {res.status(500).json({ error: '.GET /notes' })})
+    .catch(err => {res.status(500).json({ err })})
 })
 server.post('/notes', (req, res) => {
   const { title, content } = req.body;
@@ -70,4 +70,5 @@ server.delete('/notes/:id', (req, res) => {
     .catch(err => {res.status(500).json({ error: '.DELETE /notes/:id' })})
 })
 
-server.listen(process.env.PORT || 8000, () => console.log('API is running on 8000'))
+const port = process.env.PORT || 9000;
+server.listen(port, () => console.log(`API is running on ${port}`))
