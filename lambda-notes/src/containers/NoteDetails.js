@@ -17,11 +17,7 @@ class NoteDetails extends Component {
   componentDidMount = () => {
     this.setState({ note: this.props.note })
   }
-  componentWillReceiveProps (nextProps) {
-    this.setState({
-      note: nextProps.note
-    })
-  }
+
   toggle = () => {
     this.setState({
       modal: !this.state.modal
@@ -66,6 +62,8 @@ class NoteDetails extends Component {
     if (!note) {
       return <div>Loading...</div>
     }
+    const tags = this.props.note.tags
+    console.log('tags', tags)
     return (
       <div className='noteDetails-container'>
         <div className='noteDetails'>
@@ -168,7 +166,15 @@ class NoteDetails extends Component {
           <div onClick={this.editToggle} className='detail-div'>
             <h1 className='title-header'>{note.title}</h1>
             <p className='noteBody'>{note.context}</p>
-            <div className='detail-tags fas fa-tags'>{note.tags}</div>
+            {tags.map((tag, index) => {
+              console.log(note.tags)
+              return (
+                <div className='fas fa-tags' key={tag + index}>
+                  {' '}
+                  {tag}
+                </div>
+              )
+            })}
           </div>
         </div>
       </div>
