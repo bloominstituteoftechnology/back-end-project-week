@@ -1,10 +1,11 @@
 require('dotenv').config()
 const express = require("express");
-// const db = require('./data/db');
 const cors = require("cors");
-// const knex = require("knex");
+const knex = require("knex");
 const knexConfig = require("./knexfile");
 const db = knex(knexConfig.development);
+
+// const db = require('./data/db');
 
 const server = express();
 
