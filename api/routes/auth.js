@@ -33,23 +33,6 @@ Notes.hasMany(Tags)
 Tags.belongsTo(Notes)
 sequelize.sync()
 
-// Users.create({
-//   username: 'YungBruh',
-//   password: 'password'
-// }).then((user) => {
-//   user
-//     .createNote({
-//       title: 'Teest1',
-//       context: 'thiss might work'
-//     })
-//     .then((note) => {
-//       note.createTag({
-//         value: 'heello'
-//       })
-//     })
-//     .then(() => console.log('worked...'))
-// })
-
 function getToken (user) {
   console.log('IN TOKKEN', user)
   const payload = {
