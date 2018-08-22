@@ -152,10 +152,10 @@ function newNote (req, res, next) {
 }
 
 const restricted = (req, res, next) => {
-  let newtoken = req.headers.authorization.split('')
-  newtoken.shift()
-  newtoken.pop()
-  let token = newtoken.join('')
+  let token = req.headers.authorization
+  // newtoken.shift()
+  // newtoken.pop()
+  // let token = newtoken.join('')
   console.log('token innn Restricted ,', token)
   if (token) {
     jtw.verify(token, process.env.SECRET, (err, decodedToken) => {
