@@ -1,6 +1,5 @@
 const db = require('../data/helpers/noteDb');
 const express = require('express');
-
 const router = express.Router();
 
 const sendError = (code, message, error) => {
