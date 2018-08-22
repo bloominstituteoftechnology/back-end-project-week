@@ -8,7 +8,7 @@ module.exports = {
 };
 
 function get(id) {
-    const query = db('Notes');
+    const query = db('notes');
     if (id) {
         query.where('id', id);
     }
@@ -22,19 +22,19 @@ function get(id) {
 }
 
 function add(note) {
-    return db('Notes')
+    return db('notes')
     .insert(note)
     .then(ids => ids[0])
 }
 
 function update(id, note) {
-    return db('Notes')
+    return db('notes')
     .where('id', id)
     .update(note)
 }
 
 function remove(id) {
-    return db('Notes')
+    return db('notes')
     .where('id', id)
     .del();
 }

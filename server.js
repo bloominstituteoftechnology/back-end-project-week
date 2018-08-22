@@ -5,6 +5,7 @@ const cors = require('cors');
 require('dotenv').load();
 
 const noteRoutes = require('./serverRoutes/noteRoutes');
+const userRoutes = require('./serverRoutes/userRoutes');
 
 const server = express();
 server.use(express.json());
@@ -18,6 +19,7 @@ server.get('/', (req, res) => {
 
 //Endpoints for Notes
 server.use('/api/notes', noteRoutes);
+server.use('/api/users', userRoutes);
 
 //Error handler
 server.use((error, req, res, next) => {

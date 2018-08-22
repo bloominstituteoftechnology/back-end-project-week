@@ -1,17 +1,19 @@
 const db = require('../dbConfig');
 
 module.exports = {
-    get,
+    getPassword,
     add,
     remove
 };
 
-function get(id) {
-    const query = db('users');
-    if (id) {
-        query.where('id', id);
-    }
-    return query;
+function getPassword(username) {
+    const query = db('users')
+    .select('password')
+    .where('username', username)
+    .first();
+    return query.then(res => {
+        return res;
+    });
 }
 
 function add(user) {
@@ -24,3 +26,4 @@ function remove(id) {
         .where('id', id)
         .del()
 }
+
