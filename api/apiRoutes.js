@@ -98,6 +98,11 @@ router.get('/notes/:id', async (req, res) => {
 router.post('/notes', noteCheck, async (req, res) => {
   try {
     const newNote = await notes.insert(req.body);
+    const noteOrderingString = await users.getNoteOrdering(1);
+    const noteOrderingArray = JSON.parse(noteOrderingString.noteOrdering);
+    noteOrderingArray.unshift(newNote.id);
+    const updatedNoteOrdering = { noteOrdering: JSON.stringify(noteOrderingArray) };
+    await users.updateNoteOrdering(1, updatedNoteOrdering);
     return res.status(201).json(newNote);
   } catch (error) {
     return res.status(500).json({ message: "Note could not be added.", error: error.message });
@@ -123,6 +128,11 @@ router.delete('/notes/:id', async (req, res) => {
     if (deletedNote === 0) {
       return res.status(404).json({ message: "Note does not exist." });
     } else {
+      const noteOrderingString = await users.getNoteOrdering(1);
+      let noteOrderingArray = JSON.parse(noteOrderingString.noteOrdering);
+      noteOrderingArray = noteOrderingArray.filter(id => id != req.params.id);
+      const updatedNoteOrdering = { noteOrdering: JSON.stringify(noteOrderingArray) };
+      await users.updateNoteOrdering(1, updatedNoteOrdering);
       return res.status(200).json(deletedNote);
     }
   } catch (error) {
