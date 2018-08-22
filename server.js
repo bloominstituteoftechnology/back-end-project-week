@@ -143,7 +143,7 @@ server.post('/login', async (req, res) => {
     const foundUser = await db('users').where('username', credentials.username).first();
     const userHash = foundUser.password;
 
-    let isValid = bcrpyt.compareSync(credentials.password, userHash);
+    let isValid = bcrypt.compareSync(credentials.password, userHash);
     if (isValid) {
       res.status(200).json({message: "Logged In", user: credentials.username, token:token})
     }
