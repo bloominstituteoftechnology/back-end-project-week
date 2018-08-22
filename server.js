@@ -142,8 +142,8 @@ server.use((err, req, res, next) => {
 });
 
 if (process.env.NODE_ENV !== 'test') {
-  server.listen(process.env.SERVER_PORT, () => {
-    console.log(`Listening on port ${process.env.SERVER_PORT}`);
+  server.listen(process.env.PORT || 8000, () => {
+    console.log(`Listening on port ${process.env.PORT || 8000}`);
   });
 }
 
