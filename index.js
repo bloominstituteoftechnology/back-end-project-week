@@ -1,12 +1,15 @@
 const express = require('express');
 const cors = require('cors');
 const secret = 'secreting';
+require('dotenv').config();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const helment = require('helmet');
 const db = require('./data/db');
 const server = express();
 
 server.use(express.json());
+server.use(helment());
 server.use(cors({origin: 'http://localhost:3000', credentials:true}));
 
 function generateToken(user) {
@@ -41,6 +44,10 @@ function protected(req, res, next) {
     return res.status(401).json({ error: 'Token is required' });
   }
 }
+
+server.get('/', (req, res) => {
+  res.send('Running!')
+})
 
 // ! ====================== Login and register ENDPOINTS
 
@@ -154,7 +161,7 @@ server.put('/api/notes/:id', protected, (req, res) => {
     .catch((err) => res.status(500).json(err));
 });
 
-
-server.listen(8000, () => {
-  console.log('API running on port 8000')
+const port = process.env.PORT || 8000;
+server.listen(port, () => {
+  console.log(`API running on port ${port}`);
 });
