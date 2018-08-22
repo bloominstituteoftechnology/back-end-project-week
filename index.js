@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const secret = 'secreting';
 require('dotenv').config();
+const secret = process.env.SECRET_KEY;
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const helment = require('helmet');
@@ -11,6 +11,7 @@ const server = express();
 server.use(express.json());
 server.use(helment());
 server.use(cors());
+//server.use(cors({origin: 'http://localhost:3000', credentials:true}));
 
 function generateToken(user) {
   const payload = {
@@ -46,8 +47,7 @@ function protected(req, res, next) {
 }
 
 server.get('/', (req, res) => {
-  const nums = [1, 2, 3, 4];
-  res.json({ nums });
+  res.json({ message: "API is working" });
 })
 
 // ! ====================== Login and register ENDPOINTS
