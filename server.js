@@ -56,9 +56,9 @@ res.status(200).json({"Success": `Note ${id} updated.`})
 
 
 server.delete('/api/notes/:id', async(req, res, next)=>{
-  const { id } = req.params.id;
-  const result = await server.remove(id).then(response =>{
-    console.log('result from delete', result);
+  const id = req.params.id;
+  const result = await notes.remove(id).then(response =>{
+    res.status(200).json({"Success": `Note ${id} deleted.`})
   })
   
 

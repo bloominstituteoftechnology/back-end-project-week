@@ -16,7 +16,7 @@ function update(id, note) {
 }
 
 function remove(id) {
-  return db('notes').delete(id);
+  return db('notes').where({id}).del();
 }
 
 
