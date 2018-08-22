@@ -111,7 +111,7 @@ server.get('/api/notes', protected, (req, res) => {
     });
 })
 
-server.post('/api/notes', (req, res) => {
+server.post('/api/notes', protected, (req, res) => {
   const { title, message, username } = req.body;
   if (!title || !message) return res.status(400).json({ message: "Title and message are required" })
   db('notes')
@@ -125,13 +125,13 @@ server.get('/api/notes/:id', protected, (req, res) => {
   db('notes')
     .where({ id })
     .then(note => {
-      note = note.filter(note => note.username === req.headers.username && id == note.id);
+      note = note.filter(note => note.username === req.headers.username);
       res.status(200).json(note);
     })
     .catch((err) => res.status(500).json(err));
 });
 
-server.delete('/api/notes/:id', (req, res) => {
+server.delete('/api/notes/:id', protected, (req, res) => {
   const { id } = req.params;
   db('notes')
     .where({ id })
@@ -142,7 +142,7 @@ server.delete('/api/notes/:id', (req, res) => {
     .catch((err) => res.status(500).json(err));
 });
 
-server.put('/api/notes/:id', (req, res) => {
+server.put('/api/notes/:id', protected, (req, res) => {
   const { id } = req.params;
   const { title, message } = req.body;
   db('notes')
