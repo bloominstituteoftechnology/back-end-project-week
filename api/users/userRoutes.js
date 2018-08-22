@@ -1,14 +1,15 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const usersDb = require('../../data/helpers/usersDb');
-const { loginPostCheck, generateToken } = require('../../middleware/checks');
+const { loginPostCheck, loginCheck, generateToken } = require('../../middleware/checks');
 
 const router = express.Router();
 
 router.post('/login', loginPostCheck, async (req, res, next) => {
     try {
         const user = await usersDb.login(req.credentials);
-        if (!user || !bcrypt.compareSync(req.credentials.password, user.password)) return next({ code: 401, error: 'You shall not pass!' });
+        if (!user) return next({ code: 401, error: "The username you entered doesn't belong to an account." })
+        if (!bcrypt.compareSync(req.credentials.password, user.password)) return next({ code: 401, error: "Invalid password" });
         const token = generateToken(user);
         return res.send(token);
     } catch (err) {
@@ -33,5 +34,9 @@ router.post('/register', loginPostCheck, async (req, res, next) => {
         next({ code: 500, error: "Couldn't save the user to the database." });
     }
 });
+
+router.get('/auth', loginCheck, (req, res, next) => {
+    res.status(200).json({ success: true });
+})
 
 module.exports = router;

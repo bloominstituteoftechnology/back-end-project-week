@@ -18,6 +18,18 @@ function loginPostCheck(req, res, next) {
     next();
 }
 
+function loginCheck(req, res, next) {
+    const token = req.headers.authorization;
+    if (token) {
+        jwt.verify(token, config.secret, (err, decodedToken) => {
+            if (err) return res.status(401).json({ error: 'Token invalid' });
+            next();
+        })
+    } else {
+        return res.status(401).json({ error: 'No Token' });
+    }
+}
+
 function generateToken(user) {
     const payload = { userId: user.id };
     const options = { expiresIn: '1h' }
@@ -28,5 +40,6 @@ function generateToken(user) {
 module.exports = {
     noteCheck,
     loginPostCheck,
+    loginCheck,
     generateToken
 }
