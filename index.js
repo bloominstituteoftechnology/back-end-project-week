@@ -12,13 +12,16 @@ server.get("/", (req, res) => {
 });
 
 //* Display List of notes
-server.get("/all", (req, res) => {
-  db("notes")
-    .then(notes => {
-      res.status(200).json(notes);
-    })
-    .catch(err => res.status(500).json(err));
-});
+server.get(
+  "https://back-end-project-week-lambda.herokuapp.com/all",
+  (req, res) => {
+    db("notes")
+      .then(notes => {
+        res.status(200).json(notes);
+      })
+      .catch(err => res.status(500).json(err));
+  }
+);
 
 //* POST Request db insert()
 server.post("/create", (req, res) => {
