@@ -19,6 +19,21 @@ module.exports = {
       .catch(next)
   },
 
+  getNote: (req, res, next) => {
+    Note.findOne({
+      where: {id: req.params.id},
+      include: [
+        {
+          model: Tag,
+          as: 'tags',
+          attributes: ['value']
+        }
+      ]
+    }).then(note => {
+      res.status(200).json(note)
+    }).catch(next)
+  },
+
   postNote: (req, res, next) => {
     const { id } = req.user
     const { title, content, tags } = req.body
