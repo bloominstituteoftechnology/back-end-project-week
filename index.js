@@ -1,16 +1,21 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
 const db = require('./data/db');
 
 const server = express();
+server.use(helmet());
 server.use(express.json());
-const PORT = 8000;
+server.use(cors());
+const PORT = process.env.PORT || 8000;
 
 server.get('/', (req, res) => {
-  res.send('Sanity Check');
+  const secret = process.env.SECRET;
+  res.send(secret);
 });
 
-server.post('/api/notes', (req, res) => {
+server.post('/api/notes/create', (req, res) => {
   const note = req.body;
   db.insert(note).into('notes')
     .then(response => {
@@ -21,7 +26,7 @@ server.post('/api/notes', (req, res) => {
     });
 });
 
-server.get('/api/notes', (req,res) => {
+server.get('/api/notes/get/all', (req,res) => {
   db('notes')
     .then(response => {
       res.status(200).json(response);
@@ -54,7 +59,7 @@ server.put('/api/notes/:id', (req, res) => {
     });
 });
 
-server.delete('/api/notes:id', (req, res) => {
+server.delete('/api/notes/:id', (req, res) => {
   const id = req.params.id;
   db('notes').where('id', id).del()
     .then(response => {
