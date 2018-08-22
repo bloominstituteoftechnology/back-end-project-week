@@ -463,10 +463,6 @@ braces@^2.3.0, braces@^2.3.1:
     split-string "^3.0.2"
     to-regex "^3.0.1"
 
-brcypt@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/brcypt/-/brcypt-1.0.1.tgz#2fe5788f85c2624cff1c7a861b586f8dbbc7fc7e"
-
 browser-process-hrtime@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/browser-process-hrtime/-/browser-process-hrtime-0.1.2.tgz#425d68a58d3447f02a04aa894187fce8af8b7b8e"
