@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../data/helpers/notesDb');
 
+// GET (Postman Test: OK)
 router.get('/', (req, res, next) => {
   db
     .getNotes()
@@ -13,6 +14,7 @@ router.get('/', (req, res, next) => {
     .catch(err => console.log(err))
 })
 
+// GET by ID (Postman Test: OK)
 router.get('/:id', (req, res, next) => {
     const id = req.params.id;
     db
@@ -24,5 +26,19 @@ router.get('/:id', (req, res, next) => {
       })
       .catch(err => console.log(err))
   })
+
+
+// POST (Postman Test: OK)
+router.post('/', (req, res, next) => {
+    const note = req.body;
+    db
+        .addNote(note)
+        .then(response => {
+            res
+                .status(200)
+                .json(response)
+        })
+        .catch(err => console.log(err))
+})
 
 module.exports = router;
