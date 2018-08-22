@@ -9,11 +9,22 @@ router.get('/', (req, res, next) => {
   db
     .get(notes)
     .then(response => {
+      let fetched = response;
+      fetched.forEach(note => {
+        db
+          .getTagsByNote(tags, note.id)
+          .then(response => {
+            let tags = response;
+            note = { ...note, tags };
+            console.log(note);
+          })
+          .catch(err => console.log(err))
+      })
       res
         .status(200)
-        .json(response)
+        .json(fetched);
     })
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
 })
 
 router.get('/:id', (req, res, next) => {
