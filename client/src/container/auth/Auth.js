@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import Input from "../../component/ui/Input";
 import zxcvbn from "zxcvbn";
+import { validate } from "isemail";
 
 // css
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./auth.css";
-import { Z_DEFAULT_STRATEGY } from "zlib";
 class Auth extends Component {
 	state = {
 		name: {
@@ -53,23 +53,41 @@ class Auth extends Component {
 	inputHandler = (e, id) => {
 		let updateState = { ...this.state };
 
-		// updateState[id] = { ...this.state[id] };
 		updateState[id].value = e.target.value;
 		updateState[id].touch = true;
 		if (id === "password") {
 			let result = this.passwordValidetor(e.target.value);
 			let validate = result[1] >= 3;
 			if (result[1] >= 3) {
-				console.log("passed");
 				updateState[id].valid = true;
 				updateState[id].errors = [];
 			} else {
-				console.log("falied");
 				updateState[id].errors.push(result[0]);
 				updateState[id].valid = false;
 			}
 			updateState[id].validation.strength = result[1];
-			console.log("strength ", result[1]);
+		}
+		if (id === "name") {
+			if (this.validateFullname(e.target.value)) {
+				console.log("passed");
+				updateState[id].valid = true;
+				updateState[id].errors = [];
+			} else {
+				console.log("failed");
+				updateState[id].errors.push("Please Enter Full Name");
+				updateState[id].valid = false;
+			}
+		}
+		if (id === "username") {
+			if (this.validateEmail(e.target.value)) {
+				console.log("passed");
+				updateState[id].valid = true;
+				updateState[id].errors = [];
+			} else {
+				console.log("failed");
+				updateState[id].errors.push("Please Enter Full Name");
+				updateState[id].valid = false;
+			}
 		}
 		this.setState({ ...updateState });
 	};
@@ -91,14 +109,20 @@ class Auth extends Component {
 		} else if (password.length < 6) {
 			error.push("Length should be more than 6");
 		} else if (score < 3) {
-			error.push(`failed b/c password strength: ${score}`);
-		} else {
+			error.push(`Password is weak : ${score}`);
+		} else if (score >= 3) {
 			error = [];
 		}
 
 		return [error, score];
 	};
-
+	validateFullname = value => {
+		const regex = /^[a-z]{2,}(\s[a-z]{2,})+$/i;
+		return regex.test(value) ? true : false;
+	};
+	validateEmail = value => {
+		return validate(value) ? true : false;
+	};
 	render() {
 		let arr = Object.entries(this.state);
 		let inputElement = arr.map((i, idx, arr) => (
