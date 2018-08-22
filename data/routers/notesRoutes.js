@@ -1,5 +1,8 @@
 const express = require('express');
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 const db = require('../knexConfig');
+
 const router = express.Router();
 
 class ServerError {
