@@ -1,3 +1,4 @@
+require('dotenv').config()
 const codes = require("./data/statusCodes");
 const express = require("express");
 const cors = require("cors");
@@ -29,7 +30,7 @@ server.use((err, req, res, next) => {
       res.status(codes.INTERNAL_SERVER_ERROR).json(errorInfo);
   }
 });
-const port = 4000;
+const port = process.env.PORT || 3001;
 server.listen(port, (req, res) => console.log(`Port ${port} is in use`));
 module.exports = {
   server,
