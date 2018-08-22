@@ -5,12 +5,13 @@
   "repository": "https://github.com/chainchompa/back-end-project-week.git",
   "author": "chainchompa <chainchompa@gmail.com>",
   "license": "MIT",
-  "main": "index.js",
   "scripts": {
-   "start": "nodemon index.js"
- },
+    "start": "nodemon index.js"
+  },
   "dependencies": {
+    "cors": "^2.8.4",
     "express": "^4.16.3",
+    "helmet": "^3.13.0",
     "knex": "^0.15.2",
     "sqlite3": "^4.0.2"
   },
