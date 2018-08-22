@@ -16,7 +16,7 @@ server.get("/", (req, res) => {
 
 //Get Notes
 //Endpoint Works
-server.get("/api/notes", (req, res) => {
+server.get("/notes", (req, res) => {
   db("notes")
     .then(notes => {
       res.status(200).json(notes);
