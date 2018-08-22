@@ -35,9 +35,8 @@ router.get('/:id', jwtRoute, async (req, res) => {
 });
 
 // post a note
-router.post('/', jwtRoute, noteConstraints, async (req, res) => {
-  //TODO save ID in JWT(?) so know who is logged in
-  const U_ID = 1;
+router.post('/:id', noteConstraints, async (req, res) => {
+  const U_ID = req.params.id;
   // middleware sets the req
   const { TITLE, CONTENT } = req;
 
