@@ -2,9 +2,9 @@ require('dotenv').config()
 const express = require("express");
 // const db = require('./data/db');
 const cors = require("cors");
-const knex = require("knex");
-const knexConfig = require("./knexfile");
-const db = knex(knexConfig[process.env.NODE_ENV || development]);
+// const knex = require("knex");
+// const knexConfig = require("./knexfile");
+// const db = knex(knexConfig[process.env.NODE_ENV || development]);
 
 const server = express();
 
@@ -17,7 +17,7 @@ server.get("/", (req, res) => {
 
 //Get Notes
 //Endpoint Works
-server.get("/notes", (req, res) => {
+server.get("/api/notes", (req, res) => {
   db("notes")
     .then(notes => {
       res.status(200).json(notes);
