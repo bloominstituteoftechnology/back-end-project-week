@@ -141,14 +141,19 @@ server.post('/login', async (req, res) => {
   try {
     const credentials = req.body;
     const foundUser = await db('users').where('username', credentials.username).first();
-    const userHash = foundUser.password;
+    if (foundUser) {
+      const userHash = foundUser.password;
+    } else {
+      return res.status(404).send('Error, no user exists with that name')
+    }
+
 
     let isValid = bcrypt.compareSync(credentials.password, userHash);
     if (isValid) {
-      res.status(200).json({message: "Logged In", user: credentials.username, token:token})
+      return res.status(200).json({message: "Logged In", user: credentials.username, token:token})
     }
   } catch (err) {
-    res.status(401).json({message: `${err}`, foundUser: foundUser});
+    return res.status(401).json({message: `${err}`});
   }
 })
 
