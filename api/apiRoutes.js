@@ -54,7 +54,6 @@ router.post('/login', async (req, res) => {
 
 router.put('/ordering', async (req, res) => {
   try {
-    console.log("api routes: ", req.body);
     const updatedNoteOrdering = await users.updateNoteOrdering(1, req.body);
     if (updatedNoteOrdering === 0) {
       return res.status(404).json({ message: "Note ordering does not exist." });
@@ -69,19 +68,14 @@ router.put('/ordering', async (req, res) => {
 router.get('/notes', async (req, res) => {
   try {
     const allNotes = await notes.get().orderBy('id', 'desc');
-    console.log(allNotes);
     const noteOrderingString = await users.getNoteOrdering(1);
-    console.log("note order: ", noteOrderingString);
     const noteOrderingArray = JSON.parse(noteOrderingString.noteOrdering);
-    console.log("note order array: ", noteOrderingArray);
     if (noteOrderingArray.length === 0) {
       return res.status(200).json(allNotes);
     } else {
       const orderedNotes = noteOrderingArray.map(ordering => {
-        console.log(ordering);
         return allNotes.find(note => note.id === ordering);
       });
-      console.log(orderedNotes);
       return res.status(200).json(orderedNotes);
     }
   } catch (error) {

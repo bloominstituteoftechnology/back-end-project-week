@@ -14,11 +14,8 @@ module.exports = {
   },
 
   updateNoteOrdering: (id, updatedNoteOrdering) => {
-    let result = 0;
-    console.log("helper: ", updatedNoteOrdering);
-    db('users').where('id', id)
+    return db('users').where('id', id)
                .update(updatedNoteOrdering)
-               .then(count => result = (count > 0 ? module.exports.getNoteOrdering(id) : 0));
-    return result;
+               .then(count => (count > 0 ? module.exports.getNoteOrdering(id) : 0));
   }
 }
