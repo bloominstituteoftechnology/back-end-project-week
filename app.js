@@ -7,7 +7,7 @@ const notes = require('./notes.js')
 
 // console.log(_.isString(true))
 // console.log(_.isString('Terrance'))
-let filteredArray = _.uniq(['Terrance', 'Terrance', 1,2,1,2,3,4])
+let filteredArray = _.uniq(['Terrance'])
 console.log(filteredArray)
 
 // var user = os.userInfo();
