@@ -18,7 +18,6 @@ class NewNote extends Component {
 		this.setState({ heading: "", body: "" });
 	};
 	render() {
-		console.log(this.props);
 		return (
 			<form className="form" onSubmit={this.addNote}>
 				<div className="form-group">

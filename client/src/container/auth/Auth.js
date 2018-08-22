@@ -3,6 +3,10 @@ import Input from "../../component/ui/Input";
 import zxcvbn from "zxcvbn";
 import { validate } from "isemail";
 
+// redux
+import { connect } from "react-redux";
+import { addUser } from "../../store/actions/user";
+
 // css
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./auth.css";
@@ -89,11 +93,32 @@ class Auth extends Component {
 				updateState[id].valid = false;
 			}
 		}
+		let isValid =
+			updateState.name.valid &&
+			updateState.username.valid &&
+			updateState.password.valid;
+		if (isValid) {
+			updateState.formValid = true;
+		} else {
+			updateState.formValid = false;
+		}
 		this.setState({ ...updateState });
 	};
 	handleSubmit = e => {
 		e.preventDefault();
-
+		let isValid =
+			this.state.name.valid &&
+			this.state.username.valid &&
+			this.state.password.valid;
+		let { name, username, password } = this.state;
+		if (isValid) {
+			this.props.addUser({
+				name: name.value,
+				username: username.value,
+				password: password.value
+			});
+		}
+		this.props.history.goBack();
 		// this.setState({
 		// 	passwordError: result[0],
 		// 	passwordStrength: result[1]
@@ -113,7 +138,6 @@ class Auth extends Component {
 		} else if (score >= 3) {
 			error = [];
 		}
-
 		return [error, score];
 	};
 	validateFullname = value => {
@@ -146,7 +170,7 @@ class Auth extends Component {
 		));
 		return (
 			<form onSubmit={this.handleSubmit} className="main-form-container ">
-				<button type="submit"> Join </button>
+				{this.state.formValid ? <button type="submit"> Join </button> : null}
 				{inputElement}
 				<span className="d-block form-hint">
 					To conform with our Strong Password policy, you are reqired to use a
@@ -157,4 +181,7 @@ class Auth extends Component {
 		);
 	}
 }
-export default Auth;
+export default connect(
+	null,
+	{ addUser }
+)(Auth);

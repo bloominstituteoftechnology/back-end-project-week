@@ -5,7 +5,7 @@ const DeleteNote = props => {
 	let { user_id, id } = props.match.params;
 	return (
 		<div className="modal__page">
-			<div className="modal" onClick={() => console.log("clicked")}>
+			<div className="modal">
 				<button
 					onClick={() => {
 						props.deleteNote(id, user_id);
