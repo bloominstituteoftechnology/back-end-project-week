@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getANote } from "../../store/actions/note";
 import { Link } from "react-router-dom";
-
+import "./notes.css";
 class Note extends Component {
 	componentDidMount() {
 		if (this.props.match) {
@@ -13,15 +13,13 @@ class Note extends Component {
 	render() {
 		let { id, text, user_id } = this.props;
 		let renderNote = text ? (
-			<div>
+			<div className="card">
 				<Link to={`/notes/${id}/user/${user_id}`}> Heading </Link>
+				<Link to={`/notes/${id}/user/${user_id}/delete`}>Delete </Link>
 				<div> {text} </div>
 			</div>
 		) : (
-			<div>
-				{" "}
-				<Link to={`/notes`}> All notes </Link> {this.props.note.text}
-			</div>
+			<div className="cardXl" />
 		);
 		return renderNote;
 	}

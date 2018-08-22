@@ -127,9 +127,16 @@ module.exports = {
         const newNote = req.body;
         newNote.user_id = req.params.user_id;
         if (newNote.text) {
-            // check if the user exist in db
-            db('notes').insert(newNote).then(result => {
-                res.status(200).json(result)
+            db('notes').insert(newNote).then(ids => {
+                db('notes').where({
+                    id: ids[0]
+                }).first().then(result => {
+                    res.status(200).json(result)
+                }).catch(error => next({
+                    // handle error incase db didnt get the newly added note
+                    message: error.message,
+                    status: 401
+                }))
             }).catch(error => next({
                 // handle error incase db didnt add the new note
                 message: error.message,

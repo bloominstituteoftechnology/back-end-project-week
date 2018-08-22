@@ -9,7 +9,7 @@ class App extends Component {
 		console.log("[app.js] testing");
 		return (
 			<Layout>
-				testting 41 <Route path="/" component={NoteList} />
+				<Route path="/" component={NoteList} />
 			</Layout>
 		);
 	}

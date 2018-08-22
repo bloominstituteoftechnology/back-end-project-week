@@ -7,6 +7,11 @@ const istate = {
 
 function noteReducer(state = istate, action) {
     switch (action.type) {
+        case actionType.ADD__NOTE:
+            return {
+                ...state,
+                notes: [...state.notes, action.notes]
+            }
         case actionType.ADD__ERROR:
             return {
                 ...state,
@@ -21,6 +26,12 @@ function noteReducer(state = istate, action) {
             return {
                 ...state,
                 notes: action.notes
+            }
+        case actionType.DELETE__NOTE:
+
+            return {
+                ...state,
+                notes: state.notes.filter(note => note.id !== Number(action.id))
             }
         default:
             return state;
