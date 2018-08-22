@@ -6,7 +6,7 @@
     "nodemon": "^1.18.3",
     "sqlite3": "^4.0.2"
   },
-  "name": "Server",
+  "name": "server",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
