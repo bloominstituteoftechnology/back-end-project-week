@@ -21,7 +21,7 @@ module.exports = {
 
   getNote: (req, res, next) => {
     Note.findOne({
-      where: {id: req.params.id},
+      where: { id: req.params.id },
       include: [
         {
           model: Tag,
@@ -29,9 +29,11 @@ module.exports = {
           attributes: ['value']
         }
       ]
-    }).then(note => {
-      res.status(200).json(note)
-    }).catch(next)
+    })
+      .then(note => {
+        res.status(200).json(note)
+      })
+      .catch(next)
   },
 
   postNote: (req, res, next) => {
