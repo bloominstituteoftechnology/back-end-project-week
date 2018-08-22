@@ -143,6 +143,7 @@ server.post('/login', async (req, res) => {
     const foundUser = await db('users').where('username', credentials.username).first();
     if (foundUser) {
       const userHash = foundUser.password;
+      return userHash;
     } else {
       return res.status(404).send('Error, no user exists with that name')
     }
