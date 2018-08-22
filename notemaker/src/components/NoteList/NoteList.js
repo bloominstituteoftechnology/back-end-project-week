@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import './NoteList.css';
+import axios from 'axios';
 import NotePreview from '../NotePreview/NotePreview';
 import { Link } from 'react-router-dom';
 
@@ -15,9 +16,16 @@ class NoteList extends Component {
     
     componentDidMount() {
         console.log("Hey, I ran!", this.state.notes);
+        axios
+        .get('http://localhost:8888/notes')
+        .then(response => {
+            console.log("GET", response);
+            this.setState({notes: response.data.notes });
+        })
+        .catch(err => {
+            console.log(err);
+        })
     }
-
-    setState({})
 
     previewNotes = noteToMap => {
         return (
@@ -26,7 +34,7 @@ class NoteList extends Component {
                 title={noteToMap.title}
                 content={noteToMap.content}
                 key={noteToMap.id}
-                />
+            />
             </Link>
         )
     }
