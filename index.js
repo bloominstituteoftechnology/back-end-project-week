@@ -22,11 +22,11 @@ server.get("/all", (req, res) => {
 
 //* POST Request db insert()
 server.post("/create", (req, res) => {
-  const user = req.body;
+  const note = req.body;
 
-  if (!user.title && !user.textBody) {
+  if (!note.title && !note.textBody) {
     return res.status(400).json({
-      errorMessage: "Please provide the text for the post."
+      errorMessage: "Please provide the text for the note."
     });
   }
 
@@ -37,7 +37,7 @@ server.post("/create", (req, res) => {
     })
     .then(ids => {
       const id = ids[0];
-      res.status(201).json({ id, ...user });
+      res.status(201).json({ id, ...note });
     })
     .catch(err => res.status(500).json(err));
 });
@@ -65,12 +65,12 @@ server.delete("/:id", (req, res) => {
       if (!response) {
         res
           .status(404)
-          .json({ response, message: `Action ${id} doesn't exist.` });
+          .json({ response, message: `Note ${id} doesn't exist.` });
         return;
       }
       res
         .status(200)
-        .json({ response, message: `Action ${id} has been deleted.` });
+        .json({ response, message: `Note ${id} has been deleted.` });
     })
     .catch(err => {
       res.status(500).json(err);
@@ -84,7 +84,7 @@ server.put("/:id", (req, res) => {
 
   if (!title && !textBody) {
     res.status(400).json({
-      errorMessage: "Please provide title and user id for the posts."
+      errorMessage: "Please provide title and body text for the note."
     });
   }
   db("notes")
@@ -94,13 +94,13 @@ server.put("/:id", (req, res) => {
       if (!response) {
         res
           .status(404)
-          .json({ message: "The user with the specified ID does not exist." });
+          .json({ message: "The note with the specified ID does not exist." });
       } else {
         res.status(200).json({ title, textBody });
       }
     })
     .catch(err =>
-      res.status(500).json({ error: "The user could not be updated" })
+      res.status(500).json({ error: "The note could not be updated" })
     );
 });
 
