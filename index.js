@@ -25,7 +25,7 @@ server.get('/notes/:_id', (req, res) => {
             res.status(404).json({ message: 'nope, did not locate note' })
 });
 
-server.get('/notes', (req, res) => {
+server.get('/notes/get', (req, res) => {
 
     db('notes')
     .then(notes => {
@@ -36,7 +36,7 @@ server.get('/notes', (req, res) => {
     })
 });
 
-server.post('/notes', (req, res) => {
+server.post('/notes/create', (req, res) => {
     const note = req.body;
   
     db
@@ -49,7 +49,7 @@ server.post('/notes', (req, res) => {
     .catch(err => res.status(500).json(err));
   });
 
-  server.put('/notes/:_id', (req, res) => {
+  server.put('/notes/edit/:_id', (req, res) => {
     const changes = req.body;
     const { id } = req.params;
   
@@ -75,7 +75,7 @@ server.post('/notes', (req, res) => {
     .catch(err => res.status(500).json(err))
   });
   
-  server.delete('/notes/:id', (req,res) => {
+  server.delete('/notes/delete/:_id', (req,res) => {
     const { id } = req.params;
   
     db('notes')
@@ -87,7 +87,7 @@ server.post('/notes', (req, res) => {
     .catch(err => res.status(500).json(err))
   });
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 server.listen(port, () => {
   console.log(`\n=== Server listening on port ${port}\n`);
