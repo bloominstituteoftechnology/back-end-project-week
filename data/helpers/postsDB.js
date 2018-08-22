@@ -9,9 +9,10 @@ const jwt = require('jsonwebtoken');
 }*/
 
 module.exports = {
-    get: function() {
+    get: function(userId) {
         const query = db('post as p')
-        //.where('p.userId', getUserId())
+        .join('user as u', 'u.id', 'p.userId')
+        .where('u.id', userId)
        return query;
     },
 
