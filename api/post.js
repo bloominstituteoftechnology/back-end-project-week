@@ -8,15 +8,9 @@ const router = express.Router();
 function checkLogIn (req, res, next) {
     const token = req.headers.authorization;
     if(token) {
-        var decoded = jwt.decode(token, {complete: true});
-    console.log(decoded.payload)
-    const userId = decoded.payload.id;
-    
-       //   jwt.verify(token, secret, (err, decoded) => {
-           
-            //const userId = decoded.id
+        jwt.verify(token, secret, (err, decoded) => {
             next()
-        //})
+        })
     } else {
         return res.status(401).json({error: 'You must be logged in to view notes.'})
     }
@@ -24,7 +18,7 @@ function checkLogIn (req, res, next) {
 
 
 
-router.get('/', (req, res) => {
+router.get('/', checkLogIn, (req, res) => {
     const token = req.headers.authorization;
     if(token) {
         var decoded = jwt.decode(token, {complete: true});
