@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const db = require('./data/db');
 const cors = require('cors');
@@ -13,7 +14,8 @@ server.use(cors(corsOptions));
 server.get('/notes', async (req, res) => {
     try{
         const notes = await db.select().from('notes');
-        res.status(200).json(notes);
+        const secret = process.env.SECRET;
+        res.status(200).json({secret, notes});
     }
     catch (err){
         res.status(500).json({ error: 'Notes could not be retrieved'});
@@ -73,7 +75,7 @@ server.delete('/notes/:id', async (req, res) => {
     }
 })
 
-const port = 3300;
+const port = process.env.PORT || 3300;
 server.listen(port, function() {
   console.log(`\n=== Web API Listening on http://localhost:${port} ===\n`);
 });
