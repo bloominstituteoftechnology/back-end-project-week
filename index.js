@@ -104,7 +104,7 @@ server.put("/:id", (req, res) => {
     );
 });
 
-const port = 3300;
+const port = process.env.PORT || 5000;
 server.listen(port, function() {
   console.log(`\n=== Web API Listening on http://localhost:${port} ===\n`);
 });
