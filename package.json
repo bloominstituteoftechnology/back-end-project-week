@@ -14,11 +14,7 @@
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "knex": "^0.15.2",
-    "node": "^10.8.0",
-    "pg": "^7.4.3",
-    "script": "^0.1.4",
-    "sqlite3": "^4.0.2",
-    "start": "^5.1.0"
+    "sqlite3": "^4.0.2"
   },
   "devDependencies": {
     "nodemon": "^1.18.3"
