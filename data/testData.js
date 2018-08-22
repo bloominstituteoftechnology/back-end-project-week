@@ -78,8 +78,11 @@ const noteTags = [
     {noteId: 6, tagId: 18}
 ];
 
+let nextId = notes.length++;
+
 module.exports = {
     notes,
     tags,
-    noteTags
+    noteTags,
+    nextId
 };

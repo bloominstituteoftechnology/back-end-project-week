@@ -1,12 +1,12 @@
 const db = require('../db');
-const m = require('./mapper');
+const tagDb = require('../helpers/tagDb');
 
 module.exports = {
     get: function (id) {
-        let query = db(`notes as t`);
-
+        let query = db(`notes as n`);
+        
         if (id) {
-            query.where('t.id', id).first();
+            query.where('n.id', id);
 
             const promises = [query, this.getTags(id)];
 
@@ -19,9 +19,6 @@ module.exports = {
             });
         }
 
-        // return query.then(notes => {
-        //     return notes.map(note => m.recordToBody(note));
-        // });
         return query;
     },
     getTags: function (id) {
@@ -31,15 +28,15 @@ module.exports = {
             .where('nt.noteId', id);
     },
     add: function (record) {
-        return db('notes as t').insert(record).then(([id]) => this.get(id));
+        return db('notes as n').insert(record).then(([id]) => this.get(id));
     },
-    edit: function (id, changes) {
-        return db('notes as t')
-            .where('t.id', id)
+    edit: function (id, noteBody, tagBody) {
+        return db('notes as n')
+            .where('n.id', id)
             .update(changes)
             .then(count => (count > 0 ? this.get(id) : null));
     },
     drop: function (id) {
-        return db('notes as t').where('t.id', id).del();
+        return db('notes as n').where('n.id', id).del();
     }
 };

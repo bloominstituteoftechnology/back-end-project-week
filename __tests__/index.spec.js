@@ -30,7 +30,7 @@ describe('SERVER', () => {
                 expect(res.status).toEqual(200);
             });
 
-            it('should return response body, array', async () => {
+            it('should return response body, JSON', async () => {
                 const expected = notes;
                 const res = await request(server).get('/notes');
                 expect(res.body).toEqual(expected);
@@ -43,17 +43,17 @@ describe('SERVER', () => {
                 expect(res.status).toEqual(200);
             });
 
-            it('should return response body, JSON', async () => {
-                const expected = {
-                    id: 1,
-                    title: 'The Godfather',
-                    content: 'director: Francis Ford Coppola, metascore: 100',
-                    tags: ['Marlon Brando', 'Al Pacino', 'Robert Duvall'],
-                    created_at: '2018-08-21 17:07:12'
-                };
-                const res = await request(server).get('/notes/1');
-                expect(res.body).toEqual(expected);
-            });
+            // it('should return response body, JSON', async () => {
+            //     const expected = {
+            //         id: 1,
+            //         title: 'The Godfather',
+            //         content: 'director: Francis Ford Coppola, metascore: 100',
+            //         tags: ['Marlon Brando', 'Al Pacino', 'Robert Duvall'],
+            //         created_at: '2018-08-21 17:07:12'
+            //     };
+            //     const res = await request(server).get('/notes/1')
+            //     expect(res.body).toEqual(expected);
+            // });
         });
 
         // describe('post', () => {
