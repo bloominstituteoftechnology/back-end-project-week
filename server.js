@@ -120,12 +120,21 @@ server.post('/register', async (req, res) => {
     if (user.username && user.password) {
       const ids = await db.insert(user).into('users');
       const createdUser = await db('users').where('id', ids[0]);
-      foundUser.token = token;
+      createdUser.token = token;
       res.status(200).json(createdUser);
     }
   } catch (err) {
     res.status(500).send(`Server error...${err}`)
   }
+});
+
+server.get('/register', async (req, res) => {
+  try {
+    res.status(200).json(await db('users'));
+  } catch (err) {
+    res.status(500).send(`${err}`)
+  }
+
 })
 
 server.post('/login', async (req, res) => {
