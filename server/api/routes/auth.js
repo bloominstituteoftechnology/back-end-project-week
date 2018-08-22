@@ -254,7 +254,7 @@ function updateNote (req, res, next) {
 server.post('/register', register)
 server.post('/login', login)
 server.get('/notes', restricted, getNotes)
-server.get('/note/:id', getNote)
+server.get('/note/:id', restricted, getNote)
 server.post('/create', restricted, newNote)
 server.delete('/delete/:id', deleteNote)
 server.put('/edit/:id', updateNote)

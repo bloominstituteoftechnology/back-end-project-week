@@ -13,6 +13,26 @@ label {
   margin-bottom: 0px !important;
 }
 
+.Auth-container {
+  background: #061928;
+}
+.form-container {
+  position: absolute;
+  top: 200px;
+  left: 100px;
+  background: #094574;
+  width: 550px;
+  height: 250px;
+  padding: 5px 25px;
+}
+.form-btn {
+  display: inline-block;
+  border: 1px solid black;
+  color: #744600;
+}
+.form-btn:hover {
+  cursor: pointer;
+}
 .myLink {
   text-decoration: none;
   color: black;

@@ -10,7 +10,99 @@ class Login extends Component {
       wrongCredentials: false
     }
   }
+  componentDidMount () {
+    this.updateCanvas()
+  }
+  updateCanvas () {
+    let pi = Math.PI
+    const cv = this.refs.canvas
+    // cv.height = window.innerHeight
+    const w = (cv.width = window.innerWidth)
 
+    const h = (cv.height = window.innerHeight)
+
+    let co = cv.getContext('2d')
+    co.strokeStyle = 'rgba(224,0,224,0.5)'
+
+    let init = []
+    let raindrops = 3500
+    for (let i = 0; i < raindrops; i++) {
+      init.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        l: Math.random() * 1,
+        xs: -4 + Math.random() * 4 + 2,
+        ys: Math.random() * 10 + 10
+      })
+    }
+
+    let particles = []
+    for (let b = 0; b < raindrops; b++) {
+      particles[b] = init[b]
+    }
+
+    function draw () {
+      co.clearRect(0, 0, w, h)
+      for (let c = 0; c < particles.length; c++) {
+        let p = particles[c]
+        co.beginPath()
+        co.moveTo(p.x, p.y)
+        co.lineTo(p.x + p.l * p.xs, p.y + p.l * p.ys)
+        co.stroke()
+      }
+      move()
+    }
+
+    function cloud () {
+      co.beginPath()
+      co.fillStyle = 'grey'
+      co.arc(30, 10, 50, 0, 2 * pi)
+      co.arc(60, 10, 60, 0, 2 * pi)
+      co.arc(100, 10, 40, 0, 2 * pi)
+      co.arc(150, 10, 50, 0, 2 * pi)
+      co.arc(200, 10, 70, 0, 2 * pi)
+      co.arc(260, 10, 60, 0, 2 * pi)
+      co.arc(300, 10, 40, 0, 2 * pi)
+      co.arc(350, 10, 50, 0, 2 * pi)
+      co.arc(400, 10, 70, 0, 2 * pi)
+      co.arc(450, 10, 50, 0, 2 * pi)
+      co.arc(500, 10, 40, 0, 2 * pi)
+      co.arc(550, 10, 50, 0, 2 * pi)
+      co.arc(660, 10, 70, 0, 2 * pi)
+      co.arc(700, 10, 60, 0, 2 * pi)
+      co.arc(760, 10, 80, 0, 2 * pi)
+      co.arc(790, 10, 70, 0, 2 * pi)
+      co.arc(800, 10, 40, 0, 2 * pi)
+      co.arc(860, 10, 70, 0, 2 * pi)
+      co.arc(900, 10, 70, 0, 2 * pi)
+      co.arc(950, 10, 50, 0, 2 * pi)
+      co.arc(1000, 10, 70, 0, 2 * pi)
+      co.arc(1060, 10, 70, 0, 2 * pi)
+
+      co.fill()
+      co.closePath()
+    }
+    function paint () {
+      cloud()
+      requestAnimationFrame(paint)
+    }
+
+    function move () {
+      for (let b = 0; b < particles.length; b++) {
+        let p = particles[b]
+        p.x += p.xs
+        p.y += p.ys
+        if (p.x > w || p.y > h) {
+          p.x = Math.random() * w
+          p.y = -20
+        }
+      }
+    }
+
+    setInterval(draw, 13)
+
+    paint()
+  }
   renderField = (field) => {
     const { touched, error } = field.meta
     const className = `form-group ${touched && error ? 'has-danger' : ''}`
@@ -70,48 +162,51 @@ class Login extends Component {
     const { handleSubmit } = this.props
 
     return (
-      <div>
-        <HandleFormDisplay hasRegistered={this.state.hasRegistered} />
-        <label
-          className='credentials-msg'
-          style={
-            this.state.wrongCredentials ? (
-              { display: 'block' }
-            ) : (
-              { display: 'none' }
-            )
-          }
-        >
-          Invalid Credentials, please try again or Sign up!
-        </label>
-        <form
-          className='needs-validation'
-          onSubmit={
-            this.state.hasRegistered ? (
-              handleSubmit(this.onSubmit)
-            ) : (
-              handleSubmit(this.onSubmit)
-            )
-          }
-        >
-          <Field
-            name='username'
-            placeholder='username'
-            type='text'
-            component={this.renderField}
-          />
-          <Field
-            name='password'
-            type='password'
-            placeholder='password'
-            component={this.renderField}
-          />
-          <button type='submit'>
-            {this.state.hasRegistered ? 'Login' : 'Sign Up'}
-          </button>
-        </form>
-        <div onClick={this.handleSwitch}>
-          {this.state.hasRegistered ? 'Or SignUp!' : 'Back to login'}
+      <div className='Auth-container'>
+        <canvas className='canvas' ref='canvas' width={300} height={300} />
+        <div className='form-container'>
+          <HandleFormDisplay hasRegistered={this.state.hasRegistered} />
+          <label
+            className='credentials-msg'
+            style={
+              this.state.wrongCredentials ? (
+                { display: 'block' }
+              ) : (
+                { display: 'none' }
+              )
+            }
+          >
+            Invalid Credentials, please try again or Sign up!
+          </label>
+          <form
+            className='needs-validation'
+            onSubmit={
+              this.state.hasRegistered ? (
+                handleSubmit(this.onSubmit)
+              ) : (
+                handleSubmit(this.onSubmit)
+              )
+            }
+          >
+            <Field
+              name='username'
+              placeholder='username'
+              type='text'
+              component={this.renderField}
+            />
+            <Field
+              name='password'
+              type='password'
+              placeholder='password'
+              component={this.renderField}
+            />
+            <button type='submit'>
+              {this.state.hasRegistered ? 'Login' : 'Sign Up'}
+            </button>
+          </form>
+          <div className='form-btn' onClick={this.handleSwitch}>
+            {this.state.hasRegistered ? 'Or SignUp!' : 'Back to login'}
+          </div>
         </div>
       </div>
     )
