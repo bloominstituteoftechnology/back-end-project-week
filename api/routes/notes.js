@@ -24,7 +24,6 @@ server.get('/get/all', (req,res,next) => {
             })
             Promise.all(promises)
                 .then(results => {
-                    console.log(results)
                     res.status(200).json(results)
                 })
                 .catch(next)
@@ -59,20 +58,31 @@ server.get('/get/:id', (req,res,next) => {
 })
 
 server.post('/post', (req,res,next) => {
-    const newNote = req.body
+    const newNote = { title: req.body.title, textBody: req.body.textBody }
+    let tags = req.body.tags
 
     if(!newNote.title || !newNote.textBody){
         res.status(418).json({error: true, message: "Missing title or textBody"})
     }
-    if(newNote.tags){
-        newNote.tags = newNote.tags.join(',')
-    }
 
+    
     db('notes')
         .insert(newNote)
         .into('notes')
         .then(id => {
-            res.status(200).json({ inserted_id: id, inserted: newNote })
+            const promises = tags.map(tag => {
+                return new Promise((resolve, reject) => {
+                    db('tags')
+                        .insert({ note_id: id[0], tag: tag })
+                        .then(response => {
+                            resolve(tag)
+                        })
+                        .catch(next)
+                })
+            })
+            Promise.all(promises)
+                .then(res.status(200).json({ inserted_id: id, inserted: newNote }))
+                .catch(next)
         })
         .catch(next)
 })
