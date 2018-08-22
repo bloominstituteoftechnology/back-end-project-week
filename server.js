@@ -2,10 +2,16 @@ const express = require('express');
 const server = express();
 const db = require('./data/dbConfig');
 const cors = require('cors');
-const PORT = process.env.PORT || 8000; //This line is critical, must have process.env.PORT
+const bcrpyt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const PORT = process.env.PORT || 8000; //This line is critical, must have process.env.PORT for Heroku
 
 server.use(express.json());
 server.use(cors());
+
+let token = jwt.sign({
+  something: 'anything'
+}, 'You have to know the password');
 
 server.get('/', (req, res) => {
   res.status(200).send('App is running');
@@ -102,6 +108,38 @@ server.delete('/notes/:id', async(req, res) => {
     }
   } catch (err) {
     res.status(500).send(`Server error...${err}`)
+  }
+});
+
+server.post('/register', async (req, res) => {
+  const user = req.body;
+  const hash = bcrypt.hashSync(user.password, 14);
+  user.password = hash;
+
+  try {
+    if (user.username && user.password) {
+      const ids = await db.insert(user).into('users');
+      const createdUser = await db('users').where('id', ids[0]);
+      foundUser.token = token;
+      res.status(200).json(createdUser);
+    }
+  } catch (err) {
+    res.status(500).send(`Server error...${err}`)
+  }
+})
+
+server.post('/login', async (req, res) => {
+  try {
+    const credentials = req.body;
+    const foundUser = await db('users').where('username', credentials.username).first();
+    const userHash = foundUser.password;
+
+    let isValid = bcrpyt.compareSync(credentials.password, userHash);
+    if (isValid) {
+      res.status(200).json({message: "Logged In", user: credentials.username, token:token})
+    }
+  } catch (err) {
+    res.status(401).json({message: `${err}`});
   }
 })
 
