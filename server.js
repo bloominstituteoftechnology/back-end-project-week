@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
+require('dotenv').load();
 
 const noteRoutes = require('./serverRoutes/noteRoutes');
 
@@ -28,6 +29,7 @@ server.use(function (req, res, next) {
   })
 
 const port = process.env.PORT || process.env.REACT_APP_PORT;
+
 server.listen(port, () => {
     console.log(`=== API is listening at ${port} ===`);
 })
