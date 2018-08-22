@@ -51,6 +51,17 @@ server.put('/api/notes/:_id', (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
+server.delete('/api/notes/:_id', (req, res) => {
+  const { _id } = req.params;
+  db('notes')
+    .where('_id', _id)
+    .del()
+    .then(response => {
+      res.status(200).json(response)
+    })
+    .catch(err => res.status(500).json(err));
+});
+
 server.listen(port, function() {
   console.log(`\n ==== Web API listening on http://localhost:${port} ==== \n`);
 });
