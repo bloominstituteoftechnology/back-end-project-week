@@ -18,6 +18,7 @@ class App extends Component {
     // eslint-disable-next-line
     super(),
     this.state = {
+      auth: {},
       newNoteTitle: "",
       newNoteTopic: "",
       newNoteText: ""
@@ -35,15 +36,25 @@ class App extends Component {
       text: this.state.newNoteText
     }
 
+    const token = localStorage.getItem('jwt')
+
+    const auth = {
+      headers: {
+        authorization: token
+      }
+    }
+
     axios
-      .post('Http://localhost:5000/api/notes', note)
+      .post('http://localhost:8000/api/notes', note, auth)
       .then(response => {
 
       })
       .catch(error => {
         console.log(error.message)
-      })
-    this.props.history.push('/home')
+      });
+
+
+    this.window.location = '/home';
   }
 
 

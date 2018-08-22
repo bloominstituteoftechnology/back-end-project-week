@@ -15,7 +15,7 @@ class Signup extends Component {
 
   submitHandler = e => {
     e.preventDefault();
-    axios.post('http://localhost:5000/api/register', this.state)
+    axios.post('http://localhost:8000/api/register', this.state)
     .then(res => {
       const token = res.data;
       localStorage.setItem('jwt', token);

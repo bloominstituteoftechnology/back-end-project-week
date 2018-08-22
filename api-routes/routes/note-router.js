@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   db('notes')
-  .where('id', Number(req.params.id)).first()
+  .where('id', req.params.id).first()
   .then(response => {
   res.status(200).json(response);
   })
@@ -29,9 +29,9 @@ router.get('/:id', (req, res) => {
 
 
 router.post('/', (req, res) => {
-  let { userId, title, topic, text } = req.body;
+  let { title, topic, text } = req.body;
   let note = {
-    userId,
+
     title,
     topic,
     text

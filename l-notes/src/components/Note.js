@@ -41,11 +41,11 @@ class Note extends React.Component {
   }
 
   deleteNote = e => {
-    let id = this.props.match.id
+    let id = this.props.match.params.id
     let auth = this.state.auth
 
     axios
-      .delete(`Http://localhost:5000/api/notes/${id}`, { id: id}, auth)
+      .delete(`http://localhost:8000/api/notes/${id}`, auth)
       .then(response => {console.log(response)})
       .catch(err => {console.log(err.message)})
 
@@ -53,7 +53,7 @@ class Note extends React.Component {
   }
 
   updateNote = e => {
-    let id = this.props.match.id
+    let id = this.props.match.params.id
     let auth = this.state.auth
 
     let note = {
@@ -63,7 +63,7 @@ class Note extends React.Component {
     }
 
     axios
-      .put(`Http://localhost:5000/api/notes/${id}`, {note}, auth)
+      .put(`http://localhost:8000/api/notes/${id}`, note, auth)
       .then(response => {console.log(response)})
       .catch(err => {console.log(err.message)})
     this.props.history.push(`/notes/${id}`)
@@ -80,12 +80,13 @@ class Note extends React.Component {
 
     this.setState({ auth: auth })
 
-    let id = this.props.match.id
+    let id = this.props.match.params.id
+    console.log(id)
 
     axios
-      .get(`Http://localhost:5000/api/notes/${id}`, auth)
+      .get(`http://localhost:8000/api/notes/${id}`, auth)
       .then(response => {
-        this.setState({note: response})
+        this.setState({note: response.data, editTitle: response.data.title, editTopic: response.data.topic, editText: response.data.text })
       })
       .catch(err => {console.log(err.message)})
 }

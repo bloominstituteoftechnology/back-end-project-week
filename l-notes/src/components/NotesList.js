@@ -19,9 +19,9 @@ class NotesList extends React.Component {
 
 
     axios
-      .get('Http://localhost:5000/api/notes', auth)
+      .get('http://localhost:8000/api/notes', auth)
       .then(response => {
-        this.setState({ notes: response })
+        this.setState({ notes: response.data })
       })
       .catch(error => {
         console.log(error.message)
