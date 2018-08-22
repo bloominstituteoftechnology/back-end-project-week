@@ -204,13 +204,23 @@ function deleteNote (req, res, next) {
 }
 
 function updateNote (req, res, next) {
+  const tags = req.body.tags
+  const tagArr = tags.split(' ')
   Notes.update(
     {
       title: req.body.title,
       context: req.body.context
     },
-    { returning: true, where: { id: req.params.id } }
-  )
+    { returning: false, where: { id: req.params.id } }
+  ).then((note) => {
+    Tags.destroy({ where: { NoteId: req.params.id } })
+    tagArr.forEach((tag) => {
+      Tags.create({
+        value: tag,
+        NoteId: req.params.id
+      })
+    })
+  })
 }
 
 // const passport = require('passport')
