@@ -103,6 +103,9 @@ describe('Lambda Notes Server API Testing', () => {
       .then(knex.seed.run());
     });
 
+    afterAll(()=>{
+      return knex.migrate.rollback();
+    })
   
     //start adding tests for note creation, beforeEach to wipe dB to seeded migration
     it('should return a status code of 201 when a new note is added', async () => {
@@ -113,6 +116,42 @@ describe('Lambda Notes Server API Testing', () => {
       expect(result.status).toBe(expected);
 
     });
+
+    it('should return JSON', async () => {
+      const expected = 'application/json';
+      const testNote = {
+        'note_title': 'JSON Test note',
+        'text_body': 'this is the body of the note',
+        'tags': 'TEST TEST2'
+      }
+      
+      const result = await request(server)
+      .post('/api/notes')
+      .send(testNote)
+      expect(result.type).toBe(expected);
+
+    });
+
+     it('should return copy of added JSON Data', async () => {
+      
+       const testNote = {
+         "newNote": {
+           "note_title": "JSON Test DATA",
+           "tags": "TEST TEST3",
+           "text_body": "this is the body of the note"
+         }
+       }
+  
+       
+      const expected = testNote;
+
+       const result = await request(server)
+         .post('/api/notes')
+         .send(testNote);
+
+       expect(result.body).toBe(expected);
+
+     });
   });  
 
 });
