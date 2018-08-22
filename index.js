@@ -1,7 +1,11 @@
+require('dotenv').config();
+
 const db = require('./data/db');
 const express = require('express');
+const helmet = require('helmet');
 const cors = require('cors');
 const server = express();
+server.use(helmet());
 server.use(express.json());
 
 server.use(cors());
@@ -69,7 +73,7 @@ server.delete('/notes/:id', (req, res) => {
     .catch((err) => res.status(500).json(err));
 });
 
-const port = 5000;
+const port = process.env.PORT || 8000;
 server.listen(port, () => {
   console.log(`server on http://localhost:${port}`);
 });
