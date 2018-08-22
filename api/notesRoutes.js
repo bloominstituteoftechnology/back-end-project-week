@@ -55,4 +55,17 @@ router.put('/:id', (req, res, next) => {
       .catch(err => console.log(err))
   })
 
+// DELETE (POSTMAN: OK)
+router.delete('/:id', (req, res, next) => {
+    const id = req.params.id;
+    db
+      .deleteNote(id)
+      .then(response => {
+        res
+          .status(200)
+          .json(response)
+      })
+      .catch(err => console.log(err))
+  })
+
 module.exports = router;
