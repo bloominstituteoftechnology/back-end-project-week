@@ -2,7 +2,7 @@ const express = require('express');
 const server = express();
 const db = require('./data/dbConfig');
 const cors = require('cors');
-const bcrpyt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const PORT = process.env.PORT || 8000; //This line is critical, must have process.env.PORT for Heroku
 
