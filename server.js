@@ -142,17 +142,16 @@ server.post('/login', async (req, res) => {
     const credentials = req.body;
     const foundUser = await db('users').where('username', credentials.username).first();
     if (foundUser) {
-      const userHash = foundUser.password;
-      return userHash;
+      // const userHash = foundUser.password;
+      // return userHash;
+      let isValid = bcrypt.compareSync(credentials.password, foundUser.password);
+      if (isValid) {
+        return res.status(200).json({message: "Logged In", user: credentials.username, token:token})
+      }
     } else {
       return res.status(404).send('Error, no user exists with that name')
     }
 
-
-    let isValid = bcrypt.compareSync(credentials.password, userHash);
-    if (isValid) {
-      return res.status(200).json({message: "Logged In", user: credentials.username, token:token})
-    }
   } catch (err) {
     return res.status(401).json({message: `${err}`});
   }
