@@ -61,25 +61,26 @@ router.post("/register", async (req, res) => {
   user.password = hash;
   if (!user.username || !user.password) {
     res.status(401).json({ error: "Please enter a username and password" });
-  }
-  try {
-    const ids = await usersDB.insert(user).into("Users");
+  } else {
     try {
-      const newUser = await usersDB("Users")
-        .where({ id: ids[0] })
-        .first();
-      // Generate the token
-      console.log("user in register is: ", user);
-      console.log("newUser in register is: ", newUser);
-      const token = generateToken(newUser);
+      const ids = await usersDB.insert(user).into("Users");
+      try {
+        const newUser = await usersDB("Users")
+          .where({ id: ids[0] })
+          .first();
+        // Generate the token
+        console.log("user in register is: ", user);
+        console.log("newUser in register is: ", newUser);
+        const token = generateToken(newUser);
 
-      // attach the token to the response
-      res.status(201).json(token);
+        // attach the token to the response
+        res.status(201).json(token);
+      } catch (err) {
+        res.status(400).json({ error: err.message });
+      }
     } catch (err) {
       res.status(400).json({ error: err.message });
     }
-  } catch (err) {
-    res.status(400).json({ error: err.message });
   }
 });
 
