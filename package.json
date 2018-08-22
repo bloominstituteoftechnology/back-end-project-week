@@ -4,21 +4,20 @@
     "cors": "^2.8.4",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
-    "jest": "^23.5.0",
     "jsonwebtoken": "^8.3.0",
     "jwt": "^0.2.0",
     "knex": "^0.15.2",
-    "node-gyp": "^3.8.0",
-    "sqlite3": "^4.0.2",
-    "supertest": "^3.1.0"
+    "sqlite3": "^4.0.2"
   },
   "devDependencies": {
-    "nodemon": "^1.18.3"
+    "nodemon": "^1.18.3",
+    "jest": "^23.5.0",
+    "supertest": "^3.1.0"
   },
   "name": "back-end-project-week",
   "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
   "version": "1.0.0",
-  "main": "knexfile.js",
+  "main": "server.js",
   "scripts": {
     "test": "jest --watch --verbose",
     "start": "node server.js",
