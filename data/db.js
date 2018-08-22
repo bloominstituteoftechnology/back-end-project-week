@@ -12,4 +12,4 @@ const options =
 
 const knex = require("knex")(options);
 
-module.exports = knex(config.production);
+// module.exports = knex(config.production);
