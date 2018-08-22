@@ -12,8 +12,7 @@ module.exports = {
   },
 
   insert: (note) => {
-    return db('notes').insert(note)
-                      .then(([id]) => module.exports.get(id));
+    return db('notes').insert(note).then(([id]) => module.exports.get(id));
   },
 
   update: (id, editedNote) => {

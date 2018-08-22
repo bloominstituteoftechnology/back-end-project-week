@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
+const session = require('express-session');
 const notes = require('../data/helpers/noteHelpers');
 const users = require('../data/helpers/userHelpers');
 
 const userCheck = (req, res, next) => {
-  if (!req.body.username || !req.body.password) {
+  if (!req.body.username || !req.body.password || !req.body.noteOrdering) {
     return res.status(400).json({ message: "All fields must be completed." });
   }
   next();
@@ -18,15 +20,42 @@ const noteCheck = (req, res, next) => {
 };
 
 router.post('/register', async (req, res) => {
+  try {
+    const credentials = req.body;
+    const hash = bcrypt.hashSync(credentials.password, 14);
+    credentials.password = hash;
+    await users.insert(credentials);
+    try {
+      const user = await users.get(credentials);
+      req.session.userId = user.id;
+      return res.status(201).json(user);
+    } catch (error) {
+      return res.status(404).json({ message: "User does not exist.", error: error.message });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "User could not be registered." });
+  }
 });
 
 router.post('/login', async (req, res) => {
+  try {
+    const credentials = req.body;
+    const user = await users.get(credentials);
+    if (user && bcrypt.compareSync(credentials.password, user.password)) {
+      req.session.userId = user.id;
+      return res.status(200).json({ message: `User ${user.id} is logged in.` });
+    } else {
+      return res.status(404).json({ message: "User does not exist." });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "An error occurred during login." });
+  }
 });
 
 router.put('/ordering', async (req, res) => {
   try {
-    // get user id from session
-    const updatedNoteOrdering = await users.updateNoteOrdering(userId, req.body);
+    console.log("api routes: ", req.body);
+    const updatedNoteOrdering = await users.updateNoteOrdering(1, req.body);
     if (updatedNoteOrdering === 0) {
       return res.status(404).json({ message: "Note ordering does not exist." });
     } else {
@@ -40,15 +69,19 @@ router.put('/ordering', async (req, res) => {
 router.get('/notes', async (req, res) => {
   try {
     const allNotes = await notes.get().orderBy('id', 'desc');
-    // get user id from session
+    console.log(allNotes);
     const noteOrderingString = await users.getNoteOrdering(1);
+    console.log("note order: ", noteOrderingString);
     const noteOrderingArray = JSON.parse(noteOrderingString.noteOrdering);
+    console.log("note order array: ", noteOrderingArray);
     if (noteOrderingArray.length === 0) {
       return res.status(200).json(allNotes);
     } else {
       const orderedNotes = noteOrderingArray.map(ordering => {
+        console.log(ordering);
         return allNotes.find(note => note.id === ordering);
       });
+      console.log(orderedNotes);
       return res.status(200).json(orderedNotes);
     }
   } catch (error) {
