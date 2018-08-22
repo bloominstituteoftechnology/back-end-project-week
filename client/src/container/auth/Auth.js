@@ -17,6 +17,7 @@ class Auth extends Component {
 			label: "Full name",
 			touch: false,
 			valid: false,
+			errors: [],
 			validation: {}
 		},
 		username: {
@@ -26,6 +27,7 @@ class Auth extends Component {
 			placeholder: "Email",
 			name: "username",
 			label: "User name",
+			errors: [],
 			touch: false,
 			valid: false,
 			validation: {}
@@ -38,10 +40,11 @@ class Auth extends Component {
 			name: "password",
 			label: "Password",
 			touch: false,
+			errors: [],
 			valid: false,
 			validation: {
-				strength: 2,
-				minLength: 6
+				strength: 0,
+				minLength: 7
 			}
 		},
 		formValid: false
@@ -55,13 +58,17 @@ class Auth extends Component {
 		updateState[id].touch = true;
 		if (id === "password") {
 			let result = this.passwordValidetor(e.target.value);
-			let validate = result[1] > 2;
+			let validate = result[1] >= 3;
 			if (result[1] >= 3) {
 				console.log("passed");
 				updateState[id].valid = true;
+				updateState[id].errors = [];
 			} else {
 				console.log("falied");
+				updateState[id].errors.push(result[0]);
+				updateState[id].valid = false;
 			}
+			updateState[id].validation.strength = result[1];
 			console.log("strength ", result[1]);
 		}
 		this.setState({ ...updateState });
@@ -77,8 +84,8 @@ class Auth extends Component {
 
 	passwordValidetor = password => {
 		const isEmpity = password.length > 0;
-		let error = [];
 		let score = zxcvbn(password).score;
+		let error = [];
 		if (!isEmpity) {
 			error.push("Password is required");
 		} else if (password.length < 6) {
@@ -104,6 +111,7 @@ class Auth extends Component {
 					onChange={e => this.inputHandler(e, i[0])}
 					value={i[1].value}
 					label={i[1].label}
+					errors={i[1].errors}
 					validation={i[1].validation}
 					valid={i[1].valid}
 					touch={i[1].touch}
@@ -116,6 +124,11 @@ class Auth extends Component {
 			<form onSubmit={this.handleSubmit} className="main-form-container ">
 				<button type="submit"> Join </button>
 				{inputElement}
+				<span className="d-block form-hint">
+					To conform with our Strong Password policy, you are reqired to use a
+					sufficiently strong password. Password must be more than{" "}
+					{this.state.password.validation.minLength} characters.
+				</span>
 			</form>
 		);
 	}

@@ -13,12 +13,26 @@ const Input = props => {
 		placeholder,
 		value,
 		onChange,
-		name
+		name,
+		validation
 	} = props;
 	controlClass =
-		!touch && !valid
-			? controlClass + " is-valid"
-			: controlClass + " is-invalid";
+		!touch || valid ? controlClass + " is-valid" : controlClass + " is-invalid";
+	const strengthClass = [
+		"strength-meter mt-2",
+		value && value.length > 0 ? "visible" : "invisible"
+	]
+		.join(" ")
+		.trim();
+	let strengthMeter =
+		name === "password" ? (
+			<div className={strengthClass}>
+				<div
+					className="strength-meter-fill"
+					data-strength={validation.strength}
+				/>
+			</div>
+		) : null;
 	return value !== undefined ? (
 		<div className="form-group px-3 pb-2">
 			<div className="d-flex flex-row justify-content-between align-items-center">
@@ -26,12 +40,14 @@ const Input = props => {
 					{label}
 				</label>
 				{/** Render the first error if there are any errors **/}
-				{hasErrors && (
-					<div className="error form-hint font-weight-bold text-right m-0 mb-2">
-						{errors[0]}
-					</div>
-				)}
+				{!valid &&
+					errors.length > 0 && (
+						<div className="error form-hint font-weight-bold text-right m-0 mb-2">
+							{errors[errors.length - 1]}
+						</div>
+					)}
 			</div>
+			{strengthMeter}
 			<input
 				type={type}
 				className={controlClass}
