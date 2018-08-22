@@ -14,17 +14,14 @@ class NoteList extends Component {
 
   render () {
     console.log(this.props.notes)
-    // console.log(deleteNullTags)
     const { search } = this.props
     const filteredNotes = this.props.notes.filter((note) => {
       return (
         note.title.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
-        note.context.toLowerCase().indexOf(search.toLowerCase()) !== -1
-        // ||
-        // note.tags.toLowerCase().indexOf(search.toLowerCase()) !== -1
+        note.context.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
+        note.tags.join('').toLowerCase().indexOf(search.toLowerCase()) !== -1
       )
     })
-    // const filteredNotes = this.props.notes
     return (
       <div className='noteList'>
         <div className='padding-container'>

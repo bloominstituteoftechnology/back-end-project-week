@@ -125,9 +125,6 @@ function getNote (req, res, next) {
     where: { id: req.params.id },
     include: { model: Tags }
   }).then((insertedNote) => {
-    // console.log('GET A NOTE', insertedNote)
-    // const note = Object.assign({}, { title: insertedNote })
-    // res.status(200).json(insertedNote)
     const note = insertedNote.map((Notes) => {
       return Object.assign(
         {},
@@ -215,6 +212,7 @@ function updateNote (req, res, next) {
     { returning: true, where: { id: req.params.id } }
   )
 }
+
 // const passport = require('passport')
 // const GoogleStrategy = require('passport-google-oauth20').Strategy
 // const keys = require('../../../keys')
