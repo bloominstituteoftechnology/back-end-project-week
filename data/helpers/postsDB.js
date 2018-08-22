@@ -1,18 +1,17 @@
 const db = require('../db.js');
 const jwt = require('jsonwebtoken');
 
-function getUserId (req, res, next) {
+/*function getUserId (req, res, next) {
     const token = req.headers.authorization;
     jwt.decode(token);
     const userId = decoded.payload.id
     return userId;
-}
+}*/
 
 module.exports = {
     get: function() {
         const query = db('post as p')
-        .join('users as u', 'u.id', 'p.userId')
-        .where('u.id', userId)
+        //.where('p.userId', getUserId())
        return query;
     },
 
@@ -37,7 +36,7 @@ module.exports = {
 
     insert: function(post) {
         const query = db('post')
-        .insert(post, {userId: getUserId()})
+        .insert(post)
         .then(ids => ({id: ids[0]}));
         return query;
 

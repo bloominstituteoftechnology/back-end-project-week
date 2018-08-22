@@ -5,14 +5,18 @@ const { secret } = require('./user');
 
 const router = express.Router();
 
-
 function checkLogIn (req, res, next) {
     const token = req.headers.authorization;
     if(token) {
-           jwt.verify(token, secret, (err, decoded) => {
-            const userId = decoded.payload.id
+        var decoded = jwt.decode(token, {complete: true});
+    console.log(decoded.payload)
+    const userId = decoded.payload.id;
+    
+       //   jwt.verify(token, secret, (err, decoded) => {
+           
+            //const userId = decoded.id
             next()
-        })
+        //})
     } else {
         return res.status(401).json({error: 'You must be logged in to view notes.'})
     }
@@ -20,14 +24,22 @@ function checkLogIn (req, res, next) {
 
 
 
-router.get('/', checkLogIn, (req, res) => {
-    db.get()
+router.get('/', (req, res) => {
+    const token = req.headers.authorization;
+    if(token) {
+        var decoded = jwt.decode(token, {complete: true});
+    console.log(decoded.payload)
+    const userId = decoded.payload.id;
+    db.get(userId)
     .then(response => {
         res.status(200).json(response);
     })
     .catch(err => {
         res.status(500).json({error: 'The posts could not be retrieved.'})
     })
+} else {
+    return res.status(401).json({error: 'You must be logged in to view notes.'})
+}
 })
 
 router.get('/:id', (req, res) => {
@@ -42,8 +54,14 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-    const post = req.body;
-    if(!post.title) {
+    const {title, textBody} = req.body;
+    const token = req.headers.authorization;
+    if(token) {
+        var decoded = jwt.decode(token, {complete: true});
+    console.log(decoded.payload)
+    const userId = decoded.payload.id;
+    const post = {title, textBody, userId}
+    if(!title) {
         res.status(400).json({error: 'You must provide a title.'})
     }
     db.insert(post)
@@ -53,6 +71,7 @@ router.post('/', (req, res) => {
     .catch(err => {
         res.status(500).json({error: 'There was an error saving post to the database.'})
     })
+}
 })
 
 router.put('/:id', (req, res) => {
