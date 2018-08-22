@@ -6,23 +6,25 @@ const notes = 'notes';
 const tags = 'tags';
 
 router.get('/', (req, res, next) => {
+  let allNotes = [];
   db
     .get(notes)
     .then(response => {
       let fetched = response;
+      let singleNote = {};
       fetched.forEach(note => {
+        singleNote = { ...note, tags: [] }
         db
           .getTagsByNote(tags, note.id)
           .then(response => {
-            let tags = response;
-            note = { ...note, tags };
-            console.log(note);
+            return singleNote.tags = response;
           })
           .catch(err => console.log(err))
+          allNotes = [ ...allNotes, singleNote ];
       })
       res
         .status(200)
-        .json(fetched);
+        .json(allNotes);
     })
     .catch(err => console.log(err));
 })
