@@ -94,9 +94,6 @@ server.delete("/api/notes/:id", (req, res) => {
     });
 });
 
-const PORT = process.env.PORT || 8000;
 
-server.listen(
-  PORT,
-  () => console.log(`\n=== Web API Listening on http://localhost:8000 ===\n`)
-);
+const port = process.env.PORT || 9000;
+server.listen(port, () => console.log(`API is running on ${port}`))
