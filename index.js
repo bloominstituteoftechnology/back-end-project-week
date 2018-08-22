@@ -5,7 +5,7 @@ const cors = require('cors');
 const server = express();
 
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: 'https://festive-raman-364e5f.netlify.com',
   };
 
 server.use(express.json());
