@@ -138,15 +138,11 @@ server.put('/edit/:id', (req,res,next) => {
                 .catch(next)
         })
     })
-    console.log("promise1!!!!!". promise1)
-    console.log("promise2!!!!!". promise2)
-
-    Promise.all(promise1, promise2)
+ 
+    Promise.all([promise1, promise2])
         .then(response => {
-            console.log(response)
             Promise.all(tagPromises)
             .then(response => {
-                console.log("All promises completed")
                 res.status(200).json({response})
             })
             .catch(next)
