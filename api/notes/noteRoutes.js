@@ -8,7 +8,13 @@ const router = express.Router();
 router.post('/', noteCheck, async (req, res, next) => {
     try {
         const notes = await notesDb.insert(req.note);
-        res.status(201).json({ id: notes.id, ...req.note, tags: [] });
+        try {
+            const updateNote = await notesDb.update(notes.id, { ...req.note, sort_id: notes.id });
+            if (!updateNote) return next({ code: 404, message: "The note with the specified ID does not exist." });
+            res.status(201).json({ id: notes.id, ...req.note, sort_id: notes.id, tags: [] });
+        } catch (err) {
+            next({ code: 500, error: "The note information could not be modified." });
+        }
     } catch (err) {
         next({ code: 500, error: "There was an error while saving the note to the database." });
     }

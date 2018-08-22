@@ -17,7 +17,7 @@ module.exports = {
             });
         }
 
-        const promises = [query, db('tags')];
+        const promises = [query.orderBy('sort_id', 'asc'), db('tags')];
         return Promise.all(promises).then(results => {
             if (results[1].length > 0) {
                 let [notes, tags] = results;
