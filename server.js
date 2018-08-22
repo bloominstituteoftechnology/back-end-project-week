@@ -68,6 +68,24 @@ server.put('/notes/:id', async (req, res, next) => {
   }
 })
 
+server.delete('/notes/:id', async (req, res, next) => {
+  const id = +req.params.id
+
+  try {
+    const success = await db('notes')
+      .where('id', '=', id)
+      .delete()
+
+    success && res.status(200).send(`[note: ${id}] deleted successfully!`)
+  } catch (e) {
+    next({
+      code: 500,
+      message: e.message
+    })
+  }
+})
+
+
 
 server.use((err, req, res, next) => {
   res.status(err.code).json(err.message)
