@@ -44,7 +44,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", protect, async (req, res) => {
+/*router.post("/", protect, async (req, res) => {
   const tags = req.body["tags"];
   const newTag = {};
   delete req.body["tags"];
@@ -61,8 +61,8 @@ router.post("/", protect, async (req, res) => {
       } catch (err) {
         res.status(400).json({ error: err.message });
       }
-    }
-    /*newTag.title = tags[0];
+    }*/
+/*newTag.title = tags[0];
     newTag.note_id = ids[0];
     try {
       const tagId = await notesDB.insert(newTag).into("tags");
@@ -70,10 +70,10 @@ router.post("/", protect, async (req, res) => {
     } catch (err) {
       res.status(400).json({ error: err.message });
     }*/
-  } catch (err) {
+/*} catch (err) {
     res.status(400).json({ error: err.message });
   }
-});
+});*/
 
 router.delete("/:id", async (req, res) => {
   try {
