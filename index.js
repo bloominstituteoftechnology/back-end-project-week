@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const db = require('./data/db.js');
 const cors = require('cors');
@@ -83,7 +84,7 @@ server.delete('/api/notes/:id', (req, res) => {
     })
 })
 
-const port = 8000;
+const port = process.env.PORT || 8000;
 server.listen(port, function() {
     console.log(`\n===Web API listening on http://localhost:${port} ===\n`);
 });
