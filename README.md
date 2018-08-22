@@ -1,6 +1,6 @@
 # Back End Project Week
 
-Click to open front end: objective-torvalds-223e75.netlify.com
+[Link to Front End](objective-torvalds-223e75.netlify.com)
 
 This week you will build a backend for a note taking app called "Lambda Notes".
 
