@@ -39,6 +39,18 @@ server.post('/api/notes', (req, res) => {
   .catch(err => res.status(500).json(err));
 });
 
+server.put('/api/notes/:_id', (req, res) => {
+  const { _id } = req.params;
+  const { title, textBody } = req.body;
+  db('notes')
+    .where('_id', _id)
+    .update({ title, textBody })
+    .then(changes => {
+      res.status(200).json(changes);
+    })
+    .catch(err => res.status(500).json(err));
+});
+
 server.listen(port, function() {
   console.log(`\n ==== Web API listening on http://localhost:${port} ==== \n`);
 });
