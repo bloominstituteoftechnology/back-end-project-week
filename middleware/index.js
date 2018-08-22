@@ -32,7 +32,32 @@ function userConstraints(req, res, next) {
   }
 
   // set the req object
-  req.USERNAME = USERNAME;
+  req.USERNAME = USERNAME.toLowerCase();
+  req.CLEARPASSWORD = CLEARPASSWORD;
+
+  next();
+}
+
+function loginConstraints(req, res, next) {
+  const USERNAME = req.body.username;
+  const CLEARPASSWORD = req.body.password;
+
+  if (!USERNAME || USERNAME.length < 1) {
+    return next({
+      code: 400,
+      error: `Please provide a 'username'.`,
+    });
+  }
+
+  if (!CLEARPASSWORD || CLEARPASSWORD.length < 1) {
+    return next({
+      code: 400,
+      error: `Please provide a 'password' for the user.`,
+    });
+  }
+
+  // set the req object
+  req.USERNAME = USERNAME.toLowerCase();
   req.CLEARPASSWORD = CLEARPASSWORD;
 
   next();
@@ -65,3 +90,4 @@ function noteConstraints(req, res, next) {
 
 module.exports.userConstraints = userConstraints;
 module.exports.noteConstraints = noteConstraints;
+module.exports.loginConstraints = loginConstraints;

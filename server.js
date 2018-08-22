@@ -5,7 +5,8 @@ const server = express();
 const usersRoutes = require('./router/usersRouter');
 const notesRoutes = require('./router/notesRouter');
 const registerRoutes = require('./router/registerRouter');
-// middlewar
+const loginRoutes = require('./router/loginRouter');
+// middleware
 const errors = require('./middleware/errors');
 // turn on cors
 const cors = require('cors');
@@ -23,6 +24,7 @@ server.get('/', (req, res) => {
 server.use('/api/users', usersRoutes);
 server.use('/api/notes', notesRoutes);
 server.use('/api/register', registerRoutes);
+server.use('/api/login', loginRoutes);
 
 // error handling
 server.use(errors);

@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 // JWT
-const { jwtRoute, generateToken } = require('../middleware/jwt');
+const { generateToken } = require('../middleware/jwt');
 const usersDB = require('../data/helpers/usersDB');
 const { userConstraints } = require('../middleware');
 const router = express.Router();
