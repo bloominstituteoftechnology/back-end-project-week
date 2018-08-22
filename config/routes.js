@@ -10,7 +10,11 @@ module.exports = server => {
 };
 
 const root = (req, res) => {
-  res.status(200).json("Up and running");
+  res
+    .status(200)
+    .json(
+      "You have reached the root endpoint. All endpoints for this server are at /api/notes or /api/notes/:id"
+    );
 };
 
 const get_notes = (req, res) => {
@@ -35,8 +39,10 @@ const post_notes = (req, res) => {
     db.insert(note)
       .into("notes")
       .then(ids => {
-        const id = ids[0];
-        res.status(201).json({ id, ...note });
+        // const id = ids[0];
+        db("notes").then(notes => {
+          res.status(201).json(notes);
+        });
       })
       .catch(error => res.status(500).json(error.message));
   }
@@ -58,7 +64,9 @@ const put_note_id = (req, res) => {
     .update(changes)
     .then(ids => {
       const id = ids[0];
-      res.status(200).json({ id, ...changes });
+      db("notes").then(notes => {
+        res.status(201).json(notes);
+      });
     })
     .catch(error => res.status(500).json(error));
 };
@@ -70,7 +78,9 @@ const del_note_id = (req, res) => {
     .del()
     .then(ids => {
       const id = ids[0];
-      res.status(200).json("POST DELETED SUCCESSFULLY");
+      db("notes").then(notes => {
+        res.status(200).json(notes);
+      });
     })
     .catch(error => res.status(500).json(error));
 };
