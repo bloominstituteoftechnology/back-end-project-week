@@ -5,7 +5,15 @@ process.env.NODE_ENV = 'test';
 
 describe('Lambda Notes Server API Testing', () => {
 
+
   describe('GET REQUESTS, Root [/api]', () => {
+
+     afterEach(() => {
+       return knex.migrate.rollback()
+         .then(() => knex.migrate.latest())
+         .then(() => knex.seed.run())
+     })
+
     it('should return a status code of 200', async () => {
       const expected = 200;
       const result = await request(server)
@@ -37,19 +45,18 @@ describe('Lambda Notes Server API Testing', () => {
 
 
   });
+
   
   //create docs testing when docs completed.
 
   describe('GET REQUESTS [/api/notes], ', () => {
 
-    beforeEach(() =>{
+   afterEach(() => {
      return knex.migrate.rollback()
-    .then(() => knex.migrate.latest())
-    .then(()=> knex.seed.run())
-    })
-    afterEach(()=>{
-     return knex.migrate.rollback();
-    })
+       .then(() => knex.migrate.latest())
+       .then(() => knex.seed.run())
+   })
+   
     it('should return status code 200 with attempt to get all notes', async () => {
       const expected = 200;
       const result = await request(server)
@@ -98,14 +105,12 @@ describe('Lambda Notes Server API Testing', () => {
   });
 
   describe('POST Requests [/api/notes]', () => {
-    beforeEach(() =>{ 
-       return knex.migrate.latest()
-      .then(knex.seed.run());
-    });
 
-    afterAll(()=>{
-      return knex.migrate.rollback();
-    })
+     afterEach(() => {
+       return knex.migrate.rollback()
+         .then(() => knex.migrate.latest())
+         .then(() => knex.seed.run())
+     })
   
     //start adding tests for note creation, beforeEach to wipe dB to seeded migration
     it('should return a status code of 201 when a new note is added', async () => {

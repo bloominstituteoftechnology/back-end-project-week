@@ -30,19 +30,11 @@ server.get('/api/notes/:id', async (req, res, next) =>{
 server.post('/api/notes', async(req, res, next) =>{
   const { note_title, text_body, tags } = req.body
   const newNote = {note_title, text_body, tags};
-  const result = await notes.insert(newNote)
+  await notes.insert(newNote)
   .then(response =>{
     res.status(201).json({newNote})
   })
 })
-
-// server.put('/api/notes/:id', async (req, res, next) =>{
-//   const id = req.params.id;
-//   const { note_title, text_body, tags } = req.body;
-//   const updatedNote = { note_title, text_body, tags };
-//   const result = await server.put(id, updatedNote);
-//   res.status(200).json({result})
-// })
 
 server.put('/api/notes/:id', async (req, res, next) =>{
   const id = req.params.id;
@@ -58,7 +50,11 @@ res.status(200).json({"Success": `Note ${id} updated.`})
 server.delete('/api/notes/:id', async(req, res, next)=>{
   const id = req.params.id;
   const result = await notes.remove(id).then(response =>{
-    res.status(200).json({"Success": `Note ${id} deleted.`})
+    if (response === 1) {
+      res.status(200).json({"Success": `Note ${id} deleted. Nice job...hope you didn't need that.`}) 
+    } else  res.status(200).json({"Failure": `Uh Oh! Cannot find note ${id}. Guess you don't need to delete it, eh?`})
+   
+     res.status(200).json({response})
   })
   
 
