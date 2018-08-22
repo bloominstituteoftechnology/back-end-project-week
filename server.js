@@ -119,7 +119,7 @@ server.post('/register', async (req, res) => {
   try {
     if (user.username && user.password) {
       const ids = await db.insert(user).into('users');
-      const createdUser = await db('users').where('id', ids[0]).first;
+      const createdUser = await db('users').where('id', ids[0]).first();
       createdUser.token = token;
       res.status(200).json(createdUser);
     }
