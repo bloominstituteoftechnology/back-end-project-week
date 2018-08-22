@@ -21,7 +21,7 @@ server.get("/notes", (req, res) => {
     .then(notes => {
       res.status(200).json(notes);
     })
-    .catch(err => res.status(500).json(err));
+    .catch(err => res.status(500).json( {error: 'cannot get notes'}));
 });
 
 //Post New Note
