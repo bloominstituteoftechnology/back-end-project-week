@@ -12,26 +12,52 @@ var sequelize = new Sequelize('localhost_8000', 'root', 'password', {
 var Users = sequelize.define('Users', {
   username: {
     type: Sequelize.STRING,
-    unique: true
+    unique: true,
+    allowNull: false
   },
-  password: Sequelize.STRING
+  password: {
+    type: Sequelize.STRING,
+    allowNull: false
+  }
 })
 
 var Notes = sequelize.define('Notes', {
   title: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: false
   },
-  context: Sequelize.TEXT
+  context: {
+    type: Sequelize.TEXT,
+    allowNull: false
+  }
 })
 
 let Tags = sequelize.define('Tags', {
   value: Sequelize.STRING
 })
+
 Users.hasMany(Notes)
 Notes.belongsTo(Users)
 Notes.hasMany(Tags)
 Tags.belongsTo(Notes)
 sequelize.sync()
+
+// Users.create({
+//   username: 'yLuis',
+//   password: 'password'
+// }).then((user) => {
+//   user
+//     .createNote({
+//       title: 'run me over. 18 whe',
+//       context: 'thiss might work'
+//     })
+//     .then((note) => {
+//       note.createTag({
+//         value: 'heello'
+//       })
+//     })
+//     .then(() => console.log('worked...'))
+// })
 
 function getToken (user) {
   console.log('IN TOKKEN', user)
