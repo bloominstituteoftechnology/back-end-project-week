@@ -13,6 +13,7 @@ class Login extends Component {
   componentDidMount () {
     this.updateCanvas()
   }
+  
   updateCanvas () {
     let pi = Math.PI
     const cv = this.refs.canvas
@@ -82,8 +83,28 @@ class Login extends Component {
       co.fill()
       co.closePath()
     }
+    function createMountainRange (mountainAmount, height, color) {
+      for (var i = 0; i < mountainAmount; i++) {
+        var mountainWidth = w / mountainAmount
+        co.beginPath()
+        co.moveTo(i * mountainWidth, h)
+        co.lineTo(i * mountainWidth + mountainWidth + 325, h)
+        co.lineTo(i * mountainWidth + mountainWidth / 2, h - height)
+        co.lineTo(i * mountainWidth - 325, h)
+        co.fillStyle = color
+        // co.shadowColor = '#E3EAEF'
+        // co.shadowBlur = 10
+        co.fill()
+        co.closePath()
+        co.restore()
+      }
+    }
+
     function paint () {
       cloud()
+      createMountainRange(1, h - 550, '#384551')
+      createMountainRange(2, h - 600, '#2B3843')
+      createMountainRange(3, h - 700, '#26333E')
       requestAnimationFrame(paint)
     }
 
@@ -103,6 +124,7 @@ class Login extends Component {
 
     paint()
   }
+
   renderField = (field) => {
     const { touched, error } = field.meta
     const className = `form-group ${touched && error ? 'has-danger' : ''}`
@@ -120,6 +142,8 @@ class Login extends Component {
       </div>
     )
   }
+
+
   handleLogin = (values, cb) => {
     axios
       .post('http://localhost:8000/auth/login', values)
@@ -158,6 +182,8 @@ class Login extends Component {
       hasRegistered: !prevState.hasRegistered
     }))
   }
+
+  
   render () {
     const { handleSubmit } = this.props
 

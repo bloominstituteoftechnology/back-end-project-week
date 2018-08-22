@@ -12,7 +12,11 @@ body {
 label {
   margin-bottom: 0px !important;
 }
-
+.snow {
+  margin: 0;
+  overflow: hidden;
+  background: black;
+}
 .Auth-container {
   background: #061928;
 }
@@ -95,13 +99,9 @@ label {
 }
 
 .no-match {
-  background-color: #f2f1f2;
-  text-align: center;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  position: absolute;
+  top: 200px;
+  left: 400px;
 }
 
 .noteList-header {
