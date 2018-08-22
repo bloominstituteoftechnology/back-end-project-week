@@ -1,3 +1,7 @@
+require("dotenv").config();
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
 const express = require("express");
 const helmet = require("helmet");
 const morgan = require("morgan");
@@ -106,6 +110,74 @@ server.put("/notes/:id", (req, res) => {
       res
         .status(500)
         .json({ error: "The note information could not be modified" });
+    });
+});
+
+function generateToken(user) {
+  const payload = {
+    username: user.usernameInput
+  };
+  const options = {
+    expiresIn: "1h",
+    jwtid: "8728391"
+  };
+  return jwt.sign(payload, process.env.SECRET, options);
+}
+function protected(req, res, next) {
+  const token = req.headers.authorization;
+  if (token) {
+    jwt.verify(token, process.env.SECRET, (err, decodedToken) => {
+      if (err) {
+        return res.status(401).json({ err: "token invalid" });
+      }
+      req.jwtToken = decodedToken;
+      next();
+    });
+  } else {
+    return res.status(401).json({ error: "no token" });
+  }
+}
+
+server.post("/register", (req, res) => {
+  const user = req.body;
+  const hash = bcrypt.hashSync(user.passwordInput, 14);
+  user.passwordInput = hash;
+  db("users")
+    .insert(user)
+    .then(ids => {
+      db("users")
+        .where({ id: ids[0] })
+        .first()
+        .then(user => {
+          const token = generateToken(user);
+          res.status(201).json(token);
+        });
+    })
+    .catch(error => {
+      res.status(500).json({ error });
+    });
+});
+
+server.post("/login", (req, res) => {
+  const credentials = req.body;
+  db("users")
+    .where({
+      username: credentials.usernameInput
+    })
+    .first()
+    .then(user => {
+      if (
+        user &&
+        bcrypt.compareSync(credentials.passwordInput, user.passwordInput)
+      ) {
+        const token = generateToken(user);
+        res.send(token);
+      } else {
+        return res.status(401).json({ error: "incorrect credentials" });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({ error });
     });
 });
 
