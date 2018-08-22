@@ -1,6 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const notes = require('../data/helpers');
+const notes = require('../data/helpers/noteHelpers');
+const users = require('../data/helpers/userHelpers');
+
+const userCheck = (req, res, next) => {
+  if (!req.body.username || !req.body.password) {
+    return res.status(400).json({ message: "All fields must be completed." });
+  }
+  next();
+};
 
 const noteCheck = (req, res, next) => {
   if (!req.body.title || !req.body.content) {
@@ -9,10 +17,31 @@ const noteCheck = (req, res, next) => {
   next();
 };
 
+router.post('/register', async (req, res) => {
+});
+
+router.post('/login', async (req, res) => {
+});
+
+router.put('/ordering', async (req, res) => {
+  try {
+    // get user id from session
+    const updatedNoteOrdering = await users.updateNoteOrdering(userId, req.body);
+    if (updatedNoteOrdering === 0) {
+      return res.status(404).json({ message: "Note ordering does not exist." });
+    } else {
+      return res.status(200).json(updatedNoteOrdering);
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Note ordering could not be saved.", error: error.message });
+  }
+});
+
 router.get('/notes', async (req, res) => {
   try {
     const allNotes = await notes.get().orderBy('id', 'desc');
-    const noteOrderingString = await notes.getNoteOrdering(1);
+    // get user id from session
+    const noteOrderingString = await users.getNoteOrdering(1);
     const noteOrderingArray = JSON.parse(noteOrderingString.noteOrdering);
     if (noteOrderingArray.length === 0) {
       return res.status(200).json(allNotes);
