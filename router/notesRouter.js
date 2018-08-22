@@ -1,10 +1,11 @@
 const express = require('express');
+const { jwtRoute } = require('../middleware/jwt');
 const notesDB = require('../data/helpers/notesDB');
 const { noteConstraints } = require('../middleware');
 const router = express.Router();
 
 // get all notes
-router.get('/', async (req, res) => {
+router.get('/', jwtRoute, async (req, res) => {
   try {
     const notes = await notesDB.get();
     if (notes.length === 0) {
@@ -18,7 +19,7 @@ router.get('/', async (req, res) => {
 });
 
 // get a note by id
-router.get('/:id', async (req, res) => {
+router.get('/:id', jwtRoute, async (req, res) => {
   const ID = req.params.id;
 
   try {
@@ -34,7 +35,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // post a note
-router.post('/', noteConstraints, async (req, res) => {
+router.post('/', jwtRoute, noteConstraints, async (req, res) => {
   //TODO save ID in JWT(?) so know who is logged in
   const U_ID = 1;
   // middleware sets the req
@@ -51,7 +52,7 @@ router.post('/', noteConstraints, async (req, res) => {
 });
 
 // update a note
-router.put('/:id', noteConstraints, async (req, res) => {
+router.put('/:id', jwtRoute, noteConstraints, async (req, res) => {
   const ID = req.params.id;
   // middleware sets the req
   const { TITLE, CONTENT } = req;
@@ -78,7 +79,7 @@ router.put('/:id', noteConstraints, async (req, res) => {
 });
 
 // delete a note
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', jwtRoute, async (req, res) => {
   const ID = req.params.id;
 
   // make sure we have the note to delete
