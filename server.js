@@ -181,6 +181,14 @@ server.post("/login", (req, res) => {
     });
 });
 
+server.get("/users", protected, (req, res) => {
+  db("users")
+    .then(users => {
+      res.json(users);
+    })
+    .catch(err => res.send(err));
+});
+
 const PORT = process.env.PORT || 9000;
 server.listen(PORT, () => console.log("API running..."));
 
