@@ -27,7 +27,7 @@ server.use(function (req, res, next) {
     res.status(404).send("Sorry this page doesn't exist.")
   })
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || process.env.REACT_APP_PORT;
 server.listen(port, () => {
     console.log(`=== API is listening at ${port} ===`);
 })
