@@ -148,7 +148,7 @@ server.post('/login', async (req, res) => {
       res.status(200).json({message: "Logged In", user: credentials.username, token:token})
     }
   } catch (err) {
-    res.status(401).json({message: `${err}`, credentials: credentials, foundUser: foundUser});
+    res.status(401).json({message: `${err}`, foundUser: foundUser});
   }
 })
 
