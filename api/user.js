@@ -9,6 +9,7 @@ const secret = 'Are you suggesting coconuts migrate?'
 
 function generateToken(user) {
     const payload = {
+        id: user.id,
         username: user.username,
         password: user.password
     }

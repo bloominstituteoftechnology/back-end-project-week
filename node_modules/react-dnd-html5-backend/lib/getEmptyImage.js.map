@@ -1,0 +1,1 @@
+{"version":3,"file":"getEmptyImage.js","sourceRoot":"","sources":["../src/getEmptyImage.ts"],"names":[],"mappings":";;AAAA,IAAI,UAAwC,CAAA;AAE5C;IACC,IAAI,CAAC,UAAU,EAAE;QAChB,UAAU,GAAG,IAAI,KAAK,EAAE,CAAA;QACxB,UAAU,CAAC,GAAG;YACb,4EAA4E,CAAA;KAC7E;IAED,OAAO,UAAU,CAAA;AAClB,CAAC;AARD,gCAQC"}

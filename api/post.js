@@ -5,16 +5,20 @@ const { secret } = require('./user');
 
 const router = express.Router();
 
+
 function checkLogIn (req, res, next) {
     const token = req.headers.authorization;
     if(token) {
-        jwt.verify(token, secret, (err, decodedToken) => {
+           jwt.verify(token, secret, (err, decoded) => {
+            const userId = decoded.payload.id
             next()
         })
     } else {
         return res.status(401).json({error: 'You must be logged in to view notes.'})
     }
 }
+
+
 
 router.get('/', checkLogIn, (req, res) => {
     db.get()
@@ -39,8 +43,7 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
     const post = req.body;
-    const {title} = req.body;
-    if(!title) {
+    if(!post.title) {
         res.status(400).json({error: 'You must provide a title.'})
     }
     db.insert(post)

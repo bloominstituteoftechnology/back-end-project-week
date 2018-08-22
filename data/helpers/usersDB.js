@@ -4,7 +4,7 @@ module.exports = {
     get: function() {
         return db('user')
     },
-    
+
     insert: function(user) {
         return db('user')
         .insert(user)
@@ -13,7 +13,8 @@ module.exports = {
 
     login: function(credentials) {
         return db('user')
-        .where({username: credentials.username}).first()
+        .where({username: credentials.username})
+        .first()
          
     },
 
