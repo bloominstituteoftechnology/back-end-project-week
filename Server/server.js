@@ -2,6 +2,7 @@ const express = require('express');
 const apiRoutes = require('./apiRoutes/apiRoutes');
 const cors = require("cors");
 
+
 const server = express();
 server.use(cors());
 
