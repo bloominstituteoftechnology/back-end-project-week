@@ -204,15 +204,15 @@ function deleteNote (req, res, next) {
 }
 
 function updateNote (req, res, next) {
-  const tags = req.body.tags
-  const tagArr = tags.split(' ')
   Notes.update(
     {
       title: req.body.title,
       context: req.body.context
     },
-    { returning: false, where: { id: req.params.id } }
+    { returning: true, where: { id: req.params.id } }
   ).then((note) => {
+    const tags = req.body.tags
+    let tagArr = tags.split(' ')
     Tags.destroy({ where: { NoteId: req.params.id } })
     tagArr.forEach((tag) => {
       Tags.create({
@@ -223,38 +223,10 @@ function updateNote (req, res, next) {
   })
 }
 
-// const passport = require('passport')
-// const GoogleStrategy = require('passport-google-oauth20').Strategy
-// const keys = require('../../../keys')
-
-// passport.use(
-//   new GoogleStrategy(
-//     {
-//       clientID: keys.googleClientID,
-//       clientSecret: keys.clientSecret,
-//       callbackURL: 'auth/google/callback'
-//     },
-//     (accessToken, refreshToken, profile, done) => {
-//       console.log('accessToken', accessToken)
-//       console.log('refresh', refreshToken)
-//       console.log('profile', profile)
-//     }
-//   )
-// )
-
-// server.get(
-//   '/google',
-//   passport.authenticate('google', {
-//     scope: [ 'profile', 'email' ]
-//   })
-// )
-// server.get('/google/callback', passport.authenticate('google'), (req, res) => {
-//   res.send('redicted somewhere lol')
-// })
 server.post('/register', register)
 server.post('/login', login)
 server.get('/notes', restricted, getNotes)
-server.get('/note/:id', restricted, getNote)
+server.get('/note/:id', getNote)
 server.post('/create', restricted, newNote)
 server.delete('/delete/:id', deleteNote)
 server.put('/edit/:id', updateNote)
