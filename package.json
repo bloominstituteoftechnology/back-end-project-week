@@ -3,7 +3,6 @@
   "version": "n",
   "description": "n",
   "main": "y",
-  "repository": "https://github.com/ari7946/back-end-project-week.git",
   "author": "Ari",
   "license": "y",
   "private": false,
@@ -13,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ari7946/back-end-project-week"
+    "url": "git+https://github.com/ari7946/back-end-project-week.git"
   },
   "dependencies": {
     "bcrypt": "^3.0.0",

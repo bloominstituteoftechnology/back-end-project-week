@@ -10,7 +10,7 @@ const server = express();
 
 server.use(express.json());
 server.use(helment());
-server.use(cors({origin: 'http://localhost:3000', credentials:true}));
+server.use(cors({origin: 'https://git.heroku.com/lambdanotess.git', credentials:true}));
 
 function generateToken(user) {
   const payload = {
@@ -46,7 +46,8 @@ function protected(req, res, next) {
 }
 
 server.get('/', (req, res) => {
-  res.send('Running!')
+  const nums = [1,2, 3, 4];
+  res.json({ nums });
 })
 
 // ! ====================== Login and register ENDPOINTS
