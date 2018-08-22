@@ -3,6 +3,7 @@
     "bcrypt": "^3.0.0",
     "brcypt": "^1.0.1",
     "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "jest": "^23.5.0",
     "jsonwebtoken": "^8.3.0",
@@ -20,7 +21,8 @@
   "main": "knexfile.js",
   "scripts": {
     "test": "jest --watch --verbose",
-    "start": "nodemon server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "engines": {
     "npm": "6.1.0",

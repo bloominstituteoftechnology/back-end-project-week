@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 
@@ -16,6 +17,7 @@ server.use("/api/notes", NoteRoutes);
 server.use("/api/tags", TagRoutes);
 server.use("/api/users", AuthRoutes);
 
-server.listen(8000, () => {
-  console.log(`\n=== Web API Listening on http://localhost:8000 === \n`);
+const port = process.env.PORT || 8000;
+server.listen(port, () => {
+  console.log(`\n=== Web API Listening on http://localhost:${port} === \n`);
 });
