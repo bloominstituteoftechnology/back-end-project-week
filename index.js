@@ -2,8 +2,9 @@ const express = require('express');
 const knex = require('knex');
 const cors = require('cors');
 
-const knexConfig = require('./knexfile');
-const db = knex(knexConfig[ process.env.NODE_ENV || 'development']);
+const env = process.env.NODE_ENV || 'development'
+const knexConfig = require('./knexfile')[env];
+const db = knex(knexConfig.development);
 
 const server = express();
 server.use(express.json());
