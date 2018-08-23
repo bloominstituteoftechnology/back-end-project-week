@@ -12,7 +12,8 @@ const PORT = process.env.PORT || 8000;
 
 server.get('/', (req, res) => {
   const secret = process.env.SECRET;
-  res.send(secret);
+  const message = 'Hey Hey Hey'
+  res.status(200).json({secret, message});
 });
 
 server.post('/api/notes/create', (req, res) => {
