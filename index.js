@@ -10,7 +10,8 @@ const server = express();
 
 server.use(express.json());
 server.use(helment());
-server.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+//server.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+server.use(cors());
 
 function generateToken(user) {
   const payload = {
