@@ -20,29 +20,36 @@ module.exports = {
         return query;
     },
     getTags: function (id) {
-        return db('tags as t')
-            .join('noteTags as nt', 't.id', 'nt.tagId')
-            .select('t.tag')
-            .where('nt.noteId', id);
+        if(id) {
+            return db('tags as t')
+                .join('noteTags as nt', 't.id', 'nt.tagId')
+                .select('t.tag')
+                .where('nt.noteId', id);
+        }
+
+        return db('tags');
     },
     getNoteTags: function (id) {
-        return db('noteTags as nt')
-            .join('tags as t', 'nt.tagId', 't.id')
-            .select()
-            .where('nt.noteId', id);
+        if(id) {
+            return db('noteTags as nt')
+                .join('tags as t', 'nt.tagId', 't.id')
+                .select()
+                .where('nt.noteId', id);
+        }
+
+        return db('noteTags');
     },
     add: function (record) {
-        let note = {
-            title: record.title,
-            content: record.content
-        };
+        let note = { title: record.title, content: record.content };
 
-        return db('notes as n').insert(note).then(([id]) => {
-            if(record.tags.length > 0) {
-                record.tags.forEach(tag => {
-                    this.addTags(id, tag);
-                });
-            }
+        return db('notes as n')
+            .insert(note)
+            .then(([id]) => {
+                if(record.tags.length > 0) {
+                    record.tags.forEach(tag => {
+                        this.addTags(id, tag);
+                    });
+                }
             return this.get(id);
         });
     },
@@ -53,24 +60,26 @@ module.exports = {
         return db('noteTags as nt').insert({noteId, tagId}).then(([id]) => this.getNoteTags(id));
     },
     edit: function (id, note) {
-        // if(note.tags.length > 0) {
-        //     note.tags = note.tags.join(', ');
-        // }
-        let noteChanges = {
-            title: note.title,
-            content: note.content
-        };
+        let noteChanges = { title: note.title, content: note.content };
+        let beforeChanges = this.get(id);
+        return beforeChanges;
 
-        return db('notes as n')
-            .where('n.id', id)
-            .update(noteChanges)
-            .then(count => (count > 0 ? this.get(id) : null));
+        // return db('notes as n')
+        //     .where('n.id', id)
+        //     .update(noteChanges)
+        //     .then(count => {
+        //         if(count > 0) {
+        //             this.editTags(id, note.tags);
+        //         } else {
+        //             return null;
+        //         }
+        //     });
     },
-    editTags: function () {
-
+    editTags: function (noteId, tags) {
+        // return db('tags as t').update({tag}).then(([id]) => this.editNoteTags(noteId, id));
     },
-    editNoteTags: function () {
-
+    editNoteTags: function (noteId, tagId) {
+        // return db('noteTags as nt').update({noteId, tagId}).then(([id]) => this.getNoteTags(id));
     },
     drop: function (id) {
         return db('notes as n').where('n.id', id).del();
