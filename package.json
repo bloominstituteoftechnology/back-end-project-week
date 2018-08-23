@@ -1,0 +1,27 @@
+{
+  "name": "allenhai-lambdanotes-back",
+  "description": "Backend for Lambda Notes app",
+  "version": "0.0.0",
+  "repository": {
+    "url": "git://github.com/coetry/back-end-project-week.git"
+  },
+  "main": "server.js",
+  "scripts": {
+    "test": "jest --watch --verbose",
+    "start": "knex migrate:latest && node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "helmet": "^3.13.0",
+    "knex": "^0.15.2",
+    "sqlite3": "^4.0.2"
+  },
+  "devDependencies": {
+    "jest": "^23.5.0",
+    "nodemon": "^1.18.3",
+    "supertest": "^3.1.0"
+  },
+  "author": "Allen Hai <allenhai03@gmail.com> (https://allenhai.now.sh)"
+}
