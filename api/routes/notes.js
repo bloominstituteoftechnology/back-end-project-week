@@ -1,12 +1,13 @@
 const server = require('express')()
 const db = require('../../data/db')
+const helpers = require('../helpers/helpers')
 
 
 server.get('/', (req,res) => {
     res.status(200).json("App is currently running (better go out and catch it!)")
 })
 
-server.get('/get/all', (req,res,next) => {
+server.get('/get/all', helpers.protected, (req,res,next) => {
 
     db('notes')
         .select('*')
@@ -30,7 +31,7 @@ server.get('/get/all', (req,res,next) => {
         }).catch(next)
 })
 
-server.get('/get/:id', (req,res,next) => {
+server.get('/get/:id', helpers.protected, (req,res,next) => {
     const { id } = req.params
 
     if(!id){
@@ -57,7 +58,7 @@ server.get('/get/:id', (req,res,next) => {
         .catch(next)
 })
 
-server.post('/create', (req,res,next) => {
+server.post('/create', helpers.protected, (req,res,next) => {
     const newNote = { title: req.body.title, textBody: req.body.textBody }
     let tags = req.body.tags
 
@@ -87,7 +88,7 @@ server.post('/create', (req,res,next) => {
         .catch(next)
 })
 
-server.delete('/delete/:id', (req,res,next) => {
+server.delete('/delete/:id', helpers.protected, (req,res,next) => {
     const { id } = req.params
 
     db('notes')
@@ -104,7 +105,7 @@ server.delete('/delete/:id', (req,res,next) => {
 
 
 
-server.put('/edit/:id', (req,res,next) => {
+server.put('/edit/:id', helpers.protected, (req,res,next) => {
     const { id } = req.params
     const updated = { title: req.body.title, textBody: req.body.textBody }
     const tags = req.body.tags
