@@ -11,9 +11,6 @@ server.use(express.json());
 server.use(cors());
 
 
-server.get('/', (req, res) => {
-    res.send('We have liftoff, up and running now...');
-});
 
 server.get('/notes/:_id', (req, res) => {
     const { id } = req.params;
@@ -27,7 +24,7 @@ server.get('/notes/:_id', (req, res) => {
             res.status(404).json({ message: 'nope, did not locate note' })
 });
 
-server.get('/notes/get', (req, res) => {
+server.get('/', (req, res) => {
 
     db('notes')
     .then(notes => {
