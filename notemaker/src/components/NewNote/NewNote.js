@@ -26,9 +26,11 @@ class NewNote extends Component {
     postNote = e => {
         e.preventDefault();
 
+        const apiUrl = process.env.REACT_APP_API;
         const notes = 
         axios
-            .get('http://localhost:8888/notes')
+            // .get('http://localhost:8888/notes')
+            .get(apiUrl)
             .then(response => {
                 console.log("GET", response);
                 this.setState({notes: response.data.notes });
@@ -39,7 +41,8 @@ class NewNote extends Component {
         const note = { title: this.state.note.title, content: this.state.note.content }
 
         axios
-            .post('http://localhost:8888/notes', note)
+            // .post('http://localhost:8888/notes', note)
+            .post(apiUrl, note)
             .then(response => {
                 // console.log(response.data);
                 // console.log("POST Response", response);

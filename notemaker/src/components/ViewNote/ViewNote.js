@@ -10,7 +10,7 @@ class ViewNote extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            notes: [],
+            note: [],
             noteIsLoaded: false,
             modalOpen: false,
             deleteNote: false
@@ -20,12 +20,15 @@ class ViewNote extends Component {
     }    
 
     componentWillMount() {
+        const apiUrl = process.env.REACT_APP_API;
+        const id = this.props.match.params.id;
         this.setState( 
             axios
-                .get('http://localhost:8888/notes')
+                // .get('http://localhost:8888/notes')
+                .get(apiUrl+`/notes/${id}`)
                 .then(response => {
                     console.log("GET", response);
-                    this.setState({ notes: response.data.notes, noteIsLoaded: true });
+                    this.setState({ note: response.data.note, noteIsLoaded: true });
                 })
                 .catch(err => {
                     console.log(err);
@@ -55,8 +58,10 @@ class ViewNote extends Component {
         e.preventDefault();
 
         const id = this.props.match.params.id;
+        const apiUrl = process.env.REACT_APP_API;
         axios
-        .delete(`${'http://localhost:8888/notes/'}${id}`)
+        // .delete(`${'http://localhost:8888/notes/'}${id}`)
+        .delete(apiUrl+`/notes/${id}`)
         .then(response => {
             console.log(response);
             this.props.history.push('/');
@@ -66,14 +71,14 @@ class ViewNote extends Component {
     noteTitle = () => {
         return this.state.noteIsLoaded 
             ?    (<div className="displayed-note-for-reading-title">
-                    {this.state.notes[this.props.match.params.id-1].title}
+                    {this.state.note[0].title}
                 </div>)
             : <div></div>
     }
 
     noteContent = () => {
         return this.state.noteIsLoaded
-        ? (<div className="displayed-note-for-reading-content">{this.state.notes[this.props.match.params.id-1].content}</div>)
+        ? (<div className="displayed-note-for-reading-content">{this.state.note[0].content}</div>)
         : <div></div>
     }
 

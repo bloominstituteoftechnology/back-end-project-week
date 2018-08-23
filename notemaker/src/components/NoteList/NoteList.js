@@ -16,8 +16,12 @@ class NoteList extends Component {
     
     componentDidMount() {
         console.log("Hey, I ran!", this.state.notes);
+
+        const apiUrl = process.env.REACT_APP_API;
+        console.log(apiUrl+`/notes`);
         axios
-        .get('http://localhost:8888/notes')
+        // .get('http://localhost:8888/notes')
+        .get(apiUrl+`/notes`)
         .then(response => {
             console.log("GET", response);
             this.setState({notes: response.data.notes });
