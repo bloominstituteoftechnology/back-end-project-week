@@ -1,6 +1,4 @@
 const express = require('express');
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
 const db = require('../knexConfig');
 
 const router = express.Router();
@@ -11,6 +9,7 @@ class ServerError {
         this.message = message;
     }
 }
+
 router.get('/', async (req, res, next) => {
     try {
         const notes = await db('notes');
