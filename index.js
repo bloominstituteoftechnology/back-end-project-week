@@ -10,7 +10,7 @@ const server = express();
 
 server.use(express.json());
 server.use(helment());
-server.use(cors());
+server.use(cors({ origin: 'https://determined-williams-387a66.netlify.com' }));
 
 
 function generateToken(user) {
@@ -28,9 +28,7 @@ function generateToken(user) {
 
 //! middleware
 function protected(req, res, next) {
-  console.log("REQ.BODY", req.body)
   const token = req.headers.authorization;
-  console.log('IN PROTECTED', token)
   if (token) {
     jwt.verify(token, secret, (err, decodedToken) => {
       if (err) {
@@ -75,7 +73,6 @@ server.post('/api/register', (req, res) => {
 
 //! login
 server.post('/api/login', function(req, res) {
-  res.json({ message: 'login received'})
   const credentials = req.body;
   db('users')
     .where({ username: credentials.username })
