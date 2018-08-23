@@ -6,6 +6,24 @@ server.use(express.json())
 server.use(require('cors')())
 server.use(require('helmet')())
 
+const routeInfo = `
+  <style>
+    body {
+      font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+      font-size: 1rem;
+    }
+  </style>
+  <h1>GET /</h1>
+  <h1>GET /notes</h1>
+  <h1>GET /notes/:id</h1>
+  <h1>POST /notes</h1>
+  <h1>PUT /notes/:id</h1>
+  <h1>DELETE /notes/:id</h1>
+`
+
+server.get('/', (req, res) => {
+  res.status(200).send(routeInfo)
+})
 
 server.post('/notes', async (req, res, next) => {
 
