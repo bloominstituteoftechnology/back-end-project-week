@@ -4,7 +4,8 @@
   "main": "./routes/index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon"
+    "start": "node",
+    "dev": "nodemon"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
