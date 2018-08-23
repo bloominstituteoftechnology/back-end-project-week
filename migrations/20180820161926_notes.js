@@ -6,7 +6,6 @@ exports.up = function(knex, Promise) {
     tbl
         .string('title', 128)
         .notNullable()
-        .unique()
 
     tbl
         .text('noteBody')

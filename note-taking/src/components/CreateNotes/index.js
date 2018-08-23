@@ -7,16 +7,13 @@ class CreateNotes extends Component {
       noteBody: ""
     };
 
-
     handleNoteChange = e => {
       this.setState({ [e.target.name]: e.target.value});
     }
   
     handleSubmit = (e) => {
-      e.preventDefault();
-      const note = { title: this.state.title, noteBody: this.state.noteBody };
       Axios
-       .post("http://localhost:8000/api/createnotes", {note: note})
+       .post("http://localhost:8000/api/createnotes", {title: this.state.title, noteBody: this.state.noteBody})
        .then(response => {
          console.log("POST RESPONSE: ", response);
        })
