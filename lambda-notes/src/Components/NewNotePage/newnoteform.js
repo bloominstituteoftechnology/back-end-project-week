@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Sidebar from '../Sidebar/sidebar';
-import { addNote } from '../../actions';
+import { addNote, fetchNotes } from '../../actions';
 import { connect } from 'react-redux';
 import './newnoteform.css';
 import { Link } from 'react-router-dom';
@@ -19,6 +19,7 @@ class NewNoteForm extends Component {
     addHandler = () => {
         const {title, content} = this.state;
         this.props.addNote({ title, content});
+        this.props.fetchNotes();
         this.setState({title: '', content:''});
       }
 
@@ -58,4 +59,4 @@ const mapStateToProps = state => {
     };
 }
 
-export default connect(mapStateToProps, {addNote})(NewNoteForm);
+export default connect(mapStateToProps, {addNote, fetchNotes})(NewNoteForm);
