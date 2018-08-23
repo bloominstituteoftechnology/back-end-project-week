@@ -14,8 +14,7 @@ server.use(cors(corsOptions));
 server.get('/notes', async (req, res) => {
     try{
         const notes = await db.select().from('notes');
-        const secret = process.env.SECRET;
-        res.status(200).json({secret, notes});
+        res.status(200).json({notes});
     }
     catch (err){
         res.status(500).json({ error: 'Notes could not be retrieved'});
