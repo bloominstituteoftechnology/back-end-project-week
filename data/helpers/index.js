@@ -21,29 +21,56 @@ module.exports = {
     },
     getTags: function (id) {
         return db('tags as t')
-        .join('noteTags as nt', 't.id', 'nt.tagId')
-        .select('t.tag')
-        .where('nt.noteId', id);
+            .join('noteTags as nt', 't.id', 'nt.tagId')
+            .select('t.tag')
+            .where('nt.noteId', id);
     },
-    add: function (note) {
-        // if(note.tags.length > 0) {
-        //     note.tags.forEach(tag => this.addTags());
-        // }
-
-        // return db('notes as n').insert(note).then(([id]) => this.get(id));
+    getNoteTags: function (id) {
+        return db('noteTags as nt')
+            .join('tags as t', 'nt.tagId', 't.id')
+            .select()
+            .where('nt.noteId', id);
     },
-    addTags : function (tag) {
+    add: function (record) {
+        let note = {
+            title: record.title,
+            content: record.content
+        };
 
+        return db('notes as n').insert(note).then(([id]) => {
+            if(record.tags.length > 0) {
+                record.tags.forEach(tag => {
+                    this.addTags(id, tag);
+                });
+            }
+            return this.get(id);
+        });
+    },
+    addTags: function (noteId, tag) {
+        return db('tags as t').insert({tag}).then(([id]) => this.addNoteTags(noteId, id));
+    },
+    addNoteTags: function (noteId, tagId) {
+        return db('noteTags as nt').insert({noteId, tagId}).then(([id]) => this.getNoteTags(id));
     },
     edit: function (id, note) {
         // if(note.tags.length > 0) {
         //     note.tags = note.tags.join(', ');
         // }
+        let noteChanges = {
+            title: note.title,
+            content: note.content
+        };
 
         return db('notes as n')
             .where('n.id', id)
-            .update(note)
+            .update(noteChanges)
             .then(count => (count > 0 ? this.get(id) : null));
+    },
+    editTags: function () {
+
+    },
+    editNoteTags: function () {
+
     },
     drop: function (id) {
         return db('notes as n').where('n.id', id).del();
