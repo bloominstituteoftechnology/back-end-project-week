@@ -24,10 +24,7 @@ router.get('/', async (req, res) => {
     try {
         const newNote = { title: req.body.title, content: req.body.content };
         const newTag = { tags: req.body.tags };
-        const note = await db.add(newNote);
-
-        const currentTags = await db.getTags();
-
+        const note = await db.add(newNote, newTag);
 
         res.status(200).json(note);
     } catch (err) {

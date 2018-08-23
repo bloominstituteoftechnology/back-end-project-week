@@ -39,10 +39,18 @@ module.exports = {
 
         return db('noteTags');
     },
-    add: function (note) {
-        return db('notes').insert(note).then(([id]) => this.get(id));
+    add: function (note, tags) {
+        return db('notes').insert(note).then(([id]) => {
+            if(tags.tags.length > 0) {
+                tags.tags.forEach(tag => this.addTags(id, tag));
+            }
+                
+            return this.get(id)
+        });
     },
     addTags: function (noteId, tag) {
+        // return db('tags').where({tag}).then(([id]) => console.log(id));
+        
         return db('tags as t').insert({tag}).then(([id]) => this.addNoteTags(noteId, id));
     },
     addNoteTags: function (noteId, tagId) {
