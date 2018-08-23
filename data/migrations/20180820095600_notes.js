@@ -8,7 +8,6 @@ exports.up = function (knex, Promise) {
         notes
         .integer('user_id')
         .unsigned()
-        .notNullable()
         .references('id')
         .inTable('users');
     })
