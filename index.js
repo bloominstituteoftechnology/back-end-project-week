@@ -10,7 +10,7 @@ const server = express();
 
 server.use(express.json());
 server.use(helment());
-server.use(cors({ origin: 'https://lambdanotess.herokuapp.com/', credentials: true }));
+server.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 
 function generateToken(user) {
   const payload = {
