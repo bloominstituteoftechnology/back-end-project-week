@@ -9,6 +9,7 @@ const router = express.Router();
  Make a put router to update note/:id
  Make a delete router for note/:ids
 */ 
+
 router.get('/', (req, res) => {
     db('notes').then(notes => {
         res.status(200).json(notes)
