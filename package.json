@@ -17,9 +17,7 @@
     "helmet": "^3.13.0",
     "jsonwebtoken": "^8.3.0",
     "knex": "^0.15.2",
-    "prop-types": "^15.6.2"
-  },
-  "devDependencies": {
+    "prop-types": "^15.6.2",
     "nodemon": "^1.18.3"
   }
 }
