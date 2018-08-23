@@ -5,7 +5,8 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex('sqlite_sequence').insert([
-        { name: 'notes', seq: 0}
+        { name: 'notes', seq: 0 },
+        { name: 'users', seq: 0 }
       ]);
     });
 };
