@@ -2,7 +2,7 @@ require('dotenv').config()
 const server = require('./server')
 
 //* Sanity Check
-server.get('/', (req, res) => res.sendFile('api.html'))
+server.get('/', (req, res) => res.sendfile('api.html'))
 
 const PORT = process.env.PORT || 5001
 
