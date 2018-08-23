@@ -44,7 +44,7 @@ class NoteView extends Component {
         let notes = this.props.notes.slice();
         id = this.props.match.params.noteID;
         console.log('props don\'t match', notes, id);
-        notes = notes.filter(item => item.id === Number(id));
+        notes = notes.filter(item => item.id === id);
         if (notes[0]) {
           this.setState({ note: {
             id: notes[0].id,

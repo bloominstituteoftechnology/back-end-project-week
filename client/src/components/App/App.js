@@ -8,7 +8,7 @@ import Nav from '../Nav';
 import axios from 'axios';
 import './App.css';
 
-const API_URL = 'http://localhost:8000/notes';
+const API_URL = 'https://us-central1-notes-tysonism-com.cloudfunctions.net/app/notes';
 
 class App extends Component {
   constructor(props) {
@@ -61,8 +61,11 @@ class App extends Component {
   searchNotes = term => {
     let newData = this.state.notes.slice();
     if (term.trim() !== '') {
+      term = term.toUpperCase();
       newData = newData.filter((element) => {
-        return element.title.includes(term) || element.content.includes(term);
+        let title = element.title.toUpperCase();
+        let content = element.content.toUpperCase();
+        return title.includes(term) || content.includes(term);
       } );
     }
     this.setState({searchNotes: newData, searchTerm: term});
@@ -72,7 +75,18 @@ class App extends Component {
     axios
       .get(API_URL)
       .then(res => {
-        this.setState(() => ({ notes: res.data }));
+        let notes = res.data;
+        let newState = [];
+        for (let note in notes) {
+          newState.push({
+            id: note,
+            title: notes[note].title,
+            content: notes[note].content
+          });
+        }
+        this.setState({
+          notes: newState
+        });
         this.searchNotes('');
       })
       .catch(e => {

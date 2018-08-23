@@ -20,7 +20,7 @@ class EditView extends Component {
       if (this.props.match) {
         let notes = this.props.notes.slice();
         id = this.props.match.params.noteID;
-        notes = notes.filter(item => item.id === Number(id));
+        notes = notes.filter(item => item.id === id);
         console.log(notes[0]);
         if (notes[0]) {
           this.setState({ note: {
