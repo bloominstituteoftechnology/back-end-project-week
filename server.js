@@ -9,11 +9,11 @@ const loginRoutes = require('./router/loginRouter');
 // middleware
 const errors = require('./middleware/errors');
 // turn on cors
-const cors = require('cors');
-// server.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+// const cors = require('cors');
+server.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 server.use(
   cors({
-    origin: '*',
+    origin: 'https://killernotes-wtsteyykyx.now.sh/',
     credentials: true,
   }),
 );
