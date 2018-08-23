@@ -21,7 +21,7 @@ server.use(function (req, res) {
     res.status(404).json({ error: "Page Not Found" });
 });
 
-const port = process.env.PORT || 8000
+const port = process.env.PORT || 8000;
 server.listen(port, function () {
     console.log(`\n=== Web API Listening on ${port} ===\n`);
 });

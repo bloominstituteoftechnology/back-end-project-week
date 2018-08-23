@@ -39,19 +39,8 @@ module.exports = {
 
         return db('noteTags');
     },
-    add: function (record) {
-        let note = { title: record.title, content: record.content };
-
-        return db('notes as n')
-            .insert(note)
-            .then(([id]) => {
-                if(record.tags.length > 0) {
-                    record.tags.forEach(tag => {
-                        this.addTags(id, tag);
-                    });
-                }
-            return this.get(id);
-        });
+    add: function (note) {
+        return db('notes').insert(note).then(([id]) => this.get(id));
     },
     addTags: function (noteId, tag) {
         return db('tags as t').insert({tag}).then(([id]) => this.addNoteTags(noteId, id));

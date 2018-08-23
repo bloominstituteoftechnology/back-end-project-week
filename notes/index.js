@@ -22,8 +22,12 @@ router.get('/', async (req, res) => {
     }
 }).post('/', async (req, res) => {
     try {
-        const newNote = { ...req.body };
+        const newNote = { title: req.body.title, content: req.body.content };
+        const newTag = { tags: req.body.tags };
         const note = await db.add(newNote);
+
+        const currentTags = await db.getTags();
+
 
         res.status(200).json(note);
     } catch (err) {
