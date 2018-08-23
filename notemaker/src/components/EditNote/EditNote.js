@@ -47,13 +47,13 @@ class EditNote extends Component {
     noteTitle = () => {
         return this.state.noteIsLoaded 
             ? this.state.note.title
-            : null
+            : ''
     }
 
     noteContent = () => {
         return this.state.noteIsLoaded
         ? this.state.note.content
-        : null 
+        : ''
     }
 
     changeHandler = (e) => {
@@ -96,13 +96,13 @@ class EditNote extends Component {
                 onChange={this.changeHandler}
                 ></input>
                 <br />
-                <input 
+                <textarea 
                 className="note-content" 
                 placeholder="Note Content" 
                 name="content"
-                defaultValue={this.noteContent()}
+                value={this.noteContent()}
                 onChange={this.changeHandler}
-                ></input>
+                ></textarea>
 
                 {/* <Link to="/"> */}
                     <div className="note-save-button"
