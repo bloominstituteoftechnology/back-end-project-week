@@ -17,5 +17,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schma.dropTableIfExists('tags')
+  return knex.schema.dropTableIfExists('tags')
 };

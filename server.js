@@ -134,7 +134,24 @@ server.get('/users', async (req, res) => {
   } catch (err) {
     res.status(500).send(`${err}`)
   }
+})
 
+server.get('/users/:id', async (req, res) => {
+  if (req.params.id) {
+    try {
+      res.status(200).json(await db('users').where('id', req.params.id));
+    } catch (err) {
+      res.status(404).send(`${err} user not found`)
+    }
+  }
+})
+
+server.get('/users/:id/notes', async (req, res) => {
+  try {
+    res.status(200).json(await db('notes').where('user_id', req.params.id));
+  } catch (err) {
+    res.status(500).send(`${err} Server error`);
+  }
 })
 
 server.post('/login', async (req, res) => {
