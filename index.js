@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
+const secret = process.env.SECRET_KEY;
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const helment = require('helmet');
@@ -9,8 +10,7 @@ const server = express();
 
 server.use(express.json());
 server.use(helment());
-server.use(cors({ origin: true }));
-
+server.use(cors({ origin: 'https://lambdanotess.herokuapp.com/', credentials: true }));
 
 function generateToken(user) {
   const payload = {
@@ -161,7 +161,7 @@ server.put('/api/notes/:id', protected, (req, res) => {
     .catch((err) => res.status(500).json(err));
 });
 
-const port = process.env.PORT || 8000;
+const port = 8000;
 server.listen(port, () => {
   console.log(`API running on port ${port}`);
 });
