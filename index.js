@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
-const secret = process.env.SECRET_KEY;
+//const secret = process.env.SECRET_KEY;
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const helment = require('helmet');
@@ -23,11 +23,12 @@ function generateToken(user) {
     jwtid: '8728391',
   };
 
-  return jwt.sign(payload, secret, options);
+  return jwt.sign(payload, process.env.SECRET_KEY, options);
 }
 
 //! middleware
 function protected(req, res, next) {
+  console.log("REQ.BODY", req.body)
   const token = req.headers.authorization;
   console.log('IN PROTECTED', token)
   if (token) {
@@ -74,6 +75,7 @@ server.post('/api/register', (req, res) => {
 
 //! login
 server.post('/api/login', function(req, res) {
+  res.json({ message: 'login received'})
   const credentials = req.body;
   db('users')
     .where({ username: credentials.username })
