@@ -36,16 +36,18 @@ const addTagsToDB = (noteId, tags) => new Promise((resolve) => {
               .insert({ name })
               .returning('id');
           }));
-        return Promise.all(tagPromises)
-        // create note-tag mappings in notesTagsJoins database
-          .then((tagIds) => {
-            const mappings = tagIds.map(([tagId]) => ({ noteId, tagId }));
-            return db('notesTagsJoin')
-              .transacting(trx)
-              .insert(mappings);
-          })
-          .then(res => trx.commit())
-          .catch(err => trx.rollback());
+        return (
+          Promise.all(tagPromises)
+          // create note-tag mappings in notesTagsJoins database
+            .then((tagIds) => {
+              const mappings = tagIds.map(([tagId]) => ({ noteId, tagId }));
+              return db('notesTagsJoin')
+                .transacting(trx)
+                .insert(mappings);
+            })
+            .then(res => trx.commit())
+            .catch(err => trx.rollback())
+        );
       })
       .then(res => resolve(noteId))
       .catch((res) => {
@@ -115,7 +117,7 @@ server.get(`${process.env.PATH_GET_NOTE}/:id`, (req, res, next) => {
         }
         throw new HttpError(404, 'Database did not return a resource for this id.');
       })
-      .catch(() => {
+      .catch((err) => {
         next(new HttpError(404, 'Database could not return a resource with the id provided'));
       });
   }
@@ -166,12 +168,14 @@ server.delete(`${process.env.PATH_DELETE_NOTE}/:id`, (req, res, next) => {
         throw new HttpError(404, 'Requested resource could not be found in database for deletion.');
       }
       // deletes associations with note in notesTagsJoin table
-      return db('notesTagsJoin')
-        .where('noteId', '=', id)
-        .del()
-        // deletes any oprhan tags in tags table after associations deleted from notesTagsJoin table
-        .then(cleanTags)
-        .catch(err => console.log('Note deletion completed, but an error occurred when deleting notes'));
+      return (
+        db('notesTagsJoin')
+          .where('noteId', '=', id)
+          .del()
+          // deletes any oprhan tags in tags table after associations deleted from notesTagsJoin table
+          .then(cleanTags)
+          .catch(err => console.log('Note deletion completed, but an error occurred when deleting notes'))
+      );
     })
     .then(response => res.status(204).end())
     .catch((err) => {
@@ -190,7 +194,7 @@ server.put(`${process.env.PATH_EDIT_NOTE}/:id`, (req, res, next) => {
 
   const noteId = Number(req.params.id);
   const { tags, ...note } = req.body;
-  
+
   // Creates promise to update fields on notes where necessary
   let notePromise;
   if (note) {
@@ -219,7 +223,7 @@ server.put(`${process.env.PATH_EDIT_NOTE}/:id`, (req, res, next) => {
     .then(res => addTagsToDB(noteId, tags))
     .then(cleanTags)
     .catch(err => console.log(err));
-  
+
   // Waits for both promises to complete, then handles response to client
   return Promise.all([notePromise, tagPromise])
     .then(([editedNum]) => {
