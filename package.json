@@ -2,10 +2,7 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "description": "Backend for a note taking app called \"Lambda Notes\".",
-  "main": "server.js",
-  "scripts": {
-    "start": "nodemon server.js"
-  },
+  "main": "./functions/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tysonism/back-end-project-week.git"
@@ -15,12 +12,7 @@
   "dependencies": {
     "cors": "^2.8.4",
     "express": "^4.16.3",
-    "helmet": "^3.13.0",
-    "knex": "^0.14.4",
-    "sqlite3": "^4.0.0"
-  },
-  "devDependencies": {
-    "nodemon": "^1.18.3"
+    "helmet": "^3.13.0"
   },
   "bugs": {
     "url": "https://github.com/tysonism/back-end-project-week/issues"
