@@ -10,7 +10,6 @@ const server = express();
 server.use(express.json());
 server.use(cors());
 
-///endpoints go here
 server.get('/', (req, res) => {res.status(200).json({ api: 'API is running'})})
 server.get('/notes', (req, res) => {
   db('notes')
