@@ -3,7 +3,6 @@ const router = express.Router();
 const db = require('../data/helpers/allDb');
 
 const notes = 'notes';
-const tags = 'tags';
 
 router.get('/', (req, res, next) => {
   let allNotes = [];
@@ -11,13 +10,13 @@ router.get('/', (req, res, next) => {
     .get(notes)
     .then(response => {
       let fetched = response;
-      let singleNote = {};
       fetched.forEach(note => {
-        singleNote = { ...note, tags: [] }
+        let singleNote = { ...note, tags: [] }
         db
-          .getTagsByNote(tags, note.id)
+          .getTagsByNote('tags', note.id)
           .then(response => {
-            return singleNote.tags = response;
+            singleNote.tags = response;
+            console.log(singleNote);
           })
           .catch(err => console.log(err))
           allNotes = [ ...allNotes, singleNote ];
@@ -36,7 +35,7 @@ router.get('/:id', (req, res, next) => {
     .then(response => {
       const note = { ...response };
       db
-        .getTagsByNote(tags, id)
+        .getTagsByNote('tags', id)
         .then(response => {
           res
             .status(200)

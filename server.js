@@ -1,11 +1,15 @@
+require('dotenv').config();
 const express = require('express');
 const apiRoutes = require('./api/apiRoutes');
 const cors = require('cors');
+const helmet = require('helmet');
 
 const server = express();
 
+server.use(helmet());
 server.use(cors());
 server.use(express.json());
 server.use('/api', apiRoutes);
 
-server.listen(8000, () => console.log(`Api running on Port 8000`));
+const port = process.env.PORT || 8000;
+server.listen(port, () => console.log(`Api running on Port ${port}`));
