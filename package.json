@@ -1,5 +1,5 @@
 {
-  "name": "back-end-project-week",
+  "name": "allenhai-lambdanotes-back",
   "description": "Backend for Lambda Notes app",
   "version": "0.0.0",
   "repository": {
@@ -8,11 +8,13 @@
   "main": "server.js",
   "scripts": {
     "test": "jest --watch --verbose",
-    "start": "nodemon server.js"
+    "start": "knex migrate:latest && node server.js",
+    "dev": "nodemon server.js"
   },
   "dependencies": {
     "cors": "^2.8.4",
     "express": "^4.16.3",
+    "helmet": "^3.13.0",
     "knex": "^0.15.2",
     "sqlite3": "^4.0.2"
   },

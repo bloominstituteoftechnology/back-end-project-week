@@ -3,6 +3,9 @@ const db = require('knex')(require('./knexfile').development)
 
 const server = express()
 server.use(express.json())
+server.use(require('cors')())
+server.use(require('helmet')())
+
 
 server.post('/notes', async (req, res, next) => {
 
