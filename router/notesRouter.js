@@ -35,7 +35,7 @@ router.get('/:id', jwtRoute, async (req, res) => {
 });
 
 // post a note
-router.post('/:id', noteConstraints, async (req, res) => {
+router.post('/:id', jwtRoute, noteConstraints, async (req, res) => {
   const U_ID = req.params.id;
   // middleware sets the req
   const { TITLE, CONTENT } = req;

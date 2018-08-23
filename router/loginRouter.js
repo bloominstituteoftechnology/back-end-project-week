@@ -14,7 +14,6 @@ router.post('/', loginConstraints, async (req, res) => {
     if (USER) {
       const VALID = await bcrypt.compare(CLEARPASSWORD, USER.password);
       if (VALID) {
-        console.log('USER in VALID', USER);
         // set JWT: generate the token
         const token = {};
         token.jwt = generateToken(USER);
@@ -22,7 +21,6 @@ router.post('/', loginConstraints, async (req, res) => {
         token.username = USERNAME;
         token.id = USER.id;
         // attach token to the response
-        console.log('TOKEN before sending', token);
         res.status(200).send(token);
       } else {
         res.status(401).json({ error: `Unauthorized` });

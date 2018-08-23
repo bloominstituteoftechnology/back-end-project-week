@@ -10,7 +10,7 @@ const loginRoutes = require('./router/loginRouter');
 const errors = require('./middleware/errors');
 // turn on cors
 const cors = require('cors');
-server.use(cors());
+server.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 
 server.use(express.json());
 const PORT = process.env.PORT || 3007;

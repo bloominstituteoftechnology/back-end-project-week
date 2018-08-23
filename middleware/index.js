@@ -64,6 +64,7 @@ function loginConstraints(req, res, next) {
 }
 
 function noteConstraints(req, res, next) {
+  console.log('REQ.BODY', req.body);
   const TITLE = req.body.title;
   const CONTENT = req.body.content;
 
