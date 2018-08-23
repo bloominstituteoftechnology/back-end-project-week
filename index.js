@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
-//const secret = process.env.SECRET_KEY;
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const helment = require('helmet');
@@ -10,7 +9,7 @@ const server = express();
 
 server.use(express.json());
 server.use(helment());
-server.use(cors({ origin: 'https://determined-williams-387a66.netlify.com' }));
+server.use(cors({ origin: true }));
 
 
 function generateToken(user) {
