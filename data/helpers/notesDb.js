@@ -1,4 +1,4 @@
-const db = require('../db');
+/* const db = require('../db');
 
 module.exports = {
   getNotes: () => {
@@ -24,3 +24,4 @@ module.exports = {
     return db('notes').where({ id }).del();
   }
 } 
+*/
