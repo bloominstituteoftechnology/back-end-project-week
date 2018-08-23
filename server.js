@@ -15,8 +15,11 @@ server.use(express.json());
 // helper function: add tags
 const addTagsToDB = (noteId, tags) => new Promise((resolve) => {
   if (tags && tags.length > 0) {
+    // creates transaction to handle creation of new tags in tag database if needed, and to create note tag mappings
+    // on notesTagsJoin table
     return db
       .transaction((trx) => {
+        // create new tags if they don't exist in tags database
         const tagPromises = tags.map(name => db('tags')
           .transacting(trx)
           .select('id')
@@ -34,6 +37,7 @@ const addTagsToDB = (noteId, tags) => new Promise((resolve) => {
               .returning('id');
           }));
         return Promise.all(tagPromises)
+        // create note-tag mappings in notesTagsJoins database
           .then((tagIds) => {
             const mappings = tagIds.map(([tagId]) => ({ noteId, tagId }));
             return db('notesTagsJoin')
@@ -52,7 +56,7 @@ const addTagsToDB = (noteId, tags) => new Promise((resolve) => {
   return resolve(noteId);
 });
 
-// helper function: clean orphan tags
+// helper function: cleans orphan tags in tags table that no longer have any relations to a note
 const cleanTags = res => db('notesTagsJoin')
   .select('tagId')
   .distinct('tagId')
@@ -68,9 +72,11 @@ const cleanTags = res => db('notesTagsJoin')
   });
 
 server.get(process.env.PATH_GET_NOTES, (req, res, next) => {
+  // get all notes from notes table
   db('notes')
     .select()
     .then((notes) => {
+      // get all tags for each note and add to note object
       const promiseNotes = notes.map(
         note => new Promise((resolve) => {
           db('notesTagsJoin')
@@ -83,7 +89,7 @@ server.get(process.env.PATH_GET_NOTES, (req, res, next) => {
       );
       return Promise.all(promiseNotes);
     })
-    .then(tagArr => res.status(200).json(tagArr))
+    .then(preppedNotes => res.status(200).json(preppedNotes))
     .catch(() => next(new HttpError(404, 'Database did not supply requested resources.')));
 });
 
@@ -91,10 +97,12 @@ server.get(`${process.env.PATH_GET_NOTE}/:id`, (req, res, next) => {
   const id = Number(req.params.id);
   if (id) {
     return Promise.all([
+      // get note from notes table
       db('notes')
         .select()
         .where('id', '=', id)
         .first(),
+      // get associated tags from tag table
       db('notesTagsJoin')
         .select(['name', 'notesTagsJoin.tagId as id'])
         .innerJoin('tags', 'notesTagsJoin.tagId', 'tags.id')
@@ -102,6 +110,7 @@ server.get(`${process.env.PATH_GET_NOTE}/:id`, (req, res, next) => {
     ])
       .then(([note, tags]) => {
         if (note) {
+          // return note with tags array included
           return res.status(200).json({ ...note, tags });
         }
         throw new HttpError(404, 'Database did not return a resource for this id.');
@@ -117,9 +126,11 @@ server.post(process.env.PATH_POST_NOTE, (req, res, next) => {
   const {
     body: { tags, ...note },
   } = req;
+  // Checks that a non-empty title is included, returns error if not
   if (!note.title || note.title === '') {
     return next(new HttpError(400, 'Must provide a non-empty title for this request.'));
   }
+  // inserts new note in note table
   return db('notes')
     .insert(note)
     .returning('id')
@@ -127,6 +138,7 @@ server.post(process.env.PATH_POST_NOTE, (req, res, next) => {
       if (!noteId) {
         throw new HttpError(500, 'Database did not create a new instance');
       }
+      // handles adding of tags to tags and notesTagsJoin table
       return addTagsToDB(noteId, tags);
     })
     .then(id => res.status(201).json({ id }))
@@ -145,6 +157,7 @@ server.post(process.env.PATH_POST_NOTE, (req, res, next) => {
 
 server.delete(`${process.env.PATH_DELETE_NOTE}/:id`, (req, res, next) => {
   const id = Number(req.params.id);
+  // deletes note in notes table
   db('notes')
     .where('id', '=', id)
     .del()
@@ -152,9 +165,11 @@ server.delete(`${process.env.PATH_DELETE_NOTE}/:id`, (req, res, next) => {
       if (response === 0) {
         throw new HttpError(404, 'Requested resource could not be found in database for deletion.');
       }
+      // deletes associations with note in notesTagsJoin table
       return db('notesTagsJoin')
         .where('noteId', '=', id)
         .del()
+        // deletes any oprhan tags in tags table after associations deleted from notesTagsJoin table
         .then(cleanTags)
         .catch(err => console.log('Note deletion completed, but an error occurred when deleting notes'));
     })
@@ -168,11 +183,15 @@ server.delete(`${process.env.PATH_DELETE_NOTE}/:id`, (req, res, next) => {
 });
 
 server.put(`${process.env.PATH_EDIT_NOTE}/:id`, (req, res, next) => {
+  // checks for an acceptable title change
   if (req.body.title === '') {
     throw new HttpError(400, 'Cannot edit a note to have an empty string as title.');
   }
+
   const noteId = Number(req.params.id);
   const { tags, ...note } = req.body;
+  
+  // Creates promise to update fields on notes where necessary
   let notePromise;
   if (note) {
     notePromise = db('notes')
@@ -185,6 +204,8 @@ server.put(`${process.env.PATH_EDIT_NOTE}/:id`, (req, res, next) => {
   } else {
     notePromise = Promise.resolve(0);
   }
+
+  // Creates promise to handles creation and deletion of tags as indicated
   const tagPromise = db('notesTagsJoin')
     .select('tags.id')
     .where('notesTagsJoin.noteId', '=', noteId)
@@ -198,6 +219,8 @@ server.put(`${process.env.PATH_EDIT_NOTE}/:id`, (req, res, next) => {
     .then(res => addTagsToDB(noteId, tags))
     .then(cleanTags)
     .catch(err => console.log(err));
+  
+  // Waits for both promises to complete, then handles response to client
   return Promise.all([notePromise, tagPromise])
     .then(([editedNum]) => {
       if (editedNum > 0) {
@@ -218,6 +241,7 @@ server.get(process.env.PATH_GET_TAGS, (req, res, next) => db('tags')
   .then(tags => res.status(200).json(tags))
   .catch(() => next(new HttpError(500, 'Database error occured when fetching tags'))));
 
+// Error handling middleware
 server.use((err, req, res, next) => {
   if (err instanceof HttpError) {
     const { code, message } = err;
