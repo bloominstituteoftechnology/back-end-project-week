@@ -9,7 +9,7 @@ const loginRoutes = require('./router/loginRouter');
 // middleware
 const errors = require('./middleware/errors');
 // turn on cors
-// const cors = require('cors');
+const cors = require('cors');
 server.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 // server.use(
 //   cors({
