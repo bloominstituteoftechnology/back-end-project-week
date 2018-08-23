@@ -2,9 +2,9 @@ const jwt = require('jsonwebtoken');
 const config = require('../data/config');
 
 function noteCheck(req, res, next) {
-    const { sort_id, title, content, tagId, tags, tag } = req.body;
+    const { title, content, user_id, tagId, tags, tag } = req.body;
     if (!title || !content) return next({ code: 400, errorMessage: "Please provide title and content!" });
-    req.note = { sort_id, title, content };
+    req.note = { title, content, user_id };
     req.tagId = tagId;
     req.tags = tags;
     req.tag = tag;
@@ -23,11 +23,19 @@ function loginCheck(req, res, next) {
     if (token) {
         jwt.verify(token, config.secret, (err, decodedToken) => {
             if (err) return res.status(401).json({ error: 'Token invalid' });
+            req.jwtToken = decodedToken;
             next();
         })
     } else {
         return res.status(401).json({ error: 'No Token' });
     }
+}
+
+function orderCheck(req, res, next) {
+    const { note_order } = req.body;
+    if (!note_order) return next({ code: 400, errorMessage: "Please provide the order!" });
+    req.order = { note_order: JSON.stringify(note_order) };
+    next();
 }
 
 function generateToken(user) {
@@ -41,5 +49,6 @@ module.exports = {
     noteCheck,
     loginPostCheck,
     loginCheck,
+    orderCheck,
     generateToken
 }

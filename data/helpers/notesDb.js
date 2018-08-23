@@ -1,23 +1,22 @@
 const db = require('../db');
 
 module.exports = {
-    get: id => {
-        let query = db('notes');
-
+    get: (userId, id) => {
         if (id) {
-            const promises = [query.where('id', id).first(), db('tags').where('note_id', id)];
+            const promises = [db('notes').where('user_id', userId).where('id', id).first(), db('tags').where('note_id', id)];
             return Promise.all(promises).then(results => {
                 if (results[1].length > 0) {
                     let [note, tags] = results;
                     note.tags = tags.map(t => ({ id: t.id, tag: t.tag }));
                     return note;
                 }
-                results[0].tags = [];
+                if (results[0]) {
+                    results[0].tags = [];
+                }
                 return results[0];
             });
         }
-
-        const promises = [query.orderBy('sort_id', 'asc'), db('tags')];
+        const promises = [db('notes').where('user_id', userId), db('tags')];
         return Promise.all(promises).then(results => {
             if (results[1].length > 0) {
                 let [notes, tags] = results;
@@ -31,7 +30,9 @@ module.exports = {
                 });
                 return notes;
             }
-            results[0].tags = [];
+            if (results[0]) {
+                results[0].tags = [];
+            }
             return results[0];
         });
     },

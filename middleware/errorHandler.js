@@ -10,6 +10,9 @@ function errorHandler(error, req, res, next) {
         case 404:
             return res.status(404).json({ error: error.message });
 
+        case 409:
+            return res.status(409).json({ error: error.errorMessage });
+
         default:
             return res.status(500).json({ error: error.error });
     }
