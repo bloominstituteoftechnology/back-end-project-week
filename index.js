@@ -10,11 +10,11 @@ server.use(express.json());
 
 server.use(cors());
 
-server.get('/', (req, res) => {
-  req.send('hello world');
-});
+// server.get('/', (req, res) => {
+//   req.send('hello world');
+// });
 
-server.get('/notes', (req, res) => {
+server.get('/', (req, res) => {
   db('notes')
     .then((notes) => {
       res.status(200).json(notes);
@@ -24,7 +24,7 @@ server.get('/notes', (req, res) => {
     });
 });
 
-server.get('/notes/:id', (req, res) => {
+server.get('/:id', (req, res) => {
   const { id } = req.params;
   db('notes')
     .where({ id })
@@ -36,7 +36,7 @@ server.get('/notes/:id', (req, res) => {
     });
 });
 
-server.post('/notes', (req, res) => {
+server.post('/', (req, res) => {
   const note = req.body;
   if (!note.title || !note.textBody)
     res.status(400).json({ errorMessage: 'Provide a title and text please' });
@@ -51,7 +51,7 @@ server.post('/notes', (req, res) => {
     });
 });
 
-server.put('/notes/:id', (req, res) => {
+server.put('/:id', (req, res) => {
   const { id } = req.params;
   const note = req.body;
   console.log(req.body);
@@ -66,7 +66,7 @@ server.put('/notes/:id', (req, res) => {
     .catch((err) => res.status(500).json(err));
 });
 
-server.delete('/notes/:id', (req, res) => {
+server.delete('/:id', (req, res) => {
   const { id } = req.params;
   db('notes')
     .where({ id })
