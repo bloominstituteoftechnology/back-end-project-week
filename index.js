@@ -14,7 +14,7 @@ server.use(helmet());
 server.use('/notes', noteRouter);
 
 server.get('/', (req, res) => {
-    res.status(200).send(`\n=== Web API Listening on http://localhost:${port} ===\n`);
+    res.status(200).send(`\n=== Web API Listening on ${port} ===\n`);
 });
 
 server.use(function (req, res) {
@@ -23,7 +23,7 @@ server.use(function (req, res) {
 
 const port = process.env.PORT || 8000
 server.listen(port, function () {
-    console.log(`\n=== Web API Listening on http://localhost:${port} ===\n`);
+    console.log(`\n=== Web API Listening on ${port} ===\n`);
 });
 
 module.exports = server;
