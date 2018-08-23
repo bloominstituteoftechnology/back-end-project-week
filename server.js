@@ -128,7 +128,7 @@ server.post('/register', async (req, res) => {
   }
 });
 
-server.get('/register', async (req, res) => {
+server.get('/users', async (req, res) => {
   try {
     res.status(200).json(await db('users'));
   } catch (err) {
