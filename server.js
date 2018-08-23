@@ -12,6 +12,48 @@ server.use(helmet());
 server.use(morgan('dev'));
 server.use(express.json());
 
+// helper function: add tags
+const addTagsToDB = (noteId, tags) => new Promise((resolve, reject) => {
+  if (tags && tags.length > 0) {
+    const tagPromises = tags.map(name => db('tags')
+      .select('id')
+      .where('name', '=', name)
+      .first()
+      .then((existingId) => {
+        // handle id for existing tags
+        if (existingId) {
+          return [existingId.id];
+        }
+        // handle tags that need to be created
+        return db('tags')
+          .insert({ name })
+          .returning('id');
+      }));
+    return Promise.all(tagPromises)
+      .then((tagIds) => {
+        const mappings = tagIds.map(([tagId]) => ({ noteId, tagId }));
+        return db('notesTagsJoin').insert(mappings);
+      })
+      .then(res => resolve(noteId))
+      .catch((err) => {
+        console.log(`warning: note was created but an error occurred in tag creation: ${err}`);
+        return noteId;
+      });
+  }
+  return resolve(noteId);
+});
+
+// helper function: clean orphan tags
+const cleanTags = res => db('notesTagsJoin')
+  .select('tagId')
+  .distinct('tagId')
+  .then((tags) => {
+    const tagIds = tags.map(tag => tag.tagId);
+    return db('tags')
+      .whereNotIn('id', tagIds)
+      .del();
+  });
+
 server.get(process.env.PATH_GET_NOTES, (req, res, next) => {
   db('notes')
     .select()
@@ -72,34 +114,7 @@ server.post(process.env.PATH_POST_NOTE, (req, res, next) => {
       if (!noteId) {
         throw new HttpError(500, 'Database did not create a new instance');
       }
-      return new Promise((resolve, reject) => { 
-        if (tags && tags.length > 0) {
-          const tagPromises = tags.map(name => db('tags')
-            .select('id')
-            .where('name', '=', name)
-            .first()
-            .then((existingId) => {
-              if (existingId) {
-                return [existingId.id];
-              } 
-              return db('tags').insert({ name }).returning('id')
-            }));
-          return Promise.all(tagPromises)
-            .then(tagIds => {
-              const mappings = tagIds.map(([tagId]) => ({ noteId, tagId }));
-              return  db('notesTagsJoin').insert(mappings);
-            })
-            .then((res) => {
-              return resolve(noteId);
-            })
-            .catch((err) => {
-              console.log(`warning: note was created but an error occurred in tag creation: ${err}`);
-              return noteId;
-            });
-        } else {
-          return resolve(noteId);
-        }
-      });
+      return addTagsToDB(noteId, tags);
     })
     .then(id => res.status(201).json({ id }))
     .catch((err) => {
@@ -138,11 +153,35 @@ server.put(`${process.env.PATH_EDIT_NOTE}/:id`, (req, res, next) => {
   if (req.body.title === '') {
     throw new HttpError(400, 'Cannot edit a note to have an empty string as title.');
   }
-  const id = Number(req.params.id);
-  return db('notes')
-    .where('id', '=', id)
-    .update(req.body)
-    .then((editedNum) => {
+  const noteId = Number(req.params.id);
+  const { tags, ...note } = req.body;
+  let notePromise;
+  if (note) {
+    notePromise = db('notes')
+      .where('id', '=', noteId)
+      .update(note)
+      .catch((err) => {
+        console.log(err);
+        return 0;
+      });
+  } else {
+    notePromise = Promise.resolve(0);
+  }
+  const tagPromise = db('notesTagsJoin')
+    .select('tags.id')
+    .where('notesTagsJoin.noteId', '=', noteId)
+    .join('tags', 'tags.id', 'notesTagsJoin.tagId')
+    .then((tags) => {
+      const tagIds = tags.map(tag => tag.id);
+      return db('notesTagsJoin')
+        .whereIn('tagId', tagIds)
+        .del();
+    })
+    .then(res => addTagsToDB(noteId, tags))
+    .then(cleanTags)
+    .catch(err => console.log(err));
+  return Promise.all([notePromise, tagPromise])
+    .then(([editedNum]) => {
       if (editedNum > 0) {
         return res.status(204).end();
       }
