@@ -1,3 +1,5 @@
+TRELLO URL: https://trello.com/b/p1Gj8brI/lambda-notesbackend-brandon-aguirre
+
 # Back End Project Week
 
 This week you will build a backend for a note taking app called "Lambda Notes".
