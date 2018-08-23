@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Axios } from 'axios';
+import Axios from 'axios';
 
 class EditNotes extends Component {
     state = {
@@ -11,7 +11,7 @@ class EditNotes extends Component {
 
     componentDidMount() {
         Axios
-         .get("http://localhost:8000/notes")
+         .get("http://localhost:8000/:id/notes")
          .then(response => {
              console.log("GET RESPONSE: ", response);
              this.setState({notes: response.data});

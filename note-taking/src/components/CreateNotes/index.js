@@ -12,6 +12,7 @@ class CreateNotes extends Component {
     }
   
     handleSubmit = (e) => {
+      e.preventDefault;
       const notes = {title: this.state.title, noteBody: this.state.noteBody};
       Axios
        .post("http://localhost:8000/api/createnotes", notes)
