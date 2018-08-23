@@ -1,3 +1,4 @@
+require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
 const helmet = require('helmet');
@@ -20,7 +21,7 @@ server.use(function (req, res) {
     res.status(404).json({ error: "Page Not Found" });
 });
 
-const port = 8000;
+const port = process.env.PORT || 8000
 server.listen(port, function () {
     console.log(`\n=== Web API Listening on http://localhost:${port} ===\n`);
 });
