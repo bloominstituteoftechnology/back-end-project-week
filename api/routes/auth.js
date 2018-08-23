@@ -154,6 +154,7 @@ function getNote (req, res, next) {
 }
 
 function newNote (req, res, next) {
+  console.log('IN NEW NOT CONTROLLER', req.body)
   const { userId } = req.token
   const { title, context, tags } = req.body
   if (!tags) {
@@ -175,6 +176,23 @@ function newNote (req, res, next) {
       })
     })
   }
+}
+function copy (req, res, next) {
+  console.log('IN NEW NOT CONTROLLER', req.body)
+  const { userId } = req.token
+  const { title, context, tags } = req.body
+  const tagArray = req.body.tags
+  console.log(tags)
+  Notes.create({
+    title: title,
+    context: context,
+    UserId: userId
+  }).then((note) => {
+    console.log(tags)
+    tagArray.forEach((tag) => {
+      note.createTag({ value: tag })
+    })
+  })
 }
 
 const restricted = (req, res, next) => {
@@ -208,7 +226,7 @@ function deleteNote (req, res, next) {
       id: req.params.id
     }
   }).then((insertedNote) => {
-    res.status(200).json(insertedNote)
+    res.status(200).json(insertedNote) // returns 1
   })
 }
 
@@ -219,6 +237,18 @@ function updateNote (req, res, next) {
       context: req.body.context
     },
     { returning: true, where: { id: req.params.id } }
+  ).then((note) => {
+    res.status(200).json({ note })
+  })
+}
+
+function updateNoteWidTag (req, res, next) {
+  Notes.update(
+    {
+      title: req.body.title,
+      context: req.body.context
+    },
+    { where: { id: req.params.id } }
   ).then((note) => {
     const tags = req.body.tags
     let tagArr = tags.split(' ')
@@ -237,6 +267,9 @@ server.post('/login', login)
 server.get('/notes', restricted, getNotes)
 server.get('/note/:id', getNote)
 server.post('/create', restricted, newNote)
+server.post('/duplicate', restricted, copy)
 server.delete('/delete/:id', deleteNote)
+server.put('/edit/tag/:id', updateNoteWidTag)
 server.put('/edit/:id', updateNote)
+
 module.exports = server
