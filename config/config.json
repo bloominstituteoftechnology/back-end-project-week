@@ -1,0 +1,20 @@
+{
+  "development": {
+    "username": "root",
+    "password": null,
+    "database": "lambdaNotesDB",
+    "host": "127.0.0.1",
+    "dialect": "sqlite",
+    "storage": "./data/lambdaNotesDB",
+    "operatorsAliases": false
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "lambdaNotesDB",
+    "host": "127.0.0.1",
+    "dialect": "sqlite",
+    "storage": "./data/lambdaNotesDB",
+    "operatorsAliases": false
+  }
+}
