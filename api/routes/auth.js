@@ -129,6 +129,7 @@ function getNotes (req, res, next) {
     res.status(200).json(notes)
   })
 }
+
 function getNote (req, res, next) {
   Notes.findAll({
     where: { id: req.params.id },
@@ -147,14 +148,13 @@ function getNote (req, res, next) {
         }
       )
     })
-
     console.log('GET A NOTE', note)
     res.status(200).json(note[0])
   })
 }
 
 function newNote (req, res, next) {
-  console.log('IN NEW NOT CONTROLLER', req.body)
+  console.log('NEWNOTE', req.body)
   const { userId } = req.token
   const { title, context, tags } = req.body
   if (!tags) {
@@ -163,33 +163,34 @@ function newNote (req, res, next) {
       context: context,
       UserId: userId
     })
+    res.status(201).json({ note: req.body })
   } else {
     Notes.create({
       title: title,
       context: context,
       UserId: userId
     }).then((note) => {
-      console.log(tags)
-      const tagArray = tags.split(' ')
-      tagArray.forEach((tag) => {
+      const tagArr = req.body.tags.split(' ')
+      tagArr.forEach((tag) => {
         note.createTag({ value: tag })
+        res.status(201).json({ note })
       })
     })
   }
 }
+
 function copy (req, res, next) {
   console.log('IN NEW NOT CONTROLLER', req.body)
   const { userId } = req.token
   const { title, context, tags } = req.body
-  const tagArray = req.body.tags
+  const tagArr = [ req.body.tags ]
   console.log(tags)
   Notes.create({
     title: title,
     context: context,
     UserId: userId
   }).then((note) => {
-    console.log(tags)
-    tagArray.forEach((tag) => {
+    tagArr.forEach((tag) => {
       note.createTag({ value: tag })
     })
   })
@@ -236,9 +237,20 @@ function updateNote (req, res, next) {
       title: req.body.title,
       context: req.body.context
     },
-    { returning: true, where: { id: req.params.id } }
+    { where: { id: req.params.id } }
   ).then((note) => {
-    res.status(200).json({ note })
+    if (!req.body.tags) {
+      res.status(200).json({ note }) // returns one
+    }
+    const tags = req.body.tags
+    let tagArr = tags.split(' ')
+    tagArr.forEach((tag) => {
+      Tags.create({
+        value: tag,
+        NoteId: req.params.id
+      })
+      res.status(200).json({ note }) // returns one
+    })
   })
 }
 
@@ -258,6 +270,7 @@ function updateNoteWidTag (req, res, next) {
         value: tag,
         NoteId: req.params.id
       })
+      res.status(200).json({ note }) // returns one
     })
   })
 }
