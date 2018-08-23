@@ -47,10 +47,10 @@ server.get('/tags', async (req, res) => {
 })
 
 server.post('/notes', async(req, res) => {
-  const {title, textBody} = req.body;
+  const {title, textBody, user_id} = req.body;
 
   try {
-    const ids = await db.insert({title, textBody}).into('notes');
+    const ids = await db.insert({title, textBody, user_id}).into('notes');
     const id = ids[0];
 
     res.status(201).json(await db('notes').where('id', id).first());
