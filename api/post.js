@@ -16,8 +16,6 @@ function checkLogIn (req, res, next) {
     }
 }
 
-
-
 router.get('/', checkLogIn, (req, res) => {
     const token = req.headers.authorization;
     if(token) {
@@ -50,7 +48,6 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
     const {title, textBody} = req.body;
     const token = req.headers.authorization;
-    if(token) {
         var decoded = jwt.decode(token, {complete: true});
     console.log(decoded.payload)
     const userId = decoded.payload.id;
@@ -65,7 +62,6 @@ router.post('/', (req, res) => {
     .catch(err => {
         res.status(500).json({error: 'There was an error saving post to the database.'})
     })
-}
 })
 
 router.put('/:id', (req, res) => {
