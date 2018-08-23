@@ -7,10 +7,12 @@ You are to treat this week as if you are working at a company and the instructor
 The main objective of this week is to develop a backend to support the LambdaNotes app you built during the Front End project week, connect the two projects together, and add some additional features. You will use `Node.js`, `Express` and any other technologies you have learned to complete this assignment.
 
 ## Git Commits
+Front-End commits for new changes: https://github.com/vcao2279/front-end-project-week/commits/master
 
 You are required to showcase progress with at least 4 commits a day. This will let your project manager know where you are and if you need help. This also allows the client to get progress reports from the company in a real world setting. This also protects you from losing your work if your computer fails.
 
 ## Trello Set Up
+Trello Link: https://trello.com/b/xRYI9CJ7/lambda-notesbackend-vu-cao
 
 - Use your existing Trello account from the Front End Project, or create a new one.
 - Create a new board called "Lambda Notes(Backend) - {Your Name}".
@@ -50,7 +52,8 @@ Additionally, it is recommended that you keep your front end and backend codebas
 
 Once your MVP has been approved, you have been given a feature list that the client would love to have completed. Your goal would be to finish MVP as soon as you can and get working the list of extra features.
 
-- Setup Auto-Deploy on Heroku
+- Setup Auto-Deploy on Heroku 
+* Heroku API link: https://cs11-lambda-notes.herokuapp.com/ 
 - Provide documentation for how to interface with your api.
 - Add pagination for long lists of notes.
 - Create and display tags that can be added to notes and stored in the Database.
