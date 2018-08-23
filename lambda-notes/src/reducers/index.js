@@ -28,7 +28,7 @@ const rootReducer = (state = initialState, action) => {
         return{...state, fetchingNotes: true};
 
         case FETCHED:
-        return{...state, fetchingNotes: false, notes: action.payload}
+        return{...state, fetchingNotes: false, notes: action.payload.notes}
 
         case FETCHING_SINGLE:
         return{...state, fetchingNote: true};
