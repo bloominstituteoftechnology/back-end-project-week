@@ -1,28 +1,170 @@
-.App {
+
+
+.Notes{
+  
+  display: flex;
+  justify-content: center;
   text-align: center;
+width: 1024px;
+}
+.App {
+  display: flex;
+  flex-direction: row;
+  background-color: skyblue;
+    
+  }
+
+  .notes2{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .li{
+    width: 250px;
+    height: 300px;
+    border: 1px skyblue;
+    border-radius: 5px;
+    background-color: salmon;
+    transition: .7s;
+  }
+  .li:hover{
+    width: 265px;
+    height: 315px;
+
+  }
+
+
+  .sidecontainer{
+    width: 225px;
+    height: 1024px;
+    display: flex;
+    background: #D8D8D8;
+    margin: 0px;
+    flex-direction: column;
+    margin-right: 0px;
+    font-family: Arial;
+    font-weight: Bold;
+    padding-left: 10px;
+    padding-right: 10px;
+    transition-duration: .7s;
+   
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.sidecontainer:hover {
+  width: 250px;
+  
+  
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.sidecontainer:hover .viewnotes{
+  width: 250px;
+  
+  
 }
 
-.App-title {
-  font-size: 1.5em;
+.sidecontainer:hover .addanotebutton{
+  width: 250px;
+  
+  
+}
+.addanotebutton{
+  text-decoration: none;
+  background-color: #2BC1C4;
+  border-radius: 5px;
+  color: black;
+  border: none;
+  width: 200px;
+  height:25px;
+  transition-duration: .7s;
+}
+.addanotebutton:hover{
+  background-color: mediumaquamarine;
+  cursor: pointer;
+}
+.viewnotes{
+  text-decoration: none;
+  background-color: #2BC1C4;
+  border-radius: 5px;
+  color: black;
+  border: none;
+  width: 200px;
+  height:25px;
+  margin-bottom: 25px;
+  transition-duration: .7s;
+}
+.viewnotes:hover{
+  background-color: mediumaquamarine;
+  cursor: pointer;
 }
 
-.App-intro {
-  font-size: large;
+
+.single{
+  text-decoration: none;
+  border: 1px;
+  background-color: plum;
+  border-radius: 25px;
+  padding: 10px 24px;
+  color: black;
+  transition-duration: .5s;
+}
+.single:hover {
+  background-color: palevioletred;
+}
+.Addnote{
+  width: 300px;
+height:300px;
+background-color: lightgreen;
+border: 1px;
+border-radius: 15px;
+transition-duration: .7s;
+}
+.Addnote:hover{
+  width: 350px;
+  height: 350px;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.addy{
+  text-decoration: none;
+  border: 1px;
+  background-color: plum;
+  border-radius: 25px;
+  padding: 10px 24px;
+  color: black;
+  transition-duration: .5s;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+.addy:hover{
+  background-color: palevioletred;
+  cursor: pointer;
+}
+
+.viewer{
+  
+  text-decoration: none;
+  border: 1px;
+  background-color: plum;
+  border-radius: 25px;
+  padding: 10px 24px;
+  color: black;
+  transition-duration: .5s;
+}
+.viewer:hover{
+  background-color: palevioletred;
+}
+
+.addfield{
+  width: 175px;
+
+}
+
+.addfield2{
+  transition: width 0.5s ease-in-out;
+  display: flex;
+  resize: none;
+}
+
+.addfield2:onClick{
+  width: 300px;
 }

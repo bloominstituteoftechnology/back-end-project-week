@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import axios from 'axios';
 import {Route, Link} from 'react-router-dom';
-
+import '../App.css';
 class Notes extends Component {
     state={
         notes:[]
@@ -12,14 +12,15 @@ class Notes extends Component {
         return (
             <div className="Notes">
                 
-            <ul> 
+            <ul className='notes2'> 
                  {this.state.notes.map(note => {
                      return(
-                    <li 
+                    <li className='li' 
                     key={note.id}>
                    <h1>  {note.title}</h1>
                     <p>{note.content}</p>
-                        <Link to={`/notes/${note.id}`}>View Note </Link>
+                        <Link className='single' to={`/notes/${note.id}`}>View Note </Link>
+                        
                     </li>
                      )
                     })}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {Route, Link} from 'react-router-dom';
+import '../App.css';
 class Addnote extends Component {
     state={
         title: '',
@@ -16,7 +17,8 @@ class Addnote extends Component {
 
                 <div className='title'>
                     <label htmlFor='title'/>
-                    <input
+                    <input className='addfield'
+                    placeholder='Title'
                     name='title'
                     value={this.state.title}
                     onChange={this.inputChangeHandler}
@@ -25,21 +27,22 @@ class Addnote extends Component {
 
                 <div className='content'>
                     <label htmlFor='content'/>
-                    <input
+                    <textarea className='addfield2'
+                    placeholder='Notes'
                     name='content'
                     value={this.state.content}
                     onChange={this.inputChangeHandler}
                     type='text' />
                 </div>
 
-                <div className='addbuton'>
-                <button type="submit">
+                <div className='addbutton'>
+                <button className='addy' type="submit">
                      Add Note
                 </button>
                 </div>
 
                 </form>
-                <Link to='/'> View All Notes</Link> 
+                <Link className='viewer' to='/'> View All Notes</Link> 
                 </div>
         )
     }
