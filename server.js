@@ -163,7 +163,7 @@ server.post('/login', async (req, res) => {
       const userHash = foundUser.password;
       let isValid = bcrypt.compareSync(credentials.password, userHash);
       if (isValid) {
-        return res.status(200).json({message: "Logged In", user: credentials.username, token:token})
+        return res.status(200).json({message: "Logged In", user: credentials.username, token:token, id:foundUser.id})
       } else {
         return res.status(401).send('Incorrect password')
       }
