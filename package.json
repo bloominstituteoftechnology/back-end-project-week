@@ -17,7 +17,8 @@
     "url": "https://github.com/RandyCalderon/back-end-project-week/issues"
   },
   "engines": {
-    "node": "10.7.0"
+    "node": "10.7.0",
+    "npm": "6.3.0"
   },
   "homepage": "https://github.com/RandyCalderon/back-end-project-week#readme",
   "dependencies": {
