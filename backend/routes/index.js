@@ -4,7 +4,7 @@ const cors = require('cors');
 require('dotenv').config();
 const server = express();
 server.use(express.json());
-server.use(cors());
+// server.use(cors());
 server.use(morgan('dev'));
 
 const errorHandler = require('./handlers');
@@ -20,7 +20,7 @@ server.use((req, res, next) => {
 })
 server.use(errorHandler.error)
 
-const PORT = 8800;
+const PORT = process.env.PORT || 8800;
 server.listen(PORT, () => {
     console.log(`API is running at port ${PORT}`)
 })

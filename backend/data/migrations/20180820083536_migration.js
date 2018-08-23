@@ -30,10 +30,10 @@ function createUsersTable(knex) {
             .createTable('users', tbl => {
                 tbl.increments()
                 tbl
-                    .string('name')
+                    .string('fullname')
                     .notNullable()
                 tbl
-                    .string('username')
+                    .string('email')
                     .notNullable()
                     .unique()
                 tbl
@@ -55,8 +55,15 @@ function createNotesTable(knex) {
             .createTable('notes', tbl => {
                 tbl.increments()
                 tbl
-                    .string('text')
+                    .string('body')
                     .notNullable()
+                tbl
+                    .string('heading')
+                    .notNullable()
+
+                tbl
+                    .string('filename')
+
                 tbl
                     .integer('user_id')
                     .references('id')

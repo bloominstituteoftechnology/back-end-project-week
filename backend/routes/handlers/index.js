@@ -61,10 +61,10 @@ module.exports = {
     },
     register: (req, res, next) => {
         const newUser = req.body;
-        if (newUser.name && newUser.username && newUser.password) {
+        console.log(newUser)
+        if (newUser.fullname && newUser.email && newUser.password) {
             newUser.password = bcrypt.hashSync(newUser.password, 14);
             db('users').insert(newUser).then(result => {
-                // console.log(result)
                 res.status(200).json(result);
             }).catch(error => next({
                 message: error.message,
@@ -79,9 +79,9 @@ module.exports = {
     },
     signIn: (req, res, next) => {
         const newUser = req.body;
-        if (newUser.username && newUser.password) {
+        if (newUser.email && newUser.password) {
             db('users').where({
-                username: newUser.username
+                email: newUser.email
             }).first().then(result => {
                 // check if the user has signed up
                 if (result) {
@@ -89,13 +89,13 @@ module.exports = {
                     if (bcrypt.compareSync(newUser.password, result.password)) {
                         const token = module.exports.tokenGenerator(result);
                         const {
-                            name,
-                            username
+                            id,
+                            fullname
                         } = result;
                         res.status(200).json({
                             token,
-                            name,
-                            username
+                            id,
+                            fullname
                         })
                     } else {
                         next({
@@ -126,7 +126,8 @@ module.exports = {
     postNote: (req, res, next) => {
         const newNote = req.body;
         newNote.user_id = req.params.user_id;
-        if (newNote.text) {
+        if (newNote.body) {
+            console.log("note to be added ", newNote)
             db('notes').insert(newNote).then(ids => {
                 db('notes').where({
                     id: ids[0]
