@@ -41,7 +41,7 @@ async function createNote(req, res) {
   const { title, content } = req.body;
   const noteParams = { title, content };
 
-  if (!title || !content) {
+  if (!title || !content || title === '' || content === '') {
     res.status(400).json({ error: "We're missing the title or content on this post." });
   }
   try {
