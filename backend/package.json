@@ -3,10 +3,7 @@
   "version": "1.0.0",
   "main": "./routes/index.js",
   "license": "MIT",
-  "scripts": {
-    "start": "node",
-    "dev": "nodemon"
-  },
+
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.4",
