@@ -16,22 +16,22 @@ function checkLogIn (req, res, next) {
     }
 }
 
-router.get('/', checkLogIn, (req, res) => {
-    const token = req.headers.authorization;
+router.get('/', (req, res) => {
+    /*const token = req.headers.authorization;
     if(token) {
         var decoded = jwt.decode(token, {complete: true});
     console.log(decoded.payload)
-    const userId = decoded.payload.id;
-    db.get(userId)
+    const userId = decoded.payload.id;*/
+    db.get()
     .then(response => {
         res.status(200).json(response);
     })
     .catch(err => {
         res.status(500).json({error: 'The posts could not be retrieved.'})
     })
-} else {
+/*} else {
     return res.status(401).json({error: 'You must be logged in to view notes.'})
-}
+}*/
 })
 
 router.get('/:id', (req, res) => {
@@ -47,12 +47,12 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
     const {title, textBody} = req.body;
-    const token = req.headers.authorization;
+   /* const token = req.headers.authorization;
     if(token) {
         var decoded = jwt.decode(token, {complete: true});
     console.log(decoded.payload)
-    const userId = decoded.payload.id;
-    const post = {title, textBody, userId}
+    const userId = decoded.payload.id;*/
+    const post = {title, textBody}
     if(!title) {
         res.status(400).json({error: 'You must provide a title.'})
     }
@@ -63,7 +63,6 @@ router.post('/', (req, res) => {
     .catch(err => {
         res.status(500).json({error: 'There was an error saving post to the database.'})
     })
-}
 })
 
 router.put('/:id', (req, res) => {

@@ -6,8 +6,8 @@
   "author": "Erin Meredith <ekmeredith@att.net>",
   "license": "MIT",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
+    "start": "nodemon server.js",
+   
     "test": "jest --watch --verbose"
   },
   "dependencies": {
