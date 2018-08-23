@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+require('dotenv').config();
 
 const db = require('./data/db')
 
@@ -10,7 +10,9 @@ server.use(bodyParser.json());//put bodyparser instead of express
 server.use(cors())
 
 server.get('/', (req, res) => {
-    res.send('up and running... LambdaNotes')
+    const secret = process.env.SECRET
+    const value = 'up and running... LambdaNotes'
+    res.status(200).json({secret, value})
 });
 // server.get('/api/hello', (req, res) => {
 //     res.send({ express: 'Hello From Express' });
@@ -32,7 +34,7 @@ server.get('/api/notes/:id', (req, res) => {
 server.put('/api/notes/:id', (req, res) => {// update users
     const changes = req.body;
     const id = req.params.id;
-  
+  console.log(changes)
     db('notes')
       .where('id', '=', id) // or .where({ id: id })
       .update(changes)
@@ -84,8 +86,10 @@ server.delete('/api/notes/:id', (req, res) => {//delete user
           .json({ error: "error 2." })
       });
   })
-
-const port = 6500;
-server.listen(port, function () {
-    console.log(`\n=== Web API Listening on http://localhost:${port} ===\n`);
-});
+const port = process.env.PORT || 8000; 
+//for deployment
+// const port = 6500;
+// server.listen(port, function () {
+//     console.log(`\n=== Web API Listening on http://localhost:${port} ===\n`);
+// });
+server.listen(port, () => console.log(`\n== API up on port ${port} ==\n`))

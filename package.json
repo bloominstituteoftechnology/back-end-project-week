@@ -4,7 +4,9 @@
   "description": "Lambdanotes backend",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start":"node server.js",
+    "dev": "nodemon server.js"
+    
   },
   "repository": "https://github.com/Sgoal2/back-end-project-week.git",
   "license": "MIT",
