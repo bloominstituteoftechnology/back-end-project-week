@@ -4,8 +4,8 @@ const db = require('../db.js');
 module.exports = {
     get: function(userId) {
         const query = db('post as p')
-        //.join('user as u', 'u.id', 'p.userId')
-        //.where('u.id', userId)
+        .join('user as u', 'u.id', 'p.userId')
+        .where('u.id', userId)
        return query;
     },
 
