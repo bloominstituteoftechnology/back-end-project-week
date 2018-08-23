@@ -8,30 +8,27 @@ class EditNote extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            notes: [],
-            note: {
-                title: '',
-                content: '',
-                tags: []
-            },
+            note: [],
             noteIsLoaded: false
         }
     }    
 
     componentWillMount() {
-        const id = this.props.match.params.id-1;
+        const apiUrl = process.env.REACT_APP_API;
+        const id = this.props.match.params.id;
         this.setState( 
             axios
-                .get('http://localhost:8888/notes')
+                // .get('http://localhost:8888/notes')
+                .get(apiUrl+`/notes/${id}`)
                 .then(response => {
                     console.log("GET", response);
-                    this.setState({ notes: response.data.notes, 
-                        noteIsLoaded: true,
+                    this.setState({  
                         note: {
-                            title: response.data.notes[id].title,
-                            content: response.data.notes[id].content,
+                            title: response.data.note[0].title,
+                            content: response.data.note[0].content,
                             tags: []
-                        }
+                        },
+                        noteIsLoaded: true
                     });
                     console.log("LINE 39: ", this.state);
                 })
@@ -48,13 +45,13 @@ class EditNote extends Component {
 
     noteTitle = () => {
         return this.state.noteIsLoaded 
-            ? this.state.notes[this.props.match.params.id-1].title
+            ? this.state.note.title
             : null
     }
 
     noteContent = () => {
         return this.state.noteIsLoaded
-        ? this.state.notes[this.props.match.params.id-1].content
+        ? this.state.note.content
         : null 
     }
 
@@ -67,6 +64,7 @@ class EditNote extends Component {
     putNote = e => {
         e.preventDefault();
         
+        const apiUrl = process.env.REACT_APP_API;
         const id = this.props.match.params.id;
         const note = { title: this.state.note.title, content: this.state.note.content }
         
@@ -74,7 +72,8 @@ class EditNote extends Component {
         // console.log("NOTE: ", note);
         // console.log("ID: ", id);
         axios
-            .put(`http://localhost:8888/notes/${id}`, note)
+            // .put(`http://localhost:8888/notes/${id}`, note)
+            .put(apiUrl+`/notes/${id}`, note)
             .then(response => {
                 console.log(response.data);
                 console.log("PUT Response", response);

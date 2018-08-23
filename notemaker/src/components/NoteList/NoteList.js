@@ -18,7 +18,7 @@ class NoteList extends Component {
         console.log("Hey, I ran!", this.state.notes);
 
         const apiUrl = process.env.REACT_APP_API;
-        console.log(apiUrl+`/notes`);
+
         axios
         // .get('http://localhost:8888/notes')
         .get(apiUrl+`/notes`)
