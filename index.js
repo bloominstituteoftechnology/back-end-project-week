@@ -12,6 +12,7 @@ server.use(express.json());
 server.use(helment());
 server.use(cors());
 
+
 function generateToken(user) {
   const payload = {
     username: user.username,
@@ -28,6 +29,7 @@ function generateToken(user) {
 //! middleware
 function protected(req, res, next) {
   const token = req.headers.authorization;
+  console.log('IN PROTECTED', token)
   if (token) {
     jwt.verify(token, secret, (err, decodedToken) => {
       if (err) {
