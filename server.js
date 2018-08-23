@@ -13,7 +13,7 @@ const cors = require('cors');
 // server.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 server.use(
   cors({
-    origin: 'https://killernotes-wtsteyykyx.now.sh/:1',
+    origin: '*',
     credentials: true,
   }),
 );
