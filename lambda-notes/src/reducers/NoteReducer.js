@@ -21,34 +21,16 @@ const initialState = {
 export default (state = initialState, action) => {
     switch (action.type) {
         case FETCHING_NOTES:
-            return Object.assign(
-                {},
-                state,
-                { fetchingNotes: true }
-            )
+            return {...state, fetchingNotes: true }
         case ADDING_NOTE:
-            return Object.assign(
-                {},
-                state,
-                { addingNote: true }
-            )
+            return {...state, addingNote: true }
         case UPDATING_NOTES:
-            return Object.assign(
-                {},
-                state,
-                { updatingNotes: true }
-            )
+            return {...state, updatingNotes: true }
         case DELETING_NOTE:
-            return Object.assign(
-                {},
-                state,
-                { deletingNotes: true }
-            )
+            return {...state, deletingNotes: true }
         case SUCCESS:
-            return Object.assign(
-                {},
-                state,
-                {
+            return {
+                    ...state,
                     notes: [...action.payload],
                     fetchingNotes: false,
                     addingNote: false,
@@ -57,13 +39,10 @@ export default (state = initialState, action) => {
                     notesReady: true,
                     error: null
                 }
-            )
         case ERROR:
             console.error(action.payload)
-            return Object.assign(
-                {},
-                state,
-                {
+            return {
+                    ...state,
                     fetchingNotes: false,
                     updatingNotes: false,
                     deletingNotes: false,
@@ -71,7 +50,6 @@ export default (state = initialState, action) => {
                     notesReady: false,
                     error: 'Error, NOTE running away...',
                 }
-            )
         default:
             return state;
     }
