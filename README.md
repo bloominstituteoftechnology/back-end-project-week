@@ -1,4 +1,7 @@
-Trello Link: https://trello.com/b/FVDTwgkI/lambda-notes-backend-rachelle-de-jesus-pestanas
+## Trello Link: https://trello.com/b/FVDTwgkI/lambda-notes-backend-rachelle-de-jesus-pestanas
+
+## Front-End-Project-Week Repo:
+https://github.com/LambdaSchool/front-end-project-week/pull/240
 
 # Back End Project Week
 
