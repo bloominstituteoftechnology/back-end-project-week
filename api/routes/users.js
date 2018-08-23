@@ -12,10 +12,10 @@ server.get('/', (req, res) => {
 
 // Register users
 server.post('/register', (req, res, next) => {
-    const { userName, password, department } = req.body
+    const { userName, password} = req.body
 
-    if(!userName || !password || !department){
-        res.status(400).json({error: "Please include a valid User Name, Department and Password"})
+    if(!userName || !password){
+        res.status(400).json({error: "Please include a valid User Name and Password"})
     }
     const credentials = req.body
     const hash = bcrypt.hashSync(credentials.password, 10)
@@ -51,7 +51,6 @@ server.post('/login', functions.getUser, (req, res) => {
 
 // Get all users
 server.get('/users', functions.protected, (req, res) => {
-    console.log(req)
     db('users')
         .select('id', 'userName', 'department')
         .then(users => {
