@@ -279,3 +279,28 @@ textarea {
 .delete-view-modal__button-container {
   display: flex;
 }
+
+.drop-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-width: 2px;
+  border-color: rgb(102, 102, 102);
+  border-style: dashed;
+  border-radius: 5px;  
+  margin: 40px 0 0 0;
+}
+
+.drop-area--active {
+  background-color: rgba(166, 5, 5,.3);
+  border-color: #a60505;
+}
+
+.note-image {
+  display: block;
+  max-width: 500px;
+  margin: 20px 0 0 0;
+}

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { mdReact } from 'markdown-react-js';
+import ReactDropzone from "react-dropzone";
+import request from "superagent";
 import DeleteView from './DeleteView';
+import firebase from '../../firebase';
 import './markdown.css';
 
 class NoteView extends Component {
@@ -11,7 +14,8 @@ class NoteView extends Component {
       note: {
         id: null,
         title: '',
-        content: ''
+        content: '',
+        files: []
       }
     };
   }
@@ -36,6 +40,34 @@ class NoteView extends Component {
     this.setState({isDeleteShowing: false});
   };
 
+  onDrop = file => {
+    file = file[0];
+    console.log('file', file);
+    let storageRef = firebase.storage().ref();
+    const name = `${Date.now()}-${Math.floor(Math.random()*100000)}-${file.name}`;
+    let metadata = {
+      'contentType': file.type
+    };
+    console.log('metadata', metadata);
+    storageRef.child('notes/' + name).put(file, metadata).then(snapshot => {
+      console.log('Uploaded', snapshot.totalBytes, 'bytes.');
+      snapshot.ref.getDownloadURL().then(url => {
+        console.log('File available at', url);
+        const newFiles = this.state.note.files;
+        newFiles.push(url);
+        this.setState({note: {
+          id: this.state.note.id,
+          title: this.state.note.title,
+          content: this.state.note.content,
+          files: newFiles
+        }});
+        this.props.onAddImage(this.state.note);
+      });
+    }).catch(e => {
+      console.error('Upload failed:', e);
+    });
+  }
+
   componentDidUpdate(prevProps) {
     let id;
     if(prevProps.notes !== this.props.notes) {
@@ -49,7 +81,8 @@ class NoteView extends Component {
           this.setState({ note: {
             id: notes[0].id,
             title: notes[0].title,
-            content: notes[0].content
+            content: notes[0].content,
+            files: notes[0].files || []
           }});
         }
       }
@@ -67,6 +100,12 @@ class NoteView extends Component {
         </div>
         <h2>{this.state.note.title}</h2>
         <span className="markdown-body">{mdReact()(this.state.note.content)}</span>
+        {this.state.note.files.map(file => {
+          return <img className="note-image" src={file} />
+        })}
+        <ReactDropzone className="drop-area" activeClassName="drop-area--active" onDrop={this.onDrop}>
+          Add an image
+        </ReactDropzone>
         <DeleteView isDeleteShowing={this.state.isDeleteShowing} onClickDelete={this.onClickDelete} onClickHideDelete={this.onClickHideDelete} />
       </main>
     );

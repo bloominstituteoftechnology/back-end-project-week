@@ -42,6 +42,30 @@ class App extends Component {
       .catch(e => console.log(e));
   }
 
+  onAddImage = note => {
+    console.log('update', note);
+    axios
+      .put(`${API_URL}/${note.id}`, note)
+      .then(res => {
+        console.log('posted', res);
+        let notes = res.data;
+        let newState = [];
+        for (let note in notes) {
+          newState.push({
+            id: note,
+            title: notes[note].title,
+            content: notes[note].content,
+            files: notes[note].files || []
+          });
+        }
+        this.setState({
+          notes: newState
+        });
+        this.searchNotes('');
+      })
+      .catch(e => console.log(e));
+  }
+
   onDeleteNote = id => {
     console.log('delete', id);
     axios
@@ -81,7 +105,8 @@ class App extends Component {
           newState.push({
             id: note,
             title: notes[note].title,
-            content: notes[note].content
+            content: notes[note].content,
+            files: notes[note].files || []
           });
         }
         this.setState({
@@ -101,7 +126,7 @@ class App extends Component {
         <Route exact path="/" render={(props) => <ListView {...props} notes={this.state.searchNotes} onSearchNotes={this.onSearchNotes} />} />
         <Route exact path="/create" render={(props) => <CreateNewView {...props} onSubmitNote={this.onAddNote} />} />
         <Route exact path="/edit/:noteID" render={(props) => <EditView {...props} notes={this.state.notes} onSubmitNote={this.onUpdateNote} />} />
-        <Route exact path="/note/:noteID" render={(props) => <NoteView {...props} notes={this.state.notes} onDeleteNote={this.onDeleteNote} />} />
+        <Route exact path="/note/:noteID" render={(props) => <NoteView {...props} notes={this.state.notes} onDeleteNote={this.onDeleteNote} onAddImage={this.onAddImage} />} />
       </div>
     );
   }

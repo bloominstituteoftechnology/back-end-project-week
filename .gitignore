@@ -68,3 +68,6 @@ typings/
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+#hide firebase config
+client/src/firebase-config.js
