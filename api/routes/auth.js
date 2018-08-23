@@ -183,14 +183,13 @@ function copy (req, res, next) {
   console.log('IN NEW NOT CONTROLLER', req.body)
   const { userId } = req.token
   const { title, context, tags } = req.body
-  const tagArr = [ req.body.tags ]
   console.log(tags)
   Notes.create({
     title: title,
     context: context,
     UserId: userId
   }).then((note) => {
-    tagArr.forEach((tag) => {
+    tags.forEach((tag) => {
       note.createTag({ value: tag })
     })
   })
