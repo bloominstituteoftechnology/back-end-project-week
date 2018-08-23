@@ -48,7 +48,7 @@ server.get('/api/notes/:id', (req, res) => {
     });
 });
 
-server.put('/api/notes/:id', (req, res) => {
+server.put('/api/notes/edit/:id', (req, res) => {
   const id = req.params.id;
   const note = req.body;
   db('notes').where('id', id).update(note)
@@ -60,7 +60,7 @@ server.put('/api/notes/:id', (req, res) => {
     });
 });
 
-server.delete('/api/notes/:id', (req, res) => {
+server.delete('/api/notes/delete/:id', (req, res) => {
   const id = req.params.id;
   db('notes').where('id', id).del()
     .then(response => {
