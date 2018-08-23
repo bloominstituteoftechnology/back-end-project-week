@@ -3,12 +3,15 @@
   "main": "index.js",
   "license": "UNLICENSED",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
     "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
+    "helmet": "^3.13.0",
     "knex": "^0.15.2",
     "sqlite3": "^4.0.2"
   },
