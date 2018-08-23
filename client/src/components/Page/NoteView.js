@@ -101,7 +101,7 @@ class NoteView extends Component {
         <h2>{this.state.note.title}</h2>
         <span className="markdown-body">{mdReact()(this.state.note.content)}</span>
         {this.state.note.files.map(file => {
-          return <img className="note-image" src={file} />
+          return <img key={file} className="note-image" src={file} />
         })}
         <ReactDropzone className="drop-area" activeClassName="drop-area--active" onDrop={this.onDrop}>
           Add an image
