@@ -100,7 +100,7 @@ server.get('/notes', (req, res) => {
 
   ////////////////////editing notes
 
-const PORT = process.env.PORT || 3300;
+const PORT = process.env.PORT || 9000;
 server.listen(PORT, function() {
  console.log(`\n=== Web API Listening on http://localhost:${PORT} ===\n`);
 });
