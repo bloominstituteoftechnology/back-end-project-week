@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Axios } from 'axios';
+import  Axios  from 'axios';
 
 class CreateNotes extends Component {
   state = {
@@ -12,8 +12,9 @@ class CreateNotes extends Component {
     }
   
     handleSubmit = (e) => {
+      const notes = {title: this.state.title, noteBody: this.state.noteBody};
       Axios
-       .post("http://localhost:8000/api/createnotes", {title: this.state.title, noteBody: this.state.noteBody})
+       .post("http://localhost:8000/api/createnotes", notes)
        .then(response => {
          console.log("POST RESPONSE: ", response);
        })

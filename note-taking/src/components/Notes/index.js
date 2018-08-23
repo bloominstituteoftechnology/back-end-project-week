@@ -24,18 +24,18 @@ class Notes extends Component {
       });
   }
 
-  changeNote = e => this.setState({ [e.target.name]: e.target.value });
+  // changeNote = e => this.setState({ [e.target.name]: e.target.value });
 
-  createNotes = e => {
-    e.preventDefault();
-    const notes = this.state.notes.splice();
-    notes.push({
-      id: Date.now(),
-      notetitle: this.state.note,
-      notebody: this.state.note
-    });
-    this.setState({ notes, note: "" });
-  };
+  // createNotes = e => {
+  //   e.preventDefault();
+  //   const notes = this.state.notes.splice();
+  //   notes.push({
+  //     id: Date.now(),
+  //     notetitle: this.state.note,
+  //     notebody: this.state.note
+  //   });
+  //   this.setState({ notes, note: "" });
+  // };
 
   render() {
     return (
