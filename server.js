@@ -1,6 +1,4 @@
 require("dotenv").config();
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 
 const express = require("express");
 const helmet = require("helmet");
@@ -9,12 +7,15 @@ const cors = require("cors");
 
 const db = require("./db/db");
 
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
 const server = express();
 
 server.use(express.json());
 server.use(helmet());
 server.use(morgan("dev"));
-server.use(cors());
+server.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 server.get("/", (req, res) => {
   res.send("Hello");
@@ -162,7 +163,7 @@ server.post("/login", (req, res) => {
   const credentials = req.body;
   db("users")
     .where({
-      username: credentials.usernameInput
+      usernameInput: credentials.usernameInput
     })
     .first()
     .then(user => {
@@ -173,7 +174,7 @@ server.post("/login", (req, res) => {
         const token = generateToken(user);
         res.send(token);
       } else {
-        return res.status(401).json({ error: "incorrect credentials" });
+        return res.status(401).json({ error: "Incorrect credentials" });
       }
     })
     .catch(error => {
