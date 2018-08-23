@@ -131,16 +131,20 @@ server.post(process.env.PATH_POST_NOTE, (req, res, next) => {
 });
 
 server.delete(`${process.env.PATH_DELETE_NOTE}/:id`, (req, res, next) => {
-  const { id } = req.params;
-  return db('notes')
-    .where('id', '=', Number(id))
+  const id = Number(req.params.id);
+  db('notes').where('id', '=', id)
     .del()
     .then((response) => {
       if (response === 0) {
         throw new HttpError(404, 'Requested resource could not be found in database for deletion.');
       }
-      return res.status(204).end();
+      return db('notesTagsJoin')
+        .where('noteId', '=', id)
+        .del()
+        .then(cleanTags)
+        .catch(err => console.log('Note deletion completed, but an error occurred when deleting notes'));
     })
+    .then(response => res.status(204).end())
     .catch((err) => {
       if (err instanceof HttpError) {
         return next(err);
