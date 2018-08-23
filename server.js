@@ -9,7 +9,7 @@ const notesRouter = require('./routers/notes');
 server.use(express.json());
 server.use(cors());
 
-server.use('/notes', notesRouter)
+server.use('/', notesRouter)
 
 const port = process.env.PORT || 8000;
 server.listen(port, () => {
