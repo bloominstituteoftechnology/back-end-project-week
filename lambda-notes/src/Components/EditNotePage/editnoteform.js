@@ -7,12 +7,6 @@ import { Link } from 'react-router-dom';
 
 class EditNoteForm extends Component {
     state = {
-     note: {
-        id: 0,
-        title: '',
-        content: ''
-     },
-
       id: -1,
       title: '',
       content: ''
@@ -41,9 +35,10 @@ class EditNoteForm extends Component {
     componentDidMount(){
         const id = this.props.match.params.id;
         this.props.fetchSingleNote(id);
-        const newNote =  this.props.notes.filter((note) => {
-            return note.id == id});
-        this.setState( {note: newNote[0]} );
+        let nuTitle = this.props.note.title;
+        let nuContent = this.props.note.content;
+        this.setState({title: nuTitle});
+        this.setState({content: nuContent});
         this.setState( {id: id});
         console.log(this.state, this.props);
     }
@@ -56,7 +51,6 @@ class EditNoteForm extends Component {
                 <h1 className="notes-title create"> Edit Note: </h1>
                 <form className="create-form">
                     <textarea
-                        placeholder={this.props.note.title}
                         onChange={this.handleInputChange}
                         className='title-input'
                         value={this.state.title}
@@ -64,7 +58,6 @@ class EditNoteForm extends Component {
                         >
                         </textarea>
                      <textarea 
-                        placeholder={this.props.note.content}
                         onChange={this.handleInputChange}
                         className='content-input'
                         value={this.state.content}
