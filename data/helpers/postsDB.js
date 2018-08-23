@@ -32,14 +32,7 @@ module.exports = {
         const query = db('post')
         .insert(post)
         .then(ids => ({id: ids[0]}));
-        if(tags){
-        const promises = [query, addTagToPost()]
-        return Promise.all(promises).then(function(results) {
-            let [posts, tags] = results;
-            let post = posts[0];
-            post.tags = tags.map(t => {return t});
-            return post;
-        })}
+
         return query;
     },
 
