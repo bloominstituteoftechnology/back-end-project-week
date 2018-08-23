@@ -57,7 +57,7 @@ server.get('/get/:id', (req,res,next) => {
         .catch(next)
 })
 
-server.post('/post', (req,res,next) => {
+server.post('/create', (req,res,next) => {
     const newNote = { title: req.body.title, textBody: req.body.textBody }
     let tags = req.body.tags
 
