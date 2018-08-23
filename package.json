@@ -1,0 +1,21 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "Backend for a note taking app called \"Lambda Notes\".",
+  "main": "./functions/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tysonism/back-end-project-week.git"
+  },
+  "author": "Tyson Gushiken",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "helmet": "^3.13.0"
+  },
+  "bugs": {
+    "url": "https://github.com/tysonism/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/tysonism/back-end-project-week#readme"
+}

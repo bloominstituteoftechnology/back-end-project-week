@@ -1,0 +1,25 @@
+{
+  "name": "notes",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "ajv": "^6.5.3",
+    "axios": "^0.18.0",
+    "firebase": "^5.4.0",
+    "markdown-react-js": "^1.0.0",
+    "react": "^16.4.1",
+    "react-csv": "^1.0.14",
+    "react-dom": "^16.4.1",
+    "react-dropzone": "^5.0.1",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "1.1.4",
+    "superagent": "^3.8.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {}
+}
