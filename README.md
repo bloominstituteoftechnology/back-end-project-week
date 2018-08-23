@@ -1,6 +1,7 @@
 # Back End Project Week
 
 This week you will build a backend for a note taking app called "Lambda Notes".
+<br/>Frontend code found at: [GitHub](https://github.com/tgreenhalgh/front-end-project-week)
 
 You are to treat this week as if you are working at a company and the instructor is your client. The _Project Managers_ are acting as your company's project managers (duh!) and will be your main support throughout the week.
 
@@ -12,19 +13,20 @@ You are required to showcase progress with at least 4 commits a day. This will l
 
 ## Trello Set Up
 
-- Use your existing Trello account from the Front End Project, or create a new one.
-- Create a new board called "Lambda Notes(Backend) - {Your Name}".
-- Create lists titled `Backlog`,`To do`, `Blocked`, `In Progress`, and `Done`.
-- Fill in the `To do` list with the MVP features listed below.
-- Fill in the `backlog` list with all the extra features listed below.
-- Share your board with the project manager that has been assigned to you. If you have not been assigned yet, reach out to your Section Lead for guidance.
-- Add your Trello URL to your project's README.md file. Commit the change, push it to your repository & submit a pull request.
+- <a href="https://trello.com/b/etpVUcnf/back-end-project" target="_blank">Trello for back-end project</a>
+
+* Create a new board called "Lambda Notes(Backend) - {Your Name}".
+* Create lists titled `Backlog`,`To do`, `Blocked`, `In Progress`, and `Done`.
+* Fill in the `To do` list with the MVP features listed below.
+* Fill in the `backlog` list with all the extra features listed below.
+* Share your board with the project manager that has been assigned to you. If you have not been assigned yet, reach out to your Section Lead for guidance.
+* Add your Trello URL to your project's README.md file. Commit the change, push it to your repository & submit a pull request.
 
 ## Backend MVP Features:
 
 We recommend that you finish all the MVP features before trying to deploy.
 
-- Add data persistenc using a Relational Database. We suggest you start with `SQLite3`.
+- Add data persistence using a Relational Database. We suggest you start with `SQLite3`.
 - Create a Web API for the React application you built in the front-end project week.
 - Build endpoints for each of the following features:
   - Display a list of notes.
@@ -42,7 +44,7 @@ Upon your first commit, please submit a Pull Request and add _both_ the **Trello
 
 ## Deployment
 
-After your PM certifies that all MVP features are complente, it's time to work on deploying it online for the world to see. We recommend you deploy your server to [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction), and your front end to [netlify](https://www.netlify.com/blog/2016/09/29/a-step-by-step-guide-deploying-on-netlify/). Both services provide free tiers and easy to use interfaces.
+After your PM certifies that all MVP features are complete, it's time to work on deploying it online for the world to see. We recommend you deploy your server to [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction), and your front end to [netlify](https://www.netlify.com/blog/2016/09/29/a-step-by-step-guide-deploying-on-netlify/). Both services provide free tiers and easy to use interfaces.
 
 Additionally, it is recommended that you keep your front end and backend codebases in separate GitHub repositories. This helps with deploying, since the different parts of your application will be deployed on different platforms.
 
