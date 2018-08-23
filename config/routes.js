@@ -13,7 +13,8 @@ module.exports = server => {
 
 function index(req, res) {
   const secret = process.env.SECRET;
-  res.status(200).json({ hello: "world", project: "back-end-project", secret });
+  const message = 'Hello, CS11';
+  res.status(200).json({ hello: "world", project: "back-end-project", secret, message });
 };
 
 // GET | Display a list of notes.
