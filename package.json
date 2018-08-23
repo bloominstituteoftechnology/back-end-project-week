@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "repository": "https://github.com/DirupT/back-end-project-week.git",
   "author": "DirupT <iamcooled@gmail.com>",
@@ -11,7 +12,9 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
+    "helmet": "^3.13.0",
     "jsonwebtoken": "^8.3.0",
     "knex": "^0.15.2",
     "prop-types": "^15.6.2"
