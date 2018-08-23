@@ -19,12 +19,21 @@ class EditNote extends Component {
     }    
 
     componentWillMount() {
+        const id = this.props.match.params.id-1;
         this.setState( 
             axios
                 .get('http://localhost:8888/notes')
                 .then(response => {
                     console.log("GET", response);
-                    this.setState({ notes: response.data.notes, noteIsLoaded: true });
+                    this.setState({ notes: response.data.notes, 
+                        noteIsLoaded: true,
+                        note: {
+                            title: response.data.notes[id].title,
+                            content: response.data.notes[id].content,
+                            tags: []
+                        }
+                    });
+                    console.log("LINE 39: ", this.state);
                 })
                 .catch(err => {
                     console.log(err);
@@ -58,27 +67,10 @@ class EditNote extends Component {
     putNote = e => {
         e.preventDefault();
         
-        const id = this.props.match.params.id-1;
-        const notes = 
-        axios
-            .get('http://localhost:8888/notes')
-            .then(response => {
-                console.log("GET", response);
-                this.setState({
-                    notes: response.data.notes, 
-                    note: {
-                        title: response.data.notes[id].title,
-                        content: response.data.notes[id].content,
-                        tags: []
-                    } 
-                });
-            })
-            .catch(err => {
-                console.log(err);
-            })
+        const id = this.props.match.params.id;
         const note = { title: this.state.note.title, content: this.state.note.content }
         
-        console.log("STATES: ", this.state);
+        // console.log("STATES: ", this.state);
         console.log("NOTE: ", note);
         console.log("ID: ", id);
         axios
@@ -86,7 +78,7 @@ class EditNote extends Component {
             .then(response => {
                 console.log(response.data);
                 console.log("PUT Response", response);
-                // this.props.history.push('/');
+                this.props.history.push('/');
             })
             .catch( error => console.log(error));
     };
