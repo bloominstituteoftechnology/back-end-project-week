@@ -10,6 +10,10 @@ server.use(express.json());
 
 server.use(cors());
 
+server.get('/', (req, res) => {
+  req.send('hello world');
+});
+
 server.get('/notes', (req, res) => {
   db('notes')
     .then((notes) => {
