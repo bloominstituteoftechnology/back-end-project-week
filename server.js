@@ -13,31 +13,40 @@ server.use(morgan('dev'));
 server.use(express.json());
 
 // helper function: add tags
-const addTagsToDB = (noteId, tags) => new Promise((resolve, reject) => {
+const addTagsToDB = (noteId, tags) => new Promise((resolve) => {
   if (tags && tags.length > 0) {
-    const tagPromises = tags.map(name => db('tags')
-      .select('id')
-      .where('name', '=', name)
-      .first()
-      .then((existingId) => {
-        // handle id for existing tags
-        if (existingId) {
-          return [existingId.id];
-        }
-        // handle tags that need to be created
-        return db('tags')
-          .insert({ name })
-          .returning('id');
-      }));
-    return Promise.all(tagPromises)
-      .then((tagIds) => {
-        const mappings = tagIds.map(([tagId]) => ({ noteId, tagId }));
-        return db('notesTagsJoin').insert(mappings);
+    return db
+      .transaction((trx) => {
+        const tagPromises = tags.map(name => db('tags')
+          .transacting(trx)
+          .select('id')
+          .where('name', '=', name)
+          .first()
+          .then((existingId) => {
+            // handle id for existing tags
+            if (existingId) {
+              return [existingId.id];
+            }
+            // handle tags that need to be created
+            return db('tags')
+              .transacting(trx)
+              .insert({ name })
+              .returning('id');
+          }));
+        return Promise.all(tagPromises)
+          .then((tagIds) => {
+            const mappings = tagIds.map(([tagId]) => ({ noteId, tagId }));
+            return db('notesTagsJoin')
+              .transacting(trx)
+              .insert(mappings);
+          })
+          .then(res => trx.commit())
+          .catch(err => trx.rollback());
       })
       .then(res => resolve(noteId))
-      .catch((err) => {
+      .catch((res) => {
         console.log(`warning: note was created but an error occurred in tag creation: ${err}`);
-        return noteId;
+        return resolve(noteId);
       });
   }
   return resolve(noteId);
@@ -52,6 +61,10 @@ const cleanTags = res => db('notesTagsJoin')
     return db('tags')
       .whereNotIn('id', tagIds)
       .del();
+  })
+  .catch((err) => {
+    console.log(err);
+    return 0;
   });
 
 server.get(process.env.PATH_GET_NOTES, (req, res, next) => {
@@ -132,7 +145,8 @@ server.post(process.env.PATH_POST_NOTE, (req, res, next) => {
 
 server.delete(`${process.env.PATH_DELETE_NOTE}/:id`, (req, res, next) => {
   const id = Number(req.params.id);
-  db('notes').where('id', '=', id)
+  db('notes')
+    .where('id', '=', id)
     .del()
     .then((response) => {
       if (response === 0) {
