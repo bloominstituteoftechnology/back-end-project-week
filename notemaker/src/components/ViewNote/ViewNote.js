@@ -51,11 +51,15 @@ class ViewNote extends Component {
     //     })
     // }
 
-    deleteNote = id => {
+    deleteNote = e => {
+        e.preventDefault();
+
+        const id = this.props.match.params.id;
         axios
-        .delete(`${'http://localhost:8888/notes/'}/${id}`)
+        .delete(`${'http://localhost:8888/notes/'}${id}`)
         .then(response => {
             console.log(response);
+            this.props.history.push('/');
         })
     }
 

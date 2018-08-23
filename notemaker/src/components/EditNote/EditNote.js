@@ -71,8 +71,8 @@ class EditNote extends Component {
         const note = { title: this.state.note.title, content: this.state.note.content }
         
         // console.log("STATES: ", this.state);
-        console.log("NOTE: ", note);
-        console.log("ID: ", id);
+        // console.log("NOTE: ", note);
+        // console.log("ID: ", id);
         axios
             .put(`http://localhost:8888/notes/${id}`, note)
             .then(response => {
