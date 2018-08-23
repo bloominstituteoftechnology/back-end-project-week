@@ -2,3 +2,7 @@
     text-decoration: none;
     color: white;
 }
+
+.note-content {
+    -webkit-appearance: textarea;
+}

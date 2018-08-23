@@ -30,7 +30,7 @@ class NewNote extends Component {
         const notes = 
         axios
             // .get('http://localhost:8888/notes')
-            .get(apiUrl)
+            .get(apiUrl+`/notes`)
             .then(response => {
                 console.log("GET", response);
                 this.setState({notes: response.data.notes });
@@ -42,7 +42,7 @@ class NewNote extends Component {
 
         axios
             // .post('http://localhost:8888/notes', note)
-            .post(apiUrl, note)
+            .post(apiUrl+`/notes`, note)
             .then(response => {
                 // console.log(response.data);
                 // console.log("POST Response", response);

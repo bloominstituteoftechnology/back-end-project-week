@@ -36,6 +36,7 @@ class EditNote extends Component {
                     console.log(err);
                 })
             );
+        this.noteContent();
     }
 
     editHandler = (state) => {
