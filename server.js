@@ -1,6 +1,5 @@
 require('dotenv').config();
 const express = require('express');
-const helmet = require('helmet');
 const cors = require('cors');
 
 const server = express();
@@ -8,7 +7,6 @@ const server = express();
 const notesRouter = require('./routers/notes');
 
 server.use(express.json());
-server.use(helmet());
 server.use(cors());
 
 server.use('/notes', notesRouter)
