@@ -8,7 +8,7 @@ const knexfile = require('./knexfile');
 const HttpError = require('./utils/HttpError');
 
 const dbEnv = process.env.NODE_ENV === 'production' ? 'production' : 'development';
-const db = knex(knexfile[dbEnv]);
+const db = knex(knexfile['production']);
 
 const server = express();
 server.use(cors());
@@ -96,7 +96,9 @@ server.get(process.env.PATH_GET_NOTES, (req, res, next) => {
       return Promise.all(promiseNotes);
     })
     .then(preppedNotes => res.status(200).json(preppedNotes))
-    .catch(() => next(new HttpError(404, 'Database did not supply requested resources.')));
+    .catch((err) => {
+      return next(new HttpError(404, 'Database did not supply requested resources.'))
+    });
 });
 
 server.get(`${process.env.PATH_GET_NOTE}/:id`, (req, res, next) => {
