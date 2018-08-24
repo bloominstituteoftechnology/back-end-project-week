@@ -8,7 +8,7 @@ const knexfile = require('./knexfile');
 const HttpError = require('./utils/HttpError');
 
 const dbEnv = process.env.NODE_ENV === 'production' ? 'production' : 'development';
-const db = knex(knexfile['production']);
+const db = knex(knexfile[dbEnv]);
 
 const server = express();
 server.use(cors());
