@@ -3,8 +3,12 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
 require('dotenv').config();
-const db = require('knex')(require('./knexfile').development);
+const knex = require('knex');
+const knexfile = require('./knexfile');
 const HttpError = require('./utils/HttpError');
+
+const dbEnv = process.env.NODE_ENV === 'production' ? 'production' : 'development';
+const db = knex(knexfile[dbEnv]);
 
 const server = express();
 server.use(cors());

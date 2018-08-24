@@ -3,9 +3,18 @@
 module.exports = {
 
   development: {
-    client: 'sqlite3',
+    client: 'postgresql',
     connection: {
-      filename: './dev.sqlite3'
+      database: 'lambdaNotes',
+      user:     'kamdu',
+      password: '3649631',
+    },
+    pool: {
+      min: 2,
+      max: 10
+    },
+    migrations: {
+      tableName: 'knex_migrations'
     }
   },
 
@@ -28,9 +37,9 @@ module.exports = {
   production: {
     client: 'postgresql',
     connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
+      database: process.env.DATABASE_URL,
+      user: process.env.USER,
+      password: process.env.PW, 
     },
     pool: {
       min: 2,
