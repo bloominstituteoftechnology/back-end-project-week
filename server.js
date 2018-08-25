@@ -10,6 +10,9 @@ const HttpError = require('./utils/HttpError');
 const dbEnv = process.env.NODE_ENV === 'production' ? 'production' : 'development';
 const db = knex(knexfile[dbEnv]);
 
+const cols = ['id', 'title', 'text_body', 'created_at', 'user_id', 'left', 'right'];
+const appendCols = cols.map(col => `notes.${col}`);
+
 const server = express();
 server.use(cors());
 server.use(helmet());
@@ -79,8 +82,6 @@ const cleanTags = res => db('notesTagsJoin')
   });
 
 server.get(process.env.PATH_GET_NOTES, (req, res, next) => {
-  const cols = ['id', 'title', 'text_body', 'created_at', 'user_id', 'left', 'right'];
-  const appendCols = cols.map(col => `notes.${col}`);
   const camelCaseCols = cols.map((col, index) => {
     const processed = col.replace(/_([a-z])/, match => match[1].toUpperCase());
     return cols[index] === processed ? `ordered.${processed}` : `ordered.${cols[index]} AS "${processed}"`;
@@ -114,12 +115,16 @@ server.get(process.env.PATH_GET_NOTES, (req, res, next) => {
 });
 
 server.get(`${process.env.PATH_GET_NOTE}/:id`, (req, res, next) => {
+  const camelCaseCols = cols.map((col, index) => {
+    const processed = col.replace(/_([a-z])/, match => match[1].toUpperCase());
+    return cols[index] === processed ? `notes.${processed}` : `notes.${cols[index]} AS ${processed}`;
+  });
   const id = Number(req.params.id);
   if (id) {
     return Promise.all([
       // get note from notes table
       db('notes')
-        .select()
+        .select(camelCaseCols)
         .where('id', '=', id)
         .first(),
       // get associated tags from tag table
