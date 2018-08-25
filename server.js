@@ -19,7 +19,8 @@ server.use(express.json());
 // helper function: add tags
 const addTagsToDB = (noteId, tags) => new Promise((resolve) => {
   if (tags && tags.length > 0) {
-    // creates transaction to handle creation of new tags in tag database if needed, and to create note tag mappings
+    // creates transaction to handle creation of new tags in tag database
+    // if needed, and to create note tag mappings
     // on notesTagsJoin table
     return db
       .transaction((trx) => {
@@ -78,10 +79,21 @@ const cleanTags = res => db('notesTagsJoin')
   });
 
 server.get(process.env.PATH_GET_NOTES, (req, res, next) => {
+  const cols = ['id', 'title', 'text_body', 'created_at', 'user_id', 'left', 'right'];
+  const appendCols = cols.map(col => `notes.${col}`);
+  const camelCaseCols = cols.map((col, index) => {
+    const processed = col.replace(/_([a-z])/, match => match[1].toUpperCase());
+    return cols[index] === processed ? `ordered.${processed}` : `ordered.${cols[index]} AS "${processed}"`;
+  });
+  const string = `WITH RECURSIVE ordered AS (
+      SELECT * FROM notes WHERE notes.left = -1
+      UNION ALL 
+      SELECT ${appendCols.join(', ')} FROM notes
+      INNER JOIN ordered ON notes.left = ordered.id)
+      SELECT ${camelCaseCols.join(', ')} FROM ordered;`;
   // get all notes from notes table
-  db('notes')
-    .select()
-    .then((notes) => {
+  db.raw(string)
+    .then(({ rows: notes }) => {
       // get all tags for each note and add to note object
       const promiseNotes = notes.map(
         note => new Promise((resolve) => {
@@ -96,8 +108,8 @@ server.get(process.env.PATH_GET_NOTES, (req, res, next) => {
       return Promise.all(promiseNotes);
     })
     .then(preppedNotes => res.status(200).json(preppedNotes))
-    .catch((err) => {
-      return next(new HttpError(404, 'Database did not supply requested resources.'))
+    .catch(err => {
+      return next(new HttpError(404, 'Database did not supply requested resources.'));
     });
 });
 

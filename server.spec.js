@@ -14,8 +14,8 @@ function basicPopulate() {
     .then(() => db.schema.createTable('notes', notes => Promise.all([
       notes.increments('id'),
       notes.string('title', 20).unique(),
-      notes.text('textBody'),
-      notes.timestamp('createdAt').defaultTo(db.fn.now()),
+      notes.text('text_body'),
+      notes.timestamp('created_at').defaultTo(db.fn.now()),
     ])))
     .then(() => db.schema.createTable('tags', tags => Promise.all([tags.increments('id'), tags.string('name', 18)])))
     .then(() => db.schema.createTable('notesTagsJoin', (ntj) => {
@@ -115,14 +115,14 @@ describe('Note api', () => {
   describe('create a note', () => {
     const newNote = {
       title: 'New note',
-      textBody: 'This is a new note',
+      text_body: 'This is a new note',
     };
     const noTitle = {
-      textBody: 'Text with no title',
+      text_body: 'Text with no title',
     };
     const zeroString = {
       title: '',
-      textBody: 'Title is zero string',
+      text_body: 'Title is zero string',
     };
     beforeEach(done => basicPopulate()
       .then((res) => {
@@ -142,8 +142,8 @@ describe('Note api', () => {
           .where('id', '=', id)
           .first())
         .then((response) => {
-          const { createdAt, ...rest } = response;
-          expect(createdAt).toBeDefined();
+          const { created_at, ...rest } = response;
+          expect(created_at).toBeDefined();
           expect(rest).toEqual({ ...rest, id: 4 });
           return done();
         });
@@ -180,7 +180,7 @@ describe('Note api', () => {
   describe('for a put request', () => {
     const updateNote = {
       title: 'New note',
-      textBody: 'This is a new note',
+      text_body: 'This is a new note',
     };
     const zeroString = {
       title: '',
