@@ -13,6 +13,14 @@ const db = knex(knexfile[dbEnv]);
 const cols = ['id', 'title', 'text_body', 'created_at', 'user_id', 'left', 'right'];
 const appendCols = cols.map(col => `notes.${col}`);
 
+const camelToSnake = obj => Object.entries(obj).reduce((accum, entry) => {
+  const [key, value] = entry;
+  const camelKey = key.replace(/([a-z])([A-Z])/g, match => {
+    return `${match[0]}_${match[1].toLowerCase()}`;
+  });
+  return { ...accum, [camelKey]: value };
+}, {});
+
 const server = express();
 server.use(cors());
 server.use(helmet());
@@ -84,7 +92,9 @@ const cleanTags = res => db('notesTagsJoin')
 server.get(process.env.PATH_GET_NOTES, (req, res, next) => {
   const camelCaseCols = cols.map((col, index) => {
     const processed = col.replace(/_([a-z])/, match => match[1].toUpperCase());
-    return cols[index] === processed ? `ordered.${processed}` : `ordered.${cols[index]} AS "${processed}"`;
+    return cols[index] === processed
+      ? `ordered.${processed}`
+      : `ordered.${cols[index]} AS "${processed}"`;
   });
   const string = `WITH RECURSIVE ordered AS (
       SELECT * FROM notes WHERE notes.left = -1
@@ -109,15 +119,15 @@ server.get(process.env.PATH_GET_NOTES, (req, res, next) => {
       return Promise.all(promiseNotes);
     })
     .then(preppedNotes => res.status(200).json(preppedNotes))
-    .catch(err => {
-      return next(new HttpError(404, 'Database did not supply requested resources.'));
-    });
+    .catch(err => next(new HttpError(404, 'Database did not supply requested resources.')));
 });
 
 server.get(`${process.env.PATH_GET_NOTE}/:id`, (req, res, next) => {
   const camelCaseCols = cols.map((col, index) => {
     const processed = col.replace(/_([a-z])/, match => match[1].toUpperCase());
-    return cols[index] === processed ? `notes.${processed}` : `notes.${cols[index]} AS ${processed}`;
+    return cols[index] === processed
+      ? `notes.${processed}`
+      : `notes.${cols[index]} AS ${processed}`;
   });
   const id = Number(req.params.id);
   if (id) {
@@ -157,9 +167,35 @@ server.post(process.env.PATH_POST_NOTE, (req, res, next) => {
   }
   // inserts new note in note table
   return db('notes')
-    .insert(note)
-    .returning('id')
-    .then(([noteId]) => {
+    .select('id')
+    .where('right', '=', '-1')
+    .first()
+    .then(
+      ({ id }) => new Promise((resolve) => {
+        let newId;
+        return db.transaction(trx => db('notes')
+          .transacting(trx)
+          .where('id', '=', id)
+          .update({ right: null })
+          .then(() => db('notes')
+            .insert({ ...camelToSnake(note), left: id, right: -1 })
+            .returning('id'))
+          .then(([leftId]) => {
+            newId = leftId;
+            return db('notes')
+              .transacting(trx)
+              .where('id', '=', id)
+              .update({ right: newId });
+          })
+          .then(() => trx
+            .commit()
+            .then(() => resolve(newId)))
+          .catch(() => {
+            trx.rollback().then(() => resolve());
+          }));
+      }),
+    )
+    .then((noteId) => {
       if (!noteId) {
         throw new HttpError(500, 'Database did not create a new instance');
       }

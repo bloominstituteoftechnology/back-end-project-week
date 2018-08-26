@@ -4,8 +4,8 @@ exports.up = knex => knex.schema.createTable('notes', (notes) => {
   notes.text('text_body');
   notes.timestamp('created_at').defaultTo(knex.fn.now());
   notes.integer('user_id').references('users.id');
-  notes.integer('left').notNullable();
-  notes.integer('right').notNullable();
+  notes.integer('left');
+  notes.integer('right');
   notes.unique(['user_id', 'left']);
   notes.unique(['user_id', 'right']);
 });
