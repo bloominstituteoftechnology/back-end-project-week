@@ -15,9 +15,10 @@ const appendCols = cols.map(col => `notes.${col}`);
 
 const camelToSnake = obj => Object.entries(obj).reduce((accum, entry) => {
   const [key, value] = entry;
-  const camelKey = key.replace(/([a-z])([A-Z])/g, match => {
-    return `${match[0]}_${match[1].toLowerCase()}`;
-  });
+  const camelKey = key.replace(
+    /([a-z])([A-Z])/g,
+    match => `${match[0]}_${match[1].toLowerCase()}`,
+  );
   return { ...accum, [camelKey]: value };
 }, {});
 
@@ -178,7 +179,9 @@ server.post(process.env.PATH_POST_NOTE, (req, res, next) => {
           .where('id', '=', id)
           .update({ right: null })
           .then(() => db('notes')
-            .insert({ ...camelToSnake(note), left: id, right: -1 })
+            .insert({
+              ...camelToSnake(note), left: id, right: -1, userId: 1,
+            })
             .returning('id'))
           .then(([leftId]) => {
             newId = leftId;
@@ -187,9 +190,7 @@ server.post(process.env.PATH_POST_NOTE, (req, res, next) => {
               .where('id', '=', id)
               .update({ right: newId });
           })
-          .then(() => trx
-            .commit()
-            .then(() => resolve(newId)))
+          .then(() => trx.commit().then(() => resolve(newId)))
           .catch(() => {
             trx.rollback().then(() => resolve());
           }));
@@ -219,24 +220,30 @@ server.post(process.env.PATH_POST_NOTE, (req, res, next) => {
 server.delete(`${process.env.PATH_DELETE_NOTE}/:id`, (req, res, next) => {
   const id = Number(req.params.id);
   // deletes note in notes table
-  db('notes')
-    .where('id', '=', id)
-    .del()
+  return db
+    .transaction(trx => db('notesTagsJoin')
+      .transacting(trx)
+      .where('noteId', '=', id)
+      .del()
+      .then(cleanTags)
+      .then(() => db('notes')
+        .transacting(trx)
+        .where('id', '=', id)
+        .del())
+      .then(() => db('notes')
+        .transacting(trx)
+        .where('right', '=', id)
+        .update({ right: -1 }))
+      .then(trx.commit)
+      .catch(() => trx.rollback).then((err) => {
+        throw new HttpError(406, 'An error occurred when making changes to the database.');
+      }))
     .then((response) => {
       if (response === 0) {
         throw new HttpError(404, 'Requested resource could not be found in database for deletion.');
       }
-      // deletes associations with note in notesTagsJoin table
-      return (
-        db('notesTagsJoin')
-          .where('noteId', '=', id)
-          .del()
-          // deletes any oprhan tags in tags table after associations deleted from notesTagsJoin table
-          .then(cleanTags)
-          .catch(err => console.log('Note deletion completed, but an error occurred when deleting notes'))
-      );
+      return res.status(204).end();
     })
-    .then(response => res.status(204).end())
     .catch((err) => {
       if (err instanceof HttpError) {
         return next(err);
