@@ -275,7 +275,7 @@ server.put(`${process.env.PATH_EDIT_NOTE}/:id`, (req, res, next) => {
   if (note) {
     notePromise = db('notes')
       .where('id', '=', noteId)
-      .update(note)
+      .update(camelToSnake(note))
       .catch((err) => {
         console.log(err);
         return 0;
