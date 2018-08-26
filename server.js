@@ -178,9 +178,12 @@ server.post(process.env.PATH_POST_NOTE, (req, res, next) => {
           .transacting(trx)
           .where('id', '=', id)
           .update({ right: null })
-          .then(() => db('notes')
+          .then((res) => db('notes')
             .insert({
-              ...camelToSnake(note), left: id, right: -1, userId: 1,
+              ...camelToSnake(note),
+              left: id,
+              right: -1,
+              user_id: 1,
             })
             .returning('id'))
           .then(([leftId]) => {
@@ -190,8 +193,12 @@ server.post(process.env.PATH_POST_NOTE, (req, res, next) => {
               .where('id', '=', id)
               .update({ right: newId });
           })
-          .then(() => trx.commit().then(() => resolve(newId)))
-          .catch(() => {
+          .then(res => {
+            return trx.commit().then(res => {
+            return resolve(newId);
+          })
+          })
+          .catch((x) => {
             trx.rollback().then(() => resolve());
           }));
       }),
@@ -235,7 +242,8 @@ server.delete(`${process.env.PATH_DELETE_NOTE}/:id`, (req, res, next) => {
         .where('right', '=', id)
         .update({ right: -1 }))
       .then(trx.commit)
-      .catch(() => trx.rollback).then((err) => {
+      .catch(() => trx.rollback)
+      .then((err) => {
         throw new HttpError(406, 'An error occurred when making changes to the database.');
       }))
     .then((response) => {
