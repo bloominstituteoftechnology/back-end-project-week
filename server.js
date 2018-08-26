@@ -177,8 +177,9 @@ server.post(process.env.PATH_POST_NOTE, (req, res, next) => {
         return db.transaction(trx => db('notes')
           .transacting(trx)
           .where('id', '=', id)
-          .update({ right: null })
+          .update({ right: db.raw('NULL') })
           .then((res) => db('notes')
+            .transacting(trx)
             .insert({
               ...camelToSnake(note),
               left: id,
@@ -186,8 +187,8 @@ server.post(process.env.PATH_POST_NOTE, (req, res, next) => {
               user_id: 1,
             })
             .returning('id'))
-          .then(([leftId]) => {
-            newId = leftId;
+          .then((leftId) => {
+            newId = leftId[0];
             return db('notes')
               .transacting(trx)
               .where('id', '=', id)
@@ -195,7 +196,7 @@ server.post(process.env.PATH_POST_NOTE, (req, res, next) => {
           })
           .then(res => {
             return trx.commit().then(res => {
-            return resolve(newId);
+              return resolve(newId);
           })
           })
           .catch((x) => {
