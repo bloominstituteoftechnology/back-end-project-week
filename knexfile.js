@@ -5,6 +5,7 @@ module.exports = {
 
   development: {
     client: 'postgresql',
+    debug: true,
     connection: {
       database: 'lambdaNotes',
       user:     'kamdu',

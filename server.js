@@ -329,6 +329,78 @@ server.use((err, req, res, next) => {
   return res.status(404).json('The requested resource could not be found.');
 });
 
+
+server.put(process.env.PATH_MOVE_NOTE, (req, res, next) => {
+  const { sourceId, dropId } = req.body; 
+  return db.transaction(trx => {
+    const promises = [];
+    const queryString = 'WITH "leftId" AS (SELECT "left" FROM "notes" WHERE "id" = :dropId), \
+    "rightId" AS (SELECT "right" FROM "notes" WHERE "id" = :dropId) UPDATE "notes" SET "left" \
+    = (SELECT * FROM "leftId"), "right" = (SELECT * FROM "rightId") WHERE "id" = :sourceId;';
+    const handleTargetNote = db.raw(queryString, { sourceId, dropId }).transacting(trx);
+    console.log(handleTargetNote.toString());
+    promises.push(handleTargetNote);
+    const handleLeftOfTarget = db('notes')
+      .transacting(trx)
+      .update({ right: sourceId })
+      .where('right', '=', dropId)
+    promises.push(handleLeftOfTarget);
+    const handleRightOfTarget = db('notes')
+      .transacting(trx)
+      .update({ left: sourceId })
+      .where('left', '=', dropId);
+    promises.push(handleRightOfTarget);
+    const insertSurrounding = new Promise((resolve) => {
+      return db.transacting(trx)
+        .select('id').from('notes').where('right', '=', sourceId).union(function() {
+          this.transacting(trx).select('id').from('notes').where('left', '=', sourceId);
+        })
+        .then((result) => {
+          const leftOfInsert = result[0].id;
+          const rightOfInsert = result[1] && result[1].id;
+          return new Promise((resolve) => {
+            if (rightOfInsert !== undefined) {
+              return db('notes')
+                .transacting(trx)
+                .where('id', '=', rightOfInsert)
+                .update({ left: leftOfInsert })
+                .then(() => {
+                  return resolve(rightOfInsert);
+                });
+              }
+              // else
+              return resolve();
+          })
+        }
+        )
+        .then((rightOfInsert) => {
+            const rightVal = rightOfInsert || -1;
+            return db('notes')
+              .transacting(trx)
+              .where('right', '=', sourceId)
+             .update({ right: rightVal })
+          })
+        .then(() => resolve())
+      });
+    promises.push(insertSurrounding);
+    return Promise.all(promises)
+      .then((promisesResult) => {
+        return trx.commit()
+      })
+      .catch((err) => {
+        throw new HttpError(500, 'A database error ocurred. The request could not be completed.');
+    });
+  })
+  .then((result) => res.status(200).end())
+  .catch((err) => {
+    if (err instanceof HttpError) {
+      return next(err);
+    } else {
+      return next(new HttpError(500, 'The transaction could not be completed.'));
+    }
+  });
+});
+
 if (process.env.NODE_ENV !== 'test') {
   server.listen(process.env.PORT || 8000, () => {
     console.log(`Listening on port ${process.env.PORT || 8000}`);

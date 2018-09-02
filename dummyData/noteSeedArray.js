@@ -21,6 +21,22 @@ module.exports = [
     created_at: '2018-08-05 5:35:12',
     user_id: 1,
     left: 2,
+    right: 4,
+  },
+  {
+    title: "Originally Fifth",
+    text_body: '08% of smokers are soldiers.',
+    created_at: '2018-08-05 5:35:12',
+    user_id: 1,
+    left: 3,
+    right: 5,
+  },
+  {
+    title: "Originally Sixth",
+    text_body: '08% of smokers are soldiers.',
+    created_at: '2018-08-05 5:35:12',
+    user_id: 1,
+    left: 4,
     right: -1,
   },
 ];
