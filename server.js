@@ -62,12 +62,12 @@ const addTagsToDB = (noteId, tags) => new Promise((resolve) => {
                 .transacting(trx)
                 .insert(mappings);
             })
-            .then(res => trx.commit())
-            .catch(err => trx.rollback())
+            .then(_resultsForDebug => trx.commit())
+            .catch(_resultsForDebug => trx.rollback())
         );
       })
-      .then(res => resolve(noteId))
-      .catch((res) => {
+      .then(_resultsForDebug => resolve(noteId))
+      .catch((err) => {
         console.log(`warning: note was created but an error occurred in tag creation: ${err}`);
         return resolve(noteId);
       });
@@ -155,7 +155,7 @@ server.get(`${process.env.PATH_GET_NOTE}/:id`, (req, res, next) => {
         next(new HttpError(404, 'Database could not return a resource with the id provided'));
       });
   }
-  next(new HttpError(404, 'A usable id parameter was not received for this request.'));
+  return next(new HttpError(404, 'A usable id parameter was not received for this request.'));
 });
 
 server.post(process.env.PATH_POST_NOTE, (req, res, next) => {
@@ -178,7 +178,7 @@ server.post(process.env.PATH_POST_NOTE, (req, res, next) => {
           .transacting(trx)
           .where('id', '=', id)
           .update({ right: db.raw('NULL') })
-          .then((res) => db('notes')
+          .then(_resultsForDebug => db('notes')
             .transacting(trx)
             .insert({
               ...camelToSnake(note),
@@ -187,17 +187,17 @@ server.post(process.env.PATH_POST_NOTE, (req, res, next) => {
               user_id: 1,
             })
             .returning('id'))
-          .then((leftId) => {
-            newId = leftId[0];
+          .then(([leftId]) => {
+            newId = leftId;
             return db('notes')
               .transacting(trx)
               .where('id', '=', id)
               .update({ right: newId });
           })
-          .then(res => {
-            return trx.commit().then(res => {
+          .then((_resultsForDebug) => {
+            return trx.commit().then((_resultsForDebug) => {
               return resolve(newId);
-          })
+            });
           })
           .catch((x) => {
             trx.rollback().then(() => resolve());
@@ -318,7 +318,7 @@ server.put(`${process.env.PATH_EDIT_NOTE}/:id`, (req, res, next) => {
 server.get(process.env.PATH_GET_TAGS, (req, res, next) => db('tags')
   .select()
   .then(tags => res.status(200).json(tags))
-  .catch(() => next(new HttpError(500, 'Database error occured when fetching tags'))));
+  .catch(() => next(new HttpError(500, 'Database error occurred when fetching tags'))));
 
 // Error handling middleware
 server.use((err, req, res, next) => {
@@ -329,76 +329,98 @@ server.use((err, req, res, next) => {
   return res.status(404).json('The requested resource could not be found.');
 });
 
-
 server.put(process.env.PATH_MOVE_NOTE, (req, res, next) => {
-  const { sourceId, dropId } = req.body; 
-  return db.transaction(trx => {
-    const promises = [];
-    const queryString = 'WITH "leftId" AS (SELECT "left" FROM "notes" WHERE "id" = :dropId), \
-    "rightId" AS (SELECT "right" FROM "notes" WHERE "id" = :dropId) UPDATE "notes" SET "left" \
-    = (SELECT * FROM "leftId"), "right" = (SELECT * FROM "rightId") WHERE "id" = :sourceId;';
-    const handleTargetNote = db.raw(queryString, { sourceId, dropId }).transacting(trx);
-    console.log(handleTargetNote.toString());
-    promises.push(handleTargetNote);
-    const handleLeftOfTarget = db('notes')
-      .transacting(trx)
-      .update({ right: sourceId })
-      .where('right', '=', dropId)
-    promises.push(handleLeftOfTarget);
-    const handleRightOfTarget = db('notes')
-      .transacting(trx)
-      .update({ left: sourceId })
-      .where('left', '=', dropId);
-    promises.push(handleRightOfTarget);
-    const insertSurrounding = new Promise((resolve) => {
-      return db.transacting(trx)
-        .select('id').from('notes').where('right', '=', sourceId).union(function() {
-          this.transacting(trx).select('id').from('notes').where('left', '=', sourceId);
-        })
-        .then((result) => {
-          const leftOfInsert = result[0].id;
-          const rightOfInsert = result[1] && result[1].id;
-          return new Promise((resolve) => {
-            if (rightOfInsert !== undefined) {
-              return db('notes')
-                .transacting(trx)
-                .where('id', '=', rightOfInsert)
-                .update({ left: leftOfInsert })
-                .then(() => {
-                  return resolve(rightOfInsert);
-                });
-              }
-              // else
-              return resolve();
-          })
-        }
-        )
-        .then((rightOfInsert) => {
-            const rightVal = rightOfInsert || -1;
-            return db('notes')
+  const { sourceId, dropId } = req.body;
+
+  if (sourceId === dropId) {
+    return res.status(200).end();
+  }
+
+  let idMap;
+  return db
+    .select(['notes.left', 'notes.right', { order: 1 }])
+    .from('notes')
+    .where('id', '=', sourceId)
+    .union(function getDrop() {
+      this.select(['notes.left', 'notes.right', { order: 2 }])
+        .from('notes')
+        .where('id', '=', dropId);
+    })
+    .orderBy('order')
+    .then(
+      ([
+        { left: leftOfSource, right: rightOfSource },
+        { left: leftOfDrop, right: rightOfDrop },
+      ]) => {
+        idMap = {
+          leftOfSource,
+          rightOfSource,
+          leftOfDrop,
+          rightOfDrop,
+        };
+      },
+    )
+    .then(resultsForDebug => db
+      .transaction((trx) => {
+        const firstPromises = [];
+        const {
+          leftOfSource, rightOfSource, leftOfDrop, rightOfDrop,
+        } = idMap;
+
+        const handleSourceNote = db('notes')
+          .transacting(trx)
+          .where('id', '=', sourceId)
+          .update({ left: leftOfDrop, right: dropId });
+        firstPromises.push(handleSourceNote);
+
+        const handleDropNote = db('notes')
+          .transacting(trx)
+          .where('id', '=', dropId)
+          .update({ left: sourceId });
+        firstPromises.push(handleDropNote);
+
+        return Promise.all(firstPromises)
+          .then((resultsForDebug_) => {
+            const secondPromises = [];
+
+            const handleLeftOfDrop = db('notes')
               .transacting(trx)
-              .where('right', '=', sourceId)
-             .update({ right: rightVal })
+              .update({ right: sourceId })
+              .where('id', '=', leftOfDrop);
+            secondPromises.push(handleLeftOfDrop);
+
+            const handleLeftOfSource = db('notes')
+              .transacting(trx)
+              .update({ right: rightOfSource })
+              .where('id', '=', leftOfSource);
+            secondPromises.push(handleLeftOfSource);
+
+            const handleRightOfSource = db('notes')
+              .transacting(trx)
+              .update({ left: leftOfSource })
+              .where('id', '=', rightOfSource);
+            secondPromises.push(handleRightOfSource);
+
+            return Promise.all(secondPromises);
           })
-        .then(() => resolve())
-      });
-    promises.push(insertSurrounding);
-    return Promise.all(promises)
-      .then((promisesResult) => {
-        return trx.commit()
+          .then((_resultsForDebug) => {
+            return trx.commit();
+          })
+          .catch((err) => {
+            throw new HttpError(
+              500,
+              'A database error ocurred. The request could not be completed.',
+            );
+          });
       })
+      .then(result => res.status(200).end())
       .catch((err) => {
-        throw new HttpError(500, 'A database error ocurred. The request could not be completed.');
-    });
-  })
-  .then((result) => res.status(200).end())
-  .catch((err) => {
-    if (err instanceof HttpError) {
-      return next(err);
-    } else {
-      return next(new HttpError(500, 'The transaction could not be completed.'));
-    }
-  });
+        if (err instanceof HttpError) {
+          return next(err);
+        }
+        // else
+        return next(new HttpError(500, 'The transaction could not be completed.'));
+      }));
 });
 
 if (process.env.NODE_ENV !== 'test') {

@@ -24,7 +24,7 @@ module.exports = [
     right: 4,
   },
   {
-    title: "Originally Fifth",
+    title: 'Originally Fifth',
     text_body: '08% of smokers are soldiers.',
     created_at: '2018-08-05 5:35:12',
     user_id: 1,
@@ -32,7 +32,7 @@ module.exports = [
     right: 5,
   },
   {
-    title: "Originally Sixth",
+    title: 'Originally Sixth',
     text_body: '08% of smokers are soldiers.',
     created_at: '2018-08-05 5:35:12',
     user_id: 1,
