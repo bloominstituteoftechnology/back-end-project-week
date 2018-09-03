@@ -76,7 +76,7 @@ const addTagsToDB = (noteId, tags) => new Promise((resolve) => {
 });
 
 // helper function: cleans orphan tags in tags table that no longer have any relations to a note
-const cleanTags = res => db('notesTagsJoin')
+const cleanTags = () => db('notesTagsJoin')
   .select('tagId')
   .distinct('tagId')
   .then((tags) => {
