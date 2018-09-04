@@ -397,14 +397,6 @@ server.put(process.env.PATH_MOVE_NOTE, (req, res, next) => {
             .where('id', '=', rightOfSource);
           promises.push(handleSourceRight);
         }
-
-        // delete this eventually
-        const handleSourceFirst = db('notes')
-          .transacting(trx)
-          .update({ left: null, right: null })
-          .where('id', '=', sourceId);
-        promises.push(handleSourceFirst);
-
         return (
           Promise.all(promises)
             // handle insertion logic
@@ -447,96 +439,6 @@ server.put(process.env.PATH_MOVE_NOTE, (req, res, next) => {
     });
 });
 
-// server.put(process.env.PATH_MOVE_NOTE, (req, res, next) => {
-//   const { sourceId, dropId } = req.body;
-
-//   if (sourceId === dropId) {
-//     return res.status(200).end();
-//   }
-
-//   let idMap;
-//   return db
-//     .select(['notes.left', 'notes.right', { order: 1 }])
-//     .from('notes')
-//     .where('id', '=', sourceId)
-//     .union(function getDrop() {
-//       this.select(['notes.left', 'notes.right', { order: 2 }])
-//         .from('notes')
-//         .where('id', '=', dropId);
-//     })
-//     .orderBy('order')
-//     .then(
-//       ([
-//         { left: leftOfSource, right: rightOfSource },
-//         { left: leftOfDrop, right: rightOfDrop },
-//       ]) => {
-//         idMap = {
-//           leftOfSource,
-//           rightOfSource,
-//           leftOfDrop,
-//           rightOfDrop,
-//         };
-//       },
-//     )
-//     .then(resultsForDebug => db
-//       .transaction((trx) => {
-//         const firstPromises = [];
-//         const {
-//           leftOfSource, rightOfSource, leftOfDrop, rightOfDrop,
-//         } = idMap;
-
-//         const sourceIsLeftOfDrop = leftOfDrop === sourceId;
-
-//         const handleSourceNote = db('notes')
-//           .transacting(trx)
-//           .where('id', '=', sourceId)
-//           .update({ right: dropId, left: sourceIsLeftOfDrop ? undefined : leftOfDrop });
-//         firstPromises.push(handleSourceNote);
-
-//         const handleDropNote = db('notes')
-//           .transacting(trx)
-//           .where('id', '=', dropId)
-//           .update({ left: sourceId });
-//         firstPromises.push(handleDropNote);
-
-//         const handleLeftOfDrop = db('notes')
-//           .transacting(trx)
-//           .update({ right: sourceIsLeftOfDrop ? rightOfDrop : sourceId })
-//           .where('id', '=', leftOfDrop);
-//         firstPromises.push(handleLeftOfDrop);
-
-//         const handleLeftOfSource = db('notes')
-//           .transacting(trx)
-//           .update({ right: rightOfSource })
-//           .where('id', '=', leftOfSource);
-//         firstPromises.push(handleLeftOfSource);
-
-//         const handleRightOfSource = db('notes')
-//           .transacting(trx)
-//           .update({ left: leftOfSource })
-//           .where('id', '=', rightOfSource);
-//         firstPromises.push(handleRightOfSource);
-
-//         return Promise.all(firstPromises)
-//           .then((_resultsForDebug) => {
-//             return trx.commit();
-//           })
-//           .catch((err) => {
-//             throw new HttpError(
-//               500,
-//               'A database error ocurred. The request could not be completed.',
-//             );
-//           });
-//       })
-//       .then(result => res.status(200).end())
-//       .catch((err) => {
-//         if (err instanceof HttpError) {
-//           return next(err);
-//         }
-//         // else
-//         return next(new HttpError(500, 'The transaction could not be completed.'));
-//       }));
-// });
 
 if (process.env.NODE_ENV !== 'test') {
   server.listen(process.env.PORT || 8000, () => {
