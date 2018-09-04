@@ -120,7 +120,7 @@ server.get(process.env.PATH_GET_NOTES, (req, res, next) => {
       return Promise.all(promiseNotes);
     })
     .then(preppedNotes => res.status(200).json(preppedNotes))
-    .catch(err => next(new HttpError(404, 'Database did not supply requested resources.')));
+    .catch(() => next(new HttpError(404, 'Database did not supply requested resources.')));
 });
 
 server.get(`${process.env.PATH_GET_NOTE}/:id`, (req, res, next) => {
@@ -151,7 +151,7 @@ server.get(`${process.env.PATH_GET_NOTE}/:id`, (req, res, next) => {
         }
         throw new HttpError(404, 'Database did not return a resource for this id.');
       })
-      .catch((err) => {
+      .catch(() => {
         next(new HttpError(404, 'Database could not return a resource with the id provided'));
       });
   }
@@ -199,7 +199,7 @@ server.post(process.env.PATH_POST_NOTE, (req, res, next) => {
               return resolve(newId);
             });
           })
-          .catch((x) => {
+          .catch(() => {
             trx.rollback().then(() => resolve());
           }));
       }),
@@ -244,7 +244,7 @@ server.delete(`${process.env.PATH_DELETE_NOTE}/:id`, (req, res, next) => {
         .update({ right: -1 }))
       .then(trx.commit)
       .catch(() => trx.rollback)
-      .then((err) => {
+      .then(() => {
         throw new HttpError(406, 'An error occurred when making changes to the database.');
       }))
     .then((response) => {
@@ -289,13 +289,13 @@ server.put(`${process.env.PATH_EDIT_NOTE}/:id`, (req, res, next) => {
     .select('tags.id')
     .where('notesTagsJoin.noteId', '=', noteId)
     .join('tags', 'tags.id', 'notesTagsJoin.tagId')
-    .then((tags) => {
-      const tagIds = tags.map(tag => tag.id);
+    .then((dbTags) => {
+      const tagIds = dbTags.map(tag => tag.id);
       return db('notesTagsJoin')
         .whereIn('tagId', tagIds)
         .del();
     })
-    .then(res => addTagsToDB(noteId, tags))
+    .then(() => addTagsToDB(noteId, tags))
     .then(cleanTags)
     .catch(err => console.log(err));
 
@@ -336,36 +336,13 @@ server.put(process.env.PATH_MOVE_NOTE, (req, res, next) => {
     return res.status(200).end();
   }
 
-  let idMap;
   return db
-    .select(['notes.left', 'notes.right', { order: 1 }])
+    .select(['notes.left', 'notes.right'])
     .from('notes')
     .where('id', '=', sourceId)
-    .union(function getDrop() {
-      this.select(['notes.left', 'notes.right', { order: 2 }])
-        .from('notes')
-        .where('id', '=', dropId);
-    })
-    .orderBy('order')
-    .then(
-      ([
-        { left: leftOfSource, right: rightOfSource },
-        { left: leftOfDrop, right: rightOfDrop },
-      ]) => {
-        idMap = {
-          leftOfSource,
-          rightOfSource,
-          leftOfDrop,
-          rightOfDrop,
-        };
-      },
-    )
-    .then(() => {
-      const {
-        leftOfSource, rightOfSource, leftOfDrop, rightOfDrop,
-      } = idMap;
+    .then(({ left: leftOfSource, right: rightOfSource }) => {
       return db.transaction((trx) => {
-        // handle Deletion logic
+        // handle deletion logic
         const promises = [];
         let handleSourceLeft;
         let handleSourceRight;
@@ -399,7 +376,8 @@ server.put(process.env.PATH_MOVE_NOTE, (req, res, next) => {
         }
         return (
           Promise.all(promises)
-            // handle insertion logic
+          // Insertion Logic
+          // obtain left property of drop target
             .then(_resultsForDebug => db('notes')
               .transacting(trx)
               .select('left')
@@ -408,18 +386,22 @@ server.put(process.env.PATH_MOVE_NOTE, (req, res, next) => {
             .then(({ left: leftOfDrop }) => {
               const secondPromises = [];
 
+              // set right property of note left of drop target to point to source
               const handleDropLeft = db('notes')
                 .transacting(trx)
                 .update({ right: sourceId })
                 .where('id', '=', leftOfDrop);
               secondPromises.push(handleDropLeft);
 
+              // set left property of drop target to point to source
               const handleDrop = db('notes')
                 .transacting(trx)
                 .update({ left: sourceId })
                 .where('id', '=', dropId);
               secondPromises.push(handleDrop);
 
+              // set left property of source to point to drop target's former left property
+              // and point its right property to point to drop target
               const handleSource = db('notes')
                 .transacting(trx)
                 .update({ left: leftOfDrop, right: dropId })
@@ -438,7 +420,6 @@ server.put(process.env.PATH_MOVE_NOTE, (req, res, next) => {
       return next(new HttpError(500, 'Database error prevented the transaction from completing.'));
     });
 });
-
 
 if (process.env.NODE_ENV !== 'test') {
   server.listen(process.env.PORT || 8000, () => {
