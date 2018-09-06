@@ -1,3 +1,5 @@
+https://trello.com/b/eF9UbVFR/lambda-notes-back-end-m-margo-nikolaisen
+
 # Back End Project Week
 
 This week you will build a backend for a note taking app called "Lambda Notes".
