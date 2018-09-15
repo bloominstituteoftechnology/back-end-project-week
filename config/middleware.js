@@ -22,7 +22,7 @@ module.exports = {
       case 403:
         res.json({
           error: true,
-          msg: 'You are unathorized to view this content.',
+          msg: 'You are unathorized to view the content.',
         });
         break;
       default:

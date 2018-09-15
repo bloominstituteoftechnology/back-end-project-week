@@ -1,3 +1,4 @@
 module.exports = {
-  jwtKey: 'Hella secretzz guys! look at all the secrets',
+  jwtKey: 'Hella secretz guys! look at all the secrets',
 };
+z;
