@@ -16,7 +16,7 @@ module.exports = {
       case 400:
         res.json({
           error: true,
-          msg: 'There was an error regarding your input.',
+          msg: 'Please complete all the required fields',
         });
         break;
       case 403:

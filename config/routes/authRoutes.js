@@ -15,7 +15,7 @@ function generateToken(id) {
     jwtid: '12345',
     subject: `${id}`,
   };
-  return jwt.sign(payload, jwtKey, options);
+  return jwt.sign(payload, process.env.SECRET || jwtKey, options);
 }
 
 router.post('/register', (req, res, next) => {

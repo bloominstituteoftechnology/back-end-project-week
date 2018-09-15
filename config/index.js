@@ -4,6 +4,6 @@ const { errorHandler, authenticate } = require('./middleware');
 
 module.exports = server => {
   server.use('/api', authRoutes);
-  server.use('/api/notes', authenticate, noteRoutes);
+  server.use('/api/notes', noteRoutes);
   server.use(errorHandler);
 };
