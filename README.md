@@ -1,3 +1,5 @@
+## You can view a video DEMO of this project [HERE](https://youtu.be/_BtlWxQS1E8?t=1516)
+
 # Back End Project Week
 
 [Trello board for Alec Jordan:](https://trello.com/b/bZjDbSGV/lambda-notesback-end-alec-jordan)
