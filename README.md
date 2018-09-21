@@ -1,3 +1,7 @@
+https://trello.com/b/rmAfRlKO/lambda-notesbackend-marco-guzman
+
+https://marco-backendproject.herokuapp.com/
+
 # Back End Project Week
 
 This week you will build a backend for a note taking app called "Lambda Notes".
