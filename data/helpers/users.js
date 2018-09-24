@@ -15,7 +15,7 @@ module.exports = {
     return query;
   }, //returns user found with username
   add: function(user) {
-    let query = db('users').insert(user);
+    let query = db('users').returning('id').insert(user);
     return query;
   }, //end adding a new user, returns user object
 }
