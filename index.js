@@ -25,7 +25,7 @@ const generateToken = user => {
     const options = {
         expiresIn: '1h',
         jwtid: '54321'
-      }
+    }
 
     const token = jwt.sign(payload, jwtKey, options)
     return token
@@ -53,8 +53,28 @@ server.get('/', (req, res) => {
 })
 
 // route for registering
-server.post('/api/register', (req,res) => {
+server.post('/api/register', (req, res) => {
+    const creds = req.body
+    const hash = bcrypt.hashSync(creds.password, 5)
+    creds.password = hash
 
+    db('user').insert(req.body)
+        .then(ids => {
+            const id = ids[0]
+            db('user').where({ id }).first()
+                .then(user => {
+                    const token = generateToken(user)
+                    res.status(201).json({ message: 'login success' })
+                })
+                .catch(err => {
+                    console.log('post error ', err)
+                    res.status(500).json({ message: 'Invalid username or password' })
+                })
+        })
+        .catch(err => {
+            console.log('post error', err)
+            res.status(500).json({message: 'Invalid username or password' })
+        })
 })
 
 // route for logging in
@@ -68,7 +88,7 @@ server.post('/api/create', (req, res) => {
 })
 
 // route for getting the right notes for user
-server.get('/api/user', protected, (req,res) => {
+server.get('/api/user', protected, (req, res) => {
 
 })
 
