@@ -47,14 +47,27 @@ router.get("/:id", function(req, res) {
 });
 
 router.post("/", function(req, res) {
-	console.log(req.body);
 	helpers
 		.addNoteWithTags(req.body)
 		.then(note => {
-			console.log(note);
 			return res.json({
 				error: false,
-				message: "sup",
+				message: note.id,
+			});
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(500).json({ error: true, message: "Server Error" });
+		});
+});
+
+router.delete("/:id", function(req, res) {
+	helpers
+		.deleteNote(req.params.id)
+		.then(response => {
+			return res.json({
+				error: false,
+				message: response,
 			});
 		})
 		.catch(err => {

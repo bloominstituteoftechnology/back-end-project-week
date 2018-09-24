@@ -38,4 +38,15 @@ module.exports = {
 					});
 			});
 	},
+
+	deleteNote(id) {
+		return db("notes")
+			.where("id", id)
+			.del()
+			.then(response => {
+				return db("tags")
+					.where("note_id", id)
+					.del();
+			});
+	},
 };
