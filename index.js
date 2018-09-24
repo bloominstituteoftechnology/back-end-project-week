@@ -55,6 +55,20 @@ server.post("/api/notes", (req, res) => {
   }
 });
 
+server.put("/api/notes/:id", (req, res) => {
+  const edits = req.body;
+
+  db("notes")
+    .where({ id: req.params.id })
+    .update(edits)
+    .then(response => {
+      res.status(200).json(response);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
+
 server.listen(8000, () => {
   console.log("== LISTENING ON PORT 8K ==");
 });
