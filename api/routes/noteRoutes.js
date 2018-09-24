@@ -54,7 +54,7 @@ router.post("/", (req, res) => {
       });
   }
 });
-// end POST
+// end 
 
 // PUT
 router.put("/:id", (req, res) => {
@@ -79,27 +79,27 @@ router.put("/:id", (req, res) => {
       });
   }
 });
-// end PUT
+// end 
 
 // DELETE
 router.delete("/:id", (req, res) => {
-    const { id } = req.params;
-    db("notes")
-      .where("id", id)
-      .del()
-      .then(notes => {
-        if (notes === 0) {
-          res.status(404).json({
-            message: "The note with the specified ID does not exist.",
-          });
-        } else {
-          res.status(200).json({ message: "Note removed successfully." });
-        }
-      })
-      .catch(err => {
-        res.status(500).json({ error: "The note could not be removed." });
-      });
-  });
-  // end DELETE
+  const { id } = req.params;
+  db("notes")
+    .where("id", id)
+    .del()
+    .then(notes => {
+      if (notes === 0) {
+        res.status(404).json({
+          message: "The note with the specified ID does not exist."
+        });
+      } else {
+        res.status(200).json({ message: "Note removed successfully." });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ error: "The note could not be removed." });
+    });
+});
+// end 
 
 module.exports = router;
