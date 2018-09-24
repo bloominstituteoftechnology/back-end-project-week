@@ -2,7 +2,7 @@
 
 Trello Board: https://trello.com/b/bbUG7lzl/lambda-notesbackend-justin-hammett
 
-Pull Request: 
+Pull Request: https://github.com/LambdaSchool/back-end-project-week/pull/297
 
 This week you will build a backend for a note taking app called "Lambda Notes".
 
