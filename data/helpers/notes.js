@@ -13,15 +13,15 @@ module.exports = {
   add: function(title, content, user_id) {
     let query = db("notes")
       .insert({ title, content, user_id })
-      .returning('id')
-      .first();
+      .returning('*');
 
     return query;
   }, //adding a new note
   update: function(id, note) {
     let query = db("notes")
       .where({ id })
-      .update(note);
+      .update(note)
+      .returning('*');
 
     return query;
   }, //update a note
