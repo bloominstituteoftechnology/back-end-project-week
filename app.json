@@ -1,0 +1,13 @@
+{
+    "name": "notes_deploy",
+    "description": "This app does one little thing, and does it well.",
+    "keywords": [
+      "productivity",
+      "HTML5",
+      "notes"
+    ],
+    "repository": "https://github.com/MichaelBoegner/back-end-project-week",
+    "success_url": "/",
+    "scripts": {
+      "postdeploy": "cd client && yarn start"
+    },

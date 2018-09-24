@@ -10,7 +10,6 @@
   },
   "scripts": {
     "start": "nodemon index.js",
-    "heroku-postbuild": "cd client && yarn start"
   },
   "name": "back-end-project-week",
   "description": "TRELLO URL: \r https://trello.com/invite/b/u1C61yj9/9755073c10274374addf1c93589ae928/lambda-notes-backend",
@@ -24,6 +23,5 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/MichaelBoegner/back-end-project-week/issues"
-  },
-  "homepage": "https://github.com/MichaelBoegner/back-end-project-week#readme"
+  }
 }
