@@ -50,6 +50,19 @@ server.put("/api/notes/:id", (req, res) => {
     })
     
 })
+
+server.delete("/api/notes/:id", (req, res) => {
+    const { id } = req.params;
+    db("notes")
+    .where("id", "=", id)
+    .del()
+    .then(count => {
+        res.status(200).json(count)
+    })
+    .catch(err => {
+        res.status(500).json(err);
+    })
+})
 const port = 3300;
 server.listen(port, function() {
   console.log(`\n Web API Listening on localhost:${port}\n`);
