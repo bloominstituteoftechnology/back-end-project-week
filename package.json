@@ -4,7 +4,8 @@
   "description": "This is the backend project completed as a requierment for lambda school to illustrate knowledge of backend web development. It will interface with the front end project completed prior. ",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
