@@ -72,7 +72,7 @@ server.put('/api/notes/:id', (req,res) => {
         }else{
             res.status(200).json({message: 'Note successfully updated'})
         }
-        
+
         db
         .findById(id)
         .then(post => {
@@ -89,6 +89,22 @@ server.put('/api/notes/:id', (req,res) => {
 })
 
 //DELETE an existing note
-
+server.delete('/api/notes/:id', (req, res) => {
+    const id = req.params.id;
+    //delete the post referencing the id
+    db
+        .remove(id)
+        .then(response => {
+            if(response === 0) {
+                res.status(404).json({message: 'The note you are trying to delete does not exist'});
+                return;
+            }
+            res.json({success: `Note with id: ${id} was removed from the system`});
+        })
+        .catch(error =>{
+            res.status(500).json({message: 'This note could not be removed'});
+            return;
+        });
+});
 
 server.listen(9000);
