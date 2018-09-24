@@ -36,6 +36,20 @@ server.post("/api/notes", (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
+server.put("/api/notes/:id", (req, res) => {
+    const { title, content } = req.body;
+    const { id } = req.params;
+    db("notes")
+    .where("id", "=", id)
+    .update({title, content})
+    .then(count => {
+        res.status(200).json(count);
+    })
+    .catch(err => {
+        res.status(500).json(err);
+    })
+    
+})
 const port = 3300;
 server.listen(port, function() {
   console.log(`\n Web API Listening on localhost:${port}\n`);
