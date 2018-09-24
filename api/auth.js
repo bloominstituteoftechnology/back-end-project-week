@@ -3,7 +3,6 @@ const db = require('../data/helpers/users');
 const bcrypt = require('bcryptjs');
 const jwt = require('../jwtConfig');
 
-const SALT = process.env.SALT;
 
 const router = express.Router();
 
@@ -13,7 +12,7 @@ router.post('/register', async (req,res) => {
   if(!username || !password || !email){
     res.status(422).json({message: 'An email, username, and password is required' });
   }else{
-    password = bcrypt.hashSync(password, SALT);
+    password = bcrypt.hashSync(password, 16);
     try{
       let userID = await db.add({username, password, email});
       let user = await db.get(userID[0]);
