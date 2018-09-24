@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
     // title
     table.string('title', 128)
     // content 
-    table.string('content', 128)
+    table.string('textBody', 128)
   })
 };
 

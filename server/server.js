@@ -1,24 +1,28 @@
-// for endpoints
 const express = require('express')
+const cors = require('cors')
 
 const server = express()
 const database = require('./database/databaseConfig')
 
 server.use(express.json())
+server.use(cors())
 
 // GET - getting a list of notes from database
 server.get('/notes', async (req, res) => {
-  const notes = await database.select('title', 'content').from('notes')
+  // get noteId as _id
+  const notes = await database.select({ _id: 'noteId' }, 'title', 'textBody').from('notes') 
+  // transform _id from integer to string 
+  notes.map(note => note._id = note._id.toString())
 
   res.status(201).json(notes)
 })
 
-// POST - inserting a note with title and content to database
+// POST - inserting a note with title and textBody to database
 server.post('/notes', (req, res) => {
   const note = req.body
 
-  if (!note.title || !note.content) {
-    res.status(400).json({ message: "Title and content are required" })
+  if (!note.title || !note.textBody) {
+    res.status(400).json({ message: "Title and textBody are required" })
   } else {
     database.insert(note)
     .into('notes')
@@ -29,12 +33,15 @@ server.post('/notes', (req, res) => {
 
 // GET - getting a specific note from database
 server.get('/notes/:id', async (req, res) => {
-  const note = await database.select('title', 'content').from('notes').where('noteId', req.params.id)
+  const note = await database.select({ _id: 'noteId' }, 'title', 'textBody').from('notes').where('noteId', req.params.id)
+
+  note.map(note => note._id = note._id.toString())
 
   if (note.length === 0) {
     res.status(400).json({ message: `This note (id:${req.params.id}) does not exist` })
   } else {
-    res.status(201).json(note)
+    // note[0] to get note object
+    res.status(201).json(note[0])
   }
 })
 
@@ -42,8 +49,8 @@ server.get('/notes/:id', async (req, res) => {
 server.put('/notes/:id', (req, res) => {
   const newNote = req.body
 
-  if (!note.title || !note.content) {
-    res.status(400).json({ message: "Title and content are required" })
+  if (!note.title || !note.textBody) {
+    res.status(400).json({ message: "Title and textBody are required" })
   } else {
     database.update({ ...newNote })
             .from('notes')
