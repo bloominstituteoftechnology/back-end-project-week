@@ -1,6 +1,7 @@
 const express = require('express');
 const helmet = require('helmet');
 const knex = require('knex');
+const cors = require('cors');
 
 const dbConfig = require('./knexfile');
 const db = knex(dbConfig.development);
@@ -8,6 +9,7 @@ const server = express();
 
 server.use(helmet());
 server.use(express.json());
+server.use(cors());
 
 server.get('/', (req, res) => {
   res.send('Api running...')
@@ -23,6 +25,7 @@ server.get('/notes', (req, res) => {
 
 server.post('/notes', (req, res) => {
   const newNote = req.body;
+  console.log(newNote);
   if (newNote.title && newNote.note) {
     db.insert(newNote).into('notes').then(ids => {
       res.status(201).json({ message: 'Your note was successfully added!'})
