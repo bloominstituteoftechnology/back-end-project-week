@@ -45,8 +45,20 @@ server.get('/api/notes/:id', (req, res) => {
     .then(note => {
         res.status(200).json(note);
     })
-    .catch(err => res.status(500).json({ errorMsg: 'Unable to retieve notes.'}));
-    
+    .catch(err => res.status(500).json({ errorMsg: 'Unable to retieve notes.'}));  
+})
+
+server.put('/api/notes/:id', (req, res) => {
+    const { id } = req.params;
+    const note = req.body;
+
+    db('notes')
+    .where('id', '=', id)
+    .update(note)
+    .then(count => {
+        res.status(200).json(count);
+    })
+    .catch(err => res.status(500).json({ errorMsg: 'Unable to edit the note with that id.' }))
 })
 
 const port = process.env.PORT || 3300;
