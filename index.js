@@ -3,6 +3,7 @@ const server = express();
 const knex = require('knex');
 const cors = require('cors');
 const helmet = require('helmet');
+const bcrypt = require('bcryptjs');
 //db
 const dbConfig = require('./knexfile');
 const db = knex(dbConfig.development);
@@ -10,6 +11,10 @@ const db = knex(dbConfig.development);
 server.use(express.json());
 server.use(cors());
 server.use(helmet());
+
+const secret = 'backend-project-week';
+
+
 
 //GET ALL NOTES
 server.get('/get/all', async (req, res) => {
