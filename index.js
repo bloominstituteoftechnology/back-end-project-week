@@ -23,11 +23,16 @@ server.get('/notes', (req, res) => {
 server.get('/notes/:id', (req, res) => {
     const { id } = req.params;
     db.getNote(id)
+    .then(notes => notes.find(note => note.id === +id))
     .then(notes => {
+        if(notes) {
       res.status(200).json(notes);
+        } else {
+            res.status(404).json({Message: 'The note with specified id does not exist!'});
+        }
     })
     .catch(error => {
-      res.status(500).json(error)
+      res.status(500).json(error);
     })
 });
 

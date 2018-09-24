@@ -16,7 +16,7 @@ module.exports = {
 
     // ### retrieve a note by its id
     getNote: (id) => {
-        return db('notes').where('id', id);
+        return db('notes').select().where('id', id);
     },
 
     // ### Posting a new note
