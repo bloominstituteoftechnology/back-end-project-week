@@ -59,16 +59,27 @@ export default class App extends Component {
   onUpdateHandler = (e, id) => {
     e.preventDefault();
 
-    const edit = this.state.notes.slice();
-
-    edit.splice(id, 1, {
-      id: Number(id),
+    let edit = {
       title: this.state.title,
       note: this.state.note
-    });
+    };
 
-    this.setState(() => ({ notes: edit, id: null, title: "", note: "" }));
-  };
+    axios.put(`http://localhost:5000/notes/${id}`, edit)
+      .then(notes => {
+        return (axios.get('http://localhost:5000/notes')
+        .then(notes => {
+          this.setState({notes: notes.data.notes}); 
+        })
+        .catch(err => {
+          console.log(err); 
+        }));
+        })
+      .catch(err => {
+        console.log(err); 
+        });
+ };
+
+
 
   deleteHandler = (e, id) => {
     e.preventDefault();

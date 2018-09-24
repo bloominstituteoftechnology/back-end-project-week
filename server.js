@@ -38,4 +38,21 @@ server.post('/notes', (req, res) => {
         })
 })
 
+server.put('/notes/:id', (req, res) => {
+    const [id, body] = [req.params.id, req.body];
+
+    db('notes')
+        .where('id', id)
+        .update({
+            'title': body.title,
+            'note': body.note, 
+        })
+        .then(notes => {
+            res.status(201).json({notes});
+        })
+        .catch(err => {
+            res.status(500).json({err: "Failed to modify note in notes table."})
+        })
+})
+
 module.exports = server;
