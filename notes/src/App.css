@@ -12,12 +12,13 @@
 .sidebarContainer {
   background-color: lightgray;
   width: 20em;
-  min-height: 100vh;
+  min-height:100vh;
   text-align: left;
-  padding: 15px 15px;
+  padding: 0 15px 0 15px;
   border-right: 2px grey solid;
 }
 .sidebarTitle {
+  padding-top:1em;
   font-size: 35px;
   font-weight: 600;
   letter-spacing: 1px;
@@ -37,7 +38,7 @@
   font-size: 16px;
 }
 .notesViewContainer {
-  padding: 4em 2em;
+  padding:   2em;
   text-align: left;
   width: 100%;
   
