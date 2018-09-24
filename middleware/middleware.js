@@ -5,7 +5,7 @@ const express = require("express");
 const helmet = require("helmet");
 const morgan = require("morgan");
 // routes
-const noteRoutes = require("../routes/noteRoute.js");
+const noteRoutes = require("../routes/noteRoutes.js");
 
 function errorHandler(err, req, res, next) {
   console.log(err);
