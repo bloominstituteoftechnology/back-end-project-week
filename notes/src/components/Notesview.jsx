@@ -26,10 +26,30 @@ class Notesview extends Component {
     super(props);
     this.state = {
       items: [],
-      searchMode: "title"
+      searchMode: "title",
+      paginationStart: 0
     };
   }
-
+  changePage = (direction)=>{
+    
+    let newPaginationStart;
+    if(direction ==='forward'){
+      if((this.state.paginationStart+9) /9>=Math.ceil(this.state.items.length/9) ){
+        return;
+      }
+      newPaginationStart = this.state.paginationStart +9
+    }
+    else{
+      if((this.state.paginationStart) /9 <= 0 ){
+        return;
+      }
+      newPaginationStart = this.state.paginationStart -9
+    }
+    
+    this.setState({
+      paginationStart : newPaginationStart 
+    })
+  }
   onSortEnd = ({ oldIndex, newIndex }) => {
     this.props.changeStateOrder(
       arrayMove(this.state.items, oldIndex, newIndex)
@@ -203,12 +223,17 @@ class Notesview extends Component {
           <SortableList
             distance={1}
             axis="xy"
-            items={this.state.items}
+            items={this.state.items.slice(this.state.paginationStart,this.state.paginationStart+9)}
             onSortEnd={this.onSortEnd}
           />
         ) : (
           ""
         )}
+        <div className="pageButtons">
+        <div className="pageChangeButton" onClick={()=>this.changePage("back")}>←</div>
+        <div className="pageCounter">{(this.state.paginationStart+9) /9}/{Math.ceil(this.state.items.length/9)} </div>
+        <div className="pageChangeButton"  onClick={()=>this.changePage("forward")}>→</div>
+        </div>
       </div>
     );
   }

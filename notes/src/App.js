@@ -9,12 +9,11 @@ import fileDownload from "js-file-download";
 import axios from "axios";
 
 class App extends Component {
-  // what a note object looks like { title: string, body: string(maybe markdown formatted), id: num, checklist: [{checked: boolee, name:string}], tags: [string] }
+  // what a note object looks like { title: string, body: string(maybe markdown formatted), id: num, checklist: [{checked: boolee, name:string}], tags: [{id:string, text:string}] }
   constructor(props) {
     super(props);
     this.state = {
       notes: [],
-      nextID: 0,
       mode: "ADD"
     };
   }

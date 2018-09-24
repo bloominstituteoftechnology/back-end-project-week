@@ -192,3 +192,8 @@ select{
 .lowerSelect{
   margin-right: 15px;
 }
+.pageButtons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
