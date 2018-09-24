@@ -4,7 +4,8 @@ exports.up = function(knex, Promise) {
         tbl.string('title')
            .notNullable();
         tbl.string('textBody');
-        //still dont know how to add an array
+        tbl.specificType('tags', 'stringarray');
+        //will add array?
     })
 };
 

@@ -50,16 +50,11 @@ router.put('/notes/:id',  (req, res) => {
     const body = req.body
     const { id } = req.params
 
-    // if(!req.body.id){
-        dbFunc.editNote(id, body).then(res2 => {
-            res.status(200).json(res2)
-        }).catch(err => {
-            res.staus(500).json(err)
-        })
-    // } else {
-    //     res.status(400).json('please include the id in the URL instead of the body ')
-    // }
-
+    dbFunc.editNote(id, body).then(res2 => {
+        res.status(200).json(res2)
+    }).catch(err => {
+        res.staus(500).json(err)
+    })
 })
 
 router.delete('/notes/:id', (req, res) => {
