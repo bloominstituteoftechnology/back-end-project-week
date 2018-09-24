@@ -28,7 +28,7 @@ router
     const { id } = req.params;
     try {
       const note = await helper.getNote(id);
-      note ? res.status(201).json(note) : next({ statusCode: 404 });
+      note.length > 0 ? res.status(200).json(note) : next({ statusCode: 404 });
     } catch (err) {
       next(err);
     }
