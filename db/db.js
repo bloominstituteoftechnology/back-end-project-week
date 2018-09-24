@@ -6,7 +6,8 @@ const db = knex(dbConfig.development);
 
 module.exports = {
     getNotes,
-    addNote
+    addNote,
+    deleteNote,
 }
 
 function getNotes(id){
@@ -19,5 +20,8 @@ function getNotes(id){
 
 function addNote(note){
     return db('notes').insert(note)
+}//returns in an array which may be interesting
+
+function deleteNote(noteId){
+    return db('notes').where('id', '=', noteId).del()
 }
-//returns in an array which is interesting

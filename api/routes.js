@@ -26,14 +26,13 @@ router.get('/notes/:id', (req, res) => {
 })
 
 router.post('/notes/', (req, res) => {
-    const {textBody} = req.body
-    const {title} = req.body
-    const {id} = req.body
+    const { textBody, title, id } = req.body
+
     if(!id){
         if(title){
             if(textBody){
                 dbFunc.addNote(req.body).then(id => {
-                    res.status(201).send(id)
+                    res.status(201).json(id)
                 })
             } else {
                 res.status(400).send('Please include a a textBody in your request.')
@@ -44,8 +43,19 @@ router.post('/notes/', (req, res) => {
     } else {
         res.status(400).send('Please do not include an id in your request. An id will be automatically assigned.')
     }
-    //check for title and text body and return appropriate messages before sending to database
-    
+})
+
+router.delete('/notes/:id', (req, res) => {
+    const { id } = req.params
+       
+    dbFunc.deleteNote(id).then(count => {
+        if(count == 0){
+            res.status(400).json('note not deleted. Either this note does not exist, or it was a bad request')
+        } else {
+            res.status(200).json(count)
+        }
+    }).catch(err => res.status(500).json({message: 'Note was note deleted', err: err}))
+   
 })
 
 module.exports = router
