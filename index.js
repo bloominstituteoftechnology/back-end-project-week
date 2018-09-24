@@ -3,6 +3,7 @@ const cors = require('cors');
 
 const db = require('./dbConfig.js');
 
+
 const server = express();
 
 server.use(express.json());
@@ -27,52 +28,61 @@ server.get('/api/notes', (req, res) => {
 });
 
 server.get('/api/notes/:id', (req, res) => {
-    db.get(req.params.id).then(note => {
-      console.log(note);
-      if (note.length === 0) {
-        res.status(404).json({  message: 'The note with the specified ID does not exist.' });
-      }
-      else {
-        res.status(200).json(note)
-    }}).catch(err => {
-      console.error('error', err);
-       res.status(500).json({ error: 'The note information could not be retrieved.'})
+    const {id} = req.params;
+    db('notes').where({ id: id })
+    .then(note => {
+        if (note.length === 0) {
+        res.status(404).json({ message: "The note with the specified ID does not exist." });
+        } else 
+        res.status(200).json(note);
     })
-  });
+    .catch(err => res.status(500).json(err));
+});
+
 
 server.post('/api/notes', (req, res) => {
-    if(!req.body.title || !req.body.contents){
-        res.status(400).json({errorMessage: 'Please provide title and contents for note.'})
-    }
-    db.insert(req.body).then(id => {
-        res.status(201).json(id)
-    }).catch(err => {
-        console.error('error',err);
-        res.status(500).json({error: 'There was an error while saving the note to the database.'})
-    })
+    const note = req.body;
+    if (!note.title || !note.content) {
+        res.status(400).json({ error: "Please provide a title and content ." })
+    } else
+        db.insert(note)
+        .into('notes')
+        .then(ids => {
+        res.status(201).json(ids);
+        })
+        .catch(err => res.status(500).json({ error: "error saving the note." }))
 });
 
 server.delete('/api/notes/:id', (req, res) => {
-    const { id } = req.params;
-
-    db.remove(id)
-    .then(notes => {
-      if (notes.length === 0) {
-          res.status(404).json({ message: "The note with the specified ID does not exist"});
-      } else {res.status(200).json(notes);
-      }
+    const {id} = req.params;
+    db('notes').where({ id: id }).del()
+    .then(count => {
+        if (count) {
+        res.status(204).end();
+        } else {
+        res.status(404).json({ message: "The note with the specified ID does not exist." });
+        }
     })
-    .catch(err => {
-        res.status(500).json({error: "The note could not be removed"});
-    })
+    .catch(err => res.status(500).json(err));
 });
 
+
 server.put('/api/notes/:id', (req, res) => {
-    db.update(req.params.id, req.body).then(notes => {
-        res.status(200).json(notes)
-    })
-    .catch(err => res.status(500).json({ message: 'update failed'}));
-})
+    const {id} = req.params;
+    const note = req.body;
+    if (!note.title || !note.content) {
+        res.status(400).json({ error: "Please provide a title and body for the note." })
+    } else
+        db('notes').where({ id: id }).update(note)
+        .then(count => {
+        if (count) {
+            res.status(200).json({ message: "The note has been updated." });
+        } else {
+            res.status(404).json({ message: "The note with the specified ID does not exist." });
+        }
+        })
+        .catch(err => res.status(500).json(err));
+});
 
 
 const port = 2200;
