@@ -54,6 +54,19 @@ server.post("/api/notes", (req, res) => {
     }).catch(err => {
         res.status(500).json({Error: "Error posting the data to the database", err})
     })
+}); 
+
+server.delete("/api/notes/:id", (req, res) => {
+    const {id} = req.params;
+    db('notes').where({id}).del().then(count => {
+        if(count < 1){
+            res.status(400).json({Error: "The ID specified does not exist within the database"}); 
+        }else{
+            res.status(200).json({message: "Deleted the note successfully!"}); 
+        }
+    }).catch(err => {
+        res.status(500).json({Error: "There was an error with deleted the note in the database", err})
+    })
 })
 
 
