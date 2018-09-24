@@ -1,5 +1,9 @@
 # Back End Project Week
 
+Trello Board: https://trello.com/b/bbUG7lzl/lambda-notesbackend-justin-hammett
+
+Pull Request: 
+
 This week you will build a backend for a note taking app called "Lambda Notes".
 
 You are to treat this week as if you are working at a company and the instructor is your client. The _Project Managers_ are acting as your company's project managers (duh!) and will be your main support throughout the week.
