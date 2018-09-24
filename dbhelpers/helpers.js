@@ -7,7 +7,6 @@ module.exports = {
     return db("notes")
       .then(rows => {
         let jsonfix = rows.map((e,i)=>{
-          console.log(e.tags);
           if(typeof e.tags ==='string'){
             e.tags = JSON.parse(e.tags)
            }
@@ -16,7 +15,7 @@ module.exports = {
            }
           return e
         })
-        return rows;
+        return jsonfix;
       })
       .catch(function(error) {
         console.error(error);

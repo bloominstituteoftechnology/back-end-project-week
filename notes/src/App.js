@@ -54,17 +54,27 @@ class App extends Component {
     });
   };
   deleteNote = noteID => {
-    let prevNotes = this.state.notes.slice();
-    const moddedArray = prevNotes.filter(e => {
-      if (e.id !== noteID) {
-        return true;
-      } else {
-        return false;
-      }
+    // let prevNotes = this.state.notes.slice();
+    // const moddedArray = prevNotes.filter(e => {
+    //   if (e.id !== noteID) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // });
+    // this.setState({
+    //   notes: moddedArray
+    // });
+    axios
+    .delete(`http://localhost:3000/notes/${noteID}`)
+    .then((response)=> {
+      // handle success
+    })
+    .catch(function(error) {
+      // handle error
+      console.log(error);
     });
-    this.setState({
-      notes: moddedArray
-    });
+    
   };
   invertCheck = (itemID, checkName) => {
     let prevNote = this.state.notes.slice();
@@ -102,26 +112,28 @@ class App extends Component {
     csv = csv.join("\r\n");
     fileDownload(csv, "data.csv");
   };
-  //handles saving to LS. Runs everytime state changes. If it's not saving make sure state is updating
+
+  getNotesList = ()=>{
+    axios
+    .get("http://localhost:3000/notes")
+    .then((response)=> {
+      // handle success
+      this.setState({
+        notes: response.data
+      })
+    })
+    .catch(function(error) {
+      // handle error
+      console.log(error);
+    });
+  }
+  
+
   componentDidUpdate = (prevProps, prevState) => {
-    // if (this.state.notes !== prevState.notes) {
-    //   localStorage.setItem("notes", JSON.stringify(this.state.notes));
-    //   localStorage.setItem("nextID", JSON.stringify(this.state.nextID));
-    // }
+   this.getNotesList();
   };
   componentDidMount = () => {
-    axios
-      .get("http://localhost:3000/notes")
-      .then((response)=> {
-        // handle success
-        this.setState({
-          notes: response.data
-        })
-      })
-      .catch(function(error) {
-        // handle error
-        console.log(error);
-      });
+    this.getNotesList();
   };
   render() {
     return (
