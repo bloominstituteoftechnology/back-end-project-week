@@ -64,9 +64,8 @@ server.post('/api/notes', (req, res) => {
     })
   });
 
-  //Edit an existing note
 
-
+//Edit an existing note
 server.put('/api/notes/:id', (req, res) => {
     const { id } = req.params;
     const { note }  = req.body;
@@ -82,7 +81,21 @@ server.put('/api/notes/:id', (req, res) => {
       })
 });
 
+//Delete an existing note
+server.delete('/api/notes/:id', (req, res) => {
+    const { id } = req.params;
+    const { note }  = req.body;
 
+    db('notes')
+    .where({id})
+    .delete()
+    .then(response => {
+        res.status(200).json({response})
+    })
+    .catch(error => {
+        res.status(500).json({ error:'Unable to delete note' })
+      })
+});
 
 
 
