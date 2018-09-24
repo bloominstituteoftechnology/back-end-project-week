@@ -1,7 +1,7 @@
 const db = require('./dbConfig');
 
 module.exports = {
-    getNotes: function() {
+    getNotes: function(id) {
         let query = db('notes');
 
         if(id) {

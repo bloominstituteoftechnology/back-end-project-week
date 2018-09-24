@@ -10,7 +10,7 @@ const server = express();
 
 // configure middleware
 server.use(express.json());
-server.use(hemlet());
+server.use(helmet());
 
 // notes endpoints
 server.get('/note/get/all', async (req, res) => {
@@ -62,3 +62,5 @@ server.delete('/note/delete/:id', async (req, res) => {
         res.status(500).send(ex);
     }
 });
+
+server.listen(5020, () => console.log('\n === Server listening on port 5020 === \n'));
