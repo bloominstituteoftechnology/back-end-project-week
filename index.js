@@ -1,11 +1,9 @@
 const express = require('express');
 const cors = require('cors');
+const port = process.env.port || 8000;
 
-const server = express();
-
-server.use(cors());
-server.use(express.json());
-server.use('/api', require('./api'));
-
-const port = 8000;
-server.listen(port, () => console.log(`listening on port ${port}`));
+express()
+  .use(cors())
+  .use(express.json())
+  .use('/api', require('./api'))
+  .listen(port, () => console.log(`listening on port ${port}`));
