@@ -5,7 +5,7 @@ module.exports = {
     let query = db('users');
 
     if(id){
-      query.where({ id }).first();
+      query.where({ id });
     }
 
     return query;
