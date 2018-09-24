@@ -3,14 +3,14 @@ exports.up = function(knex, Promise) {
     tbl.increments();
 
     tbl
-      .string("name", 128)
+      .string("title", 128)
       .notNullable()
-      .unique("notes_name");
+      .unique("notes_title");
 
     tbl.string("content").notNullable();
   });
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTableIfExists("projects");
+  return knex.schema.dropTableIfExists("notes");
 };
