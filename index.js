@@ -54,7 +54,7 @@ server.get("/notes/:id", (req, res) => {
 })
 
 //Editing notes
-server.put("/notes/:id", (req, res) => {
+server.put("/notes/edit/:id", (req, res) => {
     const edits = req.body;
     const id = req.params.id;
 
@@ -68,7 +68,7 @@ server.put("/notes/:id", (req, res) => {
 });
 
 //Deleting notes
-server.delete("/notes/:id", (req, res) => {
+server.delete("/notes/delete/:id", (req, res) => {
     const id = req.params.id;
     db("notes")
         .where({id})
