@@ -82,4 +82,20 @@ router.delete("/:id", function(req, res) {
 		});
 });
 
+router.put("/:id", function(req, res) {
+	helpers
+		.updateNote(req.params.id, req.body)
+		.then(response => {
+			console.log(response);
+			return res.json({
+				error: false,
+				message: "sup",
+			});
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(500).json({ error: true, message: "Server Error" });
+		});
+});
+
 module.exports = router;
