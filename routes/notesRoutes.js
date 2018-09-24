@@ -16,7 +16,7 @@ router
     const note = req.body;
     try {
       const count = await helper.addNote(note);
-      res.status(201).json({ message: 'Successfully added note.' });
+      res.status(201).json({ id: count[0] });
     } catch (err) {
       next(err);
     }
