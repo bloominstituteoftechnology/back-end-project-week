@@ -9,6 +9,7 @@ router.get("/", async (req, res, next) => {
       notes: await db.getNotes()
     });
   } catch (err) {
+    console.log(err)
     next(err);
   }
 });
