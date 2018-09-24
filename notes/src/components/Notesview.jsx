@@ -120,6 +120,9 @@ class Notesview extends Component {
       case "tags":
         filtArray = this.props.notes.filter(e => {
           let found = false;
+          if(! e.tags){
+            return false;
+          }
           e.tags.forEach(element => {
             if (element.includes(event.target.value)) {
               found = true;
@@ -140,12 +143,14 @@ class Notesview extends Component {
       case "all":
         filtArray = this.props.notes.filter(e => {
           let found = false;
-          e.tags.forEach(element => {
-            if (element.includes(event.target.value)) {
-              found = true;
-              return;
-            }
-          });
+          if(e.tags){
+            e.tags.forEach(element => {
+              if (element.includes(event.target.value)) {
+                found = true;
+                return;
+              }
+            });          }
+          
           if (found) {
             return e;
           } else {

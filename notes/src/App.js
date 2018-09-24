@@ -27,12 +27,10 @@ class App extends Component {
       .then((response)=> {
         // handle success
         let prevNotes = [...this.state.notes];
-        console.log(response.data[0]);
-        prevNotes.push(response.data[0]);
+        prevNotes.push(response.data);
         this.setState({
           notes: prevNotes
         })
-        console.log(response.data);
       })
       .catch(function(error) {
         // handle error

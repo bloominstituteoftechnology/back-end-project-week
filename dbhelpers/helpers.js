@@ -26,8 +26,18 @@ module.exports = {
     return db("notes").insert({ ...body });
   },
   getSingleNote:(id)=>{
-    return db("notes")
+     return db("notes")
     .where({"notes.id":id})
+    .then(e=>{
+      e=e[0];
+      if(typeof e.tags ==='string'){
+        e.tags = JSON.parse(e.tags)
+       }
+       if (typeof e.checklist ==='string'){
+        e.checklist = JSON.parse(e.checklist)
+       }
+      return e
+    })
   },
   deleteNote:(id)=>{
     return db("notes")
