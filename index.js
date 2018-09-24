@@ -7,6 +7,7 @@ const bcrypt = require('bcryptjs');
 const dbConfig = require('./knexfile')
 const jwt = require('jsonwebtoken')
 const session = require('express-session');
+const jwtKey = require('./secret/keys').jwtKey;
 
 const db = knex(dbConfig.development);
 
@@ -15,6 +16,12 @@ server.use(session(sessionConfig))
 server.use(express.json());
 server.use(helmet());
 server.use(cors())
+
+server.get('/', (req, res) => {
+    res.send('Api Online')
+})
+
+
 
 
 
