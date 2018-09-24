@@ -27,8 +27,9 @@ router
   .get(async (req, res, next) => {
     const { id } = req.params;
     try {
-      const note = await helper.getNote(id);
-      note.length > 0 ? res.status(200).json(note) : next({ statusCode: 404 });
+      const result = await helper.getNote(id);
+      const note = result[0];
+      note ? res.status(200).json(note) : next({ statusCode: 404 });
     } catch (err) {
       next(err);
     }
@@ -38,8 +39,10 @@ router
     const note = req.body;
     try {
       const count = await helper.updateNote(id, note);
+      const newNoteArr = await helper.getNote(id);
+      const { title, content } = newNoteArr[0];
       count > 0
-        ? res.status(200).json({ message: 'Note successfully updated.' })
+        ? res.status(200).json({ title, content })
         : next({ statusCode: 404 });
     } catch (err) {
       next(err);
