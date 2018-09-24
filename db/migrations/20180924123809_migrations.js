@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
       .string("title", 128)
       .notNullable()
       .unique();
-    tbl.string("content", 128).notNullable();
+    tbl.string("body", 128).notNullable();
   });
 };
 
