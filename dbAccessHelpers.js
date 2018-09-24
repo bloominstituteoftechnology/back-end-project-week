@@ -12,21 +12,21 @@ module.exports = {
 };
 
 function getNotes() {
-    return db('notes');
+    db.find();
 }
 
 function getNote(_id) {
-    return db('title');
+    db.find(_id);
 }
 
 function createNote(note) {
-    db.insert('note');
+    db.insert(note);
 }
 
 function editNote(note) {
-    db.update('note');
+    db.update(req.params._id, req.body);
 }
 
 function deleteNote(note) {
-    db.remove('note');
+    db.remove(_id);
 }
