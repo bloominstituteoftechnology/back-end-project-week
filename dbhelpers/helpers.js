@@ -24,10 +24,10 @@ module.exports = {
     .where({"id":id})
     .del();
   },
-  // edit: (id, body,which)=>{
-  //   return db(which)
-  //   .where({"id":id})
-  //   .update({...body})
-  // },
+  editNote: (id, body)=>{
+    return db("notes")
+    .where({"id":id})
+    .update({...body})
+  },
   
 };

@@ -39,6 +39,26 @@ app.post("/notes", async (req, res) => {
   }
 });
 
+app.post("/notes/:id", async (req, res) => {
+  if (!req.body.title || !req.body.body) {
+    res.status(400).json({ errorMessage: "Invalid body" });
+    return;
+  }
+  try {
+    const result = await dbhelpers.editNote(req.params.id,req.body);
+    console.log(result);
+    if (result === 0) {
+      res.status(400).json({ errorMessage: "ID does not excist" });
+      return;
+    }
+    const editedDBentry = await dbhelpers.getSingleNote(req.params.id);
+
+    res.status(200).json(editedDBentry);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 app.delete("/notes/:id", async (req, res) => {
   try {
     let results = await dbhelpers.deleteNote(req.params.id);
