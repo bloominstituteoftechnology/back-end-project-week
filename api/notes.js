@@ -36,8 +36,8 @@ router.post("/", jwt.protected, async (req, res) => {
     res.status(422).json({ message: "Missing title or content for new note" });
   } else {
     try {
-      const id = await db.add(title, content, userID);
-      res.status(201).json(id);
+      const newNote = await db.add(title, content, userID);
+      res.status(201).json(newNote);
     } catch (e) {
       res.status(500).json(e);
     }
