@@ -44,6 +44,23 @@ server.get('/api/notes/:id', (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
+server.put('/api/notes/:id', (req, res) => {
+    const {id} = req.params;
+    const note = req.body;
+    if (!note.title || !note.textBody) {
+        res.status(400).json({ error: "Please provide a title and body for the note." })
+    } else
+        db('notes').where({ id: id }).update(note)
+        .then(count => {
+        if (count) {
+            res.status(200).json({ message: "The note was successfully updated." });
+        } else {
+            res.status(404).json({ message: "The note with the specified ID does not exist." });
+        }
+        })
+        .catch(err => res.status(500).json(err));
+});
+
 
 const port = 8000;
 server.listen(port, function() {
