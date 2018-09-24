@@ -29,7 +29,11 @@ server.post('/api/notes', (req, res) => {
 server.get('/api/notes', (req, res) => {
     db('notes')
     .then(notes => {
-        res.status(200).json(notes)
+        notes.map(async note => {
+            const query = await db('tags').where({ note_id: note.id });
+            note.tags = query;
+            res.status(200).json(notes);
+        })
     })
     .catch(err => res.status(500).json(err));
 });
@@ -37,11 +41,14 @@ server.get('/api/notes', (req, res) => {
 server.get('/api/notes/:id', (req, res) => {
     const {id} = req.params;
     db('notes').where({ id: id }).first()
-    .then(note => {
+    .then(async note => {
         if (!note) {
         res.status(404).json({ message: "The note with the specified ID does not exist." });
-        } else 
-        res.status(200).json(note);
+        } else {
+            const query = await db('tags').where({ note_id: id });
+            note.tags = query;
+            res.status(200).json(note);
+        }
     })
     .catch(err => res.status(500).json(err));
 });
