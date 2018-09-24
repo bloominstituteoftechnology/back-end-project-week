@@ -11,26 +11,33 @@ router.get("/", function(req, res) {
 
 			let notesTags = notesArr.map(note => {
 				let tags = tagsArr
-					.map(tagEl => {
-						if (tagEl.note_id === note.id) {
-							return tagEl.tag;
+					.map(tagObj => {
+						if (tagObj.note_id === note.id) {
+							return tagObj.tag;
 						}
 					})
 					.filter(el => {
 						return el !== undefined;
 					});
-				// console.log({ ...note, tags });
 				return { ...note, tags };
 			});
-
-			// console.log(notesTags);
-			// console.log(notesArr, tagsArr);
 			res.json({ error: false, message: notesTags });
 		})
 		.catch(err => {
 			console.log(err);
 			res.status(500).json({ error: true, message: "Server Error" });
 		});
+});
+
+router.get("/:id", function(req, res) {
+	helpers.getNote(req.params.id).then(data => {
+		let note = data[0];
+		let tags = data[1].map(tagObj => tagObj.tag);
+		let noteTag = { ...note, tags };
+		console.log(noteTag);
+
+		res.json({ error: false, message: noteTag });
+	});
 });
 
 module.exports = router;

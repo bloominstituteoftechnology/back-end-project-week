@@ -19,4 +19,14 @@ module.exports = {
 			return results;
 		});
 	},
+
+	getNote(id) {
+		let note = db("notes")
+			.where("id", id)
+			.first();
+		let tags = db("tags").where("note_id", id);
+		return Promise.all([note, tags]).then(results => {
+			return results;
+		});
+	},
 };
