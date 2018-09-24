@@ -1,7 +1,7 @@
 "use strict";
 // dependencies
 const express = require("express");
-// const cors = require("cors");
+const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
 // routes
@@ -31,7 +31,7 @@ function errorHandler(err, req, res, next) {
 }
 
 module.exports = server => {
-  // server.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+  server.use(cors({ credentials: true, origin: "http://localhost:3000" }));
   server.use(helmet());
   server.use(express.json());
   server.use(morgan("dev"));
