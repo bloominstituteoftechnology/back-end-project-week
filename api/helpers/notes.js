@@ -2,7 +2,7 @@ const db = require('../dbConfig');
 
 const GET_ALL = (req, res) => {
   db('notes')
-    .then(notes => res.status(200).json(notes))
+    .then(notes => res.status(200).json(notes.reverse()))
     .catch(err => {
       console.error(err);
       res.status(500).json({ error: 'Something went wrong while fetching the notes.' });
