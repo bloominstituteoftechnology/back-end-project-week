@@ -2,6 +2,8 @@ const express = require('express');
 const knex = require('knex'); 
 const Joi = require('joi'); 
 const cors = require('cors');
+const bcrypt = require('bcryptjs'); 
+const jwt = require('jsonwebtoken'); 
 
 // Server setup using express
 const server = express(); 
