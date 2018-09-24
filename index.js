@@ -12,6 +12,27 @@ server.get('/', (req, res) => {
     res.send("Hello WOrld");
 });
 
+server.post("/notes", (req,res) => {
+    const notes = req.body;
+
+    db("notes")
+        .insert(notes)
+        .then(ids => {
+            res.status(201).json(ids);
+        })
+        .catch(err => res.status(500).json(err));
+        // console.log("Error posting new note", err),
+});
+
+
+
+server.get('/notes', (req, res) => {
+    db("notes")
+        .then(notes => {
+            res.status(200).json(notes);
+        })
+        .catch(err => res.status(500).json(err));
+});
 
 
 
