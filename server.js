@@ -14,4 +14,16 @@ server.get('/', (req,res) => {
     res.send('API for notetaking app is running')
 });
 
+server.post('/api/notes', (req,res) => {
+    const note = req.body;
+
+    db
+    .insert(note)
+    .into('notes')
+    .then(ids => {
+        res.status(201).json(ids);
+    })
+    .catch(err => res.status(500).json(err));
+})
+
 server.listen(9000);
