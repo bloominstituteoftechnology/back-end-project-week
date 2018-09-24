@@ -67,6 +67,27 @@ server.delete("/api/notes/:id", (req, res) => {
     }).catch(err => {
         res.status(500).json({Error: "There was an error with deleted the note in the database", err})
     })
+}); 
+
+server.put("/api/notes/:id", (req, res) => {
+    const {id} = req.params; 
+    const newEdit = req.body;
+
+    // Joi validation 
+    const validated = validateBody(newEdit); 
+    if(validated.error){
+        res.status(400).json(validated.error.details[0].message)
+    }
+
+    db('notes').where({id}).update(newEdit).then(count => {
+        if(count < 1){
+            res.status(400).json({Error: "The ID specified could not be found within the database"})
+        }else{
+            res.status(200).json({message: "Successfully updated the note!"})
+        }
+    }).catch(err => {
+        res.status(500).json(err); 
+    })
 })
 
 
