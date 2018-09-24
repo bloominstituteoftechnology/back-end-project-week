@@ -172,6 +172,7 @@ class App extends Component {
             render={props => (
               <SingleNote
                 {...props}
+                add={this.addNote}
                 notes={this.state.notes}
                 delete={this.deleteNote}
                 invert={this.invertCheck}

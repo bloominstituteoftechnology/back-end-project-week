@@ -65,6 +65,20 @@ class SingleNote extends Component {
     return (
       <div className="notesViewContainer">
         <div className="svButtonRow">
+          <div
+            onClick={() => {
+              this.props.add({
+                title: this.state.title,
+                body: this.state.body,
+                tags: this.state.tags,
+                checklist: this.state.checklist
+              });
+              this.props.history.push("/");
+            }}
+            className="svButtons"
+          >
+            clone
+          </div>
           <Link to={`/input/${this.props.match.params.id}`}>
             <div className="svButtons">edit </div>
           </Link>

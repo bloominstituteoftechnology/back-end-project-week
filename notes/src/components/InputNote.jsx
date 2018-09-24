@@ -40,16 +40,15 @@ class CreateNote extends Component {
           checklist: filtNote[0].checklist
         });
       }
-    }
-    else{
+    } else {
       this.setState({
         title: "",
         body: "",
         mode: "ADD",
         tags: [],
         checklist: []
-    })
-  }
+      });
+    }
   }
   addToChecklist = () => {
     if (this.state.checklistAdd === "") {
@@ -98,16 +97,15 @@ class CreateNote extends Component {
             checklist: filtNote[0].checklist
           });
         }
-      }
-      else{
+      } else {
         this.setState({
           title: "",
           body: "",
           mode: "ADD",
           tags: [],
           checklist: []
-      })
-    }
+        });
+      }
     }
   }
   submit = e => {
