@@ -1,0 +1,31 @@
+{
+	"name": "back-end-project-week",
+	"version": "1.0.0",
+	"description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
+	"main": "index.js",
+	"scripts": {
+		"start": "nodemon server.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/trevorfehrman/back-end-project-week.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/trevorfehrman/back-end-project-week/issues"
+	},
+	"homepage": "https://github.com/trevorfehrman/back-end-project-week#readme",
+	"devDependencies": {
+		"nodemon": "^1.18.4"
+	},
+	"dependencies": {
+		"cors": "^2.8.4",
+		"express": "^4.16.3",
+		"helmet": "^3.13.0",
+		"knex": "^0.15.2",
+		"morgan": "^1.9.1",
+		"sqlite3": "^4.0.2"
+	}
+}
