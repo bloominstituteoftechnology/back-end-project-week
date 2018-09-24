@@ -63,7 +63,7 @@ server.post("/api/notes", (req, res) => {
       console.log(id);
       db("notes")
         .then(notes => {
-          checkForResource(req, res, notes);
+          res.status(201).json(notes);
         })
         .catch(err => {
           console.log("error", err);
