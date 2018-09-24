@@ -60,7 +60,17 @@ server.post("/api/notes", (req, res) => {
   db.insert(note)
     .into("notes")
     .then(id => {
-      res.status(201).json(id);
+      console.log(id);
+      db("notes")
+        .then(notes => {
+          checkForResource(req, res, notes);
+        })
+        .catch(err => {
+          console.log("error", err);
+          res
+            .status(500)
+            .json({ error: "The notes information could not be retrieved." });
+        });
     })
     .catch(err => {
       console.log("error", err);
