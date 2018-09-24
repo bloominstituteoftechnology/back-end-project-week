@@ -48,7 +48,6 @@ app.post("/notes/:id", async (req, res) => {
   }
   try {
     const result = await dbhelpers.editNote(req.params.id,req.body);
-    console.log(result);
     if (result === 0) {
       res.status(400).json({ errorMessage: "ID does not excist" });
       return;

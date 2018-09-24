@@ -41,6 +41,15 @@ class CreateNote extends Component {
         });
       }
     }
+    else{
+      this.setState({
+        title: "",
+        body: "",
+        mode: "ADD",
+        tags: [],
+        checklist: []
+    })
+  }
   }
   addToChecklist = () => {
     if (this.state.checklistAdd === "") {
@@ -80,8 +89,6 @@ class CreateNote extends Component {
             return false;
           }
         });
-        console.log(filtNote[0].tags);
-
         if (filtNote[0]) {
           this.setState({
             title: filtNote[0].title,
@@ -92,6 +99,15 @@ class CreateNote extends Component {
           });
         }
       }
+      else{
+        this.setState({
+          title: "",
+          body: "",
+          mode: "ADD",
+          tags: [],
+          checklist: []
+      })
+    }
     }
   }
   submit = e => {
