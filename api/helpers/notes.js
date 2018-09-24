@@ -5,7 +5,7 @@ const GET_ALL = (req, res) => {
     .then(notes => res.status(200).json(notes))
     .catch(err => {
       console.error(err);
-      res.status(500).json({ error: 'Something went wrong while fetching the notes.' })
+      res.status(500).json({ error: 'Something went wrong while fetching the notes.' });
     });
 };
 
@@ -18,17 +18,17 @@ const GET_ONE = (req, res) => {
     })
     .catch(err => {
       console.error(err);
-      res.status(500).json({ error: 'Something went wrong while fetching the note.' })
+      res.status(500).json({ error: 'Something went wrong while fetching the note.' });
     });
 };
 
 const POST = (req, res) => {
   const { title, text } = req.body;
   db('notes').insert({ title, text })
-    .then(ids => res.status(201).json(ids))
+    .then(ids => res.status(201).json(ids[0]))
     .catch(err => {
       console.error(err);
-      res.status(500).json({ error: 'Something went wrong while creating the note.' })
+      res.status(500).json({ error: 'Something went wrong while creating the note.' });
     })
 };
 
@@ -38,7 +38,7 @@ const PUT = (req, res) => {
     .then(count => res.status(200).json(count))
     .catch(err => {
       console.error(err);
-      res.status(500).json({ error: 'Something went wrong while updating the note.' })
+      res.status(500).json({ error: 'Something went wrong while updating the note.' });
     });
 };
 
@@ -48,7 +48,7 @@ const DELETE = (req, res) => {
     .then(count => res.status(200).json(count))
     .catch(err => {
       console.error(err);
-      res.status(500).json({ error: 'Something went wrong while deleting the note.' })
+      res.status(500).json({ error: 'Something went wrong while deleting the note.' });
     });
 };
 

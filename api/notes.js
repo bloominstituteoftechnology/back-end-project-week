@@ -1,13 +1,13 @@
 const router = require('express').Router();
-const h = require('./helpers/notes');
+const notes = require('./helpers/notes');
 
 router.route('/')
-  .get(h.GET_ALL)
-  .post(h.POST);
+  .get(notes.GET_ALL)
+  .post(notes.POST);
 
 router.route('/:id')
-  .get(h.GET_ONE)
-  .delete(h.DELETE)
-  .put(h.PUT);
+  .get(notes.GET_ONE)
+  .delete(notes.DELETE)
+  .put(notes.PUT);
 
 module.exports = router;
