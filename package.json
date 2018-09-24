@@ -4,15 +4,19 @@
     "express": "^4.16.3",
     "helmet": "^3.13.0",
     "knex": "^0.15.2",
+    "nodemon": "^1.18.4",
     "sqlite3": "^4.0.2"
   },
   "name": "back-end-project-week",
   "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "1.18.4"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1", 
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
