@@ -7,7 +7,6 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
 const app = new express()
-const PORT = process.env.PORT || 3000
 
 app.use(cors())
 app.use(helmet())
@@ -19,5 +18,6 @@ else
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use(require('./middleware/index').errorHandler)
 
-app.listen(PORT, () => console.log(`Server is running on port: ${PORT}`))
+module.exports = app
