@@ -33,10 +33,16 @@ router.get("/:id", function(req, res) {
 	helpers
 		.getNote(req.params.id)
 		.then(data => {
+			console.log(data);
+			if (!data[0]) {
+				return res.json({
+					error: true,
+					message: "No Note by that ID",
+				});
+			}
 			let note = data[0];
 			let tags = data[1].map(tagObj => tagObj.tag);
 			let noteTag = { ...note, tags };
-			console.log(noteTag);
 
 			res.json({ error: false, message: noteTag });
 		})
