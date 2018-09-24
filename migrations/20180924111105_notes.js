@@ -3,7 +3,9 @@ exports.up = function(knex, Promise) {
     return knex.schema.createTable('notes', function(tbl) {
       tbl.increments();
   
-      tbl.string('note').notNullable();
+      tbl.string('note_name').notNullable();
+
+      tbl.string('note_text').notNullable();
   
       tbl.integer('note_id').unsigned().notNullable().references('id').inTable('users')
     })
