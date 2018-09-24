@@ -16,7 +16,7 @@ module.exports = {
   protected: function(req, res, next) {
     const token = req.headers.authorization;
     if(token){
-      jwt.verify(token.SECRET, (err, decodedToken) =. {
+      jwt.verify(token, SECRET, (err, decodedToken) => {
         if(err){
           res.status(401).json({ message: 'Invalid Token' });
         }else{

@@ -10,9 +10,9 @@ module.exports = {
 
     return query;
   }, //get all notes or a note by id
-  add: function(title, content) {
+  add: function(title, content, user_id) {
     let query = db("notes")
-      .insert({ title, content })
+      .insert({ title, content, user_id })
       .then(ids => ({ id: ids[0] }));
 
     return query;
