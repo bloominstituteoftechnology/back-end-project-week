@@ -17,6 +17,20 @@ server.use(express.json());
 server.use(helmet());
 server.use(cors())
 
+const generateToken = user => {
+    const payload = {
+        username: user.username
+    }
+
+    const options = {
+        expiresIn: '1h',
+        jwtid: '54321'
+      }
+
+    const token = jwt.sign(payload, jwtKey, options)
+    return token
+}
+
 server.get('/', (req, res) => {
     res.send('Api Online')
 })
