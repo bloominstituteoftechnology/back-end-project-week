@@ -7,10 +7,7 @@ server.use(express.json());
 //ERROR HANDLING MIDDLEWARE
 //not quite sure how to implement but here's what I have
 
-// server.use(function(err, req, res, status, msg, next) {
-//     res.status(status).json({ msg });
-//     next()
-//   });
+
 
 
 
@@ -73,6 +70,11 @@ server.delete("/notes/:id", (req, res) => {
       res.status(500).json(err);
     });
 });
+
+// server.use(function(res, status, msg, next) {
+//     res.status(status).json({ msg });
+//     next()
+//   });
 
 port = 9000;
 server.listen(
