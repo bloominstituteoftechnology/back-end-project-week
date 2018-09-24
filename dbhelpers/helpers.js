@@ -12,57 +12,22 @@ module.exports = {
         console.error(error);
       });
   },
-  addDish: (body) => {
-    return db("dishes").insert({ ...body });
+  addNote: (body) => {
+    return db("notes").insert({ ...body });
   },
-  getDish:(id)=>{
-    return db("dishes")
-    .where({"dishes.id":id})
-    .join('recipes','dishes.id','=','recipes.dish_id')
-      .then(rows => {
-        console.log(rows);
-        return rows;
-      })
-      .catch(function(error) {
-        console.error(error);
-      });
+  getSingleNote:(id)=>{
+    return db("notes")
+    .where({"notes.id":id})
   },
-  getRecipes: () => {
-    return db("recipes")
-    .join('dishes','recipes.dish_id','=','dishes.id')
-
-      .then(rows => {
-        console.log(rows);
-        return rows;
-      })
-      .catch(function(error) {
-        console.error(error);
-      });
+  deleteNote:(id)=>{
+    return db("notes")
+    .where({"id":id})
+    .del();
   },
-  addRecipe: (body) => {
-    console.log(body)
-    return db("recipes").insert({ ...body });
-  },
-  // delete:(id,which)=>{
-  //   return db(which)
-  //   .where({"id":id})
-  //   .del();
-  // },
-
   // edit: (id, body,which)=>{
   //   return db(which)
   //   .where({"id":id})
   //   .update({...body})
   // },
-  // studentsIn: (id)=>{
-  //   return db("students")
-  //   .where({"cohort_id":id})
-  //   .then(rows => {
-  //     console.log(rows);
-  //     return rows;
-  //   })
-  //   .catch(function(error) {
-  //     console.error(error);
-  //   });
-  // }
+  
 };

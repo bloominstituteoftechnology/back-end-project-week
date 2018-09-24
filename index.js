@@ -12,6 +12,46 @@ app.get("/notes", async (req, res) => {
   let results = await dbhelpers.getNotes();
   res.status(200).json(results);
 });
+app.get("/notes/:id", async (req, res) => {
+  try {
+    let results = await dbhelpers.getSingleNote(req.params.id);
+    if (results.length === 0) {
+      res.status(400).json({ errorMessage: "ID does not excist" });
+      return;
+    }
+    res.status(200).json(results);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+app.post("/notes", async (req, res) => {
+  if (!req.body.title || !req.body.body) {
+    res.status(400).json({ errorMessage: "Invalid body" });
+    return;
+  }
+  try {
+    const newID = await dbhelpers.addNote(req.body);
+    const results = await dbhelpers.getSingleNote(newID[0]);
+    res.status(200).json(results);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+app.delete("/notes/:id", async (req, res) => {
+  try {
+    let results = await dbhelpers.deleteNote(req.params.id);
+    if (results === 0) {
+      res.status(400).json({ errorMessage: "ID does not excist" });
+      return;
+    }
+    res.status(200).json({message:"Delete Successful"});
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 app.use("/", (req, res) =>
   res
     .status(404)
