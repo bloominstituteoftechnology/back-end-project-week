@@ -17,6 +17,16 @@ server.get("/api/notes", (req, res) => {
     }).catch(err => {
         res.status(500).json({error: "Cannot retrieve notes"})
     })
-}); 
+});
+
+server.get("/api/notes/:id", (req, res) => {
+    const { id } = req.params; 
+    db("notes")
+    .where({id})
+    .then(note => res.status(200).json(note))
+    .catch (err => {
+        res.status(500).json({error: "Cannot retrieve notes"})
+    });
+})
 
 server.listen(3000, () => console.log("server listening at port 3000"));
