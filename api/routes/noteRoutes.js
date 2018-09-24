@@ -38,9 +38,9 @@ router.get("/get/:id", (req, res) => {
 // POST
 router.post("/create", (req, res) => {
   const note = req.body;
-  if (!note) {
-    return res.status(406).json({
-      errorMessage: "Please provide a title for the note."
+  if (!note.title || !note.textBody) {
+    return res.status(400).json({
+      errorMessage: "Please provide both a title and text body for the note."
     });
   } else {
     db("notes")
@@ -60,9 +60,9 @@ router.post("/create", (req, res) => {
 router.put("/edit/:id", (req, res) => {
   const { id } = req.params;
   const updatedNote = req.body;
-  if (!updatedNote) {
-    return res.status(406).json({
-      errorMessage: "Please provide a title for the note."
+  if (!updatedNote.title || !updatedNote.textBody) {
+    return res.status(400).json({
+      errorMessage: "Please provide a title and text body for the note."
     });
   } else {
     db("notes")
