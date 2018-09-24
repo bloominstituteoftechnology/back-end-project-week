@@ -15,14 +15,14 @@ module.exports = {
       .select();
   },
 
-  async putNote(note) {
+  async updateNote(id, note) {
     return await db(`Notes`)
       .where({
-        id: note.id,
+        id: id,
       })
       .update({
-        content: note.content,
         title: note.title,
+        content: note.content,
       });
   },
 

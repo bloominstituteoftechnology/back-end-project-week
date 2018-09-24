@@ -26,9 +26,6 @@ router.get("/:id", (req, res, next) => {
       if (note.length === 0) {
         note.code = 404;
         next(note);
-        // res
-        //   .status(404)
-        //   .json({ message: "The note with the specified ID does not exist." });
       } else {
         res.status(200).json(note);
       }
@@ -46,11 +43,10 @@ router.post("/", (req, res, next) => {
   if (!note.title || !note.content) {
     note.code = 406;
     next(note);
-    // res.status(406).json({ message: "Missing title or content." });
   } else {
     helpers
       .addNote(note)
-      .then(notes => {
+      .then(() => {
         res.status(201).json({ message: "Note successfully added." });
       })
       .catch(err => {
@@ -64,13 +60,13 @@ router.post("/", (req, res, next) => {
 // start DELETE
 router.delete("/:id", (req, res, next) => {
   const { id } = req.params;
+  const noteToDelete = req.body;
   helpers
     .delNote(id)
-    .then(notes => {
-      if (notes === 0) {
-        res.status(404).json({
-          message: "The note with the specified ID does not exist.",
-        });
+    .then(note => {
+      if (note === 0) {
+        noteToDelete.code = 404;
+        next(noteToDelete);
       } else {
         res.status(200).json({ message: "Note removed successfully." });
       }
@@ -81,5 +77,31 @@ router.delete("/:id", (req, res, next) => {
     });
 });
 // end DELETE
+
+// start PUT
+router.put("/:id", (req, res, next) => {
+  const { id } = req.params;
+  const modifiedNote = req.body;
+  if (!modifiedNote.title || !modifiedNote.content) {
+    modifiedNote.code = 406;
+    next(modifiedNote);
+  } else {
+    helpers
+      .updateNote(id, modifiedNote)
+      .then(count => {
+        if (count) {
+          res.status(200).json({ message: "Note successfully modified." });
+        } else {
+          modifiedNote.code = 404;
+          next(modifiedNote);
+        }
+      })
+      .catch(err => {
+        err.code = 500;
+        next(err);
+      });
+  }
+});
+// end PUT
 
 module.exports = router;
