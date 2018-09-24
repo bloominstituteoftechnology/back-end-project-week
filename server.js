@@ -18,8 +18,8 @@ server.get('/', (req,res) => {
 	res.status(200).json(response);	
 	})
 	
-	.catch(err => {
-	res.status(500).json({message: "Failed to retrieve notes"});	
+	.catch(error => {
+	res.status(500).json({error: "Failed to retrieve notes"});	
 	})
 });
 
@@ -33,9 +33,35 @@ server.get('/:id', (req,res)=>{
         else res.status(200).json(response);
         })
 
-        .catch(err => {
-        res.status(500).json({error: "Failed to retrieve teh note."});
+        .catch(error => {
+        res.status(500).json({error: "Failed to retrieve the note."});
         })	
+});
+
+
+server.post('/', (req,res)=> {
+	const title = req.body.title;
+	const content = req.body.content;
+
+	const note = {title, content};
+
+	if(!title || !content){
+                res.status(400).json({error: "Failed to save note to the database. Please provide title and content for the note."});
+        }
+
+else{
+
+        const request = db.insert(note);
+
+        request.then(response => {
+                res.status(200).json(response);
+        })
+
+        .catch(error => {
+        res.status(500).json({error: "Failed to save note to the database" });
+        })
+
+        } 
 });
 
 

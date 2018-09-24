@@ -16,11 +16,12 @@ function getById(id){
 	return db('notes').where({id: Number(id)});
 }
 
-function insert(note){
-	return db('notes')
-		.insert(note)
-		.then(ids => ({id: ids[0] }));
+function insert(note) {
+  return db('notes')
+    .insert(note)
+    .then(ids => ({ id: ids[0] }));
 }
+
 
 function update(id, note){
 	return db('notes')
