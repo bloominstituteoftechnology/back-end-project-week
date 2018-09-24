@@ -1,0 +1,19 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "##Backend project week",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AliasAJ/back-end-project-week.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AliasAJ/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/AliasAJ/back-end-project-week#readme"
+}
