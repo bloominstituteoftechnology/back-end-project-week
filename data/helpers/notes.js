@@ -1,20 +1,27 @@
-const db = require('../dbConfig');
+const db = require("../dbConfig");
 
 module.exports = {
-  get: function(id){
-    let query = db('notes');
+  get: function(id) {
+    let query = db("notes");
 
-    if(id){
+    if (id) {
       query.where({ id }).first();
     }
 
     return query;
-  }, //get all recipes or a recipe by id
-  add: function(title, content){
-    let query =  db('notes')
+  }, //get all notes or a note by id
+  add: function(title, content) {
+    let query = db("notes")
       .insert({ title, content })
       .then(ids => ({ id: ids[0] }));
 
     return query;
-  }
-}
+  }, //adding a new note
+  update: function(id, note) {
+    let query = db("notes")
+      .where({ id })
+      .update(note);
+
+    return query;
+  }//update a note
+};
