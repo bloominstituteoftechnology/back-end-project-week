@@ -1,6 +1,7 @@
 // require statements
 const express = require('express');
 const helmet = require('helmet');
+const cors = require('cors');
 
 // bring in database
 const db = require('./db/dataModel');
@@ -11,6 +12,7 @@ const server = express();
 // configure middleware
 server.use(express.json());
 server.use(helmet());
+server.use(cors());
 
 // notes endpoints
 server.get('/note/get/all', async (req, res) => {
@@ -44,7 +46,7 @@ server.get('/note/get/:id', async (req, res) => {
 
 server.put('/note/edit/:id', async (req, res) => {
     const { id } = req.params;
-    const { title, textBody, tags } = req.body;
+    const { tags, title, textBody } = req.body;
     try {
         const response = await db.updateNote(id, {title, textBody, tags});
         res.status(200).json(response);
