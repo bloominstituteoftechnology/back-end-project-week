@@ -30,14 +30,37 @@ router.get("/", function(req, res) {
 });
 
 router.get("/:id", function(req, res) {
-	helpers.getNote(req.params.id).then(data => {
-		let note = data[0];
-		let tags = data[1].map(tagObj => tagObj.tag);
-		let noteTag = { ...note, tags };
-		console.log(noteTag);
+	helpers
+		.getNote(req.params.id)
+		.then(data => {
+			let note = data[0];
+			let tags = data[1].map(tagObj => tagObj.tag);
+			let noteTag = { ...note, tags };
+			console.log(noteTag);
 
-		res.json({ error: false, message: noteTag });
-	});
+			res.json({ error: false, message: noteTag });
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(500).json({ error: true, message: "Server Error" });
+		});
+});
+
+router.post("/", function(req, res) {
+	console.log(req.body);
+	helpers
+		.addNoteWithTags(req.body)
+		.then(note => {
+			console.log(note);
+			return res.json({
+				error: false,
+				message: "sup",
+			});
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(500).json({ error: true, message: "Server Error" });
+		});
 });
 
 module.exports = router;
