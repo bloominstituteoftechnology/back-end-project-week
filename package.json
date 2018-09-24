@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/david-pok/back-end-project-week#readme",
   "dependencies": {
-    "knex": "^0.15.2"
+    "express": "^4.16.3",
+    "helmet": "^3.13.0",
+    "knex": "^0.15.2",
+    "sqlite3": "^4.0.2"
   }
 }
