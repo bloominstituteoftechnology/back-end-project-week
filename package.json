@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "helmet": "^3.13.0",
+    "knex": "^0.15.2",
+    "sqlite3": "^4.0.2"
+  },
+  "name": "back-end-project-week",
+  "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kennedykid1995/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kennedykid1995/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/Kennedykid1995/back-end-project-week#readme"
+}
