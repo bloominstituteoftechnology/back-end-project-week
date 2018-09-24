@@ -1,0 +1,52 @@
+Arguments: 
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.9.4/libexec/bin/yarn.js add nodemon --dev
+
+PATH: 
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Yarn version: 
+  1.9.4
+
+Node version: 
+  8.11.1
+
+Platform: 
+  darwin x64
+
+Trace: 
+  SyntaxError: /Users/luissalazar/Documents/LambdaSchool/back-end-project-week/package.json: Unexpected token ; in JSON at position 231
+      at JSON.parse (<anonymous>)
+      at /usr/local/Cellar/yarn/1.9.4/libexec/lib/cli.js:1130:59
+      at Generator.next (<anonymous>)
+      at step (/usr/local/Cellar/yarn/1.9.4/libexec/lib/cli.js:92:30)
+      at /usr/local/Cellar/yarn/1.9.4/libexec/lib/cli.js:103:13
+      at <anonymous>
+
+npm manifest: 
+  {
+    "name": "back-end-project-week",
+    "version": "1.0.0",
+    "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
+    "main": "server.js",
+    "scripts": {
+      "start": "nodemon server.js";
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/lfsalazarcruz/back-end-project-week.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/lfsalazarcruz/back-end-project-week/issues"
+    },
+    "homepage": "https://github.com/lfsalazarcruz/back-end-project-week#readme"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
