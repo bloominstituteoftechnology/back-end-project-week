@@ -37,6 +37,18 @@ server.get('/api/notes', (req, res) => {
     .catch(err => res.status(500).json({ errorMsg: 'Unable to retrieve notes.'}));
 })
 
+server.get('/api/notes/:id', (req, res) => {
+    const { id } = req.params;
+    
+    db('notes')
+    .where('id', '=', id)
+    .then(note => {
+        res.status(200).json(note);
+    })
+    .catch(err => res.status(500).json({ errorMsg: 'Unable to retieve notes.'}));
+    
+})
+
 const port = process.env.PORT || 3300;
 server.listen(port, () => {
     console.log(`\n=== Server listening on port ${port}\n`);
