@@ -1,14 +1,26 @@
-
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable('notes', notes => {
+  return knex.schema
+    .createTable("notes", notes => {
       notes.increments();
-      notes.string('title')
-      .notNullable()
-      .unique();
-      notes.string('text')
-  })
+      notes.string("title").notNullable();
+      notes.string("text");
+    })
+    .then(() => {
+      return knex.schema.createTable("tags", tags => {
+        tags.increments();
+        tags.string("tag");
+        tags
+          .integer("noteId")
+          .unsigned()
+          .notNullable()
+          .references("id")
+          .inTable("notes");
+      });
+    });
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTableIfExists('notes');
+  return knex.schema.dropTableIfExists("notes").then(() => {
+    return knex.schema.dropTableIfExists("tags");
+  });
 };

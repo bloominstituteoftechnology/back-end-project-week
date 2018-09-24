@@ -5,11 +5,39 @@ const db = knex(dbconfig.development);
 module.exports = {
   getNotes: function(id) {
     if (id) {
-      return db("notes")
-        .select("notes.title", "notes.text")
-        .where({ id: id });
+        const promises = [db("notes"), this.getTags(id)]; 
+
+        return Promise.all(promises).then(function(results) {
+          let [notes, tags] = results;
+          let note = notes[id - 1];
+          note.tags = tags.map(t => t.tag);
+  
+          return note;
+        });
     }
-    return db("notes");
+    const promises = [db("notes"), this.getTagsAll()]; 
+
+    return Promise.all(promises).then(function(results) {
+      let [notes, tags] = results;
+      for (let i=0; i<notes.length; i++){
+        let note = notes[i];
+        note.tags = tags.map(t => t.tag);
+      }
+      return notes;
+    });   
+      
+  },
+
+  getTags: function(id) {
+    return db("notes")
+      .select("tags.tag")
+      .join("tags", "tags.noteId", "notes.id")
+      .where("notes.id", id);
+  },
+  getTagsAll: function() {
+    return db("notes")
+      .select("tags.tag")
+      .join("tags", "tags.noteId", "notes.id")
   },
 
   addNote: function(note) {
