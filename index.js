@@ -61,6 +61,18 @@ server.put('/api/notes/:id', (req, res) => {
     .catch(err => res.status(500).json({ errorMsg: 'Unable to edit the note with that id.' }))
 })
 
+server.delete('/api/notes/:id', (req, res) => {
+    const{ id } = req.params;
+    
+    db('notes')
+    .where('id', '=', id)
+    .del()
+    .then(count => {
+        res.status(200).json(count);
+    })
+    .catch(err => res.status(500).json({ errorMsg: 'Unable to delete that note.' }));
+})
+
 const port = process.env.PORT || 3300;
 server.listen(port, () => {
     console.log(`\n=== Server listening on port ${port}\n`);
