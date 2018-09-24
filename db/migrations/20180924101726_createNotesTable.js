@@ -12,3 +12,6 @@ exports.up = function(knex, Promise) {
 exports.down = function(knex, Promise) {
     return knex.schema.dropTableIfExists('notes');
 };
+
+//knex migrate:make migration_name
+//knex migrate:latest

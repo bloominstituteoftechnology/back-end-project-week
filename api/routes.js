@@ -6,6 +6,7 @@ const db = require('../db/db.js')
 
 router.use(express.json());
 
+// from api
 router.get('/', (req, res) => {
     res.status(200).json({message: "MJK-LSN Backend API is running."})
 })
