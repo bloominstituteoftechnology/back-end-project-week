@@ -11,10 +11,26 @@ const server = express();
 server.use(helmet());
 server.use(express.json());
 
-server.get('/', (req, res) => {
-    res.status(200).send('Server up and running!')
+server.post('/api/notes', (req, res) => {
+    const note = req.body;
+    if (!note.title || !note.textBody) {
+        res.status(400).json({ error: "Please provide a title and body for the note." })
+    } else
+        db.insert(note)
+        .into('notes')
+        .then(ids => {
+        res.status(201).json(ids);
+        })
+        .catch(err => res.status(500).json({ error: "There was an error saving the note." }))
 });
 
+server.get('/api/notes', (req, res) => {
+    db('notes')
+    .then(notes => {
+        res.status(200).json(notes)
+    })
+    .catch(err => res.status(500).json(err));
+});
 
 
 const port = 8000;
