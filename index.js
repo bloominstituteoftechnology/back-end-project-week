@@ -12,6 +12,8 @@ server.get('/', (req, res) => {
     res.send("Hello WOrld");
 });
 
+
+//create new note
 server.post("/notes", (req,res) => {
     const notes = req.body;
 
@@ -25,7 +27,7 @@ server.post("/notes", (req,res) => {
 });
 
 
-
+//get all notes
 server.get('/notes', (req, res) => {
     db("notes")
         .then(notes => {
@@ -34,6 +36,19 @@ server.get('/notes', (req, res) => {
         .catch(err => res.status(500).json(err));
 });
 
+//get note by id
+server.get("/notes/:id", (req, res) => {
+    const id = req.params.id;
+
+    db("notes")
+        .select()
+        .where({id})
+        .first()
+        .then( notes => {
+            res.status(201).json(notes);
+        })
+        .catch(err => res.status(500).json(err));
+})
 
 
 server.listen(8000, () => console.log("======API Running on Port 8000======="))
