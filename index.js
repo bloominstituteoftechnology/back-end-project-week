@@ -31,12 +31,14 @@ server.use(express.json());
 })
  server.post('/notes', (req, res) => {
     const body = req.body;
-    db.insert(body)
+    console.log(body);
+    db('notes').insert(body)
     .into('notes')
     .then(note => {
-        res.status(200).json(note);
+        res.status(201).json(note);
     })
     .catch(err => {
+        console.log(err);
         res.status(500).json({error:'database cannot create information'});
     })
 })
