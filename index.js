@@ -71,6 +71,30 @@ server.post("/api/notes/register", (req, res) => {
     })
 }); 
 
+server.post("/api/notes/login", (req, res) => {
+    const body = req.body; 
+
+    //Validate body using Joi
+    const validated = validateUserBody(body); 
+    if(validated.error){
+        res.status(400).json(validated.error.details[0].message)
+    }
+
+    db('users').where({username: body.username}).first().then(user => {
+        // compare password in body to password in database
+        if(user && bcrypt.compareSync(body.password, user.password)){
+            const token = generateToken(body.username); 
+            res.status(201).json({message: "Successfully logged in!", token})
+        }else {
+            res.status(404).json({message: "Sorry your credentials are incorrect, please try again"})
+        }
+    }).catch(err => {
+        res.status(500).json({Error: "Error accessing data from the database"})
+    })
+
+
+})
+
 
 server.get("/api/notes", (req, res) => {
     db('notes').then(notes => {
