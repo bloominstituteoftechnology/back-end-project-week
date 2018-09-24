@@ -1,10 +1,12 @@
 # Documentation of server's APIs
 
-The server and database are designed to connect the Frontend of Lambda Note Project. The server supplies APIs for CRUD to modify the database when user interacts via Web Application.
+The server and database are designed to connect the Frontend of Lambda Note Project. 
+
+The server supplies APIs for CRUD to modify the database when user interacts via Web Application.
 
 ## Setup
 
-The server by default is running on port 3300 which can be modified in root's index.js
+The server by default is running on port `3300` which can be modified in root's index.js
 
 ## APIs
 
@@ -25,7 +27,9 @@ Route: `/notes/:id` (for example: `/notes/1`)
 Expected return: a note `object` with `title` and `textBody`
 
 ### 3. Creating a note into database
-Method: `POST`
+Method: `POST`  (`title` and `textBody` are required)
+
+Input object: `{ title: 'example title', textBody: 'example textBody' }`
 
 Route: `/notes`
 
