@@ -44,21 +44,25 @@ server.post("/notes", (req, res) => {
 
 server.put("/notes/:id", (req, res) => {
   const body = req.body;
-  const {title, contents} = req.body
+  const { title, contents } = req.body;
   const { id } = req.params;
 
   db.editNote({ id }, body)
-    .then(note => res.status(200).json({title, contents}))
+    .then(note => res.status(200).json({ title, contents }))
     .catch(err => {
       res.status(500).json(err);
     });
 });
 
 server.delete("/notes/:id", (req, res) => {
-    const {id} = req.params
+  const { id } = req.params;
 
-
-})
+  db.deleteNote({ id })
+    .then(notes => res.status(200).json(notes))
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
 
 port = 9000;
 server.listen(

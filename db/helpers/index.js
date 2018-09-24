@@ -30,8 +30,17 @@ module.exports = {
     let query = db("notes");
 
     return query
-      .where( id )
+      .where(id)
       .update(body)
       .then(body => body);
+  },
+
+  deleteNote: function(id) {
+    let query = db("notes");
+
+    return query
+      .where(id)
+      .del()
+      .then(count => count);
   }
 };
