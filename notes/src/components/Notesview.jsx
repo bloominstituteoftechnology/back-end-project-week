@@ -103,6 +103,9 @@ class Notesview extends Component {
           if (e.title.includes(event.target.value)) {
             return e;
           }
+          else{
+            return false;
+          }
         });
         break;
       case "body":
@@ -110,7 +113,7 @@ class Notesview extends Component {
           if (e.body.includes(event.target.value)) {
             return e;
           } else {
-            return;
+            return false;
           }
         });
         break;
@@ -120,11 +123,17 @@ class Notesview extends Component {
           e.tags.forEach(element => {
             if (element.includes(event.target.value)) {
               found = true;
-              return;
+              return true;
+            }
+            else {
+              return false;
             }
           });
           if (found) {
             return e;
+          }
+          else{
+            return false;
           }
         });
         break;
@@ -146,7 +155,7 @@ class Notesview extends Component {
             ) {
               return e;
             } else {
-              return;
+              return false;
             }
           }
         });
