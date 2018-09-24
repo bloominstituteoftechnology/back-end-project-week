@@ -62,7 +62,27 @@ server.put("/api/notes/:id", (req, res) => {
     .where({ id: req.params.id })
     .update(edits)
     .then(response => {
-      res.status(200).json(response);
+      if (response === 0) {
+        res.status(404).json({ error: "Note not found" });
+      } else {
+        res.status(200).json(response);
+      }
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
+
+server.delete("/api/notes/:id", (req, res) => {
+  db("notes")
+    .where({ id: req.params.id })
+    .del()
+    .then(response => {
+      if (response === 0) {
+        res.status(404).json({ error: "Note not found" });
+      } else {
+        res.status(200).json(data);
+      }
     })
     .catch(err => {
       res.status(500).json(err);
