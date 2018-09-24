@@ -26,4 +26,13 @@ server.post('/api/notes', (req,res) => {
     .catch(err => res.status(500).json(err));
 })
 
+server.get('/api/notes', (req,res) => {
+    db('notes')
+    .then(notes => {
+        res.status(200).json(notes);
+    })
+    .catch(err => res.status(500).json(err));
+});
+
+
 server.listen(9000);
