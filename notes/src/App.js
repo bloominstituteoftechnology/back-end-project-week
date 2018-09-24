@@ -68,28 +68,30 @@ class App extends Component {
     });
   };
   deleteNote = noteID => {
-
     axios
     .delete(`http://localhost:3000/notes/${noteID}`)
+    .then(()=>{
+      this.getNotesList();
+    })
     .catch(function(error) {
       console.log(error);
     });
-    
   };
   invertCheck = (itemID, checkName) => {
     let prevNote = this.state.notes.slice();
-    let changedcheck = prevNote[itemID].checklist.map(element => {
-      if (element.name === checkName) {
-        element.checked = !element.checked;
-        return element;
-      } else {
-        return element;
+    prevNote.forEach((e,i)=>{
+      if (e.id === itemID){
+         e.checklist.map(element => {
+          if (element.name === checkName) {
+            element.checked = !element.checked;
+            return element;
+          } else {
+            return element;
+          }
+        });
+        this.editNote(e);
       }
-    });
-    prevNote[itemID].checklist = changedcheck;
-    this.setState({
-      notes: prevNote
-    });
+    })
   };
   //this is to allow rearrangement via drag and drop of cards
   changeOrder = newOrderProp => {
