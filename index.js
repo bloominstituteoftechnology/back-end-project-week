@@ -2,12 +2,14 @@ const express = require('express');
 const server = express();
 const knex = require('knex');
 const cors = require('cors');
+const helmet = require('helmet');
 //db
 const dbConfig = require('./knexfile');
 const db = knex(dbConfig.development);
-
+//Server use
 server.use(express.json());
 server.use(cors());
+server.use(helmet());
 
 //GET ALL NOTES
 server.get('/get/all', async (req, res) => {
@@ -20,7 +22,7 @@ server.get('/get/all', async (req, res) => {
     }
 });
 
-//GET EXISTING NOTE
+//GET AN EXISTING NOTE
 server.get('/get/:id', async (req, res) => {
     const { id } = req.params;
     try {
@@ -44,6 +46,19 @@ server.post('/create', async (req, res) => {
     }
 });
 
+//UPDATE EXISTING NOTE
+server.put('/edit/:id', async (req, res) => {
+    const { id } = req.params;
+    const toBeUpdated = req.body;
+    try {
+        const updated = await db('notes').where({ id }).update(toBeUpdated);
+        res.status(200).json( updated );
+    }
+    catch ( err ) {
+        res.status(500).json( err.message );
+    }
+});
+
 //DELETE EXISTING NOTE
 server.delete('/delete/:id', async (req, res) => {
     const { id } = req.params;
@@ -55,7 +70,6 @@ server.delete('/delete/:id', async (req, res) => {
         res.status(500).json( err.message );
     }
 });
-
 
 const port = 8000;
 server.listen(port, () => console.log(`===Server is running on port ${port}===`));
