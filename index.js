@@ -15,7 +15,7 @@ server.use(express.json());
         res.status(200).json(n);
     })
     .catch(err => {
-        res.status(500).json(err);
+        res.status(500).json({error:'database cannot retrieve information'});
     })
 });
  server.get('/notes/:id', (req, res) => {
@@ -26,7 +26,7 @@ server.use(express.json());
         res.status(200).json(n);
     })
     .catch(err => {
-        res.status(500).json(err);
+        res.status(500).json({error:'database cannot retrieve information'});
     })
 })
  server.post('/notes', (req, res) => {
@@ -37,7 +37,7 @@ server.use(express.json());
         res.status(200).json(n);
     })
     .catch(err => {
-        res.status(500).json(err);
+        res.status(500).json({error:'database cannot create information'});
     })
 })
  server.put('/notes/:id', (req,res)=> {
@@ -50,7 +50,7 @@ server.use(express.json());
         res.status(200).json(n);
     })
     .catch(err => {
-        res.status(500).json(err);
+        res.status(500).json({error:'database cannot update information'});
     })
 })
  server.delete('/notes/:id', (req,res) => {
@@ -62,7 +62,7 @@ server.use(express.json());
         res.status(200).json(n);
     })
     .catch(err => {
-        res.status(500).json(err);
+        res.status(500).json({error:'database cannot delete information'});
     })
 })
  
