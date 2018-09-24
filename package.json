@@ -2,10 +2,10 @@
   "name": "lambda_notes_backend",
   "version": "0.0.0",
   "private": true,
-  "main": "index.js",
+  "main": "./bin/www.js",
   "scripts": {
     "test": "jest --watch --verbose",
-    "start": "nodemon"
+    "start": "node ./bin/www.js"
   },
   "dependencies": {
     "cors": "^2.8.4",
