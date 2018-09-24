@@ -25,8 +25,18 @@ router.get('/:id', async (req, res) => {
 });
 
 //post a new note
-router.post('/', (req, res) => {
-
+router.post('/', async (req, res) => {
+  const { title, content } = req.body;
+  if(!title || !content){
+    res.status(422).json({message: 'Missing title or content for new note' });
+  }else{
+    try{
+      const id = await db.add(title, content);
+      res.status(201).json(id);
+    }catch (e){
+      res.status(500).json(e);
+    }
+  }
 });
 
 //put a note update
