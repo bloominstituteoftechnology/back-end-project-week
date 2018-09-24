@@ -51,9 +51,7 @@ server.get("/api/notes/:id", (req, res) => {
     })
     .catch(err => {
       console.log("error", err);
-      res
-        .status(500)
-        .json({ error: "The note could not be retrieved" });
+      res.status(500).json({ error: "The note could not be retrieved" });
     });
 });
 
@@ -69,6 +67,24 @@ server.post("/api/notes", (req, res) => {
       res.status(500).json({
         error: "There was an error saving the note to the database."
       });
+    });
+});
+
+server.put("/api/notes/:id", (req, res) => {
+  const changes = req.body;
+  const { id } = req.params;
+
+  db("notes")
+    .where({ id })
+    .update(changes)
+    .then(count => {
+      res.status(200).json(count);
+    })
+    .catch(err => {
+      console.log("error", err);
+      res
+        .status(500)
+        .json({ error: "The note could not be updated" });
     });
 });
 
