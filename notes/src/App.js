@@ -6,6 +6,7 @@ import CreateNote from "./components/InputNote";
 import SingleNote from "./components/SingleNote";
 import { Route, Switch } from "react-router-dom";
 import fileDownload from "js-file-download";
+import axios from "axios";
 
 class App extends Component {
   // what a note object looks like { title: string, body: string(maybe markdown formatted), id: num, checklist: [{checked: boolee, name:string}], tags: [string] }
@@ -17,20 +18,26 @@ class App extends Component {
       mode: "ADD"
     };
   }
-  //these methods mainly excist to be passed down 
   addNote = noteObj => {
-    let prevNotes = [...this.state.notes];
-    const fullObj = {
-      ...noteObj,
-      id: this.state.nextID //this is tracked via ls so it will presist. IDs can be assumed to never have duplicates
-    };
-    prevNotes.push(fullObj);
-    this.setState(
-      prevState => ({
-        nextID: prevState.nextID + 1,
-        notes: prevNotes
+    noteObj.userID =0;
+    noteObj.checklist = JSON.stringify(noteObj.checklist);
+    noteObj.tags = JSON.stringify(noteObj.tags);
+    axios
+      .post("http://localhost:3000/notes",noteObj)
+      .then((response)=> {
+        // handle success
+        let prevNotes = [...this.state.notes];
+        console.log(response.data[0]);
+        prevNotes.push(response.data[0]);
+        this.setState({
+          notes: prevNotes
+        })
+        console.log(response.data);
       })
-    );
+      .catch(function(error) {
+        // handle error
+        console.log(error);
+      });
   };
   editNote = noteObj => {
     let prevNotes = this.state.notes.slice();
@@ -86,7 +93,7 @@ class App extends Component {
   jsonToCSV = () => {
     //https://stackoverflow.com/questions/8847766/how-to-convert-json-to-csv-format-and-store-in-a-variable
     const items = this.state.notes;
-    const replacer = (key, value) => (value === null ? "" : value); 
+    const replacer = (key, value) => (value === null ? "" : value);
     const header = Object.keys(items[0]);
     let csv = items.map(row =>
       header
@@ -99,24 +106,24 @@ class App extends Component {
   };
   //handles saving to LS. Runs everytime state changes. If it's not saving make sure state is updating
   componentDidUpdate = (prevProps, prevState) => {
-    if (this.state.notes !== prevState.notes) {
-      localStorage.setItem("notes", JSON.stringify(this.state.notes));
-      localStorage.setItem("nextID", JSON.stringify(this.state.nextID));
-    }
+    // if (this.state.notes !== prevState.notes) {
+    //   localStorage.setItem("notes", JSON.stringify(this.state.notes));
+    //   localStorage.setItem("nextID", JSON.stringify(this.state.nextID));
+    // }
   };
   componentDidMount = () => {
-    if (localStorage.getItem("nextID") !== null) {
-      const lsID = JSON.parse(localStorage.getItem("nextID"));
-      const lsNotes = JSON.parse(localStorage.getItem("notes"));
-      this.setState({
-        notes: lsNotes,
-        nextID: lsID
+    axios
+      .get("http://localhost:3000/notes")
+      .then((response)=> {
+        // handle success
+        this.setState({
+          notes: response.data
+        })
+      })
+      .catch(function(error) {
+        // handle error
+        console.log(error);
       });
-    } else {
-      //this is so they don't get set to null
-      localStorage.setItem("notes", "[]");
-      localStorage.setItem("nextID", 0);
-    }
   };
   render() {
     return (

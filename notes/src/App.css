@@ -3,7 +3,7 @@
 .App {
   text-align: center;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   font-family: "Roboto", sans-serif;
   background: rgb(238, 238, 238);
   display: flex;
@@ -12,7 +12,7 @@
 .sidebarContainer {
   background-color: lightgray;
   width: 20em;
-  height: 100vh;
+  min-height: 100vh;
   text-align: left;
   padding: 15px 15px;
   border-right: 2px grey solid;
@@ -39,7 +39,6 @@
 .notesViewContainer {
   padding: 4em 2em;
   text-align: left;
-  overflow: hidden;
   width: 100%;
   
 }

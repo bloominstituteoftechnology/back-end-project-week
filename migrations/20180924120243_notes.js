@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
     tbl.string("body").notNullable();
     tbl.string("checklist");
     tbl.string("tags");
-    tbl.string("userID").notNullable();
+    tbl.number("userID").notNullable();
   })
 };
 

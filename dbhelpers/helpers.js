@@ -6,6 +6,16 @@ module.exports = {
   getNotes: () => {
     return db("notes")
       .then(rows => {
+        let jsonfix = rows.map((e,i)=>{
+          console.log(e.tags);
+          if(typeof e.tags ==='string'){
+            e.tags = JSON.parse(e.tags)
+           }
+           if (typeof e.checklist ==='string'){
+            e.checklist = JSON.parse(e.checklist)
+           }
+          return e
+        })
         return rows;
       })
       .catch(function(error) {
