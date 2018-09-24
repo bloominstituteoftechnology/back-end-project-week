@@ -1,8 +1,10 @@
 const express = require('express');
 const knex = require('knex');
+const helmet = require('helmet');
 
 const server = express();
 server.use (express.json())
+server.use(helmet());
 
 const dbConfig = require('./knexfile'); 
 const db = knex(dbConfig.development); 
@@ -28,5 +30,23 @@ server.get("/api/notes/:id", (req, res) => {
         res.status(500).json({error: "Cannot retrieve notes"})
     });
 })
+
+server.post('/api/notes', (req, res) => {
+    const newNote = req.body;
+    const { title, content } = req.body;
+    if (!title || !content) {
+        res.status(400).json({ error: 'Note title and content required' });
+        return;
+    }
+    db.insert(newNote)
+        .into('notes')
+        .then(ids => {
+            res.status(201).json(ids);
+        })
+        .catch (err => {
+            res.status(500).json({error: "Cannot retrieve notes"})
+   });
+})
+
 
 server.listen(3000, () => console.log("server listening at port 3000"));
