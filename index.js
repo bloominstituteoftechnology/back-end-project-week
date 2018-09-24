@@ -4,7 +4,7 @@ const morgan = require("morgan");
 const cors = require('cors')
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const notesRouter = require('./routes/notes');
 
 const app = new express()
 
@@ -17,7 +17,7 @@ else
     app.use(morgan('dev'))
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api/notes', notesRouter);
 app.use(require('./middleware/index').errorHandler)
 
 module.exports = app

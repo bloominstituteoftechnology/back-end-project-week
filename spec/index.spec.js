@@ -14,7 +14,7 @@ describe("Notes Route", () => {
       const res = await request(server).get("/api/notes");
       expect(res.status).toBe(200);
       expect(res.body.status).toBe(true);
-      expect(typeof res.body.data).toBe("object");
+      expect(typeof res.body.notes).toBe("object");
     });
   });
 
