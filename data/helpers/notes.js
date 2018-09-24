@@ -23,5 +23,12 @@ module.exports = {
       .update(note);
 
     return query;
-  }//update a note
+  }, //update a note
+  remove: function(id) {
+    let query = db("notes")
+      .where({ id })
+      .del();
+
+    return query;
+  }
 };

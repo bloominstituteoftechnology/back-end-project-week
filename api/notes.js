@@ -62,6 +62,17 @@ router.put("/:id", async (req, res) => {
 });
 
 //delete a note by id
-router.delete("/:id", (req, res) => {});
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deleted = await db.remove(id);
+    deleted
+      ? res.status(200).json({ message: `Note with id ${id} deleted` })
+      : res.status(404).json({ message: "No note with that id" });
+  } catch (e) {
+    res.status(500).json(e);
+  }
+});
 
 module.exports = router;
