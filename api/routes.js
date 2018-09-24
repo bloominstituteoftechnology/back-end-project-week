@@ -25,4 +25,11 @@ router.get('/notes/:id', (req, res) => {
     }))
 })
 
+router.post('/notes/', (req, res) => {
+    //check for title and text body and return appropriate messages before sending to database
+    dbFunc.addNote(req.body).then(id => {
+        res.status(201).send(id)
+    })
+})
+
 module.exports = router

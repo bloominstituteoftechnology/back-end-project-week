@@ -5,7 +5,8 @@ const dbConfig = require('../knexfile');
 const db = knex(dbConfig.development);
 
 module.exports = {
-    getNotes 
+    getNotes,
+    addNote
 }
 
 function getNotes(id){
@@ -15,3 +16,8 @@ function getNotes(id){
         return db('notes')
     }
 }
+
+function addNote(note){
+    return db('notes').insert(note)
+}
+//returns in an array which is interesting
