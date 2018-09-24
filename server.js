@@ -54,6 +54,17 @@ server.put("/note/:id", (req, res) => {
     .catch(err => res.status(500).json({ message: "Update Failed!" }));
 });
 
+server.delete('/note/:id', (req, res) => {
+    db('notes').where({ id: req.params.id }).del().then(note => {
+        if(note) {
+            res.status(204).json({ message: 'Note Successfully Deleted!'});
+        } else {
+            res.status(404).json({ message: "No Note with that ID was found."});
+        }
+    })
+    .catch(err => res.status(500).json(err));
+})
+
 module.exports = {
   server
 };
