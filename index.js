@@ -31,9 +31,9 @@ server.get('/api/notes/:id', (req, res) => {
     const { id } = req.params;
     db('notes')
     .where({ id })
-    .then(note => {
+    .then(response => {
         if (note) {
-            res.status(200).json(note);
+            res.status(200).json(response);
         }
         else {
             res.status(404).json({error: 'The Note with this ID is not found'});
@@ -43,8 +43,21 @@ server.get('/api/notes/:id', (req, res) => {
 })
 
 
-
-
+//Create a note with title and content
+server.post('/api/notes', (req, res) => {
+    const { title, content } = req.body;
+    if (!title && !content) {
+      res.status(400).json({ error: 'Please provide a title and some content'})
+    }
+    db.insert({ title, content })
+    .into('notes')
+    .then(response => {
+      res.status(201).json(response)
+    })
+    .catch(err => {
+      res.status(500).json({ error: 'Note Not Created' })
+    })
+  })
 
 
 
