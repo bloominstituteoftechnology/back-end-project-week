@@ -26,10 +26,26 @@ router.get('/notes/:id', (req, res) => {
 })
 
 router.post('/notes/', (req, res) => {
+    const {textBody} = req.body
+    const {title} = req.body
+    const {id} = req.body
+    if(!id){
+        if(title){
+            if(textBody){
+                dbFunc.addNote(req.body).then(id => {
+                    res.status(201).send(id)
+                })
+            } else {
+                res.status(400).send('Please include a a textBody in your request.')
+            }
+        } else {
+            res.status(400).send('Please include a title in your request and try again.')
+        }
+    } else {
+        res.status(400).send('Please do not include an id in your request. An id will be automatically assigned.')
+    }
     //check for title and text body and return appropriate messages before sending to database
-    dbFunc.addNote(req.body).then(id => {
-        res.status(201).send(id)
-    })
+    
 })
 
 module.exports = router
