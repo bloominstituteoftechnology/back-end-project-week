@@ -2,12 +2,12 @@ const db=require('../dbConfig/db');
 const express=require('express');
 const router=express.Router();
 
-router.get('/all',(req,res)=>{
+router.get('/get/all',(req,res)=>{
     db('notes')
         .then(notes=>res.status(200).json(notes))
         .catch(err=>res.status(500).json(err));
 })
-router.get('/:id',(req,res)=>{
+router.get('/get/:id',(req,res)=>{
     const id=req.params.id;
     db('notes')
         .where({id:id})
