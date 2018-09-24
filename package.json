@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/wtkwon/back-end-project-week#readme",
   "dependencies": {
+    "express": "^4.16.3",
     "helmet": "^3.13.0",
     "knex": "^0.15.2",
     "morgan": "^1.9.1",
