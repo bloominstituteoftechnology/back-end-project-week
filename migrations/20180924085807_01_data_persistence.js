@@ -4,10 +4,10 @@ exports.up = function(knex, Promise) {
       tbl
         .increments();
       tbl
-        .string('note_title', 128)
+        .string('title', 128)
         .notNullable();
       tbl
-        .string('note_content')
+        .string('textBody')
         .notNullable();
   });
 };
