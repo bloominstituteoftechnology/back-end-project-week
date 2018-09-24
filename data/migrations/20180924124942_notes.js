@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
       tbl.increments('id');
       tbl.string('title',50).notNullable().unique();
       tbl.string('textBody').notNullable();
+      tbl.string('tags',128);
   })
 };
 
