@@ -10,4 +10,4 @@
     "success_url": "/",
     "scripts": {
       "postdeploy": "cd client && yarn start"
-    },
+    }
