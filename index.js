@@ -4,6 +4,16 @@ const server = express();
 
 server.use(express.json());
 
+//ERROR HANDLING MIDDLEWARE
+//not quite sure how to implement but here's what I have
+
+// server.use(function(err, req, res, status, msg, next) {
+//     res.status(status).json({ msg });
+//     next()
+//   });
+
+
+
 server.get("/", (req, res) => {
   res.send("Server Works");
 });
