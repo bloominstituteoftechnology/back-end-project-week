@@ -73,7 +73,6 @@ server.post("/api/notes", (req, res) => {
 server.put("/api/notes/:id", (req, res) => {
   const changes = req.body;
   const { id } = req.params;
-
   db("notes")
     .where({ id })
     .update(changes)
@@ -82,9 +81,21 @@ server.put("/api/notes/:id", (req, res) => {
     })
     .catch(err => {
       console.log("error", err);
-      res
-        .status(500)
-        .json({ error: "The note could not be updated" });
+      res.status(500).json({ error: "The note could not be updated" });
+    });
+});
+
+server.delete("/api/notes/:id", (req, res) => {
+  const { id } = req.params;
+  db("notes")
+    .where({ id })
+    .del()
+    .then(count => {
+      res.status(200).json(count);
+    })
+    .catch(err => {
+      console.log("error", err);
+      res.status(500).json({ error: "The note could not be deleted" });
     });
 });
 
