@@ -49,7 +49,7 @@ router.put("/:id", jwt.protected, async (req, res) => {
   const { title, content } = req.body;
   const { id } = req.params;
 
-  if (Number(id) !== Number(req.user.id)) {
+  if (parseInt(id, 10) !== parseInt(req.user.id, 10)) {
     res
       .status(401)
       .json({ message: "You're not authorized to update this note" });
