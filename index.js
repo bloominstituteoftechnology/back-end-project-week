@@ -4,7 +4,9 @@ const cors = require("cors");
 const morgan = require("morgan"); 
 
 const server = express(); 
-
+server.use(helmet());
+server.use(cors());
+server.use(morgan());
 const db = require('./dbConfig');
 
 server.get("/", (req, res) => {
@@ -18,8 +20,24 @@ server.get("/notes", (req, res) => {
     })
     .catch(error => {
       res.status(500).json({error: error.message})
+    });
+});
+
+server.get("/notes/:id", (req, res) => {
+  const { id } = req.params; 
+  db('notes')
+    .where({ id })
+    .then(note => {
+      if(note){
+        res.status(200).json(note)
+      } else {
+        res.status(404).json({errorMessage: "Cannot find"})
+      }
     })
-})
+    .catch(error => {
+      res.status(500).json(error)
+    });
+});
 
 server.post("/notes", (req, res) => {
   db('notes')
@@ -29,7 +47,7 @@ server.post("/notes", (req, res) => {
       res.status(201).json(id);
     })
     .catch(error => {
-      res.status(500).json({ error });
+      res.status(500).json({ error, errorMessage: error.message });
     });
 });
 
