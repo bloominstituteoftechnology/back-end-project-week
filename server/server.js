@@ -17,36 +17,48 @@ server.get('/notes', async (req, res) => {
 server.post('/notes', (req, res) => {
   const note = req.body
 
-  database.insert(note)
-          .into('notes')
-          .then(id => res.status(201).json(id[0]))
-          .catch(error => res.status(500).json(error))
+  if (!note.title || !note.content) {
+    res.status(400).json({ message: "Title and content are required" })
+  } else {
+    database.insert(note)
+    .into('notes')
+    .then(id => res.status(201).json(id[0]))
+    .catch(error => res.status(500).json(error))
+  }
 })
 
 // GET - getting a specific note from database
 server.get('/notes/:id', async (req, res) => {
-  const note = await database.select('title', 'content').from('notes').where('id', req.params.id)
+  const note = await database.select('title', 'content').from('notes').where('noteId', req.params.id)
 
-  res.status(201).json(note)
+  if (note.length === 0) {
+    res.status(400).json({ message: `This note (id:${req.params.id}) does not exist` })
+  } else {
+    res.status(201).json(note)
+  }
 })
 
 // PUT - updating a specific note in database
 server.put('/notes/:id', (req, res) => {
   const newNote = req.body
 
-  database.update({ ...newNote })
-          .from('notes')
-          .where('id', req.params.id)
-          .then(id => res.status(201).json(id[0]))
-          .catch(error => res.status(500).json(error))
+  if (!note.title || !note.content) {
+    res.status(400).json({ message: "Title and content are required" })
+  } else {
+    database.update({ ...newNote })
+            .from('notes')
+            .where('noteId', req.params.id)
+            .then(() => res.status(201).json({ message: `Note (id:${req.params.id}) is updated successfully` }))
+            .catch(error => res.status(500).json(error))
+  }
 })
 
 // DELETE - deleting a specific note in database
 server.delete('/notes/:id', (req, res) => {
   database.delete()
           .from('notes')
-          .where('id', req.params.id)
-          .then(id => res.status(201).json(id[0]))
+          .where('noteId', req.params.id)
+          .then(() => res.status(201).json({ message: `Note (id:${req.params.id}) is deleted successfully` }))
           .catch(error => res.status(500).json(error))
 })
 
