@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { Route, Link } from "react-router-dom";
+import axios from "axios";
 
 import "./App.css";
 
 import SidePane from "./components/SidePane";
-import Notes from "./NoteData";
 import NotesView from "./components/NotesView";
 import SingleView from "./components/SingleView";
 import CreateNote from "./components/CreateNote";
@@ -30,17 +30,26 @@ const StyledApp = styled.div`
 `;
 //=====================================
 
+const URL = "http://localhost:9000/notes";
+
 class App extends Component {
   state = {
     notes: [],
     newNote: {
       title: "",
-      body: ""
+      contents: ""
     },
     count: 6
   };
   componentDidMount() {
-    this.setState({ notes: Notes });
+    axios
+      .get(URL)
+      .then(response => {
+        this.setState({ notes: response.data });
+      })
+      .catch(error => {
+        console.error("Server Error", error);
+      });
   }
 
   handleInput = ({ target }) => {
@@ -48,8 +57,8 @@ class App extends Component {
       newNote: { ...prevState.newNote, [target.name]: target.value }
     }));
   };
-  
-//addNote does this thing about this
+
+  //addNote does this thing about this
 
   addNote = event => {
     const newNotes = this.state.newNote;
@@ -58,13 +67,13 @@ class App extends Component {
     notes.push({
       id: count,
       title: newNotes.title,
-      body: newNotes.body
+      contents: newNotes.contents
     });
     this.setState({
       notes,
       count,
       newNote: {
-        body: "",
+        contents: "",
         title: ""
       }
     });
@@ -81,7 +90,7 @@ class App extends Component {
     this.setState({
       notes,
       newNote: {
-        body: "",
+        contents: "",
         title: ""
       }
     });

@@ -1,15 +1,13 @@
 const express = require("express");
 const db = require("./db/helpers");
 const server = express();
+const cors = require("cors");
 
 server.use(express.json());
+server.use(cors());
 
 //ERROR HANDLING MIDDLEWARE
 //not quite sure how to implement but here's what I have
-
-
-
-
 
 server.get("/", (req, res) => {
   res.send("Server Works");
