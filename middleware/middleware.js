@@ -12,7 +12,7 @@ function errorHandler(err, req, res, next) {
   switch (err.code) {
     case 404:
       res.status(404).json({
-        message: "The requested note does not exist.",
+        message: "The note with the specified ID does not exist.",
       });
       break;
     case 400:
