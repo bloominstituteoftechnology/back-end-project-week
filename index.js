@@ -14,14 +14,63 @@ server.use(cors());
 const dbConfig = require('./knexfile'); 
 const db = knex(dbConfig.development);
 
-// Validation of request body using Joi
-const validateBody = body => {
+// Function generating unique Web Token for each user
+const secret = 'The Answer to the Great Question... Of Life, the Universe and Everything... Is...Forty-two'
+const generateToken = username => {
+    const payload = {
+        username,
+    }
+    const options = {
+        expiresIn: '3hr', 
+        jwtid: '14869046'
+    }
+
+    return jwt.sign(payload, secret, options); 
+}
+
+// Validation of request body FOR NOTES using Joi
+const validateNoteBody = body => {
     const schema = {
         title: Joi.string().min(3).max(35).required(), 
         content: Joi.string().min(3).required()
     }
     return Joi.validate(body, schema); 
 }
+
+
+// Validation of request body FOR REGISTRATION/LOGIN using Joi
+const validateUserBody = body => {
+    const schema = {
+        username: Joi.string().min(3).required(), 
+        password: Joi.string().min(6).required()
+    }
+    return Joi.validate(body, schema); 
+}
+
+
+
+
+server.post("/api/notes/register", (req, res) => {
+    const body = req.body; 
+    
+    // validation called using Joi
+    const validated = validateUserBody(body); 
+    if(validated.error){
+        res.status(400).json(validated.error.details[0].message); 
+    }
+
+    //hash the password before sending to database
+    const hash = bcrypt.hashSync(body.password, 13);
+    body.password = hash;
+
+    db('users').insert(body).then(id => {
+        const token = generateToken(body.username);
+        res.status(201).json({id, token});
+    }).catch(err => {
+        res.status(500).json({Error: "Error updating user information in database"})
+    })
+}); 
+
 
 server.get("/api/notes", (req, res) => {
     db('notes').then(notes => {
@@ -48,7 +97,7 @@ server.post("/api/notes", (req, res) => {
     const newNote = req.body;
 
     // Calling Joi validation, if error return which missing requirements
-    const validationResult = validateBody(newNote);
+    const validationResult = validateNoteBody(newNote);
     if(validationResult.error){
         return res.status(400).json(validationResult.error.details[0].message)
     }
@@ -78,7 +127,7 @@ server.put("/api/notes/:id", (req, res) => {
     const newEdit = req.body;
 
     // Joi validation 
-    const validated = validateBody(newEdit); 
+    const validated = validateNoteBody(newEdit); 
     if(validated.error){
         res.status(400).json(validated.error.details[0].message)
     }
