@@ -1,0 +1,30 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "https://trello.com/b/BC71XlRy/lambda-notesbackend-erica-thompson",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.16.3",
+    "global": "^4.3.2",
+    "index.js": "^0.0.3",
+    "knex": "^0.15.2",
+    "sqlite3": "^4.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  },
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EricaThompson/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EricaThompson/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/EricaThompson/back-end-project-week#readme"
+}
