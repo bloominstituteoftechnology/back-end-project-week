@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const knex = require("knex");
+const path = require("path");
 
 //==============Data Table===============//
 const dataConfig = require("./knexfile");
