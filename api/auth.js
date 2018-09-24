@@ -24,8 +24,29 @@ router.post('/register', async (req,res) => {
 });
 
 //login a user
-router.post('/login', (req, res) => {
-
+router.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+  if(!username || !password){
+    return res.status(422).json({ message: 'A username and password is required' });
+  }else{
+    try{
+      const user = await db.getByUsername(username);
+      if(user && bcrypt.compareSync(password, user.password)){
+        const token = jwt.generateToken(user);
+        res.status(200).json({
+          token,
+          username: user.username,
+          id: user.id
+        });
+      }else if(!user){
+        res.status(404).json({message: 'Invalid Username' });
+      }else {
+        res.status(401).json({ message: 'Invalid Password' });
+      }
+    }catch(e){
+      res.status(500).json(e);
+    }
+  }
 });
 
 module.exports = router;

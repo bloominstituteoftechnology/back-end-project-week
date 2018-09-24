@@ -10,6 +10,10 @@ module.exports = {
 
     return query;
   }, //returns array of users or user object if given id
+  getByUsername: function(username) {
+    let query = db('users').where({ username }).first();
+    return query;
+  }, //returns user found with username
   add: function(user) {
     let query = db('users').insert(user);
     return query;
