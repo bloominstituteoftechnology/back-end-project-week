@@ -48,6 +48,44 @@ server.post("/notes", async (req, res) => {
   }
 });
 
+server.put("/notes/:id", async (req, res) => {
+  const changes = req.body;
+  const { id } = req.params;
+  const { title, content } = changes;
+  try {
+    await db("notes")
+      .where({ id })
+      .update(changes);
+    res
+      .status(200)
+      .json({
+        msg: `Note ${id} has successfully been updated as:`,
+        title,
+        content
+      });
+  } catch (err) {
+    console.log("/notes PUT error:", err);
+    res
+      .status(500)
+      .send({
+        error: "Your note could not be updated. Please try again later."
+      });
+  }
+});
+
+server.delete("/notes/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    await db("notes")
+      .where({ id })
+      .del();
+    res.status(200).json({ msg: `Note #${id} has been deleted.` });
+  } catch (err) {
+    console.log("/notes DELETE error:", err);
+    res.status(500).send({ error: "Your note could not be deleted." });
+  }
+});
+
 const port = 8000;
 server.listen(port, function() {
   console.log(`\n=== Web API Listening on http://localhost:${port} ===\n`);
