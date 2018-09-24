@@ -65,4 +65,6 @@ server.delete('/note/delete/:id', async (req, res) => {
     }
 });
 
-server.listen(5020, () => console.log('\n === Server listening on port 5020 === \n'));
+const port = process.env.PORT || 5020;
+
+server.listen(port, () => console.log('\n === Server listening on port 5020 === \n'));
