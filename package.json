@@ -1,0 +1,23 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "https://trello.com/b/SstQSRMC/lambda-notesbackend-david-pok",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/david-pok/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/david-pok/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/david-pok/back-end-project-week#readme",
+  "dependencies": {
+    "knex": "^0.15.2"
+  }
+}
