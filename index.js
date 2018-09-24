@@ -1,10 +1,12 @@
 const express = require('express'); 
 const knex = require('knex'); 
 const Joi = require('joi'); 
+const cors = require('cors');
 
 // Server setup using express
 const server = express(); 
 server.use(express.json()); 
+server.use(cors()); 
 
 // Database setup using knex
 const dbConfig = require('./knexfile'); 
