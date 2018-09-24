@@ -15,12 +15,6 @@ exports.up = function(knex, Promise) {
     .notNullable()
     .unique();
 
-    // tbl
-    // .integer('notes_id')
-    // .unsigned()
-    // .notNullable()
-    // .reference('id')
-    // .inTable('notes')
         
     })
 };

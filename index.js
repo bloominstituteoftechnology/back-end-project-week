@@ -26,12 +26,14 @@ server.post('/notes', (req, res) => {
 });
 
 server.get('/notes', (req, res) => {
+
     db('notes').then(item => {
         res.status(200).json(item)
     }).catch((fail) => {
         console.log(fail);
         res.status(500).json({ error: "There was an error while receiving the notes" });
     })
+
 })
 
 
@@ -50,6 +52,7 @@ server.get(`/notes/:id`, (req,res) => {
         console.log(fail)
         res.status(500).json({error: "The note's information could not be retrieved."});
     })
+
 })
 
 server.put(`/notes/:id`, (req, res) => {
@@ -62,9 +65,11 @@ server.put(`/notes/:id`, (req, res) => {
         console.log(fail);
         res.status(404).json({ message: "The note with the specified ID does not exist."});
     });
+
 })
 
 server.delete('/notes/:id', (req, res) => {
+    
     db('notes').where({ id:req.params.id }).delete()
         .then((item) => {
             res.status(201).json(item);
@@ -73,6 +78,7 @@ server.delete('/notes/:id', (req, res) => {
             console.log(fail);
             res.status(404).json({ message: "The note with the specified ID didn't delete."});
             });
+
 });
 
 
