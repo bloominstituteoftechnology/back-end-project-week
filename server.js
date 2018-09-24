@@ -23,7 +23,20 @@ server.get('/', (req,res) => {
 	})
 });
 
+server.get('/:id', (req,res)=>{
+	const id = req.params.id;
 
+	const request = db.getById(id);
+
+	request.then(response => { 
+	if(response.length==0) res.status(404).json({ error: "The note with the specified Id does not exist." });
+        else res.status(200).json(response);
+        })
+
+        .catch(err => {
+        res.status(500).json({error: "Failed to retrieve teh note."});
+        })	
+});
 
 
 server.use(function(req, res) {
