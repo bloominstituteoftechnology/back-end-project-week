@@ -12,7 +12,7 @@ export const SELECT_ID = 'SELECT_ID';
 export const ERROR = 'ERROR';
 
 export const fetchNotes = () => {
-    const request = axios.get(`http://localhost:3333/notes`)
+    const request = axios.get(`http://localhost:5000/api/notes`)
     return (dispatch) => {
         request.then(({data})=> {
             dispatch({type: FETCH_NOTE, payload: data})
@@ -27,7 +27,7 @@ export const fetchNotes = () => {
   };
   
 export const addNote = note => {
-    const request = axios.post(`http://localhost:3333/notes`, note)
+    const request = axios.post(`http://localhost:5000/api/notes`, note)
     return (dispatch) => {
         request.then(({data})=> {            
             dispatch({type: ADD_NOTE, payload: data})
@@ -47,7 +47,7 @@ export const selectId = id => ({
 })
 
 export const editNote = (id, note) => {
-    const request = axios.put(`http://localhost:3333/notes/${id}`, note)
+    const request = axios.put(`http://localhost:5000/api/notes/${id}`, note)
     return (dispatch) => {
         request.then(({data})=> {            
             dispatch({type: EDIT_NOTE, payload: data})
@@ -62,7 +62,7 @@ export const editNote = (id, note) => {
 };
 
 export const deleteNote = id => {    
-    const request = axios.delete(`http://localhost:3333/notes/${id}`)
+    const request = axios.delete(`http://localhost:5000/api/notes/${id}`)
     return (dispatch) => {
         request.then(({data})=> {console.log(data)
             dispatch({type: DELETING_NOTE, payload: data})
