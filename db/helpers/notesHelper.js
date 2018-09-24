@@ -16,19 +16,7 @@ module.exports = {
 
     // ### retrieve a note by its id
     getNote: (id) => {
-        const note = db('notes').where('id', id);
-
-        return note.then(response => {
-                const [notes] = response;
-
-                if (notes.length === 0) {
-                    return 0;
-                } else {
-                    return {
-                        ...notes[0]
-                    }
-                }
-        });
+        return db('notes').where('id', id);
     },
 
     // ### Posting a new note
