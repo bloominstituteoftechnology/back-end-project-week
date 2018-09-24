@@ -31,6 +31,23 @@ const generateToken = user => {
     return token
 }
 
+const protected = (req, res, next) => {
+
+    const token = req.headers.authorization
+
+    token ?
+        jwt.verify(token, secret, (err, decodedToken) => {
+            err ?
+                res.status(401).json({ message: 'invalid username or password' })
+                :
+                req.username = decodedToken.username
+            next()
+        })
+        :
+        res.status(401).json({ message: 'invalid username or password' })
+
+}
+
 server.get('/', (req, res) => {
     res.send('Api Online')
 })
