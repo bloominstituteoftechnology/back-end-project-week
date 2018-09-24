@@ -4,7 +4,8 @@
   "description": "Back-end for my Lambda Notes front-end",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -18,9 +19,9 @@
   "homepage": "https://github.com/johnoro/back-end-project-week#readme",
   "dependencies": {
     "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "knex": "^0.15.2",
-    "pg": "^7.4.3",
     "sqlite3": "^4.0.2"
   },
   "devDependencies": {
