@@ -68,6 +68,22 @@ server.put('/api/notes/:id', (req, res) => {
         .catch(err => res.status(500).json(err));
 });
 
+// delete a note
+server.delete('/api/notes/:id', (req, res) => {
+    const {id} = req.params;
+
+    db('notes')
+        .where({id})
+        .del()
+        .then(count => {
+            if (count === 0) {
+                res.status(404).json({ message: 'Cannot delete note that does not exist.' });
+                return;
+            }
+            res.status(200).json(count)
+        })
+        .catch(err => res.status(500).json(err));
+});
 
 const port = 8000;
 server.listen(port, function() {
