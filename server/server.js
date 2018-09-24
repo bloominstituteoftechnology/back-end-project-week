@@ -49,7 +49,7 @@ server.get('/notes/:id', async (req, res) => {
 server.put('/notes/:id', (req, res) => {
   const newNote = req.body
 
-  if (!note.title || !note.textBody) {
+  if (!newNote.title || !newNote.textBody) {
     res.status(400).json({ message: "Title and textBody are required" })
   } else {
     database.update({ ...newNote })
