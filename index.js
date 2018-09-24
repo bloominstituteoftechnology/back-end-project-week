@@ -1,6 +1,7 @@
 const express = require('express');
 const helmet = require('helmet');
 const knex = require('knex');
+const cors = require('cors');
 
 const dbConfig = require('./knexfile');
 
@@ -10,6 +11,7 @@ const server = express();
 
 server.use(helmet());
 server.use(express.json());
+server.use(cors());
 
 server.post('/api/notes', (req, res) => {
     const note = req.body;
@@ -34,9 +36,9 @@ server.get('/api/notes', (req, res) => {
 
 server.get('/api/notes/:id', (req, res) => {
     const {id} = req.params;
-    db('notes').where({ id: id })
+    db('notes').where({ id: id }).first()
     .then(note => {
-        if (note.length === 0) {
+        if (!note) {
         res.status(404).json({ message: "The note with the specified ID does not exist." });
         } else 
         res.status(200).json(note);
