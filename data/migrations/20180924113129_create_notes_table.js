@@ -1,18 +1,21 @@
-
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable('notes', function(tbl) {
+  return knex.schema.createTable("notes", function(tbl) {
     tbl.increments();
 
-    tbl
-      .string('title')
-      .notNullable()
+    tbl.string("title").notNullable();
+
+    tbl.string("content").notNullable();
 
     tbl
-      .string('content')
-      .notNullable();
+      .integer("user_id")
+      .unsigned()
+      .notNullable()
+      .references("id")
+      .inTable("users")
+      .onDelete("CASCADE");
   });
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTableIfExists('notes');
+  return knex.schema.dropTableIfExists("notes");
 };
