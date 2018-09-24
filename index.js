@@ -52,7 +52,40 @@ server.get('/', (req, res) => {
     res.send('Api Online')
 })
 
+// route for registering
+server.post('/api/register', (req,res) => {
 
+})
+
+// route for logging in
+server.post('/api/login', (req, res) => {
+
+})
+
+//  route for making notes
+server.post('/api/create', (req, res) => {
+
+})
+
+// route for getting the right notes for user
+server.get('/api/user', protected, (req,res) => {
+
+})
+
+// route for viewing each indiviual note
+server.get('/api/view/:id', (req, res) => {
+
+})
+
+// route for deleting a note
+server.delete('/api/view/:id/delete', (req, res) => {
+
+})
+
+// route for editing notes
+server.put('/api/edit', (req, res) => {
+
+})
 
 
 
