@@ -11,6 +11,7 @@ The main objective of this week is to develop a backend to support the LambdaNot
 You are required to showcase progress with at least 4 commits a day. This will let your project manager know where you are and if you need help. This also allows the client to get progress reports from the company in a real world setting. This also protects you from losing your work if your computer fails.
 
 ## Trello Set Up
+https://trello.com/b/G2GgLuoe/lambda-notesbackend-luis-f-salazar
 
 - Use your existing Trello account from the Front End Project, or create a new one.
 - Create a new board called "Lambda Notes(Backend) - {Your Name}".
