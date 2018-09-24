@@ -65,6 +65,38 @@ else{
 });
 
 
+server.put('/:id', (req, res) => {
+	const id = req.params.id;
+
+	const {title, content} = req.body;
+
+	if(!title || !content){
+	res.status(400).json({error: "Failed to update note to the database. Please provide title and content for the note."});
+	}
+	
+	else{
+	const note = {title, content};
+
+	const request= db.update(id, note);
+
+	request.then(response => {
+	response.title = note.title;
+	response.content = note.content;
+
+	res.status(200).json(response);
+        })
+
+        .catch(error => {
+        res.status(500).json({error: "Failed to update the note"});
+        })
+
+	}	
+});
+
+
+
+
+
 server.delete('/:id', (req, res) => {
 	const {id} = req.params;
 

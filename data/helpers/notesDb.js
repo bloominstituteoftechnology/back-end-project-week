@@ -26,7 +26,7 @@ function insert(note) {
 function update(id, note){
 	return db('notes')
 	       .where({id: Number(id)})
-	       .update(post);
+	       .update(note);
 }
 
 function remove(id){
