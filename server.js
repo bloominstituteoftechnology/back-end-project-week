@@ -58,6 +58,35 @@ server.get('/api/notes/:id', (req,res) => {
 
 //PUT changes on a note - edit
 
+server.put('/api/notes/:id', (req,res) => {
+    const id = req.params.id;
+    const name = req.body.name;
+    const content = req.body.text;
+
+    db
+    .update(id, {name,content})
+    .then(response => {
+        if (response == 0) {
+            res.status(404).json({message:  'There is no corresponding note'})
+            return;
+        }else{
+            res.status(200).json({message: 'Note successfully updated'})
+        }
+        
+        db
+        .findById(id)
+        .then(post => {
+            if (post.length === 0) {
+                res.status(404).json({message: 'This note cannot be found' })
+                return;
+            }
+            res.json(note);
+        })
+        .catch(error => {
+            res.status(500).json({message: 'error looking up note'})
+        })
+    })
+})
 
 //DELETE an existing note
 
