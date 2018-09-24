@@ -7,6 +7,12 @@ module.exports = {
     return db("notes")
       .then(rows => {
         let jsonfix = rows.map((e,i)=>{
+          if(! e.tags){
+            e.tags = []
+           }
+           if(! e.checklist){
+            e.checklist = []
+           }
           if(typeof e.tags ==='string'){
             e.tags = JSON.parse(e.tags)
            }

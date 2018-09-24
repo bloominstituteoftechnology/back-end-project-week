@@ -80,6 +80,8 @@ class CreateNote extends Component {
             return false;
           }
         });
+        console.log(filtNote[0].tags);
+
         if (filtNote[0]) {
           this.setState({
             title: filtNote[0].title,
@@ -98,18 +100,14 @@ class CreateNote extends Component {
       ? this.props.add({
           body: this.state.body,
           title: this.state.title,
-          tags: this.state.tags.map(e => {
-            return e.text;
-          }),
+          tags: this.state.tags,
           checklist: this.state.checklist
         })
       : this.props.edit({
           body: this.state.body,
           title: this.state.title,
           id: Number(this.props.match.params.id),
-          tags: this.state.tags.map(e => {
-            return e.text;
-          }),
+          tags: this.state.tags,
           checklist: this.state.checklist
         });
 

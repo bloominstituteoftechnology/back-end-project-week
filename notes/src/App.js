@@ -18,11 +18,15 @@ class App extends Component {
       mode: "ADD"
     };
   }
-  addNote = noteObj => {
+  formatForDB = noteObj =>{
     noteObj.userID =0;
     noteObj.checklist = JSON.stringify(noteObj.checklist);
     noteObj.tags = JSON.stringify(noteObj.tags);
-    axios
+    return noteObj
+  }
+  addNote = noteObj => {
+      noteObj = this.formatForDB(noteObj);
+      axios
       .post("http://localhost:3000/notes",noteObj)
       .then((response)=> {
         // handle success
@@ -38,40 +42,36 @@ class App extends Component {
       });
   };
   editNote = noteObj => {
-    let prevNotes = this.state.notes.slice();
-    const moddedArray = prevNotes.map(e => {
-      if (e.id === noteObj.id) {
-        e.title = noteObj.title;
-        e.body = noteObj.body;
-        e.tags = noteObj.tags;
-        return e;
-      } else {
-        return e;
-      }
-    });
-    this.setState({
-      notes: moddedArray
-    });
-  };
-  deleteNote = noteID => {
-    // let prevNotes = this.state.notes.slice();
-    // const moddedArray = prevNotes.filter(e => {
-    //   if (e.id !== noteID) {
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // });
-    // this.setState({
-    //   notes: moddedArray
-    // });
+    noteObj = this.formatForDB(noteObj);
     axios
-    .delete(`http://localhost:3000/notes/${noteID}`)
+    .post(`http://localhost:3000/notes/${noteObj.id}`,noteObj)
     .then((response)=> {
-      // handle success
+      let prevNotes = this.state.notes.slice();
+      const moddedArray = prevNotes.map(e => {
+        if (e.id === response.data.id) {
+          e.title = response.data.title;
+          e.body = response.data.body;
+          e.tags = response.data.tags;
+          e.checklist = response.data.checklist;
+          return e;
+        } else {
+          return e;
+        }
+      });
+      this.setState({
+        notes: moddedArray
+      });
     })
     .catch(function(error) {
       // handle error
+      console.log(error);
+    });
+  };
+  deleteNote = noteID => {
+
+    axios
+    .delete(`http://localhost:3000/notes/${noteID}`)
+    .catch(function(error) {
       console.log(error);
     });
     
@@ -130,7 +130,9 @@ class App extends Component {
   
 
   componentDidUpdate = (prevProps, prevState) => {
-   this.getNotesList();
+    if (this.state.notes !== prevState.notes) {
+
+    }
   };
   componentDidMount = () => {
     this.getNotesList();

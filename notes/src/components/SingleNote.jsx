@@ -77,7 +77,6 @@ class SingleNote extends Component {
         <div className="viewBody">
           {this.state.checklist.length > 0 ? (
             <div>
-              {" "}
               <div className="tagtitle">Checklist:</div>
               <div className="checkboxArea">
                 {this.state.checklist.map((e, i) => {
@@ -111,7 +110,7 @@ class SingleNote extends Component {
                 {this.state.tags.map((e, i) => {
                   return (
                     <div key={i} className="viewTag">
-                      {e}
+                      {e.text}
                     </div>
                   );
                 })}
