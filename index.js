@@ -59,18 +59,43 @@ server.post("/note/create", (req, res) => {
 
 //=================PUT ENDPOINT===============//
 server.put("/note/edit/:id", (req, res) => {
-    const changes = req.body;
-    const { id } = req.params;
+  const changes = req.body;
+  const { id } = req.params;
 
-    db("notes")
-      .where({ id })
-      .update(changes)
-      .then(count => {
-          
-      })
+  db("notes")
+    .where({ id })
+    .update(changes)
+    .then(count => {
+      if (count === 0) {
+        res.status(404).json({ Error: "Notes title and content required" });
+      } else {
+        res.status(200).json(count);
+      }
+    })
+    .catch(err => {
+      console.log("Error with EDIT ID: ", err);
+      res.status(500).json({ Error: "Pass in a title and content" });
+    });
 });
 //=================PUT ENDPOINT===============//
 
 //=================DELETE ENDPOINT===============//
-server.delete("/note/delete/:id", (req, res) => {});
+server.delete("/note/delete/:id", (req, res) => {
+  const { id } = req.params;
+
+  db("notes")
+    .where({ id })
+    .del()
+    .then(count => {
+      res.status(200).json(count);
+    })
+    .catch(err => {
+      console.log("Error with DELETE ID: ", err);
+      res.status(500).json({ Error: "Cannot Delete Note with Id" });
+    });
+});
 //=================DELETE ENDPOINT===============//
+
+server.listen(5000, () =>
+  console.log("\n==== Web API Running On Port:5000====\n")
+);
