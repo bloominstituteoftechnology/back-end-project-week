@@ -34,7 +34,28 @@ server.get('/notes', (req, res) => {
     })
 })
 
+server.put(`/notes/:id`, (req, res) => {
 
+    db('notes').where({ id:req.params.id } ).update(req.body)
+    .then((item) => {
+        res.status(201).json(item);
+    })
+    .catch((fail) => {
+        console.log(fail);
+        res.status(404).json({ message: "The note with the specified ID does not exist."});
+    });
+})
+
+server.delete('/notes/:id', (req, res) => {
+    db('notes').where({ id:req.params.id }).delete()
+        .then((item) => {
+            res.status(201).json(item);
+            })
+        .catch((fail) => {
+            console.log(fail);
+            res.status(404).json({ message: "The note with the specified ID didn't delete."});
+            });
+});
 
 
 
