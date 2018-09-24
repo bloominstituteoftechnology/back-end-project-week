@@ -72,3 +72,5 @@ You will notice that this repository does not have any starter code. This is on 
 
 
 TRELLO LINK: https://trello.com/b/oVgvNqi0/lambda-notes-back-end-francis-tse
+
+Search functionality already implemented in Front End.
