@@ -1,9 +1,8 @@
 exports.up = function(knex, Promise) {
 	return knex.schema.createTable("tags", tags => {
-		content.increments();
-		content.string("tag", 128).noNullable();
-		content
-			.integer("note_id")
+		tags.increments();
+		tags.string("tag", 128).notNullable();
+		tags.integer("note_id")
 			.unsigned()
 			.references("notes.id");
 	});
