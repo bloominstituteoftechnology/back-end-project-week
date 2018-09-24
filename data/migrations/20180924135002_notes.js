@@ -7,7 +7,7 @@ exports.up = function(knex, Promise) {
     tbl.integer('__v').defaultTo(0)
     tbl.integer("length")
     tbl.string("time")
-    tbl.specificType('tags', 'text[]')
+    tbl.text('tags')
   })
 };
 
