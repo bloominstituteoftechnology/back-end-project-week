@@ -13,7 +13,8 @@ module.exports = {
   add: function(title, content, user_id) {
     let query = db("notes")
       .insert({ title, content, user_id })
-      .then(ids => ({ id: ids[0] }));
+      .returning('id')
+      .first();
 
     return query;
   }, //adding a new note
