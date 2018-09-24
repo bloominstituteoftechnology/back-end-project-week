@@ -35,4 +35,26 @@ router.get("/:id", (req, res) => {
   });
   // end
 
+  // POST
+router.post("/", (req, res) => {
+    const note = req.body;
+    if (!note) {
+      return res.status(400).json({
+        errorMessage: "Please provide a title for the note.",
+      });
+    } else {
+      db("notes")
+        .insert(note)
+        .into("notes")
+        .then(notes => {
+          res.status(201).json({ message: "Note successfully added." });
+        })
+        .catch(err => {
+          res.status(500).json({ error: "The note could not be added." });
+        });
+    }
+  });
+  // end POST
+  
+
   module.exports = router;
