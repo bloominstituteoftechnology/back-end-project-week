@@ -55,4 +55,19 @@ server.put('/notes/:id', (req, res) => {
         })
 })
 
+
+server.delete('/notes/:id', (req, res) => {
+    const id = req.params.id;
+
+    db('notes')
+        .where('id', id)
+        .del()
+        .then(notes => {
+            res.status(201).json({notes});
+        })
+        .catch(err => {
+            res.status(500).json({err: "Failed to delete note in notes table."})
+        })
+})
+
 module.exports = server;

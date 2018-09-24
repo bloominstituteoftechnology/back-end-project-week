@@ -44,12 +44,12 @@ export default class App extends Component {
     };
 
     axios.post('http://localhost:5000/notes', notes)
-    .then(notes => {
-      this.setState({notes: notes.data.notes}); 
-    })
-    .catch(err => {
-      console.log(err); 
-    });
+      .then(notes => {
+        this.setState({notes: notes.data.notes}); 
+      })
+      .catch(err => {
+        console.log(err); 
+      });
   };
 
   inputHandlerUpdate = e => {
@@ -67,12 +67,12 @@ export default class App extends Component {
     axios.put(`http://localhost:5000/notes/${id}`, edit)
       .then(notes => {
         return (axios.get('http://localhost:5000/notes')
-        .then(notes => {
-          this.setState({notes: notes.data.notes}); 
-        })
-        .catch(err => {
-          console.log(err); 
-        }));
+          .then(notes => {
+            this.setState({notes: notes.data.notes}); 
+          })
+          .catch(err => {
+            console.log(err); 
+          }));
         })
       .catch(err => {
         console.log(err); 
@@ -83,20 +83,21 @@ export default class App extends Component {
 
   deleteHandler = (e, id) => {
     e.preventDefault();
-
-    let deleted = this.state.notes.slice();
-
-    deleted.splice(id, 1);
-
-    deleted = deleted.map((note, i) => {
-      return {
-        id: i,
-        title: note.title,
-        note: note.note
-      };
-    });
-
-    this.setState(() => ({ notes: deleted, id: null, title: "", note: "" }));
+    
+    axios.delete(`http://localhost:5000/notes/${id}`)
+      .then(notes => {
+        return (axios.get('http://localhost:5000/notes')
+          .then(notes => {
+            this.setState({notes: notes.data.notes}); 
+          })
+          .catch(err => {
+            console.log(err); 
+        }));
+      })
+      .catch(err => {
+        console.log(err); 
+      });  
+      
   };
 
   render() {
