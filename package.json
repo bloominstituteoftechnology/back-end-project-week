@@ -1,0 +1,29 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "Your Hands look kinda dusty please be careful how you touch me",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tulf/back-end-project-week.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tulf/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/Tulf/back-end-project-week#readme",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "helmet": "^3.13.0",
+    "knex": "^0.15.2",
+    "sqlite3": "^4.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
+}
