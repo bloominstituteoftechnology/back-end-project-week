@@ -42,6 +42,21 @@ server.get("/api/notes", (req, res) => {
     });
 });
 
+server.get("/api/notes/:id", (req, res) => {
+  const { id } = req.params;
+  db("notes")
+    .where({ id })
+    .then(note => {
+      checkForResource(req, res, note);
+    })
+    .catch(err => {
+      console.log("error", err);
+      res
+        .status(500)
+        .json({ error: "The note could not be retrieved" });
+    });
+});
+
 server.post("/api/notes", (req, res) => {
   const note = req.body;
   db.insert(note)
