@@ -34,6 +34,24 @@ server.get('/notes', (req, res) => {
     })
 })
 
+
+server.get(`/notes/:id`, (req,res) => {
+
+    db('notes').where({ id:req.params.id })
+        .then((id) => {
+            res.json(id);
+        })
+        .catch((fail) => {
+            console.log(fail);
+            res.status(404).json({message: "The note with the specified ID does not exist."});
+        })
+
+    .catch((fail) => {
+        console.log(fail)
+        res.status(500).json({error: "The note's information could not be retrieved."});
+    })
+})
+
 server.put(`/notes/:id`, (req, res) => {
 
     db('notes').where({ id:req.params.id } ).update(req.body)
