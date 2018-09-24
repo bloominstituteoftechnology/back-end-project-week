@@ -32,6 +32,18 @@ server.get('/api/notes', (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
+server.get('/api/notes/:id', (req, res) => {
+    const {id} = req.params;
+    db('notes').where({ id: id })
+    .then(note => {
+        if (note.length === 0) {
+        res.status(404).json({ message: "The note with the specified ID does not exist." });
+        } else 
+        res.status(200).json(note);
+    })
+    .catch(err => res.status(500).json(err));
+});
+
 
 const port = 8000;
 server.listen(port, function() {
