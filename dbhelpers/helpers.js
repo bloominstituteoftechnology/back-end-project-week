@@ -3,10 +3,9 @@ const knexConfig = require("../knexfile.js");
 const db = knex(knexConfig.development);
 
 module.exports = {
-  getDishes: () => {
-    return db("dishes")
+  getNotes: () => {
+    return db("notes")
       .then(rows => {
-        console.log(rows);
         return rows;
       })
       .catch(function(error) {
