@@ -18,7 +18,19 @@ server.get('/get/all', async (req, res) => {
     catch ( err ) {
         res.status(500).json( err.message );
     }
-})
+});
+
+//GET EXISTING NOTE
+server.get('/get/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const note = await db('notes').where({ id })
+        res.status(200).json( note );
+    }
+    catch ( err ) {
+        res.status(500).json( err.message );
+    }
+});
 
 //POST A NEW NOTE
 server.post('/create', async (req, res) => {
@@ -30,7 +42,19 @@ server.post('/create', async (req, res) => {
     catch ( err ) {
         res.status(500).json( err.message );
     }
-})
+});
+
+//DELETE EXISTING NOTE
+server.delete('/delete/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const deleted = await db('notes').where({ id }).del();
+        res.status(200).json( deleted );
+    }
+    catch ( err ) {
+        res.status(500).json( err.message );
+    }
+});
 
 
 const port = 8000;
