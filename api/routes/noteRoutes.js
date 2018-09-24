@@ -5,7 +5,7 @@ const db = knex(dbConfig.development);
 const router = express.Router();
 
 // GET
-router.get("/", (req, res) => {
+router.get("/get/all", (req, res) => {
   db("notes")
     .then(notes => {
       res.status(200).json(notes);
@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
 });
 
 // GET BY ID
-router.get("/:id", (req, res) => {
+router.get("/get/:id", (req, res) => {
   const { id } = req.params;
   db("notes")
     .where({ id: id })
@@ -36,7 +36,7 @@ router.get("/:id", (req, res) => {
 // end
 
 // POST
-router.post("/", (req, res) => {
+router.post("/create", (req, res) => {
   const note = req.body;
   if (!note) {
     return res.status(406).json({
@@ -54,10 +54,10 @@ router.post("/", (req, res) => {
       });
   }
 });
-// end 
+// end
 
 // PUT
-router.put("/:id", (req, res) => {
+router.put("/edit/:id", (req, res) => {
   const { id } = req.params;
   const updatedNote = req.body;
   if (!updatedNote) {
@@ -79,10 +79,10 @@ router.put("/:id", (req, res) => {
       });
   }
 });
-// end 
+// end
 
 // DELETE
-router.delete("/:id", (req, res) => {
+router.delete("/delete/:id", (req, res) => {
   const { id } = req.params;
   db("notes")
     .where("id", id)
@@ -100,6 +100,6 @@ router.delete("/:id", (req, res) => {
       res.status(500).json({ error: "The note could not be removed." });
     });
 });
-// end 
+// end
 
 module.exports = router;

@@ -9,6 +9,7 @@ import Note from "./components/Note";
 import { AppContainer } from "./components/styles";
 import axios from 'axios'
 
+// const ALL = "http://localhost:3300/api/notes";
 const ALL = "https://killer-notes.herokuapp.com/note/get/all";
 const CREATE = "https://killer-notes.herokuapp.com/note/create";
 const DELETE = "https://killer-notes.herokuapp.com/note/delete";

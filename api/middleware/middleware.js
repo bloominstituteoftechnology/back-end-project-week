@@ -12,5 +12,5 @@ module.exports = server => {
   server.use(express.json());
   
   //route paths
-  server.use("/api/notes", noteRoutes);
+  server.use("/note", noteRoutes);
 };
