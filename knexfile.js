@@ -4,15 +4,13 @@ module.exports = {
   development: {
       client: 'sqlite3',
     connection: {
-        filename: './db/lambda.sqlite3', // update path
+        filename: './db/lambda.sqlite3',
     },
   useNullAsDefault: true,
    migrations: {
-        // add this line
    directory: './db/migrations',
     },
       seeds: {
-        // add this line
    directory: './db/seeds',
     },
 },

@@ -11,8 +11,8 @@ server.use(express.json());
 });
  server.get('/notes', (req, res) => {
     db('notes')
-    .then(n => {
-        res.status(200).json(n);
+    .then(note => {
+        res.status(200).json(note);
     })
     .catch(err => {
         res.status(500).json({error:'database cannot retrieve information'});
@@ -22,8 +22,8 @@ server.use(express.json());
     const {id} = req.params;
     db('notes')
     .where({id})
-    .then(n => {
-        res.status(200).json(n);
+    .then(note => {
+        res.status(200).json(note);
     })
     .catch(err => {
         res.status(500).json({error:'database cannot retrieve information'});
@@ -33,8 +33,8 @@ server.use(express.json());
     const body = req.body;
     db.insert(body)
     .into('notes')
-    .then(n => {
-        res.status(200).json(n);
+    .then(note => {
+        res.status(200).json(note);
     })
     .catch(err => {
         res.status(500).json({error:'database cannot create information'});
@@ -46,8 +46,8 @@ server.use(express.json());
     db('notes')
     .where({id})
     .update(body)
-    .then(n => {
-        res.status(200).json(n);
+    .then(note => {
+        res.status(200).json(note);
     })
     .catch(err => {
         res.status(500).json({error:'database cannot update information'});
@@ -58,8 +58,8 @@ server.use(express.json());
     db('notes')
     .where({id})
     .del()
-    .then(n => {
-        res.status(200).json(n);
+    .then(note => {
+        res.status(200).json(note);
     })
     .catch(err => {
         res.status(500).json({error:'database cannot delete information'});

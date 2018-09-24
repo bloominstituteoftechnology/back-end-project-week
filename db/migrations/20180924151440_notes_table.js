@@ -1,7 +1,6 @@
 
 exports.up = function(knex, Promise) {
     return knex.schema.createTable('notes', tbl => {
-      // we must use the callback syntax for .createTable()
       tbl.increments();
       tbl.string('name', 255).notNullable()
       tbl.unique('uq_notes_name').notNullable()
