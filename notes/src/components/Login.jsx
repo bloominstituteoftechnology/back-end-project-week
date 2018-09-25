@@ -16,7 +16,7 @@ class Login extends Component {
   };
   login = async () => {
     try {
-      let response = await axios.post("http://localhost:3000/login", {
+      let response = await axios.post("http://localhost:3000/auth/login", {
         username: this.state.username,
         password: this.state.password
       });

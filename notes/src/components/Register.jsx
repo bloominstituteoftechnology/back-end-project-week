@@ -23,7 +23,7 @@ class Register extends Component {
       return;
     }
     try {
-      let response = await axios.post("http://localhost:3000/register", {
+      let response = await axios.post("http://localhost:3000/auth/register", {
         username: this.state.username,
         password: this.state.password
       });

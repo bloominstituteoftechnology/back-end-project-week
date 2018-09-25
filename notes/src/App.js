@@ -7,7 +7,6 @@ import SingleNote from "./components/SingleNote";
 import { Route, Switch, Redirect } from "react-router-dom";
 import fileDownload from "js-file-download";
 import axios from "axios";
-import { AuthRoute } from "react-router-auth";
 import Login from "./components/Login";
 import Register from "./components/Register";
 
