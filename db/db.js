@@ -2,14 +2,19 @@ const knex = require('knex');
 
 const dbConfig = require('../knexfile');
 
+
+
 const db = knex(dbConfig.development);
 
 module.exports = {
     getNotes,
     addNote,
     deleteNote,
-    editNote
+    editNote,
+    addUser,
+    getUser,
 }
+
 
 function getNotes(id){
     if(id){
@@ -29,4 +34,18 @@ function deleteNote(noteId){
 
 function editNote(editId, newNote){
     return db('notes').where('id', editId).update(newNote)
+}
+
+function addUser(newUser){
+    return db('users').insert(newUser)
+}
+
+function getUser(id){
+    return db('users').where({id})
+}
+
+function getToken(id){
+    this.getUser(id).then(user => {
+        console.log(user)
+    })
 }

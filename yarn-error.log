@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add knex-cleaner
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add jsonwebtoken
 
 PATH: 
   C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Michael\bin;C:\Users\Michael\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\cmd;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client;C:\Program Files\Intel\iCLS Client;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Common Files\lenovo\easyplussdk\bin;C:\SWTOOLS\ReadyApps;C:\Program Files (x86)\Common Files\Lenovo;C:\Program Files (x86)\QuickTime\QTSystem;C:\Users\Michael\.dnx\bin;C:\Program Files\Microsoft DNX\Dnvm;C:\Program Files\Microsoft SQL Server\130\Tools\Binn;C:\Program Files (x86)\Intel\UCRT;C:\Program Files\Intel\UCRT;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\nodejs;C:\Program Files (x86)\Yarn\bin;C:\Users\Michael\AppData\Local\hyper\app-2.0.0\resources\bin;C:\Users\Michael\AppData\Local\atom\bin;C:\Users\Michael\AppData\Local\Roaming\npm;C:\Users\Michael\AppData\Roaming\npm;C:\Users\Michael\AppData\Local\Yarn\bin;C:\Users\Michael\AppData\Roaming\npm\less-watch-compiler;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
@@ -42,14 +42,18 @@ npm manifest:
     },
     "homepage": "https://github.com/MKerbleski/back-end-project-week#readme",
     "dependencies": {
+      "bcryptjs": "^2.4.3",
       "cors": "^2.8.4",
       "dotenv": "^6.0.0",
       "express": "^4.16.3",
       "helmet": "^3.13.0",
       "knex": "^0.15.2",
+      "knex-cleaner": "^1.1.4",
       "morgan": "^1.9.1",
+      "node-pre-gyp": "^0.11.0",
       "nodemon": "^1.18.4",
-      "sqlite3": "^4.0.2"
+      "sqlite3": "^4.0.2",
+      "uniqid": "^5.0.3"
     }
   }
 
@@ -216,9 +220,17 @@ Lockfile:
     dependencies:
       tweetnacl "^0.14.3"
   
+  bcryptjs@^2.4.3:
+    version "2.4.3"
+    resolved "https://registry.yarnpkg.com/bcryptjs/-/bcryptjs-2.4.3.tgz#9ab5627b93e60621ff7cdac5da9733027df1d0cb"
+  
   binary-extensions@^1.0.0:
     version "1.12.0"
     resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-1.12.0.tgz#c2d780f53d45bba8317a8902d4ceeaf3a6385b14"
+  
+  bluebird@^2.9.13:
+    version "2.11.0"
+    resolved "http://registry.npmjs.org/bluebird/-/bluebird-2.11.0.tgz#534b9033c022c9579c56ba3b3e5a5caafbb650e1"
   
   bluebird@^3.5.1:
     version "3.5.2"
@@ -1353,6 +1365,13 @@ Lockfile:
     version "6.0.2"
     resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
   
+  knex-cleaner@^1.1.4:
+    version "1.1.4"
+    resolved "https://registry.yarnpkg.com/knex-cleaner/-/knex-cleaner-1.1.4.tgz#588b18c6cd20815216fa2c8f598800d2face7d90"
+    dependencies:
+      bluebird "^2.9.13"
+      lodash "^3.5.0"
+  
   knex@^0.15.2:
     version "0.15.2"
     resolved "https://registry.yarnpkg.com/knex/-/knex-0.15.2.tgz#6059b87489605f4cc87599a6d2a9d265709e9340"
@@ -1396,6 +1415,10 @@ Lockfile:
   lodash.debounce@^4.0.8:
     version "4.0.8"
     resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
+  
+  lodash@^3.5.0:
+    version "3.10.1"
+    resolved "http://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
   
   lodash@^4.17.10:
     version "4.17.11"
@@ -1583,6 +1606,21 @@ Lockfile:
   node-pre-gyp@^0.10.0, node-pre-gyp@^0.10.3:
     version "0.10.3"
     resolved "https://registry.yarnpkg.com/node-pre-gyp/-/node-pre-gyp-0.10.3.tgz#3070040716afdc778747b61b6887bf78880b80fc"
+    dependencies:
+      detect-libc "^1.0.2"
+      mkdirp "^0.5.1"
+      needle "^2.2.1"
+      nopt "^4.0.1"
+      npm-packlist "^1.1.6"
+      npmlog "^4.0.2"
+      rc "^1.2.7"
+      rimraf "^2.6.1"
+      semver "^5.3.0"
+      tar "^4"
+  
+  node-pre-gyp@^0.11.0:
+    version "0.11.0"
+    resolved "https://registry.yarnpkg.com/node-pre-gyp/-/node-pre-gyp-0.11.0.tgz#db1f33215272f692cd38f03238e3e9b47c5dd054"
     dependencies:
       detect-libc "^1.0.2"
       mkdirp "^0.5.1"
@@ -2372,6 +2410,10 @@ Lockfile:
       get-value "^2.0.6"
       is-extendable "^0.1.1"
       set-value "^0.4.3"
+  
+  uniqid@^5.0.3:
+    version "5.0.3"
+    resolved "https://registry.yarnpkg.com/uniqid/-/uniqid-5.0.3.tgz#917968310edc868d50df6c44f783f32c7d80fac1"
   
   unique-string@^1.0.0:
     version "1.0.0"

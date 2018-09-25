@@ -3,7 +3,6 @@ const helmet = require('helmet');
 const cors = require('cors');
 const server = express();
 const routes = require('./api/routes.js')
-const welcomeRoutes = require('./api/welcomeRoutes.js')
 
 server.use(express.json());
 server.use(helmet());
@@ -19,8 +18,6 @@ server.get('/', (req, res) => {
 
 server.use('/api/', routes);
 
+const PORT = process.env.PORT || 3300; 
 
-
-const port = process.env.PORT || 3300; 
-
-server.listen(port, () => {console.log(`\n == Server running on ${port} ==\n`)});
+server.listen(PORT, () => {console.log(`\n == Server running on ${PORT} ==\n`)});
