@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Lambda Notes API | Official Documentation</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet"
+    type="text/css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+    integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+    crossorigin="anonymous">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+</head>
+
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+      <header class="twelve column">
+        <h1 style="margin-top: 30px">Lambda Notes API</h1>
+
+        <p>This is the official documentation for the Notes API. From here you
+          can look at the documentation for various endpoints and understand
+          how to use this API.</p>
+        <strong>Links</strong>
+        <ul>
+          <li>
+            <a href="https://github.com/ashwins93/back-end-project-week" target="_blank"
+              style="text-decoration: none;">
+              <i class="fab fa-github"></i> <span>github</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/ashwins93/backend-project-week" target="_blank"
+              style="text-decoration: none;">
+              <i class="fab fa-github"></i> <span>github</span>
+            </a>
+          </li>
+        </ul>
+        <strong>Contents</strong>
+        <ul>
+          <li>
+            <a href="#allnotes">Get All Notes</a>
+          </li>
+          <li>
+            <a href="#newnote">Add a New Note</a>
+          </li>
+          <li>
+            <a href="#allnotes">Get Note By Id</a>
+          </li>
+          <li>
+            <a href="#allnotes">Update Note</a>
+          </li>
+          <li>
+            <a href="#allnotes">Delete Note</a>
+          </li>
+        </ul>
+        <hr />
+      </header>
+    </div>
+
+    <h2>Usage</h2>
+    <section id="allnotes" class="row">
+      <h3>Get All Notes</h3>
+      <p><span>Endpoint URL: </span><a href="/api/notes" target="_blank">/api/notes</a></p>
+      <p>A GET request to this endpoint returns a list of notes in the
+        database. Each note has the following fields &ndash; id, title,
+        textBody, tags</p>
+      <strong>Example Output</strong>
+      <pre><code>[
+  {
+    "id": 1,
+    "title": "Note 1",
+    "textBody": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    "tags": [
+      "jQuery",
+      "javascript"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Note 3",
+    "textBody": "Amet, perspiciatis. Lorem ipsum dolor sit, amet consectetur
+    adipisicing elit.",
+    "tags": [
+      "bootstrap"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Note Five",
+    "textBody": "The quick brown fox jumps over the lazy dog",
+    "tags": [
+      "Dogs",
+      "Entertainment",
+      "Pets"
+    ]
+  }
+]</code></pre>
+      <a href="/api/notes" class="button button-primary" target="_blank">View
+        Live</a>
+    </section>
+    <hr />
+    <section id="newnote" class="row">
+      <h3>Add a New Note</h3>
+      <p><span>Endpoint URL: </span><strong>/api/notes</strong> <span>Method:
+        </span><strong>POST</strong></p>
+      <p>Make a post request to the endpoint in order to add a new note. The
+        post request must have <code>content-type</code> set to <code>application/json</code>
+        and the request body must contain a <code>title</code> and a <code>textBody</code>.
+        Optionally you can also specify tags associated with the notes. In
+        order to add tags, include an array of strings in the request body with
+        the key <code>tags</code>. If the operation was successful, it will
+        return a message and the <code>id</code> of the new note.</p>
+
+      <strong>Example Usage</strong>
+      <pre><code>POST http://localhost:4000/api/notes HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "Note 5",
+  "textBody": "The quick brown fox jumps over the lazy dog",
+  "tags": ["Entertainment", "Pets"]
+}</code></pre>
+      <strong>Example Output</strong>
+      <pre><code>{
+  "message": "Note added successfully",
+  "id": 8
+}</code></pre>
+    </section>
+    <hr />
+    <section id="onenote" class="row">
+
+    </section>
+  </div>
+
+  <!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+
+</html>

@@ -18,7 +18,7 @@ module.exports = {
     return this.addNote(note)
       .then(id => {
         noteID = id;
-        return this.this.addTags(tags, id);
+        return this.addTags(tags, id);
       })
       .then(() => noteID);
   },
