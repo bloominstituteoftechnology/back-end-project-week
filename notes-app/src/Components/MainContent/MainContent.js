@@ -32,7 +32,7 @@ class MainContent extends Component {
                 <Switch>
                     <Route path='/' exact render={(props) => <NotesList state={this.state} />} />
                     <Route path='/note/:id' exact render={({match}, props) => <NoteView state={this.state} match={match} />} />
-                    <Route path='/note/:id' component={DeleteNote} />
+                    <Route path='/note/:id' exact component={DeleteNote} />
                     <Route path='/create' exact component={CreateNote} />
                     <Route path='/edit/:id' exact render={({match}, props) => <EditNote state={this.state} match={match} />} />
                 </Switch>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './index.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 // import { deleteNote } from '../../actions';
 // import { connect } from 'react-redux';
 
@@ -58,13 +59,14 @@ class DeleteNote extends Component {
                 <div className="modal">
                     <div className="question">Are you sure you want to delete this?</div>
                     <div>
-                        <button 
+                        <Link to="/"><button 
                         className="red"
                         onClick={this.delete}
+                        
                         // onClick={this.props.showModal}
                         >
                             Delete
-                        </button>
+                        </button></Link>
                         <button 
                         onClick={this.props.showModal}
                         >
@@ -84,7 +86,7 @@ class DeleteNote extends Component {
             .then(res => {
                 console.log(res.data)
                 // this.props.history.push('/')
-                // window.location.reload();
+                window.location.reload();
             })
             .catch(err => {
                 console.log(err, 'err')

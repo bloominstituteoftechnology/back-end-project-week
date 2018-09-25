@@ -80,7 +80,7 @@ class CreateNote extends Component {
 
     create = event => { 
         event.preventDefault();
-        console.log(this.props.history)
+        console.log("Create History", this.props.history)
         
         axios
             .post('http://localhost:5000/notes', this.state)
