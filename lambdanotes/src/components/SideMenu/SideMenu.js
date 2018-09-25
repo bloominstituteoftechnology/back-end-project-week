@@ -16,6 +16,7 @@ class SideMenu extends Component {
 		notes: [],
 		title:'',
 		textBody: '',
+		id: null,
 		}
 	}
 
@@ -32,40 +33,30 @@ class SideMenu extends Component {
 		});
 	}
 
-	// addNote = event => {
-	// 	event.preventDefault();
+	editNote = id => {
+		const endpoint = `http://localhost:9000/api/notes/${id}`;
 
-	// 	axios
-	// 	.post('http://localhost:9000/api/notes', this.state)
-	// 	.then(res => {
-	// 		console.log('Axios response', res);
-	// 		this.props.history.push('/notes');
-	// 	})
-	// 	.catch(error => {
-	// 		console.error('Axios response:', error)
-	// 	});
-	// }
-
-	deleteNote = note => {
-		let notes = this.state.notes.slice();
-		for (let i = 0; i < notes.length; i++) {
-			if (notes[i].id === note.id) {
-					notes.splice(i, 1);
-			}
-		}
-		this.setState({ notes })
+		axios
+			.put(endpoint)
+			.then(res => {
+				console.log(res);
+			})
+			.catch(error => {
+				console.error('Server error', error)
+			});
 	}
 
-	editNote = note => {
-		//copia del estado utilizando el método slice() y pasando el parametro note
-		let notes = this.state.notes.slice();
-		// iteramos con i el array/lista de objectos guardados/store en el objeto notes
-		for(let i = 0; i < notes.length; i++) {
-			if (notes[i].id === note.id) {
-					notes[i] = note
-			}
-		}
-		this.setState({ notes })
+	deleteNote = id => {
+		const endpoint = `http://localhost:9000/api/notes/${id}`;
+
+		axios
+			.delete(endpoint)
+			.then(res => {
+				console.log(res);
+			})
+			.catch(error => {
+				console.error('Server error', error)
+			});
 	}
 
 	handleInputChange = e => {
@@ -85,8 +76,8 @@ class SideMenu extends Component {
 
 				<Route exact path="/" render={(props) => <ListView {...props} notes={this.state.notes} />}/>
 				<Route exact path="/create-new-note/" component={ NewNote } />
-				<Route exact path="/note-view/:id" render={(props) => <NoteView {...props} notes={this.state.notes} deleteNote={this.deleteNote} handleInputChange={this.handleInputChange}/>}/>
-				<Route exact path="/note-view/:id/edit" render={(props) => <EditNote {...props} notes={this.state.notes} editNote={this.editNote} handleInputChange={this.handleInputChange}/>}/>
+				<Route exact path="/note-view/:id" render={props => <NoteView {...props} notes={this.state.notes} handleInputChange={this.handleInputChange} deleteNote={this.deleteNote}/>}/>
+				<Route exact path="/note-view/:id/edit" render={props => <EditNote {...props} notes={this.state.notes} editNote={this.editNote} handleInputChange={this.handleInputChange}/>}/>
 			</div>
 		);
 	}

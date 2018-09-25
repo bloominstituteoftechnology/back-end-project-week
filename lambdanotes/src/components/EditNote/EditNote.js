@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
+// import axios from 'axios';
 
-class EditNote extends React.Component {
+class EditNote extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {

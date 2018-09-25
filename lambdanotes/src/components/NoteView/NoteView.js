@@ -1,4 +1,5 @@
 import React from 'react';
+// import axios from 'axios';
 import './NoteView.css';
 import { Link } from "react-router-dom";
 import DeleteModal from '../DeleteNote/DeleteNote';
@@ -51,7 +52,7 @@ class NoteView extends React.Component {
             <NoteViewContainer>
                 <LinksContainer>
                     <Link to={`/note-view/${this.state.note.id}/edit`} className="link">edit</Link>
-                    <DeleteModal note={this.state.note} deleteNote={this.props.deleteNote}>delete</DeleteModal>
+                    <DeleteModal {...this.props} note={this.state.note} deleteNote={this.props.deleteNote}>delete</DeleteModal>
                 </LinksContainer>
                 <div className="body-container">
                     <Title>{this.state.note.title}</Title>
