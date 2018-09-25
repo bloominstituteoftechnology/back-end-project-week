@@ -16,5 +16,7 @@ server.use("/notes", restrictedRoutes);
 
 const port = 8000;
 server.listen(port, function() {
-	console.log(`\n === Server Be Sailin on http://localhost${port}. Yarrrnnn`);
+	console.log(
+		`\n === Server Be Sailin on http://localhost:${port}. Yarrrnnn`,
+	);
 });

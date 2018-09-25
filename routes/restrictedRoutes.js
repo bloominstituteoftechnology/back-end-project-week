@@ -55,10 +55,10 @@ router.get("/:id", function(req, res) {
 router.post("/", function(req, res) {
 	helpers
 		.addNoteWithTags(req.body)
-		.then(note => {
+		.then(noteId => {
 			return res.json({
 				error: false,
-				message: note.id,
+				message: noteId,
 			});
 		})
 		.catch(err => {
