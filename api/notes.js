@@ -89,6 +89,8 @@ router.delete("/:id", jwt.protected, async (req, res) => {
         ? res.status(200).json({ message: `Note with id ${id} deleted` })
         : res.status(404).json({ message: "No note with that id" });
     }
+  }catch(e){
+    res.status(500).json(e);
   }
 });
 
