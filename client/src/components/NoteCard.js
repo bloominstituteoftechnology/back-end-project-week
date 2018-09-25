@@ -23,7 +23,7 @@ class NoteCard extends Component {
   render() {
     const note = this.props.note;
     return (
-      <Link key={note._id} to={`/notes/${note._id}`}>
+      <Link key={note.id} to={`/notes/${note.id}`}>
         <Card>
           <NoteTitle>{note.title}</NoteTitle>
           <NoteBody>

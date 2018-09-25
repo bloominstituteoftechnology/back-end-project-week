@@ -16,6 +16,7 @@ class NoteList extends Component {
   state = {
     notes: this.props.notes,
   };
+  
   render() {
     return (
       <Page>

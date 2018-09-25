@@ -7,7 +7,7 @@ class Note extends React.Component {
   state = {
     editMode: false,
     deleteMode: false,
-    _id: this.props.match.params.id,
+    id: this.props.match.params.id,
   };
 
   handleEditMode = () => {
@@ -27,7 +27,7 @@ class Note extends React.Component {
   };
 
   handleSubmit = object => {
-    this.props.handleSubmit(this.state._id, object);
+    this.props.handleSubmit(this.state.id, object);
     this.handleEditMode();
   };
 
@@ -43,7 +43,7 @@ class Note extends React.Component {
 
   render() {
     const note = this.props.notes.find(
-			note => note._id == this.props.match.params.id,
+			note => note.id == this.props.match.params.id,
 		);
 		const noteId = this.props.match.params.id;
     return (

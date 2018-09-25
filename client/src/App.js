@@ -9,12 +9,13 @@ import Note from "./components/Note";
 import { AppContainer } from "./components/styles";
 import axios from 'axios'
 
+// for reference const GET = "https://killer-notes.herokuapp.com/note/get";
 // const ALL = "http://localhost:3300/api/notes";
-const ALL = "https://killer-notes.herokuapp.com/note/get/all";
-const CREATE = "https://killer-notes.herokuapp.com/note/create";
-const DELETE = "https://killer-notes.herokuapp.com/note/delete";
-const GET = "https://killer-notes.herokuapp.com/note/get";
-const PUT = "https://killer-notes.herokuapp.com/note/edit";
+const ALL = "http://localhost:3300/note/get/all";
+const CREATE = "http://localhost:3300/note/create";
+const DELETE = "http://localhost:3300/note/delete";
+const GET = "http://localhost:3300/note/get";
+const PUT = "http://localhost:3300/note/edit";
 
 class App extends Component {
   state = {
@@ -32,7 +33,7 @@ class App extends Component {
   handleCreateNote = note => {
 		this.setState({ loading: true });
 		axios.post(CREATE, note).then(response => {
-			axios.get(`${GET}/${response.data.success}`).then(response => {
+			axios.get(`${GET}/${response.data.sucess}`).then(response => {
 				this.setState(prevState => {
           return {
             notes: [...prevState.notes, response.data],
@@ -44,12 +45,11 @@ class App extends Component {
 	};
 
   handleEdit = (id, edited) => {
-		console.log("we got in.");
 		this.setState({ loading: true });
 		axios.put(`${PUT}/${id}`, edited).then(response => {
 			this.setState(prevState => ({
 				notes: prevState.notes.map(note => {
-					if (note._id == response.data._id) {
+					if (note.id == response.data.id) {
 						return response.data;
 					} else {
 						return note;

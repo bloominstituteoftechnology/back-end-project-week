@@ -28,7 +28,7 @@ class EditNote extends React.Component {
     });
     this.setState({
       title: "",
-      textBody: ""
+      textBody: "",
     });
     this.props.history.push("/notes");
   };
