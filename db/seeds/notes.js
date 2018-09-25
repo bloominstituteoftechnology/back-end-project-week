@@ -8,24 +8,28 @@ exports.seed = function(knex, Promise) {
         {
           title: "New Note",
           content: "This is a new note about nothing in particular", 
-          tags: "#Notes"
+          tags: "#Notes", 
+          user_id: "1",
         },
         {
           title: "Notes about React",
           content:
             "React is a UI render component library. It uses components to built out a UI.", 
-          tags: "#React #UI #Component #Programming #Javascript"
+          tags: "#React #UI #Component #Programming #Javascript", 
+          user_id: "2",
         },
         {
           title: "Notes about Node.js",
           content:
             "Node.js is a Javascript runtime. Node is single-threaded and non-blocking. It contains a large ecosystem of libraries called NPM modules.", 
-          tags: "#Node #Programming #Javascript"
+          tags: "#Node #Programming #Javascript", 
+          user_id: "2"
         },
         {
           title: "Things to get Done Today",
           content: "Clean laundry, wash dishes, go grocery shopping", 
-          tags: "#Todo #Chores"
+          tags: "#Todo #Chores", 
+          user_id: "1"
         }
       ]);
     });
