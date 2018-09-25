@@ -12,12 +12,13 @@ server.use(cors());
 server.use(helmet());
 
 server.get('/', (req, res) => {
-    req.session.name = 'This Session';
     res.status(200).json('working');
 });
 
 server.get('/api/notes', (req, res) => {
+    console.log('hello')
     db('notes')
+
         .then(data => {
             res.status(200).json(data);
         })
@@ -76,7 +77,26 @@ server.put('/api/notes/:id', (req, res) => {
         });
 });
 
-const port = process.env.PORT || 6000
+server.delete('/api/notes/:id', (req, res) => {
+    const edit = req.body;
+
+    db('notes')
+        .where({ id: req.params.id })
+        .delete()
+        .then(response => {
+            if (response === 0) {
+                res.status(404).json('Could not find note');
+            } else {
+                res.status(200).json(response);
+            }
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        });
+});
+
+
+const port = 8888
 server.listen(port, () => {
     console.log(`\n ===> Server listening on port ${port} <=== \n`);
 });
