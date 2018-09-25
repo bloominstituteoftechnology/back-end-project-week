@@ -57,7 +57,6 @@ router.delete('/:id', async (req, res, next) => {
 
 router.put('/:id', async (req, res) => {
   let { title, textBody, tags } = req.body;
-
   if (!title && !textBody && !Array.isArray(tags))
     return res.json({ error: 'At least one field must be given for update' });
 
@@ -70,12 +69,17 @@ router.put('/:id', async (req, res) => {
     }
   }
 
+  if (!title && !textBody)
+    return res
+      .status(200)
+      .json({ message: `Note with id ${req.params.id} updated successfully` });
+
   let updateObj = { title, textBody };
   updateObj = _.omitBy(updateObj, _.isUndefined);
   let count = await helpers.updateNote(updateObj, Number(req.params.id));
   if (count === 0) return res.json({ error: 'ID not found' });
 
-  res
+  return res
     .status(200)
     .json({ message: `Note with id ${req.params.id} updated successfully` });
 });
