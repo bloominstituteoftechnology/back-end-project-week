@@ -1,6 +1,6 @@
 const express = require('express');
 
-const db = require('../knexfile/lambda-notes.sqlite3');
+const db = require('../dbAccessHelpers');
 
 const router = express.Router();
 

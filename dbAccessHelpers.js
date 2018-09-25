@@ -12,27 +12,27 @@ module.exports = {
 };
 
 function getNotes() {
-    db('notes');
+    return db('notes');
 }
 
 function getNote(_id) {
-    db('notes')
-        .where('_id', '=', _id);
+    return db('notes')
+            .where('_id', '=', _id);
 }
 
 function createNote(note) {
-    db('notes')
-        .insert(note);
+    return db('notes')
+            .insert(note);
 }
 
 function editNote(note) {
-    db('notes')
-        .where('_id', '=', _id)
-        .update(note);
+    return db('notes')
+            .where('_id', '=', _id)
+            .update(note);
 }
 
 function deleteNote(note) {
-    db('notes')
-        .where('_id', '=', _id)
-        .del(note);
+    return db('notes')
+            .where('_id', '=', _id)
+            .del(note);
 }
