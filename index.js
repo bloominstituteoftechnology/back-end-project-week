@@ -3,6 +3,8 @@ const knex = require("knex");
 const server = express();
 const dbConfig = require("./knexfile.js");
 const db = knex(dbConfig.development);
+const cors = require("cors");
+server.use(cors());
 server.use(express.json());
 
 server.get("/api/notes", (req, res) => {
