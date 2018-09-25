@@ -1,5 +1,5 @@
 const router = require('express').Router();
-
+const _ = require('lodash');
 const helpers = require('../db/helpers');
 
 function tagsReducer(acc, next) {
@@ -25,7 +25,7 @@ router.post('/', async (req, res, next) => {
     return res.json({ error: 'title or textBody is missing' });
 
   let id = null;
-  if (Array.isArray(tags)) {
+  if (_.isArray(tags)) {
     id = await helpers.addNoteWithTags({ title, textBody }, tags);
   } else {
     id = await helpers.addNote({ title, textBody });
@@ -53,6 +53,31 @@ router.delete('/:id', async (req, res, next) => {
   res.status(200).json({
     message: `Note with id ${req.params.id} has been deleted successfully`,
   });
+});
+
+router.put('/:id', async (req, res) => {
+  let { title, textBody, tags } = req.body;
+
+  if (!title && !textBody && !Array.isArray(tags))
+    return res.json({ error: 'At least one field must be given for update' });
+
+  if (_.isArray(tags)) {
+    try {
+      let ids = await helpers.updateTags(tags, Number(req.params.id));
+    } catch (err) {
+      console.log(err);
+      return res.json({ error: 'ID not found ' });
+    }
+  }
+
+  let updateObj = { title, textBody };
+  updateObj = _.omitBy(updateObj, _.isUndefined);
+  let count = await helpers.updateNote(updateObj, Number(req.params.id));
+  if (count === 0) return res.json({ error: 'ID not found' });
+
+  res
+    .status(200)
+    .json({ message: `Note with id ${req.params.id} updated successfully` });
 });
 
 module.exports = router;

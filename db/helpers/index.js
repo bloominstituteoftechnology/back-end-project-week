@@ -18,12 +18,7 @@ module.exports = {
     return this.addNote(note)
       .then(id => {
         noteID = id;
-        return db('tags').insert(
-          tags.map(tag => ({
-            tag_name: tag,
-            note_id: id,
-          })),
-        );
+        return this.this.addTags(tags, id);
       })
       .then(() => noteID);
   },
@@ -32,9 +27,33 @@ module.exports = {
     return this.getAllNotes().where('notes.id', id);
   },
 
+  updateNote(note, id) {
+    return db('notes')
+      .update(note)
+      .where('id', id);
+  },
+
   deleteNote(id) {
     return db('notes')
       .delete()
       .where('id', id);
+  },
+
+  addTags(tags, id) {
+    return db('tags').insert(
+      tags.map(tag => ({
+        tag_name: tag,
+        note_id: id,
+      })),
+    );
+  },
+
+  updateTags(tags, id) {
+    return db('tags')
+      .delete()
+      .where('note_id', id)
+      .then(() => {
+        return this.addTags(tags, id);
+      });
   },
 };
