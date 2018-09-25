@@ -47,7 +47,12 @@ const protected = (req, res, next) => {
 
 // route for getting the right notes for user
 server.get('/', protected, (req, res) => {
-    res.send('Api Online')
+    db.select().from('notes').then(notes => {
+        return res.status(200).json(notes)
+    }).catch(err => {
+        console.log(err)
+        return res.status(500).json({message: 'Cannot retrieve notes at this time'})
+    })
 })
 
 // route for registering
@@ -99,10 +104,10 @@ server.post('/api/create', (req, res) => {
     const note = req.body
 
     db.insert(note).into('notes').then(note => {
-        res.status(200).json({message: 'note created'})
+        return res.status(200).json({message: 'note created'})
     }).catch(err => {
         console.log(err)
-        res.status(500).json({message: 'Error Creating Note'})
+        return res.status(500).json({message: 'Error Creating Note'})
     })
 })
 
