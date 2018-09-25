@@ -4,7 +4,7 @@ const dbhelpers = require("../dbhelpers/helpers");
 
 
 router.get("/", async (req, res) => {
-  let results = await dbhelpers.getNotes();
+  let results = await dbhelpers.getNotes(req.user);
   res.status(200).json(results);
 });
 router.get("/:id", async (req, res) => {
@@ -26,6 +26,7 @@ router.post("/", async (req, res) => {
     return;
   }
   try {
+    req.body.userID = req.user;
     const newID = await dbhelpers.addNote(req.body);
     const results = await dbhelpers.getSingleNote(newID[0]);
     res.status(200).json(results);
@@ -40,6 +41,7 @@ router.post("/:id", async (req, res) => {
     return;
   }
   try {
+    req.body.userID = req.user;
     const result = await dbhelpers.editNote(req.params.id,req.body);
     if (result === 0) {
       res.status(400).json({ errorMessage: "ID does not excist" });

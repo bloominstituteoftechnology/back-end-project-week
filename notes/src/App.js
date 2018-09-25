@@ -40,7 +40,9 @@ class App extends Component {
   addNote = noteObj => {
     noteObj = this.formatForDB(noteObj);
     axios
-      .post("http://localhost:3000/notes", noteObj)
+      .post("http://localhost:3000/notes", noteObj, {
+        headers: { Authorization: `bearer ${this.state.JWT}` }
+      })
       .then(response => {
         // handle success
         let prevNotes = [...this.state.notes];
@@ -57,7 +59,9 @@ class App extends Component {
   editNote = noteObj => {
     noteObj = this.formatForDB(noteObj);
     axios
-      .post(`http://localhost:3000/notes/${noteObj.id}`, noteObj)
+      .post(`http://localhost:3000/notes/${noteObj.id}`, noteObj, {
+        headers: { Authorization: `bearer ${this.state.JWT}` }
+      })
       .then(response => {
         let prevNotes = this.state.notes.slice();
         const moddedArray = prevNotes.map(e => {
@@ -82,7 +86,9 @@ class App extends Component {
   };
   deleteNote = noteID => {
     axios
-      .delete(`http://localhost:3000/notes/${noteID}`)
+      .delete(`http://localhost:3000/notes/${noteID}`, {
+        headers: { Authorization: `bearer ${this.state.JWT}` }
+      })
       .then(() => {
         this.getNotesList();
       })
@@ -130,7 +136,9 @@ class App extends Component {
 
   getNotesList = () => {
     axios
-      .get("http://localhost:3000/notes")
+      .get("http://localhost:3000/notes", {
+        headers: { Authorization: `bearer ${this.state.JWT}` }
+      })
       .then(response => {
         // handle success
         this.setState({

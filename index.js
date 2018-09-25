@@ -82,7 +82,7 @@ app.use('/profile', passport.authenticate('jwt', { session: false }),
         res.json({message:req.user})
     }
 );
-app.use("/notes", notes);
+app.use("/notes", passport.authenticate('jwt', { session: false }), notes);
 
 app.use("/", (req, res) =>
   res

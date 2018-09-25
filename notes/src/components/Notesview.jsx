@@ -210,7 +210,7 @@ class Notesview extends Component {
               placeholder="Search"
               onChange={this.handleInputChange}
               type="text"
-            />{" "}
+            />
             <select className="" onChange={this.changeSearch}>
               <option value="title">Title</option>
               <option value="body">Body</option>
@@ -219,7 +219,7 @@ class Notesview extends Component {
             </select>
           </div>
         </div>
-        {this.props.notes ? (
+        {this.state.items.length ? (
           <SortableList
             distance={1}
             axis="xy"
@@ -227,7 +227,7 @@ class Notesview extends Component {
             onSortEnd={this.onSortEnd}
           />
         ) : (
-          ""
+          "No notes to display!"
         )}
         <div className="pageButtons">
         <div className="pageChangeButton" onClick={()=>this.changePage("back")}>←</div>

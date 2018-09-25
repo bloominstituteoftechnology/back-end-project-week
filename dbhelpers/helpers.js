@@ -3,8 +3,9 @@ const knexConfig = require("../knexfile.js");
 const db = knex(knexConfig.development);
 
 module.exports = {
-  getNotes: () => {
+  getNotes: (userID) => {
     return db("notes")
+    .where({"userID":userID})
       .then(rows => {
         let jsonfix = rows.map((e,i)=>{
           if(! e.tags){
@@ -28,6 +29,7 @@ module.exports = {
       });
   },
   addNote: (body) => {
+    console.log(body);
     return db("notes").insert({ ...body });
   },
   getSingleNote:(id)=>{
