@@ -63,7 +63,7 @@ server.post('/register', async (req, res) => {
             const id = ids[0];
             const user = await db('users').where({ id }).first();
             const token = generateToken( user );
-            res.status(201).json({ id: user.id, token })
+            res.status(201).json({ id: user.id, token });
         }
         catch ( err ) {
             res.status(500).json( err.message );
@@ -77,7 +77,6 @@ server.post('/login', ( req , res ) => {
         .where({ email : creds.email })
         .first()
         .then( user => {
-            console.log(user.password, creds.password)
             if ( user && bcrypt.compareSync( creds.password, user.password )){
                 const token = generateToken( user )
                 res.status(200).json({ token });
