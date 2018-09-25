@@ -25,8 +25,14 @@ export default class App extends Component {
   }
 
   componentDidMount() {
+    const token = localStorage.getItem('jwt');
+    const reqOptions = {
+        headers: {
+            Authorization: token,
+        }
+    };
 
-    axios.get('http://localhost:5000/notes')
+    axios.get('http://localhost:5000/notes', reqOptions)
       .then(notes => {
         this.setState({notes: notes.data.notes}); 
       })
@@ -151,6 +157,20 @@ export default class App extends Component {
 
   onRegisterHandler = e => {
     e.preventDefault(); 
+
+    let newUser = {
+      username: this.state.username, 
+      password: this.state.password, 
+    }; 
+
+    axios
+    .post("http://localhost:5000/register", newUser)
+      .then(res => {
+       localStorage.setItem('jwt', res.data.token);
+     })
+      .catch(err => {
+      console.log(err);
+     })
   }
 
   render() {
