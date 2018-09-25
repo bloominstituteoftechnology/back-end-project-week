@@ -8,6 +8,7 @@ const db = knex(dbConfig.development);
 
 server.use(express.json());
 server.use(helmet());
+server.set("port", process.env.PORT || 8000);
 
 server.get("/", (req, res) => {
   res.status(200).json({ api: "running" });
@@ -89,6 +90,6 @@ server.delete("/api/notes/:id", (req, res) => {
     });
 });
 
-server.listen(8000, () => {
-  console.log("== LISTENING ON PORT 8K ==");
+server.listen(server.get("port"), () => {
+  console.log("== LISTENING ON PORT ", server.get("port"), " ==");
 });
