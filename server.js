@@ -78,6 +78,25 @@ server.post("/register", (req, res) => {
 })
 
 
+server.post("/login", (req, res) => {
+    const credentials = req.body; 
+
+    db('users')
+        .where({username: credentials.username})
+        .first()
+        .then(user => {
+            if(user && bcrypt.compareSync(credentials.password, user.password)) {
+                const token = generateToken(user); 
+                res.status(201).json({token});
+            } else {
+                res.status(401).json({error: "Could not login."})}
+            }) 
+        .catch(err => {
+            res.status(500).json({error: "Could not login with given information."});
+        })
+})
+
+
 server.get('/notes', protected, (req, res) => {
     db('notes')
         .then(notes => {

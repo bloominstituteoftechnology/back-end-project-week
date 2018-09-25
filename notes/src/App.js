@@ -8,6 +8,7 @@ import Note from "./components/Note";
 import Edit from "./components/Edit";
 import Search from "./components/Search";
 import Register from "./components/Register";
+import Login from "./components/Login";
 import "./App.css";
 
 export default class App extends Component {
@@ -143,17 +144,17 @@ export default class App extends Component {
      
     this.setState({notes: result});
     
-    }, 10)
+    }, 20)
 
   };
 
   resetPage = () => {
     window.location.reload(true)
-  }
+  };
 
   inputHandlerRegister = e => {
     this.setState({[e.target.name]: e.target.value});
-  }
+  };
 
   onRegisterHandler = e => {
     e.preventDefault(); 
@@ -171,6 +172,28 @@ export default class App extends Component {
       .catch(err => {
       console.log(err);
      })
+  };
+
+  inputHandlerLogin = e => {
+    this.setState({[e.target.name]: e.target.value});
+  };
+
+  onLoginHandler = e => {
+    e.preventDefault(); 
+
+    let login = {
+      username: this.state.username, 
+      password: this.state.password, 
+    }; 
+
+    axios
+    .post("http://localhost:5000/login", login)
+    .then(res => {
+        localStorage.setItem('jwt', res.data.token);
+    })
+    .catch(err => {
+        console.log(err);
+    })
   }
 
   render() {
@@ -191,6 +214,12 @@ export default class App extends Component {
             className="navlink" 
             to="/add-note">
             + Create New Note
+          </NavLink>
+
+          <NavLink 
+            className="navlink" 
+            to="/login">
+            Login
           </NavLink>
 
           <NavLink 
@@ -246,6 +275,17 @@ export default class App extends Component {
                 notes={this.state.notes}
                 inputHandlerUpdate={this.inputHandlerUpdate}
                 onUpdateHandler={this.onUpdateHandler}
+              />
+            )}
+          />
+
+          <Route
+            path="/login"
+            render={props => (
+            <Login
+                {...props}
+                inputHandlerLogin={this.inputHandlerLogin}
+                onLoginHandler={this.onLoginHandler}
               />
             )}
           />
