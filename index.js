@@ -6,13 +6,10 @@ const server = express();
 const bcrypt = require('bcryptjs');
 const dbConfig = require('./knexfile')
 const jwt = require('jsonwebtoken')
-const session = require('express-session');
 const jwtKey = require('./secret/keys').jwtKey;
 
 const db = knex(dbConfig.development);
 
-
-server.use(session(sessionConfig))
 server.use(express.json());
 server.use(helmet());
 server.use(cors())
@@ -48,7 +45,8 @@ const protected = (req, res, next) => {
 
 }
 
-server.get('/', (req, res) => {
+// route for getting the right notes for user
+server.get('/', protected, (req, res) => {
     res.send('Api Online')
 })
 
@@ -64,7 +62,7 @@ server.post('/api/register', (req, res) => {
             db('user').where({ id }).first()
                 .then(user => {
                     const token = generateToken(user)
-                    res.status(201).json({ message: 'login success' })
+                    res.status(201).json({ message: 'login success', token: token })
                 })
                 .catch(err => {
                     console.log('post error ', err)
@@ -87,7 +85,7 @@ server.post('/api/create', (req, res) => {
 
 })
 
-// route for getting the right notes for user
+// route for getting the right notes for user | this will most likely end up just being the /api/route on line 52
 server.get('/api/user', protected, (req, res) => {
 
 })
@@ -103,7 +101,7 @@ server.delete('/api/view/:id/delete', (req, res) => {
 })
 
 // route for editing notes
-server.put('/api/edit', (req, res) => {
+server.put('/api/edit/:id', (req, res) => {
 
 })
 
