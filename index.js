@@ -71,7 +71,7 @@ server.post('/login', ( req , res ) => {
 });
 
 //GET ALL NOTES
-server.get('/get/all', async (req, res) => {
+server.get('/note/all', async (req, res) => {
     try {
         const notes = await db('notes')
         res.status(200).json( notes );
@@ -82,7 +82,7 @@ server.get('/get/all', async (req, res) => {
 });
 
 //GET AN EXISTING NOTE
-server.get('/get/:id', async (req, res) => {
+server.get('/note/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const note = await db('notes').where({ id })
