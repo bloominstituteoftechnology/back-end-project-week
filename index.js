@@ -12,7 +12,6 @@ app.use(cors());
 app.use("/", routes);
 
 function errorHandler(err, req, res, next) {
-  console.log(err);
   switch (err.statusCode) {
     case 404:
       res.status(404).json({
@@ -29,6 +28,6 @@ function errorHandler(err, req, res, next) {
 
 app.use(errorHandler);
 
-app.listen(9000, () => {
-  console.log("Running on Port 9000");
+app.listen(8000, () => {
+  console.log("Running on Port 8000");
 });
