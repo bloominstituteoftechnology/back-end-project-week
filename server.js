@@ -71,6 +71,21 @@ server.put("/api/notes/:id", (req, res) => {
       });
 });
 
+server.delete("/api/notes/:id", (req, res) => {
+  const { id } = req.params;
+  db("notes")
+    .where({ id: id })
+    .del()
+    .then(count => {
+      if (count) {
+        res.status(204).end();
+      } else {
+        res.status(404).json({ message: "no note with that ID" });
+      }
+    })
+    .catch(err => res.status(500).json(err));
+});
+
 const port = 8000;
 server.listen(port, function() {
   console.log(`\n=API ON ${port}=\n`);
