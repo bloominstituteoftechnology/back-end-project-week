@@ -31,7 +31,12 @@ function errorHandler(err, req, res, next) {
 }
 
 module.exports = server => {
-  server.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+  server.use(
+    cors({
+      credentials: true,
+      origin: "https://secret-bastion-74251.herokuapp.com",
+    }),
+  );
   server.use(helmet());
   server.use(express.json());
   server.use(morgan("dev"));
