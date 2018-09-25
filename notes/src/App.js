@@ -7,6 +7,7 @@ import NotesView from "./components/NotesView";
 import Note from "./components/Note";
 import Edit from "./components/Edit";
 import "./App.css";
+import Search from "./components/Search";
 
 export default class App extends Component {
   constructor() {
@@ -15,7 +16,8 @@ export default class App extends Component {
       notes: [],
       id: null,
       title: "",
-      note: ""
+      note: "",
+      search:"",
     };
   }
 
@@ -77,9 +79,7 @@ export default class App extends Component {
       .catch(err => {
         console.log(err); 
         });
- };
-
-
+  };
 
   deleteHandler = (e, id) => {
     e.preventDefault();
@@ -100,18 +100,43 @@ export default class App extends Component {
       
   };
 
+  inputHandlerSearch = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  submitHandlerSearch = e => {
+    e.preventDefault();
+
+    let searchTerm = this.state.search; 
+    let notes = this.state.notes.slice();
+
+    notes = notes.filter(note => {
+       return note.title.toUpperCase() === searchTerm.toUpperCase();
+    })
+
+    this.setState({notes: notes});
+  };
+
   render() {
     console.log("app state", this.state.notes);
     return (
       <div className="app">
         <div className="navbar">
           <div className="navbar-title">Lambda Notes</div>
+          
           <NavLink className="navlink" exact to="/">
             View Your Notes
           </NavLink>
+          
           <NavLink className="navlink" to="/add-note">
             + Create New Note
           </NavLink>
+           
+          <Search
+            inputHandlerSearch={this.inputHandlerSearch}
+            submitHandlerSearch={this.submitHandlerSearch}>
+          </Search>
+
         </div>
 
         <div className="notesbody">

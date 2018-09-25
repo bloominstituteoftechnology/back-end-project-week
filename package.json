@@ -12,7 +12,7 @@
     "start": "nodemon index.js"
   },
   "name": "back-end-project-week",
-  "description": "TRELLO URL: \r https://trello.com/invite/b/u1C61yj9/9755073c10274374addf1c93589ae928/lambda-notes-backend",
+  "description": "A proof of concept",
   "version": "1.0.0",
   "main": "index.js",
   "repository": {
