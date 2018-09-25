@@ -39,7 +39,7 @@ router.post("/", async (req, res, next) => {
 
 router.put("/:id", async (req, res, next) => {
   try {
-    await db.putNote({ id: req.params.id, ...req.body });
+    await db.putNote({ id: req.params.id, title: req.body.title, content: req.body.content, tags: req.body.tags });
     res.status(200).json({
       status: true,
       updatedNotes: await db.getNotes()
