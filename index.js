@@ -10,6 +10,7 @@ server.use(cors());
 
 // endpoints
 
+// make a new note
 server.post('/api/create', (req, res) => {
     const info = req.body;
     db('notes')
@@ -28,6 +29,7 @@ server.post('/api/create', (req, res) => {
         .catch(err => res.status(500).send(err));
 });
 
+// see list of notes
 server.get('/api/notes', (req, res) => {
     db('notes')
         .then(notes => {
@@ -38,6 +40,7 @@ server.get('/api/notes', (req, res) => {
         });
 });
 
+// see specific note by id
 server.get('/api/notes/:id', (req, res) => {
     const { id } = req.params;
     db('notes')
@@ -51,5 +54,19 @@ server.get('/api/notes/:id', (req, res) => {
         })
         .catch(err => res.status(500).json({ errMsg: 'Database could not retrieve info' }));
 });
+
+// edit note by id
+server.put('/api/notes/:id', (req, res) => {
+    db('notes')
+        .where({ id:req.params.id } )
+        .update(req.body)
+        .then((note) => {
+            res.status(201).json(note);
+        })
+        .catch((fail) => {
+            console.log(fail);
+            res.status(404).json({ message: "The note with the specified ID does not exist."});
+        });
+})
 
 server.listen(5000, () => console.log('\nrunning on port 5000\n'));
