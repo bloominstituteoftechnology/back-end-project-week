@@ -25,7 +25,7 @@ class MainContent extends Component {
             <div className="main_container">
                 <Switch>
                     <Route path='/' exact render={(props) => <NotesList state={this.state} />} />
-                    <Route path='/note/:id' render={({match}) => <NoteView state={this.state} match={match} />} />
+                    <Route path='/note/:id' exact render={({match}, props) => <NoteView state={this.state} match={match} />} />
                     <Route path='/create' exact component={CreateNote} />
                     <Route path='/edit/:id' exact component={EditNote} />
                 </Switch>

@@ -1,22 +1,76 @@
 import React, { Component } from 'react';
 import './index.css';
-// import DeleteNote from '../DeleteNote/DeleteNote';
-// import { Link } from 'react-router-dom';
+import DeleteNote from '../DeleteNote/DeleteNote';
+import { Link } from 'react-router-dom';
 
 
 class NoteView extends Component {
+    constructor(props, {match}){
+        super(props, {match});
+        this.state = {
+            displayDelete: false,
+            matched: []
+        }
+    }
+    
+
+    componentDidMount(){
+        console.log('prop notes yea', this.props)
+        let routeId = this.props.match.params.id;
+        let matched = this.props.state.notes.filter((item)=>item.id === routeId)
+        this.setState( {matched: matched} )
+        console.log("match?", this.statematched);
+        let note = this.props.state.notes[0].title;
+        console.log(note);
+    }
 
 
+    showModal = (event) => {
+        event.preventDefault();
+        this.setState({displayDelete: !this.state.displayDelete})
+    }
 
     render() {
-        console.log("noteview:", this.props)
+        console.log("noteview:", this.props.state.notes)
 return (
     <div className='view_container'>
-        Test   
+        <div className="links_container">
+            <Link to={`/edit/${this.props.match.params.id}`} className="view_links">edit</Link>
+                <br />
+            <a href="" onClick={this.showModal} className="view_links">delete</a>
+                <br /><br />
+        </div>
+        <div className="view_title">
+                
+            {this.state.matched}
+            {this.props.state.notes[0].title}
+            <br />
+            {this.props.state.notes[0].content}  
+        </div><br /><br />
+        {/* <p className="view_content"> {this.state.matched[0].textBody}</p> */}
+        <DeleteNote 
+            toggle={this.state.displayDelete}
+            showModal={this.showModal}
+            // toDelete={this.state.matched[0]._id}
+            history={this.props.history}
+        />
     </div>
 )
+
+
+
+
+
 }
 }
+
+
+
+
+
+
+
+
 
 
 

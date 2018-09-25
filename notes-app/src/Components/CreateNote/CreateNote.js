@@ -1,42 +1,42 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { createNote } from '../../actions/index';
+// import { connect } from 'react-redux';
+// import { createNote } from '../../actions/index';
 import './index.css';
 
 
 
-const mapStateToProps = (state) => {
-    return {
-        notes: state
-    }
-}
+// const mapStateToProps = (state) => {
+//     return {
+//         notes: state
+//     }
+// }
 
 class CreateNote extends Component {
-    constructor(){
-        super();
-        this.state = {
-            notes: [],
-        }
-    }
+    // constructor(props){
+    //     super(props);
+    //     this.state = {
+    //         notes: [],
+    //     }
+    // }
 
-    componentWillMount(){
-        let routeId = this.props.match.params.id;
-        let matched = this.props.notes.filter((item)=>item._id === routeId)
-        this.setState({ matched })
-    }
+    // componentWillMount(){
+    //     let routeId = this.props.match.params.id;
+    //     let matched = this.props.notes.filter((item)=>item._id === routeId)
+    //     this.setState({ matched })
+    // }
 
-    handleUpdate = () => {
-        //action 2/3
-        this.props.createNote(this.state.matched[0]);
-        this.props.history.push('/');
-    }
+    // handleUpdate = () => {
+    //     //action 2/3
+    //     this.props.createNote(this.state.matched[0]);
+    //     this.props.history.push('/');
+    // }
 
     handleChange = (event) => {
         console.log(event.target.name)
-        let temp = Array.from(this.props.notes);
-        temp[0][event.target.name] = event.target.value;
-        console.log(temp[0]);
-        this.setState({ notes: temp })
+        // let temp = Array.from(this.state.notes);
+        // temp[0][event.target.name] = event.target.value;
+        // console.log(temp[0]);
+        // this.setState({ notes: temp })
     }
 
     render() {
@@ -78,4 +78,5 @@ class CreateNote extends Component {
     }
 }
 
-export default connect(mapStateToProps, {createNote})(CreateNote);
+// export default connect(mapStateToProps, {createNote})(CreateNote);
+export default CreateNote;

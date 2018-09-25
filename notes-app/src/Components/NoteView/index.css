@@ -39,6 +39,10 @@ Link {
 
 .view_title {
     font-weight: bold;
+    align-content: center;
+    padding: 10px;
+    position: absolute;
+    top: 700;
 }
 
 .view_content {
