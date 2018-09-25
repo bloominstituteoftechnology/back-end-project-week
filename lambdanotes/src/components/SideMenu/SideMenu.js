@@ -43,6 +43,24 @@ class SideMenu extends Component {
 			});
 	}
 
+	editNote = (event, noteID ,title, textBody) => {
+		event.preventDefault();
+		 const editedNote = { title, textBody };
+		 axios
+		  .put(`http://localhost:9000/api/notes/${noteID}`, editedNote)
+		  .then(res => {
+			const editedNote = res.data;
+			const notes = this.state.notes.slice();
+			for (let i = 0; i < notes.length; i++) {
+			  if (notes[i].id === editedNote.id) {
+				notes[i] = editedNote;
+			  }
+			}
+			this.setState({ notes });
+		  })
+		  .catch(err => console.error(err));
+	  };
+
 	handleInputChange = e => {
 		this.setState({ [e.target.name]: e.target.value });
 	}
@@ -61,7 +79,7 @@ class SideMenu extends Component {
 				<Route exact path="/" render={ (props) => <ListView {...props} notes={this.state.notes} />}/>
 				<Route exact path="/create-new-note/" component={ NewNote } />
 				<Route exact path="/note-view/:id" render={ props => <NoteView {...props} notes={this.state.notes} handleInputChange={this.handleInputChange} deleteNote={this.deleteNote}/>}/>
-		<Route exact path="/note-view/edit/:id" render={ props => <EditNote {...props} notes={this.state.notes}/>} />
+				<Route exact path="/note-view/edit/:id" render={ props => <EditNote {...props} notes={this.state.notes} editNote={this.editNote}/>} />
 			</div>
 		);
 	}
