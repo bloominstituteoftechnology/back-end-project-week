@@ -59,6 +59,12 @@
               <i class="fas fa-code"></i> <span>View Source for this page</span>
             </a>
           </li>
+          <li>
+            <a href="https://www.linkedin.com/in/ashwins93/" target="_blank"
+              style="text-decoration: none;">
+              <i class="fab fa-linkedin"></i> <span>Get in touch</span>
+            </a>
+          </li>
         </ul>
         <strong>Contents</strong>
         <ul>
@@ -72,10 +78,10 @@
             <a href="#onenote">Get Note By Id</a>
           </li>
           <li>
-            <a href="#update">Update Note</a>
+            <a href="#updatenote">Update Note</a>
           </li>
           <li>
-            <a href="#delete">Delete Note</a>
+            <a href="#deletenote">Delete Note</a>
           </li>
         </ul>
         <hr />
@@ -121,7 +127,7 @@
   }
 ]</code></pre>
       <a href="/api/notes" class="button button-primary" target="_blank">View
-        Live</a>
+        Live</a> <a class="button button-primary" href="#">Back To Top</a>
     </section>
     <hr />
     <section id="newnote" class="row">
@@ -150,6 +156,7 @@ Content-Type: application/json
   "message": "Note added successfully",
   "id": 8
 }</code></pre>
+      <a class="button button-primary" href="#">Back To Top</a>
     </section>
     <hr />
     <section id="onenote" class="row">
@@ -170,7 +177,7 @@ Content-Type: application/json
   ]
 }</code></pre>
       <a href="/api/notes/5" class="button button-primary" target="_blank">View
-        Live</a>
+        Live</a> <a class="button button-primary" href="#">Back To Top</a>
     </section>
     <hr />
 
@@ -197,7 +204,26 @@ Content-Type: application/json
       <pre><code>{
   "message": "Note with id 6 updated successfully"
 }</code></pre>
+      <a class="button button-primary" href="#">Back To Top</a>
     </section>
+    <hr />
+    <section id="deletenote" class="row">
+      <h3>Delete Note by ID</h3>
+      <p><span>Endpoint URL: </span><code>/api/notes/:id</code> <span>Method:
+        </span><code>DELETE</code></p>
+      <p>Use this endpoint to <strong>delete</strong> a note specified by ID.
+        This action is irreversible. Make a
+        <code>DELETE</code> request to <code>/api/notes/:id</code>, where <code>:id</code>
+        refers to the ID of the note you'd like to delete. Upon successful
+        deletion you will receive the following response.</p>
+      <strong>Example Usage</strong>
+      <pre><code>DELETE http://localhost:4000/api/notes/7 HTTP/1.1</code></pre>
+      <strong>Example Output</strong>
+      <pre><code>{
+  "message": "Note with id 7 has been deleted successfully"
+}</code></pre>
+    </section>
+    <a class="button button-primary" href="#">Back To Top</a>
   </div>
 
   <!-- End Document
