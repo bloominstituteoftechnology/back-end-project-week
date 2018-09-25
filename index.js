@@ -9,7 +9,7 @@ const db = knex(dBConfig.development);
 server.use(express.json());
 
 //Endpoints
-server.post('/api/addNote', (res, req) => {
+server.post('/api/addNote', (req, res) => {
     const newNote = req.body;
     db('notes')
         .insert(newNote)
@@ -17,8 +17,16 @@ server.post('/api/addNote', (res, req) => {
             res.status(201).json(res)
         })
         .catch(err => res.status(500).send(err));
-})
+});
 
+server.get('/api/notes', (req, res) => {
+    db('notes')
+        .select('id', 'title', 'textBody')
+        .then(notes => {
+            res.json(notes);
+        })
+        .catch(err => res.send(err));
+});
 
 
 
