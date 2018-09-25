@@ -20,4 +20,7 @@ app.use('/', indexRouter);
 app.use('/api/notes', notesRouter);
 app.use(require('./middleware/index').errorHandler)
 
+console.log('~~~~~~~~~~~~~~~~~~')
+console.log(process.env.NODE_ENV)
+
 module.exports = app
