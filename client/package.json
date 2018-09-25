@@ -1,23 +1,17 @@
 {
-  "name": "notes",
+  "name": "client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "add": "^2.0.6",
     "axios": "^0.18.0",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "react-redux": "^5.0.7",
-    "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.4",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-scripts": "1.1.5",
     "redux": "^4.0.0",
-    "redux-thunk": "^2.3.0",
-    "styled-components": "^3.4.2",
-    "yarn": "^1.9.4"
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "NODE_PATH=src react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
