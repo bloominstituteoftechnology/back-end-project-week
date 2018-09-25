@@ -26,7 +26,6 @@ class NoteList extends Component {
             return (
               <NoteCard
                 key={`${note.title}${index}`}
-                index={index}
                 note={note}
               />
             );

@@ -19,25 +19,21 @@ const PUT = "http://localhost:3300/note/edit";
 
 class App extends Component {
   state = {
-    notes: [],
-    loading: false
+    notes: []
   };
 
   componentDidMount() {
-		this.setState({ loading: true });
 		axios.get(ALL).then(response => {
-			this.setState({ notes: response.data, loading: false });
+			this.setState({ notes: response.data});
 		});
 	}
 
   handleCreateNote = note => {
-		this.setState({ loading: true });
 		axios.post(CREATE, note).then(response => {
-			axios.get(`${GET}/${response.data.sucess}`).then(response => {
+			axios.get(`${GET}/${response.data.success}`).then(response => {
 				this.setState(prevState => {
           return {
-            notes: [...prevState.notes, response.data],
-					loading: false,
+            notes: [...prevState.notes, response.data]
           }
 				});
 			});
@@ -45,7 +41,6 @@ class App extends Component {
 	};
 
   handleEdit = (id, edited) => {
-		this.setState({ loading: true });
 		axios.put(`${PUT}/${id}`, edited).then(response => {
 			this.setState(prevState => ({
 				notes: prevState.notes.map(note => {
@@ -54,17 +49,15 @@ class App extends Component {
 					} else {
 						return note;
 					}
-				}),
-				loading: false,
+				})
 			}));
 		});
 	};
 
   handleDeleteNote = id => {
-		this.setState({ loading: true });
 		axios.delete(`${DELETE}/${id}`).then(() => {
 			axios.get(ALL).then(response => {
-				this.setState({ notes: response.data, loading: false });
+				this.setState({ notes: response.data});
 			});
 		});
 	};
