@@ -1,46 +1,13 @@
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
-const bcrypt = require("bcrypt");
-const passport = require("passport");
-const Strategy = require("passport-local").Strategy;
 const jwt = require("jsonwebtoken");
-const tokensecret = "your_jwt_secret";
-const passportJWT = require("passport-jwt");
-const JWTStrategy = passportJWT.Strategy;
-const ExtractJWT = passportJWT.ExtractJwt;
 
 const notes = require("./routers/notesRouter");
 const auth = require("./dbhelpers/auth");
+const passport = require("./passport")
 
-passport.use(
-  new Strategy(async function(username, password, done) {
-    try {
-      const results = await auth.getUsername(username);
-      const passresults = await bcrypt.compare(password, results[0].password);
-      if (results.length === 0) {
-        return done(null, false);
-      }
-      if (!passresults) {
-        return done(null, false);
-      }
-      return done(null, results[0]);
-    } catch (err) {
-      return done(err);
-    }
-  })
-);
-passport.use(
-  new JWTStrategy(
-    {
-      jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-      secretOrKey: tokensecret
-    },
-     function(jwt_payload, done) {
-      return done(null, jwt_payload);
-   }
-  )
-);
+const tokensecret = "your_jwt_secret";
 
 const app = express();
 const port = 3000;
@@ -50,7 +17,6 @@ app.use(express.json());
 app.use(helmet());
 
 
-app.use(passport.initialize());
 
 app.post("/register", async function(req, res) {
   if (!req.body.username || !req.body.password) {
@@ -67,6 +33,7 @@ app.post("/register", async function(req, res) {
 
 app.post("/login", function(req, res, next) {
   passport.authenticate("local", { session: false }, (err, user, info) => {
+    console.log(err);
     if (err || !user) {
       return res.status(400).json({
         message: "Something is not right",
