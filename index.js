@@ -1,6 +1,7 @@
 const express = require('express');
 const helmet = require('helmet');
 const knex = require('knex');
+const cors = require('cors');
 
 const dbConfig = require('./knexfile');
 
@@ -10,6 +11,7 @@ const server = express();
 
 server.use(express.json());
 server.use(helmet());
+server.use(cors());
 
 server.get('/', (req, res) => {
     res.send('API needs a break');
@@ -19,9 +21,9 @@ server.get('/', (req, res) => {
 // add a note
 server.post('/api/notes', (req, res) => {
     const newNote = req.body;
-    const { title, content } = req.body;
-    if (!title || !content) {
-        res.status(400).json({ errorMessage: 'A note title and content are required' });
+    const { title, text } = req.body;
+    if (!title || !text) {
+        res.status(400).json({ errorMessage: 'A note title and text are required' });
         return;
     }
     db.insert(newNote)
