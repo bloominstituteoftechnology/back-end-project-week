@@ -21,7 +21,10 @@ module.exports = {
       let [notes, tags] = results;
       for (let i=0; i<notes.length; i++){
         let note = notes[i];
-        note.tags = tags.map(t => t.tag);
+        note.tags = tags.map(t => {
+        if (note.id === t.noteId){return t.tag}
+        })
+        note.tags = note.tags.filter(tag => tag !== undefined)
       }
       return notes;
     });   
@@ -36,7 +39,7 @@ module.exports = {
   },
   getTagsAll: function() {
     return db("notes")
-      .select("tags.tag")
+      .select("tags.tag", "tags.noteId")
       .join("tags", "tags.noteId", "notes.id")
   },
 
