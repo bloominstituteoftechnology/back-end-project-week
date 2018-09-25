@@ -43,4 +43,16 @@ router.get('/:id', async (req, res, next) => {
   res.status(200).json(note);
 });
 
+router.delete('/:id', async (req, res, next) => {
+  let count = await helpers.deleteNote(Number(req.params.id));
+  if (count === 0)
+    return res.json({
+      error: 'The note with the specified ID cannot be found',
+    });
+
+  res.status(200).json({
+    message: `Note with id ${req.params.id} has been deleted successfully`,
+  });
+});
+
 module.exports = router;

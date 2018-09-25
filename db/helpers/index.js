@@ -31,4 +31,10 @@ module.exports = {
   getOneNote(id) {
     return this.getAllNotes().where('notes.id', id);
   },
+
+  deleteNote(id) {
+    return db('notes')
+      .delete()
+      .where('id', id);
+  },
 };
