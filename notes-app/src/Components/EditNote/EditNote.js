@@ -9,10 +9,13 @@ class EditNote extends Component {
     
     state = {
         matched: [],
+        title: '',
+        content: ''
     }
 
 
     findMatch = () => {
+        console.log("state title", this.state.title)
         console.log('props match', this.props.state.notes)
         let routeId = this.props.match.params.id;
         console.log("routeID", routeId, "typeof routeID:", typeof routeId);
@@ -28,21 +31,22 @@ class EditNote extends Component {
     }
 
     componentDidMount = () => {
-        // console.log('props match', this.props.state.notes)
         let routeId = this.props.match.params.id;
-        // console.log("routeID", routeId, "typeof routeID:", typeof routeId);
         let matched = this.props.state.notes.filter( (item) => {
-            // console.log('item.id:', item.id, 'routeid:', routeId, 'item.id == routeId:', item.id == routeId);
             return item.id == routeId; 
         });
-        // console.log('matched:', matched);
         this.setState({ matched: matched[0] });
+        this.setState({ title: matched[0].title})
+        this.setState({ content: matched[0].content})
+
     }
 
 
 
     handleChange = (event) => {
         console.log(event.target.name)
+        this.setState({[event.target.name]: event.target.value})
+
         // let temp = Array.from(this.state.matched);
         // temp[0][event.target.name] = event.target.value;
         // this.setState({ matched: temp })
@@ -56,10 +60,10 @@ class EditNote extends Component {
 
 
     render() {
-        console.log("matched?", this.state.matched)
+        console.log("matched?", this.state.title)
         return (
             <div className='edit_view'>
-                <form className="edit_form">
+                <form className="edit_form" >
                         <br /><br />
                 <h3 className="edit_header">Edit Note: </h3>
 
@@ -69,7 +73,7 @@ class EditNote extends Component {
                         className="edit_title" 
                         type="text" 
                         onChange={this.handleChange}
-                        value={this.state.matched.title}
+                        value={this.state.title}
                         name='title'
                     />
 
@@ -79,8 +83,8 @@ class EditNote extends Component {
                         className="edit_content" 
                         rows="20" 
                         onChange={this.handleChange} 
-                        value={this.state.matched.content}
-                        name='textBody'
+                        value={this.state.content}
+                        name='content'
                     />
                     
                     <br />
@@ -102,6 +106,27 @@ class EditNote extends Component {
             </div>
         )
     }
+
+    // edit = event => { 
+    //     event.preventDefault();
+    //     console.log(this.props.history)
+        
+    //     axios
+    //         .post('http://localhost:5000/notes', this.state)
+    //         .then(res => {
+    //             console.log(res.data);
+    //             this.props.history.push('/');
+    //             window.location.reload();
+    //         })
+    //         .catch(err => {
+    //             console.log(err, 'err')
+    //     });
+
+    // };
+
+    
+
+
 }
 
 //action 3/3

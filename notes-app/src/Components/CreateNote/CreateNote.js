@@ -13,13 +13,12 @@ import './index.css';
 // }
 
 class CreateNote extends Component {
-    // constructor(props){
-    //     super(props);
+    
         state = {
             title: '',
             content: '',
         }
-    // }
+    
 
     // componentWillMount(){
     //     let routeId = this.props.match.params.id;
@@ -52,12 +51,6 @@ class CreateNote extends Component {
                         onChange={this.handleChange}
                         name="title"
                     />
-                    {/* <input 
-                        type="number"
-                        name="_id"
-                        onChange={this.handleChange}
-                        placeholder="id?"
-                    /> */}
                     <br /><br />
                     <textarea 
                         className="create_content" 
