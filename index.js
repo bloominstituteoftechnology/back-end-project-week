@@ -68,7 +68,7 @@ server.put("/api/edit/:id", (req, res) => {
   const { id } = req.params;
   db("notes")
     .where({ id })
-    .update({ title: note.title, content: note.content })
+    .update({ title: note.title, body: note.body })
     .into("notes")
     .then(note => {
       if (note) {
