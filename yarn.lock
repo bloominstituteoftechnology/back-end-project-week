@@ -400,6 +400,15 @@ core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
 
+cores@^0.8.5:
+  version "0.8.5"
+  resolved "https://registry.yarnpkg.com/cores/-/cores-0.8.5.tgz#ee88dff234c28df2885af0914c5ae9be0f63fd8b"
+  dependencies:
+    jski "~0.5.x"
+    kew "~0.4.x"
+    request "~2.x.x"
+    walk-fs "0.0.2"
+
 cors@^2.8.4:
   version "2.8.4"
   resolved "https://registry.yarnpkg.com/cors/-/cors-2.8.4.tgz#2bd381f2eb201020105cd50ea59da63090694686"
@@ -1249,6 +1258,10 @@ jsbn@~0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
 
+jski@~0.5.x:
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/jski/-/jski-0.5.3.tgz#15f0ac906eef4c3887994bec31ace2d93ec7505d"
+
 json-schema-traverse@^0.3.0:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/json-schema-traverse/-/json-schema-traverse-0.3.1.tgz#349a6d44c53a51de89b40805c5d5e59b417d3340"
@@ -1269,6 +1282,10 @@ jsprim@^1.2.2:
     extsprintf "1.3.0"
     json-schema "0.2.3"
     verror "1.10.0"
+
+kew@~0.4.x:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/kew/-/kew-0.4.0.tgz#da97484f1b06502146f3c60cec05ac6012cd993f"
 
 kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.2.0:
   version "3.2.2"
@@ -1899,7 +1916,7 @@ repeat-string@^1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/repeat-string/-/repeat-string-1.6.1.tgz#8dcae470e1c88abc2d600fff4a776286da75e637"
 
-request@^2.87.0:
+request@^2.87.0, request@~2.x.x:
   version "2.88.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.88.0.tgz#9c2fca4f7d35b592efe57c7f0a55e81052124fef"
   dependencies:
@@ -2393,6 +2410,10 @@ verror@1.10.0:
     assert-plus "^1.0.0"
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
+
+walk-fs@0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/walk-fs/-/walk-fs-0.0.2.tgz#81f8f73aaad6ab4b4abe2939eec5e10bb5814a69"
 
 which@^1.2.14, which@^1.2.9:
   version "1.3.1"

@@ -11,7 +11,7 @@ const server = express();
 
 server.use(helmet());
 server.use(express.json());
-server.use(cors({origin: 'http://localhost:9000'}));
+server.use(cors({origin: 'http://localhost:3000'})); //app is running on port 3000
 
 server.get('/', (req,res) => {
     res.send('API for notetaking app is running')
