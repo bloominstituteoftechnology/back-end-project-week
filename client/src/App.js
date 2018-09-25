@@ -9,8 +9,8 @@ import Note from "./components/Note";
 import { AppContainer } from "./components/styles";
 import axios from 'axios'
 
-// for reference const GET = "https://killer-notes.herokuapp.com/note/get";
-// const ALL = "http://localhost:3300/api/notes";
+// old reference const GET = "https://killer-notes.herokuapp.com/note/get";
+// old reference const ALL = "http://localhost:3300/api/notes";
 const ALL = "http://localhost:3300/note/get/all";
 const CREATE = "http://localhost:3300/note/create";
 const DELETE = "http://localhost:3300/note/delete";
@@ -32,7 +32,7 @@ class App extends Component {
 		axios.post(CREATE, note).then(response => {
 				this.setState(prevState => {
           return {
-            notes: [...prevState.notes, {...note, id: response.data.id}]
+            notes: prevState.notes.concat({...note, id: response.data.id})
           }
 				});
 		});

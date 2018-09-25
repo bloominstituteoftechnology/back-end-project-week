@@ -31,16 +31,6 @@ class Note extends React.Component {
     this.handleEditMode();
   };
 
-  // currentNoteText = () => {
-  //   const filteredNote = this.props.notes.filter(
-  //     (note, index) => index == this.props.match.params.index
-  //   );
-  //   const currentNote = filteredNote[0];
-  //   return currentNote;
-  // };
-
-  // add this prop to EditNote  handleCurrentNote={this.currentNoteText}
-
   render() {
     const note = this.props.notes.find(
 			note => note.id == this.props.match.params.id,
