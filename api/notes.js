@@ -79,7 +79,7 @@ router.delete("/:id", jwt.protected, async (req, res) => {
   try{
     const note = await db.get(id);
 
-  if (parseInt(note.id, 10) !== parseInt(req.user.id, 10)) {
+  if (parseInt(note.user_id, 10) !== parseInt(req.user.id, 10)) {
     res
       .status(401)
       .json({ message: "You're not authorized to delete this note" });
