@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const helpers = require("../db/helpers/index");
 
-router.get("/", function(req, res) {
+router.get("/", (req, res) => {
   helpers
     .getNotes()
     .then(data => {
@@ -29,7 +29,7 @@ router.get("/", function(req, res) {
     });
 });
 
-router.get("/:id", function(req, res) {
+router.get("/:id", (req, res) => {
   helpers
     .getNote(req.params.id)
     .then(data => {
@@ -52,7 +52,7 @@ router.get("/:id", function(req, res) {
     });
 });
 
-router.post("/", function(req, res) {
+router.post("/", (req, res) => {
   helpers
     .addNoteWithTags(req.body)
     .then(noteId => {
@@ -67,7 +67,7 @@ router.post("/", function(req, res) {
     });
 });
 
-router.delete("/:id", function(req, res) {
+router.delete("/:id", (req, res) => {
   helpers
     .deleteNote(req.params.id)
     .then(response => {
@@ -82,7 +82,7 @@ router.delete("/:id", function(req, res) {
     });
 });
 
-router.put("/:id", function(req, res) {
+router.put("/:id", (req, res) => {
   helpers
     .updateNote(req.params.id, req.body)
     .then(response => {

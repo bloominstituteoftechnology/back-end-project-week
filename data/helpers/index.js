@@ -1,6 +1,18 @@
 const db = require("knex")(require("../../knexfile").development);
-
 module.exports = {
+  checkTags(id, tagsArr) {
+    return db("tags")
+      .where("note_id", id)
+      .then(records => {
+        let existent = records.map(record => {
+          record.tag;
+        });
+        let filteredTags = tagsArr.filter(tag => {
+          return !existent.some(ele => ele === tag);
+        });
+        return filteredTags;
+      });
+  },
   getNotes() {
     let notes = db("notes");
     let tags = db("tags");
@@ -8,7 +20,6 @@ module.exports = {
       return results;
     });
   },
-
   getNote(id) {
     let note = db("notes")
       .where("id", id)
@@ -18,35 +29,40 @@ module.exports = {
       return results;
     });
   },
-
   addNoteWithTags(note) {
     let { title, textBody, tags } = note;
-
     return db("notes")
-      .insert({ title, textbody })
+      .insert({ title, textBody })
       .then(id => {
         let noteId = id[0];
         let tagsObjsArr = tags.map(tagEl => ({
           tag: tagEl,
           note_id: noteId
         }));
-
         return db("tags")
-          .inset(tagsObjsArr)
+          .insert(tagsObjsArr)
           .then(ids => {
             return noteId;
           });
       });
   },
-
   deleteNote(id) {
     return db("notes")
       .where("id", id)
       .del()
       .then(response => {
         return db("tags")
-          .where("notes_id", id)
+          .where("note_id", id)
           .del();
+      });
+  },
+  updateNote(id, note) {
+    let { title, textBody, tags } = note;
+    return db("notes")
+      .where("id", id)
+      .update({ title, textBody })
+      .then(response => {
+        return checkTags(id, tags);
       });
   }
 };

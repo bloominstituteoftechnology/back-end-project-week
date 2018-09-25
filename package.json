@@ -4,7 +4,7 @@
   "description": "PR This week you will build a backend for a note taking app called \"Lambda Notes\".",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "helmet": "^3.13.0",
+    "jsonwebtoken": "^8.3.0",
     "knex": "^0.15.2",
     "morgan": "^1.9.1",
     "sqlite3": "^4.0.2"
