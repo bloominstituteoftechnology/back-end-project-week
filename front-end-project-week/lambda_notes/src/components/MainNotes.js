@@ -52,14 +52,35 @@ export default class MainNotes extends Component {
         const noteSnapshot = this.state.dummyNotes.slice();
         noteSnapshot.push({
             id: this.state.dummyNotes.length + 1,
-            title: this.state.title,
+            title: this.state.title, // title set by input change handler
             body: this.state.body,
         });
         this.setState({
             dummyNotes: noteSnapshot, 
-            title: '',
+            title: '', // resets title to blank after input change
             body: ''
         });
+    }
+
+    editNote = e => {
+        e.preventDefault();
+        console.log('dummyNotes:', this.state.dummyNotes)
+        console.log('editnoteID:', e.id)
+        for(let i = 0; i < this.state.dummyNotes.length; i++){
+            
+        }
+        const noteSnapshot = this.state.dummyNotes.slice();
+        const newNote = {
+            id: this.state.dummyNotes.length + 1,
+            title: this.state.title,
+            body: this.state.body
+        }
+        noteSnapshot.push(newNote);
+        this.setState({
+            dummyNotes: noteSnapshot,
+            title: '',
+            body: ''
+        })
     }
 
     handleInputChange = e => {
@@ -100,6 +121,8 @@ export default class MainNotes extends Component {
                         (
                             <EditNote
                                 {...props}
+                                handleInputChange={this.handleInputChange}
+                                handleSubmit={this.editNote}
                             />
                         )} 
                     />
