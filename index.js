@@ -62,16 +62,16 @@ server.post('/api/register', (req, res) => {
             db('user').where({ id }).first()
                 .then(user => {
                     const token = generateToken(user)
-                    res.status(201).json({ message: 'login success', token: token })
+                    return res.status(201).json({ message: 'login success', token: token })
                 })
                 .catch(err => {
                     console.log('post error ', err)
-                    res.status(500).json({ message: 'Invalid username or password' })
+                    return res.status(500).json({ message: 'Invalid username or password' })
                 })
         })
         .catch(err => {
             console.log('post error', err)
-            res.status(500).json({message: 'Invalid username or password' })
+            return res.status(500).json({message: 'Invalid username or password' })
         })
 })
 
@@ -88,7 +88,10 @@ server.post('/api/login', (req, res) => {
                 return res.status(401).json({error: 'Invalid username or password'})
             }
         })
-        .catch(err => res.status(500).json({message: err}))
+        .catch(err => {
+            console.log(err)
+            return res.status(500).json({message: 'Invalid username or password'})
+        })
 })
 
 //  route for making notes
@@ -96,7 +99,7 @@ server.post('/api/create', (req, res) => {
 
 })
 
-// route for getting the right notes for user | this will most likely end up just being the /api/route on line 52
+// route for getting the right notes for user | this will most likely end up just being the /api/ route on line 52
 server.get('/api/user', protected, (req, res) => {
 
 })
@@ -108,7 +111,14 @@ server.get('/api/view/:id', (req, res) => {
 
 // route for deleting a note
 server.delete('/api/view/:id/delete', (req, res) => {
+    const {id} = req.params
 
+    db('notes').where({id}).del().then(note => {
+        return res.status(200).json({message: 'Note Deletion Successful'})
+    }).catch(err => {
+        console.log(err)
+        return res.status(500).json({message: 'Error Deleting Note'})
+    })
 })
 
 // route for editing notes
@@ -118,9 +128,10 @@ server.put('/api/edit/:id', (req, res) => {
     const {id} = req.params
 
     db('notes').where({id}).update(note).then(note => {
-        res.status(200).json({message: 'note updated successfully'})
+        return res.status(200).json({message: 'note updated successfully'})
     }).catch(err => {
-        res.status(500).json({error: 'error update note. please try again'})
+        console.log(err)
+        return res.status(500).json({error: 'error update note. please try again'})
     })
 })
 
