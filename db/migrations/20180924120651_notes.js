@@ -16,6 +16,9 @@ exports.up = function(knex, Promise) {
       .boolean('editing')
       .notNullable()
       .defaultTo(false);
+
+    notes
+      .string('tags');  
   })
 };
 
