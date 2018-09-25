@@ -38,7 +38,8 @@ const validateNoteBody = body => {
       .required(),
     content: Joi.string()
       .min(3)
-      .required()
+      .required(), 
+    tags: Joi.string() 
   };
   return Joi.validate(body, schema);
 };
