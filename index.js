@@ -2,8 +2,13 @@ const express = require('express');
 const server = express();
 const knex = require('knex');
 const bcrypt = require('bcryptjs');
+const dBConfig = require('./knexfile');
+const db = knex(dBConfig.development);
 
+//Middleware
+server.use(express.json());
 
+//Endpoints
 
 
 
