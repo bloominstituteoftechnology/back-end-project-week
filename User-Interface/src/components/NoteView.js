@@ -36,7 +36,7 @@ class NoteView extends Component {
                 </div>
                 <div className = "note-page">
                     <div className = "note-links">
-                        <Link to = {`/${this.props.id}/edit`}><span>edit</span></Link>
+                        <Link to = {`/note/${this.props.id}/edit`}><span>edit</span></Link>
                         <span onClick={this.toggleModal}>delete</span>
                     </div>
                     <h2 className = "note-title">{this.props.notes[this.props.notes.findIndex(n => n.id===this.props.id)].title}</h2>

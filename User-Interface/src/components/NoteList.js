@@ -22,7 +22,7 @@ class NoteList extends Component {
                 <h2 className = "note-title">Your Notes:</h2>
                 <div className = "note-list">
                     {this.props.notes.map(note =>
-                        <Link to = {`/${note.id}`} onClick = {()=>this.props.selectId(note.id)}><NoteCard
+                        <Link to = {`/note/view/${note.id}`} onClick = {()=>this.props.selectId(note.id)}><NoteCard
                             key = {note.id}
                             title = {note.title}
                             note = {note.note}                                                        

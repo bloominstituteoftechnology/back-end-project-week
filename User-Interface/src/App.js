@@ -6,18 +6,25 @@ import { Route, Switch } from 'react-router-dom'
 import NoteView from './components/NoteView'
 import EditNote from './components/EditNote'
 import AddNote from './components/AddNote'
+import Home from './components/Home'
+import Register from './components/auth/Register'
+import Login from './components/auth/Login'
+
 
 class App extends Component {
   
  
   render() {
     return (
-      <div className="App">
-        <Sidebar />
-        <Switch>
-          <Route exact path = '/' render = {()=><NoteList />} />
-          <Route exact path = '/:id' render = {()=><NoteView />} />
-          <Route exact path = '/:id/edit' render = {()=><EditNote />} />
+      <div className="App">       
+          <Route exact path = '/' render = {()=><Home />} />
+          <Route exact path = '/register' render = {()=><Register />} />
+          <Route exact path = '/login' render = {()=><Login />} />
+          <Route path = '/note' render = {()=><Sidebar />} />
+        <Switch> 
+          <Route exact path = '/note' render = {()=><NoteList />} />
+          <Route exact path = '/note/view/:id' render = {()=><NoteView />} />
+          <Route exact path = '/note/:id/edit' render = {()=><EditNote />} />
           <Route exact path = '/note/new' render = {()=><AddNote />} />
         </Switch>
       </div>
