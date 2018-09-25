@@ -1,6 +1,6 @@
 ## Notes API
 
-- A server that will deliver notes can be found [here](url):
+- A server that will deliver notes can be found [here](https://salty-cliffs-66443.herokuapp.com):
 
 - A note has this basic format:
 
@@ -44,3 +44,20 @@ a `POST` request to this route with the tag in the req body will add a tag to th
 ### url/notes/:id/tags/:tagId
 
 a `DELETE` request to this route will delete the tag from the post.
+
+### url/login
+
+a `POST` request to this route with the username and password in the req body will login the user.
+
+- 200 when successful
+- 422 if required username and password are not provided
+- 404 when username does not exist
+- 401 when password is incorrect
+
+### url/register
+
+a `POST` request to this route with the username and password in the req body will register the user.
+
+- 201 when successful
+- 422 if required username and password are not provided
+- 409 when username already exists
