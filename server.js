@@ -20,8 +20,7 @@ const secret = 'secret';
 
 function generateToken(user) {
   const payload = {
-    username: user.username,
-    department: user.department
+    username: user.username
   };
   const options = {
     expiresIn: '1h',
@@ -37,12 +36,12 @@ function protected(req, res, next) {
       if (err) {
         res.status(401).json({ message: 'Invalid Token' });
       } else {
-        req.user = { username: decodedToken.username, department: decodedToken.department };
+        req.user = { username: decodedToken.username };
         next();
       }
     });
   } else {
-    res.status(401).json({ message: 'no token provided' });
+    res.status(400).json({ message: 'no token provided' });
   }
 }
 
