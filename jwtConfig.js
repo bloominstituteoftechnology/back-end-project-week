@@ -23,7 +23,7 @@ module.exports = {
           req.user = {
             id: decodedToken.id,
             username: decodedToken.username
-          }
+          };
           next();
         }
       });
