@@ -11,13 +11,9 @@ router.get("/", function(req, res) {
 
 			let notesTags = notesArr.map(note => {
 				let tags = tagsArr
+					.filter(tag => tag.note_id === note.id)
 					.map(tagObj => {
-						if (tagObj.note_id === note.id) {
-							return tagObj.tag;
-						}
-					})
-					.filter(el => {
-						return el !== undefined;
+						return tagObj.tag;
 					});
 				return { ...note, tags };
 			});
@@ -29,28 +25,28 @@ router.get("/", function(req, res) {
 		});
 });
 
-router.get("/:id", function(req, res) {
-	helpers
-		.getNote(req.params.id)
-		.then(data => {
-			console.log(data);
-			if (!data[0]) {
-				return res.json({
-					error: true,
-					message: "No Note by that ID",
-				});
-			}
-			let note = data[0];
-			let tags = data[1].map(tagObj => tagObj.tag);
-			let noteTag = { ...note, tags };
+// router.get("/:id", function(req, res) {
+// 	helpers
+// 		.getNote(req.params.id)
+// 		.then(data => {
+// 			console.log(data);
+// 			if (!data[0]) {
+// 				return res.json({
+// 					error: true,
+// 					message: "No Note by that ID",
+// 				});
+// 			}
+// 			let note = data[0];
+// 			let tags = data[1].map(tagObj => tagObj.tag);
+// 			let noteTag = { ...note, tags };
 
-			res.json({ error: false, message: noteTag });
-		})
-		.catch(err => {
-			console.log(err);
-			res.status(500).json({ error: true, message: "Server Error" });
-		});
-});
+// 			res.json({ error: false, message: noteTag });
+// 		})
+// 		.catch(err => {
+// 			console.log(err);
+// 			res.status(500).json({ error: true, message: "Server Error" });
+// 		});
+// });
 
 router.post("/", function(req, res) {
 	helpers
