@@ -8,6 +8,7 @@ server.use(express.json())
 server.use(helmet());
 server.use(cors());
 server.use(morgan());
+
 const db = require('./dbConfig');
 
 server.get("/", (req, res) => {
@@ -49,6 +50,7 @@ server.post("/notes", (req, res) => {
       res.status(201).json(id);
     })
     .catch(error => {
+      console.log(error.message)
       res.status(500).json({ error, errorMessage: error.message });
     });
 });
@@ -69,6 +71,7 @@ server.put("/notes/:id", (req, res) => {
       }
     })
     .catch(error => {
+      console.log(error.message)
       res.status(500).json({error, errorMessage: error.message})
     });
 });

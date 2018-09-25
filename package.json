@@ -20,6 +20,7 @@
   "homepage": "https://github.com/codejoncode/back-end-project-week#readme",
   "dependencies": {
     "cors": "^2.8.4",
+    "express-generator": "^4.16.0",
     "helmet": "^3.13.0",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.4",
