@@ -96,7 +96,14 @@ server.post('/api/login', (req, res) => {
 
 //  route for making notes
 server.post('/api/create', (req, res) => {
+    const note = req.body
 
+    db.insert(note).into('notes').then(note => {
+        res.status(200).json({message: 'note created'})
+    }).catch(err => {
+        console.log(err)
+        res.status(500).json({message: 'Error Creating Note'})
+    })
 })
 
 // route for getting the right notes for user | this will most likely end up just being the /api/ route on line 52
