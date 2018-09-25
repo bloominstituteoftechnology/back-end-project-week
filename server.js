@@ -11,7 +11,7 @@ server.use(express.json());
 server.use(morgan('dev'));
 
 
-server.get('/', (req,res) => {
+server.get('/api/notes', (req,res) => {
 	const request = db.get();
 	
 	request.then(response => {
@@ -23,7 +23,7 @@ server.get('/', (req,res) => {
 	})
 });
 
-server.get('/note/:id', (req,res)=>{
+server.get('/api/notes/:id', (req,res)=>{
 	const id = req.params.id;
 
 	const request = db.getById(id);
@@ -47,7 +47,7 @@ server.get('/note/:id', (req,res)=>{
 });
 
 
-server.post('/', (req,res)=> {
+server.post('/api/notes', (req,res)=> {
 	const title = req.body.title;
 	const content = req.body.content;
 	
@@ -74,7 +74,7 @@ else{
 });
 
 
-server.put('/:id', (req, res) => {
+server.put('/api/notes/:id', (req, res) => {
 	const id = req.params.id;
 
 	const title = req.body.title;
@@ -111,7 +111,7 @@ server.put('/:id', (req, res) => {
 
 
 
-server.delete('/:id', (req, res) => {
+server.delete('/api/notes/:id', (req, res) => {
 	const {id} = req.params;
 
 	const request = db.remove(id);
