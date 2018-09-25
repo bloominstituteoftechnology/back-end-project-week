@@ -34,7 +34,7 @@ module.exports = server => {
   server.use(
     cors({
       credentials: true,
-      origin: "https://secret-bastion-74251.herokuapp.com",
+      origin: "https://vigorous-haibt-4c6e56.netlify.com",
     }),
   );
   server.use(helmet());
