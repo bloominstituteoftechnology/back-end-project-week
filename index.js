@@ -1,10 +1,13 @@
 const express = require('express');
 const knex = require('knex');
 const helmet = require('helmet');
+const cors = require('cors')
 
 const server = express();
 server.use (express.json())
 server.use(helmet());
+server.use(cors());
+
 
 const dbConfig = require('./knexfile'); 
 const db = knex(dbConfig.development); 
