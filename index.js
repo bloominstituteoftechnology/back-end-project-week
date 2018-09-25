@@ -3,13 +3,14 @@ const helmet = require('helmet');
 const cors = require('cors');
 const server = express();
 const routes = require('./api/routes.js')
+const welcomeRoutes = require('./api/welcomeRoutes.js')
 
 server.use(express.json());
 server.use(helmet());
 
 server.use(cors({
     credentials: true, 
-    origin: 'http://localhost:3000'
+    origin: 'http://localhost:4000'
  }));
 
 server.get('/', (req, res) => {
@@ -17,6 +18,8 @@ server.get('/', (req, res) => {
 })
 
 server.use('/api/', routes);
+
+
 
 const port = process.env.PORT || 3300; 
 
