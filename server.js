@@ -64,7 +64,7 @@ server.post("/api/notes", (req, res) => {
       db("notes")
         .then(notes => {
           res.status(201).json(notes);
-        })
+        }) 
         .catch(err => {
           console.log("error", err);
           res
