@@ -69,6 +69,7 @@ class CreateNote extends Component {
                     className="create_button"
                     onClick={this.handleUpdate}>Save</button>
                 </form>
+                <br /><br />
             </div>
         )
     }

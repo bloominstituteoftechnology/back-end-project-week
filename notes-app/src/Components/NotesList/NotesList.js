@@ -5,12 +5,24 @@ import { Link } from 'react-router-dom';
 
 
 class NotesList extends Component {
+
+    state = {
+        key: 0
+    }
+
+    keyGenerator = () => {
+        let key = this.state.key;
+        {this.setState({ key: key++ })}
+        return;
+    }
     
     render(){
+        
         return (
             <div>
-                <div className="inner_outer_notes">
-                <h3 className="list_title">Your Notes:</h3>
+                <div className="inner_outer_notes" >
+                
+                <h3 className="list_title" key={this.state.key} >Your Notes:</h3>
                 <div className="note_container">
                 {this.props.state.notes.map(each => (
 

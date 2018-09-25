@@ -12,7 +12,6 @@ class NoteView extends Component {
         }
     
     
-
     findMatch = () => {
         console.log('props match', this.props.state.notes)
         let routeId = this.props.match.params.id;
@@ -38,7 +37,6 @@ class NoteView extends Component {
         });
         // console.log('matched:', matched);
         this.setState({ matched: matched[0] });
-
     }
 
     showModal = (event) => {
