@@ -6,23 +6,32 @@ import { Link } from 'react-router-dom';
 
 class NotesList extends Component {
 
+    
     state = {
-        key: 0
+        update: false
     }
 
-    keyGenerator = () => {
-        let key = this.state.key;
-        {this.setState({ key: key++ })}
-        return;
-    }
+    // refresh = () => {
+    //     window.location.reload();
+    //     return;
+    // }
+
+    
+    // updatePage = (event) => {
+    //     event.preventDefault();
+    //     this.setState({update: !this.state.update})
+    // }
+
+    
+    
     
     render(){
         
         return (
             <div>
-                <div className="inner_outer_notes" >
+                <div className="inner_outer_notes">
                 
-                <h3 className="list_title" key={this.state.key} >Your Notes:</h3>
+                <h3 className="list_title">Your Notes:</h3>
                 <div className="note_container">
                 {this.props.state.notes.map(each => (
 
@@ -34,7 +43,7 @@ class NotesList extends Component {
                         allnotes={this.state}    
                     >
                         
-                        <div className="note_title">
+                        <div className="note_title" >
                         {each.title}<br /><br />
                         </div>
                         {each.content}

@@ -33,6 +33,9 @@ class CreateNote extends Component {
     //     this.props.history.push('/');
     // }
 
+
+    
+
     
 
     render() {
@@ -90,7 +93,8 @@ class CreateNote extends Component {
             .post('http://localhost:5000/notes', this.state)
             .then(res => {
                 console.log(res.data);
-                this.props.history.push('/')
+                this.props.history.push('/');
+                window.location.reload();
             })
             .catch(err => {
                 console.log(err, 'err')
