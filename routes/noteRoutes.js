@@ -46,8 +46,10 @@ router.post("/", (req, res, next) => {
   } else {
     helpers
       .addNote(note)
-      .then(() => {
-        res.status(201).json({ message: "Note successfully added." });
+      .then(notes => {
+        console.log("NOTES NOTES", notes);
+        // res.status(201).json({ message: "Note successfully added." });
+        res.status(201).json(notes);
       })
       .catch(err => {
         err.code = 500;
