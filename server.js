@@ -3,6 +3,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const db = require('./data/helpers/notesDb');
 const cors = require('cors');
+require('dotenv').load();
 const server = express();
 
 server.use(cors());
@@ -132,5 +133,12 @@ server.use(function(req, res) {
   res.status(404).send("Wrong path, check url");
 });
 
-server.listen(8000, () => console.log('API running on port 8000'));
+
+const port = process.env.PORT || process.env.REACT_APP_PORT;
+
+server.listen(port, () => {
+    console.log(`=== API is listening at ${port} ===`);
+})
+
+//server.listen(8000, () => console.log('API running on port 8000'));
 
