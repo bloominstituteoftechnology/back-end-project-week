@@ -77,7 +77,18 @@ server.post('/api/register', (req, res) => {
 
 // route for logging in
 server.post('/api/login', (req, res) => {
+    const creds = req.body
 
+    db('users').where({ username: creds.username }).first()
+        .then(user => {
+            if (user || brcypt.compareSync(creds.password, user.password)) {
+                const token = generateToken(user)
+                return res.status(200).json(`Welcome ${user.username}`)
+            } else {
+                return res.status(401).json({error: 'Invalid username or password'})
+            }
+        })
+        .catch(err => res.status(500).json({message: err}))
 })
 
 //  route for making notes
@@ -103,6 +114,14 @@ server.delete('/api/view/:id/delete', (req, res) => {
 // route for editing notes
 server.put('/api/edit/:id', (req, res) => {
 
+    const note = req.body
+    const {id} = req.params
+
+    db('notes').where({id}).update(note).then(note => {
+        res.status(200).json({message: 'note updated successfully'})
+    }).catch(err => {
+        res.status(500).json({error: 'error update note. please try again'})
+    })
 })
 
 
