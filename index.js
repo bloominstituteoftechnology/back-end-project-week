@@ -106,7 +106,14 @@ server.get('/api/user', protected, (req, res) => {
 
 // route for viewing each indiviual note
 server.get('/api/view/:id', (req, res) => {
+    const {id} = req.params
 
+    db('notes').where({id}).then(note => {
+        res.status(200).json(note)
+    }).catch(err => {
+        console.log(err)
+        res.status(500).json({error: 'could not retrieve note'})
+    })
 })
 
 // route for deleting a note
