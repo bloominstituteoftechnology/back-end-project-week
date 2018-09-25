@@ -15,6 +15,19 @@ server.get("/", (req, res) => {
   res.send("connected");
 });
 
+server.post("/api/notes", (req, res) => {
+  if (!req.body.title || !req.body.content) {
+    res.status(400).json({ error: "needs both title and content" });
+  } else {
+    db.insert(note)
+      .into("notes")
+      .then(ids => {
+        res.status(201).json(ids);
+      })
+      .catch(err => res.status(500).json({ error: "note post fail" }));
+  }
+});
+
 server.get("/api/notes", (req, res) => {
   db("notes")
     .then(notes => {
