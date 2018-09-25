@@ -6,7 +6,7 @@ exports.seed = function(knex, Promise) {
       // Inserts seed entries
       return knex('notes').insert([
         {
-          "id": "_5z4at91l1",
+          "_id": "_5z4at91l1",
           "tags": 
             "python,established,ruby,javascript",
           "title": "What is Lorem Ipsum?",
@@ -16,7 +16,7 @@ exports.seed = function(knex, Promise) {
           "length": 1231
         },
         {
-          "id": "_abo3amwau",
+          "_id": "_abo3amwau",
           "tags": 
             "javascript,sheets",
           "title": "How did Project Week Go? ",
@@ -26,7 +26,7 @@ exports.seed = function(knex, Promise) {
           "length": 920
         },
         {
-          "id": "_troggmewi",
+          "_id": "_troggmewi",
           "tags": 
             "programming,coding",
           "title": "Where can I get some?",
@@ -36,7 +36,7 @@ exports.seed = function(knex, Promise) {
           "length": 614
         },
         {
-          "id": "_9y0eqwalx",
+          "_id": "_9y0eqwalx",
           "tags": 
             "test,python,sheets",
           "title": "Whats your plans?",
@@ -46,7 +46,7 @@ exports.seed = function(knex, Promise) {
           "length": 2306
         },
         {
-          "id": "_cfuo2sje4",
+          "_id": "_cfuo2sje4",
           "tags": 
             "poetry,rhyme,javascript",
           "title": "Poetry ",
@@ -56,7 +56,7 @@ exports.seed = function(knex, Promise) {
           "length": 537
         },
         {
-          "id": "_g295awagl",
+          "_id": "_g295awagl",
           "tags": 
             "poetry,sheets,coding",
           "title": "Langston Hughes 1902-1967",
@@ -66,7 +66,7 @@ exports.seed = function(knex, Promise) {
           "length": 1336
         },
         {
-          "id": "_bkeuivwnz",
+          "_id": "_bkeuivwnz",
           "tags": 
             "ruby,coding,rhyme,programming",
           "title": "Maya Angelou (1928 - present)\n",
@@ -76,7 +76,7 @@ exports.seed = function(knex, Promise) {
           "length": 507
         },
         {
-          "id": "_uqepbsoef",
+          "_id": "_uqepbsoef",
           "tags": 
             "test,python,coding,poetry,rhyme",
           "title": "Edgar Allan Poe (1809 - 1849)\n",

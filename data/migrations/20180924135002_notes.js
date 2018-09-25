@@ -2,7 +2,7 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('notes', function(tbl){
     tbl.increments()
-    tbl.string("id").notNullable()
+    tbl.string("_id").notNullable()
     tbl.string('title').notNullable()
     tbl.string('textBody').notNullable()
     tbl.integer('__v').defaultTo(0)
