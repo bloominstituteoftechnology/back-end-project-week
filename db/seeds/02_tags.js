@@ -6,6 +6,7 @@ exports.seed = function(knex, Promise) {
       // Inserts seed entries
       return knex('tags').insert([
         { tag_name: 'javascript', note_id: 1 },
+        { tag_name: 'jQuery', note_id: 1 },
         { tag_name: 'javascript', note_id: 2 },
         { tag_name: 'bootstrap', note_id: 3 },
       ]);
