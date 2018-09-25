@@ -29,24 +29,25 @@ class Login extends Component {
 
     render() {
         return (
-            <div className="form-wrap">
-                <h2>Please Log In</h2>
-                <form onSubmit = {this.signin}>
-                    <div className="form">
-                        <label>Username</label>
-                        <input name = 'username' value = {this.state.username} onChange = {this.handleChange} type="text"></input>
-                    </div>
-                    <div className="form">
-                        <label>Password</label>
-                        <input name = 'password' value = {this.state.password} onChange = {this.handleChange} type="password"></input>
-                    </div>
-                    <div className="form-btn">
-                        <button type = "submit">Sign In</button>
-                        <Link to = '/'><button>Back</button></Link>
-                    </div>
-                </form>
-            </div>
-           
+            <div className="auth-bkgrd">
+                <div className="auth-form-wrap">
+                    <h2>Log In:</h2>
+                    <form onSubmit = {this.signin}>
+                        <div className="auth-form">
+                            <label>Username</label>
+                            <input name = 'username' value = {this.state.username} onChange = {this.handleChange} type="text"></input>
+                        </div>
+                        <div className="auth-form">
+                            <label>Password</label>
+                            <input name = 'password' value = {this.state.password} onChange = {this.handleChange} type="password"></input>
+                        </div>
+                        <div className="auth-form-btn">
+                            <button type = "submit">Sign In</button>
+                            <Link to = '/'><button>Back</button></Link>
+                        </div>
+                    </form>
+                </div>
+            </div>          
         );
     }
 }
