@@ -3,6 +3,7 @@ exports.up = function(knex, Promise) {
     tbl.increments();
     tbl.string("Title").notNullable();
     tbl.string("Content").notNullable();
+    tbl.string("Tags"); 
   });
 };
 
