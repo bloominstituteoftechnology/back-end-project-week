@@ -1,8 +1,11 @@
 const db = require("../dbConfig");
 
 module.exports = {
-  async getNotes() {
-    return await db("Notes").select();
+  async getNotes(page) {
+    if (NaN(page))
+      return await db("Notes").select();
+    else
+      return await db('Notes').offset((page - 1)*10).select()
   },
 
   async getNote(id) {

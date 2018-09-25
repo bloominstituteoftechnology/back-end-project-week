@@ -8,11 +8,11 @@ const db = require("../db/dbHelper/index");
  * @apiSuccess {Boolean} Status if the api has completed or not.
  * @apiSuccess {Array} Notes  Array of all the notes in it.
  */
-router.get("/", async (req, res, next) => {
+router.get("/:pageId", async (req, res, next) => {
   try {
     res.status(200).json({
       status: true,
-      notes: await db.getNotes()
+      notes: await db.getNotes(parseInt(req.query.page, 10))
     });
   } catch (err) {
     console.log(err)
