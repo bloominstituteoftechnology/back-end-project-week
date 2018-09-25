@@ -3,6 +3,7 @@ import NotesList from "./NotesList";
 import "../App.css";
 
 export default function NotesView(props) {
+ 
   return (
     <div className="notesview">
       <div className="notesview-title"> Your Notes:</div>

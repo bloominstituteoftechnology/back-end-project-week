@@ -120,6 +120,10 @@ export default class App extends Component {
     this.setState({notes: result});
   };
 
+  resetPage = () => {
+    window.location.reload(true)
+  }
+
   render() {
     console.log("app state", this.state.notes);
     return (
@@ -127,11 +131,16 @@ export default class App extends Component {
         <div className="navbar">
           <div className="navbar-title">Lambda Notes</div>
           
-          <NavLink className="navlink" exact to="/">
+          <NavLink 
+            className="navlink" 
+            exact to="/"
+            onClick={this.resetPage}>
             View Your Notes
           </NavLink>
           
-          <NavLink className="navlink" to="/add-note">
+          <NavLink 
+            className="navlink" 
+            to="/add-note">
             + Create New Note
           </NavLink>
            
