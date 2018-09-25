@@ -1,6 +1,6 @@
 .nav_container {
-    border-radius: 5px 0 0 5px;
-    background-color: #D3D2D3;
+    border-radius: 5px 0 10px 5px;
+    /* background-color: #D3D2D3; */
     border-right: 2px solid palegoldenrod;
     width: 220px;
     height: 100%;

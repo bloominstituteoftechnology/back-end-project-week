@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 // import { connect } from 'react-redux';
 // import { createNote } from '../../actions/index';
 import './index.css';
@@ -14,9 +15,10 @@ import './index.css';
 class CreateNote extends Component {
     // constructor(props){
     //     super(props);
-    //     this.state = {
-    //         notes: [],
-    //     }
+        state = {
+            title: '',
+            content: '',
+        }
     // }
 
     // componentWillMount(){
@@ -31,42 +33,36 @@ class CreateNote extends Component {
     //     this.props.history.push('/');
     // }
 
-    handleChange = (event) => {
-        console.log(event.target.name)
-        // let temp = Array.from(this.state.notes);
-        // temp[0][event.target.name] = event.target.value;
-        // console.log(temp[0]);
-        // this.setState({ notes: temp })
-    }
+    
 
     render() {
         return (
             <div className='create_view'>
-                <form className="create_form">
+                <form className="create_form" onSubmit={this.create}>
                     <h3 className="create_header">Create New Note: </h3>
                     <br />
                     <input 
                         className="create_title" 
                         type="text" 
                         placeholder="Note Title"
-                        
+                        value={this.state.title}
                         onChange={this.handleChange}
                         name="title"
                     />
-                    <input 
+                    {/* <input 
                         type="number"
                         name="_id"
                         onChange={this.handleChange}
                         placeholder="id?"
-                    />
+                    /> */}
                     <br /><br />
                     <textarea 
                         className="create_content" 
                         rows="20" 
                         placeholder="Note Content"
-                        
+                        value={this.state.content}
                         onChange={this.handleChange}
-                        name="textBody"
+                        name="content"
                     />
                         <br />
                     <button 
@@ -76,7 +72,45 @@ class CreateNote extends Component {
             </div>
         )
     }
+
+    handleChange = (event) => {
+
+        console.log(event.target.name)
+        const { name, value } = event.target;
+        this.setState({ [name]: value })
+    }
+
+
+    create = event => { 
+        event.preventDefault();
+        console.log(this.props.history)
+        
+        axios
+            .post('http://localhost:5000/notes', this.state)
+            .then(res => {
+                console.log(res.data);
+                this.props.history.push('/')
+            })
+            .catch(err => {
+                console.log(err, 'err')
+        });
+
+    };
+
 }
 
 // export default connect(mapStateToProps, {createNote})(CreateNote);
 export default CreateNote;
+
+// server.post('/notes', (req, res) => {
+//     const item = req.body;
+
+//     db('notes').insert(item)
+//         .then((ids)=> { 
+//             res.status(201).json(ids);
+//         })
+//                 .catch((fail) => {
+//                     console.log(fail);
+//                     res.status(500).json({ error: "There was an error while saving the note to the database." });
+//                 });
+// });

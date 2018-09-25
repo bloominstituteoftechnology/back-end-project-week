@@ -5,25 +5,41 @@ import { Link } from 'react-router-dom';
 
 
 class NoteView extends Component {
-    constructor(props, {match}){
-        super(props, {match});
-        this.state = {
+
+        state = {
             displayDelete: false,
             matched: []
         }
-    }
+    
     
 
-    componentDidMount(){
-        console.log('prop notes yea', this.props)
+    findMatch = () => {
+        console.log('props match', this.props.state.notes)
         let routeId = this.props.match.params.id;
-        let matched = this.props.state.notes.filter((item)=>item.id === routeId)
-        this.setState( {matched: matched} )
-        console.log("match?", this.statematched);
-        let note = this.props.state.notes[0].title;
-        console.log(note);
+        console.log("routeID", routeId, "typeof routeID:", typeof routeId);
+        let matched = this.props.state.notes.filter( (item) => {
+            console.log('item.id:', item.id, 'routeid:', routeId, 'item.id == routeId:', item.id == routeId);
+            return item.id == routeId; 
+        });
+        console.log('matched:', matched);
+        this.setState({ matched: matched });
+        console.log("match?", this.state.matched);
+        // let note = this.props.state.notes[0].title;
+        // console.log(note);
     }
 
+    componentDidMount = () => {
+        // console.log('props match', this.props.state.notes)
+        let routeId = this.props.match.params.id;
+        // console.log("routeID", routeId, "typeof routeID:", typeof routeId);
+        let matched = this.props.state.notes.filter( (item) => {
+            // console.log('item.id:', item.id, 'routeid:', routeId, 'item.id == routeId:', item.id == routeId);
+            return item.id == routeId; 
+        });
+        // console.log('matched:', matched);
+        this.setState({ matched: matched[0] });
+
+    }
 
     showModal = (event) => {
         event.preventDefault();
@@ -31,10 +47,37 @@ class NoteView extends Component {
     }
 
     render() {
-        console.log("noteview:", this.props.state.notes)
-return (
-    <div className='view_container'>
-        <div className="links_container">
+        // console.log("noteview:", this.props.state.notes, 'match', this.state.matched)
+        
+        return (
+            <div className='view_container'>
+                <div className="links_container">
+                    <Link to={`/edit/${this.props.match.params.id}`} className="view_links">edit</Link>
+                        <br />
+                    <a href="" onClick={this.showModal} className="view_links">delete</a>
+                        <br /><br />
+                </div>
+                <div className="view_title">
+                    {this.state.matched.title}
+                    <br />
+                    {this.state.matched.content}  
+                </div><br /><br />
+            {/* <p className="view_content"> {this.state.matched[0].textBody}</p> */}
+                <DeleteNote 
+                    toggle={this.state.displayDelete}
+                    showModal={this.showModal}
+                    // toDelete={this.state.matched[0]._id}
+                    history={this.props.history}
+                />
+            </div>
+        );
+    }
+}
+
+
+
+/*
+<div className="links_container">
             <Link to={`/edit/${this.props.match.params.id}`} className="view_links">edit</Link>
                 <br />
             <a href="" onClick={this.showModal} className="view_links">delete</a>
@@ -47,27 +90,14 @@ return (
             <br />
             {this.props.state.notes[0].content}  
         </div><br /><br />
-        {/* <p className="view_content"> {this.state.matched[0].textBody}</p> */}
+      //  <p className="view_content"> {this.state.matched[0].textBody}</p>
         <DeleteNote 
             toggle={this.state.displayDelete}
             showModal={this.showModal}
             // toDelete={this.state.matched[0]._id}
             history={this.props.history}
         />
-    </div>
-)
-
-
-
-
-
-}
-}
-
-
-
-
-
+*/
 
 
 

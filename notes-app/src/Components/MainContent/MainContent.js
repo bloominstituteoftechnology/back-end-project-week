@@ -42,9 +42,7 @@ class MainContent extends Component {
             .catch(err => {
                 console.error('Axios Error Retrieving Data', err)
             });
-
     };
-
 }
 
 export default MainContent;
