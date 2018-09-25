@@ -4,12 +4,12 @@ import "..//App.css";
 export default function Search (props) {
     return (
         <div className="search">
-            <form onSubmit={props.submitHandlerSearch}>
+            <form onSubmit={props.onHandlerSearch}>
                 <input 
                     type="text"
                     className="search-input"
                     name="search"
-                    onChange={props.inputHandlerSearch}
+                    onChange={props.inputHandler}
                     value={props.search}>
                 </input>
                 

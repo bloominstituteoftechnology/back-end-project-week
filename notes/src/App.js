@@ -70,12 +70,15 @@ export default class App extends Component {
       });
   };
 
-  inputHandlerUpdate = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
   onUpdateHandler = (e, id) => {
     e.preventDefault();
+
+    const token = localStorage.getItem('jwt');
+    const reqOptions = {
+        headers: {
+            Authorization: token,
+        }
+      }
 
     let edit = {
       title: this.state.title,
@@ -84,7 +87,7 @@ export default class App extends Component {
 
     axios.put(`http://localhost:5000/notes/${id}`, edit)
       .then(notes => {
-        return (axios.get('http://localhost:5000/notes')
+        return (axios.get('http://localhost:5000/notes', reqOptions)
           .then(notes => {
             this.setState({notes: notes.data.notes}); 
           })
@@ -116,14 +119,17 @@ export default class App extends Component {
       
   };
 
-  inputHandlerSearch = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  submitHandlerSearch = e => {
+  onHandlerSearch = e => {
     e.preventDefault();
 
-    axios.get('http://localhost:5000/notes')
+    const token = localStorage.getItem('jwt');
+    const reqOptions = {
+        headers: {
+            Authorization: token,
+        }
+    };
+
+    axios.get('http://localhost:5000/notes', reqOptions)
     .then(notes => {
       this.setState({notes: notes.data.notes}); 
     })
@@ -152,10 +158,6 @@ export default class App extends Component {
     window.location.reload(true)
   };
 
-  inputHandlerRegister = e => {
-    this.setState({[e.target.name]: e.target.value});
-  };
-
   onRegisterHandler = e => {
     e.preventDefault(); 
 
@@ -172,10 +174,6 @@ export default class App extends Component {
       .catch(err => {
       console.log(err);
      })
-  };
-
-  inputHandlerLogin = e => {
-    this.setState({[e.target.name]: e.target.value});
   };
 
   onLoginHandler = e => {
@@ -195,6 +193,7 @@ export default class App extends Component {
         console.log(err);
     })
   }
+
 
   render() {
     console.log("app state", this.state.notes);
@@ -229,8 +228,8 @@ export default class App extends Component {
           </NavLink>
            
           <Search
-            inputHandlerSearch={this.inputHandlerSearch}
-            submitHandlerSearch={this.submitHandlerSearch}>
+            inputHandler={this.inputHandler}
+            onHandlerSearch={this.onHandlerSearch}>
           </Search>
 
         </div>
@@ -273,7 +272,7 @@ export default class App extends Component {
               <Edit
                 {...props}
                 notes={this.state.notes}
-                inputHandlerUpdate={this.inputHandlerUpdate}
+                inputHandler={this.inputHandler}
                 onUpdateHandler={this.onUpdateHandler}
               />
             )}
@@ -284,7 +283,7 @@ export default class App extends Component {
             render={props => (
             <Login
                 {...props}
-                inputHandlerLogin={this.inputHandlerLogin}
+                inputHandler={this.inputHandler}
                 onLoginHandler={this.onLoginHandler}
               />
             )}
@@ -295,7 +294,7 @@ export default class App extends Component {
             render={props => (
             <Register
                 {...props}
-                inputHandlerRegister={this.inputHandlerRegister}
+                inputHandler={this.inputHandler}
                 onRegisterHandler={this.onRegisterHandler}
               />
             )}

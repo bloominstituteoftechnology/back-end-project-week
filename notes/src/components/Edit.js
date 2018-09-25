@@ -19,7 +19,7 @@ export default function Edit(props) {
             type="text"
             className="form-inputtitle"
             name="title"
-            onChange={props.inputHandlerUpdate}
+            onChange={props.inputHandler}
             placeholder="Note Title"
             value={props.title}
           />
@@ -27,7 +27,7 @@ export default function Edit(props) {
             type="text"
             className="form-inputnote"
             name="note"
-            onChange={props.inputHandlerUpdate}
+            onChange={props.inputHandler}
             placeholder="Note Content"
             value={props.note}
           />

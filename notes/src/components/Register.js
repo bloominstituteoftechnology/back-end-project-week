@@ -11,14 +11,14 @@ export default function Register(props){
                         type="text"
                         className="form-input"
                         value={props.username}
-                        onChange={props.inputHandlerRegister}
+                        onChange={props.inputHandler}
                         name="username"
                         placeholder="username"></input>
                     <input 
                         type="password"
                         className="form-input"
                         value={props.password}
-                        onChange={props.inputHandlerRegister}
+                        onChange={props.inputHandler}
                         name="password"
                         placeholder="password"></input>
                     <button
