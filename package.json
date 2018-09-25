@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "test": "jest --watch --verbose"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "repository": "https://github.com/blauente/back-end-project-week.git",
   "author": "Grant Reighard <grant.reighard@gmail.com>",
@@ -16,5 +20,8 @@
     "nodemon": "^1.18.4",
     "sqlite3": "^4.0.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "jest": "^23.6.0",
+    "supertest": "^3.3.0"
+  }
 }
