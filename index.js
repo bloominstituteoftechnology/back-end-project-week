@@ -1,8 +1,10 @@
 const express = require('express');
 const knex = require('knex');
 const server = express();
-server.use(express.json());
+const cors = require('cors');
 
+server.use(express.json());
+server.use(cors());
 
 const dbConfig = require('./knexfile.js');
 const db = knex(dbConfig.development);
@@ -69,7 +71,7 @@ server.put(`/notes/:id`, (req, res) => {
 })
 
 server.delete('/notes/:id', (req, res) => {
-    
+
     db('notes').where({ id:req.params.id }).delete()
         .then((item) => {
             res.status(201).json(item);

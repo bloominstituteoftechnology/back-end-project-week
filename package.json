@@ -4,6 +4,7 @@
   "description": "https://trello.com/b/BC71XlRy/lambda-notesbackend-erica-thompson",
   "main": "index.js",
   "dependencies": {
+    "cors": "^2.8.4",
     "express": "^4.16.3",
     "global": "^4.3.2",
     "index.js": "^0.0.3",

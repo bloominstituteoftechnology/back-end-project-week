@@ -13,7 +13,6 @@ exports.up = function(knex, Promise) {
     tbl
     .string('content')
     .notNullable()
-    .unique();
 
 
     })
