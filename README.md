@@ -32,3 +32,15 @@ a `PUT` request to this route with the title and text in the req body will edit 
 ### url/note/:id
 
 a `DELETE` request to this route will delete the note with the specified ID.
+
+### url/notes/:id/tags
+
+a `GET` request to this route will respond with an array of objects of the tags of the post.
+
+### url/notes/:id/tags/
+
+a `POST` request to this route with the tag in the req body will add a tag to the post.
+
+### url/notes/:id/tags/:tagId
+
+a `DELETE` request to this route will delete the tag from the post.
