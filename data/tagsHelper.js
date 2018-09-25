@@ -18,7 +18,7 @@ function getNoteTags(noteId) {
     .where({ note_id: noteId })
     .join('notes as n', 'n.id', 'tfn.note_id')
     .join('tags as t', 't.id', 'tfn.tag_id')
-    .select('n.id as note_id', 't.title as tag');
+    .select('t.id as tag_id', 't.title as tag');
 }
 
 function addTagToNote(note_id, tag_id) {
@@ -31,7 +31,7 @@ function addTagToNote(note_id, tag_id) {
 
 function removeTagFromNote(note_id, tag_id) {
   return db('tags_for_notes')
-    .where({ note_id, tag_id })
+    .where({ note_id: note_id, tag_id: tag_id })
     .del();
 }
 

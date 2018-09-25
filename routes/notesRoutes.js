@@ -76,18 +76,39 @@ router
     const { id } = req.params;
     const { tag } = req.body;
     try {
-      let existingTag = await tagsHelper.getTag(tag).first();
-      if (!existingTag) {
-        const newTag = await tagsHelper.addTag({ title: tag });
-        existingTag = await tagsHelper.getTag(tag).first();
-      }
-      if (existingTag) {
-        const addedTag = await tagsHelper.addTagToNote(id, existingTag.id);
-        res.status(200).json(existingTag);
+      const note = await helper.getNote(id).first();
+      if (note) {
+        let existingTag = await tagsHelper.getTag(tag).first();
+        if (!existingTag) {
+          const newTag = await tagsHelper.addTag({ title: tag });
+          existingTag = await tagsHelper.getTag(tag).first();
+        }
+        if (existingTag) {
+          const addedTag = await tagsHelper.addTagToNote(id, existingTag.id);
+          res.status(200).json({ message: 'Tag successfully added.' });
+        }
+      } else {
+        res.status(404).json({
+          message: 'Note does not exist. Please recheck your notes parameter.'
+        });
       }
     } catch (err) {
       next(err);
     }
   });
+
+router.route('/:id/tags/:tagId').delete(async (req, res, next) => {
+  const { id, tagId } = req.params;
+  try {
+    const count = await tagsHelper.removeTagFromNote(id, tagId);
+    count > 0
+      ? res.status(200).json(count)
+      : res.status(404).json({
+          message: 'Invalid request. Please recheck if tag exists in note.'
+        });
+  } catch (err) {
+    next(err);
+  }
+});
 
 module.exports = router;
