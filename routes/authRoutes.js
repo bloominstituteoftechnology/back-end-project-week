@@ -12,10 +12,8 @@ router.route('/register').post(async (req, res, next) => {
       .status(422)
       .json({ message: 'Please provide a username and a password.' });
   }
-  bcrypt.hash(creds.password, 10, (err, hash) => {
-    if (err) throw err;
-    creds.password = hash;
-  });
+  const hash = bcrypt.hashSync(creds.password, 10);
+  creds.password = hash;
 
   try {
     const idArray = await helper.addUser(creds);
