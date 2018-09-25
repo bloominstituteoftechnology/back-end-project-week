@@ -46,7 +46,7 @@ class NoteView extends Component {
 
     render() {
         // console.log("noteview:", this.props.state.notes, 'match', this.state.matched)
-        
+        console.log("NV History", this.props)
         return (
             <div className='view_container'>
                 <div className="links_container">
@@ -62,7 +62,9 @@ class NoteView extends Component {
                     {this.state.matched.content}</div>  
                 <br /><br />
             {/* <p className="view_content"> {this.state.matched[0].textBody}</p> */}
-                <DeleteNote 
+                <DeleteNote
+                    state={this.state}
+                    history={this.props.history} 
                     toggle={this.state.displayDelete}
                     showModal={this.showModal}
                     // toDelete={this.state.matched[0]._id}

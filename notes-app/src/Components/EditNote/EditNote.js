@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './index.css';
+import axios from 'axios';
 
 
 
@@ -29,6 +30,7 @@ class EditNote extends Component {
         // let note = this.props.state.notes[0].title;
         // console.log(note);
     }
+
 
     componentDidMount = () => {
         let routeId = this.props.match.params.id;
@@ -63,7 +65,7 @@ class EditNote extends Component {
         console.log("matched?", this.state.title)
         return (
             <div className='edit_view'>
-                <form className="edit_form" >
+                <form className="edit_form" onSubmit={this.edit}>
                         <br /><br />
                 <h3 className="edit_header">Edit Note: </h3>
 
@@ -108,13 +110,18 @@ class EditNote extends Component {
     }
 
     // edit = event => { 
-    //     event.preventDefault();
-    //     console.log(this.props.history)
+    //     // event.preventDefault();
+    //     console.log("history?", this.props.history)
+
         
     //     axios
-    //         .post('http://localhost:5000/notes', this.state)
+    //         .put(`http://localhost:5000/notes/${this.state.matched.id}`, {
+    //             title: this.state.matched.title,
+    //             content: this.state.matched.content
+    //         })
     //         .then(res => {
-    //             console.log(res.data);
+    //             console.log("data?", res.data);
+
     //             this.props.history.push('/');
     //             window.location.reload();
     //         })
@@ -124,7 +131,6 @@ class EditNote extends Component {
 
     // };
 
-    
 
 
 }
