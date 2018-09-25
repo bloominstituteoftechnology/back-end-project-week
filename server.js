@@ -1,6 +1,9 @@
 const express = require('express');
 const helmet = require('helmet');
 const knex = require('knex');
+const cors = require('cors');
+
+// use it before all route definitions
 
 const db = require('./db/helpers.js');
 
@@ -8,6 +11,7 @@ const server = express();
 
 server.use(helmet());
 server.use(express.json());
+server.use(cors({origin: 'http://localhost:9000'}));
 
 server.get('/', (req,res) => {
     res.send('API for notetaking app is running')
@@ -16,13 +20,20 @@ server.get('/', (req,res) => {
 //POST a new note
 server.post('/api/notes', (req,res) => {
     const note = req.body;
+    const name = req.body.name;
+    const content = req.body.text;
+
+    if(!name || !content){
+        res.status(400).json({message:  'Must provide a name and some text'})
+        return;
+    }
 
     db
     .insert(note)
     .then(response => {
         res.status(201).json(response);
     })
-    .catch(err => res.status(500).json(err));
+    .catch(err => res.status(500).json({message: err}));
     return;
 })
 
@@ -33,7 +44,7 @@ server.get('/api/notes', (req,res) => {
     .then(notes => {
         res.status(200).json(notes);
     })
-    .catch(err => res.status(500).json(err));
+    .catch(err => res.status(500).json({message: 'Error getting data'}));
     return;
 });
 
