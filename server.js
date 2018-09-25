@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const knex = require("knex");
 
 const dbConfig = require("./knexfile");
@@ -8,6 +9,7 @@ const db = knex(dbConfig.development);
 const server = express();
 
 server.use(express.json());
+server.use(cors());
 
 server.get("/", (req, res) => {
   res.send("API Running...");
