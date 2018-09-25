@@ -16,10 +16,11 @@ function asyncWrapper(handler) {
 app.use(cors());
 app.use(helmet());
 app.use(logger('short'));
+app.use(express.json());
 
 app.use('/api', asyncWrapper(routes));
 
-// catch all error handler
+// catch-all error handler
 app.use(function(err, _, res, _) {
   console.error(err);
   res.status(500).json({ error: 'Something went wrong' });
