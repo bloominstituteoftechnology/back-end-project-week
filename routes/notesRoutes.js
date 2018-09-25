@@ -5,7 +5,7 @@ const db = require('../knexfile/lambda-notes.sqlite3');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    db.find()
+    db.getNotes()
         .then(notes => {
             res.status(200).json(notes);
         })
@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 
 router.get('/notes/:_id', (req, res) => {
     const { _id } = req.params;
-    db.find(_id)
+    db.getNote(_id)
         .then(count => {
             if(count) {
                 res.status(200).json(note);
@@ -33,7 +33,7 @@ router.post('/create', async (req, res) => {
     const note = req.body;
     if(note.title && note.textBody) {
         try {
-            const response = await db.insert(note);
+            const response = await db.createNote(note);
             res.status(201).json(note);
         } catch(err) {
             res.status(500).json({ error: "There was an error while saving the note to the database" });
@@ -45,7 +45,7 @@ router.post('/create', async (req, res) => {
 
 router.delete('/notes/:_id/delete', (req, res) => {
     const { _id } = req.params;
-    db.remove(_id)
+    db.deleteNote(_id)
         .then(count => {
             if(count) {
                 res.status(200).json(note);
@@ -57,7 +57,7 @@ router.delete('/notes/:_id/delete', (req, res) => {
 });
 
 router.put('/edit/:_id', (req, res) => {
-    db.update(req.params._id, req.body)
+    db.editNote(req.params._id, req.body)
         .then(notes => {
             res.status(200).json(note);
             if(!note.title || !note.textBody) {
