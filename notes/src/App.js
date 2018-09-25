@@ -47,7 +47,13 @@ export default class App extends Component {
 
     axios.post('http://localhost:5000/notes', notes)
       .then(notes => {
-        this.setState({notes: notes.data.notes}); 
+        return (axios.get('http://localhost:5000/notes')
+        .then(notes => {
+          this.setState({notes: notes.data.notes}); 
+        })
+        .catch(err => {
+          console.log(err); 
+        }));
       })
       .catch(err => {
         console.log(err); 
@@ -107,6 +113,15 @@ export default class App extends Component {
   submitHandlerSearch = e => {
     e.preventDefault();
 
+    axios.get('http://localhost:5000/notes')
+    .then(notes => {
+      this.setState({notes: notes.data.notes}); 
+    })
+    .catch(err => {
+      console.log(err); 
+    });
+
+    setTimeout(() => {
     let searchTerm = this.state.search; 
     let notes = this.state.notes.slice();
     let result = [];
@@ -116,8 +131,11 @@ export default class App extends Component {
         result.push(notes);  
       }
     })
-
+     
     this.setState({notes: result});
+    
+    }, 10)
+
   };
 
   resetPage = () => {
@@ -155,7 +173,10 @@ export default class App extends Component {
           <Route
             exact
             path="/"
-            render={props => <NotesView {...props} notes={this.state.notes} />}
+            render={props => 
+              <NotesView 
+                {...props} 
+                notes={this.state.notes} />}
           />
 
           <Route
