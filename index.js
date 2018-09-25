@@ -30,23 +30,23 @@ generateToken = user => {
     return jwt.sign(payload, secret, options);
 };
 
-protected = ( req, res, next ) => {
-    const token = req.headers.authorization;
-    if ( token ) {
-        jwt.verify(token, secret, (err, decodedToken) => {
-            if (err) {
-                res.status(401).json({ message: 'invalid token'})
-            } else {
-                req.user = {
-                    email: decodedToken.email
-                }
-                next();
-            }
-        })
-    } else {
-        return res.status(401).json({ message: 'Invalid authentication' })
-    }
-}
+// protected = ( req, res, next ) => {
+//     const token = req.headers.authorization;
+//     if ( token ) {
+//         jwt.verify(token, secret, (err, decodedToken) => {
+//             if (err) {
+//                 res.status(401).json({ message: 'invalid token'})
+//             } else {
+//                 req.user = {
+//                     email: decodedToken.email
+//                 }
+//                 next();
+//             }
+//         })
+//     } else {
+//         return res.status(401).json({ message: 'Invalid authentication' })
+//     }
+// }
 
 //REGISTER/LOGIN
 server.post('/register', async (req, res) => {
@@ -71,13 +71,14 @@ server.post('/register', async (req, res) => {
     }
 });
 
-server.post('/login', protected, ( req , res ) => {
+server.post('/login', ( req , res ) => {
     const creds = req.body;
     db('users')
         .where({ email : creds.email })
         .first()
         .then( user => {
-            if ( user && bcrypt.compareSync( user.password, creds.password )){
+            console.log(user.password, creds.password)
+            if ( user && bcrypt.compareSync( creds.password, user.password )){
                 const token = generateToken( user )
                 res.status(200).json({ token });
             } else {
