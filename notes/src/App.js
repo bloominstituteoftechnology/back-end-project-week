@@ -109,12 +109,15 @@ export default class App extends Component {
 
     let searchTerm = this.state.search; 
     let notes = this.state.notes.slice();
+    let result = [];
 
-    notes = notes.filter(note => {
-       return note.title.toUpperCase() === searchTerm.toUpperCase();
+    notes.map(notes => {
+      if(notes.title.toUpperCase().indexOf(searchTerm.toUpperCase()) > -1) {
+        result.push(notes);  
+      }
     })
 
-    this.setState({notes: notes});
+    this.setState({notes: result});
   };
 
   render() {
