@@ -4,6 +4,7 @@ const cors = require("cors");
 const morgan = require("morgan"); 
 
 const server = express(); 
+server.use(express.json())
 server.use(helmet());
 server.use(cors());
 server.use(morgan());
@@ -40,6 +41,7 @@ server.get("/notes/:id", (req, res) => {
 });
 
 server.post("/notes", (req, res) => {
+  console.log(req.body, "body")
   db('notes')
     .insert(req.body)
     .then(noteId => {
@@ -52,7 +54,9 @@ server.post("/notes", (req, res) => {
 });
 
 server.put("/notes/:id", (req, res) => {
+  console.log(req.body);
   const { id } = req.params;
+  console.log(id, "id")
   const changes = req.body;  
   db("notes")
     .update(changes)
@@ -65,7 +69,7 @@ server.put("/notes/:id", (req, res) => {
       }
     })
     .catch(error => {
-      res.status(500).json(error)
+      res.status(500).json({error, errorMessage: error.message})
     });
 });
 
