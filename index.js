@@ -29,6 +29,8 @@ function errorHandler(err, req, res, next) {
 
 app.use(errorHandler);
 
-app.listen(9000, () => {
-  console.log('Running on Port 9000');
+const port = process.env.PORT || 9000;
+
+app.listen(port, () => {
+  console.log(`Running on Port ${port}`);
 });
