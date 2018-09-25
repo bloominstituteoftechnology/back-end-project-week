@@ -5752,6 +5752,10 @@ react-modal@^3.5.1:
     react-lifecycles-compat "^3.0.0"
     warning "^3.0.0"
 
+react-router-auth@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-router-auth/-/react-router-auth-1.0.1.tgz#b8975ce39a033699834c620a0684dec90f099cc5"
+
 react-router-dom@^4.3.1:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-4.3.1.tgz#4c2619fc24c4fa87c9fd18f4fb4a43fe63fbd5c6"
