@@ -27,4 +27,8 @@ module.exports = {
       })
       .then(() => noteID);
   },
+
+  getOneNote(id) {
+    return this.getAllNotes().where('notes.id', id);
+  },
 };
