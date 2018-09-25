@@ -69,4 +69,18 @@ server.put('/api/notes/:id', (req, res) => {
         });
 })
 
+// delete note by id
+server.delete('/api/notes/:id', (req, res) => {
+    db('notes')
+        .where({ id:req.params.id })
+        .delete()
+        .then((note) => {
+            res.status(201).json(note);
+        })
+        .catch((fail) => {
+            console.log(fail);
+            res.status(404).json({ message: "The note with the specified ID didn't delete."});
+        });
+});
+
 server.listen(5000, () => console.log('\nrunning on port 5000\n'));
