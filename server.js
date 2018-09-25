@@ -11,6 +11,9 @@ server.use(express.json());
 
 server.use(morgan('dev'));
 
+server.get('/api/notes', (req,res) => {
+	res.status(200).send("Welcome to lambda notes..testing...");
+});
 
 server.get('/api/notes', (req,res) => {
 	const request = db.get();
