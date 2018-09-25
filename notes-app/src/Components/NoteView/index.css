@@ -42,13 +42,25 @@ Link {
 .view_title {
     font-weight: bold;
     align-content: center;
-    padding: 10px;
+    /* padding: 10px; */
     position: absolute;
     top: 700;
+    margin-top: 80px;
+    margin-left: 50px;
+    width: 400px;
+    white-space: nowrap;
+    overflow-y: scroll;
+    
 }
 
 .view_content {
-    width: 595px;
+    position: absolute;
+    /* top: 600; */
+    margin-top: 135px;
+    margin-left: 50px;
+    width: 515px;
+    height: 515px;
+    overflow: scroll;
 }
 
 .links_container {

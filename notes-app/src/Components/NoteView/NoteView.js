@@ -56,10 +56,11 @@ class NoteView extends Component {
                         <br /><br />
                 </div>
                 <div className="view_title">
-                    {this.state.matched.title}
+                    {this.state.matched.title}</div>
                     <br />
-                    {this.state.matched.content}  
-                </div><br /><br />
+                <div className="view_content">
+                    {this.state.matched.content}</div>  
+                <br /><br />
             {/* <p className="view_content"> {this.state.matched[0].textBody}</p> */}
                 <DeleteNote 
                     toggle={this.state.displayDelete}
