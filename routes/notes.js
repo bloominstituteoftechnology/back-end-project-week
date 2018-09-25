@@ -27,6 +27,8 @@ router.get("/:id", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
+    console.log('~~~~~~~~~~~~~~~~~~~')
+    console.log('req body', req.body)
     await db.addNote(req.body);
     res.status(200).json({
       status: true,

@@ -34,6 +34,7 @@ module.exports = {
   },
 
   async addNote(noteData) {
+    console.log('note data', noteData)
     return await db(`Notes`).insert({
       content: noteData.content,
       title: noteData.title,
