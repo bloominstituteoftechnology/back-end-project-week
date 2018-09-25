@@ -4,9 +4,12 @@ const knex = require('knex');
 const cors = require('cors');
 const helmet = require('helmet');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
 //db
 const dbConfig = require('./knexfile');
 const db = knex(dbConfig.development);
+
 //Server use
 server.use(express.json());
 server.use(cors());
@@ -14,7 +17,58 @@ server.use(helmet());
 
 const secret = 'backend-project-week';
 
+//MIDDLEWARE
+generateToken = user => {
+    const payload = {
+        email: user.email,
+    }
+    const options = {
+        expiresIn: '1h',
+        jwtid: 'lambdafsw12',
+    }
+    return jwt.sign(payload, secret, options);
+};
 
+//REGISTER/LOGIN
+server.post('/register', async (req, res) => {
+    const creds = req.body;
+    const hash = bcrypt.hashSync( creds.password, 10);
+    creds.password = hash;
+    if ( !creds.email || !creds.password ) {
+        res.status(400).json({
+            message: 'Both email and password are required.'
+        });
+    } else {
+        try {
+            const ids = await db('users').insert(creds);
+            const id = ids[0];
+            const user = await db('users').where({ id }).first();
+            const token = generateToken( user );
+            res.status(201).json({ id: user.id, token })
+        }
+        catch ( err ) {
+            res.status(500).json( err.message );
+        }
+    }
+});
+
+server.post('/login', ( req , res ) => {
+    const creds = req.body;
+    db('users')
+        .where({ email : creds.email })
+        .first()
+        .then( user => {
+            if ( user && bcrypt.compareSync(user.password, creds.password )){
+                const token = generateToken( user )
+                res.status(200).json({ token });
+            } else {
+                res.status(401).json({
+                    message: 'Invalid authentication. Please try again.'
+                })
+            }
+        })
+        .catch( err => res.status(500).json( err.message ));
+});
 
 //GET ALL NOTES
 server.get('/get/all', async (req, res) => {
