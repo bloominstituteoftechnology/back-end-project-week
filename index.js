@@ -1,12 +1,15 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const knex = require("knex");
+const helmet = require("helmet");
 const dbConfig = require("./knexfile");
 const db = knex(dbConfig.development);
 
 const server = express();
 
 server.use(express.json());
+server.use(helmet());
 server.use(cors());
 server.get("/", (req, res) => {
   res.send("API RUNNING...");
@@ -85,5 +88,7 @@ server.put("/notes/:id", (req, res) => {
       res.status(500).json(err);
     });
 });
-
-server.listen(8000, console.log("server is running on 8000"));
+const port = process.env.PORT || 8000; //platform independent port //read from the enviroment
+server.listen(port, () =>
+  console.log(`\n== API is running on port ${port}==\n`)
+);

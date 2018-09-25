@@ -1,1 +1,3 @@
 .DS_Store
+#env will be ignored now which you want since you have secret in there
+.env  
