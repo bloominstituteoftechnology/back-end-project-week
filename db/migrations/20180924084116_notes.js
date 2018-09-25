@@ -4,7 +4,7 @@ exports.up = function(knex) {
 
     notes.string("title", 128).notNullable();
 
-    notes.text("content", 128).notNullable();
+    notes.text("textBody").notNullable();
   });
 };
 

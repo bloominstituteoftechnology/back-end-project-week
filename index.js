@@ -1,5 +1,5 @@
 const express = require("express");
-
+const cors = require("cors");
 const knex = require("knex");
 const dbConfig = require("./knexfile");
 const db = knex(dbConfig.development);
@@ -7,7 +7,7 @@ const db = knex(dbConfig.development);
 const server = express();
 
 server.use(express.json());
-
+server.use(cors());
 server.get("/", (req, res) => {
   res.send("API RUNNING...");
 });
@@ -43,11 +43,11 @@ server.get("/notes/:id", (req, res) => {
 server.post("/notes", (req, res) => {
   const note = req.body;
   const { title } = req.body;
-  const { content } = req.body;
-  if (!title & !content) {
+  const { textBody } = req.body;
+  if (!title & !textBody) {
     res
       .status(400)
-      .json({ errorMessage: "please add notes title and content" });
+      .json({ errorMessage: "please add notes title and textBody" });
   }
 
   db.insert(note)
@@ -86,4 +86,4 @@ server.put("/notes/:id", (req, res) => {
     });
 });
 
-server.listen(8000);
+server.listen(8000, console.log("server is running on 8000"));
