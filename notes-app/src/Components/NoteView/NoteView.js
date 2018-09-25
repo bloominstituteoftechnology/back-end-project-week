@@ -50,7 +50,7 @@ class NoteView extends Component {
         return (
             <div className='view_container'>
                 <div className="links_container">
-                    <Link to={`/edit/${this.props.match.params.id}`} className="view_links">edit</Link>
+                    <Link to={{pathname: `/edit/${this.props.match.params.id}`, state: this.state.matched}} className="view_links">edit</Link>
                         <br />
                     <a href="" onClick={this.showModal} className="view_links">delete</a>
                         <br /><br />

@@ -1,34 +1,45 @@
 import React, { Component } from 'react';
 import './index.css';
-// import { connect } from 'react-redux';
 
-//action 1/3
-// import { editNote } from '../../actions/index';
 
-// const mapStateToProps = (state) => {
-//     return {
-//         notes: state
-//     }
-// }
+
+
 
 class EditNote extends Component {
     
-        // state = {
-        //     matched: [],
-        // }
-    
+    state = {
+        matched: [],
+    }
 
-    // componentWillMount(){
-    //     let routeId = this.props.match.params.id;
-    //     let matched = this.props.state.notes.filter((item)=>item._id === routeId)
-    //     this.setState({ matched })
-    // }
 
-    // handleUpdate = () => {
-    //     //action 2/3
-    //     this.props.editNote(this.state.matched[0]);
-    //     this.props.history.push('/');
-    // }
+    findMatch = () => {
+        console.log('props match', this.props.state.notes)
+        let routeId = this.props.match.params.id;
+        console.log("routeID", routeId, "typeof routeID:", typeof routeId);
+        let matched = this.props.state.notes.filter( (item) => {
+            console.log('item.id:', item.id, 'routeid:', routeId, 'item.id == routeId:', item.id == routeId);
+            return item.id == routeId; 
+        });
+        console.log('matched:', matched);
+        this.setState({ matched: matched });
+        console.log("match?", this.state.matched);
+        // let note = this.props.state.notes[0].title;
+        // console.log(note);
+    }
+
+    componentDidMount = () => {
+        // console.log('props match', this.props.state.notes)
+        let routeId = this.props.match.params.id;
+        // console.log("routeID", routeId, "typeof routeID:", typeof routeId);
+        let matched = this.props.state.notes.filter( (item) => {
+            // console.log('item.id:', item.id, 'routeid:', routeId, 'item.id == routeId:', item.id == routeId);
+            return item.id == routeId; 
+        });
+        // console.log('matched:', matched);
+        this.setState({ matched: matched[0] });
+    }
+
+
 
     handleChange = (event) => {
         console.log(event.target.name)
@@ -37,6 +48,7 @@ class EditNote extends Component {
         // this.setState({ matched: temp })
     }
 
+
     cancelButton = () => {
         window.location.reload();
     }
@@ -44,6 +56,7 @@ class EditNote extends Component {
 
 
     render() {
+        console.log("matched?", this.state.matched)
         return (
             <div className='edit_view'>
                 <form className="edit_form">
@@ -56,7 +69,7 @@ class EditNote extends Component {
                         className="edit_title" 
                         type="text" 
                         onChange={this.handleChange}
-                        // value={this.state.matched[0].title}
+                        value={this.state.matched.title}
                         name='title'
                     />
 
@@ -66,7 +79,7 @@ class EditNote extends Component {
                         className="edit_content" 
                         rows="20" 
                         onChange={this.handleChange} 
-                        // value={this.state.matched[0].textBody}
+                        value={this.state.matched.content}
                         name='textBody'
                     />
                     

@@ -29,6 +29,12 @@ Link {
 }
 
 .note_title {
+    /* Would Like to Add Fadeout to the right */
+    /* background: -moz-linear-gradient(left, rgba(255,255,255,0) 8%, rgba(255,255,255,0.81) 33%);
+    background: -webkit-linear-gradient(left, rgba(255,255,255,0) 8%,rgba(255,255,255,0.81) 33%); 
+    background: linear-gradient(to right, rgba(255,255,255,0) 8%,rgba(255,255,255,0.81) 33%); 
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#cfffffff',GradientType=1 ); 
+     */
     border-bottom: solid 1px black;
     margin-bottom: 10px;
     font-weight: bold;
@@ -36,7 +42,8 @@ Link {
     white-space: nowrap;
     overflow-x: scroll;
     overflow-y: hidden;
-    /* text-overflow: ellipsis;    */
+    margin-top: 5px;
+    
 }
 
 .view_title {
@@ -45,6 +52,7 @@ Link {
     /* padding: 10px; */
     position: absolute;
     top: 700;
+    
     margin-top: 80px;
     margin-left: 50px;
     width: 400px;
