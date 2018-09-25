@@ -17,13 +17,13 @@ class Login extends Component {
         e.preventDefault()
 
         axios
-            .post('http://localhost:3300/api/login', this.state)
+            .post('http://localhost:5000/api/login', this.state)
             .then(res => {
                 localStorage.setItem('jwt', res.data.token);
-                this.props.history.push('/jokes')
+                window.location.href = "/note";
             })
             .catch(err => {
-                console.err(err);
+                console.log(err);
             });
     }
 

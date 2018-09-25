@@ -20,7 +20,7 @@ class AddNote extends Component {
         }
         this.props.addNote(note)
         this.setState({title: '', note: ''})
-        window.location.href = "/";
+        window.location.href = "/note";
     }
 
     render(){

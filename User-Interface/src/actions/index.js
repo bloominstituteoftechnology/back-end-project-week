@@ -12,7 +12,13 @@ export const SELECT_ID = 'SELECT_ID';
 export const ERROR = 'ERROR';
 
 export const fetchNotes = () => {
-    const request = axios.get(`http://localhost:5000/api/notes`)
+    const token = localStorage.getItem('jwt');
+    const reqOptions = {
+        headers : {
+            Authorization :token
+        }
+    }
+    const request = axios.get(`http://localhost:5000/api/notes`, reqOptions)
     return (dispatch) => {
         request.then(({data})=> {
             dispatch({type: FETCH_NOTE, payload: data})
@@ -27,7 +33,13 @@ export const fetchNotes = () => {
   };
   
 export const addNote = note => {
-    const request = axios.post(`http://localhost:5000/api/notes`, note)
+    const token = localStorage.getItem('jwt');
+    const reqOptions = {
+        headers : {
+            Authorization :token
+        }
+    }
+    const request = axios.post(`http://localhost:5000/api/notes`, note, reqOptions)
     return (dispatch) => {
         request.then(({data})=> {            
             dispatch({type: ADD_NOTE, payload: data})
@@ -47,7 +59,13 @@ export const selectId = id => ({
 })
 
 export const editNote = (id, note) => {
-    const request = axios.put(`http://localhost:5000/api/notes/${id}`, note)
+    const token = localStorage.getItem('jwt');
+    const reqOptions = {
+        headers : {
+            Authorization :token
+        }
+    }
+    const request = axios.put(`http://localhost:5000/api/notes/${id}`, note, reqOptions)
     return (dispatch) => {
         request.then(({data})=> {            
             dispatch({type: EDIT_NOTE, payload: data})
@@ -62,7 +80,13 @@ export const editNote = (id, note) => {
 };
 
 export const deleteNote = id => {    
-    const request = axios.delete(`http://localhost:5000/api/notes/${id}`)
+    const token = localStorage.getItem('jwt');
+    const reqOptions = {
+        headers : {
+            Authorization :token
+        }
+    }
+    const request = axios.delete(`http://localhost:5000/api/notes/${id}`, reqOptions)
     return (dispatch) => {
         request.then(({data})=> {console.log(data)
             dispatch({type: DELETING_NOTE, payload: data})

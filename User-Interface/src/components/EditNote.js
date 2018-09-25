@@ -23,7 +23,7 @@ class EditNote extends Component {
         };
         this.props.editNote(this.props.id, note);
         this.setState({title: '', note: ''});
-        window.location.href = "/";
+        window.location.href = "/note";
     }
 
     render(){ 

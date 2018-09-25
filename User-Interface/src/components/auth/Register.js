@@ -16,13 +16,13 @@ class Register extends Component {
         e.preventDefault()
 
         axios
-            .post('http://localhost:3300/api/register', this.state)
+            .post('http://localhost:5000/api/register', this.state)
             .then(res => {
                 localStorage.setItem('jwt', res.data.token);
-                this.props.history.push('/jokes')
+                this.props.history.push('/note')
             })
             .catch(err => {
-                console.err(err);
+                console.log(err);
             });
     }
 
