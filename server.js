@@ -109,7 +109,15 @@ server.delete("/api/notes/:id", (req, res) => {
     .where({ id })
     .del()
     .then(count => {
-      res.status(200).json(count);
+        console.log(count);
+        db("notes")
+          .then(notes => {
+            res.status(200).json(notes);
+          })
+          .catch(err => {
+            console.log("error", err);
+            res.status(500).json({ error: "The notes could not be retrieved." });
+          });
     })
     .catch(err => {
       console.log("error", err);
