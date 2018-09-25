@@ -10,6 +10,8 @@ exports.up = function(knex, Promise) {
         tbl
         .string('textBody')
         .notNullable()
+
+        //tbl.specificType('tags', 'array')
     });
 };
 
