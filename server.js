@@ -14,6 +14,8 @@ server.use(morgan());
 
 server.use("/notes", restrictedRoutes);
 
-const port = 8000;
+const port = process.env.PORT || 8000;
 
-server.listen(port, () => console.log(`\n Listen on port ${port} \n`));
+server.listen(port, function() {
+  console.log(`\n === Server listening on ${port}`);
+});
