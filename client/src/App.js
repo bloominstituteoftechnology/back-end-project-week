@@ -30,13 +30,11 @@ class App extends Component {
 
   handleCreateNote = note => {
 		axios.post(CREATE, note).then(response => {
-			axios.get(`${GET}/${response.data.success}`).then(response => {
 				this.setState(prevState => {
           return {
-            notes: [...prevState.notes, response.data]
+            notes: [...prevState.notes, {...note, id: response.data.id}]
           }
 				});
-			});
 		});
 	};
 
