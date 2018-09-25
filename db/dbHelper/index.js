@@ -35,9 +35,9 @@ module.exports = {
 
   async addNote(noteData) {
     return await db(`Notes`).insert({
-      content: note.content,
-      title: note.title,
-      tags: note.tags,
+      content: noteData.content,
+      title: noteData.title,
+      tags: noteData.tags,
     });
   }
 };
