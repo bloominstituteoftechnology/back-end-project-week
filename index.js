@@ -78,8 +78,10 @@ app.post("/login", function(req, res, next) {
   })(req, res);
 });
 app.use('/profile', passport.authenticate('jwt', { session: false }),
-    function(req, res) {
-        res.json({message:req.user})
+   async function(req, res) {
+   const results= await auth.get();
+
+        res.json({results})
     }
 );
 app.use("/notes", passport.authenticate('jwt', { session: false }), notes);

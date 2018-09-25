@@ -2,25 +2,29 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-class Login extends Component {
+class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      password2: ""
     };
   }
   handleInputChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
   login = async () => {
+    if (this.state.password !== this.state.password2) {
+      return;
+    }
     try {
       let response = await axios.post("http://localhost:3000/login", {
         username: this.state.username,
         password: this.state.password
       });
       localStorage.setItem("JWT", response.data.token);
-      this.props.logchange();
+      this.props.history.push("/login");
     } catch (err) {
       console.log(err);
     }
@@ -28,11 +32,11 @@ class Login extends Component {
   render() {
     return (
       <div className="loginContainer">
-        <Link className="reglink" to="/register">
-          Register
+        <Link className="reglink" to="/login">
+          Login
         </Link>
-        <div className="registerTitle">Login:</div>
 
+        <div className="registerTitle">REGISTER:</div>
         <div>
           <label>Username:</label>
           <input
@@ -50,11 +54,19 @@ class Login extends Component {
           />
         </div>
         <div>
-          <input onClick={this.login} type="submit" value="Log In" />
+          <label>Repeat Password:</label>
+          <input
+            onChange={this.handleInputChange}
+            type="password"
+            name="password2"
+          />
+        </div>
+        <div>
+          <input onClick={this.login} type="submit" value="Register" />
         </div>
       </div>
     );
   }
 }
 
-export default Login;
+export default Register;

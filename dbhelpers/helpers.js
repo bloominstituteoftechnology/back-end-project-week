@@ -29,7 +29,6 @@ module.exports = {
       });
   },
   addNote: (body) => {
-    console.log(body);
     return db("notes").insert({ ...body });
   },
   getSingleNote:(id)=>{

@@ -7,7 +7,7 @@ import {
   arrayMove
 } from "react-sortable-hoc";
 const SortableItem = SortableElement(({ value }) => (
-  <Link to={`/${value.id}`}>
+  <Link to={`/notes/${value.id}`}>
     <NoteCard title={value.title} body={value.body} id={value.id} />
   </Link>
 ));
@@ -30,26 +30,27 @@ class Notesview extends Component {
       paginationStart: 0
     };
   }
-  changePage = (direction)=>{
-    
+  changePage = direction => {
     let newPaginationStart;
-    if(direction ==='forward'){
-      if((this.state.paginationStart+9) /9>=Math.ceil(this.state.items.length/9) ){
+    if (direction === "forward") {
+      if (
+        (this.state.paginationStart + 9) / 9 >=
+        Math.ceil(this.state.items.length / 9)
+      ) {
         return;
       }
-      newPaginationStart = this.state.paginationStart +9
-    }
-    else{
-      if((this.state.paginationStart) /9 <= 0 ){
+      newPaginationStart = this.state.paginationStart + 9;
+    } else {
+      if (this.state.paginationStart / 9 <= 0) {
         return;
       }
-      newPaginationStart = this.state.paginationStart -9
+      newPaginationStart = this.state.paginationStart - 9;
     }
-    
+
     this.setState({
-      paginationStart : newPaginationStart 
-    })
-  }
+      paginationStart: newPaginationStart
+    });
+  };
   onSortEnd = ({ oldIndex, newIndex }) => {
     this.props.changeStateOrder(
       arrayMove(this.state.items, oldIndex, newIndex)
@@ -122,8 +123,7 @@ class Notesview extends Component {
         filtArray = this.props.notes.filter(e => {
           if (e.title.includes(event.target.value)) {
             return e;
-          }
-          else{
+          } else {
             return false;
           }
         });
@@ -140,22 +140,20 @@ class Notesview extends Component {
       case "tags":
         filtArray = this.props.notes.filter(e => {
           let found = false;
-          if(! e.tags){
+          if (!e.tags) {
             return false;
           }
           e.tags.forEach(element => {
             if (element.includes(event.target.value)) {
               found = true;
               return true;
-            }
-            else {
+            } else {
               return false;
             }
           });
           if (found) {
             return e;
-          }
-          else{
+          } else {
             return false;
           }
         });
@@ -163,14 +161,15 @@ class Notesview extends Component {
       case "all":
         filtArray = this.props.notes.filter(e => {
           let found = false;
-          if(e.tags){
+          if (e.tags) {
             e.tags.forEach(element => {
               if (element.includes(event.target.value)) {
                 found = true;
                 return;
               }
-            });          }
-          
+            });
+          }
+
           if (found) {
             return e;
           } else {
@@ -223,16 +222,34 @@ class Notesview extends Component {
           <SortableList
             distance={1}
             axis="xy"
-            items={this.state.items.slice(this.state.paginationStart,this.state.paginationStart+9)}
+            items={this.state.items.slice(
+              this.state.paginationStart,
+              this.state.paginationStart + 9
+            )}
             onSortEnd={this.onSortEnd}
           />
         ) : (
           "No notes to display!"
         )}
         <div className="pageButtons">
-        <div className="pageChangeButton" onClick={()=>this.changePage("back")}>←</div>
-        <div className="pageCounter">{(this.state.paginationStart+9) /9}/{Math.ceil(this.state.items.length/9)} </div>
-        <div className="pageChangeButton"  onClick={()=>this.changePage("forward")}>→</div>
+          <div
+            className="pageChangeButton"
+            onClick={() => this.changePage("back")}
+          >
+            ←
+          </div>
+          <div className="pageCounter">
+            {(this.state.paginationStart + 9) / 9}/
+            {this.state.items.length / 9 === 0
+              ? 1
+              : Math.ceil(this.state.items.length / 9)}{" "}
+          </div>
+          <div
+            className="pageChangeButton"
+            onClick={() => this.changePage("forward")}
+          >
+            →
+          </div>
         </div>
       </div>
     );

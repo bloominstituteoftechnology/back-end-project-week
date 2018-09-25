@@ -12,13 +12,13 @@
 .sidebarContainer {
   background-color: lightgray;
   width: 20em;
-  min-height:100vh;
+  min-height: 100vh;
   text-align: left;
   padding: 0 15px 0 15px;
   border-right: 2px grey solid;
 }
 .sidebarTitle {
-  padding-top:1em;
+  padding-top: 1em;
   font-size: 35px;
   font-weight: 600;
   letter-spacing: 1px;
@@ -38,10 +38,9 @@
   font-size: 16px;
 }
 .notesViewContainer {
-  padding:   2em;
+  padding: 2em;
   text-align: left;
   width: 100%;
-  
 }
 .viewTitle {
   font-size: 24px;
@@ -55,8 +54,8 @@
   width: 10em;
   height: 11em;
   margin: 0 1em 1.5em 0;
-  word-wrap:break-word;
-  overflow:hidden;
+  word-wrap: break-word;
+  overflow: hidden;
 }
 .cardTitle {
   font-weight: bold;
@@ -106,7 +105,7 @@ textarea {
 }
 .viewBody {
   margin-top: 2em;
-  word-wrap:break-word;
+  word-wrap: break-word;
 }
 .Modal {
   position: absolute;
@@ -123,92 +122,99 @@ textarea {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  outline:none;
+  outline: none;
 }
-.modalButtonRow{
-  display:flex;
+.modalButtonRow {
+  display: flex;
   justify-content: space-around;
   width: 90%;
 }
-.modalText{
+.modalText {
   font-size: 18px;
   margin-bottom: 30px;
 }
-.redButton{
-  background-color:red !important;
+.redButton {
+  background-color: red !important;
 }
-a{
+a {
   text-decoration: none;
   color: black;
 }
-.ReactTags__tagInputField{
+.ReactTags__tagInputField {
   margin-bottom: 1em;
   padding: 1em;
   border-radius: 5px;
   border: 2px solid grey;
   font-weight: bold;
-  margin-top:10px;
+  margin-top: 10px;
 }
-.ReactTags__tag{
-border: 2px grey solid;
-background: white;
-border-radius: 5px;
-margin: 5px;
-padding: 2px;
+.ReactTags__tag {
+  border: 2px grey solid;
+  background: white;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 2px;
 }
-.ReactTags__tags{
-  margin:10px 0
+.ReactTags__tags {
+  margin: 10px 0;
 }
-.tagtitle{
+.tagtitle {
   font-weight: bold;
   font-size: 18px;
 }
-.checkListItem{
+.checkListItem {
   border: 2px solid grey;
   border-radius: 5px;
   background-color: white;
   padding: 3px;
   margin: 5px;
-  display: inline-block
+  display: inline-block;
 }
-.removeButton{
+.removeButton {
   font-size: 14px;
   vertical-align: 1px;
   cursor: pointer;
 }
-.checkboxRow{
-  display:flex;
+.checkboxRow {
+  display: flex;
 }
-.searchContainer{
+.searchContainer {
   margin-top: 10px;
-  display:flex;
+  display: flex;
 }
-select{
+select {
   background: white;
   border: 2px grey solid;
   border-radius: 5px;
   font-size: 20px;
-  padding: .4em;
+  padding: 0.4em;
 }
-.lowerSelect{
+.lowerSelect {
   margin-right: 15px;
 }
-.pageButtons{
+.pageButtons {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.loginContainer{
-display: flex;
-justify-content: center;
-align-items: center;
-flex-direction: column;
-width: 100%;
-height: 100vh;
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
 }
 
-.container{
+.container {
   display: flex;
-  width:100%;
+  width: 100%;
+}
+.reglink {
+  font-weight: bold;
+  align-self: flex-start;
+  position: fixed;
+  top: 10px;
+  left: 10px;
 }

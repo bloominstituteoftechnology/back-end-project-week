@@ -18,6 +18,15 @@ class Sidebar extends Component {
         <div onClick={this.props.export} className="sidebarButton">
           Export
         </div>
+        <div
+          onClick={() => {
+            localStorage.clear();
+            window.location.reload();
+          }}
+          className="sidebarButton"
+        >
+          Logout
+        </div>
       </div>
     );
   }

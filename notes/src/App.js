@@ -9,6 +9,7 @@ import fileDownload from "js-file-download";
 import axios from "axios";
 import { AuthRoute } from "react-router-auth";
 import Login from "./components/Login";
+import Register from "./components/Register";
 
 class App extends Component {
   // what a note object looks like { title: string, body: string(maybe markdown formatted), id: num, checklist: [{checked: boolee, name:string}], tags: [{id:string, text:string}] }
@@ -22,9 +23,11 @@ class App extends Component {
     };
   }
   changeloggedin = () => {
+    const JWT = localStorage.getItem("JWT");
     this.setState(
       {
-        loggedin: !this.setState.loggedin
+        loggedin: !this.setState.loggedin,
+        JWT: JWT
       },
       async () => {
         await this.getNotesList();
@@ -152,13 +155,13 @@ class App extends Component {
   };
 
   componentDidUpdate = (prevProps, prevState) => {
-    if (this.state.notes !== prevState.notes) {
+    if (this.state.loggedin !== prevState.loggedin) {
     }
   };
   componentDidMount = () => {
     if (localStorage.getItem("JWT") !== null && !this.state.loggedin) {
       const JWT = localStorage.getItem("JWT");
-      this.setState({"JWT":JWT})
+      this.setState({ JWT: JWT });
       this.changeloggedin();
     }
   };
@@ -166,7 +169,7 @@ class App extends Component {
     return (
       <div className="App">
         {this.state.loggedin ? (
-          <div className='container'>
+          <div className="container">
             <Sidebar export={this.jsonToCSV} />
             <Switch className="switch">
               <Route
@@ -219,6 +222,12 @@ class App extends Component {
           </div>
         ) : (
           <Switch className="switch">
+            <Route
+              path="/register"
+              render={props => (
+                <Register logchange={this.changeloggedin} {...props} />
+              )}
+            />
             <Route
               path="/login"
               render={props => (
