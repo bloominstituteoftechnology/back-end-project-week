@@ -13,16 +13,14 @@ class SideMenu extends Component {
 	constructor() {
 		super();
 		this.state = {
-		notes: [],
-		title:'',
-		textBody: '',
-		id: null,
+			notes: [],
+			title:'',
+			textBody: '',
 		}
 	}
 
 	componentDidMount() {
 		const endpoint = 'http://localhost:9000/api/notes';
-
 		axios
 		.get(endpoint)
 		.then(response => {
@@ -33,22 +31,8 @@ class SideMenu extends Component {
 		});
 	}
 
-	editNote = id => {
-		const endpoint = `http://localhost:9000/api/notes/${id}`;
-
-		axios
-			.put(endpoint)
-			.then(res => {
-				console.log(res);
-			})
-			.catch(error => {
-				console.error('Server error', error)
-			});
-	}
-
 	deleteNote = id => {
 		const endpoint = `http://localhost:9000/api/notes/${id}`;
-
 		axios
 			.delete(endpoint)
 			.then(res => {
@@ -74,10 +58,10 @@ class SideMenu extends Component {
 					</div>     
 				</ul>
 
-				<Route exact path="/" render={(props) => <ListView {...props} notes={this.state.notes} />}/>
+				<Route exact path="/" render={ (props) => <ListView {...props} notes={this.state.notes} />}/>
 				<Route exact path="/create-new-note/" component={ NewNote } />
-				<Route exact path="/note-view/:id" render={props => <NoteView {...props} notes={this.state.notes} handleInputChange={this.handleInputChange} deleteNote={this.deleteNote}/>}/>
-				<Route exact path="/note-view/:id/edit" render={props => <EditNote {...props} notes={this.state.notes} editNote={this.editNote} handleInputChange={this.handleInputChange}/>}/>
+				<Route exact path="/note-view/:id" render={ props => <NoteView {...props} notes={this.state.notes} handleInputChange={this.handleInputChange} deleteNote={this.deleteNote}/>}/>
+		<Route exact path="/note-view/edit/:id" render={ props => <EditNote {...props} notes={this.state.notes}/>} />
 			</div>
 		);
 	}
