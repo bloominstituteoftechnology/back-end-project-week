@@ -18,13 +18,10 @@ server.use(cors());
 server.use(helmet());
 
 
-// middleware
-// create urlId for notes/:id
-
-
 function generateToken(user) {
   const payload = {
     username: user.username,
+    userId: user.userId
   };
   const options = {
     expiresIn: '7d',
@@ -42,7 +39,7 @@ function protected(req, res, next) {
       if (err) {
         res.status(401).json({ message: 'Invalid Token' });
       } else {
-        req.user = { username: decodedToken.username };
+        req.user = { username: decodedToken.username, id: decodedToken.userId };
         next();
       }
     });
@@ -95,7 +92,6 @@ server.post('/login', (req, res) => {
     .then(user => {
       if (user && bcrypt.compareSync(creds.password, user.password)) {
         const token = generateToken(user);
-
         res.status(200).json({ token, username: user.username });
       } else {
         res.status(401).json({ message: 'Invalid Token' });
@@ -111,7 +107,7 @@ server.get('/protected/notes', protected, (req, res) => {
   const { username } = req.user;
 
   db('users')
-    .select()
+    .select('noteId as id', 'note_title as title', 'note_content as description')
     .join('notes', 'users.userId', 'notes.userId')
     //.join('tags', 'notes.noteId', 'tags.noteId')
     .where({username})
@@ -124,30 +120,54 @@ server.get('/protected/notes', protected, (req, res) => {
 
 
 
+server.post('/protected/notes', protected, (req, res) => {
+  console.log(req.user, req.body)
 
+  const { id } = req.user;
 
+  const content = {
+    note_title: req.body.title,
+    note_content: req.body.content,
+    userId: id
+  }
 
-/* Some tests */
-server.get('/users', (req, res) => {
-
-  db('users')
-    .select()
+  db.insert(content).into('notes')
     .then(users => {
+      console.log(users)
       res.status(200).json(users)
     })
     .catch(err => res.send(err));
 });
 
 
-server.get('/notes', (req, res) => {
+server.put('/protected/notes/:id', protected, (req, res) => {
 
-  db('notes')
-    .select()
-    .then(users => {
-      res.status(200).json(users)
+  const id = parseInt(req.params.id, 10);
+
+  const content = {
+    note_title: req.body.title,
+    note_content: req.body.content,
+  }
+
+  db('notes').where({noteId: id}).update(content)
+    .then(count => {
+      res.status(200).json(count)
     })
     .catch(err => res.send(err));
 });
+
+
+server.delete('/protected/notes/:id', protected, (req, res) => {
+
+  const id = parseInt(req.params.id, 10);
+
+  db('notes').where({noteId: id}).del()
+    .then(count => {
+      res.status(200).json(count)
+    })
+    .catch(err => res.send(err));
+});
+
 
 
 server.listen(port, () => console.log(`~~ Listening on Port ${port} ~~`));
