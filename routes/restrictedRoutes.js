@@ -25,28 +25,29 @@ router.get("/", function(req, res) {
 		});
 });
 
-// router.get("/:id", function(req, res) {
-// 	helpers
-// 		.getNote(req.params.id)
-// 		.then(data => {
-// 			console.log(data);
-// 			if (!data[0]) {
-// 				return res.json({
-// 					error: true,
-// 					message: "No Note by that ID",
-// 				});
-// 			}
-// 			let note = data[0];
-// 			let tags = data[1].map(tagObj => tagObj.tag);
-// 			let noteTag = { ...note, tags };
+//This works but I'm not actually using it.
+router.get("/:id", function(req, res) {
+	helpers
+		.getNote(req.params.id)
+		.then(data => {
+			console.log(data);
+			if (!data[0]) {
+				return res.json({
+					error: true,
+					message: "No Note by that ID",
+				});
+			}
+			let note = data[0];
+			let tags = data[1].map(tagObj => tagObj.tag);
+			let noteTag = { ...note, tags };
 
-// 			res.json({ error: false, message: noteTag });
-// 		})
-// 		.catch(err => {
-// 			console.log(err);
-// 			res.status(500).json({ error: true, message: "Server Error" });
-// 		});
-// });
+			res.json({ error: false, message: noteTag });
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(500).json({ error: true, message: "Server Error" });
+		});
+});
 
 router.post("/", function(req, res) {
 	helpers
@@ -85,7 +86,7 @@ router.put("/:id", function(req, res) {
 			console.log(response);
 			return res.json({
 				error: false,
-				message: "sup",
+				message: req.body,
 			});
 		})
 		.catch(err => {
