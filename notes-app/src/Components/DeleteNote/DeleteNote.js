@@ -5,6 +5,7 @@ import axios from 'axios';
 // import { connect } from 'react-redux';
 
 
+
 class DeleteNote extends Component {
     // state = {
     //     matched: [],
@@ -82,7 +83,7 @@ class DeleteNote extends Component {
             .delete(`http://localhost:5000/notes/${this.props.state.matched.id}`)
             .then(res => {
                 console.log(res.data)
-                this.props.history.push('/')
+                // this.props.history.push('/')
                 // window.location.reload();
             })
             .catch(err => {
