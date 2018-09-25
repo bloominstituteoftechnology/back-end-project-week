@@ -1,6 +1,7 @@
 const express = require('express'); 
 const helmet = require('helmet'); 
 const knex = require('knex');
+const cors = require('cors');
 
 const dbConfig = require('./knexfile'); 
 
@@ -10,6 +11,7 @@ const server = express();
 
 server.use(express.json()); 
 server.use(helmet()); 
+server.use(cors()); 
 
 server.get("/", (req, res)=> {
     res.send("API Running..."); 
