@@ -225,7 +225,7 @@ class App extends Component {
             <Route
               path="/register"
               render={props => (
-                <Register logchange={this.changeloggedin} {...props} />
+                <Register {...props} />
               )}
             />
             <Route

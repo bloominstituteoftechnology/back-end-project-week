@@ -8,7 +8,8 @@ class Register extends Component {
     this.state = {
       username: "",
       password: "",
-      password2: ""
+      password2: "",
+      message:null
     };
   }
   handleInputChange = e => {
@@ -16,17 +17,25 @@ class Register extends Component {
   };
   login = async () => {
     if (this.state.password !== this.state.password2) {
+      this.setState({
+        message:"Passwords don't match"
+      })
       return;
     }
     try {
-      let response = await axios.post("http://localhost:3000/login", {
+      let response = await axios.post("http://localhost:3000/register", {
         username: this.state.username,
         password: this.state.password
       });
       localStorage.setItem("JWT", response.data.token);
       this.props.history.push("/login");
     } catch (err) {
-      console.log(err);
+      if(err.response.data.errno ===19){
+        this.setState({
+          message:"Username taken"
+        })
+      }
+      console.log(err.response);
     }
   };
   render() {
@@ -63,6 +72,9 @@ class Register extends Component {
         </div>
         <div>
           <input onClick={this.login} type="submit" value="Register" />
+        </div>
+        <div>
+          {this.state.message ? this.state.message :""}
         </div>
       </div>
     );

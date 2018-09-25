@@ -7,7 +7,8 @@ class Login extends Component {
     super(props);
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      message:null
     };
   }
   handleInputChange = e => {
@@ -22,7 +23,12 @@ class Login extends Component {
       localStorage.setItem("JWT", response.data.token);
       this.props.logchange();
     } catch (err) {
-      console.log(err);
+      if(err.response.status ===400){
+        this.setState({
+          message:"Username or password wrong"
+        })
+      }
+      console.log(err.response);
     }
   };
   render() {
@@ -51,6 +57,9 @@ class Login extends Component {
         </div>
         <div>
           <input onClick={this.login} type="submit" value="Log In" />
+        </div>
+        <div>
+          {this.state.message ? this.state.message :""}
         </div>
       </div>
     );
