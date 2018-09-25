@@ -66,7 +66,7 @@ server.get('/', (req, res) => {
   
   server.put('/api/notes/:id',   (req, res) => {
     const { id } = req.params;
-    const { title, message } = req.body;
+    const { title, content } = req.body;
     db('notes')
       .where({ id })
       .update({ title, content })
