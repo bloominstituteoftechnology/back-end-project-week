@@ -37,6 +37,16 @@
   width: 90%;
 }
 
+.navbar .search {
+  margin-top: 30px;
+}
+
+.navbar .search .search-input{
+  display: flex;
+  justify-content: center;
+}
+
+
 /*------ NOTES BODY ------*/
 
 .notesbody {
@@ -250,3 +260,5 @@
   background-color: #bd001a;
   border: 2px solid #bd001a;
 }
+
+

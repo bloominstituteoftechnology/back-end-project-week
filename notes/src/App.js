@@ -6,8 +6,9 @@ import AddNote from "./components/AddNote";
 import NotesView from "./components/NotesView";
 import Note from "./components/Note";
 import Edit from "./components/Edit";
-import "./App.css";
 import Search from "./components/Search";
+import Register from "./components/Register";
+import "./App.css";
 
 export default class App extends Component {
   constructor() {
@@ -17,7 +18,9 @@ export default class App extends Component {
       id: null,
       title: "",
       note: "",
-      search:"",
+      search: "",
+      username: "",
+      password: "", 
     };
   }
 
@@ -142,6 +145,14 @@ export default class App extends Component {
     window.location.reload(true)
   }
 
+  inputHandlerRegister = e => {
+    this.setState({[e.target.name]: e.target.value});
+  }
+
+  onRegisterHandler = e => {
+    e.preventDefault(); 
+  }
+
   render() {
     console.log("app state", this.state.notes);
     return (
@@ -160,6 +171,12 @@ export default class App extends Component {
             className="navlink" 
             to="/add-note">
             + Create New Note
+          </NavLink>
+
+          <NavLink 
+            className="navlink" 
+            to="/register">
+            Register
           </NavLink>
            
           <Search
@@ -212,6 +229,18 @@ export default class App extends Component {
               />
             )}
           />
+
+          <Route
+            path="/register"
+            render={props => (
+            <Register
+                {...props}
+                inputHandlerRegister={this.inputHandlerRegister}
+                onRegisterHandler={this.onRegisterHandler}
+              />
+            )}
+          />
+
         </div>
       </div>
     );
