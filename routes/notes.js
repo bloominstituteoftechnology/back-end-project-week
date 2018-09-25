@@ -2,6 +2,12 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db/dbHelper/index");
 
+/**
+ * @api {get} /api/notes Request notes information
+ *
+ * @apiSuccess {Boolean} Status if the api has completed or not.
+ * @apiSuccess {Array} Notes  Array of all the notes in it.
+ */
 router.get("/", async (req, res, next) => {
   try {
     res.status(200).json({
@@ -14,6 +20,14 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+/**
+ * @api {get} /api/notes/:id Request notes information
+ *
+ * @apiParam {Number} id Notes unique ID.
+ * 
+ * @apiSuccess {Boolean} Status if the api has completed or not.
+ * @apiSuccess {Array} Notes  notes.
+ */
 router.get("/:id", async (req, res, next) => {
   try {
     res.status(200).json({
@@ -24,6 +38,12 @@ router.get("/:id", async (req, res, next) => {
     next(err);
   }
 });
+/**
+ * @api {post} /api/notes Adds new notes into DB
+ *
+ * @apiSuccess {Boolean} Status if the api has completed or not.
+ * @apiSuccess {Array} UpdatedNotes  Array of all the notes in it.
+ */
 
 router.post("/", async (req, res, next) => {
   try {
@@ -39,6 +59,14 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+/**
+ * @api {put} /api/notes Updated notes information
+ *
+ * @apiParam {Number} id Notes unique ID.
+ * 
+ * @apiSuccess {Boolean} Status if the api has completed or not.
+ * @apiSuccess {Array} UpdatedNotes  Array of all the notes in it.
+ */
 router.put("/:id", async (req, res, next) => {
   try {
     await db.putNote({ id: req.params.id, ...req.body });
@@ -51,6 +79,14 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
+/**
+ * @api {delete} /api/notes Deletes notes information
+ *
+ * @apiParam {Number} id Notes unique ID.
+ * 
+ * @apiSuccess {Boolean} Status if the api has completed or not.
+ * @apiSuccess {Array} UpdatedNotes  Array of all the notes in it.
+ */
 router.delete("/:id", async (req, res, next) => {
   try {
     await db.delNote(req.params.id);
