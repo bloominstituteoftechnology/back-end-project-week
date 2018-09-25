@@ -1,3 +1,6 @@
+FRONT-END REPOSITORY: https://github.com/kgorbell/back-end-project-week-FE.git
+
+
 # Back End Project Week
 
 This week you will build a backend for a note taking app called "Lambda Notes".
