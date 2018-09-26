@@ -57,6 +57,7 @@ class App extends Component {
 
   }
   componentDidMount(){
+    //get notes
     this.setState({loading: true});
     axios.get("https://killer-notes.herokuapp.com/note/get/all")
     .then(res => {
@@ -77,7 +78,7 @@ class App extends Component {
       })
     })
   }
-  
+
 
   handleChange = (e) => {
     this.setState({
@@ -85,23 +86,22 @@ class App extends Component {
     })
   }
 
-  handleEdit = (e, id, push) => {
-    e.preventDefault();
-
-    const notes = this.state.notes.map(eachNote => {
-      if (eachNote._id === id) {
-        if (this.state.title.length) eachNote.title = this.state.title;
-        if (this.state.textBody.length) eachNote.textBody = this.state.textBody;
-      }
-      return eachNote;
-    });
-
-    this.setState({
-      notes,
-      title: '',
-      textBody: '',
+  handleEdit = (id, edit) => {
+    this.setState({loading: true});
+    axios.put(`https://killer-notes.herokuapp.com/note/edit/${id}`, edit)
+    .then(res => {
+      this.setState(prevState => ({
+        notes: prevState.notes.map(note => {
+          if (note.id === res.data._id){
+            return res.data
+          }
+          else{
+            return note
+          }
+        }),
+        loading: false,
+      }))
     })
-    push(`/notes/${id}`)
   }
 
   handleDelete = (e, id, push) => {
