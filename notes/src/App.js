@@ -15,6 +15,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      title: '',
+      textBody: '',
       notes: [
         // {
         //   _id: 1,
@@ -58,24 +60,29 @@ class App extends Component {
   }
   componentDidMount(){
     //get notes
+    // this.setState({loading: true});
+    // axios.get("http://localhost:8000/api/notes")
+    // .then(res => {
+    //   this.setState({notes: res.data, loading:false})
+    //   console.log(this.state.notes)
+    // })
+    this.getNotes();
+  }
+
+  getNotes = () => {
     this.setState({loading: true});
-    axios.get("https://killer-notes.herokuapp.com/note/get/all")
+    axios.get("http://localhost:8000/api/notes")
     .then(res => {
       this.setState({notes: res.data, loading:false})
+      console.log(this.state.notes)
     })
   }
 
-  addNote = note => {
+  addNote = () => {
     this.setState({loading: true})
-    axios.post("https://killer-notes.herokuapp.com/note/create", note)
+    axios.post("http://localhost:8000/api/notes/", {title:this.state.title, body:this.state.textBody})
     .then(res => {
-      axios.get(`https://killer-notes.herokuapp.com/note/get/all/${res.data.success}`)
-      .then(res => {
-        this.setState(prevState => ({
-          notes: [...prevState.notes, res.data],
-          loading:false,
-        }))
-      })
+      this.getNotes();
     })
   }
 
@@ -86,28 +93,44 @@ class App extends Component {
     })
   }
 
-  handleEdit = (id, edit) => {
+  handleEdit = (e, id, redirect) => {
+    e.preventDefault();
     this.setState({loading: true});
-    axios.put(`https://killer-notes.herokuapp.com/note/edit/${id}`, edit)
+    console.log(this.state.title)
+    console.log(this.state.textBody)
+    axios.put(`http://localhost:8000/api/notes/${id}`, {title:this.state.title, body:this.state.textBody})
     .then(res => {
-      this.setState(prevState => ({
-        notes: prevState.notes.map(note => {
-          if (note.id === res.data._id){
-            return res.data
-          }
-          else{
-            return note
-          }
-        }),
-        loading: false,
-      }))
+      // this.setState(prevState => ({
+      //   notes: prevState.notes.map(note => {
+      //     if (note.id === res.data.id){
+      //       return res.data
+      //     }
+      //     else{
+      //       return note
+      //     }
+      //   }),
+      //   loading: false,
+      // }))
+      this.getNotes();
+    })
+    .catch(err => {
+      console.log(err)
     })
   }
 
-  handleDelete = (e, id, push) => {
+  handleDelete = ( id, push)  => {
     // delete stuff
-    this.setState({ notes: this.state.notes.filter(note => note._id !== id) })
-    push('/notes')
+    axios.delete(`http://localhost:8000/api/notes/${id}`)
+    .then(res => {
+      this.getNotes()
+      //seems id is not being passed in
+      console.log(id)
+      push('/notes')
+    })
+    .catch(err => {
+      console.log(err)
+
+    })
   }
 
 
@@ -129,13 +152,13 @@ class App extends Component {
           <NewNote {...props} handleChange={this.handleChange} addNote={this.addNote} title={this.state.title} textBody={this.state.textBody} />} />
 
         <Route exact path='/edit/:id' render={(props) =>
-          <Edit {...props} handleChange={this.handleChange} handleEdit={this.handleEdit} title={this.state.title} textBody={this.state.textBody} notes={this.state.notes} />} />
+          <Edit {...props} handleChange={this.handleChange} handleEdit={this.handleEdit} title={this.state.title} textBody={this.state.body} notes={this.state.notes} />} />
 
         <Route exact path='/notes' render={() =>
           <div><Notes notes={this.state.notes} /></div>} />
 
         <Route path="/notes/:id" render={(props) =>
-          <SingleNote {...props} notes={this.state.notes} handleDelete={this.handleDelete} />} />
+          <SingleNote {...props} handleDelete={this.handleDelete} />} />
       </div>
     );
   }

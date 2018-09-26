@@ -5,14 +5,15 @@ import {Redirect} from 'react-router'
 
 const Edit = (props) => {
   const note = props.notes.find((each) => {
-    return each._id == props.match.params.id
+    return each.id == props.match.params.id
   })
+  const id  = props.match.params.id
   // const { from} = props.location.state || '/notes';
   // const { fireRedirect } =
-  console.log(props.location)
+  console.log('props', props)
   return(
     <Container>
-    <Form onSubmit={(event) => props.handleEdit(event, note._id, props.history.push)}>
+    <Form onSubmit={(e) => props.handleEdit(e, id, props.history.push)}>
       <FormGroup>
         <Label for="exampleEmail">Edit Note</Label>
         <Input onChange={props.handleChange} type="text" name="title" id="exampleEmail" placeholder="Note title" value={props.title} />
@@ -21,7 +22,7 @@ const Edit = (props) => {
         <Input onChange={props.handleChange} type="textarea" name="textBody" id="exampleText" placeholder="Note Content" value={props.textBody} />
      </FormGroup>
 
-     <Button onSubmit={(event) => props.handleEdit(event, note._id)} className="li"> Save</Button>
+     <Button onSubmit={(e) => props.handleEdit(e, id, props.history.push)} className="li"> Save</Button>
 
    </Form>
    </Container>

@@ -10,7 +10,7 @@ const Notes = (props) => {
         {
           props.notes.map(note => (
             <div className = "col note" key={note._id}>
-            <NavLink to={`/notes/${note._id}`} >
+            <NavLink to={`/notes/${note.id}`} >
               <Note  note={note} />
             </NavLink>
             </div>
