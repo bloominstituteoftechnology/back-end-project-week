@@ -2,7 +2,8 @@ const jwt=require('jsonwebtoken');
 const secret='I see dead people.';
 
 function authenticate(req,res,next) {
-    const token=req.get('Authorization');
+    const token=req.headers.authorization;
+    console.log(token)
     if(token){
         jwt.verify(token,secret,(err,decoded)=>{
             if (err) {

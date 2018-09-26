@@ -55,6 +55,6 @@ function login(req,res){
 function getNotes(req,res){
     axios
         .get('http://localhost:9000/note/get/all')
-        .then(response=>{res.status(200).json(response)})
+        .then(response=>{res.status(200).json(response.data)})
         .catch(err=>res.status(500).json({message:'Error fetching notes.',error:err}));
 }
