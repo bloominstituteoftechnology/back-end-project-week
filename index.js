@@ -44,7 +44,11 @@ server.get('/api/notes/:id', (req, res) => {
     .catch(err => res.send(err));
 });
 
-
+server.put('/api/notes', (req, res) => {
+    db.update(req.params.id, req.body)
+        .then(notes => res.status(200).json(notes))
+        .catch(err => res.status(500).json(err));
+});
 
 
 
