@@ -18,6 +18,7 @@ server.use(cors());
 server.use(helmet());
 
 
+// Middleware
 function generateToken(user) {
   const payload = {
     username: user.username,
@@ -50,18 +51,17 @@ function protected(req, res, next) {
 
 
 
+// Routes
 server.get('/', (req, res) => {
   res.send('API Running...');
 });
 
 
 server.post('/register', (req, res) => {
-
   !req.body.username || !req.body.password ?
   res.status(400).json({message: 'You need a username AND password'})
   :
   null
-
   const creds = req.body;
   const hash = bcrypt.hashSync(creds.password, 11);
   creds.password = hash;
@@ -69,7 +69,6 @@ server.post('/register', (req, res) => {
     .insert(creds)
     .then(ids => {
       const id = ids[0];
-      
       db('users')
       .where({ userId: id })
       .first()
@@ -85,7 +84,6 @@ server.post('/register', (req, res) => {
 
 server.post('/login', (req, res) => {
   const creds = req.body;
-
   db('users')
     .where({ username: creds.username })
     .first()
@@ -101,39 +99,28 @@ server.post('/login', (req, res) => {
 });
 
 
-
-/* WHERE I AM ATTEMPTING DOUBLE JOIN */
 server.get('/protected/notes', protected, (req, res) => {
   const { username } = req.user;
-
   db('users')
     .select('noteId as id', 'note_title as title', 'note_content as description')
     .join('notes', 'users.userId', 'notes.userId')
-    //.join('tags', 'notes.noteId', 'tags.noteId')
     .where({username})
     .then(users => {
-      console.log(users)
       res.status(200).json(users)
     })
     .catch(err => res.send(err));
 });
 
 
-
 server.post('/protected/notes', protected, (req, res) => {
-  console.log(req.user, req.body)
-
   const { id } = req.user;
-
   const content = {
     note_title: req.body.title,
     note_content: req.body.content,
     userId: id
   }
-
   db.insert(content).into('notes')
     .then(users => {
-      console.log(users)
       res.status(200).json(users)
     })
     .catch(err => res.send(err));
@@ -141,14 +128,11 @@ server.post('/protected/notes', protected, (req, res) => {
 
 
 server.put('/protected/notes/:id', protected, (req, res) => {
-
   const id = parseInt(req.params.id, 10);
-
   const content = {
     note_title: req.body.title,
     note_content: req.body.content,
   }
-
   db('notes').where({noteId: id}).update(content)
     .then(count => {
       res.status(200).json(count)
@@ -158,9 +142,7 @@ server.put('/protected/notes/:id', protected, (req, res) => {
 
 
 server.delete('/protected/notes/:id', protected, (req, res) => {
-
   const id = parseInt(req.params.id, 10);
-
   db('notes').where({noteId: id}).del()
     .then(count => {
       res.status(200).json(count)
@@ -168,6 +150,43 @@ server.delete('/protected/notes/:id', protected, (req, res) => {
     .catch(err => res.send(err));
 });
 
+
+
+/*
+WHERE I AM ATTEMPTING DOUBLE JOIN
+
+server.get('/protected/notes', protected, (req, res) => {
+  const { username } = req.user;
+    db('users')
+    .select('noteId as id', 'note_title as title', 'note_content as description')
+    .join('notes', 'users.userId', 'notes.userId')
+    .join('tags', 'notes.noteId', 'tags.noteId')
+    .where({username})
+    .then(users => {
+      res.status(200).json(users)
+    })
+    .catch(err => res.send(err));
+});
+
+SELECT c.id, c.firstname, c.lastname, GROUP_CONCAT(p.number) AS numbers
+FROM contacts c
+LEFT JOIN phone_numbers p
+  ON c.id = p.contact_id
+GROUP BY c.id, c.firstname, c.lastname;
+
+knex('service_centers')
+  .leftJoin('service_jobs','service_jobs.service_center_id','=','service_centers.id')
+  .leftJoin('jobs', 'jobs.id','=', 'service_jobs.job_id')
+  .where('service_centers.id', '=', id)
+  .select('service_centers.id'
+    , 'service_centers.name'
+    , 'sbd.type as brandtype'
+    , 'jobs.name as jobname'
+    , knex.raw('GROUP_CONCAT(??.?? AS ??)', ['jobs', 'job_availability', 'availjob']
+  )
+)
+
+*/ 
 
 
 server.listen(port, () => console.log(`~~ Listening on Port ${port} ~~`));
