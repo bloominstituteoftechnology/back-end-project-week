@@ -20,7 +20,7 @@ router.post("/register", async (req, res) => {
         .insert({ username, password, email })
         .returning("*");
       const token = jwt.generateToken({ id: newUser.id, username: newUser.username });
-      res.status(201).json({ id: user.id, username: user.username, token });
+      res.status(201).json({ id: newUser.id, username: newUser.username, token });
     } catch (e) {
       res.status(500).json(e);
     }
