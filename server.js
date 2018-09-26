@@ -1,22 +1,18 @@
 const express = require("express");
 const cors = require("cors");
-const knex = require("knex");
-
-const dbConfig = require("./knexfile");
-
-const db = knex(dbConfig.development);
+const knex = require("./db/config.js");
 
 const server = express();
-
+const port = process.env.PORT || 9000;
 server.use(express.json());
 server.use(cors());
 
 server.get("/", (req, res) => {
-  res.send("API Running...");
+  res.send(`API running on port: ${port}`);
 });
 
 server.get("/api/notes", (req, res) => {
-  db("notes")
+  knex("notes")
     .then(notes => {
       res.status(200).json(notes);
     })
@@ -27,7 +23,7 @@ server.get("/api/notes", (req, res) => {
 
 server.get("/api/notes/:id", (req, res) => {
   const { id } = req.params;
-  db("notes")
+  knex("notes")
     .where("id", id)
     .then(note => {
       res.status(200).json(note);
@@ -39,7 +35,8 @@ server.get("/api/notes/:id", (req, res) => {
 
 server.post("/api/notes", (req, res) => {
   const note = req.body;
-  db.insert(note)
+  knex
+    .insert(note)
     .into("notes")
     .then(response => {
       res.status(201).json({ message: "New note successfully created" });
@@ -52,7 +49,7 @@ server.post("/api/notes", (req, res) => {
 server.put("/api/notes/:id", (req, res) => {
   const { id } = req.params;
   const data = req.body;
-  db("notes")
+  knex("notes")
     .where({ id })
     .update(data)
     .then(count => {
@@ -68,7 +65,7 @@ server.put("/api/notes/:id", (req, res) => {
 
 server.delete("/api/notes/:id", (req, res) => {
   const { id } = req.params;
-  db("notes")
+  knex("notes")
     .where({ id })
     .del()
     .then(count => {
@@ -82,4 +79,4 @@ server.delete("/api/notes/:id", (req, res) => {
     });
 });
 
-server.listen(8000);
+module.exports = server;
