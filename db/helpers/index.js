@@ -56,4 +56,8 @@ module.exports = {
         return this.addTags(tags, id);
       });
   },
+
+  getUser(id) {
+    return db('users').where('id', id);
+  },
 };
