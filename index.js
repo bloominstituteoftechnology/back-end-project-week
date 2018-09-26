@@ -2,7 +2,8 @@ const express = require("express");
 const db = require("./db/helpers");
 const server = express();
 const cors = require("cors");
-
+require('dotenv').config()
+// const server = require('./api/server.js')
 server.use(express.json());
 server.use(cors());
 
@@ -74,7 +75,7 @@ server.delete("/notes/:id", (req, res) => {
 //     next()
 //   });
 
-port = 9000;
+port = process.env.PORT || 9000;
 server.listen(
   port,
   console.log(`\n ===> Server is running on port: ${port} <=== \n`)
