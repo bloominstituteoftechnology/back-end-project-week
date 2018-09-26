@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
+import NavBar from '../NavBar/NavBar.js';
 
 class NewNoteForm extends Component {
   constructor(props) {
@@ -20,12 +21,15 @@ class NewNoteForm extends Component {
 
   render() {
     return (
+      <div>
+      <NavBar/>
       <form className="App">
         <input type="text" placeholder="Title" name="title"/>
         <input type="text" placeholder="Content" name="content"/>
         <button>Create</button>
         <button>Discard</button> 
       </form>
+      </div>
     );
   }
 }

@@ -10,10 +10,20 @@ import styled from 'styled-components';
 const MenuStyle = styled.div`
   width: 100vw;
   height: 100vh;
+  margin: auto 0;
   display: flex;
   flex-flow: column;
   background-color: #342D33;
   color: #E3FFD5;
+`;
+
+const SubMenuStyle = styled.div`
+  width: 20vw;
+  top:10vh;
+  height: auto;
+  margin: 10% auto;
+  display: flex;
+  flex-flow: column;
 `;
 class Menu extends Component {
   constructor(props) {
@@ -42,7 +52,7 @@ class Menu extends Component {
         - LOGO,
         - OPENS MODALS: copyright / "about" link
         */}
-        <div>
+        <SubMenuStyle>
           <div>LOGO HERE</div>
           <Link to="/newnote">Add New Note</Link>
           <Link to="/notelist">View Notes</Link>
@@ -50,7 +60,7 @@ class Menu extends Component {
           <Route path="/newnote" render={(props) => { <NewNoteForm {...props} /> }} />
           <Route path="/notelist" render={(props) => { <NoteList {...props} /> }} />
           <Route path="/login"  render={(props) => { <Login {...props} /> }} />
-        </div>
+        </SubMenuStyle>
       </MenuStyle>
     );
   }

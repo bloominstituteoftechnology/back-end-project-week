@@ -27,7 +27,7 @@ class NavBar extends Component {
       {/* 
         --- MAIN MENU route ???
        */}
-        <div onClick={}>
+        <div >
           <div>LOGO HERE</div>
           <Link to="/newnote">Add New Note</Link>
           <Link to="/notelist">View Notes</Link>
