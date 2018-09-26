@@ -1,6 +1,8 @@
 .list-container {
-    width: 100%;
+    height: 100vh;
     background: #E7E6E7;
+    margin-left: 226px;
+    overflow-y: auto;
 }
 
 .list-container .notes-title {
@@ -8,6 +10,7 @@
     height: 10%;
     display: flex;
     align-items: flex-end;
+    margin: 0;
 }
 
 .list-container .notes-top-container {
@@ -15,13 +18,13 @@
 }
 
 .list-container .notes-top-container .notes-container {
+    padding: 0;
     height: 90%;
     width: 100%;
     background: #E7E6E7;
-    border: none;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    margin: 0;
 }
 
 
@@ -33,6 +36,7 @@
     margin-bottom: 20px;
     background: white;
     overflow: hidden;
+    margin: 0 5px 10px 5px;
 }
 
 .note-card h3 {

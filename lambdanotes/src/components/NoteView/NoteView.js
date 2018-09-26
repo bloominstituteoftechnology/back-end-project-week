@@ -9,6 +9,9 @@ import styled from  'styled-components';
 
 const NoteViewContainer = styled.div`
     background: #E7E6E7;
+    height: 100vh;
+    margin-left: 226px;
+    overflow-y: auto;
 `;
 
 const LinksContainer = styled.div`
