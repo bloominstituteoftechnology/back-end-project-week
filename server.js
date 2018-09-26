@@ -11,6 +11,7 @@ const server = express();
 
 server.use(helmet());
 server.use(express.json());
+server.use(cors());
 
 server.get("/", (req, res) => {
   res.send("connected");
@@ -38,17 +39,19 @@ server.get("/api/notes", (req, res) => {
 });
 
 server.get("/api/notes/:id", (req, res) => {
-  const { id } = req.params;
-  db("notes")
-    .where({ id: id })
+  const { id } = req.params; 
+  db('notes')
+    .where({ id })
     .then(note => {
-      if (note.length === 0) {
-        res.status(404).json({ message: "no note with that ID" });
+      if(note){
+        res.status(200).json(note)
       } else {
-        res.status(200).json(note);
+        res.status(404).json({errorMessage: "no note with that ID"})
       }
     })
-    .catch(err => res.status(500).json(err));
+    .catch(err => {
+      res.status(500).json({ message: "failed"})
+    });
 });
 
 server.put("/api/notes/:id", (req, res) => {
@@ -78,7 +81,7 @@ server.delete("/api/notes/:id", (req, res) => {
     .del()
     .then(count => {
       if (count) {
-        res.status(204).end();
+        res.status(204).json({ message: "deleted!" });
       } else {
         res.status(404).json({ message: "no note with that ID" });
       }
