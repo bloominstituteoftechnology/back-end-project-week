@@ -1,15 +1,20 @@
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
+const morgan = require('morgan');
 
 const db = require('./db/dbconfig');
 
 const server = express();
 
+
+
 server.use(helmet());
 server.use(express.json());
-server.use(cors());
+// server.use(cors());
+server.use(cors({origin: "http://localhost:3000"}))
 
+server.use(morgan('combined'))
 
 server.get('/', (req, res) => {
     res.json({ message: "API is working" });
@@ -77,4 +82,4 @@ server.get('/', (req, res) => {
   });
   
 
-server.listen(3300);
+server.listen(9000);
