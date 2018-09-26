@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
@@ -28,6 +30,8 @@ function errorHandler(err, req, res, next) {
 
 app.use(errorHandler);
 
-app.listen(8000, () => {
-  console.log("Running on Port 8000");
+const port = process.env.PORT || 8000;
+
+app.listen(port, () => {
+  console.log(`Running on Port ${port}`);
 });
