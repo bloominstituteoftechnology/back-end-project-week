@@ -29,9 +29,20 @@ server.get('/api/notes', (req, res) => {
 });
 
 
+server.delete('/api/notes/:id', (req, res) => {
+    const id = req.params.id;
+    db('notes').where({id}).del()
+        .then(count => res.status(204).end())
+        .catch(err => res.status(500).json(err));
+});
 
-
-
+server.get('/api/notes/:id', (req, res) => {
+    const id = req.params.id;
+    db('notes').where({id}).select('id', 'title', 'textBody').then(id => {
+        res.json(id);
+    })
+    .catch(err => res.send(err));
+});
 
 
 
