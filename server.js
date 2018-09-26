@@ -46,6 +46,9 @@ server.get('/api/notes/:id', (req, res) => {
   .select()
   .where('id', id)
   .then( notes => {
+    if(notes.length === 0){
+      return res.status(404).json({error: "please input a valid note id"})
+    }
     res.status(200).json(notes);
   })
   .catch(err =>{
@@ -77,6 +80,9 @@ server.delete('/api/notes/:id', (req, res) => {
    .where({ id })
    .del()
    .then( notes => {
+     if(notes == 0){
+       return res.status(404).json({error: "please input a valid note id"})
+     }
      res.status(200).json(notes);
    })
    .catch(err => {
@@ -94,6 +100,9 @@ server.put('/api/notes/:id', (req, res) => {
   .where( { id })
   .update(name)
   .then( notes => {
+    if(!notes){
+      return res.status(404).json({error: "please input a valid note id"})
+    }
     res.status(200).json(notes)
   })
   .catch(err => {
