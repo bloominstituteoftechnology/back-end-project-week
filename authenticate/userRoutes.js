@@ -1,6 +1,6 @@
-const bcrypt=require('bcryptjs');
+const bCrypt=require('bcryptjs');
 const axios=require('axios');
-const db=require('../dbConfig/db.js');
+const db=require('../dbConfig/db');
 const {authenticate,secret,jwt}=require('./middleware.js');
 
 module.exports=server=>{
@@ -29,21 +29,21 @@ function register(req,res) {
             const userId=id[0];
             db('users')
                 .where({id:userId})
-                .then(res=>{
-                    const token=generateToken(res[0]);
+                .then(response=>{
+                    const token=generateToken(response[0]);
                     res.status(201).json(token);
                 })
                 .catch(err=>res.status(500).json(err))
         })
-        .catch(res.status(500).json(err))
+        .catch(err=>res.status(500).json(err))
 }
 function login(req,res){
     const loggedIn=req.body;
     db('users')
-        .where({username:user.username})
+        .where({username:loggedIn.username})
         .then(user=>{
             const currentUser=user[0];
-            if(loggedIn && bcrypt.compareSync(loggedIn.password,currentUser.password)) {
+            if (loggedIn && bCrypt.compareSync(loggedIn.password,currentUser.password)) {
                 const token=generateToken(currentUser);
                 res.status(200).json(token);
             } else {
