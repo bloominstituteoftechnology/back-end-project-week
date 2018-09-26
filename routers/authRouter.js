@@ -12,6 +12,7 @@ router.post("/register", async function(req, res) {
   }
   try {
     req.body.password = bcrypt.hashSync(req.body.password, 14);
+    console.log(req.body);
     await auth.addUser(req.body.username, req.body.password);
     res.status(200).json({ message: "success" });
   } catch (err) {
