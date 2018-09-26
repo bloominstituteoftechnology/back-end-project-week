@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const helmet = require('helmet');
 const knex = require('knex');
@@ -87,7 +88,7 @@ server.delete('/api/notes/:id', (req, res) => {
         .catch(err => res.status(500).json(err));
 });
 
-const port = 8000;
-server.listen(port, function() {
-    console.log(`\n=== Web API Listening on http://localhost:${port} ===\n`);
+// const port = process.event.PORT;
+server.listen(process.env.PORT, function() {
+    console.log(`\n=== Web API Listening on http://localhost:${process.env.PORT} ===\n`);
 });
