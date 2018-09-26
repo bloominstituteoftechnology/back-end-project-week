@@ -1,7 +1,6 @@
 const {jwtKey} = require('../_secrets/keys.js')
 const jwt = require('jsonwebtoken')
 
-
 module.exports = {
     protect
 }
@@ -13,6 +12,9 @@ function protect(req, res, next){
             if (err){
                 res.status(400).json({message: 'auth err', error: err})
             } else {
+                req.user = {
+                    username: decodedToken.username
+                }
                 next();
             }
         })

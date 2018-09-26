@@ -11,6 +11,8 @@ notes.get('/', (req, res) => {
 })
 
 notes.get('/all/', (req, res) => {
+    //only return notes that have the username in req.user.username
+    //also return username
     dbFunc.getNotes().then(notes => {
         res.status(200).json(notes)
     }).catch(err => res.status(500).json({message: 'There was an error with the server.', err: err
@@ -18,6 +20,7 @@ notes.get('/all/', (req, res) => {
 })
 
 notes.get('/:id', (req, res) => {
+    //only return notes that have the username in req.user.username
     dbFunc.getNotes(req.params.id).then(note => {
         res.status(200).json(note)
     }).catch(err => res.status(500).json({message: 'There was an error with the server.', err: err
@@ -26,7 +29,7 @@ notes.get('/:id', (req, res) => {
 
 notes.post('/', (req, res) => {
     const { textBody, title, id } = req.body
-
+    //include username in the submission
     if(!id){
         if(title){
             if(textBody){

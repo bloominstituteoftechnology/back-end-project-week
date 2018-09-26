@@ -4,8 +4,9 @@ exports.up = function(knex, Promise) {
         tbl.string('title')
            .notNullable();
         tbl.string('textBody');
-        tbl.specificType('tags', 'stringarray');
-        //will add array?
+        tbl.string('tags');
+        tbl.integer('userId').unsigned().notNullable().references('id').inTable('users')
+        tbl.bool('isPublic').notNullable().defaultsTo(false)
     })
 };
 
