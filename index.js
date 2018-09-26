@@ -73,7 +73,7 @@ server.get('/notes', (req, res) => {
         res.status(200).json(item)
     }).catch((fail) => {
         console.log(fail);
-        res.status(500).json({ error: "There was an error while receiving the notes" });
+        res.status(500).json({ error: "There was an error while receiving the notes." });
     })
 
 })
@@ -85,9 +85,9 @@ server.get(`/notes/:id`, (req,res) => {
         .then((id) => {
             console.log(id);
             if(id.length === 0){
-                return res.status(404).json({err:" The note with that ID is not found "});
+                return res.status(404).json({err:" The note with that ID is not found."});
             }
-            res.json(id);
+            res.status(201).json(id);
         })
         .catch((fail) => {
             console.log(fail);
@@ -149,7 +149,7 @@ server.post('/register', (req, res) => {
         })
         .catch(err => {
             console.log('/register POST error:', err);
-            res.status(500).send('Please try again later');
+            res.status(500).send('Please Try Again Later');
         });
 });
 
@@ -160,7 +160,7 @@ server.get('/users', restricted, (req, res) => {
         res.status(201).json(users);
     }).catch(err => {
         console.log("error:", err);
-        res.status(500).json(err);
+        res.status(500).json({ err: "There was an error while retrieving the users." });
     })
 
 });
@@ -178,11 +178,11 @@ server.post('/login', (req, res) => {
             const token = generateToken(user);
             res.status(200).json({ token });
         } else {
-            res.status(401).json({message: 'Incorrect combination'});
+            res.status(401).json({message: 'Incorrect Combination.'});
         }
     }).catch(err => {
         console.log('/api/login Post error:', err);
-        res.status(500).send(err, "Everything failed")});
+        res.status(500).send(err, "Please Try Again Later.")});
 });
 
 
