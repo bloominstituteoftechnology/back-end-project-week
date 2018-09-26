@@ -6,8 +6,7 @@ exports.seed = function(knex, Promise) {
         {
           username: "test",
           password:
-            "$2b$14$yhHi8.oVCeCtAevqL/7UjOyZZdA1L.DJF.TW3gYXznRDVafqrW9By",
-          ID: 0
+            "$2b$14$yhHi8.oVCeCtAevqL/7UjOyZZdA1L.DJF.TW3gYXznRDVafqrW9By"
         }
       ]);
     });
