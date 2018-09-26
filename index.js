@@ -39,6 +39,10 @@ protected = (req, res, next) => {
   }
 }
 
+server.get('/', (req, res) =>{
+  res.send('running')
+})
+
 server.post('/api/register', (req, res) =>{
   const creds = req.body;
   const hash = bcrypt.hashSync(creds.password, 10)
@@ -130,7 +134,7 @@ server.delete("/api/notes/:id", protected, async (req, res) => {
 });
 
 
-
-server.listen(5000, () => {
-  console.log('Server listening on 5000');
+const port = process.env.PORT
+server.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
 });
