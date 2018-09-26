@@ -1,4 +1,5 @@
 const db = require('knex')(require('../../knexfile').development);
+const bcrypt = require('bcryptjs');
 
 module.exports = {
   getAllNotes() {
@@ -59,5 +60,24 @@ module.exports = {
 
   getUser(id) {
     return db('users').where('id', id);
+  },
+
+  addUser(user) {
+    user.password = bcrypt.hashSync(
+      user.password,
+      process.env.SALT_ROUNDS || 12,
+    );
+    return db('users').insert(user);
+  },
+
+  async authenticateUser(email, password, done) {
+    let user = await db('users')
+      .where('email', email)
+      .first();
+    if (!user) return done('Username or password is invalid');
+    if (!bcrypt.compareSync(password, user.password)) {
+      return done('Username or password is invalid');
+    }
+    return done(null);
   },
 };
