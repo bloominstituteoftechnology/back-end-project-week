@@ -1,5 +1,5 @@
 const express = require("express");
-const db = require("../data/helpers/notes");
+const db = require("../data/dbConfig");
 const jwt = require("../jwtConfig");
 
 const router = express.Router();
@@ -7,7 +7,15 @@ const router = express.Router();
 //get all notes
 router.get("/", async (req, res) => {
   try {
-    const notes = await db.get();
+    const notes = await db("notes")
+      .join("users", "users.id", "notes.user_id")
+      .select(
+        "notes.id as id",
+        "notes.title as title",
+        "notes.content as content",
+        "notes.user_id as user_id",
+        "users.username as username"
+      );
     res.status(200).json(notes);
   } catch (e) {
     res.status(500).json(e);
@@ -19,10 +27,35 @@ router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const note = await db.get(id);
+    const note = await db("notes")
+      .where({ id })
+      .first();
     note
       ? res.status(200).json(note)
       : res.status(404).json({ message: "No note with that id" });
+  } catch (e) {
+    res.status(500).json(e);
+  }
+});
+
+//get all notes by username
+router.get("/user/:username", async (req, res) => {
+  let { username } = req.params;
+
+  try {
+    username = username.toLowerCase();
+    const user = await db("users")
+      .where({ username })
+      .first();
+    if (user) {
+      const notes = await db("notes").where({ user_id: user.id });
+      const notesWithUsername = notes.map(note => {
+        return { ...note, username };
+      });
+      res.status(200).json(notesWithUsername);
+    } else {
+      res.status(404).json({ message: "No such user" });
+    }
   } catch (e) {
     res.status(500).json(e);
   }
@@ -36,7 +69,9 @@ router.post("/", jwt.protected, async (req, res) => {
     res.status(422).json({ message: "Missing title or content for new note" });
   } else {
     try {
-      const newNote = await db.add(title, content, userID);
+      const newNote = await db("notes")
+        .insert({ title, content, user_id: userID })
+        .returning("*");
       res.status(201).json(newNote);
     } catch (e) {
       res.status(500).json(e);
@@ -50,7 +85,10 @@ router.put("/:id", jwt.protected, async (req, res) => {
   const { id } = req.params;
 
   try {
-    const note = await db.get(id);
+    const note = await db("notes")
+      .where({ id })
+      .first();
+    console.log(note);
 
     if (parseInt(note.user_id, 10) !== parseInt(req.user.id, 10)) {
       res
@@ -62,7 +100,10 @@ router.put("/:id", jwt.protected, async (req, res) => {
           .status(422)
           .json({ message: "Title or body is empty, both are required" });
       } else {
-        const updated = await db.update(id, { title, content });
+        const updated = await db("notes")
+          .where({ id })
+          .update({ title, content })
+          .returning("*");
         updated
           ? res.status(200).json({ message: `Note with id ${id} updated` })
           : res.status(404).json({ message: "No note with that id" });
@@ -76,20 +117,22 @@ router.put("/:id", jwt.protected, async (req, res) => {
 //delete a note by id
 router.delete("/:id", jwt.protected, async (req, res) => {
   const { id } = req.params;
-  try{
+  try {
     const note = await db.get(id);
 
-  if (parseInt(note.user_id, 10) !== parseInt(req.user.id, 10)) {
-    res
-      .status(401)
-      .json({ message: "You're not authorized to delete this note" });
-  } else {
-      const deleted = await db.remove(id);
+    if (parseInt(note.user_id, 10) !== parseInt(req.user.id, 10)) {
+      res
+        .status(401)
+        .json({ message: "You're not authorized to delete this note" });
+    } else {
+      const deleted = await db("notes")
+        .where({ id })
+        .del();
       deleted
         ? res.status(200).json({ message: `Note with id ${id} deleted` })
         : res.status(404).json({ message: "No note with that id" });
     }
-  }catch(e){
+  } catch (e) {
     res.status(500).json(e);
   }
 });

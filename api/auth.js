@@ -1,5 +1,5 @@
 const express = require('express');
-const db = require('../data/helpers/users');
+const db = require('../data/dbConfig');
 const bcrypt = require('bcryptjs');
 const jwt = require('../jwtConfig');
 
@@ -12,10 +12,10 @@ router.post('/register', async (req,res) => {
   if(!username || !password || !email){
     res.status(422).json({message: 'An email, username, and password is required' });
   }else{
+    username = username.toLowerCase();
     password = bcrypt.hashSync(password, 16);
     try{
-      let user = await db.add({username, password, email});
-      user = user[0];
+      let user = await db('users').insert({username, password, email}).returning('*');
       const token = jwt.generateToken({ id: user.id, username: user.username });
       res.status(201).json({ id: user.id, username: user.username, token });
     }catch(e) {
@@ -26,12 +26,13 @@ router.post('/register', async (req,res) => {
 
 //login a user
 router.post('/login', async (req, res) => {
-  const { username, password } = req.body;
+  let { username, password } = req.body;
   if(!username || !password){
     return res.status(422).json({ message: 'A username and password is required' });
   }else{
     try{
-      const user = await db.getByUsername(username);
+      username = username.toLowerCase();
+      const user = await db('users').where({ username }).first();
       if(user && bcrypt.compareSync(password, user.password)){
         const token = jwt.generateToken(user);
         res.status(200).json({
