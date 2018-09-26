@@ -25,6 +25,7 @@
     "helmet": "^3.13.0",
     "jsonwebtoken": "^8.3.0",
     "knex": "^0.15.2",
+    "pg": "^7.4.3",
     "sqlite3": "^4.0.2"
   },
   "devDependencies": {
