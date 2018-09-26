@@ -7,6 +7,7 @@
     "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.3.0",
     "knex": "^0.15.2",
@@ -16,7 +17,8 @@
     "nodemon": "^1.18.4"
   },
   "scripts": {
-    "start": "nodemon"
+    "start": "node index.js",
+    "dev":"nodemon index.js"
   },
   "repository": {
     "type": "git",
