@@ -1,10 +1,15 @@
 const knex = require('knex');
 
-const dbConfig = require('../knexfile');
+const dbEngine = process.env.DB || 'development';
+
+const dbConfig = require('../knexfile.js')[dbEngine];
+
+
+// const dbConfig = require('../knexfile');
 
 
 
-const db = knex(dbConfig.development);
+const db = knex(dbConfig);
 
 module.exports = {
     getNotes,
