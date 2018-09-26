@@ -8,6 +8,7 @@
   "dependencies": {
     "bcrypt": "^3.0.1",
     "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "helmet": "^3.13.0",
     "jsonwebtoken": "^8.3.0",
@@ -21,6 +22,7 @@
     "nodemon": "^1.18.4"
   },
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   }
 }

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+require('dotenv').config()
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +18,7 @@ class Login extends Component {
   };
   login = async () => {
     try {
-      let response = await axios.post("http://localhost:3000/auth/login", {
+      let response = await axios.post(`${process.env.PORT ||"http://localhost:9001/"}auth/login`, {
         username: this.state.username,
         password: this.state.password
       });

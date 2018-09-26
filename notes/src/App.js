@@ -42,7 +42,7 @@ class App extends Component {
   addNote = noteObj => {
     noteObj = this.formatForDB(noteObj);
     axios
-      .post("http://localhost:3000/notes", noteObj, {
+      .post(`${process.env.PORT ||"http://localhost:9001/"}notes`, noteObj, {
         headers: { Authorization: `bearer ${this.state.JWT}` }
       })
       .then(response => {
@@ -61,7 +61,7 @@ class App extends Component {
   editNote = noteObj => {
     noteObj = this.formatForDB(noteObj);
     axios
-      .post(`http://localhost:3000/notes/${noteObj.id}`, noteObj, {
+      .post(`${process.env.PORT ||"http://localhost:9001/"}notes/${noteObj.id}`, noteObj, {
         headers: { Authorization: `bearer ${this.state.JWT}` }
       })
       .then(response => {
@@ -88,7 +88,7 @@ class App extends Component {
   };
   deleteNote = noteID => {
     axios
-      .delete(`http://localhost:3000/notes/${noteID}`, {
+      .delete(`${process.env.PORT ||"http://localhost:9001/"}notes/${noteID}`, {
         headers: { Authorization: `bearer ${this.state.JWT}` }
       })
       .then(() => {
@@ -138,7 +138,7 @@ class App extends Component {
 
   getNotesList = () => {
     axios
-      .get("http://localhost:3000/notes", {
+      .get(`${process.env.PORT ||"http://localhost:9001/"}notes`, {
         headers: { Authorization: `bearer ${this.state.JWT}` }
       })
       .then(response => {
