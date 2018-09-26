@@ -150,5 +150,5 @@ server.delete('/delete/:id', async (req, res) => {
     }
 });
 
-const port = 8000;
-server.listen(process.env.PORT, () => console.log(`===Server is running on port ${port}===`));
+const port = process.env.PORT || 8000
+server.listen(port, () => console.log(`===Server is running on port ${port}===`));
