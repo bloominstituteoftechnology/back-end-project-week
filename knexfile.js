@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const dbConnection = process.env.DATABASE_URL
+const dbConnection = process.env.DATABASE_URL;
 
 module.exports = {
 
@@ -34,18 +34,21 @@ module.exports = {
   },
 
   production: {
-    client: 'postgresql',
+    client: 'pg',
     connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
+      database: 'pg',
+      connection: dbConnection
     },
     pool: {
       min: 2,
       max: 10
     },
     migrations: {
-      tableName: 'knex_migrations'
+      tableName: 'knex_migrations',
+      directory: './db/migrations',
+    },
+    seeds: {
+      directory: './db/seeds',
     }
   }
 
