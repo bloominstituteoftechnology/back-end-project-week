@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const express = require('express');
 const helmet = require('helmet');
 const knex = require('knex');
@@ -63,4 +65,4 @@ server.delete('/notes/:id', (req, res) => {
   })
 });
 
-server.listen(8700);
+server.listen(process.env.PORT);
