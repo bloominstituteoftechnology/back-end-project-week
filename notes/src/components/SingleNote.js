@@ -32,6 +32,7 @@ class SingleNote extends Component {
     .then(res => {
       this.setState({notes: res.data[0], loading:false})
       console.log(this.state.notes)
+      console.log(this.props.history)
     })
   }
 

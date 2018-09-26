@@ -2,7 +2,7 @@ import React from 'react';
 import {Container, Button, Form, FormGroup, Input, Label} from "reactstrap"
 
 const NewNote = (props) => {
-
+console.log(props.history)
   return(
     <Container>
     <Form onSubmit = {() => props.addNote(  props.history.push)}>
