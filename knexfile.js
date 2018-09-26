@@ -1,3 +1,7 @@
+require("dotenv").config();
+
+const dbConnection = process.end.DATABASE_URL;
+
 module.exports = {
   development: {
     client: "sqlite3",
