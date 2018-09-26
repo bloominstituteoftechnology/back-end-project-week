@@ -3,7 +3,7 @@ require('dotenv').config()
 const dbEngine = process.env.DB || "development";
 const dbConfig = require("../../knexfile")[dbEngine];
 
-const db = knex(dbConfig.production);
+const db = knex(config);
 
 module.exports = {
   getNotes: function(id) {
