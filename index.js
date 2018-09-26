@@ -1,7 +1,14 @@
 const express = require("express");
 const db = require("./data/db");
+const cors = require('cors');
 const server = express();
+
+const corsOptions = {
+    origin: 'http://localhost:3000',
+  };
+
 server.use(express.json());
+server.use(cors(corsOptions));
 
 server.get("/notes", async (req, res) => {
   try {
@@ -86,7 +93,7 @@ server.delete("/notes/:id", async (req, res) => {
   }
 });
 
-const port = 8000;
+const port = 5000;
 server.listen(port, function() {
   console.log(`\n=== Web API Listening on http://localhost:${port} ===\n`);
 });
