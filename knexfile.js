@@ -3,7 +3,9 @@ const dbConnection = process.env.DATABASE_URL;
 module.exports = {
   production: {
     client: "pg",
-    connection: dbConnection,
+    connection: {
+      database:dbConnection
+    },
     seeds: {
       directory: "./db/seeds"
     },
