@@ -23,7 +23,7 @@ class Register extends Component {
       return;
     }
     try {
-      let response = await axios.post(`${process.env.PORT ||"http://localhost:9001/"}auth/register`, {
+      let response = await axios.post(`${process.env.URL ||"http://localhost:9001/"}auth/register`, {
         username: this.state.username,
         password: this.state.password
       });

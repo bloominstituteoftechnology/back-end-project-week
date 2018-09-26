@@ -18,7 +18,7 @@ class Login extends Component {
   };
   login = async () => {
     try {
-      let response = await axios.post(`${process.env.PORT ||"http://localhost:9001/"}auth/login`, {
+      let response = await axios.post(`${process.env.URL ||"http://localhost:9001/"}auth/login`, {
         username: this.state.username,
         password: this.state.password
       });
