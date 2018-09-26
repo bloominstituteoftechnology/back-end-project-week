@@ -50,6 +50,7 @@ class Login extends Component {
           />
         </div>
         <div>
+          {process.env.URL}
           <label>Password:</label>
           <input
             onChange={this.handleInputChange}
