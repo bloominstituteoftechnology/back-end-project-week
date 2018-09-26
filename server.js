@@ -51,6 +51,32 @@ server.get('/api/notes/:id', (req,res)=>{
 });
 
 
+server.get('/api/notes/search/:search', (req, res) => {
+	const search = req.params.search;
+	console.log(search);
+	const request = db.getByTitle(search);
+
+	request.then(response => {
+        console.log(response);
+
+        if(response.length==0) {
+                res.status(404).json({ error: "Notes with the specified search words do not exist." });
+        }
+        else {
+                console.log(response);
+                res.status(200).json(response);
+        }
+        })
+
+        .catch(error => {
+        res.status(500).json({error: "Failed to retrieve the notes."});
+        })
+
+
+});
+
+
+
 server.post('/api/notes', (req,res)=> {
 	const title = req.body.title;
 	const content = req.body.content;
@@ -98,8 +124,6 @@ server.put('/api/notes/:id', (req, res) => {
 
 	request.then(response => {
 	response = note;
-	//response.title = note.title;
-	//response.content = note.content;
 	
 	res.status(200).json(response);
         })

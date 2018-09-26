@@ -3,6 +3,7 @@ const db = require('../dbConfig.js');
 module.exports = {
   get,
   getById,
+  getByTitle,	
   insert,
   update,
   remove,
@@ -14,6 +15,10 @@ function get(){
 
 function getById(id){
 	return db('notes').where({id: Number(id)});
+}
+
+function getByTitle(search){
+        return db('notes').where('title', 'like', `%${search}%`);
 }
 
 function insert(note) {
