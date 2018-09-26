@@ -13,16 +13,19 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      notes: FakeNoteItems
+      notes: null,
     };
   }
 
   componentDidMount(){
-
+    this.setState({notes: FakeNoteItems})
   }
 
-  handleCreateNote = () => {
-
+  handleNewNote = (input) => {
+    input.id = this.state.notesArr.length;
+    let notes = this.state.notesArr.slice();
+    notes.push(input);
+    this.setState({ notesArr: notes });
   }
 
   handleDeleteNote = () => {
@@ -39,7 +42,8 @@ class App extends Component {
       {/* <Landing/> */}
         <Route exact path="/" component={Landing} />
         <Route path="/menu" component={Menu} />
-        <Route path="/newnote" component={NewNoteForm} />
+        {/* <Route path="/newnote" component={NewNoteForm} /> */}
+        <Route path="/newnote" render={props => { return <NewNoteForm handleNewNote={this.handleNewNote} notes={this.state.notes} /> }} />
         <Route path="/notelist" render={(props) => { return <NoteList notes={this.state.notes} /> }}/>
         <Route path="/login" component={Login} />
         <Route path="/noteview/:id" render={(props) => { return <Note {...props} notes={this.state.notes} delete={this.handleDeleteNote} edit={this.handleEditNote} /> }} />

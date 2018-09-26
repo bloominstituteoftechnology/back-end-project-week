@@ -50,6 +50,7 @@ class Note extends Component {
     return (
       <NoteContainer>
         <div className="v">
+          <Link to="/notelist">note list.</Link>
           <Link to={`/editnote/${this.state.id}`}> <div className="edit" onClick={this.handleEdit}>edit.</div></Link>
           <Link to="/"> <div className="delete" onClick={this.handleDelete}>delete.</div></Link>
         </div>

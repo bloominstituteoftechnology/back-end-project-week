@@ -27,8 +27,14 @@ class NewNoteForm extends Component {
 
   }
 
-  handleSubmit = () => {
+  saveNote = () => {
+    this.props.handleNewNote(this.state)
+  }
 
+  handleInput = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
   }
 
   render() {
@@ -36,10 +42,14 @@ class NewNoteForm extends Component {
       <FormContainer>
       {/* <NavBar/> */}
       <form className="App">
-        <input type="text" placeholder="Title" name="title"/>
-        <input type="text" placeholder="Content" name="content"/>
-        <button>Create</button>
-        <button>Discard</button> 
+          <input className="note-input title" type="text" name="title" placeholder="title" onChange={this.handleInput} />
+          <textarea className="note-input note-area" rows="6" cols="33" name="note" placeholder="note" onChange={this.handleInput}></textarea>
+          <button onClick={this.saveNote}>
+            <Link to="/notelist">save.</Link>
+          </button>
+          <button>
+            <Link to="/menu">cancel.</Link>
+          </button>
       </form>
       </FormContainer>
     );
