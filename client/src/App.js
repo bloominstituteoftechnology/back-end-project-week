@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
-import logo from './logo.svg';
+import axios from 'axios';
 import Menu from './components/Menu/Menu.js';
 import Landing from './components/Landing/Landing.js';
 import NewNoteForm from './components/Forms/NewNoteForm.js';
@@ -8,6 +8,9 @@ import NoteList from './components/NoteList/NoteList.js';
 import Login from './components/Login/Login.js';
 import FakeNoteItems from './components/NoteList/FakeNotes.js';
 import Note from './components/Note/Note.js';
+import Handshake from './utilities/handshake.js';
+
+const URL = `http://localhost:8888/notes`;
 
 class App extends Component {
   constructor(props){
@@ -17,19 +20,49 @@ class App extends Component {
     };
   }
 
-  componentDidMount(){
-    this.setState({notes: FakeNoteItems})
+  componentDidMount(){   
+    axios
+      .get(URL)
+      .then(res => {
+        this.setState({ notes: res.data });
+      })
+      .catch(err => {
+        console.log(`ERROR: ${err}`);
+      });
+  }
+
+  getNotesFromDB = async (URL) => {
+    axios
+      .get(URL)
+      .then(res => {
+        this.setState({ notes: res.data });
+      })
+      .catch(err => {
+        console.log(`ERROR: ${err}`);
+      });
   }
 
   handleNewNote = (input) => {
-    input.id = this.state.notesArr.length;
-    let notes = this.state.notesArr.slice();
+    input.id = this.state.notes.length;
+    let notes = this.state.notes.slice();
     notes.push(input);
-    this.setState({ notesArr: notes });
+    this.setState({ notes: notes });
   }
 
-  handleDeleteNote = () => {
+  handleDeleteNote = (input) => {
+    input.id = this.state.notes.length;
+    let notes = this.state.notes.slice();
+    notes.push(input);
+    this.setState({ notes: notes });
+  }
 
+  handleEditNote = (note) => {
+    let index = this.findNoteIndex(note.id, this.state.notes);
+    let notes = this.state.notes.slice();
+    notes[index] = note;
+    this.setState({
+      notes: notes,
+    })
   }
 
   handleLandingUpwardAnimation = () =>{

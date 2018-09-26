@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import NoteListItem from './NoteListItem';
+import axios from 'axios';
 
 
 const NoteListContainer = styled.div`
@@ -24,7 +25,14 @@ class NoteList extends Component {
   }
 
   componentDidMount() {
-    this.setState({notes: this.props.notes});
+    axios
+      .get(`http://localhost:8888/notes`)
+      .then(res => {
+        this.setState({ notes: res.data });
+      })
+      .catch(err => {
+        console.log(`ERROR: ${err}`);
+      });
   }
 
 
@@ -42,7 +50,7 @@ class NoteList extends Component {
             --- "main menu"
           }
          */}
-         
+
          {
            this.state.notes.map((note)=>{
             return <Link to={`/noteview/${note.id}`} ><NoteListItem note={note} /></Link>
