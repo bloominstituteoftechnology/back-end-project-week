@@ -86,6 +86,10 @@ server.post('/api/register', (req, res) => {
   });
 
 //endpoints
+server.get('/', (req, res) => {
+  res.send('API running; deployment success!')
+});
+
 server.post('/api/notes', protected, (req, res) => {
     const note = req.body;
     if (!note.title || !note.textBody) {
