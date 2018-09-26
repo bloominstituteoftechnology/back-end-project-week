@@ -19,7 +19,6 @@ function generateToken(user){
     const payload = {
       username: user.username,
       email: user.email
-
     }
 
     const options = {
