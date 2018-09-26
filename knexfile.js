@@ -1,3 +1,6 @@
+require('dotenv').config();
+const dbConnection=process.env.DATABASE_URL;
+
 module.exports = {
     development: {
       client: 'sqlite3',
@@ -11,5 +14,20 @@ module.exports = {
     seeds:{
         directory:'./data/seeds'
     }
+    },
+    production: {
+      client: 'pg',
+      connection: dbConnection,
+      pool: {
+        min: 2,
+        max: 10,
+      },
+      migrations: {
+        tableName: 'knex_migrations',
+        directory: './db/migrations',
+      },
+      seeds: {
+        directory: './db/seeds',
+      },
     },
   };
