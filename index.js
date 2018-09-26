@@ -85,7 +85,7 @@ server.put('/api/notes/:id', (req, res) => {
 });
 
 
-const port = 2200;
+const port = process.env.PORT || 2200;
 server.listen(port, function() {
   console.log(`\n=== Web API Listening on http://localhost:${port} ===\n`);
 });
