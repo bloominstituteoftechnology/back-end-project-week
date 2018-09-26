@@ -4,10 +4,7 @@ const dbEngine = process.env.DB || 'development';
 
 const dbConfig = require('../knexfile.js')[dbEngine];
 
-
 // const dbConfig = require('../knexfile');
-
-
 
 const db = knex(dbConfig);
 
@@ -19,7 +16,6 @@ module.exports = {
     addUser,
     getUser,
 }
-
 
 function getNotes(id){
     if(id){

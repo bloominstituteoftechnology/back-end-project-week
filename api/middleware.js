@@ -10,7 +10,7 @@ function protect(req, res, next){
     if (token) {
         jwt.verify(token, jwtKey, (err, decodedToken) => {
             if (err){
-                res.status(400).json({message: 'auth err', error: err})
+                res.status(400).json({ message: 'auth err', error: err })
             } else {
                 req.user = {
                     username: decodedToken.username
