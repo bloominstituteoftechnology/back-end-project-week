@@ -6,7 +6,7 @@ const cors = require('cors');
 
 const dbConfig = require('./knexfile');
 
-const db = knex(dbConfig.development);
+const db = knex(dbConfig[process.env.DB]);
 
 const server = express();
 
