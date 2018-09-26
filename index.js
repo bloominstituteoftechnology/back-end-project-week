@@ -1,4 +1,4 @@
-// require('dotenv').config();
+require('dotenv').config();
 const express = require('express');
 const server = express();
 const knex = require('knex');
@@ -49,13 +49,8 @@ generateToken = user => {
 //     }
 // }
 
-server.get('/', async (req, res) =>{
-    try {
-        res.status(200) .json({message: 'running'})
-    }
-    catch (err ) {
-        res.status(500).json( err.message )
-    }
+server.get('/', (req, res) =>{
+    res.send('backend')
 });
 
 //REGISTER/LOGIN
@@ -159,5 +154,6 @@ server.delete('/delete/:id', async (req, res) => {
     }
 });
 
-const port = 8000
+const port = process.env.PORT || 9000;
+
 server.listen(port, () => console.log(`===Server is running on port ${port}===`));
