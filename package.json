@@ -4,7 +4,8 @@
   "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js",
+    "dev":"nodemon"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   "homepage": "https://github.com/RachelDiCesare93/back-end-project-week#readme",
   "dependencies": {
     "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "knex": "^0.15.2",
     "sqlite3": "^4.0.2"
