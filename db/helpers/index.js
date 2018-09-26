@@ -1,20 +1,6 @@
 const db = require("knex")(require("../../knexfile").development);
 
 module.exports = {
-	checkTags(id, tagsArr) {
-		return db("tags")
-			.where("note_id", id)
-			.then(records => {
-				let existent = records.map(record => {
-					record.tag;
-				});
-				let filteredTags = tagsArr.filter(tag => {
-					return !existent.some(ele => ele === tag);
-				});
-				return filteredTags;
-			});
-	},
-
 	getNotes() {
 		let notes = db("notes");
 		let tags = db("tags");
@@ -65,12 +51,19 @@ module.exports = {
 	},
 
 	updateNote(id, note) {
-		let { title, textBody, tags } = note;
+		let updated = { ...note, id };
 		return db("notes")
 			.where("id", id)
-			.update({ title, textBody })
+			.del()
 			.then(response => {
-				return checkTags(id, tags);
+				return db("tags")
+					.where("note_id", id)
+					.del()
+					.then(response => {
+						this.addNoteWithTags(updated).then(response => {
+							return updated;
+						});
+					});
 			});
 	},
 };
