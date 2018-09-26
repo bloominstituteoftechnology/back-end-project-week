@@ -71,7 +71,7 @@ server.put('/api/notes/:id', (req, res) => {
     const {id} = req.params;
     const note = req.body;
     if (!note.title || !note.content) {
-        res.status(400).json({ error: "Please provide a title and body for the note." })
+        res.status(400).json({ error: "Please provide a title and content for the note." })
     } else
         db('notes').where({ id: id }).update(note)
         .then(count => {

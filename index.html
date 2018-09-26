@@ -1,31 +1,174 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>API Documentation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-     <script src="main.js"></script>
+    <script src="main.js"></script>
 </head>
+
 <body>
-    <div class = "title">
+    <div class="title">
         <h1>Backend Project Week API Documentation</h1>
     </div>
-    <div class = "intro">
-    <p>This is the backend part of my Lambda Notes project and it includes the following:</p>
+    <div class="intro">
+        <p>This is the backend part of my Lambda Notes project and it includes the following that prepared for connection to the frontend:</p>
     </div>
-    <div class = "list">
-      <ul>
-          <h2>HTTP Requests</h2>
-          <li>
-            <h3>GET: To get notes</h3>  
-            <h3>POST:To post a new note</h3>
-            <h3>PUT:To edit a note</h3>
-            <h3>DELETE:To delete a note</h3>
-          </li>
-      </ul>
+    <div class="http-list">
+        <h2>HTTP Requests</h2>
+    <ul>
+        <li><span>GET: </span>To see that the API is running</li>
+        <li><span>GET: </span>To get notes</li>
+        <li><span>GET: </span>To view a single note</li>
+        <li><span>POST:</span>To post a new note</li>
+        <li><span>PUT:</span>To edit a note</li>
+        <li><span>DELETE:</span>To delete a note</li>
+    </ul>
     </div>
-    
+
+    <div class="res-list">
+        <h2>Description Of Server Responses</h2>
+        <ul>
+            <li><span>200:</span>the request was successful</li>
+            <li><span>201:</span> the request was successful and a note was created</li>
+            <li><span>204:</span> the request was successful and the note has been deleted</li>
+            <li><span>400:</span> the request was not understood due to a missing title and content</li>
+            <li><span>404:</span> the note was not found</li>
+            <li><span>500:</span> server error</li>
+        </ul>
+    </div>
+
+    <div class="test-sample">
+        <h2>Postman test sample</h2>
+        <h4>GET localhost:2200/api/notes</h4>
+        <h5>
+        [<br>
+        {<br>
+            "id": 1,<br>
+            "title": "cat",<br>
+            "content": "meow"<br>
+        },<br>
+        {<br>
+            "id": 2,<br>
+            "title": "dog",<br>
+            "content": "woof"<br>
+        },<br>
+        {<br>
+            "id": 3,<br>
+            "title": "bird",<br>
+            "content": "chirp"<br>
+        },<br>
+        {<br>
+            "id": 23,<br>
+            "title": "pumpkin",<br>
+            "content": "pie"<br>
+        },<br>
+        {<br>
+            "id": 25,<br>
+            "title": "cherry",<br>
+            "content": "pie"<br>
+        }<br>
+        ]<br>
+        </h5>
+    </div>
+
+    <div class="table-sample">
+        <h2>Note Table : DB Browser for SQLite</h2>
+
+        <table align = "center">
+            <tr>
+                <th>id</th>
+                <th>title</th>
+                <th>content</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>cat</td>
+                <td>meow</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>dog</td>
+                <td>woof</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>bird</td>
+                <td>chirp</td>
+            </tr>
+            <tr>
+                <td>23</td>
+                <td>pumpkin</td>
+                <td>pie</td>
+            </tr>
+            <tr>
+                <td>25</td>
+                <td>cherry</td>
+                <td>pie</td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div class = "code-sample">
+        <h2>Code Samples</h2>
+        <h3>Notes Migrations</h3>
+        <pre><code>
+                exports.up = function(knex, Promise) {
+                    return knex.schema.createTable('notes', function(tbl) {
+                      tbl.increments()
+                  
+                      tbl
+                      .string('title')
+                      .notNullable
+                      
+                  
+                      tbl
+                      .string('content')
+                      .notNullable
+                    });
+                  };
+                  
+                  exports.down = function(knex, Promise) {
+                    return knex.schema.dropTable('notes');
+                  };
+                  
+        </code></pre>
+        <h3>Notes Seeds</h3>
+        <pre><code>
+                exports.seed = function(knex, Promise) {
+                    // Deletes ALL existing entries
+                    return knex('notes').del()
+                      .then(function () {
+                        // Inserts seed entries
+                        return knex('notes').insert([
+                          {id: 1, title: 'cat', content:'meow'},
+                          {id: 2, title: 'dog',content:'woof'},
+                          {id: 3, title: 'bird',content:'chirp'}
+                        ]);
+                      });
+                  };
+                  
+        </code></pre>
+        <h3>GET HTTP Request</h3>
+        <pre><code>
+                server.get('/api/notes', (req, res) => {
+                    db('notes')
+                    .then(notes => {
+                      res.status(200).json(notes)
+                    })
+                    .catch(err => {
+                        console.log('/api/notes GET ERROR:', err);
+                        res.status(500).send(err);
+                    })
+                });
+        </code></pre>
+
+    </div>
+
 </body>
+
 </html>
