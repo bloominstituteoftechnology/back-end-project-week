@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "jest --watch --verbose"
   },
   "jest": {
@@ -14,10 +15,10 @@
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "helmet": "^3.13.0",
     "knex": "^0.15.2",
-    "nodemon": "^1.18.4",
     "sqlite3": "^4.0.2"
   },
   "devDependencies": {
