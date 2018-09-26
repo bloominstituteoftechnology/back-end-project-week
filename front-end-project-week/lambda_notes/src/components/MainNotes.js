@@ -3,13 +3,13 @@ import NotesList from './NotesList';
 import CreateNote from './CreateNote';
 import NoteView from './NoteView';
 import EditNote from './EditNote';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import './index.css';
 import axios from  'axios';
 
 const url = 'http://localhost:3300/api/notes';
 
-export default class MainNotes extends Component {
+class MainNotes extends Component {
     constructor(props) {
         super(props);
         this.state= {
@@ -27,30 +27,28 @@ export default class MainNotes extends Component {
             })
             .catch(err => {
                 console.log('Error:', err);
-
             })
     }
 
     addNote = e => {
         e.preventDefault();
-        const noteSnapshot = this.state.dummyNotes.slice();
-        noteSnapshot.push({
-            id: this.state.dummyNotes.length + 1,
-            title: this.state.title, // title set by input change handler
-            body: this.state.body,
-        });
+        // const noteSnapshot = this.state.dummyNotes.slice();
+        // noteSnapshot.push({
+        //     id: this.state.dummyNotes.length + 1,
+        //     title: this.state.title, // title set by input change handler
+        //     body: this.state.body,
+        // });
         axios
-            .post('http://localhost:3300/api/notes', this.state.title, this.state.body)
+            .post(url, {title: this.state.title, body: this.state.body})
             .then(res => {
-                this.props.history.push('/notes')
+                this.setState({ dummyNotes: res.data })
             })
             .catch(err => console.log(err));
         this.setState({
-            dummyNotes: noteSnapshot, 
+            // dummyNotes: noteSnapshot, 
             title: '', // resets title to blank after input change
             body: ''
         });
-
     }
 
     editNote = e => {
@@ -117,3 +115,5 @@ export default class MainNotes extends Component {
         );
     }
 }
+
+export default withRouter(MainNotes);

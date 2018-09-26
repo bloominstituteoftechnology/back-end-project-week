@@ -30,7 +30,7 @@ server.post('/api/notes', (req, res) => {
 
 server.get('/api/notes', (req, res) => {
     db('notes')
-    .select('title', 'body')
+    .select('id', 'title', 'body')
     .then(notes => {
         res.status(200).json(notes)
     })

@@ -7,7 +7,6 @@ class App extends Component {
   render() {
     return (
       <div>
-        <p className='pageView'>Placeholder View</p>
         <div className='container'>
           <Sidebar />
           <MainNotes />
