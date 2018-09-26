@@ -46,7 +46,7 @@ welcome.post('/register', (req, res) => {
     dbFunc.addUser(newUser).then(id => {
         db('users').where({id}).then(user => {
             const token = generateToken(user);
-            res.status(200).json({message: "token created", token: token})
+            res.status(200).json({message: "token created", token: token, username: user.username})
         }).catch({message: "user added but token not generated"})
     }).catch(err => {
         res.status(500).json({message: "there was a problem creating a new user", error: err})
@@ -62,7 +62,7 @@ welcome.post('/login', (req, res) => {
 
         if (dbUser && bcrypt.compareSync(request.password, dbUser.password)){
             const token = generateToken(dbUser);
-            res.status(200).json({message: "token created", token: token})
+            res.status(200).json({message: "token created", token: token, username: dbUser.username})
         } else {
             res.status(401).json({message: "not authorized"})
         }
