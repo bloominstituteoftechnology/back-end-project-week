@@ -16,19 +16,12 @@ router.route('/register').post(async (req, res, next) => {
   creds.password = hash;
 
   try {
-    const idArray = await helper.addUser(creds);
-    const id = idArray[0];
-    const user = await helper.getUser(id).first();
+    const userArr = await helper.addUser(creds);
+    const user = userArr[0];
     const token = authHelper.generateToken(user);
     res.status(201).json({ id: user.id, token });
   } catch (err) {
-    if (err.errno === 19) {
-      res.status(409).json({
-        message: 'Oh no! That username is taken, please try another. '
-      });
-    } else {
-      next(err);
-    }
+    next(err);
   }
 });
 

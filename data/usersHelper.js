@@ -13,7 +13,10 @@ function getUserByUsername(username) {
 }
 
 function addUser(user) {
-  return db('users').insert(user);
+  const query = db('users')
+    .insert(user)
+    .returning('*');
+  return query;
 }
 
 function updateUser(id, user) {
