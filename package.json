@@ -16,10 +16,11 @@
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
-    "sqlite3": "^4.0.2"
+    "pg": "^7.4.3"
   },
   "devDependencies": {
-    "nodemon": "^1.18.4"
+    "nodemon": "^1.18.4",
+    "sqlite3": "^4.0.2"
   },
   "scripts": {
     "start": "node index.js",
