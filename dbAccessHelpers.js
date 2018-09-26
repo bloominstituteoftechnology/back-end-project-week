@@ -25,14 +25,14 @@ function createNote(note) {
             .insert(note);
 }
 
-function editNote(note) {
+function editNote(_id, note) {
     return db('notes')
             .where('_id', '=', _id)
-            .update(note);
+            .update(_id, note);
 }
 
-function deleteNote(note) {
+function deleteNote(_id) {
     return db('notes')
             .where('_id', '=', _id)
-            .del(note);
+            .del();
 }

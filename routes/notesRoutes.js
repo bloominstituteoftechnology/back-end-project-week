@@ -19,14 +19,16 @@ router.get('/', (req, res) => {
 router.get('/notes/:_id', (req, res) => {
     const { _id } = req.params;
     db.getNote(_id)
-        .then(count => {
-            if(count) {
+        .then(note => {
+            if(note) {
                 res.status(200).json(note);
             } else {
                 res.status(404).json({ message: "The note with the specified ID does not exist." });
             }
         })
-        .catch(err => res.status(500).json({ error: "The note could not be retrieved." }));
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({ error: "The note could not be retrieved." })});
 });
 
 router.post('/create', async (req, res) => {
@@ -48,26 +50,32 @@ router.delete('/notes/:_id/delete', (req, res) => {
     db.deleteNote(_id)
         .then(count => {
             if(count) {
-                res.status(200).json(note);
+                res.status(204).end();
             } else {
                 res.status(404).json({ message: "The note with the specified ID does not exist." });
             }
         })
-        .catch(err => res.status(500).json({ error: "The note could not be removed" }));
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({ error: "The note could not be removed" })});
 });
 
-router.put('/edit/:_id', (req, res) => {
+router.put('/notes/:_id/edit', (req, res) => {
+    const note = req.body
+    if(!note.title || !note.textBody) {
+        return res.status(400).json({ errorMessage: "Please provide a title and text body for the note." });
+    }
     db.editNote(req.params._id, req.body)
-        .then(notes => {
-            res.status(200).json(note);
-            if(!note.title || !note.textBody) {
-                res.status(400).json({ errorMessage: "Please provide a title and text body for the note." });
-            }
+        .then(count => {
+            res.status(200).json(count);
+            
             if(!count) {
                 res.status(404).json({ message: "The note with the specified ID does not exist." });
             }
         })
-        .catch(err => res.status(500).json({ error: "The note could not be modified." }))
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({ error: "The note could not be modified." })})
 })
 
 module.exports = router;
