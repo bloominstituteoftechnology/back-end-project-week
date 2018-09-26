@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
-import { testData } from "./testData";
 import NoteList from "./components/NoteList";
 import CreateNote from "./components/CreateNote";
 import Note from "./components/Note";
@@ -14,7 +13,7 @@ import axios from 'axios'
 const ALL = "http://localhost:3300/note/get/all";
 const CREATE = "http://localhost:3300/note/create";
 const DELETE = "http://localhost:3300/note/delete";
-const GET = "http://localhost:3300/note/get";
+// const GET = "http://localhost:3300/note/get";
 const PUT = "http://localhost:3300/note/edit";
 
 class App extends Component {
@@ -34,21 +33,26 @@ class App extends Component {
           return {
             notes: prevState.notes.concat({...note, id: response.data.id})
           }
-				});
+        });
+        this.props.history.push("/notes");
 		});
 	};
 
   handleEdit = (id, edited) => {
 		axios.put(`${PUT}/${id}`, edited).then(response => {
+      console.log("edited", edited)
+      console.log("response.data", response.data)
+      console.log("response", response)
 			this.setState(prevState => ({
 				notes: prevState.notes.map(note => {
 					if (note.id == response.data.id) {
+            console.log(note.id)
 						return response.data;
 					} else {
 						return note;
 					}
 				})
-			}));
+      }));
 		});
 	};
 
@@ -99,4 +103,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

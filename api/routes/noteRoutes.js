@@ -46,8 +46,9 @@ router.post("/create", (req, res) => {
     db("notes")
       .insert(note)
       .into("notes")
-      .then(notes => {
-        res.status(201).json({ message: "Note successfully added." });
+      .then(id => {
+        console.log(id)
+        res.status(201).json({ id: id });
       })
       .catch(err => {
         res.status(500).json({ error: "The note could not be added." });
@@ -66,13 +67,15 @@ router.put("/edit/:id", (req, res) => {
     });
   } else {
     db("notes")
-      .where("id", id)
+      .where({ id })
       .update({
         title: updatedNote.title,
         textBody: updatedNote.textBody
       })
-      .then(notes => {
-        res.status(200).json({ message: "Note successfully modified." });
+      .then(response => {
+        console.log(response)
+        console.log(id)
+        res.status(200).json({ ...updatedNote, id: id });
       })
       .catch(err => {
         res.status(500).json({ error: "The note could not be updated." });
