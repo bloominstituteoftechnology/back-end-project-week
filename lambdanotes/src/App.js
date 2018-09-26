@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, NavLink } from "react-router-dom";
+import { Route, NavLink, withRouter } from "react-router-dom";
 import axios from 'axios';
 
 import './App.css';
@@ -37,6 +37,7 @@ class App extends Component {
 			.delete(endpoint)
 			.then(res => {
 				console.log(res);
+				this.redirect();
 			})
 			.catch(error => {
 				console.error('Server error', error)
@@ -57,12 +58,18 @@ class App extends Component {
 			  }
 			}
 			this.setState({ notes });
+			this.redirect();
 		  })
-		  .catch(err => console.error(err));
+			.catch(err => console.error(err));
+			this.props.history.push('/edit/:id');
 	  };
 
 	handleInputChange = e => {
 		this.setState({ [e.target.name]: e.target.value });
+	}
+
+	redirect = event => {
+		this.props.history.push('/');
 	}
     
 	render() {
@@ -81,10 +88,10 @@ class App extends Component {
 				<Route exact path="/" render={ (props) => <ListView {...props} notes={this.state.notes} />}/>
 				<Route exact path="/create-new-note/" component={ NewNote } />
 				<Route exact path="/note-view/:id" render={ props => <NoteView {...props} notes={this.state.notes} handleInputChange={this.handleInputChange} deleteNote={this.deleteNote}/>}/>
-				<Route exact path="/note-view/edit/:id" render={ props => <EditNote {...props} notes={this.state.notes} editNote={this.editNote}/>} />
+				<Route exact path="/note-view/edit/:id" render={ props => <EditNote {...props} notes={this.state.notes} editNote={this.editNote} redirect={this.redirect} />} />
 			</div>
 		);
 	}
 }
 
-export default App;
+export default withRouter(App);

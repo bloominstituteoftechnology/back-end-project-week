@@ -2,9 +2,10 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,10 +24,12 @@
   },
   "dependencies": {
     "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "helmet": "^3.13.0",
     "knex": "^0.15.2",
     "morgan": "^1.9.1",
+    "pg": "^7.4.3",
     "sqlite3": "^4.0.2",
     "styled-components": "^3.4.9"
   }

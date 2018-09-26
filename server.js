@@ -1,3 +1,4 @@
+
 const express = require('express');
 const helmet = require('helmet');
 const server = express();
@@ -18,7 +19,4 @@ server.get('/', (req, res) => {
     res.send('API Running...');
 });
 
-const port = 9000;
-server.listen(port, function() {
-    console.log(`\n=== Notes API Listening on http://localhost:${ port } ===\n`);
-});
+module.exports = server;
