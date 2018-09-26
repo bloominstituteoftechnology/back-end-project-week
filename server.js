@@ -1,3 +1,4 @@
+
 const express = require('express');
 const helmet = require('helmet');
 const knex = require('knex');
@@ -5,9 +6,9 @@ const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const dbConfig = require('./knexfile');
-
-const db = knex(dbConfig.development);
+const dbEngine = process.env.DB || 'development';
+const config = require('../knexfile.js')[dbEngine];
+const db = knex(config);
 
 const server = express();
 
