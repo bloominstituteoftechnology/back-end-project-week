@@ -26,8 +26,7 @@ class EditNote extends Component {
         console.log('matched:', matched);
         this.setState({ matched: matched });
         console.log("match?", this.state.matched);
-        // let note = this.props.state.notes[0].title;
-        // console.log(note);
+    
     }
 
 
@@ -47,10 +46,6 @@ class EditNote extends Component {
     handleChange = (event) => {
         console.log(event.target.name, event.target.value)
         this.setState({[event.target.name]: event.target.value})
-
-        // let temp = Array.from(this.state.matched);
-        // temp[0][event.target.name] = event.target.value;
-        // this.setState({ matched: temp })
     }
 
     redirect = () => {
@@ -70,7 +65,7 @@ class EditNote extends Component {
             <div className='edit_view'>
                 <form className="edit_form" onSubmit={this.edit}>
                         <br /><br />
-                <h3 className="edit_header">Edit Note: </h3>
+                    <h3 className="edit_header">Edit Note: </h3>
 
                         <br />
 
@@ -82,7 +77,7 @@ class EditNote extends Component {
                         name='title'
                     />
 
-                            <br /><br />
+                        <br /><br />
 
                     <textarea 
                         className="edit_content" 
@@ -92,16 +87,15 @@ class EditNote extends Component {
                         name='content'
                     />
                     
-                    <br />
+                        <br />
 
-                    {/* <Link to="/"> */}
+                    
                     <button type="submit"
                         className="edit_button"
                         onClick={this.redirect}
-                        
-                            >Update
+                    >Update
                     </button>
-                    {/* </Link> */}
+                
                     <button 
                         className="cancel_button"
                         onClick={this.cancelButton}
@@ -126,7 +120,6 @@ class EditNote extends Component {
             .put(`http://localhost:5000/notes/${this.state.matched.id}`, noteObj)
             .then(res => {
                 console.log("data?", res.data);
-                // window.location.reload();
             })
             .catch(err => {
                 console.log(err, 'err')

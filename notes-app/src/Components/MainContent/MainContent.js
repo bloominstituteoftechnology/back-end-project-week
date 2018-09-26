@@ -1,22 +1,16 @@
 import React, { Component } from 'react';
-import './index.css';
-
-import NotesList from '../NotesList/NotesList';
-// import Notes from '../../Components/Notes';
-
-import NoteView from '../NoteView/NoteView';
-// import NoteView from '../NoteView';
-
-import DeleteNote from '../DeleteNote/DeleteNote';
-
-
-import CreateNote from '../CreateNote/CreateNote';
-import EditNote from '../EditNote/EditNote';
-// import DeleteNote from '../DeleteNote/DeleteNote';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import axios from 'axios';
 
-// import createBrowserHistory from 'history/lib/createBrowserHistory';
+import './index.css';
+
+import NotesList from '../NotesList/NotesList';
+import NoteView from '../NoteView/NoteView';
+import DeleteNote from '../DeleteNote/DeleteNote';
+import CreateNote from '../CreateNote/CreateNote';
+import EditNote from '../EditNote/EditNote';
+
+
 
 class MainContent extends Component {
     state = {

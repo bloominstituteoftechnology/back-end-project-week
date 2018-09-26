@@ -42,7 +42,6 @@ body {
 }
 
 
-
 .app_container {
   border: 1px solid white;
   border-radius: 6px 31px 31px 6px;
@@ -55,25 +54,6 @@ body {
   min-height: 750px;
 }
 
-
-
-
-
-/* .App {
-  display: flex;
-  flex-direction: column;
-  width: 800px;
-  margin: 0 auto;
-}
-
-.btn {
-  background-color: turquoise;
-}
-
-.EachNote {
-  display: flex;
-  
-} */
 
 .note_container {
   display: flex;

@@ -43,6 +43,10 @@ server.get(`/notes/:id`, (req,res) => {
 
     db('notes').where({ id:req.params.id })
         .then((id) => {
+            console.log(id);
+            if(id.length === 0){
+                return res.status(404).json({err:" The note with that ID is not found "});
+            }
             res.json(id);
         })
         .catch((fail) => {
@@ -61,8 +65,11 @@ server.put(`/notes/:id`, (req, res) => {
 
     db('notes').where({ id:req.params.id } ).update(req.body)
     .then((item) => {
+        if(item === 0){
+            return res.status(404).json({err:" The note with that ID is not found "});
+        } else {
         res.status(201).json(item);
-    })
+    }})
     .catch((fail) => {
         console.log(fail);
         res.status(404).json({ message: "The note with the specified ID does not exist."});
@@ -74,8 +81,11 @@ server.delete('/notes/:id', (req, res) => {
 
     db('notes').where({ id:req.params.id }).delete()
         .then((item) => {
+            if(item === 0){
+                return res.status(404).json({err:" The note with that ID is not found "});
+            } else {
             res.status(201).json(item);
-            })
+            }})
         .catch((fail) => {
             console.log(fail);
             res.status(404).json({ message: "The note with the specified ID didn't delete."});
