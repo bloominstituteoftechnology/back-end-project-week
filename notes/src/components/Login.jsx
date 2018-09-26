@@ -37,8 +37,8 @@ class Login extends Component {
         <Link className="reglink" to="/register">
           Register
         </Link>
-        <div className="registerTitle">Login:</div>
-
+        <div className="registerTitle">{process.env.REACT_APP_URL}Login:</div>
+        
         <div>
           <label>Username:</label>
           <input
