@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const server = express();
 const knex = require('knex');
@@ -150,4 +151,4 @@ server.delete('/delete/:id', async (req, res) => {
 });
 
 const port = 8000;
-server.listen(port, () => console.log(`===Server is running on port ${port}===`));
+server.listen(process.env.PORT, () => console.log(`===Server is running on port ${port}===`));
