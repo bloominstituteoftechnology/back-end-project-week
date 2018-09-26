@@ -6,7 +6,7 @@
   "author": "AI2EJAY <JHammett1314@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node inex.js" ,
+    "start": "node index.js" ,
     "dev": "nodemon index.js"
   },
   "dependencies": {
