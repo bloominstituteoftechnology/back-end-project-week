@@ -1,4 +1,5 @@
-
+require('dotenv').config();
+const dbConnection = process.env.DATABASE_URL
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('notes', function(tbl) {
     tbl.increments()
