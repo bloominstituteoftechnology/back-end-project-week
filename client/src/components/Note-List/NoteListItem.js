@@ -26,6 +26,7 @@ class NoteListItem extends Component {
             --- "delete"
           }
          */}
+         
       </div>
     );
   }

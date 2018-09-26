@@ -7,7 +7,8 @@ class NewNoteForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      title:'',
+      content: ''
     }
   }
 
@@ -15,12 +16,18 @@ class NewNoteForm extends Component {
 
   }
 
+  handleSubmit = () => {
+
+  }
 
   render() {
     return (
-      <div className="App">
-
-      </div>
+      <form className="App">
+        <input type="text" placeholder="Title" name="title"/>
+        <input type="text" placeholder="Content" name="content"/>
+        <button>Create</button>
+        <button>Discard</button> 
+      </form>
     );
   }
 }
