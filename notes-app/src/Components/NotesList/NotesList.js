@@ -28,21 +28,27 @@ class NotesList extends Component {
                             key={each.id}
                             allnotes={this.state}    
                         >
+
                         <div className="note_title" >
-                            {each.title}
-                                <br /><br />
+                        <div>{each.title}</div>
+                        <br /><br />
                         </div>
-                            {each.content}
+                        <div>{each.content}</div>
                         </div>
                     </Link>
                     
                 ))}
                 </div>
                 </div>
+                <Link to="/login" onClick={this.logout}><div className="signin">signin|out</div></Link>
             </div>
         )
     }
 
+
+    logout = event => {
+        localStorage.removeItem('jwt');
+      }
 }
 
 export default NotesList;

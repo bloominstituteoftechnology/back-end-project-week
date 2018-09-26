@@ -45,7 +45,7 @@ body {
 .app_container {
   border: 1px solid white;
   border-radius: 6px 31px 31px 6px;
-  margin: 60px 0 100px 0;
+  margin: 150px 0 100px 0;
   display: flex;
   width: 888px;
   box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);

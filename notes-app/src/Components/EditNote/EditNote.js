@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './index.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 class EditNote extends Component {
     
@@ -48,9 +46,15 @@ class EditNote extends Component {
         this.setState({[event.target.name]: event.target.value})
     }
 
-    redirect = () => {
+    redirectUndo = (e) => {
+        e.preventDefault();
         window.location.assign('/')
     }
+
+    submit = (e) => {
+        window.location.assign('/')
+    }
+
 
 
     cancelButton = () => {
@@ -92,13 +96,13 @@ class EditNote extends Component {
                     
                     <button type="submit"
                         className="edit_button"
-                        onClick={this.redirect}
+                        onClick={this.submit}
                     >Update
                     </button>
                 
                     <button 
                         className="cancel_button"
-                        onClick={this.cancelButton}
+                        onClick={this.redirectUndo}
                         
                             >Undo Changes
                     </button>

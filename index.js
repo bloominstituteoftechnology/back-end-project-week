@@ -2,6 +2,7 @@ const express = require('express');
 const knex = require('knex');
 const server = express();
 const cors = require('cors');
+const bcrypt = require('bcrypt')
 
 server.use(express.json());
 server.use(cors());
@@ -9,7 +10,46 @@ server.use(cors());
 const dbConfig = require('./knexfile.js');
 const db = knex(dbConfig.development);
 
-server.get('/', (req, res) => {
+const jwt = require('jsonwebtoken');
+
+
+
+
+const secret = "lovey lovebirds"
+    function generateToken(user) {
+        const payload = {
+            username: user.username
+        };
+        const options = {
+            expiresIn: '1h',
+            jwtid: '12345',
+        }
+        return jwt.sign(payload, secret, options)
+}
+
+
+function restricted(req, res, next) {
+
+    const token = req.headers.authorization;
+
+    if (token) {
+        jwt.verify(token, secret, (err, decodedToken) => {
+            if(err) {
+                res.status(401).json({message: "token invalid"})
+            } else {
+                req.user = {username: decodedToken.username};
+                next();
+        }
+    })
+    } else {
+    res.status(401).json({message: "no token"})
+    }
+}
+
+
+
+
+server.get('/', restricted, (req, res) => {
 res.send('API Running...');
 });
 
@@ -93,6 +133,57 @@ server.delete('/notes/:id', (req, res) => {
 
 });
 
+server.post('/register', (req, res) => {
+    //3 steps to hash
+    const creds = req.body;
+    const hash = bcrypt.hashSync(creds.password, 8);
+    creds.password = hash;
+
+
+    db('users')
+        .insert(creds)
+        .then(ids => {
+            const id = ids[0];
+            const token = generateToken(creds);
+            res.status(201).json({ token, id });
+        })
+        .catch(err => {
+            console.log('/register POST error:', err);
+            res.status(500).send('Please try again later');
+        });
+});
+
+
+server.get('/users', restricted, (req, res) => {
+    
+    db('users').select('id', 'username', 'password').then(users => {
+        res.status(201).json(users);
+    }).catch(err => {
+        console.log("error:", err);
+        res.status(500).json(err);
+    })
+
+});
+
+
+
+server.post('/login', (req, res) => {
+    const creds = req.body;
+
+    db('users')
+    .where({username: creds.username})
+    .first()
+    .then(user => { 
+        if (user && bcrypt.compareSync(creds.password, user.password)){
+            const token = generateToken(user);
+            res.status(200).json({ token });
+        } else {
+            res.status(401).json({message: 'Incorrect combination'});
+        }
+    }).catch(err => {
+        console.log('/api/login Post error:', err);
+        res.status(500).send(err, "Everything failed")});
+});
 
 
 

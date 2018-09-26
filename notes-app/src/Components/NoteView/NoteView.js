@@ -6,12 +6,14 @@ import { Link } from 'react-router-dom';
 
 class NoteView extends Component {
 
-        state = {
+    constructor(){
+        super();
+        this.state = {
             displayDelete: false,
-            matched: []
+            matched: [],
         }
-    
-    
+        // this._handleDoubleClickItem = this._handleDoubleClickItem.bind(this);
+    }
     findMatch = () => {
         console.log('props match', this.props.state.notes)
         let routeId = this.props.match.params.id;
@@ -47,18 +49,22 @@ class NoteView extends Component {
                         className="view_links">edit
                     </Link>
                             <br />
-                    <a href="" 
+                    <a href='' 
                         onClick={this.showModal} 
                         className="view_links">delete
                     </a>
                             <br /><br />
                 </div>
+
                 <div className="view_title">
-                    {this.state.matched.title}
+                <span><a href=''> <Link to={{pathname: `/edit/${this.props.match.params.id}`, state: this.state.matched}} style={{ textDecoration: 'none' }}>{this.state.matched.title}</Link></a></span>
                 </div>
+
                         <br />
                 <div className="view_content">
+                <span><a href=''> <Link to={{pathname: `/edit/${this.props.match.params.id}`, state: this.state.matched}} style={{ textDecoration: 'none' }}>
                     {this.state.matched.content}
+                    </Link></a></span>
                 </div>  
                         <br /><br />
                 <DeleteNote
@@ -66,7 +72,6 @@ class NoteView extends Component {
                     history={this.props.history} 
                     toggle={this.state.displayDelete}
                     showModal={this.showModal}
-                    history={this.props.history}
                 />
             </div>
         );

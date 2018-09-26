@@ -13,5 +13,10 @@
     border-left: 2px solid palegoldenrod;
 }
 
+.signin, .signout {
+    position: relative;
+    
+}
+
 
 
