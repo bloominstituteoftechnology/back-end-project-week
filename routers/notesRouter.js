@@ -28,7 +28,7 @@ router.post("/", async (req, res) => {
   try {
     req.body.userID = req.user;
     console.log(req.body);
-    const newID = await dbhelpers.addNote(req.body);
+    const newID = await dbhelpers.addNote(req.body)  .returning('id');
     console.log(newID);
     const results = await dbhelpers.getSingleNote(newID[0]);
     console.log(results);
