@@ -22,6 +22,7 @@ export default class App extends Component {
       search: "",
       username: "",
       password: "", 
+      video: "",     
     };
   }
 
@@ -241,7 +242,8 @@ export default class App extends Component {
             render={props => 
               <NotesView 
                 {...props} 
-                notes={this.state.notes} />}
+                notes={this.state.notes}
+                 />}
           />
 
           <Route
