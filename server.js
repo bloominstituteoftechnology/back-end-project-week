@@ -91,6 +91,8 @@ server.delete("/tags/:id", (req, res) => {
       });
   });
 
-server.listen(5000, () => {
-  console.log(`\n Server listening on port 5000\n`);
-});
+  let port = process.env.PORT;
+  if (port == null || port == "") {
+    port = 8000;
+  }
+  server.listen(port);
