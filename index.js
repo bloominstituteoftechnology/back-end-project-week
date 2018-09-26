@@ -2,9 +2,11 @@ const express = require('express');
 const knex = require('knex');
 const dbConfig = require('./knexfile');
 const db = knex(dbConfig.development);
+const cors = require('cors');
  
 const server = express();
 server.use(express.json());
+server.use(cors());
 
  server.get('/', (req, res) => {
     res.send("Hello World");
@@ -69,5 +71,5 @@ server.use(express.json());
 })
  
   
- const port = process.env.PORT || 5000;
-server.listen(5000, () => console.log(`API running on port ${port}`)); 
+ const port = process.env.PORT || 8000;
+server.listen(port, () => console.log(`API running on port ${port}`)); 
