@@ -7,15 +7,18 @@ module.exports = {
 
 function protect(req, res, next){
     const token = req.headers.authorization 
+    // console.log(req.body)
     if (token) {
         jwt.verify(token, jwtKey, (err, decodedToken) => {
             if (err){
                 res.status(400).json({ message: 'auth err', error: err })
             } else {
                 req.user = {
+                    userId: decodedToken.userId,
                     username: decodedToken.username
                 }
-                next();
+                console.log(req)
+                next(req.user);
             }
         })
     } else {

@@ -27,8 +27,13 @@ notes.get('/:id', (req, res) => {
 })
 
 notes.post('/', (req, res) => {
+    // console.log(req, '30')
     const { textBody, title, id } = req.body
+    const { userId } = req.user
     //include username in the submission
+    req.body.userId = userId
+    //need to get the userID onto the req.body request so that it is included. 
+    // console.log(req.body.userId)
     if(!id){
         if(title){
             if(textBody){

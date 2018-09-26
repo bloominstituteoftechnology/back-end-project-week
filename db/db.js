@@ -41,8 +41,8 @@ function addUser(newUser){
     return db('users').insert(newUser)
 }
 
-function getUser(id){
-    return db('users').where({id})
+function getUser(userId){
+    return db('users').where('id', '=', userId)
 }
 
 function getToken(id){

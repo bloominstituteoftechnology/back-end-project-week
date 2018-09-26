@@ -22,6 +22,7 @@ const db = knex(dbConfig);
 function generateToken(user){
     const payload = {
       username: user.username,
+      userId: user.id,
       email: user.email
     }
 
@@ -39,6 +40,13 @@ welcome.get('/', (req, res) => {
     res.status(200).json({message: "MJK-LSN /welcome is running."})
 })
 
+welcome.get('/test/:id', (req,res) => {
+    console.log(req.params.id)
+    dbFunc.getUser(req.params.id).first().then(user => {
+        res.status(200).send(user)
+    })
+})
+
 welcome.post('/register', (req, res) => {
     const newUser = req.body; 
     // console.log(newUser)
@@ -46,16 +54,20 @@ welcome.post('/register', (req, res) => {
     // console.log(hash)
     newUser.password = hash
 
-    dbFunc.addUser(newUser).then(id => {
-        console.log(id)
-        dbFunc.getUser(id).then(user => {//I don't think this is actually doing anything 
-            console.log(user)
-            const token = generateToken(user);
-            res.status(200).json({message: "token created", token: token, username: user.username, userId: newUser.id})
-        }).catch({message: "user added but token not generated"})
-    }).catch(err => {
-        res.status(500).json({message: "there was a problem creating a new user", error: err})
-    })
+    dbFunc.addUser(newUser).then(id2 => {
+        console.log(getusers(id2))
+        console.log(id2)
+        db('users').where('id', id2).then(user3 => {
+            //I don't think this is actually doing anything 
+            console.log(user3)
+            const token = generateToken(user3);
+            const username = user3.username
+            console.log(username)
+            const id3 = user3.id
+            console.log(id3)
+            res.status(200).json({message: "token created", token: token})
+        }).catch(err => err.message)
+    }).catch(err => { res.status(500).json({error: err.message})})
 })
 
 welcome.post('/login', (req, res) => {
