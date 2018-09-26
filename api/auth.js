@@ -18,11 +18,15 @@ router.post("/register", async (req, res) => {
     try {
       const newUser = await db("users")
         .insert({ username, password, email })
-        .returning("*");
-        console.log(newUser);
-      const token = jwt.generateToken({ id: newUser.id, username: newUser.username });
-      console.log(token);
-      res.status(201).json({ id: newUser.id, username: newUser.username, token });
+        .returning("*")
+        .first();
+      const token = jwt.generateToken({
+        id: newUser.id,
+        username: newUser.username
+      });
+      res
+        .status(201)
+        .json({ id: newUser.id, username: newUser.username, token });
     } catch (e) {
       res.status(500).json(e);
     }

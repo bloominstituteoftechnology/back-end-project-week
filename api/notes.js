@@ -71,7 +71,8 @@ router.post("/", jwt.protected, async (req, res) => {
     try {
       const newNote = await db("notes")
         .insert({ title, content, user_id: userID })
-        .returning("*");
+        .returning("*")
+        .first();
       res.status(201).json(newNote);
     } catch (e) {
       res.status(500).json(e);
