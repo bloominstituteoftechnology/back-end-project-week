@@ -4,7 +4,7 @@
   "description": "PR This week you will build a backend for a note taking app called \"Lambda Notes\".",
   "main": "index.js",
   "scripts": {
-    "start": "node"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
