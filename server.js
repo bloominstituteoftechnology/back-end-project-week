@@ -41,7 +41,7 @@ function protected(req, res, next) {
       }
     });
   } else {
-    res.status(400).json({ message: 'no token provided' });
+    res.status(401).json({ message: 'no token provided' });
   }
 }
 
@@ -79,7 +79,7 @@ server.post('/api/register', (req, res) => {
           const token = generateToken(user);
           res.status(200).json({ token });
         } else {
-          res.status(401).json({ message: 'You shall not pass!' });
+          res.status(401).json({ message: 'Incorrect username or password.' });
         }
       })
       .catch(err => res.status(500).send(err));
