@@ -34,7 +34,7 @@ module.exports = server => {
   server.use(
     cors({
       credentials: true,
-      origin: "https://vigorous-haibt-4c6e56.netlify.com",
+      origin: process.env.CORS_URL,
     }),
   );
   server.use(helmet());
