@@ -13,6 +13,7 @@ module.exports = {
     },
     useNullAsDefault: true,
     migrations: {
+      tableName: 'knex_migrations',
       directory: './data/migrations',
     },
     seeds: {
