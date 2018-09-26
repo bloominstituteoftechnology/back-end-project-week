@@ -49,6 +49,15 @@ generateToken = user => {
 //     }
 // }
 
+server.get('/', async (req, res) =>{
+    try {
+        res.status(200) .json({message: 'running'})
+    }
+    catch (err ) {
+        res.status(500).json( err.message )
+    }
+});
+
 //REGISTER/LOGIN
 server.post('/register', async (req, res) => {
     const creds = req.body;
