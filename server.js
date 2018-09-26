@@ -5,5 +5,8 @@ const configMiddleware=require('./config/middleware')(server);
 const configAuthentication=require('./authenticate/userRoutes.js')(server);
 
 server.use('/note',notes);
+server.get('/',(req,res)=>{
+    res.status(200).send('API running.');
+})
 
 module.exports=server;
