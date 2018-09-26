@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
     notes.increments('noteId');
 
     notes.string('note_title').notNullable();
+    notes.string('url_title').notNullable();
     notes.string('note_content').notNullable();
 
     notes

@@ -51,6 +51,7 @@ function protected(req, res, next) {
 
 
 
+
 // Routes
 server.get('/', (req, res) => {
   res.send('API Running...');
@@ -102,7 +103,7 @@ server.post('/login', (req, res) => {
 server.get('/protected/notes', protected, (req, res) => {
   const { username } = req.user;
   db('users')
-    .select('noteId as id', 'note_title as title', 'note_content as description')
+    .select('noteId as id', 'note_title as title', 'url_title as urlTitle', 'note_content as description')
     .join('notes', 'users.userId', 'notes.userId')
     .where({username})
     .then(users => {
@@ -114,7 +115,15 @@ server.get('/protected/notes', protected, (req, res) => {
 
 server.post('/protected/notes', protected, (req, res) => {
   const { id } = req.user;
+  let regexonEdit = /([a-z0-9\s])/g;
+  let urlTitle = req.body.title
+          .toLowerCase()
+          .match(regexonEdit)
+          .join('')
+          .split(' ')
+          .join('-');
   const content = {
+    url_title: urlTitle,
     note_title: req.body.title,
     note_content: req.body.content,
     userId: id
@@ -129,8 +138,16 @@ server.post('/protected/notes', protected, (req, res) => {
 
 server.put('/protected/notes/:id', protected, (req, res) => {
   const id = parseInt(req.params.id, 10);
+  let regexonEdit = /([a-z0-9\s])/g;
+  let urlTitle = req.body.title
+          .toLowerCase()
+          .match(regexonEdit)
+          .join('')
+          .split(' ')
+          .join('-');
   const content = {
     note_title: req.body.title,
+    url_title: urlTitle,
     note_content: req.body.content,
   }
   db('notes').where({noteId: id}).update(content)
