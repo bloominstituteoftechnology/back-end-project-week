@@ -4,7 +4,8 @@
   "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "sqlite": "sqlite3 < ./lambda.sqlite3"
   },
   "repository": {
     "type": "git",

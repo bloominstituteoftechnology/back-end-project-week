@@ -6,7 +6,7 @@ const server = express();
 const bcrypt = require('bcryptjs');
 const dbConfig = require('./knexfile')
 const jwt = require('jsonwebtoken')
-const jwtKey = require('./secret/keys').jwtKey;
+const jwtKey = require('./secret/key').jwtKey;
 
 const db = knex(dbConfig.development);
 
@@ -33,7 +33,7 @@ const protected = (req, res, next) => {
     const token = req.headers.authorization
 
     token ?
-        jwt.verify(token, secret, (err, decodedToken) => {
+        jwt.verify(token, jwtKey, (err, decodedToken) => {
             err ?
                 res.status(401).json({ message: 'invalid username or password' })
                 :
@@ -45,15 +45,6 @@ const protected = (req, res, next) => {
 
 }
 
-// route for getting the right notes for user
-server.get('/', protected, (req, res) => {
-    db.select().from('notes').then(notes => {
-        return res.status(200).json(notes)
-    }).catch(err => {
-        console.log(err)
-        return res.status(500).json({message: 'Cannot retrieve notes at this time'})
-    })
-})
 
 // route for registering
 server.post('/api/register', (req, res) => {
@@ -61,10 +52,10 @@ server.post('/api/register', (req, res) => {
     const hash = bcrypt.hashSync(creds.password, 5)
     creds.password = hash
 
-    db('user').insert(req.body)
+    db('users').insert(req.body)
         .then(ids => {
             const id = ids[0]
-            db('user').where({ id }).first()
+            db('users').where({ id }).first()
                 .then(user => {
                     const token = generateToken(user)
                     return res.status(201).json({ message: 'login success', token: token })
@@ -88,7 +79,7 @@ server.post('/api/login', (req, res) => {
         .then(user => {
             if (user || brcypt.compareSync(creds.password, user.password)) {
                 const token = generateToken(user)
-                return res.status(200).json(`Welcome ${user.username}`)
+                return res.status(200).json({ token: token, msg: `Login successful. Welcome, ${user.username}!`})
             } else {
                 return res.status(401).json({error: 'Invalid username or password'})
             }
@@ -99,21 +90,26 @@ server.post('/api/login', (req, res) => {
         })
 })
 
-//  route for making notes
-server.post('/api/create', (req, res) => {
-    const note = req.body
-
-    db.insert(note).into('notes').then(note => {
-        return res.status(200).json({message: 'note created'})
+// route for getting the right notes for user
+server.get('/', protected, (req, res) => {
+    db.select().from('notes').then(notes => {
+        return res.status(200).json(notes)
     }).catch(err => {
         console.log(err)
-        return res.status(500).json({message: 'Error Creating Note'})
+        return res.status(500).json({message: 'Cannot retrieve notes at this time'})
     })
 })
 
-// route for getting the right notes for user | this will most likely end up just being the /api/ route on line 52
-server.get('/api/user', protected, (req, res) => {
-
+//  route for making notes
+server.post('/api/create', (req, res) => {
+    const note = req.body
+// need to come back and make a conditional statement for when note doesnt meet certain reqiurements 
+    db.insert(note).into('notes').then(note => {
+        return res.status(200).json({message: 'note created', note})
+    }).catch(err => {
+        console.log(err)
+        return res.status(500).json({message: 'Error Creating Note', err})
+    })
 })
 
 // route for viewing each indiviual note
