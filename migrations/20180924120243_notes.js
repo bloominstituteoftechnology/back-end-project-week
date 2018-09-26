@@ -3,9 +3,9 @@ exports.up = function(knex, Promise) {
   return knex.schema.createTable("notes", function(tbl) {
     tbl.increments().primary();
     tbl.string("title").notNullable();
-    tbl.string("body").notNullable();
-    tbl.string("checklist");
-    tbl.string("tags");
+    tbl.text("body").notNullable();
+    tbl.text("checklist");
+    tbl.text("tags");
     tbl.integer("userID").notNullable();
   })
 };
