@@ -5,9 +5,7 @@ const cors = require("cors");
 const notes = require("./routers/notesRouter");
 const auth = require("./routers/authRouter");
 const passport = require("./passport")
-const authhelper = require("./dbhelpers/auth");
-
-require('dotenv').config()
+// const authhelper = require("./dbhelpers/auth");
 
 const app = express();
 const port = process.env.PORT;

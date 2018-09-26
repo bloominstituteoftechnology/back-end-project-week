@@ -3,16 +3,17 @@ const router = express.Router();
 const tokensecret = "your_jwt_secret";
 const jwt = require("jsonwebtoken");
 const auth = require("../dbhelpers/auth");
-const passport = require("../passport")
-
+const passport = require("../passport");
+const bcrypt = require('bcrypt');
 
 router.post("/register", async function(req, res) {
   if (!req.body.username || !req.body.password) {
+
     res.status(400).json({ errorMessage: "Invalid body" });
+    return;
   }
   try {
-    req.body.password = bcrypt.hashSync(req.body.password, 14);
-    console.log(req.body);
+    req.body.password = await bcrypt.hashSync(req.body.password, 14);
     await auth.addUser(req.body.username, req.body.password);
     res.status(200).json({ message: "success" });
   } catch (err) {
