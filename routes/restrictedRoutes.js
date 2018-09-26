@@ -83,7 +83,6 @@ router.put("/:id", function(req, res) {
 	helpers
 		.updateNote(req.params.id, req.body)
 		.then(response => {
-			console.log({ ...req.body, id: Number(req.params.id) });
 			return res.json({
 				error: false,
 				message: { ...req.body, id: Number(req.params.id) },

@@ -58,12 +58,13 @@ module.exports = {
 			.then(response => {
 				return db("tags")
 					.where("note_id", id)
-					.del()
-					.then(response => {
-						this.addNoteWithTags(updated).then(response => {
-							return updated;
-						});
-					});
+					.del();
+			})
+			.then(response => {
+				return this.addNoteWithTags(updated);
+			})
+			.then(response => {
+				return updated;
 			});
 	},
 };
