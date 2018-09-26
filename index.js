@@ -4,12 +4,10 @@ const express = require('express');
 const helmet = require('helmet');
 const knex = require('knex');
 const cors = require('cors');
-require('knex')(config);
 
-const dbConfig = require('./knexfile');
-const db = knex(dbConfig);
 const dbEngine = process.env.DB || 'development';
-const config = require('./knexfile.js')['dbEngine'];
+const config = require('./knexfile.js')[dbEngine];
+const db = knex(config);
 const server = express();
 
 server.use(helmet());
