@@ -5,46 +5,30 @@ import NoteView from './NoteView';
 import EditNote from './EditNote';
 import { Route, Switch } from 'react-router-dom';
 import './index.css';
+import axios from  'axios';
+
+const url = 'http://localhost:3300/api/notes';
 
 export default class MainNotes extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state= {
-            dummyNotes: [
-            {
-                id: 1,
-                title: 'First Note',
-                body: `When you play the game of thrones, you win or you die. May the Father
-                judge him justly. The Dothraki do things in their own time, for their
-                own reasons. Forgive my manners. I don't see many ladies these days.
-                Lucky for the ladies. And now his watch is ended. The winds of Winter.
-                You know nothing, Jon Snow. It's ten thousand miles between Kings
-                landing and the wall.`,
-            },
-            {
-              id: 2,
-              title: 'Second Note',
-              body: `When you play the game of kings, you win or you die. May the Father
-              judge him justly. The Dothraki do things in their own time, for their
-              own reasons. Forgive my manners. I don't see many ladies these days.
-              Lucky for the ladies. And now his watch is ended. The winds of Winter.
-              You know nothing, Jon Snow. It's ten thousand miles between Kings
-              landing and the wall.`,
-          },
-          {
-              id: 3,
-              title: 'Third Note',
-              body: `When you play the game of birds, you win or you die. May the Father
-              judge him justly. The Dothraki do things in their own time, for their
-              own reasons. Forgive my manners. I don't see many ladies these days.
-              Lucky for the ladies. And now his watch is ended. The winds of Winter.
-              You know nothing, Jon Snow. It's ten thousand miles between Kings
-              landing and the wall.`,
-          }
-        ],
+            dummyNotes: [],
             title: '',
             body: '',
         }
+    }
+
+    componentDidMount() {
+        axios
+            .get(url)
+            .then( res => {
+                this.setState({ dummyNotes: res.data })
+            })
+            .catch(err => {
+                console.log('Error:', err);
+
+            })
     }
 
     addNote = e => {
@@ -55,27 +39,29 @@ export default class MainNotes extends Component {
             title: this.state.title, // title set by input change handler
             body: this.state.body,
         });
+        axios
+            .post('http://localhost:3300/api/notes', this.state.title, this.state.body)
+            .then(res => {
+                this.props.history.push('/notes')
+            })
+            .catch(err => console.log(err));
         this.setState({
             dummyNotes: noteSnapshot, 
             title: '', // resets title to blank after input change
             body: ''
         });
+
     }
 
     editNote = e => {
         e.preventDefault();
-        console.log('dummyNotes:', this.state.dummyNotes)
+        console.log('Object:', e.id)
         console.log('editnoteID:', e.id)
-        for(let i = 0; i < this.state.dummyNotes.length; i++){
-            
-        }
         const noteSnapshot = this.state.dummyNotes.slice();
         const newNote = {
-            id: this.state.dummyNotes.length + 1,
             title: this.state.title,
             body: this.state.body
         }
-        noteSnapshot.push(newNote);
         this.setState({
             dummyNotes: noteSnapshot,
             title: '',
