@@ -1,9 +1,81 @@
 import React, { Component } from 'react';
 import './index.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 
-
+class DelayLink extends React.Component {
+    static propTypes = {
+      /**
+       * Milliseconds to wait before registering the click.
+       */
+      delay:        PropTypes.number,
+      /**
+       * Called after the link is clicked and before the delay timer starts.
+       */
+      onDelayStart: PropTypes.func,
+      /**
+       * Called after the delay timer ends.
+       */
+      onDelayEnd:   PropTypes.func
+    };
+  
+    static defaultProps = {
+      delay:        0,
+      onDelayStart: () => {},
+      onDelayEnd:   () => {}
+    };
+  
+    static contextTypes = Link.contextTypes;
+  
+    constructor(props) {
+      super(props);
+      this.timeout = null;
+    }
+  
+    componentWillUnmount() {
+      if (this.timeout) {
+        clearTimeout(this.timeout);
+      }
+    }
+  
+    /**
+     * Called when the link is clicked
+     *
+     * @param {Event} e
+     */
+    handleClick = (e) => {
+      const { replace, to, delay, onDelayStart, onDelayEnd } = this.props;
+      const { history } = this.context.router;
+  
+      onDelayStart(e, to);
+      if (e.defaultPrevented) {
+        return;
+      }
+      e.preventDefault();
+  
+      this.timeout = setTimeout(() => {
+        if (replace) {
+          history.replace(to);
+        } else {
+          history.push(to);
+        }
+        onDelayEnd(e, to);
+      }, delay);
+    };
+  
+    render() {
+      const props = Object.assign({}, this.props);
+      delete props.delay;
+      delete props.onDelayStart;
+      delete props.onDelayEnd;
+  
+      return (
+        <Link {...props} onClick={this.handleClick} />
+      );
+    }
+  }
 
 
 class EditNote extends Component {
@@ -13,6 +85,12 @@ class EditNote extends Component {
         title: '',
         content: ''
     }
+
+
+    
+
+
+
 
 
     findMatch = () => {
@@ -46,12 +124,16 @@ class EditNote extends Component {
 
 
     handleChange = (event) => {
-        console.log(event.target.name)
+        console.log(event.target.name, event.target.value)
         this.setState({[event.target.name]: event.target.value})
 
         // let temp = Array.from(this.state.matched);
         // temp[0][event.target.name] = event.target.value;
         // this.setState({ matched: temp })
+    }
+
+    redirect = () => {
+        window.location.assign('/')
     }
 
 
@@ -62,7 +144,7 @@ class EditNote extends Component {
 
 
     render() {
-        console.log("matched?", this.state.title)
+        
         return (
             <div className='edit_view'>
                 <form className="edit_form" onSubmit={this.edit}>
@@ -91,12 +173,14 @@ class EditNote extends Component {
                     
                     <br />
 
-                    <button 
+                    {/* <Link to="/"> */}
+                    <button type="submit"
                         className="edit_button"
-                        onClick={this.handleUpdate}
+                        onClick={this.redirect}
                         
                             >Update
                     </button>
+                    {/* </Link> */}
                     <button 
                         className="cancel_button"
                         onClick={this.cancelButton}
@@ -109,27 +193,25 @@ class EditNote extends Component {
         )
     }
 
-    // edit = event => { 
-    //     // event.preventDefault();
-    //     console.log("history?", this.props.history)
-
+    edit = event => { 
+        event.preventDefault();
+        console.log("EN history", this.state.matched)
+        const noteObj = {
+            title: this.state.title,
+            content: this.state.content
+        }
         
-    //     axios
-    //         .put(`http://localhost:5000/notes/${this.state.matched.id}`, {
-    //             title: this.state.matched.title,
-    //             content: this.state.matched.content
-    //         })
-    //         .then(res => {
-    //             console.log("data?", res.data);
+        axios
+            .put(`http://localhost:5000/notes/${this.state.matched.id}`, noteObj)
+            .then(res => {
+                console.log("data?", res.data);
+                // window.location.reload();
+            })
+            .catch(err => {
+                console.log(err, 'err')
+        });
 
-    //             this.props.history.push('/');
-    //             window.location.reload();
-    //         })
-    //         .catch(err => {
-    //             console.log(err, 'err')
-    //     });
-
-    // };
+    };
 
 
 
