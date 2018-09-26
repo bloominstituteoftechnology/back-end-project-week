@@ -1,5 +1,6 @@
 // Update with your config settings.
-const dbConnection = process
+require("dotenv").config();
+const dbConnection = process.env.DATABASE_URL;
 module.exports = {
   development: {
     client: "sqlite3",
@@ -14,13 +15,13 @@ module.exports = {
     seeds: { directory: "./db/seeds" }
   },
   production: {
-    client: 'pg',
+    client: "pg",
     connection: dbConnection,
     pool: {
       min: 2,
       max: 10
     },
-    migrations:{
+    migrations: {
       directory: "./db/migrations",
       tableName: "dbmigrations"
     },
