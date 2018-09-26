@@ -15,7 +15,6 @@ class Login extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
   login = async () => {
-    console.log(process.env);
     try {
       let response = await axios.post(`${process.env.REACT_APP_URL ||"http://localhost:9001/"}auth/login`, {
         username: this.state.username,
