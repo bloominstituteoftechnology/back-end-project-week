@@ -1,10 +1,6 @@
-const express=require('express');
-const server=express();
-const notes=require('./notes/userRoutes');
-const configMiddleware=require('./config/middleware')(server);
-const configAuthentication=require('./authenticate/userRoutes.js')(server);
+require('dotenv').config();
+const server=require('./server.js');
 
-server.use('/note',notes);
+const port=process.env.PORT||9000;
 
-const port=9000;
-server.listen(port,()=>console.log('Engines firing server starting new horizons venturing.'));
+server.listen(port,()=>console.log(`\n===Running on port ${port}===\n`));
