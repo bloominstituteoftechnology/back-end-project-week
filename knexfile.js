@@ -1,4 +1,5 @@
 // Update with your config settings.
+require('dotenv').config();
 const localPg = {
   host: 'localhost',
   database: 'lambdaNotes',
@@ -17,6 +18,23 @@ module.exports = {
     useNullAsDefault: true,
     migration: {
       directory: './migrations'
-    }
-  }
+    },
+    seeds: {
+      directory: './seeds',
+    },
+  },
+  production: {
+    client: 'pg',
+    connection: dbConnection,
+    pool: {
+      min: 2,
+      max: 10,
+    },
+    migrations: {
+      directory: './migrations',
+    },
+    seeds: {
+      directory: './seeds',
+    },
+  },
 };
