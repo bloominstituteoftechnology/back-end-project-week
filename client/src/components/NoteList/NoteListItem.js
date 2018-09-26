@@ -1,22 +1,25 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
-
-class NoteListItem extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-
-    }
-  }
-
-  componentDidMount() {
-
-  }
+import styled from 'styled-components';
 
 
-  render() {
+const NoteListItemContainer = styled.div`
+  width: 50vw;
+  height: 10vh;
+  margin: auto 0;
+  display: flex;
+  flex-flow: column;
+  background-color: #342D33;
+  color: #E3FFD5;
+  border: solid 1px #E3FFD5;
+`;
+
+const NoteListItem = (props) => {
+  console.log('props in notelistitem',props);
+  
     return (
-      <div className="note-list-item">
+      <NoteListItemContainer className="note-list-item">
+      <h1></h1>
         {/* 
           - Title,
           - date created,
@@ -24,10 +27,11 @@ class NoteListItem extends Component {
             --- "delete"
           }
          */}
+         <div>{props.note.title}</div>
+        <div>{props.note.date}</div>
          
-      </div>
+      </NoteListItemContainer>
     );
-  }
 }
 
 export default NoteListItem;

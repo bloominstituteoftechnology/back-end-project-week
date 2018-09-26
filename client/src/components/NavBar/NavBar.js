@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
-import logo from './logo.svg';
-import './NavBar.css';
-import NewNoteForm from './components/Forms/NewNoteForm';
+// import './NavBar.css';
+import NewNoteForm from '../Forms/NewNoteForm.js';
+import NoteList from '../NoteList/NoteList.js';
+import Login from '../Login/Login.js';
+import styled from 'styled-components';
 
 class NavBar extends Component {
   constructor(props) {
@@ -32,9 +34,9 @@ class NavBar extends Component {
           <Link to="/newnote">Add New Note</Link>
           <Link to="/notelist">View Notes</Link>
           <Link to="login">Login</Link>
-          <Route path="/newnote"{...rest} render={(props) => { <NewNoteForm {...props} /> }} />
-          <Route path="/notelist"{...rest} render={(props) => { <NoteList {...props} /> }} />
-          <Route path="/login" {...rest} render={(props) => { <Login {...props} /> }} />
+          <Route path="/newnote" render={(props) => { <NewNoteForm {...props} /> }} />
+          <Route path="/notelist" render={(props) => { <NoteList {...props} /> }} />
+          <Route path="/login"  render={(props) => { <Login {...props} /> }} />
         </div>
       </div>
     );

@@ -26,7 +26,7 @@ class Landing extends Component {
 
   render() {
     return (
-      <LandingStyle >
+      <LandingStyle>
           <h1>TACK</h1>
         <Link to="/menu">Menu</Link>
       </LandingStyle>
