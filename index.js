@@ -7,9 +7,9 @@ const cors = require('cors');
 
 const dbConfig = require('./knexfile');
 const db = knex(dbConfig.development);
-const server = express();
 const dbEngine = process.env.DB || 'development';
 const config = require('./knexfile.js')['dbEngine'];
+const server = express();
 
 server.use(helmet());
 server.use(express.json());
