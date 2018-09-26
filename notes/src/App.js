@@ -78,11 +78,15 @@ class App extends Component {
     })
   }
 
-  addNote = () => {
+  addNote = (push) => {
     this.setState({loading: true})
     axios.post("http://localhost:8000/api/notes/", {title:this.state.title, body:this.state.textBody})
     .then(res => {
       this.getNotes();
+      push('/notes')
+    })
+    .catch(err => {
+      console.log(err)
     })
   }
 

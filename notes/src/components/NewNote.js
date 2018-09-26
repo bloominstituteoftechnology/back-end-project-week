@@ -5,7 +5,7 @@ const NewNote = (props) => {
 
   return(
     <Container>
-    <Form onSubmit = {(event) => props.addNote( event, props.history.push)}>
+    <Form onSubmit = {() => props.addNote(  props.history.push)}>
       <FormGroup>
         <Label for="exampleEmail">Create New Note</Label>
         <Input onChange={props.handleChange} value={props.title}  name="title" placeholder="Note title" type="text" />
@@ -13,7 +13,7 @@ const NewNote = (props) => {
       <FormGroup>
         <Input onChange={props.handleChange} value={props.textBody}  name="textBody"  placeholder="Note Content" type="textarea" />
      </FormGroup>
-      <Button className="li"> Save</Button>
+      <Button onSubmit = {() => props.addNote(  props.history.push)} className="li"> Save</Button>
    </Form>
    </Container>
   )
