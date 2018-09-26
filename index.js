@@ -5,6 +5,7 @@ const cors = require("cors");
 const notes = require("./routers/notesRouter");
 const auth = require("./routers/authRouter");
 const passport = require("./passport")
+const authhelper = require("../dbhelpers/auth");
 
 require('dotenv').config()
 
@@ -19,7 +20,11 @@ app.use(helmet());
 
 app.use("/auth", auth);
 app.use("/notes", passport.authenticate('jwt', { session: false }), notes);
+app.use("/test",async function(req, res) {
+  const results= await auth.authhelper();
 
+       res.json({results})
+   });
 app.use("/", (req, res) =>
   res
     .status(404)
