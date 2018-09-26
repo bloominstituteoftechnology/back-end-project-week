@@ -51,5 +51,4 @@ module.exports = {
       directory: './db/seeds',
     }
   }
-
 };

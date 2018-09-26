@@ -55,17 +55,16 @@ welcome.post('/register', (req, res) => {
     newUser.password = hash
 
     dbFunc.addUser(newUser).then(id2 => {
-        console.log(getusers(id2))
         console.log(id2)
-        db('users').where('id', id2).then(user3 => {
+        dbFunc.getUser(id2).then(user3 => {
             //I don't think this is actually doing anything 
-            console.log(user3)
-            const token = generateToken(user3);
-            const username = user3.username
-            console.log(username)
-            const id3 = user3.id
-            console.log(id3)
-            res.status(200).json({message: "token created", token: token})
+            // console.log(user3)
+            const token = generateToken([]);
+            // const username = newUser.username
+            // console.log(username)
+            // const id3 = user3.id
+            // console.log(id3)
+            res.status(200).json({message: "token created", token: token, username: newUser.username})
         }).catch(err => err.message)
     }).catch(err => { res.status(500).json({error: err.message})})
 })
