@@ -1,11 +1,9 @@
-require('dotenv').config();
+require("dotenv").config();
 const dbConnection = process.env.DATABASE_URL;
 module.exports = {
   production: {
     client: "pg",
-    connection: {
-      database:dbConnection
-    },
+    connection: process.env.DATABASE_URL + "?ssl=true",
     seeds: {
       directory: "./db/seeds"
     },
