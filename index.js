@@ -12,5 +12,5 @@ server.get("/", (req, res) => {
 });
 
 // port setup
-const port = process.env.PORT || 2200;
+const port = process.env.PORT || 3333;
 server.listen(port, () => console.log(`\n=== Web API Listening on http://localhost:${port} ===\n`));
