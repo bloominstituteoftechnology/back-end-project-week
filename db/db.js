@@ -48,9 +48,3 @@ function getUser(userId){
         return db('users')
     }
 }
-
-function getToken(id){
-    this.getUser(id).then(user => {
-        console.log(user)
-    })
-}
