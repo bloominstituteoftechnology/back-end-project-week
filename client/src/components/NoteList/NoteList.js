@@ -5,12 +5,12 @@ import styled from 'styled-components';
 import NoteListItem from './NoteListItem';
 import NavBar from '../NavBar/NavBar.js';
 import Tack from '../../tack.svg';
-const URL = `http://localhost:8888/notes`;
+const URL = `http://localhost:9000/notes`;
 
 const NoteListContainer = styled.div`
   width:420px;
   height:605px;
-  margin: auto 0;
+  margin: 0 auto;
   display: flex;
   flex-flow: column;
   align-items:center;
@@ -20,11 +20,11 @@ const NoteListContainer = styled.div`
 
 const imgStyle = {
   width: '50%',
-  margin: '5% 25%',
+  margin: '10% 25%',
 };
 
 const NoteItemStyle = {
-  width:'100%',
+  // width:'90%',
   height:'10vh',
   lineHeight:'1',
   fontSize:'1.4rem',
@@ -39,38 +39,40 @@ class NoteList extends PureComponent {
     this.state = {
       notes:[],
     }
+    console.log('props in notelist', props);
   }
 
   componentDidMount() {
-    // this.setState({notes:this.props.notes});
-    console.log('props in notelist', this.props);
     
-    axios
-      .get(URL)
-      .then(res => {
-        this.setState({ notes: res.data });
-      })
-      .catch(err => {
-        console.log(`ERROR: ${err}`);
-      });
+    this.setState({notes:this.props.notes});
+    // console.log('props in notelist', this.props);
+    
+    // axios
+    //   .get(URL)
+    //   .then(res => {
+    //     this.setState({ notes: res.data });
+    //   })
+    //   .catch(err => {
+    //     console.log(`ERROR: ${err}`);
+    //   });
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log('next props', nextProps);
-    this.props = nextProps;
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   console.log('next props', nextProps);
+  //   this.props = nextProps;
+  // }
 
-  componentDidUpdate(){
-    axios
-      .get(URL)
-      .then(res => {
-        let _notes = res.data;
-        this.setState({ notes: _notes });
-      })
-      .catch(err => {
-        console.log(`ERROR: ${err}`);
-      });
-  }
+  // componentDidUpdate(){
+  //   axios
+  //     .get(URL)
+  //     .then(res => {
+  //       let _notes = res.data;
+  //       this.setState({ notes: _notes });
+  //     })
+  //     .catch(err => {
+  //       console.log(`ERROR: ${err}`);
+  //     });
+  // }
 
   handleDeleteNote = (input) => {
     console.log('id of to be deleted', input);
@@ -85,13 +87,14 @@ class NoteList extends PureComponent {
   }
 
   render() {
+    console.log('props in notelist', this.props);
     return (
     
       <NoteListContainer>
         <div><img src={Tack} style={imgStyle} /></div>
          {
-           this.state.notes.map((note)=>{
-            return <Link to={`/noteview/${note.id}`} style={{textDecoration:'none'}}><NoteListItem style={NoteItemStyle} note={note}/></Link>
+           this.props.notes.map((note)=>{
+            return <Link to={`/noteview/${note.id}`} key={note.id} style={{textDecoration:'none'}}><NoteListItem style={NoteItemStyle} note={note}/></Link>
            })
          }
       </NoteListContainer>

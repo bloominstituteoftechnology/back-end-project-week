@@ -6,13 +6,15 @@
   "repository": "https://github.com/ErikKimsey/back-end-project-week.git",
   "author": "Erik Kimsey <erik@erikkimsey.com>",
   "scripts": {
-    "start": "node"
+    "start": "nodemon --watch --verbose",
+    "dev": "nodemon server.js --watch --verbose"
   },
   "license": "MIT",
   "dependencies": {
     "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
     "express": "^4.16.3",

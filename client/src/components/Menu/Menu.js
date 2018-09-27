@@ -22,7 +22,7 @@ const MenuStyle = styled.div`
 `;
 
 const SubMenuStyle = styled.div`
-  width: 20vw;
+  width: 100%;
   top:10vh;
   height: auto;
   margin: 10% auto;
@@ -32,14 +32,14 @@ const SubMenuStyle = styled.div`
 `;
 
 const linkStyle = {
+  width:'90%',
   fontFamily: 'sans-serif',
-  fontSize: '2rem',
+  fontSize: '3rem',
   textDecoration: 'none',
   color: '#E3FFD5',
   width:'100%',
   textAlign:'center',
-
-}
+};
 class Menu extends Component {
   constructor(props) {
     super(props);
@@ -63,19 +63,16 @@ class Menu extends Component {
   render() {
     return (
       <MenuStyle className="Menu">
-        {/* 
-        - LOGO,
-        - OPENS MODALS: copyright / "about" link
-        */}
+
         <SubMenuStyle>
-          <div><img src={Tack}/></div>
-          <NavBar/>
-          <Link to="/newnote" style={linkStyle}>Add New Note</Link>
+          <div style={{width:'30%', left:'40px'}}><img src={Tack}/></div>
+    
+          <Link to="/newnote" style={linkStyle}>New Note</Link>
           <Link to="/notelist" style={linkStyle}>View Notes</Link>
           <Link to="login" style={linkStyle}>Login</Link>
           
-          <Route path="/notelist" render={(props) => { <NoteList {...props} /> }} />
-          <Route path="/login"  render={(props) => { <Login {...props} /> }} />
+          <Route path="/notelist" render={(props) => { return <NoteList {...props} /> }} />
+          <Route path="/login"  render={(props) => { return <Login {...props} /> }} />
         </SubMenuStyle>
       </MenuStyle>
     );

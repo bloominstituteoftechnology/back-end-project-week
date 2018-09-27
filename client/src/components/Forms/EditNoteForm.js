@@ -31,7 +31,7 @@ class EditNote extends React.Component {
 
   componentDidMount() {
     let thisNote = this.props.notes.find((note) => {
-      return note.id === parseInt(this.props.match.params.id);
+      return note.id == this.props.match.params.id;
     });
 
     this.setState({

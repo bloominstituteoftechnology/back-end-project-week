@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 
 const NoteListItemContainer = styled.div`
-   width:420px;
+  width:400px;
   height:10vh;
   margin: 0 auto;
   display: flex;
@@ -14,7 +14,7 @@ const NoteListItemContainer = styled.div`
   background-color: #342D33;
   color: #E3FFD5;
   font-size:1.5rem;
-  border: solid 1px #E3FFD5;
+  border-top: solid 1px #E3FFD5;
   font-family:sans-serif;
 `;
 
@@ -22,9 +22,8 @@ const NoteListItem = (props) => {
   
     return (
       <NoteListItemContainer className="note-list-item">
-         <div>{props.note.title}</div>
+        <div>{props.note.title}</div>
         <div>{props.note.date}</div>
-         
       </NoteListItemContainer>
     );
 }

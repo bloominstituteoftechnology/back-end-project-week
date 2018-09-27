@@ -7,8 +7,9 @@ const helmet = require('helmet');
 const db = require('./dbConfig.js');
 const morgan = require('morgan');
 const notesRoutes = require('./notes/notesRoutes.js');
+require('dotenv').config();
 
-const PORT = 8888;
+const PORT = process.env.PORT || 8888;
 
 const app = express();
 
@@ -19,9 +20,5 @@ app.use(express.json());
 
 app.use('/notes', notesRoutes);
 
-app.get('/', (req, res)=>{
-  res.send('YOYOYO')
-});
-
-app.listen(PORT, console.log(`Listening on port ${PORT}`)
+app.listen(9000, console.log(`Listening on port ${PORT}`)
 );

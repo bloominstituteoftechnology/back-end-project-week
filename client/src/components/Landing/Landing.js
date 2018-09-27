@@ -13,6 +13,7 @@ const LandingStyle = styled.div`
   align-items:center;
   background-color: #342D33;
   color: #E3FFD5;
+  box-shadow: inset 0 0 6px #E3FFD5;
 `;
 
 const imgStyle = {
@@ -22,10 +23,12 @@ const imgStyle = {
 
 const linkStyle = {
   fontFamily: 'sans-serif',
-  fontSize:'4rem',
+  fontSize:'3rem',
   textDecoration:'none',
   color: '#E3FFD5'
 }
+
+
 class Landing extends Component {
   constructor(props){
     super(props);

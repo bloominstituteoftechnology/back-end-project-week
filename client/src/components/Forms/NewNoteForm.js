@@ -3,7 +3,7 @@ import { Route, Link } from 'react-router-dom';
 import axios from 'axios';
 import NavBar from '../NavBar/NavBar.js';
 import styled from 'styled-components';
-const URL = `http://localhost:8888/notes`;
+const URL = `http://localhost:9000/notes`;
 
 
 const FormContainer = styled.div`

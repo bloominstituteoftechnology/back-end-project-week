@@ -15,7 +15,7 @@ import Note from './components/Note/Note.js';
 import Handshake from './utilities/handshake.js';
 import EditNoteForm from './components/Forms/EditNoteForm.js';
 
-const URL = `http://localhost:8888/notes`;
+const URL = `http://localhost:9000/notes`;
 
 const AppContainer = styled.div`
    width:420px;
@@ -29,7 +29,7 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      notes: null,
+      notes: [],
     };
   }
 
@@ -68,7 +68,7 @@ class App extends Component {
       .then(res => {
         let nu = res.data;
         this.setState({ notes: nu });
-        this.setNotes();
+        // this.setNotes();
       })
       .catch(err => {
         console.log(`ERROR: ${err}`);
@@ -80,8 +80,10 @@ class App extends Component {
     axios
       .delete(URL+`/${input}`)
       .then(res => {
-        this.setState({ notes: res.data });
-        this.setNotes();
+        console.log('after delete from api ',res.data);
+        
+        // this.setState({ notes: res.data });
+        // this.setNotes();
       })
       .catch(err => {
         console.log(`ERROR: ${err}`);
@@ -93,9 +95,8 @@ class App extends Component {
       .put(URL+`/${note.id}`, {id:note.id, title:note.title, content:note.content})
       .then(res => {
         console.log('res from PUT', res.data);
-        
         this.setState({ notes: res.data });
-        this.setNotes();
+        // this.setNotes();
       })
       .catch(err => {
         console.log(`ERROR: ${err}`);
