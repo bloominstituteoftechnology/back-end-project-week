@@ -34,6 +34,12 @@ class SingleNote extends Component {
       console.log(this.state.notes)
       console.log(this.props.history)
     })
+    .catch( err => {
+      console.log(err.response.data)
+      this.setState({
+      notes: { ...this.state.notes, title: err.response.status, body: err.response.data.error }
+      })
+    })
   }
 
   toggle = () => {
