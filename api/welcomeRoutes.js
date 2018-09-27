@@ -42,8 +42,8 @@ welcome.get('/', (req, res) => {
 
 welcome.get('/test/', (req,res) => {
     console.log(req.params.id)
-    dbFunc.getNotes().then(user => {
-        res.status(200).send(user)
+    dbFunc.getUser().then(allUser => {
+        res.status(200).send(allUser)
     })
 })
 

@@ -42,7 +42,11 @@ function addUser(newUser){
 }
 
 function getUser(userId){
-    return db('users').where('id', userId)
+    if(userId){
+        return db('users').where('id', userId)
+    } else {
+        return db('users')
+    }
 }
 
 function getToken(id){

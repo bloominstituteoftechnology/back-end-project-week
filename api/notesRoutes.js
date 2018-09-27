@@ -10,6 +10,13 @@ notes.get('/', (req, res) => {
     res.status(200).json({message: "MJK-LSN api/notes/ is running."})
 })
 
+welcome.get('/test/', (req,res) => {
+    console.log(req.params.id)
+    dbFunc.getNotes().then(allNotes => {
+        res.status(200).send(allNotes)
+    })
+})
+
 notes.get('/all/', (req, res) => {
     //only return only notes that have the username in req.user.username
     dbFunc.getNotes().then(allUserNotes => {
