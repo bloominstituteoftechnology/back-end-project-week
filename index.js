@@ -4,10 +4,10 @@ const knex = require('knex');
 const bcrypt = require('bcryptjs');
 const dBConfig = require('./knexfile');
 const db = knex(dBConfig.development);
-
+const cors = require('cors');
 //Middleware
 server.use(express.json());
-
+server.use(cors());
 //Endpoints
 server.post('/api/addNote', (req, res) => {
     const newNote = req.body;
