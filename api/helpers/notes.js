@@ -128,7 +128,7 @@ const SWITCH = (req, res) => {
         console.error(err);
         res.status(500)
           .json({
-            error: 'Something went wrong while fetching the to-be-switched the notes.',
+            error: 'Something went wrong while fetching the to-be-switched notes.',
             message: err.message
           });
       });
