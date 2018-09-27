@@ -15,7 +15,7 @@ server.get("/", (req, res) => {
 });
 
 server.get("/notes", (req, res) => {
-  db.getPagedNotes()
+  db.getNotes()
     .then(notes => {
       res.status(200).json(notes);
     })
