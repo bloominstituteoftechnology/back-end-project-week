@@ -24,7 +24,7 @@ const express = require('express');
 const server = express();
 const cors = require('cors');
 
-const db = require("./database/db")
+const db = require("./data/db")
 
 server.use(express.json());
 server.use(cors());
@@ -394,7 +394,6 @@ server.get('/', (req, res) => {
 // 			res.status(500).json(error);
 // 		})
 // });
-
 
 //Get all notes
 server.get('/api_v1/notes', (req, res) => {
