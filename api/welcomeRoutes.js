@@ -49,7 +49,7 @@ welcome.get('/test/:id', (req,res) => {
 
 welcome.post('/register', (req, res) => {
     const newUser = req.body; 
-    // console.log(newUser)
+    console.log(newUser)
     const hash = bcrypt.hashSync(newUser.password, 3);
     // console.log(hash)
     newUser.password = hash

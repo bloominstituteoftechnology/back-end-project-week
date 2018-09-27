@@ -10,7 +10,7 @@ server.use(helmet());
 
 server.use(cors({
     credentials: true, 
-    origin: 'https://frontend-mjk.herokuapp.com/'
+    origin: process.env.HOST
  }));
 
 server.get('/', (req, res) => {
