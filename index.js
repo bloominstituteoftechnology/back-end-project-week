@@ -3,6 +3,9 @@ const helmet = require('helmet');
 const cors = require("cors");
 const morgan = require("morgan"); 
 
+//new
+require('dotenv').config(); 
+
 const server = express(); 
 server.use(express.json())
 server.use(helmet());
@@ -42,23 +45,19 @@ server.get("/notes/:id", (req, res) => {
 });
 
 server.post("/notes", (req, res) => {
-  console.log(req.body, "body")
   db('notes')
     .insert(req.body)
     .then(noteId => {
       const id = noteId[0];
-      res.status(201).json(id);
+      res.status(201).json(id)
     })
     .catch(error => {
-      console.log(error.message)
       res.status(500).json({ error, errorMessage: error.message });
     });
 });
 
 server.put("/notes/:id", (req, res) => {
-  console.log(req.body);
   const { id } = req.params;
-  console.log(id, "id")
   const changes = req.body;  
   db("notes")
     .update(changes)
@@ -71,7 +70,6 @@ server.put("/notes/:id", (req, res) => {
       }
     })
     .catch(error => {
-      console.log(error.message)
       res.status(500).json({error, errorMessage: error.message})
     });
 });
@@ -93,6 +91,6 @@ server.delete("/notes/:id", (req, res) => {
     });
 }); 
 
+const port = process.env.PORT || 8080; 
 
-
-server.listen(8080, () => console.log("API running on port 8080"));
+server.listen(port, () => console.log(`API running on port ${port}`));
