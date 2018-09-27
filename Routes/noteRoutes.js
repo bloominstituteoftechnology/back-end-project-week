@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../data/helpers/notesDb');
+const multer = require('multer');
+const upload = multer({ dest: __dirname + '/files/' });
+
 
 router.get('/', (req,res) => {
         const request = db.get();
@@ -61,11 +64,14 @@ router.get('/search/:search', (req, res) => {
 
 });
 
-router.post('/', (req,res)=> {
+
+router.post('/', upload.single('file'),(req,res)=> {
+	 console.log(req.file);
         const title = req.body.title;
         const content = req.body.content;
+	//const image = req.file;
 
-         console.log(title);
+	console.log(req.body);
         const note = {title, content};
 
         if(!title || !content){
