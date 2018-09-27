@@ -18,18 +18,20 @@ server.get('/', (req, res) => {
 //endpoints
 
 //Display a list of notes
-server.get('/api/notes', (req, res) => {
-    db('notes')
+ server.get('/notes', async (req, res) => {
+     db('notes')
     .then(notes => {
-        res.status(200).json(notes)
-    })
-    .catch(error => {
-        res.status(500).json({ error:'Unable to display notes' })
-    })
-});
+         res.status(200).json(notes)
+     })
+     .catch(error => {
+         res.status(500).json({ error:'Unable to display notes' })
+     })
+ });
+
+
 
 //view an existing note
-server.get('/api/notes/:id', (req, res) => {
+server.get('/notes/:id', async (req, res) => {
    const { id } = req.params;
    db('notes')
    .where({ id })
@@ -49,7 +51,7 @@ server.get('/api/notes/:id', (req, res) => {
 
 
 //Create a note with title and content
-server.post('/api/notes', (req, res) => {
+server.post('/notes',async (req, res) => {
     const { title, content } = req.body;
     if (!title && !content) {
       res.status(400).json({ error:'Please provide a title and some content'})
@@ -66,31 +68,49 @@ server.post('/api/notes', (req, res) => {
 
 
 //Edit an existing note
-server.put('/api/notes/:id', (req, res) => {
-    const { id } = req.params;
-    const { note }  = req.body;
+// server.put('/notes/:id', (req, res) => {
+//     const { id } = req.params;
+//     const { note }  = req.body;
 
-    db('notes')
-    .where({id})
-    .update(note)
-    .then(response => {
-        res.status(200).json({response})
-    })
-    .catch(error => {
-        res.status(500).json({ error:'Unable to edit note' })
-      })
-});
+//     db('notes')
+//     .where({id})
+//     .update(note)
+//     .then(response => {
+//         res.status(200).json(response)
+//     })
+//     .catch(error => {
+//         res.status(500).json({ error:'Unable to edit note' })
+//       })
+// });
+
+server.put('/notes/:id', async (req, res) => {
+  const { title, content } = req.body;
+  const { id } = req.params;
+  db('notes')
+  .where('id', id)
+  .update({ title, content })
+  .then(response => {
+      res.status(200).json(response)
+  })
+  .catch(err => {
+    res.status(500).json({ error: 'Could not edit the note'})
+  })
+})
 
 //Delete an existing note
-server.delete('/api/notes/:id', (req, res) => {
+server.delete('/notes/:id', async (req, res) => {
     const { id } = req.params;
-    const { note }  = req.body;
-
+    
     db('notes')
-    .where({id})
+    .where({id: id})
     .delete()
-    .then(response => {
-        res.status(200).json({response})
+    .then(count => {
+      if(count === 0) {
+        res.status(404).json({ error: 'The note with the specified ID does not exist'});
+    }
+    else {
+        res.status(200).json({mesg: 'note has been deleted'})
+    }
     })
     .catch(error => {
         res.status(500).json({ error:'Unable to delete note' })
@@ -105,7 +125,7 @@ server.delete('/api/notes/:id', (req, res) => {
 
 
 
-const port = 6000;
+const port = 8000;
 server.listen(port, function() {
   console.log(`\n=== Web API Listening on http://localhost:${port} ===\n`);
 });
