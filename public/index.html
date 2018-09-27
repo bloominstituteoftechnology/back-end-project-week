@@ -50,7 +50,7 @@
           <li>
             <a href="https://github.com/ashwins93/back-end-project-week" target="_blank"
               style="text-decoration: none;">
-              <i class="fab fa-github"></i> <span>github</span>
+              <i class="fab fa-github"></i> <span>GitHub Repository</span>
             </a>
           </li>
           <li>
@@ -68,6 +68,12 @@
         </ul>
         <strong>Contents</strong>
         <ul>
+          <li>
+            <a href="#newuser">Register a New User</a>
+          </li>
+          <li>
+            <a href="#loginuser">Login existing user</a>
+          </li>
           <li>
             <a href="#allnotes">Get All Notes</a>
           </li>
@@ -89,11 +95,95 @@
     </div>
 
     <h2>Usage</h2>
+    <p>All the endpoints in this API are protected with <a href="https://jwt.io"
+        target="_blank">JWT</a>. In order to perform CRUD operations on the
+      notes, users need to register themselves.</p>
+
+    <p>The next section demonstrates the usage* for registration of new users
+      and logging in for existing users.</p>
+    <small>*It is imperative to note that all <code>POST/PUT</code> requests
+      must have a <code>content-type</code> of <code>application/json</code></small>
+    <hr />
+    <h3>Users</h3>
+
+    <section id="newuser" class="row">
+      <h4>Register a New User</h4>
+      <p><span>Endpoint URL: </span><code>/api/register</code> <span>Method:
+        </span><code>POST</code></p>
+      <p>To register a new user send a <code>POST</code> that looks as follows.</p>
+      <strong>Example Request</strong>
+      <pre><code>POST http://localhost:4000/api/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "first_name": "Ashwin",
+  "last_name": "Sundararajan",
+  "email": "a@b.com",
+  "password": "password"
+}</code></pre>
+      <strong>Example Output</strong>
+      <pre><code>{
+  "message": "User registered successfully",
+  "token":
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0I
+    joxNTM4MDY2NzE2LCJleHAiOjE1MzgwODgzMTZ9.zHA6xi17VrLTTdzhxCr51lOpeHQleawh_IsuZz38LbE"
+}</code></pre>
+
+      <p>All 4 fields are required for registration. Upon successful
+        registration, you will receive an acknowledgement and
+        a <a href="https://jwt.io" target="_blank">JSON Web Token</a>. This
+        token is required for any request involving the notes API.</p>
+      <a class="button button-primary" href="#">Back To Top</a>
+    </section>
+    <hr />
+
+    <section id="loginuser" class="row">
+      <h4>Login User</h4>
+      <p><span>Endpoint URL: </span><code>/api/login</code> <span>Method:
+        </span><code>POST</code></p>
+      <p>To sign in send a <code>POST</code> request that looks as follows.</p>
+      <strong>Example Request</strong>
+      <pre><code>POST http://localhost:4000/api/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "a@b.com",
+  "password": "password"
+}</code></pre>
+      <strong>Example Output</strong>
+      <pre><code>{
+  "message": "Login successful",
+  "token":
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0I
+    joxNTM4MDY2NzE2LCJleHAiOjE1MzgwODgzMTZ9.zHA6xi17VrLTTdzhxCr51lOpeHQleawh_IsuZz38LbE"
+}</code></pre>
+
+      <p>Upon success, you will receive an acknowledgement and
+        a <a href="https://jwt.io" target="_blank">JSON Web Token</a>. This
+        token is required for any request involving the notes API.</p>
+      <a class="button button-primary" href="#">Back To Top</a>
+    </section>
+    <hr />
+
+    <h3>Notes</h3>
+    <p>For all requests in this section the users need to authenticate
+      themselves using the token provided when they signed up or logged in. The
+      Bearer token must be attached to every request in the header.</p>
+    <p>For instance, a get request to the <code>/api/notes</code> end point
+      will look like this.</p>
+    <strong>Example Request</strong>
+    <pre><code>GET http://localhost:4000/api/notes HTTP/1.1
+Authorization: Bearer
+  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTM4MDQ2MTM2LCJleHAiOjE1MzgwNjc3MzZ9.
+  BhNzdgd2SQ53QWIA0rK9faJ4ILEFnvuehdYfpINhxDo</code></pre>
+
+    <p>All the following examples assume you have set the header appropriately.</p>
     <section id="allnotes" class="row">
-      <h3>Get All Notes</h3>
-      <p><span>Endpoint URL: </span><a href="/api/notes" target="_blank">/api/notes</a></p>
-      <p>A GET request to this endpoint returns a list of notes in the
-        database. Each note has the following fields &ndash; id, title,
+      <h4>Get All Notes</h4>
+      <p><span>Endpoint URL: </span><code>/api/notes</code> <span>Method:
+        </span><code>GET</code></p>
+      <p>A GET request to this endpoint returns a list of notes authored by the
+        user. Each note has the following fields &ndash; id, title,
         textBody, tags</p>
       <strong>Example Output</strong>
       <pre><code>[
@@ -126,12 +216,11 @@
     ]
   }
 ]</code></pre>
-      <a href="/api/notes" class="button button-primary" target="_blank">View
-        Live</a> <a class="button button-primary" href="#">Back To Top</a>
+      <a class="button button-primary" href="#">Back To Top</a>
     </section>
     <hr />
     <section id="newnote" class="row">
-      <h3>Add a New Note</h3>
+      <h4>Add a New Note</h4>
       <p><span>Endpoint URL: </span><code>/api/notes</code> <span>Method:
         </span><code>POST</code></p>
       <p>Make a post request to the endpoint in order to add a new note. The
@@ -160,9 +249,11 @@ Content-Type: application/json
     </section>
     <hr />
     <section id="onenote" class="row">
-      <h3>Get Note by ID</h3>
-      <p><span>Endpoint URL: </span> <a href="/api/notes/5">/api/notes/:id</a></p>
-      <p>Use this endpoint to get details for one note specified by ID. A get
+      <h4>Get Note by ID</h4>
+      <p><span>Endpoint URL: </span><code>/api/notes/:id</code> <span>Method:
+        </span><code>GET</code></p>
+      <p>Use this endpoint to get details for one note specified by ID. The
+        note must have been authored by the currently logged in user. A get
         request to <code>/api/notes/:id</code> where <code>:id</code> refers
         the unique id of the note will yield the following results.</p>
       <strong>Example Output</strong>
@@ -176,16 +267,16 @@ Content-Type: application/json
     "Dogs"
   ]
 }</code></pre>
-      <a href="/api/notes/5" class="button button-primary" target="_blank">View
-        Live</a> <a class="button button-primary" href="#">Back To Top</a>
+      <a class="button button-primary" href="#">Back To Top</a>
     </section>
     <hr />
 
     <section id="updatenote" class="row">
-      <h3>Update Note by ID</h3>
+      <h4>Update Note by ID</h4>
       <p><span>Endpoint URL: </span><code>/api/notes/:id</code> <span>Method:
         </span><code>PUT</code></p>
-      <p>Use this endpoint to update details of a note specified by ID. Make a
+      <p>Use this endpoint to update details of a note specified by ID. The
+        note must have been authored by the currently logged in user. Make a
         <code>PUT</code> request to <code>/api/notes/:id</code>, where <code>:id</code>
         refers to the ID of the note you'd like to update. At least one of the
         fields must be specified in order to successfully update the note.</p>
@@ -208,10 +299,11 @@ Content-Type: application/json
     </section>
     <hr />
     <section id="deletenote" class="row">
-      <h3>Delete Note by ID</h3>
+      <h4>Delete Note by ID</h4>
       <p><span>Endpoint URL: </span><code>/api/notes/:id</code> <span>Method:
         </span><code>DELETE</code></p>
       <p>Use this endpoint to <strong>delete</strong> a note specified by ID.
+        The note must have been authored by the currently logged in user.
         This action is irreversible. Make a
         <code>DELETE</code> request to <code>/api/notes/:id</code>, where <code>:id</code>
         refers to the ID of the note you'd like to delete. Upon successful

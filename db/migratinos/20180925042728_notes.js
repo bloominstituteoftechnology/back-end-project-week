@@ -3,7 +3,15 @@ exports.up = function(knex, Promise) {
     tbl.increments();
     tbl.string('title', 255).notNullable();
     tbl.text('textBody').notNullable();
+<<<<<<< HEAD
     tbl.integer('author_id').unsigned().notNullable().references('users.id');
+=======
+    tbl
+      .integer('author_id')
+      .unsigned()
+      .notNullable()
+      .references('users.id');
+>>>>>>> master
   });
 };
 
