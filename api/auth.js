@@ -5,6 +5,11 @@ const jwt = require("../jwtConfig");
 
 const router = express.Router();
 
+//checking if valid token
+router.get('/', jwt.protected, (req, res) => {
+  res.status(200).json({ message: 'Token is valid' });
+});
+
 //create a new user
 router.post("/register", async (req, res) => {
   let { username, password, email } = req.body;
