@@ -10,8 +10,8 @@ import axios from  'axios';
 const url = 'http://localhost:3300/api/notes';
 
 class MainNotes extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state= {
             dummyNotes: [],
             title: '',
