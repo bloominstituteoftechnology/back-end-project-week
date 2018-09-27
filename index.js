@@ -12,6 +12,7 @@ server.use(cors());
 
 // make a new note
 server.post('/api/create', (req, res) => {
+    console.log(req.body);
     const info = req.body;
     db('notes')
         .insert(info)
@@ -56,7 +57,7 @@ server.get('/api/notes/:id', (req, res) => {
 });
 
 // edit note by id
-server.put('/api/notes/:id', (req, res) => {
+server.put('/api/edit/:id', (req, res) => {
     db('notes')
         .where({ id:req.params.id } )
         .update(req.body)
@@ -70,7 +71,7 @@ server.put('/api/notes/:id', (req, res) => {
 })
 
 // delete note by id
-server.delete('/api/notes/:id', (req, res) => {
+server.delete('/api/delete/:id', (req, res) => {
     db('notes')
         .where({ id:req.params.id })
         .delete()
