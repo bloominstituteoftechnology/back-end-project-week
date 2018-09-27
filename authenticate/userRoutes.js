@@ -23,7 +23,7 @@ function register(req,res) {
     const newUser=req.body;
     const hash=bCrypt.hashSync(newUser.password,3);
     newUser.password=hash;
-    console.log(newUser);
+    console.log(newUser)
     db('users')
         .insert(newUser)
         .then(id=>{
