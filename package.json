@@ -15,7 +15,7 @@
     "nodemon": "^1.18.4"
   },
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
     "dev": "nodemon index.js"
   },
   "repository": {
