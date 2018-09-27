@@ -6,7 +6,8 @@
   "author": "dasgma <dasgrigoma@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
     
   },
   "dependencies": {

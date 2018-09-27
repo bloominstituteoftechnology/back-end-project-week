@@ -15,6 +15,9 @@ server.use(cors());
 
 const secret = 'secret';
 
+const port = process.env.PORT || 9000;
+require('dotenv').config();
+
 // ########## Generating token ###########
 function generateToken(user){
     const payload = {
@@ -53,14 +56,14 @@ server.get('/', (req, res) => {
 });
 
 // ########## GET ALL NOTES ################
-server.get('/notes', (req, res) => {
+server.get('/notes', protected, (req, res) => {
     db.getNotes()
       .then(notes => res.status(200).json(notes))
       .catch(err => res.status(500).json(err))
   });
 
 // ########### GET NOTE BY ID ################
-server.get('/notes/:id', (req, res) => {
+server.get('/notes/:id', protected, (req, res) => {
     const { id } = req.params;
     db.getNote(id)
     .then(notes => notes.find(note => note.id === +id))
@@ -77,7 +80,7 @@ server.get('/notes/:id', (req, res) => {
 });
 
 // ########## POSTING NEW NOTE ###########
-server.post('/notes', protected, (req, res) => {
+server.post('/notes', (req, res) => {
     const { title, content } = req.body;
     const note = {
         title,
@@ -97,7 +100,7 @@ server.post('/notes', protected, (req, res) => {
 });
 
 // ########### UPDATING NOTE ###########
-server.put('/notes/:id', protected, (req, res) => {
+server.put('/notes/:id', (req, res) => {
     const {title, content} = req.body;
     const {id} = req.params;
     const updatedNote = {
@@ -117,7 +120,7 @@ server.put('/notes/:id', protected, (req, res) => {
 });
 
 // ########### DELETE NOTE ###############
-server.delete('/notes/:id', protected, (req, res) => {
+server.delete('/notes/:id', (req, res) => {
     const {id} = req.params;
     db.deleteNote(id)
         .then(notes => {
@@ -172,4 +175,4 @@ server.post('/login', (req, res) => {
         })
 })
 
-server.listen(9000);
+server.listen(port, () => console.log(`Running on ${port}.....`));

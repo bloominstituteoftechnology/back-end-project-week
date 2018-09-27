@@ -1,4 +1,4 @@
-module.exports = {
+/* module.exports = {
 
   development: {
     client: 'sqlite3',
@@ -13,10 +13,9 @@ module.exports = {
       directory: './db/seeds',
     },
   },
-};
+}; */
 
-
-/* require('dotenv').config();
+require('dotenv').config();
 const localPg = {
   host: 'localhost',
   database: 'notes',
@@ -56,4 +55,4 @@ module.exports = {
       directory: './db/seeds',
     },
   },
-}; */
+};
