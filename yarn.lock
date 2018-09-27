@@ -1260,7 +1260,13 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
 
-knex@^0.15.2:
+knex-paginator@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/knex-paginator/-/knex-paginator-1.2.0.tgz#8166165033abf3661ce78b449c24a35eb997bd43"
+  dependencies:
+    knex ""
+
+knex@, knex@^0.15.2:
   version "0.15.2"
   resolved "https://registry.yarnpkg.com/knex/-/knex-0.15.2.tgz#6059b87489605f4cc87599a6d2a9d265709e9340"
   dependencies:
