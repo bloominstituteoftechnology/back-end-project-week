@@ -84,7 +84,7 @@ server.delete("/api/notes/:id", (req, res) => {
       if (response === 0) {
         res.status(404).json({ error: "Note not found" });
       } else {
-        res.status(200).json(data);
+        res.status(200).json(response);
       }
     })
     .catch(err => {
