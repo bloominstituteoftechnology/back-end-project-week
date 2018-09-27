@@ -31,7 +31,7 @@ class MainNotes extends Component {
     }
 
     addNote = e => {
-        e.preventDefault();
+        
         // const noteSnapshot = this.state.dummyNotes.slice();
         // noteSnapshot.push({
         //     id: this.state.dummyNotes.length + 1,
@@ -49,22 +49,6 @@ class MainNotes extends Component {
             title: '', // resets title to blank after input change
             body: ''
         });
-    }
-
-    editNote = e => {
-        e.preventDefault();
-        console.log('Object:', e.id)
-        console.log('editnoteID:', e.id)
-        const noteSnapshot = this.state.dummyNotes.slice();
-        const newNote = {
-            title: this.state.title,
-            body: this.state.body
-        }
-        this.setState({
-            dummyNotes: noteSnapshot,
-            title: '',
-            body: ''
-        })
     }
 
     handleInputChange = e => {
@@ -105,8 +89,6 @@ class MainNotes extends Component {
                         (
                             <EditNote
                                 {...props}
-                                handleInputChange={this.handleInputChange}
-                                handleSubmit={this.editNote}
                             />
                         )} 
                     />
