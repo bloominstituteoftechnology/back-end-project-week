@@ -5,8 +5,14 @@ exports.up = function(knex, Promise) {
            .notNullable();
         tbl.string('textBody');
         tbl.string('tags');
-        tbl.integer('userid').notNullable().references('id').inTable('users')
-        tbl.bool('isPublic').notNullable().defaultsTo(false)
+        tbl.integer('userid')
+           .unsigned()
+           .notNullable()
+           .references('id')
+           .inTable('users')
+        tbl.bool('isPublic')
+            .notNullable()
+            .defaultsTo(false)
     })
 };
 
