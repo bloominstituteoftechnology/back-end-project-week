@@ -21,12 +21,13 @@
     "nodemon": "^1.18.4"
   },
   "dependencies": {
-    "cores": "^0.8.5",
     "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "helmet": "^3.13.0",
     "knex": "^0.15.2",
     "morgan": "^1.9.1",
+    "pg": "^7.4.3",
     "sqlite3": "^4.0.2"
   }
 }

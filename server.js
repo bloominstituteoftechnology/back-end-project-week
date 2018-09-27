@@ -19,14 +19,15 @@ server.get('/', (req,res) => {
 
 //POST a new note
 server.post('/api/notes', (req,res) => {
-    const note = req.body;
-    const name = req.body.name;
-    const content = req.body.text;
+    // const {name, content} = req.body;
+    // const newNote = new Notes({ name, content });
 
-    if(!name || !content){
-        res.status(400).json({message:  'Must provide a name and some text'})
-        return;
-    }
+    const note = req.body;
+
+    // if(!name || !content){
+    //     res.status(400).json({message:  'Must provide a name and some text'})
+    //     return;
+    // }
 
     db
     .insert(note)
@@ -72,7 +73,7 @@ server.get('/api/notes/:id', (req,res) => {
 server.put('/api/notes/:id', (req,res) => {
     const id = req.params.id;
     const name = req.body.name;
-    const content = req.body.text;
+    const content = req.body.content;
 
     db
     .update(id, {name,content})
