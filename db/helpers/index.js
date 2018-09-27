@@ -20,10 +20,10 @@ module.exports = {
     }
   },
 
-  getPagedNotes: function(limit, offset) {
+  getPagedNotes: function() {
     let query = db("notes");
 
-    return query.paginate(16, 1, true).then(paginator => {
+    return query.paginate(16, 1, false).then(paginator => {
       console.log(paginator.current_page);
       console.log(paginator.data);
     });
