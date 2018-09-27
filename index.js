@@ -40,10 +40,10 @@ server.get('/notes/:id', async (req, res) => {
         res.status(200).json(response);
     }
     else {
-      res.status(404).json({error: 'The note with this //ID is not found'});
+      res.status(404).json({error: 'The note is not'});
      }
      })
-   .catch(error => res.status(500).json({ error:'Cannot   retrieve note information'}));
+   .catch(error => res.status(500).json({ error:'Cannot view note'}));
  });
 
 
@@ -66,23 +66,7 @@ server.post('/notes',async (req, res) => {
     })
   });
 
-
-//Edit an existing note
-// server.put('/notes/:id', (req, res) => {
-//     const { id } = req.params;
-//     const { note }  = req.body;
-
-//     db('notes')
-//     .where({id})
-//     .update(note)
-//     .then(response => {
-//         res.status(200).json(response)
-//     })
-//     .catch(error => {
-//         res.status(500).json({ error:'Unable to edit note' })
-//       })
-// });
-
+//edit a note
 server.put('/notes/:id', async (req, res) => {
   const { title, content } = req.body;
   const { id } = req.params;
@@ -93,7 +77,7 @@ server.put('/notes/:id', async (req, res) => {
       res.status(200).json(response)
   })
   .catch(err => {
-    res.status(500).json({ error: 'Could not edit the note'})
+    res.status(500).json({ error: 'Note Cannot be Edited at this time'})
   })
 })
 
@@ -106,10 +90,10 @@ server.delete('/notes/:id', async (req, res) => {
     .delete()
     .then(count => {
       if(count === 0) {
-        res.status(404).json({ error: 'The note with the specified ID does not exist'});
+        res.status(404).json({ error: 'Note with this id does not exist in database'});
     }
     else {
-        res.status(200).json({mesg: 'note has been deleted'})
+        res.status(200).json({mesg: 'Not cannot be deleted'})
     }
     })
     .catch(error => {
