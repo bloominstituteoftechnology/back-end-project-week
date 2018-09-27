@@ -19,6 +19,7 @@ Content-Type: application/json
 ###
 
 GET http://localhost:4000/api/notes HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTM4MDMyNjc1LCJleHAiOjE1MzgwNTQyNzV9.G7pwP8Y--hSXmhWqRo7l4O6BCIbDlO1hjfZ19zXrM-w
 ###
 
 POST http://localhost:4000/api/notes HTTP/1.1

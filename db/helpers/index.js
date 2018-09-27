@@ -74,9 +74,9 @@ module.exports = {
     let user = await db('users')
       .where('email', email)
       .first();
-    if (!user) return done('Username or password is invalid', false);
+    if (!user) return done('Email or password is invalid', false);
     if (!bcrypt.compareSync(password, user.password)) {
-      return done('Username or password is invalid', false);
+      return done('Email or password is invalid', false);
     }
     return done(null, user.id);
   },

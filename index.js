@@ -33,6 +33,7 @@ passport.use(
     }
   }),
 );
+app.use(passport.initialize());
 
 app.use('/api', routes);
 
