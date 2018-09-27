@@ -73,8 +73,17 @@ router.post("/", jwt.protected, async (req, res) => {
       let newNote = await db("notes")
         .insert({ title, content, user_id: userID })
         .returning("*");
-      newNote = newNote[0];
-      res.status(201).json(newNote);
+      const refreshedNotes = await db("notes")
+        .join("users", "users.id", "notes.user_id")
+        .select(
+          "notes.id as id",
+          "notes.title as title",
+          "notes.content as content",
+          "notes.user_id as user_id",
+          "users.username as username"
+        )
+        .orderBy("id", "desc");
+      res.status(201).json(refreshedNotes);
     } catch (e) {
       res.status(500).json(e);
     }
