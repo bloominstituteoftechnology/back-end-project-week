@@ -32,11 +32,17 @@ function register (req, res) {
   creds.password = hash;
   db.insert(creds)
     .into('users')
-    .then(users => {
-      //const user = users[0];
-      //const token = generateToken(user);
-      //res.status(201).json({ id: user.id, token });
-      res.status(201).json({ users });
+    .then(async () => {
+      await db('users')
+      .where({ username: creds.username })
+      .first()
+      .then(user => {
+        const token = generateToken(user);
+        res.status(201).json({ id: user.id, token });
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).send(err)});
     })
     .catch(err => {
       console.log(err);
