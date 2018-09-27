@@ -75,21 +75,22 @@ const SWITCH = (req, res) => {
   db('notes').where({ id }).first()
     .then(note => {
       if (note) {
-        const { title, text } = note;
+        const { title, text, created_at } = note;
         // get second note's data
         db('notes').where({ id: id2 }).first()
           .then(note => {
             if (note) {
               const title2 = note.title;
               const text2 = note.text;
+              const ca2 = note.created_at;
               // update second note
               db('notes').where({ id: id2 })
-                .update({ title, text })
+                .update({ title, text, created_at })
                 .then(count => {
                   if (count) {
                     // update first note
                     db('notes').where({ id })
-                      .update({ title: title2, text: text2 })
+                      .update({ title: title2, text: text2, created_at: ca2 })
                       .then(count => {
                         res.status(200).json(count);
                       })
