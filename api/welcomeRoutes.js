@@ -58,8 +58,8 @@ welcome.post('/register', (req, res) => {
         console.log(id2)
         dbFunc.getUser(id2).then(user3 => {
             //I don't think this is actually doing anything 
-            // console.log(user3)
-            const token = generateToken([]);
+            console.log(user3)
+            const token = generateToken(user3);
             // const username = newUser.username
             // console.log(username)
             // const id3 = user3.id
@@ -75,7 +75,6 @@ welcome.post('/login', (req, res) => {
     .where({username: request.username})
     .first()
     .then(dbUser => {
-
         if (dbUser && bcrypt.compareSync(request.password, dbUser.password)){
             const token = generateToken(dbUser);
             res.status(200).json({message: "token created", token: token, username: dbUser.username, userId: dbUser.id})
@@ -84,6 +83,5 @@ welcome.post('/login', (req, res) => {
         }
     }).catch(err => res.status(500).json({message: 'server error', error: err}))
 })
-
 
 module.exports = welcome

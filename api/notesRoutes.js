@@ -13,7 +13,7 @@ notes.get('/', (req, res) => {
 notes.get('/all/', (req, res) => {
     //only return only notes that have the username in req.user.username
     dbFunc.getNotes().then(allUserNotes => {
-        res.status(200).json({allUserNotes: allUserNotes, username: req.user.username})
+        res.status(200).json({allUserNotes: allUserNotes})
     }).catch(err => res.status(500).json({message: 'There was an error with the server.', err: err
     }))
 })
