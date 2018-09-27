@@ -6,7 +6,7 @@ const db = require("./data/dbConfig.js");
 const server = express();
 const corsOptions = {
   credentials: true,
-  origin: "http://localhost:3000"
+  origin: "https://nifty-almeida-2f92e2.netlify.com"
 };
 
 server.use(express.json());
