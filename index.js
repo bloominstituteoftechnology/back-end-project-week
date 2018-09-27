@@ -23,7 +23,10 @@ server.get("/api/notes/:id", (req, res) => {
     .where("id", "=", id)
     .select()
     .then(notes => {
-      res.status(200).json(notes);
+        if (notes === undefined || notes.length === 0) {
+            res.status(404).json({error: "file not found"})
+        }
+        else {res.status(200).json(notes)}
     })
     .catch(err => res.status(404).json({ error: "no notes found" }));
 });
@@ -45,7 +48,10 @@ server.put("/api/notes/:id", (req, res) => {
     .where("id", "=", id)
     .update({title, content})
     .then(count => {
-        res.status(200).json(count);
+        if (count === 0) {
+            res.status(404).json({error: "file not found"})
+        }
+        else {res.status(200).json(count)}
     })
     .catch(err => {
         res.status(500).json(err);
@@ -59,7 +65,10 @@ server.delete("/api/notes/:id", (req, res) => {
     .where("id", "=", id)
     .del()
     .then(count => {
-        res.status(200).json(count)
+        if (count === 0) {
+            res.status(404).json({error: "file not found"})
+        }
+        else {res.status(200).json(count)}
     })
     .catch(err => {
         res.status(500).json(err);
