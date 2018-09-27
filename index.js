@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 
 const db = require('./dbAccessHelpers');
 
@@ -8,6 +9,7 @@ const server = express();
 const notesRoutes = require('./routes/notesRoutes.js');
 
 //middleware
+server.use(cors());
 server.use(express.json());
 server.use('/', notesRoutes);
 

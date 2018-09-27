@@ -36,6 +36,7 @@ router.post('/create', async (req, res) => {
     if(note.title && note.textBody) {
         try {
             const response = await db.createNote(note);
+            note._id = response;
             res.status(201).json(note);
         } catch(err) {
             res.status(500).json({ error: "There was an error while saving the note to the database" });
@@ -67,11 +68,22 @@ router.put('/edit/:_id', (req, res) => {
     }
     db.editNote(req.params._id, req.body)
         .then(count => {
-            res.status(200).json(count);
+            // res.status(200).json(note);
             
-            if(!count) {
-                res.status(404).json({ message: "The note with the specified ID does not exist." });
+            // if(!note) {
+            //     res.status(404).json({ message: "The note with the specified ID does not exist." });
+            // }
+            if (count) {
+                const _id = req.params._id;
+                db.getNote(_id)
+                    .then(note => {
+                        res.status(200).json(note[0]);
+                    })
             }
+            else {
+                res.status(404).json({err: 'Not found' });
+            }
+  
         })
         .catch(err => {
             console.log(err)
