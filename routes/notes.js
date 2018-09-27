@@ -4,7 +4,8 @@ const db = require("../db/dbHelper/index");
 
 /**
  * @api {get} /api/notes Request notes information
- *
+ * @apiGroup Notes
+ * 
  * @apiSuccess {Boolean} Status if the api has completed or not.
  * @apiSuccess {Array} Notes  Array of all the notes in it.
  */
@@ -22,7 +23,8 @@ router.get("/:pageId", async (req, res, next) => {
 
 /**
  * @api {get} /api/notes/:id Request notes information
- *
+ * @apiGroup Notes
+ * 
  * @apiParam {Number} id Notes unique ID.
  * 
  * @apiSuccess {Boolean} Status if the api has completed or not.
@@ -40,7 +42,8 @@ router.get("/:id", async (req, res, next) => {
 });
 /**
  * @api {post} /api/notes Adds new notes into DB
- *
+ * @apiGroup Notes
+ * 
  * @apiSuccess {Boolean} Status if the api has completed or not.
  * @apiSuccess {Array} UpdatedNotes  Array of all the notes in it.
  */
@@ -61,7 +64,7 @@ router.post("/", async (req, res, next) => {
 
 /**
  * @api {put} /api/notes Updated notes information
- *
+ * @apiGroup Notes
  * @apiParam {Number} id Notes unique ID.
  * 
  * @apiSuccess {Boolean} Status if the api has completed or not.
@@ -81,7 +84,8 @@ router.put("/:id", async (req, res, next) => {
 
 /**
  * @api {delete} /api/notes Deletes notes information
- *
+ * @apiGroup Notes
+ * 
  * @apiParam {Number} id Notes unique ID.
  * 
  * @apiSuccess {Boolean} Status if the api has completed or not.

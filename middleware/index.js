@@ -20,3 +20,21 @@ exports.errorHandler = (err, req, res, next) => {
       break;
   }
 }
+
+const secret = process.env.SECRET || "jwt-secret";
+exports.protected = (req, res, next) =>{
+  const token = req.headers.authorization;
+  if (token !== 'null') {
+    jwt.verify(token, secret, (err, decodedToken) => {
+      if (err) {
+        console.log(err);
+        res.status(401).json({ message: 'Invalid token.' });
+      } else {
+        req.user = { username: decodedToken.username };
+        next();
+      }
+    });
+  } else {
+    res.status(401).json({ message: 'Please log in.' });
+  }
+}

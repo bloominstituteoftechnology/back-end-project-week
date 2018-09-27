@@ -18,6 +18,7 @@ else
 
 app.use('/', indexRouter);
 app.use('/api/notes', notesRouter);
+app.use('/api/auth', require('./routes/auth'))
 app.use(require('./middleware/index').errorHandler)
 
 console.log('~~~~~~~~~~~~~~~~~~')

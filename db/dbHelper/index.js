@@ -3,9 +3,14 @@ const db = require("../dbConfig");
 module.exports = {
   async getNotes(page) {
     if (page <= 1)
-      return await db("Notes").limit(10).select();
+      return await db("Notes")
+        .limit(10)
+        .select();
     else
-      return await db('Notes').limit(10).offset((page - 1)*10).select()
+      return await db("Notes")
+        .limit(10)
+        .offset((page - 1) * 10)
+        .select();
   },
 
   async getNote(id) {
@@ -24,7 +29,7 @@ module.exports = {
       .update({
         content: note.content,
         title: note.title,
-        tags: note.tags,
+        tags: note.tags
       });
   },
 
@@ -37,11 +42,13 @@ module.exports = {
   },
 
   async addNote(noteData) {
-    console.log('note data', noteData)
-    return await db(`Notes`).insert({
-      content: noteData.content,
-      title: noteData.title,
-      tags: noteData.tags,
-    });
+    console.log("note data", noteData);
+    return await db(`Notes`)
+      .insert({
+        content: noteData.content,
+        title: noteData.title,
+        tags: noteData.tags
+      })
+      .returning("*");
   }
 };
