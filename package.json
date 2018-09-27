@@ -27,6 +27,8 @@
     "sqlite3": "^4.0.2"
   },
   "devDependencies": {
-    "nodemon": "^1.18.4"
+    "nodemon": "^1.18.4",
+    "jest": "^23.6.0",
+    "supertest": "^3.3.0"
   }
 }
