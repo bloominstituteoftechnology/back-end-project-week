@@ -134,7 +134,7 @@ server.delete("/api/notes/:id", protected, async (req, res) => {
 });
 
 
-const port = process.env.PORT
+const port = process.env.PORT || 8000;
 server.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
