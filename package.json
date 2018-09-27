@@ -32,7 +32,6 @@
     "knex": "^0.15.2",
     "knex-cleaner": "^1.1.4",
     "morgan": "^1.9.1",
-    "node-pre-gyp": "^0.11.0",
     "nodemon": "^1.18.4",
     "pg": "^7.4.3",
     "sqlite3": "^4.0.2",

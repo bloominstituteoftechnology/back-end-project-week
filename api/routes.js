@@ -15,6 +15,6 @@ router.get('/', (req, res) => {
 })
 
 router.use('/welcome/', welcomeRoutes);
-router.use('/notes/', notesRoutes);//took out protect middleware until the token is fixed
+router.use('/notes/', protect, notesRoutes);//took out protect middleware until the token is fixed
 
 module.exports = router
