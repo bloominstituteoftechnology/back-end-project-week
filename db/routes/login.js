@@ -2,29 +2,45 @@ const db = require('../../dbConfig.js');
 const bcrypt = require('bcryptjs');
 const { generateToken } = require('./middleware.js');
 
+// function register (req, res) {
+//     const creds = req.body;
+//     const hash = bcrypt.hashSync(creds.password, 10);
+//     creds.password = hash;
+//     db('users')
+//       .insert(creds)
+//       .then(ids => {
+//         const id = ids[0];
+//         db('users')
+//           .where({ id })
+//           .first()
+//           .then(user => {
+//             const token = generateToken(user);
+//             res.status(201).json({ id: user.id, token });
+//           })
+//           .catch(err => {
+//             console.log(err);
+//             res.status(500).send(err)});
+//       })
+//       .catch(err => {
+//         console.log(err);
+//         res.status(500).send(err)});
+//   };
+
 function register (req, res) {
-    const creds = req.body;
-    const hash = bcrypt.hashSync(creds.password, 10);
-    creds.password = hash;
-    db('users')
-      .insert(creds)
-      .then(ids => {
-        const id = ids[0];
-        db('users')
-          .where({ id })
-          .first()
-          .then(user => {
-            const token = generateToken(user);
-            res.status(201).json({ id: user.id, token });
-          })
-          .catch(err => {
-            console.log(err);
-            res.status(500).send(err)});
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).send(err)});
-  };
+  const creds = req.body;
+  const hash = bcrypt.hashSync(creds.password, 10);
+  creds.password = hash;
+  db('users')
+    .insert(creds)
+    .then(users => {
+      const user = users[0];
+      const token = generateToken(user);
+      res.status(201).json({ id: user.id, token });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).send(err)});
+};
   
   function login (req, res) {
     const creds = req.body;
