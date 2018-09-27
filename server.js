@@ -7,7 +7,7 @@ const configureRoutes = require('./db/routes/notes');
 const server = express();
 const corsOptions = {
   credentials: true,
-  origin: "https://nifty-almeida-2f92e2.netlify.com"
+  origin: "https://vigilant-bartik-729898.netlify.com"
 };
 
 server.use(helmet());
