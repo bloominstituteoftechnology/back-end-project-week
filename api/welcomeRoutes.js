@@ -37,7 +37,7 @@ function generateToken(user){
 welcome.use(express.json());
 
 welcome.get('/', (req, res) => {
-    res.status(200).json({message: "MJK-LSN /welcome is running."})
+    res.status(200).json({message: `MJK-LSN /welcome is runningon port ${PORT}.`})
 })
 
 welcome.get('/test/', (req,res) => {

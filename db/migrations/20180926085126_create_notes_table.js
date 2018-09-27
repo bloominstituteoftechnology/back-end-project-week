@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
            .notNullable();
         tbl.string('textBody');
         tbl.string('tags');
-        tbl.integer('userid')
+        tbl.integer('userid')//this should be owner 
            .unsigned()
            .notNullable()
            .references('id')
@@ -13,6 +13,7 @@ exports.up = function(knex, Promise) {
         tbl.bool('isPublic')
             .notNullable()
             .defaultsTo(false)
+        //note collaborators
     })
 };
 

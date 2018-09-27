@@ -10,7 +10,7 @@ server.use(helmet());
 
 server.use(cors({
     credentials: true, 
-    origin: process.env.HOST
+    origin: 'http://localhost:4000/'
  }));
 
 server.get('/', (req, res) => {

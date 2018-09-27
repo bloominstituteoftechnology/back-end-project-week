@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const dbFunc = require('../db/db.js')
+// const dbFunc = require('../db/db.js')
 const welcomeRoutes = require('./welcomeRoutes.js')
 const notesRoutes = require('./notesRoutes.js')
 const { protect } = require('./middleware')
