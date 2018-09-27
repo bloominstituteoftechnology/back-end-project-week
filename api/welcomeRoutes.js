@@ -48,6 +48,7 @@ welcome.get('/test/', (req,res) => {
 })
 
 welcome.post('/register', (req, res) => {
+    console.log(req)
     const newUser = req.body; 
     console.log(newUser)
     const hash = bcrypt.hashSync(newUser.password, 3);

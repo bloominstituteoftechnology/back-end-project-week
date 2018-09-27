@@ -8,9 +8,17 @@ const routes = require('./api/routes.js')
 server.use(express.json());
 server.use(helmet());
 
+var whitelist = ['http://localhost:4000', 'https://frontend-mjk.herokuapp.com/']
+
 server.use(cors({
     credentials: true, 
-    origin: `http://localhost:4000/`
+    origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+          callback(null, true)
+        } else {
+          callback(new Error('Not allowed by CORS'))
+        }
+      }
  }));
 
 server.get('/', (req, res) => {
