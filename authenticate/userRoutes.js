@@ -5,8 +5,8 @@ const {authenticate,secret,jwt}=require('./middleware.js');
 const Joi=require('joi');
 
 module.exports=server=>{
-    server.post('/api/register',register);
-    server.post('/api/login',validateNewUserCred, login);
+    server.post('/api/register',validateNewUserCred,register);
+    server.post('/api/login', login);
     server.get('/api/notes',authenticate,getNotes);
 }
 generateToken=(user)=>{
@@ -21,17 +21,17 @@ generateToken=(user)=>{
 }
 function validateNewUserCred (req,res,next){
     const newUser=req.body;
-    
     const schema={
         username:Joi.string.min(3),
         password:Joi.string.min(3)
     }
     const {error,value}=Joi.validate(newUser,schema);
+    console.log(error);
     if (error===null) {
         next();
     }
     else {
-        return res.status(500).json(err);
+        res.status(500).json(err);
     }
 }
 function register(req,res) {
