@@ -25,7 +25,7 @@ server.get('/note/get/all', async (req, res) => {
 });
 
 server.post('/note/create', async (req, res) => {
-    const { title, textBody, tags } = req.body;
+    const { tags, title, textBody } = req.body;
     try {
         const response = await db.addNote({title, textBody, tags});
         res.status(201).json(response);
