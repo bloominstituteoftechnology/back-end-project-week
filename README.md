@@ -1,3 +1,5 @@
+Trello Board URL https://trello.com/invite/b/FEN1ppcN/69626aef7aea064aeab58ab3e8fbdbdb/lambda-notesbackend-adam-lee
+
 # Back End Project Week
 
 This week you will build a backend for a note taking app called "Lambda Notes".
