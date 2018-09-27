@@ -1,0 +1,31 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "https://trello.com/b/NJfQYTiS/lambda-notesbackend-khoa-nguyen",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/munsu99/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/munsu99/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/munsu99/back-end-project-week#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
+    "knex": "^0.15.2",
+    "sqlite3": "^4.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
+}
