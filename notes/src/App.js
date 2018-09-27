@@ -11,8 +11,8 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import "./App.css";
 
-// const api = 'http://localhost:5000';
-const api = 'https://projectbackend-server.herokuapp.com/'
+const api = 'http://localhost:5000';
+// const api = 'https://projectbackend-server.herokuapp.com/'
 
 class App extends Component {
   constructor() {
@@ -54,6 +54,13 @@ class App extends Component {
   onSaveHandler = e => {
     e.preventDefault();
 
+    const token = localStorage.getItem('jwt');
+    const reqOptions = {
+        headers: {
+            Authorization: token,
+        }
+      }
+
     let notes = {
       title: this.state.title,
       note: this.state.note
@@ -61,7 +68,7 @@ class App extends Component {
 
     axios.post(`${api}/notes`, notes)
       .then(notes => {
-        return (axios.get(`${api}/notes`)
+        return (axios.get(`${api}/notes`, reqOptions)
         .then(notes => {
           this.setState({notes: notes.data.notes}); 
         })
@@ -107,9 +114,16 @@ class App extends Component {
   deleteHandler = (e, id) => {
     e.preventDefault();
     
+    const token = localStorage.getItem('jwt');
+    const reqOptions = {
+        headers: {
+            Authorization: token,
+        }
+      };
+
     axios.delete(`${api}/notes/${id}`)
       .then(notes => {
-        return (axios.get(`${api}/notes`)
+        return (axios.get(`${api}/notes`, reqOptions)
           .then(notes => {
             this.setState({notes: notes.data.notes}); 
           })
@@ -120,7 +134,6 @@ class App extends Component {
       .catch(err => {
         console.log(err); 
       });  
-      
   };
 
   onHandlerSearch = e => {
@@ -193,6 +206,7 @@ class App extends Component {
     .post(`${api}/login`, login)
     .then(res => {
         localStorage.setItem('jwt', res.data.token);
+        this.props.history.push('/'); 
     })
     .catch(err => {
         console.log(err);
