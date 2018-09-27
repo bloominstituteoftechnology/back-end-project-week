@@ -45,33 +45,33 @@
         <h2>Postman test sample</h2>
         <h4>GET localhost:2200/api/notes</h4>
         <h5>
-        [<br>
-        {<br>
-            "id": 1,<br>
-            "title": "cat",<br>
-            "content": "meow"<br>
-        },<br>
-        {<br>
-            "id": 2,<br>
-            "title": "dog",<br>
-            "content": "woof"<br>
-        },<br>
-        {<br>
-            "id": 3,<br>
-            "title": "bird",<br>
-            "content": "chirp"<br>
-        },<br>
-        {<br>
-            "id": 23,<br>
-            "title": "pumpkin",<br>
-            "content": "pie"<br>
-        },<br>
-        {<br>
-            "id": 25,<br>
-            "title": "cherry",<br>
-            "content": "pie"<br>
-        }<br>
-        ]<br>
+[
+{
+    "id": 1,
+    "title": "cat",
+    "content": "meow"
+},
+{
+    "id": 2,
+    "title": "dog",
+    "content": "woof"
+},
+{
+    "id": 3,
+    "title": "bird",
+    "content": "chirp"
+},
+{
+    "id": 23,
+    "title": "pumpkin",
+    "content": "pie"
+},
+{
+    "id": 25,
+    "title": "cherry",
+    "content": "pie"
+}<
+]
         </h5>
     </div>
 
@@ -117,54 +117,54 @@
         <h2>Code Samples</h2>
         <h3>Notes Migrations</h3>
         <pre><code>
-                exports.up = function(knex, Promise) {
-                    return knex.schema.createTable('notes', function(tbl) {
-                      tbl.increments()
-                  
-                      tbl
-                      .string('title')
-                      .notNullable
-                      
-                  
-                      tbl
-                      .string('content')
-                      .notNullable
-                    });
-                  };
-                  
-                  exports.down = function(knex, Promise) {
-                    return knex.schema.dropTable('notes');
-                  };
-                  
-        </code></pre>
+exports.up = function(knex, Promise) {
+return knex.schema.createTable('notes', function(tbl) {
+    tbl.increments()
+
+    tbl
+    .string('title')
+    .notNullable()
+    
+
+    tbl
+    .string('content')
+    .notNullable()
+});
+};
+
+
+exports.down = function(knex, Promise) {<br>
+return knex.schema.dropTable('notes');<br>
+};
+</code></pre>
         <h3>Notes Seeds</h3>
         <pre><code>
-                exports.seed = function(knex, Promise) {
-                    // Deletes ALL existing entries
-                    return knex('notes').del()
-                      .then(function () {
-                        // Inserts seed entries
-                        return knex('notes').insert([
-                          {id: 1, title: 'cat', content:'meow'},
-                          {id: 2, title: 'dog',content:'woof'},
-                          {id: 3, title: 'bird',content:'chirp'}
-                        ]);
-                      });
-                  };
+exports.seed = function(knex, Promise) {
+    // Deletes ALL existing entries
+    return knex('notes').del()
+        .then(function () {
+        // Inserts seed entries
+        return knex('notes').insert([
+            {id: 1, title: 'cat', content:'meow'},
+            {id: 2, title: 'dog',content:'woof'},
+            {id: 3, title: 'bird',content:'chirp'}
+        ]);
+        });
+    };
                   
         </code></pre>
         <h3>GET HTTP Request</h3>
         <pre><code>
-                server.get('/api/notes', (req, res) => {
-                    db('notes')
-                    .then(notes => {
-                      res.status(200).json(notes)
-                    })
-                    .catch(err => {
-                        console.log('/api/notes GET ERROR:', err);
-                        res.status(500).send(err);
-                    })
-                });
+server.get('/api/notes', (req, res) => {
+    db('notes')
+    .then(notes => {
+        res.status(200).json(notes)
+    })
+    .catch(err => {
+        console.log('/api/notes GET ERROR:', err);
+        res.status(500).send(err);
+    })
+});
         </code></pre>
 
     </div>

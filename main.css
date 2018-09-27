@@ -32,3 +32,10 @@ td, th {
     padding: 8px;
 }
 
+
+pre{
+    text-align: left;
+}
+code {
+    text-align: left;
+}
