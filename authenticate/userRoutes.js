@@ -1,7 +1,7 @@
 const bCrypt=require('bcryptjs');
 const axios=require('axios');
 const db=require('../dbConfig/db');
-const {authenticate,secret,jwt,validateNewUserCred}=require('./middleware.js');
+const {authenticate,secret,jwt}=require('./middleware.js');
 const Joi=require('joi');
 
 module.exports=server=>{
