@@ -3,6 +3,7 @@ exports.up = (knex, Promise) => {
     tbl.increments();
     tbl.string('title').notNullable();
     tbl.string('text');
+    tbl.time('created_at');
   });
 };
 
