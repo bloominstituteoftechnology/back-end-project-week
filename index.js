@@ -56,14 +56,14 @@ server.get('/', (req, res) => {
 });
 
 // ########## GET ALL NOTES ################
-server.get('/notes', protected, (req, res) => {
+server.get('/notes', (req, res) => {
     db.getNotes()
       .then(notes => res.status(200).json(notes))
       .catch(err => res.status(500).json(err))
   });
 
 // ########### GET NOTE BY ID ################
-server.get('/notes/:id', protected, (req, res) => {
+server.get('/notes/:id',  (req, res) => {
     const { id } = req.params;
     db.getNote(id)
     .then(notes => notes.find(note => note.id === +id))
