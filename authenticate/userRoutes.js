@@ -5,7 +5,7 @@ const {authenticate,secret,jwt}=require('./middleware.js');
 const Joi=require('joi');
 
 module.exports=server=>{
-    server.post('/api/register', validateNewUserCred, register);
+    server.post('/api/register', register);
     server.post('/api/login', login);
     server.get('/api/notes',authenticate,getNotes);
 }
