@@ -32,7 +32,6 @@ module.exports = {
       filename: './db/notes.sqlite3',
     },
     migrations: {
-      tableName: 'knex_migrations',
       directory: './db/migrations',
     },
     seeds: {
