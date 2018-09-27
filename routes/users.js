@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.router();
+const router = express.Router();
 const db = require("../db/dbHelper/user");
 
 
@@ -13,9 +13,10 @@ router.get("/", async (req, res, next) => {
   try {
     res.status(200).json({
       status: true,
-      users: await db.getusers()
+      users: await db.getUsers()
     });
   } catch (err) {
+    console.log(err)
     next(err);
   }
 });
@@ -47,7 +48,7 @@ router.get("/:id", async (req, res, next) => {
  * @apiSuccess {Boolean} Status if the api has completed or not.
  * @apiSuccess {Array} UpdatedUsers  Array of all the users in it.
  */
-router.del("/:id", async (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
   try {
     await db.delUser(req.params.id);
     res.status(200).json({

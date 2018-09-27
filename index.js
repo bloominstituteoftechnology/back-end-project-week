@@ -1,27 +1,25 @@
 const express = require("express");
 const helmet = require("helmet");
 const morgan = require("morgan");
-const cors = require('cors')
+const cors = require("cors");
 
-const indexRouter = require('./routes/index');
-const notesRouter = require('./routes/notes');
+const indexRouter = require("./routes/index");
+const notesRouter = require("./routes/notes");
+const userRouter = require("./routes/users");
+const authRouter = require("./routes/auth");
 
-const app = new express()
+const app = new express();
 
-app.use(cors())
-app.use(helmet())
-app.use(express.json())
-if (process.env.ENV === 'production')
-    app.use(morgan('combined'))
-else
-    app.use(morgan('dev'))
+app.use(cors());
+app.use(helmet());
+app.use(express.json());
+if (process.env.ENV === "production") app.use(morgan("combined"));
+else app.use(morgan("dev"));
 
-app.use('/', indexRouter);
-app.use('/api/notes', notesRouter);
-app.use('/api/auth', require('./routes/auth'))
-app.use(require('./middleware/index').errorHandler)
+app.use("/", indexRouter);
+app.use("/api/notes", notesRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/users", userRouter);
+app.use(require("./middleware/index").errorHandler);
 
-console.log('~~~~~~~~~~~~~~~~~~')
-console.log(process.env.NODE_ENV)
-
-module.exports = app
+module.exports = app;

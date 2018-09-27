@@ -11,7 +11,7 @@ describe("GET /", () => {
 describe("Notes Route", () => {
   describe("GET /api/notes", () => {
     it("should check for response status", async () => {
-      const res = await request(server).get("/api/notes");
+      const res = await request(server).get("/api/notes/1");
       expect(res.status).toBe(200);
       expect(res.body.status).toBe(true);
       expect(typeof res.body.notes).toBe("object");
