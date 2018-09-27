@@ -39,7 +39,7 @@ const validateNoteBody = body => {
     content: Joi.string()
       .min(3)
       .required(), 
-    tags: Joi.string() 
+    tags: Joi.string().required()
   };
   return Joi.validate(body, schema);
 };

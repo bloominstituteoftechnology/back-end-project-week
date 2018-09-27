@@ -4,11 +4,6 @@ exports.up = function(knex, Promise) {
     tbl.string("Title").notNullable();
     tbl.string("Content").notNullable();
     tbl.string("Tags");
-    tbl // foreign key that is used to connect notes with a user
-      .integer("user_id")
-      .notNullable()
-      .references("id")
-      .inTable("users");
   });
 };
 
