@@ -1,8 +1,7 @@
 const bCrypt=require('bcryptjs');
 const axios=require('axios');
 const db=require('../dbConfig/db');
-const {authenticate,secret,jwt}=require('./middleware.js');
-const Joi=require('joi');
+const {authenticate,secret,jwt,validateNewUserCred}=require('./middleware.js');
 
 module.exports=server=>{
     server.post('/api/register', register);
@@ -19,26 +18,12 @@ generateToken=(user)=>{
     }
     return jwt.sign(payload,secret,options);
 }
-function validateNewUserCred (req,res,next){
-    const newUser=req.body;
-    const schema={
-        username:Joi.string.min(3),
-        password:Joi.string.min(3)
-    }
-    const {error,value}=Joi.validate(newUser,schema);
-    
-    if (error===null) {
-        next();
-    }
-    else {
-        res.status(500).json(err);
-    }
-}
+
 function register(req,res) {
     const newUser=req.body;
     const hash=bCrypt.hashSync(newUser.password,3);
     newUser.password=hash;
-
+    console.log(newUser);
     db('users')
         .insert(newUser)
         .then(id=>{
