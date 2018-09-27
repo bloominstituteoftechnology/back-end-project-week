@@ -5,9 +5,9 @@ module.exports = {
   development: {
     client: 'sqlite3',
     connection: {
-      filename: './database/db.sqlite3'
+      filename: './data/dev.sqlite3'
     },
-    useNullAsDefault: true, // otherwise we'll get a warning
+    useNullAsDefault: true,
   },
 
   staging: {
@@ -22,13 +22,9 @@ module.exports = {
       max: 10
     },
     migrations: {
-        directory: 'database/migrations',
-        tableName: 'knex_migrations'
-      },
-      seeds:  {
-        directory: './database/seeds'
-      }
-    },
+      tableName: 'knex_migrations'
+    }
+  },
 
   production: {
     client: 'postgresql',

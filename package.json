@@ -1,33 +1,21 @@
 {
   "name": "back-end-project-week",
   "version": "1.0.0",
-  "description": "using knex with sqlite3",
-  "main": "server.js",
-  "proxy": "http://localhost:3000",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AppMkrATL/back-end-project-week.git"
-  },
-  "author": "Sam Khaled",
+  "main": "index.js",
+  "repository": "https://github.com/AppMkrATL/front-end-project-week.git",
+  "author": "<samkhaled@outlook.com@yahoo.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/AppMkrATL/back-end-project-week/issues"
-  },
-  "homepage": "https://github.com/AppMkrATL/back-end-project-week#readme",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "express": "^4.16.3",
-    "helmet": "^3.13.0",
-    "joi": "^13.6.0",
-    "jsonwebtoken": "^8.3.0",
     "knex": "^0.15.2",
-    "nodemon": "^1.18.3",
     "sqlite3": "^4.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   }
 }
