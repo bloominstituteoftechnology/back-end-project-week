@@ -28,7 +28,7 @@ function createNote(note) {
 function editNote(_id, note) {
     return db('notes')
             .where('_id', '=', _id)
-            .update(_id, note);
+            .update(note);
 }
 
 function deleteNote(_id) {

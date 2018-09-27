@@ -60,7 +60,7 @@ router.delete('/notes/:_id/delete', (req, res) => {
             res.status(500).json({ error: "The note could not be removed" })});
 });
 
-router.put('/notes/:_id/edit', (req, res) => {
+router.put('/edit/:_id', (req, res) => {
     const note = req.body
     if(!note.title || !note.textBody) {
         return res.status(400).json({ errorMessage: "Please provide a title and text body for the note." });
