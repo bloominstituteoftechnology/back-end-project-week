@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
            .notNullable();
         tbl.string('textBody');
         tbl.string('tags');
-        tbl.integer('userId').unsigned().notNullable().references('id').inTable('users')
+        tbl.integer('userid').notNullable().references('id').inTable('users')
         tbl.bool('isPublic').notNullable().defaultsTo(false)
     })
 };

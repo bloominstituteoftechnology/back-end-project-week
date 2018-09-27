@@ -40,9 +40,9 @@ welcome.get('/', (req, res) => {
     res.status(200).json({message: "MJK-LSN /welcome is running."})
 })
 
-welcome.get('/test/:id', (req,res) => {
+welcome.get('/test/', (req,res) => {
     console.log(req.params.id)
-    dbFunc.getUser(req.params.id).first().then(user => {
+    dbFunc.getNotes().then(user => {
         res.status(200).send(user)
     })
 })
