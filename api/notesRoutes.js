@@ -18,16 +18,18 @@ notes.get('/test/', (req,res) => {
 })
 
 notes.get('/all/', (req, res) => {
+    const { userid } = req.user
     //only return only notes that have the username in req.user.username
-    dbFunc.getNotes().then(allUserNotes => {
+    dbFunc.getNotes(userid).then(allUserNotes => {
         res.status(200).json({allUserNotes: allUserNotes})
     }).catch(err => res.status(500).json({message: 'There was an error with the server.', err: err
     }))
 })
 
 notes.get('/:id', (req, res) => {
+    const { userid } = req.user
     //only return notes that have the username in req.user.username
-    dbFunc.getNotes(req.params.id).then(note => {
+    dbFunc.getNotes(userid, req.params.id).then(note => {
         res.status(200).json(note)
     }).catch(err => res.status(500).json({message: 'There was an error with the server.', err: err
     }))
@@ -59,17 +61,26 @@ notes.post('/', (req, res) => {
 notes.put('/:id',  (req, res) => {
     const body = req.body
     const { id } = req.params
-
-    dbFunc.editNote(id, body).then(res2 => {
-        res.status(200).json(res2)
+    const { userid } = req.user
+    dbFunc.getNotes(userid, id).then(res => {
+        if(res){
+            dbFunc.editNote(userid, id, body).then(res2 => {
+                res.status(200).json(res2)
+            }).catch(err => {
+                res.staus(500).json(err)
+            })
+        } else {
+            res.status(401).json({message: "note not foun d"})
+        }
     }).catch(err => {
-        res.staus(500).json(err)
+        res.status(500).json(err.message)
     })
+    
 })
 
 notes.delete('/:id', (req, res) => {
     const { id } = req.params
-       
+    
     dbFunc.deleteNote(id).then(count => {
         if(count == 0){
             res.status(400).json('note not deleted. Either this note does not exist, or it was a bad request')

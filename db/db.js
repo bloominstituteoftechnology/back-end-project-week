@@ -17,11 +17,11 @@ module.exports = {
     getUser,
 }
 
-function getNotes(id){
+function getNotes(userid, id){
     if(id){
-        return db('notes').where('id', id)
+        return db('notes').where('userid', userid).andWhere('id', id)
     } else {
-        return db('notes')
+        return db('notes').where('userid', userid)
     }
 }
 
