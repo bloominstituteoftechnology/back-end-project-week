@@ -37,7 +37,8 @@ notes.post('/', (req, res) => {
     const { textBody, title, id } = req.body
     const { userid } = req.user
     //include username in the submission
-    req.body.userid = userid
+    req.body.userid = userid;
+    console.log(req.body.userid)
     if(!id){
         if(title){
             if(textBody){

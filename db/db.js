@@ -41,9 +41,9 @@ function addUser(newUser){
     return db('users').insert(newUser)
 }
 
-function getUser(userId){
-    if(userId){
-        return db('users').where('id', userId)
+function getUser(userid){
+    if(userid){
+        return db('users').where('id', userid)
     } else {
         return db('users')
     }

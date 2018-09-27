@@ -22,7 +22,7 @@ const db = knex(dbConfig);
 function generateToken(user){
     const payload = {
       username: user.username,
-      userId: user.id,
+      userid: user.id,
       email: user.email
     }
 
