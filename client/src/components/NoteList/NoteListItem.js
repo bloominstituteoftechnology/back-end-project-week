@@ -4,8 +4,8 @@ import styled from 'styled-components';
 
 
 const NoteListItemContainer = styled.div`
-  width: 50vw;
-  height: 10vh;
+   width:420px;
+  height:5vh;
   margin: auto 0;
   display: flex;
   flex-flow: column;

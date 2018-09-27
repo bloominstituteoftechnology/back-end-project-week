@@ -1,13 +1,14 @@
 import React, { PureComponent } from 'react';
 import { Route, Link } from 'react-router-dom';
+import axios from 'axios';
 import styled from 'styled-components';
 import NoteListItem from './NoteListItem';
-import axios from 'axios';
+import NavBar from '../NavBar/NavBar.js';
 const URL = `http://localhost:8888/notes`;
 
 const NoteListContainer = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width:420px;
+  height:605px;
   margin: auto 0;
   display: flex;
   flex-flow: column;
@@ -43,15 +44,45 @@ class NoteList extends PureComponent {
     this.props = nextProps;
   }
 
+  componentDidUpdate(){
+    axios
+      .get(URL)
+      .then(res => {
+        let _notes = res.data;
+        this.setState({ notes: _notes });
+      })
+      .catch(err => {
+        console.log(`ERROR: ${err}`);
+      });
+  }
+
+  handleDeleteNote = (input) => {
+    console.log('id of to be deleted', input);
+    axios
+      .delete(URL + `/${input}`)
+      .then(res => {
+        this.setState({ notes: res.data });
+      })
+      .catch(err => {
+        console.log(`ERROR: ${err}`);
+      });
+  }
+
   render() {
     return (
-      <NoteListContainer className="note-list">
+    
+      <NoteListContainer>
+       
+          <div>SOMEthing
+            
+          </div>
          {
            this.state.notes.map((note)=>{
-            return <Link to={`/noteview/${note.id}`}><NoteListItem note={note} /></Link>
+            return <Link to={`/noteview/${note.id}`}><NoteListItem note={note}/></Link>
            })
          }
       </NoteListContainer>
+      
     );
   }
 }

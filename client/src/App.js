@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
 import axios from 'axios';
+import styled from 'styled-components';
 import Menu from './components/Menu/Menu.js';
 import Landing from './components/Landing/Landing.js';
 import NewNoteForm from './components/Forms/NewNoteForm.js';
@@ -15,6 +16,14 @@ import Handshake from './utilities/handshake.js';
 import EditNoteForm from './components/Forms/EditNoteForm.js';
 
 const URL = `http://localhost:8888/notes`;
+
+const AppContainer = styled.div`
+   width:420px;
+  height:605px;
+  margin:0 auto;
+  background-color: #342D33;
+  color: #E3FFD5;
+`;
 
 class App extends Component {
   constructor(props){
@@ -42,7 +51,7 @@ class App extends Component {
     return index;
   }
 
-  getNotesFromDB = async (URL) => {
+  setNotes = async (URL) => {
     axios
       .get(URL)
       .then(res => {
@@ -57,7 +66,9 @@ class App extends Component {
     axios
       .post(URL, input)
       .then(res => {
-        this.setState({ notes: res.data });
+        let nu = res.data;
+        this.setState({ notes: nu });
+        this.setNotes();
       })
       .catch(err => {
         console.log(`ERROR: ${err}`);
@@ -70,6 +81,7 @@ class App extends Component {
       .delete(URL+`/${input}`)
       .then(res => {
         this.setState({ notes: res.data });
+        this.setNotes();
       })
       .catch(err => {
         console.log(`ERROR: ${err}`);
@@ -83,16 +95,16 @@ class App extends Component {
         console.log('res from PUT', res.data);
         
         this.setState({ notes: res.data });
+        this.setNotes();
       })
       .catch(err => {
         console.log(`ERROR: ${err}`);
       })
-
   }
 
   render() {
     return (
-      <Switch>
+      <AppContainer>
       {/* <Landing/> */}
         <Route exact path="/" component={Landing} />
         <Route path="/menu" component={Menu} />
@@ -101,7 +113,7 @@ class App extends Component {
         <Route path="/notelist" render={(props) => { return <NoteList {...props} notes={this.state.notes}/> }}/>
         <Route path="/login" component={Login} />
         <Route path="/noteview/:id" render={(props) => { return <Note {...props} notes={this.state.notes} delete={this.handleDeleteNote} edit={this.handleEditNote} /> }} />
-        </Switch>
+        </AppContainer>
     );
   }
 }

@@ -7,8 +7,8 @@ const URL = `http://localhost:8888/notes`;
 
 
 const FormContainer = styled.div`
-  width: 100vw;
-  height: 100vh;
+   width:420px;
+  height:605px;
   margin: auto 0;
   display: flex;
   flex-flow: column;
@@ -30,7 +30,6 @@ class NewNoteForm extends Component {
   }
 
   saveNote = () => {
-    // this.props.handleNewNote(this.state)
     axios
       .post(URL, this.state)
       .then(res => {
@@ -39,6 +38,7 @@ class NewNoteForm extends Component {
       .catch(err => {
         console.log(`ERROR: ${err}`);
       });
+      this.props.handleNewNote(this.state);
   }
 
   handleInput = (e) => {
