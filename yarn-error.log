@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add bcrypt
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js start
 
 PATH: 
   C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Dell\DW WLAN Card;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\nodejs\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\ManagementStudio\;C:\Users\Das G. Ma\AppData\Roaming\npm;C:\Users\Das G. Ma\AppData\Local\Microsoft\WindowsApps;;C:\Program Files\Microsoft VS Code\bin;C:\Users\Das G. Ma\AppData\Local\Yarn\bin
@@ -14,7 +14,12 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: EPERM: operation not permitted, unlink 'C:\Users\Das G. Ma\Desktop\LAMBDA SCHOOL\Lambda Projects\back-end-project-week\node_modules\sqlite3\lib\binding\node-v64-win32-x64\node_sqlite3.node'
+  SyntaxError: C:\Users\Das G. Ma\Desktop\LAMBDA SCHOOL\Lambda Projects\back-end-project-week\package.json: Unexpected token } in JSON at position 272
+      at JSON.parse (<anonymous>)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:1130:59
+      at Generator.next (<anonymous>)
+      at step (C:\Program Files (x86)\Yarn\lib\cli.js:98:30)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:109:13
 
 npm manifest: 
   {
@@ -25,9 +30,13 @@ npm manifest:
     "author": "dasgma <dasgrigoma@gmail.com>",
     "license": "MIT",
     "scripts": {
-      "start": "nodemon"
+      "start": "nodemon index.js",
+      
     },
     "dependencies": {
+      "dotenv": "^6.0.0",
+      "pg": "^7.4.3",
+      "bcryptjs": "^2.4.3",
       "cors": "^2.8.4",
       "express": "^4.16.3",
       "helmet": "^3.13.0",
@@ -195,6 +204,10 @@ Lockfile:
     dependencies:
       tweetnacl "^0.14.3"
   
+  bcryptjs@^2.4.3:
+    version "2.4.3"
+    resolved "https://registry.yarnpkg.com/bcryptjs/-/bcryptjs-2.4.3.tgz#9ab5627b93e60621ff7cdac5da9733027df1d0cb"
+  
   binary-extensions@^1.0.0:
     version "1.12.0"
     resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-1.12.0.tgz#c2d780f53d45bba8317a8902d4ceeaf3a6385b14"
@@ -255,6 +268,10 @@ Lockfile:
   buffer-equal-constant-time@1.0.1:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/buffer-equal-constant-time/-/buffer-equal-constant-time-1.0.1.tgz#f8e71132f7ffe6e01a5c9697a4c6f3e48d5cc819"
+  
+  buffer-writer@1.0.1:
+    version "1.0.1"
+    resolved "https://registry.yarnpkg.com/buffer-writer/-/buffer-writer-1.0.1.tgz#22a936901e3029afcd7547eb4487ceb697a3bf08"
   
   bytes@3.0.0:
     version "3.0.0"
@@ -563,6 +580,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/dot-prop/-/dot-prop-4.2.0.tgz#1f19e0c2e1aa0e32797c49799f2837ac6af69c57"
     dependencies:
       is-obj "^1.0.0"
+  
+  dotenv@^6.0.0:
+    version "6.0.0"
+    resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-6.0.0.tgz#24e37c041741c5f4b25324958ebbc34bca965935"
   
   duplexer3@^0.1.4:
     version "0.1.4"
@@ -1775,6 +1796,10 @@ Lockfile:
       registry-url "^3.0.3"
       semver "^5.1.0"
   
+  packet-reader@0.3.1:
+    version "0.3.1"
+    resolved "https://registry.yarnpkg.com/packet-reader/-/packet-reader-0.3.1.tgz#cd62e60af8d7fea8a705ec4ff990871c46871f27"
+  
   parse-filepath@^1.0.1:
     version "1.0.2"
     resolved "https://registry.yarnpkg.com/parse-filepath/-/parse-filepath-1.0.2.tgz#a632127f53aaf3d15876f5872f3ffac763d6c891"
@@ -1839,9 +1864,44 @@ Lockfile:
     version "2.1.0"
     resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
   
+  pg-connection-string@0.1.3:
+    version "0.1.3"
+    resolved "https://registry.yarnpkg.com/pg-connection-string/-/pg-connection-string-0.1.3.tgz#da1847b20940e42ee1492beaf65d49d91b245df7"
+  
   pg-connection-string@2.0.0:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/pg-connection-string/-/pg-connection-string-2.0.0.tgz#3eefe5997e06d94821e4d502e42b6a1c73f8df82"
+  
+  pg-pool@~2.0.3:
+    version "2.0.3"
+    resolved "https://registry.yarnpkg.com/pg-pool/-/pg-pool-2.0.3.tgz#c022032c8949f312a4f91fb6409ce04076be3257"
+  
+  pg-types@~1.12.1:
+    version "1.12.1"
+    resolved "https://registry.yarnpkg.com/pg-types/-/pg-types-1.12.1.tgz#d64087e3903b58ffaad279e7595c52208a14c3d2"
+    dependencies:
+      postgres-array "~1.0.0"
+      postgres-bytea "~1.0.0"
+      postgres-date "~1.0.0"
+      postgres-interval "^1.1.0"
+  
+  pg@^7.4.3:
+    version "7.4.3"
+    resolved "https://registry.yarnpkg.com/pg/-/pg-7.4.3.tgz#f7b6f93f5340ecc2596afbb94a13e3d6b609834b"
+    dependencies:
+      buffer-writer "1.0.1"
+      packet-reader "0.3.1"
+      pg-connection-string "0.1.3"
+      pg-pool "~2.0.3"
+      pg-types "~1.12.1"
+      pgpass "1.x"
+      semver "4.3.2"
+  
+  pgpass@1.x:
+    version "1.0.2"
+    resolved "https://registry.yarnpkg.com/pgpass/-/pgpass-1.0.2.tgz#2a7bb41b6065b67907e91da1b07c1847c877b306"
+    dependencies:
+      split "^1.0.0"
   
   pify@^3.0.0:
     version "3.0.0"
@@ -1854,6 +1914,24 @@ Lockfile:
   posix-character-classes@^0.1.0:
     version "0.1.1"
     resolved "https://registry.yarnpkg.com/posix-character-classes/-/posix-character-classes-0.1.1.tgz#01eac0fe3b5af71a2a6c02feabb8c1fef7e00eab"
+  
+  postgres-array@~1.0.0:
+    version "1.0.3"
+    resolved "https://registry.yarnpkg.com/postgres-array/-/postgres-array-1.0.3.tgz#c561fc3b266b21451fc6555384f4986d78ec80f5"
+  
+  postgres-bytea@~1.0.0:
+    version "1.0.0"
+    resolved "https://registry.yarnpkg.com/postgres-bytea/-/postgres-bytea-1.0.0.tgz#027b533c0aa890e26d172d47cf9ccecc521acd35"
+  
+  postgres-date@~1.0.0:
+    version "1.0.3"
+    resolved "https://registry.yarnpkg.com/postgres-date/-/postgres-date-1.0.3.tgz#e2d89702efdb258ff9d9cee0fe91bd06975257a8"
+  
+  postgres-interval@^1.1.0:
+    version "1.1.2"
+    resolved "https://registry.yarnpkg.com/postgres-interval/-/postgres-interval-1.1.2.tgz#bf71ff902635f21cb241a013fc421d81d1db15a9"
+    dependencies:
+      xtend "^4.0.0"
   
   prepend-http@^1.0.1:
     version "1.0.4"
@@ -2070,6 +2148,10 @@ Lockfile:
     dependencies:
       semver "^5.0.3"
   
+  semver@4.3.2:
+    version "4.3.2"
+    resolved "https://registry.yarnpkg.com/semver/-/semver-4.3.2.tgz#c7a07158a80bedd052355b770d82d6640f803be7"
+  
   semver@^5.0.3, semver@^5.1.0, semver@^5.3.0, semver@^5.5.0:
     version "5.5.1"
     resolved "https://registry.yarnpkg.com/semver/-/semver-5.5.1.tgz#7dfdd8814bdb7cabc7be0fb1d734cfb66c940477"
@@ -2196,7 +2278,7 @@ Lockfile:
     dependencies:
       extend-shallow "^3.0.0"
   
-  split@^1.0.1:
+  split@^1.0.0, split@^1.0.1:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/split/-/split-1.0.1.tgz#605bd9be303aa59fb35f9229fbea0ddec9ea07d9"
     dependencies:
@@ -2522,6 +2604,10 @@ Lockfile:
   xdg-basedir@^3.0.0:
     version "3.0.0"
     resolved "https://registry.yarnpkg.com/xdg-basedir/-/xdg-basedir-3.0.0.tgz#496b2cc109eca8dbacfe2dc72b603c17c5870ad4"
+  
+  xtend@^4.0.0:
+    version "4.0.1"
+    resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.1.tgz#a5c6d532be656e23db820efb943a1f04998d63af"
   
   yallist@^2.1.2:
     version "2.1.2"

@@ -4,8 +4,6 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-require('dotenv').config();
-
 const db = require('./db/helpers/Helper');
 const dbUsers = require('./db/dbConfig');
 
@@ -16,7 +14,6 @@ server.use(express.json());
 server.use(cors());
 
 const secret = 'secret';
-const port = process.env.PORT || 9000;
 
 // ########## Generating token ###########
 function generateToken(user){
@@ -175,4 +172,4 @@ server.post('/login', (req, res) => {
         })
 })
 
-server.listen(port, () => console.log(` Running on port ${port}`));
+server.listen(9000);

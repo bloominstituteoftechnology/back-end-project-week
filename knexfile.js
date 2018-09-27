@@ -1,4 +1,4 @@
-/* module.exports = {
+module.exports = {
 
   development: {
     client: 'sqlite3',
@@ -13,10 +13,10 @@
       directory: './db/seeds',
     },
   },
-}; */
+};
 
 
-require('dotenv').config();
+/* require('dotenv').config();
 const localPg = {
   host: 'localhost',
   database: 'notes',
@@ -32,6 +32,7 @@ module.exports = {
       filename: './db/notes.sqlite3',
     },
     migrations: {
+      tableName: 'knex_migrations',
       directory: './db/migrations',
     },
     seeds: {
@@ -48,10 +49,11 @@ module.exports = {
       max: 10,
     },
     migrations: {
+      tableName: 'knex_migrations',
       directory: './db/migrations',
     },
     seeds: {
       directory: './db/seeds',
     },
   },
-};
+}; */
