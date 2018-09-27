@@ -1,11 +1,11 @@
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
+//const bcrypt = require('bcrypt');
 
-const jwt = require('express-jwt');
-const jwksRsa = require('jwks-rsa');
-
-const db = require('./db/helpers/notesHelper');
+const db = require('./db/helpers/Helper');
+const dbUsers = require('./db/dbConfig');
 
 const server = express();
 
@@ -13,20 +13,40 @@ server.use(helmet());
 server.use(express.json());
 server.use(cors());
 
-const checkJwt = jwt({
-    secret: jwksRsa.expressJwtSecret({
-      cache: true,
-      rateLimit: true,
-      jwksRequestsPerMinute: 5,
-      jwksUri: `https://<YOUR_AUTH0_DOMAIN>/.well-known/jwks.json`
-    }),
-  
-    // Validate the audience and the issuer.
-    audience: 'RjCcPnKzUiwDudwzEfSNlOhacIs3IInS',
-    issuer: `https://dasma.auth0.com/`,
-    algorithms: ['RS256']
-  });
-  
+const secret = 'secret';
+
+// ########## Generating token ###########
+function generateToken(user){
+    const payload = {
+        username: user.username,
+        department: user.department
+    };
+
+    const options = {
+        expiresIn: '1h',
+        jwtid: '12345'
+    }
+    return jwt.sign(payload, secret, options);
+}
+
+// ####### Protected middleware ##########
+function protected(req, res, next) {
+    const token = req.headers.authorization;
+    if (token) {
+        jwt.verify(token, secret, (error, decodedToken) => {
+            if (error) {
+                return res
+                    .status(400)
+                    .json({ Message: ' Invalid token' })
+            } else {
+                req.user = { username: decodedToken.username }
+            next()
+            }
+        })
+    } else {
+        return res.status(400).json({ Message: 'No token found' })
+    }
+}
 
 
 server.get('/', (req, res) => {
@@ -58,12 +78,11 @@ server.get('/notes/:id', (req, res) => {
 });
 
 // ########## POSTING NEW NOTE ###########
-server.post('/notes', checkJwt, (req, res) => {
+server.post('/notes', (req, res) => {
     const { title, content } = req.body;
     const note = {
         title,
-        content,
-        author: req.user.name
+        content
     };
     if (!title || !content) {
         res.status(400).json('Message: title and content are required fields!')
@@ -79,13 +98,12 @@ server.post('/notes', checkJwt, (req, res) => {
 });
 
 // ########### UPDATING NOTE ###########
-server.put('/notes/:id', checkJwt, (req, res) => {
+server.put('/notes/:id', (req, res) => {
     const {title, content} = req.body;
     const {id} = req.params;
     const updatedNote = {
         title,
-        content,
-        author: req.user.name
+        content
     };
     if (!title || !content) {
         res.status(400).json('Message: In order to update note, title and content are required fields!')
@@ -100,7 +118,7 @@ server.put('/notes/:id', checkJwt, (req, res) => {
 });
 
 // ########### DELETE NOTE ###############
-server.delete('/notes/:id', checkJwt, (req, res) => {
+server.delete('/notes/:id', (req, res) => {
     const {id} = req.params;
     db.deleteNote(id)
         .then(notes => {
@@ -110,5 +128,49 @@ server.delete('/notes/:id', checkJwt, (req, res) => {
             res.status(500).json(error)
         })
 });
+
+
+// ###### Registering newUser ############
+server.post('/register', (req, res) => {
+    const newUser = req.body;
+    const hash = bcrypt.hashSync(newUser.password, 14);
+    newUser.password = hash;
+
+    dbUsers('users')
+    .insert(newUser)
+    .then(ids => {
+      db('users')
+        .where({ id: ids[0] })
+        .first()
+        .then(newUser => {
+          const token = generateToken(newUser);
+          res.status(201).json(token);
+        });
+    })
+    .catch(function(error) {
+      res.status(500).json({ error });
+    });
+})
+
+// ########### Login ##############
+server.post('/login', (req, res) => {
+    const creds = req.body;
+
+    dbUsers('users')
+        .where({username: creds.username})
+        .first()
+        .then(user => {
+            if (user && bcrypt.compareSync(creds.password, user.password)) {
+                const token = generateToken(user);
+                res.status(200).json(token)
+            } 
+            else {
+                return res.status(400).json({Message: 'Wrong credentials'})
+            }
+        })
+        .catch(error => {
+            res.status(500).json(error)
+        })
+})
 
 server.listen(9000);
