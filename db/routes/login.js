@@ -33,9 +33,10 @@ function register (req, res) {
   db.insert(creds)
     .into('users')
     .then(users => {
-      const user = users[0];
-      const token = generateToken(user);
-      res.status(201).json({ id: user.id, token });
+      //const user = users[0];
+      //const token = generateToken(user);
+      //res.status(201).json({ id: user.id, token });
+      res.status(201).json({ users });
     })
     .catch(err => {
       console.log(err);
