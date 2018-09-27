@@ -128,7 +128,7 @@ router.put("/:id", jwt.protected, async (req, res) => {
 router.delete("/:id", jwt.protected, async (req, res) => {
   const { id } = req.params;
   try {
-    const note = await db.get(id);
+    const note = await db('notes').where({ id }).first();
 
     if (parseInt(note.user_id, 10) !== parseInt(req.user.id, 10)) {
       res
@@ -138,8 +138,19 @@ router.delete("/:id", jwt.protected, async (req, res) => {
       const deleted = await db("notes")
         .where({ id })
         .del();
+
+      const refreshedNotes = await db("notes")
+        .join("users", "users.id", "notes.user_id")
+        .select(
+          "notes.id as id",
+          "notes.title as title",
+          "notes.content as content",
+          "notes.user_id as user_id",
+          "users.username as username"
+        )
+        .orderBy("id", "desc");
       deleted
-        ? res.status(200).json({ message: `Note with id ${id} deleted` })
+        ? res.status(200).json(refreshedNotes)
         : res.status(404).json({ message: "No note with that id" });
     }
   } catch (e) {
