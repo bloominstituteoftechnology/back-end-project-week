@@ -1,3 +1,10 @@
+
+"https://react-notes-back-end.herokuapp.com/note/get/all";
+"https://react-notes-back-end.herokuapp.com/note/create";
+"https://react-notes-back-end.herokuapp.com/note/delete";
+"http://localhost:3300/note/get";
+"https://react-notes-back-end.herokuapp.com/note/edit";
+
 # Back End Project Week
 
 This week you will build a backend for a note taking app called "Lambda Notes".
