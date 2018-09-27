@@ -1,4 +1,7 @@
 const db = require("knex")(require("../../knexfile").development);
+const bcrypt = require("bcryptjs");
+
+let SALT_ROUNDS = 8;
 
 module.exports = {
 	getNotes() {
@@ -62,9 +65,26 @@ module.exports = {
 			})
 			.then(response => {
 				return this.addNoteWithTags(updated);
-			})
-			.then(response => {
-				return updated;
 			});
+	},
+
+	getUser(id) {
+		return db("users").where("id", id);
+	},
+
+	addUser(user) {
+		user.password = bcrypt.hashSync(user.password, SALT_ROUNDS);
+		return db("users").insert(user);
+	},
+
+	async authenticateUser(username, password, done) {
+		let user = await db("users")
+			.where("username", username)
+			.first();
+		if (!user) return done("Invalid info", false);
+		if (!bcrypt.compareSync(password, user.password)) {
+			return done("Invalid info", false);
+		}
+		return done(null, user.id);
 	},
 };
