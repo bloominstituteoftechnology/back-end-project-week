@@ -9,10 +9,11 @@
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "knex": "^0.15.2",
+    "node": "^10.11.0",
     "sqlite3": "^4.0.2"
   },
   "devDependencies": {
-    "nodemon": "^1.18.4"
+    "node": "^1.18.4"
   },
   "scripts": {
     "start": "nodemon index.js"
