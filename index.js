@@ -8,6 +8,8 @@ const routes = require('./api/routes.js')
 server.use(express.json());
 server.use(helmet());
 
+server.options('*', cors())
+
 server.use(cors({
     credentials: true, 
     origin: `http://localhost:4000/`
