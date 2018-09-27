@@ -100,6 +100,32 @@ server.post('/login', (req, res) => {
 });
 
 
+server.get('/protected/user', protected, (req, res) => {
+  const { id } = req.user;
+  db('users')
+    .select('userId as id', 'username', 'email')
+    .where({userId: id})
+    .then(users => {
+      res.status(200).json(users)
+    })
+    .catch(err => res.send(err));
+});
+
+
+server.put('/protected/user', protected, (req, res) => {
+  const { id } = req.user;
+  const content = {
+    username: req.body.username,
+    email: req.body.email
+  }
+  db('users').where({userId: id}).update(content)
+    .then(count => {
+      res.status(200).json(count)
+    })
+    .catch(err => res.send(err));
+});
+
+
 server.get('/protected/notes', protected, (req, res) => {
   const { username } = req.user;
   db('users')
@@ -168,6 +194,10 @@ server.delete('/protected/notes/:id', protected, (req, res) => {
 });
 
 
+server.listen(port, () => console.log(`~~ Listening on Port ${port} ~~`));
+
+
+
 
 /*
 WHERE I AM ATTEMPTING DOUBLE JOIN
@@ -204,6 +234,3 @@ knex('service_centers')
 )
 
 */ 
-
-
-server.listen(port, () => console.log(`~~ Listening on Port ${port} ~~`));
