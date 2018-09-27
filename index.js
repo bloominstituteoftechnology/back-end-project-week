@@ -18,8 +18,7 @@ const secret = 'secret';
 // ########## Generating token ###########
 function generateToken(user){
     const payload = {
-        username: user.username,
-        department: user.department
+        username: user.username
     };
 
     const options = {
@@ -78,7 +77,7 @@ server.get('/notes/:id', (req, res) => {
 });
 
 // ########## POSTING NEW NOTE ###########
-server.post('/notes', (req, res) => {
+server.post('/notes', protected, (req, res) => {
     const { title, content } = req.body;
     const note = {
         title,
@@ -98,7 +97,7 @@ server.post('/notes', (req, res) => {
 });
 
 // ########### UPDATING NOTE ###########
-server.put('/notes/:id', (req, res) => {
+server.put('/notes/:id', protected, (req, res) => {
     const {title, content} = req.body;
     const {id} = req.params;
     const updatedNote = {
@@ -118,7 +117,7 @@ server.put('/notes/:id', (req, res) => {
 });
 
 // ########### DELETE NOTE ###############
-server.delete('/notes/:id', (req, res) => {
+server.delete('/notes/:id', protected, (req, res) => {
     const {id} = req.params;
     db.deleteNote(id)
         .then(notes => {
