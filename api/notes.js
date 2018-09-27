@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
         "notes.user_id as user_id",
         "users.username as username"
       )
-      .orderBy('notes.id', 'desc');
+      .orderBy("id", "desc");
     res.status(200).json(notes);
   } catch (e) {
     res.status(500).json(e);
@@ -113,7 +113,7 @@ router.put("/:id", jwt.protected, async (req, res) => {
             "notes.user_id as user_id",
             "users.username as username"
           )
-          .orderBy('notes.id', 'desc');
+          .orderBy("id", "desc");
         updated
           ? res.status(200).json(refreshedNotes)
           : res.status(404).json({ message: "No note with that id" });
