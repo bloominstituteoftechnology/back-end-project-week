@@ -1,3 +1,6 @@
+// https://github.com/LambdaSchool/back-end-project-week/pull/343
+
+
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import axios from 'axios';
@@ -21,14 +24,7 @@ class App extends Component {
   }
 
   componentDidMount(){   
-    axios
-      .get(URL)
-      .then(res => {
-        this.setState({ notes: res.data });
-      })
-      .catch(err => {
-        console.log(`ERROR: ${err}`);
-      });
+    
   }
 
   getNotesFromDB = async (URL) => {
@@ -43,10 +39,22 @@ class App extends Component {
   }
 
   handleNewNote = (input) => {
-    input.id = this.state.notes.length;
-    let notes = this.state.notes.slice();
-    notes.push(input);
-    this.setState({ notes: notes });
+    console.log(input);
+    
+    axios
+      .post(URL, input)
+      .then(res => {
+        console.log('response in app.js', res.data);
+        
+        this.setState({ notes: res.data });
+      })
+      .catch(err => {
+        console.log(`ERROR: ${err}`);
+      });
+    // input.id = this.state.notes.length;
+    // let notes = this.state.notes.slice();
+    // notes.push(input);
+    // this.setState({ notes: notes });
   }
 
   handleDeleteNote = (input) => {

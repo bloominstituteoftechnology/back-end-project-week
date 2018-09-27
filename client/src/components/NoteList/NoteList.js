@@ -3,7 +3,7 @@ import { Route, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import NoteListItem from './NoteListItem';
 import axios from 'axios';
-
+const URL = `http://localhost:8888/notes`;
 
 const NoteListContainer = styled.div`
   width: 100vw;
@@ -25,8 +25,12 @@ class NoteList extends Component {
   }
 
   componentDidMount() {
+    this.getNotesFromDB(URL);
+  }
+
+  getNotesFromDB = async (URL) => {
     axios
-      .get(`http://localhost:8888/notes`)
+      .get(URL)
       .then(res => {
         this.setState({ notes: res.data });
       })

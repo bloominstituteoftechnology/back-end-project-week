@@ -43,7 +43,7 @@ class NewNoteForm extends Component {
       {/* <NavBar/> */}
       <form className="App">
           <input className="note-input title" type="text" name="title" placeholder="title" onChange={this.handleInput} />
-          <textarea className="note-input note-area" rows="6" cols="33" name="note" placeholder="note" onChange={this.handleInput}></textarea>
+          <textarea className="note-input note-area" rows="6" cols="33" name="content" placeholder="note" onChange={this.handleInput}></textarea>
           <button onClick={this.saveNote}>
             <Link to="/notelist">save.</Link>
           </button>
