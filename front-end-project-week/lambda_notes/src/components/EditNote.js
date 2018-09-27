@@ -6,7 +6,6 @@ class editNote extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dummyNotes: [],
             title: '',
             body: '',
         }
@@ -17,16 +16,6 @@ class editNote extends Component {
     }
 
     handleSubmit = e => {
-        // const noteSnapshot = this.state.dummyNotes.slice();
-        // const newNote = {
-        //     title: this.state.title,
-        //     body: this.state.body
-        // }
-        // this.setState({
-        //     dummyNotes: noteSnapshot,
-        //     title: '',
-        //     body: ''
-        // })
         console.log('params.id:', this.props.match.params.id)
         axios
             .put(`http://localhost:3300/api/notes/${this.props.match.params.id}`, {
@@ -42,7 +31,7 @@ class editNote extends Component {
             body: ''
         })
     }
-
+    
     render(){
         return (
             <div className='createNoteContainer'>

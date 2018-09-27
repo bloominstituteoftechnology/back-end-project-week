@@ -9,13 +9,9 @@ export default class NoteView extends Component {
         super(props);
         this.state = {
             displayDelete: false,
-            // selectedNote: [],
             dummyNotes: []
         }
     }
-
-    // Using componentDidMount will guarantee that there's a component to update.
-    // Can add event listeners
 
     showModal = () => {
         this.setState({displayDelete: !this.state.displayDelete})
@@ -33,29 +29,17 @@ export default class NoteView extends Component {
             })
     }
 
-    // componentWillReceiveProps() {
-        
-    //     let noteId = this.props.match.params.id;
-    //     console.log('props.match:', this.props.match)
-    //     console.log('noteId:', noteId);
-        
-    //     let selectedNote = this.state.dummyNotes.filter((note) => note.id.toString() === noteId);
-    //     console.log('selectedNote:', selectedNote);
-        
-    //     this.setState({selectedNote: selectedNote});
-    //     console.log('dummyNotes CWRP:', this.state.dummyNotes)
-    //     console.log('dummyNotes CWRP at index 0:', this.state.dummyNotes[0])
-    //     console.log('selectedNote:', selectedNote)
-    //     console.log('selectedNote Title:', selectedNote[0].title)
-    //     console.log('selectedNote Body:', selectedNote[0].body)
-    // }
-
-    // componentDidUpdate() {
-    //     axios
-    //         .get(url)
-    //         .then()
-    //         .catch(err => console.log('Error:', err))
-    // }
+    delete = e => {
+        console.log('params.id:', this.props.match.params.id)
+        axios
+            .delete(`http://localhost:3300/api/notes/${this.props.match.params.id}`)
+            .then(res => console.log('res.data:', res.data))
+            .catch(err => {
+                console.log('Error:', err);
+            })
+        window.location.reload();
+        this.props.history.push('/');
+    }
 
     render() {
         return (
@@ -68,7 +52,6 @@ export default class NoteView extends Component {
                         <strong>edit </strong>
                     </Link>
                     <a 
-                        href='#' 
                         onClick={this.showModal} 
                         className='noteViewLink'
                     >
@@ -77,7 +60,7 @@ export default class NoteView extends Component {
                 </div>
                 <h3>{this.state.dummyNotes.title}</h3>
                 <p>{this.state.dummyNotes.body}</p>
-                <DeleteNote toggle={this.state.displayDelete} updateStatus={this.showModal} />
+                <DeleteNote toggle={this.state.displayDelete} updateStatus={this.showModal} delete={this.delete}  />
             </div>
         )
     }

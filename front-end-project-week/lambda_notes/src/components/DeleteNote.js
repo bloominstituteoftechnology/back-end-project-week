@@ -10,8 +10,8 @@ export default class DeleteNote extends Component {
                     <span>Are you sure you want to delete this?</span>
                 </div>
                 <div className='deleteButtons'>
-                    <button onClick={this.props.updateStatus}><strong>Delete</strong></button>
-                    <button><strong>No</strong></button>
+                    <button onClick={this.props.delete}><strong>Delete</strong></button>
+                    <button onClick={this.props.updateStatus}><strong>No</strong></button>
                 </div>
             </div>
         )

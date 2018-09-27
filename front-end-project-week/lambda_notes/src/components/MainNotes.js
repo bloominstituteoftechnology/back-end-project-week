@@ -31,13 +31,6 @@ class MainNotes extends Component {
     }
 
     addNote = e => {
-        
-        // const noteSnapshot = this.state.dummyNotes.slice();
-        // noteSnapshot.push({
-        //     id: this.state.dummyNotes.length + 1,
-        //     title: this.state.title, // title set by input change handler
-        //     body: this.state.body,
-        // });
         axios
             .post(url, {title: this.state.title, body: this.state.body})
             .then(res => {
@@ -45,8 +38,7 @@ class MainNotes extends Component {
             })
             .catch(err => console.log(err));
         this.setState({
-            // dummyNotes: noteSnapshot, 
-            title: '', // resets title to blank after input change
+            title: '',
             body: ''
         });
     }
