@@ -25,7 +25,7 @@ function asyncWrapper(handler) {
 router.get(
   '/',
   asyncWrapper(async (req, res, next) => {
-    let notes = await helpers.getAllNotes();
+    let notes = await helpers.getAllNotes().where('author_id', req.user.id);
     notes = notes.reduce(tagsReducer, {});
     res.status(200).json(Object.values(notes));
   }),
@@ -34,6 +34,7 @@ router.get(
 router.post(
   '/',
   asyncWrapper(async (req, res, next) => {
+    console.log(req.body);
     const { title, textBody, tags } = req.body;
 
     if (!title || !textBody)
@@ -41,7 +42,8 @@ router.post(
 
     let id = null;
     // console.log(req.user);
-    if (_.isArray(tags)) {
+    if (_.isArray(tags) && tags.length > 0) {
+      console.log(tags);
       id = await helpers.addNoteWithTags(
         { title, textBody, author_id: req.user.id },
         tags,
@@ -88,7 +90,7 @@ router.put(
     if (!title && !textBody && !Array.isArray(tags))
       return res.json({ error: 'At least one field must be given for update' });
 
-    if (_.isArray(tags)) {
+    if (_.isArray(tags) && tags.length > 0) {
       try {
         let ids = await helpers.updateTags(tags, Number(req.params.id));
       } catch (err) {
