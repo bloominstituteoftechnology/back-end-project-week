@@ -30,8 +30,8 @@ function register (req, res) {
   const creds = req.body;
   const hash = bcrypt.hashSync(creds.password, 10);
   creds.password = hash;
-  db('users')
-    .insert(creds)
+  db.insert(creds)
+    .into('users')
     .then(users => {
       const user = users[0];
       const token = generateToken(user);
