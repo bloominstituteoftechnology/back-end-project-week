@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Route, withRouter} from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import axios from 'axios'; 
 import AddNote from "./components/AddNote";
@@ -11,7 +11,10 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import "./App.css";
 
-export default class App extends Component {
+// const api = 'http://localhost:5000';
+const api = 'https://projectbackend-server.herokuapp.com/'
+
+class App extends Component {
   constructor() {
     super();
     this.state = {
@@ -56,9 +59,9 @@ export default class App extends Component {
       note: this.state.note
     };
 
-    axios.post('http://localhost:5000/notes', notes)
+    axios.post(`${api}/notes`, notes)
       .then(notes => {
-        return (axios.get('http://localhost:5000/notes')
+        return (axios.get(`${api}/notes`)
         .then(notes => {
           this.setState({notes: notes.data.notes}); 
         })
@@ -86,9 +89,9 @@ export default class App extends Component {
       note: this.state.note
     };
 
-    axios.put(`http://localhost:5000/notes/${id}`, edit)
+    axios.put(`${api}/notes/${id}`, edit)
       .then(notes => {
-        return (axios.get('http://localhost:5000/notes', reqOptions)
+        return (axios.get(`${api}/notes`, reqOptions)
           .then(notes => {
             this.setState({notes: notes.data.notes}); 
           })
@@ -104,9 +107,9 @@ export default class App extends Component {
   deleteHandler = (e, id) => {
     e.preventDefault();
     
-    axios.delete(`http://localhost:5000/notes/${id}`)
+    axios.delete(`${api}/notes/${id}`)
       .then(notes => {
-        return (axios.get('http://localhost:5000/notes')
+        return (axios.get(`${api}/notes`)
           .then(notes => {
             this.setState({notes: notes.data.notes}); 
           })
@@ -130,7 +133,7 @@ export default class App extends Component {
         }
     };
 
-    axios.get('http://localhost:5000/notes', reqOptions)
+    axios.get(`${api}/notes`, reqOptions)
     .then(notes => {
       this.setState({notes: notes.data.notes}); 
     })
@@ -168,15 +171,16 @@ export default class App extends Component {
     }; 
 
     axios
-    .post("http://localhost:5000/register", newUser)
+    .post(`${api}/register`, newUser)
       .then(res => {
        localStorage.setItem('jwt', res.data.token);
+       this.props.history.push('/'); 
      })
       .catch(err => {
       console.log(err);
      })
   };
-
+    
   onLoginHandler = e => {
     e.preventDefault(); 
 
@@ -186,7 +190,7 @@ export default class App extends Component {
     }; 
 
     axios
-    .post("http://localhost:5000/login", login)
+    .post(`${api}/login`, login)
     .then(res => {
         localStorage.setItem('jwt', res.data.token);
     })
@@ -307,3 +311,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default withRouter(App);
