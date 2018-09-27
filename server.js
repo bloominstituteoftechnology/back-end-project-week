@@ -13,6 +13,9 @@ server.use(helmet());
 server.use(express.json());
 server.use(cors({origin: 'http://localhost:3000'})); //app is running on port 3000
 
+
+
+
 server.get('/', (req,res) => {
     res.send('API for notetaking app is running')
 });
@@ -119,4 +122,4 @@ server.delete('/api/notes/:id', (req, res) => {
         });
 });
 
-server.listen(9000);
+module.exports = server;

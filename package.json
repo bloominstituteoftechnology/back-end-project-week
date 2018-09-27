@@ -2,9 +2,10 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "description": "https://trello.com/b/VMecUr8c/lambda-notes-back-end-carey-baldwin",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
