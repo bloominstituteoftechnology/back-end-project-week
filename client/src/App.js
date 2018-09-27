@@ -65,20 +65,32 @@ class App extends Component {
   }
 
   handleDeleteNote = (input) => {
-    input.id = this.state.notes.length;
-    let notes = this.state.notes.slice();
-    notes.push(input);
-    this.setState({ notes: notes });
+    // input.id = this.state.notes.length;
+    // let notes = this.state.notes.slice();
+    // notes.push(input);
+    // this.setState({ notes: notes });
   }
 
   handleEditNote = (note) => {
-    console.log('note passed to handle edit in app.js', note);
-    let index = this.findNoteIndex(note.id, this.state.notes);
-    let notes = this.state.notes.slice();
-    notes[index] = note;
-    this.setState({
-      notes: notes,
-    });
+    // console.log('note passed to handle edit in app.js', note);
+    // let index = this.findNoteIndex(note.id, this.state.notes);
+    // let notes = this.state.notes.slice();
+    // notes[index] = note;
+    // this.setState({
+    //   notes: notes,
+    // });
+    console.log(note);
+    
+    axios
+      .put(URL+`/${note.id}`, {id:note.id, title:note.title, content:note.content})
+      .then(res => {
+        console.log('res from PUT', res.data);
+        
+        this.setState({ notes: res.data });
+      })
+      .catch(err => {
+        console.log(`ERROR: ${err}`);
+      })
 
   }
 

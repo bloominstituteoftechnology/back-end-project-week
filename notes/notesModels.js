@@ -15,7 +15,8 @@ module.exports = {
   update: function(id, changes){
     return db('notes')
       .where({'id': id})
-      .update(changes);
+      .update(changes)
+      .then(() => { return this.get() });
   },
 
   delete: function(id){

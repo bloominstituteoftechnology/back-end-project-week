@@ -25,7 +25,25 @@ class Note extends Component {
   }
 
   componentDidMount() {
+    console.log('props inside note.js', this.props);
+    
+    let currNote = this.props.notes.find((note) => {
+      return note.id === parseInt(this.props.match.params.id);
+    });
 
+    this.setState({
+      title: currNote.title,
+      content: currNote.content,
+      id: currNote.id
+    })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.props = nextProps;
+    this.initNoteOnUpdate();
+  }
+
+  initNoteOnUpdate = () => {
     let currNote = this.props.notes.find((note) => {
       return note.id === parseInt(this.props.match.params.id);
     });

@@ -33,7 +33,6 @@ class EditNote extends React.Component {
     let thisNote = this.props.notes.find((note) => {
       return note.id === parseInt(this.props.match.params.id);
     });
-    console.log('note found in edit form',thisNote);
 
     this.setState({
       title: thisNote.title,
@@ -54,12 +53,12 @@ class EditNote extends React.Component {
 
 
   render() {
-    console.log(this.state.title);
     return (
       <EditNoteContainer >
         <input className="note-input title" type="text" name="title" placeholder="title" onChange={this.handleInput} value={this.state.title} />
         <textarea className="note-input note-area" rows="6" cols="33" name="content" placeholder="content" onChange={this.handleInput} value={this.state.content}></textarea>
         <button onClick={this.saveNote}>
+          <Link to={`/noteview/${this.state.id}`}>save.</Link>
           <Link to="/notelist">save.</Link>
         </button>
         <button>
