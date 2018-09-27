@@ -15,14 +15,15 @@ module.exports = {
     editNote,
     addUser,
     getUser,
+    getNote
 }
 
-function getNotes(userid, id){
-    if(id){
-        return db('notes').where('userid', userid).andWhere('id', id)
-    } else {
-        return db('notes').where('userid', userid)
-    }
+function getNotes(userid){
+    return db('notes').where('userid', userid)
+}
+
+function getNote(userid, id){
+    return db('notes').where('userid', userid).andWhere('id', id)
 }
 
 function addNote(note){
