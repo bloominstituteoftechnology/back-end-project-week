@@ -6,7 +6,7 @@
   "repository": "https://github.com/ErikKimsey/back-end-project-week.git",
   "author": "Erik Kimsey <erik@erikkimsey.com>",
   "scripts": {
-    "start": "nodemon --verbose --watch"
+    "start": "node"
   },
   "license": "MIT",
   "dependencies": {

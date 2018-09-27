@@ -4,6 +4,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import NoteListItem from './NoteListItem';
 import NavBar from '../NavBar/NavBar.js';
+import Tack from '../../tack.svg';
 const URL = `http://localhost:8888/notes`;
 
 const NoteListContainer = styled.div`
@@ -16,6 +17,21 @@ const NoteListContainer = styled.div`
   background-color: #342D33;
   color: #E3FFD5;
 `;
+
+const imgStyle = {
+  width: '50%',
+  margin: '5% 25%',
+};
+
+const NoteItemStyle = {
+  width:'100%',
+  height:'10vh',
+  lineHeight:'1',
+  fontSize:'1.4rem',
+  textDecoration: 'none'
+  // paddingTop:'0px',
+  // marginTop:'0px'
+}
 
 class NoteList extends PureComponent {
   constructor(props) {
@@ -72,13 +88,10 @@ class NoteList extends PureComponent {
     return (
     
       <NoteListContainer>
-       
-          <div>SOMEthing
-            
-          </div>
+        <div><img src={Tack} style={imgStyle} /></div>
          {
            this.state.notes.map((note)=>{
-            return <Link to={`/noteview/${note.id}`}><NoteListItem note={note}/></Link>
+            return <Link to={`/noteview/${note.id}`} style={{textDecoration:'none'}}><NoteListItem style={NoteItemStyle} note={note}/></Link>
            })
          }
       </NoteListContainer>
