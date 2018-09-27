@@ -9,7 +9,7 @@ module.exports = {
   insert: function(note){
     return db('notes')
       .insert(note)
-      .then(([id]) => { this.get(id) });
+      .then(([id]) => { return this.get(id) });
   },
 
   update: function(id, changes){
@@ -20,9 +20,11 @@ module.exports = {
   },
 
   delete: function(id){
+    console.log('id where id should be id', id);
+    
     return db('notes')
       .where({'id': id})
       .delete()
-      .then(()=>{this.get()});
+      .then(()=>{ return this.get()});
   }
 }

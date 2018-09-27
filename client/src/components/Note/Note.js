@@ -25,8 +25,6 @@ class Note extends Component {
   }
 
   componentDidMount() {
-    console.log('props inside note.js', this.props);
-    
     let currNote = this.props.notes.find((note) => {
       return note.id === parseInt(this.props.match.params.id);
     });
@@ -72,7 +70,7 @@ class Note extends Component {
           <Link to="/notelist"> <div className="delete" onClick={this.handleDelete}>delete.</div></Link>
         </div>
 
-        <h3>TITLE: {this.state.title}</h3>
+        <h3>{this.state.title}</h3>
         <p>{this.state.content}</p>
       </NoteContainer>
     )

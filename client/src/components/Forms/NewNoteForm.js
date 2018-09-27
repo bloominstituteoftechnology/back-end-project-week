@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
+import axios from 'axios';
 import NavBar from '../NavBar/NavBar.js';
 import styled from 'styled-components';
+const URL = `http://localhost:8888/notes`;
 
 
 const FormContainer = styled.div`
@@ -20,7 +22,6 @@ class NewNoteForm extends Component {
     this.state = {
       title:'',
       content: '',
-      id:null,
     }
   }
 
@@ -29,7 +30,15 @@ class NewNoteForm extends Component {
   }
 
   saveNote = () => {
-    this.props.handleNewNote(this.state)
+    // this.props.handleNewNote(this.state)
+    axios
+      .post(URL, this.state)
+      .then(res => {
+        this.setState({ notes: res.data });
+      })
+      .catch(err => {
+        console.log(`ERROR: ${err}`);
+      });
   }
 
   handleInput = (e) => {

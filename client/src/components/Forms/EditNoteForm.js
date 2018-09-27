@@ -59,7 +59,6 @@ class EditNote extends React.Component {
         <textarea className="note-input note-area" rows="6" cols="33" name="content" placeholder="content" onChange={this.handleInput} value={this.state.content}></textarea>
         <button onClick={this.saveNote}>
           <Link to={`/noteview/${this.state.id}`}>save.</Link>
-          <Link to="/notelist">save.</Link>
         </button>
         <button>
           <Link to={`/noteview/${this.state.id}`}>cancel.</Link>

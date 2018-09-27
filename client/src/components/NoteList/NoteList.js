@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Route, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import NoteListItem from './NoteListItem';
@@ -16,7 +16,7 @@ const NoteListContainer = styled.div`
   color: #E3FFD5;
 `;
 
-class NoteList extends Component {
+class NoteList extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,10 +25,9 @@ class NoteList extends Component {
   }
 
   componentDidMount() {
-    this.getNotesFromDB(URL);
-  }
-
-  getNotesFromDB = async (URL) => {
+    // this.setState({notes:this.props.notes});
+    console.log('props in notelist', this.props);
+    
     axios
       .get(URL)
       .then(res => {
@@ -39,22 +38,14 @@ class NoteList extends Component {
       });
   }
 
+  componentWillReceiveProps(nextProps) {
+    console.log('next props', nextProps);
+    this.props = nextProps;
+  }
 
   render() {
     return (
       <NoteListContainer className="note-list">
-      <h1>NOTE LIST</h1>
-        {/* 
-          - search bar (hidden on init),
-          - list of NoteListItems,
-          - BUTTONS: {
-            --- "search",
-            --- "add new",
-            --- "info"
-            --- "main menu"
-          }
-         */}
-
          {
            this.state.notes.map((note)=>{
             return <Link to={`/noteview/${note.id}`}><NoteListItem note={note} /></Link>

@@ -17,7 +17,7 @@ router.post('/', (req,res)=>{
   let { title } = req.body.title;
     notesModels.insert(req.body)
       .then(data => {
-        res.status(201).json({message: `Note created.`})
+        res.status(201).json(data);
       })
       .catch(err => {
         console.log(`ERROR: ${err}`);
@@ -41,12 +41,11 @@ router.put('/:id', (req, res)=>{
 });
 
 router.delete('/:id', (req, res) => {
-  let id = req.body.id;
-  console.log(id);
-  
+  let id = parseInt(req.params.id);
+  console.log(typeof id);
   notesModels.delete(id)
-    .then(note => {
-      res.status(204).json({message: `Note deleted.`})
+    .then(data => {
+      res.status(204).json(data)
     })
     .catch(err => {
       console.log('Error', err);

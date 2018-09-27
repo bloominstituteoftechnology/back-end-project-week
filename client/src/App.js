@@ -2,7 +2,7 @@
 
 
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Switch } from 'react-router-dom';
 import axios from 'axios';
 import Menu from './components/Menu/Menu.js';
 import Landing from './components/Landing/Landing.js';
@@ -65,22 +65,18 @@ class App extends Component {
   }
 
   handleDeleteNote = (input) => {
-    // input.id = this.state.notes.length;
-    // let notes = this.state.notes.slice();
-    // notes.push(input);
-    // this.setState({ notes: notes });
+    console.log('id of to be deleted',input);
+    axios
+      .delete(URL+`/${input}`)
+      .then(res => {
+        this.setState({ notes: res.data });
+      })
+      .catch(err => {
+        console.log(`ERROR: ${err}`);
+      });
   }
 
   handleEditNote = (note) => {
-    // console.log('note passed to handle edit in app.js', note);
-    // let index = this.findNoteIndex(note.id, this.state.notes);
-    // let notes = this.state.notes.slice();
-    // notes[index] = note;
-    // this.setState({
-    //   notes: notes,
-    // });
-    console.log(note);
-    
     axios
       .put(URL+`/${note.id}`, {id:note.id, title:note.title, content:note.content})
       .then(res => {
@@ -96,17 +92,16 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <Switch>
       {/* <Landing/> */}
         <Route exact path="/" component={Landing} />
         <Route path="/menu" component={Menu} />
-        <Route path="/newnote" component={NewNoteForm} />
         <Route path="/editnote/:id" render={(props) => { return <EditNoteForm {...props} handleEditNote={this.handleEditNote} notes={this.state.notes} /> }} />
-        {/* <Route path="/newnote" render={(props) => { return <NewNoteForm  {...props} handleNewNote={this.handleNewNote} notes={this.state.notes} /> }} /> */}
-        <Route path="/notelist" render={(props) => { return <NoteList notes={this.state.notes} /> }}/>
+        <Route path="/newnote" render={(props) => { return <NewNoteForm  {...props} handleNewNote={this.handleNewNote} notes={this.state.notes} /> }} />
+        <Route path="/notelist" render={(props) => { return <NoteList {...props} notes={this.state.notes}/> }}/>
         <Route path="/login" component={Login} />
         <Route path="/noteview/:id" render={(props) => { return <Note {...props} notes={this.state.notes} delete={this.handleDeleteNote} edit={this.handleEditNote} /> }} />
-      </div>
+        </Switch>
     );
   }
 }
