@@ -11,8 +11,8 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import "./App.css";
 
-const api = 'http://localhost:5000';
-// const api = 'https://projectbackend-server.herokuapp.com/'
+// const api = 'http://localhost:5000';
+const api = 'https://projectbackend-server.herokuapp.com/'
 
 class App extends Component {
   constructor() {
