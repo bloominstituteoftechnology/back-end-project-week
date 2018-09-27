@@ -58,16 +58,16 @@ server.post('/api/register', (req, res) => {
             db('users').where({ id }).first()
                 .then(user => {
                     const token = generateToken(user)
-                    return res.status(201).json({ message: 'login success', token: token })
+                    return res.status(201).json({ message: 'login success', user: user.username, token: token, LoggedIn: true })
                 })
                 .catch(err => {
                     console.log('post error ', err)
-                    return res.status(500).json({ message: 'Invalid username or password' })
+                    return res.status(500).json({ message: 'Invalid username or password', LoggedIn: false})
                 })
         })
         .catch(err => {
             console.log('post error', err)
-            return res.status(500).json({message: 'Invalid username or password' })
+            return res.status(500).json({message: 'Invalid username or password', LoggedIn: false})
         })
 })
 
@@ -79,14 +79,14 @@ server.post('/api/login', (req, res) => {
         .then(user => {
             if (user || brcypt.compareSync(creds.password, user.password)) {
                 const token = generateToken(user)
-                return res.status(200).json({ token: token, msg: `Login successful. Welcome, ${user.username}!`})
+                return res.status(200).json({ token: token, msg: `Login successful. Welcome, ${user.username}!`, LoggedIn: true})
             } else {
-                return res.status(401).json({error: 'Invalid username or password'})
+                return res.status(401).send({error: 'Invalid username or password', LoggedIn: false})
             }
         })
         .catch(err => {
             console.log(err)
-            return res.status(500).json({message: 'Invalid username or password'})
+            return res.status(500).json({message: 'Invalid username or password', LoggedIn: false})
         })
 })
 
