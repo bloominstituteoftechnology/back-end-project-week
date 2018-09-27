@@ -2,6 +2,8 @@
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
+const corsPrefetch = require('cors-prefetch-middleware');
+const imagesUpload = require('images-upload-middleware');
 
 // bring in database
 const db = require('./db/dataModel');
@@ -13,6 +15,7 @@ const server = express();
 server.use(express.json());
 server.use(helmet());
 server.use(cors());
+server.use('/static', express.static('./server/static'));
 
 // notes endpoints
 server.get('/note/get/all', async (req, res) => {
@@ -23,6 +26,12 @@ server.get('/note/get/all', async (req, res) => {
         res.status(500).json({message: 'There was an error fetching the notes from the database.'});
     }
 });
+
+server.post('multiple', imagesUpload(
+    './server/static/multipleFiles',
+    'https://ghr-notes-back-end.herokuapp.com/static/multipleFiles',
+    true
+));
 
 server.post('/note/create', async (req, res) => {
     const { title, textBody, tags } = req.body;
