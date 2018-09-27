@@ -21,8 +21,10 @@
   "dependencies": {
     "cors": "^2.8.4",
     "dotenv": "^6.0.0",
+    "express": "^4.16.3",
     "express-generator": "^4.16.0",
     "helmet": "^3.13.0",
+    "knex": "^0.15.2",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.4",
     "sqlite3": "^4.0.2"
