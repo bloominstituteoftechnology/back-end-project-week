@@ -1,5 +1,6 @@
 const jwt=require('jsonwebtoken');
 const secret='I see dead people.';
+const Joi=require('joi');
 
 function authenticate(req,res,next) {
     const token=req.headers.authorization;
@@ -24,7 +25,7 @@ function validateNewUserCred (req,res,next){
         password:Joi.string.min(3)
     }
     const {error,value}=Joi.validate(newUser,schema);
-    console.log(error);
+    
     if (error===null) {
         next();
     }
