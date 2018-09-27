@@ -33,7 +33,11 @@ server.get("/note/get/:id", (req, res) => {
     .select()
     .where({ id })
     .then(note => {
-      res.status(200).json(note);
+      if (note != 0) {
+        res.status(200).json(note);
+      } else {
+        res.status(404).json({ Error: "Note with Id not found" });
+      }
     })
     .catch(err => {
       console.log("Error with GET ID: ", err);
@@ -88,7 +92,11 @@ server.delete("/note/delete/:id", (req, res) => {
     .where({ id })
     .del()
     .then(count => {
-      res.status(200).json(count);
+      if (count != 0) {
+        res.status(200).json(count);
+      } else {
+        res.status(404).json({ Error: "Note cannot be found to be deleted" });
+      }
     })
     .catch(err => {
       console.log("Error with DELETE ID: ", err);
