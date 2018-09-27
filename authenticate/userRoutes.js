@@ -2,10 +2,11 @@ const bCrypt=require('bcryptjs');
 const axios=require('axios');
 const db=require('../dbConfig/db');
 const {authenticate,secret,jwt}=require('./middleware.js');
+const Joi=require('joi');
 
 module.exports=server=>{
     server.post('/api/register',register);
-    server.post('/api/login', login);
+    server.post('/api/login',validateNewUserCred, login);
     server.get('/api/notes',authenticate,getNotes);
 }
 generateToken=(user)=>{
@@ -17,6 +18,20 @@ generateToken=(user)=>{
         subject:user.id.toString()
     }
     return jwt.sign(payload,secret,options);
+}
+function validateNewUserCred (req,res,next){
+    const newUser=req.body;
+    const schema={
+        username:Joi.string.min(6),
+        password:Joi.string.min(6)
+    }
+    const {error,value}=Joi.validate(req.body,schema);
+    if (error===null) {
+        next();
+    }
+    else {
+        return res.status(500).json(err);
+    }
 }
 function register(req,res) {
     const newUser=req.body;
