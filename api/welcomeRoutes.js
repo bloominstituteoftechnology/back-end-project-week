@@ -57,14 +57,13 @@ welcome.post('/register', (req, res) => {
     dbFunc.addUser(newUser).then(id2 => {
         console.log(id2)
         dbFunc.getUser(id2[0]).then(user3 => {
-            //I don't think this is actually doing anything 
             console.log(user3)
             const token = generateToken(user3[0]);
             const username = user3[0].username
             console.log(username)
             const id3 = user3[0].id
             console.log(id3)
-            res.status(200).json({message: "token created", token: token, username: user3[0].username})
+            res.status(200).json({message: "token created", token: token, username: username})
         }).catch(err => err.message)
     }).catch(err => { res.status(500).json(err.message)})
 })

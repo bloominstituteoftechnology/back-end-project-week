@@ -35,9 +35,9 @@ notes.get('/:id', (req, res) => {
 
 notes.post('/', (req, res) => {
     const { textBody, title, id } = req.body
-    const { userId } = req.user
+    const { userid } = req.user
     //include username in the submission
-    req.body.userId = userId
+    req.body.userid = userId
     if(!id){
         if(title){
             if(textBody){
