@@ -10,8 +10,15 @@ const db = require('./dbConfig.js');
 
 const server = express();
 
+const corsOptions = {
+    credentials: true,
+    origin: "https://naughty-curie-6325ef.netlify.com/"
+  };
+
+
+
 server.use(express.json());
-server.use(cors());
+server.use(cors(corsOptions));
 
 const secret = 'apples and bananas';
 
