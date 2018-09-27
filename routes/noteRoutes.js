@@ -1,7 +1,8 @@
 const express = require("express");
 const knex = require("knex");
-const dbConfig = require("../knexfile");
-const db = knex(dbConfig.development);
+const dbEngine = process.env.DB || 'development';
+const dbConfig = require("../knexfile")[dbEngine];
+const db = knex(dbConfig);
 const router = express.Router();
 
 // GET
