@@ -70,10 +70,10 @@ router.post("/", jwt.protected, async (req, res) => {
     res.status(422).json({ message: "Missing title or content for new note" });
   } else {
     try {
-      const newNote = await db("notes")
+      let newNote = await db("notes")
         .insert({ title, content, user_id: userID })
-        .returning("*")
-        .first();
+        .returning("*");
+      newNote = newNote[0];
       res.status(201).json(newNote);
     } catch (e) {
       res.status(500).json(e);

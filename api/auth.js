@@ -26,10 +26,10 @@ router.post("/register", async (req, res) => {
     username = username.toLowerCase();
     password = bcrypt.hashSync(password, 16);
     try {
-      const newUser = await db("users")
+      let newUser = await db("users")
         .insert({ username, password, email })
-        .returning("*")
-        .first();
+        .returning("*");
+      newUser = newUser[0];
       const token = jwt.generateToken({
         id: newUser.id,
         username: newUser.username
@@ -38,6 +38,7 @@ router.post("/register", async (req, res) => {
         .status(201)
         .json({ id: newUser.id, username: newUser.username, token });
     } catch (e) {
+      console.log(e, e.message);
       res.status(500).json(e);
     }
   }
