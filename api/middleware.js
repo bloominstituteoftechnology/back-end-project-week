@@ -7,6 +7,7 @@ module.exports = {
 
 function protect(req, res, next){
     const token = req.headers.authorization 
+    console.log(token, '10')
     if (token) {
         jwt.verify(token, jwtKey, (err, decodedToken) => {
             console.log(decodedToken)
