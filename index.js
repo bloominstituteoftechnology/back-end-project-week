@@ -23,7 +23,7 @@ passport.use(
     try {
       let user = await helpers
         .getUser(payload.id)
-        .select('first_name', 'last_name', 'email')
+        .select('first_name', 'last_name', 'email', 'id')
         .first();
 
       if (!user) return done(null, false);

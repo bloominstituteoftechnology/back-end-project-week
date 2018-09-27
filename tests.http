@@ -19,11 +19,12 @@ Content-Type: application/json
 ###
 
 GET http://localhost:4000/api/notes HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTM4MDMyNjc1LCJleHAiOjE1MzgwNTQyNzV9.G7pwP8Y--hSXmhWqRo7l4O6BCIbDlO1hjfZ19zXrM-w
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTM4MDQ2MTM2LCJleHAiOjE1MzgwNjc3MzZ9.BhNzdgd2SQ53QWIA0rK9faJ4ILEFnvuehdYfpINhxDo
 ###
 
 POST http://localhost:4000/api/notes HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTM4MDQ2MTM2LCJleHAiOjE1MzgwNjc3MzZ9.BhNzdgd2SQ53QWIA0rK9faJ4ILEFnvuehdYfpINhxDo
 
 {
   "title": "Note 5",

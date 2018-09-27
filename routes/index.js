@@ -7,6 +7,7 @@ function authenticate(req, res, next) {
   let authFunc = passport.authenticate('jwt', function(err, user, info) {
     if (err) return res.json({ error: 'Invalid credentials' });
     if (!user) return res.json({ error: 'Invalid token' });
+    req.user = user;
     next();
   });
   authFunc(req, res, next);
