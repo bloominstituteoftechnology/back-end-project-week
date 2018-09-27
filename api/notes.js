@@ -29,6 +29,14 @@ router.get("/:id", async (req, res) => {
 
   try {
     const note = await db("notes")
+      .join("users", "users.id", "notes.user_id")
+      .select(
+        "notes.id as id",
+        "notes.title as title",
+        "notes.content as content",
+        "notes.user_id as user_id",
+        "users.username as username"
+      )
       .where({ id })
       .first();
     note
@@ -137,7 +145,9 @@ router.put("/:id", jwt.protected, async (req, res) => {
 router.delete("/:id", jwt.protected, async (req, res) => {
   const { id } = req.params;
   try {
-    const note = await db('notes').where({ id }).first();
+    const note = await db("notes")
+      .where({ id })
+      .first();
 
     if (parseInt(note.user_id, 10) !== parseInt(req.user.id, 10)) {
       res
