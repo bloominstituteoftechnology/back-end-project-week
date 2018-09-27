@@ -68,19 +68,13 @@ router.put('/edit/:_id', (req, res) => {
     }
     db.editNote(req.params._id, req.body)
         .then(count => {
-            // res.status(200).json(note);
-            
-            // if(!note) {
-            //     res.status(404).json({ message: "The note with the specified ID does not exist." });
-            // }
             if (count) {
                 const _id = req.params._id;
                 db.getNote(_id)
                     .then(note => {
                         res.status(200).json(note[0]);
                     })
-            }
-            else {
+            } else {
                 res.status(404).json({err: 'Not found' });
             }
   
