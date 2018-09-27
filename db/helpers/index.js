@@ -23,11 +23,7 @@ module.exports = {
   getPagedNotes: function() {
     let query = db("notes");
 
-    return query.paginate(16, 1, false).then(paginator => {
-      console.log(paginator.current_page);
-      console.log(paginator.data);
-      paginator;
-    });
+    return query.paginate(16, 1, false).then(paginator => paginator);
   },
 
   createNote: function(body) {
