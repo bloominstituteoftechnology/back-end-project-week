@@ -10,4 +10,6 @@ router.route('/:id')
   .delete(notes.DELETE)
   .put(notes.PUT);
 
+router.put('/:id/:id2', notes.SWITCH);
+
 module.exports = router;

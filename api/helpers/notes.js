@@ -5,7 +5,10 @@ const GET_ALL = (req, res) => {
     .then(notes => res.status(200).json(notes.reverse()))
     .catch(err => {
       console.error(err);
-      res.status(500).json({ error: 'Something went wrong while fetching the notes.' });
+      res.status(500).json({
+        error: 'Something went wrong while fetching the notes.',
+        message: err.message
+      });
     });
 };
 
@@ -13,12 +16,17 @@ const GET_ONE = (req, res) => {
   const { id } = req.params;
   db('notes').where({ id })
     .then(note => {
-      if (!note) res.status(404).json({ message: 'The requested note wasn\'t found.' });
+      if (!note) res.status(404).json({
+        message: 'The requested note wasn\'t found.'
+      });
       else res.status(200).json(note);
     })
     .catch(err => {
       console.error(err);
-      res.status(500).json({ error: 'Something went wrong while fetching the note.' });
+      res.status(500).json({
+        error: 'Something went wrong while fetching the note.',
+        message: err.message
+      });
     });
 };
 
@@ -28,7 +36,10 @@ const POST = (req, res) => {
     .then(ids => res.status(201).json(ids[0]))
     .catch(err => {
       console.error(err);
-      res.status(500).json({ error: 'Something went wrong while creating the note.' });
+      res.status(500).json({
+        error: 'Something went wrong while creating the note.',
+        message: err.message
+      });
     })
 };
 
@@ -38,7 +49,10 @@ const PUT = (req, res) => {
     .then(count => res.status(200).json(count))
     .catch(err => {
       console.error(err);
-      res.status(500).json({ error: 'Something went wrong while updating the note.' });
+      res.status(500).json({
+        error: 'Something went wrong while updating the note.',
+        message: err.message
+      });
     });
 };
 
@@ -48,8 +62,75 @@ const DELETE = (req, res) => {
     .then(count => res.status(200).json(count))
     .catch(err => {
       console.error(err);
-      res.status(500).json({ error: 'Something went wrong while deleting the note.' });
+      res.status(500).json({
+        error: 'Something went wrong while deleting the note.',
+        message: err.message
+      });
     });
+};
+
+const SWITCH = (req, res) => {
+  const { id, id2 } = req.params;
+  // get first note's data
+  db('notes').where({ id }).first()
+    .then(note => {
+      if (note) {
+        const { title, text } = note;
+        // get second note's data
+        db('notes').where({ id: id2 }).first()
+          .then(note => {
+            if (note) {
+              const title2 = note.title;
+              const text2 = note.text;
+              // update second note
+              db('notes').where({ id: id2 })
+                .update({ title, text })
+                .then(count => {
+                  if (count) {
+                    // update first note
+                    db('notes').where({ id })
+                      .update({ title: title2, text: text2 })
+                      .then(count => {
+                        res.status(200).json(count);
+                      })
+                      .catch(err => {
+                        console.error(err);
+                        res.status(500)
+                          .json({
+                            error: 'Something went wrong while switching the last note.',
+                            message: err.message
+                          });
+                      });
+                  }
+                })
+                .catch(err => {
+                  console.error(err);
+                  res.status(500)
+                    .json({
+                      error: 'Something went wrong while switching the notes.',
+                      message: err.message
+                    });
+                });
+            }
+          })
+          .catch(err => {
+            console.error(err);
+            res.status(500)
+              .json({
+                error: 'Something went wrong while fetching the to-be-switched notes.',
+                message: err.message
+              });
+          });
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(500)
+          .json({
+            error: 'Something went wrong while fetching the to-be-switched the notes.',
+            message: err.message
+          });
+      });
 };
 
 module.exports = {
@@ -57,5 +138,6 @@ module.exports = {
   GET_ONE,
   POST,
   PUT,
-  DELETE
+  DELETE,
+  SWITCH
 };
