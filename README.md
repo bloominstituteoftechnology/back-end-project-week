@@ -1,5 +1,102 @@
 # Back End Project Week
 
+## Notes API Docs (adapted from the front-end's docs)
+
+- A server that will deliver notes can be found [here](https://notes-api-johnoro.herokuapp.com/):
+
+- One thing to be aware of is that this server is a shared resource. Any notes you enter will be viewable to everyone who connects to the server.
+
+- Examples will be using `axios` and updating `state` without more API requests excluding the last `PUT`.
+
+- A note has this basic format:
+
+```js
+  {
+    "title": "Note Title",
+    "text": "Note Body",
+    "created_at": "MM-DD-YY HH:MM:SS"
+  }
+```
+
+### https://notes-api-johnoro.herokuapp.com/api/notes
+
+- a `GET` request to this route will return a list of all the notes.
+```js
+  axios.get(URL)
+    .then(({ data }) => {
+      this.setState({
+        notes: data
+      });
+    })
+    .catch(err => console.error(err));
+```
+
+- a `POST` request to this route with the title and text in the req.body will create a new note. The response from the server will be the ID of the new note.
+```js
+  axios.post(URL, { title, text })
+    .then(({ data }) => {
+      this.setState({
+        notes: [{
+          id: data,
+          title,
+          text
+        }, ...notes]
+      });
+    })
+    .catch(err => console.error(err));
+```
+
+### https://notes-api-johnoro.herokuapp.com/api/notes/id
+
+- a `GET` request to this route (with "id" replaced by the note ID) will return the note with the specified ID.
+```js
+  axios.get(URL)
+    .then(({ data }) => {
+      this.setState({
+        note: data
+      });
+    })
+    .catch(err => console.error(err));
+```
+
+- a `PUT` request to this route with the title and text in the req body will edit the note with the specified ID. The response from the server will be the count of updated records (1).
+```js
+  axios.put(`${URL}/${note.id}`, { title, text })
+    .then(() => {
+      this.setState({
+        notes: notes.map(n => n.id === note.id ? {...n, title, text} : n)
+      });
+    })
+    .catch(err => console.error(err));
+```
+
+- a `DELETE` request to this route will delete the note with the specified ID and will return the count of deleted records (1).
+```js
+  axios.delete(`${URL}/${note.id}`)
+    .then(() => {
+      this.setState({
+        notes: notes.filter(n => n.id !== note.id)
+      });
+    })
+    .catch(err => console.error(err));
+```
+
+### https://notes-api-johnoro.herokuapp.com/api/notes/id/id2
+
+- a `PUT` request to this route with the ids of two notes will switch the notes' content and return the count of updated records (2).
+```js
+  axios.put(`${URL}/${id}/${id2}`)
+    .then(() => {
+      axios.get(URL)
+        .then(({ data }) => {
+          this.setState({ notes: data });
+        })
+        .catch(err => console.error(err));
+    })
+    .catch(err => console.error(err));
+```
+
+
 ### [Trello](https://trello.com/b/sgGWEZY9/backend-lambda-notes-by-john-orourke)
 
 This week you will build a backend for a note taking app called "Lambda Notes".

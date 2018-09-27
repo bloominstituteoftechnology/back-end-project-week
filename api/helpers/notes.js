@@ -14,7 +14,7 @@ const GET_ALL = (req, res) => {
 
 const GET_ONE = (req, res) => {
   const { id } = req.params;
-  db('notes').where({ id })
+  db('notes').where({ id }).first()
     .then(note => {
       if (!note) res.status(404).json({
         message: 'The requested note wasn\'t found.'
@@ -91,8 +91,8 @@ const SWITCH = (req, res) => {
                     // update first note
                     db('notes').where({ id })
                       .update({ title: title2, text: text2, created_at: ca2 })
-                      .then(count => {
-                        res.status(200).json(count);
+                      .then(c => {
+                        res.status(200).json(count + c);
                       })
                       .catch(err => {
                         console.error(err);
