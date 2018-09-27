@@ -16,6 +16,7 @@ server.use(express.json());
 server.use(helmet());
 server.use(cors());
 server.use('/static', express.static('./server/static'));
+server.use(corsPrefetch);
 
 // notes endpoints
 server.get('/note/get/all', async (req, res) => {
