@@ -12,17 +12,6 @@ const app = express();
 const jwtOptions = require('./config/jwtOptions');
 const routes = require('./routes');
 
-// async error catcher
-function asyncWrapper(handler) {
-  return async function(req, res, next) {
-    try {
-      await handler(req, res, next);
-    } catch (err) {
-      next(err);
-    }
-  };
-}
-
 app.use(cors());
 app.use(helmet());
 app.use(logger('short'));
@@ -45,7 +34,7 @@ passport.use(
   }),
 );
 
-app.use('/api', asyncWrapper(routes));
+app.use('/api', routes);
 
 app.use(express.static(path.resolve(path.join(__dirname, 'public'))));
 

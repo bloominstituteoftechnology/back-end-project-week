@@ -3,6 +3,11 @@ exports.up = function(knex, Promise) {
     tbl.increments();
     tbl.string('title', 255).notNullable();
     tbl.text('textBody').notNullable();
+    tbl
+      .integer('author_id')
+      .unsigned()
+      .notNullable()
+      .references('users.id');
   });
 };
 

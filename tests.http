@@ -1,3 +1,23 @@
+POST http://localhost:4000/api/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "first_name": "Ashwin",
+  "last_name": "Sundararajan",
+  "email": "a@b.com",
+  "password": "password"
+}
+###
+
+POST http://localhost:4000/api/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "a@b.com",
+  "password": "password"
+}
+###
+
 GET http://localhost:4000/api/notes HTTP/1.1
 ###
 

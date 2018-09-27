@@ -65,7 +65,7 @@ module.exports = {
   addUser(user) {
     user.password = bcrypt.hashSync(
       user.password,
-      process.env.SALT_ROUNDS || 12,
+      Number(process.env.SALT_ROUNDS) || 12,
     );
     return db('users').insert(user);
   },
