@@ -26,6 +26,7 @@ module.exports = {
     return query.paginate(16, 1, false).then(paginator => {
       console.log(paginator.current_page);
       console.log(paginator.data);
+      paginator;
     });
   },
 
