@@ -27,7 +27,7 @@ server.get('/note/get/all', async (req, res) => {
     }
 });
 
-server.post('multiple', imagesUpload(
+server.post('/multiple', imagesUpload(
     './server/static/multipleFiles',
     'https://ghr-notes-back-end.herokuapp.com/static/multipleFiles',
     true
