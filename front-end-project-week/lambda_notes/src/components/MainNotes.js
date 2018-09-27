@@ -20,14 +20,18 @@ class MainNotes extends Component {
     }
 
     componentDidMount() {
+        this.getNotes();
+    }
+
+    getNotes = () => {
         axios
-            .get(url)
-            .then( res => {
-                this.setState({ dummyNotes: res.data })
-            })
-            .catch(err => {
-                console.log('Error:', err);
-            })
+        .get(url)
+        .then( res => {
+            this.setState({ dummyNotes: res.data })
+        })
+        .catch(err => {
+            console.log('Error:', err);
+        })
     }
 
     addNote = e => {
@@ -81,6 +85,8 @@ class MainNotes extends Component {
                         (
                             <EditNote
                                 {...props}
+                                notes={this.state.dummyNotes}
+                                getNotes={this.getNotes}
                             />
                         )} 
                     />

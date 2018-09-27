@@ -1,14 +1,26 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import './index.css'
 
 class editNote extends Component {
     constructor(props) {
         super(props);
         this.state = {
+
             title: '',
             body: '',
         }
+    }
+
+    componentDidMount() {
+        console.log(this.props.notes);
+        const id = this.props.match.params.id;
+        const note = this.props.notes.find(note => note.id === Number(id))
+        this.setState({
+            title: note.title,
+            body: note.body
+        })
     }
 
     handleInputChange = e => {
@@ -16,13 +28,17 @@ class editNote extends Component {
     }
 
     handleSubmit = e => {
-        console.log('params.id:', this.props.match.params.id)
+        e.preventDefault();
         axios
             .put(`http://localhost:3300/api/notes/${this.props.match.params.id}`, {
                 title: this.state.title,
                 body: this.state.body
             })
-            .then(res => console.log('res.data:', res.data))
+            .then(res => {
+                this.props.getNotes();
+                this.props.history.push('/')
+        
+            })
             .catch(err => {
                 console.log('Error:', err);
             })
@@ -55,12 +71,14 @@ class editNote extends Component {
                         placeholder='Note Content'
                     >
                     </textarea>
+                    
                     <button 
                     type='submit'
                         className='createNoteButton'
                     >
                         <strong>Update</strong>
                     </button>
+                   
                 </form>
             </div>
         )
