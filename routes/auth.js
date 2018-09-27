@@ -20,7 +20,7 @@ function genToken(user) {
 }
 
 function getRandomArbitrary(min, max) {
-  return Math.random() * (max - min) + min;
+  return Math.floor(Math.random() * (max - min) + min);
 }
 
 /**
@@ -42,6 +42,7 @@ router.post("/register", async (req, res, next) => {
       data: await db.addUser(req.body.username, hash)
     });
   } catch (err) {
+    console.log(err)
     next(err);
   }
 });
@@ -58,6 +59,7 @@ router.post("/register", async (req, res, next) => {
  */
 router.post("/login", async (req, res, next) => {
   try {
+    console.log(req)
     const hashPass = await db.getUserByUserName(req.body.username);
     if (await bcrypt.compare(req.body.password, hashPass[0].password))
       res.status(200).json({
