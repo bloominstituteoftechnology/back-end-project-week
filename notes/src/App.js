@@ -37,7 +37,7 @@ class App extends Component {
         }
     };
 
-    axios.get('http://localhost:5000/notes', reqOptions)
+    axios.get(`${api}/notes`, reqOptions)
       .then(notes => {
         this.setState({notes: notes.data.notes}); 
       })
