@@ -19,27 +19,26 @@ class Note extends Component {
     super(props);
     this.state = {
       title: '',
-      note: '',
-      id: null,
-      date:0
+      content: '',
+      id:null,
     }
-    console.log('props in Note',props);
-    
   }
 
   componentDidMount() {
+
     let currNote = this.props.notes.find((note) => {
       return note.id === parseInt(this.props.match.params.id);
     });
 
     this.setState({
       title: currNote.title,
-      note: currNote.content,
+      content: currNote.content,
+      id: currNote.id
     })
   }
 
   handleEdit = () => {
-    this.props.edit(this.state.id);
+    this.props.edit(this.state);
   }
 
   handleDelete = () => {
@@ -56,7 +55,7 @@ class Note extends Component {
         </div>
 
         <h3>TITLE: {this.state.title}</h3>
-        <p>{this.state.note}</p>
+        <p>{this.state.content}</p>
       </NoteContainer>
     )
   }

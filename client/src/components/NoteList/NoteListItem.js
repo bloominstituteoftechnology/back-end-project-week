@@ -15,7 +15,6 @@ const NoteListItemContainer = styled.div`
 `;
 
 const NoteListItem = (props) => {
-  console.log('props in notelistitem',props);
   
     return (
       <NoteListItemContainer className="note-list-item">

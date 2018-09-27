@@ -19,7 +19,8 @@ class NewNoteForm extends Component {
     super(props);
     this.state = {
       title:'',
-      content: ''
+      content: '',
+      id:null,
     }
   }
 

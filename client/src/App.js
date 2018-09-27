@@ -12,6 +12,7 @@ import Login from './components/Login/Login.js';
 import FakeNoteItems from './components/NoteList/FakeNotes.js';
 import Note from './components/Note/Note.js';
 import Handshake from './utilities/handshake.js';
+import EditNoteForm from './components/Forms/EditNoteForm.js';
 
 const URL = `http://localhost:8888/notes`;
 
@@ -24,7 +25,21 @@ class App extends Component {
   }
 
   componentDidMount(){   
-    
+    axios
+      .get(URL)
+      .then(res => {
+        this.setState({ notes: res.data });
+      })
+      .catch(err => {
+        console.log(`ERROR: ${err}`);
+      });
+  }
+
+  findNoteIndex = (noteId, arr) => {
+    let index = arr.findIndex((el, i) => {
+      return el.id === noteId;
+    })
+    return index;
   }
 
   getNotesFromDB = async (URL) => {
@@ -39,22 +54,14 @@ class App extends Component {
   }
 
   handleNewNote = (input) => {
-    console.log(input);
-    
     axios
       .post(URL, input)
       .then(res => {
-        console.log('response in app.js', res.data);
-        
         this.setState({ notes: res.data });
       })
       .catch(err => {
         console.log(`ERROR: ${err}`);
       });
-    // input.id = this.state.notes.length;
-    // let notes = this.state.notes.slice();
-    // notes.push(input);
-    // this.setState({ notes: notes });
   }
 
   handleDeleteNote = (input) => {
@@ -65,15 +72,13 @@ class App extends Component {
   }
 
   handleEditNote = (note) => {
+    console.log('note passed to handle edit in app.js', note);
     let index = this.findNoteIndex(note.id, this.state.notes);
     let notes = this.state.notes.slice();
     notes[index] = note;
     this.setState({
       notes: notes,
-    })
-  }
-
-  handleLandingUpwardAnimation = () =>{
+    });
 
   }
 
@@ -83,8 +88,9 @@ class App extends Component {
       {/* <Landing/> */}
         <Route exact path="/" component={Landing} />
         <Route path="/menu" component={Menu} />
-        {/* <Route path="/newnote" component={NewNoteForm} /> */}
-        <Route path="/newnote" render={props => { return <NewNoteForm handleNewNote={this.handleNewNote} notes={this.state.notes} /> }} />
+        <Route path="/newnote" component={NewNoteForm} />
+        <Route path="/editnote/:id" render={(props) => { return <EditNoteForm {...props} handleEditNote={this.handleEditNote} notes={this.state.notes} /> }} />
+        {/* <Route path="/newnote" render={(props) => { return <NewNoteForm  {...props} handleNewNote={this.handleNewNote} notes={this.state.notes} /> }} /> */}
         <Route path="/notelist" render={(props) => { return <NoteList notes={this.state.notes} /> }}/>
         <Route path="/login" component={Login} />
         <Route path="/noteview/:id" render={(props) => { return <Note {...props} notes={this.state.notes} delete={this.handleDeleteNote} edit={this.handleEditNote} /> }} />

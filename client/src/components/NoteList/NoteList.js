@@ -57,7 +57,7 @@ class NoteList extends Component {
 
          {
            this.state.notes.map((note)=>{
-            return <Link to={`/noteview/${note.id}`} ><NoteListItem note={note} /></Link>
+            return <Link to={`/noteview/${note.id}`}><NoteListItem note={note} /></Link>
            })
          }
       </NoteListContainer>
