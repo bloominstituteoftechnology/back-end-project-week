@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 
 const server = express();
@@ -11,4 +12,5 @@ server.get("/", (req, res) => {
 });
 
 // port setup
-server.listen(3300, () => console.log("\nrunning on port 3300\n"));
+const port = process.env.PORT || 2200;
+server.listen(port, () => console.log(`\n=== Web API Listening on http://localhost:${port} ===\n`));
