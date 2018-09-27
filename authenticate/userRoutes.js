@@ -21,6 +21,7 @@ generateToken=(user)=>{
 }
 function validateNewUserCred (req,res,next){
     const newUser=req.body;
+    console.log(newUser);
     const schema={
         username:Joi.string.min(3),
         password:Joi.string.min(3)
