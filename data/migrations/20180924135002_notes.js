@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
     tbl.increments()
     tbl.string("_id").notNullable()
     tbl.string('title').notNullable()
-    tbl.string('textBody',50000).notNullable()
+    tbl.string('textBody',1000000).notNullable()
     tbl.integer('__v').defaultTo(0)
     tbl.integer("length")
     tbl.string("time")
