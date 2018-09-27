@@ -4,7 +4,8 @@
   "description": "https://trello.com/b/VMecUr8c/lambda-notes-back-end-carey-baldwin",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon"
+    "start": "nodemon",
+    "start": "node"
   },
   "repository": {
     "type": "git",
