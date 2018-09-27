@@ -1,3 +1,7 @@
+require('dotenv').config();
+// const server = require('./api/server.js');
+
+
 const express = require("express");
 const cors = require("cors");
 const knex = require("knex");
@@ -105,6 +109,9 @@ server.delete("/note/delete/:id", (req, res) => {
 });
 //=================DELETE ENDPOINT===============//
 
-server.listen(5000, () =>
-  console.log("\n==== Web API Running On Port:5000====\n")
-);
+// server.listen(5000, () =>
+//   console.log("\n==== Web API Running On Port:5000====\n")
+// );
+
+const port = process.env.PORT || 9000;
+server.listen(port, () => console.log(`\n=== Running on port ${port} ===\n`));
