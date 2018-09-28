@@ -3,6 +3,20 @@ const router = express.Router();
 const db = require('../data/helpers/notesDb');
 const multer = require('multer');
 const upload = multer({ dest: __dirname + '/files/' });
+const fs = require('fs');
+const cloudinary = require('cloudinary');
+
+
+cloudinary.config({ 
+  cloud_name: 'dvgfmipda', 
+  api_key: '682433638449357', 
+  api_secret: 'XCwRt4rmt3a6-Jc06bzwSRhv3ns' 
+});
+
+
+
+
+
 
 
 router.get('/', (req,res) => {
@@ -65,14 +79,32 @@ router.get('/search/:search', (req, res) => {
 });
 
 
-router.post('/', upload.single('file'),(req,res)=> {
-	 console.log(req.file);
+router.post('/', upload.single('file'),(req,res,next)=> {
+	console.log(req.file);
+
         const title = req.body.title;
         const content = req.body.content;
-	//const image = req.file;
+	let imgUrl="";
 
-	console.log(req.body);
-        const note = {title, content};
+	cloudinary.uploader.upload(req.file.path,(result) =>{ 
+		console.log(result);
+		imgUrl = result.secure_url;
+		return imgUrl
+	}).then(() =>{
+	
+  	//stream = cloudinary.uploader.upload_stream((result)=>{
+    	//	console.log("hi",result);
+    	//	res.send('Done:<br/> <img src="' + result.url + '"/><br/>' +
+          //   	cloudinary.image(result.public_id, { format: "png", width: 100, height: 130, crop: "fill" }));
+  //}, { public_id: req.body.title } );
+
+  //fs.createReadStream(req.file.path, {encoding: 'binary'}).on('data', stream.write).on('end', stream.end);
+
+
+	//console.log(req.body);
+	console.log(imgUrl);
+	const image=imgUrl;	
+        const note = {title, content, image};
 
         if(!title || !content){
                 res.status(400).json({error: "Failed to save note to the database. Please provide title and content for the note."});
@@ -91,6 +123,8 @@ else{
         })
 
         }
+	})
+		
 });
 
 router.put('/:id', (req, res) => {
