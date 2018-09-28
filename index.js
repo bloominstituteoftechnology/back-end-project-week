@@ -7,7 +7,6 @@ const bcrypt = require('bcryptjs');
 const dbConfig = require('./knexfile')
 const jwt = require('jsonwebtoken')
 const jwtKey = require('./secret/key').jwtKey;
-
 const db = knex(dbConfig.development);
 
 server.use(express.json());
@@ -16,7 +15,8 @@ server.use(cors())
 
 const generateToken = user => {
     const payload = {
-        username: user.username
+        username: user.username,
+        user_id: user.id
     }
 
     const options = {
@@ -37,13 +37,16 @@ const protected = (req, res, next) => {
             err ?
                 res.status(401).json({ message: 'invalid username or password' })
                 :
-                req.username = decodedToken.username
+                req.token = decodedToken
             next()
         })
         :
         res.status(401).json({ message: 'invalid username or password' })
 
 }
+
+
+
 
 
 // route for registering
@@ -101,8 +104,10 @@ server.get('/', protected, (req, res) => {
 })
 
 //  route for making notes
-server.post('/api/create', (req, res) => {
+server.post('/api/create', protected, (req, res) => {
     const note = req.body
+    const { user_id } = req.token;
+    note.user_id = user_id;
 // need to come back and make a conditional statement for when note doesnt meet certain reqiurements 
     db.insert(note).into('notes').then(note => {
         return res.status(200).json({message: 'note created', note})
@@ -114,10 +119,15 @@ server.post('/api/create', (req, res) => {
 
 // route for viewing each indiviual note
 server.get('/api/view/:id', (req, res) => {
-    const {id} = req.params
+    const {id} = req.params;
 
     db('notes').where({id}).then(note => {
-        res.status(200).json(note)
+        if (!note) {
+            return res.status(404).json({message: 'note not found'})
+        } else {
+            res.status(200).json(note)
+        }
+        
     }).catch(err => {
         console.log(err)
         res.status(500).json({error: 'could not retrieve note'})
@@ -129,7 +139,12 @@ server.delete('/api/view/:id/delete', (req, res) => {
     const {id} = req.params
 
     db('notes').where({id}).del().then(note => {
-        return res.status(200).json({message: 'Note Deletion Successful'})
+        if (!note) {
+            return res.status(404).json({message: 'note not found'})
+        } else {
+            return res.status(200).json({message: 'Note Deletion Successful'})
+        }
+        
     }).catch(err => {
         console.log(err)
         return res.status(500).json({message: 'Error Deleting Note'})
@@ -137,13 +152,20 @@ server.delete('/api/view/:id/delete', (req, res) => {
 })
 
 // route for editing notes
-server.put('/api/edit/:id', (req, res) => {
+server.put('/api/edit/:id', protected, (req, res) => {
 
-    const note = req.body
+    const editeNote = req.body;
+    const { user_id } = req.token;
+    editeNote.user_id = user_id;
     const {id} = req.params
 
-    db('notes').where({id}).update(note).then(note => {
-        return res.status(200).json({message: 'note updated successfully'})
+    db('notes').where({id}).update(editeNote).then(note => {
+        if (!note) {
+            return res.status(404).json({error: 'note not found'})
+        } else {
+            return res.status(200).json({message: 'note updated successfully'})
+        }
+        
     }).catch(err => {
         console.log(err)
         return res.status(500).json({error: 'error update note. please try again'})
