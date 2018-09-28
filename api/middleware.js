@@ -14,7 +14,7 @@ function protect(req, res, next){
             } else {
                 console.log(decodedToken, '\n == decoded token \n')
                 req.user = {
-                    userid: decodedToken.id,//changed from userid to id
+                    userid: decodedToken.userid,//changed from userid to id
                     username: decodedToken.username
                 }
                 next();
