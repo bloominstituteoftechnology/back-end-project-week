@@ -54,8 +54,8 @@ welcome.post('/register', (req, res) => {
     const hash = bcrypt.hashSync(newUser.password, 3);
     // console.log(hash)
     newUser.password = hash
-    dbFunc.addUser(newUser).then(id2 => {
-        console.log(id2, '=======id2========')
+    dbFunc.addUser(newUser).then(result => {
+        console.log(result, '=======id2========')
         dbFunc.getUser(id2[0]).then(user3 => {
             console.log(user3, '========user3=======')
             console.log(user3[1], '========user3=======')
