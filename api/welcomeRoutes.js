@@ -50,10 +50,10 @@ welcome.get('/test/', (req,res) => {
 welcome.post('/register', (req, res) => {
     // console.log(req)
     const reqUser = req.body; 
-    console.log(newUser, '=====newuser====')
-    const hash = bcrypt.hashSync(newUser.password, 3);
+    console.log(reqUser, '=====requser====')
+    const hash = bcrypt.hashSync(reqUser.password, 3);
     // console.log(hash)
-    newUser.password = hash
+    reqUser.password = hash
     dbFunc.addUser(reqUser).first().then(newid => {
         console.log(newid, '=======newid========')
         dbFunc.getUser(newid).then(newUser => {
