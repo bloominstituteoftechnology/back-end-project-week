@@ -6,9 +6,21 @@ module.exports = {
       connection: {
         filename: './data/db.sqlite3', 
       },
-      useNullAsDefault: true,
       migrations:{
         directory:'./data/migrations'
+      },
+      useNullAsDefault: true,
     },
+    production: {
+      client: 'pg',
+      connection: dbConnection,
+      pool: {
+        min: 2,
+        max: 10,
+      },
+      migrations: {
+        tableName: 'knex_migrations',
+        directory: './data/migrations',
+      },
     },
   };
