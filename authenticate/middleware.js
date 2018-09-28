@@ -20,10 +20,9 @@ function authenticate(req,res,next) {
 }
 function validateNewUserCred (req,res,next){
     const newUser=req.body;
-    console.log(newUser);
     const schema={
-        username:Joi.string.min(3),
-        password:Joi.string.min(3)
+        username:Joi.string().min(3),
+        password:Joi.string().min(3)
     }
     const {error,value}=Joi.validate(newUser,schema);
     
@@ -31,7 +30,7 @@ function validateNewUserCred (req,res,next){
         next();
     }
     else {
-        res.status(500).json(err);
+        res.status(500).json({message:'You shall not pass.'});
     }
 }
 module.exports={

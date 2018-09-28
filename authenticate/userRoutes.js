@@ -4,7 +4,7 @@ const db=require('../dbConfig/db');
 const {authenticate,secret,jwt,validateNewUserCred}=require('./middleware.js');
 
 module.exports=server=>{
-    server.post('/api/register', register);
+    server.post('/api/register', validateNewUserCred,register);
     server.post('/api/login', login);
     server.get('/api/notes',authenticate,getNotes);
 }
@@ -23,7 +23,6 @@ function register(req,res) {
     const newUser=req.body;
     const hash=bCrypt.hashSync(newUser.password,3);
     newUser.password=hash;
-    console.log(newUser)
     db('users')
         .insert(newUser)
         .then(id=>{
