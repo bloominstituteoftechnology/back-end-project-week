@@ -24,19 +24,19 @@ module.exports = {
     useNullAsDefault: true,
   },
 
-  production: {
-    client: 'pg',
-    connection: dbConnection,
-    pool: {
-      min: 2,
-      max: 10,
-    },
-    migrations: {
-      tableName: "notes",
-      directory: "./db/migrations",
-    },
-    seeds: {
-      directory: "./db/seeds",
-    },
-  },
+  // production: {
+  //   client: 'pg',
+  //   connection: dbConnection,
+  //   pool: {
+  //     min: 2,
+  //     max: 10,
+  //   },
+  //   migrations: {
+  //     tableName: "notes",
+  //     directory: "./db/migrations",
+  //   },
+  //   seeds: {
+  //     directory: "./db/seeds",
+  //   },
+  // },
 };
