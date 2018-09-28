@@ -122,7 +122,7 @@ server.get('/api/view/:id', (req, res) => {
     const {id} = req.params;
 
     db('notes').where({id}).then(note => {
-        if (!note) {
+        if (note.length == 0) {
             return res.status(404).json({message: 'note not found'})
         } else {
             res.status(200).json(note)
