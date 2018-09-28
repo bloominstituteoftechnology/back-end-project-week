@@ -28,8 +28,40 @@
     margin-left: 10px;
   }
 
+ 
+
+  /* .titlePreview {
+    background: white;
+    margin-left: 50px;
+
+    width: 150px;
+  } */
+
+
   p {
     line-height: 30px;
     margin-left: 10px;
-    margin-top:50px;
+    font-size: 25ps;
+    /* width: 200px; */
+  }
+
+  .contentPreview{
+    background: white;
+    margin-left: 50px;
+    width: 450px;
+    border: 1px solid gray;
+        border-radius: 4px;
+  }
+
+  
+
+   .titlePreview{
+    font-size: 25px;
+    background: white;
+    margin-left: 50px;
+
+    width: 150px;
+    border: 150px;
+    border: 1px solid gray;
+    border-radius: 4px;
   }

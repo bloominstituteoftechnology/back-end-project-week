@@ -26,7 +26,7 @@ export default class NotePreview extends Component {
                  to={`/listnotes/${note.id}`}>
                   <div key={index} className="note-preview">
 
-                    <div className="notTags">
+                    <div>
                       <h3>{note.title}</h3>
                       <p>{note.content}</p>
                     </div>

@@ -15,18 +15,20 @@
       .menu-item{
      
         width: 189px;
-        padding: 15px;
+        padding: 10px;
         text-align: center;
         text-decoration: none;
         color: white;
         background-color: #2AC0C4;
         font-weight: bold;
-        margin: 10px;
+        margin: 20px;
         border: 1px solid gray;
+        border-radius: 4px;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
       }
-        &:hover {
+        /* :hover {
           cursor: pointer;
-        }
+        } */
 
       
       .red {

@@ -38,14 +38,30 @@ server.get('/', (req, res) => {
       });
   })
   
-  server.post('/api/notes',   (req, res) => {
-    const { title, content} = req.body;
-    if (!title || !content) return res.status(400).json({ message: "Title and message are required" })
-    db('notes')
-      .insert({ title, content })
-      .then(res => res.status(201).json({ title, content }))
-      .catch(() => res.status(500).json({ message: "Note could not be saved" }))
-  })
+  // server.post('/api/notes',   (req, res) => {
+  //   const { title, content} = req.body;
+  //   if (!title || !content) return res.status(400).json({ message: "Title and message are required" })
+  //   db('notes')
+  //     .insert({ title, content })
+  //     .then(res => res.status(201).json({ title, content }))
+  //     .catch(() => res.status(500).json({ message: "Note could not be saved" }))
+  // })
+
+
+
+  server.post('/api/notes', (req, res) => {
+    const body = req.body;
+    console.log(body);
+    db('notes').insert(body)
+    .into('notes')
+    .then(note => {
+        res.status(201).json(note);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({error:'database cannot create information'});
+    })
+})
   
   // server.get('/api/notes/:id',   (req, res) => {
   //   const { id } = req.params;

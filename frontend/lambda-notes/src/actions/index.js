@@ -20,7 +20,7 @@ export const ADDING_NOTE = 'ADDING_NOTE';
 export const NOTE_ADDED = 'NOTE_ADDED';
 
 export const addNote = (newNote) =>  {
-  console.log('addnote ==>', newNote)
+  // console.log('addnote ==>', newNote)
   return function(dispatch){
     dispatch({type: ADDING_NOTE});
     axios.post('http://localhost:9000/api/notes', {
