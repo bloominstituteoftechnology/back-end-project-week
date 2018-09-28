@@ -40,11 +40,9 @@ function editNote(editId, newNote){
 }
 
 function addUser(newUser){
-    if(newUser){
-        db('users').insert(newUser).then(res => {
-            return db('users').where('username', newUser.username)
-        })
-    } 
+
+    return db('users').insert(newUser).returning('id')
+
 }
 
 function getUser(userid){
