@@ -10,8 +10,7 @@ notes.get('/', (req, res) => {
     res.status(200).json({message: "MJK-LSN api/notes/ is running."})
 })
 
-notes.get('/test/', (req,res) => {
-    console.log(req.params.id)
+notes.get('/test/', (req, res) => {
     dbFunc.getNotes().then(allNotes => {
         res.status(200).send(allNotes)
     })
@@ -36,12 +35,12 @@ notes.get('/:id', (req, res) => {
 })
 
 notes.post('/', (req, res) => {
-    const { textBody, title, id } = req.body
+    const { textBody, title } = req.body
     const { userid } = req.user
     //include username in the submission
     req.body.userid = userid;
     console.log(req.body.userid)
-    if(!id){
+    //all new notes are assigned the same user Id
         if(title){
             if(textBody){
                 dbFunc.addNote(req.body).then(id => {
@@ -53,9 +52,8 @@ notes.post('/', (req, res) => {
         } else {
             res.status(400).send('Please include a title in your request and try again.')
         }
-    } else {
-        res.status(400).send('Please do not include an id in your request. An id will be automatically assigned.')
-    }
+    } 
+    //deleted check for no ID cause I think that was messing things up
 })
 
 notes.put('/:id',  (req, res) => {

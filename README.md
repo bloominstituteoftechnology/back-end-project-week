@@ -1,4 +1,7 @@
 heroku logs --tail -a lambda-notes-backend-mjk
+heroku run knex migrate:latest -a lambda-notes-backend-mjk
+heroku run knex seed:run -a yourappname
+
 
 # Back End Project Week  
 
