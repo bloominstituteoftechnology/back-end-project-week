@@ -5,6 +5,10 @@ const helmet = require("helmet");
 const cors = require("cors");
 const routes = require("./routes");
 
+const dbEngine = process.env.DB || "development";
+const config = require("./knexfile")[dbEngine];
+const db = knex(config);
+
 const app = express();
 
 app.use(express.json());
