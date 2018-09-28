@@ -54,14 +54,14 @@ welcome.post('/register', (req, res) => {
     const hash = bcrypt.hashSync(newUser.password, 3);
     // console.log(hash)
     newUser.password = hash
-    dbFunc.addUser(newUser).then(id2 => {
+    dbFunc.addUser(newUser).first().then(id2 => {
         console.log(id2)
-        dbFunc.getUser(id2[0]).then(user3 => {
+        dbFunc.getUser(id2).then(user3 => {
             console.log(user3)
-            const token = generateToken(user3[0]);
-            const username = user3[0].username
+            const token = generateToken(user3);
+            const username = user3.username
             console.log(username)
-            const id3 = user3[0].id
+            const id3 = user3.id
             console.log(id3)
             res.status(200).json({message: "token created", token: token, username: username})
         }).catch(err => err.message)
