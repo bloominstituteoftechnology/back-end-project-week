@@ -57,10 +57,10 @@ welcome.post('/register', (req, res) => {
     dbFunc.addUser(reqUser).then(newid => {
         console.log(newid, '=======newid========')
         dbFunc.getUser(newid[0]).then(newUser => {
-            console.log(newUser, '========newUser=======')
-            const token = generateToken(newUser);
+            console.log(newUser[0], '========newUser=======')
+            const token = generateToken(newUser[0]);
             console.log(token, '========token=======')
-            const username = newUser.username
+            const username = newUser[0].username
             console.log(username, "==========username=====")
             res.status(200).json({message: "token created", token: token, username: username})
         }).catch(err => err.message)
