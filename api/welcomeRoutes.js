@@ -49,20 +49,19 @@ welcome.get('/test/', (req,res) => {
 
 welcome.post('/register', (req, res) => {
     // console.log(req)
-    const newUser = req.body; 
+    const reqUser = req.body; 
     console.log(newUser, '=====newuser====')
     const hash = bcrypt.hashSync(newUser.password, 3);
     // console.log(hash)
     newUser.password = hash
-    dbFunc.addUser(newUser).then(result => {
-        console.log(result, '=======id2========')
-        dbFunc.getUser(id2[0]).then(user3 => {
-            console.log(user3, '========user3=======')
-            console.log(user3[1], '========user3=======')
-            const token = generateToken(user3);
+    dbFunc.addUser(reqUser).first().then(newid => {
+        console.log(newid, '=======newid========')
+        dbFunc.getUser(newid).then(newUser => {
+            console.log(newUser, '========newUser=======')
+            const token = generateToken(newUser);
             console.log(token, '========token=======')
-            const username = user3.username
-            // console.log(username, "username")
+            const username = newUser.username
+            console.log(username, "==========username=====")
             res.status(200).json({message: "token created", token: token, username: username})
         }).catch(err => err.message)
     }).catch(err => { res.status(500).json(err.message)})   
