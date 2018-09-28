@@ -39,7 +39,7 @@ notes.post('/', (req, res) => {
     const { userid } = req.user
     //include username in the submission
     req.body.userid = userid;
-    console.log(req.body.userid)
+    console.log(req.body.userid, " \n ==req.body.userid== \n")
     //all new notes are assigned the same user Id
         if(title){
             if(textBody){

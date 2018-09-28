@@ -12,6 +12,7 @@ function protect(req, res, next){
             if (err){
                 res.status(400).json({ message: 'auth err', error: err })
             } else {
+                console.log(decodedToken, '\n == decoded token \n')
                 req.user = {
                     userid: decodedToken.id,//changed from userid to id
                     username: decodedToken.username
