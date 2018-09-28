@@ -5,6 +5,11 @@ exports.up = function(knex, Promise) {
       tbl.string('title',50).notNullable().unique();
       tbl.string('textBody').notNullable();
       tbl.string('tags',128);
+      tbl
+        .integer('user_id')
+        .notNullable()
+        .references('id')
+        .inTable('users')
   })
 };
 

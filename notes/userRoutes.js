@@ -3,8 +3,9 @@ const express=require('express');
 const router=express.Router();
 
 
-router.get('/get/all',(req,res)=>{
+router.get('/get/all/:user_id',(req,res)=>{
     db('notes')
+        .where({user_id:req.params.user_id})
         .then(notes=>res.status(200).json(notes))
         .catch(err=>res.status(500).json(err));
 })

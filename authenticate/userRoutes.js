@@ -31,7 +31,11 @@ function register(req,res) {
                 .where({id:userId})
                 .then(response=>{
                     const token=generateToken(response[0]);
-                    res.status(201).json(token);
+                    const responseObj={
+                        token:token,
+                        user_id:userId
+                    }
+                    res.status(201).json(responseObj);
                 })
                 .catch(err=>res.status(500).json(err))
         })
@@ -45,7 +49,11 @@ function login(req,res){
             const currentUser=user[0];
             if (loggedIn && bCrypt.compareSync(loggedIn.password,currentUser.password)) {
                 const token=generateToken(currentUser);
-                res.status(200).json(token);
+                const responseObj={
+                    token:token,
+                    user_id:currentUser.id
+                }
+                res.status(200).json(responseObj);
             } else {
                 res.status(401).json({message:'Invalid Credentials'})
             }
@@ -54,7 +62,7 @@ function login(req,res){
 }
 function getNotes(req,res){
     axios
-        .get('https://notes-lambda.herokuapp.com/note/get/all')
+        .get(`http://localhost:9000/note/get/all/${req.headers.id}`)
         .then(response=>{res.status(200).json(response.data)})
         .catch(err=>res.status(500).json({message:'Error fetching notes.',error:err}));
 }
