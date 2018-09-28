@@ -44,7 +44,7 @@ function register(req,res) {
 function login(req,res){
     const loggedIn=req.body;
     db('users')
-        .where({username:loggedIn.username})
+        .where({username:loggedIn.username.toLowerCase()})
         .then(user=>{
             const currentUser=user[0];
             if (loggedIn && bCrypt.compareSync(loggedIn.password,currentUser.password)) {
