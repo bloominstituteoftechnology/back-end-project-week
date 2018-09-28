@@ -56,8 +56,8 @@ welcome.post('/register', (req, res) => {
     newUser.password = hash
     dbFunc.addUser(newUser).then(id2 => {
         // console.log(id2)
-        dbFunc.getUser(id2[0]).first().then(user3 => {
-            console.log(user3, '========user3=======')
+        dbFunc.getUser(id2[0]).then(user3 => {
+            console.log(user3[1], '========user3=======')
             const token = generateToken(user3);
             console.log(token, '========token=======')
             const username = user3.username
