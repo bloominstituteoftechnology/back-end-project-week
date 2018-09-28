@@ -24,7 +24,7 @@ server.get("/notes/:id", (req, res) => {
   notes
     .getNotes(req.params.id)
     .then(note => {
-      res.status(200).json(note);
+        res.status(200).json(note);
     })
     .catch(err => {
       console.log("error", err);
