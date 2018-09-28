@@ -52,7 +52,7 @@ notes.post('/', (req, res) => {
         } else {
             res.status(400).send('Please include a title in your request and try again.')
         }
-    } 
+    
     //deleted check for no ID cause I think that was messing things up
 })
 
