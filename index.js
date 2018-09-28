@@ -96,7 +96,14 @@ server.post('/api/login', (req, res) => {
 // route for getting the right notes for user
 server.get('/', protected, (req, res) => {
     db.select().from('notes').then(notes => {
-        return res.status(200).json(notes)
+        const modifiedNotes = notes.map(note => {
+            return {
+                id: note.id,
+                noteName: note.title,
+                noteText: note.content
+            }
+        });
+        return res.status(200).json(modifiedNotes)
     }).catch(err => {
         console.log(err)
         return res.status(500).json({message: 'Cannot retrieve notes at this time'})
