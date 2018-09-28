@@ -60,7 +60,7 @@ class CreateNote extends Component {
             .post('http://localhost:5000/notes', this.state)
             .then(res => {
                 console.log(res.data);
-                this.props.history.push('/');
+                this.props.history.push('/notes');
                 window.location.reload();
             })
             .catch(err => {

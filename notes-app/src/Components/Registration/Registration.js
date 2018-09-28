@@ -23,6 +23,7 @@ class Registration extends Component {
             <br /><br />
             <div>
                 <input
+                    className="styledInput"
                     name= "username" 
                     value={this.state.username} 
                     onChange={this.handleChange} 
@@ -32,6 +33,7 @@ class Registration extends Component {
             </div>
             <div>
                 <input 
+                    className="styledInput"
                     name="password" 
                     value={this.state.password}
                     onChange={this.handleChange}
@@ -77,13 +79,13 @@ class Registration extends Component {
                 // if(this.state.username != '' || this.state.password != ''){
                 localStorage.setItem('jwt', res.data.token);
             //};
-                 if (localStorage !== 'jwt'){
-                this.props.history.push('/')
+                if (localStorage !== 'jwt'){
+                this.props.history.push('/notes')
             }
             })
             .catch(err => {
                 console.log(err, 'err')
-                this.props.history.push('/register')
+                this.props.history.push('/')
     });
 
     };

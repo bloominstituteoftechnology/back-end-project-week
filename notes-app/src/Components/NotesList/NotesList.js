@@ -40,15 +40,11 @@ class NotesList extends Component {
                 ))}
                 </div>
                 </div>
-                <Link to="/login" onClick={this.logout}><div className="signin">signin|out</div></Link>
+                
             </div>
         )
     }
 
-
-    logout = event => {
-        localStorage.removeItem('jwt');
-      }
 }
 
 export default NotesList;

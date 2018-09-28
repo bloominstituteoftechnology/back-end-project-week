@@ -25,6 +25,7 @@ class Login extends Component {
             <div>
                 
                 <input
+                className="styledInput"
                 name= "username" 
                 value={this.state.username} 
                 onChange={this.handleChange} 
@@ -34,7 +35,8 @@ class Login extends Component {
             </div>
             <div>
                 
-                <input 
+                <input
+                className="styledInput" 
                 name="password" 
                 value={this.state.password}
                 onChange={this.handleChange}
@@ -48,7 +50,7 @@ class Login extends Component {
                     value={this.state.password} 
                     onChange={this.handleChange} type="submit">Submit</button>
             </div>
-            <Link to="/register" className="alt">register</Link>
+            <Link to="/" className="alt">register</Link>
             </div>
             
         </form>
@@ -77,7 +79,7 @@ class Login extends Component {
                 // localStorage.removeItem('jwt');
                 localStorage.setItem('jwt', res.data.token);
                 // if (this.state.password != ''){
-                this.props.history.push('/')
+                this.props.history.push('/notes')
             //}
             })
             .catch(err => {

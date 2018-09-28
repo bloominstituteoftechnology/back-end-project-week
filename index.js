@@ -13,7 +13,11 @@ const db = knex(dbConfig.development);
 const jwt = require('jsonwebtoken');
 
 
-
+// exports.uploadFile = functions.https.onRequest((req, res) => {
+//     res.status(200).json({
+//         message: "It worked"
+//     });
+// })
 
 const secret = "lovey lovebirds"
     function generateToken(user) {
@@ -31,6 +35,8 @@ const secret = "lovey lovebirds"
 function restricted(req, res, next) {
 
     const token = req.headers.authorization;
+    // localStorage.removeItem('jwt');
+    // let savedToken = localStorage.getItem('jwt');
 
     if (token) {
         jwt.verify(token, secret, (err, decodedToken) => {
@@ -184,6 +190,23 @@ server.post('/login', (req, res) => {
         console.log('/api/login Post error:', err);
         res.status(500).send(err, "Please Try Again Later.")});
 });
+
+
+
+
+
+// server.post('/notes', (req, res) => {
+//     const item = req.body;
+
+//     db('notes').insert(item)
+//         .then((ids)=> { 
+//             res.status(201).json(ids);
+//         })
+//                 .catch((fail) => {
+//                     console.log(fail);
+//                     res.status(500).json({ error: "There was an error while saving the note to the database." });
+//                 });
+// });
 
 
 

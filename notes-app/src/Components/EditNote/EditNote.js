@@ -7,7 +7,8 @@ class EditNote extends Component {
     state = {
         matched: [],
         title: '',
-        content: ''
+        content: '',
+        selectedFile: null
     }
 
 
@@ -48,11 +49,11 @@ class EditNote extends Component {
 
     redirectUndo = (e) => {
         e.preventDefault();
-        window.location.assign('/')
+        window.location.assign('/notes')
     }
 
     submit = (e) => {
-        window.location.assign('/')
+        window.location.assign('/notes')
     }
 
 
@@ -60,6 +61,23 @@ class EditNote extends Component {
     cancelButton = () => {
         window.location.reload();
     }
+
+    // componentDidMount(){
+    //     const fileSelectedHandler = event => {
+    //         this.setState({
+    //             selectedFile: event.target.files[0]
+    //         })
+    //         console.log("selectedFile", this.state.selectedFile);
+    //     }
+    // }
+    // fileUploadHandler = () => {
+    //     const fd = new FormData();
+    //     fd.append('image', this.state.selectedFile, this.state.selectedFile.name);
+    //     axios.post('')
+    //         .then(res => {
+    //             console.log(res);
+    //         })
+    // }
 
 
 
@@ -80,7 +98,6 @@ class EditNote extends Component {
                         value={this.state.title}
                         name='title'
                     />
-
                         <br /><br />
 
                     <textarea 
@@ -90,13 +107,14 @@ class EditNote extends Component {
                         value={this.state.content}
                         name='content'
                     />
-                    
+                    <input type="file" onChange={this.fileSelectedHandler}/>
                         <br />
 
                     
                     <button type="submit"
                         className="edit_button"
                         onClick={this.submit}
+                        // onClick={this.fileUploadHandler}
                     >Update
                     </button>
                 

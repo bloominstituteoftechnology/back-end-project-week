@@ -92,7 +92,7 @@
     height: 301%; /* Hacky */
     z-index: 3;
 }
-view_title span input:focus {
+.view_title span input:focus {
     background: transparent;
     border: 0;
     z-index: 1;

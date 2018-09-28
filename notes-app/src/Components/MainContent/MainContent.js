@@ -21,7 +21,12 @@ import axios from 'axios';
 class MainContent extends Component {
     state = {
         notes: [],
+        currentNotes: [],
+        currentPage: null,
+        totalPages: null
     }
+
+
 
 
     render() {
@@ -31,12 +36,12 @@ class MainContent extends Component {
         <div className="main_container">
             
                 <Switch>
-                    <Route path='/' exact render={(props) => <NotesList state={this.state}   />} />
+                    <Route path='/notes' exact render={(props) => <NotesList state={this.state}   />} />
                     <Route path='/note/:id' render={({match}, props) => <NoteView state={this.state} match={match} />} />
                     <Route path='/note/:id' exact component={DeleteNote} />
                     <Route path='/create' exact component={CreateNote} />
                     <Route path='/edit/:id' exact render={({match}, props) => <EditNote state={this.state} match={match} />} />
-                    <Route path='/register' exact component={Registration} />
+                    <Route path='/' exact component={Registration} />
                     <Route path='/login' exact component={Login} />
                     <Route path='/welcome' exact component={Welcome} />
                 </Switch>

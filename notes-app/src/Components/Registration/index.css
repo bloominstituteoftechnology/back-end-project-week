@@ -40,14 +40,14 @@
     margin-bottom: 10px;
   } */
 
-input {
+.styledInput {
     border-radius: 15px;
     padding-left: 20px;
     height: 45px;
     font-size: 18px;
     margin: 5px;
     margin-top: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     border: 1px solid palegoldenrod;
 }
 

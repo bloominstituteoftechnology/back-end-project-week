@@ -20,7 +20,7 @@ class DeleteNote extends Component {
                 <div className="modal">
                     <div className="question">Are you sure you want to delete this?</div>
                     <div>
-                        <Link to="/"><button 
+                        <Link to="/notes"><button 
                         className="red"
                         onClick={this.delete}
                         >
