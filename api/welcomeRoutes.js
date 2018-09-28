@@ -54,7 +54,6 @@ welcome.post('/register', (req, res) => {
     const hash = bcrypt.hashSync(newUser.password, 3);
     // console.log(hash)
     newUser.password = hash
-
     dbFunc.addUser(newUser).then(id2 => {
         console.log(id2)
         dbFunc.getUser(id2[0]).then(user3 => {
@@ -66,7 +65,7 @@ welcome.post('/register', (req, res) => {
             console.log(id3)
             res.status(200).json({message: "token created", token: token, username: username})
         }).catch(err => err.message)
-    }).catch(err => { res.status(500).json(err.message)})
+    }).catch(err => { res.status(500).json(err.message)})   
 })
 
 welcome.post('/login', (req, res) => {

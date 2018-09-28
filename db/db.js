@@ -15,7 +15,8 @@ module.exports = {
     editNote,
     addUser,
     getUser,
-    getNote
+    getNote,
+    checkUser
 }
 
 function getNotes(userid){
@@ -48,4 +49,7 @@ function getUser(userid){
     } else {
         return db('users')
     }
+}
+function checkUser(username){
+     db('users').where('username', username)
 }

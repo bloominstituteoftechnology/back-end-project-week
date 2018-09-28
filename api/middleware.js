@@ -23,3 +23,5 @@ function protect(req, res, next){
         res.status(401).json({message: 'no token. you need to send a token'})
     }
 }
+
+//add middleware to check if user exists on register endpoint
