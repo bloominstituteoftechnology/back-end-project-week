@@ -48,7 +48,7 @@ notes.post('/', (req, res) => {
                     res.status(201).json(id)
                 })
             } else {
-                res.status(400).send('Please include a a textBody in your request.')
+                res.status(400).send('Please include a textBody in your request.')
             }
         } else {
             res.status(400).send('Please include a title in your request and try again.')
@@ -61,8 +61,8 @@ notes.post('/', (req, res) => {
 notes.put('/:id',  (req, res) => {
     const body = req.body
     const  editId  = req.params.id
-        dbFunc.editNote(editId, body).then(res => {
-            res.status(200).json(res)
+        dbFunc.editNote(editId, body).then(res2 => {
+            res.status(200).json(res2)
         }).catch(err => {
             res.staus(500).json(err)
         })
