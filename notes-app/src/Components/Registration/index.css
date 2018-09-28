@@ -1,0 +1,69 @@
+
+
+
+.regForm {
+    background-color:silver;
+    background-image: 
+    radial-gradient(circle at 100% 150%, silver 24%, #373737 25%, #373737 28%, silver 29%, silver 36%, #373737 36%, #373737 40%, transparent 40%, transparent),
+    radial-gradient(circle at 0    150%, silver 24%, #373737 25%, #373737 28%, silver 29%, silver 36%, #373737 36%, #373737 40%, transparent 40%, transparent),
+    radial-gradient(circle at 50%  100%, silver 10%, silver 11%, silver 23%, #373737 24%, #373737 30%, silver 31%, silver 43%, #373737 44%, #373737 50%, silver 51%, silver 63%, #373737 64%, #373737 71%, transparent 71%, transparent),
+    radial-gradient(circle at 100% 50%, silver 5%, silver 6%, silver 15%, #373737 16%, #373737 20%, silver 21%, silver 30%, #373737 31%, #373737 35%, silver 36%, silver 45%, #373737 46%, #373737 49%, transparent 50%, transparent),
+    radial-gradient(circle at 0    50%, silver 5%, silver 6%, silver 15%, #373737 16%, #373737 20%, silver 21%, silver 30%, #373737 31%, #373737 35%, silver 36%, silver 45%, #373737 46%, #373737 49%, transparent 50%, transparent);
+    background-size: 100px 50px;
+    position: absolute;
+    margin-left: 150px;
+    margin-top: 80px;
+    z-index: 1;
+    border-radius: 0 57px 57px 57px;
+    border: 5px solid white;
+    display: flex;
+    text-align: center;
+    width: 300px;
+    
+}
+
+.regOverlay {
+    padding-top: 60px;
+    position: relative;
+    opacity: .97;
+    top: 100;
+    left: 100;
+    height: 400px;
+    width: 410px;
+    z-index: 0;
+    background-color: white;
+    border-radius: 0 50px 50px 50px;
+    border: 5px solid white;
+  }
+
+  /* .greeting {
+    margin-bottom: 10px;
+  } */
+
+.styledInput {
+    border-radius: 15px;
+    padding-left: 20px;
+    height: 45px;
+    font-size: 18px;
+    margin: 5px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    border: 1px solid palegoldenrod;
+}
+
+.regButton {
+    margin-top: 30px;
+}
+
+.alt {
+    text-decoration: none;
+    color: black;
+    margin-top: 50px;
+    font-size: 12px;
+}
+
+::placeholder {
+    color: rgba(63, 73, 73, 0.721);
+}
+
+

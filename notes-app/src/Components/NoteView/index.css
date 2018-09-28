@@ -1,0 +1,131 @@
+/* Notes View */
+
+.view_container {
+    display: flex;
+}
+
+.note {
+    width: 190px;
+    color: black;
+    height: 190px; 
+    text-decoration: none;
+    margin: 0 9px 25px 9px;
+    overflow-y: scroll;
+    border-left: 1px solid gray;
+    padding: 0 18px 18px 18px;
+    background-color: white;
+    border-radius: 2px 10px 10px 2px;
+    border-top: 5px solid gray;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    white-space: pre-wrap;
+}
+
+.note:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+
+
+.note_title {
+    /* Would Like to Add Fadeout to the right */
+    /* background: -moz-linear-gradient(left, rgba(255,255,255,0) 8%, rgba(255,255,255,0.81) 33%);
+    background: -webkit-linear-gradient(left, rgba(255,255,255,0) 8%,rgba(255,255,255,0.81) 33%); 
+    background: linear-gradient(to right, rgba(255,255,255,0) 8%,rgba(255,255,255,0.81) 33%); 
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#cfffffff',GradientType=1 ); 
+     */
+    border-bottom: solid 1px black;
+    margin-bottom: 10px;
+    font-weight: bold;
+    height: 30px;
+    white-space: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    margin-top: 5px;
+}
+
+.view_title {
+    font-weight: bold;
+    align-content: center;
+    /* padding: 10px; */
+    position: absolute;
+    top: 700;
+    
+    margin-top: 80px;
+    margin-left: 50px;
+    width: 400px;
+    white-space: nowrap;
+    overflow-y: scroll;
+    
+}
+
+.view_title span {
+    position: relative;
+}
+.view_title span a {
+    position: relative;
+    z-index: 2;
+    text-decoration: none;
+    color: black;
+    cursor: default;
+}
+
+.view_content span a {
+    position: relative;
+    z-index: 2;
+    text-decoration: none;
+    color: black;
+    cursor: default;
+}
+
+.view_title span a:hover, .view_title span a:active {
+    z-index: 4;
+}
+.view_title span input {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    position: absolute;
+    top: -1px;
+    left: 0;
+    width: 101%;  /* Hacky */
+    height: 301%; /* Hacky */
+    z-index: 3;
+}
+.view_title span input:focus {
+    background: transparent;
+    border: 0;
+    z-index: 1;
+}
+
+.view_content {
+    position: absolute;
+    /* top: 600; */
+    margin-top: 135px;
+    margin-left: 50px;
+    width: 515px;
+    height: 515px;
+    overflow: scroll;
+    white-space: pre-wrap;
+
+}
+
+.links_container {
+    display: flex;
+    justify-content: space-between;
+    width: 75px;    
+    margin-left: 525px;
+}
+
+.view_links {
+    color: black;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+
+
+
+
+
