@@ -14,7 +14,8 @@ exports.up = function(knex, Promise) {
           .unsigned()
           .notNullable()
           .references("id")
-          .inTable("notes");
+          .inTable("notes")
+          .onDelete('CASCADE');
       });
     });
 };

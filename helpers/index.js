@@ -63,7 +63,7 @@ module.exports = {
   deleteNote: function(id) {
     return db("notes")
       .where({ id: id })
-      .del();
+      .delete();
   },
 
   deleteTag: function(id) {
