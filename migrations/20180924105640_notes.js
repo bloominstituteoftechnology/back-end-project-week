@@ -21,7 +21,7 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTableIfExists("notes").then(() => {
+return knex.raw('DROP TABLE notes CASCADE').then(() => {
     return knex.schema.dropTableIfExists("tags");
   });
 };
