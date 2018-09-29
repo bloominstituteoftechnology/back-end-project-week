@@ -6,7 +6,7 @@ const configAuthentication=require('./authenticate/userRoutes.js')(server);
 
 server.use('/note',notes);
 server.get('/',(req,res)=>{
-    res.status(200).send('API running.');
+    res.status(200).json({message:'API running.'});
 })
 
 module.exports=server;

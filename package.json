@@ -4,9 +4,9 @@
   "description": "https://trello.com/b/3uf5q42J/lambda-notesbackend-will-kwon This week you will build a backend for a note taking app called \"Lambda Notes\".",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --watch --verbose",
     "start": "node index.js",
-    "run":"nodemon index.js"
+    "run": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,8 @@
     "sqlite3": "^4.0.2"
   },
   "devDependencies": {
-    "nodemon": "^1.18.4"
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.4",
+    "supertest": "^3.3.0"
   }
 }
