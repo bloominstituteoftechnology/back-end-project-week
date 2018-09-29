@@ -5,7 +5,7 @@ const db = knex(dbconfig[process.env.DB]);
 module.exports = {
   getNotes: function(id) {
     if (id) {
-      return db('notes').where("notes.id", id)
+      return db('notes').where("notes.id", id).select("notes.id", "notes.text", "notes.title").first()
     }
     const promises = [db("notes"), this.getTagsAll()];
 
