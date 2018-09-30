@@ -34,7 +34,7 @@ server.use(function(req, res) {
 });
 
 
-const port = process.env.PORT || process.env.REACT_APP_PORT;
+const port = process.env.PORT || 5000;
 
 server.listen(port, () => {
     console.log(`=== API is listening at ${port} ===`);
