@@ -20,7 +20,7 @@ module.exports = {
 }
 
 function getNotes(userid){
-    return db('notes').where('userid', userid)
+    return db('notes').where('userid', userid).andWhere('isDeleted', false)
 }
 
 function getNote(userid, id){
@@ -39,10 +39,12 @@ function editNote(editId, newNote){
     return db('notes').where('id', editId).update(newNote)
 }
 
+function editNote(editId, newNote){
+    return db('notes').where('id', editId).update(newNote)
+}
+
 function addUser(newUser){
-
     return db('users').insert(newUser).returning('id')
-
 }
 
 function getUser(userid){
