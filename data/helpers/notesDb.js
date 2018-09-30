@@ -14,7 +14,11 @@ function get(){
 }
 
 function getById(id){
-	return db('notes').where({id: Number(id)});
+const query = db('notes').where('id', id);
+
+    return query.then(notes => {
+            return notes[0];
+    });	
 }
 
 function getByTitle(search){
@@ -24,7 +28,8 @@ function getByTitle(search){
 function insert(note) {
   return db('notes')
     .insert(note)
-    .then(ids => ({ id: ids[0] }));
+    .then(ids => ids[0]);	
+    //.then(ids => ({ id: ids[0] }));
 }
 
 

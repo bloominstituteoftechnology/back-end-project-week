@@ -37,14 +37,13 @@ router.get('/:id', (req,res)=>{
 
         request.then(response => {
         console.log(response);
-        let response1 = response[0];
 
-        if(response1.length==0) {
+        if(response.length==0) {
                 res.status(404).json({ error: "The note with the specified Id does not exist." });
         }
         else {
-                console.log(response1);
-                res.status(200).json(response1);
+                console.log(response);
+                res.status(200).json(response);
         }
         })
 
@@ -114,6 +113,7 @@ else{
         const request = db.insert(note);
 
         request.then(response => {
+		console.log(response);
                 res.status(201).json(response);
         })
 
