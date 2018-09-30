@@ -30,14 +30,14 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const token = localStorage.getItem('jwt');
-    const reqOptions = {
-        headers: {
-            Authorization: token,
-        }
-    };
+    // const token = localStorage.getItem('jwt');
+    // const reqOptions = {
+    //     headers: {
+    //         Authorization: token,
+    //     }
+    // };
 
-    axios.get(`${api}/notes`, reqOptions)
+    axios.get(`${api}/notes`)
       .then(notes => {
         this.setState({notes: notes.data.notes}); 
       })
