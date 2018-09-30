@@ -75,7 +75,7 @@ notes.delete('/:id', (req, res) => {
         } else {
             res.status(200).json(count)
         }
-    }).catch(err => res.status(500).json({message: 'Note was note deleted', err: err}))
+    }).catch(err => res.status(500).json({message: 'Note was note deleted', err: err.message}))
 })
 
 module.exports = notes
