@@ -58,15 +58,9 @@ router.get('/search/:search', (req, res) => {
         const request = db.getByTitle(search);
 
         request.then(response => {
-        console.log(response);
 
-        if(response.length==0) {
-                res.status(404).json({ error: "Notes with the specified search words do not exist." });
-        }
-        else {
                 console.log(response);
                 res.status(200).json(response);
-        }
         })
 
         .catch(error => {
