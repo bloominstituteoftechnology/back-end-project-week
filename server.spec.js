@@ -209,7 +209,7 @@ describe('/api/notes route',()=>{
     })
     it('should return an array containing notes that the logged in user has if any.',async()=>{
         const response=await(request(server)).post('/api/login').send({username:'sar',password:'din'});
-        if (response){
+        if (response) {
         async()=>{
             const secondResponse=await(request(server)).get('/api/notes').send({
             headers:{
@@ -218,6 +218,40 @@ describe('/api/notes route',()=>{
             }
         })
         expect(secondResponse.body).toEqual([]);
+    }
+    }
+    const postedNote=await(request(server)).post('/note/create').send({
+        title:'new note',
+        textBody:'this is a note',
+        user_id:response.body.user_id
+    })
+    if (postedNote) {
+        async()=>{
+            const thirdResponse=await(request(server)).get('/api/notes').send({
+                headers:{
+                    Authorization:response.body.token,
+                    id:response.body.user_id
+                }
+            })
+            expect(thirdResponse.body).toEqual([{
+                title:'new note',
+                textBody:'this is a note',
+                user_id:response.body.user_id
+            }]);
+        }
+    }
+    })
+    it('should return a 200 status code on successful request.',async()=>{
+        const response=await(request(server)).post('/api/login').send({username:'sar',password:'din'});
+        if (response){
+        async()=>{
+            const secondResponse=await(request(server)).get('/api/notes').send({
+            headers:{
+                Authorization:response.body.token,
+                id:response.body.user_id
+            }
+        })
+        expect(secondResponse.status).toEqual(200);
     }
     }
     })
