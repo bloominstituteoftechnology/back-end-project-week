@@ -69,7 +69,7 @@ notes.put('/:id',  (req, res) => {
 notes.delete('/:id', (req, res) => {
     const { id } = req.params
     //need to find a way to delete all notes that are children as well
-    dbFunc.editNotesWithMatchingParentId()
+
     dbFunc.deleteNote(id).then(count => {
         if(count == 0){
             res.status(400).json('note not deleted. Either this note does not exist, or it was a bad request')
