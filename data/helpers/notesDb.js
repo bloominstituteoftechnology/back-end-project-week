@@ -22,9 +22,9 @@ const query = db('notes').where('id', id);
 }
 
 function getByTitle(search){
-	var test = search.toLowerCase();
-	return knex('notes').whereRaw(`LOWER(title) LIKE ?`,[`%${test}%`]);
-        //return db('notes').where('title', 'like', `%${search}%`);
+	//var test = search.toLowerCase();
+	//return knex('notes').whereRaw(`LOWER(title) LIKE ?`,[`%${test}%`]);
+        return db('notes').where('title', 'ilike', `%${search}%`);
 }
 
 function insert(note) {
