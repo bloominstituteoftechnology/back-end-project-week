@@ -13,7 +13,11 @@ exports.up = function(knex, Promise) {
         tbl.bool('isPublic')
             .notNullable()
             .defaultsTo(false)
-        //note collaborators
+        tbl.integer('parent_id')
+            .unsigned()
+            .references('id')
+            .inTable('notes');
+        //collaborators
     })
 };
 
