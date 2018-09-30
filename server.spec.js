@@ -179,6 +179,11 @@ describe('/api/register route',()=>{
         const response=await(request(server)).post('/api/register').send({username:'sar',password:'din'});
         expect(response.type).toEqual('application/json');
     })
+    it('should return a object containing a token string and a user_id on successful registration.',async()=>{
+        const response=await(request(server)).post('/api/register').send({username:'sauron',password:'din'});
+        expect(typeof response.body.token).toEqual('string');
+        expect(response.body.user_id).toEqual(3);
+    })
 })
 describe('api/login route',()=>{
     it('should return a 200 status code if passed in parameters of username and password are same as that in table',async()=>{
@@ -196,6 +201,11 @@ describe('api/login route',()=>{
     it('should return a 401 status code if password does not match but username does on table',async()=>{
         const response=await(request(server)).post('/api/login').send({username:'sar',password:'dine'});
         expect(response.status).toEqual(401);
+    })
+    it('should return a object containing a token string and a user_id on successful login.',async()=>{
+        const response=await(request(server)).post('/api/login').send({username:'sauron',password:'din'});
+        expect(typeof response.body.token).toEqual('string');
+        expect(response.body.user_id).toEqual(3);
     })
 })
 describe('/api/notes route',()=>{
