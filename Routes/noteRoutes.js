@@ -81,7 +81,7 @@ router.post('/', upload.single('file'),(req,res)=> {
 	cloudinary.uploader.upload(req.file.path,(result) =>{ 
 		console.log(result);
 		imgUrl = result.secure_url;
-		return imgUrl
+		//return imgUrl
 	}).then(() =>{
 	
   	//stream = cloudinary.uploader.upload_stream((result)=>{
@@ -108,7 +108,8 @@ router.post('/', upload.single('file'),(req,res)=> {
 
         request.then(response => {
 		console.log(response);
-		let r = response;
+		let r = {};
+		r=response;
                 res.status(200).send(r);
         })
 
