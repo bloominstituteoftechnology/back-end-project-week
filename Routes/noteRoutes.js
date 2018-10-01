@@ -71,7 +71,7 @@ router.get('/search/:search', (req, res) => {
 });
 
 
-router.post('/', upload.single('file'),(req,res,next)=> {
+router.post('/', upload.single('file'),(req,res)=> {
 	console.log(req.file);
 
         const title = req.body.title;
@@ -102,13 +102,13 @@ router.post('/', upload.single('file'),(req,res,next)=> {
                 res.status(400).json({error: "Failed to save note to the database. Please provide title and content for the note."});
         }
 
-else{
+	else{
 
         const request = db.insert(note);
 
         request.then(response => {
 		console.log(response);
-                res.status(201).json(response);
+                res.status(200).send("success");
         })
 
         .catch(error => {
