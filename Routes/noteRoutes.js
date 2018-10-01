@@ -108,9 +108,7 @@ router.post('/', upload.single('file'),(req,res)=> {
 
         request.then(response => {
 		console.log(response);
-		let r = {};
-		r=response;
-                res.status(200).send(r);
+                res.status(200).send("Hi");
         })
 
         .catch(error => {
