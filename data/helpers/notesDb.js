@@ -27,8 +27,7 @@ function getByTitle(search){
 
 function insert(note) {
   return db('notes')
-    .insert(note).returning('id');
-    //.then(ids => ids[0]);	
+    .insert(note).returning('id').then(ids => ids[0]);	
     //.then(ids => ({ id: ids[0] }));
 }
 
