@@ -5,9 +5,6 @@ const multer = require('multer');
 const upload = multer({ dest: __dirname + '/files/' });
 const fs = require('fs');
 const cloudinary = require('cloudinary');
-const api_key = process.env.API_KEY;
-const api_secret = process.env.API_SECRET;
-const cloud_name = process.env.CLOUD_NAME;
 
 
 router.get('/', (req,res) => {
