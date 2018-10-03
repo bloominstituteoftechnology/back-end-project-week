@@ -35,14 +35,6 @@ describe('server.js',()=>{
             })
             expect(response.body[0]).toEqual(2);
         })
-        it('should return an error with 500 status code when a object with same title as another object is POSTed',async()=>{
-            const response=await (request(server)).post('/note/create').send(
-                {title:'Chronicles of Z',
-                textBody:'Written by Z',
-                user_id:1
-            })
-            expect(response.status).toEqual(500);
-        })
         it('should return an error with status code 404 when an object is missing parameter(s) for POST request',async()=>{
             const response=await(request(server)).post('/note/create').send(
                 {title:'Chronicles of Narnia',
