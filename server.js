@@ -10,7 +10,7 @@ const noteRoutes = require('./Routes/noteRoutes');
 
 const server = express();
 
-//server.use(cors());
+//server.use(cors())
 server.use(express.json());
 server.use(morgan('dev'));
 
