@@ -95,7 +95,7 @@ router.post('/login',(req, res) => {
 
 router.get('/google', passport.authenticate('google',{
 	scope:['profile']
-
+	//	
 
 }))
 
