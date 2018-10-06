@@ -10,12 +10,19 @@ const noteRoutes = require('./Routes/noteRoutes');
 
 const server = express();
 
-server.use(cors());
+//server.use(cors());
 server.use(express.json());
 server.use(morgan('dev'));
 
 server.use(helmet());
-//server.use(cors({origin: true}));
+server.use(cors({origin: true}));
+
+server.use(function(req, res, next) {
+   res.header("Access-Control-Allow-Origin", "https://fervent-borg-1591ca.netlify.com");
+   res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST');
+   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+   next();
+});
 
 
 server.get('/', (req,res) => {
