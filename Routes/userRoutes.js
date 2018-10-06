@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../data/helpers/userDb');
+const passport = require('passport');
+const util = require('util');
+const GoogleStrategy = require('passport-google-oauth20');
+//const GoogleStrategy = require('passport-google').Strategy;
+const passportSetup = require('../config/passport-setup');
 
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -86,6 +91,20 @@ router.post('/login',(req, res) => {
       		res.status(500).json({ error:"Failed to login" });
     })
 });
+
+
+router.get('/google', passport.authenticate('google',{
+	scope:['profile']
+
+
+}))
+
+
+
+
+
+
+
 
 
 router.get('/logout', (req, res)=>{
