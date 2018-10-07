@@ -4,10 +4,6 @@ const morgan = require('morgan');
 const db = require('./data/helpers/notesDb');
 const cors = require('cors');
 require('dotenv').load();
-
-const userRoutes = require('./Routes/userRoutes');
-const noteRoutes = require('./Routes/noteRoutes');
-
 const server = express();
 
 //server.use(cors())
@@ -24,6 +20,8 @@ server.use(function(req, res, next) {
    next();
 });
 
+const userRoutes = require('./Routes/userRoutes');
+const noteRoutes = require('./Routes/noteRoutes');
 
 server.get('/', (req,res) => {
 	res.send("Welcome to lambda notes..testing...");
