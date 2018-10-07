@@ -2,9 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../data/helpers/userDb');
 const passport = require('passport');
-const util = require('util');
 const GoogleStrategy = require('passport-google-oauth20');
-//const GoogleStrategy = require('passport-google').Strategy;
 const passportSetup = require('../config/passport-setup');
 
 const bcrypt = require('bcryptjs');
@@ -95,11 +93,14 @@ router.post('/login',(req, res) => {
 
 router.get('/google', passport.authenticate('google',{
 	scope:['profile']
-	//	
 
-}))
+}));
 
 
+//callback route for google to redirect
+router.get('/google/redirect', passport.authenticate('google'),(req,res)=>{
+
+});
 
 
 
