@@ -79,6 +79,7 @@ router.post('/login',(req, res) => {
 		const match = bcrypt.compareSync(user.password, response.password);
 		console.log(match);	
 		if (match) {
+			console.log('sukhi...');
 			
         		const token = generateToken(user);
 			console.log('123...');
