@@ -77,7 +77,7 @@ router.post('/login',(req, res) => {
 		//console.log(user.password)
 		console.log(response.password) 
 		const match = bcrypt.compareSync(user.password, response.password);
-		
+		console.log(match);	
 		if (match) {
 			
         		const token = generateToken(user);
