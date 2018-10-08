@@ -74,7 +74,8 @@ router.post('/login',(req, res) => {
  	 db.getUserByName(user.username)
 	 .then(response =>{
 		console.log(response.username) 
-		console.log(user.password response.password) 
+		console.log(user.password)
+		console.log(response.password) 
 		const match = bcrypt.compareSync(user.password, response.password);
 		
 		if (match) {
@@ -89,7 +90,7 @@ router.post('/login',(req, res) => {
       		}
     	})
     	.catch(error => {
-      		res.status(500).json({ error:"Failed to login" });
+      		res.status(500).json({ error:"Failed to login..." });
     })
 });
 
