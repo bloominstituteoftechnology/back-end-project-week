@@ -14,5 +14,6 @@ function getUserByName(username){
 function add(user) {
   return db('users')
     .insert(user)
-    .then(ids => ({ id: ids[0] }));
+    .returning('id')
+    .then(ids => ids[0]);
 }
