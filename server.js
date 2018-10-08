@@ -8,18 +8,18 @@ const server = express();
 const userRoutes = require('./Routes/userRoutes');
 const noteRoutes = require('./Routes/noteRoutes');
 
-server.use(cors({origin: 'https://fervent-borg-1591ca.netlify.com'}));
+//server.use(cors({origin: 'https://fervent-borg-1591ca.netlify.com'}));
 server.use(express.json());
 server.use(morgan('dev'));
 
 server.use(helmet());
 
-/*server.use(function(req, res, next) {
+server.use(function(req, res, next) {
    res.header("Access-Control-Allow-Origin", "https://fervent-borg-1591ca.netlify.com");
    res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST, OPTIONS');
    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
    next();
-});*/
+});
 
 
 server.get('/', (req,res) => {
