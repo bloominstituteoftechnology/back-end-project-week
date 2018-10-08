@@ -23,7 +23,9 @@ function generateToken(userId) {
     issuer: 'lambdastudent',
   };
 
-  return jwt.sign(payload, jwtKey, options);
+  let t= jwt.sign(payload, jwtKey, options);
+	console.log(t);
+	return t;
 }
 
 
