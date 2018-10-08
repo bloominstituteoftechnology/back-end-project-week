@@ -82,7 +82,7 @@ router.post('/login',(req, res) => {
 			
         		const token = generateToken(user);
 			console.log(token)
-			res.status(200).send(token);
+			res.status(200).send('Test...');
       		} 
 
 		else {
