@@ -22,7 +22,7 @@ const query = db('notes').where('id', id);
 }
 
 function getByTitle(search){
-        return db('notes').where('title', 'ilike', `${search}%`);
+        return db('notes').where('title', 'ilike', `$%{search}%`);
 }
 
 function insert(note) {

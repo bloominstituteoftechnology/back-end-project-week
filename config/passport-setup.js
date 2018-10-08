@@ -1,6 +1,7 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
-require('dotenv').load();
+require('dotenv').config();
+//require('dotenv').load();
 
 passport.use(
  new GoogleStrategy({
@@ -12,5 +13,5 @@ passport.use(
 	 console.log(profile)
  
 })  
-)
+);
 
