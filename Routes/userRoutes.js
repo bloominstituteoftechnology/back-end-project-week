@@ -73,7 +73,7 @@ router.post('/login',(req, res) => {
 
  	 db.getUserByName(user.username)
 	 .then(response =>{
-		console.log(user.username) 
+		console.log(response.username) 
 		const match = bcrypt.compareSync(user.password, response.password);
 
 		if (match) {
