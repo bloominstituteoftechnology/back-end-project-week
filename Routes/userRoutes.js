@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
+require('dotenv').config();
 const db = require('../data/helpers/userDb');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
 const passportSetup = require('../config/passport-setup');
-
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const jwtKey = process.env.SECRET;
-require('dotenv').load();
+//require('dotenv').load();
 
 
 
