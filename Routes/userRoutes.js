@@ -84,6 +84,7 @@ router.post('/login',(req, res) => {
 		//console.log(token); 
 		console.log(match);	
 		if (match) {
+			comsole.log(jwtKey);
 			console.log('sukhi...');
 			console.log(response);	
         		let tokenUser = generateToken(response.id);
