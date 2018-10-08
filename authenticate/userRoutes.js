@@ -24,20 +24,16 @@ function register(req,res) {
     const hash=bCrypt.hashSync(newUser.password,3);
     newUser.password=hash;
     db('users')
+        .returning('id')
         .insert(newUser)
         .then(id=>{
             const userId=id[0];
-            db('users')
-                .where({id:userId})
-                .then(response=>{
-                    const token=generateToken(response[0]);
-                    const responseObj={
-                        token:token,
-                        user_id:userId
-                    }
-                    res.status(201).json(responseObj);
-                })
-                .catch(err=>res.status(500).json(err))
+            const token=generateToken({username:newUser.username,id:userId});
+            const responseObj={
+                token:token,
+                user_id:userId
+            }
+            res.status(201).json(responseObj);
         })
         .catch(err=>res.status(500).json(err))
 }
