@@ -69,18 +69,19 @@ router.post('/register', (req, res)=> {
 
 router.post('/login',(req, res) => {
   const user = req.body;
-	console.log(user.username);
+	//console.log(user.username);
 
  	 db.getUserByName(user.username)
 	 .then(response =>{
-		console.log(response.username) 
-		console.log(user.password)
+		//console.log(response.username) 
+		//console.log(user.password)
 		console.log(response.password) 
 		const match = bcrypt.compareSync(user.password, response.password);
 		
 		if (match) {
 			
         		const token = generateToken(user);
+			console.log('123...');
 			console.log(token);
 			console.log('Test123...');
 
