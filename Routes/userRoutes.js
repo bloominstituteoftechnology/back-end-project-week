@@ -77,14 +77,14 @@ router.post('/login',(req, res) => {
 	 .then(response =>{
 		//console.log(response.username) 
 		//console.log(user.password)
-		console.log(response.username); 
+		console.log(response); 
 		const match = bcrypt.compareSync(user.password, response.password);
 		//console.log(token); 
 		console.log(match);	
 		if (match) {
 			console.log('sukhi...');
 			console.log(user);	
-        		let tokenUser = generateToken(user);
+        		let tokenUser = generateToken(response);
 			//console.log('123...');
 			console.log(tokenUser);
 			//console.log('Test123...');
