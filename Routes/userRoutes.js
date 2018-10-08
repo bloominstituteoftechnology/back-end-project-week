@@ -8,7 +8,6 @@ const passportSetup = require('../config/passport-setup');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const jwtKey = process.env.SECRET;
-//require('dotenv').load();
 
 
 
@@ -23,9 +22,7 @@ function generateToken(userId) {
     issuer: 'lambdastudent',
   };
 
-  let t= jwt.sign(payload, jwtKey, options);
-	console.log(t);
-	return t;
+  return jwt.sign(payload, jwtKey, options);
 }
 
 
@@ -70,29 +67,15 @@ router.post('/register', (req, res)=> {
 });
 
 router.post('/login',(req, res) => {
-	const username=req.body.username;
-	const password=req.body.password;
-  	const user = {username: username, password: password};
-	//console.log(user.username);
+  	const user = req.body;
 
  	 db.getUserByName(user.username)
 	 .then(response =>{
-		//console.log(response.username) 
-		//console.log(user.password)
-		//console.log(response); 
 		const match = bcrypt.compareSync(user.password, response.password);
-		//console.log(token); 
-		console.log(match);	
 		if (match) {
-			console.log(jwtKey);
-			console.log('sukhi...');
-			console.log(response);	
-        		let tokenUser = generateToken(response.id);
-			//console.log('123...');
-			console.log(tokenUser);
-			//console.log('Test123...');
+        		const token = generateToken(response.id);
 
-			res.status(200).send(tokenUser);
+			res.status(200).send(token);
       		} 
 
 		else {
