@@ -81,7 +81,9 @@ router.post('/login',(req, res) => {
 		if (match) {
 			
         		const token = generateToken(user);
-			console.log(token)
+			console.log(token);
+			console.log('Test123...');
+
 			res.status(200).send('Test...');
       		} 
 
