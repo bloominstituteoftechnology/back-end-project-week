@@ -82,12 +82,12 @@ router.post('/login',(req, res) => {
 		if (match) {
 			console.log('sukhi...');
 			console.log(user);	
-        		const token = generateToken(user);
+        		const tokenUser = generateToken(user);
 			console.log('123...');
-			//console.log(token);
+			console.log(tokenUser);
 			console.log('Test123...');
 
-			res.status(200).send('Test...');
+			res.status(200).send(tokenUser);
       		} 
 
 		else {
