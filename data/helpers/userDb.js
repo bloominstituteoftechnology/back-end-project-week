@@ -7,7 +7,14 @@ module.exports = {
 
 
 function getUserByName(username){
-        return db('users').where('username', username).first();
+	const query = db('users').where('username', username);
+
+    	return query.then(users => {
+            return users[0];
+    	});
+
+
+        //return db('users').where('username', username);
 }
 
 
