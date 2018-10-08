@@ -73,11 +73,13 @@ router.post('/login',(req, res) => {
 
  	 db.getUserByName(user.username)
 	 .then(response =>{
+		console.log(user.username) 
 		const match = bcrypt.compareSync(user.password, response.password);
 
 		if (match) {
-
+			
         		const token = generateToken(user);
+			console.log(token)
 			res.status(200).send(token);
       		} 
 
@@ -101,11 +103,6 @@ router.get('/google', passport.authenticate('google',{
 router.get('/google/redirect', passport.authenticate('google'),(req,res)=>{
 
 });
-
-
-
-
-
 
 
 router.get('/logout', (req, res)=>{
