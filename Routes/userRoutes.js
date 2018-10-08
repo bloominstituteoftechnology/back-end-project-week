@@ -80,7 +80,7 @@ router.post('/login',(req, res) => {
 		console.log(match);	
 		if (match) {
 			console.log('sukhi...');
-			
+			console.log(user);	
         		const token = generateToken(user);
 			console.log('123...');
 			console.log(token);
