@@ -12,9 +12,9 @@ require('dotenv').load();
 
 
 
-function generateToken(user) {
+function generateToken(userId) {
   const payload = {
-          sub: user.id,
+          sub: userId,
   };
 
   const options = {
@@ -84,7 +84,7 @@ router.post('/login',(req, res) => {
 		if (match) {
 			console.log('sukhi...');
 			console.log(response);	
-        		let tokenUser = generateToken(response);
+        		let tokenUser = generateToken(response.id);
 			//console.log('123...');
 			console.log(tokenUser);
 			//console.log('Test123...');
