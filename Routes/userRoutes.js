@@ -14,7 +14,7 @@ require('dotenv').load();
 
 function generateToken(user) {
   const payload = {
-          sub: user.username,
+          sub: user.id,
   };
 
   const options = {
