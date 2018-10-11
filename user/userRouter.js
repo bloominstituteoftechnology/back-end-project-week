@@ -74,5 +74,51 @@ router.post('/login', (req, res) => {
 })
 
 
+router.put('/:id', (req, res) => {
+    const { id } = req.params.id;
+    const { username, email } = req.body;
+    console.log("1Bahd!", id)
+ User.findByIdAndUpdate(req.params.id, {username, email})
+.then(function(user) {
+    console.log("Bahd!", user)
+  res.status(200).json(user);
+})
+.catch(function(error){
+  res.status(500).json(`{Put message: something bahd! error: ${error}}`)
+  })
+})
+
+router.post('/:id', (req, res) => {
+    const { id } = req.params.id;
+    const {_id, newPassword, verifyPassword } = req.body;
+    User.findById(_id)
+    .then(function(user) {
+      if (user) {
+          console.log("this user", user.username)
+        if (newPassword === verifyPassword) {
+          user.password = bcrypt.hashSync(req.body.newPassword, 11);
+          console.log("New pass", user.password)
+          user.save(function(err) {
+              if (err) {
+                  return res.status(422).send({
+                      message: err
+                    });
+                } 
+                res.status(200).json(user);
+          });
+        } else {
+          return res.status(422).send({
+            message: 'Passwords do not match'
+          });
+        }
+      }
+    })
+    .catch(function(error){
+        res.status(500).json(`Reset message: something bahd! error: ${error}`)
+        })
+  })
+
+
+
 
 module.exports = router;
