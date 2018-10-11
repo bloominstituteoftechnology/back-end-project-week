@@ -1,3 +1,8 @@
+
+Trello account URL
+https://trello.com/b/c7nwT5D7/lambda-notesbackend-lonnie-davis
+
+
 # Back End Project Week
 
 This week you will build a backend for a note taking app called "Lambda Notes".
