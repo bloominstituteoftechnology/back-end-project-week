@@ -1,5 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const validator = require('validator');
 
 const User = require('./User.js');
 const router = express.Router();
@@ -8,9 +9,9 @@ const secret = "toss me, but don't tell the elf!";
 router
   .route('/')
   .post((req, res) => {
-    const { username, password } = req.body;
-    if (!username || !password) {
-        res.status(400).json({ errorMessage: "Please provide username and password." })
+    const { username, password, email } = req.body;
+    if (!username || !password || !validator.isEmail(email)) {
+        res.status(400).json({ errorMessage: "Please provide username, password, and valid email address." })
         return;
     }
     User.create(req.body)
