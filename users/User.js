@@ -13,6 +13,12 @@ const User = mongoose.Schema({
         required: true,
         minlength: 4,
     },
+    emailAddress: {
+      type: String,
+      required: true,
+      lowercase: true,
+      unique: true
+    }
 });
 
 User.pre('save', function(next) {
