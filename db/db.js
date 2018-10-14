@@ -35,6 +35,18 @@ function deleteNote(noteId){
     return db('notes').where('id', '=', noteId).del()
 }
 
+//new and untested
+function deleteNoteAndChildren(noteId){
+    return db('notes').where('id', '=', noteId).del()
+    //and where parent id = noteId - delete 
+}
+
+//new and untested
+function deleteNoteModifyChildren(noteId){
+    return db('notes').where('id', '=', noteId).del()
+    //and (where parentid = noteID) change parentid to null or noteId's parent id
+}
+
 function editNote(editId, newNote){
     return db('notes').where('id', editId).update(newNote)
 }

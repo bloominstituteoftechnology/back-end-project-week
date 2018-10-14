@@ -41,7 +41,7 @@ notes.post('/', (req, res) => {
     req.body.userid = userid;
     console.log(req.body.userid, " \n ==req.body.userid== \n")
     //all new notes are assigned the same user Id
-        if(title){
+
             if(textBody){
                 dbFunc.addNote(req.body).then(id => {
                     res.status(201).json(id)
@@ -49,10 +49,7 @@ notes.post('/', (req, res) => {
             } else {
                 res.status(400).send('Please include a textBody in your request.')
             }
-        } else {
-            res.status(400).send('Please include a title in your request and try again.')
-        }
-    
+       
     //deleted check for no ID cause I think that was messing things up
 })
 
