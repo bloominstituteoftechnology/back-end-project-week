@@ -40,8 +40,8 @@ router.get('/:id', (req, res) => {
   })
 })
 router.post('/register', (req, res) => {
-    const { username, password, email } = req.body;
-    if (!username || !password ) {
+    const { name, username, password, email } = req.body;
+    if (!name || !username || !email || !password ) {
         res.status(400).json({ error: "Please provide a username, password and email!" });
         return;
     }
@@ -65,6 +65,7 @@ router.post('/login', (req, res) => {
                             const token = generateToken(user)
                             res.status(200).json({ 
                                 message: `welcome ${username}!`,
+                                name,
                                 username,
                                 token, 
                                 userId: _id 

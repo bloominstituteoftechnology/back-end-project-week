@@ -9,6 +9,10 @@ const SALT_ROUNDS = 11;
 const checkPasswordLength = password => password.length >= passwordLength
 
 const userSchema = new mongoose.Schema({
+  name: {
+    type: String,    
+    required: true,    
+  },
   username: {
     type: String,
     lowercase: true,
