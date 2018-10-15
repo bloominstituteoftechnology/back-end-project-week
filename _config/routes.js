@@ -1,15 +1,15 @@
 const noteRoutes = require('../note/noteRouter')
  const userRoutes = require('../user/userRouter');
  const jwt = require('jsonwebtoken');
- const wala = require('../wala');
+ //const wala = require('../wala');
 
- const secret = wala.secret;
+//  const secret = wala.secret;
 
  function restricted(req, res, next) {
         const token = req.headers.authorization;
     
         if (token) {
-            jwt.verify(token, secret, (err, decodedToken) => {
+            jwt.verify(token, process.env.REACT_APP_SECRET, (err, decodedToken) => {
                 
                 if (err) {
                     return res
