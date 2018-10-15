@@ -11,7 +11,7 @@
 
 # editor
 .vscode
-
+/wala.js
 # misc
 .DS_Store
 .env.local

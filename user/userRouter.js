@@ -2,6 +2,7 @@ const router = require('express').Router();
 const jwt = require('jsonwebtoken');
 const User = require('../user/User');
 const wala = require('../wala');
+const bcrypt = require("bcrypt");
 
 
 const secret = wala.secret;
@@ -10,8 +11,7 @@ function generateToken(user) {
     const options = {
         expiresIn: '1h',
     };
-    const payload = { name: user.username };
-
+    const payload = { name: user.username };  
     return jwt.sign(payload, secret, options);
 }
 
@@ -28,6 +28,17 @@ router.get('/', (req, res) => {
         });
 });
 
+router.get('/:id', (req, res) => {
+  
+ User.findById({ _id: req.params.id })
+.then(function(user) {
+    console.log("Bahd!", user)
+  res.status(200).json(user);
+})
+.catch(function(error){
+  res.status(500).json(`{Error occured while getting a user by ID: ${error}}`)
+  })
+})
 router.post('/register', (req, res) => {
     const { username, password, email } = req.body;
     if (!username || !password ) {
@@ -54,6 +65,7 @@ router.post('/login', (req, res) => {
                             const token = generateToken(user)
                             res.status(200).json({ 
                                 message: `welcome ${username}!`,
+                                username,
                                 token, 
                                 userId: _id 
                             })
@@ -73,43 +85,43 @@ router.post('/login', (req, res) => {
         })
 })
 
-
-router.put('/:id', (req, res) => {
-    const { id } = req.params.id;
-    const { username, email } = req.body;
-    console.log("1Bahd!", id)
- User.findByIdAndUpdate(req.params.id, {username, email})
-.then(function(user) {
-    console.log("Bahd!", user)
-  res.status(200).json(user);
-})
+router.put('/update/:id', (req, res) => {
+    const { _id, username, email} = req.body;     
+    User.findById({ _id: req.params.id })
+      .then(function(user) {
+          console.log("Back user", user)
+        if (user) {
+          (user.username = username), (user.email = email);
+          User.findByIdAndUpdate({ _id: req.params.id }, user)
+            .then(user => {
+              response.status(200).json(user);
+            })
+            .catch(err => {
+              res.status(500).json(`message: Error username or email: ${err}`);
+            });
+        }
+      })
 .catch(function(error){
   res.status(500).json(`{Put message: something bahd! error: ${error}}`)
   })
 })
 
-router.post('/:id', (req, res) => {
-    const { id } = req.params.id;
-    const {_id, newPassword, verifyPassword } = req.body;
-    User.findById(_id)
+router.put('/resetpassword/:_id', (req, res) => {    
+    const {_id, newPassword, verifyPassword, password} = req.body;  
+    User.findById({ _id: req.params._id })
     .then(function(user) {
-      if (user) {
-          console.log("this user", user.username)
-        if (newPassword === verifyPassword) {
-          user.password = bcrypt.hashSync(req.body.newPassword, 11);
-          console.log("New pass", user.password)
-          user.save(function(err) {
-              if (err) {
-                  return res.status(422).send({
-                      message: err
-                    });
-                } 
+      if (user) {        
+        if (bcrypt.compareSync(password, user.password)) {         
+          if (newPassword === verifyPassword) {
+            user.password = bcrypt.hashSync(newPassword, 11);
+            User.findByIdAndUpdate({ _id: req.params._id }, user)
+              .then(user => {              
                 res.status(200).json(user);
-          });
-        } else {
-          return res.status(422).send({
-            message: 'Passwords do not match'
-          });
+              })
+              .catch(err => {
+                res.status(500).json(`message: Error reseting password: ${err}`);
+              });
+          }
         }
       }
     })
