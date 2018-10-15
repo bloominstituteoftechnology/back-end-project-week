@@ -1,18 +1,18 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
 const User = require('../user/User');
-// const wala = require('../wala');
+const wala = require('../wala');
 const bcrypt = require("bcrypt");
 
 
-// const secret = wala.secret;
+const secret = wala.secret;
 
 function generateToken(user) {
     const options = {
         expiresIn: '1h',
     };
     const payload = { name: user.username };  
-    return jwt.sign(payload, process.env.REACT_APP_SECRET, options);
+    return jwt.sign(payload, secret, options);
 }
 
 router.get('/', (req, res) => {
