@@ -11,12 +11,12 @@ const noteSchema = new mongoose.Schema({
   checklist: {
     type: String
   },
-  creator: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-    default: "5bad30709d410615f14ef517",   
-  },
+  // creator: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: 'User',
+  //   required: true,
+  //   default: "5bad30709d410615f14ef517",   
+  // },
   createdOn: {
     type: Date,
     required: true,
