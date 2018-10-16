@@ -62,6 +62,7 @@ router.post('/login', (req, res) => {
                     .then(match => {
                         if (match) {                            
                             const { username, _id, name } = user;
+                            console.log("User", user)
                             const token = generateToken(user)
                             res.status(200).json({ 
                                 message: `welcome ${username}!`,

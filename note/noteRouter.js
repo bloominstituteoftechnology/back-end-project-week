@@ -14,7 +14,7 @@ router
   })
 
   .post((req, res) => {
-    const newNote = { title, content, checklist } = req.body
+    const newNote = { title, content, checklist, creator, createdOn } = req.body
     Note.create(newNote)
       .then( note => {
         res.status(201).json(note)
