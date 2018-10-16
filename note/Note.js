@@ -14,7 +14,8 @@ const noteSchema = new mongoose.Schema({
   creator: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    // required: true,    
+    required: true,
+    default: "5bad30709d410615f14ef517",   
   },
   createdOn: {
     type: Date,
