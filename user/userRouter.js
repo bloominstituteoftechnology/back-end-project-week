@@ -42,17 +42,25 @@ router.get('/:id', (req, res) => {
 router.post('/register', (req, res) => {
     const { name, username, password, email } = req.body;
     if (!name || !username || !email || !password ) {
-        res.status(400).json({ error: "Please provide a username, password and email!" });
+        res.status(401).json({ error: "Please completely fill out the form!" });
         return;
-    }
-    User.create(req.body)
-        .then(({ username }) => {
+    }   
+    User.findOne({username})
+        .then( user => {
+            if(user) {
+            res.status(400).json({ error: "An account with this username already exists!" });
+            return;
+            }
+            User.create(req.body)
+            .then(({username}) => {
             const token = generateToken({ username });
             res.status(201).json({ username, token });
         })
-        .catch(err => res.status(500).json(err));
-});
-
+        .catch(err => {
+            res.status(500).json({error: "Something went wrong while creating account!" })
+    })
+   })
+})
 router.post('/login', (req, res) => {
     const { username, password } = req.body
     User.findOne({ username })
@@ -72,14 +80,14 @@ router.post('/login', (req, res) => {
                                 userId: _id 
                             })
                         } else {
-                            res.status(401).json({ error: 'Invalid credentials, check your username and password!' })
+                            res.status(401).json({ error: 'Invalid username or password!' })
                         }
                     })
                     .catch(err => {
                         res.status(500).json(`{ error: error processing information. error: ${err}}`)
                     })
             } else {
-                res.status(401).json({ error: 'Invalid credentials, check your username and password!' })
+                res.status(401).json({ error: 'Invalid username or password!' })
             }
         })
         .catch(err => {
