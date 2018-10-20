@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
   "main": "server.js",
+  "engines": {
+    "node": "10.2.1"
+  },
   "scripts": {
     "mini-test": "jest",
     "test": "jest --watch --verbose --detectOpenHandles",
