@@ -62,11 +62,11 @@ const addTagsToDB = (noteId, tags) => new Promise((resolve) => {
                 .transacting(trx)
                 .insert(mappings);
             })
-            .then(_resultsForDebug => trx.commit())
-            .catch(_resultsForDebug => trx.rollback())
+            .then(() => trx.commit())
+            .catch(() => trx.rollback())
         );
       })
-      .then(_resultsForDebug => resolve(noteId))
+      .then(() => resolve(noteId))
       .catch((err) => {
         console.log(`warning: note was created but an error occurred in tag creation: ${err}`);
         return resolve(noteId);
@@ -178,7 +178,7 @@ server.post(process.env.PATH_POST_NOTE, (req, res, next) => {
           .transacting(trx)
           .where('id', '=', id)
           .update({ right: db.raw('NULL') })
-          .then(_resultsForDebug => db('notes')
+          .then(() => db('notes')
             .transacting(trx)
             .insert({
               ...camelToSnake(note),
@@ -194,8 +194,8 @@ server.post(process.env.PATH_POST_NOTE, (req, res, next) => {
               .where('id', '=', id)
               .update({ right: newId });
           })
-          .then((_resultsForDebug) => {
-            return trx.commit().then((_resultsForDebug) => {
+          .then(() => {
+            return trx.commit().then(() => {
               return resolve(newId);
             });
           })
@@ -378,7 +378,7 @@ server.put(process.env.PATH_MOVE_NOTE, (req, res, next) => {
           Promise.all(promises)
           // Insertion Logic
           // obtain left property of drop target
-            .then(_resultsForDebug => db('notes')
+            .then(() => db('notes')
               .transacting(trx)
               .select('left')
               .where('id', '=', dropId)
@@ -414,7 +414,7 @@ server.put(process.env.PATH_MOVE_NOTE, (req, res, next) => {
         );
       });
     })
-    .then(_resultsForDebug => res.status(200).end())
+    .then(() => res.status(200).end())
     .catch((err) => {
       console.log(err);
       return next(new HttpError(500, 'Database error prevented the transaction from completing.'));
