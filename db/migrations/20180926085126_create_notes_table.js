@@ -19,6 +19,8 @@ exports.up = function(knex, Promise) {
             .defaultsTo(false);
         tbl.bool('isDeleted')
             .defaultsTo(false);
+        tbl.string('note_color');
+        tbl.string('links');
         //collaborators
     })
 };
