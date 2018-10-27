@@ -74,10 +74,15 @@ function getUser(userid){
 // }
 // incomplete and untested but the idea is that it acts as a redirect for the poceket app or other api like slack to send back a code and then the server then sends a token request which it returns and stores on the server. keeping the token off the front end.I think. 
 
-function addAccessToken(username, token){
-    return db('users').where('username', username).update('slack_access_token', token)
+function addAccessToken(username, token, account){
+    return db('users').where('username', username).update('slack_access_token', token).update(account, true)
 }
+
 
 function checkUser(username){
     db('users').where('username', username)
+}
+
+function userAccounts(username){
+    db('users').where('username', username).select('slack')
 }

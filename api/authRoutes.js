@@ -35,12 +35,9 @@ auth.get('/slack/:id', (req, res) => {
         let tokenRequest = `client_id=${client_id}&code=${code}&client_secret=${client_secret}&redirect_uri=${redirect_uri}`
         console.log(tokenRequest, 'tokenRequest')
         axios.post('https://slack.com/api/oauth.access', tokenRequest).then(foo => {
-            // console.log(res, 'res')
-            console.log(foo, 'foo')
             let token = foo.data.access_token
-            console.log(token)
-            dbFunc.addAccessToken(req.params.id, token).then(foobar => {
-                res.status(200).json(foobar)
+            dbFunc.addAccessToken(req.params.id, token, 'slack').then(foobar => {
+                res.status(200).json('you may exit and return to anotesappthatdoesntsuck')
             }).catch(err => {
                 res.status(400).send(err)
             })
@@ -50,6 +47,14 @@ auth.get('/slack/:id', (req, res) => {
     } else {
         res.send(500).send('unable to process request. failed at redirect_uri')
     }
+})
+
+auth.get('/accounts/:username', (req, res) => {
+    dbFunc.userAccounts(req.params.username).then(res => {
+        console.log(res)
+    }).catch(err => {
+        console.log(err.message)
+    })
 })
 
 module.exports = auth
