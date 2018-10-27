@@ -20,30 +20,31 @@ auth.get('/twitter', (req, res) => {
 })
 
 auth.get('/slack/:id', (req, res) => {
-    console.log(req.params.id)//should be username
+    // console.log(req.params.id)//should be username
     if(req.query.code){
-        console.log(req.query.code, '3')
-        console.log(req.query.state, '4')
-        // dbFunc.saveTwitterToken().then(res => {
-        //     console.log('resend to get teh real token')
-        // })
-        let code = req.query.code
-        let username = req.params.id
-        let client_id = '465374768868.465546770546'//should be var
-        let client_secret = '1324d3625083c4b5a834b58b5c1a9e3c' //should be var
-        let redirect_uri = `http://localhost:3333/api/auth/slack/${username}` //should be self
-        let tokenRequest = `client_id=${client_id}&code=${code}&client_secret=${client_secret}&redirect_uri=${redirect_uri}`
-        console.log(tokenRequest, 'tokenRequest')
-        axios.post('https://slack.com/api/oauth.access', tokenRequest).then(foo => {
-            let token = foo.data.access_token
-            dbFunc.addAccessToken(req.params.id, token, 'slack').then(foobar => {
-                res.status(200).json('you may exit and return to anotesappthatdoesntsuck')
+        dbFunc.getSlackSecret('slack').then(secret => {
+            // console.log(req.query.code, '3')
+            // console.log(req.query.state, '4')
+            let code = req.query.code
+            let username = req.params.id
+            let client_id = '465374768868.465546770546'
+            let client_secret = secret //should be var
+            let redirect_uri = `http://localhost:3333/api/auth/slack/${username}`
+            let tokenRequest = `client_id=${client_id}&code=${code}&client_secret=${client_secret}&redirect_uri=${redirect_uri}`
+            console.log(tokenRequest, 'tokenRequest')
+            axios.post('https://slack.com/api/oauth.access', tokenRequest).then(foo => {
+                let token = foo.data.access_token
+                dbFunc.addAccessToken(req.params.id, token, 'slack').then(foobar => {
+                    res.status(200).json('you may exit and return to anotesappthatdoesntsuck')
+                }).catch(err => {
+                    res.status(400).send(err)
+                })
             }).catch(err => {
-                res.status(400).send(err)
+                console.log(err.message, "there was an error processing your request")
             })
-        }).catch(err => {
-            console.log(err.message, "there was an error processing your request")
-        })
+            }).catch(err => {
+                res.send(500).json(err, 'database error')
+            })
     } else {
         res.send(500).send('unable to process request. failed at redirect_uri')
     }

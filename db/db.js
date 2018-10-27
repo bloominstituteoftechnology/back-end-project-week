@@ -18,7 +18,8 @@ module.exports = {
     getNote,
     checkUser, 
     addAccessToken, 
-    getUserSettings
+    getUserSettings,
+    getSlackSecret
 }
 
 function getNotes(userid){
@@ -85,4 +86,8 @@ function checkUser(username){
 
 function getUserSettings(userid){
    return db('users').where('id', userid).select('slack', 'username', 'firstname', 'lastname', 'slack_scope', 'slack_team_name' ).first()
+}
+
+function getSlackSecret(name){
+    return db('client').where('api_name', name).select('api_client_secret')
 }
