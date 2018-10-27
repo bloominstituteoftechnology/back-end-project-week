@@ -10,6 +10,7 @@ notes.get('/', (req, res) => {
     res.status(200).json({message: "MJK-LSN api/notes/ is running."})
 })
 
+
 notes.get('/test/', (req, res) => {
     dbFunc.getNotes().then(allNotes => {
         res.status(200).send(allNotes)

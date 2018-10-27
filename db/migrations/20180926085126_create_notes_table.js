@@ -22,6 +22,8 @@ exports.up = function(knex, Promise) {
         tbl.string('note_color');
         tbl.string('links');
         //collaborators
+        //created att 
+        //modified att
     })
 };
 

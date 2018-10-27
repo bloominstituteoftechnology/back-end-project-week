@@ -16,12 +16,14 @@ module.exports = {
     addUser,
     getUser,
     getNote,
-    checkUser
+    checkUser, 
+    addAccessToken
 }
 
 function getNotes(userid){
     return db('notes').where('userid', userid).andWhere('isDeleted', false)
 }
+
 
 function getNote(userid, id){
     return db('notes').where('userid', userid).andWhere('id', id)
@@ -66,6 +68,16 @@ function getUser(userid){
         return db('users')
     }
 }
+
+// function savePocketToken(userid, pocketToken){
+//     return db('users').where('userid', userid).update('pocketToken', pocketToken)
+// }
+// incomplete and untested but the idea is that it acts as a redirect for the poceket app or other api like slack to send back a code and then the server then sends a token request which it returns and stores on the server. keeping the token off the front end.I think. 
+
+function addAccessToken(username, token){
+    return db('users').where('username', username).update('slack_access_token', token)
+}
+
 function checkUser(username){
-     db('users').where('username', username)
+    db('users').where('username', username)
 }

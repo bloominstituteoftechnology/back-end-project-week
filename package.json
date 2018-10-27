@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/MKerbleski/back-end-project-week#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.4",
     "dotenv": "^6.0.0",
