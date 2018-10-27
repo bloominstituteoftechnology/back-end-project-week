@@ -40,8 +40,9 @@ user.get('/', (req, res) => {
     res.status(200).json({message: `MJK-LSN /users is runningon port ${PORT}.`})
 })
 
-user.get('/settings/:username', (req,res) => {
-    dbFunc.getUserSettings(req.params.username).then(userSettings => {
+user.get('/settings/', (req,res) => {
+    console.log(req.userid)
+    dbFunc.getUserSettings(req.userid).then(userSettings => {
         res.status(200).send(userSettings)
     }).catch(err => {
         res.staus(400).json(err, 'bad request or database error from /settings/:username')
