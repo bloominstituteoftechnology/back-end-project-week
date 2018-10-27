@@ -78,11 +78,10 @@ function addAccessToken(username, token, account){
     return db('users').where('username', username).update('slack_access_token', token).update(account, true)
 }
 
-
 function checkUser(username){
     db('users').where('username', username)
 }
 
-function userAccounts(username){
-    db('users').where('username', username).select('slack')
+function userSettings(username){
+    db('users').where('username', username).select('slack', 'username', 'firstname', 'lastname', 'slack_scope', 'slack_team_name' )
 }

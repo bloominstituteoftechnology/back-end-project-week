@@ -6,6 +6,7 @@ const router = express.Router();
 const welcomeRoutes = require('./welcomeRoutes.js')
 const notesRoutes = require('./notesRoutes.js')
 const authRoutes = require('./authRoutes.js')
+const userRoutes = require('./userRoutes.js')
 const { protect } = require('./middleware')
 
 router.use(express.json());
@@ -17,6 +18,7 @@ router.get('/', (req, res) => {
 
 router.use('/welcome/', welcomeRoutes);
 router.use('/notes/', protect, notesRoutes);
+router.use('/user/', protect, userRoutes);
 
 router.use('/auth/', authRoutes);
 
