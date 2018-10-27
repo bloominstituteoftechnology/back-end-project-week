@@ -7,6 +7,7 @@ const welcomeRoutes = require('./welcomeRoutes.js')
 const notesRoutes = require('./notesRoutes.js')
 const authRoutes = require('./authRoutes.js')
 const userRoutes = require('./userRoutes.js')
+
 const { protect } = require('./middleware')
 
 router.use(express.json());

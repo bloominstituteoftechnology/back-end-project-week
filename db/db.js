@@ -18,7 +18,7 @@ module.exports = {
     getNote,
     checkUser, 
     addAccessToken, 
-    userSettings
+    getUserSettings
 }
 
 function getNotes(userid){
@@ -83,6 +83,6 @@ function checkUser(username){
     db('users').where('username', username)
 }
 
-function userSettings(userid){
-    db('users').where('id', userid).select('slack', 'username', 'firstname', 'lastname', 'slack_scope', 'slack_team_name' )
+function getUserSettings(userid){
+   return db('users').where('id', userid).select('slack', 'username', 'firstname', 'lastname', 'slack_scope', 'slack_team_name' ).first()
 }
