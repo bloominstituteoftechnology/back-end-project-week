@@ -4,8 +4,10 @@ const server = express();
 const knex = require('knex');
 const knexConfig = require('./knexfile.js');
 const db = knex(knexConfig.development);
+const cors = require('cors');
 
-server.use(helmet());
+
+server.use(helmet(), cors());
 server.use(express.json());
 
 
@@ -23,8 +25,7 @@ server.get('/api/notes/:id',  (req, res) => {
         .first()
         .then(note => {
             if(note) {
-            db('actions').where({ note_id: id }).then(actions => {
-                note.actions = actions;
+            db('notes').where({ id: id }).then(note => {
                 res.status(200).json(note)
             })
         .catch(err => {
