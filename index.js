@@ -78,4 +78,20 @@ server.post('/notes', (req, res)=> {
         })
 });
 
+server.delete('/notes/:id', (req, res)=> {
+    const {id} = req.params;
+    db('notes')
+    .where({id})
+    .delete()
+    .then(count=> { 
+        if (!id) {
+            res.status(404).json({message: "The information you requested does not exist"});
+        }
+        res.status(200).json(count);
+    })
+    .catch(err=> {
+        res.status(500).json(err);
+    })
+});
+
 server.listen(9000, ()=> console.log('API running on port 9000'));
