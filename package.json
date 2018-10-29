@@ -6,6 +6,9 @@
   "repository": "https://github.com/Mlancelot88/back-end-project-week.git",
   "author": "Marious Davis <mlancelot88@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
