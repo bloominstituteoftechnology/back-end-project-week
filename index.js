@@ -40,6 +40,20 @@ db('notes')
 
 });
 
+server.put('/api/notes/:id',(req,res)=>{
+  const {title,content} = req.body
+  const newPost ={title,content}
+  const{id}= req.params;
+  res.send('');
+  db.update(id,newPost)
+  .then(post=>{
+    res.status(200).json(post);
+    console.log('Success',post);
+  })
+  .catch(err=>{
+    res.send(err)
+  })
+})
 
 
 
