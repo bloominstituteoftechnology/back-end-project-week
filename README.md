@@ -56,7 +56,7 @@ Once your MVP has been approved, you have been given a feature list that the cli
 - Create and display tags that can be added to notes and stored in the Database.
 - Allow users to clone notes.
 - Search functionality.
-- Create a Registration Page that allows users to create accounts for your app and sign in with email/password.
+- Create a Registration Page that allows users to create acdcounts for your app and sign in with email/password.
 - Allow users to sign in with a third party service (google, facebook, github, club penguin, etc...)
 - Allow users to create Lists and assign notes to a list.
 - Allow users to attach images to notes.
