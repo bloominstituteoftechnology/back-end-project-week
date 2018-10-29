@@ -6,18 +6,27 @@ import { connect } from "react-redux";
 import OneNote from "./components/NotesContainer/OneNote";
 import { withRouter } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import Axios from "axios";
 
 class NoteContainer extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			modal: false,
-			backdrop: true
+			backdrop: true,
+			title: "",
+			body: ""
 		};
 
 		this.toggle = this.toggle.bind(this);
 	}
-
+	componentDidMount = () => {
+		const noteID = parseInt(this.props.match.params.id, 10);
+		Axios.get(`http://localhost:3300/notes/${noteID}`).then(note => {
+			console.log(note);
+			this.setState({ title: note.data[0].title, body: note.data[0].body });
+		});
+	};
 	toggle() {
 		this.setState({
 			modal: !this.state.modal
@@ -41,10 +50,6 @@ class NoteContainer extends React.Component {
 
 	render(props) {
 		const noteID = parseInt(this.props.match.params.id, 10);
-		console.log(noteID);
-
-		let thisNote = this.props.notes.find(note => note.id === noteID);
-		console.log(thisNote);
 		return (
 			<div>
 				<div className="App">
@@ -62,9 +67,9 @@ class NoteContainer extends React.Component {
 							</button>
 						</div>
 						<OneNote
-							note={thisNote}
-							title={thisNote.title}
-							body={thisNote.body}
+							// note={thisNote}
+							title={this.state.title}
+							body={this.state.body}
 						/>
 					</div>
 				</div>

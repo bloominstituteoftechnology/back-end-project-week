@@ -24,7 +24,7 @@ server.get("/notes", (req, res) => {
 server.get("/notes/:id", (req, res) => {
 	const id = req.params.id;
 	db("notes")
-		.where(id)
+		.where({ id: id })
 		.then(note => {
 			res.status(200).json(note);
 		})
