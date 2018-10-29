@@ -60,5 +60,22 @@ server.post('/notes', (req, res)=> {
         })
   });
   
+  server.put('/notes/:id', (req, res)=> {
+    const {id} = req.params;
+    const changes = req.body;
+    db('notes')
+        .where({id})
+        .update(changes)
+        .then(count => {
+            if (! count || count < 1) {
+                res.status(404).json({message: "The information you requested does not exist"});
+            } else {
+                res.status(200).json(count);
+            }
+        })
+        .catch(err=> {
+            res.status(500).json(err);
+        })
+});
 
 server.listen(9000, ()=> console.log('API running on port 9000'));
