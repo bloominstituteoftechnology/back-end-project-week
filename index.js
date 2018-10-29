@@ -9,3 +9,9 @@ const server = express();
 
 server.use(express.json());
 server.use(cors());
+
+// listening port
+const port = 5000;
+server.listen(port, function() {
+  console.log(`\n=== Server listening on port ${port} ===\n`);
+});
