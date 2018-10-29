@@ -6,9 +6,9 @@ exports.seed = function(knex, Promise) {
     .then(function() {
       // Inserts seed entries
       return knex('tags').insert([
-        { tag_name: 'tag1', note_id: 1 },
-        { tag_name: 'tag2', note_id: 2 },
-        { tag_name: 'tag3', note_id: 3 },
+        { tag_name: 'Actor', note_id: 1 },
+        { tag_name: 'Rapper', note_id: 2 },
+        { tag_name: 'Clone', note_id: 3 },
       ]);
     });
 };
