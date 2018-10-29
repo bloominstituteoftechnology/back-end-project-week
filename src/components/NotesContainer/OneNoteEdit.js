@@ -29,6 +29,7 @@ class OneNoteEdit extends Component {
 
 	editNote = (title, body) => {
 		const noteID = parseInt(this.props.match.params.id, 10);
+		console.log(noteID);
 		let updatedNote = { title, body, noteID };
 		console.log(updatedNote);
 		this.props.updateNote(updatedNote);

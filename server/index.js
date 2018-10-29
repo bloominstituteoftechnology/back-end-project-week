@@ -54,7 +54,7 @@ server.post("/notes/", (req, res) => {
 });
 //Update an already existing note
 server.put("/notes/:id", (req, res) => {
-	const id = req.body;
+	const id = req.params.id;
 	console.log(id);
 	const title = req.body.title;
 	const body = req.body.body;
