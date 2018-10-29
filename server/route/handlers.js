@@ -19,8 +19,20 @@ router.get('/:id', (req, res) => {
   helpers
     .getNote(id)
       .then(id => {
-        console.log(id);
         res.status(200).json({ id });
+      })
+      .catch(err => {
+        res.status(500).json(err);
+      });
+});
+
+router.delete('/:id', (req, res) => {
+  const { id } = req.params;
+  helpers
+    .deleteNote(id)
+      .then(note => {
+        console.log(note);
+        res.status(200).json({ message: `${note} note(s) were deleted`})
       })
       .catch(err => {
         res.status(500).json(err);
