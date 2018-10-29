@@ -47,6 +47,21 @@ server.post("/notes/", (req, res) => {
 		});
 });
 
+server.put("/notes/:id", (req, res) => {
+	const id = req.params.id;
+	const { title, body } = req.body;
+	const note = { title, body };
+	db("notes")
+		.where({ id })
+		.update(note)
+		.then(note => {
+			res.status(200).json(note);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "could not update note" });
+		});
+});
+
 server.listen(port, () => {
 	console.log(`Server now listening on Port ${port}`);
 });
