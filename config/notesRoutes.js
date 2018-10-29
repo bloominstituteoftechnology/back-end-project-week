@@ -57,4 +57,21 @@ router.post('/notes', (req, res) => {
     });
 });
 
+//Add DELETE ROUTE HANDLER to delete a note
+router.delete('/notes/:id', async (req, res) => {
+  const { id } = req.params;
+
+  db('notes')
+    .where ({ id })
+    .del()
+    .then(count => {
+      if (!count || count < 1) {
+        res.status(404).json({ message: 'No records found to delete.'});
+      } else {
+        res.status(200).json(count);
+      }
+    })
+    .catch(err => res.status(500).json(err));
+  });
+
 module.exports = router;
