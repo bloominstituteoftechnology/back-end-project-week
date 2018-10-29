@@ -11,4 +11,13 @@ router.get('/', (req, res) => {
 		.catch(err => res.status(500).json({ error: `Server could not retrieve notes: ${ err }`}));
 });
 
+// insert new note and return that newly inserted note
+router.post('/', (req, res) => {
+	const note = req.body;
+	return noteDb
+		.insert(note)
+		.then(note => res.status(201).json(note))
+		.catch(err => res.status(500).json({ error: `Server could not insert note: ${ err }`}));
+});
+
 module.exports = router;
