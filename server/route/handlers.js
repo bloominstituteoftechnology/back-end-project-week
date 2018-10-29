@@ -4,6 +4,7 @@ const router = express.Router();
 const getHelper = require('./helpers/read/getHelpers.js');
 const deleteHelper = require('./helpers/delete/deleteHelpers.js')
 const postHelper = require('./helpers/create/postHelpers.js');
+const putHelper = require('./helpers/update/putHelpers.js');
 
 router.get('/', (req, res) => {
   getHelper
@@ -33,8 +34,8 @@ router.delete('/:id', (req, res) => {
   const { id } = req.params;
   deleteHelper
     .deleteNote(id)
-      .then(note => {
-        res.status(200).json({ message: `${note} note(s) were deleted`})
+      .then(notesDeleted => {
+        res.status(200).json({ message: `${notesDeleted} note(s) were deleted`})
       })
       .catch(err => {
         res.status(500).json(err);
@@ -47,6 +48,19 @@ router.post('/', (req, res) => {
     .createNote(note)
       .then(notes => {
         res.status(200).json(notes);
+      })
+      .catch(err => {
+        res.status(500).json(err);
+      });
+});
+
+router.put('/:id', (req, res) => {
+  const note = req.body;
+  const { id } = req.params;
+  putHelper
+    .updateNote(id, note)
+      .then(notesDeleted => {
+        res.status(200).json({ message: `${notesDeleted} note(s) were updated` });
       })
       .catch(err => {
         res.status(500).json(err);
