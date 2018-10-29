@@ -1,4 +1,4 @@
-const db = require('./configs/ntoesDbConfigTest.js')
+const db = require('./configs/notesDbConfig.js')
 const table = 'notes'
 
 module.exports = {
