@@ -12,8 +12,18 @@ server.use(morgan('combined'));
 server.use(cors());
 server.use(express.json());
 
-const port = 9000;
 
+server.get('/notes', (req, res)=> {
+    db('notes')
+    .then(notes=> {
+        if (notes === 0) {
+            res.status(404).json({message: "The information you requested does not exist"});
+        }
+        res.status(200).json(notes);
+    })
+    .catch(err=> {
+        res.status(500).json({error: "The information could not be retrieved from the database"});
+    })
+});
 
-
-server.listen(port, ()=> console.log(`API running on port ${port}`));
+server.listen(9000, ()=> console.log('API running on port 9000'));
