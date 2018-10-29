@@ -23,7 +23,23 @@ server.get('/api/notes',(req,res)=>{
   .catch(err=>{
     res.send(err);
   })
+});
+
+
+server.post('/api/notes', (req,res)=>{
+    const newNote = req.body;
+db('notes')
+.insert(newNote)
+.then(id=>{
+  const ids =id[0];
+  res.status(200).json(newNote)
 })
+.catch(err=>{
+  res.send(err);
+})
+
+});
+
 
 
 
