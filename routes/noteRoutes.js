@@ -7,8 +7,25 @@ const router	= express.Router();
 router.get('/', (req, res) => {
 	return noteDb
 		.get()
-		.then(notes => res.status(200).json(notes))
-		.catch(err => res.status(500).json({ error: `Server could not retrieve notes: ${ err }`}));
+		.then(notes => {
+			if (!notes.length) return res.status(404).json({ error: 'No notes in database.' });
+			return res.status(200).json(notes);
+		})
+		.catch(err => res.status(500).json({ error: `Server could not get notes: ${ err }`}));
+});
+
+// return a note with given id
+router.get('/:id', (req, res) => {
+	const { id } = req.params;
+	return noteDb
+		.get(id)
+		.then(note => {
+			if (!note.length) {
+				return res.status(404).json({ error: `Note with id ${ id } does not exist.` });
+			}
+			return res.status(200).json(note);
+		})
+		.catch(err => res.status(500).json({ error: `Server could not get note: ${ err }`}));
 });
 
 // insert new note and return that newly inserted note
