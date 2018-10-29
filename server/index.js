@@ -46,11 +46,14 @@ server.post("/notes/", (req, res) => {
 			res.status(400).json({ error: "could not create note" });
 		});
 });
-
+//Update an already existing note
 server.put("/notes/:id", (req, res) => {
 	const id = req.params.id;
 	const { title, body } = req.body;
 	const note = { title, body };
+	if (!note.title || !note.body) {
+		res.status(400).json({ error: "note must have a title and body" });
+	}
 	db("notes")
 		.where({ id: id })
 		.update({ title: note.title, body: note.body })
