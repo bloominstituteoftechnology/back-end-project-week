@@ -64,6 +64,19 @@ server.put("/notes/:id", (req, res) => {
 			res.status(400).json({ error: "could not update note" });
 		});
 });
+// DELETE a single note by id
+server.delete("/notes/:id", (req, res) => {
+	const id = req.params.id;
+	db("notes")
+		.where({ id: id })
+		.del()
+		.then(del => {
+			res.status(200).json({ del });
+		})
+		.catch(err => {
+			res.status(400).json({ error: "could not delete note" });
+		});
+});
 
 server.listen(port, () => {
 	console.log(`Server now listening on Port ${port}`);
