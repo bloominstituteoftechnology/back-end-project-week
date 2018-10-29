@@ -50,4 +50,16 @@ router.put('/:id', (req, res) => {
 		.catch(err => res.status(500).json({ error: `Server could not update note: ${ err }`}));
 });
 
+// remove an existing note
+router.delete('/:id', (req, res) => {
+	const { id } = req.params;
+	return noteDb
+		.remove(id)
+		.then(del => {
+			if (del) return res.status(200).json(`Note with id ${ id } was deleted successfully.`);
+			return res.status(404).json(`Note with id ${ id } does not exist.`);
+		})
+		.catch(err => res.status(500).json({ error: `Server could not delete note: ${ err }`}));
+});
+
 module.exports = router;
