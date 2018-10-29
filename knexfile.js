@@ -9,7 +9,7 @@ module.exports = {
     useNullAsDefault: true,
     migrations: {
       directory: "./data/migrations",
-      tablename: "dbmigrations"
+      tablename: "dbnotes"
     },
     seeds: {
       directory: "./data/seeds"
