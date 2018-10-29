@@ -11,5 +11,5 @@ module.exports = {
     migrations: {
       directory: './data/migrations'
     },
-  },W
+  },
 }; 
