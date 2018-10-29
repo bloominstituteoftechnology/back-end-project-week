@@ -21,6 +21,25 @@ router.get('/', (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
+// Add GET ROUTE HANDLER to get a note by id
+router.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const note = await db('notes')
+      .where({ id })
+      .first();
+
+    if (note) {
+      res.status(200).json(note);
+    } else {
+      res.status(404).send({ error: "Note id does not exist. Please provide a valid note id." });
+    }
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
 // Add POST ROUTE HANDLER to create a note
 router.post('/notes', (req, res) => {
   if (!req.body.title || !req.body.textBody){
