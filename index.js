@@ -75,6 +75,24 @@ server.put('/api/notes/:id', (req, res) => {
     })
 });
 
+// delete an existing note
+server.delete('/api/notes/:id', (req, res) => {
+  const { id } = req.params;
+  db('notes')
+    .where({ id })
+    .del() 
+    .then(note => {
+      if (!note || note < 1) {
+        res.status(404).json({ message: 'The note with the specified ID does not exist.' });
+      } else {
+        res.status(200).json(note);
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ error: "The note could not be removed", err });
+    })
+});
+
 // listening port
 const port = 5000;
 server.listen(port, function() {
