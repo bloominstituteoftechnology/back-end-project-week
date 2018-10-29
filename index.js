@@ -43,6 +43,19 @@ server.get('/api/notes/:id', (req, res) => {
     })
 });
 
+// create a note with a title and content
+server.post('/api/notes', (req, res) => {
+  const note = req.body;
+  db.insert(note)
+    .into('notes')
+    .then(id => {
+      res.status(201).json(id);
+    })
+    .catch(err => {
+      res.status(500).json({ error: 'There was an error while saving the post to the database.', err });
+    })
+});
+
 // listening port
 const port = 5000;
 server.listen(port, function() {
