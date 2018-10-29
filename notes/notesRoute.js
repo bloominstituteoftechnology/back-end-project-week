@@ -13,6 +13,23 @@ router.get('/', (req, res) => {
         .catch(err => res.status(500).json(err));
 });
 
+router.get('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const note = await notes.findById(id);
+
+        if (note) {
+            res.status(200).json(note);
+        } else {
+            res.status(404).json({ message: 'Note not found' });
+        }
+
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+
 router.post('/', (req, res) => {
     const note = req.body;
 
