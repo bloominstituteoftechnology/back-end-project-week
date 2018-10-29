@@ -89,6 +89,25 @@ server.put('/api/notes/:id', (req, res) => {
 });
 
 
+// ========== DELETE NOTE ========== //
+server.delete('/api/notes/:id', (req, res) => {
+    const edit = req.body;
+
+    db('notes')
+        .where({ id: req.params.id })
+        .delete()
+        .then(response => {
+            if (response === 0) {
+                res.status(404).json('Could not find note');
+            } else {
+                res.status(200).json(response);
+            }
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        });
+});
+
 
 // ==========  SERVER PORT 7000 ========== //
 server.listen(port, () => {
