@@ -13,5 +13,8 @@
     "helmet": "^3.14.0",
     "knex": "^0.15.2",
     "sqlite3": "^4.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.5"
   }
 }
