@@ -33,10 +33,9 @@ class NoteContainer extends React.Component {
 			modal: !this.state.modal
 		});
 	}
-	handleDelete(props) {
+	handleDelete() {
 		const noteID = parseInt(this.props.match.params.id, 10);
 		this.props.deleteNote(noteID);
-
 		this.props.history.push("/");
 	}
 	changeBackdrop(e) {
@@ -105,5 +104,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ getNotes, deleteNote }
+	{ deleteNote }
 )(withRouter(NoteContainer));

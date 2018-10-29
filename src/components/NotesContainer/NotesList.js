@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Note from "./Note";
-import { getNotes } from "../actions/actions";
+import { getNotes, loadNotes } from "../actions/actions";
 import { connect } from "react-redux";
 import { CSVLink, CSVDownload } from "react-csv";
 import csv from "../../csv.png";
@@ -9,27 +9,9 @@ import axios from "axios";
 const update = require("immutability-helper");
 
 class MainNotes extends Component {
-	state = {
-		notes: this.props.notes
-	};
-
 	componentDidMount() {
-		axios
-			.get("http://localhost:3300/notes")
-			.then(notes => {
-				console.log(notes);
-				this.setState({ notes: notes.data });
-			})
-			.catch(err => console.log(err));
-		this.props.getNotes(this.props.notes);
+		this.props.loadNotes();
 	}
-	deleteItem = id => {
-		this.setState(prevState => {
-			return {
-				notes: prevState.notes.filter(note => note.id !== id)
-			};
-		});
-	};
 
 	moveCard = (dragIndex, hoverIndex) => {
 		const { notes } = this.state;
@@ -67,7 +49,7 @@ class MainNotes extends Component {
 				</CSVLink>
 
 				<div className="note-container">
-					{this.state.notes.map((note, index) => (
+					{this.props.notes.map((note, index) => (
 						<Note
 							key={note.id}
 							note={note}
@@ -91,5 +73,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ getNotes }
+	{ loadNotes }
 )(MainNotes);

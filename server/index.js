@@ -38,8 +38,14 @@ server.post("/notes/", (req, res) => {
 	const note = { title, body };
 	db("notes")
 		.insert(note)
-		.then(note => {
-			res.status(201).json(note);
+		.then(id => {
+			db("notes")
+				.then(note => {
+					res.status(200).json(note);
+				})
+				.catch(err => {
+					res.status(400).json({ error: "Could not grab notes" });
+				});
 		})
 		.catch(err => {
 			console.log(err);
@@ -70,8 +76,14 @@ server.delete("/notes/:id", (req, res) => {
 	db("notes")
 		.where({ id: id })
 		.del()
-		.then(del => {
-			res.status(200).json({ del });
+		.then(delid => {
+			db("notes")
+				.then(note => {
+					res.status(200).json(note);
+				})
+				.catch(err => {
+					res.status(400).json({ error: "Could not grab notes" });
+				});
 		})
 		.catch(err => {
 			res.status(400).json({ error: "could not delete note" });

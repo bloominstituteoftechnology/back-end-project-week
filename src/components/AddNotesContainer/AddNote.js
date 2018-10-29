@@ -33,8 +33,9 @@ class AddNote extends Component {
 		if (!this.state.title || !this.state.body) {
 			this.setState({ visable: true });
 		} else {
-			this.props.addNote(this.state);
-
+			const { title, body } = this.state;
+			const note = { title, body };
+			this.props.addNote(note);
 			this.props.history.push("/");
 		}
 	};

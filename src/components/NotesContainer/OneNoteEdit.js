@@ -1,10 +1,13 @@
 import React, { Component } from "react";
-import { getNotes } from "../actions/actions";
+import { updateNote } from "../actions/actions";
 import { connect } from "react-redux";
+import Axios from "axios";
+import { withRouter } from "react-router-dom";
 
 class OneNoteEdit extends Component {
 	constructor(props) {
 		super(props);
+		console.log(props);
 		this.state = {
 			title: "",
 			body: "",
@@ -12,29 +15,24 @@ class OneNoteEdit extends Component {
 		};
 		console.log(this.state);
 	}
-
-	componentDidMount() {
-		if (this.props) {
+	componentDidMount = () => {
+		console.log(this.props);
+		const noteID = parseInt(this.props.match.params.id, 10);
+		Axios.get(`http://localhost:3300/notes/${noteID}`).then(note => {
 			this.setState({
-				title: this.props.title,
-				body: this.props.body,
-				id: this.props.id
+				title: note.data[0].title,
+				body: note.data[0].body,
+				id: note.data[0].id
 			});
-		}
-	}
+		});
+	};
 
 	editNote = (title, body) => {
 		const noteID = parseInt(this.props.match.params.id, 10);
+		let updatedNote = { title, body, noteID };
 
-		let thisNote = this.props.notes.find(note => note.id === noteID);
-
-		if (!thisNote) {
-			return console.log("no note was found!!");
-		} else {
-			if (title) thisNote.title = title;
-			if (body) thisNote.body = body;
-		}
-		this.props.history.push("/");
+		this.props.updateNote(updatedNote);
+		// this.props.history.push("/");
 	};
 	handleChange = event => {
 		event.preventDefault();
@@ -79,5 +77,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ getNotes }
-)(OneNoteEdit);
+	{ updateNote }
+)(withRouter(OneNoteEdit));
