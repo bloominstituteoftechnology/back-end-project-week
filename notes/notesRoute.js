@@ -60,4 +60,19 @@ router.put('/:id', (req, res) => {
         .catch(err => res.status(500).json(err));
 });
 
+router.delete('/:id', (req, res) => {
+    const { id } = req.params;
+
+    notes
+        .remove(id)
+        .then(count => {
+            if (!count || count < 1) {
+                res.status(404).json({ message: 'Note not found to delete!' });
+            } else {
+                res.status(200).json(count);
+            }
+        })
+        .catch(err => res.status(500).json(err));
+});
+
 module.exports = router;
