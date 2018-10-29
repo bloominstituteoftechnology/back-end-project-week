@@ -10,10 +10,24 @@ server.use(cors());
 server.use(helmet());
 server.use(express.json());
 
+// ===Get Requests===
 server.get('/',(req,res)=>{
   res.send('active')
 });
+// Get by id
+server.get('/api/posts/:id',(req,res)=>{
+  db.findById(req.params.id)
+  .then(post=>{
+    console.log('Success',post);
+    res.status(200).json(post)
+  })
+  .catch(err=>{
+    res.send(err);
+  })
+})
 
+
+// Get ALL
 server.get('/api/notes',(req,res)=>{
   db('notes')
   .select("id","title","content")
