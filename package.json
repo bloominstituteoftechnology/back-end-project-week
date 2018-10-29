@@ -1,0 +1,20 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/tsaihuangsd/back-end-project-week.git",
+  "author": "Tsai Huang <tsaihuangsd@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.5"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "helmet": "^3.14.0",
+    "knex": "^0.15.2",
+    "sqlite3": "^4.0.3"
+  }
+}
