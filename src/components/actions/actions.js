@@ -13,6 +13,9 @@ export const ADDING_NOTE_ERROR = "ADDING_NOTE_ERROR";
 export const DELETING_NOTE = "DELETING_NOTE";
 export const DELETED_NOTE = "DELETED_NOTE";
 export const DELETED_NOTE_ERROR = "DELETED_NOTE_ERROR";
+export const UPDATING_NOTE = "UPDATING_NOTE";
+export const UPDATED_NOTE = "UPDATED_NOTE";
+export const UPDATING_NOTE_ERROR = "UPDATING_NOTE_ERROR";
 
 export const loadNotes = () => dispatch => {
 	dispatch({ type: FETCHING_NOTES });
@@ -50,6 +53,19 @@ export const deleteNote = id => dispatch => {
 			dispatch({ type: DELETED_NOTE_ERROR, payload: err });
 		});
 };
-export const updateNote = note => {
-	return { type: UPDATE_NOTE, payload: note };
+export const updateNote = note => dispatch => {
+	console.log(note);
+	const id = note.noteID;
+	const title = note.title;
+	const body = note.body;
+	const updatedNote = { title, body };
+	dispatch({ type: UPDATING_NOTE });
+	axios
+		.put(`http://localhost:3300/notes/${id}`, updatedNote)
+		.then(response => {
+			dispatch({ type: UPDATED_NOTE, payload: response.data });
+		})
+		.catch(err => {
+			dispatch({ type: UPDATING_NOTE_ERROR, payload: err });
+		});
 };

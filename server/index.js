@@ -55,8 +55,11 @@ server.post("/notes/", (req, res) => {
 //Update an already existing note
 server.put("/notes/:id", (req, res) => {
 	const id = req.params.id;
-	const { title, body } = req.body;
+	console.log(id);
+	const title = req.body.title;
+	const body = req.body.body;
 	const note = { title, body };
+	console.log(note);
 	if (!note.title || !note.body) {
 		res.status(400).json({ error: "note must have a title and body" });
 	}
@@ -64,7 +67,13 @@ server.put("/notes/:id", (req, res) => {
 		.where({ id: id })
 		.update({ title: note.title, body: note.body })
 		.then(note => {
-			res.status(200).json(note);
+			db("notes")
+				.then(note => {
+					res.status(200).json(note);
+				})
+				.catch(err => {
+					res.status(400).json({ error: "Could not grab notes" });
+				});
 		})
 		.catch(err => {
 			res.status(400).json({ error: "could not update note" });

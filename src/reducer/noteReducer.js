@@ -11,7 +11,10 @@ import {
 	ADDING_NOTE_ERROR,
 	DELETING_NOTE,
 	DELETED_NOTE,
-	DELETED_NOTE_ERROR
+	DELETED_NOTE_ERROR,
+	UPDATED_NOTE,
+	UPDATING_NOTE,
+	UPDATING_NOTE_ERROR
 } from "../components/actions/actions";
 import axios from "axios";
 
@@ -31,19 +34,12 @@ export const noteReducer = (state = initialState, action) => {
 			return { ...state, fetchingNotes: false, notes: action.payload };
 		case NOTES_FETCHING_ERROR:
 			return { ...state, fetchingNotes: false, error: action.payload };
-		case UPDATE_NOTE:
-			const { title, body } = action.payload;
-			const newNote = { title, body };
-			axios
-				.put(
-					`http://localhost:3300/notes/${action.payload.noteID}`,
-					action.payload
-				)
-				.then(updated => {
-					console.log(updated);
-				});
-			return { ...state, notes: [...state.notes, newNote] };
-
+		case UPDATING_NOTE:
+			return { ...state, updatingNotes: true };
+		case UPDATED_NOTE:
+			return { ...state, updatingNotes: false, notes: action.payload };
+		case UPDATING_NOTE_ERROR:
+			return { ...state, updatingNotes: false, error: action.payload };
 		case ADDING_NOTE:
 			return { ...state, addingNotes: true };
 		case ADDED_NOTE:
