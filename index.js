@@ -3,10 +3,10 @@ const knex = require('knex');
 const cors = require('cors');
 const helmet = require('helmet');
 
-const port = 7000
+const port = 7000;
 
 const dbConfig = require('./knexfile');
-const db = knex('dbConfig.development');
+const db = knex(dbConfig.development);
 const server = express();
 
 server.use(express.json());
@@ -14,14 +14,16 @@ server.use(cors());
 server.use(helmet());
 
 
+// ========== GET SERVER ========== //
 server.get('/', (req, res) => {
-    res.status(200).json('SERVER RUNNING');
+    res.status(200).json('working');
 });
 
-server.get('/api/notes', (req, res) => {
-    console.log('hello')
-    db('notes')
 
+// ========== GET NOTES ========== //
+server.get('/api/notes', (req, res) => {
+    console.log('getting notes...')
+    db('notes')
         .then(data => {
             res.status(200).json(data);
         })
@@ -31,6 +33,7 @@ server.get('/api/notes', (req, res) => {
 });
 
 
+// ==========  SERVER PORT 7000 ========== //
 server.listen(port, () => {
-    console.log(`\n Server runnning on port ${port} \n`);
+    console.log(`\n Server runnning on ${port} \n`);
 });
