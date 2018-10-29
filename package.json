@@ -1,0 +1,40 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watch --verbose",
+    "start":"nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Csillag61/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Csillag61/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/Csillag61/back-end-project-week#readme",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.4",
+    "helmet": "^3.14.0",
+    "jsonwebtoken": "^8.3.0",
+    "knex": "^0.15.2",
+    "morgan": "^1.9.1",
+    "node": "^11.0.0",
+    "sqlite3": "^4.0.3"
+  },
+  
+  "devDependencies": {
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.5",
+    "supertest": "^3.3.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
