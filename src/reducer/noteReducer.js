@@ -1,8 +1,4 @@
 import {
-	ADD_NOTE,
-	GET_NOTES,
-	DELETE_NOTE,
-	UPDATE_NOTE,
 	FETCHING_NOTES,
 	FETCHED_NOTES,
 	NOTES_FETCHING_ERROR,
@@ -23,7 +19,8 @@ let initialState = {
 	fetchingNotes: false,
 	addingNotes: false,
 	updatingNotes: false,
-	deletingNote: false
+	deletingNote: false,
+	error: null
 };
 
 export const noteReducer = (state = initialState, action) => {
@@ -48,6 +45,8 @@ export const noteReducer = (state = initialState, action) => {
 				addingNotes: false,
 				notes: action.payload
 			};
+		case ADDING_NOTE_ERROR:
+			return { ...state, addingNotes: false, error: action.payload };
 
 		case DELETING_NOTE:
 			return { ...state, deletingNote: true };
