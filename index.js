@@ -32,6 +32,24 @@ server.get('/api/notes', (req, res) => {
         });
 });
 
+
+// ========== GET A SPECIFIC NOTE ========== //
+server.get('/api/notes/:id', (req, res) => {
+    db('notes')
+        .where({ id: req.params.id })
+        .then((data) => {
+            if (data.length === 0) {
+                res.status(404).json('not found');
+            } else {
+                res.status(200).json(data);
+            }
+        })
+        .catch(err => {
+            res.status(404).json(err);
+        });
+});
+
+
 // ========== POST NOTE ========== //
 server.post('/api/notes', (req, res) => {
     const note = req.body;
