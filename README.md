@@ -32,7 +32,7 @@ We recommend that you finish all the MVP features before trying to deploy.
   - [x] Display a list of notes.
   - [x] Create a note with a _title_ and _content_.
   - [x] View an existing note.
-  - [] Edit an existing note.
+  - [x] Edit an existing note.
   - [x] Delete an existing note.
   - [] Modify your front-end so that it uses your newly created Web API.
 
