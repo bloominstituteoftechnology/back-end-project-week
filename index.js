@@ -15,10 +15,28 @@ server.get('/', (req, res) => {
   res.send('It is working!');
 });
 
+// display a list of notes
 server.get('/api/notes', (req, res) => {
   db('notes')
     .then(notes => {
       res.status(200).json(notes);
+    })
+    .catch(err => {
+      res.status(500).json({ error: 'The notes information could not be retrieved.', err });
+    })
+});
+
+// view an existing note by id
+server.get('/api/notes/:id', (req, res) => {
+  const { id } = req.params;
+  db('notes')
+    .where({ id })
+    .then(note => {
+      if (note) {
+        res.status(200).json(note);
+      } else {
+        res.status(404).json({ message: 'The note with the specified ID does not exist.' });
+      }
     })
     .catch(err => {
       res.status(500).json({ error: 'The notes information could not be retrieved.', err });
