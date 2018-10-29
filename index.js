@@ -43,5 +43,22 @@ server.get('/notes/:id', (req, res)=> {
         })
 });
 
+server.post('/notes', (req, res)=> {
+    const {title, body} = req.body;
+    const note = {title, body};
+    db.insert(note)
+        .into('notes')
+        .then(ids=> {
+            if (!note.title || !note.body) {
+              res.status(400).json({message: "Please include the requested information"})
+            } else {
+              res.status(201).json(ids);
+            }
+        })
+        .catch(err=> {
+            res.status(500).json({error: "This information could not be added to the database"});
+        })
+  });
+  
 
 server.listen(9000, ()=> console.log('API running on port 9000'));
