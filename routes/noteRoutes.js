@@ -37,4 +37,17 @@ router.post('/', (req, res) => {
 		.catch(err => res.status(500).json({ error: `Server could not insert note: ${ err }`}));
 });
 
+// update an existing note with given id
+router.put('/:id', (req, res) => {
+	const { id } = req.params;
+	const note = req.body;
+	return noteDb
+		.update(id, note)
+		.then(putBool => {
+			if (putBool) return res.status(200).json(`Note with id ${ id } was updated successfully.`);
+			return res.status(404).json(`Note with id ${ id } does not exist.`);
+		})
+		.catch(err => res.status(500).json({ error: `Server could not update note: ${ err }`}));
+});
+
 module.exports = router;
