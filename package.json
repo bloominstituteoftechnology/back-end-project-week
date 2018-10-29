@@ -1,0 +1,25 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/easyra/back-end-project-week.git",
+  "author": "<ezra.rr.davis@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4",
+    "knex": "^0.15.2",
+    "sqlite3": "^4.0.3"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.5",
+    "supertest": "^3.3.0"
+  },
+  "scripts": {
+    "dev":"nodemon",
+    "test": "jest --watch --verbose"
+  },
+  "jest": {
+    "testEnvirnoment": "node"
+  }
+}
