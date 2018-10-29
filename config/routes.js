@@ -7,5 +7,5 @@ const { authenticate, generateToken } = require("./authentication");
 // ---- API Endpoints for Testing ----
 server.get("/api/all", all);
 server.post("/api/create", create);
-sever.get("/api/view", view);
-sever.put("/api/edit", edit);
+sever.get("/api/view/:id", view);
+sever.put("/api/edit/:id", edit);
