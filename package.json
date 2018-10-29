@@ -7,7 +7,7 @@
   "author": "Marious Davis <mlancelot88@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon"
   },
   "dependencies": {
     "axios": "^0.18.0",

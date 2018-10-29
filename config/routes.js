@@ -2,18 +2,19 @@
 const axios = require("axios");
 const bcrypt = require("bcryptjs");
 const db = require("../data/dbConfig");
-const { authenticate, generateToken } = require("./authentication");
+// const { authenticate, generateToken } = require("./authentication");
 
-// ---- API Endpoints for Testing ----
+// ---- API Endpoints for Note Testing ----
 module.exports = server => {
   server.get("/api/all", all);
   server.post("/api/create", create);
-  sever.get("/api/view/:id", view);
-  sever.put("/api/edit/:id", edit);
+  server.get("/api/view/:id", view);
+  server.put("/api/edit/:id", edit);
+  server.delete("/api/delete/:id", remove);
 };
 
 // ---- Retrieve ALL Notes. GET Endpoint ----
-server.get("/api/all", (req, res) => {
+function all(req, res) {
   db("notes")
     .then(notes => {
       res.status(200).json(notes);
@@ -23,10 +24,10 @@ server.get("/api/all", (req, res) => {
         Error: "Server timeout. Server can not retrieve notes at this time."
       });
     });
-});
+}
 
 // ---- CREATE New Note. POST Endpoint ----
-server.post("/api/create", (req, res) => {
+function create(req, res) {
   const newNote = req.body;
 
   db.insert(newNote)
@@ -39,10 +40,10 @@ server.post("/api/create", (req, res) => {
         .status(500)
         .json({ Error: "Server timeout. Note can not be created." });
     });
-});
+}
 
 // ---- VIEW Note by specific ID. GET Endpoint ----
-server.get("/api/view/:id", (req, res) => {
+function view(req, res) {
   const id = req.params.id;
   db("notes")
     .select()
@@ -55,10 +56,10 @@ server.get("/api/view/:id", (req, res) => {
         Error: "Server timeout. A note with that ID can not be found."
       });
     });
-});
+}
 
 // ---- EDIT Note by specific ID. PUT Endpoint ----
-server.put("/api/edit/:id", (req, res) => {
+function edit(req, res) {
   const changes = req.body;
   const { id } = req.params;
 
@@ -79,10 +80,10 @@ server.put("/api/edit/:id", (req, res) => {
         .status(500)
         .json({ Error: "Server timeout. Edits could not be applied." });
     });
-});
+}
 
 // ---- DELETE Note by specific ID. DELETE Endpoint ----
-server.delete("/api/delete/:id", (req, res) => {
+function remove(req, res) {
   const { id } = req.params;
 
   db("notes")
@@ -96,4 +97,4 @@ server.delete("/api/delete/:id", (req, res) => {
         Error: "Server timeout. Note can not be deleted at this time."
       });
     });
-});
+}
