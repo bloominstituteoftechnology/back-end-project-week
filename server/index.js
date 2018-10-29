@@ -21,6 +21,20 @@ server.get("/notes", (req, res) => {
 		});
 });
 
+server.post("/notes/", (req, res) => {
+	const { title, body } = req.body;
+	const note = { title, body };
+	db("notes")
+		.insert(note)
+		.then(note => {
+			res.status(201).json(note);
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(400).json({ error: "could not create note" });
+		});
+});
+
 server.listen(port, () => {
 	console.log(`Server now listening on Port ${port}`);
 });
