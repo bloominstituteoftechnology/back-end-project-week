@@ -5,11 +5,15 @@ const server = express();
 const knexConfig = require('./knexfile.js')
 const db = knex(knexConfig.development)
 
+server.use(cors());
+server.use(helmet());
+server.use(express.json());
 
+server.get('/',(req,res)=>{
+  res.send('active')
+});
 
-
-
-
+server.get()
 
 
 
