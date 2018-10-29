@@ -56,6 +56,25 @@ server.post('/api/notes', (req, res) => {
     })
 });
 
+// edit an existing note
+server.put('/api/notes/:id', (req, res) => {
+  const { id } = req.params;
+  const newNote = req.body;
+  db('notes')
+    .where({ id })
+    .update(newNote)
+    .then(note => {
+      if (!note || note < 1) {
+        res.status(404).json({ message: 'The note with the specified ID does not exist.' });
+      } else {
+        res.status(200).json(note);
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ error: 'The note information could not be modified.', err });
+    })
+});
+
 // listening port
 const port = 5000;
 server.listen(port, function() {
