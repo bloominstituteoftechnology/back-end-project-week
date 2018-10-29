@@ -2,6 +2,9 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "main": "index.js",
+  "scripts": {
+    "start": "nodemon"
+  },
   "repository": "https://github.com/m-j-hacker/back-end-project-week.git",
   "author": "m-j-hacker <mjhacker@gmail.com>",
   "license": "MIT",
