@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import SidebarContainer from "./components/sidebar/SidebarContainer";
 import "./App.css";
 import { getNotes } from "./components/actions/actions";
+import { deleteNote } from "./components/actions/actions";
 import { connect } from "react-redux";
 import OneNote from "./components/NotesContainer/OneNote";
 import { withRouter } from "react-router-dom";
@@ -34,10 +35,8 @@ class NoteContainer extends React.Component {
 	}
 	handleDelete(props) {
 		const noteID = parseInt(this.props.match.params.id, 10);
+		this.props.deleteNote(noteID);
 
-		let thisNote = this.props.notes.find(note => note.id === noteID);
-		const newNotes = this.props.notes.filter(note => note.id != thisNote.id);
-		this.props.getNotes(newNotes);
 		this.props.history.push("/");
 	}
 	changeBackdrop(e) {
@@ -106,5 +105,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ getNotes }
+	{ getNotes, deleteNote }
 )(withRouter(NoteContainer));

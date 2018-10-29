@@ -1,4 +1,8 @@
-import { ADD_NOTE, GET_NOTES } from "../components/actions/actions";
+import {
+	ADD_NOTE,
+	GET_NOTES,
+	DELETE_NOTE
+} from "../components/actions/actions";
 import axios from "axios";
 
 const initialState = {
@@ -13,7 +17,10 @@ export const noteReducer = (state = initialState, action) => {
 			axios.post("http://localhost:3300/notes", action.payload).then(note => {
 				return { ...state, notes: [...state.notes, note] };
 			});
-
+		case DELETE_NOTE:
+			axios.delete(`http://localhost:3300/notes/${action.payload}`).then(id => {
+				return { ...state };
+			});
 		default:
 			return state;
 	}
