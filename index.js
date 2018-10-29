@@ -32,6 +32,24 @@ server.get('/api/notes', (req, res) => {
         });
 });
 
+// ========== POST NOTE ========== //
+server.post('/api/notes', (req, res) => {
+    const note = req.body;
+
+    if (note.title && note.content) {
+        db('notes')
+            .insert(note)
+            .then(response => {
+                res.status(201).json(response);
+            })
+            .catch(err => {
+                res.status(500).json(err);
+            });
+    } else {
+        res.status(400).json('missing parameters');
+    }
+});
+
 
 // ==========  SERVER PORT 7000 ========== //
 server.listen(port, () => {
