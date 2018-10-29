@@ -6,7 +6,7 @@ exports.up = function(knex) {
       .string("title", 128)
       .notNullable()
       .unique();
-    notes.string("content", 128).notNullable();
+    notes.string("body", 128).notNullable();
   });
 };
 
