@@ -65,7 +65,7 @@ Once your MVP has been approved, you have been given a feature list that the cli
 
 ## Super Duper Extra Credit Bonus Features
 
-- Add a payment form integrating with _Stripe_ that allows Users to buy a _"Premium"_ version of Lambda Notes.
+- Add a payment form  integrating with _Stripe_ that allows Users to buy a _"Premium"_ version of Lambda Notes.
 - Gate your favorite feature behind the _premium_ paywall
 
-You will notice that this repository does not have any starter code. This is on purpose. You are to start from scratch using any files you have built throughout your time here at Lambda School as reference.
+You will notice that this repository fdoes not have any starter code. This is on purpose. You are to start from scratch using any files you have built throughout your time here at Lambda School as reference.
