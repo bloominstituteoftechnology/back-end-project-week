@@ -10,7 +10,7 @@ const cors = require("cors");
 server.use(helmet());
 server.use(cors());
 server.use(express.json());
-
+//get all notes
 server.get("/notes", (req, res) => {
 	db("notes")
 		.then(note => {
@@ -20,7 +20,19 @@ server.get("/notes", (req, res) => {
 			res.status(400).json({ error: "Could not grab notes" });
 		});
 });
-
+//GET one note by id
+server.get("/notes/:id", (req, res) => {
+	const id = req.params.id;
+	db("notes")
+		.where(id)
+		.then(note => {
+			res.status(200).json(note);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "could not find note" });
+		});
+});
+//POST req to add a new note
 server.post("/notes/", (req, res) => {
 	const { title, body } = req.body;
 	const note = { title, body };
