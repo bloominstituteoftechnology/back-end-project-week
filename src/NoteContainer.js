@@ -41,8 +41,10 @@ class NoteContainer extends React.Component {
 
 	render(props) {
 		const noteID = parseInt(this.props.match.params.id, 10);
+		console.log(noteID);
 
 		let thisNote = this.props.notes.find(note => note.id === noteID);
+		console.log(thisNote);
 		return (
 			<div>
 				<div className="App">

@@ -1,4 +1,5 @@
 import { ADD_NOTE, GET_NOTES } from "../components/actions/actions";
+import axios from "axios";
 
 const initialState = {
 	notes: []
@@ -9,7 +10,9 @@ export const noteReducer = (state = initialState, action) => {
 		case GET_NOTES:
 			return { ...state, notes: action.payload };
 		case ADD_NOTE:
-			return { ...state, notes: [...state.notes, action.payload] };
+			axios.post("http://localhost:3300/notes", action.payload).then(note => {
+				return { ...state, notes: [...state.notes, note] };
+			});
 
 		default:
 			return state;

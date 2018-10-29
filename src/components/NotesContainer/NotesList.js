@@ -4,6 +4,7 @@ import { getNotes } from "../actions/actions";
 import { connect } from "react-redux";
 import { CSVLink, CSVDownload } from "react-csv";
 import csv from "../../csv.png";
+import axios from "axios";
 
 const update = require("immutability-helper");
 
@@ -12,7 +13,14 @@ class MainNotes extends Component {
 		notes: this.props.notes
 	};
 
-	componentWillMount() {
+	componentDidMount() {
+		axios
+			.get("http://localhost:3300/notes")
+			.then(notes => {
+				console.log(notes);
+				this.setState({ notes: notes.data });
+			})
+			.catch(err => console.log(err));
 		this.props.getNotes(this.props.notes);
 	}
 	deleteItem = id => {
