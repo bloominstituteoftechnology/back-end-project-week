@@ -3,6 +3,8 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 
+const notesRoutes = require('./config/notesRoutes.js');
+
 const server = express();// creates the server
 
 // Add GLOBAL MIDDLEWARE
@@ -14,5 +16,7 @@ server.use(cors());
 server.get('/', (req, res) => {
   res.send('Server is up and running!');
 });
+
+server.use('/api', notesRoutes);
 
 server.listen(9900, () => console.log('\n====running on port 9900====\n'));
