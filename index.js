@@ -24,13 +24,13 @@ server.get('/api/notes/:id', (req, res) => {
 
   db('notes')
     .where('id', id)
-    .then(check => {
-      if (!check.length) {
+    .then(note => {
+      if (!note.length) {
         res
           .status(401)
           .json({ error: 'Invalid ID! Please try again.' });
       }
-      res.status(200).json(check)
+      res.status(200).json(note)
     })
     .catch(err => {
       console.log(err.message);
