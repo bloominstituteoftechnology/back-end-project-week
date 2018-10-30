@@ -65,7 +65,7 @@ export const setUpdateNote = id => {
     };
 };
 
-export const updateNote = (note) => dispatch => {
+export const updateNote = note=> dispatch => {
     dispatch({ type: UPDATE_NOTE_START });
 
     axios.put(`http://localhost:9000/notes/${note.id}`, note)

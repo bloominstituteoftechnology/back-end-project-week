@@ -26,7 +26,7 @@ function Note(props) {
         className="button" 
         onClick={event => {
           event.preventDefault();
-          props.goToUpdateNoteForm(event, props.id)
+          props.goToUpdateNoteForm(event, props.note.id)
         }}>Update Note</button>
       <button className="button" onClick={handleDelete}>Delete Note</button>
       </div>
