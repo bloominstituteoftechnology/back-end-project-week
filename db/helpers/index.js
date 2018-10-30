@@ -13,7 +13,13 @@ module.exports = {
     .then(([id]) => id);
   },
 
-addNoteWithTags(note, tags) {
+ deleteNote(id) {
+    return db('notes')
+      .delete()
+      .where('id', id);
+  },
+
+ addNoteWithTags(note, tags) {
   let noteID = null;
   return this.addNote(note)
     .then(id => {
@@ -22,7 +28,8 @@ addNoteWithTags(note, tags) {
     })
     .then(() => noteID);
   },
-getOneNote(id) {
+  
+ getOneNote(id) {
   return this.getAllNotes().where('notes.id', id);
   },
 };

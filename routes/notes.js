@@ -29,7 +29,7 @@ router.get('/:id', async (req, res, next) => {
   note = Object.values(note.reduce(tagReduce, {}))[0];
   if (!note)
     return res.json({
-      error: `I'm not calling you a liar but....that ID doesn't exist`,
+      Error: `I'm not calling you a liar but....that ID doesn't exist`,
     });
   res.status(200).json(note);
 });
@@ -38,15 +38,27 @@ router.get('/:id', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   const { title, textBody, tags } = req.body;
    if (!title || !textBody)
-    return res.json({ error: 'Stop forgetting things' });
+    return res.json({ Error: 'Stop forgetting things' });
    let id = null;
   if (Array.isArray(tags)) {
     id = await helpers.addNoteWithTags({ title, textBody }, tags);
   } else {
     id = await helpers.addNote({ title, textBody });
   }
-  res.status(201).json({ message: 'I think it worked', id });
+  res.status(201).json({ Message: 'I think it worked', id });
 });
 
+// #################### DELETE #################### //
+
+router.delete('/:id', async (req, res, next) => {
+  let count = await helpers.deleteNote(Number(req.params.id));
+  if (count === 0)
+    return res.json({
+      Error: `I'm not calling you a liar but....that ID doesn't exist`,
+    });
+   res.status(200).json({
+    Message: `The note that had the id of ${req.params.id} has been destroyed...peacefully`,
+  });
+});
 
  module.exports = router;
