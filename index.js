@@ -46,6 +46,23 @@ server.get('/api/notes/:id', (req, res) => {
 
 // POST a new note
 
+server.post('/api/notes', (req, res) => {
+  const { title, content } = req.body;
+  const newNote = { title, content };
+
+  db.insert(newNote)
+    .into('notes')
+    .then(added => {
+      res
+        .status(201)
+        .json({ message: 'Note successfully added to database!' })
+    })
+    .catch(err => {
+      res
+        .status(500).json({ error: 'An error was encountered while adding the note.' });
+        console.log(err);
+    });
+});
 
 // server instantiation
 
