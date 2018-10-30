@@ -90,3 +90,21 @@ server.put('/api/notes/:id', (request, response) => {
                 .json({ Error: "The note info could not be modified" })
         });
 });
+
+server.delete('/api/notes/:id', (request, response) => {
+    const id = request.params.id;
+
+    db('notes')
+        .where({ id })
+        .del()
+        .then(removedNote => {
+            return response
+                .status(200)
+                .json(removedNote);
+        })
+        .catch(() => {
+            return response
+                .status(500)
+                .json({ Error: "The note could not be removed" })
+        });
+});
