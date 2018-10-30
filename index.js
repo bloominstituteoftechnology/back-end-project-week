@@ -4,6 +4,12 @@ const db = require('./data/db');
 const server = express();
 server.use(express.json());
 
+// general API test GET
+
+server.get('/api', (req, res) => {
+  res.send('Server functioning correctly!');
+});
+
 // simple GET request for all notes
 
 server.get('/api/notes', (req, res) => {
