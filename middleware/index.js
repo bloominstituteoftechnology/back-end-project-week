@@ -21,7 +21,7 @@ exports.errorHandler = (err, req, res, next) => {
     }
 }
 
-const secret = process.env.SECRET || "jwt-secret";
+const secret = process.env.SECRET || "alma a fa alatt piros nyari alma";
 exports.protected = (req, res, next) => {
     const token = req.headers.authorization;
     if (token !== 'null') {

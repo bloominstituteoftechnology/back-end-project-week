@@ -4,17 +4,14 @@ const bcrypt = require("bcryptjs");
 const db = require("../db/dbHelper/user");
 const router = express.Router();
 
-const secret = process.env.SECRET || "jwt-secret";
+const secret = process.env.SECRET || "alma a fa alatt piros nyari alma";
 
 function genToken(user) {
     const payload = {
         username: user.username
     };
 
-    const options = {
-        expiresIn: "15h",
-        jwtid: "8102"
-    };
+    const options = { expiresIn: "150h", jwtid: "7777" };
 
     return jwt.sign(payload, secret, options);
 }
