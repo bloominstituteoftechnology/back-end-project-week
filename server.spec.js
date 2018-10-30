@@ -43,36 +43,34 @@ describe('Note api', () => {
     expect(response.status).toEqual(404);
     done();
   });
-  describe('get all notes request', () => {
-    it('returns all notes in database', async (done) => {
-      let { rows: expected } = await db.raw('SELECT * FROM notes');
-      const camelCased = expected.map(snakeToCamel);
-      console.log(camelCased);
-      const ordered = orderList(camelCased);
-      console.log(ordered);
-      const tagPromises = ordered.map(
-        note => new Promise((resolve) => {
-          db.select('tags.id', 'tags.name')
-            .from('notesTagsJoin')
-            .innerJoin('tags', 'notesTagsJoin.tagId', '=', 'tags.id')
-            .where('notesTagsJoin.noteId', '=', note.id)
-            .then((res) => {
-              resolve({ ...note, tags: [...res] });
-            });
-        }),
-      );
-      expected = await Promise.all(tagPromises);
+  it('returns all notes in database', async (done) => {
+    let { rows: expected } = await db.raw('SELECT * FROM notes');
+    const camelCased = expected.map(snakeToCamel);
+    console.log(camelCased);
+    const ordered = orderList(camelCased);
+    console.log(ordered);
+    const tagPromises = ordered.map(
+      note => new Promise((resolve) => {
+        db.select('tags.id', 'tags.name')
+          .from('notesTagsJoin')
+          .innerJoin('tags', 'notesTagsJoin.tagId', '=', 'tags.id')
+          .where('notesTagsJoin.noteId', '=', note.id)
+          .then((res) => {
+            resolve({ ...note, tags: [...res] });
+          });
+      }),
+    );
+    expected = await Promise.all(tagPromises);
 
-      // this converts createdAt property to a string to match the way it returns as a raw
-      // query from postgresql, which is what is used on the server.
-      expected = JSON.parse(JSON.stringify(expected));
+    // this converts createdAt property to a string to match the way it returns as a raw
+    // query from postgresql, which is what is used on the server.
+    expected = JSON.parse(JSON.stringify(expected));
 
-      const { body, status } = await request(server).get('/notes/get/all');
+    const { body, status } = await request(server).get('/notes/get/all');
 
-      expect(status).toEqual(200);
-      expect(body).toEqual(expected);
-      return done();
-    });
+    expect(status).toEqual(200);
+    expect(body).toEqual(expected);
+    return done();
   });
   it('returns an empty array when there are no notes', async (done) => {
 
