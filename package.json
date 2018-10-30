@@ -12,7 +12,7 @@
     "url": "git+https://github.com/Csillag61/back-end-project-week.git"
   },
   "engines": {
-    "node": "8.11.2"
+    "node": "6.11.2"
   },
   "keywords": [],
   "author": "",
