@@ -8,7 +8,7 @@ exports.seed = function(knex, Promise) {
       return knex('notes').insert([
         {
           title: 'Joe Dirt',
-          textBody:
+          content:
             `Joe Dirt: So you're gonna tell me that you dont have no Black Cats, no Roman Candles, no Screaming Meemies? 
 
             Kickin' Wing: No. 
@@ -27,12 +27,12 @@ exports.seed = function(knex, Promise) {
         },
         {
           title: 'Gucci Mane',
-          textBody:
+          content:
             `Don't get lost in the sauce`,
         },
         {
           title: 'Drake',
-          textBody:
+          content:
             'KiKi do you love me?',
         },
       ]);

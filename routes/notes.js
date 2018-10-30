@@ -37,14 +37,14 @@ router.get('/:id', async (req, res, next) => {
 
 // #################### POST #################### //
 router.post('/', async (req, res, next) => {
-  const { title, textBody, tags } = req.body;
-   if (!title || !textBody)
+  const { title, content, tags } = req.body;
+   if (!title || !content)
     return res.json({ Error: 'Stop forgetting things' });
    let id = null;
   if (_.isArray(tags)) {
-    id = await helpers.addNoteWithTags({ title, textBody }, tags);
+    id = await helpers.addNoteWithTags({ title, content }, tags);
   } else {
-    id = await helpers.addNote({ title, textBody });
+    id = await helpers.addNote({ title, content });
   }
   res.status(201).json({ Message: 'I think it worked', id });
 });
@@ -52,8 +52,8 @@ router.post('/', async (req, res, next) => {
 // #################### PUT #################### //
 
 router.put('/:id', async (req, res) => {
-  let { title, textBody, tags } = req.body;
-   if (!title && !textBody && !Array.isArray(tags))
+  let { title, content, tags } = req.body;
+   if (!title && !content && !Array.isArray(tags))
     return res.json({ Error: `So you think I CAN JUST WORK WITH ONLY ONE THING FILLED OUT?!! THINK AGAIN...redo it please` });
    if (_.isArray(tags)) {
     try {
@@ -62,7 +62,7 @@ router.put('/:id', async (req, res) => {
       return res.json({ Error: `I'm not calling you a liar but....that ID doesn't exist` });
     }
   }
-   let objUpdater = { title, textBody };
+   let objUpdater = { title, content };
     objUpdater = _.omitBy(objUpdater, _.isUndefined);
     let count = await helpers.updateNote(objUpdater, Number(req.params.id));
       if (count === 0) return res.json({ Error: `I'm not calling you a liar but....that ID doesn't exist` });
