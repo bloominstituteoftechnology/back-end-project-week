@@ -6,6 +6,7 @@
   "author": "Evan Carlstrom <evan.carlstrom@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.4",
     "express": "^4.16.4",
     "knex": "^0.15.2",
     "nodemon": "^1.18.5",
