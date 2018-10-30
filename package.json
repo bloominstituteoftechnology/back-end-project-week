@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watch --verbose",
-    "start": "nodemon index.js"
+    "start": "nodemon server.js"
   },
   "jest": {
     "testEnvironment": "node"
