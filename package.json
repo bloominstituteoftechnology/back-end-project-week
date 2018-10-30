@@ -1,0 +1,14 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ecarlstrom/back-end-project-week",
+  "author": "Evan Carlstrom <evan.carlstrom@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4",
+    "knex": "^0.15.2",
+    "nodemon": "^1.18.5",
+    "sqlite3": "^4.0.3"
+  }
+}
