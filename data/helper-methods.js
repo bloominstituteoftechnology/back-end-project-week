@@ -42,10 +42,21 @@ const addNote = (note) =>{
           .into('note');
 }
 
+const deleteNote = (id) =>{
+  if(id) {
+    return db('note')
+        .where({id})
+        .del();
+  } else {
+      return db('note');
+  }
+}
+
 
 module.exports = {
   getNotes,
   getNote,
   addNote,
+  deleteNote
 
 };

@@ -37,15 +37,32 @@ server.get('/api/note/:id',(req,res)=>{
           }
           })
       .catch(err=>res.status(500).json(err));
-})
+});
 
 server.post('/api/note/', (req, res)=>{
   const note = req.body;
   helperMethods.addNote(note)
       .then(id=>{
-          res.status(201).json(id);
+          res.status(201).json(note);
       })
       .catch(err=>res.status(500).json(err));
+});
+
+server.delete('/api/note/:id', (req, res)=>{
+  const id = req.params.id;
+  helperMethods.deleteNote(id)
+    .then(notes =>{
+      if (notes && notes.length != 0){
+        res.status(200).json({
+          Success: "Note deleted."
+        });
+      } else {
+          res.status(404).json({
+            Error: "ID not found"
+          })
+      }
+    })
+    .catch(err=>res.status(500).json(err));
 })
 
 server.listen(9000, ()=>console.log('\nAPI running on 9000\n'));
