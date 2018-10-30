@@ -2,14 +2,25 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "main": "index.js",
+  "scripts": {
+    "test": "jest --watch --verbose",
+    "start": "nodemon index.js"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
   "repository": "https://github.com/ecarlstrom/back-end-project-week",
   "author": "Evan Carlstrom <evan.carlstrom@gmail.com>",
   "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^1.18.5",
+    "jest": "^23.6.0",
+    "supertest": "^3.3.0"
+  },
   "dependencies": {
     "cors": "^2.8.4",
     "express": "^4.16.4",
     "knex": "^0.15.2",
-    "nodemon": "^1.18.5",
     "sqlite3": "^4.0.3"
   }
 }
