@@ -11,11 +11,24 @@ const helpers = require('../db/helpers');
       ac[next.id].tags = [].concat(ac[next.id].tags).concat(next.tags);
     } else {
       ac[next.id] = next;
-      ac[next.id].tags = [next.tags];
+      ac[next.id].tags = next.tags ? [next.tags] : [];
     }
     return ac;
   }, {});
   res.status(200).json(Object.values(notes));
+});
+
+router.post('/', async (req, res, next) => {
+  const { title, textBody, tags } = req.body;
+   if (!title || !textBody)
+    return res.json({ error: 'Stop forgetting things' });
+   let id = null;
+  if (Array.isArray(tags)) {
+    id = await helpers.addNoteWithTags({ title, textBody }, tags);
+  } else {
+    id = await helpers.addNote({ title, textBody });
+  }
+  res.status(201).json({ message: 'I think it worked', id });
 });
 
 
