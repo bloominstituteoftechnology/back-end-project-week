@@ -31,10 +31,9 @@ router
             id
         } = req.params;
         try {
-            const note = await helper.getNote(id);
-            note.length > 0 ? res.status(200).json(note) : next({
-                statusCode: 404
-            });
+            const result = await helper.getNote(id);
+      const note = result[0];
+      note ? res.status(200).json(note) : next({ statusCode: 404 });
         } catch (err) {
             next(err);
         }
@@ -48,7 +47,7 @@ router
             const count = await helper.updateNote(id, note);
             count > 0 ?
                 res.status(200).json({
-                    message: 'Note was updated.'
+                    title, content
                 }) :
                 next({
                     statusCode: 404

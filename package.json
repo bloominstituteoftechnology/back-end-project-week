@@ -2,9 +2,14 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon"
+  },
   "repository": "https://github.com/kinghuthman/back-end-project-week.git",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.4",
     "express": "^4.16.4",
     "helmet": "^3.14.0",
     "knex": "^0.15.2",
