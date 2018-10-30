@@ -34,6 +34,18 @@ server.put('/api/edit/:id', (req, res) => {
     })
 })
 
+// DELETE delete existing note
+server.delete('/api/view/:id/delete', (req, res) => {
+    const {id} = req.params
+
+    db('notes').where({id}).del().then(note => {
+        return res.status(200).json({message: 'Note Deleted'})
+    }).catch(err => {
+        console.log(err)
+        return res.status(500).json({message: 'Could not Delete Note'})
+    })
+})
+
 
  const port = 8000;
 server.listen(port, function () {
