@@ -8,7 +8,7 @@ exports.up = function(knex, Promise) {
       .unique();
 
     notes
-      .string('content')
+      .string('textBody')
       .notNullable();
 
     notes 
