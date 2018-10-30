@@ -2,10 +2,10 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "jest --watch --verbose",
-    "start": "nodemon"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Csillag61/back-end-project-week#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.4",
     "express": "^4.16.4",
     "helmet": "^3.14.0",
