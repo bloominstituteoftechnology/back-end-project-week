@@ -2,10 +2,10 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "test": "jest --watch --verbose",
-    "start": "nodemon server.js"
+    "start": "nodemon"
   },
   "repository": {
     "type": "git",

@@ -13,6 +13,11 @@ module.exports = {
                 .select();
     },
 
+    async getAllNotes() {
+        return await db("Notes")
+            .select();
+    },
+
     async getNote(id) {
         return await db(`Notes`)
             .where({
@@ -44,10 +49,10 @@ module.exports = {
         console.log("note data", noteData);
         return await db(`Notes`)
             .insert({
-                content: noteData.content,
+                content: noteData.textBody,
                 title: noteData.title,
             })
-            .returning("*");
+            
     }
 };
     

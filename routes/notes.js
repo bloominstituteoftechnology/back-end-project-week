@@ -2,16 +2,20 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db/dbHelper/index");
 
-router.get("/:pageId", async (req, res, next) => {
-    try {
-        res.status(200).json({
-            status: true,
-            notes: await db.getNotes(parseInt(req.query.page, 10))
-        });
-    } catch (err) {
-        console.log(err)
-        next(err);
-    }
+// router.get("/:pageId", async (req, res, next) => {
+//     try {
+//         res.status(200).json({
+//             status: true,
+//             notes: await db.getNotes(parseInt(req.query.page, 10))
+//         });
+//     } catch (err) {
+//         console.log(err)
+//         next(err);
+//     }
+// });
+
+router.get("/", async (req, res, next) => {
+    res.status(200).json({ status: true, notes: await db.getAllNotes() });
 });
 
 router.get("/:id", async (req, res, next) => {
@@ -39,7 +43,7 @@ router.post("/", async (req, res, next) => {
 });
 router.put("/:id", async (req, res, next) => {
     try {
-        await db.putNote({ id: req.params.id, ...req.body });
+        await db.updateNote({ id: req.params.id, ...req.body });
         res.status(200).json({
             status: true,
             updatedNotes: await db.getNotes()

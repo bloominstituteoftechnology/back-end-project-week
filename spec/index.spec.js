@@ -2,16 +2,22 @@ const request = require("supertest");
 const server = require("../index");
 
 describe("GET /", () => {
-    it("should check if the server is running", async () => {
-        const res = await request(server).get("/");
-        expect(res.status).toBe(200);
+    let res;
+     beforeAll (async () => {
+         res = await request(server).get("/");
+        
     });
+    it("should check if the server is running",()=>{
+        expect(res.status).toBe(200); 
 });
 
 describe("Notes Route", () => {
     describe("GET /api/notes", () => {
-        it("should check for response status", async () => {
-            const res = await request(server).get("/api/notes/1");
+        let res;
+        beforeAll(async () => {
+            res = await request(server).get("/api/notes/1");
+        });
+       it("should check for response status",()=>{
             expect(res.status).toBe(200);
             expect(res.body.status).toBe(true);
             expect(typeof res.body.notes).toBe("object");
@@ -19,8 +25,9 @@ describe("Notes Route", () => {
     });
 
     describe("POST /api/notes", () => {
-        it("should check if the notes is being added", async () => {
-            const res = await request(server)
+        let res;
+        beforeAll(async () => {
+             res = await request(server)
                 .post("/api/notes")
                 .send({
                     title: "post_title",
@@ -28,6 +35,7 @@ describe("Notes Route", () => {
                    
                 });
 
+       it("should check if the notes is being added",()=>{
             expect(res.status).toBe(200);
             expect(res.body.status).toBe(true);
             expect(res.body.updatedNotes).toBeDefined();
@@ -35,8 +43,9 @@ describe("Notes Route", () => {
     });
 
     describe("PUT /api/notes", () => {
-        it("should check if the notes is being updated", async () => {
-            const res = await request(server)
+        let res;
+        beforeAll(async () => {
+           res = await request(server)
                 .put("/api/notes/1")
                 .send({
                     title: "new_title",
@@ -44,7 +53,8 @@ describe("Notes Route", () => {
                     
                 });
 
-            expect(res.status).toBe(200);
+   it("should check if the notes is being updated",()=>{
+           expect(res.status).toBe(200);
             expect(res.body.status).toBe(true);
             expect(res.body.updatedNotes.find(e => e.id === 1).title).toBe(
                 "new_title"
@@ -53,12 +63,15 @@ describe("Notes Route", () => {
     });
 
     describe("DELETE /api/notes", () => {
-        it("should check if the notes has deleted", async () => {
-            const res = await request(server).del("/api/notes/3");
+        let res;
+        beforeAll(async () => {
+             res = await request(server).del("/api/notes/3");
+        });
 
+   it("should check if the notes has deleted",()=>{
             expect(res.status).toBe(200);
             expect(res.body.status).toBe(true);
             expect(res.body.updatedNotes.find(e => e.id === 3)).toBe(undefined);
         });
     });
-});
+})})})});
