@@ -7,6 +7,7 @@ import { TransitionGroup } from "react-transition-group";
 import Transition from "react-transition-group/Transition";
 import { TweenMax } from "gsap";
 import Tag from "../Notes/Tag";
+import axios from "axios";
 
 class NoteView extends Component {
   state = {
@@ -65,6 +66,16 @@ class NoteView extends Component {
               onClick={() => this.props.history.push(`/notes/${_id}/create`)}
             >
               Update
+            </NoteViewButton>
+            <NoteViewButton
+              className="note-view"
+              data-theme={selectedTheme}
+              onClick={() => {
+                note.tags = note.tags.join(',')
+                this.props.createNewNote(note)
+              }}
+            >
+              Clone
             </NoteViewButton>
             <NoteViewButton
               className="note-view"

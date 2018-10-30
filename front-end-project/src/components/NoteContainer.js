@@ -24,6 +24,7 @@ class NoteContainer extends Component {
   //-------------------------------------------------------Create, Update, Delete Notes
   createNewNote = note => {
     //note.id = this.state.notes.length + 1;
+    console.log(note)
     axios.post('http://localhost:9000/api/notes', note).then(notes => {
       console.log(notes.data);
       this.setState({
@@ -33,7 +34,7 @@ class NoteContainer extends Component {
     })
   };
   updateNote = newNote => {
-    console.log(newNote._id)
+    console.log(newNote)
     axios.put(`http://localhost:9000/api/notes/${newNote._id}`, newNote).then(notes => {
       this.setState({
         notes: notes.data,
@@ -268,6 +269,7 @@ class NoteContainer extends Component {
                   selectedTheme={selectedTheme}
                   updateNote={this.updateNote}
                   deleteNote={this.deleteNote}
+                  createNewNote={this.createNewNote}
                   notes={notes}
                   checklist={checklist}
                 />
