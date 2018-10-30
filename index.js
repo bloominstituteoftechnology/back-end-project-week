@@ -63,6 +63,24 @@ server.delete('/api/note/:id', (req, res)=>{
       }
     })
     .catch(err=>res.status(500).json(err));
+});
+
+server.put('/api/note/:id', (req, res)=>{
+  const id = req.params.id;
+  const newNote = req.body;
+  helperMethods.updateNote(id, newNote)
+    .then(notes =>{
+      if (notes && notes.length != 0){
+        res.status(200).json({
+          Success: "Note updated."
+        });
+      } else {
+        res.status(404).json({
+          Error: "ID not found"
+        })
+      }
+    })
+    .catch(err=>res.status(500).json(err)); 
 })
 
 server.listen(9000, ()=>console.log('\nAPI running on 9000\n'));

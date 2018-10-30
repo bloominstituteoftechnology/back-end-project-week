@@ -52,11 +52,22 @@ const deleteNote = (id) =>{
   }
 }
 
+const updateNote = (id, newNote) =>{
+  if(id) {
+    return db('note')
+          .update(newNote)
+          .where({id})
+  } else {
+      return db('note');
+  }
+}
+
 
 module.exports = {
   getNotes,
   getNote,
   addNote,
-  deleteNote
+  deleteNote,
+  updateNote
 
 };
