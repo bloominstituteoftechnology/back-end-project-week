@@ -4,7 +4,7 @@ const db = require('./data/db');
 const server = express();
 server.use(express.json());
 
-// simple GET request
+// simple GET request for all notes
 
 server.get('/api/notes', (req, res) => {
   db('notes')
