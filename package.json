@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js"
   },
   "repository": "https://github.com/travis-russell/back-end-project-week.git",
   "author": "travis-russell <russell.travis@yahoo.com>",
@@ -16,7 +16,5 @@
     "knex": "^0.15.2",
     "sqlite3": "^4.0.3"
   },
-  "devDependencies": {
-    "nodemon": "^1.18.5"
-  }
+  "devDependencies": {}
 }
