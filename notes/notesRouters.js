@@ -5,7 +5,14 @@ const router = express.Router()
 router.get('/', (req,res) => {
     notesDb.findAll().then(notes => {
         notes.forEach(note => {
-            if(!note.tags) note.tags = []
+            if(!note.tags) {
+                note.tags = []
+            } else {
+                let tagsArr = note.tags
+                
+                console.log(tagsArr)
+                note.tags = tagsArr.split(',')
+            }
         })
         res.status(200).json(notes)
     }).catch(err => {
@@ -18,7 +25,14 @@ router.get("/:id", (req,res) => {
     console.log(id)
     notesDb.findById(id).then(note => {
         notes.forEach(note => {
-            if(!note.tags) note.tags = []
+            if(!note.tags) {
+                note.tags = []
+            } else {
+                let tagsArr = note.tags
+                
+                console.log(tagsArr)
+                note.tags = tagsArr.split(',')
+            }
         })
         res.status(200).json(note)
     }).catch(err => {
@@ -27,11 +41,18 @@ router.get("/:id", (req,res) => {
 })
 
 router.post("/", (req,res) => {
-    const {title, textBody} = req.body
-    notesDb.addNotes({title,textBody}).then(() => {
+    const {title, textBody, tags} = req.body
+    notesDb.addNotes({title,textBody,tags}).then(() => {
         notesDb.findAll().then(notes => {
             notes.forEach(note => {
-                if(!note.tags) note.tags = []
+                if(!note.tags) {
+                    note.tags = []
+                } else {
+                    let tagsArr = note.tags
+                    
+                    console.log(tagsArr)
+                    note.tags = tagsArr.split(',')
+                }
             })
             res.json(notes)
         }).catch(err => res.json(err))
@@ -44,7 +65,14 @@ router.put('/:id', (req,res) => {
     notesDb.editNote(id, {title, textBody}).then(() => {
         notesDb.findAll().then(notes => {
             notes.forEach(note => {
-                if(!note.tags) note.tags = []
+                if(!note.tags) {
+                    note.tags = []
+                } else {
+                    let tagsArr = note.tags
+                    
+                    console.log(tagsArr)
+                    note.tags = tagsArr.split(',')
+                }
             })
             res.json(notes)
         })
@@ -56,7 +84,14 @@ router.delete('/:id', (req,res) => {
     notesDb.deleteNote(id).then(() => {
         notesDb.findAll().then(notes => {
             notes.forEach(note => {
-                if(!note.tags) note.tags = []
+                if(!note.tags) {
+                    note.tags = []
+                } else {
+                    let tagsArr = note.tags
+                    
+                    console.log(tagsArr)
+                    note.tags = tagsArr.split(',')
+                }
             })
             res.json(notes)
         })

@@ -38,10 +38,10 @@ class UpdateNote extends Component {
 
   sumbitNote = id => {
     console.log(this.state.tagInput.split(" "));
-    const newtags = this.state.tagInput ? this.state.tagInput.split(" ") : []
+    //const newtags = this.state.tagInput ? this.state.tagInput.split(" ") : []
 
     this.props.updateNote({
-      tags: newtags,
+      tags: this.state.tagInput,
       _id: id,
       title: this.state.titleInput,
       textBody: this.state.contentInput,
