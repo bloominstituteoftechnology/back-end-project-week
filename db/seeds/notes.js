@@ -35,6 +35,11 @@ exports.seed = function(knex, Promise) {
           content:
             'KiKi do you love me?',
         },
+        {
+          title: 'Jason Derulo',
+          content:
+            'JASOOOON DERULLLOOOOOOO',
+        },
       ]);
     });
 };
