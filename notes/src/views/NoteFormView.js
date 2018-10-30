@@ -7,16 +7,14 @@ import NoteForm from '../components/NoteForm';
 
 const initialValues = {
     title: '',
-    textBody: '',
-    tags: []
+    body: ''
   };
 
 class NoteFormView extends React.Component {
     state = {
         note: {
            title: '',
-           body: '',
-           tags: []
+           body: ''
         },
         isUpdating: false,
     };

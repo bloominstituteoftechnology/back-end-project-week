@@ -5,7 +5,7 @@ import '../App.css';
 
 function Note(props) {
   console.log(props);
-  const note = props.notesList.find(note=> note.id === parseInt(props.match.params.noteId), 10);
+  const note = props.notesList.find(note=> note.id === parseInt(props.match.params.id), 10);
 
   function handleDelete() {
     props.handleDeleteNote(note);
@@ -26,7 +26,7 @@ function Note(props) {
         className="button" 
         onClick={event => {
           event.preventDefault();
-          props.goToUpdateNoteForm(event, props.noteId)
+          props.goToUpdateNoteForm(event, props.id)
         }}>Update Note</button>
       <button className="button" onClick={handleDelete}>Delete Note</button>
       </div>

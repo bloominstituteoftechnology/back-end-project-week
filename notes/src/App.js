@@ -29,7 +29,7 @@ class App extends React.Component {
         component={NotesListView}
       />
       <Route
-        path="/notes/:noteId"
+        path="/notes/:id"
         component={NoteView}
       />
       <Route

@@ -32,7 +32,7 @@ function NoteForm(props) {
                     className='update-new-input body-input'
                     type="text" 
                     value={props.note.body} 
-                    name="textBody" 
+                    name="body" 
                     placeholder='Note Body'
                     onChange={props.handleChange} 
                 />

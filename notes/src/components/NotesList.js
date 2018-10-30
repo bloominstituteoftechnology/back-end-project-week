@@ -4,7 +4,7 @@ import '../App.css';
 
 function NotesList(props) {
     if (!props.notesList || !props.notesList.length) {
-        return <h1 className='message'>Action completed. You're welcome.</h1>
+        return <h1 className='message'>There are no notes.</h1>
     }
     console.log(props.notesList);
     return (

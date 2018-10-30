@@ -18,10 +18,8 @@ export {
     UPDATE_NOTE_FAILURE,
 
     getNotes,
-    getNote,
     addNewNote,
     deleteNote,
-    deleteAllNotes,
     setUpdateNote,
     updateNote,
 } from './notesActions';
