@@ -69,3 +69,24 @@ server.get('/api/notes/:id', (request, response) => {
                 .json({ Error: "Note info could not be retrieved." })
         });
 });
+
+server.put('/api/notes/:id', (request, response) => {
+    const id = request.params.id;
+    const title = request.body.title;
+    const content = request.body.content;
+    const updatedNote = { title, content };
+
+    db('notes')
+        .where('id', '=', id)
+        .update(updatedNote)
+        .then(note => {
+            return response
+                .status(200)
+                .json(note);
+        })
+        .catch(() => {
+            return response
+                .status(500)
+                .json({ Error: "The note info could not be modified" })
+        });
+});
