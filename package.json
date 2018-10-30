@@ -1,0 +1,22 @@
+{
+  "name": "Lambda_Notes_Backend",
+  "version": "1.0.0",
+  "description": "Add a backend to the Lambda Notes Frontend project.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon"
+  },
+  "repository": "https://github.com/keirankozlowski/back-end-project-week.git",
+  "author": "Keiran <keirankozlowski@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^1.18.5"
+  },
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.4",
+    "helmet": "^3.14.0",
+    "knex": "^0.15.2",
+    "sqlite3": "^4.0.3"
+  }
+}
