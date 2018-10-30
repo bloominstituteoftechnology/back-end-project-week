@@ -92,7 +92,7 @@ function makeRoute(db) {
           note => new Promise((resolve) => {
             db('notesTagsJoin')
               .select(['name', 'notesTagsJoin.tagId as id'])
-              .where('id', '=', note.id)
+              .where('notesTagsJoin.noteId', '=', note.id)
               .join('tags', 'notesTagsJoin.tagId', 'tags.id')
               .then(tags => resolve({ ...note, tags }))
               .catch(() => resolve(note));
