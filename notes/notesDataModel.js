@@ -13,18 +13,18 @@ function findAll(){
     return db(table)
 }
 
-function findById(id){
-    return db(table).where({id})
+function findById(_id){
+    return db(table).where({_id})
 }
 
 function addNotes(newNote){
     return db(table).insert(newNote)
 }
 
-function editNote(id, newNote){
-    return db(table).where({id}).update(newNote)
+function editNote(_id, newNote){
+    return db(table).where({_id}).update(newNote)
 }
 
-function deleteNote(id){
-    return db(table).where({id}).del()
+function deleteNote(_id){
+    return db(table).where({_id}).del()
 }

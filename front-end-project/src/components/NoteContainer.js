@@ -24,32 +24,30 @@ class NoteContainer extends Component {
   //-------------------------------------------------------Create, Update, Delete Notes
   createNewNote = note => {
     //note.id = this.state.notes.length + 1;
-    axios.post('http://localhost:9000/api/notes', )
-
-    this.setState(state => ({
-      notes: [...this.state.notes, note],
-      backupNotes: [...this.state.backupNotes, note]
-    }));
+    axios.post('http://localhost:9000/api/notes', note).then(notes => {
+      console.log(notes.data);
+      this.setState({
+        notes: notes.data,
+        backupNotes: notes.data
+      })
+    })
   };
-  // updateNote = newNote => {
-  //   axios.put()
-  //   this.setState({
-  //     notes: notes,
-  //     backupNotes: backupNotes
-  //   });
-  //   console.log("nn", notes);
-  //   console.log("bn", backupNotes);
-  //   console.log(newNote);
-  // };
+  updateNote = newNote => {
+    console.log(newNote._id)
+    axios.put(`http://localhost:9000/api/notes/${newNote._id}`, newNote).then(notes => {
+      this.setState({
+        notes: notes.data,
+        backupNotes: notes.data
+      })
+    })    
+  };
   deleteNote = id => {
-    const notes = this.state.notes.filter(note => {
-      return note._id !== id;
-    });
-    const backupNotes = this.state.backupNotes.filter(note => {
-      return note._id !== id;
-    });
-
-    this.setState({ notes: notes, backupNotes: backupNotes });
+    axios.delete(`http://localhost:9000/api/notes/${id}`).then(notes => {
+      this.setState({
+        notes: notes.data,
+        backupNotes: notes.data
+      })
+    })
   };
   //----------------------------------------------------------------------Filters
   filterByChar = event => {
@@ -177,18 +175,6 @@ class NoteContainer extends Component {
       .catch(err => {
         console.log(err);
       });
-    // axios
-    //   .get("https://killer-notes.herokuapp.com/note/get/all")
-    //   .then(response => {
-    //     console.log(response.data);
-    //     this.setState({
-    //       notes: response.data,
-    //       backupNotes: response.data
-    //     });
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
   };
   //-----------------------------------------------------------------------------------Life-Hooks
   componentDidMount() {
@@ -199,7 +185,7 @@ class NoteContainer extends Component {
     // })
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     if (this.props.location.pathname === "/notes") {
       TweenMax.fromTo(
         ".stagger",
@@ -229,6 +215,7 @@ class NoteContainer extends Component {
             />
           )}
         />
+        <Route path="/" />
         <ContentContainer>
           <Switch>
             <Route
