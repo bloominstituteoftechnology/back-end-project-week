@@ -15,8 +15,10 @@ server.get('/',(req,res)=>{
   res.send('active')
 });
 // Get by id
-server.get('/api/posts/:id',(req,res)=>{
-  db.findById(req.params.id)
+server.get('/api/notes/:id',(req,res)=>{
+  console.log(req.params.id)
+  const id = req.params.id;
+  db("notes").where({id:Number(id)})
   .then(post=>{
     console.log('Success',post);
     res.status(200).json(post)
@@ -44,8 +46,8 @@ server.post('/api/notes', (req,res)=>{
     const newNote = req.body;
 db('notes')
 .insert(newNote)
-.then(id=>{
-  const ids =id[0];
+.then(ids=>{
+{ id: ids[0] };
   res.status(200).json(newNote)
 })
 .catch(err=>{
@@ -59,7 +61,7 @@ server.put('/api/notes/:id',(req,res)=>{
   const newPost ={title,content}
   const{id}= req.params;
   res.send('');
-  db.update(id,newPost)
+  db('notes').where('id',Number(id)).update(newPost)
   .then(post=>{
     res.status(200).json(post);
     console.log('Success',post);
@@ -69,6 +71,15 @@ server.put('/api/notes/:id',(req,res)=>{
   })
 })
 
+//delete request
+server.delete('/api/notes/:id',(req,res)=> {
+  const {id} = req.params;
+  db('notes').where('id',Number(id)).del()
+  .then(removedPost=>{
+    res.json(removedPost);
+   console.log(removedPost)
+  })
+});
 
 
 const port = 3300;
