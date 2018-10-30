@@ -8,6 +8,8 @@ exports.up = function(knex, Promise) {
       tbl.unique('title');
 
       tbl.string('contents');
+
+      tbl.string('tags');
   });
 };
 
