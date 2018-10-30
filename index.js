@@ -15,12 +15,37 @@ server.get('/', (req, res)=>{
     res.send("it's alive!");
 });
 
-server.get('/api/note/get',(req,res)=>{
-    helperMethods.getDishes()
-      .then(dish=>{
-        res.status(200).json(dish);
+server.get('/api/note/',(req,res)=>{
+    helperMethods.getNotes()
+      .then(notes=>{
+        res.status(200).json(notes);
       })
       .catch(err=>res.status(500).json(err));
 });
+
+server.get('/api/note/:id',(req,res)=>{
+  const id = req.params.id;
+  helperMethods.getNote(id)
+      .then(note=>{
+          // console.log(note);
+          if (note && note != {}){
+              res.status(200).json(note);
+          } else {
+              res.status(404).json({
+              Error: "ID not found"
+              })
+          }
+          })
+      .catch(err=>res.status(500).json(err));
+})
+
+server.post('/api/note/', (req, res)=>{
+  const note = req.body;
+  helperMethods.addNote(note)
+      .then(id=>{
+          res.status(201).json(id);
+      })
+      .catch(err=>res.status(500).json(err));
+})
 
 server.listen(9000, ()=>console.log('\nAPI running on 9000\n'));
