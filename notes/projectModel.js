@@ -5,14 +5,35 @@ const db = knex(knexConfig.development);
 
 module.exports = {
     getNotes,
+    getNotesById,
     addNotes,
     editNotes,
     deleteNotes
   };
+  function getNotes() {
+      return db('notes');
+  }
 
-  function addNotes(notes) {
+  function getNotesById(id) {
+      return db('notes')
+        .where({ id })
+        .first();
+  }
+
+  function addNotes(note) {
     return db('notes')
-      .insert(notes)
+      .insert(note)
       .into('notes');
   }
   
+  function editNotes(id, changes) {
+      return db('notes')
+        .where({ id })
+        .update(changes);
+    }
+
+    function deleteNotes(id) {
+        return db('notes')
+            .where({ id })
+            .del();
+    }
