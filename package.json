@@ -27,9 +27,7 @@
     "knex": "^0.15.2",
     "morgan": "^1.9.1",
     "node": "^11.0.0",
-    "sqlite3": "^4.0.3"
-  },
-  "devDependencies": {
+    "sqlite3": "^4.0.3",
     "jest": "^23.6.0",
     "nodemon": "^1.18.5",
     "supertest": "^3.3.0"
