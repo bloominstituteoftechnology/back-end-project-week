@@ -41,7 +41,7 @@ server.get('/api/notes',(req,res)=>{
   })
 });
 
-
+// ===Post Request===
 server.post('/api/notes', (req,res)=>{
     const newNote = req.body;
 db('notes')
@@ -55,7 +55,7 @@ db('notes')
 })
 
 });
-
+//===Put Request===
 server.put('/api/notes/:id',(req,res)=>{
   const {title,content} = req.body
   const newPost ={title,content}
@@ -71,7 +71,7 @@ server.put('/api/notes/:id',(req,res)=>{
   })
 })
 
-//delete request
+//===Delete Request===
 server.delete('/api/notes/:id',(req,res)=> {
   const {id} = req.params;
   db('notes').where('id',Number(id)).del()
