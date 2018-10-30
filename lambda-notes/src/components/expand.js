@@ -56,7 +56,7 @@ class Expand extends Component {
 	e.preventDefault();
 	console.log(this.props.match.params.id);
 	axios
-	    .delete(`http://localhost:3333/notes/${this.props.match.params.id}`)
+	    .delete(`http://localhost:3300/api/notes/${this.props.match.params.id}`)
 	    .then(res => {
 		this.setState({ myNote2: res.data });
 	    })
@@ -68,6 +68,7 @@ class Expand extends Component {
     };
     
     render() {
+	// console.log('hi');
 	return (
             <div id='mydiv' className="oneNote" key={this.props.id}>
 	      <Link

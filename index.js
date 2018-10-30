@@ -3,9 +3,10 @@ const helmet = require('helmet');
 const knex = require('knex');
 const knexConfig = require('./knexfile.js');
 const db = knex(knexConfig.development);
-
+const cors = require('cors');
 const server = express();
 
+server.use(cors());
 server.use(express.json());
 server.use(helmet());
 

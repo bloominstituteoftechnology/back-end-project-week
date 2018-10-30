@@ -19,7 +19,7 @@ class Edit extends Component {
 	    });
 	} else {
 	    axios
-		.get(`http://localhost:3333/notes/`, {title: this.state.title, text: this.state.text, id: this.state.id})
+		.get(`http://localhost:3300/api/notes/`, {title: this.state.title, text: this.state.text, id: this.state.id})
 		.then(response => {
 		    const myNotes = response.data;
 		    const note = myNotes.find(note => `${note.id}` === this.props.match.params.id);

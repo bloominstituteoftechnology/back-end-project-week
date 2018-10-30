@@ -29,7 +29,7 @@ class NewNote extends Component {
 	event.preventDefault();
 	window.location.reload();
 
-	axios.post('http://localhost:3333/notes', {title: this.state.title, text: this.state.text})
+	axios.post('http://localhost:3300/api/notes', {title: this.state.title, text: this.state.text})
 	    .then(response => {
 		console.log(response);
 		console.log(response.data);

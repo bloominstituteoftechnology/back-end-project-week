@@ -25,9 +25,9 @@ class App extends Component {
 
     componentDidMount() {
 	axios
-	    .get('http://localhost:3333/notes/')
-	    .then(response => {
-		const notes = response.data;
+	    .get('http://localhost:3300/api/notes/')
+	    .then(res => {
+		const notes = res.data;
 		this.setState({notes});
 	    })
 	    .catch(err => console.log(err));

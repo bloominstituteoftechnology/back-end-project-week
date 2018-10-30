@@ -1,7 +1,7 @@
 import React from 'react';
 import './note.css';
 const Note = props => {
-    // console.log(props);
+    console.log(props);
     return (
         <div className="oneNote" key={props.id}>
           <h2>{props.title}</h2>
@@ -11,8 +11,8 @@ const Note = props => {
 };
 Note.defaultProps = {
     id: 0,
-    title: '',
-    text: ''
+    title: 'hi',
+    text: 'abc'
 };
 export default Note;
 //          <h2>{props.location.state.note.title}</h2>
