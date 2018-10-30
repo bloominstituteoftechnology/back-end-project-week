@@ -1,4 +1,5 @@
 # Back End Project Week
+Trello URL: https://trello.com/b/HOSMcRzl/lambda-notesbackend-keiran-kozlowski
 
 This week you will build a backend for a note taking app called "Lambda Notes".
 
