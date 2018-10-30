@@ -219,18 +219,31 @@ function makeRoute(db) {
           .transacting(trx)
           .where('id', '=', id)
           .del())
-        .then(() => db('notes')
-          .transacting(trx)
-          .where('right', '=', id)
-          .update({ right: -1 }))
+        .catch(err => trx
+          .rollback()
+          .then(() => {
+            throw new HttpError(404, 'ID was not found.');
+          }))
+        .then((res) => {
+          console.log('del res', res);
+          return db('notes')
+            .transacting(trx)
+            .where('right', '=', id)
+            .update({ right: -1 });
+        })
         .then(trx.commit)
-        .catch(() => trx.rollback)
+        .catch((err) => {
+          return trx.rollback();
+        })
         .then(() => {
           throw new HttpError(406, 'An error occurred when making changes to the database.');
         }))
       .then((response) => {
         if (response === 0) {
-          throw new HttpError(404, 'Requested resource could not be found in database for deletion.');
+          throw new HttpError(
+            404,
+            'Requested resource could not be found in database for deletion.',
+          );
         }
         return res.status(204).end();
       })
@@ -358,8 +371,8 @@ function makeRoute(db) {
           }
           return (
             Promise.all(promises)
-            // Insertion Logic
-            // obtain left property of drop target
+              // Insertion Logic
+              // obtain left property of drop target
               .then(() => db('notes')
                 .transacting(trx)
                 .select('left')
@@ -399,10 +412,11 @@ function makeRoute(db) {
       .then(() => res.status(200).end())
       .catch((err) => {
         console.log(err);
-        return next(new HttpError(500, 'Database error prevented the transaction from completing.'));
+        return next(
+          new HttpError(500, 'Database error prevented the transaction from completing.'),
+        );
       });
   });
-
 
   return route;
 }
