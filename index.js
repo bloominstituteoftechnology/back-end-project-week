@@ -5,6 +5,7 @@ const knex = require('knex');
 const knexConfig = require('./knexfile.js');
 const db = knex(knexConfig.development);
 const cors = require('cors');
+const port = process.env.PORT || 9000;
 
 
 server.use(helmet(), cors());
@@ -65,6 +66,6 @@ server.delete("/api/notes/:id", async (req, res) => {
 
 //server
 
-server.listen(9000, () => {
-    console.log('Server started on port 9000');
+server.listen(port, () => {
+    console.log(`Server started on ${port}`);
 })
