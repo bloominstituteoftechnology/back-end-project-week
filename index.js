@@ -20,6 +20,7 @@ server.get('/api/notes', (req, res) => {
   db('notes')
     .then(notes => {
       res.status(200).json(notes);
+      console.log(notes);
     })
     .catch(err => {
       res.status(500).json({ error: 'The notes information could not be retrieved.', err });
@@ -28,12 +29,15 @@ server.get('/api/notes', (req, res) => {
 
 // view an existing note by id
 server.get('/api/notes/:id', (req, res) => {
+  
   const { id } = req.params;
+
   db('notes')
     .where({ id })
     .then(note => {
       if (note) {
         res.status(200).json(note);
+        console.log(note);
       } else {
         res.status(404).json({ message: 'The note with the specified ID does not exist.' });
       }
@@ -52,9 +56,10 @@ server.post('/api/notes', (req, res) => {
       res.status(201).json(id);
     })
     .catch(err => {
-      res.status(500).json({ error: 'There was an error while saving the post to the database.', err });
+      res.status(500).json({ error: 'There was an error while saving the note to the database.', err });
     })
 });
+
 
 // edit an existing note
 server.put('/api/notes/:id', (req, res) => {
