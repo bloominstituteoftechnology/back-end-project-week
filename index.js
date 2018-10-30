@@ -14,10 +14,6 @@ server.use(express.json());
 
 const helperMethods = require('./data/helper-methods.js');
 
-// server.get('/', (req, res)=>{
-//     res.send("it's alive!");
-// });
-
 server.get('/api/note/',(req,res)=>{
     helperMethods.getNotes()
       .then(notes=>{
@@ -86,4 +82,9 @@ server.put('/api/note/:id', (req, res)=>{
     .catch(err=>res.status(500).json(err)); 
 })
 
-server.listen(9000, ()=>console.log('\nAPI running on 9000\n'));
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 8000;
+}
+
+server.listen(port, ()=>console.log('\nAPI running on 9000\n'));
