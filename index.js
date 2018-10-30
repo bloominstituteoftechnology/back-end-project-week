@@ -60,8 +60,20 @@ server.post('/api/notes', (req, res) => {
     .catch(err => {
       res
         .status(500).json({ error: 'An error was encountered while adding the note.' });
-        console.log(err);
+        console.log(err.message);
     });
+});
+
+// DELETE a note via ID
+
+server.delete('/api/notes/:id', (req, res) => {
+  const { id } = req.params;
+
+  db('notes')
+    .where({id})
+    .del()
+    .then(deleted => res.status(200).json({ message: 'The note was successfully deleted. </3 '}))
+    .catch(err => res.status(500).json({ error: 'An error was encountered while deleting this note.' }));
 });
 
 // server instantiation
