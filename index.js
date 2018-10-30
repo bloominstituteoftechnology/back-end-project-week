@@ -28,9 +28,15 @@ server.put('/api/edit/:id', (req, res) => {
      const note = req.body
     const {id} = req.params
      db('notes').where({id}).update(note).then(note => {
+<<<<<<< HEAD
         res.status(200).json({message: 'note updated'})
     }).catch(err => {
         res.status(500).json({error: 'note could not be updated'})
+=======
+        res.status(200).json({message: 'note updated successfully'})
+    }).catch(err => {
+        res.status(500).json({error: 'error update note. please try again'})
+>>>>>>> 84030fe2e2a9f06dcbeffbf358b940980a9d2f52
     })
 })
 
