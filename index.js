@@ -4,6 +4,8 @@ const db = require('./data/db');
 const server = express();
 server.use(express.json());
 
+// server operations
+
 // general API test GET
 
 server.get('/api', (req, res) => {
@@ -74,6 +76,20 @@ server.delete('/api/notes/:id', (req, res) => {
     .del()
     .then(deleted => res.status(200).json({ message: 'The note was successfully deleted. </3 '}))
     .catch(err => res.status(500).json({ error: 'An error was encountered while deleting this note.' }));
+});
+
+// edit an existing note, ID should remain the same
+
+server.put('/api/notes/:id', (req, res) => {
+  const { id } = req.params;
+  const { title, content } = req.body;
+  const note = { title, content };
+
+  db('notes')
+    .where({id})
+    .update(note)
+    .then(updated => res.status(200).json({ message: 'The note was successfully edited! '}))
+    .catch(err => res.status(500).json({ error: 'An error was encountered while editing this note.' }));
 });
 
 // server instantiation
