@@ -17,5 +17,9 @@ server.get('/', (req, res) => {
 
 server.use('/api/notes', notesRoute);
 
-const port = 3333;
+let port = process.env.PORT;
+if (port == null || port == "") {
+    port = 3333;
+}
+
 server.listen(port, () => console.log(`***API running on ${port}***`));
