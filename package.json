@@ -12,9 +12,9 @@
     "url": "git+https://github.com/Csillag61/back-end-project-week.git"
   },
   "engines": {
-    "node": "6.11.2"
+    "node": "8.9.3"
   },
-  "preinstall": "sudo npm install --unsafe-perm -g sqlite3",
+  "preinstall": "sudo npm install --unsafe-perm --build-from-source sqlite3",
   "keywords": [],
   "author": "",
   "license": "ISC",
