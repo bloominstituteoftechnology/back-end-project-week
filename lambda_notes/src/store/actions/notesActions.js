@@ -22,7 +22,7 @@ export const DELETE_NOTE_FAILURE = 'DELETE_NOTE_FAILURE';
 
 export const getNoteList = () => dispatch => {
     dispatch({ type: NOTES_FETCH_START });
-    const promise = axios.get('http://localhost:9000/api/note/get');
+    const promise = axios.get('http://localhost:9000/api/note/');
     promise
         .then(response => {
             dispatch({ type: NOTES_FETCH_COMPLETE, payload: response.data });
@@ -35,7 +35,7 @@ export const getNoteList = () => dispatch => {
 export const addNewNote = (note) => dispatch => {
     dispatch({ type: ADD_NOTE_START });
 
-    axios.post('https://killer-notes.herokuapp.com/note/create', note)
+    axios.post('http://localhost:9000/api/note/', note)
         .then(response => {
             dispatch({ type: ADD_NOTE_COMPLETE, payload: response.data });
         }).catch(err => {
@@ -45,7 +45,7 @@ export const addNewNote = (note) => dispatch => {
 
 export const getNote = (id) => dispatch => {
     dispatch({ type: NOTE_GET_START });
-    const promise = axios.get(`https://killer-notes.herokuapp.com/note/get/${id}`);
+    const promise = axios.get(`http://localhost:9000/api/note/${id}/`);
     promise
         .then(response => {
             dispatch({ type: NOTE_GET_COMPLETE, payload: response.data });
@@ -58,7 +58,7 @@ export const getNote = (id) => dispatch => {
 
 export const editNote = (note) => dispatch => {
     dispatch({ type: NOTE_EDIT_START });
-    const promise = axios.put(`https://killer-notes.herokuapp.com/note/edit/${note['_id']}`, note);
+    const promise = axios.put(`http://localhost:9000/api/note/${note['id']}`, note);
     promise
         .then(response => {
             // console.log(id);
@@ -73,12 +73,10 @@ export const editNote = (note) => dispatch => {
 
 export const deleteNote = (id) => dispatch => {
     dispatch({ type: DELETE_NOTE_START });
-    const promise = axios.delete(`https://killer-notes.herokuapp.com/note/delete/${id}`);
+    const promise = axios.delete(`http://localhost:9000/api/note/${id}`);
     promise
         .then(response => {
-            // console.log(id);
             dispatch({ type: DELETE_NOTE_COMPLETE  });
-            // console.log("got it!");
         })
         .catch(err => {
             dispatch({ type: DELETE_NOTE_FAILURE, payload: err });

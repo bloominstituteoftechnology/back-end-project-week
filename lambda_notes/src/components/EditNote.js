@@ -18,8 +18,8 @@ const EditNote = props =>{
             <textarea  type="text"
                     className="mdhtmlform-md textBody-input"
                     data-mdhtmlform-group="1"
-                    name="textBody"
-                    value={props.note.textBody}
+                    name="content"
+                    value={props.note.content}
                     onChange={props.handleInput}/>
             <br></br>
             <button className="save-input-button"

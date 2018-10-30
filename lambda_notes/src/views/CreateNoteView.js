@@ -9,29 +9,20 @@ class CreateNoteView extends React.Component {
         this.state={
             note:{
                 title: "",
-                textBody: "",
+                content: "",
             }
             // isUpdate: false
         }
     }
 
-    // componentDidMount() {
-    //     console.log(this.props);
-    //     if (this.props.noteToUpdate) {
-    //       this.setState({ isUpdating: true, note: this.props.noteToUpdate });
-    //     }
-    //   }
-
     handleInput = event =>{
         this.setState({ ...this.state,
                         note:{...this.state.note, [event.target.name]: event.target.value}});
-
     }
 
     handleAddNewNote = event => {
         event.preventDefault();
         this.props.addNewNote(this.state.note);
-        // window.location.reload();
         this.props.history.push("/");
     }
 
@@ -43,7 +34,7 @@ class CreateNoteView extends React.Component {
                             isUpdate={this.state.isUpdate}
                             handleInput={this.handleInput}
                             handleAddNewNote={this.handleAddNewNote}
-                            // handleUpdateNote={this.handleUpdateNote}
+
                             />  
                 {/* {this.props.history.push('/')} */}
             </div>

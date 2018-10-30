@@ -1,6 +1,5 @@
 import  React from 'react';
 import './Note.css';
-// import '../../public/mdhtmlform';
 
 const CreateNote = props =>{
     return (
@@ -18,8 +17,8 @@ const CreateNote = props =>{
             <textarea  type="text"
                     className="mdhtmlform-md textBody-input"
                     data-mdhtmlform-group="1"
-                    name="textBody"
-                    value={props.note.textBody}
+                    name="content"
+                    value={props.note.content}
                     placeholder="Note Content"
                     onChange={props.handleInput}/>
             <br></br>

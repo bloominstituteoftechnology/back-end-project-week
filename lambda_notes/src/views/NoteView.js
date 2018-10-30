@@ -28,7 +28,7 @@ class NoteView extends React.Component {
                     <h3 className="mdhtmlform-html note-title"
                         data-mdhtml-group="0">{this.props.noteOnProps.title}</h3>
                     <p className="mdhtmlform-html note-textBody"
-                        data-mdhtml-group="1">{this.props.noteOnProps.textBody}</p>
+                        data-mdhtml-group="1">{this.props.noteOnProps.content}</p>
                 </div>
                 
                 <div className="delete-modal">

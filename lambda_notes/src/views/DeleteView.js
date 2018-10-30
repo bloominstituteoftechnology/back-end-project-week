@@ -7,7 +7,7 @@ class DeleteView extends React.Component {
 
     handleDeleteNote = event => {
         event.preventDefault();
-        this.props.deleteNote(this.props.noteOnProps['_id']);        
+        this.props.deleteNote(this.props.noteOnProps['id']);        
         this.props.history.push("/");
     }
 
