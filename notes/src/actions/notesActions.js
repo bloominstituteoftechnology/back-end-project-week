@@ -45,10 +45,10 @@ export const addNewNote = note => dispatch => {
         });
 };
 
-export const deleteNote = id => dispatch => {
+export const deleteNote = note => dispatch => {
     dispatch({ type: DELETE_NOTE_START });
 
-    axios.delete(`http;//localhost:9000/notes/${id}`)
+    axios.delete(`http://localhost:9000/notes/${note.id}`)
         .then(response => {
             dispatch({ type: DELETE_NOTE_SUCCESS, payload: response.data });
         })
