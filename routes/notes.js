@@ -43,12 +43,13 @@ router.post("/", async (req, res, next) => {
 });
 router.put("/:id", async (req, res, next) => {
     try {
-        await db.updateNote({ id: req.params.id, ...req.body });
+        await db.putNote({ id: req.params.id, ...req.body });
         res.status(200).json({
             status: true,
             updatedNotes: await db.getNotes()
         });
     } catch (err) {
+        console.log(err);
         next(err);
     }
 });
