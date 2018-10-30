@@ -35,7 +35,7 @@ server.get('/api/notes/:id', (req, res) => {
         res
           .status(401)
           .json({ error: 'Invalid ID! Please try again.' });
-      }
+      } else
       res.status(200).json(note)
     })
     .catch(err => {
@@ -43,6 +43,9 @@ server.get('/api/notes/:id', (req, res) => {
       res.status(500).json({ error: 'The note could not be retrieved.' });
     });
 });
+
+// POST a new note
+
 
 // server instantiation
 
