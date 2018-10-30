@@ -6,6 +6,7 @@
   "author": "<ezra.rr.davis@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.4",
     "express": "^4.16.4",
     "knex": "^0.15.2",
     "sqlite3": "^4.0.3"
@@ -16,7 +17,8 @@
     "supertest": "^3.3.0"
   },
   "scripts": {
-    "dev":"nodemon",
+    "dev": "nodemon",
+    "start": "node index.js",
     "test": "jest --watch --verbose"
   },
   "jest": {

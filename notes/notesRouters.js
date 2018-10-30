@@ -4,6 +4,10 @@ const router = express.Router()
 
 router.get('/', (req,res) => {
     notesDb.findAll().then(notes => {
+        notes.forEach(note => {
+            if(!note.tags) note.tags = []
+        })
+        console.log(notes);
         res.status(200).json(notes)
     }).catch(err => {
         res.json(err)
@@ -22,8 +26,8 @@ router.get("/:id", (req,res) => {
 })
 
 router.post("/", (req,res) => {
-    const {title, content} = req.body
-    notesDb.addNotes({title,content}).then(() => {
+    const {title, textBody} = req.body
+    notesDb.addNotes({title,textBody}).then(() => {
         notesDb.findAll().then(notes => {
             res.json(notes)
         }).catch(err => res.json(err))
@@ -31,9 +35,9 @@ router.post("/", (req,res) => {
 })
 
 router.put('/:id', (req,res) => {
-    const {title, content} = req.body
+    const {title, textBody} = req.body
     const {id} = req.params
-    notesDb.editNote(id, {title, content}).then(() => {
+    notesDb.editNote(id, {title, textBody}).then(() => {
         notesDb.findAll().then(notes => {
             res.json(notes)
         })

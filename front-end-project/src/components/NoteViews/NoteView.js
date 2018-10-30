@@ -20,8 +20,8 @@ class NoteView extends Component {
   render() {
     const note =
       this.props.notes &&
-      this.props.notes.find(note => note._id === this.props.match.params.id);
-
+      this.props.notes.find(note => note._id === parseInt(this.props.match.params.id));
+    console.log(this.props.notes)
     const { selectedTheme } = this.props;
     // let title = ''
     // let textBody = ''

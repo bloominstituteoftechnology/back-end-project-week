@@ -11,50 +11,36 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import { TransitionGroup } from "react-transition-group";
 import Transition from "react-transition-group/Transition";
 import { TweenMax } from "gsap";
-import {dummydata} from './dummydata'
+import { dummydata } from "./dummydata";
 
 class NoteContainer extends Component {
   state = {
     notes: [],
     selectedTheme: "standardTheme",
     backupNotes: [],
-    sortOptions: ['A-Z', 'Z-A'],
+    sortOptions: ["A-Z", "Z-A"],
     checklist: []
   };
-//-------------------------------------------------------Create, Update, Delete Notes
+  //-------------------------------------------------------Create, Update, Delete Notes
   createNewNote = note => {
     //note.id = this.state.notes.length + 1;
+    axios.post('http://localhost:9000/api/notes', )
+
     this.setState(state => ({
       notes: [...this.state.notes, note],
       backupNotes: [...this.state.backupNotes, note]
     }));
   };
-  updateNote = newNote => {
-    const notes = this.state.notes.map(note => {
-      if (note._id === newNote._id) {
-        console.log("hi");
-        return newNote;
-      } else {
-        return note;
-      }
-    });
-
-     const backupNotes = this.state.backupNotes.map(note => {
-      if (note._id === newNote._id) {
-        console.log("hi");
-        return newNote;
-      } else {
-        return note;
-      }
-    });
-    this.setState({
-      notes: notes, 
-      backupNotes:backupNotes
-    });
-    console.log('nn',notes);
-    console.log('bn',backupNotes);
-    console.log(newNote);
-  };
+  // updateNote = newNote => {
+  //   axios.put()
+  //   this.setState({
+  //     notes: notes,
+  //     backupNotes: backupNotes
+  //   });
+  //   console.log("nn", notes);
+  //   console.log("bn", backupNotes);
+  //   console.log(newNote);
+  // };
   deleteNote = id => {
     const notes = this.state.notes.filter(note => {
       return note._id !== id;
@@ -63,131 +49,134 @@ class NoteContainer extends Component {
       return note._id !== id;
     });
 
-    this.setState({ notes: notes, backupNotes:backupNotes });
+    this.setState({ notes: notes, backupNotes: backupNotes });
   };
   //----------------------------------------------------------------------Filters
   filterByChar = event => {
-    event.preventDefault()
+    event.preventDefault();
     let value = event.target.value;
     // console.log(value);
     // console.log('notes',this.state.notes)
     // console.log('backup',this.state.backupNotes)
-    if(this.props.match.url !== '/notes'){
-      this.props.history.push('/notes')
+    if (this.props.match.url !== "/notes") {
+      this.props.history.push("/notes");
     }
-    const filteredNotes = this.state.backupNotes.filter(note => {          
-          return (note.title.toUpperCase().indexOf(value.toUpperCase()) > -1);
-        })
+    const filteredNotes = this.state.backupNotes.filter(note => {
+      return note.title.toUpperCase().indexOf(value.toUpperCase()) > -1;
+    });
 
     this.setState(state => {
-      return {        
+      return {
         notes: filteredNotes
       };
-    })
+    });
 
     // if (this.state.notes === filteredNotes){
     //   TweenMax.staggerFromTo('.stagger', 0.3, {opacity:0}, {opacity:1},0.1)
     // }
-    
   };
 
   filterByTags = tag => {
     const notes = this.state.notes.filter(note => {
       return note.tags.includes(tag);
     });
-    
+
     this.setState({
-      notes: notes,      
+      notes: notes
     });
   };
-//--------------------------------------------------------------------------Sorting
+  //--------------------------------------------------------------------------Sorting
 
-sortBy = sortOption => {
-  switch(sortOption){
-    case 'A-Z':
-    this.setState({
-      notes: this.state.notes.sort((a,b) =>{
-        let nameA = a.title.toUpperCase();
-        let nameB = b.title.toUpperCase();
-        if(nameA < nameB) {
-          return -1;
-        }
-        if (nameA > nameB){
-          return 1;
-        }
-        return 0;
-      })
-    })
-    //TweenMax.fromTo('.stagger', 0.5, {opacity:0}, {opacity:1},0.1)
-    break;
+  sortBy = sortOption => {
+    switch (sortOption) {
+      case "A-Z":
+        this.setState({
+          notes: this.state.notes.sort((a, b) => {
+            let nameA = a.title.toUpperCase();
+            let nameB = b.title.toUpperCase();
+            if (nameA < nameB) {
+              return -1;
+            }
+            if (nameA > nameB) {
+              return 1;
+            }
+            return 0;
+          })
+        });
+        //TweenMax.fromTo('.stagger', 0.5, {opacity:0}, {opacity:1},0.1)
+        break;
 
-    case 'Z-A':
-    this.setState({
-      notes: this.state.notes.sort((a,b) =>{
-        let nameA = a.title.toUpperCase();
-        let nameB = b.title.toUpperCase();
-        if(nameA < nameB) {
-          return 1;
-        }
-        if (nameA > nameB){
-          return -1;
-        }
-        return 0;
-      })
-    })
-    ///TweenMax.fromTo('.stagger', 0.5, {opacity:0}, {opacity:1},0.1)
-    break;
+      case "Z-A":
+        this.setState({
+          notes: this.state.notes.sort((a, b) => {
+            let nameA = a.title.toUpperCase();
+            let nameB = b.title.toUpperCase();
+            if (nameA < nameB) {
+              return 1;
+            }
+            if (nameA > nameB) {
+              return -1;
+            }
+            return 0;
+          })
+        });
+        ///TweenMax.fromTo('.stagger', 0.5, {opacity:0}, {opacity:1},0.1)
+        break;
 
-    case 'Reset':
-    
-    const sortedNotes = this.state.backupNotes.filter(note =>{
-      
-      return this.state.notes.includes(note)
-    })
-    
-    this.setState({
-      notes: sortedNotes
-     
-    })
-    //TweenMax.fromTo('.stagger', 0.5, {opacity:0}, {opacity:1},0.1)
-    break;
-  }
-}
-//----------------------------------------------------------------------------------CheckList Functions
+      case "Reset":
+        const sortedNotes = this.state.backupNotes.filter(note => {
+          return this.state.notes.includes(note);
+        });
 
-addChecklist = note => {
+        this.setState({
+          notes: sortedNotes
+        });
+        //TweenMax.fromTo('.stagger', 0.5, {opacity:0}, {opacity:1},0.1)
+        break;
+    }
+  };
+  //----------------------------------------------------------------------------------CheckList Functions
 
-const {checklist} = this.state
+  addChecklist = note => {
+    const { checklist } = this.state;
 
-  const newList = [...checklist, note];
-  
-  if (!checklist.some(checkitem => checkitem._id === note._id)) { 
-    this.setState({ checklist: newList }); 
-  }else{
-    this.setState({
-      checklist: newList.filter(checkitem => checkitem._id !== note._id)
-    })
-  }
+    const newList = [...checklist, note];
 
-}
+    if (!checklist.some(checkitem => checkitem._id === note._id)) {
+      this.setState({ checklist: newList });
+    } else {
+      this.setState({
+        checklist: newList.filter(checkitem => checkitem._id !== note._id)
+      });
+    }
+  };
 
-
-
-
-//-----------------------------------------------------------------------------------Theme-Related Functions
+  //-----------------------------------------------------------------------------------Theme-Related Functions
   changeTheme = theme => {
     this.setState({
       selectedTheme: theme
     });
   };
-//-----------------------------------------------------------------------------------Axios Data calls
+  //-----------------------------------------------------------------------------------Axios Data calls
   fetchData = () => {
-    const {notes, backupNotes} = this.state
-    console.log(notes, backupNotes)
-   this.setState({
-     notes: backupNotes,
-     backupNotes: backupNotes,
-   })
+    const { notes, backupNotes } = this.state;
+    //console.log(notes, backupNotes)
+    this.setState({
+      notes: backupNotes,
+      backupNotes: backupNotes
+    });
+    axios
+      .get("http://localhost:9000/api/notes")
+      .then(res => {
+        console.log(res);
+        this.setState({
+          notes: res.data,
+          backupNotes: res.data
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
     // axios
     //   .get("https://killer-notes.herokuapp.com/note/get/all")
     //   .then(response => {
@@ -203,24 +192,27 @@ const {checklist} = this.state
   };
   //-----------------------------------------------------------------------------------Life-Hooks
   componentDidMount() {
-//    this.fetchData();
-    this.setState({
-      notes: dummydata,
-      backupNotes: dummydata
-    })
+    this.fetchData();
+    // this.setState({
+    //   notes: dummydata,
+    //   backupNotes: dummydata
+    // })
   }
 
-  componentDidUpdate(){
-    
-    if(this.props.location.pathname === '/notes'){
-      console.log('object')
-      TweenMax.fromTo('.stagger', 0.3, {opacity:0, x:25}, {opacity:1, x:0})
-      
+  componentDidUpdate() {
+    if (this.props.location.pathname === "/notes") {
+      TweenMax.fromTo(
+        ".stagger",
+        0.3,
+        { opacity: 0, x: 25 },
+        { opacity: 1, x: 0 }
+      );
     }
   }
 
-  render() {//------------------------------------------------------Components
-    const { notes, selectedTheme, sortOptions, checklist } = this.state;//------------------------Deconstruction
+  render() {
+    //------------------------------------------------------Components
+    const { notes, selectedTheme, sortOptions, checklist } = this.state; //------------------------Deconstruction
     return (
       <ContainerDiv data-theme={selectedTheme}>
         <Route
@@ -290,7 +282,7 @@ const {checklist} = this.state
                   updateNote={this.updateNote}
                   deleteNote={this.deleteNote}
                   notes={notes}
-                  checklist= {checklist}
+                  checklist={checklist}
                 />
               )}
             />
@@ -300,10 +292,9 @@ const {checklist} = this.state
               //------------------------------------------------------Notes main page
               render={props => (
                 <Notes
-                sortBy={this.sortBy}
+                  sortBy={this.sortBy}
                   notes={notes}
                   sortOptions={sortOptions}
-                  
                   {...props}
                   filterByTags={this.filterByTags}
                   selectedTheme={selectedTheme}
@@ -340,11 +331,10 @@ const ContainerDiv = styled("div")`
 `;
 
 const ContentContainer = styled("div")`
-
   margin-top: 4%;
   margin-left: 300px;
   max-width: 1110px;
-  width:100%;
+  width: 100%;
 `;
 
 export default NoteContainer;
