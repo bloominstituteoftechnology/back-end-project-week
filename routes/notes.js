@@ -1,6 +1,7 @@
 // ***** Notes ***** //
 const router = require('express').Router();
 const helpers = require('../db/helpers');
+const _ = require('lodash');
 
 // *****  ***** //
 function tagReduce(acc, next) {
@@ -40,12 +41,33 @@ router.post('/', async (req, res, next) => {
    if (!title || !textBody)
     return res.json({ Error: 'Stop forgetting things' });
    let id = null;
-  if (Array.isArray(tags)) {
+  if (_.isArray(tags)) {
     id = await helpers.addNoteWithTags({ title, textBody }, tags);
   } else {
     id = await helpers.addNote({ title, textBody });
   }
   res.status(201).json({ Message: 'I think it worked', id });
+});
+
+// #################### PUT #################### //
+
+router.put('/:id', async (req, res) => {
+  let { title, textBody, tags } = req.body;
+   if (!title && !textBody && !Array.isArray(tags))
+    return res.json({ Error: `So you think I CAN JUST WORK WITH ONLY ONE THING FILLED OUT?!! THINK AGAIN...redo it please` });
+   if (_.isArray(tags)) {
+    try {
+      let ids = await helpers.updateTags(tags, Number(req.params.id));
+    } catch (err) {
+      return res.json({ Error: `I'm not calling you a liar but....that ID doesn't exist` });
+    }
+  }
+   let objUpdater = { title, textBody };
+    objUpdater = _.omitBy(objUpdater, _.isUndefined);
+    let count = await helpers.updateNote(objUpdater, Number(req.params.id));
+      if (count === 0) return res.json({ Error: `I'm not calling you a liar but....that ID doesn't exist` });
+    res.status(200)
+    .json({ Message: `The note that had the id of ${req.params.id} has been updated...peacefully` });
 });
 
 // #################### DELETE #################### //
