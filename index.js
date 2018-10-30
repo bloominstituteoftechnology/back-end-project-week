@@ -6,8 +6,8 @@ const server = express();
 const bcrypt = require('bcryptjs');
 const dbConfig = require('./knexfile')
 const session = require('express-session');
- const db = knex(dbConfig.development);
- server.use(session(sessionConfig))
+const db = knex(dbConfig.development);
+server.use(session(sessionConfig))
 server.use(express.json());
 server.use(helmet());
 server.use(cors())
@@ -19,7 +19,7 @@ server.get('/api/view/:id', (req, res) => {
         res.status(200).json(note)
     }).catch(err => {
         console.log(err)
-        res.status(500).json({error: 'could not retrieve note'})
+        res.status(500).json({error: 'Note not found'})
     })
 })
 
