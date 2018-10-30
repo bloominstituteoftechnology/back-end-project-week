@@ -4,15 +4,21 @@
   "main": "index.js",
   "repository": "https://github.com/tristenneu/back-end-project-week.git",
   "license": "MIT",
+  "engines": {
+    "node": "8.11.4",
+    "yarn": "1.9.4"
+  },
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "heroku-postbuild": "yarn install --production"
   },
   "dependencies": {
     "cors": "^2.8.4",
     "express": "^4.16.4",
     "helmet": "^3.14.0",
     "knex": "^0.15.2",
+    "pg": "^7.6.0",
     "sqlite3": "^4.0.3"
   },
   "devDependencies": {
