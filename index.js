@@ -12,6 +12,16 @@ server.use(express.json());
 server.use(helmet());
 server.use(cors())
 
+//  GET view notes
+server.get('/api/view/:id', (req, res) => {
+    const {id} = req.params
+     db('notes').where({id}).then(note => {
+        res.status(200).json(note)
+    }).catch(err => {
+        console.log(err)
+        res.status(500).json({error: 'could not retrieve note'})
+    })
+})
 
  const port = 8000;
 server.listen(port, function () {
