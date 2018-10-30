@@ -15,7 +15,9 @@
     "knex": "^0.15.2",
     "lodash": "^4.17.11",
     "morgan": "^1.9.1",
-    "sqlite3": "^4.0.3"
+    "reinstall": "^2.0.0",
+    "sqlite3": "^4.0.3",
+    "yarn-upgrade-all": "^0.5.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.5"
