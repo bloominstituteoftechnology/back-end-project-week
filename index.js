@@ -3,12 +3,19 @@ const helmet = require('helmet');
 
 const knex = require('knex');
 const knexConfig = require('./knexfile.js');
-
 const db = knex(knexConfig.development);
+
+const cors = require('cors');
+const corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
 const server = express();
 
 server.use(express.json());
 server.use(helmet());
+server.use(cors(corsOptions));
 
 const port = 8000;
 server.listen(port, () => console.log(`API running on port ${port}`));
