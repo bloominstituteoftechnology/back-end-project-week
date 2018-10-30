@@ -38,3 +38,34 @@ server.post('/api/notes', (request, response) => {
                 .json({ Error: "There was an error while saving the note" })
         });
 });
+
+server.get('/api/notes', (request, response) => {
+    db('notes')
+        .then(notes => {
+            return response
+                .status(200)
+                .json(notes);
+        })
+        .catch(() => {
+            return response
+                .status(500)
+                .json({ Error: "Could not find list of notes." })
+        });
+});
+
+server.get('/api/notes/:id', (request, response) => {
+    const id = request.params.id;
+
+    db('notes')
+        .where({ id })
+        .then(note => {
+            return response
+                .status(200)
+                .json(note);
+        })
+        .catch(() => {
+            return response
+                .status(500)
+                .json({ Error: "Note info could not be retrieved." })
+        });
+});
