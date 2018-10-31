@@ -49,7 +49,7 @@ class Edit extends Component {
 	};
 
 	axios
-	    .put(`http://localhost:3333/notes/${this.props.match.params.id}`, myNote2)
+	    .put(`http://localhost:3300/api/notes/${this.props.match.params.id}`, myNote2)
 	    .then(response => {
 		this.setState({ myNote2: response.data });
 		console.log(myNote2);

@@ -38,7 +38,7 @@ class Delete extends Component {
     deleteNote = e => {
 	e.preventDefault();
 	axios
-	    .delete(`http://localhost:3333/notes/${this.props.match.params.id}`)
+	    .delete(`http://localhost:3300/notes/${this.props.match.params.id}`)
 	    .then(res => {
 		this.setState({ myNote2: res.data });
 	    })
