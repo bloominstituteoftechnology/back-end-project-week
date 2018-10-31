@@ -10,8 +10,8 @@ app.use(helmet());
 app.use(cors());
 
     
-server.use(express.json());
-server.use(bodyParser.json());
+app.use(express.json());
+app.use(bodyParser.json());
 
 if (process.env.ENV === "production") app.use(morgan("combined"));
 else app.use(morgan("dev"));
