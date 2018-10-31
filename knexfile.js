@@ -19,10 +19,11 @@ module.exports = {
     client: "pg",
     debug: true,
     connection: {
-      database: process.env.DATABASE_NAME,
-      user: process.env.DATABASE_USER,
-      password: process.env.DATABASE_PASSWORD,
-      url: process.env.DATABASE_URL
+      database: "dcpi14lbs8cu46",
+      user: "fnnrnqxshkodxc",
+      password: "b3e1305ad99a3a1a19644f32823f421bc716ef99e30e2dec6af12b1669812646",
+      host: "ec2-54-83-38-174.compute-1.amazonaws.com",
+      uri: "postgres://fnnrnqxshkodxc:b3e1305ad99a3a1a19644f32823f421bc716ef99e30e2dec6af12b1669812646@ec2-54-83-38-174.compute-1.amazonaws.com:5432/dcpi14lbs8cu46"
     },
     migrations: {
       directory: "./db/migrations",
