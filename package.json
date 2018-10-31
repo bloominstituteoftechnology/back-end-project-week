@@ -2,10 +2,10 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "private": true,
-  "main": "./bin/www.js",
+  "main": "index.js",
   "scripts": {
     "test": "jest --watch --verbose",
-    "start": "node ./bin/www.js"
+    "start": "nodemon"
   },
   "repository": {
     "type": "git",
