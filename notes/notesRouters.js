@@ -35,3 +35,5 @@ router.delete('/api/view/:id/delete', (req, res) => {
         return res.status(500).json({message: 'Could not Delete Note'})
     })
 })
+
+module.exports = router;
