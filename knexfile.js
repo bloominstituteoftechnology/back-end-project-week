@@ -18,7 +18,6 @@ module.exports = {
   production: {
     client: "pg",
     debug: true,
-    searchPath: "database_schema",
     connection: {
       database: process.env.DATABASE_NAME,
       user: process.env.DATABASE_USER,
