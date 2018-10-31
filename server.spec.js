@@ -115,110 +115,208 @@ describe('Note api', () => {
   });
 
   it('creates a note successfully', (done) => {
-    const newNote = {
+    let newNote = {
       title: 'New note',
       text_body: 'This is a new note',
     };
-    let createdNote;
     request(server)
       .post('/notes/create')
       .send(newNote)
       .then(({ status, body }) => {
         expect(status).toEqual(201);
-        expect(body.id).toBeGreaterThanOrEqual(1);
-        createdNote = body;
-        return createdNote.id;
+        expect(body.id).toBeDefined();
+        newNote = { ...newNote, id: body.id };
+        return body.id;
       })
       .then(id => db('notes')
         .where('id', '=', id)
         .first())
-      .then((response) => {
-        expect(response['created_at']).toBeDefined();
-        expect(createdNote).toEqual(response);
+      .then(async (response) => {
+        expect(response.created_at).toBeDefined();
+        expect(response).toMatchObject(newNote);
+
+        response.tags = [];
+        const parsedNewNote = JSON.parse(JSON.stringify(snakeToCamel(response)));
+        let updatedNotes = await getCurrentDB();
+        updatedNotes = JSON.parse(JSON.stringify(updatedNotes.map(snakeToCamel)));
+        baseNotes[baseNotes.length - 1].right = response.id;
+        expect([...baseNotes, parsedNewNote]).toEqual(updatedNotes);
+
         return done();
       });
   });
-  //   it('rejects a note with an undefined title', (done) => {
-  //     request(server)
-  //       .post(process.env.PATH_POST_NOTE)
-  //       .send(noTitle)
-  //       .then((res) => {
-  //         const {
-  //           status,
-  //           body: { message },
-  //         } = res;
-  //         expect(status).toEqual(400);
-  //         expect(message).toBeDefined();
-  //         return done();
-  //       });
-  //   });
-  //   it('rejects a note with a zero-string title', (done) => {
-  //     request(server)
-  //       .post(process.env.PATH_POST_NOTE)
-  //       .send(zeroString)
-  //       .then((res) => {
-  //         const {
-  //           status,
-  //           body: { message },
-  //         } = res;
-  //         expect(status).toEqual(400);
-  //         expect(message).toBeDefined();
-  //         return done();
-  //       });
-  //   });
-  // });
-  // describe('for a put request', () => {
-  //   const updateNote = {
-  //     title: 'New note',
-  //     text_body: 'This is a new note',
-  //   };
-  //   const zeroString = {
-  //     title: '',
-  //   };
-  //   let baseNotes;
-  //   beforeEach(done => basicPopulate()
-  //     .then((res) => {
-  //       baseNotes = res;
-  //     })
-  //     .then(() => done()));
-  //   it('edits a note', (done) => {
-  //     const { id } = baseNotes[1];
-  //     request(server)
-  //       .put(`${process.env.PATH_EDIT_NOTE}/${id}`)
-  //       .send(updateNote)
-  //       .then(({ status }) => {
-  //         expect(status).toEqual(204);
-  //         return db('notes')
-  //           .where('id', '=', id)
-  //           .select(Object.keys(updateNote))
-  //           .first();
-  //       })
-  //       .then((editedObj) => {
-  //         expect(editedObj).toEqual(updateNote);
-  //         return done();
-  //       });
-  //   });
-  //   it('throws a 404 error for a bad id', done => request(server)
-  //     .put(`${process.env.PATH_EDIT_NOTE}/305`)
-  //     .send(updateNote)
-  //     .then(({ status }) => {
-  //       expect(status).toEqual(404);
-  //       return done();
-  //     }));
-  //   it('throws a 400 error for a 0-string title', (done) => {
-  //     const { id } = baseNotes[1];
-  //     request(server)
-  //       .put(`${process.env.PATH_EDIT_NOTE}/${id}`)
-  //       .send(zeroString)
-  //       .then(({ status }) => {
-  //         expect(status).toEqual(400);
-  //         return db('notes')
-  //           .where('id', '=', id)
-  //           .first();
-  //       })
-  //       .then((editedObj) => {
-  //         expect(editedObj).toEqual(baseNotes[1]);
-  //         return done();
-  //       });
-  //   });
+
+  it('rejects a note with an empty-string title', (done) => {
+    const newNote = {
+      title: '',
+      text_body: 'This is a new note',
+    };
+    request(server)
+      .post('/notes/create')
+      .send(newNote)
+      .then(async (res) => {
+        const {
+          status,
+          body: { message },
+        } = res;
+        expect(status).toEqual(403);
+        expect(message).toBeDefined();
+        const updatedNotes = await getCurrentDB();
+        expect(baseNotes).toEqual(updatedNotes);
+        return done();
+      });
+  });
+
+  it('rejects a note with an empty-string text', (done) => {
+    const newNote = {
+      title: 'New note title',
+      text_body: '',
+    };
+    request(server)
+      .post('/notes/create')
+      .send(newNote)
+      .then(async (res) => {
+        const {
+          status,
+          body: { message },
+        } = res;
+        expect(status).toEqual(403);
+        expect(message).toBeDefined();
+        const updatedNotes = await getCurrentDB();
+        expect(baseNotes).toEqual(updatedNotes);
+        return done();
+      });
+  });
+  it('rejects a note with an undefined title', (done) => {
+    const newNote = {
+      text_body: 'This is a new note',
+    };
+    request(server)
+      .post('/notes/create')
+      .send(newNote)
+      .then(async (res) => {
+        const {
+          status,
+          body: { message },
+        } = res;
+        expect(status).toEqual(403);
+        expect(message).toBeDefined();
+        const updatedNotes = await getCurrentDB();
+        expect(baseNotes).toEqual(updatedNotes);
+        return done();
+      });
+  });
+
+  it('rejects a note with an undefined text', (done) => {
+    const newNote = {
+      title: 'New note title',
+    };
+    request(server)
+      .post('/notes/create')
+      .send(newNote)
+      .then(async (res) => {
+        const {
+          status,
+          body: { message },
+        } = res;
+        expect(status).toEqual(403);
+        expect(message).toBeDefined();
+        const updatedNotes = await getCurrentDB();
+        expect(baseNotes).toEqual(updatedNotes);
+        return done();
+      });
+  });
+  it('edits a note', (done) => {
+    const updateNote = {
+      title: 'new title',
+      textBody: 'new text',
+    };
+    const { id } = baseNotes[1];
+    request(server)
+      .put(`/notes/edit/${id}`)
+      .send(updateNote)
+      .then(async ({ status }) => {
+        expect(status).toEqual(204);
+        const updatedNotes = await getCurrentDB();
+        expect(updatedNotes[1]).toMatchObject(updateNote);
+        return done();
+      });
+  });
+  it('throws a 404 error for a bad id', (done) => {
+    const updateNote = {
+      title: 'new title',
+      textBody: 'new text',
+    };
+    request(server)
+      .put('/notes/edit/badid')
+      .send(updateNote)
+      .then(async ({ status }) => {
+        expect(status).toEqual(404);
+        const currentNotes = await getCurrentDB();
+        expect(baseNotes).toEqual(currentNotes);
+        return done();
+      });
+  });
+  it('rejects a note edit with an empty-string title', (done) => {
+    const newNote = {
+      title: '',
+    };
+    const targetId = baseNotes[1].id;
+    request(server)
+      .put(`/notes/edit/${targetId}`)
+      .send(newNote)
+      .then(async (res) => {
+        const {
+          status,
+          body: { message },
+        } = res;
+        expect(status).toEqual(403);
+        expect(message).toBeDefined();
+        const updatedNotes = await getCurrentDB();
+        expect(baseNotes).toEqual(updatedNotes);
+        return done();
+      });
+  });
+  it('deletes a note from the end', (done) => {
+    const noteTarget = baseNotes[baseNotes.length - 1];
+    return request(server)
+      .delete(`/notes/delete/${noteTarget.id}`)
+      .then(async (res) => {
+        const {
+          status,
+          body: { message },
+        } = res;
+
+        expect(status).toBe(204);
+
+        const updatedNotes = await getCurrentDB();
+        expect(updatedNotes).toHaveLength(baseNotes.length - 1);
+        expect(updatedNotes
+          .find(note => note.id === noteTarget.id)).toBeUndefined();
+        expect(updatedNotes[updatedNotes.length - 1].right).toBe(-1);
+        return done();
+      });
+  });
+
+  it('deletes a note from the middle', (done) => {
+    const noteTarget = baseNotes[1];
+    return request(server)
+      .delete(`/notes/delete/${noteTarget.id}`)
+      .then(async (res) => {
+        const {
+          status,
+          body: { message },
+        } = res;
+
+        expect(status).toBe(204);
+
+        const updatedNotes = await getCurrentDB();
+        expect(updatedNotes).toHaveLength(baseNotes.length - 1);
+        expect(updatedNotes
+          .find(note => note.id === noteTarget.id)).toBeUndefined();
+        expect(updatedNotes[0].right).toEqual(baseNotes[2].id);
+        expect(updatedNotes[2].left).toEqual(baseNotes[0].id);
+        return done();
+      });
+  });
 });

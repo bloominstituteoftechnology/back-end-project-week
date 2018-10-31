@@ -145,7 +145,11 @@ function makeRoute(db) {
     } = req;
     // Checks that a non-empty title is included, returns error if not
     if (!note.title || note.title === '') {
-      return next(new HttpError(400, 'Must provide a non-empty title for this request.'));
+      return next(new HttpError(403, 'Must provide a non-empty title for this request.'));
+    }
+    // Checks that a non-empty text_body is included, returns error if not
+    if (!note.text_body || note.text_body === '') {
+      return next(new HttpError(403, 'Must provide a non-empty text_body for this request.'));
     }
     // inserts new note in note table
     return db('notes')
@@ -225,7 +229,6 @@ function makeRoute(db) {
             throw new HttpError(404, 'ID was not found.');
           }))
         .then((res) => {
-          console.log('del res', res);
           return db('notes')
             .transacting(trx)
             .where('right', '=', id)
@@ -258,7 +261,7 @@ function makeRoute(db) {
   route.put('/edit/:id', (req, res, next) => {
     // checks for an acceptable title change
     if (req.body.title === '') {
-      throw new HttpError(400, 'Cannot edit a note to have an empty string as title.');
+      throw new HttpError(403, 'Cannot edit a note to have an empty string as title.');
     }
 
     const noteId = Number(req.params.id);
