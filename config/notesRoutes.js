@@ -13,7 +13,7 @@ const router = express.Router();
 // =================NOTES ENDPOINTS===================
 
 // Add GET ROUTE HANDLER to get the list of notes
-router.get('/', (req, res) => {
+router.get('/notes', (req, res) => {
   db('notes')
     .then(notes => {
       res.status(200).json(notes);
