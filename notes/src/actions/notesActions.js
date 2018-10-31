@@ -4,6 +4,9 @@ export const NOTES_FETCH_START = 'NOTES_FETCH_START';
 export const NOTES_FETCH_SUCCESS = 'NOTES_FETCH_SUCCESS';
 export const NOTES_FETCH_FAILURE = 'NOTES_FETCH_FAILURE';
 
+export const GET_NOTE_START = 'GET_NOTE_START';
+export const GET_NOTE_SUCCESS = 'GET_NOTE_SUCCESS';
+export const GET_NOTE_FAILURE = 'GET_NOTE_FAILURE';
 
 export const ADD_NOTE_START = 'ADD_NOTE_START';
 export const ADD_NOTE_SUCCESS = 'ADD_NOTE_SUCCESS';
@@ -33,6 +36,18 @@ export const getNotes = () => dispatch => {
         });
 };
 
+export const getNote = note=> dispatch => {
+    dispatch({type: GET_NOTE_START});
+    const promise = axios.get(`http://localhost:9000/notes/${note.id}`);
+
+    promise
+        .then(response=> {
+            dispatch({type: GET_NOTE_SUCCESS, payload: response.data});
+        })
+        .catch(err=> {
+            dispatch({type: GET_NOTE_FAILURE, payload: err});
+        });
+};
 
 export const addNewNote = note => dispatch => {
     dispatch({ type: ADD_NOTE_START });

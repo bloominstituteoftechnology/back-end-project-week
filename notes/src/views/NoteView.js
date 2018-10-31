@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getNotes, deleteNote, setUpdateNote} from '../actions';
+import { getNotes, getNote, deleteNote, setUpdateNote} from '../actions';
 
 import Note from '../components/Note';
 
@@ -39,8 +39,9 @@ class NoteView extends React.Component {
 const mapStateToProps = state => ({
     notesList: state.notes,
     isLoading: state.isLoading,
+    isUpdating: state.isUpdating,
     note: state.note
 });
 
 
-export default connect(mapStateToProps, { getNotes, deleteNote, setUpdateNote})(NoteView);
+export default connect(mapStateToProps, { getNotes, getNote, deleteNote, setUpdateNote})(NoteView);

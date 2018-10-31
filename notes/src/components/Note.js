@@ -5,7 +5,7 @@ import '../App.css';
 
 function Note(props) {
   console.log(props);
-  const note = props.notesList.find(note=> note.id === parseInt(props.match.params.id), 10);
+  const note = props.notesList.find(note=> note.id === parseInt((props.match.params.id), 10));
 
   function handleDelete() {
     props.handleDeleteNote(note);
@@ -18,15 +18,15 @@ function Note(props) {
     <Fragment>
       <div className='note-div'>
       <div className="note-wrapper">
-        <h1>{props.note.title}</h1>
-        <h4>({props.note.body})</h4>
+        <h1>{note.title}</h1>
+        <h4>({note.body})</h4>
       </div>
       <div className='buttons-div'>
       <button 
         className="button" 
         onClick={event => {
           event.preventDefault();
-          props.goToUpdateNoteForm(event, props.note.id)
+          props.goToUpdateNoteForm(event, note.id)
         }}>Update Note</button>
       <button className="button" onClick={handleDelete}>Delete Note</button>
       </div>
