@@ -8,8 +8,8 @@ server.use(express.json());
 server.use(helmet());
 server.use(cors());
 server.use('/', routes);
+require('dotenv').config();
  
- 
-server.listen(8000, () => {
-  console.log('Server Running on Port 8000');
-});
+const port = process.env.PORT || 9000;
+
+ server.listen(port, () => console.log(`\n=Connected to ${port}=`));

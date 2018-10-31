@@ -17,7 +17,7 @@ router
         try {
             const count = await helper.addNote(note);
             res.status(201).json({
-                message: 'Note has been added.'
+                id: count[0]
             });
         } catch (err) {
             next(err);
