@@ -10,7 +10,7 @@ import auth0 from 'auth0-js';
 
 var lock = new Auth0Lock(
         process.env.REACT_APP_CLIENT_ID,process.env.REACT_APP_DOMAIN_URL
-      );
+);
 
 var webAuth = new auth0.WebAuth({
         domain: process.env.REACT_APP_DOMAIN_URL,
@@ -30,49 +30,49 @@ webAuth.parseHash((err, authResult) => {
           // Handle errors
           console.log(err);
         }
-      });
+});
 
 class App extends Component {
         render() {
-        if (this.isAuthenticated()){
-                return (
-                <div className="App">
-                        <nav className="navigation-panel">
-                        <h1>Lambda Notes</h1>
-                        <br></br>
-                        <button onClick={() => this.props.history.push("/")}  
-                                className="notelist-button">
-                                View Your Notes</button><br></br>
-                        <button onClick={() => this.props.history.push("/create-note")}  
-                                className="create-note-button">
-                                + Create New Notes</button>
-                        </nav>
-                        <div className="display-panel">
-                        <Route  exact
-                                path='/'
-                                component={NoteListView}/>
-                        <Route  path="/note/:id"
-                                component={NoteView}/>
-                        <Route  path='/create-note'
-                                component={CreateNoteView}/>
-                        <Route  path='/edit/:id'
-                                component={EditView}/>
-                        </div>
-
-
-                </div>
-                );
-        }      
-        else{
-                return(
-                        <div>
-                                <h1>You are not logged in</h1>
-                                <div onClick={function(){
-                                        lock.show();}}>LOG IN
+                if (this.isAuthenticated()){
+                        return (
+                        <div className="App">
+                                <nav className="navigation-panel">
+                                <h1>Lambda Notes</h1>
+                                <br></br>
+                                <button onClick={() => this.props.history.push("/")}  
+                                        className="notelist-button">
+                                        View Your Notes</button><br></br>
+                                <button onClick={() => this.props.history.push("/create-note")}  
+                                        className="create-note-button">
+                                        + Create New Notes</button>
+                                </nav>
+                                <div className="display-panel">
+                                <Route  exact
+                                        path='/'
+                                        component={NoteListView}/>
+                                <Route  path="/note/:id"
+                                        component={NoteView}/>
+                                <Route  path='/create-note'
+                                        component={CreateNoteView}/>
+                                <Route  path='/edit/:id'
+                                        component={EditView}/>
                                 </div>
+
+
                         </div>
-                )
-        }         
+                        );
+                }      
+                else{
+                        return(
+                                <div>
+                                        <h1>You are not logged in</h1>
+                                        <div onClick={function(){
+                                                lock.show();}}>LOG IN
+                                        </div>
+                                </div>
+                        )
+                }         
         }
         isAuthenticated() {
                 // Check whether the current time is past the
