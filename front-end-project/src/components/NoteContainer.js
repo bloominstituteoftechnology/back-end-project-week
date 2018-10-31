@@ -19,7 +19,8 @@ class NoteContainer extends Component {
     selectedTheme: "standardTheme",
     backupNotes: [],
     sortOptions: ["A-Z", "Z-A"],
-    checklist: []
+    checklist: [],
+    pagination: 12
   };
   //-------------------------------------------------------Create, Update, Delete Notes
   createNewNote = note => {
@@ -50,6 +51,14 @@ class NoteContainer extends Component {
       })
     })
   };
+  //--------------------------------------------------------------------------Pagination
+  loadPagination = () => {
+    this.setState(prevState => {
+      return {pagination: prevState.pagination + 12}
+    })
+  }
+
+  
   //----------------------------------------------------------------------Filters
   filterByChar = event => {
     event.preventDefault();
@@ -199,7 +208,7 @@ class NoteContainer extends Component {
 
   render() {
     //------------------------------------------------------Components
-    const { notes, selectedTheme, sortOptions, checklist } = this.state; //------------------------Deconstruction
+    const { notes, selectedTheme, sortOptions, checklist, pagination } = this.state; //------------------------Deconstruction
     return (
       <ContainerDiv data-theme={selectedTheme}>
         <Route
@@ -285,6 +294,8 @@ class NoteContainer extends Component {
                   notes={notes}
                   sortOptions={sortOptions}
                   {...props}
+                  pagination={pagination}
+                  loadPagination={this.loadPagination}
                   filterByTags={this.filterByTags}
                   selectedTheme={selectedTheme}
                 />

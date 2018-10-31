@@ -12,47 +12,25 @@ import dragula from 'react-dragula'
 
 dragula([document.getElementById('container')]);
 
+
+
 const Notes = props => {
-  const { notes, selectedTheme } = props;
-  
+  const { notes, selectedTheme, pagination } = props;
+  console.log(pagination);
   return (
     <Fragment>
       
-      <Sort {...props} />
-      {/* <Transition
-        in={props.match.url === "/notes"}
-        appear={true}
-        timeout={1000}
-      >
-        {state => {
-          switch (state) {
-            case "entering":
-              TweenMax.staggerFromTo(
-                ".stagger",
-                0.1,
-                { opacity: 0, x: 25, boxShadow: '0px 8px 16px 0px rgba(0, 0, 0, 0.0)' },
-                { opacity: 1, x: 0, boxShadow: '0px 8px 16px 0px rgba(0, 0, 0, 0.2)' },
-                
-                0.1
-              );
-            case "entered":
-              return null;
-            case "exiting":
-              TweenMax.to("stagger", 0.5, { opacity: 0 });
-              return null;
-            case "exited":
-              return null;
-          }
-        }}
-      </Transition> */}
+      <Sort {...props} />      
       <NoteTitle data-theme={selectedTheme}>Your Notes:</NoteTitle>
        {notes.length ===0 && <EmptyNoteTitle className= {'stagger'}data-theme={selectedTheme}>No Notes Available</EmptyNoteTitle>}
       <NotesDiv data-theme={selectedTheme} id="container" >
-        {notes.map(note => (
-          <Note note={note} selectedTheme={selectedTheme} {...props} key={note._id}/>
+        {notes.slice(0,pagination).map(note => (
+          <Note note={note} selectedTheme={selectedTheme} {...props} key={note._id}/>  
+
             
 
         ))}
+        {pagination < notes.length && <NoteButton data-theme={selectedTheme} onClick={props.loadPagination}>Load More</NoteButton>}
       </NotesDiv>
     </Fragment>
   );
@@ -73,5 +51,20 @@ const NoteTitle = styled("h2")`
 const EmptyNoteTitle = styled(NoteTitle)`
 text-align:center;
 `
+
+const NoteButton = styled("div")`
+  cursor: pointer;
+  margin: 10px 0;
+  text-align: center;
+  color: ${props => props.theme[props["data-theme"]].subBackground};
+  background: ${props => props.theme[props["data-theme"]].button};
+
+  padding: 10px;
+  width: 200px;
+  font-weight: bold;
+
+  transition: transform 0.2s ease-in-out;
+  
+`;
 
 export default Notes;

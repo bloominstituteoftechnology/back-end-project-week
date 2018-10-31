@@ -71,7 +71,8 @@ class NoteView extends Component {
               className="note-view"
               data-theme={selectedTheme}
               onClick={() => {
-                note.tags = note.tags.join(',')
+                note.tags = note
+                .tags.join(',')
                 this.props.createNewNote(note)
               }}
             >

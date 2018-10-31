@@ -6,9 +6,39 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex('notes').insert([
-        {title: 'note1', textBody: lorem},
-        {title: 'note2', textBody: lorem},
-        {title: 'note3', textBody: lorem}
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
+        {title: 'note', textBody: lorem},
       ]);
     });
 };
