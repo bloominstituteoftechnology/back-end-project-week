@@ -31,7 +31,7 @@ const checkJwt = jwt({
 const server = express();
 
 server.use(helmet());
-server.use(cors() )
+server.use(cors());
 server.use(express.json());
 
 const helperMethods = require('./data/helper-methods.js');
