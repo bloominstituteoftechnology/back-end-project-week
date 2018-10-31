@@ -7,8 +7,10 @@
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.4",
+    "del": "^3.0.0",
     "express": "^4.16.4",
     "knex": "^0.15.2",
+    "multer": "^1.4.1",
     "sqlite3": "^4.0.3"
   },
   "devDependencies": {

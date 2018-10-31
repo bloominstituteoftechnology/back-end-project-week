@@ -14,27 +14,55 @@ dragula([document.getElementById('container')]);
 
 
 
-const Notes = props => {
-  const { notes, selectedTheme, pagination } = props;
+// const Notes = props => {
+//   const { notes, selectedTheme, pagination } = props;
+//   console.log(pagination);
+//   return (
+//     <Fragment>
+      
+//       <Sort {...props} />      
+//       <NoteTitle data-theme={selectedTheme}>Your Notes:</NoteTitle>
+//        {notes.length ===0 && <EmptyNoteTitle className= {'stagger'}data-theme={selectedTheme}>No Notes Available</EmptyNoteTitle>}
+//       <NotesDiv data-theme={selectedTheme} id="container" >
+//         {notes.slice(0,pagination).map(note => (
+//           <Note note={note} selectedTheme={selectedTheme} {...props} key={note._id}/>  
+
+            
+
+//         ))}
+//         {pagination < notes.length && <NoteButton data-theme={selectedTheme} onClick={props.loadPagination}>Load More</NoteButton>}
+//       </NotesDiv>
+//     </Fragment>
+//   );
+// };
+
+class Notes extends Component {
+  componentWillUnmount(){
+    this.props.resetPagination()
+  }
+
+  render(){
+    const { notes, selectedTheme, pagination } = this.props;
   console.log(pagination);
   return (
     <Fragment>
       
-      <Sort {...props} />      
+      <Sort {...this.props} />      
       <NoteTitle data-theme={selectedTheme}>Your Notes:</NoteTitle>
        {notes.length ===0 && <EmptyNoteTitle className= {'stagger'}data-theme={selectedTheme}>No Notes Available</EmptyNoteTitle>}
       <NotesDiv data-theme={selectedTheme} id="container" >
         {notes.slice(0,pagination).map(note => (
-          <Note note={note} selectedTheme={selectedTheme} {...props} key={note._id}/>  
+          <Note note={note} selectedTheme={selectedTheme} {...this.props} key={note._id}/>  
 
             
 
         ))}
-        {pagination < notes.length && <NoteButton data-theme={selectedTheme} onClick={props.loadPagination}>Load More</NoteButton>}
+        {pagination < notes.length && <NoteButton data-theme={selectedTheme} onClick={this.props.loadPagination}>Load More</NoteButton>}
       </NotesDiv>
     </Fragment>
-  );
-};
+  )
+  }
+}
 
 const NotesDiv = styled('div')`
 justify-content: space-evenly;

@@ -58,6 +58,12 @@ class NoteContainer extends Component {
     })
   }
 
+  resetPagination = () => {
+    this.setState(prevState => {
+      return {pagination: 12}
+    })
+  }
+ 
   
   //----------------------------------------------------------------------Filters
   filterByChar = event => {
@@ -295,6 +301,7 @@ class NoteContainer extends Component {
                   sortOptions={sortOptions}
                   {...props}
                   pagination={pagination}
+                  resetPagination={this.resetPagination}
                   loadPagination={this.loadPagination}
                   filterByTags={this.filterByTags}
                   selectedTheme={selectedTheme}
