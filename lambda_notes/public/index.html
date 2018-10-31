@@ -39,6 +39,27 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+
   <script type="text/javascript" src="node_modules/auth0-js/build/auth0.js"></script>
   <script src="https://cdn.auth0.com/js/lock/11.10/lock.min.js"></script>
+  
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '743396029346856',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v3.2'
+    });
+    FB.AppEvents.logPageView();   
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
 </html>

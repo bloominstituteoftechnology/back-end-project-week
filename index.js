@@ -84,7 +84,7 @@ server.put('/api/note/:id', (req, res)=>{
 
 let port = process.env.PORT;
 if (port == null || port == "") {
-  port = 8000;
+  port = 9000;
 }
 
 server.listen(port, ()=>console.log('\nAPI running on 9000\n'));
