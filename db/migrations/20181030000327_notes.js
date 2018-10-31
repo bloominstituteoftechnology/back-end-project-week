@@ -7,9 +7,7 @@ exports.up = function (knex, Promise) {
       table.text("content").notNullable();
       table
         .integer("user_id")
-        .notNullable()
-        .references("id")
-        .inTable("users");
+        .notNullable();
     });
 };
 
