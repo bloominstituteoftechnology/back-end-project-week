@@ -1,7 +1,6 @@
 
 exports.up = function (knex, Promise) {
-    return knex.schema
-      .withSchema("public")
+    return knex.schema.withSchema("public")
       .createTable("List_Notes", table => {
         table
           .integer("list_id")
@@ -15,5 +14,5 @@ exports.up = function (knex, Promise) {
 };
 
 exports.down = function (knex, Promise) {
-    return knex.schema.dropTable('List_Notes')
+  return knex.schema.withSchema("public").dropTableIfExists('List_Notes')
 };

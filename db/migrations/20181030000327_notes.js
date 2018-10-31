@@ -3,9 +3,9 @@ exports.up = function (knex, Promise) {
     return knex.schema.withSchema("public").createTable("Notes", table => {
       table.increments("id").primary();
       table.string("title", 128).notNullable();
-      tbl.string("textBody", 100000).notNullable();
+      table.string("textBody", 100000).notNullable();
       table.text("content").notNullable();
-      tbl
+      table
         .integer("user_id")
         .notNullable()
         .references("id")
@@ -14,5 +14,5 @@ exports.up = function (knex, Promise) {
 };
 
 exports.down = function (knex, Promise) {
-    return knex.schema.dropTableIfExists("Notes");
+    return knex.schema.withSchema("public").dropTableIfExists("Notes");
 };

@@ -9,5 +9,5 @@ exports.up = function (knex, Promise) {
 };
 
 exports.down = function (knex, Promise) {
-    return knex.schema.dropTableIfExists("Users");
+    return knex.schema.withSchema("public").dropTableIfExists("Users");
 };
