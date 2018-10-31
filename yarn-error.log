@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add nodemon-dev
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js start
 
 PATH: 
   C:\Users\Duckets\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Duckets\bin;C:\Ruby24-x64\bin;C:\Program Files\nodejs;C:\Users\Duckets\AppData\Local\Microsoft\WindowsApps;C:\Users\Duckets\AppData\Local\atom\bin;C:\Users\Duckets\AppData\Roaming\npm;C:\Users\Duckets\AppData\Local\Temp;C:\Program Files (x86)\Tesseract-OCR;C:\Users\Duckets\AppData;C:\Users\Duckets\AppData\Local\Microsoft\WindowsApps;C:\Program Files (x86)\Yarn\bin;C:\Program Files\Git\cmd;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Ruby24-x64\bin;C:\Users\Duckets\AppData\Local\Microsoft\WindowsApps;C:\Users\Duckets\AppData\Local\Temp;C:\Program Files (x86)\Tesseract-OCR;C:\Users\Duckets\AppData;C:\Users\Duckets\AppData\Local\Microsoft\WindowsApps;C:\Users\Duckets\AppData\Local\atom\bin;C:\Users\Duckets\AppData\Local\Yarn\bin;C:\Users\Duckets\AppData\Local\GitHubDesktop\bin;C:\Users\Duckets\AppData\Roaming\npm;C:\Program Files\nodejs;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
@@ -14,17 +14,12 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/nodemon-dev: Not found
-      at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:64150:18)
-      at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:137416:22)
-      at Request.emit (events.js:182:13)
-      at Request.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:138388:10)
-      at Request.emit (events.js:182:13)
-      at IncomingMessage.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:138310:12)
-      at Object.onceWrapper (events.js:273:13)
-      at IncomingMessage.emit (events.js:187:15)
-      at endReadableNT (_stream_readable.js:1085:12)
-      at process._tickCallback (internal/process/next_tick.js:63:19)
+  SyntaxError: C:\Users\Duckets\Desktop\lambda\fnten\project\back-end-project-week\package.json: Unexpected token } in JSON at position 196
+      at JSON.parse (<anonymous>)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:1130:59
+      at Generator.next (<anonymous>)
+      at step (C:\Program Files (x86)\Yarn\lib\cli.js:92:30)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:103:13
 
 npm manifest: 
   {
@@ -33,7 +28,9 @@ npm manifest:
     "description": "Backend project week",
     "main": "index.js",
     "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1"
+      "dev": "nodemon",
+      "start": "node index.js",
+      
     },
     "repository": {
       "type": "git",
@@ -52,8 +49,10 @@ npm manifest:
       "express-session": "^1.15.6",
       "helmet": "^3.14.0",
       "knex": "^0.15.2",
-      "nodemon": "^1.18.5",
       "sqlite3": "^4.0.3"
+    },
+    "devDependencies": {
+      "nodemon": "^1.18.5"
     }
   }
 

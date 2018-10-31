@@ -3,7 +3,7 @@ const notesDb = require("./notesDataModel");
 const router = express.Router();
 
 //  GET view existing note
-router.get('/api/view/:id', (req, res) => {
+server.get('/api/view/:id', (req, res) => {
     const {id} = req.params
      db('notes').where({id}).then(note => {
         res.status(200).json(note)
@@ -14,7 +14,7 @@ router.get('/api/view/:id', (req, res) => {
 })
 
 // PUT  edit existing note
-router.put('/api/edit/:id', (req, res) => {
+server.put('/api/edit/:id', (req, res) => {
      const note = req.body
     const {id} = req.params
      db('notes').where({id}).update(note).then(note => {
@@ -25,7 +25,7 @@ router.put('/api/edit/:id', (req, res) => {
 })
 
 // DELETE delete existing note
-router.delete('/api/:id/delete', (req, res) => {
+server.delete('/api/:id/delete', (req, res) => {
     const {id} = req.params
 
     db('notes').where({id}).del().then(note => {
@@ -37,7 +37,7 @@ router.delete('/api/:id/delete', (req, res) => {
 })
 
 // POST create note
-router.post('/api/create', (req, res) => {
+server.post('/api/create', (req, res) => {
     const note = req.body
 
     db.insert(note).into('notes').then(note => {
@@ -47,4 +47,4 @@ router.post('/api/create', (req, res) => {
         res.status(500).json({message: 'Could not create note'})
     })
 })
-module.exports = router;
+module.exports = server;
