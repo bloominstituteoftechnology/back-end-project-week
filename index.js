@@ -8,7 +8,7 @@ server.use(express.json());
 server.use(helmet());
 server.use(cors());
 server.use('/', routes);
-require('dotenv').config();
+
  
 const port = process.env.PORT || 9000;
 
