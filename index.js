@@ -30,7 +30,7 @@ app.use("/api/users", userRouter);
 app.use("/api/lists", listRouter);
 app.use(require("./middleware/index").errorHandler);
 
-
+app.listen(process.env.PORT || 5500)
 
 module.exports = app;
 
