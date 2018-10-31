@@ -71,7 +71,8 @@ server.put('/api/notes/:id', (req, res) => {
 	.catch(err => res.status(500).json(err));
 });
 
-const port = 3300;
+const port = process.env.PORT || 3300;
+// const port = 3300;
 server.listen(port, function() {
     console.log(`\n=== Web API Listening on http://localhost:${port} ===\n`);
 });
