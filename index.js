@@ -17,6 +17,7 @@ server.get("/", (req, res) => {
 });
 
 server.get("/api/notes", (req, res) => {
+  console.log("///this is fetchNotes///");
   db("notes")
     .then(notes => {
       res.status(200).json(notes);
@@ -27,9 +28,9 @@ server.get("/api/notes", (req, res) => {
 server.get("/api/notes/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const note = await db("notes").where({ id });
-    if (note) {
-      res.status(200).json(note);
+    const notes = await db("notes").where({ id });
+    if (notes) {
+      res.status(200).json(notes[0]);
     } else {
       res.status(404).json({ message: "note not found" });
     }
