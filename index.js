@@ -36,7 +36,12 @@ server.use(express.json());
 
 const helperMethods = require('./data/helper-methods.js');
 
-server.get('/api/note/',(req,res)=>{
+server.get('/', (req, res) => {
+  res.send(`Api running on port: ${port}`);
+});
+
+server.get('/api/note/', (req,res)=>{
+
     helperMethods.getNotes()
       .then(notes=>{
         res.status(200).json(notes);
