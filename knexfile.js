@@ -10,15 +10,6 @@ module.exports = {
     },
     seeds: {
       directory: './data/seeds'
-    },
-    production: {
-      client: 'pg',
-      connection: dbCOnnection,
-      ssl: true,
-      pool: {
-        min: 2,
-        max: 10
-      }
     }
   }
-};
+}
