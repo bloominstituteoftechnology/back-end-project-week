@@ -1,0 +1,25 @@
+{
+  "name": "Back-End-Project-Week",
+  "version": "1.0.0",
+  "description": "Develop a backend to support the LambdaNotes app that we built during the Front End Project Week.",
+  "main": "index.js",
+  "repository": "https://github.com/Mlancelot88/back-end-project-week.git",
+  "author": "Marious Davis <mlancelot88@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.4",
+    "helmet": "^3.14.0",
+    "jsonwebtoken": "^8.3.0",
+    "knex": "^0.15.2",
+    "sqlite3": "^4.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.5"
+  }
+}
