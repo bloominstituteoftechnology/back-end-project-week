@@ -6,6 +6,8 @@ const router = express.Router();
 
 const bcrypt = require('bcryptjs');
 
+const db = require('../data/dbConfig.js')
+
 const jwt = require('jsonwebtoken');
 
 const jwtKey = require('../_secrets/keys').jwtKey;
@@ -72,7 +74,7 @@ router.post('/register', (req, res) => {
 router.post('/login', (req, res) => {
     const creds = req.body;
   
-    users
+    db('users')
     .where({ username: creds.username })
     .first()
     .then(user => {
