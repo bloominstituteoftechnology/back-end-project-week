@@ -140,9 +140,10 @@ function makeRoute(db) {
   });
 
   route.post('/create', (req, res, next) => {
-    const {
+    let {
       body: { tags, ...note },
     } = req;
+    note = camelToSnake(note);
     // Checks that a non-empty title is included, returns error if not
     if (!note.title || note.title === '') {
       return next(new HttpError(403, 'Must provide a non-empty title for this request.'));
@@ -155,24 +156,29 @@ function makeRoute(db) {
     return db('notes')
       .select('id')
       .where('right', '=', '-1')
-      .first()
-      .then(
-        ({ id }) => new Promise((resolve) => {
+      .then((res) => {
+        // if (res.length === 0) {
+        //   return db('notes')
+        //     .insert({
+        //       ...note,
+        //       left: -1,
+        //       right: -1,
+        //       user_id: 1,
+        //     });
+        // }
+        return new Promise((resolve) => {
+          const [{ id }] = res;
+          console.log(res);
           let newId;
-          console.log(id);
           return db.transaction(trx => db('notes')
             .transacting(trx)
-            .where('id', '=', id)
-            .update({ right: db.raw('NULL') })
-            .then(() => db('notes')
-              .transacting(trx)
-              .insert({
-                ...camelToSnake(note),
-                left: id,
-                right: -1,
-                user_id: 1,
-              })
-              .returning('id'))
+            .insert({
+              ...note,
+              left: id,
+              right: -1,
+              user_id: 1,
+            })
+            .returning('id')
             .then(([leftId]) => {
               newId = leftId;
               return db('notes')
@@ -188,8 +194,8 @@ function makeRoute(db) {
             .catch(() => {
               trx.rollback().then(() => resolve());
             }));
-        }),
-      )
+        });
+      })
       .then((noteId) => {
         if (!noteId) {
           throw new HttpError(500, 'Database did not create a new instance');

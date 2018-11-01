@@ -2,6 +2,7 @@ const request = require('supertest');
 const db = require('knex')(require('./knexfile').development);
 const server = require('./server');
 const snakeToCamel = require('./utils/snakeToCamel');
+const camelToSnake = require('./utils/camelToSnake');
 const orderList = require('./utils/orderList');
 
 async function getCurrentDB() {
@@ -65,6 +66,8 @@ describe('Note api', () => {
     expect(status).toEqual(200);
     expect(body instanceof Array).toBe(true);
     expect(body.length).toBe(0);
+
+    // await db.raw('ALTER TABLE "notesTagsJoin" ADD CONSTRAINT "notestagsjoin_noteid_foreign" FOREIGN KEY ("noteId") REFERENCES notes (id)')
     return done();
   });
 
@@ -82,10 +85,10 @@ describe('Note api', () => {
     done();
   });
 
-  it('creates a note successfully', (done) => {
+  it('creates a note successfully for a populated database', (done) => {
     let newNote = {
       title: 'New note',
-      text_body: 'This is a new note',
+      textBody: 'This is a new note',
     };
     request(server)
       .post('/notes/create')
@@ -101,7 +104,7 @@ describe('Note api', () => {
         .first())
       .then(async (response) => {
         expect(response.created_at).toBeDefined();
-        expect(response).toMatchObject(newNote);
+        expect(response).toMatchObject(camelToSnake(newNote));
 
         response.tags = [];
         const parsedNewNote = JSON.parse(JSON.stringify(snakeToCamel(response)));
@@ -112,6 +115,44 @@ describe('Note api', () => {
 
         return done();
       });
+  });
+
+  it('creates a new post in an empty database', (done) => {
+    const newNote = {
+      title: 'This is a title',
+      textBody: 'This is a new note',
+    };
+    expect(1).toBe(2);
+    
+    // return db
+    //   .raw('ALTER TABLE "notesTagsJoin" DROP CONSTRAINT "notestagsjoin_noteid_foreign"')
+    //   .then(res => {
+    //     console.log(res);
+    //     return done();
+    //   });
+    // return db
+    //   .raw('ALTER TABLE "notesTagsJoin" DROP CONSTRAINT "notestagsjoin_noteid_foreign"')
+  //     .then(() => db('notes').del())
+  //     .then(() => {
+  //       return request(server)
+  //         .post('/notes/create')
+  //         .send(newNote);
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
+  //       expect(response.status).toBe(203);
+  //       expect(response.body).toBeDefined();
+  //       return response.body;
+  //     })
+      // .then(async (id) => {
+        // const updatedNotes = await getCurrentDB();
+        // expect(updatedNotes).toHaveLength(1);
+        // expect(updatedNotes[0]).toMatchObject(camelToSnake(newNote));
+        // expect(updatedNotes[0].id).toEqual(id);
+        // expect(updatedNotes[0].left).toEqual(-1);
+        // expect(updatedNotes[0].right).toEqual(-1);
+        return done();
+      // })
   });
 
   it('rejects a note with an empty-string title', (done) => {
