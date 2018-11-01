@@ -14,6 +14,6 @@ server.get('/', (req, res) =>{
   res.send("it's alive");
 });
  
-const port = process.env.PORT || 5500;
+const port = process.env.PORT || 9000;
 
  server.listen(port, () => console.log(`\n=Connected to ${port}=`));
