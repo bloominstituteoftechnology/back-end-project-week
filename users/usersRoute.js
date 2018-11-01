@@ -4,6 +4,12 @@ const users = require('./usersModel.js');
 
 const router = express.Router();
 
+const bcrypt = require('bcryptjs');
+
+const jwt = require('jsonwebtoken');
+
+const jwtKey = require('../_secrets/keys').jwtKey;
+
 router.get('/', (req, res) => {
     users
         .find()
@@ -30,8 +36,8 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-router.post('/', (req, res) => {
-    const user = req.body;
+router.post('/register', (req, res) => {
+    const credentials = req.body;
 
     users
         .add(user)
