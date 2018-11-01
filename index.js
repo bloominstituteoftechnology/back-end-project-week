@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
@@ -11,6 +10,6 @@ server.use(cors());
 server.use('/', routes);
 
  
-const port = process.env.PORT || 9000;
+const port = 7700;
 
  server.listen(port, () => console.log(`\n=Connected to ${port}=`));
