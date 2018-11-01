@@ -82,4 +82,4 @@ server.delete("/api/notes/:id", (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-server.listen(8000, () => console.log("/n server up on port 8000 /n"));
+server.listen(8000, () => console.log("\n server up on port 8000 \n"));
