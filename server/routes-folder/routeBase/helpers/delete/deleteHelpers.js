@@ -1,7 +1,7 @@
-const db = require('../../knexConfig.js');
+const db = require('../../../knexConfig.js');
 
 deleteNote = (id) => {
-  return db('note_table')
+  return db('updated_note_table')
             .where({ note_id: id })
             .del();
 };

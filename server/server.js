@@ -2,7 +2,7 @@
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
-const handlers = require('./route/handlers.js');
+const handlers = require('./routes-folder/routeBase/handlers.js');
 // server
 const server = express();
 // middleware
