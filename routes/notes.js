@@ -157,15 +157,15 @@ function makeRoute(db) {
       .select('id')
       .where('right', '=', '-1')
       .then((res) => {
-        // if (res.length === 0) {
-        //   return db('notes')
-        //     .insert({
-        //       ...note,
-        //       left: -1,
-        //       right: -1,
-        //       user_id: 1,
-        //     });
-        // }
+        if (res.length === 0) {
+          return db('notes')
+            .insert({
+              ...note,
+              left: -1,
+              right: -1,
+              user_id: 1,
+            });
+        }
         return new Promise((resolve) => {
           const [{ id }] = res;
           console.log(res);

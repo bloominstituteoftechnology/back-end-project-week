@@ -67,7 +67,7 @@ describe('Note api', () => {
     expect(body instanceof Array).toBe(true);
     expect(body.length).toBe(0);
 
-    // await db.raw('ALTER TABLE "notesTagsJoin" ADD CONSTRAINT "notestagsjoin_noteid_foreign" FOREIGN KEY ("noteId") REFERENCES notes (id)')
+    // await db.raw('ALTER TABLE "notesTagsJoin" ADD CONSTRAINT "notestagsjoin_noteid_foreign" FOREIGN KEY ("noteId") REFERENCES notes (id)');
     return done();
   });
 
@@ -122,14 +122,13 @@ describe('Note api', () => {
       title: 'This is a title',
       textBody: 'This is a new note',
     };
-    expect(1).toBe(2);
-    
     // return db
     //   .raw('ALTER TABLE "notesTagsJoin" DROP CONSTRAINT "notestagsjoin_noteid_foreign"')
     //   .then(res => {
-    //     console.log(res);
-    //     return done();
-    //   });
+        console.log(res);
+        expect(1).toBe(2);
+        return done();
+      // });
     // return db
     //   .raw('ALTER TABLE "notesTagsJoin" DROP CONSTRAINT "notestagsjoin_noteid_foreign"')
   //     .then(() => db('notes').del())
