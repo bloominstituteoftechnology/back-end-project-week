@@ -6,7 +6,9 @@ const router = express.Router();
 
 const bcrypt = require('bcryptjs');
 
-const db = require('../data/dbConfig.js')
+const db = require('../data/dbConfig.js');
+
+const { authenticate } = require('../middleware/authenticate.js');
 
 const jwt = require('jsonwebtoken');
 
@@ -27,7 +29,7 @@ function generateToken(user) {
     return jwt.sign(jwtPayload, jwtKey, jwtOptions)
   }
 
-router.get('/', (req, res) => {
+router.get('/', authenticate, (req, res) => {
     users
         .find()
         .then(users => {
@@ -36,7 +38,7 @@ router.get('/', (req, res) => {
         .catch(err => res.status(500).json(err));
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', authenticate, async (req, res) => {
     try {
         const { id } = req.params;
 
