@@ -15,7 +15,7 @@ server.get('/', (req, res) => {
   res.status(200).json({ message: 'Server is up and running!' });
 });
 
-// getting all the notes
+// getting all the notes this is working
 server.get('/notes', (req,res) => {
   db
   .getNotes()
@@ -27,59 +27,87 @@ server.get('/notes', (req,res) => {
   });
 });
 
-// getting a single note
-server.get('notes/:id', (req,res)=> {
-  db
-  .getNotesById(id)
-  .then(note => {
-    res.status(200).json(note);
-  })
-  .catch(err => {
-    res.status(500).json(err);
-  });
-});
+// // getting a single note
+// server.get('single/notes/:id', (req,res)=> {
+//   const {id} = req.params;
+//   db
+//   .getNote(id)
+//   .then(note => {
+//     res.status(200).json(note[0]);
+//   })
+//   .catch(err => {
+//     res.status(500).json(err);
+//   });
+// });
 
+// this is to get a single note and its working
+server.get('/single/note/:id', async (req,res) => {
+  try {
+    const {id} = req.params;
+    const note = await note.getNote(id);
+   if (note) {
+    res.status(200).json(note);
+
+  } else {
+    res.status(404).json({err: 'no id'});
+  }
+} catch(err){
+  res.status(500).json(err)
+}
+}); 
+
+
+// creating a note this works 
 server.post('/notes',(req,res)=> {
   const note = req.body;
-    if(!note.title || !note.textBody) {
-      res.status(400).json({error:"There is Either no Note Title or Note to create, please try again. If issue continues please contant customer support at 1-800-222-2gud4u"})
-    }
+
     db
-    .addNotes(note)
+    .addNewNote(note)
     .then(ids => {
-      res.status(200).json(ids[1]);
+      res.status(200).json(ids[0]);
     })
     .catch(err =>{
       res.status(500).json(err);
     });
 });
 
-
+// editing a note and this works !!!
 server.put('/notes/:id', (req,res)=> {
   const {id} = req.params;
   const changes = req.body;
 
   db
-  .editNotes(id, changes)
-  .then(notes =>{
-    res.status(200).json(notes);
+  .editNote(id, changes)
+  .then(count => {
+    if (!count || count < 1 ) {
+      res.status(404).json({err:'not found!'});
+    } else {
+      res.status(200).json(count);
+    }  
   })
-  .catch(err => {
-    res.status(500).json(err);
+  .catch(err => 
+    res.status(500).json(err));
   });
-});
 
+//deleting a note and this works 
 server.delete('/notes/:id', (req,res)=> {
   const { id } = req.params;
 
   db
-  .deleteNotes(id)
-  .then(notes => {
-    res.status(200).json(count);
+  .deleteNote(id) // i dont need the count funtion i think? 
+  .then(count => {
+    if(!count || count < 1 ){
+      res.status(404).json({err:'not found'});
+    } else {
+      res.status(200).json(notes);
+    }
+
   })
-  .catch(err => {
-    res.status(500).json(err);
+  .catch(err => 
+    res.status(500).json(err));
   });
-});
+
 
 module.exports = server;
+
+// may use the count function
