@@ -9,7 +9,7 @@ const port = process.env.PORT || 9000;
 
 
 server.use(helmet(), cors());
-server.use(express.json())
+server.use(express.json());
 
 
 //routes
