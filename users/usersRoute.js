@@ -10,6 +10,21 @@ const jwt = require('jsonwebtoken');
 
 const jwtKey = require('../_secrets/keys').jwtKey;
 
+function generateToken(user) {
+
+    const jwtPayload = {
+      ...user,
+      hello: 'FSW13',
+      role: 'admin'
+    };
+  
+    const jwtOptions = {
+      expiresIn: '1h',
+    }
+  
+    return jwt.sign(jwtPayload, jwtKey, jwtOptions)
+  }
+
 router.get('/', (req, res) => {
     users
         .find()
@@ -39,15 +54,37 @@ router.get('/:id', async (req, res) => {
 router.post('/register', (req, res) => {
     const credentials = req.body;
 
+    const hash = bcrypt.hashSync(credentials.password, 12);
+    credentials.password = hash;
+
     users
-        .add(user)
+        .add(credentials)
         .then(ids => {
-            res.status(201).json(ids[0]);
+            const id = ids[0];
+            const token = generateToken({ username: credentials.username });
+            res.status(201).json({ newUserId: id, token });
         })
         .catch(err => {
             res.status(500).json(err);
         });
 });
+
+router.post('/login', (req, res) => {
+    const creds = req.body;
+  
+    users
+    .where({ username: creds.username })
+    .first()
+    .then(user => {
+      if(user && bcrypt.compareSync(creds.password, user.password)) {
+        const token = generateToken(user);
+        res.status(200).json({ message: `Logged in as ${user.username}`, token })
+      } else {
+        res.status(401).json({ message: "You are NOT authorized!!" });
+      }
+    })
+    .catch(err => res.status(500).json({err}));
+  });
 
 router.put('/:id', (req, res) => {
     const { id } = req.params;
