@@ -1,3 +1,7 @@
+# My Trello Board Link
+
+https://trello.com/invite/b/gu3fG2oX/b411edf4245a758b5e1026cf4724d055/lambda-notesbackend-kevin-sooter
+
 # Back End Project Week
 
 This week you will build a backend for a note taking app called "Lambda Notes".
