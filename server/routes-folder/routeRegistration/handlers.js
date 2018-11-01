@@ -9,7 +9,7 @@ router.post('/', (req, res) => {
   const hash = bcrypt.hashSync(creds.password, 14);
   creds.password = hash;
 
-  db('users_table')
+  db('user_table')
     .insert(creds)
       .then(ids => {
         const id = ids[0];

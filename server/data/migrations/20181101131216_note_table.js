@@ -2,7 +2,7 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('note_table', function(table) {
     table
-      .autoincrements();
+      .increments();
     table
       .string('note_title', 68)
         .notNullable();
@@ -14,12 +14,13 @@ exports.up = function(knex, Promise) {
     table
       .timestamp('created_at')
         .defaultTo(knex.fn.now());
-    tbl
-      .integer('project_id')
+    table
+      .integer('user_id')
         .unsigned()
-        .references('id')
-        .inTable('projects')
+        .references('user_id')
+        .inTable('note_table')
   })
+
 };
 
 exports.down = function(knex, Promise) {
