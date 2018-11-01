@@ -10,6 +10,11 @@ const router = express.Router();
 
 // ROUTES/ENDPOINTS
 
+// Add home endpoint
+router.get('/', (req, res) => {
+  res.send(`Api running on port: ${port}`);
+});
+
 // =================NOTES ENDPOINTS===================
 
 // Add GET ROUTE HANDLER to get the list of notes
