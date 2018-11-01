@@ -33,7 +33,7 @@ server.put('/api/edit/:id', (req, res) => {
 })
 
 // DELETE delete existing note
-server.delete('/api/:id/delete', (req, res) => {
+server.delete('/api/delete/:id', (req, res) => {
     const {id} = req.params
 
     db('notes').where({id}).del().then(note => {
