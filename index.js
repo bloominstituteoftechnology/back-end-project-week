@@ -6,6 +6,7 @@ const cors = require('cors');
 const knex = require('./data/dbConfig.js');
 
 const notesRoute = require('./notes/notesRoute.js');
+const usersRoute = require('./users/usersRoute.js');
 
 const server = express();
 
@@ -19,6 +20,7 @@ server.get('/', (req, res) => {
 });
 
 server.use('/api/notes', notesRoute);
+server.use('/api/users', usersRoute);
 
 let port = process.env.PORT;
 if (port == null || port == "") {
