@@ -3,19 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "server": "nodemon index.js"
+    "start": "nodemon"
   },
   "repository": "https://github.com/mparedes003/back-end-project-week.git",
   "author": "mparedes003 <michelle.g.paredes@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.4",
-    "dotenv": "^6.1.0",
     "express": "^4.16.4",
     "helmet": "^3.14.0",
     "knex": "^0.15.2",
-    "pg": "^7.6.0",
     "sqlite3": "^4.0.3"
   },
   "devDependencies": {
