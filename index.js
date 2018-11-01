@@ -10,7 +10,10 @@ server.use(helmet());
 server.use(cors());
 server.use('/', routes);
 
+server.get('/', (req, res) =>{
+  res.send("it's alive");
+});
  
-const port = process.env.PORT || 7700;
+const port = process.env.PORT || 5500;
 
  server.listen(port, () => console.log(`\n=Connected to ${port}=`));
