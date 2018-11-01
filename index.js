@@ -8,7 +8,7 @@ const db = knex(knexConfig.development);
 const server = express();
 
 const corsOptions = {
-  origin: 'http://localhost:3001'
+  origin: 'http://localhost:3000'
 };
 
 server.use(express.json());
@@ -93,7 +93,7 @@ server.delete('/notes/:id', async (req, res) => {
   }
 });
 
-const port = 6000;
+const port = 8000;
 server.listen(port, function() {
   console.log(`\n=== Web API Listening on http://localhost:${port} ===\n`);
 });
