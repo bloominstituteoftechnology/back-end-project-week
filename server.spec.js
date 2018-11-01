@@ -1,10 +1,6 @@
 const request = require('supertest');
 const db = require('knex')(require('./knexfile').development);
 const server = require('./server');
-const noteSeedArray = require('./dummyData/noteSeedArray');
-const tagSeedArray = require('./dummyData/tagSeedArray');
-const notesTagsJoinArray = require('./dummyData/notesTagsJoinArray');
-const seed = require('./seeds/01notes');
 const snakeToCamel = require('./utils/snakeToCamel');
 const orderList = require('./utils/orderList');
 
@@ -84,34 +80,6 @@ describe('Note api', () => {
     expect(status).toEqual(404);
     expect(body.message).toBeDefined();
     done();
-  });
-
-  it('reduces notes array length by 1', (done) => {
-    request(server)
-      .delete('/notes/delete/2')
-      .then(({ status }) => expect(status).toEqual(204))
-      .then(() => db('notes')
-        .count({ count: '*' })
-        .first())
-      .then(({ count }) => {
-        expect(Number(count)).toEqual(baseNotes.length - 1);
-        return done();
-      });
-  });
-
-  it('returns a 404 error if a bad id is sent', (done) => {
-    request(server)
-      .delete('/notes/delete/nonexistent')
-      .then(({ status }) => {
-        expect(status).toEqual(404);
-        return db('notes')
-          .count({ count: '*' })
-          .first();
-      })
-      .then(({ count }) => {
-        expect(Number(count)).toEqual(baseNotes.length);
-        return done();
-      });
   });
 
   it('creates a note successfully', (done) => {
@@ -298,6 +266,47 @@ describe('Note api', () => {
       });
   });
 
+  it('deletes a note from the beginning', (done) => {
+    const noteTarget = baseNotes[0];
+    return request(server)
+      .delete(`/notes/delete/${noteTarget.id}`)
+      .then(async (res) => {
+        const {
+          status,
+          body: { message },
+        } = res;
+
+        expect(status).toBe(204);
+
+        const updatedNotes = await getCurrentDB();
+        expect(updatedNotes).toHaveLength(baseNotes.length - 1);
+        expect(updatedNotes
+          .find(note => note.id === noteTarget.id)).toBeUndefined();
+        expect(updatedNotes[0].left).toBe(-1);
+        return done();
+      });
+  });
+
+  it('deletes a note from the end', (done) => {
+    const noteTarget = baseNotes[baseNotes.length - 1];
+    return request(server)
+      .delete(`/notes/delete/${noteTarget.id}`)
+      .then(async (res) => {
+        const {
+          status,
+          body: { message },
+        } = res;
+
+        expect(status).toBe(204);
+
+        const updatedNotes = await getCurrentDB();
+        expect(updatedNotes).toHaveLength(baseNotes.length - 1);
+        expect(updatedNotes
+          .find(note => note.id === noteTarget.id)).toBeUndefined();
+        expect(updatedNotes[updatedNotes.length - 1].right).toBe(-1);
+        return done();
+      });
+  });
   it('deletes a note from the middle', (done) => {
     const noteTarget = baseNotes[1];
     return request(server)
@@ -315,7 +324,23 @@ describe('Note api', () => {
         expect(updatedNotes
           .find(note => note.id === noteTarget.id)).toBeUndefined();
         expect(updatedNotes[0].right).toEqual(baseNotes[2].id);
-        expect(updatedNotes[2].left).toEqual(baseNotes[0].id);
+        expect(updatedNotes[1].id).toEqual(baseNotes[2].id);
+        expect(updatedNotes[1].left).toEqual(baseNotes[0].id);
+        return done();
+      });
+  });
+
+  it('returns a 404 error if a bad id is sent', (done) => {
+    request(server)
+      .delete('/notes/delete/999999999')
+      .then(({ status }) => {
+        expect(status).toEqual(404);
+        return db('notes')
+          .count({ count: '*' })
+          .first();
+      })
+      .then(({ count }) => {
+        expect(Number(count)).toEqual(baseNotes.length);
         return done();
       });
   });

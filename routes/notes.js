@@ -159,6 +159,7 @@ function makeRoute(db) {
       .then(
         ({ id }) => new Promise((resolve) => {
           let newId;
+          console.log(id);
           return db.transaction(trx => db('notes')
             .transacting(trx)
             .where('id', '=', id)
@@ -210,37 +211,61 @@ function makeRoute(db) {
       });
   });
 
-  route.delete('/delete/:id', (req, res, next) => {
+  route.delete('/delete/:id', async (req, res, next) => {
     const id = Number(req.params.id);
     // deletes note in notes table
-    return db
-      .transaction(trx => db('notesTagsJoin')
+    const targetNote = await db('notes')
+      .select()
+      .where('id', '=', id)
+      .first();
+
+    if (!targetNote) {
+      return next(new HttpError(404, 'ID was not found.'));
+    }
+
+    const { left, right } = targetNote;
+
+    return db.transaction(trx => db('notesTagsJoin')
+    // deletes note-tag relationships for deleted note
+      .transacting(trx)
+      .where('noteId', '=', id)
+      .del()
+    // removes any orphan tags
+      .then(cleanTags)
+    // actually delete the note
+      .then(() => db('notes')
         .transacting(trx)
-        .where('noteId', '=', id)
-        .del()
-        .then(cleanTags)
-        .then(() => db('notes')
+        .where('id', '=', id)
+        .del())
+    // handle note to left
+      .then(() => {
+        if (left === -1) {
+          return false;
+        }
+        return db('notes')
           .transacting(trx)
-          .where('id', '=', id)
-          .del())
-        .catch(err => trx
-          .rollback()
-          .then(() => {
-            throw new HttpError(404, 'ID was not found.');
-          }))
-        .then((res) => {
-          return db('notes')
-            .transacting(trx)
-            .where('right', '=', id)
-            .update({ right: -1 });
-        })
-        .then(trx.commit)
-        .catch((err) => {
-          return trx.rollback();
-        })
-        .then(() => {
+          .update('right', right)
+          .where('id', '=', left);
+      })
+    // handle note to right
+      .then(() => {
+        if (right === -1) {
+          return false;
+        }
+        return db('notes')
+          .transacting(trx)
+          .update('left', left)
+          .where('id', '=', right);
+      })
+      .catch(err => trx.rollback().then(() => {
+        throw new HttpError(404, 'ID was not found.');
+      }))
+      .then(trx.commit)
+      .catch((err) => {
+        return trx.rollback().then(() => {
           throw new HttpError(406, 'An error occurred when making changes to the database.');
-        }))
+        });
+      })
       .then((response) => {
         if (response === 0) {
           throw new HttpError(
@@ -255,7 +280,7 @@ function makeRoute(db) {
           return next(err);
         }
         return next(new HttpError(404, 'Database could not complete deletion request.'));
-      });
+      }));
   });
 
   route.put('/edit/:id', (req, res, next) => {
@@ -265,13 +290,16 @@ function makeRoute(db) {
     }
 
     const noteId = Number(req.params.id);
+    if (Number.isNaN(noteId)) {
+      throw new HttpError(404, 'Note Ids must be integers');
+    }
     const { tags, ...note } = req.body;
 
     // Creates promise to update fields on notes where necessary
     let notePromise;
     if (note) {
       notePromise = db('notes')
-        .where('id', '=', noteId)
+        .where('id', '=', Number(noteId))
         .update(camelToSnake(note))
         .catch((err) => {
           console.log(err);
