@@ -10,23 +10,30 @@ server.use(express.json());
 server.use(helmet());
 server.use(cors());
 
-server.get('/notes/get/all', (req, res) => {
+server.get('/', (req, res) => {
+    res.status(200).json({ message: 'server is up' });
+});
+
+server.get('/notes', (req, res) => {
     db
         .find()
         .then(notes => {
-            res.status(200).json(notes)
+            res.status(200).json(notes);
         })
         .catch(err => {
             res.status(500).json(err);
         });
 });
 
-server.get('/notes/get/:id', (req, res) => {
+server.get('/notes/:id', (req, res) => {
     const { id } = req.params;
 
     db
         .findById(id)
         .then(note => {
+            if (!note) {
+                res.status(404).json({ error: "Could not find" });
+            }
             res.status(200).json(note);
         })
         .catch(err => {
@@ -34,10 +41,10 @@ server.get('/notes/get/:id', (req, res) => {
         });
 });
 
-server.post('/notes/create', (req, res) => {
+server.post('/notes', (req, res) => {
     const note = req.body;
     if (!note.title || !note.textBody) {
-        res.status(400).json({ error: "Please provide more information" });
+        return res.status(400).json({ error: "Please provide more information" });
     }
     db
         .create(note)
@@ -49,7 +56,7 @@ server.post('/notes/create', (req, res) => {
         });
 });
 
-server.put('/notes/edit/:id', (req, res) => {
+server.put('/notes/:id', (req, res) => {
     const { id } = req.params;
     const changes = req.body;
 
@@ -67,7 +74,7 @@ server.put('/notes/edit/:id', (req, res) => {
         });
 });
 
-server.delete('/notes/remove/:id', (req, res) => {
+server.delete('/notes/:id', (req, res) => {
     const { id } = req.params;
 
     db

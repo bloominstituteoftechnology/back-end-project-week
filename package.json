@@ -9,6 +9,7 @@
     "yarn": "1.9.4"
   },
   "scripts": {
+    "test": "jest --watch --verbose",
     "dev": "nodemon index.js",
     "start": "node index.js",
     "heroku-postbuild": "yarn install --production"
@@ -24,6 +25,14 @@
     "sqlite3": "^4.0.3"
   },
   "devDependencies": {
-    "nodemon": "^1.18.5"
-  }
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.5",
+    "supertest": "^3.3.0"
+  },
+  "jest": {
+		"testEnvironment": "node",
+		"watchPathIgnorePatterns": [
+			"<rootDir>/jest.json"
+		]
+	}
 }
