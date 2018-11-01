@@ -16,7 +16,7 @@ server.use(helmet());
 
 // ========== GET SERVER ========== //
 server.get('/', (req, res) => {
-    res.status(200).json('working');
+    res.status(200).json('SERVER RUNNING');
 });
 
 
