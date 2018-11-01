@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon"
+    "start": "node index.js",
+    "server": "nodemon index.js"
   },
   "repository": "https://github.com/mparedes003/back-end-project-week.git",
   "author": "mparedes003 <michelle.g.paredes@gmail.com>",
