@@ -10,7 +10,7 @@ server.use(express.json());
 server.use(helmet());
 server.use(cors());
 
-server.get('/notes', (req, res) => {
+server.get('/notes/get/all', (req, res) => {
     db
         .find()
         .then(notes => {
@@ -21,7 +21,7 @@ server.get('/notes', (req, res) => {
         });
 });
 
-server.get('/notes/:id', (req, res) => {
+server.get('/notes/get/:id', (req, res) => {
     const { id } = req.params;
 
     db
@@ -34,7 +34,7 @@ server.get('/notes/:id', (req, res) => {
         });
 });
 
-server.post('/notes', (req, res) => {
+server.post('/notes/create', (req, res) => {
     const note = req.body;
     if (!note.title || !note.textBody) {
         res.status(400).json({ error: "Please provide more information" });
@@ -49,7 +49,7 @@ server.post('/notes', (req, res) => {
         });
 });
 
-server.put('/notes/:id', (req, res) => {
+server.put('/notes/edit/:id', (req, res) => {
     const { id } = req.params;
     const changes = req.body;
 
@@ -67,7 +67,7 @@ server.put('/notes/:id', (req, res) => {
         });
 });
 
-server.delete('/notes/:id', (req, res) => {
+server.delete('/notes/remove/:id', (req, res) => {
     const { id } = req.params;
 
     db
