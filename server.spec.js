@@ -125,33 +125,31 @@ describe('Note api', () => {
     // return db
     //   .raw('ALTER TABLE "notesTagsJoin" DROP CONSTRAINT "notestagsjoin_noteid_foreign"')
     //   .then(res => {
-        console.log(res);
-        expect(1).toBe(2);
-        return done();
+        // console.log(res);
+        // expect(1).toBe(2);
+        // return done();
       // });
-    // return db
-    //   .raw('ALTER TABLE "notesTagsJoin" DROP CONSTRAINT "notestagsjoin_noteid_foreign"')
-  //     .then(() => db('notes').del())
-  //     .then(() => {
-  //       return request(server)
-  //         .post('/notes/create')
-  //         .send(newNote);
-  //     })
-  //     .then((response) => {
-  //       console.log(response);
-  //       expect(response.status).toBe(203);
-  //       expect(response.body).toBeDefined();
-  //       return response.body;
-  //     })
-      // .then(async (id) => {
-        // const updatedNotes = await getCurrentDB();
-        // expect(updatedNotes).toHaveLength(1);
-        // expect(updatedNotes[0]).toMatchObject(camelToSnake(newNote));
-        // expect(updatedNotes[0].id).toEqual(id);
-        // expect(updatedNotes[0].left).toEqual(-1);
-        // expect(updatedNotes[0].right).toEqual(-1);
+    return db
+      .raw('ALTER TABLE "notesTagsJoin" DROP CONSTRAINT "notestagsjoin_noteid_foreign"')
+      .then(() => db('notesTagsJoin').truncate())
+      .then(() => db('notes').truncate())
+      .then(() => {
+        return request(server)
+          .post('/notes/create')
+          .send(newNote);
+      })
+      .then((response) => {
+        expect(response.status).toBe(201);
+        expect(response.body).toBeDefined();
+        return response.body;
+      })
+      .then(async ({id}) => {
+        const updatedNotes = await getCurrentDB();
+        expect(updatedNotes).toHaveLength(1);
+        expect(updatedNotes[0]).toMatchObject(newNote);
+        expect(updatedNotes[0].id).toEqual(id);
         return done();
-      // })
+      });
   });
 
   it('rejects a note with an empty-string title', (done) => {
@@ -195,6 +193,7 @@ describe('Note api', () => {
         return done();
       });
   });
+
   it('rejects a note with an undefined title', (done) => {
     const newNote = {
       text_body: 'This is a new note',

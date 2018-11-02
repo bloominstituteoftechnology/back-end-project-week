@@ -164,11 +164,14 @@ function makeRoute(db) {
               left: -1,
               right: -1,
               user_id: 1,
+            })
+            .returning('id')
+            .then(([id]) => {
+              return id;
             });
         }
         return new Promise((resolve) => {
           const [{ id }] = res;
-          console.log(res);
           let newId;
           return db.transaction(trx => db('notes')
             .transacting(trx)
