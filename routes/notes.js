@@ -71,6 +71,14 @@ function makeRoute(db) {
       return 0;
     });
 
+  route.use((req, res, next) => {
+    console.log('here');
+    if (!req.user) {
+      return next(new HttpError(401, 'Must be logged in'));
+    }
+    return next();
+  });
+
   route.get('/get/all', (req, res, next) => {
     const camelCaseCols = cols.map((col, index) => {
       const processed = col.replace(/_([a-z])/, match => match[1].toUpperCase());
@@ -354,14 +362,6 @@ function makeRoute(db) {
     .then(tags => res.status(200).json(tags))
     .catch(() => next(new HttpError(500, 'Database error occurred when fetching tags'))));
 
-  // Error handling middleware
-  route.use((err, req, res, next) => {
-    if (err instanceof HttpError) {
-      const { code, message } = err;
-      return res.status(code).json({ message });
-    }
-    return res.status(404).json('The requested resource could not be found.');
-  });
 
   route.put('/move', (req, res, next) => {
     const { sourceId, dropId } = req.body;
