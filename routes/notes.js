@@ -367,7 +367,7 @@ function makeRoute(db) {
     const { sourceId, dropId } = req.body;
 
     if (sourceId === dropId) {
-      return res.status(200).end();
+      return res.status(204).end();
     }
 
     return db
@@ -449,7 +449,7 @@ function makeRoute(db) {
           );
         });
       })
-      .then(() => res.status(200).end())
+      .then(() => res.status(204).end())
       .catch((err) => {
         console.log(err);
         return next(

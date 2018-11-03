@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 const request = require('supertest');
 const db = require('knex')(require('./knexfile').development);
 const server = require('./server');
@@ -122,13 +123,7 @@ describe('Note api', () => {
       title: 'This is a title',
       textBody: 'This is a new note',
     };
-    // return db
-    //   .raw('ALTER TABLE "notesTagsJoin" DROP CONSTRAINT "notestagsjoin_noteid_foreign"')
-    //   .then(res => {
-        // console.log(res);
-        // expect(1).toBe(2);
-        // return done();
-      // });
+
     return db
       .raw('ALTER TABLE "notesTagsJoin" DROP CONSTRAINT "notestagsjoin_noteid_foreign"')
       .then(() => db('notesTagsJoin').truncate())
@@ -143,7 +138,7 @@ describe('Note api', () => {
         expect(response.body).toBeDefined();
         return response.body;
       })
-      .then(async ({id}) => {
+      .then(async ({ id }) => {
         const updatedNotes = await getCurrentDB();
         expect(updatedNotes).toHaveLength(1);
         expect(updatedNotes[0]).toMatchObject(newNote);
@@ -233,6 +228,7 @@ describe('Note api', () => {
         return done();
       });
   });
+
   it('edits a note', (done) => {
     const updateNote = {
       title: 'new title',
@@ -249,6 +245,7 @@ describe('Note api', () => {
         return done();
       });
   });
+
   it('throws a 404 error for a bad id', (done) => {
     const updateNote = {
       title: 'new title',
@@ -264,6 +261,7 @@ describe('Note api', () => {
         return done();
       });
   });
+
   it('rejects a note edit with an empty-string title', (done) => {
     const newNote = {
       title: '',
@@ -284,6 +282,7 @@ describe('Note api', () => {
         return done();
       });
   });
+
   it('deletes a note from the end', (done) => {
     const noteTarget = baseNotes[baseNotes.length - 1];
     return request(server)
@@ -300,7 +299,7 @@ describe('Note api', () => {
         expect(updatedNotes).toHaveLength(baseNotes.length - 1);
         expect(updatedNotes
           .find(note => note.id === noteTarget.id)).toBeUndefined();
-        expect(updatedNotes[updatedNotes.length - 1].right).toBe(-1);
+        expect(updatedNotes[updatedNotes.length - 1].id).not.toBe(noteTarget.id);
         return done();
       });
   });
@@ -321,33 +320,13 @@ describe('Note api', () => {
         expect(updatedNotes).toHaveLength(baseNotes.length - 1);
         expect(updatedNotes
           .find(note => note.id === noteTarget.id)).toBeUndefined();
-        expect(updatedNotes[0].left).toBe(-1);
+        expect(updatedNotes[0].id).not.toBe(noteTarget.id);
         return done();
       });
   });
 
-  it('deletes a note from the end', (done) => {
-    const noteTarget = baseNotes[baseNotes.length - 1];
-    return request(server)
-      .delete(`/notes/delete/${noteTarget.id}`)
-      .then(async (res) => {
-        const {
-          status,
-          body: { message },
-        } = res;
-
-        expect(status).toBe(204);
-
-        const updatedNotes = await getCurrentDB();
-        expect(updatedNotes).toHaveLength(baseNotes.length - 1);
-        expect(updatedNotes
-          .find(note => note.id === noteTarget.id)).toBeUndefined();
-        expect(updatedNotes[updatedNotes.length - 1].right).toBe(-1);
-        return done();
-      });
-  });
   it('deletes a note from the middle', (done) => {
-    const noteTarget = baseNotes[1];
+    const noteTarget = baseNotes[2];
     return request(server)
       .delete(`/notes/delete/${noteTarget.id}`)
       .then(async (res) => {
@@ -362,9 +341,7 @@ describe('Note api', () => {
         expect(updatedNotes).toHaveLength(baseNotes.length - 1);
         expect(updatedNotes
           .find(note => note.id === noteTarget.id)).toBeUndefined();
-        expect(updatedNotes[0].right).toEqual(baseNotes[2].id);
-        expect(updatedNotes[1].id).toEqual(baseNotes[2].id);
-        expect(updatedNotes[1].left).toEqual(baseNotes[0].id);
+        expect(updatedNotes[2].id).not.toBe(noteTarget.id);
         return done();
       });
   });
@@ -383,4 +360,320 @@ describe('Note api', () => {
         return done();
       });
   });
+
+  it('returns all tags', (done) => {
+    const baseTags = new Set();
+    baseNotes.forEach((note) => {
+      note.tags.forEach((tag) => {
+        baseTags.add(tag);
+      });
+    });
+    request(server)
+      .get('/notes/tags')
+      .then(({ body, status }) => {
+        expect(status).toEqual(200);
+        expect(body).toEqual(Array.from(baseTags));
+        return done();
+      });
+  });
+
+  it('handles two reorders internally towards right', (async (done) => {
+    // [1, 2, 3, 4, 5]
+    // [1, 3, 2, 4, 5]
+    let leftNote = baseNotes[1];
+    let rightNote = baseNotes[baseNotes.length - 2];
+    await request(server)
+      .put('/notes/move')
+      .send({ sourceId: leftNote.id, dropId: rightNote.id })
+      .then(async ({ status }) => {
+        expect(status).toBe(204);
+
+        const updatedNotes = await getCurrentDB();
+        baseNotes.splice(baseNotes.length - 2, 0, leftNote);
+        baseNotes.splice(1, 1);
+        const baseNoteIds = baseNotes.map(note => note.id);
+        const updatedIds = updatedNotes.map(note => note.id);
+        expect(updatedIds).toEqual(baseNoteIds);
+        baseNotes = updatedNotes;
+      });
+
+    leftNote = baseNotes[1];
+    rightNote = baseNotes[baseNotes.length - 2];
+    request(server)
+      .put('/notes/move')
+      .send({ sourceId: leftNote.id, dropId: rightNote.id })
+      .then(async ({ status }) => {
+        expect(status).toBe(204);
+
+        const updatedNotes = await getCurrentDB();
+        baseNotes.splice(baseNotes.length - 2, 0, leftNote);
+        baseNotes.splice(1, 1);
+        const baseNoteIds = baseNotes.map(note => note.id);
+        const updatedIds = updatedNotes.map(note => note.id);
+        expect(updatedIds).toEqual(baseNoteIds);
+        baseNotes = updatedNotes;
+        return done();
+      });
+  }));
+
+  it('handles two reorders internally towards left', (async (done) => {
+    // [1, 2, 3, 4, 5]
+    // [1, 4, 2, 3, 5]
+    let leftNote = baseNotes[1];
+    let rightNote = baseNotes[baseNotes.length - 2];
+    await request(server)
+      .put('/notes/move')
+      .send({ sourceId: rightNote.id, dropId: leftNote.id })
+      .then(async ({ status }) => {
+        expect(status).toBe(204);
+
+        const updatedNotes = await getCurrentDB();
+        baseNotes.splice(baseNotes.length - 2, 1);
+        baseNotes.splice(1, 0, rightNote);
+        const baseNoteIds = baseNotes.map(note => note.id);
+        const updatedIds = updatedNotes.map(note => note.id);
+        expect(updatedIds).toEqual(baseNoteIds);
+        baseNotes = updatedNotes;
+      });
+
+    leftNote = baseNotes[1];
+    rightNote = baseNotes[baseNotes.length - 2];
+    request(server)
+      .put('/notes/move')
+      .send({ sourceId: rightNote.id, dropId: leftNote.id })
+      .then(async ({ status }) => {
+        expect(status).toBe(204);
+
+        const updatedNotes = await getCurrentDB();
+        baseNotes.splice(baseNotes.length - 2, 1);
+        baseNotes.splice(1, 0, rightNote);
+        const baseNoteIds = baseNotes.map(note => note.id);
+        const updatedIds = updatedNotes.map(note => note.id);
+        expect(updatedIds).toEqual(baseNoteIds);
+        return done();
+      });
+  }));
+
+  it('handles two internal reorders to left end', (async (done) => {
+    // [1, 2, 3, 4, 5]
+    // [4, 1, 2, 3, 5]
+    let leftNote = baseNotes[0];
+    let rightNote = baseNotes[baseNotes.length - 2];
+    await request(server)
+      .put('/notes/move')
+      .send({ sourceId: rightNote.id, dropId: leftNote.id })
+      .then(async ({ status }) => {
+        expect(status).toBe(204);
+
+        const updatedNotes = await getCurrentDB();
+        baseNotes.splice(baseNotes.length - 2, 1);
+        baseNotes.splice(0, 0, rightNote);
+        const baseNoteIds = baseNotes.map(note => note.id);
+        const updatedIds = updatedNotes.map(note => note.id);
+        expect(updatedIds).toEqual(baseNoteIds);
+        baseNotes = updatedNotes;
+      });
+
+    [leftNote] = baseNotes;
+    rightNote = baseNotes[baseNotes.length - 2];
+    request(server)
+      .put('/notes/move')
+      .send({ sourceId: rightNote.id, dropId: leftNote.id })
+      .then(async ({ status }) => {
+        expect(status).toBe(204);
+
+        const updatedNotes = await getCurrentDB();
+        baseNotes.splice(baseNotes.length - 2, 1);
+        baseNotes.splice(0, 0, rightNote);
+        const baseNoteIds = baseNotes.map(note => note.id);
+        const updatedIds = updatedNotes.map(note => note.id);
+        expect(updatedIds).toEqual(baseNoteIds);
+        baseNotes = updatedNotes;
+        return done();
+      });
+  }));
+
+  it('handles two internal reorders to left end', (async (done) => {
+    let leftNote = baseNotes[1];
+    let rightNote = baseNotes[baseNotes.length - 1];
+    await request(server)
+      .put('/notes/move')
+      .send({ sourceId: leftNote.id, dropId: rightNote.id })
+      .then(async ({ status }) => {
+        expect(status).toBe(204);
+
+        const updatedNotes = await getCurrentDB();
+        baseNotes.splice(baseNotes.length - 1, 0, leftNote);
+        baseNotes.splice(1, 1);
+        const baseNoteIds = baseNotes.map(note => note.id);
+        const updatedIds = updatedNotes.map(note => note.id);
+        expect(updatedIds).toEqual(baseNoteIds);
+        baseNotes = updatedNotes;
+      });
+
+    leftNote = baseNotes[1];
+    rightNote = baseNotes[baseNotes.length - 1];
+    request(server)
+      .put('/notes/move')
+      .send({ sourceId: leftNote.id, dropId: rightNote.id })
+      .then(async ({ status }) => {
+        expect(status).toBe(204);
+
+        const updatedNotes = await getCurrentDB();
+        baseNotes.splice(baseNotes.length - 1, 0, leftNote);
+        baseNotes.splice(1, 1);
+        const baseNoteIds = baseNotes.map(note => note.id);
+        const updatedIds = updatedNotes.map(note => note.id);
+        expect(updatedIds).toEqual(baseNoteIds);
+        return done();
+      });
+  }));
+
+  it('handles all reorders combined', (async (done) => {
+    let leftNote = baseNotes[1];
+    let rightNote = baseNotes[baseNotes.length - 2];
+
+    // first internal reorder left to right
+    await request(server)
+      .put('/notes/move')
+      .send({ sourceId: leftNote.id, dropId: rightNote.id })
+      .then(async ({ status }) => {
+        expect(status).toBe(204);
+
+        const updatedNotes = await getCurrentDB();
+        baseNotes.splice(baseNotes.length - 2, 0, leftNote);
+        baseNotes.splice(1, 1);
+        const baseNoteIds = baseNotes.map(note => note.id);
+        const updatedIds = updatedNotes.map(note => note.id);
+        expect(updatedIds).toEqual(baseNoteIds);
+        baseNotes = updatedNotes;
+      });
+
+    // second internal reorder left to right
+    leftNote = baseNotes[1];
+    rightNote = baseNotes[baseNotes.length - 2];
+    await request(server)
+      .put('/notes/move')
+      .send({ sourceId: leftNote.id, dropId: rightNote.id })
+      .then(async ({ status }) => {
+        expect(status).toBe(204);
+
+        const updatedNotes = await getCurrentDB();
+        baseNotes.splice(baseNotes.length - 2, 0, leftNote);
+        baseNotes.splice(1, 1);
+        const baseNoteIds = baseNotes.map(note => note.id);
+        const updatedIds = updatedNotes.map(note => note.id);
+        expect(updatedIds).toEqual(baseNoteIds);
+        baseNotes = updatedNotes;
+      });
+
+    // first internal reorder right to left
+    leftNote = baseNotes[1];
+    rightNote = baseNotes[baseNotes.length - 2];
+    await request(server)
+      .put('/notes/move')
+      .send({ sourceId: rightNote.id, dropId: leftNote.id })
+      .then(async ({ status }) => {
+        expect(status).toBe(204);
+
+        const updatedNotes = await getCurrentDB();
+        baseNotes.splice(baseNotes.length - 2, 1);
+        baseNotes.splice(1, 0, rightNote);
+        const baseNoteIds = baseNotes.map(note => note.id);
+        const updatedIds = updatedNotes.map(note => note.id);
+        expect(updatedIds).toEqual(baseNoteIds);
+        baseNotes = updatedNotes;
+      });
+
+    // second internal reorder right to left
+    leftNote = baseNotes[1];
+    rightNote = baseNotes[baseNotes.length - 2];
+    await request(server)
+      .put('/notes/move')
+      .send({ sourceId: rightNote.id, dropId: leftNote.id })
+      .then(async ({ status }) => {
+        expect(status).toBe(204);
+
+        const updatedNotes = await getCurrentDB();
+        baseNotes.splice(baseNotes.length - 2, 1);
+        baseNotes.splice(1, 0, rightNote);
+        const baseNoteIds = baseNotes.map(note => note.id);
+        const updatedIds = updatedNotes.map(note => note.id);
+        expect(updatedIds).toEqual(baseNoteIds);
+        baseNotes = updatedNotes; 
+      });
+
+    // first reorder internal right to left end
+    leftNote = baseNotes[0];
+    rightNote = baseNotes[baseNotes.length - 2];
+    await request(server)
+      .put('/notes/move')
+      .send({ sourceId: rightNote.id, dropId: leftNote.id })
+      .then(async ({ status }) => {
+        expect(status).toBe(204);
+
+        const updatedNotes = await getCurrentDB();
+        baseNotes.splice(baseNotes.length - 2, 1);
+        baseNotes.splice(0, 0, rightNote);
+        const baseNoteIds = baseNotes.map(note => note.id);
+        const updatedIds = updatedNotes.map(note => note.id);
+        expect(updatedIds).toEqual(baseNoteIds);
+        baseNotes = updatedNotes;
+      });
+
+    // second reorder internal right to left end
+    [leftNote] = baseNotes;
+    rightNote = baseNotes[baseNotes.length - 2];
+    await request(server)
+      .put('/notes/move')
+      .send({ sourceId: rightNote.id, dropId: leftNote.id })
+      .then(async ({ status }) => {
+        expect(status).toBe(204);
+
+        const updatedNotes = await getCurrentDB();
+        baseNotes.splice(baseNotes.length - 2, 1);
+        baseNotes.splice(0, 0, rightNote);
+        const baseNoteIds = baseNotes.map(note => note.id);
+        const updatedIds = updatedNotes.map(note => note.id);
+        expect(updatedIds).toEqual(baseNoteIds);
+        baseNotes = updatedNotes;
+      });
+
+    // first reorder internal left to right end
+    leftNote = baseNotes[1];
+    rightNote = baseNotes[baseNotes.length - 1];
+    await request(server)
+      .put('/notes/move')
+      .send({ sourceId: leftNote.id, dropId: rightNote.id })
+      .then(async ({ status }) => {
+        expect(status).toBe(204);
+
+        const updatedNotes = await getCurrentDB();
+        baseNotes.splice(baseNotes.length - 1, 0, leftNote);
+        baseNotes.splice(1, 1);
+        const baseNoteIds = baseNotes.map(note => note.id);
+        const updatedIds = updatedNotes.map(note => note.id);
+        expect(updatedIds).toEqual(baseNoteIds);
+        baseNotes = updatedNotes;
+      });
+
+    // second reorder internal left to right end
+    leftNote = baseNotes[1];
+    rightNote = baseNotes[baseNotes.length - 1];
+    request(server)
+      .put('/notes/move')
+      .send({ sourceId: leftNote.id, dropId: rightNote.id })
+      .then(async ({ status }) => {
+        expect(status).toBe(204);
+
+        const updatedNotes = await getCurrentDB();
+        baseNotes.splice(baseNotes.length - 1, 0, leftNote);
+        baseNotes.splice(1, 1);
+        const baseNoteIds = baseNotes.map(note => note.id);
+        const updatedIds = updatedNotes.map(note => note.id);
+        expect(updatedIds).toEqual(baseNoteIds);
+        baseNotes = updatedNotes;
+        return done();
+      });
+  }));
 });
