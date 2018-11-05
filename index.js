@@ -3,9 +3,10 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const morgan = require("morgan");
-
+const knex = require("knex");
 const app = new express();
-
+const dbConfig = require("./knexfile");
+const db = knex(dbConfig.development);
 app.use(express.json());
 app.use(helmet());
 app.use(cors());
