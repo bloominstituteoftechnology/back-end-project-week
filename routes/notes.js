@@ -1,6 +1,7 @@
 const { Router } = require('express');
 
 const camelToSnake = require('../utils/camelToSnake');
+const snakeToCamel = require('../utils/snakeToCamel');
 const HttpError = require('../utils/HttpError');
 
 function makeRoute(db) {
@@ -72,7 +73,6 @@ function makeRoute(db) {
     });
 
   route.use((req, res, next) => {
-    console.log('here');
     if (!req.user) {
       return next(new HttpError(401, 'Must be logged in'));
     }
@@ -86,11 +86,14 @@ function makeRoute(db) {
         ? `ordered.${processed}`
         : `ordered.${cols[index]} AS "${processed}"`;
     });
+    const appendCols = cols.map(col => `user_notes.${col}`);
     const string = `WITH RECURSIVE ordered AS (
-        SELECT * FROM notes WHERE notes.left = -1
+        WITH user_notes AS (SELECT * FROM notes WHERE notes.user_id = ${req.user.id})
+        SELECT * FROM user_notes WHERE user_notes.left = -1
         UNION ALL 
-        SELECT ${appendCols.join(', ')} FROM notes
-        INNER JOIN ordered ON notes.left = ordered.id)
+        SELECT ${appendCols.join(', ')} 
+        FROM user_notes
+        INNER JOIN ordered ON user_notes.left = ordered.id)
         SELECT ${camelCaseCols.join(', ')} FROM ordered;`;
     // get all notes from notes table
     db.raw(string)
@@ -109,7 +112,9 @@ function makeRoute(db) {
         return Promise.all(promiseNotes);
       })
       .then(preppedNotes => res.status(200).json(preppedNotes))
-      .catch(() => next(new HttpError(404, 'Database did not supply requested resources.')));
+      .catch((err) => {
+        next(new HttpError(404, 'Database did not supply requested resources.'))
+      });
   });
 
   route.get('/get/:id', (req, res, next) => {
@@ -136,9 +141,12 @@ function makeRoute(db) {
         .then(([note, tags]) => {
           if (note) {
             // return note with tags array included
-            return res.status(200).json({ ...note, tags });
+            if (note.userId === req.user.id) {
+              return res.status(200).json({ ...note, tags });
+            }
+            return next(new HttpError(401, 'Not authorized for this user'));
           }
-          throw new HttpError(404, 'Database did not return a resource for this id.');
+          return next(new HttpError(404, 'Database did not return a resource for this id.'));
         })
         .catch(() => {
           next(new HttpError(404, 'Database could not return a resource with the id provided'));
@@ -163,7 +171,7 @@ function makeRoute(db) {
     // inserts new note in note table
     return db('notes')
       .select('id')
-      .where('right', '=', '-1')
+      .where({ right: '-1', user_id: req.user.id })
       .then((res) => {
         if (res.length === 0) {
           return db('notes')
@@ -171,7 +179,7 @@ function makeRoute(db) {
               ...note,
               left: -1,
               right: -1,
-              user_id: 1,
+              user_id: req.user.id,
             })
             .returning('id')
             .then(([id]) => {
@@ -187,7 +195,7 @@ function makeRoute(db) {
               ...note,
               left: id,
               right: -1,
-              user_id: 1,
+              user_id: req.user.id,
             })
             .returning('id')
             .then(([leftId]) => {
@@ -229,15 +237,22 @@ function makeRoute(db) {
   });
 
   route.delete('/delete/:id', async (req, res, next) => {
+    debugger;
     const id = Number(req.params.id);
     // deletes note in notes table
-    const targetNote = await db('notes')
+    let targetNote = await db('notes')
       .select()
       .where('id', '=', id)
       .first();
 
     if (!targetNote) {
       return next(new HttpError(404, 'ID was not found.'));
+    }
+
+    targetNote = snakeToCamel(targetNote)
+
+    if (targetNote.userId !== req.user.id) {
+      return next(new HttpError(401, 'User is not authorized for this request'));
     }
 
     const { left, right } = targetNote;

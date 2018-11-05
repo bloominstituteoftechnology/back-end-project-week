@@ -1,5 +1,5 @@
-module.exports = function orderExpected(arr) {
-  const workingArr = [...arr];
+module.exports = function orderExpected(arr, id) {
+  const workingArr = [...arr.filter(item => item.userId === id)];
   const ordered = [];
   let i = 0;
   let target = -1;

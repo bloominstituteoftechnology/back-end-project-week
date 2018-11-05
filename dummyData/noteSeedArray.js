@@ -39,4 +39,20 @@ module.exports = [
     left: 4,
     right: -1,
   },
+  {
+    title: 'Stuff you learned for user2',
+    text_body: 'There are so many important things you have learned.',
+    created_at: '2018-08-01 5:45:12',
+    user_id: 2,
+    left: -1,
+    right: 7,
+  },
+  {
+    title: 'You never forget anything for user2',
+    text_body: "There's a time and a place.",
+    created_at: '2018-08-02 7:45:12',
+    user_id: 2,
+    left: 6,
+    right: -1,
+  },
 ];
