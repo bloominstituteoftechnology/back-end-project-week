@@ -10,9 +10,9 @@
     "mini-test": "jest",
     "test": "jest --forceExit --detectOpenHandles --runInBand",
     "test:watch": "jest --watch --runInBand",
+    "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --forceExit",
     "start": "node server.js",
-    "db": "knex migrate:rollback & knex migrate:latest & knex seed:run",
-    "debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand"
+    "db": "knex migrate:rollback & knex migrate:latest & knex seed:run"
   },
   "repository": {
     "type": "git",
@@ -42,5 +42,10 @@
     "pg": "^7.4.3",
     "sqlite3": "^4.0.2",
     "supertest": "^3.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.9.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0"
   }
 }

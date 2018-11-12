@@ -370,7 +370,6 @@ function makeRoute(db) {
         }
         return next(new HttpError(500, 'Database could not complete edit request.'));
       });
-    A
   });
 
   route.get('/tags', (req, res, next) => {
@@ -385,9 +384,9 @@ function makeRoute(db) {
       })
       .catch((err) => {
         console.log(err);
-        next(new HttpError(500, 'Database error occurred when fetching tags'))
+        next(new HttpError(500, 'Database error occurred when fetching tags'));
       });
-  }); 
+  });
 
   route.put('/move', (req, res, next) => {
     const { sourceId, dropId } = req.body;
@@ -405,6 +404,14 @@ function makeRoute(db) {
         return db.transaction((trx) => {
           // handle deletion logic
           const promises = [];
+          const verifyUser = db('notes')
+            .select('user_id')
+            .whereIn('id', [sourceId, dropId])
+            .then((userIds) => {
+              return userIds.every(({ user_id: userId }) => userId === req.user.id);
+            });
+          promises.push(verifyUser);
+
           let handleSourceLeft;
           let handleSourceRight;
           if (leftOfSource === -1) {
@@ -435,49 +442,57 @@ function makeRoute(db) {
               .where('id', '=', rightOfSource);
             promises.push(handleSourceRight);
           }
-          return (
-            Promise.all(promises)
-              // Insertion Logic
-              // obtain left property of drop target
-              .then(() => db('notes')
+          return Promise.all(promises)
+            // Insertion Logic
+            // obtain left property of drop target
+            .then(([userCheck]) => {
+              if (userCheck) {
+                return db('notes')
+                  .transacting(trx)
+                  .select('left')
+                  .where('id', '=', dropId)
+                  .first();
+              }
+              return Promise.reject(new HttpError(401, 'Not authorized'));
+            })
+            .then(({ left: leftOfDrop }) => {
+              const secondPromises = [];
+
+              // set right property of note left of drop target to point to source
+              const handleDropLeft = db('notes')
                 .transacting(trx)
-                .select('left')
-                .where('id', '=', dropId)
-                .first())
-              .then(({ left: leftOfDrop }) => {
-                const secondPromises = [];
+                .update({ right: sourceId })
+                .where('id', '=', leftOfDrop);
+              secondPromises.push(handleDropLeft);
 
-                // set right property of note left of drop target to point to source
-                const handleDropLeft = db('notes')
-                  .transacting(trx)
-                  .update({ right: sourceId })
-                  .where('id', '=', leftOfDrop);
-                secondPromises.push(handleDropLeft);
+              // set left property of drop target to point to source
+              const handleDrop = db('notes')
+                .transacting(trx)
+                .update({ left: sourceId })
+                .where('id', '=', dropId);
+              secondPromises.push(handleDrop);
 
-                // set left property of drop target to point to source
-                const handleDrop = db('notes')
-                  .transacting(trx)
-                  .update({ left: sourceId })
-                  .where('id', '=', dropId);
-                secondPromises.push(handleDrop);
+              // set left property of source to point to drop target's former left property
+              // and point its right property to point to drop target
+              const handleSource = db('notes')
+                .transacting(trx)
+                .update({ left: leftOfDrop, right: dropId })
+                .where('id', '=', sourceId);
+              secondPromises.push(handleSource);
 
-                // set left property of source to point to drop target's former left property
-                // and point its right property to point to drop target
-                const handleSource = db('notes')
-                  .transacting(trx)
-                  .update({ left: leftOfDrop, right: dropId })
-                  .where('id', '=', sourceId);
-                secondPromises.push(handleSource);
-
-                return Promise.all(secondPromises);
-              })
-              .then(trx.commit)
-          );
+              return Promise.all(secondPromises);
+            })
+            .then(() => trx.commit())
+            .catch((err) => {
+              return trx.rollback(err);
+            });
         });
       })
       .then(() => res.status(204).end())
       .catch((err) => {
-        console.log(err);
+        if (err instanceof HttpError) {
+          return next(err);
+        }
         return next(
           new HttpError(500, 'Database error prevented the transaction from completing.'),
         );

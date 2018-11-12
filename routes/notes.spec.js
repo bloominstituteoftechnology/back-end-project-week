@@ -391,201 +391,201 @@ describe('Note api', () => {
   })
 
   describe('PUT request to edit note', () => {
-     it('edits a note', async (done) => {
-       const updateNote = {
-         title: 'new title',
-         textBody: 'new text',
-       };
-   
-       const request = supertest.agent(server);
-       const user = users[0];
-       await scratchLogin(request, user);
-   
-       const { id } = baseNotes[1];
-       request
-         .put(`/notes/edit/${id}`)
-         .send(updateNote)
-         .then(async ({ status }) => {
-           expect(status).toEqual(204);
-           const updatedNotes = await getCurrentDB(user.id);
-           expect(updatedNotes[1]).toMatchObject(updateNote);
-           return done();
-         });
-     });
+    it('edits a note', async (done) => {
+      const updateNote = {
+        title: 'new title',
+        textBody: 'new text',
+      };
 
-     it('returns a 401 for edits when not logged in', async (done) => {
-       const updateNote = {
-         title: 'new title',
-         textBody: 'new text',
-       };
+      const request = supertest.agent(server);
+      const user = users[0];
+      await scratchLogin(request, user);
 
-       const { id } = baseNotes[1];
+      const { id } = baseNotes[1];
+      request
+        .put(`/notes/edit/${id}`)
+        .send(updateNote)
+        .then(async ({ status }) => {
+          expect(status).toEqual(204);
+          const updatedNotes = await getCurrentDB(user.id);
+          expect(updatedNotes[1]).toMatchObject(updateNote);
+          return done();
+        });
+    });
 
-       const request = supertest.agent(server);
+    it('returns a 401 for edits when not logged in', async (done) => {
+      const updateNote = {
+        title: 'new title',
+        textBody: 'new text',
+      };
 
-       return nonAuthTest(request, 'put', `/notes/edit/${id}`, updateNote)
+      const { id } = baseNotes[1];
+
+      const request = supertest.agent(server);
+
+      return nonAuthTest(request, 'put', `/notes/edit/${id}`, updateNote)
         .then(async () => {
           const updatedNote = await db('notes').select('*').where('id', '=', id).first();
           expect(baseNotes[1]).toMatchObject(JSON.parse(JSON.stringify(snakeToCamel(updatedNote))));
           return done();
         });
-     });
-    
-     it('throws a 404 error for a bad id', async (done) => {
-       const updateNote = {
-         title: 'new title',
-         textBody: 'new text',
-       };
-   
-       const request = supertest.agent(server);
-       const user = users[0];
-       await scratchLogin(request, user);
-   
-       request
-         .put('/notes/edit/badid')
-         .send(updateNote)
-         .then(async ({ status }) => {
-           expect(status).toEqual(404);
-           const currentNotes = await getCurrentDB(user.id);
-           expect(baseNotes).toEqual(currentNotes);
-           return done();
-         });
-     });
+    });
 
-     it('rejects a note edit with an empty-string title', async (done) => {
-       const newNote = {
-         title: '',
-       };
+    it('throws a 404 error for a bad id', async (done) => {
+      const updateNote = {
+        title: 'new title',
+        textBody: 'new text',
+      };
 
-       const request = supertest.agent(server);
-       const user = users[0];
-       await scratchLogin(request, user);
-   
-       const targetId = baseNotes[1].id;
-       request
-         .put(`/notes/edit/${targetId}`)
-         .send(newNote)
-         .then(async (res) => {
-           const {
-             status,
-             body: { message },
-           } = res;
-           expect(status).toEqual(403);
-           expect(message).toBeDefined();
-           const updatedNotes = await getCurrentDB(user.id);
-           expect(baseNotes).toEqual(updatedNotes);
-           return done();
-         });
-     });
+      const request = supertest.agent(server);
+      const user = users[0];
+      await scratchLogin(request, user);
+
+      request
+        .put('/notes/edit/badid')
+        .send(updateNote)
+        .then(async ({ status }) => {
+          expect(status).toEqual(404);
+          const currentNotes = await getCurrentDB(user.id);
+          expect(baseNotes).toEqual(currentNotes);
+          return done();
+        });
+    });
+
+    it('rejects a note edit with an empty-string title', async (done) => {
+      const newNote = {
+        title: '',
+      };
+
+      const request = supertest.agent(server);
+      const user = users[0];
+      await scratchLogin(request, user);
+
+      const targetId = baseNotes[1].id;
+      request
+        .put(`/notes/edit/${targetId}`)
+        .send(newNote)
+        .then(async (res) => {
+          const {
+            status,
+            body: { message },
+          } = res;
+          expect(status).toEqual(403);
+          expect(message).toBeDefined();
+          const updatedNotes = await getCurrentDB(user.id);
+          expect(baseNotes).toEqual(updatedNotes);
+          return done();
+        });
+    });
   });
 
   describe('DELETE a note', () => {
 
-     it('deletes a note from the end', async (done) => {
+    it('deletes a note from the end', async (done) => {
 
-       const request = supertest.agent(server);
-       const user = users[0];
-       await scratchLogin(request, user);
-   
-       const noteTarget = baseNotes[baseNotes.length - 1];
-       return request
-         .delete(`/notes/delete/${noteTarget.id}`)
-         .then(async (res) => {
-           const {
-             status,
-             body: { message },
-           } = res;
+      const request = supertest.agent(server);
+      const user = users[0];
+      await scratchLogin(request, user);
 
-           expect(status).toBe(204);
+      const noteTarget = baseNotes[baseNotes.length - 1];
+      return request
+        .delete(`/notes/delete/${noteTarget.id}`)
+        .then(async (res) => {
+          const {
+            status,
+            body: { message },
+          } = res;
 
-           const updatedNotes = await getCurrentDB(user.id);
-           expect(updatedNotes).toHaveLength(baseNotes.length - 1);
-           expect(updatedNotes
-             .find(note => note.id === noteTarget.id)).toBeUndefined();
-           expect(updatedNotes[updatedNotes.length - 1].id).not.toBe(noteTarget.id);
-           return done();
-         });
-     });
+          expect(status).toBe(204);
 
-     it('deletes a note from the beginning', async (done) => {
-       const noteTarget = baseNotes[0];
+          const updatedNotes = await getCurrentDB(user.id);
+          expect(updatedNotes).toHaveLength(baseNotes.length - 1);
+          expect(updatedNotes
+            .find(note => note.id === noteTarget.id)).toBeUndefined();
+          expect(updatedNotes[updatedNotes.length - 1].id).not.toBe(noteTarget.id);
+          return done();
+        });
+    });
 
-       const request = supertest.agent(server);
-       const user = users[0];
-       await scratchLogin(request, user);
-       
-       return request
-         .delete(`/notes/delete/${noteTarget.id}`)
-         .then(async (res) => {
-           const {
-             status,
-             body: { message },
-           } = res;
+    it('deletes a note from the beginning', async (done) => {
+      const noteTarget = baseNotes[0];
 
-           expect(status).toBe(204);
+      const request = supertest.agent(server);
+      const user = users[0];
+      await scratchLogin(request, user);
 
-           const updatedNotes = await getCurrentDB(user.id);
-           expect(updatedNotes).toHaveLength(baseNotes.length - 1);
-           expect(updatedNotes
-             .find(note => note.id === noteTarget.id)).toBeUndefined();
-           expect(updatedNotes[0].id).not.toBe(noteTarget.id);
-           return done();
-         });
-     });
+      return request
+        .delete(`/notes/delete/${noteTarget.id}`)
+        .then(async (res) => {
+          const {
+            status,
+            body: { message },
+          } = res;
 
-     it('deletes a note from the middle', async (done) => {
-       const noteTarget = baseNotes[2];
+          expect(status).toBe(204);
 
-       const request = supertest.agent(server);
-       const user = users[0];
-       await scratchLogin(request, user);
+          const updatedNotes = await getCurrentDB(user.id);
+          expect(updatedNotes).toHaveLength(baseNotes.length - 1);
+          expect(updatedNotes
+            .find(note => note.id === noteTarget.id)).toBeUndefined();
+          expect(updatedNotes[0].id).not.toBe(noteTarget.id);
+          return done();
+        });
+    });
 
-       return request
-         .delete(`/notes/delete/${noteTarget.id}`)
-         .then(async (res) => {
-           const {
-             status,
-             body: { message },
-           } = res;
+    it('deletes a note from the middle', async (done) => {
+      const noteTarget = baseNotes[2];
 
-           expect(status).toBe(204);
+      const request = supertest.agent(server);
+      const user = users[0];
+      await scratchLogin(request, user);
 
-           const updatedNotes = await getCurrentDB(user.id);
-           expect(updatedNotes).toHaveLength(baseNotes.length - 1);
-           expect(updatedNotes
-             .find(note => note.id === noteTarget.id)).toBeUndefined();
-           expect(updatedNotes[2].id).not.toBe(noteTarget.id);
-           return done();
-         });
-     });
+      return request
+        .delete(`/notes/delete/${noteTarget.id}`)
+        .then(async (res) => {
+          const {
+            status,
+            body: { message },
+          } = res;
 
-     it('returns a 404 error if a bad id is sent', async (done) => {
+          expect(status).toBe(204);
 
-       const request = supertest.agent(server);
-       const user = users[0];
-       await scratchLogin(request, user);
+          const updatedNotes = await getCurrentDB(user.id);
+          expect(updatedNotes).toHaveLength(baseNotes.length - 1);
+          expect(updatedNotes
+            .find(note => note.id === noteTarget.id)).toBeUndefined();
+          expect(updatedNotes[2].id).not.toBe(noteTarget.id);
+          return done();
+        });
+    });
 
-       request
-         .delete('/notes/delete/999999999')
-         .then(({ status }) => {
-           expect(status).toEqual(404);
-           return db('notes')
-             .count({ count: '*' })
-             .where({ user_id: user.id})
-             .first();
-         })
-         .then(({ count }) => {
-           expect(Number(count)).toEqual(baseNotes.length);
-           return done();
-         });
-     });
+    it('returns a 404 error if a bad id is sent', async (done) => {
+
+      const request = supertest.agent(server);
+      const user = users[0];
+      await scratchLogin(request, user);
+
+      request
+        .delete('/notes/delete/999999999')
+        .then(({ status }) => {
+          expect(status).toEqual(404);
+          return db('notes')
+            .count({ count: '*' })
+            .where({ user_id: user.id})
+            .first();
+        })
+        .then(({ count }) => {
+          expect(Number(count)).toEqual(baseNotes.length);
+          return done();
+        });
+    });
 
     it('returns a 403 error if deletion is attempted when not logged in', async () => {
-      
+
       const request = supertest.agent(server);
       const user = users[0];
       const note = baseNotes[3];
-      
+
       await nonAuthTest(request, 'delete', `/notes/delete/${note.id}`);
 
       updatedNotes = await getCurrentDB(users[0].id);
@@ -593,11 +593,11 @@ describe('Note api', () => {
     })
 
     it('returns a 403 if the wrong user attempts to delete a note', async () => {
-      
+
       const request = supertest.agent(server);
       const note = baseNotes[1];
       const user = users.find(user => user.id !== note.userId);
-       
+
       await scratchLogin(request, user);
       const { status, body } = await request.delete(`/notes/delete/${note.id}`);
       expect(status).toBe(401);
@@ -655,312 +655,381 @@ describe('Note api', () => {
 
     it('refuses access to tags if user is not logged in', (done) => {
       const request = supertest.agent(server);
+      const user = baseNotes[0].userId;
       return nonAuthTest(request, 'get', '/notes/tags')
         .then(() => {
           return done();
         })
-         .catch(err => console.log(err));
+        .catch(err => console.log(err));
     });
   });
 
+  describe('PUT /notes/move', () => {
 
-  // it('handles two reorders internally towards right', (async (done) => {
-  //   // [1, 2, 3, 4, 5]
-  //   // [1, 3, 2, 4, 5]
-  //   let leftNote = baseNotes[1];
-  //   let rightNote = baseNotes[baseNotes.length - 2];
-  //   await request
-  //     .put('/notes/move')
-  //     .send({ sourceId: leftNote.id, dropId: rightNote.id })
-  //     .then(async ({ status }) => {
-  //       expect(status).toBe(204);
+    it('handles two reorders internally towards right', (async (done) => {
+      // [1, 2, 3, 4, 5]
+      // [1, 3, 2, 4, 5]
 
-  //       const updatedNotes = await getCurrentDB(user.id);
-  //       baseNotes.splice(baseNotes.length - 2, 0, leftNote);
-  //       baseNotes.splice(1, 1);
-  //       const baseNoteIds = baseNotes.map(note => note.id);
-  //       const updatedIds = updatedNotes.map(note => note.id);
-  //       expect(updatedIds).toEqual(baseNoteIds);
-  //       baseNotes = updatedNotes;
-  //     });
+      const request = supertest.agent(server);
+      let user = users.find(user => user.id === baseNotes[0].userId);
+      await scratchLogin(request, user);
 
-  //   leftNote = baseNotes[1];
-  //   rightNote = baseNotes[baseNotes.length - 2];
-  //   request
-  //     .put('/notes/move')
-  //     .send({ sourceId: leftNote.id, dropId: rightNote.id })
-  //     .then(async ({ status }) => {
-  //       expect(status).toBe(204);
+      let leftNote = baseNotes[1];
+      let rightNote = baseNotes[baseNotes.length - 2];
 
-  //       const updatedNotes = await getCurrentDB(user.id);
-  //       baseNotes.splice(baseNotes.length - 2, 0, leftNote);
-  //       baseNotes.splice(1, 1);
-  //       const baseNoteIds = baseNotes.map(note => note.id);
-  //       const updatedIds = updatedNotes.map(note => note.id);
-  //       expect(updatedIds).toEqual(baseNoteIds);
-  //       baseNotes = updatedNotes;
-  //       return done();
-  //     });
-  // }));
+      await request
+        .put('/notes/move')
+        .send({ sourceId: leftNote.id, dropId: rightNote.id })
+        .then(async ({ status }) => {
+          expect(status).toBe(204);
 
-  // it('handles two reorders internally towards left', (async (done) => {
-  //   // [1, 2, 3, 4, 5]
-  //   // [1, 4, 2, 3, 5]
-  //   let leftNote = baseNotes[1];
-  //   let rightNote = baseNotes[baseNotes.length - 2];
-  //   await request
-  //     .put('/notes/move')
-  //     .send({ sourceId: rightNote.id, dropId: leftNote.id })
-  //     .then(async ({ status }) => {
-  //       expect(status).toBe(204);
+          const updatedNotes = await getCurrentDB(user.id);
+          baseNotes.splice(baseNotes.length - 2, 0, leftNote);
+          baseNotes.splice(1, 1);
+          const baseNoteIds = baseNotes.map(note => note.id);
+          const updatedIds = updatedNotes.map(note => note.id);
+          expect(updatedIds).toEqual(baseNoteIds);
+          baseNotes = updatedNotes;
+        });
 
-  //       const updatedNotes = await getCurrentDB(user.id);
-  //       baseNotes.splice(baseNotes.length - 2, 1);
-  //       baseNotes.splice(1, 0, rightNote);
-  //       const baseNoteIds = baseNotes.map(note => note.id);
-  //       const updatedIds = updatedNotes.map(note => note.id);
-  //       expect(updatedIds).toEqual(baseNoteIds);
-  //       baseNotes = updatedNotes;
-  //     });
+      leftNote = baseNotes[1];
+      rightNote = baseNotes[baseNotes.length - 2];
+      request
+        .put('/notes/move')
+        .send({ sourceId: leftNote.id, dropId: rightNote.id })
+        .then(async ({ status }) => {
+          expect(status).toBe(204);
 
-  //   leftNote = baseNotes[1];
-  //   rightNote = baseNotes[baseNotes.length - 2];
-  //   request
-  //     .put('/notes/move')
-  //     .send({ sourceId: rightNote.id, dropId: leftNote.id })
-  //     .then(async ({ status }) => {
-  //       expect(status).toBe(204);
+          const updatedNotes = await getCurrentDB(user.id);
+          baseNotes.splice(baseNotes.length - 2, 0, leftNote);
+          baseNotes.splice(1, 1);
+          const baseNoteIds = baseNotes.map(note => note.id);
+          const updatedIds = updatedNotes.map(note => note.id);
+          expect(updatedIds).toEqual(baseNoteIds);
+          baseNotes = updatedNotes;
+          return done();
+        });
+    }));
 
-  //       const updatedNotes = await getCurrentDB(user.id);
-  //       baseNotes.splice(baseNotes.length - 2, 1);
-  //       baseNotes.splice(1, 0, rightNote);
-  //       const baseNoteIds = baseNotes.map(note => note.id);
-  //       const updatedIds = updatedNotes.map(note => note.id);
-  //       expect(updatedIds).toEqual(baseNoteIds);
-  //       return done();
-  //     });
-  // }));
+    it('refuses reorder if not logged-in', (async (done) => {
+      // [1, 2, 3, 4, 5]
+      // [1, 3, 2, 4, 5]
 
-  // it('handles two internal reorders to left end', (async (done) => {
-  //   // [1, 2, 3, 4, 5]
-  //   // [4, 1, 2, 3, 5]
-  //   let leftNote = baseNotes[0];
-  //   let rightNote = baseNotes[baseNotes.length - 2];
-  //   await request
-  //     .put('/notes/move')
-  //     .send({ sourceId: rightNote.id, dropId: leftNote.id })
-  //     .then(async ({ status }) => {
-  //       expect(status).toBe(204);
+      const request = supertest.agent(server);
 
-  //       const updatedNotes = await getCurrentDB(user.id);
-  //       baseNotes.splice(baseNotes.length - 2, 1);
-  //       baseNotes.splice(0, 0, rightNote);
-  //       const baseNoteIds = baseNotes.map(note => note.id);
-  //       const updatedIds = updatedNotes.map(note => note.id);
-  //       expect(updatedIds).toEqual(baseNoteIds);
-  //       baseNotes = updatedNotes;
-  //     });
+      const leftNote = baseNotes[1];
+      const rightNote = baseNotes[baseNotes.length - 2];
+      const payload = { sourceId: leftNote.id, dropId: rightNote.id };
 
-  //   [leftNote] = baseNotes;
-  //   rightNote = baseNotes[baseNotes.length - 2];
-  //   request
-  //     .put('/notes/move')
-  //     .send({ sourceId: rightNote.id, dropId: leftNote.id })
-  //     .then(async ({ status }) => {
-  //       expect(status).toBe(204);
+      await nonAuthTest(request, 'put', '/notes/move', payload);
 
-  //       const updatedNotes = await getCurrentDB(user.id);
-  //       baseNotes.splice(baseNotes.length - 2, 1);
-  //       baseNotes.splice(0, 0, rightNote);
-  //       const baseNoteIds = baseNotes.map(note => note.id);
-  //       const updatedIds = updatedNotes.map(note => note.id);
-  //       expect(updatedIds).toEqual(baseNoteIds);
-  //       baseNotes = updatedNotes;
-  //       return done();
-  //     });
-  // }));
+      const updatedNotes = await getCurrentDB(leftNote.userId);
 
-  // it('handles two internal reorders to left end', (async (done) => {
-  //   let leftNote = baseNotes[1];
-  //   let rightNote = baseNotes[baseNotes.length - 1];
-  //   await request
-  //     .put('/notes/move')
-  //     .send({ sourceId: leftNote.id, dropId: rightNote.id })
-  //     .then(async ({ status }) => {
-  //       expect(status).toBe(204);
+      expect(updatedNotes).toEqual(baseNotes);
+      return done();
+    }));
 
-  //       const updatedNotes = await getCurrentDB(user.id);
-  //       baseNotes.splice(baseNotes.length - 1, 0, leftNote);
-  //       baseNotes.splice(1, 1);
-  //       const baseNoteIds = baseNotes.map(note => note.id);
-  //       const updatedIds = updatedNotes.map(note => note.id);
-  //       expect(updatedIds).toEqual(baseNoteIds);
-  //       baseNotes = updatedNotes;
-  //     });
+    it('it rejects a move if user doesn\'t own the notes', (async (done) => {
+      // [1, 2, 3, 4, 5]
+      // [1, 4, 2, 3, 5]
 
-  //   leftNote = baseNotes[1];
-  //   rightNote = baseNotes[baseNotes.length - 1];
-  //   request
-  //     .put('/notes/move')
-  //     .send({ sourceId: leftNote.id, dropId: rightNote.id })
-  //     .then(async ({ status }) => {
-  //       expect(status).toBe(204);
+      const request = supertest.agent(server);
+      const user = users.find(user => user.id !== baseNotes[0].userId);
+      await scratchLogin(request, user);
 
-  //       const updatedNotes = await getCurrentDB(user.id);
-  //       baseNotes.splice(baseNotes.length - 1, 0, leftNote);
-  //       baseNotes.splice(1, 1);
-  //       const baseNoteIds = baseNotes.map(note => note.id);
-  //       const updatedIds = updatedNotes.map(note => note.id);
-  //       expect(updatedIds).toEqual(baseNoteIds);
-  //       return done();
-  //     });
-  // }));
+      const leftNote = baseNotes[1];
+      const rightNote = baseNotes[baseNotes.length - 2];
+      await request
+        .put('/notes/move')
+        .send({ sourceId: rightNote.id, dropId: leftNote.id })
+        .then(async ({ status }) => {
+          expect(status).toBe(401);
+        });
 
-  // it('handles all reorders combined', (async (done) => {
-  //   let leftNote = baseNotes[1];
-  //   let rightNote = baseNotes[baseNotes.length - 2];
+      const updatedNotes = await getCurrentDB(leftNote.userId);
 
-  //   // first internal reorder left to right
-  //   await request
-  //     .put('/notes/move')
-  //     .send({ sourceId: leftNote.id, dropId: rightNote.id })
-  //     .then(async ({ status }) => {
-  //       expect(status).toBe(204);
+      expect(updatedNotes).toEqual(baseNotes);
+      return done();
+    }));
 
-  //       const updatedNotes = await getCurrentDB(user.id);
-  //       baseNotes.splice(baseNotes.length - 2, 0, leftNote);
-  //       baseNotes.splice(1, 1);
-  //       const baseNoteIds = baseNotes.map(note => note.id);
-  //       const updatedIds = updatedNotes.map(note => note.id);
-  //       expect(updatedIds).toEqual(baseNoteIds);
-  //       baseNotes = updatedNotes;
-  //     });
+    it('handles two reorders internally towards left', (async (done) => {
+      // [1, 2, 3, 4, 5]
+      // [1, 4, 2, 3, 5]
 
-  //   // second internal reorder left to right
-  //   leftNote = baseNotes[1];
-  //   rightNote = baseNotes[baseNotes.length - 2];
-  //   await request
-  //     .put('/notes/move')
-  //     .send({ sourceId: leftNote.id, dropId: rightNote.id })
-  //     .then(async ({ status }) => {
-  //       expect(status).toBe(204);
+      const request = supertest.agent(server);
+      const user = users.find(user => user.id === baseNotes[0].userId);
+      await scratchLogin(request, user);
 
-  //       const updatedNotes = await getCurrentDB(user.id);
-  //       baseNotes.splice(baseNotes.length - 2, 0, leftNote);
-  //       baseNotes.splice(1, 1);
-  //       const baseNoteIds = baseNotes.map(note => note.id);
-  //       const updatedIds = updatedNotes.map(note => note.id);
-  //       expect(updatedIds).toEqual(baseNoteIds);
-  //       baseNotes = updatedNotes;
-  //     });
+      let leftNote = baseNotes[1];
+      let rightNote = baseNotes[baseNotes.length - 2];
+      await request
+        .put('/notes/move')
+        .send({ sourceId: rightNote.id, dropId: leftNote.id })
+        .then(async ({ status }) => {
+          expect(status).toBe(204);
 
-  //   // first internal reorder right to left
-  //   leftNote = baseNotes[1];
-  //   rightNote = baseNotes[baseNotes.length - 2];
-  //   await request
-  //     .put('/notes/move')
-  //     .send({ sourceId: rightNote.id, dropId: leftNote.id })
-  //     .then(async ({ status }) => {
-  //       expect(status).toBe(204);
+          const updatedNotes = await getCurrentDB(user.id);
+          baseNotes.splice(baseNotes.length - 2, 1);
+          baseNotes.splice(1, 0, rightNote);
+          const baseNoteIds = baseNotes.map(note => note.id);
+          const updatedIds = updatedNotes.map(note => note.id);
+          expect(updatedIds).toEqual(baseNoteIds);
+          baseNotes = updatedNotes;
+        });
 
-  //       const updatedNotes = await getCurrentDB(user.id);
-  //       baseNotes.splice(baseNotes.length - 2, 1);
-  //       baseNotes.splice(1, 0, rightNote);
-  //       const baseNoteIds = baseNotes.map(note => note.id);
-  //       const updatedIds = updatedNotes.map(note => note.id);
-  //       expect(updatedIds).toEqual(baseNoteIds);
-  //       baseNotes = updatedNotes;
-  //     });
+      leftNote = baseNotes[1];
+      rightNote = baseNotes[baseNotes.length - 2];
+      request
+        .put('/notes/move')
+        .send({ sourceId: rightNote.id, dropId: leftNote.id })
+        .then(async ({ status }) => {
+          expect(status).toBe(204);
 
-  //   // second internal reorder right to left
-  //   leftNote = baseNotes[1];
-  //   rightNote = baseNotes[baseNotes.length - 2];
-  //   await request
-  //     .put('/notes/move')
-  //     .send({ sourceId: rightNote.id, dropId: leftNote.id })
-  //     .then(async ({ status }) => {
-  //       expect(status).toBe(204);
+          const updatedNotes = await getCurrentDB(user.id);
+          baseNotes.splice(baseNotes.length - 2, 1);
+          baseNotes.splice(1, 0, rightNote);
+          const baseNoteIds = baseNotes.map(note => note.id);
+          const updatedIds = updatedNotes.map(note => note.id);
+          expect(updatedIds).toEqual(baseNoteIds);
+          return done();
+        });
+    }));
 
-  //       const updatedNotes = await getCurrentDB(user.id);
-  //       baseNotes.splice(baseNotes.length - 2, 1);
-  //       baseNotes.splice(1, 0, rightNote);
-  //       const baseNoteIds = baseNotes.map(note => note.id);
-  //       const updatedIds = updatedNotes.map(note => note.id);
-  //       expect(updatedIds).toEqual(baseNoteIds);
-  //       baseNotes = updatedNotes;
-  //     });
+    it('handles two internal reorders to left end', (async (done) => {
+      // [1, 2, 3, 4, 5]
+      // [4, 1, 2, 3, 5]
 
-  //   // first reorder internal right to left end
-  //   leftNote = baseNotes[0];
-  //   rightNote = baseNotes[baseNotes.length - 2];
-  //   await request
-  //     .put('/notes/move')
-  //     .send({ sourceId: rightNote.id, dropId: leftNote.id })
-  //     .then(async ({ status }) => {
-  //       expect(status).toBe(204);
+      const request = supertest.agent(server);
+      let user = users.find(user => user.id === baseNotes[0].userId);
+      await scratchLogin(request, user);
 
-  //       const updatedNotes = await getCurrentDB(user.id);
-  //       baseNotes.splice(baseNotes.length - 2, 1);
-  //       baseNotes.splice(0, 0, rightNote);
-  //       const baseNoteIds = baseNotes.map(note => note.id);
-  //       const updatedIds = updatedNotes.map(note => note.id);
-  //       expect(updatedIds).toEqual(baseNoteIds);
-  //       baseNotes = updatedNotes;
-  //     });
+      let leftNote = baseNotes[0];
+      let rightNote = baseNotes[baseNotes.length - 2];
+      await request
+        .put('/notes/move')
+        .send({ sourceId: rightNote.id, dropId: leftNote.id })
+        .then(async ({ status }) => {
+          expect(status).toBe(204);
 
-  //   // second reorder internal right to left end
-  //   [leftNote] = baseNotes;
-  //   rightNote = baseNotes[baseNotes.length - 2];
-  //   await request
-  //     .put('/notes/move')
-  //     .send({ sourceId: rightNote.id, dropId: leftNote.id })
-  //     .then(async ({ status }) => {
-  //       expect(status).toBe(204);
+          const updatedNotes = await getCurrentDB(user.id);
+          baseNotes.splice(baseNotes.length - 2, 1);
+          baseNotes.splice(0, 0, rightNote);
+          const baseNoteIds = baseNotes.map(note => note.id);
+          const updatedIds = updatedNotes.map(note => note.id);
+          expect(updatedIds).toEqual(baseNoteIds);
+          baseNotes = updatedNotes;
+        });
 
-  //       const updatedNotes = await getCurrentDB(user.id);
-  //       baseNotes.splice(baseNotes.length - 2, 1);
-  //       baseNotes.splice(0, 0, rightNote);
-  //       const baseNoteIds = baseNotes.map(note => note.id);
-  //       const updatedIds = updatedNotes.map(note => note.id);
-  //       expect(updatedIds).toEqual(baseNoteIds);
-  //       baseNotes = updatedNotes;
-  //     });
+      [leftNote] = baseNotes;
+      rightNote = baseNotes[baseNotes.length - 2];
+      request
+        .put('/notes/move')
+        .send({ sourceId: rightNote.id, dropId: leftNote.id })
+        .then(async ({ status }) => {
+          expect(status).toBe(204);
 
-  //   // first reorder internal left to right end
-  //   leftNote = baseNotes[1];
-  //   rightNote = baseNotes[baseNotes.length - 1];
-  //   await request
-  //     .put('/notes/move')
-  //     .send({ sourceId: leftNote.id, dropId: rightNote.id })
-  //     .then(async ({ status }) => {
-  //       expect(status).toBe(204);
+          const updatedNotes = await getCurrentDB(user.id);
+          baseNotes.splice(baseNotes.length - 2, 1);
+          baseNotes.splice(0, 0, rightNote);
+          const baseNoteIds = baseNotes.map(note => note.id);
+          const updatedIds = updatedNotes.map(note => note.id);
+          expect(updatedIds).toEqual(baseNoteIds);
+          baseNotes = updatedNotes;
+          return done();
+        });
+    }));
 
-  //       const updatedNotes = await getCurrentDB(user.id);
-  //       baseNotes.splice(baseNotes.length - 1, 0, leftNote);
-  //       baseNotes.splice(1, 1);
-  //       const baseNoteIds = baseNotes.map(note => note.id);
-  //       const updatedIds = updatedNotes.map(note => note.id);
-  //       expect(updatedIds).toEqual(baseNoteIds);
-  //       baseNotes = updatedNotes;
-  //     });
+    it('handles two internal reorders to left end', (async (done) => {
 
-  //   // second reorder internal left to right end
-  //   leftNote = baseNotes[1];
-  //   rightNote = baseNotes[baseNotes.length - 1];
-  //   request
-  //     .put('/notes/move')
-  //     .send({ sourceId: leftNote.id, dropId: rightNote.id })
-  //     .then(async ({ status }) => {
-  //       expect(status).toBe(204);
+      const request = supertest.agent(server);
+      let user = users.find(user => user.id === baseNotes[0].userId);
+      await scratchLogin(request, user);
 
-  //       const updatedNotes = await getCurrentDB(user.id);
-  //       baseNotes.splice(baseNotes.length - 1, 0, leftNote);
-  //       baseNotes.splice(1, 1);
-  //       const baseNoteIds = baseNotes.map(note => note.id);
-  //       const updatedIds = updatedNotes.map(note => note.id);
-  //       expect(updatedIds).toEqual(baseNoteIds);
-  //       baseNotes = updatedNotes;
-  //       return done();
-  //     });
-  // }));
+      let leftNote = baseNotes[1];
+      let rightNote = baseNotes[baseNotes.length - 1];
+      await request
+        .put('/notes/move')
+        .send({ sourceId: leftNote.id, dropId: rightNote.id })
+        .then(async ({ status }) => {
+          expect(status).toBe(204);
+
+          const updatedNotes = await getCurrentDB(user.id);
+          baseNotes.splice(baseNotes.length - 1, 0, leftNote);
+          baseNotes.splice(1, 1);
+          const baseNoteIds = baseNotes.map(note => note.id);
+          const updatedIds = updatedNotes.map(note => note.id);
+          expect(updatedIds).toEqual(baseNoteIds);
+          baseNotes = updatedNotes;
+        });
+
+      leftNote = baseNotes[1];
+      rightNote = baseNotes[baseNotes.length - 1];
+      request
+        .put('/notes/move')
+        .send({ sourceId: leftNote.id, dropId: rightNote.id })
+        .then(async ({ status }) => {
+          expect(status).toBe(204);
+
+          const updatedNotes = await getCurrentDB(user.id);
+          baseNotes.splice(baseNotes.length - 1, 0, leftNote);
+          baseNotes.splice(1, 1);
+          const baseNoteIds = baseNotes.map(note => note.id);
+          const updatedIds = updatedNotes.map(note => note.id);
+          expect(updatedIds).toEqual(baseNoteIds);
+          return done();
+        });
+    }));
+
+    it('handles all reorders combined', (async (done) => {
+      const request = supertest.agent(server);
+      let user = users.find(user => user.id === baseNotes[0].userId);
+      await scratchLogin(request, user);
+
+      let leftNote = baseNotes[1];
+      let rightNote = baseNotes[baseNotes.length - 2];
+
+      // first internal reorder left to right
+      await request
+        .put('/notes/move')
+        .send({ sourceId: leftNote.id, dropId: rightNote.id })
+        .then(async ({ status }) => {
+          expect(status).toBe(204);
+
+          const updatedNotes = await getCurrentDB(user.id);
+          baseNotes.splice(baseNotes.length - 2, 0, leftNote);
+          baseNotes.splice(1, 1);
+          const baseNoteIds = baseNotes.map(note => note.id);
+          const updatedIds = updatedNotes.map(note => note.id);
+          expect(updatedIds).toEqual(baseNoteIds);
+          baseNotes = updatedNotes;
+        });
+
+      // second internal reorder left to right
+      leftNote = baseNotes[1];
+      rightNote = baseNotes[baseNotes.length - 2];
+      await request
+        .put('/notes/move')
+        .send({ sourceId: leftNote.id, dropId: rightNote.id })
+        .then(async ({ status }) => {
+          expect(status).toBe(204);
+
+          const updatedNotes = await getCurrentDB(user.id);
+          baseNotes.splice(baseNotes.length - 2, 0, leftNote);
+          baseNotes.splice(1, 1);
+          const baseNoteIds = baseNotes.map(note => note.id);
+          const updatedIds = updatedNotes.map(note => note.id);
+          expect(updatedIds).toEqual(baseNoteIds);
+          baseNotes = updatedNotes;
+        });
+
+      // first internal reorder right to left
+      leftNote = baseNotes[1];
+      rightNote = baseNotes[baseNotes.length - 2];
+      await request
+        .put('/notes/move')
+        .send({ sourceId: rightNote.id, dropId: leftNote.id })
+        .then(async ({ status }) => {
+          expect(status).toBe(204);
+
+          const updatedNotes = await getCurrentDB(user.id);
+          baseNotes.splice(baseNotes.length - 2, 1);
+          baseNotes.splice(1, 0, rightNote);
+          const baseNoteIds = baseNotes.map(note => note.id);
+          const updatedIds = updatedNotes.map(note => note.id);
+          expect(updatedIds).toEqual(baseNoteIds);
+          baseNotes = updatedNotes;
+        });
+
+      // second internal reorder right to left
+      leftNote = baseNotes[1];
+      rightNote = baseNotes[baseNotes.length - 2];
+      await request
+        .put('/notes/move')
+        .send({ sourceId: rightNote.id, dropId: leftNote.id })
+        .then(async ({ status }) => {
+          expect(status).toBe(204);
+
+          const updatedNotes = await getCurrentDB(user.id);
+          baseNotes.splice(baseNotes.length - 2, 1);
+          baseNotes.splice(1, 0, rightNote);
+          const baseNoteIds = baseNotes.map(note => note.id);
+          const updatedIds = updatedNotes.map(note => note.id);
+          expect(updatedIds).toEqual(baseNoteIds);
+          baseNotes = updatedNotes;
+        });
+
+      // first reorder internal right to left end
+      leftNote = baseNotes[0];
+      rightNote = baseNotes[baseNotes.length - 2];
+      await request
+        .put('/notes/move')
+        .send({ sourceId: rightNote.id, dropId: leftNote.id })
+        .then(async ({ status }) => {
+          expect(status).toBe(204);
+
+          const updatedNotes = await getCurrentDB(user.id);
+          baseNotes.splice(baseNotes.length - 2, 1);
+          baseNotes.splice(0, 0, rightNote);
+          const baseNoteIds = baseNotes.map(note => note.id);
+          const updatedIds = updatedNotes.map(note => note.id);
+          expect(updatedIds).toEqual(baseNoteIds);
+          baseNotes = updatedNotes;
+        });
+
+      // second reorder internal right to left end
+      [leftNote] = baseNotes;
+      rightNote = baseNotes[baseNotes.length - 2];
+      await request
+        .put('/notes/move')
+        .send({ sourceId: rightNote.id, dropId: leftNote.id })
+        .then(async ({ status }) => {
+          expect(status).toBe(204);
+
+          const updatedNotes = await getCurrentDB(user.id);
+          baseNotes.splice(baseNotes.length - 2, 1);
+          baseNotes.splice(0, 0, rightNote);
+          const baseNoteIds = baseNotes.map(note => note.id);
+          const updatedIds = updatedNotes.map(note => note.id);
+          expect(updatedIds).toEqual(baseNoteIds);
+          baseNotes = updatedNotes;
+        });
+
+      // first reorder internal left to right end
+      leftNote = baseNotes[1];
+      rightNote = baseNotes[baseNotes.length - 1];
+      await request
+        .put('/notes/move')
+        .send({ sourceId: leftNote.id, dropId: rightNote.id })
+        .then(async ({ status }) => {
+          expect(status).toBe(204);
+
+          const updatedNotes = await getCurrentDB(user.id);
+          baseNotes.splice(baseNotes.length - 1, 0, leftNote);
+          baseNotes.splice(1, 1);
+          const baseNoteIds = baseNotes.map(note => note.id);
+          const updatedIds = updatedNotes.map(note => note.id);
+          expect(updatedIds).toEqual(baseNoteIds);
+          baseNotes = updatedNotes;
+        });
+
+      // second reorder internal left to right end
+      leftNote = baseNotes[1];
+      rightNote = baseNotes[baseNotes.length - 1];
+      request
+        .put('/notes/move')
+        .send({ sourceId: leftNote.id, dropId: rightNote.id })
+        .then(async ({ status }) => {
+          expect(status).toBe(204);
+
+          const updatedNotes = await getCurrentDB(user.id);
+          baseNotes.splice(baseNotes.length - 1, 0, leftNote);
+          baseNotes.splice(1, 1);
+          const baseNoteIds = baseNotes.map(note => note.id);
+          const updatedIds = updatedNotes.map(note => note.id);
+          expect(updatedIds).toEqual(baseNoteIds);
+          baseNotes = updatedNotes;
+          return done();
+        });
+    }));
+  });
 });
