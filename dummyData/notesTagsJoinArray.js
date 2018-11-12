@@ -13,4 +13,8 @@ module.exports = [
     noteId: 2,
     tagId: 3,
   },
+  {
+    noteId: 6,
+    tagId: 4,
+  },
 ];

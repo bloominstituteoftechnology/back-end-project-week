@@ -9,4 +9,7 @@ module.exports = [
   {
     name: 'Bitter Truths',
   },
+  {
+    name: 'love ranch',
+  },
 ];

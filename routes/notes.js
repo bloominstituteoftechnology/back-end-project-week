@@ -370,13 +370,24 @@ function makeRoute(db) {
         }
         return next(new HttpError(500, 'Database could not complete edit request.'));
       });
+    A
   });
 
-  route.get('/tags', (req, res, next) => db('tags')
-    .select()
-    .then(tags => res.status(200).json(tags))
-    .catch(() => next(new HttpError(500, 'Database error occurred when fetching tags'))));
+  route.get('/tags', (req, res, next) => {
+    const userIdsQuery = db('notes').select('id').where('user_id', '=', req.user.id);
 
+    return db('tags')
+      .innerJoin('notesTagsJoin', 'tags.id', '=', 'notesTagsJoin.tagId')
+      .whereIn('notesTagsJoin.noteId', userIdsQuery)
+      .select('tags.id', 'tags.name')
+      .then((tags) => {
+        return res.status(200).json(tags);
+      })
+      .catch((err) => {
+        console.log(err);
+        next(new HttpError(500, 'Database error occurred when fetching tags'))
+      });
+  }); 
 
   route.put('/move', (req, res, next) => {
     const { sourceId, dropId } = req.body;

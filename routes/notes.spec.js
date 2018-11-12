@@ -178,7 +178,6 @@ describe('Note api', () => {
         .post('/notes/create')
         .send(newNote)
         .then(({ status, body }) => {
-          console.log(status, body);
           expect(status).toEqual(201);
           expect(body.id).toBeDefined();
           newNote = { ...newNote, id: body.id };
@@ -233,7 +232,6 @@ describe('Note api', () => {
         .post('/notes/create')
         .send(newNote)
         .then(({ status, body }) => {
-          console.log(status, body);
           expect(status).toEqual(201);
           expect(body.id).toBeDefined();
           newNote = { ...newNote, id: body.id };
@@ -588,7 +586,6 @@ describe('Note api', () => {
       const user = users[0];
       const note = baseNotes[3];
       
-      console.log(`notes/delete/${note.id}`);
       await nonAuthTest(request, 'delete', `/notes/delete/${note.id}`);
 
       updatedNotes = await getCurrentDB(users[0].id);
@@ -609,25 +606,62 @@ describe('Note api', () => {
       expect(baseNotes).toEqual(updatedNotes);
     })
   });
-// describe('GET tags', () => {
-//   it('returns all tags', (done) => {
-//     
-//     const baseTags = new Set();
-//     baseNotes.forEach((note) => {
-//       note.tags.forEach((tag) => {
-//         baseTags.add(tag);
-//       });
-//     });
-//     request
-//       .get('/notes/tags')
-//       .then(({ body, status }) => {
-//         expect(status).toEqual(200);
-//         expect(body).toEqual(Array.from(baseTags));
-//         return done();
-//       });
-//   });
-// })
 
+  describe('GET tags', () => {
+    it('returns all tags for different users', async (done) => {
+      const request = supertest.agent(server);
+      const note = baseNotes[3];
+      const user = users.find(user => user.id === note.userId);
+      await scratchLogin(request, user);
+
+      let baseTags = new Set();
+      baseNotes.forEach((note) => {
+        note.tags.forEach((tag) => {
+          baseTags.add(tag);
+        });
+      });
+      baseTags = Array.from(baseTags);
+
+      await request
+        .get('/notes/tags')
+        .then(({ body, status }) => {
+          expect(status).toEqual(200);
+          expect(body).toEqual(baseTags);
+        });
+
+      const diffUser = users.find(user => user.id !== note.userId);
+      const diffNotes = await getCurrentDB(diffUser.id);
+
+      let otherTags = new Set();
+      diffNotes.forEach((note) => {
+        note.tags.forEach((tag) => {
+          otherTags.add(tag);
+        });
+      });
+
+      otherTags = Array.from(otherTags);
+      expect(baseTags).not.toEqual(otherTags);
+
+      await request.post('/auth/logout');
+      await scratchLogin(request, diffUser);
+      return request
+        .get('/notes/tags')
+        .then(({ body, status }) => {
+          expect(status).toEqual(200);
+          expect(body).toEqual(otherTags);
+          return done();
+        });
+    });
+
+    it('refuses access to tags if user is not logged in', (done) => {
+      const request = supertest.agent(server);
+      return nonAuthTest(request, 'get', '/notes/tags')
+        .then(() => {
+          return done();
+        })
+         .catch(err => console.log(err));
+    });
+  });
 
 
   // it('handles two reorders internally towards right', (async (done) => {
