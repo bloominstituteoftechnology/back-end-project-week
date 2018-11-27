@@ -34,7 +34,7 @@ router.post('/login', (req, res) => {
               // send token to the client
               res.status(200).json({ message: `Welcome back ${username}!`, token });
             } else {
-              res.status(401).send('invalid credentials');
+              res.status(401).json({ message: 'invalid credentials' });
             }
           })
           .catch(err => {
