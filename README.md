@@ -1,4 +1,5 @@
 # Back End Project Week
+[Hosted front-end here](https://notes-johnoro.surge.sh/)
 
 This week you will build a backend for a note taking app called "Lambda Notes".
 
@@ -6,21 +7,109 @@ You are to treat this week as if you are working at a company and the instructor
 
 The main objective of this week is to develop a backend to support the LambdaNotes app you built during the Front End project week, connect the two projects together, and add some additional features. You will use `Node.js`, `Express` and any other technologies you have learned to complete this assignment.
 
+## Notes API Docs (adapted from the front-end's docs)
+
+- A server that will deliver notes can be found [here](https://notes-api-johnoro.herokuapp.com/):
+
+- One thing to be aware of is that this server is a shared resource. Any notes you enter will be viewable to everyone who connects to the server.
+
+- Examples will be using `axios` and updating `state` without more API requests excluding the last `PUT`.
+
+- A note has this basic format:
+
+```js
+  {
+    "title": "Note Title",
+    "text": "Note Body",
+    "created_at": "MM-DD-YY HH:MM:SS"
+  }
+```
+
+### https://notes-api-johnoro.herokuapp.com/api/notes
+
+- a `GET` request to this route will return a list of all the notes.
+```js
+  axios.get(URL)
+    .then(({ data }) => {
+      this.setState({
+        notes: data
+      });
+    })
+    .catch(err => console.error(err));
+```
+
+- a `POST` request to this route with the title and text in the req.body will create a new note. The response from the server will be the ID of the new note.
+```js
+  axios.post(URL, { title, text })
+    .then(({ data }) => {
+      this.setState({
+        notes: [{
+          id: data,
+          title,
+          text
+        }, ...notes]
+      });
+    })
+    .catch(err => console.error(err));
+```
+
+### https://notes-api-johnoro.herokuapp.com/api/notes/id
+
+- a `GET` request to this route (with "id" replaced by the note ID) will return the note with the specified ID.
+```js
+  axios.get(URL)
+    .then(({ data }) => {
+      this.setState({
+        note: data
+      });
+    })
+    .catch(err => console.error(err));
+```
+
+- a `PUT` request to this route with the title and text in the req body will edit the note with the specified ID. The response from the server will be the count of updated records (1).
+```js
+  axios.put(`${URL}/${note.id}`, { title, text })
+    .then(() => {
+      this.setState({
+        notes: notes.map(n => n.id === note.id ? {...n, title, text} : n)
+      });
+    })
+    .catch(err => console.error(err));
+```
+
+- a `DELETE` request to this route will delete the note with the specified ID and will return the count of deleted records (1).
+```js
+  axios.delete(`${URL}/${note.id}`)
+    .then(() => {
+      this.setState({
+        notes: notes.filter(n => n.id !== note.id)
+      });
+    })
+    .catch(err => console.error(err));
+```
+
+### https://notes-api-johnoro.herokuapp.com/api/notes/id/id2
+
+- a `PUT` request to this route with the ids of two notes will switch the notes' content and return the count of updated records (2).
+```js
+  axios.put(`${URL}/${id}/${id2}`)
+    .then(() => {
+      axios.get(URL)
+        .then(({ data }) => {
+          this.setState({ notes: data });
+        })
+        .catch(err => console.error(err));
+    })
+    .catch(err => console.error(err));
+```
+
 ## Git Commits
 
 You are required to showcase progress with at least 4 commits a day. This will let your project manager know where you are and if you need help. This also allows the client to get progress reports from the company in a real world setting. This also protects you from losing your work if your computer fails.
 
-## Trello Set Up
-
-- Use your existing Trello account from the Front End Project, or create a new one.
-- Create a new board called "Lambda Notes(Backend) - {Your Name}".
-- Create lists titled `Backlog`,`To do`, `Blocked`, `In Progress`, and `Done`.
-- Fill in the `To do` list with the MVP features listed below.
-- Fill in the `backlog` list with all the extra features listed below.
-- Share your board with the project manager that has been assigned to you. If you have not been assigned yet, reach out to your Section Lead for guidance.
-- Add your Trello URL to your project's README.md file. Commit the change, push it to your repository & submit a pull request.
-
 ## Backend MVP Features:
+
+### [Trello](https://trello.com/b/sgGWEZY9/backend-lambda-notes-by-john-orourke)
 
 We recommend that you finish all the MVP features before trying to deploy.
 

@@ -1,0 +1,30 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "Back-end for my Lambda Notes front-end",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnoro/back-end-project-week.git"
+  },
+  "author": "John O'Rourke",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/johnoro/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/johnoro/back-end-project-week#readme",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "knex": "^0.15.2",
+    "sqlite3": "^4.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
+}
