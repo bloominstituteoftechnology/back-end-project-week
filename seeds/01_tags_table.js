@@ -5,8 +5,10 @@ exports.seed = function(knex, Promise) {
     .then(function() {
       // Inserts seed entries
       return knex("tags").insert([
-        { title: "homework", note_id: 1 },
-        { title: "chores", note_id: 2 }
+        { title: "testing", note_id: 1 },
+        { title: "ipsum", note_id: 3 },
+        { title: "example", note_id: 2 },
+        { title: "example", note_id: 1 }
       ]);
     });
 };
