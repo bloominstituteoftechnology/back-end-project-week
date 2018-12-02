@@ -19,6 +19,17 @@ router.post('/',(req,res) => {
         res.status(201).json(result)
     })
 })
+router.put('/:id',(req,res) => {
+    notes.findByIdAndUpdate(req.params.id,req.body,(err,result) => {
+        res.status(200).json(result)
+    })
+})
+
+router.delete('/:id',(req,res) => {
+    notes.findByIdAndRemove(req.params.id,(err,result) => {
+        res.status(200).json(result)
+    })
+})
 
 
 module.exports = router;
