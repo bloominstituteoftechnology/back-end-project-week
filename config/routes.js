@@ -5,6 +5,7 @@ module.exports = server => {
     server.get('/api/notes/:id', getOneNote);
     server.post('/api/notes', addNote);
     server.delete('/api/notes/:id', deleteNote);
+    server.put('/api/notes/:id', editNote);
 };
 
 // GET ALL NOTES
@@ -66,5 +67,26 @@ function deleteNote(req, res) {
         })
         .catch(err => {
             res.status(500).json({ err: `Error` })
+        });
+};
+
+
+// EDIT NOTE
+
+function editNote(req, res) {
+    const changes = req.body;
+    console.log(req.body);
+    const { id } = req.params;
+    db('notes')
+        .where({ id })
+        .update(changes)
+        .then(count => {
+            count
+                ? res.status(200).json(count)
+                : res.status(404).json({ message: `Note not found` })
+        })
+        .catch(err => {
+            res.status(500).json({ message: `Error updating`, err })
         })
 }
+
