@@ -3,8 +3,11 @@ const db = require('../database/dbConfig.js');
 module.exports = server => {
     server.get('/api/notes', getNotes);
     server.get('/api/notes/:id', getOneNote);
-    server.post('/api/notes/', addNote);
+    server.post('/api/notes', addNote);
+    server.delete('/api/notes/:id', deleteNote);
 };
+
+// GET ALL NOTES
 
 function getNotes(req, res) {
     db('notes')
@@ -15,6 +18,8 @@ function getNotes(req, res) {
             res.status(500).json(err)
         })
 };
+
+// GET ONE NOTE
 
 function getOneNote(req, res) {
     const { id } = req.params;
@@ -27,6 +32,8 @@ function getOneNote(req, res) {
             res.status(500).json({ message: `note with ${id} not found` })
         });
 };
+
+// ADD NEW NOTE
 
 function addNote(req, res) {
     const { title, content } = req.body;
@@ -44,3 +51,20 @@ function addNote(req, res) {
             });
     };
 };
+
+// DELETE NOTE
+
+function deleteNote(req, res) {
+    const { id } = req.params;
+    db('notes')
+        .where({ id })
+        .del()
+        .then(count => {
+            count
+                ? res.status(200).json(count)
+                : res.status(404).json({ message: `Note not found` })
+        })
+        .catch(err => {
+            res.status(500).json({ err: `Error` })
+        })
+}
