@@ -43,8 +43,9 @@ const postNote = async (req, res) => {
 
 const putNote = async (req, res) => {
   try {
+    const { id } = req.params
     // destructing body
-    const { id, title, content } = req.body
+    const { title, content } = req.body
     const newNote = {
       id,
       title,
@@ -81,7 +82,7 @@ const echo = (req, res) => {
 router.get('/', getNoteList)
 router.get('/:id', getNote)
 router.post('/', postNote)
-router.put('/', putNote)
+router.put('/:id', putNote)
 router.delete('/:id', deleteNote)
 
 
