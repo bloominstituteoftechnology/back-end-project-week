@@ -6,7 +6,9 @@
   "author": "sean-one <basement365@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "knex": "^0.16.2",
+    "sqlite3": "^4.0.4"
   },
   "devDependencies": {
     "nodemon": "^1.18.7"
