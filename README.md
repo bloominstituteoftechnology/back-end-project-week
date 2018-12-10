@@ -1,3 +1,7 @@
+# Trello board for this project:
+
+https://trello.com/b/uXg6FHtF/lambda-notes-backend-adam-mckenney
+
 # Back End Project Week
 
 This week you will build a backend for a note taking app called "Lambda Notes".
