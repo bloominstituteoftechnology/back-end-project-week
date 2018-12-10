@@ -1,8 +1,10 @@
 const express = require('express');
 const server = express();
 const db = require('./notesDb.js')
+const cors = require('cors');
 
 server.use(express.json())
+server.use(cors());
 
 server.get('/api/notes', (req,res) => {
     db.getNotes()
