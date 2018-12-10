@@ -124,7 +124,7 @@ function generateToken(user) {
 
 server.post('/login', (req, res) => {
     const credentials = req.body;
-    db('users_table')
+    db('users')
     .where({ username: credentials.username })
     .first()
     .then(user => {
@@ -155,7 +155,7 @@ function protected(req, res, next) {
 }
 
 server.get('/users', (req, res) => {
-    db('users_table')
+    db('users')
       .select('id', 'username', 'password')
       .then(users => {
         res.json(users);
