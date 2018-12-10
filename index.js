@@ -85,7 +85,7 @@ server.delete("/api/notes/:id", (req, res) => {
         .catch(err => res.status(500).json({error: err}))
 })
 
-const port = 9001;
+const port = process.env.PORT || 9001;
 
 server.listen(port, function() {
     console.log(`\n=== Web API Listening on http://localhost:${port} ===\n`);
