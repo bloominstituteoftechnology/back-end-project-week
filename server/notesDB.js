@@ -4,6 +4,8 @@ module.exports = {
     getNotes,
     createNote,
     viewNote,
+    editNote,
+    deleteNote
 }
 
 function getNotes() {
