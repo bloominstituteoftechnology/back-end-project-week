@@ -34,4 +34,17 @@ router.post("/", (req, res) => {
     })
     .catch(err => res.status(500).json(err));
 });
+
+/* ===== EDIT NOTE  ===== */
+router.put("/:id", (req, res) => {
+  const editedNote = req.body;
+  const id = req.params.id;
+  db("notes")
+    .where("id", id)
+    .update(editedNote)
+    .then(note => {
+      res.status(200).json(note);
+    })
+    .catch(err => res.status(500).json(err));
+});
 module.exports = router;
