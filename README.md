@@ -69,3 +69,19 @@ Once your MVP has been approved, you have been given a feature list that the cli
 - Gate your favorite feature behind the _premium_ paywall
 
 You will notice that this repository does not have any starter code. This is on purpose. You are to start from scratch using any files you have built throughout your time here at Lambda School as reference.
+
+<!-- //install dependendcies -->
+<!-- bcrypt
+cors
+dotenv
+express
+express-session
+jsonwebtoken
+knex
+sqlite3 -->
+
+<!-- // create knex file: knex init
+// node index.js
+// in package.json "scipts": "server": "nodemon" -->
+<!-- // knex migrate:make users
+// knex migrate:latest // to spit out db.file -->
