@@ -7,8 +7,12 @@ const knexConfig = require("../knexfile");
 const db = knex(knexConfig.development);
 
 
-// router.post("/notes/add", nc.addNote);
-// router.get("/notes/", project.getNotes);
+// ENDPOINT for each features
+
+// return all notes
+router.get("/notes", nc.getNotes);
+router.post("/notes/add", nc.createNote);
+
 
 
 

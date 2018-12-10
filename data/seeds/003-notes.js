@@ -6,7 +6,8 @@ exports.seed = function(knex, Promise) {
       // Inserts seed entries
       return knex('notes').insert([
         {id: 1, title: 'example title 1',textBody: "Sample text body"},
-       
+        {id: 2, title: 'example title 2',textBody: "22222 Sample text body aaaa"},
+
       ]);
     });
 };

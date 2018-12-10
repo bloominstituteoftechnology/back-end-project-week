@@ -11,7 +11,7 @@ const notesRouter = require('./notes/notesRouter.js')
 //* Middleware & Routes
 require('./middleware')(server)
 
-server.use('./api', notesRouter)
+server.use('/api', notesRouter)
 
 //* Error Handler
 server.use(errorHandler)
