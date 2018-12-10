@@ -1,17 +1,16 @@
 // import dependencies
 const express = require("express");
 
+// internal imports
+const notesRouter = require("../notes/notesRouter");
+
 // init server
 const server = express();
 
 //middleware
 server.use(express.json());
 
-// sanit check
-server.get("/", (req, res) => {
-  res.status(200).json({ api: "running" });
-});
-
-const port = process.env.PORT || 7000;
+// endpoints for notes via router
+server.use("/api/notes", notesRouter);
 
 module.exports = server;
