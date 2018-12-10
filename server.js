@@ -10,8 +10,13 @@ server.use(express.json());
 server.use(cors());
 server.use(helmet());
 
+server.use("/", express.static("public"));
 server.use("/note", notesRouter);
 
-server.get("/", (req, res) => res.send("Welcome to the Notes API Server!"));
+server.get("/", (req, res) =>
+  res.send(
+    "Welcome to the Notes API Server! Navigate to https://notes-api-backend.herokuapp.com/notes.md for more information!"
+  )
+);
 
 module.exports = server;
