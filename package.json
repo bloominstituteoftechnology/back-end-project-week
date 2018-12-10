@@ -1,0 +1,28 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "backend project including front-end",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YanrongXu/back-end-project-week.git"
+  },
+  "author": "Yanrong Xu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YanrongXu/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/YanrongXu/back-end-project-week#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "knex": "^0.16.2",
+    "sqlite3": "^4.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.7"
+  }
+}
