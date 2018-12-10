@@ -48,8 +48,30 @@ server.get('/api/notes/:noteId', (req, res) => {
             }
         })
         .catch(err => {
-            res.status(500).json({ error: 'There was an error getching the note.', err });
+            res.status(500).json({ error: 'There was an error fetching the note.', err });
         });
+});
+
+server.put('/api/notes/:noteId', (req, res) => {
+    const { noteId } = req.params;
+    const changes = req.body;
+    if (!changes.title || !changes.content) {
+        res.status(500).json({ message: 'Please provide a title or content.' });
+    } else {
+        db('notes')
+        .where({ id: noteId })
+        .update(changes)
+        .then(count => {
+            if (count === 0) {
+                res.status(404).json({ message: 'A note with that ID does not exist.' });
+            } else {
+                res.status(200).json(count);
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ error: 'There was an error editing the note.', err });
+        });
+    }
 });
 
 server.listen(3500, () => console.log('\n\nServer is running on port 3500\n\n'));
