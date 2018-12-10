@@ -4,13 +4,13 @@
   "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
   "main": "index.js",
   "engines": {
-    "node": "8.1.1",
+    "node": "11.3.0",
     "npm": "5.0.3"
   },
   "scripts": {
-    "server": "nodemon",
-    "test": "jest --watch --verbose",
-    "start": "node index.js"
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "test": "jest --watch --verbose"
   },
   "repository": {
     "type": "git",
@@ -24,9 +24,13 @@
   },
   "homepage": "https://github.com/shawnantonucci/back-end-project-week#readme",
   "dependencies": {
+    "cookie-session": "^2.0.0-beta.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "knex": "^0.16.2",
+    "mongoose": "^5.3.15",
+    "passport": "^0.4.0",
+    "passport-google-oauth20": "^1.0.0",
     "sqlite3": "^4.0.4"
   },
   "devDependencies": {
