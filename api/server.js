@@ -5,7 +5,7 @@ const knexConfig = require('../knexfile');
 const db = knex(knexConfig.development)
 
 const cors = require('cors');
-server.use(cors());
+server.use(cors({origin: 'http://localhost:3000'}));
 server.use(express.json())
 
  server.get('/note/get/all', async (req, res) => {
@@ -25,9 +25,9 @@ server.use(express.json())
 
  server.post('/note/create', async (req, res) => {
      const note = {title, content} = req.body;
-
+    console.log(note)
      try{
-        const response = await db('notes').insert(note);
+        const response = await db('notes').insert({title, content});
         res.status(200).json(response) 
         
     }
