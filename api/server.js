@@ -77,6 +77,23 @@ server.post('/api/notes', (req, res) => {
         });
     }
     });
+
+    server.delete('/api/notes/:noteId', (req, res) => {
+        const { noteId } = req.params;
+        db('notes')
+            .where({ id: noteId })
+            .del()
+            .then(count => {
+                if (count === 0) {
+                    res.status(404).json({ message: 'A note with that ID does not exist.' });
+                } else {
+                    res.status(200).json({message: 'deleted the following amount of notes:',count});
+                }
+            })
+            .catch(err => {
+                res.status(500).json({ error: 'There was an error deleting the note.', err });
+            });
+    });
   
   
 
