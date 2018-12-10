@@ -11,7 +11,7 @@ server.use(express.json());
 server.use(cors());
 server.use(helmet());
 
-server.use(express.static(path.join(__dirname, "public")));
+server.use(express.static("./public"));
 server.use("/note", notesRouter);
 
 server.get("/", (req, res) =>
