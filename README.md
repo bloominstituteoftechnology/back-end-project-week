@@ -1,3 +1,5 @@
+https://trello.com/b/QWhvKrAN/lambda-notesback-end-andre-myrick
+
 # Back End Project Week
 
 This week you will build a backend for a note taking app called "Lambda Notes".
