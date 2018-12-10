@@ -1,9 +1,10 @@
 // Imports
 const express = require('express');
+const middlewareConfig = require('./middleware/middlewareConfig.js');
 // Initializes the server
 const server = express();
 // Middleware setup
-server.use(express.json());
+middlewareConfig(server);
 
 // Endpoints
 server.get('/', (req, res) => res.send('API UP'));
