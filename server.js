@@ -36,4 +36,20 @@ server.get('/notes/:id', (req, res) => {
         })
 })
 
+server.post('/notes', (req, res) => {
+    const post = req.body
+
+    if(!post.title || post.content.length === 0) {
+        res.status(404).json({ message: 'Please insert a title and some content' })
+    } else {
+        db('notes').insert(post)
+            .then(id => {
+                res.status(201).json({ id: id, post })
+            })
+            .catch(err => {
+                res.status(500).json({ message: 'error adding note' })
+            })
+    }
+})
+
 module.exports = server;
