@@ -28,8 +28,9 @@ server.get('/note/get/:id', (req,res) => {
 
     db('notes')
     .where(ID)
+    .first()
     .then(note => {
-        res.status(200).json(note)
+        res.status(200).send(note)
     })
     .catch(err => {
         res.status(500).json(err)
