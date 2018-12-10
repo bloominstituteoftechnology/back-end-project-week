@@ -2,6 +2,9 @@ const express = require('express')
 const helmet = require('helmet')
 const cors = require('cors')
 
+// Routes
+const noteRoutes = require('./routes/noteRoutes')
+
 // Initialize Server
 const server = express()
 
@@ -11,6 +14,7 @@ server.use(helmet())
 server.use(cors())
 
 // End Point Routes
+server.use('/api/notes', noteRoutes)
 
 
 
