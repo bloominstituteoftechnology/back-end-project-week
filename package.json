@@ -1,0 +1,32 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "https://trello.com/b/TEF78nxN/lambda-notesbackend-jacob-a-brennan",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watch --verbose",
+    "knex": "knex"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacobabrennan/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jacobabrennan/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/jacobabrennan/back-end-project-week#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0",
+    "knex": "^0.16.2",
+    "sqlite3": "^4.0.4"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0",
+    "supertest": "^3.3.0"
+  }
+}
