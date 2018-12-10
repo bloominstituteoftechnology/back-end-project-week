@@ -75,7 +75,7 @@ router.put("/:id", (req, res) => {
       .status(400)
       .json({ message: "Please provide title and contents for the note." });
   } else {
-    db.findById(id).then(note => {
+    db.find(id).then(note => {
       if (!note) {
         return res
           .status(404)
@@ -90,8 +90,8 @@ router.put("/:id", (req, res) => {
       res.status(500).json(err.message);
     });
 
-  db.get().then(notes => {
-    res.status(200).json(notes);
+  db.find(id).then(note => {
+    res.status(200).json(note);
   });
 });
 
