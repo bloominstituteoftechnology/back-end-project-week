@@ -71,6 +71,20 @@ server.put("/api/notes/:id", (req, res) => {
         .catch(err => res.status(500).json({error: err}))
 })
 
+server.delete("/api/notes/:id", (req, res) => {
+    let { id } = req.params;
+
+    db("notes")
+        .where({id})
+        .del()
+        .then(count => {
+            count ?
+            res.status(200).json(count) :
+            res.status(400).json({error: "Please enter a valid id"});
+        })
+        .catch(err => res.status(500).json({error: err}))
+})
+
 const port = 9001;
 
 server.listen(port, function() {
