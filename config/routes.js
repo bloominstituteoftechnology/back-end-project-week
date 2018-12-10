@@ -9,7 +9,8 @@ const db = require('../database/dbConfig');
 module.exports = server => {
     server.post('/api/register', register);
     server.post('/api/login', login);
-    server.get('/api/notes', authenticate, getNote);
+    server.post('/api/notes', authenticate, getNote);
+    server.post('/api/postnotes', authenticate, postNote)
 }
 
 function register(req, res) {
@@ -48,6 +49,27 @@ function login(req, res) {
         })
 }
 
+function postNote(req, res) {
+    const posts = req.body;
+
+    db('notes')
+        .insert(posts)
+        .then(note => {
+            res.status(201).json(note);
+        })
+        .catch(err => {
+            res.status(401).json({message: err})
+        })
+}
+
 function getNote(req, res) {
-    
+    const creds = req.body
+    db('notes')
+        .where({username: creds.username})
+        .then(response => {
+            res.status(200).json(response)
+        })
+        .catch(err => {
+            res.status(500).json({message: 'Error fetching notes'})
+        })
 }
