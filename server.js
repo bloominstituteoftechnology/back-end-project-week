@@ -10,6 +10,9 @@ server.use(helmet());
 server.use(morgan('combined'));
 
 
+const Route = require('./route/notesEndpoint')
+
+server.use('/notes', Route);
 
 server.get('/', (req, res) => {
     res.send({message: 'Server up'});
