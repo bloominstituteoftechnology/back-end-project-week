@@ -8,8 +8,7 @@ module.exports = {
     },
     useNullAsDefault: true,
     migrations: {
-      directory: "./database/migrations",
-      tableName: "notes"
+      directory: "./database/migrations"
     },
     seeds: {
       directory: "./database/seeds"
