@@ -41,10 +41,26 @@ router.put("/:id", (req, res) => {
   const { id } = req.params;
   const updateNote = req.body;
 
-  db.update(id, updateNote).then(count => {
-    if (!count) return res.status(404).json({ message: `ID: ${id} Not Found` });
-    res.status(200).json({ message: `ID: ${id} updated` });
-  });
+  db.update(id, updateNote)
+    .then(count => {
+      if (!count)
+        return res.status(404).json({ message: `ID: ${id} Not Found` });
+      res.status(200).json({ message: `ID: ${id} updated` });
+    })
+    .catch(err => res.status(500).json({ message: "Error updating", err }));
+});
+
+// DELETE existing note
+router.delete("/:id", (req, res) => {
+  const { id } = req.params;
+
+  db.remove(id)
+    .then(count => {
+      if (!count)
+        return res.status(404).json({ message: `ID: ${id} Not Found` });
+      res.status(200).json({ message: `ID: ${id} deleted` });
+    })
+    .catch(err => res.status(500).json({ message: "Error deleting", err }));
 });
 
 module.exports = router;
