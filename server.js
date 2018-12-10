@@ -22,6 +22,21 @@ server.get('/note/get/all',(req,res)=>{
     })
 })
 
+//  GET /note/get/:id
+server.get('/note/get/:id', (req,res) => {
+    const ID = req.params;
+
+    db('notes')
+    .where(ID)
+    .then(note => {
+        res.status(200).json(note)
+    })
+    .catch(err => {
+        res.status(500).json(err)
+    })
+})
+
+//  POST    /note/create    Create New Note Endpoint
 server.post('/note/create',(req,res) => {
     const data = req.body;
     if(data.title && data.textBody){
@@ -33,7 +48,7 @@ server.post('/note/create',(req,res) => {
         .catch(err => {
             res.status(500).json({Error : err})
         })
-        
+
     }else{
         res.status(417).json({message : "Send title and textBody fields"})
     }
