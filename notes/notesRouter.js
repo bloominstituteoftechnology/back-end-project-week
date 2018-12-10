@@ -4,7 +4,7 @@ const db = require('./notesModel');
 
 // Notes endpoints
 router.get('/api/', (req, res) => {
-  res.status(200).send('Server Listens and Obeys');
+  res.status(200).send('Server Listens and Obeys or Does it???');
 });
 
 router.get('/api/notes/all', async (req, res) => {
