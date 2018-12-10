@@ -12,5 +12,11 @@
     "knex": "^0.16.2",
     "morgan": "^1.9.1",
     "sqlite3": "^4.0.4"
+  },
+  "scripts": {
+    "server": "nodemon index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.8"
   }
 }
