@@ -4,7 +4,8 @@ module.exports = {
     getNote,
     getNotes,
     addNote,
-    updateNote
+    updateNote,
+    removeNote
 };
 
 // return note with given id
@@ -56,4 +57,11 @@ async function updateNote(id, updates) {
     return db('notes')
         .where('id', Number(id))
         .update(updated);
+};
+
+// delete the note at id, return number of records deleted
+function removeNote(id) {
+    return db('notes')
+        .where('id', Number(id))
+        .del();
 };
