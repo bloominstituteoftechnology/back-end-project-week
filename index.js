@@ -13,11 +13,16 @@ const db = knex(knexConfig.development);
 const server = express();
 
 server.use(express.json());
+server.use(cors());
 server.use(helmet());
-server.use(cors({
-    origin: 'http://localhost:3000',
-    credentials: true
-  }));
+
+server.all('', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "");
+    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    //Auth Each API Request created by user.
+    next();
+    });
 
 server.get('/', (req, res) => {
     res.send('Besh!');
