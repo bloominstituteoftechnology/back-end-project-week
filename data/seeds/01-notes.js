@@ -1,13 +1,13 @@
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('notes_table').truncate()
+  return knex('notes_table_two').truncate()
     .then(function () {
       // Inserts seed entries
-      return knex('notes_table').insert([
-        {note_title: 'title 1', textBody: 'content 1'},
-        {note_title: 'title 2', textBody: 'content 2'},
-        {note_title: 'title 3', textBody: 'content 3'}
+      return knex('notes_table_two').insert([
+        {title: 'title 1', textBody: 'content 1'},
+        {title: 'title 2', textBody: 'content 2'},
+        {title: 'title 3', textBody: 'content 3'}
       ]);
     });
 };
