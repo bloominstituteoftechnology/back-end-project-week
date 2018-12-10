@@ -27,7 +27,41 @@ server.get(`/api/notes/:id`, (req, res) => {
     .catch(err => {
         res.status(500).json({message: err})
     })
-});
-
-
+})
+server.post(`/api/notes`, (req, res) => {
+    const note = req.body;
+    db('notes')
+    .insert(note)
+    .then(count => {
+        res.status(201).json(count)
+    })
+    .catch(err => {
+        res.status(500).json({message: err})
+    })
+})
+server.delete(`/api/notes/:id`, (req, res) => {
+    const { id } = req.params;
+    db('notes')
+    .where({ id })
+    .del()
+    .then(count => {
+        res.status(201).json(count)
+    })
+    .catch(err => {
+        res.status(500).json({message: err})
+    })
+})
+server.put('/api/notes/:id', (req, res) => {
+    const changes = req.body;
+    const { id } = req.params;
+    db('notes')
+    .where({ id })
+    .update(changes)
+    .then(count => {
+        res.status(200).json(count)
+    })
+    .catch(err => {
+        res.status(500).json({message: err})
+    })
+})
 module.exports = server;
