@@ -1,3 +1,9 @@
+
+# My Trello Link
+
+https://trello.com/invite/b/o5o02nUz/7ff0aa02de23f31972caedeedbae1766/lambda-notesbackend-hunter-smith
+
+
 # Back End Project Week
 
 This week you will build a backend for a note taking app called "Lambda Notes".
@@ -19,6 +25,11 @@ You are required to showcase progress with at least 4 commits a day. This will l
 - Fill in the `backlog` list with all the extra features listed below.
 - Share your board with the project manager that has been assigned to you. If you have not been assigned yet, reach out to your Section Lead for guidance.
 - Add your Trello URL to your project's README.md file. Commit the change, push it to your repository & submit a pull request.
+
+
+
+https://trello.com/invite/b/o5o02nUz/7ff0aa02de23f31972caedeedbae1766/lambda-notesbackend-hunter-smith
+
 
 ## Backend MVP Features:
 
