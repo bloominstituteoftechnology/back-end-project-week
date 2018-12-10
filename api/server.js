@@ -77,6 +77,21 @@ server.get('/note/:id', (req, res) => {
     }));
 });
 
+server.put('/note/edit/:id', titleTextChecker, (req, res) => {
+  const changes = req.body;
+  const { id } = req.params;
+  db('notes')
+    .where({ id: id }) // 
+    .update(changes)
+    .then(count => {
+      res.status(200).json({
+        title: changes.title,
+        textBody: changes.textBody
+      });
+    })
+    .catch(err => res.status(500).json(err));
+});
+
 
 
 
