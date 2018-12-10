@@ -71,6 +71,24 @@ server.put('/:id/edit-note', (req, res) => {
 
 })
 
+server.delete('/notes/:id', (req, res) => {
+    const id = req.params
+
+    db('notes')
+        .where(id)
+        .del()
+        .then(count => {
+            if(count === 0) {
+                res.status(404).json({ message: 'Can not delete note by this id' })
+            } else {
+                res.status(200).json({ message: `succesfully deleted`, count })
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ message: 'error deleting note', err })
+        })
+})
+
 
 
 module.exports = server;
