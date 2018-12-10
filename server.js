@@ -5,10 +5,13 @@
 
 const server = require('express')()
 const errorHandler = require('./helpers/errorHandler')
+const notesRouter = require('./notes/notesRouter.js')
+
 
 //* Middleware & Routes
 require('./middleware')(server)
-require('./routes')(server)
+
+server.use('./api', notesRouter)
 
 //* Error Handler
 server.use(errorHandler)
