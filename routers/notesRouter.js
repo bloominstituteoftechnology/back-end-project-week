@@ -53,6 +53,20 @@ router.put('/:id', (req, res) => {
     });
 });
 
+router.delete('/:id', (req, res) => {
+    const { id } = req.params;
+
+    db('notes')
+    .where({ id })
+    .del()
+    .then(count => {
+        res.status(200).json({ count });
+    })
+    .catch(err => {
+        res.status(500).json({ message: 'could not delete note', err });
+    });
+});
+
 
 
 module.exports = router;
