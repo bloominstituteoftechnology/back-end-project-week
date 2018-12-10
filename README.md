@@ -20,6 +20,8 @@ You are required to showcase progress with at least 4 commits a day. This will l
 - Share your board with the project manager that has been assigned to you. If you have not been assigned yet, reach out to your Section Lead for guidance.
 - Add your Trello URL to your project's README.md file. Commit the change, push it to your repository & submit a pull request.
 
+**Trello Link: https://trello.com/invite/b/CEP5uJSg/843608fba4f9dec21d3e1e5c223a7e82/lambda-notes-back-end-rahul-desai**
+
 ## Backend MVP Features:
 
 We recommend that you finish all the MVP features before trying to deploy.
