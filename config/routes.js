@@ -2,7 +2,6 @@
 //const bcrypt = require('bcryptjs');
 const db = require('../database/dbConfig.js');
 
-
 //import middleware
 
 module.exports = server => {
@@ -15,12 +14,12 @@ module.exports = server => {
 
 const getNotes = (req, res) => {
     db('notes')
-        .then(notes => res.status(200).json(notes.data))
+        .then(notes => res.status(200).json(notes))
         .catch(err => res.status(500).json({ message: 'Error getting notes' }))
-};
+};  
 
 const createNote = (req, res) => {
-    const { title, textBody } = req.body;
+    const { title, textBody } = req.body;   
     const newNote = { title, textBody };
     db('notes')
         .insert(newNote)
@@ -29,10 +28,10 @@ const createNote = (req, res) => {
 };
 
 const getNoteById = (req, res) => {
-    const { id } = req.params;  //id in {}?
+    const { id } = req.params; 
     db('notes')
-        .where({ id: id})
-        .get(note)
+        .where('id', Number(id))
+        .first()
         .then(note => res.status(201).json(note))
         .catch(err => res.status(500).json({ message: 'Error getting note' }))
 };
