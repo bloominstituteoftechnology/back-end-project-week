@@ -39,7 +39,32 @@ server.post('/api/notes', async (req, res) => {
   }
 });
 
+server.delete('/api/notes/:id', async (req, res) => {
+  const id = req.params.id;
+  try {
+    const deleted = await db('notes')
+      .where({ id })
+      .del();
+    res.status(200).json(deleted);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: 'There was an error getting the note.', error });
+  }
+});
+
 module.exports = server;
+
+// db('notes')
+//   .where({ id })
+//   .del()
+//   .then(deleted => res.status(200).json(deleted))
+//   .catch(error => {
+//     res.status.json({
+//       message: 'There was an error getting the note.',
+//       error
+//     });
+//   });
 
 // db('notes')
 //   .then(notes => res.status(200).json(notes))
