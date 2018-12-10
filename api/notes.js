@@ -17,7 +17,9 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   const { id } = req.params;
   db("notes")
+    .first()
     .where("notes.id", id)
+
     .then(note => {
       res.status(200).json(note);
     })

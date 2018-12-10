@@ -7,7 +7,7 @@ class EditNote extends Component {
     this.state = {
       editedNote: {
         title: "",
-        textBody: ""
+        content: ""
       }
     };
   }
@@ -15,7 +15,7 @@ class EditNote extends Component {
   componentDidMount() {
     const id = localStorage.getItem("noteID");
     console.log(id);
-    axios.get(`/api/notes${id}`).then(
+    axios.get(`/api/notes/${id}`).then(
       res =>
         this.setState({
           editedNote: res.data
@@ -62,10 +62,10 @@ class EditNote extends Component {
             id="create-note-body"
             cols="30"
             rows="20"
-            value={this.state.editedNote.textBody}
+            value={this.state.editedNote.content}
             onChange={this.handleEditNoteFormChange}
             placeholder="Note comment"
-            name="textBody"
+            name="content"
           />
           <input type="submit" id="create-submit" value="Save" />
         </form>

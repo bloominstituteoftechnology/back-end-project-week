@@ -36,7 +36,7 @@ class App extends Component {
     );
   };
   handleEditNote = () => {
-    axios.get("api/notes").then(res =>
+    axios.get("/api/notes").then(res =>
       this.setState({
         notes: res.data
       })
@@ -47,6 +47,7 @@ class App extends Component {
     // this.setState({
     //   singleNoteId: noteId
     // });
+
     localStorage.setItem("noteID", noteId);
   };
   render() {
