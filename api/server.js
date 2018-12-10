@@ -55,4 +55,16 @@ server.delete('/api/notes/:id', (req, res) => {
     });
 });
 
+//create a note with title and content
+server.post('/api/notes', (req, res) => {
+  db('notes')
+    .insert(req.body)
+    .then(newNote => {
+      res.status(201).json(newNote);
+    })
+    .catch(err => {
+      res.status(500).json({ error: 'This note could not be created.', err });
+    });
+});
+
 module.exports = server;
