@@ -43,6 +43,7 @@ server.post("/notes", (req, res) => {
 });
 
 // View individual notes by id
+
 server.get("/notes/:id", (req, res) => {
   const { id } = req.params;
   db("notes")
@@ -59,6 +60,29 @@ server.get("/notes/:id", (req, res) => {
     .catch(err => {
       res.status(500).json({ message: "There was an error, please try again" });
     });
+});
+
+// Edit individual notes
+
+server.put("/notes/:id", (req, res) => {
+  const changes = req.body;
+  const { id } = req.params;
+
+  if (changes.title === "" || changes.message === "") {
+    res.status(400).json({ message: "Please Include a title and message" });
+  } else {
+    db("notes")
+      .where({ id })
+      .update(changes)
+      .then(count => {
+        res.status(200).json({ message: `Updated ${count} notes` });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ message: "There was an error, please try again" });
+      });
+  }
 });
 
 module.exports = server;
