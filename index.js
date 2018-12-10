@@ -20,6 +20,18 @@ server.get('/api/notes', (req, res) => {
     })
 })
 
+server.post('/api/notes', (req, res) => {
+    const note  = req.body;
+    db('notes')
+    .insert(note)
+    .then(ids => {
+        res.status(201).json(ids)
+        .catch(err => {
+            res.status(500).json(err)
+        })
+    })
+    
+})
 
 const port = 9000;
 server.listen(port, () => console.log(`listening on port ${port}`))
