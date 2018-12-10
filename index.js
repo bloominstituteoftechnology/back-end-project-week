@@ -6,18 +6,24 @@ const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+
 const knexConfig = require('./knexfile');
 const db = knex(knexConfig.development);
 
 const server = express();
-server.use(cors());
 
 server.use(express.json());
 server.use(helmet());
+server.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+  }));
 
 server.get('/', (req, res) => {
     res.send('Besh!');
 });
+
+
 
 server.get('/notes', (req, res) => {
     db('notes_table_two') // migrate
