@@ -28,16 +28,16 @@ class NoteContainer extends React.Component {
 						{notes.map((note) => (
 							<Note
 								handleSubmit={() => {
-									return handleSubmit(note._id);
+									return handleSubmit(note.id);
 								}}
 								deleteNote={() => {
 									console.log('click');
-									return deleteNote(note._id);
+									return deleteNote(note.id);
 								}}
 								handleChange={handleChange}
-								key={note._id}
+								key={note.id}
 								title={note.title}
-								id={note._id}
+								id={note.id}
 								textBody={note.content}
 								showMenu={showMenu}
 								getAllNotes={getAllNotes}

@@ -47,7 +47,7 @@ server.post('/api/createnote', (req, res) => {
 });
 
 //edit a note
-server.put('/api/editnote/:note_id', (req, res) => {
+server.put('/api/note/:note_id', (req, res) => {
 	const changes = req.body;
 	console.log(changes);
 	const { note_id } = req.params;

@@ -47,7 +47,7 @@ export function addNote(e) {
 	} else {
 		axios
 			.post(endpoint + 'createnote', { title: title, content: textBody })
-			.then(this.setState({ title: '', textBody: '' }));
+			.then(() => this.setState({ title: '', textBody: '' }));
 	}
 }
 
@@ -55,7 +55,7 @@ export function addNote(e) {
 export function handleSubmit(id) {
 	const { editTitle, editBody } = this.state;
 	axios
-		.put(endpoint + `editnote/${id}`, {
+		.put(endpoint + 'note/' + id, {
 			title: editTitle,
 			content: editBody
 		})
