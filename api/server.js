@@ -58,65 +58,56 @@ try {
 res.status(201).json(noteData);
 return
 });
-/*
+
 //----- PUT notes -----
 //Edit an existing note.
 server.put('/api/notes/:id', async (req, res) => {
     const { id } = req.params;
-    const userChanges = req.body;
-    userDb.get(id)
-        .then(user => { 
-        if (!user) { 
-           res.status(404).json({ message: "The user with the specified ID does not exist." });
+    const noteUpdates = req.body;
+    db('notes')
+    .where({ id:id })
+    .then(note => { 
+        if (!note) { 
+           res.status(404).json({ message: "The note with the specified ID does not exist." });
            return  
          }
          })
          .catch(err => {
           res
             .status(500)
-            .json({ error: "The post information could not be retrieved." });
+            .json({ error: "The note information could not be retrieved." });
          });
           
-        if (!userChanges.name || userChanges.name==="" ) {
-          const errorMessage = "Please provide name for the user"; 
+        if (!noteUpdates.title || !noteUpdates.content) {
+          const errorMessage = "Please provide both a title and content for the note"; 
           res.status(400).json({ errorMessage });
           return
         } 
         try {
-          await userDb.update(id, userChanges)
+          await   db('notes')
+          .where({ id:id })
+          .update(noteUpdates)
         } catch (error) {
-        res.status(500).json({ error: "There was an error while saving the post to the database" });
+            console.log(error)
+        res.status(500).json({ error: "There was an error while saving the note to the database" });
         return      
       }
-      res.status(201).json({message: "user was updated" });
+      res.status(201).json(noteUpdates);
       return
       });
 
 //----- DELETE notes -----
 //Delete an existing note.
 server.delete('/api/notes/:id', (req, res) => {
-    const id = req.params.id;
-   // userDb.get(id)
-   userDb.remove(id)
-   .then(count => res.status(200).json(count))
-    // .then(user => { 
-     // console.log("we're in then")
-        //  if (!user) { 
-        //  res.status(404).json({ message: "The post with the specified ID does not exist." });
-          return
-       } else if (user){ // or oops - if we could retrieve it, we would but it's not here, status 404
-        userDb.remove(user.id) 
-         res.status(200).json({ message: "The post with the specified ID was deleted." });
-         return
-       }
-        })
-        .catch(err => {
-          res //if data can't be retrieved ... 
-            .status(500)
-            .json({ error: "The post information could not be retrieved." });
-        });
-        //res.status(200).json({ message: "The post with the specified ID was deleted." });
-      });
-*/
+    const { id } = req.params;
+  db('notes')
+    .where({ id:id })
+    .del()
+    .then(count => {
+      res.status(200).json({ count });
+    })
+    .catch(err => res.status(500).json(err));
+});
+
 
 module.exports = server;
