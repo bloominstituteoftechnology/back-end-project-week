@@ -1,5 +1,5 @@
 const notesRouter = require('../notes/notesRouter');
 
 module.exports = server => {
-    server.use('/api/notes', notesRouter)
+    server.use('/note', notesRouter)
 }
