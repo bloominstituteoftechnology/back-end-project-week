@@ -12,4 +12,14 @@ server.get('/', (req, res) => {
     })
 })
 
+
+server.get('/api/notes', (req, res) => {
+    db('notes')
+    .then(notes => res.status(200).json(notes))
+    .catch(error => res.status(500).json({
+        message: 'failed to get notes'
+    }))
+})
+
+
 module.exports = server;
