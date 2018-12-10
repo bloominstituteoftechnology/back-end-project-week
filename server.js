@@ -55,6 +55,10 @@ server.post('/notes', (req, res) => {
 server.put('/:id/edit-note', (req, res) => {
     const id = req.params
 
+    if(!post.title || post.content.length === 0) {
+        res.status(404).json({ message: 'Please insert a title and some content' })
+    } else {
+
     db('notes')
         .where(id)
         .update(req.body)
@@ -68,6 +72,7 @@ server.put('/:id/edit-note', (req, res) => {
         .catch(err => {
             res.status(500).json({ message: 'error updating post', err })
         })
+    }
 
 })
 
