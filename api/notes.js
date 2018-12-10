@@ -43,8 +43,13 @@ router.put("/:id", (req, res) => {
     .where("id", id)
     .update(editedNote)
     .then(note => {
-      res.status(200).json(note);
+      if (note) {
+        res.status(200).json(note);
+      } else {
+        res.status(404).json({ error: "Note not found" });
+      }
     })
     .catch(err => res.status(500).json(err));
 });
+
 module.exports = router;
