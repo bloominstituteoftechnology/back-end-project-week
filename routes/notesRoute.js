@@ -21,8 +21,8 @@ router.get('/get/:id', (req, res) => {
 });
 
 router.post('/create', async (req, res) => {
-  const { title, body } = req.body;
-  if (title && body) {
+  const { title, textBody } = req.body;
+  if (title && textBody) {
     try {
       const id = await db('notes').insert(req.body);
       res.status(201).json(id[0]);
