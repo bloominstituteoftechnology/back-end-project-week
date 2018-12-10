@@ -4,6 +4,8 @@
   "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
   "main": "index.js",
   "scripts": {
+    
+		"test": "jest --watch --verbose --runInBand",
     "server": "nodemon index.js"
   },
   "repository": {

@@ -3,10 +3,10 @@ exports.up = function(knex, Promise) {
     tbl.increments();
 
     tbl
-      .string('Note Title', 255)
+      .string('title', 255)
       .notNullable()
       .unique();
-    tbl.text('Note Content', 255).notNullable();
+    tbl.string('content', 255).notNullable();
   });
 };
 
