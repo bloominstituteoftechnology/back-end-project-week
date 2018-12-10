@@ -27,7 +27,7 @@ server.get('/api/notes/all', (req, res) => {
 server.post('/api/notes', (req, res) => {
     const { title, body } = req.body;
     if (!title || !body) {
-        res.status(422).json({ message: 'Provide title and body. '});
+        res.status(422).json({ message: 'Provide title and body.' });
     } else {
         db('notes')
             .insert(req.body)
@@ -43,19 +43,41 @@ server.post('/api/notes', (req, res) => {
 // view an existing note
 server.get('/api/notes/:id', (req, res) => {
     const { id } = req.params;
-    try {
-        const note = db('notes')
-                        .where({ id })
-                        .first();
-        if (!note) {
-            res.status(404).json({ message: 'Note does not exist.' });
-        } else {
-            res.status(200).json(note);
-        }
-    } catch (error) {
-        res.status(500).json({ message: 'Note could not be retrieved.', error });
-    };
+    db('notes')
+        .where({ id })
+        .then(note => {
+            if (!note) {
+                res.status(404).json({ message: 'Note with specified ID does not exist.' });
+            } else {
+                res.status(200).json(note);
+            }
+        })
+        .catch(error => {
+            res.status(500).json({ message: 'Note could not be retrieved.', error });
+        });
 });
 
+// edit an existing note
+server.put('/api/notes/:id', (req, res) => {
+    const { id } = req.params;
+    const { title, body} = req.body;
+    if (!title || !body) {
+        res.status(422).json({ message: 'Provide title and body.' });
+    } else {
+        db('notes')
+            .where({ id })
+            .update(req.body)
+            .then(note => {
+                if (note) {
+                    res.status(200).json(note);
+                } else {
+                    res.status(404).json({ message: 'Note with specified ID does not exist.' });
+                };
+            })
+            .catch(error => {
+                res.status(500).json({ message: 'Could not edit note.', error });
+            });
+    };
+});
 
 module.exports = server;
