@@ -26,11 +26,10 @@ server.post('/api/notes', (req, res) => {
     .insert(note)
     .then(ids => {
         res.status(201).json(ids)
-        .catch(err => {
-            res.status(500).json(err)
-        })
     })
-    
+    .catch(err => {
+        res.status(500).json(err)
+    })
 })
 
 const port = 9000;
