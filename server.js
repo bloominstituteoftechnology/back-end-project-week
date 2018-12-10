@@ -19,4 +19,21 @@ server.get('/notes', (req, res) => {
         })
 })
 
+server.get('/notes/:id', (req, res) => {
+    const id = req.params
+
+    db('notes') 
+        .where(id)
+        .then(note => {
+            if(note.length === 0) {
+                res.status(404).json({ message: 'Could not find note by id' })
+            } else {
+                res.status(200).json(note)
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ message: 'error processing your request' })
+        })
+})
+
 module.exports = server;
