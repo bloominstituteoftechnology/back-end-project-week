@@ -62,7 +62,7 @@ Once your MVP has been approved, you have been given a feature list that the cli
 - Allow users to attach images to notes.
 - Allow multiple users to collaborate on notes.
 - Add Unit and Integration Tests.
-
+ hi
 ## Super Duper Extra Credit Bonus Features
 
 - Add a payment form integrating with _Stripe_ that allows Users to buy a _"Premium"_ version of Lambda Notes.
