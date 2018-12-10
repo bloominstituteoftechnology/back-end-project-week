@@ -1,3 +1,7 @@
+# Trello Board link
+
+https://trello.com/invite/b/fiWKCgYL/9e538cfb560d7a24d1f1ab5ead94bafc/lambda-notes-backend-matt-wright
+
 # Back End Project Week
 
 This week you will build a backend for a note taking app called "Lambda Notes".
