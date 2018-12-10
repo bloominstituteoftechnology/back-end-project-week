@@ -154,7 +154,7 @@ function protected(req, res, next) {
     }
 }
 
-server.get('/users', protected, (req, res) => {
+server.get('/users', (req, res) => {
     db('users_table')
       .select('id', 'username', 'password')
       .then(users => {
