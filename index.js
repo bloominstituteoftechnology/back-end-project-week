@@ -15,8 +15,8 @@ server.get('/', (req, res) => {
 
 
 server.post('/api/notes', (req, res) => {
-    const project = req.body
-    db('notes').insert(project)
+    const note = req.body
+    db('notes').insert(note)
     .then(ids => {
         res.status(201).json(ids)
     })
