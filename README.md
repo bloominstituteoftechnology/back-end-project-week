@@ -69,3 +69,8 @@ Once your MVP has been approved, you have been given a feature list that the cli
 - Gate your favorite feature behind the _premium_ paywall
 
 You will notice that this repository does not have any starter code. This is on purpose. You are to start from scratch using any files you have built throughout your time here at Lambda School as reference.
+
+
+-------------------------------------------------------------
+
+TRELLO URL: https://trello.com/invite/b/p30wBdwB/7e98b2474d91630ab5f4bdd6c91b68c3/lambda-notes-back-end-brandon-strellis
