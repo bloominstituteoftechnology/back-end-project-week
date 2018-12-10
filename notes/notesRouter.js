@@ -28,8 +28,37 @@ router.post("/", (req, res) => {
   }
 });
 
-// todo GET list of all notes
-// todo GET individual note by id
+// GET list of all notes
+router.get("/", (req, res) => {
+  db("notes")
+    .then(notes => {
+      res.status(200).json(notes);
+    })
+    .catch(err =>
+      res.status(500).json({ error: "Error while retrieving notes: ", err })
+    );
+});
+
+// GET individual note by id
+router.get("/:id", (req, res) => {
+  const { id } = req.params;
+  db("notes")
+    .where({ id })
+    .first()
+    .then(note => {
+      if (note) {
+        res.status(200).json(note);
+      } else {
+        res
+          .status(404)
+          .json({ message: "The note with that id does not exist." });
+      }
+    })
+    .catch(err =>
+      res.status(500).json({ error: "Error while retrieving this note: ", err })
+    );
+});
+
 // todo PUT edits on existing note by id
 // todo DELETE existing note by id
 
