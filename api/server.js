@@ -26,4 +26,28 @@ server.get('/api/notes/:id', (req, res)=>{
         res.status(500).json({message:'fail to get specific note'})
     })
 })
+
+server.post('/api/notes', (req, res)=>{
+    const newNote= req.body;
+    db('notes').insert(newNote)
+    .then((id)=>{
+        res.status(201).json(id)
+    })
+    .catch(error=>{
+        res.status(500).json({message: 'fail to add note'})
+    })
+})
+
+server.get('/api/notes/delete/:id', (req, res)=>{
+    const {id}= req.params;
+    db('notes').delete().where('notes.id',id)
+    .then((note)=>{
+        res.status(201).json(note)
+    })
+    .catch(error=>{
+        res.status(500).json({message:'fail to delete specific note'})
+    })
+})
+
+
 module.exports=server;
