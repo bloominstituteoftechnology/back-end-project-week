@@ -24,5 +24,13 @@ server.get('/api/notes/:id', (req, res) => {
         .then(note => res.status(200).json(note))
         .catch(error => res.status(500).json(error));
 })
+
+server.post('/api/notes', (req, res) => {
+    db.insert(req.body)
+        .into('notes')
+        .then(notes => res.status(200).json(notes))
+        .catch(error => res.status(500).json(error));
+})
+
 const port = 8000;
 server.listen(port, () => console.log(`running on port: ${port}`))
