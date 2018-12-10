@@ -1,17 +1,17 @@
 const express = require("express");
-// const middleware = require("./middleware/config");
-// const noteRouter = require("./routes/noteRoutes.js");
+const middleware = require("./middleware/config");
+const noteRouter = require("./routes/noteRouter.js");
 
 const server = express();
 
 //middleware
-// middleware(server);
+middleware(server);
 
 //routes
-// server.use("/api/users", noteRouter);
+server.use("/notes", noteRouter);
 
 server.get("/", (req, res) => {
-    res.status(200).json({ 'message: server up' });
-  });
+  res.status(200).json({ message: "server up" });
+});
 
 module.exports = server;

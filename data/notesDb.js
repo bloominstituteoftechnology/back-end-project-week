@@ -4,18 +4,17 @@ const db = knex(knexConfig.development);
 
 module.exports = {
   find,
-  findById,
   insert,
   update,
   remove
 };
 
-function find() {
-  return db("notes");
-}
-
-function findById(id) {
-  return db("notes").where({ id: Number(id) });
+function find(id) {
+  if (id) {
+    return db("notes").where({ id: Number(id) });
+  } else {
+    return db("notes");
+  }
 }
 
 function insert(post) {
