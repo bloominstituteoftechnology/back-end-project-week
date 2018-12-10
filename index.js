@@ -18,4 +18,21 @@ server.get('/api/notes', (req, res) => {
         });
 });
 
+server.post('/api/notes', (req, res) => {
+    const newNote = req.body;
+
+    if (!newNote.title) {
+        res.status(500).json({ message: 'The title field is required.' });
+    } else {
+        db('notes')
+        .insert(newNote)
+        .then(ids => {
+            res.status(201).json(ids[0]);
+        })
+        .catch(err => {
+            res.status(500).json({ error: 'There was an error adding the new note.', err });
+        });
+    }
+});
+
 server.listen(3500, () => console.log('\n\nServer is running on port 3500\n\n'));
