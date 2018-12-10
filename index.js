@@ -7,6 +7,10 @@ const db = knex(knexConfig.development);
 
 const server = express();
 
+const cors = require('cors');
+
+server.use(cors());
+
 server.use(express.json());
 
 
