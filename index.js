@@ -51,6 +51,16 @@ server.post('/api/notes', (req, res) => {
     });
   });
 
+//view note by id
+server.get('/api/notes/:noteid', (req, res) =>{
+  const { noteid } = req.params;
+
+  db('notes')
+    .where({id: noteid})
+    .then(note => res.status(200).json(note))
+    .catch(error => res.status(500).json(error))
+})
+
 
 // server working?
 server.get('/', (req, res) => {
