@@ -1,7 +1,6 @@
 const express = require('express');
 const helmet = require('helmet');
 const notesRoute = require('./routes/api/notes/notes');
-const db = require('./data/dbConfig');
 
 const server = express();
 

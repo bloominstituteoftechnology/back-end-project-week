@@ -1,11 +1,18 @@
 const express = require('express');
 const router = express.Router();
 
-const db = require('../../../data/dbConfig');
+const db = require('../../../data/helpers/Note');
 
-// GET for /api/notes (refactor to own route one day)
+// GET all
+// /api/notes
+// returns an array of notes from all users
 router.get('/', async (req, res) => {
-  res.json({ hello: 'there' });
+  try {
+    const notes = await db.getAll();
+    return res.status(200).json(notes);
+  } catch (error) {
+    res.status(500).json({ error: 'There was an error getting the users.' });
+  }
 });
 
 module.exports = router;
