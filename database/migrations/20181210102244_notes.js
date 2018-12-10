@@ -9,8 +9,8 @@ exports.up = knex =>
       .inTable("users");
     notes.string("title", 128).notNullable();
     notes.text("content").notNullable();
-    notes.integer("created").defaultTo(Date.now());
-    notes.integer("modified").defaultTo(Date.now());
+    notes.timestamp("created").defaultTo(knex.fn.now());
+    notes.timestamp("modified").defaultTo(knex.fn.now());
   });
 
 exports.down = knex => knex.schema.dropTableIfExists("notes");
