@@ -19,7 +19,7 @@ server.get('/', (req, res) => {
     res.send('Besh!');
 });
 
-server.get('/notes', protected, (req, res) => {
+server.get('/notes', (req, res) => {
     db('notes_table_two') // migrate
     .then(notes => {
         res.status(200).json(notes);
