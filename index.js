@@ -31,12 +31,27 @@ server.get('/api/notes/:id', (req, res) => {
         res.status(500).json(err)
     })
 })
+
 server.post('/api/notes', (req, res) => {
     const note  = req.body;
     db('notes')
     .insert(note)
     .then(ids => {
         res.status(201).json(ids)
+    })
+    .catch(err => {
+        res.status(500).json(err)
+    })
+})
+
+server.put('/api/notes/:id', (req, res) => {
+    const { id } = req.params;
+    const changes = req.body;
+    db('notes')
+    .where({ id })
+    .update(changes)
+    .then(count => {
+        res.status(200).json(count)
     })
     .catch(err => {
         res.status(500).json(err)
