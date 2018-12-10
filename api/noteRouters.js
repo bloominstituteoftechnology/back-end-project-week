@@ -25,4 +25,15 @@ router.get("/:id", (req, res) => {
     .catch(err => res.status(500).json({ message: "Error fetching", err }));
 });
 
+// POST new note
+router.post("/create", (req, res) => {
+  const newNote = req.body;
+
+  db.insert(newNote)
+    .then(id => {
+      res.status(201).json({ message: `${id} created` });
+    })
+    .catch(err => res.status(500).json({ message: "Error posting", err }));
+});
+
 module.exports = router;
