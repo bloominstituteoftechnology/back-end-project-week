@@ -21,6 +21,21 @@ server.get('/notes', (req, res) => {
     })
 });
 
+server.get('/notes/:id', (req, res) => {
+    db('notes_table_two')
+    .where({ id: req.params.id })
+    .first()
+    .then(note => {
+        if (note) {
+            res.status(200).json(note);
+        } else {
+            res.status(404).json({ message: 'Sorry, the note with the specified ID does not exist.' });
+        }
+    })
+    .catch(err => 
+        res.status(500).json({ err: 'Sorry, the note with the specified ID could not be retrieved.', err }));
+    });
+
 server.post('/notes/addnote', (req, res) => {
     const note = req.body;
     db.insert(note)
