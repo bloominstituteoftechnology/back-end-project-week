@@ -59,17 +59,14 @@ server.put('/note/edit/:id', (req,res) => {
     const edits = req.body;
     db('notes')
     .where(ID)
-    .then(note => {
-        if(edits.title && edits.textBody){
-            note = edits;
-            res.status(200).send(note);
-        }else{
-            res.status(417).send("Include both title and textbody in request")
-        }
+    .update(edits)
+    .then(count => {
+        res.status(200).send(`${count} note edited`);
     })
     .catch(err => {
-        res.status(500).json({err})
+        res.status(500).json({ERROR : err})
     })
+    
 })//Errors
 
 //  DELETE  /note/delete/:id
