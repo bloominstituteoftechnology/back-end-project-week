@@ -22,6 +22,20 @@ server.get("/api/notes", async (req, res) => {
   }
 });
 
+//==========GET NOTE BY ID===========
+server.get("/api/notes/:id", async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const note = await db("notes").where({ id });
+    res.status(200).json(note);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "There was an error getting the note", error });
+  }
+});
+
 //========POST A NEW NOTE=========
 server.post("/api/notes", async (req, res) => {
   const { title, content } = req.body;
@@ -51,6 +65,23 @@ server.delete("/api/notes/:id", async (req, res) => {
     res
       .status(500)
       .json({ message: "There was an error getting the note.", error });
+  }
+});
+
+//==========UPDATE NOTE BY ID==========
+server.put("/api/notes/:id", async (req, res) => {
+  const id = req.params.id;
+  const update = req.body;
+
+  try {
+    await db("notes")
+      .where({ id })
+      .update(update);
+    res.status(200).json(update);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "There was an error updating the note", error });
   }
 });
 
