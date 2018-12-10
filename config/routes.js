@@ -10,7 +10,7 @@ module.exports = server => {
     server.get('/api/notes', getNotes); //Display a list of notes.
     server.get('/api/notes/:id', viewSingleNote);//View an existing note.
     server.post('/api/notes', createNote) //Create a note with a title and content
-    //server.put('/api/notes/:id', updateNote);//Edit an existing note.
+    server.put('/api/notes/:id', updateNote);//Edit an existing note.
     server.delete('/api/notes/:id', deleteNote);//Delete an existing note.
 }
 
@@ -61,7 +61,7 @@ function createNote(req, res) {
     }
 }
   
-//===== UPDATE note according to id ROUTE '/api/notes/:id' ============
+//===== DELETE note according to id ROUTE '/api/notes/:id' ============
 function deleteNote(req, res) {
         db('notes')
              .where({id : req.params.id})
@@ -73,4 +73,25 @@ function deleteNote(req, res) {
              .catch(error => {
                     res.status(500).json({message : 'error deleting user'})
               })
+}
+
+//===== UPDATE note according to id ROUTE '/api/notes/:id' ============
+const updateNote = (req, res) => {
+    if(req.body) {
+        db('notes')
+             .where({id : req.params.id})
+             .update(req.body)
+             .then(count => {
+                    if(count) {
+                        res.status(200).json(count);
+                    } else {
+                        res.status(404).json({ message: "The project with the specified ID does not exist." })
+                    }
+              })
+             .catch(error => {
+                    res.status(500).json({ error: "The project information could not be modified." })
+              })
+    } else {
+          res.status(422).json({error : "Need correct data..."})
+    }
 }
