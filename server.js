@@ -3,20 +3,20 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 
-const notesRoute = require('./routes/notes');
 
 const server = express();
 
 server.use(express.json());
-server.use(morgan(dev));
 server.use(helmet());
+server.use(morgan('dev'));
 server.use(cors());
 
-server.use('/notes, notesRoute');
+const notesRoute = require('./routes/notesRoute');
+server.use('/notes', notesRoute);
 
 //sanity check endpoint
 server.get('/', (req, res) => {
   res.send({ message: 'Alive!' })
 });
 
-module.exports = server; 
+module.exports = server;

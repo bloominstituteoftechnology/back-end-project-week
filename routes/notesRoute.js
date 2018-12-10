@@ -1,4 +1,5 @@
 const express = require('express');
+const db = require('../data/dbConfig'); 
 
 const router = express.Router();
 
@@ -55,4 +56,4 @@ router.delete('/:id', (req, res) => {
     .catch(err => res.status(500).json({ message: 'An error occured while deleting the note' }));
 });
 
-module.exports = router; 
+module.exports = router;
