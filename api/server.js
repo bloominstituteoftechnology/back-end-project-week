@@ -48,6 +48,19 @@ server.post('/api/notes', (req, res) => {
     }))
 })
 
+//PUT - edit an existing note
+
+server.put('/api/notes/:id', (req, res) => {
+    const changes = req.body;
+    const { id } = req.params;
+    db('notes')
+    .where({ id: id })
+    .update(changes)
+    .then(count => {
+        res.status(200).json({ count })
+    })
+    .catch(error => res.status(500).json({ message: 'Failed to edit note' }))
+})
 
 
 module.exports = server;
