@@ -69,3 +69,8 @@ Once your MVP has been approved, you have been given a feature list that the cli
 - Gate your favorite feature behind the _premium_ paywall
 
 You will notice that this repository does not have any starter code. This is on purpose. You are to start from scratch using any files you have built throughout your time here at Lambda School as reference.
+
+
+URLs: 
+Trello: https://trello.com/b/kRN2ZZIo/lambda-notes-backend-lee-formento
+Deploted Heroku Back-end: https://backend-project-lee.herokuapp.com/
