@@ -1,15 +1,15 @@
 const express = require('express');
-const db = require('../data/dbConfig'); 
+const db = require('../data/dbConfig');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/get/all', (req, res) => {
   db('notes')
     .then(notes => res.status(200).json(notes))
     .catch(err => res.status(500).json({ message: 'There was an error retrieving the notes' }));
 });
 
-router.get('/:id', (req, res) => {
+router.get('/get/:id', (req, res) => {
   db('notes')
     .where({ id: req.params.id })
     .first()
@@ -20,7 +20,7 @@ router.get('/:id', (req, res) => {
     .catch(err => res.status(500).json({ message: 'There was an error accessing the note' }));
 });
 
-router.post('/add', async (req, res) => {
+router.post('/create', async (req, res) => {
   const { title, body } = req.body;
   if (title && body) {
     try {
@@ -34,7 +34,7 @@ router.post('/add', async (req, res) => {
   }
 });
 
-router.put('/:id', (req, res) => {
+router.put('/edit/:id', (req, res) => {
   db('notes')
     .where({ id: req.params.id })
     .update(req.body)
@@ -45,7 +45,7 @@ router.put('/:id', (req, res) => {
     .catch(err => res.status(500).json({ message: 'An error occured while saving the edits' }));
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/delete/:id', (req, res) => {
   db('notes')
     .where({ id: req.params.id })
     .del()
