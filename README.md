@@ -1,4 +1,4 @@
-https://github.com/danfrrr13/back-end-project-week.git
+https://trello.com/b/CoUz6Wb2/lambda-notes-backend-daniel-ferrer
 
 # Back End Project Week
 
