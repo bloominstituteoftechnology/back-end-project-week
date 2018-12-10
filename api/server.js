@@ -18,7 +18,26 @@ server.get('/api/notes', (req, res) => {
       res.status(200).json(list);
     })
     .catch(err => {
-      res.status(500).json({ error: "Couldn't retrieve the notes", err });
+      res.status(500).json({ error: "Couldn't retrieve the notes.", err });
+    });
+});
+
+//view a single note
+server.get('/api/notes/:id', (req, res) => {
+  const { id } = req.params;
+  db('notes')
+    .where({ id: id })
+    .then(note => {
+      if (note) {
+        res.status(200).json(note);
+      } else {
+        res.status(404).json({ error: "That note doesn't exist" });
+      }
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: 'The requested note could not be retrieved.', err });
     });
 });
 
