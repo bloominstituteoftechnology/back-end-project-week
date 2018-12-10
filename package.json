@@ -1,0 +1,21 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cpoIT/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cpoIT/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/cpoIT/back-end-project-week#readme"
+}
