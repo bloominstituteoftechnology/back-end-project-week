@@ -49,5 +49,18 @@ server.get('/api/notes/delete/:id', (req, res)=>{
     })
 })
 
+server.put('/api/notes/:id', (req, res)=>{
+    const {id}= req.params;
+    const changes=req.body
+    db('notes').update(changes).where('notes.id',id)
+    .then((note)=>{
+        res.status(201).json(note)
+    })
+    .catch(error=>{
+        res.status(500).json({message:'fail to update specific note'})
+    })
+})
+
+
 
 module.exports=server;
