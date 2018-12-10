@@ -13,21 +13,47 @@ middlewareConfig(server);
 server.get('/', (req, res) => res.send('API UP'));
 
 server.get('/api/notes', async (req, res) => {
-  db('notes')
-    .then(notes => res.status(200).json(notes))
-    .catch(error => {
-      res
-        .status(500)
-        .json({ message: 'There was an error getting the zoos', error });
-    });
+  try {
+    const notes = await db('notes');
+    res.status(200).json(notes);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: 'There was an error getting the zoos', error });
+  }
 });
+
+server.post('/api/notes', async (req, res) => {
+  const { title, content } = req.body;
+  const note = req.body;
+  if (!title || !content) {
+    res.status(400).json({ message: 'Missing information.' });
+  }
+  try {
+    const ids = await db('notes').insert(note);
+    res.status(201).json(ids);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: 'There was an error adding the zoo.', error });
+  }
+});
+
 module.exports = server;
 
-// try {
-//   const notes = await db('notes');
-//   res.status(200).json(notes);
-// } catch (error) {
-//   res
-//     .status(500)
-//     .json({ message: 'There was an error getting the zoos', error });
-// }
+// db('notes')
+//   .then(notes => res.status(200).json(notes))
+//   .catch(error => {
+//     res
+//       .status(500)
+//       .json({ message: 'There was an error getting the zoos', error });
+//   });
+
+// db('notes')
+//   .insert(note)
+//   .then(ids => res.status(201).json(ids))
+//   .catch(error => {
+//     res
+//       .status(500)
+//       .json({ message: 'There was an error adding the zoo.', error });
+//   });
