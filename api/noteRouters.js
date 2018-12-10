@@ -31,9 +31,20 @@ router.post("/create", (req, res) => {
 
   db.insert(newNote)
     .then(id => {
-      res.status(201).json({ message: `${id} created` });
+      res.status(201).json({ message: `ID: ${id} created` });
     })
     .catch(err => res.status(500).json({ message: "Error posting", err }));
+});
+
+// UPDATE existing note
+router.put("/:id", (req, res) => {
+  const { id } = req.params;
+  const updateNote = req.body;
+
+  db.update(id, updateNote).then(count => {
+    if (!count) return res.status(404).json({ message: `ID: ${id} Not Found` });
+    res.status(200).json({ message: `ID: ${id} updated` });
+  });
 });
 
 module.exports = router;
