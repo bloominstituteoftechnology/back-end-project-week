@@ -15,27 +15,27 @@
 
 We recommend that you finish all the MVP features before trying to deploy.
 
-- [x] Add data persistence using a Relational Database. We suggest you start with `SQLite3`.
-- [x] Create a Web API for the React application you built in the front- [ ]end project week.
-- [x] Build endpoints for each of the following features:
-  - [x] Display a list of notes.
-  - [x] Create a note with a _title_ and _content_.
-  - [x] View an existing note.
-  - [x] Edit an existing note.
-  - [x] Delete an existing note.
-  - [x] Modify your front-end so that it uses your newly created Web API.
+- [ ] Add data persistence using a Relational Database. We suggest you start with `SQLite3`.
+- [ ] Create a Web API for the React application you built in the front- [ ]end project week.
+- [ ] Build endpoints for each of the following features:
+  - [ ] Display a list of notes.
+  - [ ] Create a note with a _title_ and _content_.
+  - [ ] View an existing note.
+  - [ ] Edit an existing note.
+  - [ ] Delete an existing note.
+  - [ ] Modify your front-end so that it uses your newly created Web API.
 
 ## Extra Features
 
 Once your MVP has been approved, you have been given a feature list that the client would love to have completed. Your goal would be to finish MVP as soon as you can and get working the list of extra features.
 
-- [x] Setup Auto- Deploy on Heroku
-- [x] Provide documentation for how to interface with your api.
+- [ ] Setup Auto- Deploy on Heroku
+- [ ] Provide documentation for how to interface with your api.
 - [ ] Add pagination for long lists of notes.
-- [x] Create and display tags that can be added to notes and stored in the Database.
+- [ ] Create and display tags that can be added to notes and stored in the Database.
 - [ ] Allow users to clone notes.
-- [x] Search functionality.
-- [x] Create a Registration Page that allows users to create accounts for your app and sign in with email/password.
+- [ ] Search functionality.
+- [ ] Create a Registration Page that allows users to create accounts for your app and sign in with email/password.
 - [ ] Allow users to sign in with a third party service (google, facebook, github, club penguin, etc...)
 - [ ] Allow users to create Lists and assign notes to a list.
 - [ ] Allow users to attach images to notes.
