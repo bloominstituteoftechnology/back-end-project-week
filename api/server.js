@@ -16,14 +16,7 @@ server.get('/', (req, res) =>{
 
 server.get('/api/notes', (req, res) => {
   db('notes')
-    .then(zoos => res.status(200).json(zoos))
-    .catch(err => res.status(500).json(err));
-});
-
-server.get('/api/notes/:noteId', (req, res) => {
-  const { noteId } = req.params;
-  db('notes')
-    .then(notes => res.status(200).json(ntoes))
+    .then(notes => res.status(200).json(notes))
     .catch(err => res.status(500).json(err));
 });
 
@@ -44,7 +37,7 @@ server.get('/api/notes/:noteId', (req, res) => {
   const { noteId } = req.params;
 
   db('notes')
-    .where({ id: noteId })
+    .where({ _id: noteId })
     .then(note => {
       res.status(201).json({ note });
     })
@@ -56,7 +49,7 @@ server.put('/api/notes/:noteId', (req, res) => {
   const { noteId } = req.params;
 
   db('notes')
-    .where({ id: noteId })
+    .where({ _id: noteId })
     .update(changes)
     .then(count => {
       res.status(200).json({ count });
@@ -68,7 +61,7 @@ server.delete('/api/notes/:noteId', (req, res) => {
   const { noteId } = req.params;
 
   db('notes')
-    .where({ id: noteId })
+    .where({ _id: noteId })
     .del()
     .then(count => {
       res.status(200).json({ count });
