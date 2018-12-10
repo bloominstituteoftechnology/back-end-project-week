@@ -59,7 +59,74 @@ router.get("/:id", (req, res) => {
     );
 });
 
-// todo PUT edits on existing note by id
-// todo DELETE existing note by id
+// PUT edits on existing note by id
+router.put("/:id", (req, res) => {
+  const { id } = req.params;
+  const changes = req.body;
 
+  if (changes.title && changes.content) {
+    // first check to make sure the note exists
+    db("notes")
+      .where({ id })
+      .then(note => {
+        if (note && note.length) {
+          db("notes")
+            .where({ id })
+            .update(changes)
+            .then(count => res.status(200).json(count))
+            .catch(err =>
+              res.status(500).json({
+                error: "Error while saving changes to this note: ",
+                err
+              })
+            );
+        } else {
+          res
+            .status(404)
+            .json({ message: "The note with that id does not exist." });
+        }
+      })
+      .catch(err =>
+        res.status(500).json({
+          error: "Error while chekcing database for the note with that id: ",
+          err
+        })
+      );
+  } else {
+    res.status(422).json({
+      message:
+        "Fill both title and content fields before submitting changes to this note."
+    });
+  }
+});
+
+// DELETE existing note by id
+router.delete("/:id", (req, res) => {
+  const { id } = req.params;
+
+  //first make sure note exists
+  db("notes")
+    .where({ id })
+    .then(note => {
+      if (note && note.length) {
+        db("notes")
+          .where({ id })
+          .del()
+          .then(count => res.status(200).json(count))
+          .catch(err =>
+            res
+              .status(500)
+              .json({ error: "Error while deleting this note: ", err })
+          );
+      } else {
+        res.status(404).json({ message: "No note with that id exists." });
+      }
+    })
+    .catch(err =>
+      res.status(500).json({
+        error: "Error while chekcing database for the note with that id: ",
+        err
+      })
+    );
+});
 module.exports = router;
