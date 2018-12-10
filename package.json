@@ -1,0 +1,16 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Hunter315/back-end-project-week.git",
+  "author": "Hunter315 <hunter.mckay.smith@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0",
+    "knex": "^0.16.2",
+    "morgan": "^1.9.1",
+    "sqlite3": "^4.0.4"
+  }
+}
