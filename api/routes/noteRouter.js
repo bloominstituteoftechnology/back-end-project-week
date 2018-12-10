@@ -47,7 +47,7 @@ router.post("/", async (req, res) => {
 
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
-  db.get(id).then(note => {
+  db.find(id).then(note => {
     if (!note) {
       res
         .status(404)
