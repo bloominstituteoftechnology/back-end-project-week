@@ -20,6 +20,17 @@ server.get('/api/notes', (req, res) => {
     })
 })
 
+server.get('/api/notes/:id', (req, res) => {
+    const { id } = req.params;
+    db('notes')
+    .where({id})
+    .then(note => {
+        res.status(200).json(note)
+    })
+    .catch(err => {
+        res.status(500).json(err)
+    })
+})
 server.post('/api/notes', (req, res) => {
     const note  = req.body;
     db('notes')
@@ -31,6 +42,7 @@ server.post('/api/notes', (req, res) => {
         res.status(500).json(err)
     })
 })
+
 
 const port = 9000;
 server.listen(port, () => console.log(`listening on port ${port}`))
