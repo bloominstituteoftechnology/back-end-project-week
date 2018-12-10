@@ -1,0 +1,8 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/MichaelCheco/back-end-project-week.git",
+  "author": "Michael Checo <checomichael2@gmail.com>",
+  "license": "MIT"
+}
