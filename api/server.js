@@ -45,4 +45,18 @@ server.post('/api/notes', (req, res) => {
     .catch(err => res.send(err));
 });
 
+// E D I T
+server.put('/api/notes/:id', (req, res) => {
+  const changes = req.body;
+  const { id } = req.params;
+
+  db('notes')
+    .where({ id: id })
+    .update(changes)
+    .then(count => {
+      res.status(200).json(count);
+    })
+    .catch(err => res.status(500).json(err));
+});
+
 module.exports = server;
