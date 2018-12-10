@@ -61,6 +61,20 @@ server.get('/api/notes/:noteid', (req, res) =>{
     .catch(error => res.status(500).json(error))
 })
 
+//edit note by id
+server.put('/api/notes/:noteid', (req, res) => {
+  const changes = req.body;
+  const { noteid } = req.params;
+
+  db('notes')
+    .where({ id: noteid })
+    .update(changes)
+    .then(note => {
+      res.status(200).json({ note });
+    })
+    .catch(error => res.status(500).json(error));
+});
+
 
 // server working?
 server.get('/', (req, res) => {
