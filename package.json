@@ -1,0 +1,9 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "backend to support \"Lambda Notes\" front end project",
+  "main": "index.js",
+  "repository": "https://github.com/JoeBugajski/back-end-project-week.git",
+  "author": "Joe Bugajski <yogurtmystery@gmail.com>",
+  "license": "MIT"
+}
