@@ -50,23 +50,20 @@ server.post('/note/create', async (req, res) => {
 })
 
 // PUT endpoint 
-server.put('note/edit/:id', async (req, res) => {
-    const {id} = req.params;
+server.put('/note/edit/:id', (req,res) => {
     const {title, textBody} = req.body;
-    try {
-        if (!title || !textBody) {
-            res.status(422).json({message: "Please fill out all fields"});
-        } else {
-            const note = await notesDb.getById(id);
-            if (!note) {
-                res.status(404).json({message: "Nonexistent note"})
-            } else {
-                let response = await notesDb.insert(req.body)
-                res.status(201).json(response)
+    if (!title || !textBody) {
+        res.status(422).json({message: "Please fill all fields"});
+    } else {
+        notesDb.getById(req.params.id)
+        .then(note => {
+            if (note) {
+                notesDb.update(req.params.id, req.body)
+                .then(note => res.status(201).json(note))
+                .catch(err => res.status(500).json({message: "There was an error while saving the note to the database"}))
             }
-        }
-    } catch (err) {
-        res.status(500).json(err)
+        })
+        .catch(err => res.status(404).json({message:"The note with the specified ID does not exist."}));
     }
 })
 

@@ -4,7 +4,8 @@ module.exports = {
     insert,
     getAll,
     getById,
-    remove
+    remove,
+    update
 }
 
 async function insert(note) {
@@ -15,8 +16,12 @@ async function insert(note) {
     .first();
 }
 
-function getAll() {
-    return db('notes');
+async function update(id, note) {
+    return await db('notes').where('id', id).update(note);
+}
+
+async function getAll() {
+    return await db('notes');
 }
 
 async function getById(id) {
