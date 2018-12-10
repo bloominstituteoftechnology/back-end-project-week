@@ -96,7 +96,16 @@ module.exports = {
     const newNote = { title, content };
     db("notes")
       .insert({ ...newNote, user_id: req.decodedToken.id })
-      .then(ids => res.status(201).json(ids[0]))
+      .then(ids =>
+        db("notes")
+          .where("id", ids[0])
+          .first()
+          .then(note =>
+            res
+              .status(201)
+              .json({ message: "Successfully added note.", note: note })
+          )
+      )
       .catch(err => {
         console.error(err);
         res.status(500).json({
@@ -125,19 +134,21 @@ module.exports = {
             res.status(422).json("Please provide a title or content.");
             return;
           }
-          const editedNote = { title, content };
+          const editedNote = { title, content, modified: date };
           db("notes")
             .where({ id })
-            .update({ ...editedNote, modified: date })
-            .then(count => {
-              !count
-                ? res
-                    .status(404)
-                    .json({ message: `Cannot find note with id ${id}.` })
-                : res
-                    .status(200)
-                    .json({ message: "Successfully edited note." });
-            })
+            .update(editedNote)
+            .then(() =>
+              db("notes")
+                .where({ id })
+                .first()
+                .then(note =>
+                  res.status(200).json({
+                    message: "Successfully edited note.",
+                    note: note
+                  })
+                )
+            )
             .catch(err => {
               console.error(err);
               res.status(500).json({
@@ -166,15 +177,9 @@ module.exports = {
           db("notes")
             .where({ id })
             .del()
-            .then(count => {
-              !count
-                ? res
-                    .status(404)
-                    .json({ message: `Cannot find note with id ${id}.` })
-                : res
-                    .status(200)
-                    .json({ message: "Successfully deleted note." });
-            })
+            .then(() =>
+              res.status(200).json({ message: "Successfully deleted note." })
+            )
             .catch(err => {
               console.error(err);
               res.status(500).json({
