@@ -16,13 +16,13 @@ server.use(express.json());
 server.use(cors());
 server.use(helmet());
 
-server.all('', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "");
-    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    //Auth Each API Request created by user.
-    next();
-    });
+// server.all('', function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "");
+//     res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+//     res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+//     //Auth Each API Request created by user.
+//     next();
+//     });
 
 server.get('/', (req, res) => {
     res.send('Besh!');
@@ -104,7 +104,7 @@ server.delete('/notes/delete/:id', (req, res) => {
 
 
 // USERS
-server.post('/register', (req,res) => {
+server.post('/notes/register', (req,res) => {
     const credentials = req.body;
     // hash!
     const hash = bcrypt.hashSync(credentials.password, 2)
@@ -133,7 +133,7 @@ function generateToken(user) {
     return jwt.sign(jwtPayload, jwtSecret, jwtOptions)
 }
 
-server.post('/login', (req, res) => {
+server.post('/notes/login', (req, res) => {
     const credentials = req.body;
     db('users')
     .where({ username: credentials.username })
