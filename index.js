@@ -55,9 +55,9 @@ server.get('/api/notes/:noteId', (req, res) => {
 server.put('/api/notes/:noteId', (req, res) => {
     const { noteId } = req.params;
     const changes = req.body;
-    if (!changes.title || !changes.content) {
-        res.status(500).json({ message: 'Please provide a title or content.' });
-    } else {
+    // if (!changes.title || !changes.content) {
+    //     res.status(500).json({ message: 'Please provide a title or content.' });
+    // } else {
         db('notes')
         .where({ id: noteId })
         .update(changes)
@@ -71,7 +71,7 @@ server.put('/api/notes/:noteId', (req, res) => {
         .catch(err => {
             res.status(500).json({ error: 'There was an error editing the note.', err });
         });
-    }
+    // }
 });
 
 server.delete('/api/notes/:noteId', (req, res) => {
