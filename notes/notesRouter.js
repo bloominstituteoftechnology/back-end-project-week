@@ -1,5 +1,7 @@
+// dependencies
 const express = require("express");
 
+// internal imports
 const db = require("../data/dbConfig");
 
 // init router (Express class)
@@ -73,7 +75,12 @@ router.put("/:id", (req, res) => {
           db("notes")
             .where({ id })
             .update(changes)
-            .then(count => res.status(200).json(count))
+            .then(count =>
+              db("notes")
+                .where({ id })
+                .first()
+                .then(note => res.status(200).json(note))
+            )
             .catch(err =>
               res.status(500).json({
                 error: "Error while saving changes to this note: ",
