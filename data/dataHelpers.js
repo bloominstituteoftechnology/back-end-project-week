@@ -10,7 +10,7 @@ module.exports = {
     .where({id: id}),
 
   updateNote: note => db('notes')
-    .where({id: id})
+    .where({id: note.id})
     .update(note),
 
   deleteNote: id => db('notes')
