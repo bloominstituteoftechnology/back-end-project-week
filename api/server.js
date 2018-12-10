@@ -53,7 +53,32 @@ server.post('/api/notes', (req, res) => {
         res.status(500).json({ message: 'Error inserting', err });
       });
   });
+  
+  //PUT: edit a note based on :noteId
+  server.put('/api/notes/:noteId', (req, res) => {
+      const changes = req.body;
+      const { noteId } = req.params;
 
+      if (!changes.title || !changes.content) {
+        res.status(500).json({ message: 'Please provide a title and content.' });
+      } else {
+        db('notes')
+        .where({ id: noteId })
+        .update(changes)
+        .then(count => {
+            if (count === 0) {
+                res.status(404).json({ message: 'A note with that ID does nott exist.' });
+            } else {
+                res.status(200).json({message: 'updated the following amount of notes:',count});
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ error: 'There was an error editing the note.', err });
+        });
+    }
+    });
+  
+  
 
 
 module.exports = server;
