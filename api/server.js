@@ -62,5 +62,18 @@ server.put('/api/notes/:id', (req, res) => {
     .catch(error => res.status(500).json({ message: 'Failed to edit note' }))
 })
 
+//DELETE a note by id
+
+server.delete('/api/notes/:id', (req, res) => {
+    const { id } = req.params;
+    db('notes')
+    .where({ id: id })
+    .del()
+    .then(count => res.status(200).json(count))
+    .catch(err => {
+        res.status(400).json({ message: 'Failed to delete note' })
+    })
+})
+
 
 module.exports = server;
