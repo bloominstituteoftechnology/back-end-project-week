@@ -31,7 +31,7 @@ router.post('/', async (req, res) => {
   const postData = req.body;
   if (!postData.title || !postData.content || !postData.user_id) {
     res
-      .status(405)
+      .status(400)
       .json({ message: 'Note requires a title, content, and user_id' });
   }
   try {

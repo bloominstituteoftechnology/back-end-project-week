@@ -51,4 +51,16 @@ describe('note helpers', () => {
       expect(typeof note).toEqual('object');
     });
   });
+  describe('update()', () => {
+    it('should be a function', () => {
+      expect(typeof notes.insert).toBe('function');
+    });
+    // it('should return int', async () => {
+    //   let changes = await notes.update({
+    //     id: 1,
+    //     title: 'updated title'
+    //   });
+    //   expect(changes).toBe(0);
+    // });
+  });
 });

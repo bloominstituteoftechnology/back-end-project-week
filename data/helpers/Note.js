@@ -15,8 +15,14 @@ async function insert(note) {
   return get(id);
 }
 
+function update(changes) {
+  // const updated = await db('notes').where({id: changes.id}).update(changes.title)
+  // return updated
+}
+
 module.exports = {
   getAll,
   get,
-  insert
+  insert,
+  update
 };

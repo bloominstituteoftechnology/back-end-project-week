@@ -76,16 +76,16 @@ describe('/api/notes', () => {
         .send(note);
       expect(response.status).toBe(201);
     });
-    it('should return a status of 405 if no title, content, or user_id', async () => {
+    it('should return a status of 400 if no title, content, or user_id', async () => {
       note = {};
       let response = await request(server)
         .post('/api/notes')
         .send(note);
-      expect(response.status).toBe(405);
+      expect(response.status).toBe(400);
       note.title = 'Hello';
-      expect(response.status).toBe(405);
+      expect(response.status).toBe(400);
       note.content = 'Body';
-      expect(response.status).toBe(405);
+      expect(response.status).toBe(400);
     });
   });
 });
