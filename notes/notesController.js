@@ -55,13 +55,6 @@ const notesControllers = {
     const {id} = req.params;
     const editedNote = req.body;
 
-    // do I need to check if ID is correct?
-    // const selectedNote = await db("notes").where("notes.id", id);
-    // if(!selectedNote.length){
-    // res.status(404)
-    // .json({ errorMessage: "A note with that ID could not be found." });
-    // }
-    
     const editedID = await db("notes").where("notes.id", id).update(editedNote);
    
     editedID
@@ -75,5 +68,25 @@ catch (err) {
   }
 
 },
+
+async deleteNote(req, res, next) {
+  try {
+    const {id} = req.params;
+
+    const deleted = await db("notes").where("notes.id", id).delete();
+   
+    deleted
+    ? res.status(200).json(deleted)
+    : res
+        .status(404)
+        .json({ errorMessage: "A note with that ID could not be found." });
+}
+catch (err) {
+  next(new Error("Could not delete Notes"));
+  }
+
+},
+
+
 }
 module.exports = notesControllers;

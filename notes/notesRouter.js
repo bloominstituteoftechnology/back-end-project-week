@@ -11,10 +11,18 @@ const db = knex(knexConfig.development);
 
 // return all notes
 router.get("/notes", nc.getNotes);
-router.get("/notes/:id", nc.getANote);
-router.post("/notes/add", nc.createNote);
-router.put("/notes/edit/:id", nc.editNote);
 
+// return a note with matching id
+router.get("/notes/:id", nc.getANote);
+
+// add a new note
+router.post("/notes/add", nc.createNote);
+
+// edit a note
+router.put("/notes/:id", nc.editNote);
+
+// delete a note with the matching id
+router.delete("/notes/:id", nc.deleteNote);
 
 
 
