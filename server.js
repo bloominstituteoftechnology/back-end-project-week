@@ -28,7 +28,6 @@ server.post("/notes", (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-// view existing note individually
 server.get("/notes/:id", (req, res) => {
   const {id} = req.params;
   console.log(id);
@@ -54,6 +53,22 @@ server.delete("/notes/:id", (req, res) => {
       console.log(count);
       count > 0
         ? res.status(200).json({success: `${count} note deleted`})
+        : res
+            .status(404)
+            .json({error: "note does not exist or has been deleted"});
+    })
+    .catch(err => res.status(500).json(err));
+});
+
+server.put("/notes/:id", (req, res) => {
+  const {id} = req.params;
+  const changes = req.body;
+  db("notes")
+    .where({id})
+    .update(changes)
+    .then(count => {
+      count > 0
+        ? res.status(200).json({success: `updated ${count} note`})
         : res
             .status(404)
             .json({error: "note does not exist or has been deleted"});
