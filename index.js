@@ -56,7 +56,7 @@ server.post('/notes/addnote', (req, res) => {
 server.put('/notes/edit/:id', (req, res) => {
     const { id } = req.params;
     const newNote = req.body;
-    db('notes_table_four')
+    db('notes_table_two')
     .where({ id })
     .update(newNote)
     .then(note => {
@@ -72,7 +72,7 @@ server.put('/notes/edit/:id', (req, res) => {
   });
 
 server.delete('/notes/delete/:id', (req, res) => {
-    db('notes_table_four')
+    db('notes_table_two')
     .where({ id: req.params.id })
     .del()
     .then(note => {
