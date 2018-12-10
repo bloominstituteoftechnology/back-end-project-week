@@ -16,6 +16,24 @@ server.get('/api/notes', (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
+// G E T   B Y   I D
+server.get('/api/notes/:id', (req, res) => {
+  const { id } = req.params;
+
+  db('notes')
+    .where({ id: id })
+    .first()
+    .then(note => {
+      if (note)
+        db('notes')
+          .where({ id: id })
+          .then(note => {
+            res.status(200).json(note);
+          })
+          .catch(err => res.status(500).json(err));
+    });
+});
+
 // P O S T
 server.post('/api/notes', (req, res) => {
   const { title, content } = req.body;
