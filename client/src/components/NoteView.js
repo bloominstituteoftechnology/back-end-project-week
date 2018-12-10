@@ -26,6 +26,8 @@ getNote = id => {
     .get(`http://localhost:8000/api/notes/${id}`)
     .then(response => {
         this.setState({ note: response.data})
+        console.log('response', response.data);
+        console.log('state', this.state.note);
     })
         .catch(error => console.log(error));
 }

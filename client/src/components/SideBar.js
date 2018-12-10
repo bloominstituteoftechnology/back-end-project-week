@@ -5,7 +5,7 @@ class SideBar extends React.Component {
 
 render(){
     return(
-        <div class="side-bar">
+        <div className="side-bar">
             <h1>Lambda</h1>
             <h1>Notes</h1>
             <Link to='/' className="button">View Notes</Link>
