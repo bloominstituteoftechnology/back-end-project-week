@@ -7,7 +7,7 @@ router.get('/api/', (req, res) => {
   res.status(200).send('Server Listens and Obeys');
 });
 
-router.get('/api/notes/', async (req, res) => {
+router.get('/api/notes/all', async (req, res) => {
   // console.log('Why is this not working?');
   try {
     const notes = await db.getAll();
