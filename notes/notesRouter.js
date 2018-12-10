@@ -32,4 +32,38 @@ router.get("/get/:id", (req, res) => {
     );
 });
 
+router.post("/create", async (req, res) => {
+  const { title, textBody } = req.body;
+  if (title && textBody) {
+    try {
+      let id = await db("notes").insert(req.body);
+      res.status(201).json(id[0]);
+    } catch (err) {
+      res.status(500).json({ message: "There was an error saving the note." });
+    }
+  } else {
+    res
+      .status(400)
+      .json({ message: "Please provide the title and textBody fields." });
+  }
+});
+
+router.put("/edit/:id", (req, res) => {});
+
+router.delete("/delete/:id", (req, res) => {
+  db("notes")
+    .where({ _id: req.params.id })
+    .del()
+    .then(count =>
+      count
+        ? res.status(200).json(count)
+        : res
+            .status(400)
+            .json({ message: "The note with the specified id doesn't exist." })
+    )
+    .catch(err =>
+      res.status(500).json({ message: "There was an error deleting the note." })
+    );
+});
+
 module.exports = router;
