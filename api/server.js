@@ -1,5 +1,6 @@
 const express = require("express");
 const knex = require("knex");
+var cors = require('cors')
 
 const notes = require("../note.js");
 
@@ -8,6 +9,7 @@ const db = knex(knexConfig.development);
 
 const server = express();
 server.use(express.json());
+server.use(cors());
 
 server.get("/", (req, res) => {
   res.status(200).json({ message: "api: up" });
