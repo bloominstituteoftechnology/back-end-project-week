@@ -55,12 +55,12 @@ server.get('/notes/:id', (req, res) => {
 
     db('notes').where({ id }).then(note => {
         if (note.length !== 0) {
-            res.status(200).jsonp(note);
+            res.status(200).json({ note });
         } else {
-            res.status(404).jsonp({ message: 'The note with the specified ID does not exist'});
+            res.status(404).json({ message: 'The note with the specified ID does not exist'});
         }
     }).catch(error => {
-        res.status(500).jsonp({ error: 'Cant get notes data'});
+        res.status(500).json({ error: 'Cant get notes data'});
     })
 })
 
@@ -68,9 +68,20 @@ server.delete('/notes/:id', (req, res) => {
     const { id } = req.params;
 
     db('notes').where({ id }).del().then(note => {
-        res.status(200).jsonp(note);
+        res.status(200).json(note);
     }).catch(error => {
-        res.status(500).jsonp({ error: 'Cant delete note'});
+        res.status(500).json({ error: 'Cant delete note'});
+    })
+})
+
+server.put('/notes/:id', (req, res) => {
+    const changes = req.body;
+    const { id } = req.params;
+
+    db('notes').where({ id }).update(changes).then(note => {
+        res.status(200).json({ note });
+    }).catch(error => {
+        res.status(500).json({ error: 'cannot update the note'})
     })
 })
 
