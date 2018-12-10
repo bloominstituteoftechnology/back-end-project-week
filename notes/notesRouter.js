@@ -48,7 +48,24 @@ router.post("/create", async (req, res) => {
   }
 });
 
-router.put("/edit/:id", (req, res) => {});
+router.put("/edit/:id", (req, res) => {
+  db("notes")
+    .where({ _id: req.params.id })
+    .update(req.body)
+    .then(count =>
+      count
+        ? db("notes")
+            .where({ _id: req.params.id })
+            .first()
+            .then(user => res.status(200).json(user))
+        : res
+            .status(400)
+            .json({ message: "The note with the specified id doesn't exist." })
+    )
+    .catch(err =>
+      res.status(500).json({ message: "There was an error editing the note." })
+    );
+});
 
 router.delete("/delete/:id", (req, res) => {
   db("notes")
