@@ -8,7 +8,7 @@ const knexConfig = require("../knexfile");
 const db = knex(knexConfig.development);
 
 /* ===== Route Imports ===== */
-
+const notes = require("./notes");
 /* ===== Server setup ===== */
 const server = express();
 
@@ -19,5 +19,7 @@ server.use(cors());
 server.get("/", (req, res) => {
   res.json({ api: "up" });
 });
+
+server.use("/api/notes", notes);
 
 module.exports = server;
