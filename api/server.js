@@ -77,6 +77,7 @@ server.get('/note/:id', (req, res) => {
     }));
 });
 
+//PUT check changes, request changes, and .where ids match .update changes
 server.put('/note/edit/:id', titleTextChecker, (req, res) => {
   const changes = req.body;
   const { id } = req.params;
@@ -88,6 +89,19 @@ server.put('/note/edit/:id', titleTextChecker, (req, res) => {
         title: changes.title,
         textBody: changes.textBody
       });
+    })
+    .catch(err => res.status(500).json(err));
+});
+
+// DELETE .del .where ids match
+server.delete('/note/delete/:id', (req, res) => {
+  const { id } = req.params;
+
+  db('notes')
+    .where({ id: id })
+    .del()
+    .then(count => {
+      res.status(200).json({ count });
     })
     .catch(err => res.status(500).json(err));
 });
