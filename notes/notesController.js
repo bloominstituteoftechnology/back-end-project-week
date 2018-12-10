@@ -36,7 +36,9 @@ const notesControllers = {
   },
 
   createNote(req, res, next) {
+ 
     const newNote = req.body;
+
     db("notes")
       .insert(newNote)
       .then(note => {
@@ -46,7 +48,32 @@ const notesControllers = {
         res.status(200).json(note);
       })
       .catch(() => next(new Error("Could not create a new Notes")));
-  }
-};
+  },
 
+ async editNote(req, res, next) {
+  try {
+    const {id} = req.params;
+    const editedNote = req.body;
+
+    // do I need to check if ID is correct?
+    // const selectedNote = await db("notes").where("notes.id", id);
+    // if(!selectedNote.length){
+    // res.status(404)
+    // .json({ errorMessage: "A note with that ID could not be found." });
+    // }
+    
+    const editedID = await db("notes").where("notes.id", id).update(editedNote);
+   
+    editedID
+    ? res.status(200).json(editedID)
+    : res
+        .status(404)
+        .json({ errorMessage: "A note with that ID could not be found." });
+}
+catch (err) {
+  next(new Error("Could not edit Notes"));
+  }
+
+},
+}
 module.exports = notesControllers;

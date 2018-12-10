@@ -13,6 +13,7 @@ const db = knex(knexConfig.development);
 router.get("/notes", nc.getNotes);
 router.get("/notes/:id", nc.getANote);
 router.post("/notes/add", nc.createNote);
+router.put("/notes/edit/:id", nc.editNote);
 
 
 
