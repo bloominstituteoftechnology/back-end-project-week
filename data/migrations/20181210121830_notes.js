@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
     tbl.increments();
     tbl.string('title', 128).notNullable();
     tbl.longtext('textBody');
-    tbl.json('tags');
+    tbl.string('tags', 255);
     tbl.integer('user_id').unsigned().notNullable();
     tbl.foreign('user_id').references('id').inTable('users').onDelete('CASCADE');
   });
