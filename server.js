@@ -9,6 +9,8 @@ server.use(cors());
 server.use(helmet());
 server.use(morgan('combined'));
 
+
+
 server.get('/', (req, res) => {
     res.send({message: 'Server up'});
 })
