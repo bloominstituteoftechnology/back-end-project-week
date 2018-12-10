@@ -3,16 +3,18 @@ const server = express();
 const logger = require("morgan");
 const db = require("../database/dbConfig");
 const cors = require("cors");
+const helmet = require("helmet");
 
 server.use(logger("dev"));
 server.use(express.json());
 server.use(cors());
+server.use(helmet());
 
 //get a list of all of the notes
 server.get("/api/notes", (req, res) => {
   db("notes")
-    .then(lists => {
-      res.status(200).json(lists);
+    .then(notes => {
+      res.status(200).json(notes);
     })
     .catch(err => {
       res.status(500).json({ message: "The lists could not be received", err });
