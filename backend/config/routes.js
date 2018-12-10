@@ -1,4 +1,4 @@
-const db = require('../data/dbConfig');
+const db = require('../data/dbConfig.js');
 
 module.exports = (server) => {
 	server.get('api/notes', getNotes);
@@ -14,7 +14,9 @@ function getNotes(req, res) {
 		.then((note) => {
 			res.status(200).json(note);
 		})
-		.catch((err) => res.send(err));
+		.catch((err) => {
+			res.status(404).json({ message: 'Error retrieving notes', err });
+		});
 }
 
 function getNote(req, res) {
@@ -28,4 +30,16 @@ function getNote(req, res) {
 		.catch((err) => {
 			res.status(500).json({ message: 'Error retrieving that note', err });
 		});
+}
+
+function createNote(req, res) {
+	return 'something';
+}
+
+function editNote(req, res) {
+	return 'something';
+}
+
+function removeNote(req, res) {
+	return 'something';
 }

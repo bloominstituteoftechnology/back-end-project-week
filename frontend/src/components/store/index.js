@@ -5,33 +5,6 @@ const Context = React.createContext();
 
 export const Consumer = Context.Consumer;
 
-// export const reducer = (state, action) => {
-// 	switch (action.type) {
-// 		case 'SET_SEARCH_TERM':
-// 			return {
-// 				...state,
-// 				searchTerm: action.params
-// 			};
-// 		case 'ADD_NOTE':
-// 			return {
-// 				...state,
-// 				notes: [ ...action.payload ]
-// 			};
-// 		case 'GET_ALL_NOTES':
-// 			return {
-// 				...state,
-// 				notes: action.payload
-// 			};
-// 		case 'EDIT_NOTE':
-// 			return {
-// 				...state,
-// 				notes: action.payload
-// 			};
-// 		default:
-// 			return state;
-// 	}
-// };
-
 export class Provider extends Component {
 	state = {
 		notes: [],
@@ -41,7 +14,6 @@ export class Provider extends Component {
 		textBody: '',
 		editTitle: '',
 		editBody: ''
-		// dispatch: (action) => this.setState((state) => reducer(state, action))
 	};
 
 	//attaches actions from import and binds to the Provider class

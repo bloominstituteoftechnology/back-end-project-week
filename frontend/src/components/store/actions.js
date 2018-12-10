@@ -8,6 +8,7 @@ export function getAllNotes() {
 	axios
 		.get(endpoint + 'notes')
 		.then((res) => {
+			console.log(res.data);
 			this.setState({ notes: res.data });
 		})
 		.catch((err) => console.log(err));
