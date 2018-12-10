@@ -1,0 +1,22 @@
+{
+  "name": "lambda-notes-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/rytwalker/back-end-project-week.git",
+  "author": "rytwalker <rytwalker@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest --watch --verbose",
+    "server": "nodemon"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "knex": "^0.16.2",
+    "pg": "^7.7.1"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.7"
+  }
+}
