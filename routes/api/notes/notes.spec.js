@@ -30,4 +30,30 @@ describe('/api/notes', () => {
       expect(firstNote.created_at && firstNote.updated_at).toBeTruthy();
     });
   });
+  describe('GET single note by id', () => {
+    it('should return a status of 200', async () => {
+      let response = await request(server).get('/api/notes/1');
+      expect(response.status).toBe(200);
+    });
+    it('should return a status of 404 if note does not exist', async () => {
+      let response = await request(server).get('/api/notes/10');
+      expect(response.status).toBe(404);
+    });
+
+    it('should return an object with an id, title, content, created_at, updated_at, and user_id row', async () => {
+      let response = await request(server).get('/api/notes/1');
+      let note = response.body;
+      // id and user_id
+      expect(note.id && note.user_id).toBe(1);
+      expect(note.id && note.user_id).toBeTruthy();
+      expect(typeof note.id && typeof note.user_id).toBe('number');
+      // title and content
+      expect(note.title).toBe('Note 1 User 1');
+      expect(note.content).toBe('This is a note ya da da da');
+      expect(note.title && note.content).toBeTruthy();
+      expect(typeof note.title && typeof note.content).toBe('string');
+      // created_at and updated_at
+      expect(note.created_at && note.updated_at).toBeTruthy();
+    });
+  });
 });
