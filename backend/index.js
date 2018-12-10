@@ -63,7 +63,7 @@ server.put('/api/note/:note_id', (req, res) => {
 });
 
 // delete a note
-server.delete('/api/notes/:id', (req, res) => {
+server.delete('/api/note/:id', (req, res) => {
 	const { id } = req.params;
 	db('notes').where({ id }).del().then((count) => {
 		res.status(200).json(count).catch((err) => {

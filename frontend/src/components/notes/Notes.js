@@ -31,7 +31,6 @@ class NoteContainer extends React.Component {
 									return handleSubmit(note.id);
 								}}
 								deleteNote={() => {
-									console.log('click');
 									return deleteNote(note.id);
 								}}
 								handleChange={handleChange}

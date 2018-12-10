@@ -8,7 +8,6 @@ export function getAllNotes() {
 	axios
 		.get(endpoint + 'notes')
 		.then((res) => {
-			console.log(res.data);
 			this.setState({ notes: res.data });
 		})
 		.catch((err) => console.log(err));
@@ -65,10 +64,10 @@ export function handleSubmit(id) {
 		.catch((err) => console.log(err));
 }
 
+// delete a note
 export function deleteNote(id) {
-	console.log('action');
 	axios
-		.delete(endpoint + `removenote/${id}`)
+		.delete(endpoint + `note/${id}`)
 		.then(() => {
 			getAllNotes();
 		})
