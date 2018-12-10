@@ -19,6 +19,7 @@ module.exports = {
     update: (id, note) => {
         return db('notes')
         .where('id', id)
+        .select('*')
         .update(note)
     },
     remove: id => {

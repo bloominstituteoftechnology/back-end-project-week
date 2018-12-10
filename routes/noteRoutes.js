@@ -52,22 +52,26 @@ noteHelp
 .then(ids => {
   res
     .status(200)
-    .json(`Successfully added a new note with the id ${ids.id}`);
+    .json(ids);
 })
 .catch(err => res.status(500).json({ message: `Error: ${err}` }));
 });
 
 // Endpoint for updating a note
 
-route.put('/:id', (req, res) => {
+route.put('/:id', async (req, res) => {
 const {id} = req.params
 const {title, textBody} = req.body
+
+
+
 noteHelp.update(id, {title, textBody})
-.then(success => {
+.then(async success => {
+    const copyOfNotesDB = await db('notes').where('id', id)
     if(success === 0) {
         res.status(404).json({message: `Note with id of ${id} does not exist.`})
     }
-    res.status(200).json({message: `Success! Note edited.`})
+    res.status(200).json(copyOfNotesDB.find(note => typeof note === 'object'))
 })
 .catch(err => res.status(500).json({message: `Error: ${err}`}))
 })
