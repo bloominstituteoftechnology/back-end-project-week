@@ -1,7 +1,20 @@
 {
+  "name": "lambda notes - backend",
+  "version": "1.0.0",
+  "description": "Authentication JSON",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon sessions.js"
+  },
+  "keywords": [],
+  "author": "Lambda School",
+  "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.16.4",
-    "knex": "^0.16.2",
+    "jsonwebtoken": "^8.4.0",
+    "jws": "^3.1.5",
+    "knex": "^0.15.2",
     "sqlite3": "^4.0.4"
   },
   "devDependencies": {
