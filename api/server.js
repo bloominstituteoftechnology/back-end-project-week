@@ -30,7 +30,7 @@ server.use(express.json());
 
 
 // NOTES
-// POST: .insert() .into
+// POST: .insert() 
 server.post('/CreateNewView', titleTextChecker, (req, res) => {
   const { title, textBody } = req.body;
   // const noteTitle = { title };
@@ -53,6 +53,25 @@ server.get('/', (req, res) => {
   db('notes')
     //.select()
     .then(notes => res.status(200).json(notes))
+    .catch(err => res.status(500).json({
+      err
+    }));
+});
+
+// GET (assumes .select() .where id matches)
+server.get('/note/:id', (req, res) => {
+  const { id } = req.params;
+
+  db('notes')
+    .where({ id: id })
+    .then(notes =>
+      notes[0] ?
+      res.status(200).json(notes[0]) :
+      res.status(404).json({
+        error: "there is no note with that id",
+        "log": console.log(id)
+      })
+    )
     .catch(err => res.status(500).json({
       err
     }));

@@ -9,7 +9,7 @@ exports.up = function(knex, Promise) {
         
             // other fields
             table.string('title', 255);
-            table.string('textBody', 255);
+            table.string('textBody', 2048);
             table.timestamps(true, true);
           })
 };
