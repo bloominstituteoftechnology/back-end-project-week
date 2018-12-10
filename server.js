@@ -48,11 +48,32 @@ server.post('/note/create',(req,res) => {
         .catch(err => {
             res.status(500).json({Error : err})
         })
-
     }else{
         res.status(417).json({message : "Send title and textBody fields"})
     }
 })
+
+//  PUT /note/edit/:id  Edit Note Endpoint
+server.put('/note/edit/:id', (req,res) => {
+    const ID = req.params;
+    const edits = req.body;
+    db('notes')
+    .where(ID)
+    .then(note => {
+        if(edits.title && edits.textBody){
+            note = edits;
+            res.status(200).send(note);
+        }else{
+            res.status(417).send("Include both title and textbody in request")
+        }
+    })
+    .catch(err => {
+        res.status(500).json({err})
+    })
+})
+
+//  DELETE  /note/delete/:id
+server.delete
 
 module.exports = {
     server,
