@@ -3,9 +3,14 @@
   "version": "1.0.0",
   "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
   "main": "index.js",
+  "engines": {
+    "node": "8.1.1",
+    "npm": "5.0.3"
+  },
   "scripts": {
     "server": "nodemon",
-    "test": "jest --watch --verbose"
+    "test": "jest --watch --verbose",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
