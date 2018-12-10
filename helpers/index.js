@@ -61,7 +61,7 @@ module.exports = {
       })
       .catch(err => {
         console.error(err);
-        res.status(500).json({ error: err });
+        res.status(500).json({ message: "Retrieving notes failed." });
       });
   },
   getNote: (req, res) => {
@@ -83,7 +83,7 @@ module.exports = {
       .catch(err => {
         console.error(err);
         res.status(500).json({
-          error: err
+          message: "Retrieving note failed."
         });
       });
   },
