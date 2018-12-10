@@ -28,7 +28,7 @@ We recommend that you finish all the MVP features before trying to deploy.
 - Create a Web API for the React application you built in the front-end project week.
 - Build endpoints for each of the following features:
   - Display a list of notes.                      /
-  - Create a note with a _title_ and _content_.   /CreateNewView'
+  - Create a note with a _title_ and _content_.   /note/add'
   - View an existing note.                        /note/:id
   - Edit an existing note.                        /note/edit/:id
   - Delete an existing note.                      '/note/delete/:id'

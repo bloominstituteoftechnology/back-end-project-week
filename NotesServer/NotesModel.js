@@ -8,6 +8,7 @@ module.exports = {
   findById
 };
 
+
 async function insert(note) {
   const [id] = await db('notes').insert(note);
 

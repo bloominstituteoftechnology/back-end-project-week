@@ -21,7 +21,7 @@ class App extends Component {
             exact path="/" 
             component={NoteListViewers} />
           <Route 
-            exact path='/CreateNewView' 
+            exact path='/note/add' 
             render={props => <CreateNewView {...props} 
             notes={this.state.notes} />} />
           <Route 

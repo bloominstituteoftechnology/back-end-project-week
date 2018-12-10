@@ -11,7 +11,7 @@ const NavBar = () => {
         <Link to="/" className='nav-button'>
           View Your Notes
         </Link>
-        <Link to="/CreateNewView" className='nav-button'>
+        <Link to="/note/add" className='nav-button'>
           + Create New Note          
         </Link>
     </div> // nav-bar

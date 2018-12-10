@@ -23,7 +23,7 @@ server.use(express.json());
 // endpoints here
 
 //  Get All: "/" 
-//  Post: '/CreateNewView'
+//  Post: '/CreateNewView' changed to CreateNewView
 //  Get Note by id '/note/:id'
 //  Edit Note by id = '/note/edit/:id'
 //  Delete Note by id = '/note/delete/:id'
@@ -31,7 +31,7 @@ server.use(express.json());
 
 // NOTES
 // POST: .insert() 
-server.post('/CreateNewView', titleTextChecker, (req, res) => {
+server.post('/note/add', titleTextChecker, (req, res) => {
   const { title, textBody } = req.body;
   // const noteTitle = { title };
   db('notes')
@@ -48,7 +48,7 @@ server.post('/CreateNewView', titleTextChecker, (req, res) => {
 })
 
 // GET (assumes .select())
-server.get('/', (req, res) => {
+server.get('/note/get/all', (req, res) => {
 
   db('notes')
     //.select()
