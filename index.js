@@ -54,7 +54,34 @@ server.post("/notes", (req, res) => {
       console.error(err);
     });
 });
-
+//============================================================================== Edit Note <-----
+server.put("/notes/:id", (req, res) => {
+  const changes = req.body;
+  db("notes")
+    .where("id", req.params.id)
+    .update(changes)
+    .then(response => {
+      res.status(200).json("note updated");
+    })
+    .catch(err => {
+      res.status(500).json({ message: "error updating this note" });
+    });
+});
+//============================================================================== Delete Note <-----
+server.delete("/notes/:id", (req, res) => {
+  const id = req.params.id;
+  db("notes")
+    .where("id", req.params.id)
+    .del(id)
+    .then(deleteCount => {
+      res.status(200).json({
+        message: "Delete success"
+      });
+    })
+    .catch(err => {
+      res.status(500).json({ message: "error deleting this action" });
+    });
+});
 //============================================================================== Server Initialization <----
 server.listen(9000, () => {
   console.log("\n Running on port 9000\n");
