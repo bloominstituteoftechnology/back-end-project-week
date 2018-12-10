@@ -12,15 +12,33 @@ server.get('/', (req, res) => {
     res.send({ API: 'is live' });
 });
 
-// get all notes
+// display list of notes
 server.get('/api/notes/all', (req, res) => {
     db('notes')
         .then(notes => {
             res.status(200).json(notes);
         })
         .catch(error => {
-            res.status(500).json({ message: 'could not find notes', error });
+            res.status(500).json({ message: 'Could not retrieve notes.', error });
         });
 });
+
+// create note with title and content
+server.post('/api/notes', (req, res) => {
+    const { title, body } = req.body;
+    if (!title || !body) {
+        res.status(422).json({ message: 'Provide title and body. '});
+    } else {
+        db('notes')
+            .insert(req.body)
+            .then(ids => {
+                res.status(201).json(ids);
+            })
+            .catch(error => {
+                res.status(500).json({ message: 'Error adding note.', error });
+            });
+    };
+});
+
 
 module.exports = server;
