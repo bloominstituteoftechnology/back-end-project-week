@@ -1,0 +1,24 @@
+{
+  "name": "lambda-notes-sabrina-gear",
+  "version": "2.0.0",
+  "description": "note-taking-application -- full stack",
+  "main": "index.js",
+  "repository": "https://github.com/sabrinagear/back-end-project-week.git",
+  "author": "sabrinagear",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "server": "nodemon"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "global": "^4.3.2",
+    "helmet": "^3.15.0",
+    "knex": "^0.16.2",
+    "sqlite3": "^4.0.4"
+  },
+  "devDependencies": {
+    "morgan": "^1.9.1",
+    "nodemon": "^1.18.7"
+  }
+}
