@@ -14,4 +14,10 @@ server.get('/api/notes', async (req, res) => {
     res.status(200).json(notes);
 })
 
+server.get('/api/notes/:id', async (req, res) => {
+    const id = req.params.id;
+    const note = await db('notes').where({ id: id})
+    res.status(200).json(note);
+})
+
 module.exports = server;
