@@ -1,3 +1,8 @@
+/////////////////////////////////
+#TRELLO BOARD LINK
+https://trello.com/invite/b/aYPPjmxg/86f441e04147fc8ee9eee9e50a9505be/lambda-notesbackend-drew-johnson
+/////////////////////////////////
+
 # Back End Project Week
 
 This week you will build a backend for a note taking app called "Lambda Notes".
