@@ -24,4 +24,14 @@ router.get("/:id", (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
+/* ===== CREATE NOTE  ===== */
+router.post("/", (req, res) => {
+  const newNote = req.body;
+  db("notes")
+    .insert(newNote)
+    .then(notes => {
+      res.status(200).json(notes);
+    })
+    .catch(err => res.status(500).json(err));
+});
 module.exports = router;
