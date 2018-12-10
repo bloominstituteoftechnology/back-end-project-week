@@ -19,7 +19,7 @@ server.get('/api/notes/all', (req, res) => {
             res.status(200).json(notes);
         })
         .catch(error => {
-            res.status(500).json({ message: 'Could not retrieve notes.', error });
+            res.status(500).json({ message: 'Could not retrieve notes.', error: error });
         });
 });
 
@@ -35,7 +35,7 @@ server.post('/api/notes', (req, res) => {
                 res.status(201).json(ids);
             })
             .catch(error => {
-                res.status(500).json({ message: 'Error adding note.', error });
+                res.status(500).json({ message: 'Unable to add note.', error: error });
             });
     };
 });
@@ -53,7 +53,7 @@ server.get('/api/notes/:id', (req, res) => {
             }
         })
         .catch(error => {
-            res.status(500).json({ message: 'Note could not be retrieved.', error });
+            res.status(500).json({ message: 'Unable to retrieve note.', error: error });
         });
 });
 
@@ -75,9 +75,27 @@ server.put('/api/notes/:id', (req, res) => {
                 };
             })
             .catch(error => {
-                res.status(500).json({ message: 'Could not edit note.', error });
+                res.status(500).json({ message: 'Unable to edit note.', error: error });
             });
     };
+});
+
+// delete an existing note
+server.delete('/api/notes/:id', (req, res) => {
+    const { id } = req.params;
+    db('notes')
+        .where({ id })
+        .del()
+        .then( note => {
+            if (note) {
+                res.status(200).json(note);
+            } else {
+                res.status(404).json({ message: 'Note with specified ID does not exist.' });
+            };
+        })
+        .catch(error => {
+            res.status(500).json({ message: 'Unable to delete note.', error: error });
+        });
 });
 
 module.exports = server;
