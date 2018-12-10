@@ -1,10 +1,10 @@
 const express = require('express');
-const noteRouter = require('./api/noteRouter');
 const helmet = require('helmet')
 
+const noteRouter = require('../api/noteRouter');
 const server = express();
 
-server.use(helmet);
+server.use(helmet());
 server.use(express.json());
 server.use('/api/notes', noteRouter);
 
