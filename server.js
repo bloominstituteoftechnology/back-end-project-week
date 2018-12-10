@@ -1,6 +1,8 @@
 const express = require('express');
 const server = express();
+const middleware = require('./middleware/middleware');
 
+middleware(server);
 
 server.get('/', (req, res) => {
   res
