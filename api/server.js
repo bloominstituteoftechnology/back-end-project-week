@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 
 const knex = require('knex');
 const knexConfig = require('../knexfile.js');
@@ -7,6 +8,7 @@ const db = knex(knexConfig.development);
 const server = express();
 
 server.use(express.json());
+server.use(cors());
 
 // sanity check endpoint
 server.get('/', (req, res) => {
@@ -40,12 +42,11 @@ server.get('/api/notes/:noteId', (req, res) => {
 });
 
 //POST a note with title & content
-server.post('/api/notes', (req, res) => {
+server.post('/api/notes/create', (req, res) => {
     const note = req.body;
   
     db('notes')
       .insert(note)
-      .returning('id')
       .then(ids => {
         res.status(201).json({message: "added note with the id of", ids});
       })
@@ -55,21 +56,21 @@ server.post('/api/notes', (req, res) => {
   });
   
   //PUT: edit a note based on :noteId
-  server.put('/api/notes/:noteId', (req, res) => {
+  server.put('/api/notes/editNote/:id', (req, res) => {
       const changes = req.body;
-      const { noteId } = req.params;
+      const { id } = req.params;
 
       if (!changes.title || !changes.content) {
         res.status(500).json({ message: 'Please provide a title and content.' });
       } else {
         db('notes')
-        .where({ id: noteId })
+        .where({ id: id })
         .update(changes)
         .then(count => {
             if (count === 0) {
-                res.status(404).json({ message: 'A note with that ID does nott exist.' });
+                res.status(404).json({ message: 'A note with that ID does not exist.' });
             } else {
-                res.status(200).json({message: 'updated the following amount of notes:',count});
+                res.status(201).json({message: 'updated the following amount of notes:',count});
             }
         })
         .catch(err => {
@@ -78,7 +79,7 @@ server.post('/api/notes', (req, res) => {
     }
     });
 
-    server.delete('/api/notes/:noteId', (req, res) => {
+    server.delete('/api/notes/delete/:noteId', (req, res) => {
         const { noteId } = req.params;
         db('notes')
             .where({ id: noteId })
