@@ -67,4 +67,19 @@ server.post('/api/notes', (req, res) => {
     });
 });
 
+//edit an existing note
+server.put('/api/notes/:id', (req, res) => {
+  const { title, body } = req.body;
+  const { id } = req.params;
+  db('notes')
+    .where({ id: id })
+    .update({ title, body })
+    .then(count => {
+      res.status(200).json(count);
+    })
+    .catch(err => {
+      res.status(500).json({ error: 'The note could note be updated.', err });
+    });
+});
+
 module.exports = server;
