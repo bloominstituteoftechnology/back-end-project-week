@@ -38,7 +38,7 @@ class NoteContainer extends React.Component {
 								key={note._id}
 								title={note.title}
 								id={note._id}
-								textBody={note.textBody}
+								textBody={note.content}
 								showMenu={showMenu}
 								getAllNotes={getAllNotes}
 								editTitle="editTitle"
