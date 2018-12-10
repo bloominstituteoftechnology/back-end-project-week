@@ -74,4 +74,21 @@ server.put('/api/notes/:noteId', (req, res) => {
     }
 });
 
+server.delete('/api/notes/:noteId', (req, res) => {
+    const { noteId } = req.params;
+    db('notes')
+        .where({ id: noteId })
+        .del()
+        .then(count => {
+            if (count === 0) {
+                res.status(404).json({ message: 'A note with that ID does not exist.' });
+            } else {
+                res.status(200).json(count);
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ error: 'There was an error deleting the note.', err });
+        });
+});
+
 server.listen(3500, () => console.log('\n\nServer is running on port 3500\n\n'));
