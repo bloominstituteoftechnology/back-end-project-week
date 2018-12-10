@@ -22,4 +22,19 @@ server.get('/api/notes', (req, res) => {
       .catch(err => res.status(500).json(err));
 });
 
+//POST a note with title & content
+server.post('/api/notes', (req, res) => {
+    const note = req.body;
+  
+    db('notes')
+      .insert(note)
+      .returning('id')
+      .then(ids => {
+        res.status(201).json({message: "added note with the id of", ids});
+      })
+      .catch(err => {
+        res.status(500).json({ message: 'Error inserting', err });
+      });
+  });
+
 module.exports = server;
