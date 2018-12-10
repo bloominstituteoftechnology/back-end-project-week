@@ -34,6 +34,20 @@ server.get('/api/notes/:id', (req, res) => {
     .catch(error => res.status(500).json({ message: "can't find note by that id"}))
 })
 
+//POST a new note with a title and body
+
+server.post('/api/notes', (req, res) => {
+    const body = req.body;
+    db('notes')
+    .insert(body)
+    .then(ids => {
+        res.status(201).json(ids);
+    })
+    .catch(error => res.status(500).json({
+        message: 'Error posting new note'
+    }))
+})
+
 
 
 module.exports = server;
