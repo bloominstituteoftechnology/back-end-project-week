@@ -104,7 +104,7 @@ server.delete('/notes/delete/:id', (req, res) => {
 
 
 // USERS
-server.post('/notes/register', (req,res) => {
+server.post('/register', (req,res) => {
     const credentials = req.body;
     // hash!
     const hash = bcrypt.hashSync(credentials.password, 2)
