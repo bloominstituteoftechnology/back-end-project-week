@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "backend to support \"Lambda Notes\" front end project",
   "main": "index.js",
+  "scripts": {
+    "server": "nodemon"
+  },
   "repository": "https://github.com/JoeBugajski/back-end-project-week.git",
   "author": "Joe Bugajski <yogurtmystery@gmail.com>",
   "license": "MIT",
