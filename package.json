@@ -4,7 +4,7 @@
   "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "nodemon"
   },
   "repository": {
     "type": "git",
@@ -18,8 +18,12 @@
   },
   "homepage": "https://github.com/cembreyfarquhar/back-end-project-week#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "knex": "^0.16.2",
     "sqlite3": "^4.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.7"
   }
 }
