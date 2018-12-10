@@ -13,12 +13,16 @@ server.get('/', (req, res) => {
 
 server.get('/api/notes', (req, res) => {
     db('notes')
-        .then(note => {
-            res.status(200).json(note)
-        })
-        .catch(error => {
-            res.status(500).json(error)
-        })
+        .then(note => res.status(200).json(note))
+        .catch(error => res.status(500).json(error))
+})
+
+server.get('/api/notes/:id', (req, res) => {
+    const { id } = req.params;
+    db('notes')
+        .where({ id: id })
+        .then(note => res.status(200).json(note))
+        .catch(error => res.status(500).json(error));
 })
 const port = 8000;
 server.listen(port, () => console.log(`running on port: ${port}`))
