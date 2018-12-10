@@ -10,7 +10,18 @@ server.get('/api/notes', (req,res) => {
         res.status(200).json(notes);
     })
     .catch(err => {
-        res.status(500).json(err)
+        res.status(500).json(err);
+    })
+})
+
+server.post('/api/notes/create', async (req, res) => {
+    const note = await req.body;
+    db.createNote(note)
+    .then(id => {
+        res.status(201).json(id);
+    })
+    .catch(err => {
+        res.status(500).json(err);
     })
 })
 
