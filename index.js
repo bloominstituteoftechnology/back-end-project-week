@@ -28,7 +28,25 @@ server.get('/api/notes/:id', (req, res) => {
 server.post('/api/notes', (req, res) => {
     db.insert(req.body)
         .into('notes')
-        .then(notes => res.status(200).json(notes))
+        .then(note => res.status(200).json(note))
+        .catch(error => res.status(500).json(error));
+})
+
+server.put('/api/notes/:id', (req, res) => {
+    const { id } = req.params;
+    db('notes')
+        .where({ id: id })
+        .update(req.body)
+        .then(note => res.status(200).json(note))
+        .catch(error => res.status(500).json(error));
+})
+
+server.delete('/api/notes/:id', (req, res) => {
+    const { id } = req.params;
+    db('notes')
+        .where({ id: id })
+        .del()
+        .then(note => res.status(200).json(note))
         .catch(error => res.status(500).json(error));
 })
 
