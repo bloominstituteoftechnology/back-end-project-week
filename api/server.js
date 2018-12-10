@@ -5,7 +5,8 @@ const bcrypt = require('bcryptjs');
 const helmet = require('helmet');
 const dotenv = require('dotenv').config();
 const cors = require('cors');
-const db = require('knex')(require('./knexfile').development);
+const db = require('knex')(require('../knexfile').development);
+const server = express();
 
 server.use(express.json());
 server.use(helmet());
@@ -16,38 +17,27 @@ server.use(morgan('short'));
 //----- GET notes -----
 //Display a list of notes.
 server.get('/api/notes', (req, res) => {
-    db.where('notes') 
+    db('notes') 
     .then(notes=> { 
       res.status(200).json(notes);
     }) 
     .catch(err => {
+        console.log(err)
       res
         .status(500)
         .json({ error: "The users information could not be retrieved." });
     });
 });
-/*
-//View an existing note.
-server.get('/api/users/:id', (req, res) => {
-    const { id } = req.params; 
-    userDb.get(id)
-      .then(user => { 
-        console.log(user)
-        if (!user) { 
-        res.status(404).json({ message: "The user with the specified ID does not exist." });
-        return  
-        } else if (user){ 
-        res.status(200).json(user);
-        return  
-        }
-      })
-      .catch(err => {
-        res 
-          .status(500)
-          .json({ error: "The post information could not be retrieved." });
-      });
-  });
 
+//View an existing note.
+server.get('/api/notes/:id', (req, res) => {
+    const { id } = req.params; 
+    db('notes')
+    .where({ id:id })
+    .then(notes => res.status(200).json(notes))
+    .catch(err => res.status(500).json(err));
+  });
+/*
 //----- POST notes -----
 //Create a note with a title and content.
 server.post('/api/notes', async (req, res) => {

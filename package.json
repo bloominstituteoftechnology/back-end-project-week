@@ -1,10 +1,10 @@
 {
-  "name": "lambda notes - backend",
+  "name": "lambdanotesbackend",
   "version": "1.0.0",
   "description": "Authentication JSON",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon sessions.js"
+    "server": "nodemon"
   },
   "keywords": [],
   "author": "Lambda School",
