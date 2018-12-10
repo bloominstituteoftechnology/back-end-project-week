@@ -37,26 +37,28 @@ server.get('/api/notes/:id', (req, res) => {
     .then(notes => res.status(200).json(notes))
     .catch(err => res.status(500).json(err));
   });
-/*
+
 //----- POST notes -----
 //Create a note with a title and content.
 server.post('/api/notes', async (req, res) => {
-    const userData = req.body;
-    if (!userData.name || userData.name==="" ) {
-        const errorMessage = "Please provide name for the user"; 
-        res.status(400).json({ errorMessage});
-        return
-    }   
-    try {
-        await userDb.insert(userData);
-    } catch (error) {
-            res.status(500).json({ error: "There was an error while saving the post to the database" });
-            return      
-    }
-    res.status(201).json({message: "user was added to database" });
-    return
-});
+const noteData = req.body;
 
+if (!noteData.title || !noteData.content) {
+    const errorMessage = "Please provide both title and contents for the note"; 
+    res.status(400).json({ errorMessage});
+    return
+}
+try {
+    await db('notes').insert(noteData);
+
+} catch (error) {
+        res.status(500).json({ error: "There was an error while saving the note to the database" });
+        return      
+}
+res.status(201).json(noteData);
+return
+});
+/*
 //----- PUT notes -----
 //Edit an existing note.
 server.put('/api/notes/:id', async (req, res) => {
