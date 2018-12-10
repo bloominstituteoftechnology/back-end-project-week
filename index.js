@@ -133,7 +133,7 @@ function generateToken(user) {
     return jwt.sign(jwtPayload, jwtSecret, jwtOptions)
 }
 
-server.post('/notes/login', (req, res) => {
+server.post('/login', (req, res) => {
     const credentials = req.body;
     db('users')
     .where({ username: credentials.username })
