@@ -20,7 +20,7 @@ route.get("/", async (req, res) => {
 route.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const note = await db("notes").where({ id });
+    const note = await db("notes").where({ id }).first();
     return res.status(200).json(note);
   } catch (err) {
     return sendErr(res);
