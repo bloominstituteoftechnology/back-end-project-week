@@ -8,6 +8,7 @@ const server = express();
 configMiddleware(server);
 
 routers.noteRouters(server);
+routers.userRouters(server);
 
 // test API root path
 server.get("/", (_, res) => {
