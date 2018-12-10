@@ -11,7 +11,7 @@ module.exports = server => {
     server.get('/api/notes/:id', viewSingleNote);//View an existing note.
     server.post('/api/notes', createNote) //Create a note with a title and content
     //server.put('/api/notes/:id', updateNote);//Edit an existing note.
-    //server.delete('/api/notes/:id', deleteNote);//Delete an existing note.
+    server.delete('/api/notes/:id', deleteNote);//Delete an existing note.
 }
 
 
@@ -60,4 +60,17 @@ function createNote(req, res) {
         res.status(422).json({message : 'Need correct data to create note..'})
     }
 }
- 
+  
+//===== UPDATE note according to id ROUTE '/api/notes/:id' ============
+function deleteNote(req, res) {
+        db('notes')
+             .where({id : req.params.id})
+             .delete(req.params.id)
+             .then(count => {
+                count ? res.status(200).json({ message: "note successfully deleted." })
+                      : res.status(404).json({ message: "The project with the specified ID does not exist."})
+              })
+             .catch(error => {
+                    res.status(500).json({message : 'error deleting user'})
+              })
+}
