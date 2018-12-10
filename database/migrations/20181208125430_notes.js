@@ -7,7 +7,7 @@ exports.up = function (knex, Promise) {
             .string('title', 255)
             .notNullable();
         tbl
-            .string('content')
+            .string('textBody')
             .notNullable();
         tbl
             .string('tags');

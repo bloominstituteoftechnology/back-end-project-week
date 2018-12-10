@@ -1,11 +1,11 @@
 const db = require('../database/dbConfig.js');
 
 module.exports = server => {
-    server.get('/api/notes', getNotes);
-    server.get('/api/notes/:id', getOneNote);
-    server.post('/api/notes', addNote);
-    server.delete('/api/notes/:id', deleteNote);
-    server.put('/api/notes/:id', editNote);
+    server.get('/note/get/all', getNotes);
+    server.get('/note/get/:id', getOneNote);
+    server.post('/note/create', addNote);
+    server.delete('/note/delete/:id', deleteNote);
+    server.put('/note/edit/:id', editNote);
 };
 
 // GET ALL NOTES
@@ -26,6 +26,7 @@ function getOneNote(req, res) {
     const { id } = req.params;
     db('notes')
         .where({ id })
+        .first()
         .then(note => {
             res.status(200).json(note)
         })
@@ -37,14 +38,13 @@ function getOneNote(req, res) {
 // ADD NEW NOTE
 
 function addNote(req, res) {
-    const { title, content } = req.body;
-    if (!title || !content) {
+    const { title, textBody } = req.body;
+    if (!title || !textBody) {
         res.status(422).json({ message: `Both title and content are required` })
     } else {
         db('notes')
             .insert(req.body)
             .then(ids => {
-                console.log(req.body);
                 res.status(201).json(ids)
             })
             .catch(err => {
@@ -75,18 +75,19 @@ function deleteNote(req, res) {
 
 function editNote(req, res) {
     const changes = req.body;
-    console.log(req.body);
     const { id } = req.params;
     db('notes')
         .where({ id })
+        .first()
         .update(changes)
-        .then(count => {
-            count
-                ? res.status(200).json(count)
+        .then(note  => {
+            console.log('note', note);
+            note
+                ? res.status(200).json(changes)
                 : res.status(404).json({ message: `Note not found` })
         })
         .catch(err => {
             res.status(500).json({ message: `Error updating`, err })
-        })
-}
+        });
+};
 
