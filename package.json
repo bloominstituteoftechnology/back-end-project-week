@@ -5,6 +5,9 @@
   "repository": "https://github.com/bkwillia052/back-end-project-week.git",
   "author": "bkwillia052 <bkwillia052@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "server": "nodemon"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.16.4",
