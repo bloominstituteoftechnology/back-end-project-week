@@ -85,4 +85,26 @@ server.put("/notes/:id", (req, res) => {
   }
 });
 
+// Deletes individual notes by their id
+
+server.delete("/notes/:id", (req, res) => {
+  const { id } = req.params;
+
+  db("notes")
+    .where({ id })
+    .del()
+    .then(count => {
+      if (count === 0) {
+        res
+          .status(404)
+          .json({ message: "Could not find note with specified id" });
+      } else {
+        res.status(200).json({ message: `deleted: ${count} note` });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ message: "There was an error, please try again" });
+    });
+});
+
 module.exports = server;
