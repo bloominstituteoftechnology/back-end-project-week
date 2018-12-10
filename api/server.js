@@ -1,5 +1,6 @@
 // import dependencies
 const express = require("express");
+const cors = require("cors");
 
 // internal imports
 const notesRouter = require("../notes/notesRouter");
@@ -8,6 +9,7 @@ const notesRouter = require("../notes/notesRouter");
 const server = express();
 
 //middleware
+server.use(cors());
 server.use(express.json());
 
 // endpoints for notes via router
