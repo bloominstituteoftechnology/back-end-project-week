@@ -7,6 +7,7 @@ const server = express();
 server.use(express.json());
 server.use(cors());
 
+//  GET  note/get/all
 server.get('/note/get/all',(req,res)=>{
     db('notes')
     .then(notes => {
@@ -19,6 +20,23 @@ server.get('/note/get/all',(req,res)=>{
     .catch(err => {
         res.status(500).json({Error : err})
     })
+})
+
+server.post('/note/create',(req,res) => {
+    const data = req.body;
+    if(data.title && data.textBody){
+        db('notes')
+        .insert(data)
+        .then(id => {
+            res.status(200).json({ID : id})
+        })
+        .catch(err => {
+            res.status(500).json({Error : err})
+        })
+        
+    }else{
+        res.status(417).json({message : "Send title and textBody fields"})
+    }
 })
 
 module.exports = {
