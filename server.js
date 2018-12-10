@@ -70,10 +70,21 @@ server.put('/note/edit/:id', (req,res) => {
     .catch(err => {
         res.status(500).json({err})
     })
-})
+})//Errors
 
 //  DELETE  /note/delete/:id
-server.delete
+server.delete('/note/delete/:id', (req,res) => {
+    const ID = req.params;
+    db('notes')
+    .where(ID)
+    .delete()
+    .then(count => {
+        res.status(200).send(`${count} notes deleted`)
+    })
+    .catch(err => {
+        res.status(500).json({message : "error deleting note", error : err})
+    })
+})
 
 module.exports = {
     server,
