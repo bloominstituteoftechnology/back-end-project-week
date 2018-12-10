@@ -42,7 +42,7 @@ server.get("/api/notes", (req, res) => {
         });
 });
 
-server.get("/api/notes/:id", (req, res) => {
+server.get("/api/notes/:noteId", (req, res) => {
     const { noteId } = req.params;
     db("notes")
         .where("notes.id", noteId)
