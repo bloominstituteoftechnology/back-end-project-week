@@ -6,7 +6,7 @@
   "author": "rytwalker <rytwalker@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "jest --watch --verbose",
+    "test": "jest --watch --verbose --runInBand",
     "server": "nodemon"
   },
   "dependencies": {

@@ -2,6 +2,14 @@ process.env.NODE_ENV = 'test';
 
 const request = require('supertest');
 const server = require('../../../server');
+const db = require('../../../data/dbConfig');
+
+beforeEach(async () => {
+  await db.migrate.rollback();
+  await db.migrate.rollback();
+  await db.migrate.latest();
+  await db.seed.run();
+});
 
 describe('/api/notes', () => {
   describe('GET all notes', () => {
@@ -54,6 +62,30 @@ describe('/api/notes', () => {
       expect(typeof note.title && typeof note.content).toBe('string');
       // created_at and updated_at
       expect(note.created_at && note.updated_at).toBeTruthy();
+    });
+  });
+  describe('POST new note', () => {
+    let note = {
+      title: 'testing post',
+      content: 'testing 1,2... testing 1,2',
+      user_id: 2
+    };
+    it('should return a status of 201', async () => {
+      let response = await request(server)
+        .post('/api/notes')
+        .send(note);
+      expect(response.status).toBe(201);
+    });
+    it('should return a status of 405 if no title, content, or user_id', async () => {
+      note = {};
+      let response = await request(server)
+        .post('/api/notes')
+        .send(note);
+      expect(response.status).toBe(405);
+      note.title = 'Hello';
+      expect(response.status).toBe(405);
+      note.content = 'Body';
+      expect(response.status).toBe(405);
     });
   });
 });

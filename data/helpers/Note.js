@@ -10,7 +10,13 @@ function get(id) {
     .first();
 }
 
+async function insert(note) {
+  const [id] = await db('notes').insert(note, 'id');
+  return get(id);
+}
+
 module.exports = {
   getAll,
-  get
+  get,
+  insert
 };

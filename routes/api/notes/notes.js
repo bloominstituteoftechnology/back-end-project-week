@@ -3,11 +3,6 @@ const router = express.Router();
 
 const db = require('../../../data/helpers/Note');
 
-/* 
-GET
-/api/notes
-returns an array of notes from all users
-*/
 router.get('/', async (req, res) => {
   try {
     const notes = await db.getAll();
@@ -29,6 +24,21 @@ router.get('/:id', async (req, res) => {
     res
       .status(500)
       .json({ message: 'There was an error accessing that note.' });
+  }
+});
+
+router.post('/', async (req, res) => {
+  const postData = req.body;
+  if (!postData.title || !postData.content || !postData.user_id) {
+    res
+      .status(405)
+      .json({ message: 'Note requires a title, content, and user_id' });
+  }
+  try {
+    const post = await db.insert(postData);
+    res.status(201).json(post);
+  } catch (error) {
+    res.status(500).json({ error: 'There was a problem adding a new note.' });
   }
 });
 

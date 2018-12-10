@@ -38,4 +38,17 @@ describe('note helpers', () => {
       expect(row).toBe(undefined);
     });
   });
+  describe('insert()', () => {
+    it('should be a function', () => {
+      expect(typeof notes.insert).toBe('function');
+    });
+    it('should return a new note object', async () => {
+      let note = await notes.insert({
+        title: 'new note',
+        content: 'hello',
+        user_id: 1
+      });
+      expect(typeof note).toEqual('object');
+    });
+  });
 });
