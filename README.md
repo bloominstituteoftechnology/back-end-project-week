@@ -68,4 +68,40 @@ Once your MVP has been approved, you have been given a feature list that the cli
 - Add a payment form integrating with _Stripe_ that allows Users to buy a _"Premium"_ version of Lambda Notes.
 - Gate your favorite feature behind the _premium_ paywall
 
+You will notice that this repository does not have any starter code. This is on purpose. You are to start from scratch using any files you have built throughout your time here at Lambda School as reference.## Deployment
+
+After your PM certifies that all MVP features are complente, it's time to work on deploying it online for the world to see. We recommend you deploy your server to [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction), and your front end to [netlify](https://www.netlify.com/blog/2016/09/29/a-step-by-step-guide-deploying-on-netlify/). Both services provide free tiers and easy to use interfaces.
+
+Additionally, it is recommended that you keep your front end and backend codebases in separate GitHub repositories. This helps with deploying, since the different parts of your application will be deployed on different platforms.
+
+## Extra Features:
+
+Once your MVP has been approved, you have been given a feature list that the client would love to have completed. Your goal would be to finish MVP as soon as you can and get working the list of extra features.
+
+- Setup Auto-Deploy on Heroku
+- Provide documentation for how to interface with your api.
+- Add pagination for long lists of notes.
+- Create and display tags that can be added to notes and stored in the Database.
+- Allow users to clone notes.
+- Search functionality.
+- Create a Registration Page that allows users to create accounts for your app and sign in with email/password.
+- Allow users to sign in with a third party service (google, facebook, github, club penguin, etc...)
+- Allow users to create Lists and assign notes to a list.
+- Allow users to attach images to notes.
+- Allow multiple users to collaborate on notes.
+- Add Unit and Integration Tests.
+
+## Super Duper Extra Credit Bonus Features
+
+- Add a payment form integrating with _Stripe_ that allows Users to buy a _"Premium"_ version of Lambda Notes.
+- Gate your favorite feature behind the _premium_ paywall
+
 You will notice that this repository does not have any starter code. This is on purpose. You are to start from scratch using any files you have built throughout your time here at Lambda School as reference.
+
+
+
+
+
+Trello:
+
+https://trello.com/b/Rzcmmc1Q/back-end-project
