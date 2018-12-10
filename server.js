@@ -44,7 +44,8 @@ server.post('/api/notes', async (req, res) => {
   }
   try {
     const ids = await db('notes').insert(note);
-    res.status(201).json(ids);
+    const newNote = await db('notes').where({ id: ids[0] });
+    res.status(201).json(newNote);
   } catch (error) {
     res
       .status(500)
