@@ -23,20 +23,35 @@ server.get("/api/notes", async (req, res) => {
 });
 
 //========POST A NEW NOTE=========
-server.post('/api/notes', async (req, res) => {
-    const { title, content } = req.body;
-    const note = req.body;
-    if (!title || !content) {
-      res.status(400).json({ message: 'Missing information.' });
-    }
-    try {
-      const ids = await db('notes').insert(note);
-      res.status(201).json(ids);
-    } catch (error) {
-      res
-        .status(500)
-        .json({ message: 'There was an error adding the zoo.', error });
-    }
-  });
+server.post("/api/notes", async (req, res) => {
+  const { title, content } = req.body;
+  const note = req.body;
+  if (!title || !content) {
+    res.status(400).json({ message: "Missing information." });
+  }
+  try {
+    const ids = await db("notes").insert(note);
+    res.status(201).json(ids);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "There was an error adding the zoo.", error });
+  }
+});
+
+//==========DELETE A NOTE==========
+server.delete("/api/notes/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const deleted = await db("notes")
+      .where({ id })
+      .del();
+    res.status(200).json(deleted);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "There was an error getting the note.", error });
+  }
+});
 
 module.exports = server;
