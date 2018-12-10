@@ -40,7 +40,19 @@ server.get('/api/notes/:id', (req, res) => {
     })
 });
 
-const port = 3300;
+server.post('/api/notes', (req, res) => {
+  const note = req.body;
+  db.insert(note)
+    .into('notes')
+    .then(id => {
+      res.status(201).json(id);
+    })
+    .catch(err => {
+      res.status(500).json({ error: 'Cannot save note to database', err });
+    })
+});
+
+const port = 8000;
 server.listen(port, function() {
   console.log(`\n=== Server listening on port ${port} ===\n`);
 });
