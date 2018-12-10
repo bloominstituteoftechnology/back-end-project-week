@@ -10,7 +10,9 @@ module.exports = server => {
     server.post('/api/register', register);
     server.post('/api/login', login);
     server.post('/api/notes', authenticate, getNote);
-    server.post('/api/postnotes', authenticate, postNote)
+    server.post('/api/postnotes', authenticate, postNote);
+    server.put('/api/notes/:id', authenticate, updateNote);
+    server.delete('/api/notes/:id', authenticate, deleteNote);
 }
 
 function register(req, res) {
@@ -71,5 +73,42 @@ function getNote(req, res) {
         })
         .catch(err => {
             res.status(500).json({message: 'Error fetching notes'})
+        })
+}
+
+function updateNote(req, res) {
+    const {id} = req.params;
+    const action = req.body;
+
+    db('notes')
+        .where({id: id})
+        .update(action)
+        .then(count => {
+            if(count) {
+                res.status(200).json({message: `${count} action update`})
+            } else {
+                res.status(404).json({message: `action id not found`})
+            }
+        })
+        .catch(err => {
+            res.status(500).json({message: error})
+        })
+}
+
+function deleteNote(req, res) {
+    const { id } = req.params;
+
+    db('notes')
+        .where({id: id})
+        .del()
+        .then(count => {
+            if(count) {
+                res.status(200).json({message: `${count} action delete`})
+            } else {
+                res.status(404).json({message: `${count} action delete`})
+            }
+        })
+        .catch(err => {
+            res.status(500).json({message: err})
         })
 }

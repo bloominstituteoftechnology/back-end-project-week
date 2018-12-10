@@ -4,9 +4,11 @@ exports.up = function(knex, Promise) {
         notes.increments();
 
         notes
-            .string('note', 500)
+            .string('title', 128)
             .notNullable();
         notes.string('username', 128)
+            .notNullable();
+        notes.string('content', 780)
             .notNullable();
   })
 };
