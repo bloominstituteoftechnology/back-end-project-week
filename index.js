@@ -35,4 +35,21 @@ server.post('/api/notes', (req, res) => {
     }
 });
 
+server.get('/api/notes/:noteId', (req, res) => {
+    const { noteId } = req.params;
+    db('notes')
+        .where({ id: noteId })
+        .first()
+        .then(note => {
+            if (!note) {
+                res.status(404).json({ message: 'A note with that ID was not found.' });
+            } else {
+                res.status(200).json(note);
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ error: 'There was an error getching the note.', err });
+        });
+});
+
 server.listen(3500, () => console.log('\n\nServer is running on port 3500\n\n'));
