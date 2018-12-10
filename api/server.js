@@ -64,4 +64,14 @@ server.get('/notes/:id', (req, res) => {
     })
 })
 
+server.delete('/notes/:id', (req, res) => {
+    const { id } = req.params;
+
+    db('notes').where({ id }).del().then(note => {
+        res.status(200).jsonp(note);
+    }).catch(error => {
+        res.status(500).jsonp({ error: 'Cant delete note'});
+    })
+})
+
 module.exports = server;
