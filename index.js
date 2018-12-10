@@ -10,6 +10,10 @@ const server = express();
 server.use(express.json());
 server.use(helmet());
 
+server.get('/', (req, res) => {
+    res.send('Besh!');
+});
+
 server.get('/notes', (req, res) => {
     db('notes_table_two') // migrate
     .then(notes => {
