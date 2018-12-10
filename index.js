@@ -43,7 +43,7 @@ server.get("/api/notes", (req, res) => {
 
 // POST
 
-server.post("/api/notes", (req, res) => {
+server.post("/api/notes/post", (req, res) => {
     const notes = req.body;
 
     db("notes")
@@ -59,7 +59,7 @@ server.post("/api/notes", (req, res) => {
 
   // UPDATE
 
-server.put("/api/notes/:id", (req, res) => {
+server.put("/api/notes/edit:id", (req, res) => {
     const changes = req.body;
     const {id} = req.params;
     db("notes")
@@ -73,7 +73,7 @@ server.put("/api/notes/:id", (req, res) => {
 
 // DELETE
 
-server.delete("/api/notes/:id", (req, res) => {
+server.delete("/api/notes/delete:id", (req, res) => {
     const { id } = req.params;
     db("notes")
       .where({id:id})
