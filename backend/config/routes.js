@@ -4,8 +4,8 @@ module.exports = (server) => {
 	server.get('api/notes', getNotes);
 	server.get('/api/note/:id', getNote);
 	server.post('/api/createnote', createNote);
-	server.put('/api/editnote', editNote);
-	server.delete('/api/removenote', removeNote);
+	server.put('/api/editnote/:id', editNote);
+	server.delete('/api/removenote/:id', removeNote);
 };
 
 function getNotes(req, res) {
