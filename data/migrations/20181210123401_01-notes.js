@@ -8,8 +8,8 @@ exports.up = function(knex, Promise) {
             table.increments();
         
             // other fields
-            table.string('title', 255);
-            table.string('textBody', 2048);
+            table.string('title', 255).notNullable();
+            table.string('textBody', 2048).notNullable();
             table.timestamps(true, true);
           })
 };
