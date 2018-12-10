@@ -10,6 +10,7 @@ router.get('/get/all', getAllNotes);
 router.get('/get/:id', getNoteById);
 router.post('/create', createNote);
 router.put('/edit/:id', editNote);
+router.delete('/delete/:id', deleteNote);
 
 
 module.exports = router;
@@ -23,6 +24,10 @@ async function getAllNotes(req, res) {
 async function getNoteById(req, res) {
     const id = req.params.id;
     const note = await db('notes').where('id' , '=', id).first();
+    if (!note) {
+        res.status(400).json({error: "Error getting note or does not exist"});
+        return;
+    }
     res.status(200).json(note);
 }
 
@@ -64,3 +69,9 @@ async function editNote(req, res) {
 
 }
 
+async function deleteNote(req, res) {
+    const id = req.params.id;
+    await db('notes').where('id', '=', id).del();
+
+    res.status(201).json({success: true});
+}
