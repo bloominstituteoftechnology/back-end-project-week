@@ -15,22 +15,51 @@ router.get('', (req, res) => {
         });
 });
 
-// [POST] /api/notes/:id
-router.post('/:id', (req, res) => {
-    const user_id = req.params.id;
-    const newNote = req.body;
-
-    notesDb.addNote(newNote, user_id)
-        .then(id => {
-            res.status(201).json(id);
+// [GET] /api/notes/:id
+router.get('/:id', (req, res) => {
+    const noteId = req.params.id;
+    notesDb.getNote(noteId)
+        .then(note => {
+            if (note.length) {
+                res.status(200).json(note);
+            } else {
+                res.status(404).json({ message: 'Note at id does not exist' });
+            }
         })
         .catch(err => {
-            if (err.errno === 1 && err.code === 'SQLITE_ERROR') {
-                res.status(404).json({ message: 'User not found' });
-            } else {
-                res.status(500).json(err);
-            }
+            res.status(500).json(err);
         });
+});
+
+// [PUT] /api/notes/:id
+router.put('/:id', (req, res) => {
+    const updates = req.body;
+    const noteId = req.params.id;
+
+    if (!updates.user_id && !updates.id) {
+        if (updates.title !== '') {
+            notesDb.updateNote(noteId, updates)
+                .then(recordsUpdated => {
+                    if (recordsUpdated === 1) {
+                        return notesDb.getNote(noteId);
+                    } else {
+                        res.status(404).json({ message: 'Error updating note, id does not exist' });
+                    }
+                })
+                .then(note => {
+                    if (Array.isArray(note)) {
+                        res.status(200).json(note);
+                    }
+                })
+                .catch(err => {
+                    res.status(500).json({ message: 'Error updating note'});
+                });
+        } else {
+            res.status(400).json({ message: 'Empty title BAD!' })
+        }
+    } else {
+        res.status(400).json({ message: 'Attempting to update constant field' });
+    }
 });
 
 module.exports = router;
