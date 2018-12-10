@@ -24,6 +24,20 @@ router.get('/', (req, res) => {
     .catch(err => {
         res.status(500).json({ message: 'could not get notes', err });
     });
-})
+});
+
+router.get('/:id', (req, res) => {
+    db('notes')
+    .where({ 'notes.id': req.params.id })
+    .first()
+    .then(ids => {
+        res.status(200).json(ids);
+    })
+    .catch(err => {
+        res.status(500).json({ message: 'could not get notes', err });
+    });
+});
+
+
 
 module.exports = router;
