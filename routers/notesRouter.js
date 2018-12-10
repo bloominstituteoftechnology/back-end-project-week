@@ -38,6 +38,21 @@ router.get('/:id', (req, res) => {
     });
 });
 
+router.put('/:id', (req, res) => {
+    const changes = req.body;
+    const { id } = req.params;
+
+    db('notes')
+    .where({ id })
+    .update(changes)
+    .then(count => {
+        res.status(200).json({ count });
+    })
+    .catch(err => {
+        res.status(500).json({ message: 'could not update note', err });
+    });
+});
+
 
 
 module.exports = router;
