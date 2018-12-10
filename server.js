@@ -19,7 +19,20 @@ server.get('/api/notes', async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ message: 'There was an error getting the zoos', error });
+      .json({ message: 'There was an error getting the notes', error });
+  }
+});
+
+server.get('/api/notes/:id', async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const note = await db('notes').where({ id });
+    res.status(200).json(note);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: 'There was an error getting the note', error });
   }
 });
 
@@ -45,11 +58,27 @@ server.delete('/api/notes/:id', async (req, res) => {
     const deleted = await db('notes')
       .where({ id })
       .del();
-    res.status(200).json(deleted);
+    res.status(200).json({ deleted });
   } catch (error) {
     res
       .status(500)
       .json({ message: 'There was an error getting the note.', error });
+  }
+});
+
+server.put('/api/notes/:id', async (req, res) => {
+  const id = req.params.id;
+  const update = req.body;
+
+  try {
+    await db('notes')
+      .where({ id })
+      .update(update);
+    res.status(200).json(update);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: 'There was an error updating the note', error });
   }
 });
 
