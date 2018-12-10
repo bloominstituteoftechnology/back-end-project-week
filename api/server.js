@@ -15,4 +15,15 @@ server.get('/api/notes', (req, res)=>{
         res.status(500).json({message:'error getting notes'})
     })
 })
+
+server.get('/api/notes/:id', (req, res)=>{
+    const {id}= req.params;
+    db('notes').select().where('notes.id',id)
+    .then((note)=>{
+        res.status(201).json(note)
+    })
+    .catch(error=>{
+        res.status(500).json({message:'fail to get specific note'})
+    })
+})
 module.exports=server;
