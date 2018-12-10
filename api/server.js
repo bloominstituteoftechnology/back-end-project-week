@@ -59,4 +59,29 @@ server.get("/api/notes/:noteId", (req, res) => {
         });
 });
 
+server.put("/api/notes/:noteId", (req, res) => {
+    const { noteId } = req.params;
+    const newData = req.body;
+    db("notes")
+        .where("notes.id", noteId)
+        .update(newData)
+        .then(count => {
+            if (!count) {
+                res.status(404).json({ message: "Note with that id not found" });
+            } else {
+                db("notes")
+                    .where("notes.id", noteId)
+                    .then(notesArray => {
+                        res.status(200).json(notesArray[0]);
+                    })
+                    .catch(err => {
+                        res.status(500).json({ message: "Error retrieving modified note", err });
+                    });
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ message: "Error modifying note", err });
+        });
+});
+
 module.exports = server;
