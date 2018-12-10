@@ -41,4 +41,18 @@ server.get('/api/notes/:id', (req, res) => {
     });
 });
 
+//delete a note by id
+server.delete('/api/notes/:id', (req, res) => {
+  const { id } = req.params;
+  db('notes')
+    .where({ id: id })
+    .del()
+    .then(count => {
+      res.status(200).json({ count });
+    })
+    .catch(err => {
+      res.status(500).json({ error: 'This note could not be deleted.', err });
+    });
+});
+
 module.exports = server;
