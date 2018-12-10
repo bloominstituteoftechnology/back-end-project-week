@@ -11,7 +11,10 @@ exports.up = function(knex, Promise) {
         tbl
         .string('content', 3000)
         .notNullable()
-        
+        tbl
+        .string('author', 255)
+        .unique()
+        .notNullable()
         /*/foreign id --- may use later for tags 
         tbl
         .integer('cohort_id')
