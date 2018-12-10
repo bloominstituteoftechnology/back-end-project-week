@@ -34,11 +34,11 @@ import Note from './Note';
                 <div className="card-container">
                     {props.notes.map(note => {
                         return(
-                            <div key={note._id} className="card">
+                            <div key={note.id} className="card">
                             <Note
                             title={note.title}
                             textBody={note.textBody}
-                            id={note._id}
+                            id={note.id}
                             />
                             </div> 
                         );

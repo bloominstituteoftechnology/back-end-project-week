@@ -14,7 +14,8 @@ class App extends Component {
     this.state = {
       notes: [],
       title: '',
-      textBody: ''
+      textBody: '',
+      user_id: 1
     }
   }
 
@@ -24,7 +25,7 @@ class App extends Component {
 
   componentDidMount() {
     axios
-    .get('https://fe-notes.herokuapp.com/note/get/all')
+    .get('http://localhost:8000/api/notes')
     .then(response => 
       this.setState({ notes: response.data }))
     .catch(error => console.log(error));
@@ -32,7 +33,7 @@ class App extends Component {
 
 componentDidUpdate() {
   axios
-  .get('https://fe-notes.herokuapp.com/note/get/all')
+  .get('http://localhost:8000/api/notes')
   .then(response => 
     this.setState({ notes: response.data }))
   .catch(error => console.log(error));

@@ -11,7 +11,8 @@ class NoteView extends React.Component {
             modal: false,
             editing: false,
             editedTitle: '',
-            editedTextBody: ''
+            editedTextBody: '',
+            user_id: 1
         }
         this.toggle = this.toggle.bind(this);
     }
@@ -22,7 +23,7 @@ componentDidMount() {
 
 getNote = id => {
     axios
-    .get(`https://fe-notes.herokuapp.com/note/get/${id}`)
+    .get(`http://localhost:8000/api/notes/${id}`)
     .then(response => {
         this.setState({ note: response.data})
     })
@@ -31,7 +32,7 @@ getNote = id => {
 
 deleteNote = id => {
     axios
-    .delete(`https://fe-notes.herokuapp.com/note/delete/${id}`)
+    .delete(`http://localhost:8000/api/notes/${id}`)
     .then(response => {
       console.log('response', response)
     })
@@ -40,7 +41,7 @@ deleteNote = id => {
 
 editNote = id => {
     axios
-    .put(`https://fe-notes.herokuapp.com/note/edit/${id}`, this.state.note)
+    .put(`http://localhost:8000/api/notes/${id}`, this.state.note)
     .then(response => {
         console.log('response', response)
       this.setState({ note: response.data })
@@ -55,7 +56,7 @@ toggle() {
 
 deleteHandler = event => {
       event.preventDefault();
-      this.deleteNote(this.state.note._id);
+      this.deleteNote(this.state.note.id);
       this.props.history.push('/')
 }
 
@@ -71,8 +72,8 @@ editHandler = event => {
 
 saveHandler = event => {
     event.preventDefault();
-    this.setState({ editing: false, note: {title: this.state.editedTitle, textBody: this.state.editedTextBody, _id: this.state.note._id, tags: []} })
-    setTimeout(() => { this.editNote(this.state.note._id); }, 500);
+    this.setState({ editing: false, note: {title: this.state.editedTitle, textBody: this.state.editedTextBody, id: this.state.note.id, user_id: this.state.user_id} })
+    setTimeout(() => { this.editNote(this.state.note.id); }, 500);
 };
 
 render(){

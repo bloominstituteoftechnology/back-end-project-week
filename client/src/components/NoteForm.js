@@ -8,13 +8,14 @@ class NoteForm extends Component {
         super(props);
         this.state= {
             title: '',
-            textBody: ''
+            textBody: '',
+            user_id: 1
         }
     }
 
 addNote = () => {
     axios
-    .post('https://fe-notes.herokuapp.com/note/create', this.state)
+    .post('http://localhost:8000/api/notes', this.state)
     .then(response => this.setState({ notes: response.data}))
     .catch(error => console.log(error));
 }

@@ -3,8 +3,10 @@ const server = express();
 const knex = require('knex');
 const knexConfig = require('../knexfile');
 const db = knex(knexConfig.development);
+const cors = require('cors');
 
 server.use(express.json());
+server.use(cors());
 
 //Test if server is running
 
