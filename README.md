@@ -1,4 +1,5 @@
 https://trello.com/b/QWhvKrAN/lambda-notesback-end-andre-myrick
+Deployed front-end: https://awesome-hamilton-d3c0d6.netlify.com/
 
 # Back End Project Week
 

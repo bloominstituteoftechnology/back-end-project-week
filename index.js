@@ -25,11 +25,10 @@ server.get("/api/notes", (req, res) => {
 
 server.get("/api/notes/:id", (req, res) => {
     let { id } = req.params;
-    console.log(id)
 
     db("notes")
         .where({id})
-        .then(note => res.status(200).json(note))
+        .then(note => res.status(200).json(...note))
         .catch(err => res.status(500).json({error: err}))
 })
 
