@@ -1,0 +1,31 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "https://trello.com/b/z21b56Au/lambda-notes-backend-jake-thomas",
+  "main": "index.js",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "knex": "^0.16.2",
+    "sqlite3": "^4.0.4"
+  },
+  "devDependencies": {
+    "nodeman": "^1.1.2"
+  },
+  "scripts": {
+    "server": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmaxt12/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jmaxt12/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/jmaxt12/back-end-project-week#readme"
+}
