@@ -28,25 +28,69 @@ route.get("/:id", async (req, res) => {
 });
 
 route.post("/", async (req, res) => {
-    const {title, textBody} = req.body;
-    if (!title || !textBody){
-        return sendErr(res, 404, 'must include title and text body')
+  const { title, textBody } = req.body;
+  if (!title || !textBody) {
+    return sendErr(res, 400, "must include title and text body");
+  }
+  if (title.length > 128 || textBody.length > 500) {
+    return sendErr(res, 400, "Content too long.");
+  }
+  try {
+    const [id] = await db("notes").insert({ ...req.body });
+    const newNote = await db("notes")
+      .where({ id })
+      .first();
+    return res.status(201).json(newNote);
+  } catch (err) {
+    if (err.errno === 19) {
+      return sendErr(res, 400, "Note must have unique title");
     }
-    try {
-        const id = await db('notes').insert({... req.body})
-        const newNote = await db('notes').where({id})
-        return res.status(201).json(newNote)
-    }catch (err){
-        return sendErr(res)
-    }
+    return sendErr(res);
+  }
 });
 
-route.put("/:id", (req, res) => {
-  // edit note
+route.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const { title, textBody } = req.body;
+  if (!title || !textBody) {
+    return sendErr(res, 400, "must include title and text body");
+  }
+  if (title.length > 128 || textBody.length > 500) {
+    return sendErr(res, 400, "Content too long.");
+  }
+  try {
+    const count = await db("notes")
+      .where({ id })
+      .update({ ...req.body });
+    if (count) {
+      const updatedNote = await db("notes").where({ id });
+      return res.status(201).json(updatedNote);
+    }
+  } catch (err) {
+    if (err.errno === 19) {
+      return sendErr(res, 400, "Note must have unique title");
+    }
+    return sendErr(res);
+  }
 });
 
-route.delete("/:id", (req, res) => {
-  //delete note
+route.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const ids = await db("notes").select( 'id' ).map(x=>x.id);
+    
+    if (!ids.includes(parseInt(id))){
+        return sendErr(res, 404, 'no note at given id')
+    }
+    const count = await db("notes")
+      .where({ id })
+      .del();
+    if (count) {
+      return res.status(200).json("Note deleted");
+    }
+  } catch (err) {
+    return sendErr(res);
+  }
 });
 
 module.exports = route;
