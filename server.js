@@ -40,5 +40,22 @@ server.post('/api/notes', (req, res) => {
     };
 });
 
+// view an existing note
+server.get('/api/notes/:id', (req, res) => {
+    const { id } = req.params;
+    try {
+        const note = db('notes')
+                        .where({ id })
+                        .first();
+        if (!note) {
+            res.status(404).json({ message: 'Note does not exist.' });
+        } else {
+            res.status(200).json(note);
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Note could not be retrieved.', error });
+    };
+});
+
 
 module.exports = server;
