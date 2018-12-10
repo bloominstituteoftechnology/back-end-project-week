@@ -1,0 +1,32 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "https://trello.com/invite/b/mCWGSVnP/20a754264d3aad0a4e233cbe15efb8d3/lambda-notesbackend-ryan-clausen",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theryanclausen/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "Ryan Clausen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/theryanclausen/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/theryanclausen/back-end-project-week#readme",
+  "devDependencies": {
+    "nodemon": "^1.18.7"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "helmet": "^3.15.0",
+    "knex": "^0.16.2",
+    "morgan": "^1.9.1",
+    "sqlite3": "^4.0.4"
+  }
+}
