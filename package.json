@@ -1,4 +1,10 @@
 {
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
@@ -7,5 +13,8 @@
     "jsonwebtoken": "^8.4.0",
     "knex": "^0.16.2",
     "sqlite3": "^4.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.5"
   }
 }
