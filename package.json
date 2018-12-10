@@ -1,0 +1,25 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PhilHart23/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PhilHart23/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/PhilHart23/back-end-project-week#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "sqlite3": "^4.0.4"
+  }
+}
