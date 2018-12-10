@@ -48,5 +48,39 @@ server.post('/notes/addnote', (req, res) => {
     })
 });
 
+
+server.put('/notes/edit/:id', (req, res) => {
+    const { id } = req.params;
+    const newNote = req.body;
+    db('notes_table_four')
+    .where({ id })
+    .update(newNote)
+    .then(note => {
+        if (!note || note < 1) {
+            res.status(404).json({ message: 'The note with the specified ID does not exist.' });
+        } else {
+            res.status(200).json(note);
+        }
+    })
+      .catch(err => {
+        res.status(500).json({ error: 'This note could not be modified.', err });
+      })
+  });
+
+server.delete('/notes/delete/:id', (req, res) => {
+    db('notes_table_four')
+    .where({ id: req.params.id })
+    .del()
+    .then(note => {
+      if (note) {
+        res.status(204).end();
+      } else {
+        res.status(404).json({ message: "The note associated with this ID does not exist." });
+      }
+    })
+    .catch(err => 
+        res.status(500).json({ err: 'This note could not be removed.'}));
+});
+
 const port = process.env.PORT|| 4443;
 server.listen(port, () => console.log(`==== Party at port ${port} ====`));
