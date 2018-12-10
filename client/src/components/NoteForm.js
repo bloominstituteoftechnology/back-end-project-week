@@ -6,8 +6,7 @@ class NoteForm extends Component {
     super(props);
     this.state = {
       newNote: {
-        tags: [],
-        textBody: "",
+        content: "",
         title: ""
       }
     };
@@ -24,7 +23,7 @@ class NoteForm extends Component {
   addNewNote = e => {
     e.preventDefault();
     axios
-      .post("https://fe-notes.herokuapp.com/note/create", this.state.newNote)
+      .post("/api/notes", this.state.newNote)
       .then(this.props.handleAddNewNote);
 
     this.props.history.push("/");
@@ -42,12 +41,12 @@ class NoteForm extends Component {
             name="title"
           />
           <textarea
-            name="textBody"
+            name="content"
             id="create-note-body"
             cols="30"
             rows="20"
             onChange={this.handleNoteFormChange}
-            value={this.state.newNote.textBody}
+            value={this.state.newNote.content}
             placeholder="Note comment"
           />
           <input type="submit" id="create-submit" value="Save" />

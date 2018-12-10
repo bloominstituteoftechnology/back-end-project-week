@@ -6,7 +6,7 @@ const Note = props => {
       <Link to={`/notes/${props.note._id}`}>
         <div onClick={() => props.routeToSingleNote(props.note._id)}>
           <h1>{props.note.title}</h1>
-          <p>{props.note.textBody}</p>
+          <p>{props.note.content}</p>
         </div>
       </Link>
     </div>

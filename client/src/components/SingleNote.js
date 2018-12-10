@@ -13,7 +13,7 @@ class SingleNote extends Component {
   componentDidMount() {
     const id = localStorage.getItem("noteID");
     console.log(id);
-    axios.get(`https://fe-notes.herokuapp.com/note/get/${id}`).then(res =>
+    axios.get(`/api/notes/${id}`).then(res =>
       this.setState({
         note: res.data
       })
@@ -22,7 +22,7 @@ class SingleNote extends Component {
   componentWillReceiveProps() {
     const id = localStorage.getItem("noteID");
     console.log(id);
-    axios.get(`https://fe-notes.herokuapp.com/note/get/${id}`).then(res =>
+    axios.get(`/api/notes/${id}`).then(res =>
       this.setState({
         note: res.data
       })
@@ -31,11 +31,7 @@ class SingleNote extends Component {
 
   handleDeleteNote = () => {
     axios
-      .delete(
-        `https://fe-notes.herokuapp.com/note/delete/${localStorage.getItem(
-          "noteID"
-        )}`
-      )
+      .delete(`/api/notes/${localStorage.getItem("noteID")}`)
       .then(this.props.handleDeleteNote, this.props.history.push("/"));
   };
 
