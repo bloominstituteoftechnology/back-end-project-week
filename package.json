@@ -7,14 +7,17 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.16.4",
+    "jest": "^23.6.0",
     "knex": "^0.16.2",
     "sqlite3": "^4.0.4"
   },
   "devDependencies": {
     "dotenv": "^6.2.0",
-    "nodemon": "^1.18.7"
+    "nodemon": "^1.18.7",
+    "supertest": "^3.3.0"
   },
   "scripts": {
-    "server": "nodemon"
+    "server": "nodemon",
+    "test": "jest --watch --verbose"
   }
 }
