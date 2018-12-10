@@ -1,7 +1,7 @@
 # Back End Project Week
 
 ## Trello Board
-https://trello.com/b/VNfpsMYt/lambda-notesbackend-blake-koennecker
+https://trello.com/invite/b/VNfpsMYt/bb06ec57a745cd35d930744f931ba7b1/lambda-notesbackend-blake-koennecker
 
 This week you will build a backend for a note taking app called "Lambda Notes".
 
