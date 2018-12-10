@@ -6,9 +6,10 @@
   "author": "adamhinckley <adamhinckley@mac.com>",
   "license": "MIT",
   "scripts": {
-    "server": "nodemon"
+    "start": "node index.js"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "knex": "^0.16.2",
     "morgan": "^1.9.1",

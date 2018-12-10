@@ -2,9 +2,11 @@ const express = require("express");
 const server = express();
 const logger = require("morgan");
 const db = require("../database/dbConfig");
+const cors = require("cors");
 
 server.use(logger("dev"));
 server.use(express.json());
+server.use(cors());
 
 //get a list of all of the notes
 server.get("/api/notes", (req, res) => {
