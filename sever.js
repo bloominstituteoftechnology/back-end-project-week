@@ -42,4 +42,23 @@ server.post("/notes", (req, res) => {
   }
 });
 
+// View individual notes by id
+server.get("/notes/:id", (req, res) => {
+  const { id } = req.params;
+  db("notes")
+    .where("id", id)
+    .then(note => {
+      if (!note.length) {
+        res
+          .status(404)
+          .json({ message: "Could not find note with specified Id" });
+      } else {
+        res.status(200).json(note);
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ message: "There was an error, please try again" });
+    });
+});
+
 module.exports = server;
