@@ -6,7 +6,62 @@ const db = require('./data/dbConfig.js');
 const server = express();
 
 server.use(express.json());
-server.use(cors());
+
+// hard coded configuration object
+conf = {
+    // look for PORT environment variable,
+    // else look for CLI argument,
+    // else use hard coded value for port 8080
+    port: 3000,
+ 
+    // origin undefined handler
+    // see https://github.com/expressjs/cors/issues/71
+    originUndefined: function (req, res, next) {
+ 
+        if (!req.headers.origin) {
+ 
+            res.json({
+ 
+                mess: 'Hi you are visiting the service locally. If this was a CORS the origin header should not be undefined'
+ 
+            });
+ 
+        } else {
+ 
+            next();
+ 
+        }
+ 
+    },
+ 
+    // Cross Origin Resource Sharing Options
+    cors: {
+ 
+        // origin handler
+        origin: function (origin, cb) {
+ 
+            // setup a white list
+            let wl = ['http://localhost', 'http://192.168.254.42'];
+ 
+            if (wl.indexOf(origin) != -1) {
+ 
+                cb(null, true);
+ 
+            } else {
+ 
+                cb(new Error('invalid origin: ' + origin), false);
+ 
+            }
+ 
+        },
+ 
+        optionsSuccessStatus: 200
+ 
+    }
+ 
+};
+
+server.use(conf.originUndefined, cors(conf.cors));
 
 server.get('/api/notes', (req, res) => {
     db('notes')
