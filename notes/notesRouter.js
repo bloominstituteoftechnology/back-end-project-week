@@ -51,4 +51,26 @@ router.delete('/notes/delete', async (req, res) => {
   }
 });
 
+server.put('/notes/edit', async (req, res) => {
+  const changes = req.body;
+  const { noteId } = req.params;
+
+  if (!changes.title) {
+    res.status(400).json({ errorMessage: 'Please provide a title for the cohort.' });
+  }
+
+  try {
+    const updatedNoteCount = await db('notes')
+      .where({ id: noteId })
+      .update(changes);
+    {
+      updatedNoteCount === 0
+        ? res.status(404).json({ message: 'The note with the specified ID does not exist.' })
+        : res.status(200).json({ updatedNoteCount });
+    }
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
 module.exports = router;
