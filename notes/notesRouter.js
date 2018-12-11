@@ -17,7 +17,9 @@ module.exports = router;
 
 async function getAllNotes(req, res) {
     // res.status(200).json({aliveAt: '/note/get/all'})
-    const notes = await db('notes');
+    const {id, username, roles} = req.decodedToken;
+
+    const notes = await db('notes').where('user_id', '=', id);
     res.status(200).json(notes);
 }
 
@@ -33,13 +35,15 @@ async function getNoteById(req, res) {
 
 async function createNote(req, res) {
     const newNote = req.body;
+    const {id, username, roles} = req.decodedToken;
 
     if (!newNote.title || !newNote.textBody) {
         res.status(422).json({error: "Note Title and Note TextBody is required"});
         return;
     }
 
-    const note = await db('notes').insert(newNote);
+
+    const note = await db('notes').insert({...newNote, user_id: id});
     console.log(note);
 
     res.status(201).json({success: note[0]})

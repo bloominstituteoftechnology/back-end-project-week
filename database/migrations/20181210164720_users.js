@@ -9,11 +9,12 @@ exports.up = function(knex, Promise) {
       
       table.string('password', 128).notNullable();
       table.string('email', 128);
+      table.json('roles');
   
     })
   };
   
   exports.down = function(knex, Promise) {
-      return knex.schema.dropTableIfExist('users');
+      return knex.schema.dropTableIfExists('users');
   };
   
