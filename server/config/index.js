@@ -1,12 +1,14 @@
 const express = require("express");
 const logger = require("morgan");
 const helmet = require("helmet");
+const cors = require("cors");
 
 const notes = require("../routes/notes");
 const register = require("../routes/register");
 const login = require("../routes/login");
 
 module.exports = server => {
+  server.use(cors({ origin: ["http://localhost:3000"], credentials: true }));
   server.use(express.json());
   server.use(helmet());
   server.use(logger("dev"));
