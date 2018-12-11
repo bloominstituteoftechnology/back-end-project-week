@@ -41,7 +41,7 @@ server.get('/notes', (req, res) => {
     })
 });
 
-server.get('/notes/:id', protected, (req, res) => {
+server.get('/notes/:id',  (req, res) => {
     db('notes_table_two')
     .where({ id: req.params.id })
     .first()
