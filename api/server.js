@@ -2,13 +2,15 @@ const express = require('express');
 const cors = require('cors');
 const server = express();
 const db = require('../data/dbConfig.js');
+const morgan = require('morgan');
 
 server.use(express.json());
 server.use(cors());
+server.use(morgan('dev'));
 
 //Sanity Check
 server.get('/', (req, res) => {
-  res.status(200).json({ api: 'running' });
+  res.status(200).json({ api: 'this is running' });
 });
 
 //get all of the notes
@@ -57,10 +59,19 @@ server.delete('/api/notes/:id', (req, res) => {
 
 //create a note with title and content
 server.post('/api/notes', (req, res) => {
+  let { title, body } = req.body;
+
+  console.log(req.body);
   db('notes')
-    .insert(req.body)
-    .then(newNote => {
-      res.status(201).json(newNote);
+    .insert({ title, body })
+    .then(ids => ids[0])
+    .then(id => {
+      db('notes')
+        .where({ id })
+        .first()
+        .then(note => {
+          res.status(201).json(note);
+        });
     })
     .catch(err => {
       res.status(500).json({ error: 'This note could not be created.', err });
@@ -74,8 +85,13 @@ server.put('/api/notes/:id', (req, res) => {
   db('notes')
     .where({ id: id })
     .update({ title, body })
-    .then(count => {
-      res.status(200).json(count);
+    .then(newNote => {
+      db('notes')
+        .where({ id })
+        .first()
+        .then(note => {
+          res.status(201).json(note);
+        });
     })
     .catch(err => {
       res.status(500).json({ error: 'The note could note be updated.', err });
