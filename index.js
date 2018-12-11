@@ -11,7 +11,7 @@ server.use(cors());
 server.use(express.json());
 server.use(helmet());
 
-server.get('https://vast-retreat-70533.herokuapp.com/', (req, res) => {
+server.get('/', (req, res) => {
     db('notes')
     .then(project => res.status(200).json(project))
     .catch(error => res.status(500).json({ message: `Can't Retrieve notes Data`, error }))
