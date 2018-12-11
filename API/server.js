@@ -45,7 +45,7 @@ server.put("/api/notes/:id", (req, res) => {
   const { noteTitle, noteBody } = req.body;
   const { id } = req.params;
   db("notes")
-    .where({ id: id })
+    .where({ id })
     .update({ noteTitle, noteBody })
     .then(note => {
       res.status(200).json(note);
