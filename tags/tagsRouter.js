@@ -60,7 +60,7 @@ router.get("/", (req, res) => {
     );
 });
 
-// DELETE
+// DELETE by tag id
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
   db("tags")
@@ -77,4 +77,5 @@ router.delete("/:id", (req, res) => {
       res.status(500).json({ error: "Error while deleting this tag: ", err })
     );
 });
+
 module.exports = router;
