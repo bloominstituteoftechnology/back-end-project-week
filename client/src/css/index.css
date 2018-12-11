@@ -146,6 +146,7 @@ h4:hover {
   padding: 20px;
   height: 100vh;
   flex-direction: column;
+  font-family: 'Abel', sans-serif;
 }
 .input-form form {
   display: flex;
@@ -157,13 +158,30 @@ h4:hover {
   margin: 50px 0px;
   border-radius: 5px;
   padding: 10px;
+  font-family: 'Open Sans', sans-serif;
 }
 .input-form .text-input {
   width: 600px;
   height: 300px;
   border-radius: 5px;
   padding: 10px;
+  font-family: 'Open Sans', sans-serif;
 }
 .input-form button {
-  padding: 0px;
+  box-sizing: border-box;
+  width: 250px;
+  height: 60px;
+  border: 1px solid gray;
+  color: white;
+  background-color: #444444;
+  margin: 10px 0px;
+  text-align: center;
+  padding-top: 7px;
+  font-size: 22px;
+  text-decoration: none;
+  font-family: 'Abel', sans-serif;
+}
+.input-form button:hover {
+  cursor: pointer;
+  background-color: #9ba5a8;
 }
