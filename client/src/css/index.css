@@ -4,6 +4,12 @@
   font-weight: 400;
   src: local('Abel Regular'), local('Abel-Regular'), url(https://fonts.gstatic.com/s/abel/v8/MwQ5bhbm2POE2V9BOA.ttf) format('truetype');
 }
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v15/mem8YaGs126MiZpBA-UFVZ0e.ttf) format('truetype');
+}
 .side-bar {
   position: fixed;
   background-color: #c32361;
@@ -45,6 +51,9 @@ h4:hover {
   margin-right: 1%;
   margin-top: 20px;
 }
+.app-container {
+  font-family: 'Abel', sans-serif;
+}
 .card-container {
   display: flex;
   flex-wrap: wrap-reverse;
@@ -71,6 +80,10 @@ h4:hover {
   border-bottom: 1px solid gray;
   padding-bottom: 10px;
   margin-bottom: 10px;
+  font-family: 'Abel', sans-serif;
+}
+.card-content p {
+  font-family: 'Open Sans', sans-serif;
 }
 .view-note {
   height: 100vh;

@@ -29,7 +29,7 @@ import Note from './Note';
 
     // render() {
         return(
-            <div>
+            <div className="app-container">
                 <h1>Your Notes:</h1>
                 <div className="card-container">
                     {props.notes.map(note => {
