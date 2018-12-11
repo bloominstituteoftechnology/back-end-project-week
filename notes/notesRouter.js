@@ -35,19 +35,18 @@ router.post('/notes/create', async (req, res) => {
 });
 
 router.delete('/notes/delete/:noteId', async (req, res) => {
-  const { noteId } = req.params;
+  const noteId = req.params.noteId;
 
   try {
-    const deletedNoteCount = await db('notes')
-      .where({ id: noteId })
-      .del();
+    const deletedNoteCount = await db.remove(noteId);
     {
       deletedNoteCount === 0
         ? res.status(404).json({ message: 'The note with the specified ID does not exist.' })
         : res.status(200).json({ deletedNoteCount });
     }
   } catch (error) {
-    console.log('the notes are... ', notes);
+    console.log('the req.params.noteId is... ', req.params.noteId);
+    console.log('the error is... ', error);
 
     res.status(500).json(error);
   }
@@ -62,15 +61,15 @@ router.put('/notes/edit/:noteId', async (req, res) => {
   }
 
   try {
-    const updatedNoteCount = await db('notes')
-      .where({ id: noteId })
-      .update(changes);
+    const updatedNoteCount = await db.update(noteId, changes);
     {
       updatedNoteCount === 0
         ? res.status(404).json({ message: 'The note with the specified ID does not exist.' })
         : res.status(200).json({ updatedNoteCount });
     }
   } catch (error) {
+    console.log('the req.params.noteId is... ', req.params.noteId);
+    console.log('the error is... ', error);
     res.status(500).json(error);
   }
 });

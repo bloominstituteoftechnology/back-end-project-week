@@ -39,7 +39,7 @@ server.get('/', (req, res) => {
 server.get('/notes', notesRouter);
 server.get('/notes/all', notesRouter);
 server.post('/notes/create', notesRouter);
-server.delete('/notes/delete', notesRouter);
-server.put('/notes/edit', notesRouter);
+server.delete('/notes/delete/:noteId', notesRouter);
+server.put('/notes/edit/:noteId', notesRouter);
 
 module.exports = server;
