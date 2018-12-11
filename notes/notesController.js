@@ -5,11 +5,11 @@ const db = knex(knexConfig.development);
 const notesControllers = {
   getNotes(req, res, next) {
     console.log('getNotes in controller ');
-    db("notes")
+    db("notes").limit(10).offset(30)
       .then(notes => {
         if (!notes.length) {
           console.log("notes.length = ", notes.length);
-          next();
+          next;
         }
         res.status(200).json(notes);
       })
