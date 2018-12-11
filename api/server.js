@@ -8,7 +8,7 @@ server.use(cors({ origin: 'http://localhost:3000' }));
 
 // R O O T
 server.get('/', (req, res) => {
-  res.send('This is the API root route.');
+  res.send('This is testing the deployed API');
 });
 
 // G E T   A L L   N O T E S
