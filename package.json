@@ -1,8 +1,30 @@
 {
   "dependencies": {
+    "bcrypt": "^3.0.2",
+    "cors": "^2.8.5",
     "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0",
     "knex": "^0.16.2",
     "lock": "^1.1.0",
     "sqlite3": "^4.0.4"
-  }
+  },
+  "name": "back-end-project-week",
+  "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
+  "version": "1.0.0",
+  "main": "knexfile.js",
+  "devDependencies": {},
+  "scripts": {
+    "server": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Thacker-E/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Thacker-E/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/Thacker-E/back-end-project-week#readme"
 }
