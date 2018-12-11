@@ -20,8 +20,8 @@ router.get('/notes/all/', async (req, res) => {
 router.post('/api/notes/', async (req, res) => {
   const NoteData = req.body;
   console.log(req.body);
-  if (!NoteData.title || !NoteData.content) {
-    res.status(422).json({ errorMessage: 'Please provide a title and/or content for your note.' });
+  if (!NoteData.title || !NoteData.textBody) {
+    res.status(422).json({ errorMessage: 'Please provide a title and/or textBody for your note.' });
   } else if (!db.findByTitle(NoteData.title)) {
     res.status(405).json({ errorMessage: 'Duplicate Note Titles Not Allowed' });
   } else {
