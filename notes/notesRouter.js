@@ -16,7 +16,7 @@ router.get("/notes", nc.getNotes);
 router.get("/notes/:id", nc.getANote);
 
 // add a new note
-router.post("/notes/add", nc.createNote);
+router.post("/addnote", nc.createNote);
 
 // edit a note
 router.put("/notes/:id", nc.editNote);

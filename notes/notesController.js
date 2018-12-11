@@ -54,9 +54,12 @@ const notesControllers = {
   try {
     const {id} = req.params;
     const editedNote = req.body;
+    console.log( "editedNote", editedNote);
+//    id = Number(id);
+// console.log( "why not this?", typeof id);
 
-    const editedID = await db("notes").where("notes.id", id).update(editedNote);
-   
+    const editedID = await db("notes").where("notes.id",id ).update(editedNote);
+    console.log( "editedID", editedID);
     editedID
     ? res.status(200).json(editedID)
     : res

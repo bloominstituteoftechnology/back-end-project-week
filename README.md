@@ -1,3 +1,9 @@
+Trello URL for the project
+https://trello.com/b/yTnJxCRl/lambda-notesbackend-edward-jeong
+
+Github URL for front-end part
+https://github.com/edjeong99/frontend-for-backendProjWeek
+
 # Back End Project Week
 
 This week you will build a backend for a note taking app called "Lambda Notes".
