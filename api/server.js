@@ -9,6 +9,10 @@ server.use(express.json());
 server.use(cors());
 server.use(helmet());
 
+server.get('/', async (req, res) => {
+  const notes = await db('notes');
+  res.status(200).json({ notes });
+});
 
 
 server.post('/note/create', async (req, res, next) => {
