@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { NoteListViewers, SingleNoteViewer } from "./views";
-import { EditView, CreateNewView, DeleteModal } from './components' ;
+import { EditView, CreateNewView, DeleteModal, Navigation } from './components' ;
 import "./App.css";
 
 import { Route } from 'react-router-dom';
@@ -16,6 +16,7 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
+        <Navigation />
         <div className='ListViewRouters'>
           <Route 
             exact path="/" 

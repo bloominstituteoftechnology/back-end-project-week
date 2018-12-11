@@ -1,17 +1,74 @@
+require('dotenv').config();
 const express = require('express');
 const knex = require('knex');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
 const knexConfig = require('../knexfile.js');
 const db = knex(knexConfig.development);
 const cors = require('cors');
 
-
-
 // Add middleware nameChecker
-const titleTextChecker = require('../middleware/titleTextChecker.js')
+const titleTextChecker = require('../middleware/titleTextChecker.js');
+const logInChecker = require('../middleware/logInChecker.js');
 
 const server = express();
 server.use(express.json());
 server.use(cors());
+
+
+function generateToken(user) {
+
+  const payload = {
+    userId: user.userId,
+    username: user.username,
+    department: 'product' // this will come from database
+  }
+  // const secret = 'anySecret($&*#$%#%#$%#$)';
+  const secret = process.env.JWT_SECRET; // added to .env file
+  const options = {
+    expiresIn: '1hr',
+  }
+  return jwt.sign(payload, secret, options); // take 3 arguments
+}
+
+server.post('/register', (req, res) => {
+  // 1. grab username and password from body
+  // 2. generate the hash from the user's password
+  // 3. override the user.password with the hash
+  // 4. save the user to the database
+  const creds = req.body;
+  const hash = bcrypt.hashSync(creds.password, 14)
+  creds.password = hash;
+  console.log(creds, hash)
+  db('users')
+    .insert(creds)
+    .then(ids => {
+      res.status(201).json({ user_id: ids[0]});
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(500).json({ message: 'Error inserting', err })
+    })
+})
+
+server.post('/login', (req, res) => {
+  const creds = req.body;
+
+  db('users')
+    .where({ username: creds.username })
+    .first()
+    .then(user => {
+      if (user && bcrypt.compareSync(creds.password, user.password) ) {
+        // user exists and password match
+        const token = generateToken(user)
+        res.status(200).json({ message: 'Logged in', user: user.username, token})
+      } else {
+        res.status(401).json({ message: 'Try logging in again.' });
+      }
+    })
+})
+
 
 
 // TABLE SCHEMA
@@ -29,7 +86,6 @@ server.use(cors());
 //  Get Note by id '/note/:id'
 //  Edit Note by id = '/note/edit/:id'
 //  Delete Note by id = '/note/delete/:id'
-
 
 // NOTES
 // POST: .insert() 

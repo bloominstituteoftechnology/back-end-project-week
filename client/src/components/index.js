@@ -5,3 +5,4 @@ export { default as EditView } from "./EditView";
 export { default as CreateNewView } from "./CreateNewView";
 export { default as DeleteModal } from "./DeleteModal";
 export { default as NoteView } from "./NoteView";
+export { default as Navigation } from "./Navigation";
