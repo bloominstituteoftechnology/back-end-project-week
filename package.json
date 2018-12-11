@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": ".\r This week you will build a backend for a note taking app called \"Lambda Notes\".",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "express": "^4.16.4"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
