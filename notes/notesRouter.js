@@ -25,7 +25,14 @@ async function getAllNotes(req, res) {
 
 async function getNoteById(req, res) {
     const id = req.params.id;
-    const note = await db('notes').where('id' , '=', id).first();
+    const user_id = req.decodedToken.id;
+
+    // const note = await db('notes').where('id' , '=', id).first();
+
+    const note = await db('notes')
+        .whereIn(['id', 'user_id'], [[id, user_id]])
+        .first();
+    
     if (!note) {
         res.status(400).json({error: "Error getting note or does not exist"});
         return;
@@ -42,7 +49,6 @@ async function createNote(req, res) {
         return;
     }
 
-
     const note = await db('notes').insert({...newNote, user_id: id});
     console.log(note);
 
@@ -52,6 +58,7 @@ async function createNote(req, res) {
 async function editNote(req, res) {
     const id = req.params.id;
     const newData = req.body;
+    const user_id = req.decodedToken.id;
 
     if (!newData && !newData.title && !newData.textBody && !newData.tags) {
         res.status(422).json({error: "Note Title or Note TextBody is required"});
@@ -59,7 +66,7 @@ async function editNote(req, res) {
     }
 
     const updatedNote = await db('notes')
-        .where('id', '=', id)
+        .whereIn(['id', 'user_id'], [[id, user_id]])
         .update({...newData});
     
     console.log(updatedNote);
@@ -75,7 +82,12 @@ async function editNote(req, res) {
 
 async function deleteNote(req, res) {
     const id = req.params.id;
-    await db('notes').where('id', '=', id).del();
+    const user_id = req.decodedToken.id;
+
+    
+    await db('notes')
+        .whereIn(['id', 'user_id'], [[id, user_id]])
+        .del();
 
     res.status(201).json({success: true});
 }
