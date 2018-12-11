@@ -1,0 +1,22 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": ".\r This week you will build a backend for a note taking app called \"Lambda Notes\".",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omaddoc/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/omaddoc/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/omaddoc/back-end-project-week#readme"
+}
