@@ -1,11 +1,55 @@
+const bcrypt = require('bcryptjs');
+const { authenticate, generateToken } = require('./middlewares.js');
 const db = require('../database/dbConfig.js');
 
 module.exports = server => {
-    server.get('/note/get/all', getNotes);
-    server.get('/note/get/:id', getOneNote);
-    server.post('/note/create', addNote);
-    server.delete('/note/delete/:id', deleteNote);
-    server.put('/note/edit/:id', editNote);
+    server.post('/note/register', register);
+    server.post('/note/login', login);
+    server.get('/note/get/all', authenticate, getNotes);
+    server.get('/note/get/:id', authenticate, getOneNote);
+    server.post('/note/create', authenticate, addNote);
+    server.delete('/note/delete/:id', authenticate, deleteNote);
+    server.put('/note/edit/:id', authenticate, editNote);
+};
+
+// REGISTER
+
+function register(req, res) {
+    const creds = req.body;
+    const hash = bcrypt.hashSync(creds.password, 13);
+    creds.password = hash;
+    db('users')
+        .where({ username: creds.username })
+        .insert(creds)
+        .then(user => {
+            console.log(creds);
+            // res.status(201).json(creds.username);
+            const token = generateToken(user);
+            res.status(201).json(token)
+        })
+        .catch(err => {
+            res.status(500).json({ message: `unable to join` })
+        });
+};
+
+// LOGIN 
+
+function login(req, res) {
+    const creds = req.body;
+    db('users')
+        .where({ username: creds.username })
+        .first()
+        .then(user => {
+            if (user && bcrypt.compareSync(creds.password, user.password)) {
+                const token = generateToken(user);
+                res.status(201).json(token)
+            } else {
+                res.status(401).json({ message: 'nope' })
+            }
+        })
+        .catch(err => {
+            res.status(500).json(err)
+        });
 };
 
 // GET ALL NOTES
@@ -70,7 +114,6 @@ function deleteNote(req, res) {
         });
 };
 
-
 // EDIT NOTE
 
 function editNote(req, res) {
@@ -80,7 +123,7 @@ function editNote(req, res) {
         .where({ id })
         .first()
         .update(changes)
-        .then(note  => {
+        .then(note => {
             console.log('note', note);
             note
                 ? res.status(200).json(changes)
