@@ -4,6 +4,7 @@ const db = knex(knexConfig.development);
 
 const notesControllers = {
   getNotes(req, res, next) {
+    console.log('getNotes in controller ');
     db("notes")
       .then(notes => {
         if (!notes.length) {
@@ -19,7 +20,7 @@ const notesControllers = {
     try {
       const noteID = req.params.id;
 
-      const selectedNote = await db("notes").where("notes.id", noteID);
+      const selectedNote = await db("notes").where("notes.id", noteID).limit(3);
 
       selectedNote.length
         ? res.status(200).json(selectedNote[0])
@@ -90,6 +91,42 @@ catch (err) {
 
 },
 
+ async  searchNote(req, res, next) {
+  
+//   const query = req.query.query;
+
+//   db('notes').where("notes.title", 'like', `%${query}%`)
+//     .orWhere("notes.textBody",'like', `%${query}%`)
+//   .then(notes => {
+//     if (!notes.length) {
+//       console.log("notes.length = ", notes.length);
+//       next();
+//     }
+//     res.status(200).json(notes);
+//   })
+//   .catch(() => next(new Error("Could not get Notes")));
+// },
+
+
+
+  try {
+    const query = req.query.query;
+
+    const queryNotes = await db('notes').where("notes.title", 'like', `%${query}%`)
+                        .orWhere("notes.textBody",'like', `%${query}%`);
+   console.log('in searchNote func  queryNotes = ', queryNotes);
+  
+   // queryNotes ? 
+    res.status(200).json(queryNotes)
+    // : res
+    //     .status(404)
+    //     .json({ errorMessage: "No matching note founded" });
+}
+catch (err) {
+  next(new Error("Could not search Notes"));
+  }
+
+},
 
 }
 module.exports = notesControllers;

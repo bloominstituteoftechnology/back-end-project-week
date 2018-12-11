@@ -24,6 +24,7 @@ router.put("/notes/:id", nc.editNote);
 // delete a note with the matching id
 router.delete("/notes/:id", nc.deleteNote);
 
-
+// return notes with the matching query
+router.get("/search", nc.searchNote);
 
 module.exports = router;
