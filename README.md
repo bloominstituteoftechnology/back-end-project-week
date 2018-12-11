@@ -1,6 +1,10 @@
 # Back End Project Week
 
+## Trello Link
 https://trello.com/invite/b/mCWGSVnP/20a754264d3aad0a4e233cbe15efb8d3/lambda-notesbackend-ryan-clausen
+
+## Front end Link
+https://naughty-hodgkin-767168.netlify.com/
 
 This week you will build a backend for a note taking app called "Lambda Notes".
 
