@@ -1,4 +1,5 @@
 const server= require('./api/server.js');
-server.listen(3300, ()=>{
-    console.log('alive at 3300')
+const port= process.env.PORT
+server.listen(port, ()=>{
+    console.log(`alive at ${port}`)
 })
