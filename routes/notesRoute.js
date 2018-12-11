@@ -21,12 +21,14 @@ router.get('/get/:id', (req, res) => {
 });
 
 router.post('/create', async (req, res) => {
-  const { title, body } = req.body;
-  if (title && body) {
+  const { title, textBody } = req.body;
+  const note = { title, textBody }
+  if (title && textBody) {
     try {
-      const id = await db('notes').insert(req.body);
+      const id = await db('notes').insert(note);
       res.status(201).json(id[0]);
     } catch (err) {
+      console.log(err) &&
       res.status(500).json({ message: 'The note could not be saved' });
     }
   } else {
