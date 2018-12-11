@@ -10,7 +10,7 @@ exports.up = function(knex, Promise) {
       .string('textBody')
       .notNullable();
     notes
-      .boolean('eediting')
+      .boolean('editing')
       .notNullable()
       .defaultTo(false);
   })

@@ -53,6 +53,20 @@ server.post('/api/notes', (req, res) => {
     })
 });
 
+server.delete('/api/notes/:id', (req, res) => {
+  const { id } = req.params;
+  db
+    .remove(id)
+    .then(count => {
+      res.status(201).json(count)
+    })
+    .catch(err => {
+      res.status(500).json({ error: err })
+    })
+})
+
+
+
 const port = 3300;
 server.listen(port, function() {
   console.log(`\n=== Server listening on port ${port} ===\n`);
