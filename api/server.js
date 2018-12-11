@@ -47,9 +47,7 @@ server.get('/api/notes/:noteId', (req, res) => {
       _id: noteId
     })
     .then(note => {
-      res.status(201).json({
-        note
-      });
+      res.status(201).json({note});
     })
     .catch(err => res.status(500).json(err));
 });
