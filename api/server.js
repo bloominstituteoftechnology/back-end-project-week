@@ -55,7 +55,23 @@ server.put('/note/edit/:id', async (req, res, next) => {
       res.status(404).json({ message: 'note not found', err });
     }
   } catch (err) {
-    next()
+    next();
+  }
+});
+
+server.delete('/note/delete/:id', async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const note = await db('notes')
+      .where({ id })
+      .del();
+    if (note) {
+      return res.status(200).json({ message: 'success' });
+    } else {
+      res.status(404).json({ message: 'note not found' });
+    }
+  } catch (err) {
+    next();
   }
 });
 
