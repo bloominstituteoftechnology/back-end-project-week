@@ -49,7 +49,7 @@ server.post("/api/notes", async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ message: "There was an error adding the zoo.", error });
+      .json({ message: "There was an error adding the note.", error });
   }
 });
 
