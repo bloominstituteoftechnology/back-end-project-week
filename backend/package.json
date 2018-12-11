@@ -5,7 +5,7 @@
   "scripts": {
     "test": "jest --watch --verbose",
     "server": "nodemon",
-    "start": "nodemon"
+    "start": "node index.js"
   },
   "license": "MIT",
   "dependencies": {
