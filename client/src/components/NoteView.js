@@ -7,7 +7,7 @@ class NoteView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            note: [],
+            note: {},
             modal: false,
             editing: false,
             editedTitle: '',

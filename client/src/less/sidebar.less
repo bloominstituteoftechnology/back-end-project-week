@@ -6,10 +6,11 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    color: @text;
+    color: white;
+    font-family: @titlefont;
 }
 
-.button {
+h4 {
     box-sizing: border-box;
     width: 250px;
     height: 60px;
@@ -21,8 +22,9 @@
     padding-top: 15px;
     font-size: 20px;
     text-decoration: none;
-    .button:hover {
-        text-decoration: none;
-        color: white;
-    }
+}
+h4:hover {
+    text-decoration: none;
+    background-color: @lighttext;
+    color: white;
 }

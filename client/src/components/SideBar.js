@@ -8,8 +8,8 @@ render(){
         <div className="side-bar">
             <h1>Lambda</h1>
             <h1>Notes</h1>
-            <Link to='/' className="button">View Notes</Link>
-            <Link to='/new-note' className="button">+ Create a Note</Link>
+            <Link to='/' className="button"><h4>View Notes</h4></Link>
+            <Link to='/new-note' className="button"><h4>+ Create a Note</h4></Link>
         </div>
     )
 }

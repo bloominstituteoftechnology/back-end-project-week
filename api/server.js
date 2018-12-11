@@ -32,6 +32,7 @@ server.get('/api/notes/:id', (req, res) => {
     const { id } = req.params;
     db('notes')
     .where({ id: id })
+    .first()
     .then(notes => res.status(200).json(notes))
     .catch(error => res.status(500).json({ message: "can't find note by that id"}))
 })

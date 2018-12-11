@@ -1,35 +1,43 @@
+@font-face {
+  font-family: 'Abel';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Abel Regular'), local('Abel-Regular'), url(https://fonts.gstatic.com/s/abel/v8/MwQ5bhbm2POE2V9BOA.ttf) format('truetype');
+}
 .side-bar {
   position: fixed;
-  background-color: #d3d2d3;
+  background-color: #c32361;
   border-right: 1px solid gray;
   padding: 20px;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  color: #424242;
+  color: white;
+  font-family: 'Abel', sans-serif;
 }
-.button {
+h4 {
   box-sizing: border-box;
   width: 250px;
   height: 60px;
   border: 1px solid gray;
   color: white;
-  background-color: #51c9cc;
+  background-color: #444444;
   margin: 10px 0px;
   text-align: center;
   padding-top: 15px;
   font-size: 20px;
   text-decoration: none;
 }
-.button .button:hover {
+h4:hover {
   text-decoration: none;
+  background-color: #9ba5a8;
   color: white;
 }
 .App {
   width: 90%;
   margin: 0 auto;
   display: flex;
-  background-color: #e0e0e0;
+  background-color: hsl(0, 100%, 99%);
   color: #424242;
 }
 .App .main-page-container {
@@ -102,7 +110,7 @@
   height: 60px;
   border: 1px solid gray;
   color: white;
-  background-color: #51c9cc;
+  background-color: #444444;
   margin: 10px 0px;
   text-align: center;
   font-size: 20px;
