@@ -10,13 +10,20 @@ class EditNote extends Component {
         content: ""
       }
     };
-    this.api = "https://lambda--notes.herokuapp.com/api/notes";
+    this.api = "http://localhost:9000/api/notes";
   }
 
   componentDidMount() {
+    const token = localStorage.getItem("token");
+    const options = {
+      headers: {
+        authentication: token,
+        id: localStorage.getItem("userID")
+      }
+    };
     const id = localStorage.getItem("noteID");
     console.log(id);
-    axios.get(`${this.api}/${id}`).then(
+    axios.get(`${this.api}/${id}`, options).then(
       res =>
         this.setState({
           editedNote: res.data
@@ -43,7 +50,7 @@ class EditNote extends Component {
         this.state.editedNote
       )
       .then(
-        this.props.handleEditNote,
+        this.props.handleEditNote(),
         this.props.history.push(`/notes/${localStorage.getItem("noteID")}`)
       );
   };

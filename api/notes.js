@@ -21,7 +21,12 @@ router.get("/:id", (req, res) => {
     .first()
     .where("notes.id", id)
     .then(note => {
-      res.status(200).json(note);
+      // res.status(200).json(note);
+      if (note.user_id == req.headers.id) {
+        res.status(200).json(note);
+      } else {
+        res.status(401).json({ error: "not auth" });
+      }
     })
     .catch(err => res.status(500).json(err));
 });

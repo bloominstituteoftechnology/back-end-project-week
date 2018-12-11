@@ -76,7 +76,14 @@ class App extends Component {
     });
   };
   handleEditNote = () => {
-    axios.get(this.api).then(res =>
+    const token = localStorage.getItem("token");
+    const options = {
+      headers: {
+        authentication: token,
+        id: localStorage.getItem("userID")
+      }
+    };
+    axios.get(this.api, options).then(res =>
       this.setState({
         notes: res.data
       })
