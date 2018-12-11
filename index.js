@@ -41,7 +41,7 @@ conf = {
         origin: function (origin, cb) {
  
             // setup a white list
-            let wl = ['http://localhost', 'http://192.168.254.42'];
+            let wl = ['http://localhost:3000', 'http://192.168.254.42:3000'];
  
             if (wl.indexOf(origin) != -1) {
  
