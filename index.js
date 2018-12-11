@@ -11,7 +11,7 @@ server.use(cors());
 server.use(express.json());
 server.use(helmet());
 
-server.get('https://troysapi.herokuapp.com/api', (req, res) => {
+server.get('https://troysapi.herokuapp.com/', (req, res) => {
     res.json({ api: 'Runnin' });
 });
 
