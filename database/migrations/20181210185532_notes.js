@@ -11,6 +11,12 @@ exports.up = function (knex, Promise) {
             .notNullable();
         tbl
             .string('tags');
+        tbl
+            .integer('users_id')
+            .unsigned()
+            .references('id')
+            .inTable('users')
+            .notNullable();
     })
 };
 
