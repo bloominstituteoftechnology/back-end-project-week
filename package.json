@@ -4,8 +4,7 @@
   "description": "https://trello.com/invite/b/bOILTso8/30a0e92e99292cdfb413485f63839e2f/back-end-project",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -26,5 +25,8 @@
   },
   "devDependencies": {
     "nodemon": "^1.18.7"
+  },
+  "engines": {
+    "node": "8.11.4"
   }
 }
