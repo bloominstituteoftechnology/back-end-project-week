@@ -55,8 +55,11 @@ server.post('/api/notes', (req, res) => {
 
 server.delete('/api/notes/:id', (req, res) => {
   const { id } = req.params;
-  db
-    .remove(id)
+  console.log(id);
+  db('notes')
+    .where({ id })
+    .del(id)
+    .get("http://localhost:3300/api/notes")
     .then(count => {
       res.status(201).json(count)
     })
@@ -65,6 +68,19 @@ server.delete('/api/notes/:id', (req, res) => {
     })
 })
 
+server.put('/api/notes/:id', (req, res) => {
+  const { id } = req.params;
+  const updatedNote = req.body;
+  db
+    .where({ id })
+    .update(id, updatedNote)
+    .then(updatedNote => {
+      res.status(201).json({ "Note Updated": updatedNote })
+    })
+    .catch(err => {
+      res.send(err);
+    })
+})
 
 
 const port = 3300;
