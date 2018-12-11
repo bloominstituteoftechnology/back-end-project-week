@@ -3,6 +3,7 @@ const db = require('../dbConfig.js');
 const bcrypt = require('bcryptjs');
 
 module.exports = {
+    getUser,
     getUsers,
     registerUser
 };
@@ -10,6 +11,12 @@ module.exports = {
 // return all users in database
 function getUsers() {
     return db('users');
+};
+
+// return user by id
+async function getUser(id) {
+    return db('users')
+        .where({ id: id });
 };
 
 // registers new user if valid, returns new id

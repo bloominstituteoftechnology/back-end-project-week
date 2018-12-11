@@ -37,6 +37,27 @@ router.get('', (req, res) => {
         });
 });
 
+// [GET] /api/users/:id/notes
+router.get('/:id/notes', async (req, res) => {
+    const user_id = req.params.id;
+    try {
+        const notes = await notesDb.getNotes(user_id);
+
+        if (notes.length) {
+            res.status(200).json(notes);
+        } else {
+            const checkUser = await usersDb.getUser(user_id);
+            if (checkUser.length) {
+                res.status(200).json({ code: 1, message: 'No notes in database' });
+            } else {
+                res.status(404).json({ code: 4, message: 'User does not exist' });
+            }
+        }
+    } catch (err) {
+        res.status(500).json({ code: 3, message: 'Error retrieving notes' });
+    };
+});
+
 // [POST] /api/users/register
 router.post('/register', (req, res) => {
     const newUser = req.body;
@@ -57,18 +78,53 @@ router.post('/register', (req, res) => {
 router.post('/:id/newNote', (req, res) => {
     const user_id = req.params.id;
     const newNote = req.body;
+    let valid = true;
 
-    notesDb.addNote(newNote, user_id)
-        .then(id => {
-            res.status(201).json(id);
-        })
-        .catch(err => {
-            if (err.errno === 1 && err.code === 'SQLITE_ERROR') {
-                res.status(404).json({ message: 'User not found' });
-            } else {
-                res.status(500).json(err);
-            }
-        });
+    // validate post request format
+    Object.getOwnPropertyNames(newNote).forEach(key => {
+        switch (key) {
+            case 'title':
+                if (typeof newNote[key] !== 'string' || newNote[key] === '') {
+                    valid = false;
+                };
+                break;
+            case 'textBody':
+                if (typeof newNote[key] !== 'string') {
+                    valid = false;
+                };
+                break;
+            case 'tags':
+                if (!Array.isArray(newNote[key])) {
+                    valid = false;
+                    break;
+                } else {
+                    if (!newNote[key].every(element => typeof element === 'string' || typeof element === 'number')) {
+                        valid = false;
+                        break;
+                    };
+                    newNote.tags = newNote.tags.join(',');
+                    break;
+                }
+            default:
+                break;
+        }
+    });
+
+    if (valid) {
+        notesDb.addNote(newNote, user_id)
+            .then(id => {
+                res.status(201).json(id);
+            })
+            .catch(err => {
+                if (err.errno === 19 && err.code === 'SQLITE_CONSTRAINT') {
+                    res.status(404).json({ code: 4, message: 'User not found' });
+                } else {
+                    res.status(500).json({ code: 3, message: 'Error creating note' });
+                }
+            });
+    } else {
+        res.status(400).json({ code: 5, message: 'Request formatted incorrectly' });
+    }
 });
 
 module.exports = router;
