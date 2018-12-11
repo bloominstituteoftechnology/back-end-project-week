@@ -1,6 +1,8 @@
 const notes = require('../data/notesModel.js')
 const express = require('express')
 const server = express()
+const cors = require('cors')
+server.use(cors({ origin: 'http://localhost:8080', credentials: true }))
 server.use(express.json())
 
 server.get('/', (req, res) => {
@@ -33,8 +35,9 @@ server.post('/notes', (req, res) => {
 
 server.put('/notes/:id', (req, res) => {
     const { id } = req.params
+    const { title, content } = req.body
     if (title && content) {
-        notes.update(req.body, id)
+        notes.update(id, req.body)
         .then(result => result ? res.status(200).json(result) : res.status(500).json({ message: 'No note updated.' }))
         .catch(err => res.status(500).json(err))
     }  else {
