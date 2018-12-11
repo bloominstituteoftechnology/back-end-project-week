@@ -2,7 +2,6 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://riley.gg/lambda/lambda-notes",
   "dependencies": {
     "axios": "^0.18.0",
     "react": "^16.6.3",
@@ -16,7 +15,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://lambda--notes.herokuapp.com/",
   "eslintConfig": {
     "extends": "react-app"
   },

@@ -10,6 +10,7 @@ class NoteForm extends Component {
         title: ""
       }
     };
+    this.api = "https://lambda--notes.herokuapp.com/api/notes";
   }
   handleNoteFormChange = e => {
     this.setState({
@@ -22,9 +23,7 @@ class NoteForm extends Component {
 
   addNewNote = e => {
     e.preventDefault();
-    axios
-      .post("https://lambda--notes.herokuapp.com/api/notes", this.state.newNote)
-      .then(this.props.handleAddNewNote);
+    axios.post(this.api, this.state.newNote).then(this.props.handleAddNewNote);
 
     this.props.history.push("/");
   };

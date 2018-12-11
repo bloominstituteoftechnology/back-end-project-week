@@ -8,12 +8,13 @@ class SingleNote extends Component {
       note: {},
       deleteMenuToggle: false
     };
+    this.api = "https://lambda--notes.herokuapp.com/api/notes";
   }
 
   componentDidMount() {
     const id = localStorage.getItem("noteID");
     console.log(id);
-    axios.get(`https://lambda--notes.herokuapp.com/api/notes/${id}`).then(res =>
+    axios.get(`${this.api}/${id}`).then(res =>
       this.setState({
         note: res.data
       })
@@ -22,7 +23,7 @@ class SingleNote extends Component {
   componentWillReceiveProps() {
     const id = localStorage.getItem("noteID");
     console.log(id);
-    axios.get(`https://lambda--notes.herokuapp.com/api/notes/${id}`).then(res =>
+    axios.get(`${this.api}/${id}`).then(res =>
       this.setState({
         note: res.data
       })
@@ -31,11 +32,7 @@ class SingleNote extends Component {
 
   handleDeleteNote = () => {
     axios
-      .delete(
-        `https://lambda--notes.herokuapp.com/api/notes/${localStorage.getItem(
-          "noteID"
-        )}`
-      )
+      .delete(`${this.api}/${localStorage.getItem("noteID")}`)
       .then(this.props.handleDeleteNote, this.props.history.push("/"));
   };
 
