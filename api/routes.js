@@ -40,10 +40,10 @@ const editNote = (req, res) => {
     const changes = req.body;
     const { id } = req.params;
     db('notes')
-        .where({ id: id})
+        .where({ id: id })
         .update(changes)
         .then(count => res.status(200).json({ count }))
-        .catch(err => res.status(500).json({ message: 'Error editing note' }))
+        .catch(err => res.status(500).json({ error: err.message }))
 };
 
 const deleteNote = (req, res) => {
