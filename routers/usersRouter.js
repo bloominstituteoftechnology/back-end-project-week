@@ -30,11 +30,31 @@ const generateToken = user => {
 router.get('', (req, res) => {
     usersDb.getUsers()
         .then(users => {
-            res.status(200).json(users);
+            if (users.length) {
+                res.status(200).json(user);
+            } else {
+                res.status(404).json({ code: 9, message: 'No users in database' });
+            }
         })
         .catch(err => {
-            res.status(500).json({ message: 'Error retrieving users' });
+            res.status(500).json({ code: 3, message: 'Error retrieving users' });
         });
+});
+
+// [GET] /api/users/:id
+router.get('/:id', (req, res) => {
+    const userId = req.params.id;
+    usersDb.getUser(userId)
+        .then(user => {
+            if (user.length) {
+                res.status(200).json(user);
+            } else {
+                res.status(404).json({ code: 4, message: 'User does not exist' });
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ code: 3, message: 'Error retrieving user' });
+        })
 });
 
 // [GET] /api/users/:id/notes
@@ -61,17 +81,25 @@ router.get('/:id/notes', async (req, res) => {
 // [POST] /api/users/register
 router.post('/register', (req, res) => {
     const newUser = req.body;
-    usersDb.registerUser(newUser)
-        .then(id => {
-            res.status(201).json(id);
-        })
-        .catch(err => {
-            if (err.errno === 19 && err.code === 'SQLITE_CONSTRAINT') {
-                res.status(409).json({ message: 'Username already exists' });
-            } else {
-                res.status(500).json({ message: 'Error registering new user' });
-            }
-        })
+    if (typeof newUser.username === 'string' && typeof newUser.password === 'string') {
+        if (usersDb.availableUsername(newUser.username)) {
+            usersDb.registerUser(newUser)
+                .then(id => {
+                    res.status(201).json(id);
+                })
+                .catch(err => {
+                    if (err.errno === 19 && err.code === 'SQLITE_CONSTRAINT') {
+                        res.status(409).json({ code: 10, message: 'Username already exists' });
+                    } else {
+                        res.status(500).json({ message: 'Error registering new user' });
+                    }
+                })
+        } else {
+            res.status(409).json({ code: 10, message: 'Username already exists' })
+        }
+    } else {
+        res.status(400).json({ code: 5, message: 'Request formatted incorrectly' });
+    }
 });
 
 // [POST] /api/users/:id/newNote

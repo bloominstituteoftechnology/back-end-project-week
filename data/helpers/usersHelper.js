@@ -5,18 +5,21 @@ const bcrypt = require('bcryptjs');
 module.exports = {
     getUser,
     getUsers,
-    registerUser
+    registerUser,
+    availableUsername
 };
 
 // return all users in database
 function getUsers() {
-    return db('users');
+    return db('users')
+        .select('id', 'username');
 };
 
 // return user by id
-async function getUser(id) {
+function getUser(id) {
     return db('users')
-        .where({ id: id });
+        .where({ id: id })
+        .select('id', 'username');;
 };
 
 // registers new user if valid, returns new id
@@ -30,4 +33,18 @@ function registerUser(user) {
     return db('users')
         .insert(newUser)
         .then(id => { return { id: id[0] }});
+};
+
+// true if username is not in database
+function availableUsername(name) {
+    name = name.toLowerCase();
+    return db('users')
+        .where({ username: name })
+        .then(result => {
+            if(result.length){
+                return false;
+            } else {
+                return true;
+            }
+        });
 };
