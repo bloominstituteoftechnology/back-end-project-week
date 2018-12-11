@@ -8,6 +8,8 @@ const knexConfig = require("./knexfile.js");
 const db = knex(knexConfig.development);
 
 const server = express();
+const cors = require('cors');
+server.use(cors());
 
 server.use(express.json())
 
@@ -26,7 +28,7 @@ server.get("/api/notes", (req, res) => {
       .catch(error => {
         res
           .status(500)
-          .json({ error: "The Notes Could Not Be Retrieved " });
+          .json({ error: "The Notes Could Not Be Retrieved" });
       });
   });
 
