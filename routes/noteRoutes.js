@@ -2,9 +2,10 @@ const express = require("express");
 const route = express.Router();
 const noteHelp = require("../data/helpers/noteHelpers.js");
 const db = require("../data/dbConfig.js");
+const {authenticate} = require('../middlewares/custom-middlewares.js')
 
 // Endpoint for getting entire array of notes
-route.get("/", (req, res) => {
+route.get("/", authenticate, (req, res) => {
   noteHelp
     .get()
     .then(posts => {
