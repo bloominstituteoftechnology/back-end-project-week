@@ -9,6 +9,7 @@ const login = require("../routes/login");
 
 module.exports = server => {
   server.use(cors({ origin: ["http://localhost:3000"], credentials: true }));
+  server.disable("etag");
   server.use(express.json());
   server.use(helmet());
   server.use(logger("dev"));
