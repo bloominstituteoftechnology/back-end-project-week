@@ -51,14 +51,14 @@ router.post("/", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    let note = db.find(id);
-    let deleteNote = await db.remove(id);
-    let updatedArray = await db.find();
+    let note = await db.find(id);
     if (!note) {
       res
         .status(404)
         .json({ message: "The note with the specified ID does not exist." });
     }
+    await db.remove(id);
+    let updatedArray = await db.find();
     return res.status(200).json({
       notes: updatedArray,
       message: "successfully deleted"
@@ -95,15 +95,6 @@ router.put("/:id", async (req, res) => {
   } catch (err) {
     res.status(500).json(err.message);
   }
-  // db.update(id, note)
-  //   .then(res.status(200))
-  //   .catch(err => {
-  //     res.status(500).json(err.message);
-  //   });
-
-  // db.find().then(notes => {
-  //   res.status(200).json(notes);
-  // });
 });
 
 module.exports = router;
