@@ -4,6 +4,10 @@ exports.up = function(knex, Promise) {
     tbl.string("title", 255).notNullable();
     tbl.string("content");
     tbl.timestamps(true, true);
+    tbl
+      .integer("user_id")
+      .references("id")
+      .inTable("users");
   });
 };
 

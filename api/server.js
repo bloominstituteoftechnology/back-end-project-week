@@ -9,6 +9,9 @@ const db = knex(knexConfig.development);
 
 /* ===== Route Imports ===== */
 const notes = require("./notes");
+const register = require("./register");
+const login = require("./login");
+const users = require("./users");
 /* ===== Server setup ===== */
 const server = express();
 
@@ -20,6 +23,16 @@ server.get("/", (req, res) => {
   res.json({ api: "up" });
 });
 
+/* ===== Notes Route ===== */
 server.use("/api/notes", notes);
+
+/* ===== Register Route ===== */
+server.use("/api/register", register);
+
+/* ===== Users Route ===== */
+server.use("/api/users", users);
+
+/* ===== Login Route ===== */
+server.use("/api/login", login);
 
 module.exports = server;
