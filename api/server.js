@@ -2,6 +2,7 @@ const express = require('express');
 const knex = require('knex');
 const knexConfig = require('../knexfile.js');
 const db = knex(knexConfig.development);
+const cors = require('cors');
 
 
 
@@ -10,6 +11,7 @@ const titleTextChecker = require('../middleware/titleTextChecker.js')
 
 const server = express();
 server.use(express.json());
+server.use(cors());
 
 
 // TABLE SCHEMA

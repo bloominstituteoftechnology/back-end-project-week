@@ -18,7 +18,8 @@ export const SINGLE_NOTE = 'SINGLE_NOTE';
 
 
 // const url = 'https://fe-notes.herokuapp.com/note/'
-const url = 'https://lambda-notes-backend-kf.herokuapp.com/note'
+// const url = 'https://lambda-notes-backend-kf.herokuapp.com/note'
+const url = 'http://localhost:5001/note/' // use http without s
 
 export const getNotes = () => dispatch => {
   dispatch({ type: FETCH_NOTES })
@@ -31,6 +32,7 @@ export const getNotes = () => dispatch => {
       })
     })
     .catch(error => {
+      console.dir(error)
       dispatch({
         type: ERROR,
         payload: error
@@ -58,7 +60,7 @@ export const getSingleNote = id => dispatch => {
 
 export const addNote = note => dispatch => {
   axios
-    .post(`${url}create`, note)
+    .post(`${url}add`, note) // changed from create to add
     .then(response => {
       dispatch({
         type: ADD_NOTE_SUCCESS,
