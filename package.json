@@ -3,5 +3,23 @@
     "version": "1.0.0",
     "scripts": {
       "postinstall": "npm install --prefix backend"
-    }
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^4.16.4",
+        "knex": "^0.16.2",
+        "sqlite3": "^4.0.4"
+      },
+      "devDependencies": {
+        "jest": "^23.6.0",
+        "nodemon": "^1.18.7",
+        "supertest": "^3.3.0"
+      },
+      "jest": {
+        "testEnvironment": "node"
+      },
+      "engines": {
+        "node": "10.0.0",
+        "npm": "5.6.0"
+      }
 }
