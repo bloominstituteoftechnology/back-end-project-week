@@ -34,12 +34,12 @@ router.post('/notes/create', async (req, res) => {
   }
 });
 
-router.delete('/notes/delete', async (req, res) => {
-  const { noteID } = req.params;
+router.delete('/notes/delete/:noteId', async (req, res) => {
+  const { noteId } = req.params;
 
   try {
     const deletedNoteCount = await db('notes')
-      .where({ id: noteID })
+      .where({ id: noteId })
       .del();
     {
       deletedNoteCount === 0
@@ -47,11 +47,13 @@ router.delete('/notes/delete', async (req, res) => {
         : res.status(200).json({ deletedNoteCount });
     }
   } catch (error) {
+    console.log('the notes are... ', notes);
+
     res.status(500).json(error);
   }
 });
 
-router.put('/notes/edit', async (req, res) => {
+router.put('/notes/edit/:noteId', async (req, res) => {
   const changes = req.body;
   const { noteId } = req.params;
 
