@@ -46,8 +46,9 @@ server.get('/api/notes/:noteId', (req, res) => {
     .where({
       _id: noteId
     })
+    .first()
     .then(note => {
-      res.status(201).json(note);
+      res.status(200).json(note);
     })
     .catch(err => res.status(500).json(err));
 });
