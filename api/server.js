@@ -12,8 +12,8 @@ server.get('/', (req, res) => {
 });
 
 //Notes Methods
-server.get('/api', notesRouter);
-server.get('/api/notes', notesRouter);
+server.get('/notes', notesRouter);
+server.get('/notes/all', notesRouter);
 // server.post('/api/games', notesRouter);
 
 module.exports = server;

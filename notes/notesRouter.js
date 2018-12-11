@@ -3,13 +3,14 @@ const router = express.Router();
 const db = require('./notesModel');
 
 // Notes endpoints
-router.get('/api/', (req, res) => {
-  res.status(200).send('Server Listens and Obeys or Does it???');
+router.get('/notes/', (req, res) => {
+  res.status(200).send('Server Listens and Obeys or WTFDoes it???');
 });
 
-router.get('/api/notes/all', async (req, res) => {
+router.get('/notes/all/', async (req, res) => {
   try {
     const notes = await db.getAll();
+    console.log('the notes are... ', notes);
     res.status(200).json(notes);
   } catch (error) {
     res.status(500).json({ error: 'There was an error while getting the notes. The error is ', error });
