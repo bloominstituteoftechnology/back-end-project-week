@@ -13,7 +13,7 @@ module.exports = server => {
     server.post('/api/postnotes', authenticate, postNote);
     server.put('/api/notes/:id', authenticate, updateNote);
     server.delete('/api/notes/:id', authenticate, deleteNote);
-    server.post('/api/notes/:id', authenticate, viewNote)
+    server.post('/api/notes/:id', viewNote)
 }
 
 function register(req, res) {
@@ -119,8 +119,10 @@ function viewNote(req, res) {
 
     db('notes')
         .where({id: id})
-        .then(res => {
-            res.status(200).json(res)
+        .first()
+        .then(note => {
+            console.log(note)
+            res.status(200).json(note)
         })
         .catch(err => {
             res.status(500).json({message: 'Error fetching note'})
