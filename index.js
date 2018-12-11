@@ -12,7 +12,7 @@ conf = {
     // look for PORT environment variable,
     // else look for CLI argument,
     // else use hard coded value for port 8080
-    port: 3000,
+    port: 3500,
  
     // origin undefined handler
     // see https://github.com/expressjs/cors/issues/71
