@@ -14,6 +14,20 @@ server.get('/', async (req, res) => {
   res.status(200).json({ notes });
 });
 
+server.get('/note/get/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const project = await db('notes')
+      .where('notes.id', '=', id)
+      .first();
+
+    if (project) {
+      return res.status(200).json(project);
+    } else {
+      return res.status(404).json({ message: 'note not found', err });
+    }
+  } catch (err) {}
+});
 
 server.post('/note/create', async (req, res, next) => {
   if (!req.body.title || !req.body.textBody) {
@@ -38,7 +52,5 @@ server.use((err, req, res, next) => {
       return res.statsu(500).json(err.message);
   }
 });
-
-module.exports = server;
 
 module.exports = server;
