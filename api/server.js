@@ -17,12 +17,12 @@ server.get('/', async (req, res) => {
 server.get('/note/get/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    const project = await db('notes')
+    const note = await db('notes')
       .where('notes.id', '=', id)
       .first();
 
-    if (project) {
-      return res.status(200).json(project);
+    if (note) {
+      return res.status(200).json(note);
     } else {
       return res.status(404).json({ message: 'note not found', err });
     }
@@ -39,6 +39,23 @@ server.post('/note/create', async (req, res, next) => {
     return res.status(200).json(notes);
   } catch (err) {
     next();
+  }
+});
+
+server.put('/note/edit/:id', async (req, res, next) => {
+  const { id } = req.params;
+  const changes = req.body;
+  try {
+    const note = await db('notes')
+      .where({ id })
+      .update(changes);
+    if (note) {
+      return res.status(200).json(note);
+    } else {
+      res.status(404).json({ message: 'note not found', err });
+    }
+  } catch (err) {
+    next()
   }
 });
 
