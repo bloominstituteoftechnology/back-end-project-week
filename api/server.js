@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 
+const db = require('../data/dbConfig');
 const server = express();
 
 server.use(express.json());
@@ -9,5 +10,31 @@ server.use(cors());
 server.use(helmet());
 
 
+
+server.post('/note/create', async (req, res, next) => {
+  if (!req.body.title || !req.body.textBody) {
+    next(Error('CONTENT_REQUIRED'));
+  }
+  const note = req.body;
+  try {
+    const notes = await db('notes').insert(note);
+    return res.status(200).json(notes);
+  } catch (err) {
+    next();
+  }
+});
+
+server.use((err, req, res, next) => {
+  switch (err.message) {
+    case 'CONTENT_REQUIRED':
+      return res
+        .status(400)
+        .json({ message: 'please include title and note body' });
+    default:
+      return res.statsu(500).json(err.message);
+  }
+});
+
+module.exports = server;
 
 module.exports = server;
