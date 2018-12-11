@@ -28,7 +28,7 @@ server.get("/notes", (req, res) => {
 });
 
 server.post("/addNote", (req, res) => {
-  const { title, content } = req.body;
+  const { title, content, id } = req.body;
   const note = { title, content };
 
   if (!note) {
@@ -41,7 +41,8 @@ server.post("/addNote", (req, res) => {
     .then(ids => {
       res.status(201).json({
         title: note.title,
-        content: note.content
+        content: note.content,
+        id: ids[0]
       });
     })
     .catch(error => {
