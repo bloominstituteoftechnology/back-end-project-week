@@ -1,0 +1,43 @@
+.Fieldwrap {
+    margin-top : 20px;
+    margin-left: 30px;  
+}
+
+.pass{
+    margin-left : 10px;
+}
+
+.Formdiv{
+    background: #13232f;
+    padding: 30px;
+    max-width:600px;
+    margin:40px auto;
+    border-radius: 6px;
+    box-shadow:0 4px 10px 4px #13232f;
+    font-family: 'Titillium Web', sans-serif;
+    color : white;
+    margin-top: 150px;
+}
+
+.Formdiv h1 {
+    text-align: center;
+}
+
+input {
+    width: 65%;
+    height: 30px;
+    border-radius: 4px;
+    justify-content: center;
+    align-items: center;
+    padding : 5px;
+}
+
+.login-register{
+    display : inline-flex;
+    margin-left: 100px;
+    margin-top : 20px;
+}
+
+.login-register button {
+    width : 170px;
+}

@@ -23,7 +23,6 @@ class CreateNewNote extends React.Component {
         this.setState({title : '', content : ''});
         axios
             .post('http://localhost:3300/api/notes', newNote )             
-
             .then(response => this.props.history.push('/notes'))
             .catch(err => console.log("ERROR : ",err)) 
     }

@@ -6,6 +6,9 @@ import CreateNewNote from './Components/CreateNewNote';
 import SingleNoteExpand from './Components/SingleNoteExpand';
 import DeleteNote from './Components/DeleteNote';
 import EditNote from './Components/EditNote';
+import Authenticate from './Authenticate/Authenticate.js';
+import Register from './Authenticate/Register.js';
+
 
 
 import './App.css';
@@ -26,10 +29,11 @@ class App extends Component {
           <Route exact path = '/notes/delete/:id' component = {DeleteNote } />   
           
           <Route exact path = '/notes/edit/:id'  component = {EditNote}  />
+
       </div>
     );
   }
 }
 
-export default App;
+export default Authenticate(App);
 

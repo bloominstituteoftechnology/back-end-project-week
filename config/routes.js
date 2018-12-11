@@ -30,7 +30,6 @@ function getNotes(req, res) {
              })
             .catch(error => {
                 response.status(500).json({error : 'The notes data could not be retrieved'})
-
             })
 }
 
