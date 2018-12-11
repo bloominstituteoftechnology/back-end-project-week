@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "test": "jest --watch --verbose --runInBand",
-    "server": "nodemon"
+    "server": "nodemon",
+    "start": "node index.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
