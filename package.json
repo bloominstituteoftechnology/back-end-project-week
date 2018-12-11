@@ -1,6 +1,10 @@
 {
   "name": "back-end-project-week",
   "version": "1.0.0",
+  "engines": {
+    "node": "11.1.0",
+    "npm": "6.4.1"
+  },
   "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
   "main": "index.js",
   "scripts": {
@@ -29,8 +33,5 @@
     "nodemon": "^1.18.8",
     "sqlite3": "^4.0.4"
   },
-  "devDependencies": {},
-  "engines": {
-    "node": "11.1.0"
-  }
+  "devDependencies": {}
 }
