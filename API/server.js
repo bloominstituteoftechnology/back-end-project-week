@@ -51,9 +51,6 @@ server.put("/api/notes/:id", (req, res) => {
     .then(note => {
       res.status(200).json(note);
     })
-    .then(note => {
-      res.send(note);
-    })
     .catch(err => {
       res.status(500).json({ error: err });
     });
