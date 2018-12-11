@@ -2,8 +2,8 @@ const notes = require('../data/notesModel.js')
 const express = require('express')
 const server = express()
 const cors = require('cors')
-// server.use(cors({ origin: 'http://lolahef.surge.sh/', credentials: true }))
-server.use(cors())
+server.use(cors({ origin: 'http://localhost:8080', credentials: true }))
+// server.use(cors())
 server.use(express.json())
 
 server.get('/', (req, res) => {
