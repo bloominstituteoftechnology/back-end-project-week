@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
+import {withRouter} from 'react-router';
 import axios from 'axios';
 import SideBar from './components/SideBar';
 import NoteForm from './components/NoteForm';
 import Notes from './components/Notes';
 import NoteView from './components/NoteView';
+import LogIn from './components/LogIn';
+import Register from './components/Register';
 
 
 
@@ -15,7 +18,30 @@ class App extends Component {
       notes: [],
       title: '',
       textBody: '',
-      user_id: 1
+      user_id: 1,
+      loggedIn: false,
+      users: []
+    }
+  }
+
+  
+
+  authenticate = () => {
+    const token = localStorage.getItem('secret_token');
+    const options = {
+      headers: {
+        authorization: token
+      }
+    }
+    if(token) {
+      axios
+      .get('http://localhost:8000/api/notes')
+      .then(response => 
+        this.setState({ notes: response.data }))
+      .catch(error => console.log(error));
+      this.props.history.push('/login');
+    } else {
+      this.props.history.push('/login');
     }
   }
 
@@ -24,19 +50,24 @@ class App extends Component {
   };
 
   componentDidMount() {
-    axios
-    .get('http://localhost:8000/api/notes')
-    .then(response => 
-      this.setState({ notes: response.data }))
-    .catch(error => console.log(error));
+    this.authenticate();
+    // axios
+    // .get('http://localhost:8000/api/notes')
+    // .then(response => 
+    //   this.setState({ notes: response.data }))
+    // .catch(error => console.log(error));
   }
 
-componentDidUpdate() {
-  axios
-  .get('http://localhost:8000/api/notes')
-  .then(response => 
-    this.setState({ notes: response.data }))
-  .catch(error => console.log(error));
+componentDidUpdate(prevProps) {
+  const {pathname} = this.props.location;
+  if (pathname === '/' && pathname !== prevProps.location.pathname) {
+    this.authenticate();
+  }
+  // axios
+  // .get('http://localhost:8000/api/notes')
+  // .then(response => 
+  //   this.setState({ notes: response.data }))
+  // .catch(error => console.log(error));
 }
 
 
@@ -70,6 +101,18 @@ componentDidUpdate() {
         render = {props => (
           <NoteView {...props}/>
         )}/>
+
+        <Route
+        path = '/login'
+        render = {props => (
+          <LogIn {...props}/>
+        )}/>
+
+        <Route
+        path = '/register'
+        render = {props => (
+          <Register {...props}/>
+        )}/>
         </div>
 
       </div>
@@ -77,4 +120,4 @@ componentDidUpdate() {
   }
 }
 
-export default App;
+export default withRouter(App);
