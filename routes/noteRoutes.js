@@ -17,7 +17,7 @@ route.get("/", authenticate, (req, res) => {
 });
 
 // Endpoint for getting single note
-route.get("/:id", (req, res) => {
+route.get("/:id", authenticate, (req, res) => {
   const { id } = req.params;
   noteHelp
     .get(id)
@@ -39,7 +39,7 @@ route.get("/:id", (req, res) => {
 });
 
 
-//Endpoint for adding a note note
+//Endpoint for adding a note
 
 route.post("/", (req, res) => {
 const { title, textBody } = req.body;
