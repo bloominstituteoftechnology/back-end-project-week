@@ -69,6 +69,8 @@ router.delete('/:id', async (req, res) => {
     const count = await db.remove(id);
     if (count) {
       res.status(200).json({ message: 'Note was successfully removed.' });
+    } else {
+      res.status(404).json({ message: "That note doesn't exist." });
     }
   } catch (error) {
     res.status(500).json({ error: 'There was a problem deleting that note.' });
