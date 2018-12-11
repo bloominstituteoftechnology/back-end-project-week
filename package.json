@@ -4,7 +4,8 @@
   "description": ".\r This week you will build a backend for a note taking app called \"Lambda Notes\".",
   "main": "index.js",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "knex": "^0.16.2"
   },
   "devDependencies": {},
   "scripts": {
