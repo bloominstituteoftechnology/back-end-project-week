@@ -71,6 +71,6 @@ server.delete('/api/notes/:id', (req, res) => {
 
 
 const port = 7777;
-server.listen(port, function() {
+server.listen(process.env.PORT || port, function() {
     console.log(`\n=== Web Api Listening @ http://localhost:${port} ===\n`);
 })
