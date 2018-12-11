@@ -53,14 +53,22 @@ describe('note helpers', () => {
   });
   describe('update()', () => {
     it('should be a function', () => {
-      expect(typeof notes.insert).toBe('function');
+      expect(typeof notes.update).toBe('function');
     });
-    // it('should return int', async () => {
-    //   let changes = await notes.update({
-    //     id: 1,
-    //     title: 'updated title'
-    //   });
-    //   expect(changes).toBe(0);
-    // });
+    it('should return updated object', async () => {
+      let id = 1;
+      let changes = { title: 'updated title' };
+      const updatedNote = await notes.update(changes, id);
+      expect(updatedNote.title).toEqual('updated title');
+    });
+  });
+  describe('remove()', () => {
+    it('should be a function', () => {
+      expect(typeof notes.remove).toBe('function');
+    });
+    it('should return a count of 1', async () => {
+      const count = await notes.remove(1);
+      expect(count).toBe(1);
+    });
   });
 });

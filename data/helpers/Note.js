@@ -11,18 +11,40 @@ function get(id) {
 }
 
 async function insert(note) {
-  const [id] = await db('notes').insert(note, 'id');
-  return get(id);
+  try {
+    const [id] = await db('notes').insert(note, 'id');
+    return get(id);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-function update(changes) {
-  // const updated = await db('notes').where({id: changes.id}).update(changes.title)
-  // return updated
+async function update(changes, id) {
+  try {
+    await db('notes')
+      .where({ id })
+      .update(changes);
+    return get(id);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function remove(id) {
+  try {
+    const count = await db('notes')
+      .where({ id })
+      .del();
+    return count;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 module.exports = {
   getAll,
   get,
   insert,
-  update
+  update,
+  remove
 };

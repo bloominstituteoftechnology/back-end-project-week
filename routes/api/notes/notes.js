@@ -8,7 +8,9 @@ router.get('/', async (req, res) => {
     const notes = await db.getAll();
     return res.status(200).json(notes);
   } catch (error) {
-    res.status(500).json({ error: 'There was an error getting the users.' });
+    return res
+      .status(500)
+      .json({ error: 'There was an error getting the users.' });
   }
 });
 
@@ -17,11 +19,11 @@ router.get('/:id', async (req, res) => {
   try {
     const note = await db.get(id);
     if (!note) {
-      res.status(404).json({ message: 'That note does not exist.' });
+      return res.status(404).json({ message: 'That note does not exist.' });
     }
-    res.status(200).json(note);
+    return res.status(200).json(note);
   } catch (error) {
-    res
+    return res
       .status(500)
       .json({ message: 'There was an error accessing that note.' });
   }
@@ -30,15 +32,46 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   const postData = req.body;
   if (!postData.title || !postData.content || !postData.user_id) {
-    res
+    return res
       .status(400)
       .json({ message: 'Note requires a title, content, and user_id' });
   }
   try {
     const post = await db.insert(postData);
-    res.status(201).json(post);
+    return res.status(201).json(post);
   } catch (error) {
-    res.status(500).json({ error: 'There was a problem adding a new note.' });
+    return res
+      .status(500)
+      .json({ error: 'There was a problem adding a new note.' });
+  }
+});
+
+router.put('/:id', async (req, res) => {
+  const { id } = req.params;
+  const changes = req.body;
+  try {
+    const updatedNote = await db.update(changes, id);
+    if (!updatedNote) {
+      res.status(404).json({ message: 'That note does not exist.' });
+    }
+    res.status(200).json(updatedNote);
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ message: 'Something went wrong updating that note.' });
+  }
+});
+
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const count = await db.remove(id);
+    if (count) {
+      res.status(200).json({ message: 'Note was successfully removed.' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'There was a problem deleting that note.' });
   }
 });
 

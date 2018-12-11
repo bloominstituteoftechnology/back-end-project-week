@@ -88,4 +88,28 @@ describe('/api/notes', () => {
       expect(response.status).toBe(400);
     });
   });
+  describe('PUT', () => {
+    it('should return a status of 200', async () => {
+      let response = await request(server)
+        .put('/api/notes/1')
+        .send({ title: 'New Title' });
+      expect(response.status).toBe(200);
+    });
+    it('should return a status of 404 if note does not exist', async () => {
+      let response = await request(server).put('/api/notes/10');
+      expect(response.status).toBe(404);
+    });
+  });
+  describe('DELETE', () => {
+    it('should return a status of 200', async () => {
+      let response = await request(server).delete('/api/notes/2');
+      expect(response.status).toBe(200);
+    });
+    it('should return a success message', async () => {
+      let response = await request(server).delete('/api/notes/2');
+      expect(response.body).toEqual({
+        message: 'Note was successfully removed.'
+      });
+    });
+  });
 });
