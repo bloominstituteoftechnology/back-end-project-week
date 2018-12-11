@@ -7,10 +7,11 @@ class NoteForm extends Component {
     this.state = {
       newNote: {
         content: "",
-        title: ""
+        title: "",
+        user_id: localStorage.getItem("userID")
       }
     };
-    this.api = "https://lambda--notes.herokuapp.com/api/notes";
+    this.api = "http://localhost:9000/api/notes";
   }
   handleNoteFormChange = e => {
     this.setState({

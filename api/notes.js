@@ -7,6 +7,7 @@ const router = express.Router();
 /* ===== GET ALL NOTES  ===== */
 router.get("/", (req, res) => {
   db("notes")
+    .where("user_id", req.headers.id)
     .then(notes => {
       res.status(200).json(notes);
     })

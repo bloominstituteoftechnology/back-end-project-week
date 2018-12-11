@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./auth.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 class Register extends Component {
   constructor(props) {
@@ -27,7 +28,10 @@ class Register extends Component {
       };
       axios
         .post(this.api, newUser)
-        .then(res => localStorage.setItem("token", res.data.token));
+        .then(
+          res => localStorage.setItem("token", res.data.token),
+          this.props.history.push("/login")
+        );
     }
 
     axios.post();
@@ -67,6 +71,9 @@ class Register extends Component {
             minLength="6"
           />
           <input type="submit" value="Sign Up" id="login-submit" />
+          <Link to="/login">
+            <h4>Already have an account? Login in here</h4>
+          </Link>
         </form>
       </div>
     );
