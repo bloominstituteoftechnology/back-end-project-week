@@ -17,7 +17,7 @@ router.get('/notes/all/', async (req, res) => {
   }
 });
 
-router.post('/api/notes/', async (req, res) => {
+router.post('/notes/create', async (req, res) => {
   const NoteData = req.body;
   console.log(req.body);
   if (!NoteData.title || !NoteData.textBody) {
@@ -31,6 +31,23 @@ router.post('/api/notes/', async (req, res) => {
     } catch (error) {
       res.status(500).json({ error: 'There was an error while saving the note to the database. The error is ', error });
     }
+  }
+});
+
+router.delete('/notes/delete', async (req, res) => {
+  const { noteID } = req.params;
+
+  try {
+    const deletedNoteCount = await db('notes')
+      .where({ id: noteID })
+      .del();
+    {
+      deletedNoteCount === 0
+        ? res.status(404).json({ message: 'The note with the specified ID does not exist.' })
+        : res.status(200).json({ deletedNoteCount });
+    }
+  } catch (error) {
+    res.status(500).json(error);
   }
 });
 
