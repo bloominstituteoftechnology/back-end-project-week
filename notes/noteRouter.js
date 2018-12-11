@@ -2,10 +2,13 @@ const express = require('express');
 const knex = require("knex");
 const knexConfig = require("../knexfile");
 const db = knex(knexConfig.development);
+const { authenticate, generateToken } = require('../middleware.js');
 const router = express.Router();
 
-router.get("/", (req, res) => {
+router.get("/", authenticate, (req, res) => {
+    
     db("notes")
+        .where({user_id: req.decoded.subject})
         .then(notes => res.status(200).json(notes))
         .catch(err => res.status(500).json({error: err}))
 })
