@@ -42,7 +42,7 @@ module.exports = {
     },
     migrations: {
       directory: './data/migrations',
-    }
+    },
+    useNullAsDefault: true
   }
-
 };
