@@ -23,7 +23,7 @@ server.use(helmet())
 server.use(cors(corsOptions))
 server.use(cookie({
     name: 'login_cookie',
-    secret: process.env.JWT_SECRET,
+    secret: ";ksdfsdfjsoidfjsd",
     maxAge: 1000 * 60 * 60
 }))
 
