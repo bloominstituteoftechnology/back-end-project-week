@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
         tbl.increments()
         tbl.text('username').unique().notNullable()
         tbl.text('password').notNullable()
+        tbl.boolean('loggedIn').defaultTo(true)
     })
 };
 

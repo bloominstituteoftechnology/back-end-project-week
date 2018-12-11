@@ -9,6 +9,7 @@ module.exports = server => {
 server.post('/api/register', register)
 server.post('/api/login', login)
 server.get('/api/logout', logout)
+server.get('/api/users', getUsers)
 }
 
 
@@ -48,4 +49,12 @@ const login = (req, res) => {
 const logout = (req, res) => {
     req.session = null
     res.json({message: 'cookie destroyed'})
+}
+
+const getUsers = (req, res) => {
+    db('users')
+    .then(users => {
+        res.status(200).json(users)
+    })
+    .catch(err => res.status(500).json({message: `error: ${err}`}))
 }
