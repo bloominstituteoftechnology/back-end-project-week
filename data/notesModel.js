@@ -5,7 +5,8 @@ module.exports = {
     getAll,
     getById,
     remove,
-    update
+    update,
+    getAllSorted
 }
 
 async function insert(note) {
@@ -30,4 +31,8 @@ async function getById(id) {
 
 async function remove(id) {
     return await db('notes').where('id', id).first().del();
+}
+
+async function getAllSorted() {
+    return await db('notes').orderByRaw('title COLLATE NOCASE ASC')
 }

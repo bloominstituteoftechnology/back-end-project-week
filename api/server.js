@@ -19,6 +19,16 @@ server.get('/note/get/all', async (req, res) => {
     }
 });
 
+// GET all notes sorted
+server.get('/note/get/all/sort', async (req, res) => {
+    try {
+        const notes = await notesDb.getAllSorted();
+        res.status(200).json(notes);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 // GET by id endpoint 
 server.get('/note/get/:id', async (req, res) => {
     const {id} = req.params;
