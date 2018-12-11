@@ -7,6 +7,7 @@ var cors = require('cors');
 const server = express();
 
 server.use(express.json());
+server.use(cors());
 
 const notesRouter = require('../notes/notesRouter.js');
 
