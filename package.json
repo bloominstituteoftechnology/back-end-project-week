@@ -20,6 +20,7 @@
   "homepage": "https://github.com/sarahtennis/back-end-project-week#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "helmet": "^3.15.0",

@@ -7,6 +7,8 @@ exports.up = function(knex, Promise) {
     tbl.string('tags', 255);
     tbl.integer('user_id').unsigned().notNullable();
     tbl.foreign('user_id').references('id').inTable('users').onDelete('CASCADE');
+    tbl.timestamp('created_at').defaultTo(Date());
+    tbl.timestamp('last_updated_at').defaultTo(Date());
   });
 };
 

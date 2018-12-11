@@ -39,24 +39,25 @@ function addNote(newNote, user_id) {
         .then(id => { return { id: id[0] } });
 }
 
-// update the note at id, return the number of records updated
+// update the note at id, returns the record at id (updated or not) or 0 if id does not exist
 async function updateNote(id, updates) {
     const note = await getNote(id);
 
-    if (updates.tags) {
-        updates.tags = updates.tags.join(',');
-    }
-
     if (note.length) {
-        const updated = Object.assign(note[0], updates);
-        delete updated.id;
+        const finalized = Object.assign({}, note[0], validateUpdates(updates));
+
+        if (!isEquivalent(note[0], finalized)) {
+            finalized.last_updated_at = Date();
+
+            await db('notes').where('id', Number(id)).update(finalized);
+
+            return await getNote(id);
+        } else {
+            return note[0];
+        }
     } else {
         return 0;
-    }
-
-    return db('notes')
-        .where('id', Number(id))
-        .update(updated);
+    };
 };
 
 // delete the note at id, return number of records deleted
@@ -64,4 +65,40 @@ function removeNote(id) {
     return db('notes')
         .where('id', Number(id))
         .del();
+};
+
+// used in updateNote function
+// returns validated object of updates
+function validateUpdates(updates) {
+    const valid = {};
+    Object.getOwnPropertyNames(updates).forEach(key => {
+        if (key === 'tags' && Array.isArray(updates[key])) {
+            valid[key] = updates[key].join(',');
+        };
+
+        if ((key === 'title' && updates[key] !== '') || (key === 'textBody' && typeof updates[key] === 'string')) {
+            valid[key] = updates[key];
+        };
+    });
+    return valid;
+};
+
+// returns if two objects are equivalent
+function isEquivalent(a, b) {
+    var aProps = Object.getOwnPropertyNames(a);
+    var bProps = Object.getOwnPropertyNames(b);
+
+    if (aProps.length != bProps.length) {
+        return false;
+    }
+
+    for (var i = 0; i < aProps.length; i++) {
+        var propName = aProps[i];
+
+        if (a[propName] !== b[propName]) {
+            return false;
+        }
+    }
+
+    return true;
 };
