@@ -6,9 +6,6 @@ const db = knex(knexConfig.development)
 const server = express();
 server.use(express.json());
 server.use(cors());
-server.get('/', (req, res) => {
-    res.send('Hello')
-})
 
 server.get('/api/notes', (req, res) => {
     db('notes')
