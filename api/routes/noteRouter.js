@@ -33,35 +33,39 @@ router.post("/", async (req, res) => {
       .status(400)
       .json({ message: "Please provide title and textBody for the note." });
   }
+
   try {
-    let data = await db.insert(req.body);
+    let newNote = await db.insert(req.body);
+    let updatedArray = await db.find();
     return res.status(201).json({
-      id: data.id,
+      id: newNote.id,
       title: req.body.title,
-      textBody: req.body.textBody
+      textBody: req.body.textBody,
+      notes: updatedArray
     });
   } catch (err) {
     res.status(500).json(err.message);
   }
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", async (req, res) => {
   const { id } = req.params;
-  db.find(id).then(note => {
+  try {
+    let note = db.find(id);
+    let deleteNote = await db.remove(id);
+    let updatedArray = await db.find();
     if (!note) {
       res
         .status(404)
         .json({ message: "The note with the specified ID does not exist." });
-    } else {
-      db.remove(id)
-        .then(note => {
-          res.status(200).json({ message: "successfully deleted" });
-        })
-        .catch(err => {
-          res.status(500).json(err.message);
-        });
     }
-  });
+    return res.status(200).json({
+      notes: updatedArray,
+      message: "successfully deleted"
+    });
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
 });
 
 //updates the note and returns the updated array of notes
