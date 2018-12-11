@@ -67,11 +67,11 @@ const {title, textBody} = req.body
 
 noteHelp.update(id, {title, textBody})
 .then(async success => {
-    const copyOfNotesDB = await db('notes').where('id', id)
+    const copyOfNotesDB = await db('notes').where('id', id).first()
     if(success === 0) {
         res.status(404).json({message: `Note with id of ${id} does not exist.`})
     }
-    res.status(200).json(copyOfNotesDB.find(note => typeof note === 'object'))
+    res.status(200).json(copyOfNotesDB)
 })
 .catch(err => res.status(500).json({message: `Error: ${err}`}))
 })
