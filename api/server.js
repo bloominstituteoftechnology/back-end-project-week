@@ -1,7 +1,5 @@
 const express = require('express');
 
-var express = require('express');
-
 var cors = require('cors');
 
 // Then use it before your routes are set up:
