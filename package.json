@@ -9,6 +9,13 @@
     "start": "nodemon index.js",
     "test": "jest --watch --verbose"
   },
+  "keywords": [
+    "example",
+    "heroku"
+  ],
+  "engines": {
+    "node": "11.3.0"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^6.2.0",
