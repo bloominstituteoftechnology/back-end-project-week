@@ -19,8 +19,8 @@ server.get('/', (req, res) => {
 //Notes Endpoints/Methods
 server.get('/notes', notesRouter);
 server.get('/notes/all', notesRouter);
-server.get('/notes/create', notesRouter);
-server.get('/notes/delete', notesRouter);
-server.get('/notes/edit', notesRouter);
+server.post('/notes/create', notesRouter);
+server.delete('/notes/delete', notesRouter);
+server.put('/notes/edit', notesRouter);
 
 module.exports = server;
