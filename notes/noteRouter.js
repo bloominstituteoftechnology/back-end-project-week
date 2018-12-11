@@ -13,16 +13,22 @@ router.get("/", authenticate, (req, res) => {
         .catch(err => res.status(500).json({error: err}))
 })
 
-router.get("/:id", (req, res) => {
+router.get("/:id", authenticate, (req, res) => {
     let { id } = req.params;
 
     db("notes")
         .where({id})
-        .then(note => res.status(200).json(...note))
+        .then(note => {
+            if (note[0].user_id === req.decoded.subject) {
+                res.status(200).json(...note);
+            } else {
+                res.status(401).json({error: "You do not have access to this note."});
+            }
+        })
         .catch(err => res.status(500).json({error: err}))
 })
 
-router.post("/", (req, res) => {
+router.post("/", authenticate, (req, res) => {
     let { title, content } = req.body;
 
     if (!title) {
@@ -33,7 +39,7 @@ router.post("/", (req, res) => {
     }
 
     db("notes")
-        .insert({ title, content })
+        .insert({ title, content, user_id: req.decoded.subject })
         .then(id => res.status(200).json(id))
         .catch(err => res.status(500).json({error: err}))
 })
