@@ -26,7 +26,7 @@ server.post("/api/notes", (req, res) => {
         db("notes")
             .insert(newPost)
             .then(idReturned => {
-                res.status(201).json(idReturned);
+                res.status(201).json({ success: idReturned });
             })
             .catch(err => {
                 res.status(500).json({ message: "Cannot post note to database.", err });
@@ -81,6 +81,31 @@ server.put("/api/notes/:noteId", (req, res) => {
         })
         .catch(err => {
             res.status(500).json({ message: "Error modifying note", err });
+        });
+});
+
+server.delete("/api/notes/:noteId", (req, res) => {
+    const { noteId } = req.params;
+    db("notes")
+        .where("notes.id", noteId)
+        .then(notesArray => {
+            if (!notesArray.length) {
+                res.status(404).json({ message: "Note with specified ID not found" });
+            } else {
+                db("notes")
+                    .where("notes.id", noteId)
+                    .del()
+                    .then(count => {
+                        res.status(200).json(notesArray[0]);
+                    })
+                    .catch(err => {
+                        res.status(500).json({ message: "Error deleting note", err });
+                    })
+
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ message: "Error accessing notes", err });
         });
 });
 
