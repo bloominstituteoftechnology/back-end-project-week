@@ -2,12 +2,24 @@ const express = require('express');
 
 var cors = require('cors');
 
-// Then use it before your routes are set up:
+// Set up a whitelist and check against it:
+var whitelist = ['https://ielvisd.github.io'];
+var corsOptions = {
+  origin: function(origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+};
 
+// Then pass them to cors:
+// Then use it before your routes are set up:
 const server = express();
 
 server.use(express.json());
-server.use(cors());
+server.use(cors(corsOptions));
 
 const notesRouter = require('../notes/notesRouter.js');
 
