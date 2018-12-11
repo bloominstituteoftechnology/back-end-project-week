@@ -14,4 +14,8 @@ module.exports = {
     FIELD_BODY : 'body' ,
     LIMIT_TITLE: 128 ,
     LIMIT_BODY : 1024,
+    // Errors
+    ERROR_INTERNAL     : 'Internal Error',
+    ERROR_MALFORMEDDATA: 'Malformed Data: The data provided was in the wrong format',
+    ERROR_NOTFOUND     : 'Not Found: Could not find the requested resource',
 };
