@@ -111,29 +111,18 @@ router.put("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
 
-  //first make sure note exists
   db("notes")
     .where({ id })
-    .then(note => {
-      if (note && note.length) {
-        db("notes")
-          .where({ id })
-          .del()
-          .then(count => res.status(200).json(count))
-          .catch(err =>
-            res
-              .status(500)
-              .json({ error: "Error while deleting this note: ", err })
-          );
+    .del()
+    .then(count => {
+      if (count) {
+        res.status(200).json(count);
       } else {
         res.status(404).json({ message: "No note with that id exists." });
       }
     })
     .catch(err =>
-      res.status(500).json({
-        error: "Error while chekcing database for the note with that id: ",
-        err
-      })
+      res.status(500).json({ error: "Error while deleting this note: ", err })
     );
 });
 module.exports = router;

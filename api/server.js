@@ -4,7 +4,7 @@ const cors = require("cors");
 
 // internal imports
 const notesRouter = require("../notes/notesRouter");
-
+const tagsRouter = require("../tags/tagsRouter");
 // init server
 const server = express();
 
@@ -19,5 +19,6 @@ server.get("/", (req, res) => {
 
 // endpoints for notes via router
 server.use("/api/notes", notesRouter);
-
+// endpoints for tags via router
+server.use("/api/tags", tagsRouter);
 module.exports = server;
