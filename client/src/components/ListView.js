@@ -13,16 +13,16 @@ const ListView = props => {
             {props.notes.length < 10 
               ? props.notes.map(note => {
                 return <SingleNote 
-                  id={note._id} 
-                  key={note._id} 
+                  id={note.id} 
+                  key={note.id} 
                   note={note} 
                   />
               }) // end of map
               : 
               (props.notes.slice(0, 9)).map(note => {
                 return <SingleNote 
-                  id={note._id} 
-                  key={note._id} 
+                  id={note.id} 
+                  key={note.id} 
                   note={note} 
                   />
               })
@@ -33,5 +33,8 @@ const ListView = props => {
   )
 }
 
-
 export default ListView;
+
+// ORIGINAL (LINES 16-17 & LINES 24-25):
+// id={note._id} 
+// key={note._id} 

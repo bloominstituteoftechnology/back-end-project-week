@@ -34,8 +34,8 @@ server.use(cors());
 // NOTES
 // POST: .insert() 
 server.post('/note/add', titleTextChecker, (req, res) => {
-  const { title, textBody } = req.body;
-  // const noteTitle = { title };
+  const { title, textBody, id } = req.body;
+  const noteId = { id };
   db('notes')
     .insert({ title, textBody })
     .then(ids => {
@@ -49,9 +49,10 @@ server.post('/note/add', titleTextChecker, (req, res) => {
     })
 })
 
+
 // GET (assumes .select())
 server.get('/note/get/all', (req, res) => {
-
+  // console.log(req)
   db('notes')
     //.select()
     .then(notes => res.status(200).json(notes))
@@ -61,9 +62,9 @@ server.get('/note/get/all', (req, res) => {
 });
 
 // GET (assumes .select() .where id matches)
-server.get('/note/:id', (req, res) => {
+server.get('/note/get/:id', (req, res) => {
   const { id } = req.params;
-
+  console.log(id, req.params.id)
   db('notes')
     .where({ id: id })
     .then(notes =>

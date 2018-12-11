@@ -16,7 +16,8 @@ class DeleteModal extends React.Component {
   
 
   deleteNote = () => {
-    const id = this.props.note._id;
+    // const id = this.props.note._id;
+    const id = this.props.note.id;
     this.props.deleteNote(id);
   };
 
@@ -28,7 +29,7 @@ class DeleteModal extends React.Component {
         <div className='modal-view-box'>
           <h3>Are you sure you want to delete this?</h3>
           <button onClick={() => this.deleteNote()} >Delete</button>
-          <a type='button' href='/'>No</a>
+          <a type='button' href="/">No</a>
         </div>
       </div>
     )

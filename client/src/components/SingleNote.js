@@ -6,11 +6,11 @@ const SingleNote = props => {
     <div 
       className='single-note-container'>
       <Link 
-        to={`/note/${props.note._id}`} 
+        to={`/note/${props.note.id}`} 
         className='note-title'>{props.note.title}
       </Link>
       <Link 
-        to={`/note/${props.note._id}`} 
+        to={`/note/${props.note.id}`} 
         className='note-content'>{props.note.textBody}
       </Link>
     </div> 
@@ -18,3 +18,4 @@ const SingleNote = props => {
 }
 
 export default SingleNote;
+// ORIGINAL (LINE 9, LINE 13): to={`/note/${props.note._id}`} 

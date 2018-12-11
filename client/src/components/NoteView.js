@@ -14,7 +14,7 @@ const NoteView = props => {
       <NavBar />
       <div className='single-note-extended-container'>
         <div className='edit-view-container'>
-        <Link to={`/note/edit/${props.note._id}`} className='edit-view'>
+        <Link to={`/note/edit/${props.note.id}`} className='edit-view'>
         edit
           </Link>
           <button 
@@ -55,3 +55,5 @@ export default connect(
 // export default NoteView;
 // this.props if it is a class b/c state would be declared b/c instance
 // props when it is a fn like here.
+
+// ORIGINAL LINE 17<Link to={`/note/edit/${props.note._id}`} className='edit-view'>
