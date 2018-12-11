@@ -90,9 +90,16 @@ h4:hover {
   width: 100%;
   padding-top: 50px;
 }
+.view-note h2 {
+  font-family: 'Abel', sans-serif;
+}
+.view-note p {
+  font-family: 'Open Sans', sans-serif;
+}
 .view-note .actions {
   width: 190px;
-  margin-left: 600px;
+  margin-right: 100px;
+  margin-bottom: 50px;
   display: flex;
   justify-content: space-between;
 }

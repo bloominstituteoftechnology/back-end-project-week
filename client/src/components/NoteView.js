@@ -88,7 +88,7 @@ render(){
             editStyle.display = 'none';
         }
     return(
-
+ 
             <div className="view-note">
 
             <div className="actions">
