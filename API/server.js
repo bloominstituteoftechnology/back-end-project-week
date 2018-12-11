@@ -36,7 +36,7 @@ server.get("/api/notes/:id", (req, res) => {
       }
     })
     .catch(err => {
-      res.status(500).json({ message: "The list could not be recieved", err });
+      res.status(500).json({ message: "The list could not be received", err });
     });
 });
 
@@ -44,12 +44,16 @@ server.get("/api/notes/:id", (req, res) => {
 server.put("/api/notes/:id", (req, res) => {
   const { noteTitle, noteBody } = req.body;
   const { id } = req.params;
-
   db("notes")
     .where({ id })
     .update({ noteTitle, noteBody })
-    .then(note => {
-      res.status(200).json(note);
+    .then(count => {
+      db("notes")
+        .where({ id })
+        .first()
+        .then(note => {
+          res.status(200).json(note);
+        });
     })
     .catch(err => {
       res.status(500).json({ error: err });
