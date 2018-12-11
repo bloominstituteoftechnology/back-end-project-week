@@ -81,10 +81,8 @@ class SingleNote extends Component {
           </span>
         </div>
         <div className="single-note">
-          {console.log(this.state.note)}
           <h1>{this.state.note.title}</h1>
           <p>{this.state.note.content}</p>
-          <p>testingselfiubsedkjlbfsebsfjklbfljkbflkjbjlk</p>
         </div>
       </React.Fragment>
     );

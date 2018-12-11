@@ -19,7 +19,6 @@ router.get("/:id", (req, res) => {
   db("notes")
     .first()
     .where("notes.id", id)
-
     .then(note => {
       res.status(200).json(note);
     })
