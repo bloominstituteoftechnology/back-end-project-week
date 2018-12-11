@@ -13,6 +13,7 @@ router.get("/", (req, res) => {
   // creds.password = hash;
 
   db("users")
+    .select("id", "username", "created_at", "updated_at")
     .then(users => res.status(201).json(users))
     .catch(err => res.status(500).json(err));
 });
