@@ -18,25 +18,27 @@ class App extends Component {
     };
   }
   componentDidMount() {
-    axios.get("/api/notes").then(res => this.setState({ notes: res.data }));
+    axios
+      .get("https://lambda--notes.herokuapp.com/api/notes")
+      .then(res => this.setState({ notes: res.data }));
   }
 
   handleAddNewNote = () => {
-    axios.get("/api/notes").then(res =>
+    axios.get("https://lambda--notes.herokuapp.com/api/notes").then(res =>
       this.setState({
         notes: res.data
       })
     );
   };
   handleDeleteNote = () => {
-    axios.get("/api/notes").then(res =>
+    axios.get("https://lambda--notes.herokuapp.com/api/notes").then(res =>
       this.setState({
         notes: res.data
       })
     );
   };
   handleEditNote = () => {
-    axios.get("/api/notes").then(res =>
+    axios.get("https://lambda--notes.herokuapp.com/api/notes").then(res =>
       this.setState({
         notes: res.data
       })

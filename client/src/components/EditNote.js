@@ -15,7 +15,7 @@ class EditNote extends Component {
   componentDidMount() {
     const id = localStorage.getItem("noteID");
     console.log(id);
-    axios.get(`/api/notes/${id}`).then(
+    axios.get(`https://lambda--notes.herokuapp.com/api/notes/${id}`).then(
       res =>
         this.setState({
           editedNote: res.data
@@ -38,7 +38,9 @@ class EditNote extends Component {
     e.preventDefault();
     axios
       .put(
-        `/api/notes/${localStorage.getItem("noteID")}`,
+        `https://lambda--notes.herokuapp.com/api/notes/${localStorage.getItem(
+          "noteID"
+        )}`,
         this.state.editedNote
       )
       .then(

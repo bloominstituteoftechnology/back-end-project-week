@@ -23,7 +23,7 @@ class NoteForm extends Component {
   addNewNote = e => {
     e.preventDefault();
     axios
-      .post("/api/notes", this.state.newNote)
+      .post("https://lambda--notes.herokuapp.com/api/notes", this.state.newNote)
       .then(this.props.handleAddNewNote);
 
     this.props.history.push("/");
