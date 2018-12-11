@@ -6,7 +6,7 @@
   "author": "zacharyarney <zachary.arney@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "server": "nodemon"
+    "start": "nodemon"
   },
   "dependencies": {
     "cors": "^2.8.5",
