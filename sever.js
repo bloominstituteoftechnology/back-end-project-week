@@ -1,10 +1,13 @@
 const express = require("express");
 
+const cors = require("cors");
+
 const db = require("./data/dbConfig.js");
 
 const server = express();
 
 server.use(express.json());
+server.use(cors());
 
 // Checking to see if server works
 server.get("/", (req, res) => {
@@ -13,7 +16,7 @@ server.get("/", (req, res) => {
 
 // Grab the data from the notes table
 
-server.get("/notes", (req, res) => {
+server.get("/note/get/all", (req, res) => {
   db("notes")
     .then(notes => {
       res.status(200).json(notes);
@@ -64,7 +67,7 @@ server.get("/notes/:id", (req, res) => {
 
 // Edit individual notes
 
-server.put("/notes/:id", (req, res) => {
+server.put("/note/edit/:id", (req, res) => {
   const changes = req.body;
   const { id } = req.params;
 
