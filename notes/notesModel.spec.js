@@ -8,15 +8,15 @@ beforeEach(async () => {
 describe('notes model', () => {
   it('should insert provided note', async () => {
     // make sure the the test record is not in the db
-    let rows = await db('notes').where({ title: 'Dog Chores', Content: '- Walk the dogs' });
+    let rows = await db('notes').where({ title: 'Dog Chores', textBody: '- Walk the dogs' });
     expect(rows).toHaveLength(0);
 
     // insert a test record
-    await notes.insert({ title: 'Dog Chores', Content: '- Walk the dogs' });
-    await notes.insert({ title: 'House Chores', Content: '- Take out the trash' });
+    await notes.insert({ title: 'Dog Chores', textBody: '- Walk the dogs' });
+    await notes.insert({ title: 'House Chores', textBody: '- Take out the trash' });
 
     // make sure the test record is now in the db
-    rows = await db('notes').where({ title: 'Dog Chores', Content: '- Walk the dogs' });
+    rows = await db('notes').where({ title: 'Dog Chores', textBody: '- Walk the dogs' });
     expect(rows).toHaveLength(1);
 
     rows = await db('notes');
