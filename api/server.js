@@ -1,4 +1,3 @@
-
 const express = require('express');
 
 const server = express();
@@ -10,13 +9,15 @@ const cors = require('cors');
 server.use(cors());
 server.use(express.json());
 
-server.get('/', (req, res) =>{
-  res.status(200).json({ api: "Up and Running" })
+server.get('/', (req, res) => {
+  res.status(200).json({
+    api: "Up and Running"
+  })
 });
 
 server.get('/api/notes', (req, res) => {
   db('notes')
-    .then(notes => res.status(200).json(notes))
+    .then(notes => res.status(200).json({notes}))
     .catch(err => res.status(500).json(err));
 });
 
@@ -29,42 +30,63 @@ server.post('/api/notes', (req, res) => {
       res.status(201).json(ids);
     })
     .catch(err => {
-      res.status(500).json({ message: 'Error inserting', err });
+      res.status(500).json({
+        message: 'Error inserting',
+        err
+      });
     });
 });
 
 server.get('/api/notes/:noteId', (req, res) => {
-  const { noteId } = req.params;
+  const {
+    noteId
+  } = req.params;
 
   db('notes')
-    .where({ _id: noteId })
+    .where({
+      _id: noteId
+    })
     .then(note => {
-      res.status(201).json({ note });
+      res.status(201).json({
+        note
+      });
     })
     .catch(err => res.status(500).json(err));
 });
 
 server.put('/api/notes/:noteId', (req, res) => {
   const changes = req.body;
-  const { noteId } = req.params;
+  const {
+    noteId
+  } = req.params;
 
   db('notes')
-    .where({ _id: noteId })
+    .where({
+      _id: noteId
+    })
     .update(changes)
     .then(count => {
-      res.status(200).json({ count });
+      res.status(200).json({
+        count
+      });
     })
     .catch(err => res.status(500).json(err));
 });
 
 server.delete('/api/notes/:noteId', (req, res) => {
-  const { noteId } = req.params;
+  const {
+    noteId
+  } = req.params;
 
   db('notes')
-    .where({ _id: noteId })
+    .where({
+      _id: noteId
+    })
     .del()
     .then(count => {
-      res.status(200).json({ count });
+      res.status(200).json({
+        count
+      });
     })
     .catch(err => res.status(500).json(err));
 });
