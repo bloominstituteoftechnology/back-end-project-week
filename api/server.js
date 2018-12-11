@@ -61,14 +61,19 @@ if (!noteData.title || !noteData.content) {
     return
 }
 try {
-    await db('notes').insert(noteData);
-
+    await db('notes')
+    .insert(noteData);
+    await db('notes')
+    .then(notes=> { 
+      res.status(200).json(notes);
+      return
+    }) 
+    
 } catch (error) {
         res.status(500).json({ error: "There was an error while saving the note to the database" });
         return      
 }
-res.status(201).json(noteData);
-return
+
 });
 
 //----- PUT notes -----
