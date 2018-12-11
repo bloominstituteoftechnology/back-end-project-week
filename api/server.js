@@ -1,7 +1,15 @@
 const express = require('express');
 
+var express = require('express');
+
+var cors = require('cors');
+
+// Then use it before your routes are set up:
+
+
 const server = express();
 
+server.use(cors());
 server.use(express.json());
 
 const notesRouter = require('../notes/notesRouter.js');
