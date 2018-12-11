@@ -32,21 +32,25 @@ function login (req, res) {
     .catch(err => res.json(err))
 }
 
-function register (req, res) {
+async function register(req, res) {
     // implement user registration
-    const creds = req.body;
+    try {
+        const creds = req.body;
+    
+        if(!creds.username || !creds.password) {
+            res.status(422).json({message: 'username and password both required'});
+            return;
+        }
+        creds.password = bcrypt.hashSync(creds.password, 8);
+    
+        const idArray = await db('users').insert(creds);
 
-    if(!creds.username || !creds.password) {
-        res.status(422).json({message: 'username and password both required'});
-        return;
+        const newId = idArray[0];
+        const newUser = await db('users').where('id', '=', newId).first();
+        const token = generateToken(newUser);
+        res.status(200).json({message: 'success', token})
+
+    } catch(err) {
+        res.json(err)
     }
-    creds.password = bcrypt.hashSync(creds.password, 8);
-
-    db('users')
-        .insert(creds)
-        .then(ids => {
-            const token = generateToken(creds);
-            res.status(201).json({ids, token})
-        })
-        .catch(err => res.json(err));
 }
