@@ -65,7 +65,7 @@ router.delete("/:id", (req, res) => {
 });
 
 //updates the note and returns the updated array of notes
-router.put("/:id", (req, res) => {
+router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const { title, textBody } = req.body;
   const note = { title, textBody };
@@ -83,16 +83,23 @@ router.put("/:id", (req, res) => {
       }
     });
   }
+  try {
+    let update = await db.update(id, note);
+    let updatedNote = await db.find(id);
+    let updatedArray = await db.find();
+    return res.status(200).json({ note: updatedNote, notes: updatedArray });
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
+  // db.update(id, note)
+  //   .then(res.status(200))
+  //   .catch(err => {
+  //     res.status(500).json(err.message);
+  //   });
 
-  db.update(id, note)
-    .then(res.status(200))
-    .catch(err => {
-      res.status(500).json(err.message);
-    });
-
-  db.find(id).then(note => {
-    res.status(200).json(note);
-  });
+  // db.find().then(notes => {
+  //   res.status(200).json(notes);
+  // });
 });
 
 module.exports = router;
