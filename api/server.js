@@ -83,7 +83,7 @@ server.delete('/api/notes/:noteId', (req, res) => {
     })
     .del()
     .then(count => {
-      res.status(200).json({
+      res.status(202).json({
         count
       });
     })
