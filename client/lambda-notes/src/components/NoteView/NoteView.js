@@ -23,7 +23,7 @@ class NoteView extends React.Component {
     //gets api based off of matching id's
       fetchNote =  id => {
         axios
-          .get(`http://localhost:9000/api/notes/${id}`)
+          .get(`https://safe-tor-44897.herokuapp.com/api/notes/${id}`)
           .then(response => {
             
             this.setState(() => ({ note: response.data }))
@@ -40,10 +40,12 @@ class NoteView extends React.Component {
           content: this.state.editedcontent
         }
         axios
-        .put(`http://localhost:9000/api/notes/editNote/${id}`, notes)
+        .put(`https://safe-tor-44897.herokuapp.com/api/notes/editNote/${id}`, notes)
         .then(response => {
           console.log('response', response)
           this.setState({ note: response.data })
+          
+          window.location.reload();
         })
         .catch(error => console.log(error))
       }
@@ -55,13 +57,15 @@ class NoteView extends React.Component {
       };
       
       editHandler = event => {
+        
           event.preventDefault();
           this.setState({ editing: true, editedTitle: this.state.note.title, editedcontent: this.state.note.content })
+          
 
       }
 
       saveHandler = event => {
-        // event.preventDefault();
+        event.preventDefault();
         this.setState({ editing: false, note: {
           title: this.state.editedTitle, 
           content: this.state.editedcontent,
@@ -83,7 +87,7 @@ class NoteView extends React.Component {
       deleteNoteButton = (id) => {
         
         axios
-        .delete(`http://localhost:9000/api/notes/delete/${id}`)
+        .delete(`https://safe-tor-44897.herokuapp.com/api/notes/delete/${id}`)
         .then(response => {
           console.log('response', response)
         })
@@ -166,8 +170,8 @@ class NoteView extends React.Component {
                     <Button 
                     className = 'links'
                     //  onClick= {this.saveHandler}
-                    //  onClick = {(event) => {this.editNote(event); this.saveHandler(event);}}
-                    onClick = { this.editNote }
+                     onClick = {(event) => {this.editNote(event); this.saveHandler(event);}}
+                    // onClick = { this.editNote }
                     style={editStyle} >Save</Button>
                 </form>
                  

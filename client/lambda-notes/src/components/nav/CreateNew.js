@@ -24,7 +24,7 @@ addNew = event => {
     }
 
     axios
-        .post ('http://localhost:9000/api/notes/create',newNote)
+        .post ('https://safe-tor-44897.herokuapp.com/api/notes/create',newNote)
         .then(response => {
             console.log('ADDING NOTE', response);
             
