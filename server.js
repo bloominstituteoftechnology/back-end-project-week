@@ -24,7 +24,7 @@ server.get('/api/notes/all', (req, res) => {
 });
 
 // create note with title and content
-server.post('/api/notes', (req, res) => {
+server.post('/api/notes/create', (req, res) => {
     const { title, body } = req.body;
     if (!title || !body) {
         res.status(422).json({ message: 'Provide title and body.' });
