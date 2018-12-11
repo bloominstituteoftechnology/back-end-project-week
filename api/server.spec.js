@@ -19,5 +19,11 @@ describe('server endpoints', () => {
             const response = await request(server).get('/api/notes/1');
             expect(response.body.length).toBe(1);
         });
-    })
+    });
+    describe('delete routes', () => {
+        it('should delete a specific note', async () => {
+            const response = await request(server).delete('/api/notes/3');
+            expect(response.body).toEqual('3');
+        });
+    });
 })
