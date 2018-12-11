@@ -16,9 +16,11 @@ server.get('/', (req, res) => {
   res.status(200).json({ api: 'up' });
 });
 
-//Notes Methods
+//Notes Endpoints/Methods
 server.get('/notes', notesRouter);
 server.get('/notes/all', notesRouter);
-// server.post('/api/games', notesRouter);
+server.get('/notes/create', notesRouter);
+server.get('/notes/delete', notesRouter);
+server.get('/notes/edit', notesRouter);
 
 module.exports = server;

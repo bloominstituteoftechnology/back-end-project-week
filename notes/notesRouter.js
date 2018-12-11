@@ -51,7 +51,7 @@ router.delete('/notes/delete', async (req, res) => {
   }
 });
 
-server.put('/notes/edit', async (req, res) => {
+router.put('/notes/edit', async (req, res) => {
   const changes = req.body;
   const { noteId } = req.params;
 
