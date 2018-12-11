@@ -29,5 +29,8 @@
     "nodemon": "^1.18.8",
     "sqlite3": "^4.0.4"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "engines": {
+    "node": "11.1.0"
+  }
 }
