@@ -71,9 +71,9 @@ server.delete('/api/notes/:id', (req, res) => {
 server.put('/api/notes/:id', (req, res) => {
   const { id } = req.params;
   const updatedNote = req.body;
-  db
+  db('notes')
     .where({ id })
-    .update(id, updatedNote)
+    .update(updatedNote)
     .then(updatedNote => {
       res.status(201).json({ "Note Updated": updatedNote })
     })
