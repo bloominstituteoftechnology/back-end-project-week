@@ -21,6 +21,6 @@ server.use(passport.session());
 
 require('./routes/authRoutes.js')(server);
 
-const PORT = process.env.PORT || 7000;
+const PORT = process.env.PORT || 5000;
 
 server.listen(PORT, () => console.log(`\n---<Server Running On ${PORT}>---\n`));
