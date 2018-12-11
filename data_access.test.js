@@ -42,11 +42,11 @@ describe('Test Data Access', function () {
             });
         });
         test('Throws errors with incorrect submissions', async function () {
-            expect(async () => await noteDB.create({})).toThrow();
+            let result;
             try { await noteDB.create({});}
-            catch(error) {
-                expect(error.message).toBe(config.ERROR_MALFORMEDDATA);
-            }
+            catch(error) { result = error;}
+            expect(result).toBeTruthy();
+            expect(result.message).toBe(config.ERROR_MALFORMEDDATA);
         });
     });
 
@@ -67,14 +67,14 @@ describe('Test Data Access', function () {
             });
         });
         test('Throws errors with invalid ids (not found)', async function () {
-            expect(async () => await noteDB.get(2)).toThrow();
+            let result;
             try { await noteDB.get(2);}
-            catch(error) {
-                expect(error.message).toBe(config.ERROR_NOTFOUND);
-            }
+            catch(error) { result = error;}
+            expect(result).toBeTruthy();
+            expect(result.message).toBe(config.ERROR_NOTFOUND);
         });
     });
-
+    
     //-- Get All Entries -----------------------------
     describe('Get All Entries', function () {
         beforeAll(async function () {
@@ -94,7 +94,7 @@ describe('Test Data Access', function () {
             expect(notesArray.length).toBe(2);
         });
     });
-
+    
     //-- Delete Entry --------------------------------
     describe('Delete Entry', function () {
         beforeEach(async function () {
@@ -117,14 +117,14 @@ describe('Test Data Access', function () {
             expect(notesArray.length).toBe(0);
         });
         test('Throws errors with invalid ids (not found)', async function () {
-            expect(async () => await noteDB.remove(2)).toThrow();
+            let result;
             try { await noteDB.remove(2);}
-            catch(error) {
-                expect(error.message).toBe(config.ERROR_NOTFOUND);
-            }
+            catch(error) { result = error;}
+            expect(result).toBeTruthy();
+            expect(result.message).toBe(config.ERROR_NOTFOUND);
         });
     });
-
+    
     //-- Update Entry --------------------------------
     describe('Update Entry', async function () {
         const testUpdate = {
@@ -155,11 +155,11 @@ describe('Test Data Access', function () {
             });
         });
         test('Throws errors with invalid ids (not found)', async function () {
-            expect(async () => await noteDB.update(2, testUpdate)).toThrow();
-            try { await noteDB.update(2);}
-            catch(error) {
-                expect(error.message).toBe(config.ERROR_NOTFOUND);
-            }
+            let result;
+            try { await noteDB.update(2, testUpdate);}
+            catch(error) { result = error;}
+            expect(result).toBeTruthy();
+            expect(result.message).toBe(config.ERROR_NOTFOUND);
         });
     });
 });
