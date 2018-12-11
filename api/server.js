@@ -8,13 +8,6 @@ const cors = require('cors');
 server.use(express.json());
 server.use(cors());
 
-//Test if server is running
-
-server.get('/', (req, res) => {
-    res.status(200).json({
-        api: 'server is running!'
-    })
-})
 
 //GET a list of notes
 
@@ -76,6 +69,38 @@ server.delete('/api/notes/:id', (req, res) => {
     .catch(err => {
         res.status(400).json({ message: 'Failed to delete note' })
     })
+})
+
+//Login
+
+server.post('/api/login', (req, res) => {
+    const creds = req.body;
+    db('users')
+    .where({ username: creds.username })
+    .first()
+    .then(user => {
+        if(user && bcrypt.compareSync(creds.password, user.password)) {
+            const token = generateToken(user);
+            res.status(200).json({ message: 'Welcome!', token})
+        } else {
+            res.status(401).json({ message: 'login failed' })
+        }
+    })
+    .catch(err => res.json(err))
+})
+
+//Register
+
+server.post('/api/register', (req, res) => {
+    const creds = req.body;
+    const hash = bcrypt.hashSync(creds.password, 2);
+    creds.password = hash;
+    db('users')
+    .insert(creds)
+    .then((ids) => {
+        res.status(200).json(ids);
+    })
+    .catch(err => res.status(400).json({message: 'Failed to register user'}))
 })
 
 
