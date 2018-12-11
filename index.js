@@ -1,7 +1,6 @@
 const express = require('express');
 const knex = require('knex');
 const cors = require('cors');
-const port = process.env.PORT || 8000;
 const knexConfig = require('./knexfile.js');
 
 const db = knex(knexConfig.development);
@@ -69,6 +68,6 @@ server.delete('/api/notes/:id', (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-server.listen(port, () => {
-  console.log(`Server ${port} is live`);
+server.listen(8000, () => {
+  console.log(`Server 8000 is live`);
 });
