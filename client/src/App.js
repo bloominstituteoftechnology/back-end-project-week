@@ -9,6 +9,7 @@ import NoteForm from "./components/NoteForm";
 import SingleNote from "./components/SingleNote";
 import EditNote from "./components/EditNote";
 import MobileNav from "./components/MobileNav";
+import Register from "./components/auth/Register";
 class App extends Component {
   constructor() {
     super();
@@ -93,6 +94,11 @@ class App extends Component {
           render={props => (
             <EditNote handleEditNote={this.handleEditNote} {...props} />
           )}
+        />
+        <Route
+          exact
+          path="/register"
+          render={props => <Register {...props} />}
         />
       </div>
     );
