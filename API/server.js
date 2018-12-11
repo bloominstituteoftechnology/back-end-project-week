@@ -27,6 +27,7 @@ server.get("/api/notes/:id", (req, res) => {
   console.log(id);
   db("notes")
     .where({ id: id })
+    .first()
     .then(list => {
       if (list) {
         res.status(200).json(list);
@@ -46,8 +47,8 @@ server.put("/api/notes/:id", (req, res) => {
   db("notes")
     .where({ id: id })
     .update({ noteTitle, noteBody })
-    .then(count => {
-      res.status(200).json(count);
+    .then(note => {
+      res.status(200).json(note);
     })
     .catch(err => {
       res.status(500).json({ error: err });
@@ -58,8 +59,14 @@ server.put("/api/notes/:id", (req, res) => {
 server.post("/api/notes", (req, res) => {
   db("notes")
     .insert(req.body)
-    .then(note => {
-      res.status(201).json(note);
+    .then(ids => ids[0])
+    .then(id => {
+      db("notes")
+        .where({ id })
+        .first()
+        .then(note => {
+          res.status(201).json(note);
+        });
     })
     .catch(err => {
       res.status(500).json({ message: "There was an error posting the list to the database ", err });
