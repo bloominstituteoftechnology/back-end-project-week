@@ -12,9 +12,7 @@ server.use(express.json());
 server.use(helmet());
 
 server.get('/', (req, res) => {
-    db('notes')
-    .then(project => res.status(200).json(project))
-    .catch(error => res.status(500).json({ message: `Can't Retrieve notes Data`, error }))
+    res.json({ api: "Running"});
 });
 
 
