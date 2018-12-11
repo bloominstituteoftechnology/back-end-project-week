@@ -10,7 +10,8 @@ const db = knex(knexConfig.development);
 const noteRouter = require("../notes/noteRouter");
 const userRouter = require("../users/userRouter");
 const { authenticate, generateToken } = require('../middleware.js');
-const secrets = require("../_secrets/keys.js");
+const secrets =  require("../_secrets/keys.js");
+const saltRounds = process.env.hash || require("../_secrets/keys.js").hash
 
 const server = express();
 
@@ -40,7 +41,7 @@ server.post("/api/register", (req, res) => {
     return res.status(400).json({error: "Please enter a password."})
   }
 
-  const hash = bcrypt.hashSync(creds.password, secrets.hash);
+  const hash = bcrypt.hashSync(creds.password, saltRounds);
   creds.password = hash;
 
   db("users")
@@ -50,7 +51,7 @@ server.post("/api/register", (req, res) => {
         .insert({title: `Welcome to Lambda Notes, ${creds.username}`,
                 content: "I hope you enjoy using this site.",
                 user_id: ids[0]})
-        .then(id => console.log(id))
+        .then(id => res.status(200).json({message: `welcome, user number ${id[0]}`}))
         .catch(err => console.log(err))
       res.status(201).json({message: "welcome", ids})
     })
