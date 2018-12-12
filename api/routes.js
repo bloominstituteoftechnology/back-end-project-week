@@ -1,8 +1,8 @@
 //const axios = require('axios');
-//const bcrypt = require('bcryptjs');
 const db = require('../database/dbConfig.js');
+const bcrypt = require('bcryptjs');
 
-//import middleware
+const { protected, generateToken } = require('./middleware.js');
 
 module.exports = server => {
     server.get('/notes', getNotes);
@@ -10,6 +10,8 @@ module.exports = server => {
     server.get('/notes/:id', getNoteById);
     server.put('/notes/:id', editNote);
     server.delete('/notes/:id', deleteNote);
+    server.post('/notes/:id', register);
+    server.post('/notes/login', login);
 }
 
 const getNotes = (req, res) => {
@@ -53,4 +55,30 @@ const deleteNote = (req, res) => {
         .del()
         .then(count => res.status(200).json({ count }))
         .catch(err => res.status(500).json({ message: 'Error deleting note' }))
+};
+
+function register(req, res) {
+    const creds = req.body;
+    const hash = bcrypt.hashSync(creds.password, 10);
+    creds.password = hash;
+    db('users')
+        .insert(creds)
+        .then(ids => res.status(201).json(ids))
+        .catch(err => res.status(400).json({ message: 'Registration failed' }))
+};
+
+function login(req, res) {
+    const creds = req.body;
+    db('users')
+        .where({ username: creds.username })
+        .first()
+        .then(user => {
+            if(user && bcrypt.compareSync(creds.password, user.password)) {
+                const token = generateToken(user);
+                res.status(200).json({ message: 'Welcome', token });
+            } else {
+                res.status(401).json({ message: 'username or password information is incorrect'});
+            }
+        })
+        .catch(err => res.status(400).json({ message: 'username or password information is incorrect'}))
 };
