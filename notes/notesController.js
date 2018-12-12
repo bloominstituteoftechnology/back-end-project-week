@@ -2,6 +2,7 @@ const knex = require("knex");
 const knexConfig = require("../knexfile");
 const db = knex(knexConfig.development);
 
+// for using in pagination...
 const limitNum = 3;
 
 const notesControllers = {
