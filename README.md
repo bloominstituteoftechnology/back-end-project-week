@@ -79,6 +79,11 @@ jsonwebtoken
 knex
  -->
 
+ <!-- config package.json: 
+   "scripts": {
+    "server": "nodemon"
+  } -->
+
 <!-- // create knex file: knex init
 // node index.js
 // in package.json "scipts": "server": "nodemon" -->
