@@ -1,6 +1,6 @@
 const express = require('express');
 const server = express();
-const db = require('./notesDb.js')
+const db = require('./notedb.js')
 const cors = require('cors');
 
 server.use(express.json())

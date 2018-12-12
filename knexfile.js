@@ -1,5 +1,5 @@
 // Update with your config settings.
-require('dotenv').config();
+
 
 const localPgConnection = {
   host: 'localhost', // address to find the db server
@@ -43,7 +43,7 @@ module.exports = {
   },
 
   production: {
-    client: 'postgresql',
+    client: 'pg',
     connection: dbConnection,
     pool: {
       min: 2,
