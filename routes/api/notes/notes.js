@@ -4,7 +4,7 @@ const protected = require('../../../middlewares/protected');
 
 const db = require('../../../data/helpers/Note');
 
-router.get('/', async (req, res) => {
+router.get('/', protected, async (req, res) => {
   try {
     const notes = await db.getAll();
     return res.status(200).json(notes);

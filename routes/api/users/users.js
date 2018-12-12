@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const protected = require('../../../middlewares/protected');
 const db = require('../../../data/helpers/User');
 
 // GET A LIST OF USERS
