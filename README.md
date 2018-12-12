@@ -27,11 +27,11 @@ We recommend that you finish all the MVP features before trying to deploy.
 - Add data persistenc using a Relational Database. We suggest you start with `SQLite3`.
 - Create a Web API for the React application you built in the front-end project week.
 - Build endpoints for each of the following features:
-  - Display a list of notes.
-  - Create a note with a _title_ and _content_.
-  - View an existing note.
-  - Edit an existing note.
-  - Delete an existing note.
+  - Display a list of notes. GET /notes
+  - Create a note with a _title_ and _content_. POST /create
+  - View an existing note. GET /note/id
+  - Edit an existing note.  PUT /edit/id
+  - Delete an existing note. DELETE /delete/id
   - Modify your front-end so that it uses your newly created Web API.
 
 Upon your first commit, please submit a Pull Request and add _both_ the **Trello Set Up** and **Backend MVP Features** Task lists to your first Pull Request comment.
@@ -69,3 +69,8 @@ Once your MVP has been approved, you have been given a feature list that the cli
 - Gate your favorite feature behind the _premium_ paywall
 
 You will notice that this repository does not have any starter code. This is on purpose. You are to start from scratch using any files you have built throughout your time here at Lambda School as reference.
+
+
+-------------------------------------------------------------
+
+TRELLO URL: https://trello.com/invite/b/p30wBdwB/7e98b2474d91630ab5f4bdd6c91b68c3/lambda-notes-back-end-brandon-strellis
