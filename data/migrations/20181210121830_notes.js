@@ -7,9 +7,9 @@ exports.up = function(knex, Promise) {
     tbl.string('tags', 255);
     tbl.integer('user_id').unsigned().notNullable();
     tbl.foreign('user_id').references('id').inTable('users').onDelete('CASCADE');
-    tbl.timestamps(false, true);
-    // tbl.timestamp('created_at').defaultTo(knex.fn.now());
-    // tbl.timestamp('last_updated_at').defaultTo(knex.fn.now());
+    //tbl.timestamps(false, true);
+    tbl.timestamp('created_at').defaultTo(knex.fn.now());
+    tbl.timestamp('updated_at').defaultTo(knex.fn.now());
   });
 };
 
