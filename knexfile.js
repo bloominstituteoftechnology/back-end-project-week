@@ -21,4 +21,20 @@ module.exports = {
     },
   },
 
+  production: {
+    client: 'pg',
+    connection: dbConnection, // can be and object or a string
+    pool: {
+      afterCreate: (conn, cb) => conn.run('PRAGMA foreign_keys = ON', cb),
+      min: 2,
+      max: 10,
+    },
+    migrations: {
+      directory: './data/migrations',
+    },
+    seeds: {
+      directory: './data/seeds',
+    },
+  },
+
 };
