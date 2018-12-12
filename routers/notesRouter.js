@@ -6,6 +6,8 @@ const protected = require('../middleware/protected.js');
 
 const router = express.Router();
 
+const knex = require('knex');
+
 // [GET] /api/notes
 // get all notes in table
 router.get('', protected, (req, res) => {
@@ -86,7 +88,7 @@ router.put('/:id', protected, async (req, res) => {
             if (currentNote.length) {
                 const finalized = Object.assign({}, currentNote[0], validUpdates);
                 if(!isEquivalent(currentNote[0], finalized)) {
-                    finalized.last_updated_at = Date();
+                    finalized.last_updated_at = knex.fn.now();
 
                     const recordsUpdated = await notesDb.updateNote(noteId, finalized);
                     if(recordsUpdated) {
