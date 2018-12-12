@@ -1,24 +1,10 @@
 const express = require("express");
-const server = express();
-const logger = require("morgan");
-const db = require("../database/dbConfig");
-const cors = require("cors");
-const helmet = require("helmet");
+const db = require("../database/dbconfig");
 
-const NotesRouter = require("../routes/noteRoutes");
-
-server.use(logger("dev"));
-server.use(express.json());
-server.use(cors());
-server.use(helmet());
-
-//sanity check
-server.get("/", (req, res) => {
-  res.send(`API running on port: ${port}`);
-});
+const router = express.Router();
 
 //get a list of all of the notes
-server.get("/api/notes", (req, res) => {
+router.get("/api/notes", (req, res) => {
   db("notes")
     .then(notes => {
       res.status(200).json(notes);
@@ -28,27 +14,8 @@ server.get("/api/notes", (req, res) => {
     });
 });
 
-//get a single note
-server.get("/api/notes/:id", (req, res) => {
-  const { id } = req.params;
-  console.log(id);
-  db("notes")
-    .where({ id: id })
-    .first()
-    .then(list => {
-      if (list) {
-        res.status(200).json(list);
-      } else {
-        res.status(404).json({ message: "The list with the specified id does not exist" });
-      }
-    })
-    .catch(err => {
-      res.status(500).json({ message: "The list could not be received", err });
-    });
-});
-
 //edit an existing note
-server.put("/api/notes/:id", (req, res) => {
+router.put("/api/notes/:id", (req, res) => {
   const { noteTitle, noteBody } = req.body;
   const { id } = req.params;
   db("notes")
@@ -68,7 +35,7 @@ server.put("/api/notes/:id", (req, res) => {
 });
 
 //add a new note
-server.post("/api/notes", (req, res) => {
+router.post("/api/notes", (req, res) => {
   db("notes")
     .insert(req.body)
     .then(ids => ids[0])
@@ -85,7 +52,7 @@ server.post("/api/notes", (req, res) => {
     });
 });
 
-server.delete("/api/notes/:id", (req, res) => {
+router.delete("/api/notes/:id", (req, res) => {
   const { id } = req.params;
   db("notes")
     .where({ id: id })
@@ -98,4 +65,4 @@ server.delete("/api/notes/:id", (req, res) => {
     });
 });
 
-module.exports = server;
+module.exports = router;
