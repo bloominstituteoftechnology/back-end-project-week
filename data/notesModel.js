@@ -7,9 +7,9 @@ async function get(id) {
 }
 
 async function add(note) {
-    const id = await db('notes').insert(note)
+    return await db('notes').insert(note)
     // return db('notes').where({ id }).first()
-    return get(id)
+    // return get(id)
 }
 
 async function update(id, changes) {
