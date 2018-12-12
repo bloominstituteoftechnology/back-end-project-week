@@ -31,6 +31,7 @@ route.get("/:id", authenticate, (req, res) => {
         .then(tags => {
           console.log('||||||TAGS HERE||||||', tags)
           note.tags = tags;
+          console.log('|||||||NOTE HERE |||||||', note)
           res.status(200).json(note);
         });
       } else {
