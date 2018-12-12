@@ -43,7 +43,7 @@ async function register(req, res) {
         }
         creds.password = bcrypt.hashSync(creds.password, 8);
     
-        const idArray = await db('users').insert(creds);
+        const idArray = await db('users').returning('id').insert(creds);
 
         const newId = idArray[0];
         const newUser = await db('users').where('id', '=', newId).first();
