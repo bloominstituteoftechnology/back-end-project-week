@@ -15,4 +15,19 @@ module.exports = {
     seeds: { directory: './data/seeds'}
   },
 
+  production: {
+    client: 'pg',
+    connection: 'connection string provided by heroku',
+    pool: {
+      min: 2,
+      max: 10,
+    },
+    migrations: {
+      tablename: 'dbmigrations',
+      directory: './data/migrations',
+    },
+    seeds: {
+      directory: './data/seeds'
+    }
+  },
 };
