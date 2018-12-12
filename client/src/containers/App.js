@@ -148,7 +148,7 @@ const App = ({ history, location }) => {
                     notes={notes.filter(
                       note =>
                         note.title.toLowerCase().includes(criteria) ||
-                        note.textBody.toLowerCase().includes(criteria)
+                        note.content.toLowerCase().includes(criteria)
                     )}
                     toggleSort={() => dispatch(toggleSort())}
                     sortAToZ={sortAToZ}

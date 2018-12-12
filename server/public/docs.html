@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+    />
+    <title>RESTful API Endpoints</title>
+    <style>
+      html {
+        font-size: 62.5%;
+      }
+      body {
+        width: 72rem;
+        margin: 0 auto;
+        font-family: Roboto, Helvetica, Arial, sans-serif;
+        font-size: 1.6rem;
+        line-height: 1.8rem;
+      }
+      div {
+        padding: 1rem 0;
+      }
+      #b {
+        border-top: 0.1rem solid #333;
+        border-bottom: 0.1rem solid #333;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>RESTful API Endpoints</h1>
+    <div class="register">
+      <h2>/api/register</h2>
+      <p>
+        <b>POST /</b> - expects an object with keys "username" and "password",
+        returns the ID of the registered user.
+      </p>
+    </div>
+    <div class="login" id="b">
+      <h2>/api/login</h2>
+      <p>
+        <b>POST /</b> - expects an object with keys "username" and "password",
+        returns a JWT that expires in an hour.
+      </p>
+    </div>
+    <div class="notes">
+      <h2>/api/notes</h2>
+      <h3>
+        All notes endpoints expect a valid JWT sent in the "Authorization"
+        header.
+      </h3>
+      <p>
+        <b>GET /</b> - returns all notes with the same id as the user the JWT is
+        assigned to.
+      </p>
+      <p>
+        <b>POST / </b> - expects an object with keys of "title" and "content"
+        and strings for values. Both a title and content must be provided.
+        Returns a successful message and the note added.
+      </p>
+      <p>
+        <b>GET /:id </b> - returns a specific note with an id matching the URL,
+        as long as it belongs to the user and it exists.
+      </p>
+      <p>
+        <b>PUT /:id </b> - expects an object like POST, edits the note with an
+        id matching the URL, as long as it exists and belongs to the user. Will
+        succeed if either title or content are provided. Returns a successful
+        message and the modified note.
+      </p>
+      <p>
+        <b>DELETE /:id</b> - deletes the note with an id matching the URL, as
+        long as it exists and belongs to the user. Returns a successul message.
+      </p>
+    </div>
+  </body>
+</html>

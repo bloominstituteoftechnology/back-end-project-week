@@ -12,6 +12,7 @@ module.exports = server => {
   server.disable("etag");
   server.use(express.json());
   server.use(helmet());
+  server.use(express.static("public"));
   server.use(logger("dev"));
   server.use("/api/notes", notes);
   server.use("/api/register", register);
