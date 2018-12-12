@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const knex = require("knex");
 const cors = require("cors");
@@ -83,6 +85,6 @@ server.delete("/notes/:id", (req, res) => {
     });
 });
 //============================================================================== Server Initialization <----
-server.listen(9000, () => {
-  console.log("\n Running on port 9000\n");
-});
+const port = process.env.PORT || 9000;
+
+server.listen(port, () => console.log(`\n=== Running on port ${port} ===\n`));
