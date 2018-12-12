@@ -1,12 +1,13 @@
 // Update with your config settings.
+const dbConnection = process.env.DATABASE_URL || localPgConnection
+
 const localPgConnection = {
-  host: '',
+  host: dbConnection,
   database: 'my_db',
   user:     'username',
   password: 'password'
 }
 
-const dbConnection = process.env.DATABASE_URL || localPgConnection
 module.exports = {
   development: {
     client: 'sqlite3',
