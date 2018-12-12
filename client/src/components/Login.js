@@ -14,7 +14,9 @@ import axios from "axios";
 
 const Login = ({ history }) => {
   const [input, setInput] = useState(DEFAULT_USER_VALUES);
-  useEffect(() => localStorage.removeItem("token"), []);
+  useEffect(() => {
+    localStorage.getItem("token") && history.push("/");
+  }, []);
   const handleChange = e =>
     setInput({ ...input, [e.target.name]: e.target.value });
   const handleSubmit = e => {
@@ -23,9 +25,8 @@ const Login = ({ history }) => {
       .post(`${URL}/login`, input)
       .then(res => {
         localStorage.setItem("token", res.data.token);
-        setInput(DEFAULT_USER_VALUES);
-        window.location.reload();
         history.push("/");
+        setInput(DEFAULT_USER_VALUES);
       })
       .catch(err => {
         console.error(err);

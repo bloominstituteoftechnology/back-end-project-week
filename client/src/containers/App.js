@@ -1,4 +1,4 @@
-import React, { useState, useMutationEffect, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import NProgress from "nprogress";
@@ -42,11 +42,23 @@ const App = ({ history, location }) => {
   const dispatch = useDispatch();
   const [newNote, setNewNote] = useState(DEFAULT_NOTE_VALUES);
 
-  useMutationEffect(() => {
-    if (localStorage.getItem("token")) {
-      dispatch(fetchNotes(HEADER, history));
-    } else history.push("/login");
-  }, []);
+  useEffect(
+    () => {
+      if (localStorage.getItem("token")) {
+        dispatch(
+          fetchNotes(
+            {
+              headers: {
+                authorization: localStorage.getItem("token")
+              }
+            },
+            history
+          )
+        );
+      } else history.push("/login");
+    },
+    [localStorage.getItem("token")]
+  );
 
   useEffect(
     () => {

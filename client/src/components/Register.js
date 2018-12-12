@@ -14,7 +14,7 @@ import axios from "axios";
 
 const Register = ({ history }) => {
   const [input, setInput] = useState(DEFAULT_USER_VALUES);
-  useEffect(() => localStorage.removeItem("token"), []);
+  useEffect(() => localStorage.getItem("token") && history.push("/"), []);
   const handleChange = e =>
     setInput({ ...input, [e.target.name]: e.target.value });
   const handleSubmit = e => {
