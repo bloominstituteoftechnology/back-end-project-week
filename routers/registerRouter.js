@@ -14,7 +14,7 @@ router.post('/', (req, res) => {
   
     db('users')
       .insert(creds)
-      .returning(['id', '*'])
+      //.returning(['id', '*'])
       .then(ids => {
         res.status(201).json(ids);
       })
