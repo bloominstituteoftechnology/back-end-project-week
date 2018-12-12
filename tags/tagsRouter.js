@@ -16,6 +16,7 @@ router.post("/", (req, res) => {
         if (note && note.length) {
           // if it does, we post the new tag
           db("tags")
+            .returning("id")
             .insert(tag)
             .then(id => res.status(201).json(id))
             .catch(err =>
