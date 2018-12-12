@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon"
+    "start": "node index.js",
+    "server": "nodemon"
   },
   "repository": "https://github.com/Edsauril/back-end-project-week.git",
   "author": "<edwin.torres.jr2@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "helmet": "^3.15.0",
     "knex": "^0.16.2",
