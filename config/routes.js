@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const { authenticate, generateToken } = require('./middlewares.js');
 const db = require('../database/dbConfig.js');
 
+
 module.exports = server => {
     server.post('/note/register', register);
     server.post('/note/login', login);
@@ -82,20 +83,26 @@ function getOneNote(req, res) {
 // ADD NEW NOTE
 
 function addNote(req, res) {
+    const users_id = req.decoded.subject
     const { title, textBody } = req.body;
+     req.body = {title, textBody, users_id};
     if (!title || !textBody) {
+        console.log(users_id)
         res.status(422).json({ message: `Both title and content are required` })
     } else {
         db('notes')
             .insert(req.body)
             .then(ids => {
+                console.log(users_id)
                 res.status(201).json(ids)
             })
             .catch(err => {
+                console.log(req.body)
                 res.status(500).json(err)
             });
     };
 };
+
 
 // DELETE NOTE
 
@@ -124,7 +131,6 @@ function editNote(req, res) {
         .first()
         .update(changes)
         .then(note => {
-            console.log('note', note);
             note
                 ? res.status(200).json(changes)
                 : res.status(404).json({ message: `Note not found` })
