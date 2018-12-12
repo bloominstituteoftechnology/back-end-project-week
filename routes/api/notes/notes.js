@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const protected = require('../../../middlewares/protected');
 
 const db = require('../../../data/helpers/Note');
 
@@ -14,7 +15,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', protected, async (req, res) => {
   const { id } = req.params;
   try {
     const note = await db.get(id);

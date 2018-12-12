@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -10,7 +11,7 @@ function generateToken(user) {
     userId: user.id,
     username: user.username
   };
-  const secret = 'ThisisasecretthatIwillsoonputintoaenvfile';
+  const secret = process.env.JWT_SECRET;
   const options = {
     expiresIn: '1h'
   };

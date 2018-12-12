@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
 });
 
 // GET A USER WITH ONLY THEIR POSTS
-router.get('/:id', async (req, res) => {
+router.get('/:id', protected, async (req, res) => {
   const { id } = req.params;
   try {
     const user = await db.get(id);
