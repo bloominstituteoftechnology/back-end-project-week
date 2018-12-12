@@ -9,7 +9,7 @@ function generateToken(user) {
         roles: ['processes'],
     };
 
-    const secret = process.env.JWT_SECRET;
+    const secret = '$this$is$a$secret';
     const options = {
         expiresIn: '15m',
     };
