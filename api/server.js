@@ -28,7 +28,7 @@ server.post('/api/register', (req, res) => {
 
   creds.password = hash;
 
-  db('users').returning('id').insert(creds).then(id => {
+  db('users').returning('username').insert(creds).then(id => {
     res.status(201);
   }).catch(err => res.status(420).json(err));
 });
