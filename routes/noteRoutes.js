@@ -1,10 +1,16 @@
 const express = require("express");
 const db = require("../database/dbconfig");
+const { protected } = require("../middleware/middleware");
 
-const router = express.Router();
+const route = express();
+
+//sanity check
+route.get("/", (req, res) => {
+  res.send(`API running on port: ${PORT}`);
+});
 
 //get a list of all of the notes
-router.get("/api/notes", (req, res) => {
+route.get("/api/notes", (req, res) => {
   db("notes")
     .then(notes => {
       res.status(200).json(notes);
@@ -15,7 +21,7 @@ router.get("/api/notes", (req, res) => {
 });
 
 //edit an existing note
-router.put("/api/notes/:id", (req, res) => {
+route.put("/api/notes/:id", protected, (req, res) => {
   const { noteTitle, noteBody } = req.body;
   const { id } = req.params;
   db("notes")
@@ -35,7 +41,7 @@ router.put("/api/notes/:id", (req, res) => {
 });
 
 //add a new note
-router.post("/api/notes", (req, res) => {
+route.post("/api/notes", protected, (req, res) => {
   db("notes")
     .insert(req.body)
     .then(ids => ids[0])
@@ -52,7 +58,7 @@ router.post("/api/notes", (req, res) => {
     });
 });
 
-router.delete("/api/notes/:id", (req, res) => {
+route.delete("/api/notes/:id", protected, (req, res) => {
   const { id } = req.params;
   db("notes")
     .where({ id: id })
@@ -65,4 +71,4 @@ router.delete("/api/notes/:id", (req, res) => {
     });
 });
 
-module.exports = router;
+module.exports = route;
