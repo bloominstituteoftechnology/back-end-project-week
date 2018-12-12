@@ -26,7 +26,9 @@ route.get("/:id", authenticate, (req, res) => {
         res.status(404).json({ message: `Note with id ${id} does not exist.` });
       }
       if (note) {
-        db("tags as t").then(tags => {
+        db("tags as t")
+        .where('t.notes_id', id)
+        .then(tags => {
           note.tags = tags;
           res.status(200).json(note);
         });
