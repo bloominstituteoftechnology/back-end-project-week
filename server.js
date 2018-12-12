@@ -1,10 +1,8 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-const knex = require('knex');
-const knexConfig = require('./knexfile.js');
 
-const db = knex(knexConfig.production);
+const db = require('./data/config.js');
 
 const server = express();
 
