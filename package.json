@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node"
+    "start": "node index.js" 
   },
   "repository": "https://github.com/MichaelCheco/back-end-project-week.git",
   "author": "Michael Checo <checomichael2@gmail.com>",
