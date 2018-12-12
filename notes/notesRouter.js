@@ -1,10 +1,29 @@
+require("dotenv").config();
+
 const express = require("express");
+const jwt = require("jsonwebtoken");
 
 const db = require("../data/dbConfig");
 
 const router = express.Router();
 
-router.get("/get/all", (req, res) => {
+const protected = (req, res, next) => {
+  const token = req.headers.authorization;
+  if (token) {
+    jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+      if (err) {
+        res.status(401).json({ message: "Invalid token." });
+      } else {
+        req.decodedToken = decodedToken;
+        next();
+      }
+    });
+  } else {
+    res.status(401).json({ message: "No token provided so no entry." });
+  }
+};
+
+router.get("/get/all", protected, (req, res) => {
   db("notes")
     .then(users => res.status(200).json(users))
     .catch(err =>
@@ -14,7 +33,7 @@ router.get("/get/all", (req, res) => {
     );
 });
 
-router.get("/get/:id", (req, res) => {
+router.get("/get/:id", protected, (req, res) => {
   db("notes")
     .where({ _id: req.params.id })
     .first()
@@ -32,7 +51,7 @@ router.get("/get/:id", (req, res) => {
     );
 });
 
-router.post("/create", async (req, res) => {
+router.post("/create", protected, async (req, res) => {
   const { title, textBody } = req.body;
   if (title && textBody) {
     try {
@@ -48,7 +67,7 @@ router.post("/create", async (req, res) => {
   }
 });
 
-router.put("/edit/:id", (req, res) => {
+router.put("/edit/:id", protected, (req, res) => {
   db("notes")
     .where({ _id: req.params.id })
     .update(req.body)
@@ -67,7 +86,7 @@ router.put("/edit/:id", (req, res) => {
     );
 });
 
-router.delete("/delete/:id", (req, res) => {
+router.delete("/delete/:id", protected, (req, res) => {
   db("notes")
     .where({ _id: req.params.id })
     .del()
