@@ -10,7 +10,7 @@ middleware(server);
 
 const port = process.env.PORT || 9000;
 
-server.get('', (req, res) => {
+server.get('/', (req, res) => {
     res.send(`API is running on port ${port}`)
 })
 
