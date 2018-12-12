@@ -96,6 +96,7 @@ module.exports = {
     const newNote = { title, content };
     db("notes")
       .insert({ ...newNote, user_id: req.decodedToken.id })
+      .returning("id")
       .then(ids =>
         db("notes")
           .where("id", ids[0])
@@ -138,6 +139,7 @@ module.exports = {
           db("notes")
             .where({ id })
             .update(editedNote)
+            .returning("id")
             .then(() =>
               db("notes")
                 .where({ id })
