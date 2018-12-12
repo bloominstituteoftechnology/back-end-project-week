@@ -13,8 +13,8 @@ router.post("/", (req, res) => {
   const note = req.body;
   if (note.title && note.content) {
     db("notes")
-      .returning("id")
       .insert(note)
+      .returning("id")
       .then(id => {
         res.status(201).json(id);
       })

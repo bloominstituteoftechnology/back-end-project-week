@@ -49,19 +49,17 @@ server.post("/api/register", (req, res) => {
     const hash = bcrypt.hashSync(user.password, 14);
     user.password = hash;
     db("users")
-      .returning("id")
       .insert(user)
+      .returning("id")
 
       .then(id => {
         db("users")
-          .returning(["id", "username", "password"])
           .where({ id })
+          .returning(["id", "username", "password"])
           .first()
           .then(user => {
             if (user) {
-              console.log(user);
               const token = generateToken(user);
-              console.log(token);
               res.status(201).json({ token });
             } else {
               throw new Error();
