@@ -22,10 +22,11 @@ module.exports = {
       directory: './data/seeds'
     }
   },
+
   production: {
     client: 'postgresql',
     connection: {
-      host: '',
+      host: dbConnection,
       database: 'my_db',
       user:     'username',
       password: 'password'
@@ -42,5 +43,4 @@ module.exports = {
       directory: './data/seeds'
     }
   }
-
 };
