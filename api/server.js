@@ -26,7 +26,8 @@ server.post("/api/notes", (req, res) => {
         db("notes")
             .insert(newPost)
             .then(idReturned => {
-                res.status(201).json({ success: idReturned });
+                console.log(idReturned);
+                res.status(201).json({ success: idReturned[0] });
             })
             .catch(err => {
                 res.status(500).json({ message: "Cannot post note to database.", err });
