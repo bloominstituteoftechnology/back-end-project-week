@@ -13,7 +13,7 @@ module.exports = {
     },
     create: note => {
         return db('notes')
-        .insert(note)
+        .insert(note, 'id')
         .then(ids => ({id: ids[0]}))
     },
     update: (id, note) => {
