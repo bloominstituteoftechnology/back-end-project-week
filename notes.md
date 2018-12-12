@@ -28,3 +28,6 @@ server.use(morgan('dev'));
 server.get('/', (req, res) => {
 res.send(`Api running on port: ${port}`);
 });
+
+INSTALL POSTGRES
+npm i pg
