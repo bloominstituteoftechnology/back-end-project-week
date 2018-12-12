@@ -142,7 +142,8 @@ server.post('/login', (req, res) => {
         .then(user => {
             if(user && bcrypt.compareSync(creds.password, user.password)) {
                 const token = generateToken(user)
-                res.status(200).json({ welcome: user.username, token })
+                const id = user.id
+                res.status(200).json({ welcome: user.username, token, id })
             } else {
                 res.status(401).json({ messsage: 'error logging in' })
             }
