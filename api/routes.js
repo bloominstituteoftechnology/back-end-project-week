@@ -2,7 +2,8 @@
 const db = require('../database/dbConfig.js');
 const bcrypt = require('bcryptjs');
 
-const { protected, generateToken } = require('./middleware.js');
+    
+const { generateToken, protected } = require('./middleware.js');
 
 module.exports = server => {
     server.get('/notes', getNotes);
@@ -10,7 +11,7 @@ module.exports = server => {
     server.get('/notes/:id', getNoteById);
     server.put('/notes/:id', editNote);
     server.delete('/notes/:id', deleteNote);
-    server.post('/notes/:id', register);
+    server.post('/notes/register', register);
     server.post('/notes/login', login);
 }
 
