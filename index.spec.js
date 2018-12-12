@@ -60,9 +60,23 @@ describe('server.js', () => {
             expect(rows).toHaveLength(2);   
         });
 
-        it('should return correct status code after adding user successfully', async () => {
+        it('should return correct status code after adding note successfully', async () => {
             let response = await request(server).post('/api/notes/create').send({title: 'Serenna bobeana', content: 'note content'});
             expect(response.status).toBe(201);
+        });
+    })
+
+    describe('delete note', () => {
+        it('should delete specified note', async () => {
+            let post = await request(server).post('/api/notes/create').send({ title: 'Serenna', content: 'note content'});
+            let response = await request(server).delete('/api/notes/delete/1');
+            expect(response.body).toEqual({"count": 1, "message":
+            "deleted the following amount of notes:"});
+        });
+        it('should return correct status code', async () => {
+            let post = await request(server).post('/api/notes/create').send({ title: 'Serenna', content: 'note content'});
+            let response = await request(server).delete('/api/notes/delete/1');
+            expect(response.status).toBe(200);
         });
     })
     
