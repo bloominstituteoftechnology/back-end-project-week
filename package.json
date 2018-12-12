@@ -11,9 +11,7 @@
   "author": "Carlos Lantigua <clantigua954@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "concurrently": "^4.1.0",
-    "react-scripts": "2.1.1",
-    "axios": "^0.18.0"
+    "concurrently": "^4.1.0"
   },
   "engines": {
     "node": "9.11.1",
