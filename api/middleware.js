@@ -1,14 +1,37 @@
-// const jwt = require('jsonwebtoken');
+// require('dotenv').config();
 
+// const jwt = require('jsonwebtoken');
 // const bcrypt = require('bcryptjs');
 
 
-// // function authenticate(req, res, next) {
-// //     const token = req.get('Authorization');
-// //     if(token) {
-// //         jwt.verify(token, )
-// //     }
-// // }
+
+// function generateToken(user) {
+//     const payload = {
+//         subject: id, 
+//         username: user.username
+//     };
+//     const secret = process.env.JWT_SECRET;
+//     const options = {
+//         expiresIn: '3m'
+//     };
+//     return jwt.sign(payload, secret, options);
+// };
+
+// function protected(req, res, next) {
+//     const token = req.headers.authorization;
+//     if(token) {
+//         jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+//             if(err) {
+//                 res.status(401).json({ message: 'invalid token' });
+//             } else {
+//                 req.decodedToken = decodedToken;
+//                 next();
+//             }
+//         });
+//     } else {
+//         res.status(401).json({ message: 'no token provided' });
+//     }
+// };
 
 // //add new migration for users
 
@@ -22,7 +45,7 @@
 //         .catch(err => res.status(400).json({ message: 'Registration failed' }))
 // };
 
-// fucntion login(req, res) {
+// function login(req, res) {
 //     const creds = req.body;
 //     db('users')
 //         .where({ username: creds.username })
@@ -35,5 +58,6 @@
 //                 res.status(401).json({ message: 'username or password information is incorrect'});
 //             }
 //         })
+//         .catch(err => res.status(400).json({ message: 'username or password information is incorrect'}))
 // };
 
