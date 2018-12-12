@@ -1,9 +1,7 @@
 var express = require('express');
 const router = express.Router();
-const knex = require('knex');
 
-const knexConfig = require('../../knexfile.js');
-const db = knex(knexConfig.development);
+const db = require('../../data/config');
 
 router.use(express.json());
 
