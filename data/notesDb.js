@@ -11,7 +11,9 @@ module.exports = {
 
 function find(id) {
   if (id) {
-    return db("notes").where({ id: Number(id) });
+    return db("notes")
+      .where({ id: Number(id) })
+      .first();
   } else {
     return db("notes");
   }
