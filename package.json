@@ -1,0 +1,33 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "My Trello Board: https://trello.com/b/vJLvLKuH/lambda-notes-backend-mikaela-currier",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikaelacurrier/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mikaelacurrier/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/mikaelacurrier/back-end-project-week#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "helmet": "^3.15.0",
+    "knex": "^0.16.1",
+    "morgan": "^1.9.1",
+    "pg": "^7.7.1",
+    "sqlite3": "^4.0.4"
+  },
+  "devDependencies": {
+    "node": "^11.4.0"
+  }
+}

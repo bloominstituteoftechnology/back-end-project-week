@@ -1,3 +1,6 @@
+My Trello Board:
+https://trello.com/b/vJLvLKuH/lambda-notes-backend-mikaela-currier
+
 # Back End Project Week
 
 This week you will build a backend for a note taking app called "Lambda Notes".
