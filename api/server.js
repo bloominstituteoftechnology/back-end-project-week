@@ -30,7 +30,7 @@ server.post('/api/register', (req, res) => {
 
   db('users').insert(creds).then(ids => {
     res.status(201).json(ids);
-  }).catch(err => json(err));
+  }).catch(err => res.status(420).json(err));
 });
 
 
@@ -50,9 +50,7 @@ server.post('/api/login', (req, res) => {
           message: 'You Shall Not Pass!!!!'
         })
       }
-    }).catch(err => res.status(404).json({
-      error: err
-    }))
+    }).catch(err => res.status(404).json(err))
 });
 server.get('/api/users', (req, res) => {
   db('users')
