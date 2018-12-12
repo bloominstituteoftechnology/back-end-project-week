@@ -51,6 +51,7 @@ async function createNote(req, res) {
     
     
     console.log('newNote', newNote);
+    
     const note = await db('notes').returning('id').insert({...newNote, user_id: id});
     console.log(note);
 
