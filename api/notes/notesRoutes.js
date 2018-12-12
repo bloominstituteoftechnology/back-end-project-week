@@ -1,5 +1,5 @@
 const express = require('express')
-const db = require('../../data/dataHelpers')
+const db = require('../../data/helpers/noteHelpers')
 
 const router = express()
 
@@ -12,7 +12,6 @@ const getNoteList = async (req, res) => {
     res.status(500).json({error}) 
   }
 }
-
 
 const getNote = async (req, res) => {
   try {
