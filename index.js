@@ -41,11 +41,12 @@ server.get("/api/notes", async (req, res) => {
 // ##    ## ##    ##  ##       ##     ##    ##    ##          ##   ### ##     ##    ##    ##       
 //  ######  ##     ## ######## ##     ##    ##    ########    ##    ##  #######     ##    ######## 
  // Create a note with a title and content
-server.post("/api/notes", (req, res) => {
+// #1
+ server.post("/api/notes", (req, res) => {
   const note = req.body;
    db("notes")
     .insert(note)
-    .returning("_id")
+    // .returning("_id")
     .then(ids => {
       res.status(201).json(ids);
     })
@@ -53,6 +54,7 @@ server.post("/api/notes", (req, res) => {
       res.status(500).json({ error: "Error creating note" });
     });
 });
+
 
 // ##     ## #### ######## ##      ##    ##    ##  #######  ######## ######## 
 // ##     ##  ##  ##       ##  ##  ##    ###   ## ##     ##    ##    ##       

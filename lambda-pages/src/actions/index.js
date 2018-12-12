@@ -21,9 +21,11 @@ export const DELETE_NOTE_FAILURE = 'DELETE_NOTE_FAILURE';
 
 
 // const url = 'http://localhost:3333/api/notes';
+const url = 'http://localhost:3333/api/notes';
 
 // Heroku API
-const url = 'https://notes-api-ad.herokuapp.com/api/notes';
+// const url = 'https://notes-api-ad.herokuapp.com/api/notes';
+
 
 // GET request
 export const getAllNotes = () => dispatch => {
@@ -75,7 +77,7 @@ export const updateNote = note => dispatch => {
   dispatch({ type: UPDATE_NOTE });
   axios
     // .put(`https://fe-notes.herokuapp.com/note/edit/${note._id}`, note)
-    .put('${url}/${note._id}', note)
+    .put(`${url}/${note.id}`, note)
     .then(res => {
       dispatch({
         type: UPDATE_NOTE_SUCCESS,
