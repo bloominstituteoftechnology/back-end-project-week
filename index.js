@@ -43,10 +43,10 @@ server.get('/api/notes', (req, res) => {
 
 server.put('/api/notes/:id', (req, res) => {
     const changes = req.body;
-    const { id } = req.params;
+    const  id  = req.params;
 
     db('notes')
-    .where({ id })
+    .where( id )
     .update(changes)
     .then(count => {
         res.status(200).json({ count })
@@ -56,10 +56,10 @@ server.put('/api/notes/:id', (req, res) => {
 
 
 server.delete('/api/notes/:id', (req, res) => {
-    const { id } = req.params;
+    const  id  = req.params;
 
     db('notes')
-    .where({ id })
+    .where( id )
     .del()
     .then(count => {
         res.status(200).json({ count });
