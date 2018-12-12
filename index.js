@@ -8,7 +8,7 @@ const server = express();
 server.use(express.json());
 server.use(cors());
 
-const port = process.env.PORT || 9000
+const port = process.env.PORT || 9000;
 
 // ########  ####  ######  ########  ##          ###    ##    ##    ##    ##  #######  ######## ######## 
 // ##     ##  ##  ##    ## ##     ## ##         ## ##    ##  ##     ###   ## ##     ##    ##    ##       
