@@ -1,4 +1,3 @@
-require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
 const jwtSecret = process.env.JWT_SECRET;
@@ -9,12 +8,12 @@ module.exports = {
 };
 
 function authenticate(req, res, next) {
-    const token = req.get('Authorization');
+    const token = req.headers.authorization;
     if (token) {
         jwt.verify(token, jwtSecret, (err, decoded) => {
             if (err) return res.status(401).json(err);
             req.decoded = decoded;
-            console.log(decoded.subject);
+            console.log(req.decoded)
             next();
         });
     } else {
