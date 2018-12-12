@@ -5,16 +5,18 @@ const db = require("../database/dbConfig");
 const cors = require("cors");
 const helmet = require("helmet");
 
-const NotesRouter = require("../routes/noteRoutes");
+// const NotesRouter = require("../routes/noteRoutes");
 
 server.use(logger("dev"));
 server.use(express.json());
 server.use(cors());
 server.use(helmet());
 
+const PORT = process.env.PORT || 4000;
+
 //sanity check
 server.get("/", (req, res) => {
-  res.send(`API running on port: ${port}`);
+  res.send(`API running on port: ${PORT}`);
 });
 
 //get a list of all of the notes
