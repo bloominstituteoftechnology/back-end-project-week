@@ -52,7 +52,7 @@ server.post('/api/notes', (req, res) => {
     // The then will send back the id of the note added
     .then(id => {
       console.log('THE POST LOGGING:', id);
-      res.status(201).json(id);
+      res.status(201).json(id[0].id);
     })
     .catch(error =>
       res
