@@ -12,6 +12,11 @@ server.use(morgan('short'));
 server.use(cors());
 server.use(express.json());
 
+// server check
+server.get('/', (req, res) => {
+	res.send(`Api running on port: ${port}`);
+});
+
 // get all notes
 server.get('/api/notes', (req, res) => {
 	db('notes')
