@@ -2,9 +2,9 @@ const router = require("express").Router();
 const nc = require("./notesController.js");
 
 // below 3 lines are for knex usage
-const knex = require("knex");
-const knexConfig = require("../knexfile");
-const db = knex(knexConfig.development);
+// const knex = require("knex");
+// const knexConfig = require("../knexfile");
+// const db = knex(knexConfig.development);
 
 
 // ENDPOINT for each features

@@ -1,6 +1,5 @@
-const knex = require("knex");
-const knexConfig = require("../knexfile");
-const db = knex(knexConfig.development);
+
+const db = require('../data/config.js');
 
 // for using in pagination...
 const limitNum = 3;

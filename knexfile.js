@@ -1,5 +1,16 @@
 // Update with your config settings.
 
+const localPgConnection = {
+  host: 'localhost', // address to find the db server
+  database: 'lambda',
+  user: 'edward',
+  password: 'pass',
+};
+
+// where is DATABASE_URL coming from?
+const dbConnection = process.env.DATABASE_URL || localPgConnection;
+
+
 module.exports = {
 
   development: {
@@ -17,4 +28,19 @@ module.exports = {
  
   },
 
+  production: {
+    client: 'pg',
+    connection: dbConnection, // can be and object or a string
+    pool: {
+      min: 2,
+      max: 10,
+    },
+    migrations: {
+      tableName: 'knex_migrations',
+      directory: './db/migrations',
+    },
+    seeds: {
+      directory: './db/seeds',
+    },
+  },
 };
