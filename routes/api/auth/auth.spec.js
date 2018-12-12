@@ -71,4 +71,16 @@ describe('auth.js', () => {
       expect(response.body).toBe(4);
     });
   });
+  describe('login', () => {
+    it('should return an error with a status code of 400 if no username or password', async () => {
+      let loginData = { username: 'ryan_walker', password: '' };
+      let response = await request(server)
+        .post('/api/auth/login')
+        .send(loginData);
+      expect(response.status).toBe(400);
+      loginData.password = 'pass';
+      loginData.username = '';
+      expect(response.status).toBe(400);
+    });
+  });
 });

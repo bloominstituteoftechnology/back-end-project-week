@@ -66,5 +66,27 @@ router.post('/register', async (req, res) => {
 });
 
 // LOGIN USER
+router.post('/login', async (req, res) => {
+  const loginData = req.body;
+  if (!loginData.username || !loginData.password) {
+    return res
+      .status(400)
+      .json({ message: 'A username and password is required to login' });
+  }
+  try {
+    const user = await db('users')
+      .where({ username: loginData.username })
+      .first();
+
+    if (user && bcrypt.compareSync(loginData.password, user.password)) {
+      const token = generateToken(user);
+      res.status(200).json({ message: `welcome back ${user.username}`, token });
+    } else {
+      res.status(401).json({ message: 'Username or password is incorrect.' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'There was an error logging in.' });
+  }
+});
 
 module.exports = router;
