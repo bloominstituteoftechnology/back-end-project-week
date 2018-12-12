@@ -49,7 +49,10 @@ server.post('/api/notes', (req, res) => {
   db('notes')
     .insert(note)
     // The then will send back the id of the note added
-    .then(id => res.status(201).json(id))
+    .then(id => {
+      console.log(id);
+      res.status(201).json(id);
+    })
     .catch(error =>
       res
         .status(500)
