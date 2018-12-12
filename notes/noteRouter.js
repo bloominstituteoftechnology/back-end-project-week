@@ -44,9 +44,10 @@ router.post("/", authenticate, (req, res) => {
         .catch(err => res.status(500).json({error: err}))
 })
 
-router.put("/:id", (req, res) => {
+router.put("/:id", authenticate, (req, res) => {
     let { title, content } = req.body;
     let { id } = req.params;
+    let user_id = req.decoded.subject;
 
     if (!title) {
         return res.status(405).json({error: "Please enter a title."});
@@ -56,14 +57,33 @@ router.put("/:id", (req, res) => {
     }
 
     db("notes")
-        .where({id})
-        .update({ title, content })
-        .then(count => {
-            count ?
-            res.status(200).json(count) :
-            res.status(400).json({error: "Please enter a valid id"});
+        .where({ id })
+        .first()
+        .then(note => {
+            if (note.user_id === user_id) {
+                db("notes")
+                    .where({
+                        id
+                    })
+                    .update({
+                        title,
+                        content
+                    })
+                    .then(count => {
+                        console.log(count);
+                        count ?
+                            res.status(200).json(count) :
+                            res.status(400).json({
+                                error: "Please enter a valid id"
+                            });
+                    })
+                    .catch(err => res.status(500).json({
+                        error: err
+                    }))
+            } else {
+                res.status(401).json({error: "You do not have access to this note."});
+            }
         })
-        .catch(err => res.status(500).json({error: err}))
 })
 
 router.delete("/:id", (req, res) => {
