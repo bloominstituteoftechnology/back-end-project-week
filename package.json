@@ -4,6 +4,7 @@
   "description": "backend to support \"Lambda Notes\" front end project",
   "main": "index.js",
   "scripts": {
+    "devServer": "nodemon index.js",
     "server": "node index.js"
   },
   "repository": "https://github.com/JoeBugajski/back-end-project-week.git",
