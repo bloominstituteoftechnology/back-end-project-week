@@ -19,6 +19,7 @@ class NotesList extends React.Component {
     super(props);
     this.state = {
       data: [],
+      credits: 0,
       filteredNotes: []
     };
   }
@@ -28,6 +29,8 @@ class NotesList extends React.Component {
       .get("http://localhost:5000/notes")
       .then(response => this.setState({ data: response.data }))
       .catch(error => console.log(error));
+
+    this.getCredits();
   }
 
   exportCsv() {
@@ -52,9 +55,12 @@ class NotesList extends React.Component {
 
   getCredits = credit => {
     axios
-      .get("/api/stripe", credit)
+      .get("/api/current_user")
       .then(res => {
-        this.setState(() => ({ credits: res.data.credits }));
+        console.log(res);
+        if (res.data._id) {
+          this.setState({ credits: res.data.credits });
+        }
       })
       .catch(err => console.log(err));
   };
@@ -74,9 +80,8 @@ class NotesList extends React.Component {
           >
             Export
           </ExportBtn>
-          <Payments />
-          <div>Credits: {this.state.data.credits}</div>
-          {/* <SearchInput onChange={this.searchNotesHandler} type="text" placeholder="Search"/> */}
+          <Payments handlePayment={this.getCredits}/>
+          <div>Credits: {this.state.credits}</div>
         </LeftBar>
         <CardList>
           <NotesH2>Your Notes:</NotesH2>

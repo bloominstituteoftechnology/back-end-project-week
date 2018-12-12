@@ -8,6 +8,7 @@ class Payments extends Component {
     axios
       .post("/api/stripe", token)
       .then(res => {
+        this.props.handlePayment();
         this.setState(() => ({ user: res.data }));
       })
       .catch(err => console.log(err));
