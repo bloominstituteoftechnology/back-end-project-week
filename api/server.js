@@ -8,6 +8,7 @@ const cors = require('cors');
 server.use(cors({origin: 'http://localhost:3000'}));
 server.use(express.json())
 
+ 
  server.get('/note/get/all', async (req, res) => {
 
     try{
