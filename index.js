@@ -98,8 +98,8 @@ server.post('/api/actions/:id', async (req, res) => {
 
     } catch (err) {
         console.log(err)
-            res.status(500).json({ error: "Error while trying to save to database." });
-            return      
+        res.status(500).json({ error: "Error while trying to save to database." });
+        return      
     }
 
     res.status(201).json(addAction);
@@ -119,5 +119,41 @@ server.delete('/api/notes/:id', (req, res) => {
         })
         .catch(err => res.status(500).json(err));
 });
+
+// PUT notes: edits a note.
+
+server.put('/api/notes/:id', async (req, res) => {
+    const { id } = req.params;
+    const noteEdit = req.body;
+
+    db('notes')
+    .where({ id })
+    .then(note => { 
+        if (!note) { 
+           res.status(404).json({ message: "Note with provided ID is not available." });
+           return  
+          }
+         })
+         .catch(err => {
+            res.status(500).json({ err: "Note info not available." });
+         });
+          
+        if (!noteEdit.title || !noteEdit.content) {
+          res.status(400).json({ err: "Please input note title and content." });
+          return
+        } 
+
+        try {
+          await   db('notes')
+          .where({ id })
+          .update(updates)
+        } catch (err) {
+            console.log(err)
+            res.status(500).json({ err: "Error saving to database." });
+            return      
+        }
+            res.status(201).json(updates);
+            return
+      })
 
 server.listen(8888, () => console.log('\nrunning on port 8888\n'));
