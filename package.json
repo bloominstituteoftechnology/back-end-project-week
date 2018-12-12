@@ -6,7 +6,7 @@
   "author": "Chiboba <briangfelix@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
     "test": "jest --watch --verbose"
   },
   "keywords": [

@@ -1,4 +1,14 @@
 // Update with your config settings.
+require('dotenv').config();
+
+const localPgConnection = {
+  host: 'localhost', // address to find the db server
+  database: 'notes',
+  user: 'Bryan',
+  password: 'pass',
+};
+
+const dbConnection = process.env.DATABASE_URL || localPgConnection
 
 module.exports = {
 
@@ -35,7 +45,7 @@ module.exports = {
   production: {
     client: 'postgresql',
     connection: {
-      database: 'my_db',
+      database: dbConnection,
       user:     'username',
       password: 'password'
     },
