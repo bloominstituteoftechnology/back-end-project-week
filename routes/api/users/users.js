@@ -19,8 +19,4 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// REGISTER USER
-
-// LOGIN USER
-
 module.exports = router;
