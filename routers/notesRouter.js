@@ -2,11 +2,13 @@ const express = require('express');
 
 const notesDb = require('../data/helpers/notesHelper.js');
 
+const protected = require('../middleware/protected.js');
+
 const router = express.Router();
 
 // [GET] /api/notes
 // get all notes in table
-router.get('', (req, res) => {
+router.get('', protected, (req, res) => {
     notesDb.getNotes()
         .then(notes => {
             if (notes.length) {
@@ -22,7 +24,7 @@ router.get('', (req, res) => {
 
 // [GET] /api/notes/:id
 // get note by note id
-router.get('/:id', (req, res) => {
+router.get('/:id', protected, (req, res) => {
     const noteId = req.params.id;
     notesDb.getNote(noteId)
         .then(note => {
@@ -38,7 +40,7 @@ router.get('/:id', (req, res) => {
 });
 
 // [PUT] /api/notes/:id
-router.put('/:id', async (req, res) => {
+router.put('/:id', protected, async (req, res) => {
     const updates = req.body;
     const noteId = req.params.id;
     let valid = true;
@@ -105,7 +107,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // [DELETE] /api/notes/:id
-router.delete('/:id', (req, res) => {
+router.delete('/:id', protected, (req, res) => {
     const noteId = req.params.id;
 
     notesDb.removeNote(noteId)

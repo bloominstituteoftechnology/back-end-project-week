@@ -39,7 +39,7 @@ router.get('', (req, res) => {
     usersDb.getUsers()
         .then(users => {
             if (users.length) {
-                res.status(200).json(user);
+                res.status(200).json(users);
             } else {
                 res.status(404).json({ code: 9, message: 'No users in database' });
             }
@@ -66,7 +66,7 @@ router.get('/:id', (req, res) => {
 });
 
 // [GET] /api/users/:id/notes
-router.get('/:id/notes', async (req, res) => {
+router.get('/:id/notes', protected, async (req, res) => {
     const user_id = req.params.id;
     try {
         const notes = await notesDb.getNotes(user_id);
@@ -131,7 +131,7 @@ router.post('/login', (req, res) => {
 });
 
 // [POST] /api/users/:id/newNote
-router.post('/:id/newNote', (req, res) => {
+router.post('/:id/newNote', protected, (req, res) => {
     const user_id = req.params.id;
     const newNote = req.body;
     let valid = true;
