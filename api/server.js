@@ -96,7 +96,7 @@ server.get('/api/notes/:noteId', (req, res) => {
 
   db('notes')
     .where({
-      _id: noteId
+      id: noteId
     })
     .first()
     .then(note => {
@@ -113,7 +113,7 @@ server.put('/api/notes/:noteId', (req, res) => {
 
   db('notes')
     .where({
-      _id: noteId
+      id: noteId
     })
     .update(changes)
     .then(count => {
@@ -131,7 +131,7 @@ server.delete('/api/notes/:noteId', (req, res) => {
 
   db('notes')
     .where({
-      _id: noteId
+      id: noteId
     })
     .del()
     .then(count => {
