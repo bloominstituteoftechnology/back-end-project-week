@@ -3,6 +3,7 @@ const server = express();
 const knex = require('knex')
 const knexConfig = require('../knexfile');
 const db = knex(knexConfig.development)
+require('dotenv').config();
 
 const cors = require('cors');
 server.use(cors({origin: 'http://localhost:3000'}));
