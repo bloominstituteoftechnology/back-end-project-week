@@ -10,6 +10,9 @@ module.exports = app => {
             source: req.body.id
         });
 
-        console.log('Charges', charge);
+        req.user.credits += 5;
+        const user = await req.user.save();
+
+        res.send(user);
     });
 };
