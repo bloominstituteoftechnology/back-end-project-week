@@ -2,7 +2,7 @@
 
 //== Project Constants =========================================================
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 module.exports = {
     // Server Configuration
     SERVER_PORT: PORT,

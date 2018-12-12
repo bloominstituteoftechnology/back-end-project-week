@@ -4,6 +4,7 @@
   "description": "https://trello.com/b/TEF78nxN/lambda-notesbackend-jacob-a-brennan",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "jest --watch --verbose",
     "knex": "knex"
   },
@@ -20,6 +21,7 @@
   "homepage": "https://github.com/jacobabrennan/back-end-project-week#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.4.0",
     "knex": "^0.16.2",
