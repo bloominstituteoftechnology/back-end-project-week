@@ -45,7 +45,7 @@ server.post("/api/notes", (req, res) => {
   const note = req.body;
    db("notes")
     .insert(note)
-    .returning("id")
+    .returning("_id")
     .then(ids => {
       res.status(201).json(ids);
     })
