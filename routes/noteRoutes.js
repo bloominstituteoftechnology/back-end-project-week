@@ -29,6 +29,7 @@ route.get("/:id", authenticate, (req, res) => {
         db("tags as t")
         .where('t.notes_id', id)
         .then(tags => {
+          console.log('||||||TAGS HERE||||||', tags)
           note.tags = tags;
           res.status(200).json(note);
         });
