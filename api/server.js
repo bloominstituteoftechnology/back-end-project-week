@@ -55,7 +55,7 @@ server.post("/api/register", (req, res) => {
       .then(id => {
         console.log(id, "ID HERE");
         db("users")
-          .where({ id })
+          .where({ id: id[0].id })
           .first()
           .then(user => {
             if (user) {
