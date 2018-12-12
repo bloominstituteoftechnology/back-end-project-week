@@ -3,13 +3,14 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const server = express();
+const port = process.env.PORT || 3600;
 
 server.use(express.json());
 server.use(morgan("dev"));
 server.use(cors());
 
 server.get("/", (req, res) => {
-  res.status(200).send("Server is alive!");
+  res.status(200).send(`Server is alive on PORT ${port}!`);
 });
 
 // NOTES
