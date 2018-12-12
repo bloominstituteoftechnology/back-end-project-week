@@ -48,6 +48,7 @@ server.post("/api/register", (req, res) => {
   } else {
     const hash = bcrypt.hashSync(user.password, 14);
     user.password = hash;
+    console.log(user, "OUTSIDE POST BLOCK");
     db("users")
       .insert(user)
       .returning("id")
