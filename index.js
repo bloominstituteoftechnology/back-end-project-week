@@ -70,6 +70,21 @@ server.put('/edit/:id', async (req, res) => {
     }
 });
 
+// delete a note
+server.delete('/delete/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const successIndicator = await db('notes').where({ id: id }).del();
+        if (successIndicator) {
+            res.status(200).json({ message: 'Note deleted.'});
+        } else {
+            res.status(500).json({ message: 'Invalid id. Note does not exist.' });
+        }
+    } catch(err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
 
 
 
