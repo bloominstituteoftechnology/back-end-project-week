@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const bcrypt = require('bcryptjs');
 
 const jwt = require('jsonwebtoken');
 
@@ -13,14 +14,13 @@ const router = express.Router();
 const generateToken = user => {
     const payload = {
         subject: user.id,
-        username: user.username,
-        department: user.department
+        username: user.username
     };
 
     const secret = process.env.JWT_SECRET;
 
     const options = {
-        expiresIn: '1h',
+        expiresIn: '12h',
     };
 
     return jwt.sign(payload, secret, options);
@@ -100,6 +100,26 @@ router.post('/register', (req, res) => {
     } else {
         res.status(400).json({ code: 5, message: 'Request formatted incorrectly' });
     }
+});
+
+// [POST] /api/users/login
+router.post('/login', (req, res) => {
+    const creds = req.body;
+    creds.username = creds.username.toLowerCase();
+
+    usersDb.getUserByUsername(creds.username)
+        .then(user => {
+            console.log(user);
+            if(user && bcrypt.compareSync(creds.password, user.password)) {
+                const token = generateToken(user);
+                res.status(200).json({ code: 12, message: 'Successful login', token });
+            } else {
+                res.status(401).json({ code: 11, message: 'Failed login'});
+            }
+        })
+        .catch(err => {
+            res.status(500).json({code: 3, message: 'Error occurred during login'});
+        });
 });
 
 // [POST] /api/users/:id/newNote

@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 
 module.exports = {
     getUser,
+    getUserByUsername,
     getUsers,
     registerUser,
     availableUsername
@@ -21,6 +22,12 @@ function getUser(id) {
         .where({ id: id })
         .select('id', 'username');;
 };
+
+function getUserByUsername(username) {
+    return db('users')
+        .where({ username: username })
+        .first();
+}
 
 // registers new user if valid, returns new id
 function registerUser(user) {
