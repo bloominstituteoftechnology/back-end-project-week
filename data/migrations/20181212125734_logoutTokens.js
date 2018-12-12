@@ -1,7 +1,9 @@
 
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('logout', tbl => {
-    tbl.string('invalidToken', 255).notNullable();
+    tbl.increments();
+    tbl.string('invalidToken', 255).notNullable().unique();
+    tbl.timestamp('logged_out_at').defaultTo(Date());
   });
 };
 

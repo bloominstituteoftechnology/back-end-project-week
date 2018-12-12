@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 
 const usersDb = require('../data/helpers/usersHelper.js');
 const notesDb = require('../data/helpers/notesHelper.js');
+const logoutDb = require('../data/helpers/logoutHelper.js');
 
 const protected = require('../middleware/protected.js');
 
@@ -30,7 +31,7 @@ const generateToken = user => {
 
 // [GET] /api/users/protectedTest
 router.get('/protectedTest', protected, (req, res) => {
-    res.status(418).json({ message: 'You must be logged in!'})
+    res.status(418).json({ message: 'You must be logged in!' })
 });
 
 // [GET] /api/users
@@ -98,7 +99,7 @@ router.post('/register', (req, res) => {
                     if (err.errno === 19 && err.code === 'SQLITE_CONSTRAINT') {
                         res.status(409).json({ code: 10, message: 'Username already exists' });
                     } else {
-                        res.status(500).json({ message: 'Error registering new user' });
+                        res.status(500).json({ message: 'Error registering new user', err });
                     }
                 })
         } else {
@@ -117,15 +118,15 @@ router.post('/login', (req, res) => {
     usersDb.getUserByUsername(creds.username)
         .then(user => {
             console.log(user);
-            if(user && bcrypt.compareSync(creds.password, user.password)) {
+            if (user && bcrypt.compareSync(creds.password, user.password)) {
                 const token = generateToken(user);
                 res.status(200).json({ code: 12, message: 'Successful login', token });
             } else {
-                res.status(401).json({ code: 11, message: 'Failed login'});
+                res.status(401).json({ code: 11, message: 'Failed login' });
             }
         })
         .catch(err => {
-            res.status(500).json({code: 3, message: 'Error occurred during login'});
+            res.status(500).json({ code: 3, message: 'Error occurred during login' });
         });
 });
 
@@ -179,6 +180,32 @@ router.post('/:id/newNote', (req, res) => {
             });
     } else {
         res.status(400).json({ code: 5, message: 'Request formatted incorrectly' });
+    }
+});
+
+// [POST] /api/users/logout
+router.post('/logout', protected, (req, res) => {
+    if (req.body.token) {
+        if (typeof req.body.token === 'string') {
+            const invalidToken = { invalidToken: req.body.token };
+            logoutDb.invalidateToken(invalidToken)
+                .then(id => {
+                    if (id) {
+                        res.status(200).json({ code: 15, message: 'Successful logout' })
+                    };
+                })
+                .catch(err => {
+                    if (err.errno === 19 && err.code === 'SQLITE_CONSTRAINT') {
+                        res.status(404).json({ code: 16, message: 'Token already invalidated' });
+                    } else {
+                        res.status(500).json({ code: 3, message: 'Error logging out' });
+                    }
+                });
+        } else {
+            res.status(400).json({ code: 13, message: 'Invalid token' });
+        }
+    } else {
+        res.status(400).json({ code: 14, message: 'No token provided' });
     }
 });
 
