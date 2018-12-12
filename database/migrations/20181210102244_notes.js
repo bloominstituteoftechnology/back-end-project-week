@@ -5,8 +5,7 @@ exports.up = knex =>
       .integer("user_id")
       .unsigned()
       .notNullable()
-      .references("id")
-      .inTable("users");
+      .references("users.id")
     notes.string("title", 128).notNullable();
     notes.text("content").notNullable();
     notes.timestamp("created").defaultTo(knex.fn.now());
