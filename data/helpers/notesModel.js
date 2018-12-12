@@ -4,6 +4,7 @@ const db = require('../db');
     insert,
     getAll,
     getById,
+    update,
     remove
 }
 async function insert(note) {
@@ -17,6 +18,9 @@ function getAll() {
 }
 async function getById(id) {
     return await db('notes').where('id', id).first();
+}
+async function update(id, note) {
+    return await db('notes').where('id', id).update(note);
 }
 async function remove(id) {
     return await db('notes').where('id', id).first().del();
