@@ -8,6 +8,12 @@ const db = knex(knexConfig.development);
 const server = express();
 middleware(server);
 
+const port = process.env.PORT || 9000;
+
+server.get('', (req, res) => {
+    res.send(`API is running on port ${port}`)
+})
+
 server.get('/api/notes', (req, res) => {
     db('notes')
     .then(foundNotes => {
