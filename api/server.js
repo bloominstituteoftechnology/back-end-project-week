@@ -15,78 +15,82 @@ server.get('/', (req, res) => {
   })
 });
 
-server.get('/api/notes', (req, res) => {
+//  GET  note/get/all
+server.get('/note/get/all',(req,res)=>{
   db('notes')
-    .then(notes => res.status(200).json(notes))
-    .catch(err => res.status(500).json(err));
-});
+  .then(notes => {
+      if(notes){
+          res.status(200).json(notes);
+      }else{
+          res.status(200).send("No notes in database")
+      }
+  })
+  .catch(err => {
+      res.status(500).json({Error : err})
+  })
+})
 
-server.post('/api/notes', (req, res) => {
-  const note = req.body;
-
-  db('notes')
-    .insert(note)
-    .then(ids => {
-      res.status(201).json(ids);
-    })
-    .catch(err => {
-      res.status(500).json({
-        message: 'error adding note',
-        err
-      });
-    });
-});
-
-server.get('/api/notes/:noteId', (req, res) => {
-  const {
-    noteId
-  } = req.params;
+//  GET /note/get/:id
+server.get('/note/get/:id', (req,res) => {
+  const ID = req.params;
 
   db('notes')
-    .where({
-      _id: noteId
-    })
-    .then(note => {
-      res.status(201).json(note);
-    })
-    .catch(err => res.status(500).json(err));
-});
+  .where(ID)
+  .then(note => {
+      res.status(200).json(note)
+  })
+  .catch(err => {
+      res.status(500).json(err)
+  })
+})
 
-server.put('/api/notes/:noteId', (req, res) => {
-  const changes = req.body;
-  const {
-    noteId
-  } = req.params;
+//  POST    /note/create    Create New Note Endpoint
+server.post('/note/create',(req,res) => {
+  const data = req.body;
+  if(data.title && data.textBody){
+      db('notes')
+      .insert(data)
+      .then(id => {
+          res.status(200).json({ID : id})
+      })
+      .catch(err => {
+          res.status(500).json({Error : err})
+      })
+  }else{
+      res.status(417).json({message : "Send title and textBody fields"})
+  }
+})
 
+//  PUT /note/edit/:id  Edit Note Endpoint
+server.put('/note/edit/:id', (req,res) => {
+  const ID = req.params;
+  const edits = req.body;
   db('notes')
-    .where({
-      _id: noteId
-    })
-    .update(changes)
-    .then(count => {
-      res.status(200).json({
-        count
-      });
-    })
-    .catch(err => res.status(500).json(err));
-});
+  .where(ID)
+  .update(edits)
+  .then(count => {
+      res.status(200).send(`${count} note edited`);
+  })
+  .catch(err => {
+      res.status(500).json({ERROR : err})
+  })
+  
+})//Errors
 
-server.delete('/api/notes/:noteId', (req, res) => {
-  const {
-    noteId
-  } = req.params;
-
+//  DELETE  /note/delete/:id
+server.delete('/note/delete/:id', (req,res) => {
+  const ID = req.params;
   db('notes')
-    .where({
-      _id: noteId
-    })
-    .del()
-    .then(count => {
-      res.status(200).json({
-        count
-      });
-    })
-    .catch(err => res.status(500).json(err));
-});
+  .where(ID)
+  .delete()
+  .then(count => {
+      res.status(200).send(`${count} notes deleted`)
+  })
+  .catch(err => {
+      res.status(500).json({message : "error deleting note", error : err})
+  })
+})
 
-module.exports = server;
+module.exports = {
+  server,
+};
