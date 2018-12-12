@@ -6,14 +6,16 @@
 const server = require('express')()
 const errorHandler = require('./helpers/errorHandler')
 const notesRouter = require('./notes/notesRouter.js')
-
+const authRouter = require('./auth/authRouter.js')
 
 
 
 //* Middleware & Routes
-require('./middleware')(server)
+require('./middleware')(server);
 
-server.use('/api', notesRouter)
+server.use('/auth', authRouter);
+server.use('/api', notesRouter);
+
 
 //* Error Handler
 server.use(errorHandler)
