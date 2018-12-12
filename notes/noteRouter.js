@@ -86,18 +86,35 @@ router.put("/:id", authenticate, (req, res) => {
         })
 })
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", authenticate, (req, res) => {
     let { id } = req.params;
+    let user_id = req.decoded.subject;
 
     db("notes")
-        .where({id})
-        .del()
-        .then(count => {
-            count ?
-            res.status(200).json(count) :
-            res.status(400).json({error: "Please enter a valid id"});
+        .where({ id })
+        .first()
+        .then(note => {
+            if (note.user_id === user_id) {
+                db("notes")
+                    .where({
+                        id
+                    })
+                    .del()
+                    .then(count => {
+                        console.log(count);
+                        count ?
+                            res.status(200).json(count) :
+                            res.status(400).json({
+                                error: "Please enter a valid id"
+                            });
+                    })
+                    .catch(err => res.status(500).json({
+                        error: err
+                    }))
+            } else {
+                res.status(401).json({error: "You do not have access to this note."});
+            }
         })
-        .catch(err => res.status(500).json({error: err}))
 })
 
 module.exports = router;
