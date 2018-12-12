@@ -10,6 +10,8 @@ require('./services/passport.js');
 
 mongoose.connect(keys.mongoURI);
 
+server.use(bodyParser.json());
+
 server.use(
   cookieSession({
     maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -17,7 +19,6 @@ server.use(
   })
 );
 
-server.use(bodyParser.json());
 server.use(passport.initialize());
 server.use(passport.session());
 
@@ -36,5 +37,5 @@ require('./routes/billingRoutes.js')(server);
 //     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 //   });
 // }
-
+const port = process.env.PORT || 5000;
 server.listen(port, () => console.log(`\n---Running on ${port}----\n`));
