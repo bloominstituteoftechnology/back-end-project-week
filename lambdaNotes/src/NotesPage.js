@@ -19,9 +19,9 @@ class NotesPage extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:5000/api/notes")
+      .get("http://localhost:5000/notes")
       .then(response => this.setState({ notes: response.data }))
-      .catch(error => console.log(error));
+      .catch(error => console.dir(error));
   }
 
   updateNotes = updatedNote => {
