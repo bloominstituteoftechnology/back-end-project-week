@@ -12,6 +12,7 @@ server.get("/", (req, res) => {
   res.status(200).send("Server is alive!");
 });
 
+// NOTES
 server.get("/notes", (req, res) => {
   db("notes")
     .then(notes => res.status(200).json(notes))
@@ -87,6 +88,13 @@ server.put("/notes/:id", (req, res) => {
             .status(404)
             .json({error: "note does not exist or has been deleted"});
     })
+    .catch(err => res.status(500).json(err));
+});
+
+// TAGS
+server.get("/tags", (req, res) => {
+  db("tags")
+    .then(tags => res.status(200).json(tags))
     .catch(err => res.status(500).json(err));
 });
 
