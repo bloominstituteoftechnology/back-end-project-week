@@ -25,6 +25,7 @@ server.post("/api/notes", (req, res) => {
     } else {
         db("notes")
             .insert(newPost)
+            .returning("id")
             .then(idReturned => {
                 console.log(idReturned);
                 res.status(201).json(idReturned);
