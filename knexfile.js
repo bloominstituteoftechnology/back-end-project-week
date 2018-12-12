@@ -1,4 +1,12 @@
 // Update with your config settings.
+const localPgConnection = {
+        host: 'localhost',
+        database: 'lambda',
+        user: 'shawn',
+        password: '123',
+}
+
+const dbConnection = process.env.DATABASE_URL || localPgConnection;
 
 module.exports = {
 
@@ -13,6 +21,21 @@ module.exports = {
     },
     seeds: {
       directory: './data/seeds',
-    }
+    },
   },
+  production: {
+    client: 'pg',
+    connection: dbConnection,
+    pool: {
+      min: 2,
+      max: 10,
+    },
+    migrations: {
+      directory: './db/migrations',
+    },
+    seeds: {
+      directory: './db/seeds',
+    },
+  },
+
 };

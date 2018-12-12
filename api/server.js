@@ -4,7 +4,7 @@ const cors = require("cors");
 
 const notes = require("../note.js");
 
-const knexConfig = require("../knexfile.js");
+const knexConfig = require("../knexfile.js")['production'];
 const db = knex(knexConfig.development);
 
 const server = express();
