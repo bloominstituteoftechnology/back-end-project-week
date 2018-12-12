@@ -5,15 +5,12 @@
     "knex": "^0.16.2",
     "sqlite3": "^4.0.4"
   },
-  "devDependencies": {
-    "nodemon": "^1.18.7"
-  },
   "name": "back-end-project-week",
   "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
   "version": "1.0.0",
   "main": "knexfile.js",
   "scripts": {
-    "server": "nodemon"
+    "server": "node index.js"
   },
   "repository": {
     "type": "git",

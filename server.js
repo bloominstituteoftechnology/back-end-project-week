@@ -6,6 +6,7 @@ const cors = require('cors');
 
 const server = express();
 server.use(express.json());
+server.use(cors());
 
 // server test
 server.get('/', (req, res) => {
@@ -45,6 +46,7 @@ server.get('/api/notes/:id', (req, res) => {
     const { id } = req.params;
     db('notes')
         .where({ id })
+        .first()
         .then(note => {
             if (!note) {
                 res.status(404).json({ message: 'Note with specified ID does not exist.' });
@@ -58,7 +60,7 @@ server.get('/api/notes/:id', (req, res) => {
 });
 
 // edit an existing note
-server.put('/api/notes/:id', (req, res) => {
+server.put('/api/notes/edit/:id', (req, res) => {
     const { id } = req.params;
     const { title, body} = req.body;
     if (!title || !body) {
@@ -81,7 +83,7 @@ server.put('/api/notes/:id', (req, res) => {
 });
 
 // delete an existing note
-server.delete('/api/notes/:id', (req, res) => {
+server.delete('/api/notes/delete/:id', (req, res) => {
     const { id } = req.params;
     db('notes')
         .where({ id })
