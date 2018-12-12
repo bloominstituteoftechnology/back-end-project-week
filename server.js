@@ -5,9 +5,10 @@ const knex = require('knex')
 const knexConfig = require('./knexfile.js')
 const db = knex(knexConfig.development)
 const cors = require('cors')
+const bcrypt = require('bcryptjs')
 server.use(cors())
 
-
+// #region notes api
 server.get('/notes', (req, res) => {
 
     db('notes')
@@ -92,6 +93,29 @@ server.delete('/notes/:id', (req, res) => {
         .catch(err => {
             res.status(500).json({ message: 'error deleting note', err })
         })
+})
+
+//#endregion
+
+//#region user api
+
+//#endregion
+server.post('/register', (req, res) => {
+    const creds = req.body
+
+    const hash = bcrypt.hashSync(creds.password, 14)
+    creds.password = hash;
+
+    db('users')
+        .insert(creds)
+        .then(ids => {
+            const id = ids[0]
+            res.status(201).json({ newUserId: id })
+        })
+        .catch(err => {
+            res.status(500).json({ message: 'error', err })
+          })
+
 })
 
 
