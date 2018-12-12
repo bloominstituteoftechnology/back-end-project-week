@@ -4,7 +4,7 @@ module.exports = {
   getUserList: () => db('users'),
 
   addUser: user => db('notes')
-    .insert(user),
+    .insert(user, 'id'),
 
   getUser: id => db('users')
     .where({id: id}),

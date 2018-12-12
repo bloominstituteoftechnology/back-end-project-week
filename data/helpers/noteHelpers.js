@@ -4,7 +4,7 @@ module.exports = {
   getNoteList: () => db('notes'),
 
   addNote: note => db('notes')
-    .insert(note),
+    .insert(note, 'id'),
 
   getNote: id => db('notes')
     .where({id: id}),
