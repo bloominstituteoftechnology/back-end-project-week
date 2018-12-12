@@ -1,4 +1,4 @@
-# Back End Project Week // jaklundun
+# Back End Project Week // jaklundun - Part 1 MVP Complete
 
 This week you will build a backend for a note taking app called "Lambda Notes".
 
