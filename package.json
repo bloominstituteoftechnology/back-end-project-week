@@ -10,10 +10,9 @@
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js",
-    "test": "jest --watch --verbose",
-    "client-install": "(cd ./lambdaNotes && yarn)",
-    "client-build": "(cd ./lambdaNotes && yarn build)",
-    "heroku-postbuild": "YARN_PRODUCTION=false yarn lambdaNotes-yarn && yarn lambdaNotes-build"
+    "client": "npm run start --prefix lambdaNotes",
+    "dev": "concurrently \"npm run server\" \"npm run lambdaNotes\"",
+    "heroku-postbuild": "cd lambdaNotes/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "repository": {
     "type": "git",
