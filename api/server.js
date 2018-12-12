@@ -4,8 +4,9 @@ const cors = require("cors");
 
 const notes = require("../note.js");
 
-const knexConfig = require("../knexfile.js")['production'];
-const db = knex(knexConfig.development);
+const knexConfig = require("../knexfile.js");
+const dbEnvironment = process.env.DB_ENVIRONMENT || 'development';
+const db = knex(knexConfig.development)[dbEnvironment];
 
 const server = express();
 server.use(express.json());
