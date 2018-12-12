@@ -6,6 +6,6 @@ const knex = require("knex");
 
 const dbEnvironment = process.env.DB_ENVIRONMENT || "development";
 
-// will dynamically use env file environment if it exists, otherwise uses local sqlite
+// will dynamically use env file environment if it exists (we create it on heroku in config vars), otherwise uses local sqlite
 const config = require("../knexfile")[dbEnvironment];
 module.exports = knex(config);

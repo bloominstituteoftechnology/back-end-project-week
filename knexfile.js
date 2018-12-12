@@ -20,22 +20,22 @@ module.exports = {
     },
     seeds: {
       directory: "./data/seeds"
+    }
+  },
+  production: {
+    client: "pg",
+    connection: dbConnection, //can be an object or a string
+    pool: {
+      //default, may be given different values by db admin
+      min: 2,
+      max: 10
     },
-    production: {
-      client: "pg",
-      connection: dbConnection, //can be an object or a string
-      pool: {
-        //default, may be given different values by db admin
-        min: 2,
-        max: 10
-      },
-      migrations: {
-        tableName: "knex_migrations", // default, created even if it's not listed in original migrations
-        directory: "./data/migrations"
-      },
-      seeds: {
-        directory: "./data/seeds"
-      }
+    migrations: {
+      tableName: "knex_migrations", // default, created even if it's not listed in original migrations
+      directory: "./data/migrations"
+    },
+    seeds: {
+      directory: "./data/seeds"
     }
   }
 };
