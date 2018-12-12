@@ -16,7 +16,7 @@ const notesControllers = {
           console.log("notes.length = ", notes.length);
           next;
         }
-        res.status(200).json(notes,{});
+        res.status(200).json(notes);
       })
       .catch(() => next(new Error("Could not get Notes")));
   },
@@ -47,11 +47,11 @@ const notesControllers = {
 
     db("notes")
       .insert(newNote)
-      .then(note => {
-        if (!note) {
+      .then(id => {
+        if (!id) {
           next();
         }
-        res.status(200).json(note);
+        res.status(200).json(id);
       })
       .catch(() => next(new Error("Could not create a new Notes")));
   },
