@@ -18,7 +18,8 @@ module.exports = {
     useNullAsDefault: true,
     migrations: {
       directory: './data/migrations'
-    }
+    },
+    debug: true
   },
   production: {
     client: 'pg',
@@ -30,6 +31,7 @@ module.exports = {
     migrations: {
       tableName: 'knex_migrations',
       directory: './data/migrations'
-    }
+    },
+    debug: true
   }
 };
