@@ -6,10 +6,9 @@ function generateToken(user) {
     const payload = {
         subject: user.id,
         username: user.username,
-        roles: ['processes'],
     };
 
-    const secret = '$this$is$a$secret';
+    const secret = process.env.JWT_SECRET;
     const options = {
         expiresIn: '15m',
     };
