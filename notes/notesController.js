@@ -2,16 +2,21 @@ const knex = require("knex");
 const knexConfig = require("../knexfile");
 const db = knex(knexConfig.development);
 
+const limitNum = 3;
+
 const notesControllers = {
   getNotes(req, res, next) {
     console.log('getNotes in controller ');
-    db("notes").limit(10).offset(30)
+    db("notes")
+    .offset(0).limit(limitNum)
+    // .offset(3)
+    // .limit(3).offset(8)
       .then(notes => {
         if (!notes.length) {
           console.log("notes.length = ", notes.length);
           next;
         }
-        res.status(200).json(notes);
+        res.status(200).json(notes,{});
       })
       .catch(() => next(new Error("Could not get Notes")));
   },

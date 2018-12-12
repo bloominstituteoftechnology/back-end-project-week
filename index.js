@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const server = require("./server.js"); // imports server
 
 // process.env.Port assign port number when deployed on a online server
