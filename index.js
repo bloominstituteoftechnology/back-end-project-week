@@ -8,6 +8,8 @@ const server = express();
 server.use(express.json());
 server.use(cors());
 
+const port = process.env.PORT || 9000
+
 // ########  ####  ######  ########  ##          ###    ##    ##    ##    ##  #######  ######## ######## 
 // ##     ##  ##  ##    ## ##     ## ##         ## ##    ##  ##     ###   ## ##     ##    ##    ##       
 // ##     ##  ##  ##       ##     ## ##        ##   ##    ####      ####  ## ##     ##    ##    ##       
@@ -101,4 +103,4 @@ server.put("/api/notes/:id", (req, res) => {
     })
     .catch(err => res.status(500).json(err));
 });
- server.listen(9000, console.log("port 9000 is alive l337"));
+ server.listen(9000, console.log("port 9000 is running!"));
