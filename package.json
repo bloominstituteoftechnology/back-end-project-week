@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "postinstall": "yarn --prefix backend && yarn --prefix frontend",
     "start": "node backend/index.js",
     "server": "concurrently \"yarn --cwd ./backend start\" \"yarn --cwd ./frontend start\""
   },
@@ -10,7 +11,13 @@
   "author": "Carlos Lantigua <clantigua954@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "concurrently": "^4.1.0"
+    "concurrently": "^4.1.0",
+    "react-scripts": "2.1.1",
+    "axios": "^0.18.0"
+  },
+  "engines": {
+    "node": "9.11.1",
+    "npm": "6.4.1"
   },
   "devDependencies": {
     "nodemon": "^1.18.7"
