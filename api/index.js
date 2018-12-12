@@ -2,8 +2,10 @@ const express = require('express');
 const middleware = require('./middlewareConfig/middleware.js')
 
 const knex = require('knex');
-const knexConfig = require('../knexfile');
-const db = knex(knexConfig.production);
+const environment = process.env.DB_ENVIRONMENT || 'development';
+const knexConfig = require('../knexfile')[environment];
+
+const db = knex(knexConfig);
 
 const server = express();
 middleware(server);
@@ -68,6 +70,20 @@ server.put('/api/notes/:id', (req, res) => {
     })
     .catch(err => {
         res.status(500).json({message: err})
+    })
+})
+
+//USER INPUTS
+
+server.post('/api/register', (req, res) => {
+    const user = req.body;
+    db('users')
+    .insert(user)
+    .then(count => {
+        res.status(200).json({ message: 'welcome new user!' })
+    })
+    .catch(err => {
+        res.status(500).json({ message: 'registration failed', err })
     })
 })
 module.exports = server;
