@@ -50,9 +50,8 @@ server.post("/api/register", (req, res) => {
     user.password = hash;
     console.log(user, "OUTSIDE POST BLOCK");
     db("users")
-      .insert(user)
       .returning("id")
-
+      .insert(user)
       .then(id => {
         console.log(id, "ID HERE");
         db("users")
