@@ -25,14 +25,14 @@ route.get("/:id", authenticate, (req, res) => {
       if (!note) {
         res.status(404).json({ message: `Note with id ${id} does not exist.` });
       }
-    //   if (note) {
-    //     db("tags as t").then(tags => {
-    //       note.tags = tags;
-    //       res.status(200).json(note);
-    //     });
-    //   } else {
-    //       res.status(404).json({ message: "note not found" });
-    //     }
+      if (note) {
+        db("tags as t").then(tags => {
+          note.tags = tags;
+          res.status(200).json(note);
+        });
+      } else {
+          res.status(404).json({ message: "note not found" });
+        }
     res.status(200).json(note)
     })
     .catch(err => res.status(500).json({ message: `Error: ${err}` }));
