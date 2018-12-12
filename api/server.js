@@ -11,9 +11,10 @@ const server = express();
 server.use(express.json());
 server.use(cors());
 
+const port = process.env.PORT || 5000;
 
 server.get("/", (req, res) => {
-  res.status(200).json({ message: "api: up" });
+  res.send(`API running on port: ${port}`);
 });
 
 server.get("/notes", (req, res) => {
