@@ -24,7 +24,7 @@ module.exports = {
   },
   production: {
     client: "pg",
-    connection: dbConnection, //can be an object or a string
+    connection: dbConnection + "?ssl=true", //can be an object or a string
     pool: {
       //default, may be given different values by db admin
       min: 2,
