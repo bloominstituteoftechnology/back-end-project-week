@@ -9,9 +9,6 @@ exports.up = function(knex, Promise) {
         .unsigned()
         .references('id')
         .inTable('notes')
-        .onDelete('RESTRICT')
-        .onUpdate('CASCADE')
-
     })
 };
 
