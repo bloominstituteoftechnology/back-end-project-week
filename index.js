@@ -1,8 +1,10 @@
 const express = require('express');
 const db = require('./database/dbConfig');
+const cors = require('cors');
 
 const server = express();
 server.use(express.json());
+server.use(cors());
 
 // Root endpoint
 server.get('/', (req, res) => {
@@ -13,9 +15,9 @@ server.get('/', (req, res) => {
 // add a note to the db
 server.post('/create', async (req, res) => {
     try {
-        const { title, content } = req.body;
-        if (title && content) {
-            await db('notes').insert({ title: title, content: content });
+        const { title, text } = req.body;
+        if (title && text) {
+            await db('notes').insert({ title: title, text: text });
             res.status(201).json({ message: 'Note created.'});
         } else {
             res.status(500).json({ message: 'Title and content required.'});
@@ -30,7 +32,7 @@ server.post('/create', async (req, res) => {
 server.get('/notes', async (req, res) => {
     try {
         const notes = await db('notes');
-        res.status(200).json(notes);
+        res.status(200).json({ notes });
     } catch(err) {
         console.log(err);
         res.status(500).json(err);
