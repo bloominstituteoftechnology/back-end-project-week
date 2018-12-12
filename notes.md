@@ -11,3 +11,5 @@
 - Pool is for the # of connections (min and max). 
 - Add the same migrations and seeds directory. 
 - Setup server's db.Config.js file to use the DB environmental variable. Define this variable in Heroku (Config Vars) and set it to production.
+- heroku run knex migrate:latest -a gimme-the-notes-server  
+- run that ^ to do teh migrations. the -a is a pointer to the name of your app on Heroku
