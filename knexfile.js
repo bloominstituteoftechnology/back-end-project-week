@@ -1,9 +1,9 @@
 const localPgConnection = {
   // can be and object or a string
-  host: '', // address to find the db server
-  database: '',
-  user: '',
-  password: '',
+  host: 'localhost', // address to find the db server
+  database: 'db',
+  user: 'steve',
+  password: 'pass',
 }
 
 const dbConnection = process.env.DATABASE_URL || localPgConnection;
