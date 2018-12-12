@@ -32,22 +32,16 @@ TabContainer.propTypes = {
 
 const styles = (theme) => ({
 	root: {
-		backgroundColor: theme.palette.background.paper,
-		width: 500,
+		// backgroundColor: theme.palette.background.paper,
+		width: '500px',
 		display: 'flex',
-		justifyContent: 'center',
-		position: 'relative',
 		minHeight: 200,
-		marginBottom: '35px'
+		marginBottom: '10px'
 	},
 	fab: {
 		position: 'absolute',
-		bottom: theme.spacing.unit * 2,
+		bottom: theme.spacing.unit * 15,
 		right: theme.spacing.unit * 2
-	},
-	fabGreen: {
-		color: theme.palette.common.white,
-		backgroundColor: green[500]
 	},
 	title: {
 		marginLeft: '25px',
@@ -56,17 +50,6 @@ const styles = (theme) => ({
 	container: {
 		display: 'flex',
 		flexWrap: 'wrap'
-	},
-	textField: {
-		marginLeft: theme.spacing.unit,
-		marginRight: theme.spacing.unit,
-		width: 200
-	},
-	dense: {
-		marginTop: 19
-	},
-	menu: {
-		width: 200
 	}
 });
 

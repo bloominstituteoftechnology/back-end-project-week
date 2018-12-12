@@ -84,19 +84,22 @@ class Note extends React.Component {
 			);
 		} else {
 			return (
-				<div key={props._id} className="col-md-6">
+				<div key={props.id} className="col-md-6">
 					<div className="card mb-4 shadow-sm">
 						<StyledCardContainer
-							tabIndex={props._id}
+							tabIndex={props.id}
 							className="card-body"
 							onMouseEnter={handleMouseEnter}
 							onMouseLeave={handleMouseLeave}
 						>
 							<StyledIconContainer>{icons.map((icon) => (hovering ? icon : null))}</StyledIconContainer>
 							<h1>{props.title}</h1>
-							<div className="card-text">
+							<StyledCard className="card-text">
 								<p>{props.textBody}</p>
-							</div>
+							</StyledCard>
+							<styledTimeCont>
+								<p>{props.created_at}</p>
+							</styledTimeCont>
 						</StyledCardContainer>
 					</div>
 				</div>
@@ -107,6 +110,11 @@ class Note extends React.Component {
 
 export default withStyles(styles)(Note);
 
+export const styledTimeCont = styled.div`
+	font-size: 12px;
+	font-style: cursive;
+`;
+
 export const StyledIconContainer = styled.div`
 	position: absolute;
 	display: flex;
@@ -114,6 +122,12 @@ export const StyledIconContainer = styled.div`
 	top: -1em;
 	height: 15px;
 	width: 100%;
+`;
+
+export const StyledCard = styled.div`
+	max-height: 90%;
+	overflow: hidden;
+	text-overflow: ellipsis;
 `;
 
 export const StyledCardContainer = styled.div`

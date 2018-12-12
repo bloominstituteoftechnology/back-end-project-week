@@ -42,6 +42,7 @@ class NoteContainer extends React.Component {
 								getAllNotes={getAllNotes}
 								editTitle="editTitle"
 								editBody="editBody"
+								created_at={note.created_at}
 							/>
 						))}
 					</div>
