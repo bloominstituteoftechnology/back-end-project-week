@@ -18,10 +18,6 @@ server.use(
 );
 
 server.use(bodyParser.json());
-
-const server = express();
-server.use(express.json());
-server.use(cors());
 server.use(passport.initialize());
 server.use(passport.session());
 
