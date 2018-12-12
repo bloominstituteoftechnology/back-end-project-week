@@ -1,6 +1,7 @@
 // Update with your config settings.
 require('dotenv').config();
-const dbConnection = process.env.DATABASE_URL
+const dbConnection = process.env.DATABASE_URL;
+
 module.exports = {
 
   development: {
@@ -16,6 +17,20 @@ module.exports = {
       directory: './data/seeds'
     }
 
-  }
+  },
+  production:{ //can be obj or string
+    client: 'pg',
+    connection: dbConnection, 
+    pool: { //how many connections you watnt at a time
+    min: 2,
+    max: 10
+    },
+    migrations: {
+      directory: './data/migrations'
+    },
+    seeds: {
+      directory: './data/seeds'
+    }
 
+}
 };

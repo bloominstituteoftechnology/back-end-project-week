@@ -1,9 +1,12 @@
 const express = require('express');
 const server = express();
 const knex = require('knex')
-const knexConfig = require('../knexfile');
-const db = knex(knexConfig.development)
+const dbEnvironment = process.env.DB_ENVIRONMENT || 'development';
+const knexConfig = require('../knexfile')[dbEnvironment];
+const db = knex(knexConfig)
 require('dotenv').config();
+
+
 
 const cors = require('cors');
 server.use(cors({origin: 'http://localhost:3000'}));
