@@ -12,9 +12,10 @@
     "server": "nodemon index.js",
     "client": "npm run start --prefix lambdaNotes",
     "dev": "concurrently \"npm run server\" \"npm run lambdaNotes\"",
-    "lambdaNotes-install": "(cd ./lambdaNotes && yarn install)",
-    "lambdaNotes-build": "(cd ./lambdaNotes && yarn run build)",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn run --prefix lambdaNotes && yarn run build --prefix lambdaNotes"
+    "client-install": "(cd ./lambdaNotes && yarn install)",
+    "client-build": "(cd ./lambdaNotes && yarn run build)",
+    "heroku-postbuild": "YARN_PRODUCTION=false yarn run client-install && yarn run client-build"
+    
   },
   "repository": {
     "type": "git",
