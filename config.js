@@ -18,4 +18,6 @@ module.exports = {
     ERROR_INTERNAL     : 'Internal Error',
     ERROR_MALFORMEDDATA: 'Malformed Data: The data provided was in the wrong format',
     ERROR_NOTFOUND     : 'Not Found: Could not find the requested resource',
+    // Mime Types
+    MIME_APPLICATION_JSON: 'application/json',
 };

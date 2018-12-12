@@ -78,7 +78,7 @@ class DataAccessor {
         const updateData = {
             [config.FIELD_TITLE]: data[config.FIELD_TITLE],
             [config.FIELD_BODY ]: data[config.FIELD_BODY ],
-        }
+        };
         await database(this.table)
             .where({[config.FIELD_ID]: id})
             .update(updateData);
