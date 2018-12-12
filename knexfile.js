@@ -16,28 +16,29 @@ module.exports = {
     connection: {
       filename: './data/dev.sqlite3'
     },
-    useNullAsDefault: true, // not needed for production, only sqlite
+
     migrations: {
       directory: './data/migrations'
     },
     seeds: {
       directory: './data/seeds'
     },
-    production: {
-      client: 'pg',
-      connection: dbConnection,
-      // can be and object or a string
-      pool: {
-        min: 2,
-        max: 10
-      },
-      migrations: {
-        tableName: 'knex_migrations',
-        directory: './data/migrations'
-      },
-      seeds: {
-        directory: './data/seeds'
-      }
+    useNullAsDefault: true // not needed for production, only sqlite
+  },
+  production: {
+    client: 'pg',
+    connection: dbConnection,
+    // can be and object or a string
+    pool: {
+      min: 2,
+      max: 10
+    },
+    migrations: {
+      tableName: 'knex_migrations',
+      directory: './data/migrations'
+    },
+    seeds: {
+      directory: './data/seeds'
     }
   }
 };
