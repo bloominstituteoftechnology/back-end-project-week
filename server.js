@@ -6,6 +6,8 @@ const knexConfig = require('./knexfile.js')
 const db = knex(knexConfig.development)
 const cors = require('cors')
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+const secret = require('./_secrets/keys').jwtKey
 server.use(cors())
 
 // #region notes api
@@ -118,6 +120,38 @@ server.post('/register', (req, res) => {
 
 })
 
+function generateToken(user) {
+    const payload = {
+      subject: user.id,
+      username: user.username
+    }
+  
+    const options = {
+      expiresIn: '1hr'
+    }
+  
+    return jwt.sign(payload, secret, options)
+  }
 
+server.post('/login', (req, res) => {
+    const creds = req.body
+
+    db('users') 
+        .where({ username: creds.username })
+        .first()
+        .then(user => {
+            if(user && bcrypt.compareSync(creds.password, user.password)) {
+                const token = generateToken(user)
+                res.status(200).json({ welcome: user.username, token })
+            } else {
+                res.status(401).json({ messsage: 'error logging in' })
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ message: 'server error', err })
+          })
+})
+
+// #endregion
 
 module.exports = server;

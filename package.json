@@ -4,7 +4,7 @@
   "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
   "main": "index.js",
   "scripts": {
-    "start" : "node index.js",
+    "start": "node index.js",
     "server": "nodemon"
   },
   "repository": {
@@ -23,6 +23,7 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "jest": "^23.6.0",
+    "jsonwebtoken": "^8.4.0",
     "knex": "^0.16.1",
     "sqlite3": "^4.0.4",
     "supertest": "^3.3.0"
