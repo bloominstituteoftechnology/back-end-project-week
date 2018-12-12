@@ -37,6 +37,15 @@ server.use("/api/notes", notesRouter);
 // endpoints for tags via router
 server.use("/api/tags", tagsRouter);
 
+server.get("/api/users", (req, res) => {
+  db("users").then(users =>
+    res
+      .status(200)
+      .json(users)
+      .catch(err => res.status(500).json(err))
+  );
+});
+
 // register new user
 server.post("/api/register", (req, res) => {
   const user = req.body;
