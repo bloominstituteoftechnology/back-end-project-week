@@ -38,7 +38,7 @@ class App extends Component {
   // };
 
   authenticate = () => {
-    const token = this.state.options.headers.authentication;
+    const token = this.state.options.headers.Authorization;
     if (token) {
       axios.get(this.api, this.state.options).then(res => {
         if (res.status === 200 && res.data) {
@@ -123,7 +123,6 @@ class App extends Component {
               notes={this.state.notes}
               routeToSingleNote={this.routeToSingleNote}
               {...props}
-              auth={this.authenticate}
             />
           )}
         />
@@ -136,6 +135,7 @@ class App extends Component {
               singleNoteId={this.state.singleNoteId}
               // handleDeleteNote={this.handleDeleteNote}
               setNotes={this.setNotes}
+              options={this.state.options}
             />
           )}
         />
@@ -147,7 +147,13 @@ class App extends Component {
         <Route
           exact
           path="/notes/:id/edit"
-          render={props => <EditNote setNotes={this.setNotes} {...props} />}
+          render={props => (
+            <EditNote
+              setNotes={this.setNotes}
+              options={this.state.options}
+              {...props}
+            />
+          )}
         />
         <Route
           exact
@@ -157,13 +163,7 @@ class App extends Component {
         <Route
           exact
           path="/login"
-          render={props => (
-            <Login
-              auth={this.authenticate}
-              setNotes={this.setNotes}
-              {...props}
-            />
-          )}
+          render={props => <Login setNotes={this.setNotes} {...props} />}
         />
       </div>
     );

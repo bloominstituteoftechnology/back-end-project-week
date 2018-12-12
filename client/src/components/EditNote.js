@@ -14,16 +14,16 @@ class EditNote extends Component {
   }
 
   componentDidMount() {
-    const token = localStorage.getItem("token");
-    const options = {
-      headers: {
-        authentication: token,
-        id: localStorage.getItem("userID")
-      }
-    };
+    // const token = localStorage.getItem("token");
+    // const options = {
+    //   headers: {
+    //     authentication: token,
+    //     id: localStorage.getItem("userID")
+    //   }
+    // };
     const id = localStorage.getItem("noteID");
     console.log(id);
-    axios.get(`${this.api}/${id}`, options).then(
+    axios.get(`${this.api}/${id}`, this.props.options).then(
       res =>
         this.setState({
           editedNote: res.data
@@ -47,7 +47,8 @@ class EditNote extends Component {
     axios
       .put(
         `${this.api}/${localStorage.getItem("noteID")}`,
-        this.state.editedNote
+        this.state.editedNote,
+        this.props.options
       )
       .then(
         this.props.setNotes(),

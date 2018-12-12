@@ -12,32 +12,32 @@ class SingleNote extends Component {
   }
 
   componentDidMount() {
-    const token = localStorage.getItem("token");
-    const options = {
-      headers: {
-        authentication: token,
-        id: localStorage.getItem("userID")
-      }
-    };
+    // const token = localStorage.getItem("token");
+    // const options = {
+    //   headers: {
+    //     authentication: token,
+    //     id: localStorage.getItem("userID")
+    //   }
+    // };
     const id = localStorage.getItem("noteID");
     console.log(id);
-    axios.get(`${this.api}/${id}`, options).then(res =>
+    axios.get(`${this.api}/${id}`, this.props.options).then(res =>
       this.setState({
         note: res.data
       })
     );
   }
   componentWillReceiveProps() {
-    const token = localStorage.getItem("token");
-    const options = {
-      headers: {
-        authentication: token,
-        id: localStorage.getItem("userID")
-      }
-    };
+    // const token = localStorage.getItem("token");
+    // const options = {
+    //   headers: {
+    //     authentication: token,
+    //     id: localStorage.getItem("userID")
+    //   }
+    // };
     const id = localStorage.getItem("noteID");
     console.log(id);
-    axios.get(`${this.api}/${id}`, options).then(res =>
+    axios.get(`${this.api}/${id}`, this.props.options).then(res =>
       this.setState({
         note: res.data
       })
@@ -46,7 +46,10 @@ class SingleNote extends Component {
 
   handleDeleteNote = () => {
     axios
-      .delete(`${this.api}/${localStorage.getItem("noteID")}`)
+      .delete(
+        `${this.api}/${localStorage.getItem("noteID")}`,
+        this.props.options
+      )
       .then(this.props.setNotes, this.props.history.push("/"));
   };
 
