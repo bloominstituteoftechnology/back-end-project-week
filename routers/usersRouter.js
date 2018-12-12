@@ -8,6 +8,8 @@ const jwt = require('jsonwebtoken');
 const usersDb = require('../data/helpers/usersHelper.js');
 const notesDb = require('../data/helpers/notesHelper.js');
 
+const protected = require('../middleware/protected.js');
+
 const router = express.Router();
 
 // generates jwt
@@ -25,6 +27,11 @@ const generateToken = user => {
 
     return jwt.sign(payload, secret, options);
 };
+
+// [GET] /api/users/protectedTest
+router.get('/protectedTest', protected, (req, res) => {
+    res.status(418).json({ message: 'You must be logged in!'})
+});
 
 // [GET] /api/users
 router.get('', (req, res) => {
