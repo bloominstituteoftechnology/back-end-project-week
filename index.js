@@ -106,5 +106,18 @@ server.post('/api/actions/:id', async (req, res) => {
         return
 });
 
-    
+
+// DELETE notes: delete an existing note.
+
+server.delete('/api/notes/:id', (req, res) => {
+    const { id } = req.params;
+    db('notes')
+        .where({ id })
+        .del()
+        .then(deleted => {
+        res.status(200).json({ deleted });
+        })
+        .catch(err => res.status(500).json(err));
+});
+
 server.listen(8888, () => console.log('\nrunning on port 8888\n'));
