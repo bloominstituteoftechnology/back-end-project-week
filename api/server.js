@@ -54,7 +54,7 @@ server.post('/api/login', (req, res) => {
 });
 server.get('/api/users', (req, res) => {
   db('users')
-    .select('id', 'username')
+    .select('id', 'username', 'password')
     .then(users => {
       res.status(420).json(users);
     })
