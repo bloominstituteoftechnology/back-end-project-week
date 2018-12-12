@@ -29,6 +29,7 @@ server.get("/api/notes/:id", async (req, res) => {
   try {
     const note = await db("notes").where({ id });
     res.status(200).json(note);
+    console.log(note);
   } catch (error) {
     res
       .status(500)
@@ -41,7 +42,7 @@ server.post("/api/notes", async (req, res) => {
   const { title, content } = req.body;
   const note = req.body;
   if (!title || !content) {
-    res.status(400).json({ message: "Missing information." });
+    res.status(420).json({ message: "Missing information." });
   }
   try {
     const ids = await db("notes").insert(note);
