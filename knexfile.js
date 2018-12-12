@@ -14,13 +14,13 @@ module.exports = {
     connection: {
       filename: "./data/lambda.sqlite3"
     },
-    useNullAsDefault: true, // only used for sqlite3, not needed for production
     migrations: {
       directory: "./data/migrations"
     },
     seeds: {
       directory: "./data/seeds"
-    }
+    },
+    useNullAsDefault: true // only used for sqlite3, not needed for production
   },
   production: {
     client: "pg",
