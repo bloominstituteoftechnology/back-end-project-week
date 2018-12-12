@@ -1,4 +1,7 @@
 const express = require('express');
+const morgan = require('morgan');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 var cors = require('cors');
 
@@ -19,7 +22,22 @@ var cors = require('cors');
 const server = express();
 
 server.use(express.json());
+server.use(morgan('dev'));
 server.use(cors());
+
+function authenticate(req, res, next) {
+  const { authentication: token } = req.headers;
+  jwt.verify(token, secret, (err, decoded) => {
+    if (err) {
+      res.status(401).json({ message: 'Authentication failed.' });
+    } else {
+      req.locals = { authorization: decoded };
+      next();
+    }
+  });
+}
+
+server.use('/restricted/', authenticate);
 
 //Enable Cross Origin Requests Might make this limited to my own Domain if it works
 server.use(function(req, res, next) {
@@ -33,6 +51,20 @@ const notesRouter = require('../notes/notesRouter.js');
 //sanity check endpoint
 server.get('/', (req, res) => {
   res.status(200).json({ api: 'up' });
+});
+
+server.post('/register', (req, res) => {
+  const { username, password, email } = req.body;
+  bcrypt
+    .hash(password, 12)
+    .then(hash => db('users').insert({ username, hash, email }))
+    .then(id => {
+      res.status(200).json(username);
+    })
+    .catch(err => {
+      console.log('An error occurred', err);
+      res.status(400).json({ message: 'We were unable to register this user successfully' });
+    });
 });
 
 //Notes Endpoints/Methods
