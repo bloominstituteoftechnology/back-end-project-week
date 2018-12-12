@@ -18,3 +18,10 @@ command: {
 `heroku run` (tells heroku to run a single instance of the next command)
 `knex migrate:latest` (the command we want it to run)
 `-a fsw14-lambda-notes` (or `-a {heroku app name}`) (tells it which app to run the dyno against) }
+
+-if using seeds: `heroku run knex seed:run -a -fsw14-lambda-notes`
+-if using seeds with foreign keys, you need to do a cleanup
+`knex seed:make 00-cleanup`
+`npm i knex-cleaner`
+see seed `cleanup` for code
+this cleans the tables before each seed, so any subsequent seeds don't need to use truncate or delete at all

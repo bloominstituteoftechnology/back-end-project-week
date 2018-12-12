@@ -50,7 +50,24 @@ server.post("/api/register", (req, res) => {
     user.password = hash;
     db("users")
       .insert(user)
-      .then(id => res.status(201).json(id))
+      .then(id => {
+        db("users")
+          .where({ id })
+          .first()
+          .then(user => {
+            if (user) {
+              console.log(user);
+              const token = generateToken(user);
+              console.log(token);
+              res.status(201).json({ token });
+            } else {
+              throw new Error();
+            }
+          })
+          .catch(err => {
+            throw new Error();
+          });
+      })
       .catch(err =>
         res
           .status(500)
