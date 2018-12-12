@@ -47,7 +47,7 @@ class SingleNote extends Component {
   handleDeleteNote = () => {
     axios
       .delete(`${this.api}/${localStorage.getItem("noteID")}`)
-      .then(this.props.handleDeleteNote, this.props.history.push("/"));
+      .then(this.props.setNotes, this.props.history.push("/"));
   };
 
   render() {

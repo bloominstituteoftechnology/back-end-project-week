@@ -17,20 +17,30 @@ class App extends Component {
     this.state = {
       notes: [],
       singleNoteId: "",
-      loggedIn: false
+      loggedIn: false,
+      options: {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+          id: localStorage.getItem("userID")
+        }
+      }
     };
     this.api = "http://localhost:9000/api/notes";
   }
+  // options = () => {
+  //   const token = localStorage.getItem("token");
+  //   const api = {
+  //     headers: {
+  //       authentication: token,
+  //       id: localStorage.getItem("userID")
+  //     }
+  //   };
+  // };
+
   authenticate = () => {
-    const token = localStorage.getItem("token");
-    const options = {
-      headers: {
-        authentication: token,
-        id: localStorage.getItem("userID")
-      }
-    };
+    const token = this.state.options.headers.authentication;
     if (token) {
-      axios.get(this.api, options).then(res => {
+      axios.get(this.api, this.state.options).then(res => {
         if (res.status === 200 && res.data) {
           this.setState({ loggedIn: true, notes: res.data });
         } else {
@@ -42,59 +52,62 @@ class App extends Component {
     }
   };
 
-  componentWillMount() {
+  componentDidMount() {
     // axios.get(this.api).then(res => this.setState({ notes: res.data }));
     this.authenticate();
   }
 
-  handleAddNewNote = () => {
-    axios.get(this.api).then(res =>
-      this.setState({
-        notes: res.data
-      })
-    );
-  };
-  handleDeleteNote = () => {
-    axios.get(this.api).then(res =>
-      this.setState({
-        notes: res.data
-      })
-    );
-  };
+  // handleAddNewNote = () => {
+  //   // const token = localStorage.getItem("token");
+  //   // const options = {
+  //   //   headers: {
+  //   //     authentication: token,
+  //   //     id: localStorage.getItem("userID")
+  //   //   }
+  //   // };
+  //   axios.get(this.api, this.state.options).then(res =>
+  //     this.setState({
+  //       notes: res.data
+  //     })
+  //   );
+  // };
+  // handleDeleteNote = () => {
+  //   const token = localStorage.getItem("token");
+  //   const options = {
+  //     headers: {
+  //       authentication: token,
+  //       id: localStorage.getItem("userID")
+  //     }
+  //   };
+  //   axios.get(this.api, options).then(res =>
+  //     this.setState({
+  //       notes: res.data
+  //     })
+  //   );
+  // };
   setNotes = () => {
-    const token = localStorage.getItem("token");
-    const options = {
-      headers: {
-        authentication: token,
-        id: localStorage.getItem("userID")
-      }
-    };
-    axios.get(this.api, options).then(res => {
+    axios.get(this.api, this.state.options).then(res => {
       this.setState({
         notes: res.data
       });
     });
   };
-  handleEditNote = () => {
-    const token = localStorage.getItem("token");
-    const options = {
-      headers: {
-        authentication: token,
-        id: localStorage.getItem("userID")
-      }
-    };
-    axios.get(this.api, options).then(res =>
-      this.setState({
-        notes: res.data
-      })
-    );
-  };
+  // handleEditNote = () => {
+  //   const token = localStorage.getItem("token");
+  //   const options = {
+  //     headers: {
+  //       authentication: token,
+  //       id: localStorage.getItem("userID")
+  //     }
+  //   };
+  //   axios.get(this.api, options).then(res =>
+  //     this.setState({
+  //       notes: res.data
+  //     })
+  //   );
+  // };
 
   routeToSingleNote = noteId => {
-    // this.setState({
-    //   singleNoteId: noteId
-    // });
-
     localStorage.setItem("noteID", noteId);
   };
   render() {
@@ -121,24 +134,20 @@ class App extends Component {
             <SingleNote
               {...props}
               singleNoteId={this.state.singleNoteId}
-              handleDeleteNote={this.handleDeleteNote}
-              handleEditNote={this.handleEditNote}
+              // handleDeleteNote={this.handleDeleteNote}
+              setNotes={this.setNotes}
             />
           )}
         />
         <Route
           exact
           path="/add"
-          render={props => (
-            <NoteForm {...props} handleAddNewNote={this.handleAddNewNote} />
-          )}
+          render={props => <NoteForm {...props} setNotes={this.setNotes} />}
         />
         <Route
           exact
           path="/notes/:id/edit"
-          render={props => (
-            <EditNote handleEditNote={this.handleEditNote} {...props} />
-          )}
+          render={props => <EditNote setNotes={this.setNotes} {...props} />}
         />
         <Route
           exact

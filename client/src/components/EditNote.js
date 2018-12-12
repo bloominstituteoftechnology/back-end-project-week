@@ -50,7 +50,7 @@ class EditNote extends Component {
         this.state.editedNote
       )
       .then(
-        this.props.handleEditNote(),
+        this.props.setNotes(),
         this.props.history.push(`/notes/${localStorage.getItem("noteID")}`)
       );
   };

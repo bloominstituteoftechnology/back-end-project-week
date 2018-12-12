@@ -7,6 +7,9 @@ const knexConfig = require("../knexfile");
 /* ===== Database ===== */
 const db = knex(knexConfig.development);
 
+/* ===== Auth Middleware ===== */
+const { authenticate } = require("./config/middlewares");
+
 /* ===== Route Imports ===== */
 const notes = require("./notes");
 const register = require("./register");
@@ -24,13 +27,13 @@ server.get("/", (req, res) => {
 });
 
 /* ===== Notes Route ===== */
-server.use("/api/notes", notes);
+server.use("/api/notes", authenticate, notes);
 
 /* ===== Register Route ===== */
 server.use("/api/register", register);
 
 /* ===== Users Route ===== */
-server.use("/api/users", users);
+server.use("/api/users", authenticate, users);
 
 /* ===== Login Route ===== */
 server.use("/api/login", login);
