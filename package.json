@@ -10,7 +10,6 @@
   "version": "1.0.0",
   "main": "knexfile.js",
   "scripts": {
-    "start": "node",
     "server": "node index.js"
   },
   "repository": {
