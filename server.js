@@ -10,6 +10,11 @@ server.use(cors());
 
 configureRoutes(server);
 
+const port = process.env.PORT || 9000;
+server.get("/", (req, res) => {
+    res.send(`Api running on port: ${port}`);
+   });
+
 module.exports = {
     server,
 };

@@ -10,3 +10,8 @@ exports.up = function(knex, Promise) {
 exports.down = function(knex, Promise) {
   return knex.schema.dropTable('notes');
 };
+
+
+
+//many posts to one user
+//tags many to one post
