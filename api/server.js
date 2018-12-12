@@ -10,7 +10,7 @@ server.use(morgan('dev'));
 
 //Sanity Check
 server.get('/', (req, res) => {
-  res.status(200).json({ api: 'this is running' });
+  res.send(`Api running on port: ${port}`);
 });
 
 //get all of the notes
