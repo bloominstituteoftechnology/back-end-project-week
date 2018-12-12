@@ -36,6 +36,7 @@ module.exports = {
     client: 'postgresql',
     connection: process.env.DATABASE_URL,
     migrations: {
+      directory: './data/migrations',
       tableName: 'knex_migrations'
     }
   }
