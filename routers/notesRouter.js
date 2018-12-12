@@ -10,6 +10,7 @@ router.post('/', (req, res) => {
     const newNote = req.body;
     db('notes')
     .insert(newNote)
+    .returning(['id', '*'])
     .then(() => {
         res.status(201).json(req.body);
     })
