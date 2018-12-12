@@ -35,9 +35,9 @@ class App extends Component {
     }
     if(token) {
       axios
-      .get('http://localhost:8000/api/notes')
-      .then(response => 
-        this.setState({ notes: response.data }))
+      .get('http://localhost:8000/api/notes', options)
+      .then((response) => 
+        this.setState({ loggedIn: true, notes: response.data }))
       .catch(error => console.log(error));
       this.props.history.push('/login');
     } else {
