@@ -5,7 +5,8 @@
 
 // The code above is what it looks like BEFORE we configured Heroku to use 'postgres'
 
-const dbEngine = process.env.DB || 'development';
-const config = require('../knexfile.js')[dbEngine];
+const dbEnvironment = process.env.DB_ENVIRONMENT || 'development';
 
-module.exports - require('knex')(config);
+const config = require('../knexfile.js')[dbEnvironment];
+
+module.exports = require('knex')(config);

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('./notesModel');
+const knex = require('../data/dbConfig.js');
 
 // Notes endpoints
 router.get('/notes/', (req, res) => {
@@ -9,7 +10,7 @@ router.get('/notes/', (req, res) => {
 
 router.get('/notes/all/', async (req, res) => {
   try {
-    const notes = await db.getAll();
+    const notes = await knex('notes');
     console.log('the notes are... ', notes);
     res.status(200).json(notes);
   } catch (error) {
@@ -27,7 +28,8 @@ router.post('/notes/create', async (req, res) => {
     res.status(405).json({ errorMessage: 'Duplicate Note Titles Not Allowed' });
   } else {
     try {
-      const newGame = await db.insert(NoteData);
+      const newGame = await knex('items').insert(NoteData);
+
       res.status(201).json(newGame);
     } catch (error) {
       res.status(500).json({ error: 'There was an error while saving the note to the database. The error is ', error });

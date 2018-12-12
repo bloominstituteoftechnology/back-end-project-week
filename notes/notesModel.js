@@ -17,13 +17,11 @@ async function insert(note) {
 }
 
 async function getAll() {
-  return db('notes');
+  return db['notes'];
 }
 
 async function findByTitle(id) {
-  return db('notes')
-    .where({ title: String(id) })
-    .select('id', 'title', 'textBody');
+  return db['notes'].where({ title: String(id) }).select('id', 'title', 'textBody');
 }
 
 async function remove(id) {

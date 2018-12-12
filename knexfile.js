@@ -1,13 +1,13 @@
 require('dotenv').config();
 
-const localPg = {
+const localPgConnection = {
   host: 'localhost',
   database: process.env.DB_NAME, // address to find the db server
   user: process.env.DB_USER,
   password: process.env.DB_PASS
 };
 
-const dbConnection = process.env.DATABASE_URL || localPg;
+const dbConnection = process.env.DATABASE_URL || localPgConnection;
 
 // Update with your config settings.
 module.exports = {
