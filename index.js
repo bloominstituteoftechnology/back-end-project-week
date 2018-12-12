@@ -1,8 +1,8 @@
 require('dotenv').config();
 const server = require('./api/server.js');
-// const express = require("express");
+const express = require("express");
 const mongoose = require('mongoose');
-// const cookieSession = require('cookie-session');
+const cookieSession = require('cookie-session');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const keys = require('./config/keys.js');
@@ -13,12 +13,12 @@ mongoose.connect(keys.mongoURI);
 
 server.use(bodyParser.json());
 
-// server.use(
-//   cookieSession({
-//     maxAge: 30 * 24 * 60 * 60 * 1000,
-//     keys: [keys.cookieKey]
-//   })
-// );
+server.use(
+  cookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    keys: [keys.cookieKey]
+  })
+);
 
 server.use(passport.initialize());
 server.use(passport.session());
