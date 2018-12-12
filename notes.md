@@ -14,3 +14,7 @@ heroku has issues with sqlite3 and will sometimes clear parts of the db, so we n
 -add dynamic config file(see dbConfig) that checks for DB_ENVIRONMENT variable, if it doesn't find one it uses 'development'
 -add DB_ENVIRONMENT (foobar banana) to your config vars in heroku and set it to value 'production'
 -last step: run migration of database from sqlite3 to postgres, must be done in heroku via the CLI
+command: {
+`heroku run` (tells heroku to run a single instance of the next command)
+`knex migrate:latest` (the command we want it to run)
+`-a fsw14-lambda-notes` (or `-a {heroku app name}`) (tells it which app to run the dyno against) }
