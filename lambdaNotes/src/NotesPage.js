@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route } from 'react-router-dom';
+import { Route } from "react-router-dom";
 import Login from "./components/Login";
 import axios from "axios";
 import NotesList from "./components/NotesList";
@@ -22,6 +22,16 @@ class NotesPage extends Component {
       .get("http://localhost:5000/notes")
       .then(response => this.setState({ notes: response.data }))
       .catch(error => console.dir(error));
+
+    axios
+      .get("/api/current_user")
+      .then(res => {
+        console.log(res);
+        if (res.data._id) {
+          this.setState({ login: true });
+        }
+      })
+      .catch(err => console.log(err));
   }
 
   updateNotes = updatedNote => {
@@ -59,7 +69,13 @@ class NotesPage extends Component {
         <Route
           exact
           path="/"
-          render={props => <NotesList {...props} notes={this.state.notes} signOut={this.props.signOut}/>}
+          render={props => (
+            <NotesList
+              {...props}
+              notes={this.state.notes}
+              signOut={this.props.signOut}
+            />
+          )}
         />
         <Route
           path="/note/get/:id"
@@ -87,7 +103,7 @@ class NotesPage extends Component {
         />
         <Route
           path="/note/edit/:id"
-          render={props => <EditNote {...props} signOut={this.props.signOut}/>}
+          render={props => <EditNote {...props} signOut={this.props.signOut} />}
         />
       </Container>
     );
