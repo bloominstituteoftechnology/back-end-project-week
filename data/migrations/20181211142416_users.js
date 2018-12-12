@@ -11,7 +11,9 @@ exports.up = function(knex, Promise) {
 
     user.string('email', 1024)
 
-    user.string('join-date')
+    user.string('password', 1024)
+
+    user.integer('join-date')
 
   })
 };

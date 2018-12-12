@@ -27,12 +27,15 @@ const getUser = async (req, res) => {
 const postUser = async (req, res) => {
   try {
     // destructing body
-    const { name, email } = req.body
-    
+    const { name, email, password } = req.body
+    console.log(name, email, password) 
     const newUser = {
       name,
-      email
+      email,
+      password,
+      "join-date": Date.now()
     }
+    console.log(newUser)
     const users = await db.addUser(newUser);
 
     res.status(200).json(users)
