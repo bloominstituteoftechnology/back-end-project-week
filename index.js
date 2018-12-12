@@ -38,5 +38,5 @@ require('./routes/billingRoutes.js')(server);
 //   });
 // }
 
-const PORT = process.env.PORT || 5000;
-server.listen(PORT);
+const port = process.env.PORT || 5000;
+server.listen(port, () => console.log(`\n---Running on ${port}----\n`));
