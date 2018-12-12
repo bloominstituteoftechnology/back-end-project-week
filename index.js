@@ -10,6 +10,11 @@ server.use(cors());
 
 const port = process.env.PORT || 9000;
 
+
+server.get(‘/’, (req, res) => {
+  res.send(`Api running on port: ${port}`);
+ });
+
 // ########  ####  ######  ########  ##          ###    ##    ##    ##    ##  #######  ######## ######## 
 // ##     ##  ##  ##    ## ##     ## ##         ## ##    ##  ##     ###   ## ##     ##    ##    ##       
 // ##     ##  ##  ##       ##     ## ##        ##   ##    ####      ####  ## ##     ##    ##    ##       
@@ -103,4 +108,4 @@ server.put("/api/notes/:id", (req, res) => {
     })
     .catch(err => res.status(500).json(err));
 });
- server.listen(9000, console.log("port 9000 is running!"));
+ server.listen(port, console.log("port 9000 is running!"));
