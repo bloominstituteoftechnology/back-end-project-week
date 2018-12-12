@@ -1,6 +1,14 @@
-// Update with your config settings.
-module.exports = {
+const localPgConnection = {
+  host: '', // address to find the db server
+  database: '',
+  user: '',
+  password: '',
+};
 
+// where is DATABASE_URL comign from?
+const dbConnection = process.env.DATABASE_URL || localPgConnection;
+
+module.exports = {
   development: {
     client: 'sqlite3',
     connection: {
@@ -11,4 +19,21 @@ module.exports = {
       directory: "./data/migrations"
     }
   },
-}
+
+
+  production: {
+    client: 'pg',
+    connection: dbConnection,
+    },
+    pool: {
+      min: 2,
+      max: 10,
+    },
+    migrations: {
+      tableName: 'knex_migrations',
+      directory: './db/migrations',
+    },
+    seeds: {
+      directory: './db/seeds',
+    },
+  }
