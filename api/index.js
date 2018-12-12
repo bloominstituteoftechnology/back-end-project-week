@@ -3,7 +3,7 @@ const middleware = require('./middlewareConfig/middleware.js')
 
 const knex = require('knex');
 const knexConfig = require('../knexfile');
-const db = knex(knexConfig.development);
+const db = knex(knexConfig.production);
 
 const server = express();
 middleware(server);
