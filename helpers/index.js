@@ -45,6 +45,7 @@ module.exports = {
     creds.password = hash;
     db("users")
       .insert(creds)
+      .returning("id")
       .then(ids => {
         res.status(201).json(ids);
       })
