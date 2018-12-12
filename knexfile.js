@@ -1,4 +1,6 @@
 // Update with your config settings.
+require('dotenv').config(); // load the .env file content
+const dbConnection = process.env.DATABASE_URL;
 
 module.exports = {
 
