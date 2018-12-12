@@ -8,10 +8,10 @@ exports.up = function(knex, Promise) {
       .primary()
 
     user.string('name', 128).notNullable()
+    user.string('password', 1024).notNullable()
 
     user.string('email', 1024)
 
-    user.string('password', 1024)
 
     user.integer('join-date')
 
