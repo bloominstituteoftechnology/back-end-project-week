@@ -39,7 +39,7 @@ function register(req, res, next) {
   // implement user registration
   const newUser = {...req.body};
   newUser.password = bcrypt.hashSync(newUser.password, 3);
-
+console.log('Register func  newUser = ', newUser);
 
   db('users')
   .insert(newUser)
