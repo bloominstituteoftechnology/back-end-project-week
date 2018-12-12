@@ -1,8 +1,8 @@
 const localPgConnection = {
-  host: '', // address to find the db server
-  database: '',
-  user: '',
-  password: '',
+  host: 'localhost', // address to find the db server
+  database: 'lambda',
+  user: 'angelo',
+  password: 'pass',
 };
 
 // where is DATABASE_URL comign from?
