@@ -1,4 +1,5 @@
 # NOTES API
+Heroku deployment exists @ `https://peaceful-sands-23658.herokuapp.com/`
 
 ## '/'
 Basic api check
