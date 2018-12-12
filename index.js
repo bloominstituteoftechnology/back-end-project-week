@@ -1,3 +1,5 @@
+require("dotenv").config(); //loads the .env file content
+
 const {server} = require("./server");
 const PORT = process.env.PORT || 3600;
 
