@@ -35,7 +35,7 @@ if (process.env.NODE_ENV === 'production') {
   // if it doesn't recognize the route
   const path = require('path');
   server.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../lambdaNotes', 'build', 'index.html'));
+    res.sendFile(path.resolve(__dirname, 'lambdaNotes', 'build', 'index.html'));
   });
 }
 
