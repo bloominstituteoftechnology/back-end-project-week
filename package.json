@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "./backend start",
+    "start": "node backend/index.js",
     "server": "concurrently \"yarn --cwd ./backend start\" \"yarn --cwd ./frontend start\""
   },
   "repository": "https://github.com/CLantigua2/back-end-project-week.git",
