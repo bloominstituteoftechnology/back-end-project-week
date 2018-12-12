@@ -10,6 +10,7 @@ server.get('/', (req, res) => {
 });
 
 // Notes endpoints
+// add a note to the db
 server.post('/create', async (req, res) => {
     try {
         const { title, content } = req.body;
@@ -25,6 +26,7 @@ server.post('/create', async (req, res) => {
     }
 });
 
+// get an array of all the notes
 server.get('/notes', async (req, res) => {
     try {
         const notes = await db('notes');
@@ -35,7 +37,38 @@ server.get('/notes', async (req, res) => {
     }
 });
 
+// get a single note
+server.get(`/note/:id`, async (req, res) => {
+    try {
+        const id = req.params.id;
+        const note = await db('notes').where({ id: id });
+        if (note.length > 0) {
+            res.status(200).json(note);
+        } else {
+            res.status(500).json({ message: 'Invalid id. Note does not exist.' });
+        }
+    } catch(err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
 
+// edit a note
+server.put('/edit/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const edits = req.body;
+        const successIndicator = await db('notes').where({ id: id }).update(edits);
+        if (successIndicator) {
+            res.status(200).json({ message: 'Edits made'});
+        } else {
+            res.status(500).json({ message: 'Invalid id. Note does not exist.' });
+        }
+    } catch(err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
 
 
 
