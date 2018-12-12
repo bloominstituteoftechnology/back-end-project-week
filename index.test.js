@@ -47,6 +47,22 @@ describe('server.js', () => {
         });
     })
 
+    describe('PUT note', () => {
+        it('should respond with status 201 on success', async () => {
+            let response = await request(server).post('/note/create').send({title: 'Test', textBody: 'posted'});
+            let edit = await request(server).put('/note/edit/1').send({title: 'Edited', textBody: 'test' })
+            expect(edit.status).toBe(201);
+        });
+
+        it('should edit', async () => {
+            await request(server).post('/note/create').send({title: 'Test', textBody: 'posted'});
+            let edit = await request(server).put('/note/edit/1').send({title: 'Edited', textBody: 'test' })
+            let response = await request(server).get('/note/get/1');
+            expect(response.body).toEqual({id: 1, tags: null, title: "Edited", textBody: 'test'})
+        });
+    })
+    
+
     describe('GET all', () => {
         it('should return status 200 on success', async () => {
             let response = await request(server).get('/note/get/all');
