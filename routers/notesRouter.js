@@ -2,6 +2,8 @@ const express = require('express');
 
 const db = require('../data/dbConfig.js');
 
+const protected = require('../authFunctions/protected.js');
+
 const router = express.Router();
 
 router.post('/', (req, res) => {
@@ -16,7 +18,7 @@ router.post('/', (req, res) => {
     });
 });
 
-router.get('/', (req, res) => {
+router.get('/', protected, (req, res) => {
     db('notes')
     .then(notes => {
         res.status(200).json(notes);
@@ -26,7 +28,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', protected, (req, res) => {
     db('notes')
     .where({ 'notes.id': req.params.id })
     .first()
