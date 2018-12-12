@@ -24,7 +24,9 @@ class NoteForm extends Component {
 
   addNewNote = e => {
     e.preventDefault();
-    axios.post(this.api, this.state.newNote).then(this.props.setNotes);
+    axios
+      .post(this.api, this.state.newNote, this.props.options)
+      .then(this.props.setNotes);
 
     this.props.history.push("/");
   };

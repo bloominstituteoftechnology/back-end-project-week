@@ -142,7 +142,13 @@ class App extends Component {
         <Route
           exact
           path="/add"
-          render={props => <NoteForm {...props} setNotes={this.setNotes} />}
+          render={props => (
+            <NoteForm
+              {...props}
+              setNotes={this.setNotes}
+              options={this.state.options}
+            />
+          )}
         />
         <Route
           exact
