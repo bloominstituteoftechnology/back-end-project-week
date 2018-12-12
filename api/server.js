@@ -55,7 +55,8 @@ server.post('/note/create', async (req, res) => {
             res.status(201).json(response)
         }
     } catch (err) {
-        res.status(500).json(err)
+        console.dir(err);
+        res.status(500).json(err);
     }
 })
 
