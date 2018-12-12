@@ -4,7 +4,7 @@ const db = require('../data/dbConfig');
 const cors = require('cors');
 
 server.use(express.json());
-server.use(cors({ origin: '*' })); //netlify
+server.use(cors({ origin: 'https://lucid-minsky-dfb9d9.netlify.com/' })); //netlify
 
 // R O O T
 server.get('/', (req, res) => {
