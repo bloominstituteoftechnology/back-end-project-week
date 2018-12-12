@@ -81,7 +81,7 @@ class NotesList extends React.Component {
             Export
           </ExportBtn>
           <Payments handlePayment={this.getCredits}/>
-          <div>Credits: {this.state.credits}</div>
+          <div style={{ margin: '10px 0' }}>Credits: {this.state.credits}</div>
         </LeftBar>
         <CardList>
           <NotesH2>Your Notes:</NotesH2>
