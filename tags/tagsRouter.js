@@ -17,25 +17,25 @@ router.post("/", (req, res) => {
           // if it does, we post the new tag
           db("tags")
             .insert(tag)
-            .then(newId => {
-              // instead of returning the id, we want the tag returned
-              db("tags")
-                // newId[0] and not newId since it returns it in an array
-                .where({ id: newId[0] })
-                .first()
-                .then(newTag => {
-                  res.status(201).json(newTag);
-                })
-                .catch(err =>
-                  res
-                    .status(500)
-                    .json({ error: "Error while adding the new tag: ", err })
-                );
-            })
+            .then(id => res.status(201).json(id))
+            // .then(newId => {
+            //   // instead of returning the id, we want the tag returned
+            //   db("tags")
+            //     // newId[0] and not newId since it returns it in an array
+            //     .where({ id: newId[0] })
+            //     .first()
+            //     .then(newTag => {
+            //       res.status(201).json(newTag);
+            //     })
+            // .catch(err =>
+            //   res
+            //     .status(500)
+            //     .json({ error: "Error while adding the new tag: ", err })
+            // );
+            // })
             .catch(err =>
               res.status(500).json({
-                error:
-                  "Error while checking the database for the note with that id: ",
+                error: "Error while adding the new tag: ",
                 err
               })
             );
