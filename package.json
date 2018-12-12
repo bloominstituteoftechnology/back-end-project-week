@@ -6,6 +6,7 @@
   "author": "koennecker <koenneckerb@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "start": "node",
     "server": "nodemon"
   },
   "dependencies": {
