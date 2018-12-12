@@ -101,7 +101,7 @@ title           string      Must be under 128 characters
 
 textBody        string      Must be under 2048 characters
 
-id              number      N.A.
+id              number      N.A. (Automatically Generated)
 
 ----------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------
@@ -111,6 +111,12 @@ FAQ
 
 1) This is a question
 1A) Well thought out answer
+
+2)Another Question
+2A) I don't know questions people would have after this amazing documentation
+
+3)Last question?
+3A) I got lazy at the end
 
 
 Contact Us/Support
