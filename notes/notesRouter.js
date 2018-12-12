@@ -19,18 +19,18 @@ async function getAllNotes(req, res) {
     // res.status(200).json({aliveAt: '/note/get/all'})
     const {id, username, roles} = req.decodedToken;
 
-    const notes = await db('notes').where('user_id', '=', id);
+    const notes = await db('notes').where('user', '=', id);
     res.status(200).json(notes);
 }
 
 async function getNoteById(req, res) {
     const id = req.params.id;
-    const user_id = req.decodedToken.id;
+    const user = req.decodedToken.id;
 
     // const note = await db('notes').where('id' , '=', id).first();
 
     const note = await db('notes')
-        .whereIn(['id', 'user_id'], [[id, user_id]])
+        .whereIn(['id', 'user'], [[id, user]])
         .first();
     
     if (!note) {
@@ -60,7 +60,7 @@ async function createNote(req, res) {
 async function editNote(req, res) {
     const id = req.params.id;
     const newData = req.body;
-    const user_id = req.decodedToken.id;
+    const user = req.decodedToken.id;
 
     if (!newData && !newData.title && !newData.textBody && !newData.tags) {
         res.status(422).json({error: "Note Title or Note TextBody is required"});
@@ -68,7 +68,7 @@ async function editNote(req, res) {
     }
 
     const updatedNote = await db('notes')
-        .whereIn(['id', 'user_id'], [[id, user_id]])
+        .whereIn(['id', 'user'], [[id, user]])
         .update({...newData});
     
     console.log(updatedNote);
@@ -84,11 +84,11 @@ async function editNote(req, res) {
 
 async function deleteNote(req, res) {
     const id = req.params.id;
-    const user_id = req.decodedToken.id;
+    const user = req.decodedToken.id;
 
     
     await db('notes')
-        .whereIn(['id', 'user_id'], [[id, user_id]])
+        .whereIn(['id', 'user'], [[id, user]])
         .del();
 
     res.status(201).json({success: true});
