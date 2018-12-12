@@ -1,10 +1,7 @@
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('notes').truncate()
-    .then(function () {
-      // Inserts seed entries
-      return knex('notes').insert([{
+  return knex('notes').insert([{
         "_id": 1,
         "title": "Leontine",
         "textBody": "Reide"
