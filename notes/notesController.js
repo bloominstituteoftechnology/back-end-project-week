@@ -8,7 +8,7 @@ const notesControllers = {
   getNotes(req, res, next) {
     console.log('getNotes in controller ');
     db("notes")
-    .offset(0).limit(limitNum)
+    // .offset(0).limit(limitNum)
     // .offset(3)
     // .limit(3).offset(8)
       .then(notes => {
