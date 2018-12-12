@@ -81,6 +81,7 @@ const Authenticate = App =>
     };
 
     render() {
+      console.log(notes)
       if (this.state.login) {
         return <App signOut={this.signOut} />;
       } else {
