@@ -53,9 +53,9 @@ server.post("/api/register", (req, res) => {
       .returning("id")
 
       .then(id => {
+        console.log(id, "ID HERE");
         db("users")
           .where({ id })
-          .returning(["id", "username", "password"])
           .first()
           .then(user => {
             if (user) {
