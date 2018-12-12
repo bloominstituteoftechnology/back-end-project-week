@@ -5,7 +5,9 @@ module.exports = {
     createNote,
     viewNote,
     editNote,
-    deleteNote
+    deleteNote,
+    getUsers
+
 }
 
 function getNotes() {
@@ -33,4 +35,8 @@ function deleteNote(id) {
     return db('notes')
     .where('id', '=', id)
     .del();
+}
+
+function getUsers() {
+    return db('users')
 }

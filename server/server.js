@@ -16,6 +16,16 @@ server.get('/api/notes', (req,res) => {
     })
 })
 
+server.get('/api/users', (req,res) => {
+    db.getUsers()
+    .then(notes => {
+        res.status(200).json(notes);
+    })
+    .catch(err => {
+        res.status(500).json(err);
+    })
+})
+
 server.post('/api/notes', async (req, res) => {
     const note = await req.body;
     db.createNote(note)
@@ -26,6 +36,7 @@ server.post('/api/notes', async (req, res) => {
         res.status(500).json(err);
     })
 })
+
 
 server.get('/api/notes/:id', (req,res) => {
     const id = req.params.id;
