@@ -11,9 +11,9 @@
     "start": "node index.js",
     "server": "nodemon index.js",
     "test": "jest --watch --verbose",
-    "client-install": "(cd ./client && yarn install)",
-    "client-build": "(cd ./client && yarn run build)",
-    "heroku-postbuild": "YARN_PRODUCTION=false yarn run client-install && yarn run client-build"
+    "client-install": "(cd ./lambdaNotes && yarn)",
+    "client-build": "(cd ./lambdaNotes && yarn build)",
+    "heroku-postbuild": "YARN_PRODUCTION=false yarn lambdaNotes-yarn && yarn lambdaNotes-build"
   },
   "repository": {
     "type": "git",
