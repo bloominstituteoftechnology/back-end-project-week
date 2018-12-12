@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors')
 const knex = require('knex')
 const knexConfig = require('./knexfile')
+// require('dotenv').config()
 const db = knex(knexConfig.development)
 const server = express();
 server.use(express.json());
@@ -70,5 +71,5 @@ server.delete('/api/notes/:id', (req, res) => {
 
 
 
-const port = 9000;
+const port = process.env.PORT || 9000;
 server.listen(port, () => console.log(`listening on port ${port}`))
