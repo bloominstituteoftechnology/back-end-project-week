@@ -1,7 +1,15 @@
 process.env.NODE_ENV = 'test';
 
 const users = require('./User');
-// const db = require('../dbConfig');
+const db = require('../dbConfig');
+
+beforeEach(async () => {
+  await db.migrate.rollback();
+  await db.migrate.rollback();
+  await db.migrate.rollback();
+  await db.migrate.latest();
+  await db.seed.run();
+});
 
 describe('helpers/User.js', () => {
   describe('getAll()', () => {

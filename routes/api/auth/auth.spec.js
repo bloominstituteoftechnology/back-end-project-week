@@ -2,7 +2,15 @@ process.env.NODE_ENV = 'test';
 
 const request = require('supertest');
 const server = require('../../../server');
-// const db = require('../../../data/dbConfig');
+const db = require('../../../data/dbConfig');
+
+beforeEach(async () => {
+  await db.migrate.rollback();
+  await db.migrate.rollback();
+  await db.migrate.rollback();
+  await db.migrate.latest();
+  await db.seed.run();
+});
 
 describe('auth.js', () => {
   describe('register', async () => {
@@ -50,6 +58,17 @@ describe('auth.js', () => {
       expect(response.body).toEqual({
         message: 'There is already an account registered with that email.'
       });
+    });
+    it('should return an id', async () => {
+      let newUser = {
+        username: 'larry',
+        password: 'pass',
+        email: 'larry@gmail.com'
+      };
+      let response = await request(server)
+        .post('/api/auth/register')
+        .send(newUser);
+      expect(response.body).toBe(4);
     });
   });
 });

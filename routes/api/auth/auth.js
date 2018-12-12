@@ -20,7 +20,7 @@ function generateToken(user) {
 // REGISTER USER
 router.post('/register', async (req, res) => {
   const registrationData = req.body;
-  const { username, email, password } = registrationData;
+  let { username, email, password } = registrationData;
 
   if (!username || !email || !password) {
     return res
@@ -32,23 +32,36 @@ router.post('/register', async (req, res) => {
     const usernameExists = await db('users')
       .where({ username })
       .first();
+
     if (usernameExists) {
       return res.status(401).json({ message: 'That username is taken.' });
     }
     const emailExists = await await db('users')
       .where({ email })
       .first();
+
     if (emailExists) {
-      return res
-        .status(401)
-        .json({
-          message: 'There is already an account registered with that email.'
-        });
+      return res.status(401).json({
+        message: 'There is already an account registered with that email.'
+      });
     }
   } catch (error) {
     res
       .status(500)
       .json({ error: 'There was an error accessing the database.' });
+  }
+  const hash = bcrypt.hashSync(password, 8);
+  password = hash;
+  try {
+    const [userId] = await db('users').insert(
+      { username, password, email },
+      'id'
+    );
+    res.status(201).json(userId);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: 'There was an error posting to the database.' });
   }
 });
 

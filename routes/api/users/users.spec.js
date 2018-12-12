@@ -4,12 +4,13 @@ const request = require('supertest');
 const server = require('../../../server');
 const db = require('../../../data/dbConfig');
 
-// beforeEach(async () => {
-//   await db.migrate.rollback();
-//   await db.migrate.rollback();
-//   await db.migrate.latest();
-//   await db.seed.run();
-// });
+beforeEach(async () => {
+  await db.migrate.rollback();
+  await db.migrate.rollback();
+  await db.migrate.rollback();
+  await db.migrate.latest();
+  await db.seed.run();
+});
 
 describe('users.js', () => {
   describe('GET ALL USERS', () => {
