@@ -11,7 +11,6 @@ module.exports = server => {
     server.post('/api/notes', postNote);
     server.put('/api/notes/:id', updateNote);
     server.delete('/api/notes/:id', deleteNote);
-
     server.post('/api/register', register);
     server.post('/api/login', login);
 }
