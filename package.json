@@ -14,8 +14,7 @@
     "dev": "concurrently \"npm run server\" \"npm run lambdaNotes\"",
     "client-install": "(cd ./lambdaNotes && yarn install)",
     "client-build": "(cd ./lambdaNotes && yarn run build)",
-    "heroku-postbuild": "YARN_PRODUCTION=true yarn run client-install && yarn run client-build",
-    "heroku config": "YARN_CONFIG_PRODUCTION=false"
+    "heroku-postbuild": "YARN_PRODUCTION=true yarn run client-install && yarn run client-build"
   },
   "repository": {
     "type": "git",
