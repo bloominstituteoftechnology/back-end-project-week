@@ -1,9 +1,15 @@
 # Back End Project Week
 
+## Deployed Client
+
+https://compassionate-mcclintock-8c2ad9.netlify.com/
+
 ## Deployed Server
+
 https://back-end12.herokuapp.com/
 
 ## Trello Board
+
 https://trello.com/invite/b/VNfpsMYt/bb06ec57a745cd35d930744f931ba7b1/lambda-notesbackend-blake-koennecker
 
 This week you will build a backend for a note taking app called "Lambda Notes".
