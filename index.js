@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 9000;
 
 //* Sanity Check
 server.get("/", (req, res) => {
-  res.status(200).json("Server Online!");
+  res.status(200).json(`Server Online in port = ${PORT}`);
 });
 
 //* Server Awakens
