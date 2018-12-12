@@ -13,6 +13,8 @@ router.get('/notes/all/', async (req, res) => {
     console.log('the notes are... ', notes);
     res.status(200).json(notes);
   } catch (error) {
+    console.log('the notes are... ', notes);
+    console.log('the error is... ', error);
     res.status(500).json({ error: 'There was an error while getting the notes. The error is ', error });
   }
 });
