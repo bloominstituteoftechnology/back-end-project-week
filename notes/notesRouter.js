@@ -49,7 +49,7 @@ async function createNote(req, res) {
         return;
     }
 
-    const note = await db('notes').insert({...newNote, user_id: id});
+    const note = await db('notes').returning('id').insert({...newNote, user_id: id});
     console.log(note);
 
     res.status(201).json({success: note[0]})
