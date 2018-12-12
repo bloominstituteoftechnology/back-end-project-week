@@ -6,14 +6,14 @@ const cors = require('cors')
 
 //call dependencies
 server.use(express.json())
-//server.use(cors({ origin: 'http://localhost:8080', credentials: true }))
+server.use(cors())
 //endpoints
 
 //gets
-server.get('/', (req, res) => {
+server.get('/get/all', (req, res) => {
     res.status(200).json({ api: 'alive' })
 })
-server.get('/notes', (req, res) => {
+server.get('/get/:id', (req, res) => {
     notes.get()
         .then(notes => res.status(200).json(notes))
         .catch(err => res.status(500).json(err))
@@ -26,7 +26,7 @@ server.get('/notes/:id', (req, res) => {
 })
 
 //post
-server.post('/notes', (req, res) => {
+server.post('/create', (req, res) => {
     const { title, content } = req.body
     if (title && content) {
         notes.add(req.body)
@@ -38,7 +38,7 @@ server.post('/notes', (req, res) => {
 })
 
 //put
-server.put('/notes/:id', (req, res) => {
+server.put('/edit/:id', (req, res) => {
     const { id } = req.params
     const { title, content } = req.body
     if (title && content) {
@@ -51,7 +51,7 @@ server.put('/notes/:id', (req, res) => {
 })
 
 //delete
-server.delete('/notes/:id', (req, res) => {
+server.delete('/delete/:id', (req, res) => {
     const { id } = req.params
     notes.remove(id)
         .then(result => result ? res.status(200).json(result) : res.status(500).json({ message: 'No notes deleted.' }))

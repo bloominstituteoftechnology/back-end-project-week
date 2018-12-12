@@ -1,3 +1,4 @@
 const server = require('./api/server.js')
 
-server.listen(3300, () => console.log('\n~servin up on port 3300~\n'))
+const port = 9000;
+server.listen(port, console.log(`Server listening on port ${port}`));
