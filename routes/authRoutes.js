@@ -9,6 +9,8 @@ module.exports = server => {
 server.post('/api/register', register)
 server.post('/api/login', login)
 server.get('/api/logout', logout)
+server.post('/api/tag', addTag)
+server.get('/api/tag', getTags)
 }
 
 
@@ -48,4 +50,22 @@ const login = (req, res) => {
 const logout = (req, res) => {
     req.session = null
     res.json({message: 'cookie destroyed'})
+}
+
+const addTag = (req, res) => {
+    const {tag, notes_id} = req.body
+    db('tags')
+    .insert({tag, notes_id}, '*')
+    .then(tag => {
+        res.status(200).json(tag)
+    })
+    .catch(err => res.status(500).json({message: `Error: ${err}`}))
+}
+
+const getTags = (req, res) => {
+    db('tags')
+    .then(tags => {
+        res.status(200).json(tags)
+    })
+    .catch(err => res.status(500).json({message: `Error: ${err}`}))
 }
