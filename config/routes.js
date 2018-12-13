@@ -66,11 +66,11 @@ function postNote(req, res) {
 
 function getNote(req, res) {
     const creds = req.body
-    const token = jwt_decode(creds);
+    const token = jwtDecode(creds);
     db('notes')
         .where({username: token.username})
         .then(response => {
-            res.status(200).json(response)
+            res.status(200).json(token)
         })
         .catch(err => {
             res.status(500).json({message: 'Error fetching notes'})
