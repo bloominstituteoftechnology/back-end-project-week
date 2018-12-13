@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const db = require('./database/dbConfig.js');
+const bcrypt = require('bcryptjs');
 
 const server = express();
 
@@ -86,6 +87,39 @@ server.delete('/note/delete/:id', (req,res) => {
         res.status(500).json({message : "error deleting note", error : err})
     })
 })
+
+///////////////////////////////
+//      Login Endpoints     //
+/////////////////////////////
+server.post('/note/login', (req,res) => {
+    const creds = req.body;
+    if(creds.username && creds.password){
+        db('users')
+        .where({username : creds.username})
+        .then(user => {
+            if(!user){
+                res.status(204).json({message : "No user found with provided data"})
+            }
+            else if(user && bcrypt.compareSync(creds.password, user.password)){
+                res.status(200).send("logged in")
+            }
+        })
+        .catch(err => { res.status(500).json(err)});
+    }
+})
+server.post('/note/register',(req, res) =>{
+    const creds = req.body;
+    const hash = bcrypt.hashSync(creds.password, 14);
+    creds.password = hash;
+    db('users').insert(creds)
+    .then(userId => {
+        res.status(200).json(userId)
+    })
+    .catch(err => {
+        res.json(err)
+    })
+})
+
 
 module.exports = {
     server,
