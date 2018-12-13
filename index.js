@@ -7,9 +7,11 @@ const server = express()
 middleware(server)
 
 server.get('/', (req, res)=>{
-    res.send('<h1>Backend Project week</h1><h2>Built By Ryan Clausen</h2>')
+    res.status(200).send('<h1>Backend Project week</h1><h2>Built By Ryan Clausen</h2>')
 })
 
 server.use('/api/notes', route)
 
 server.listen(port, ()=> console.log(`we hear you ${port}`))
+
+module.exports = server;

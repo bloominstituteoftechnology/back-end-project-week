@@ -4,7 +4,7 @@
   "description": "https://trello.com/invite/b/mCWGSVnP/20a754264d3aad0a4e233cbe15efb8d3/lambda-notesbackend-ryan-clausen",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --watch --verbose",
     "server": "nodemon",
     "start": "node index.js"
   },
@@ -20,7 +20,9 @@
   },
   "homepage": "https://github.com/theryanclausen/back-end-project-week#readme",
   "devDependencies": {
-    "nodemon": "^1.18.7"
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.7",
+    "supertest": "^3.3.0"
   },
   "dependencies": {
     "cors": "^2.8.5",
