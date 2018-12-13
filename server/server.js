@@ -12,7 +12,7 @@ const protect = require('./protect.js')
 server.use(express.json())
 server.use(cors());
 
-server.get('/api/notes', [protect],(req,res) => {
+server.get('/api/notes', (req,res) => {
     const decoded = jwt.verify(req.headers.authorization, process.env.SECRET)
     console.log(decoded.subject)
     db.getNotes(decoded.subject)
@@ -41,8 +41,8 @@ server.post('/api/users/register', (req, res) => {
     userdb.register(userCred)
     .then(id => {
         const payload = {
-            id: id[0],
-            username: userCred.username
+            "id": id[0],
+            "username": userCred.username
         }
         console.log(payload)
         const token = generateToken(payload)
@@ -84,7 +84,7 @@ server.post('/api/users/login', (req, res) => {
 })
 
 
-server.post('/api/notes', [protect],async (req, res) => {
+server.post('/api/notes', async (req, res) => {
     const decoded = jwt.verify(req.headers.authorization, process.env.SECRET)
     const note = await req.body;
     const completeNote = {
@@ -103,7 +103,7 @@ server.post('/api/notes', [protect],async (req, res) => {
 })
 
 
-server.get('/api/notes/:id', [protect],(req,res) => {
+server.get('/api/notes/:id', (req,res) => {
     const id = req.params.id;
     db.viewNote(id)
     .then(note => {
@@ -114,7 +114,7 @@ server.get('/api/notes/:id', [protect],(req,res) => {
     })
 })
 
-server.put('/api/notes/:id', [protect],(req, res)  => {
+server.put('/api/notes/:id', (req, res)  => {
     const id = req.params.id;
     const content = req.body;
     db.editNote(content, id)
@@ -126,7 +126,7 @@ server.put('/api/notes/:id', [protect],(req, res)  => {
     })
 })
 
-server.delete('/api/notes/:id', [protect], (req, res) => {
+server.delete('/api/notes/:id',  (req, res) => {
     const id = req.params.id;
     db.deleteNote(id)
     .then(num => {
