@@ -15,7 +15,7 @@ router.post('/', (req, res) => {
         res.status(201).json(req.body);
     })
     .catch(err => {
-        res.status(500).json({ message: 'could not create note', err });
+        res.status(422).json({ message: 'please add title and content', err });
     });
 });
 

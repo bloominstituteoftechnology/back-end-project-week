@@ -15,4 +15,13 @@ describe("notesRouter.js", () => {
         expect(response.body).toEqual({ api: 'alive' });
         });
     });
+
+    describe("POST /notes", async () => {
+        it("should return status code 201", async () => {
+          const body = { title: 'test testing', content: 'testing' };
+          let response = await request(server).post("/api/notes").send(body);
+  
+          expect(response.status).toBe(201);
+        });
+      });
   }); 
