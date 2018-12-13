@@ -18,7 +18,6 @@ server.get('/note/get/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const note = await db('notes')
-      .returning('*')
       .where('notes.id', '=', id)
       .first();
 
@@ -50,6 +49,7 @@ server.put('/note/edit/:id', async (req, res, next) => {
   const changes = req.body;
   try {
     const note = await db('notes')
+      .returning('id')
       .where({ id })
       .update(changes);
     if (note) {
