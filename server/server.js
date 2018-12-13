@@ -35,14 +35,13 @@ server.post('/api/users/register', (req, res) => {
     let userCred = req.body;
     const hash = bcrypt.hashSync(userCred.password, 8);
     userCred.password = hash;
-    console.log(userCred)
     userdb.register(userCred)
     .then(id => {
         const token = generateToken(userCred)
         res.status(201).json(token)
     })
     .catch(err => {
-        res.status(500).json({message: err})
+        res.status(500).json(err)
     })
 })
 
