@@ -1,5 +1,5 @@
 const express = require("express");
-const db = require("../database/dbconfig");
+const db = require("../database/dbConfig");
 const { protected } = require("../middleware/middleware");
 
 const route = express();
@@ -10,7 +10,7 @@ route.get("/", (req, res) => {
 });
 
 //get a list of all of the notes
-route.get("/api/notes", (req, res) => {
+route.get("/api/notes", protected, (req, res) => {
   db("notes")
     .then(notes => {
       res.status(200).json(notes);

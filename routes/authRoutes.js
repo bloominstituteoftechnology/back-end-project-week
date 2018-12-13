@@ -1,5 +1,5 @@
 const express = require("express");
-const db = require("../database/dbconfig");
+const db = require("../database/dbConfig");
 const bcrypt = require("bcryptjs");
 const { generateToken } = require("../middleware/middleware");
 
