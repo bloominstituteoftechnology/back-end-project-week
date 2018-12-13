@@ -4,7 +4,6 @@ exports.up = function(knex, Promise) {
         tbl.increments();
         tbl.string('title').notNullable();
         tbl.string('textBody').notNullable();
-        tbl.json('tags')
     })
 };
  exports.down = function(knex, Promise) {
