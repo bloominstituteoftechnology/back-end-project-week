@@ -66,6 +66,7 @@ server.post('/api/users/login', (req, res) => {
     .then(user => {
         console.log(user)
         if(user && bcrypt.compareSync(userCred.password, user.password)) {
+            console.log('hey')
             const token = generateToken(user);
             res.status(200).json(token)
             
