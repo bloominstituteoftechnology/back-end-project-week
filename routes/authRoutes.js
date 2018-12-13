@@ -1,8 +1,10 @@
 const express = require("express");
-const authRoute = express();
 const db = require("../database/dbconfig");
 const bcrypt = require("bcryptjs");
 const { generateToken } = require("../middleware/middleware");
+
+const authRoute = express.Router();
+authRoute.use(express.json());
 
 //register a new user
 authRoute.post("/api/register", (req, res) => {
@@ -14,9 +16,7 @@ authRoute.post("/api/register", (req, res) => {
     .then(ids => {
       res.status(201).json(ids);
     })
-    .catch(err => {
-      res.status(500).json({ message: "error adding user to the db", err });
-    });
+    .catch(err => json({ message: "error adding user to the DB", err }));
 });
 
 //user login
