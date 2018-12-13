@@ -86,10 +86,11 @@ server.post('/api/notes', [protect],async (req, res) => {
     const decoded = jwt.verify(req.headers.authorization, process.env.SECRET)
     const note = await req.body;
     const completeNote = {
-        Title: note.Title,
-        Content: note.Content,
-        user_id: decoded.subject
+        "Title": note.Title,
+        "Content": note.Content,
+        "user_id": decoded.subject
     }
+    console.log(completeNote)
     db.createNote(completeNote)
     .then(id => {
         res.status(201).json(id);
