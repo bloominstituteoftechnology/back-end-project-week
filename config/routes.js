@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const { authenticate, generateToken } = require('./middlewares.js');
+const { authenticate, generateToken, generateTokenReg } = require('./middlewares.js');
 const db = require('../database/dbConfig.js');
 
 
@@ -24,8 +24,7 @@ function register(req, res) {
         .insert(creds)
         .then(user => {
             console.log(creds);
-            // res.status(201).json(creds.username);
-            const token = generateToken(user);
+            const token = generateTokenReg(user);
             res.status(201).json(token)
         })
         .catch(err => {
@@ -85,7 +84,7 @@ function getOneNote(req, res) {
 function addNote(req, res) {
     const users_id = req.decoded.subject
     const { title, textBody } = req.body;
-     req.body = {title, textBody, users_id};
+    req.body = { title, textBody, users_id };
     if (!title || !textBody) {
         console.log(users_id)
         res.status(422).json({ message: `Both title and content are required` })

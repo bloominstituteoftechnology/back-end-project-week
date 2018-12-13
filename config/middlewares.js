@@ -5,6 +5,7 @@ const jwtSecret = process.env.JWT_SECRET;
 module.exports = {
     authenticate,
     generateToken,
+    generateTokenReg
 };
 
 function authenticate(req, res, next) {
@@ -13,7 +14,6 @@ function authenticate(req, res, next) {
         jwt.verify(token, jwtSecret, (err, decoded) => {
             if (err) return res.status(401).json(err);
             req.decoded = decoded;
-            console.log(req.decoded)
             next();
         });
     } else {
@@ -26,6 +26,17 @@ function authenticate(req, res, next) {
 function generateToken(user) {
     const jwtPayload = {
         subject: user.id,
+        hello: 'hello',
+    };
+    const jwtOptions = {
+        expiresIn: '1h',
+    };
+    return jwt.sign(jwtPayload, jwtSecret, jwtOptions)
+};
+
+function generateTokenReg(user) {
+    const jwtPayload = {
+        subject: user[0],
         hello: 'hello',
     };
     const jwtOptions = {
