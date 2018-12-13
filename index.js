@@ -1,4 +1,3 @@
-require('dotenv').config();
 const server = require('./api/server.js');
 const express = require("express");
 const mongoose = require('mongoose');
@@ -29,7 +28,7 @@ console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'production') {
   // Express will serve up production assets
   // like our main.js file, or main.css file!
-  server.use(express.static('lambdaNotes/build'));
+  server.use(express.static('lambdaNotes/build/static'));
 
   // Express will serve up the index.html file
   // if it doesn't recognize the route
