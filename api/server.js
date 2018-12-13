@@ -48,7 +48,7 @@ server.use(function(req, res, next) {
 });
 
 // const notesRouter = require('../notes/notesRouter.js');
-// const RegisterRouter = require('../notes/RegisterRouter.js');
+const RegisterRouter = require('../notes/RegisterRouter.js');
 
 //sanity check endpoint
 server.get('/', (req, res) => {
@@ -56,8 +56,8 @@ server.get('/', (req, res) => {
 });
 
 //Register Endpoints
-// server.get('/test', RegisterRouter);
-// server.post('/register', RegisterRouter);
+server.get('/test', RegisterRouter);
+server.post('/register', RegisterRouter);
 
 //Notes Endpoints/Methods
 // server.get('/notes', notesRouter);
