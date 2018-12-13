@@ -10,7 +10,7 @@ server.get('/', (req, res) => res.send({API: "live"}));
 
 // Endpoints //
 // GET all
-server.get('/notes/get/all', async (req, res) => {
+server.get('/notes', async (req, res) => {
     try {
         const notes = await db.getAll();
         res.status(200).json(notes)
