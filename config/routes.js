@@ -25,7 +25,7 @@ function register(req, res) {
         .then(user => {
             console.log(creds);
             const token = generateTokenReg(user);
-            res.status(201).json(token)
+            res.status(201).json(user)
         })
         .catch(err => {
             res.status(500).json({ message: `unable to join` })
