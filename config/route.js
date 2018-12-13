@@ -63,7 +63,7 @@ route.put("/:id", async (req, res) => {
       .where({ id })
       .update({ ...req.body });
     if (count) {
-      const updatedNote = await db("notes").where({ id });
+      const updatedNote = await db("notes").where({ id }).first();
       return res.status(201).json(updatedNote);
     }
   } catch (err) {
