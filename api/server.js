@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const server = express();
 
@@ -109,6 +111,15 @@ server.delete("/api/notes/:noteId", (req, res) => {
         .catch(err => {
             res.status(500).json({ message: "Error accessing notes", err });
         });
+});
+
+// Registration/Login Stuff
+server.post("/api/register", (req, res) => {
+    const creds = req.body;
+    const hash = bcrypt.hashSync(creds.password, rounds);
+    creds.password = hash;
+
+
 });
 
 module.exports = server;
