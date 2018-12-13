@@ -33,7 +33,6 @@ server.post('/api/notes/new', async (req, res) => {
 })
 
 server.put('/api/notes/edit/:id', async (req, res) => {
-    console.log('fired');
     const id = req.params.id;
     const note = req.body;
     if (!note.title || !note.textBody) {
