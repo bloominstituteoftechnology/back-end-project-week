@@ -29,7 +29,7 @@ server.get("/api/notes/:id", async (req, res) => {
   try {
     const note = await db("notes").where({ id });
     res.status(200).json(note);
-    console.log(note);
+    console.log("this is the server note",note);
   } catch (error) {
     res
       .status(500)
@@ -38,21 +38,23 @@ server.get("/api/notes/:id", async (req, res) => {
 });
 
 //========POST A NEW NOTE=========
-server.post("/api/notes", async (req, res) => {
+server.post("/api/notes", (req, res) => {
+
   const { title, content } = req.body;
   const note = req.body;
-  if (!title || !content) {
-    res.status(420).json({ message: "Missing information." });
-  }
-  try {
-    const ids = await db("notes").insert(note);
-    res.status(201).json(ids);
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "There was an error adding the note.", error });
+  if (!note) {
+    res.status(400).json({ message: "Missing information." });
+  } else{
+      db('notes')
+      .insert(req.body)
+      .into('notes')
+      .then(id => {
+          res.status(201).json({id});
+      })
+      .catch(err => res.status(500).json({message: 'The notes could not be created'}))
   }
 });
+  
 
 //==========DELETE A NOTE==========
 server.delete("/api/notes/:id", async (req, res) => {
@@ -70,19 +72,22 @@ server.delete("/api/notes/:id", async (req, res) => {
 });
 
 //==========UPDATE NOTE BY ID==========
-server.put("/api/notes/:id", async (req, res) => {
+server.put("/api/notes/:id", (req, res) => {
   const id = req.params.id;
   const update = req.body;
+  
+  if (!update) {
+    res.status(400).json({ message: "Missing information." });
+  } else{
+      db('notes')
 
-  try {
-    await db("notes")
       .where({ id })
-      .update(update);
-    res.status(200).json(update);
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "There was an error updating the note", error });
+      .update(update)
+      .then(count => {
+        res.status(200).json(update);
+       
+      })
+      .catch(err => res.status(500).json({message: 'The notes could not be updated'}))
   }
 });
 
