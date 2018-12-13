@@ -34,6 +34,17 @@ router.get('/protectedTest', protected, (req, res) => {
     res.status(418).json({ message: 'You must be logged in!' })
 });
 
+// [POST] /api/users/availableUsername
+router.post('/availableUsername', async (req, res) => {
+    const username = req.body.username;
+    try {
+        const result = await usersDb.availableUsername(username);
+        res.status(200).send(result);
+    } catch(err) {
+        res.status(500).json({ code: 3, message: 'Error registering user' });
+    }
+});
+
 // [GET] /api/users
 router.get('', (req, res) => {
     usersDb.getUsers()
