@@ -8,6 +8,12 @@ const cors = require('cors');
 server.use(express.json());
 server.use(cors());
 
+//Testing API
+
+server.get('/', (req, res) => {
+    res.send(`Api running on port: ${port}`)
+})
+
 
 //GET a list of notes
 
