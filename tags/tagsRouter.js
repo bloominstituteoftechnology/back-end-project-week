@@ -64,4 +64,22 @@ router.delete("/:id", (req, res) => {
     );
 });
 
+// DELETE batch of tags by notes_id
+router.delete("/notes/:id", (req, res) => {
+  const { id } = req.params;
+  db("tags")
+    .where({ notes_id: id })
+    .del()
+    .then(count => {
+      count
+        ? res.status(200).json(count)
+        : res.status(404).json({
+            message: "No tags exist that are associated with that note id"
+          });
+    })
+    .catch(err =>
+      res.status(500).json({ error: "Error while deleting these tags: ", err })
+    );
+});
+
 module.exports = router;
