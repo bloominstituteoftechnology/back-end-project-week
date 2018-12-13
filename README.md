@@ -6,19 +6,19 @@ This is a project I've undertaken under the Lambda School backend development ci
 
 The CRUD endpoints follow:
 
-###CREATE
+**CREATE**
 _POST_, in which we create a note
 https://bummingsnotes.herokuapp.com/api/notes
 
-###READ
+**READ**
 _GET_, in which we display a note
 https://bummingsnotes.herokuapp.com/api/notes
 
-###UPDATE
+**UPDATE**
 _PUT_, in which we update a note
 https://bummingsnotes.herokuapp.com/api/notes/:id
 
-###DELETE
+**DELETE**
 _DESTROY_, in which we delete a note
 https://bummingsnotes.herokuapp.com/api/notes/:id
 
