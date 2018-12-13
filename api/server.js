@@ -9,16 +9,8 @@ const knexConfig = require("../knexfile");
 const db = knex(knexConfig.development);
 const noteRouter = require("../notes/noteRouter");
 const userRouter = require("../users/userRouter");
-<<<<<<< HEAD
-const {
-  authenticate,
-  generateToken
-} = require('../middleware.js');
-const saltRounds = process.env.hash || require("../_secrets/keys.js").hash;
-=======
 const { authenticate, generateToken } = require('../middleware.js');
 const saltRounds = +process.env.hash || require("../_secrets/keys.js").hash
->>>>>>> 4399468367df4aa8ae2de7e274495f259ebd9423
 
 const server = express();
 

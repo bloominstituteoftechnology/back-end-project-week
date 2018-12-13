@@ -24,6 +24,13 @@ router.get("/", authenticate, (req, res) => {
 router.get("/:id", authenticate, (req, res) => {
     let { id } = req.params;
 
+    if (req.decoded.username === "Admin") {
+        db("notes")
+        .where({id})
+        .then(note => res.status(200).json(...note))
+        .catch(err => res.status(500).json({error: err}))
+    }
+
     db("notes")
         .where({id})
         .then(note => {
