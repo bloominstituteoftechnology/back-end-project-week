@@ -61,6 +61,10 @@ server.delete('/api/notes/:id', (req, res) => {
 
 //create a note with title and content
 server.post('/api/notes', (req, res) => {
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+  );
   let { title, body } = req.body;
 
   console.log(req.body);
