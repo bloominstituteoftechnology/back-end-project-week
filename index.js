@@ -9,6 +9,8 @@ const db = require('./data/dbConfig.js');
 
 const server = express();
 
+const port = process.env.PORT || 3500;
+
 server.use(express.json());
 server.use(cors());
 server.use(helmet());
@@ -74,7 +76,7 @@ server.post('/api/users/login', (req, res) => {
 });
 
 server.get('/', (req, res) => {
-    res.status(200).json({ message: 'Server is running.' });
+    res.status(200).json({ message: `Server is running on port: ${port}` });
 });
 
 server.get('/api/notes', (req, res) => {
@@ -160,6 +162,4 @@ server.delete('/api/notes/:noteId', (req, res) => {
         });
 });
 
-const port = process.env.PORT || 3500;
-
-server.listen(port, () => console.log('\n\nServer is running on port 3500\n\n'));
+server.listen(port, () => console.log(`\n\nServer is running on port: ${port} \n\n`));
