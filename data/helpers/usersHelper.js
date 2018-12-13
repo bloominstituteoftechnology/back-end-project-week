@@ -29,7 +29,7 @@ function getUserByUsername(username) {
         .first();
 }
 
-// registers new user if valid, returns new id
+// registers new user if valid, returns number of rows inserted (id for sql)
 function registerUser(user) {
     const newUser = user;
     const hash = bcrypt.hashSync(newUser.password, 14);
@@ -39,9 +39,7 @@ function registerUser(user) {
 
     return db('users')
         .insert(newUser)
-        .then(id => { 
-            console(id);
-            return { id: id[0] }});
+        .then(id => { return id });
 };
 
 // true if username is not in database
