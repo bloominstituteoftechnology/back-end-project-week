@@ -10,13 +10,35 @@ server.use(express.json());
 // server.use(cors({ origin: 'http://localhost:3000' }));
 server.use(cors({ origin: 'https://lucid-minsky-dfb9d9.netlify.com' })); //netlify
 
+// P R O T E C T E D   M I D D L E W A R E
+const protected = (req, res, next) => {
+  // token sent in authorization header
+  const token = req.headers.authorization;
+
+  if (token) {
+    jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+      if (err) {
+        // token is no good
+        res.status(401).json({ message: 'token is invalid' });
+      } else {
+        // token is good to go
+        res.decodedToken = decodedToken;
+        next();
+      }
+    });
+  } else {
+    // you didn't even present me a token, man!
+    res.status(401).json({ message: 'token not provided!' });
+  }
+};
+
 // R O O T
 server.get('/', (req, res) => {
   res.send('This is testing the deployed API');
 });
 
 // G E T   A L L   N O T E S
-server.get('/api/notes', (req, res) => {
+server.get('/api/notes', protected, (req, res) => {
   db('notes')
     .then(note => res.status(200).json(note))
     .catch(err => res.status(500).json(err));
@@ -95,28 +117,6 @@ function generateToken(user) {
 
   return jwt.sign(payload, secret, options);
 }
-
-// P R O T E C T E D   M I D D L E W A R E
-const protected = (req, res, next) => {
-  // token sent in authorization header
-  const token = req.headers.authorization;
-
-  if (token) {
-    jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
-      if (err) {
-        // token is no good
-        res.status(401).json({ message: 'token is invalid' });
-      } else {
-        // token is good to go
-        res.decodedToken = decodedToken;
-        next();
-      }
-    });
-  } else {
-    // you didn't even present me a token, man!
-    res.status(401).json({ message: 'token not provided!' });
-  }
-};
 
 // L O G I N   R O U T E :   G E N E R A T E   T O K E N
 server.post('/api/login', (req, res) => {
