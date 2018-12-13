@@ -1,4 +1,4 @@
-# Link: [Api][https://lambda-notes-backend-kyran.herokuapp.com]
+# Link: [Api](https://lambda-notes-backend-kyran.herokuapp.com)
 # Endpoints:
 
 ## Access
