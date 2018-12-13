@@ -3,7 +3,6 @@ exports.up = knex =>
     users.increments('id');
     users.text('username').unique();
     users.text('hash');
-    users.text('email');
   });
 
 exports.down = knex => knex.schema.dropTableIfExists('users');
