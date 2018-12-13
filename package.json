@@ -6,7 +6,8 @@
   "author": "zacharyarney <zachary.arney@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "server": "nodemon"
   },
   "dependencies": {
     "cors": "^2.8.5",
