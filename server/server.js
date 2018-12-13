@@ -66,6 +66,7 @@ function generateToken(user) {
 
 server.post('/api/users/login', (req, res) => {
     let userCred = req.body;
+    console.log(userCred)
     userdb.login(userCred)
     .then(user => {
         if(user && bcrypt.compareSync(userCred.password, user[0].password)) {
