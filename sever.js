@@ -1,17 +1,20 @@
 const express = require("express");
-
+const helmet = require("helmet");
 const cors = require("cors");
 
 const db = require("./data/dbConfig.js");
 
 const server = express();
 
+server.use(helmet());
 server.use(express.json());
 server.use(cors());
 
+const port = 9000;
+
 // Checking to see if server works
 server.get("/", (req, res) => {
-  res.status(200).json({ message: "Up and running" });
+  res.status(200).json({ message: `Up and running on port: ${port}` });
 });
 
 // Grab the data from the notes table
