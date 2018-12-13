@@ -1,4 +1,5 @@
 // Update with your config settings.
+require('dotenv').config();
 
 const localPgConnection = {
   host: 'localhost', // address to find the db server
@@ -19,6 +20,9 @@ module.exports = {
     useNullAsDefault: true,
     migrations: {
       directory: './database/migrations'
+    },
+    seeds: {
+      directory: './database/seeds'
     },
   },
   production: {
