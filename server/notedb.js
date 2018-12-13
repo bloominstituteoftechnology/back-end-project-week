@@ -10,8 +10,9 @@ module.exports = {
 
 }
 
-function getNotes() {
+function getNotes(id) {
     return db('notes')
+    .where('id', '=', id)
 }
 
 function createNote(note) {
