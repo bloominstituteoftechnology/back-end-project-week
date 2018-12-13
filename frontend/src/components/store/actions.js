@@ -35,8 +35,9 @@ export function filterSearch() {
 	if (searchTitle.length !== 0) {
 		const newNotes = notes.filter((note) => note.title.toLowerCase().indexOf(searchTitle.toLowerCase()) > -1);
 		this.setState({ notes: newNotes });
-	} else {
-		this.setState({ ...notes });
+	}
+	if (searchTitle.length === 0) {
+		getAllNotes();
 	}
 }
 

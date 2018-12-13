@@ -11,8 +11,12 @@ class NoteContainer extends React.Component {
 
 	componentDidMount() {
 		setInterval(() => {
-			this.props.getAllNotes();
-		}, 5000);
+			if (!this.props.searchTitle) {
+				this.props.getAllNotes();
+			} else {
+				return null;
+			}
+		}, 2000);
 	}
 
 	render() {
