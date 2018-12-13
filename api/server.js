@@ -42,7 +42,6 @@ server.post("/addNote", (req, res) => {
   notes
     .addNote(note)
     .then(ids => {
-      console.log(ids)
       res.status(201).json({
         title: note.title,
         content: note.content,
