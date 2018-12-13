@@ -10,6 +10,8 @@ import styled, { ThemeProvider } from "styled-components";
 import { Container } from "./Styles";
 import "./App.css";
 
+const url = process.env.NODE_ENV === "development" ? "http://localhost:5000" : "";
+
 class NotesPage extends Component {
   constructor(props) {
     super(props);
@@ -20,7 +22,7 @@ class NotesPage extends Component {
 
   componentDidMount() {
     axios
-      .get("/notes")
+      .get(`${url}/notes`)
       .then(response => this.setState({ notes: response.data }))
       .catch(error => console.dir(error));
 

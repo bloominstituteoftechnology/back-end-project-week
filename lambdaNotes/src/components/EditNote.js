@@ -13,6 +13,8 @@ import {
   SignOut
 } from "../Styles";
 
+const baseUrl = process.env.NODE_ENV === "development" ? "http://localhost:5000" : "";
+
 class EditNote extends React.Component {
   constructor(props) {
     super(props);
@@ -30,7 +32,7 @@ class EditNote extends React.Component {
   editNote = event => {
     console.log(this.state.editTitle, this.state.editBody);
     event.preventDefault();
-    const url = `/notes/${
+    const url = `${baseUrl}/notes/${
       this.props.note.note[0].id
     }`;
 

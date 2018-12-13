@@ -2,6 +2,8 @@ import React from "react";
 import Login from "./Login";
 import axios from "axios";
 
+const url = process.env.NODE_ENV === "development" ? "http://localhost:5000" : "";
+
 const Authenticate = App =>
   class extends React.Component {
     constructor(props) {
@@ -35,7 +37,7 @@ const Authenticate = App =>
     fetchNote = id => {
       // console.log(this.state.id);
       axios
-        .get(`/notes/${id}`)
+        .get(`${url}/notes/${id}`)
         .then(response => {
           this.setState(() => ({ note: response.data }));
         })

@@ -15,6 +15,8 @@ import {
   SignOut
 } from "../Styles";
 
+const baseUrl = process.env.NODE_ENV === "development" ? "http://localhost:5000" : "";
+
 class Note extends React.Component {
   constructor(props) {
     super(props);
@@ -32,10 +34,10 @@ class Note extends React.Component {
 
   deleteNote = event => {
     event.preventDefault();
-    const url = `/notes/${
+    const url = `${baseUrl}/notes/${
       this.state.note.note[0].id
     }`;
-    
+
     axios
       .delete(url)
       .then(response => {
@@ -61,7 +63,7 @@ class Note extends React.Component {
   fetchNote = id => {
     // console.log(this.state.id);
     axios
-      .get(`/notes/${id}`)
+      .get(`${baseUrl}/notes/${id}`)
       .then(response => {
         this.setState(() => ({ note: response.data }));
       })

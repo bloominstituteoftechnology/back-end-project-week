@@ -14,6 +14,8 @@ import {
 import NoteCard from "./NoteCard";
 import Payments from "./Payments";
 
+const url = process.env.NODE_ENV === "development" ? "http://localhost:5000" : "";
+
 class NotesList extends React.Component {
   constructor(props) {
     super(props);
@@ -26,7 +28,7 @@ class NotesList extends React.Component {
 
   componentDidMount() {
     axios
-      .get("/notes")
+      .get(`${url}/notes`)
       .then(response => this.setState({ data: response.data }))
       .catch(error => console.log(error));
 
