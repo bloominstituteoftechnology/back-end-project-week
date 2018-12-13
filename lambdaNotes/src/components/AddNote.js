@@ -1,5 +1,5 @@
 import React from "react";
-import Axios from "axios";
+import axios from "axios";
 import {
   LeftBar,
   StyledLink,
@@ -36,6 +36,7 @@ class AddNote extends React.Component {
       content: this.state.content,
       id: this.state.id
     };
+    
     axios.post("/addNote", newNote)
       .then(response => {
         console.log(response.data);
