@@ -57,7 +57,7 @@ server.get('/', (req, res) => {
 
 //Register Endpoints
 server.get('/test', registerRouter);
-// server.post('/register', registerRouter);
+server.post('/register', registerRouter);
 
 //Notes Endpoints/Methods
 server.get('/notes', notesRouter);
