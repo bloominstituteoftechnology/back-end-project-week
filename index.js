@@ -160,4 +160,6 @@ server.delete('/api/notes/:noteId', (req, res) => {
         });
 });
 
-server.listen(3500, () => console.log('\n\nServer is running on port 3500\n\n'));
+const port = process.env.PORT || 3500;
+
+server.listen(port, () => console.log('\n\nServer is running on port 3500\n\n'));
