@@ -54,10 +54,10 @@ server.get('/', (req, res) => {
 });
 
 server.post('/register', (req, res) => {
-  const { username, password, email } = req.body;
+  const { username, password } = req.body;
   bcrypt
     .hash(password, 12)
-    .then(hash => db('users').insert({ username, hash, email }))
+    .then(hash => db('users').insert({ username, hash }))
     .then(id => {
       res.status(200).json(username);
     })
