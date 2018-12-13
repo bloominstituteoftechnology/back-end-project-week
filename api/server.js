@@ -49,7 +49,7 @@ server.put('/note/edit/:id', async (req, res, next) => {
   const changes = req.body;
   try {
     const note = await db('notes')
-      .returning('*')
+      .returning('id')
       .where({ id })
       .update(changes);
     if (note) {
