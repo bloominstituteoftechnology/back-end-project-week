@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 
 server.use(express.json());
 // server.use(cors({ origin: 'http://localhost:3000' }));
-server.use(cors({ origin: 'https://lucid-minsky-dfb9d9.netlify.com' })); //netlify
+// server.use(cors({ origin: 'https://lucid-minsky-dfb9d9.netlify.com' })); //netlify
 
 // R O O T
 server.get('/', (req, res) => {
