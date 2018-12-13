@@ -11,7 +11,7 @@
   "version": "1.0.0",
   "main": "knexfile.js",
   "scripts": {
-    "server": "node index.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
