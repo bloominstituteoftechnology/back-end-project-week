@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const db = require('../notes/notesModel');
 
 var cors = require('cors');
 
@@ -47,25 +48,16 @@ server.use(function(req, res, next) {
 });
 
 const notesRouter = require('../notes/notesRouter.js');
+const RegisterRouter = require('../notes/RegisterRouter.js');
 
 //sanity check endpoint
 server.get('/', (req, res) => {
   res.status(200).json({ api: 'up' });
 });
 
-server.post('/register', (req, res) => {
-  const { username, password } = req.body;
-  bcrypt
-    .hash(password, 12)
-    .then(hash => db('users').insert({ username, hash }))
-    .then(id => {
-      res.status(200).json(username);
-    })
-    .catch(err => {
-      console.log('An error occurred', err);
-      res.status(400).json({ message: 'We were unable to register this user successfully' });
-    });
-});
+//Register Endpoints
+server.get('/test', RegisterRouter);
+server.post('/register', RegisterRouter);
 
 //Notes Endpoints/Methods
 server.get('/notes', notesRouter);

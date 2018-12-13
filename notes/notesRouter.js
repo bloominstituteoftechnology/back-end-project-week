@@ -28,7 +28,7 @@ router.post('/notes/create', async (req, res) => {
     res.status(405).json({ errorMessage: 'Duplicate Note Titles Not Allowed' });
   } else {
     try {
-      const newGame = await knex('items').insert(NoteData);
+      const newGame = await knex('notes').insert(NoteData);
 
       res.status(201).json(newGame);
     } catch (error) {
