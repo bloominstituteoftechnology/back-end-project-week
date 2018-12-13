@@ -23,9 +23,9 @@ server.get('/api/notes', [protect],(req,res) => {
 
 server.post('/api/users/register', (req, res) => {
     let userCred = req.body;
-    console.log(userCred.password)
     const hash = bcrypt.hashSync(userCred.password, 8);
     userCred.password = hash;
+    console.log(userCred)
     userdb.register(userCred)
     .then(id => {
         const token = generateToken(userCred)
