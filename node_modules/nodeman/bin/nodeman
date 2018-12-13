@@ -1,0 +1,37 @@
+#!/bin/bash
+#
+# nodeman
+# node.js command line manual
+# install: npm install nodeman -g
+# author: nanhapark
+# twitter: @nanhapark
+# homepage: http://nodeqa.com
+# update: 20130301
+#
+
+ROOTPATH=`dirname $0`
+ARG=${1:-FALSE}
+MORE='less -r'
+
+clear
+
+Usage() {
+  echo
+  echo -e "\x1B[1m\x1B[35mUsage: nodeman [module_name]\x1B[00m"
+  echo -e "\x1B[1m\x1B[35mOptions:\x1B[00m"
+  echo -e "\x1B[1m\x1B[35m    -b, --builtin           show module_name list\x1B[00m"
+  echo -e "\x1B[1m\x1B[35m    -h, --help              output help information\x1B[00m"
+  echo
+  exit 1
+}
+
+log() {
+  color=${2:-"35m"}
+  echo -e "\x1B[$color$1\x1B[$color"
+}
+
+[ $ARG == FALSE ] && Usage && exit 1
+
+$ROOTPATH/_nodeman $ARG | $MORE
+
+exit

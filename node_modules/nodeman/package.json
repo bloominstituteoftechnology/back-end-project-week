@@ -1,0 +1,29 @@
+{
+  "author": "nanhapark <http://about.me/nanha>",
+  "name": "nodeman",
+  "description": "Executable Node.js User's Colorful Manual for Command-line.",
+  "homepage": "http://manual.nodeman.org",
+  "version": "1.1.2",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/nanha/nodeman.git"
+  },
+  "bin": {
+    "nodeman": "./bin/nodeman",
+    "_nodeman": "./bin/_nodeman"
+  },
+  "main": "lib/nodeman.js",
+  "dependencies": {
+    "colors": "*"
+  },
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-contrib-jshint": "~0.3.0"
+  },
+  "scripts": {
+    "test": "grunt --verbose"
+  },
+  "engines": {
+    "node": "*"
+  }
+}
