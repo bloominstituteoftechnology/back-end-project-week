@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const jwtDecode = require('jwt-decode');
 
 const { authenticate, generateToken } = require('./middlewares');
 
@@ -65,8 +66,9 @@ function postNote(req, res) {
 
 function getNote(req, res) {
     const creds = req.body
+    const token = jwt_decode(creds);
     db('notes')
-        .where({username: creds.username})
+        .where({username: token.username})
         .then(response => {
             res.status(200).json(response)
         })
