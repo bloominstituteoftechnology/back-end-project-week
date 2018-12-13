@@ -13,6 +13,8 @@ import {
   SignOut
 } from "../Styles";
 
+const url = process.env.NODE_ENV === "development" ? "http://localhost:5000" : "";
+
 class AddNote extends React.Component {
   constructor(props) {
     super(props);
@@ -22,6 +24,7 @@ class AddNote extends React.Component {
       id: this.props.notes.id
     };
   }
+  
 
   handleInputChange = event => {
     event.preventDefault();
@@ -36,8 +39,8 @@ class AddNote extends React.Component {
       content: this.state.content,
       id: this.state.id
     };
-    
-    axios.post("/addNote", newNote)
+
+    axios.post(`${url}/addNote`, newNote)
       .then(response => {
         console.log(response.data);
         newNote.id = response.data.id;
