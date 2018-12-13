@@ -40,11 +40,11 @@ server.post('/api/users/register', (req, res) => {
     userCred.password = hash;
     userdb.register(userCred)
     .then(id => {
-        console.log(id)
         const payload = {
             id: id,
             username: userCred.username
         }
+        console.log(payload)
         const token = generateToken(payload)
         res.status(201).json(token)
     })
@@ -70,7 +70,8 @@ server.post('/api/users/login', (req, res) => {
     userdb.login(userCred)
     .then(user => {
         if(user && bcrypt.compareSync(userCred.password, user[0].password)) {
-            const userInfo = user[0]
+            const userInfo = user[0];
+            console.log(userInfo);
             const token = generateToken(userInfo);
             res.status(200).json(token) //WE REACH THIS
             
