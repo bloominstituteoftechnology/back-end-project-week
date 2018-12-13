@@ -20,7 +20,8 @@ module.exports = {
     seeds: {
       directory: "./data/seeds"
     },
-    useNullAsDefault: true // only used for sqlite3, not needed for production
+    useNullAsDefault: true, // only used for sqlite3, not needed for production
+    debug: true
   },
   production: {
     client: "pg",
