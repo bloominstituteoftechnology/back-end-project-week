@@ -6,7 +6,7 @@
 
 #Notes
 - GET '/notes/get/all': Returns all available notes.
-- GET '/notes/get/:id': Returns the single note with the ID provided. 
+- GET '/notes/get/:id': Returns the single note with the ID provided.
 - POST '/notes/create': Creates a new note. title and textBody are required elements when sending a post request.
 - PUT '/notes/edit/:id': Edits an existing note. Please send the entire note, not just the part being edited.
 - DELETE '/notes/delete/:id': Deletes the note with the ID provided. Cannot be undone.
