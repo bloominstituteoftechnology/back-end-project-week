@@ -36,7 +36,7 @@ function generateToken(user) {
 
 function generateTokenReg(user) {
     const jwtPayload = {
-        subject: user[0],
+        subject: user[1],
         hello: 'hello',
     };
     const jwtOptions = {
