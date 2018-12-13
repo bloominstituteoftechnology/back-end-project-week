@@ -85,12 +85,10 @@ server.post('/api/users/login', (req, res) => {
 server.post('/api/notes', [protect],async (req, res) => {
     const decoded = jwt.verify(req.headers.authorization, process.env.SECRET)
     const note = await req.body;
-    console.log(note)
-    console.log(decoded)
     const completeNote = {
         Title: note.Title,
         Content: note.Content,
-        user_id: decoded.subject[0]
+        user_id: decoded.subject
     }
     db.createNote(completeNote)
     .then(id => {
