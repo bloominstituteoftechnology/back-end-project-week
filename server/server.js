@@ -56,6 +56,7 @@ function generateToken(user) {
       subject: user.id,
       username: user.username
     };
+    console.log(process.env.SECRET)
     const secret = process.env.SECRET;
     console.log(secret)
     const options = {
