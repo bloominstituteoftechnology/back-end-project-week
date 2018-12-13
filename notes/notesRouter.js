@@ -42,6 +42,7 @@ async function getNoteById(req, res) {
 
 async function createNote(req, res) {
     const id = req.decodedToken.id;
+    console.log('req.decodedToken', req.decodedToken);
 
     const newNote = {...req.body, userId: id};
     console.log('newNote', newNote);
