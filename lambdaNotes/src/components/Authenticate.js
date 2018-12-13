@@ -35,7 +35,7 @@ const Authenticate = App =>
     fetchNote = id => {
       // console.log(this.state.id);
       axios
-        .get(`http://localhost:5000/notes/${id}`)
+        .get(`/notes/${id}`)
         .then(response => {
           this.setState(() => ({ note: response.data }));
         })
