@@ -54,26 +54,11 @@ server.post("/api/register", (req, res) => {
   } else {
     const hash = bcrypt.hashSync(user.password, 14);
     user.password = hash;
-    console.log(user, "OUTSIDE POST BLOCK");
     db("users")
       .insert(user)
       .returning("id")
       .then(id => {
-        console.log(id, "ID HERE");
-        db("users")
-          .where({ id: id[0].id })
-
-          .then(user => {
-            if (user) {
-              const token = generateToken(user);
-              res.status(201).json({ token });
-            } else {
-              throw new Error();
-            }
-          })
-          .catch(err => {
-            throw new Error();
-          });
+        res.status(201).json(id);
       })
       .catch(err =>
         res
