@@ -10,6 +10,8 @@ server.use(cors());
 
 const db = require("../data/dbConfig.js");
 
+const rounds = 14; // of hashing passwords
+
 // Sanity Endpoint
 server.get("/", (req, res) => {
     res.status(200).json({ api: "Up and running" });
@@ -29,7 +31,6 @@ server.post("/api/notes", (req, res) => {
             .insert(newPost)
             .returning("id")
             .then(idReturned => {
-                console.log(idReturned);
                 res.status(201).json(idReturned);
             })
             .catch(err => {
@@ -114,12 +115,64 @@ server.delete("/api/notes/:noteId", (req, res) => {
 });
 
 // Registration/Login Stuff
+function generateToken(user) {
+    const payload = {
+        subject: user.id,
+        username: user.username
+    };
+    const secret = process.env.JWT_SECRET;
+    const options = {
+        expiresIn: "8h"
+    };
+
+    return jwt.sign(payload, secret, options);
+}
+
 server.post("/api/register", (req, res) => {
     const creds = req.body;
     const hash = bcrypt.hashSync(creds.password, rounds);
     creds.password = hash;
 
+    db("users")
+        .where({ username: creds.username })
+        .first()
+        .then(user => {
+            if (user) {
+                res.status(409).json({ message: "Username in use." });
+            } else {
+                db("users")
+                    .insert(creds)
+                    .returning("id")
+                    .then(idReturned => {
+                        res.status(201).json(idReturned);
+                    })
+                    .catch(err => {
+                        res.status(500).json({ error: err });
+                    });
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ error: err });
+        });
+});
 
+server.post("/api/login", (req, res) => {
+    const creds = req.body;
+
+    db("users")
+        .where({ username: creds.username })
+        .first()
+        .then(user => {
+            if (user && bcrypt.compareSync(creds.password, user.password)) {
+                const token = generateToken(user);
+                res.status(200).json({ message: "Welcome!", token });
+            } else {
+                res.status(401).json({ message: "Incorrect username or password" });
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ error: err });
+        });
 });
 
 module.exports = server;
