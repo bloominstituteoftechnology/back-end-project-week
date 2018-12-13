@@ -36,7 +36,7 @@ router.post('/signup', (req, res) => {
       .then(id => {
         const user = db('users').where({ id: id }).first();
         const token = generateToken(user)
-        res.status(201).json({ message: 'thanks for signing up', token });
+        res.status(201).json({ message: 'thanks for signing up', token, user: user.username });
       })
       .catch(err => res.json(err));
 })
@@ -50,7 +50,7 @@ router.post('/signin', (req, res) => {
     .then(user => {
       if (user && bcrypt.compareSync(creds.password, user.password)) {
         const token = generateToken(user);
-        res.status(200).json({ message: 'welcome back!', token });
+        res.status(200).json({ message: 'welcome back!', token, user: user.username });
       } else {
         res.status(401).json({ message: 'she doesn\'t even go here' });
       }
