@@ -8,13 +8,13 @@ exports.up = function(knex, Promise) {
             "textBody": "Note Body",
         }
         */
-       table.increments();
+       table.increments('noteId');
        table.string('title', 128).notNullable();
        table.string("textBody", 256);
        table.json('tags');
        table.integer('user')
         .unsigned()
-        .references('id')
+        .references('userId')
         .inTable('users')
         .notNullable();
 
