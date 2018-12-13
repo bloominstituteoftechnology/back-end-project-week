@@ -3,14 +3,14 @@ const knex = require('knex');
 const knexConfig = require('./knexfile.js');
 const db = knex(knexConfig.development);
 const cors = require('cors');
-
+const port = process.env.PORT || 9000;
 const server = express();
 server.use(express.json());
 server.use(cors());
 
 // server test
 server.get('/', (req, res) => {
-    res.send({ API: 'is live' });
+    res.send({ API: `is live on port ${port}` });
 });
 
 // display list of notes
