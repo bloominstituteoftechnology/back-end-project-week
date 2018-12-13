@@ -62,7 +62,7 @@ server.post("/api/register", (req, res) => {
         console.log(id, "ID HERE");
         db("users")
           .where({ id: id[0].id })
-          .first()
+
           .then(user => {
             if (user) {
               const token = generateToken(user);
