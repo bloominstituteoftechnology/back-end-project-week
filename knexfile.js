@@ -30,7 +30,8 @@ module.exports = {
 
   production: {
     client: 'pg',
-    connection: dbConnection, // can be and object or a string
+    connection: process.env.DATABASE_URL,
+    // dbConnection, // can be and object or a string
     pool: {
       min: 2,
       max: 10,
