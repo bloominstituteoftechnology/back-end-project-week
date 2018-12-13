@@ -24,7 +24,6 @@ router.get('/:id', (req, res) => {
   db
     .findById(id)
     .then(note => {
-      console.log(note);
       if (note.length > 0) {
         console.log('note exists')
         res

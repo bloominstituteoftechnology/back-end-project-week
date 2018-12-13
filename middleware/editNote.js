@@ -5,6 +5,7 @@ const db = require('../data/dbConfig');
 router.put('/:id', (req, res) => {
   const id = req.params.id;
   const changes = req.body;
+  console.log(changes)
   db.update(id, changes)
     .then(count => {
       if (count) {

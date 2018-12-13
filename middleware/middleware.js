@@ -88,7 +88,7 @@ module.exports = server => {
   server.use(morgan('dev'));
   server.post('/api/login', login);
   server.post('/api/register', register);
-  server.use('/api/create', createNote);
-  server.use('/api/edit', editNote);
-  server.use('/api/notes', notes);
+  server.use('/api/create', authenticate, createNote);
+  server.use('/api/edit', authenticate, editNote);
+  server.use('/api/notes', authenticate, notes);
 }
