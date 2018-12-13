@@ -24,13 +24,24 @@ function authenticate(req, res, next) {
     }
 }
 
-function generateToken(user) {
-    const jwtPayload = {
-        ...user,
-    };
-    const jwtOptions = {
-        expiresIn: '1h',
-    };
+// function generateToken(user) {
+//     const jwtPayload = {
+//         ...user,
+//     };
+//     const jwtOptions = {
+//         expiresIn: '1h',
+//     };
 
-    return jwt.sign(jwtPayload, jwtKey, jwtOptions)
-};
+//     return jwt.sign(jwtPayload, jwtKey, jwtOptions)
+// };
+function generateToken(user) {
+    const payload = {
+        subject: user.id,
+        username: user.username,
+    }
+    const secret = process.env.JWT_SECRET;
+    const options = {
+        expiresIn: '1hr'
+    }
+    return jwt.sign(payload, secret, options)
+}
