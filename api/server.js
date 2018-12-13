@@ -10,7 +10,7 @@ server.get('/', (req, res) => res.send({API: "live"}));
 
 // Endpoints //
 // GET all
-server.get('/notes/all', async (req, res) => {
+server.get('/notes/get/all', async (req, res) => {
     try {
         const notes = await db.getAll();
         res.status(200).json(notes)
@@ -21,7 +21,7 @@ server.get('/notes/all', async (req, res) => {
 });
 
 // GET by ID
-server.get('/notes/:id', async (req, res) => {
+server.get('/notes/get/:id', async (req, res) => {
     const {id} = req.params;
     try {
         const note = await db.getById(id);
@@ -55,7 +55,7 @@ server.post('/notes/create', async (req, res) => {
 })
 
 // PUT edit 
-server.put('/notes/:id', (req,res) => {
+server.put('/notes/edit/:id', (req,res) => {
     const {title, textBody} = req.body;
     if (!title || !textBody) {
         res.status(422).json({message: "title and/or textBody is missing"});
@@ -73,7 +73,7 @@ server.put('/notes/:id', (req,res) => {
 })
 
 // DELETE
-server.delete('/notes/:id', async (req, res) => {
+server.delete('/notes/delete/:id', async (req, res) => {
     const {id} = req.params;
     try {
         const note = await db.getById(id);
