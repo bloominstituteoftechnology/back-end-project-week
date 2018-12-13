@@ -9,19 +9,19 @@ router.get('/test', (req, res) => {
   res.status(200).send('Server Listens and Obeys Maybe???');
 });
 
-router.post('/register', (req, res) => {
-  console.log(req.body);
-  const { username, password } = req.body;
-  bcrypt
-    .hash(password, 12)
-    .then(hash => knex('users').insert({ username, hash }))
-    .then(id => {
-      res.status(200).json(username);
-    })
-    .catch(err => {
-      console.log('An error occurred', err);
-      res.status(400).json({ message: 'We were unable to register this user successfully' });
-    });
-});
+// router.post('/register', (req, res) => {
+//   console.log(req.body);
+//   const { username, password } = req.body;
+//   bcrypt
+//     .hash(password, 12)
+//     .then(hash => knex('users').insert({ username, hash }))
+//     .then(id => {
+//       res.status(200).json(username);
+//     })
+//     .catch(err => {
+//       console.log('An error occurred', err);
+//       res.status(400).json({ message: 'We were unable to register this user successfully' });
+//     });
+// });
 
 module.exports = router;
