@@ -13,7 +13,9 @@ const Login = props => {
       <LambdaH1>Lambda Notes</LambdaH1>
       <LoginContainer>
         <LoginH1>Login</LoginH1>
-        <LoginGoogle href="/auth/google"></LoginGoogle>
+      <a href="/auth/google">
+        <LoginGoogle />
+      </a>
       </LoginContainer>
     </LoginBackground>
   );

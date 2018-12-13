@@ -361,7 +361,7 @@ export const SearchInput = styled.input`
   }
 `;
 
-export const LoginGoogle = styled.a`
+export const LoginGoogle = styled.div`
   width: 43%;
   height: 18%;
   background-size: contain;
