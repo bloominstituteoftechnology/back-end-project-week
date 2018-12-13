@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express');
 const server = express();
 const db = require('./notedb.js')
@@ -6,7 +7,7 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const protect = require('./protect.js')
-require('dotenv').config()
+
 
 server.use(express.json())
 server.use(cors());
@@ -55,7 +56,6 @@ function generateToken(user) {
       subject: user.id,
       username: user.username
     };
-    console.log(payload)
     const secret = process.env.SECRET;
     console.log(secret)
     const options = {
