@@ -5,8 +5,6 @@ const jwt = require('jsonwebtoken');
 
 const db = require('../data/dbConfig');
 
-const { authenticate } = require('./middlewares');
-
 const jwtKey = process.env.JWT_KEY;
 
 const router = express.Router();
@@ -24,9 +22,13 @@ function generateToken(user) {
   return jwt.sign(payload, jwtKey, options);
 }
 
+router.get('/', (req, res) => {
+  res.status(200).json({ message: 'welcome to auth' });
+})
+
 router.post('/signup', (req, res) => {
     const creds = req.body;
-    const hash = bcrypt.hashSync(creds.password, 12);
+    const hash = bcrypt.hashSync(creds.password, 4);
     creds.password = hash;
 
     db('users')

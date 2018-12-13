@@ -3,13 +3,15 @@ const db = require('../data/dbConfig');
 
 const router = express.Router();
 
-router.get('/get/all', (req, res) => {
+const { authenticate } = require('./middlewares');
+
+router.get('/get/all', authenticate, (req, res) => {
   db('notes')
     .then(notes => res.status(200).json(notes))
     .catch(err => res.status(500).json({ message: 'There was an error retrieving the notes' }));
 });
 
-router.get('/get/:id', (req, res) => {
+router.get('/get/:id', authenticate, (req, res) => {
   db('notes')
     .where({ id: req.params.id })
     .first()
@@ -20,7 +22,7 @@ router.get('/get/:id', (req, res) => {
     .catch(err => res.status(500).json({ message: 'There was an error accessing the note' }));
 });
 
-router.post('/create', async (req, res) => {
+router.post('/create', authenticate, async (req, res) => {
   const { title, textBody } = req.body;
   const note = { title, textBody }
   if (title && textBody) {
@@ -36,7 +38,7 @@ router.post('/create', async (req, res) => {
   }
 });
 
-router.put('/edit/:id', (req, res) => {
+router.put('/edit/:id', authenticate, (req, res) => {
   db('notes')
     .where({ id: req.params.id })
     .update(req.body)
@@ -47,7 +49,7 @@ router.put('/edit/:id', (req, res) => {
     .catch(err => res.status(500).json({ message: 'An error occured while saving the edits' }));
 });
 
-router.delete('/delete/:id', (req, res) => {
+router.delete('/delete/:id', authenticate, (req, res) => {
   db('notes')
     .where({ id: req.params.id })
     .del()
