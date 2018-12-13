@@ -38,6 +38,7 @@ server.post("/addNote", (req, res) => {
       Message: "Please provide Title and Content."
     });
   }
+
   notes
     .addNote(note)
     .then(ids => {
@@ -67,6 +68,7 @@ server.get("/notes/:id", (req, res) => {
       }
     })
     .catch(error => {
+      console.log(note);
       res.status(500).json({ error: "Cant get notes data" });
     });
 });

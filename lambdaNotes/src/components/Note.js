@@ -35,6 +35,7 @@ class Note extends React.Component {
     const url = `/notes/${
       this.state.note.note[0].id
     }`;
+    
     axios
       .delete(url)
       .then(response => {
