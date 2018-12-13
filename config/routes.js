@@ -26,9 +26,7 @@ function register(req, res) {
 
     db('users')
         .insert(creds)
-        .then(ids => {
-            res.status(201).json(ids);
-        })
+        .then(ids => res.status(201).json(ids))
         .catch(error => json(error))
 }
 
