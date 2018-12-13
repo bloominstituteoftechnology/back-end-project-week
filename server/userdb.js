@@ -8,6 +8,7 @@ module.exports = {
 function register(user) {
     return db('users')
     .insert(user)
+    .returning('id')
 }
 
 function login(user) {

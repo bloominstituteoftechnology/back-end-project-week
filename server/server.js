@@ -36,7 +36,7 @@ server.post('/api/users/register', (req, res) => {
     const hash = bcrypt.hashSync(userCred.password, 8);
     userCred.password = hash;
     userdb.register(userCred)
-    .then(id => {
+    .then(() => {
         const token = generateToken(userCred)
         res.status(201).json(token)
     })
