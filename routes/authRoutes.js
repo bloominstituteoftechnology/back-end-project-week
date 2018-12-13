@@ -12,6 +12,7 @@ authRoute.post("/api/register", (req, res) => {
   const hash = bcrypt.hashSync(creds.password, 10);
   creds.password = hash;
   db("users")
+    .returning("id")
     .insert(creds)
     .then(ids => {
       res.status(201).json(ids);
