@@ -7,24 +7,26 @@ This is a project I've undertaken under the Lambda School backend development ci
 The CRUD endpoints follow:
 
 **CREATE**
-_POST_, in which we create a note
-https://bummingsnotes.herokuapp.com/api/notes
+in which we create a note
+_https://bummingsnotes.herokuapp.com/api/notes_
 
 **READ**
-_GET_, in which we display a note
-https://bummingsnotes.herokuapp.com/api/notes
+in which we display a note
+_https://bummingsnotes.herokuapp.com/api/notes_
 
 **UPDATE**
-_PUT_, in which we update a note
-https://bummingsnotes.herokuapp.com/api/notes/:id
+in which we update a note
+_https://bummingsnotes.herokuapp.com/api/notes/:id_
 
 **DELETE**
-_DESTROY_, in which we delete a note
-https://bummingsnotes.herokuapp.com/api/notes/:id
+in which we delete a note
+_https://bummingsnotes.herokuapp.com/api/notes/:id_
 
 ## Extra Features
 
 This project has met full MVP qualifications and has met the stretch goals of:
 
 - Setup API Auto-Deploy on Heroku
+- Setup front end deploy on Netlify
 - Pagination for long lists of notes
+- Create a readme for API interaction (_which you are reading now!_)
