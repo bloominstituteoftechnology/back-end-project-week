@@ -65,13 +65,12 @@ function generateToken(user) {
 
 server.post('/api/users/login', (req, res) => {
     let userCred = req.body;
-    console.log(userCred)
     userdb.login(userCred)
     .then(user => {
-        console.log(user)
-        if(user && bcrypt.compareSync(userCred.password, user.password)) {
+        console.log(user[0])
+        if(user && bcrypt.compareSync(userCred.password, user[0].password)) {
             console.log('hey')
-            const token = generateToken(user);
+            const token = generateToken(user[0]);
             console.log('heyo')
             res.status(200).json(token) //WE REACH THIS
             
