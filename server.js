@@ -6,7 +6,10 @@ const server = express();
 
 server.use(express.json());
 server.use(cors());
-
+// /Endpoint
+server.get('/', (req,res) => {
+    res.status(200).json({Server : "Running"})
+})
 //  GET  note/get/all
 server.get('/note/get/all',(req,res)=>{
     db('notes')

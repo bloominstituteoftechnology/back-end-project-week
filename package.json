@@ -11,7 +11,8 @@
     "nodemon": "^1.18.7"
   },
   "scripts": {
-    "server": "nodemon"
+    "server": "nodemon",
+    "start" : "node"
   },
   "name": "back-end-project-week",
   "version": "1.0.0",
