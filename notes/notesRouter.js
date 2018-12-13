@@ -42,14 +42,14 @@ async function getNoteById(req, res) {
 
 async function createNote(req, res) {
     const {id, username, roles} = req.decodedToken;
+
+    const newNote = {...req.body, userId: id};
+    console.log('newNote', newNote);
     
     if (!newNote.title || !newNote.textBody) {
         res.status(422).json({error: "Note Title and Note TextBody is required"});
         return;
     }
-    
-    const newNote = {...req.body, userId: id};
-    console.log('newNote', newNote);
 
     const note = await db('notes').returning('noteId').insert(newNote);
     console.log(note);
