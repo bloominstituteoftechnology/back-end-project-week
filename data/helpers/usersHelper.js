@@ -39,7 +39,9 @@ function registerUser(user) {
 
     return db('users')
         .insert(newUser)
-        .then(id => { return { id: id[0] }});
+        .then(id => { 
+            console(id);
+            return { id: id[0] }});
 };
 
 // true if username is not in database

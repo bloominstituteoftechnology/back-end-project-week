@@ -107,10 +107,10 @@ router.post('/register', (req, res) => {
                     res.status(201).json(id);
                 })
                 .catch(err => {
-                    if (err.errno === 19 && err.code === 'SQLITE_CONSTRAINT') {
+                    if (err.code === "23505") {
                         res.status(409).json({ code: 10, message: 'Username already exists' });
                     } else {
-                        res.status(500).json({ message: 'Error registering new user', err });
+                        res.status(500).json({ code: 3, message: 'Error registering new user'});
                     }
                 })
         } else {
