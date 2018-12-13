@@ -36,14 +36,17 @@ async function register(req, res) {
     // implement user registration
     try {
         const creds = req.body;
-    
+        console.log('creds', creds);
+        
         if(!creds.username || !creds.password) {
             res.status(422).json({message: 'username and password both required'});
             return;
         }
         creds.password = bcrypt.hashSync(creds.password, 8);
-    
+        
+        console.log('creds', creds);
         const idArray = await db('users').returning('userId').insert(creds);
+        console.log('idArray', idArray);
 
         const newId = idArray[0];
         const newUser = await db('users').where('userId', '=', newId).first();
