@@ -7,7 +7,7 @@ const morgan = require('morgan');
 const port = process.env.PORT || 9000;
 
 server.use(express.json());
-server.use(cors());
+server.use(cors({ origin: 'http://localhost:3001' }));
 server.use(morgan('dev'));
 
 //Sanity Check
