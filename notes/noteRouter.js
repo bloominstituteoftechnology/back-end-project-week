@@ -6,11 +6,19 @@ const { authenticate, generateToken } = require('../middleware.js');
 const router = express.Router();
 
 router.get("/", authenticate, (req, res) => {
-    
-    db("notes")
-        .where({user_id: req.decoded.subject})
-        .then(notes => res.status(200).json(notes))
-        .catch(err => res.status(500).json({error: err}))
+    if (req.decoded.username === "Admin") {
+        db("notes")
+            .then(notes => res.status(200).json(notes))
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({error: err})
+            })
+    } else {
+        db("notes")
+            .where({user_id: req.decoded.subject})
+            .then(notes => res.status(200).json(notes))
+            .catch(err => res.status(500).json({error: err}))
+    }
 })
 
 router.get("/:id", authenticate, (req, res) => {
