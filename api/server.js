@@ -2,6 +2,7 @@ const express = require('express');
 const server = express();
 const db = require('../data/dbConfig');
 const cors = require('cors');
+
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
