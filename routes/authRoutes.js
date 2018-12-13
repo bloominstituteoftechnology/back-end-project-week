@@ -15,6 +15,7 @@ authRoute.post("/api/register", (req, res) => {
     .returning("id")
     .insert(creds)
     .then(ids => {
+      console.log("id");
       res.status(201).json(ids);
     })
     .catch(err => json({ message: "error adding user to the DB", err }));
