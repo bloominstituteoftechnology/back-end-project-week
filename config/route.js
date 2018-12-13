@@ -63,6 +63,7 @@ route.put("/:id", async (req, res) => {
       const updatedNote = await db("notes").where({ id }).first();
       return res.status(201).json(updatedNote);
     }
+    
   } catch (err) {
     if (err.errno === 19) {
       return sendErr(res, 400, "Note must have unique title");
