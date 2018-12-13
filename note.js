@@ -16,4 +16,5 @@ function getNotes() {
 function addNote(note) {
     return db("notes")
         .insert(note)
+        .returning('id');
 }
