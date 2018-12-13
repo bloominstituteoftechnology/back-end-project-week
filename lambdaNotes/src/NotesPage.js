@@ -32,13 +32,6 @@ class NotesPage extends Component {
         }
       })
       .catch(err => console.log(err));
-
-      axios
-      .get("/notes")
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => console.log(err));
   }
 
   updateNotes = updatedNote => {
