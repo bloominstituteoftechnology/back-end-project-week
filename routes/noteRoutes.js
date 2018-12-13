@@ -22,7 +22,9 @@ route.get("/api/notes", protected, (req, res) => {
 
 //get a single note
 route.get("/api/notes/:id", protected, (req, res) => {
+  const { id } = req.params;
   db("notes")
+    .where({ id })
     .then(note => {
       res.status(200).json(note);
     })
