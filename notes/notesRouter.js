@@ -118,20 +118,20 @@ router.delete("/:id", (req, res) => {
     .then(count => {
       if (count) {
         res.status(200).json(count);
-        // // since it doesn't make sense to have a note's tags stay after it's deleted, also delete all tags with the relevant notes_id
-        // db("tags")
-        //   .where({ notes_id: id })
-        //   .del()
-        //   .then(
-        //     res.status(200).json({
-        //       message: "Note and associated tags successfully deleted."
-        //     })
-        //   )
-        //   .catch(err =>
-        //     res
-        //       .status(500)
-        //       .json({ error: "Error while deleting associated tags: ", err })
-        //   );
+        // since it doesn't make sense to have a note's tags stay after it's deleted, also delete all tags with the relevant notes_id
+        db("tags")
+          .where({ notes_id: id })
+          .del()
+          .then(
+            res.status(200).json({
+              message: "Note and associated tags successfully deleted."
+            })
+          )
+          .catch(err =>
+            res
+              .status(500)
+              .json({ error: "Error while deleting associated tags: ", err })
+          );
       } else {
         res.status(404).json({ message: "No note with that id exists." });
       }
