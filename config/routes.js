@@ -17,11 +17,7 @@ module.exports = server => {
 function register(req, res) {
     const creds = req.body;
 
-
-    const hashUsername = bcrypt.hashSync(creds.username, 10);
     const hash = bcrypt.hashSync(creds.password, 14);
-
-    creds.username = hashUsername;
     creds.password = hash;
 
     db('users')
@@ -36,6 +32,7 @@ function register(req, res) {
 
 function login(req, res) {
     const creds = req.body;
+
 
     db('users')
         .where({username: creds.username})
