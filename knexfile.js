@@ -1,12 +1,4 @@
-// Update with your config settings.
-localPgConnection = {
-  client: "localhost",
-  database: "lambda",
-  user: "sgear",
-  password: "pass"
-};
 
-const dbConnection = process.env.DATABASE_URL || localPgConnection;
 module.exports = {
   development: {
     client: "sqlite3",
