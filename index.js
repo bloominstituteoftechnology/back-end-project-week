@@ -59,7 +59,7 @@ server.delete('/api/notes/:id', (req, res) => {
   db('notes')
     .where({ id })
     .del(id)
-    .get("http://localhost:3300/api/notes")
+    .get("/api/notes")
     .then(count => {
       res.status(201).json(count)
     })
@@ -75,7 +75,7 @@ server.put('/api/notes/:id', (req, res) => {
     .where({ id })
     .update(updatedNote)
     .then(updatedNote => {
-      res.status(201).json({ "Note Updated": updatedNote })
+      res.status(201).json({ updatedNote })
     })
     .catch(err => {
       res.send(err);
