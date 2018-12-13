@@ -49,6 +49,7 @@ server.use(function(req, res, next) {
 
 const notesRouter = require('../notes/notesRouter.js');
 const registerRouter = require('../notes/registerRouter.js');
+const loginRouter = require('../notes/loginRouter.js');
 
 //sanity check endpoint
 server.get('/', (req, res) => {
@@ -58,6 +59,10 @@ server.get('/', (req, res) => {
 //Register Endpoints
 server.get('/test', registerRouter);
 server.post('/register', registerRouter);
+
+//Login Endpoints
+server.get('/logintest', loginRouter);
+server.post('/login', loginRouter);
 
 //Notes Endpoints/Methods
 server.get('/notes', notesRouter);
