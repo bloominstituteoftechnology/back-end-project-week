@@ -23,6 +23,7 @@ server.get('/api/notes', [protect],(req,res) => {
 
 server.post('/api/users/register', (req, res) => {
     let userCred = req.body;
+    console.log(userCred)
     const hash = bcrypt.hashSync(userCred.password, 8);
     userCred.password = hash;
     userdb.register(userCred)
