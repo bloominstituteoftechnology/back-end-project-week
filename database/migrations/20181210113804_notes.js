@@ -12,7 +12,7 @@ exports.up = function(knex, Promise) {
        table.string('title', 128).notNullable();
        table.string("textBody", 256);
        table.json('tags');
-       table.integer('userId')
+       table.integer('user')
         .unsigned()
         .references('userId')
         .inTable('users')

@@ -19,7 +19,7 @@ async function getAllNotes(req, res) {
     // res.status(200).json({aliveAt: '/note/get/all'})
     const {id, username, roles} = req.decodedToken;
 
-    const notes = await db('notes').where('userId', '=', id);
+    const notes = await db('notes').where('user', '=', id);
     res.status(200).json(notes);
 }
 
@@ -30,7 +30,7 @@ async function getNoteById(req, res) {
     // const note = await db('notes').where('id' , '=', id).first();
 
     const note = await db('notes')
-        .whereIn(['noteId', 'userId'], [[id, user]])
+        .whereIn(['noteId', 'user'], [[id, user]])
         .first();
     
     if (!note) {
@@ -44,7 +44,7 @@ async function createNote(req, res) {
     const id = req.decodedToken.id;
     console.log('req.decodedToken', req.decodedToken);
 
-    const newNote = {...req.body, userId: id};
+    const newNote = {...req.body, user: id};
     console.log('newNote', newNote);
     
     if (!newNote.title || !newNote.textBody) {
@@ -69,7 +69,7 @@ async function editNote(req, res) {
     }
 
     const updatedNote = await db('notes')
-        .whereIn(['noteId', 'userId'], [[id, user]])
+        .whereIn(['noteId', 'user'], [[id, user]])
         .update({...newData});
     
     console.log(updatedNote);
@@ -89,7 +89,7 @@ async function deleteNote(req, res) {
 
     
     await db('notes')
-        .whereIn(['noteId', 'userId'], [[id, user]])
+        .whereIn(['noteId', 'user'], [[id, user]])
         .del();
 
     res.status(201).json({success: true});
