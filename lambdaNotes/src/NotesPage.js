@@ -6,6 +6,7 @@ import NotesList from "./components/NotesList";
 import Note from "./components/Note.js";
 import EditNote from "./components/EditNote";
 import AddNote from "./components/AddNote";
+import styled, { ThemeProvider } from "styled-components";
 import { Container } from "./Styles";
 import "./App.css";
 
