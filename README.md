@@ -31,4 +31,5 @@ This project has met full MVP qualifications and has met the stretch goals of:
 - Setup API Auto-Deploy on Heroku
 - Setup front end deploy on Netlify
 - Pagination for long lists of notes
+- Implement authentication for registering and logging in / out users with JWT
 - Create a readme for API interaction (_which you are reading now!_)
