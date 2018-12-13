@@ -1,5 +1,5 @@
 const express = require("express");
-const db = require("../../data/notesDb.js");
+const db = require("../../data/helpers/notesDb.js");
 const router = express.Router();
 
 router.get("/", (req, res) => {
