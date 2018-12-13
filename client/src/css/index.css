@@ -1,0 +1,187 @@
+@font-face {
+  font-family: 'Abel';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Abel Regular'), local('Abel-Regular'), url(https://fonts.gstatic.com/s/abel/v8/MwQ5bhbm2POE2V9BOA.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v15/mem8YaGs126MiZpBA-UFVZ0e.ttf) format('truetype');
+}
+.side-bar {
+  position: fixed;
+  background-color: #c32361;
+  border-right: 1px solid gray;
+  padding: 20px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  font-family: 'Abel', sans-serif;
+}
+h4 {
+  box-sizing: border-box;
+  width: 250px;
+  height: 60px;
+  border: 1px solid gray;
+  color: white;
+  background-color: #444444;
+  margin: 10px 0px;
+  text-align: center;
+  padding-top: 15px;
+  font-size: 20px;
+  text-decoration: none;
+}
+h4:hover {
+  text-decoration: none;
+  background-color: #9ba5a8;
+  color: white;
+}
+.App {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  background-color: hsl(0, 100%, 99%);
+  color: #424242;
+}
+.App .main-page-container {
+  margin-left: 310px;
+  margin-right: 1%;
+  margin-top: 20px;
+}
+.app-container {
+  font-family: 'Abel', sans-serif;
+}
+.card-container {
+  display: flex;
+  flex-wrap: wrap-reverse;
+}
+.card-container .card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid gray;
+  margin: 10px;
+  width: 250px;
+  height: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.card-container .link {
+  color: #424242;
+  text-decoration: none;
+  text-overflow: ellipsis;
+}
+.card-content {
+  padding: 10px;
+}
+.card-content h3 {
+  border-bottom: 1px solid gray;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  font-family: 'Abel', sans-serif;
+}
+.card-content p {
+  font-family: 'Open Sans', sans-serif;
+}
+.view-note {
+  height: 100vh;
+  width: 100%;
+  padding-top: 50px;
+}
+.view-note h2 {
+  font-family: 'Abel', sans-serif;
+}
+.view-note p {
+  font-family: 'Open Sans', sans-serif;
+}
+.view-note .actions {
+  width: 190px;
+  margin-right: 100px;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: space-between;
+}
+.view-note .actions button {
+  width: 80px;
+  border: none;
+}
+.edit-note form {
+  display: flex;
+  flex-direction: column;
+}
+.edit-note .title-input {
+  width: 300px;
+  height: 50px;
+  margin: 50px 0px;
+  border-radius: 5px;
+  padding: 10px;
+}
+.edit-note .text-input {
+  width: 600px;
+  height: 300px;
+  border-radius: 5px;
+  padding: 10px;
+}
+.edit-note .update {
+  box-sizing: border-box;
+  width: 250px;
+  height: 60px;
+  border: 1px solid gray;
+  color: white;
+  background-color: #444444;
+  margin: 10px 0px;
+  text-align: center;
+  font-size: 20px;
+  text-decoration: none;
+  border-radius: 0px;
+}
+.edit-note .update .button:hover {
+  text-decoration: none;
+  color: white;
+}
+.input-form {
+  display: flex;
+  padding: 20px;
+  height: 100vh;
+  flex-direction: column;
+  font-family: 'Abel', sans-serif;
+}
+.input-form form {
+  display: flex;
+  flex-direction: column;
+}
+.input-form .title-input {
+  width: 300px;
+  height: 50px;
+  margin: 50px 0px;
+  border-radius: 5px;
+  padding: 10px;
+  font-family: 'Open Sans', sans-serif;
+}
+.input-form .text-input {
+  width: 600px;
+  height: 300px;
+  border-radius: 5px;
+  padding: 10px;
+  font-family: 'Open Sans', sans-serif;
+}
+.input-form button {
+  box-sizing: border-box;
+  width: 250px;
+  height: 60px;
+  border: 1px solid gray;
+  color: white;
+  background-color: #444444;
+  margin: 10px 0px;
+  text-align: center;
+  padding-top: 7px;
+  font-size: 22px;
+  text-decoration: none;
+  font-family: 'Abel', sans-serif;
+}
+.input-form button:hover {
+  cursor: pointer;
+  background-color: #9ba5a8;
+}
