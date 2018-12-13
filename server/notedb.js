@@ -12,7 +12,7 @@ module.exports = {
 
 function getNotes(id) {
     return db('notes')
-    .where('id', '=', id)
+    .where('user_id', '=', id)
 }
 
 function createNote(note) {
