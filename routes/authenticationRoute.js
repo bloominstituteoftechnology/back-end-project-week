@@ -24,7 +24,7 @@ function generateToken(user) {
   return jwt.sign(payload, jwtKey, options);
 }
 
-router.post('/signup', authenticate, (req, res) => {
+router.post('/signup', (req, res) => {
     const creds = req.body;
     const hash = bcrypt.hashSync(creds.password, 12);
     creds.password = hash;
@@ -55,3 +55,5 @@ router.post('/signin', (req, res) => {
     })
     .catch(err => res.json(err));
 })
+
+module.exports = router;
