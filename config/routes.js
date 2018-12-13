@@ -24,7 +24,7 @@ function register(req, res) {
         .insert(creds)
         .then(user => {
             console.log(creds);
-            const token = generateTokenReg(user);
+            const token = generateToken(user);
             res.status(201).json(token)
         })
         .catch(err => {
