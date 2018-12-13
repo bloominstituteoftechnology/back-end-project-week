@@ -4,36 +4,45 @@
 
 .wrapper {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+}
+.lambda-notes {
+  color: #DADFF7;
 }
 
 .navBar {
-  background: #d3d3d3;
+  background: #232C33;
   display: flex;
-  width: 210px;
   flex-direction: column;
   margin: 0px;
-  height: 500px;
   padding: 10px;
   height: auto;
+  align-items: center;
 
 
+}
+
+.topButtons {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .navBar h1 {
   font-size: 38px;
   text-align: left;
   margin: 0px;
-  color: #434343;
+  
   margin-bottom: 20px;
   
 }
-
-.links{
+.createnew {
   border: 1px solid grey;
   height: 50px;
   width: 200px;
-  margin: 10px 0px;
+  margin: 10px 20px;
   text-align: center;
   text-decoration: none;
   color: white;
@@ -41,30 +50,62 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #24b8bd
+  background: #A0C1D1;
+}
+
+.links{
+  border: 1px solid grey;
+  height: 50px;
+  width: 200px;
+  margin: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #5A7D7C;
 }
 .mainPage {
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 75%;
+  
  
 }
 
 .noteslist {
   display: flex;
   flex-direction: column;
-  background: #f2f1f2;
-  width: 760px;
-  justify-content: flex-start;
-  align-items: flex-start;
+  background: #B5B2C2;
+  
+  justify-content: center;
+  align-items: center;
   padding: 0px 20px;
 
 }
 
+
+.search-form {
+  padding: 20px 0px 0px 0px;
+}
+
+.search-form input {
+  padding: 10px;
+  width: 372px;
+  margin-right: 20px;
+}
+
+.search-form Button {
+  padding: 10px;
+  width: 50px;
+  
+}
+
 .noteslist h1 {
-  color: #434343;
-  margin-top: 50px;
+  color: #232C33;
+  margin-top: 30px;
   font-size: 28px;
 }
 
@@ -74,20 +115,29 @@
   text-decoration-line: none;
 }
 
+.noDecor {
+  text-decoration: none;
+}
+
 .card {
-  border: 1px solid gray;
+  border: none;
   width: 200px;
   height: 260px;
   background: white;
   margin: 10px;
   padding: 10px;
   overflow: hidden;
-  
-  
+  text-decoration: none;
+ 
+}
+
+.card p {
+  color: black;
 }
 
 .card:hover {
-  background: rgba(194, 240, 230, 0.527);
+  background: #A0C1D1;
+  
 }
 
 .cardList {
@@ -103,6 +153,8 @@
   display: flex;
   flex-direction: column;
   height: auto;
+  justify-content: center;
+  align-items: center;
 
 }
 
@@ -110,7 +162,8 @@
   display: flex;
   flex-direction: column;
   background: #f2f1f2;
-  width: 760px;
+  justify-content: center;
+  align-items: center;
   padding: 0px 20px;
   height: 500px;
 }
@@ -119,7 +172,7 @@
   color: #434343;
   margin-top: 50px;
   font-size: 28px;
-  text-align: left;
+  text-align: center;
 }
 
 .titleHolder {
@@ -147,13 +200,14 @@
   text-decoration-line: underline;
   color: #434343;
   font-weight: bold;
+  font-size: 18px;
  
 }
 
 .editDelete {
   display: flex;
   flex-direction: row-reverse;
-  justify-content: flex-start;
+  justify-content: center;
   padding-top: 20px;
 
 }
@@ -161,8 +215,8 @@
 .notes-container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
   padding: 0px 20px;
 
 }
@@ -170,6 +224,7 @@
 .singleNoteViewContainer {
   background: #f2f1f2;
   height: auto;
+ 
 }
 
 .notes-container h1 {
@@ -183,6 +238,8 @@
 .editform {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
 }
 
@@ -194,6 +251,8 @@
   margin: 10px 0px;
   padding: 10px 5px;
   width: 350px;
+  display: flex;
+  justify-content: center;
 }
 
 .input2 {
@@ -203,20 +262,34 @@
   height: 150px;
   text-align: top;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
 }
 .modal{
   background: white;
   border: 1px solid gray;
-  width: 400px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content:  center;
+  width: 600px;
+  max-width: 100%;
+  position: fixed;
+  padding: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   height: 150px;
+  max-height: 100%;
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(245, 245, 245, 0.794);
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(231, 231, 231, 0.19); /* Black w/ opacity */
+  z-index: 10; /* keep on top of other elements on the page */
+  outline: 9999px solid rgba(0,0,0,0.5);
   
+}
+
+.modal-body {
+  text-align: center;
+  font-size: 28px;
 }
 
 .modalFooter {
@@ -228,7 +301,7 @@
 .delete {
   padding: 10px;
   width: 130px;
-  background-color: rgb(202, 3, 3);
+  background-color: #B5B2C2;
   color: white;
   font-weight: bold;
   border: none;
@@ -237,8 +310,153 @@
 .cancel {
   padding: 10px;
   width: 130px;
-  background-color: rgb(3, 202, 192);
+  background-color: #5A7D7C;
   color: white;
   font-weight: bold;
   border: none;
 }
+.bounce-in-top {
+	-webkit-animation: bounce-in-top 2.1s both;
+	        animation: bounce-in-top 2.1s both;
+}
+
+.roll-in-left {
+  
+	-webkit-animation: roll-in-left 0.6s ease-out both;
+	        animation: roll-in-left 0.6s ease-out both;
+}
+
+
+
+.shadow-drop-2-tl {
+	-webkit-animation: shadow-drop-2-tl 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: shadow-drop-2-tl 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+.swing-in-top-fwd {
+	-webkit-animation: swing-in-top-fwd 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) 1s both;
+	        animation: swing-in-top-fwd 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) 1s both;
+}
+@keyframes bounce-in-top {
+  0% {
+    -webkit-transform: translateY(-500px);
+            transform: translateY(-500px);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+    opacity: 0;
+  }
+  38% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+    opacity: 1;
+  }
+  55% {
+    -webkit-transform: translateY(-65px);
+            transform: translateY(-65px);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  72% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+  81% {
+    -webkit-transform: translateY(-28px);
+            transform: translateY(-28px);
+    -webkit-animation-timing-function: ease-in;
+  }
+  90% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+  95% {
+    -webkit-transform: translateY(-8px);
+            transform: translateY(-8px);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+}
+
+
+@keyframes roll-in-left {
+  0% {
+    -webkit-transform: translateX(-800px) rotate(-540deg);
+            transform: translateX(-800px) rotate(-540deg);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0) rotate(0deg);
+            transform: translateX(0) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+
+@keyframes shadow-drop-2-tl {
+  0% {
+    -webkit-transform: translateZ(0) translateX(0) translateY(0);
+            transform: translateZ(0) translateX(0) translateY(0);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+  100% {
+    -webkit-transform: translateZ(50px) translateX(12px) translateY(12px);
+            transform: translateZ(50px) translateX(12px) translateY(12px);
+    box-shadow: -12px -12px 20px -12px rgba(0, 0, 0, 0.35);
+  }
+}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2018-12-13 11:12:7
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation swing-in-top-fwd
+ * ----------------------------------------
+ */
+ @-webkit-keyframes swing-in-top-fwd {
+  0% {
+    -webkit-transform: rotateX(-100deg);
+            transform: rotateX(-100deg);
+    -webkit-transform-origin: top;
+            transform-origin: top;
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotateX(0deg);
+            transform: rotateX(0deg);
+    -webkit-transform-origin: top;
+            transform-origin: top;
+    opacity: 1;
+  }
+}
+@keyframes swing-in-top-fwd {
+  0% {
+    -webkit-transform: rotateX(-100deg);
+            transform: rotateX(-100deg);
+    -webkit-transform-origin: top;
+            transform-origin: top;
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotateX(0deg);
+            transform: rotateX(0deg);
+    -webkit-transform-origin: top;
+            transform-origin: top;
+    opacity: 1;
+  }
+}
+

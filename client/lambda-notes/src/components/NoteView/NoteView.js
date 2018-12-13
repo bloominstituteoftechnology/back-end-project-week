@@ -13,7 +13,7 @@ class NoteView extends React.Component {
           editedTitle: '',
           editedcontent: ''
         };
-        // this.toggle = this.toggle.bind(this);
+        this.toggle = this.toggle.bind(this);
       }
     //matched id
       componentDidMount() {
@@ -122,6 +122,8 @@ class NoteView extends React.Component {
         
         return (
           <div className = 'singleNoteViewContainer'>
+          <h1 className = 'noteTitle'>{this.state.note.title}</h1>
+          <p>{this.state.note.content}</p>
           
             <div className ='editDelete'>
                  
@@ -144,12 +146,10 @@ class NoteView extends React.Component {
                 <Button className = 'editDeleteButton' onClick={this.editHandler}>Edit</Button>
            </div>
            <div className="notes-container">
-            <h1 className = 'noteTitle'>{this.state.note.title}</h1>
-            <p>{this.state.note.content}</p>
             </div>
             
                 <form className = 'editform' onSubmit={this.saveHandler}>
-                <h1  className = 'editHeader' style={editStyle} >Edit Form: </h1>
+                <h1  className = 'editHeader' style={editStyle} >Edit Your Note: </h1>
                   <input
                     className = 'input1'
                     name="editedTitle"

@@ -4,6 +4,7 @@ import All from './components/ViewAll/All'
 import { NavLink, Route } from 'react-router-dom'
 import CreateNew from './components/nav/CreateNew'
 import NoteView  from './components/NoteView/NoteView'
+import Search from './components/Search/Search'
 
 import './App.css';
 
@@ -47,10 +48,13 @@ refresh () {
       <div className="App">
         <div className = 'wrapper' >
           <nav className = 'navBar'>
-            <h1> Lambda Notes </h1>
-            <NavLink onClick = {this.refresh} className = "links" to = '/' > View Your Notes </NavLink>
-            <NavLink className = "links"
+            <h1 className = 'roll-in-left lambda-notes'> Lambda Notes </h1>
+            <Search className = 'search' />
+            <div className = 'topButtons'>
+            <NavLink onClick = {this.refresh} className = "links bounce-in-top" to = '/' > View Your Notes </NavLink>
+            <NavLink className = " createnew bounce-in-top"
             to = '/create-new-note'> + Create New Note </NavLink>
+            </div>
           </nav>
           <div className = 'mainPage'>
           <Route 

@@ -1,12 +1,13 @@
 import React from 'react';
 
-const Suggestions = (props) => {
-  const options = props.results.map(r => (
-    <li key={r.id}>
-      {r.title}
-    </li>
-  ))
-  return <ul>{options}</ul>
-}
+const Suggestions = props => 
+  <ul>
+        {props.results.map((result, index) =>
+            <li key={index}>
+                {result.title}
+            </li>
+        )}
+    </ul>;
 
-export default Suggestions;
+
+export default Suggestions
