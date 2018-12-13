@@ -66,7 +66,7 @@ function postNote(req, res) {
 
 function getNote(req, res) {
     const creds = req.body
-    const token = jwtDecode(creds);
+    const token = jwtDecode(creds.token);
     db('notes')
         .where({username: token.username})
         .then(response => {
