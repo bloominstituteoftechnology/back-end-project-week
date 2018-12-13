@@ -1,5 +1,14 @@
 // Update with your config settings.
 
+const localPgConnection = {
+host: 'localhost',
+database: 'dev',
+user:     'katy',
+password: 'pass'
+}
+
+const dbConnection = process.env.DATABASE_URL || localPgConnection;
+
 module.exports = {
 
   development: {
@@ -34,12 +43,7 @@ module.exports = {
 
   production: {
     client: 'postgresql',
-    connection: {
-      host: '',
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
-    },
+    connection: dbConnection,
     pool: {
       min: 2,
       max: 10
