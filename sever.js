@@ -16,7 +16,7 @@ server.get("/", (req, res) => {
 
 // Grab the data from the notes table
 
-server.get("/note/get/all", (req, res) => {
+server.get("/notes/get/all", (req, res) => {
   db("notes")
     .then(notes => {
       res.status(200).json(notes);
@@ -47,7 +47,7 @@ server.post("/notes", (req, res) => {
 
 // View individual notes by id
 
-server.get("/notes/:id", (req, res) => {
+server.get("/notes/get/:id", (req, res) => {
   const { id } = req.params;
   db("notes")
     .where("id", id)
