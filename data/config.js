@@ -1,6 +1,6 @@
 const dbEnvironment = process.env.DB_ENVIRONMENT || 'development';
 
-console.log('dbEnvironment = ', dbEnvironment);
+// console.log('dbEnvironment = ', dbEnvironment);
 
 
 const config = require('../knexfile.js')[dbEnvironment];
