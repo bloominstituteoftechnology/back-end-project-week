@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import googleImg from "./images/google-sign-in.png";
 
 export const Container = styled.div`
   width: 100%;
@@ -240,52 +241,13 @@ export const EditFormH1 = styled.h1`
 `;
 
 export const LoginH1 = styled.h1`
-  font-size: 25px;
+  font-size: 40px;
   text-align: center;
   font-weight: bold;
   margin-top: 150px;
-  padding-top: 40px;
+  padding-top: 20px;
   color: black;
-`;
-
-export const LoginHint = styled.h3`
-  font-size: 20px;
-  text-align: center;
-  color: black;
-`;
-
-export const LoginForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  align-items: center;
-`;
-
-export const LoginInput = styled.input`
-  width: 25%;
-  font-size: 20px;
-  margin-top: 10px;
-  padding: 5px;
-  text-align: center;
-
-  :-webkit-autofill {
-    -webkit-text-fill-color: black;
-    box-shadow: 0 0 0 100px white inset;
-  }
-`;
-
-export const LoginButton = styled.button`
-  margin-top: 15px;
-  width: 75px;
-  height: 30px;
-  background-color: crimson;
-  color: white;
-
-  &:hover {
-    background: white;
-    color: crimson;
-    border: 1.5px solid crimson;
-  }
+  text-decoration-line: underline;
 `;
 
 export const LoginContainer = styled.div`
@@ -294,11 +256,11 @@ export const LoginContainer = styled.div`
   height: 350px;
   color: white;
 
-  margin-left: 27%;
+  /* margin-left: 27%; */
 `;
 
 export const LambdaH1 = styled.div`
-  /* text-align: center; */
+  text-align: center;
   color: black;
   font-weight: bold;
   font-size: 55px;
@@ -309,8 +271,8 @@ export const LambdaH1 = styled.div`
   font-family: Verdana;
 
   /* backup plan */
-  margin-top: 100px;
-  margin-left: 35%;
+  /* margin-top: 100px;
+  margin-left: 35%; */
 `;
 
 export const ExportBtn = styled.div`
@@ -367,31 +329,31 @@ export const Credits = styled.div`
 `;
 
 export const LoginBackground = styled.div`
-  /* background-image: url(https://lambdaschool.com/static/images/herogirl.png);
+  background-image: url(https://lambdaschool.com/static/images/herogirl.png);
   background-size: auto;
   background-position: 127% 0%;
   background-repeat: no-repeat;
   height: 97vh;
-  overflow: hidden; */
+  overflow: hidden;
 
   /* backup plan image */
-  background-image: url(https://images.pexels.com/photos/269448/pexels-photo-269448.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260);
+  /* background-image: url(https://images.pexels.com/photos/269448/pexels-photo-269448.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260);
   background-size: cover;
   background-position: 50% -120px;
   height: 97vh;
   width: 99vw;
   background-repeat: no-repeat;
   overflow: hidden;
-  border: 1.5px solid black;
+  border: 1.5px solid black; */
 `;
 
 export const SearchInput = styled.input`
-    width: 75%;
-    padding: 0px;
-    margin-left: 10%;
-    font-size: 20px;
-    margin-top: 126px;
-    text-align: center;
+  width: 75%;
+  padding: 0px;
+  margin-left: 10%;
+  font-size: 20px;
+  margin-top: 126px;
+  text-align: center;
 
   :-webkit-autofill {
     -webkit-text-fill-color: black;
@@ -399,9 +361,14 @@ export const SearchInput = styled.input`
   }
 `;
 
-export const LoginGoogle = styled.a`
-  padding: 10px;
-  background-color: white;
-  text-decoration-line: none;
-  border: 1px solid red;
+export const LoginGoogle = styled.div`
+  width: 43%;
+  height: 18%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url(${googleImg});
+  cursor: pointer;
+  text-align: center;
+  margin-left: 27%;
 `;
+
