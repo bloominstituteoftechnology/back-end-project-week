@@ -3,7 +3,7 @@ const db = require("../database/dbConfig");
 const { protected } = require("../middleware/middleware");
 
 const route = express();
-
+const PORT = process.env.PORT || 4000;
 //sanity check
 route.get("/", (req, res) => {
   res.send(`API running on port: ${PORT}`);

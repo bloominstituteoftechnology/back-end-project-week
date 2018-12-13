@@ -15,6 +15,4 @@ server.use(helmet());
 server.use(NotesRouter);
 server.use(AuthRouter);
 
-const PORT = process.env.PORT || 4000;
-
 module.exports = server;
