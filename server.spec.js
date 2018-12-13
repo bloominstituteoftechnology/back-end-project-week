@@ -23,5 +23,15 @@ describe("notesRouter.js", () => {
   
           expect(response.status).toBe(201);
         });
+
+        it("should return JSON", async () =>{
+            let response = await request(server).post('/api/notes');
+
+            expect(response.type).toBe('application/json');
+        });
       });
   }); 
+
+  afterAll(async () => {
+    await db('notes').truncate();
+  });
