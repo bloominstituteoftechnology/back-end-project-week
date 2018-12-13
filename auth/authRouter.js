@@ -23,6 +23,7 @@ function login (req, res) {
     db('users').where({username: creds.username}).first()
     .then(user => {
         if (user && bcrypt.compareSync(creds.password, user.password)){
+            console.log('user', user);
             const token = generateToken(user);
             res.status(200).json({message: 'success', token})
         } else {
