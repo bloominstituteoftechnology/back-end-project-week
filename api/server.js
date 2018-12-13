@@ -5,7 +5,7 @@ const cors = require("cors");
 const notes = require("../note.js");
 
 const knexConfig = require("../knexfile.js");
-const dbEnvironment = process.env.DB_ENVIRONMENT || 'production';
+const dbEnvironment = process.env.DB_ENVIRONMENT || 'development';
 const db = knex(knexConfig[dbEnvironment]);
 
 const server = express();
