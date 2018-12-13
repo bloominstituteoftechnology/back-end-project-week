@@ -14,9 +14,9 @@ server.use(cors());
 
 const port = process.env.PORT || 5000;
 
-server.get("/", (req, res) => {
-  res.send(`API running on port: ${port}`);
-});
+// server.get("/", (req, res) => {
+//   res.send(`API running on port: ${port}`);
+// });
 
 server.get("/notes", (req, res) => {
   notes
