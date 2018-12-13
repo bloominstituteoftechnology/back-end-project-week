@@ -56,10 +56,20 @@ class DataAccessor {
         if(!entryData[config.FIELD_TITLE] || !entryData[config.FIELD_BODY]){
             throw new Error(config.ERROR_MALFORMEDDATA);
         }
-        let entryId =  (await database
-            .insert(entryData)
-            .into(this.table)
-        )[0];
+        let entryId;
+        if(config.DATABASE_ENVIRONMENT === config.ENVIRONMENT_PRODUCTION) {
+            entryId = (await database
+                .insert(entryData)
+                .into(this.table)
+                .returning(config.FIELD_ID)
+            )[0];
+        }
+        else {
+            entryId = (await database
+                .insert(entryData)
+                .into(this.table)
+            )[0];
+        }
         return this.get(entryId);
     }
 

@@ -87,7 +87,7 @@ describe('Test API Maker', () => {
             expect(testResponse.body.message).toBe(config.ERROR_NOTFOUND);
         });
     });
-    
+
     //-- Create --------------------------------------
     describe('Test Create Endpoint', function () {
         const endPoint = '/';

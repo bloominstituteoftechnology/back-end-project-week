@@ -8,7 +8,8 @@ module.exports = {
     SERVER_PORT: PORT,
     SERVER_MESSAGE: `Server started on port ${PORT}`,
     // Database
-    DATABASE_ENVIRONMENT: process.env.DB_ENVIRONMENT || 'developement',
+    DATABASE_ENVIRONMENT: process.env.DB_ENVIRONMENT || 'development',
+    ENVIRONMENT_PRODUCTION: 'production',
     TABLE_NOTES: 'notes',
     FIELD_ID   : 'id'   ,
     FIELD_TITLE: 'title',

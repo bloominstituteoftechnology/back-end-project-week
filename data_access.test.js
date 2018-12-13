@@ -9,8 +9,8 @@ const config = require('./config.js');
 
 //== Crud Tests ================================================================
 
+let noteDB = dataAccess(config.TABLE_NOTES);
 describe('Test Data Access', function () {
-    let noteDB = dataAccess(config.TABLE_NOTES);
 
     //-- Clear table ---------------------------------
     describe('Clear Data', function () {
