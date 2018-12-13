@@ -26,19 +26,19 @@ server.use(express.json());
 server.use(morgan('dev'));
 server.use(cors());
 
-function authenticate(req, res, next) {
-  const { authentication: token } = req.headers;
-  jwt.verify(token, secret, (err, decoded) => {
-    if (err) {
-      res.status(401).json({ message: 'Authentication failed.' });
-    } else {
-      req.locals = { authorization: decoded };
-      next();
-    }
-  });
-}
+// function authenticate(req, res, next) {
+//   const { authentication: token } = req.headers;
+//   jwt.verify(token, secret, (err, decoded) => {
+//     if (err) {
+//       res.status(401).json({ message: 'Authentication failed.' });
+//     } else {
+//       req.locals = { authorization: decoded };
+//       next();
+//     }
+//   });
+// }
 
-server.use('/restricted/', authenticate);
+// server.use('/restricted/', authenticate);
 
 //Enable Cross Origin Requests Might make this limited to my own Domain if it works
 server.use(function(req, res, next) {
@@ -47,8 +47,8 @@ server.use(function(req, res, next) {
   next();
 });
 
-const notesRouter = require('../notes/notesRouter.js');
-const RegisterRouter = require('../notes/RegisterRouter.js');
+// const notesRouter = require('../notes/notesRouter.js');
+// const RegisterRouter = require('../notes/RegisterRouter.js');
 
 //sanity check endpoint
 server.get('/', (req, res) => {
@@ -56,14 +56,14 @@ server.get('/', (req, res) => {
 });
 
 //Register Endpoints
-server.get('/test', RegisterRouter);
-server.post('/register', RegisterRouter);
+// server.get('/test', RegisterRouter);
+// server.post('/register', RegisterRouter);
 
 //Notes Endpoints/Methods
-server.get('/notes', notesRouter);
-server.get('/notes/all', notesRouter);
-server.post('/notes/create', notesRouter);
-server.delete('/notes/delete/:noteId', notesRouter);
-server.put('/notes/edit/:noteId', notesRouter);
+// server.get('/notes', notesRouter);
+// server.get('/notes/all', notesRouter);
+// server.post('/notes/create', notesRouter);
+// server.delete('/notes/delete/:noteId', notesRouter);
+// server.put('/notes/edit/:noteId', notesRouter);
 
 module.exports = server;

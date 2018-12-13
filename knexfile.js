@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const localPgConnection = {
   host: 'localhost',
   database: process.env.DB_NAME, // address to find the db server
