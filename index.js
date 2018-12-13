@@ -10,6 +10,10 @@ server.use(express.json());
 server.use(cors());
 server.use(helmet());
 
+server.get('/', (req, res) => {
+    res.status(200).json({ message: 'Server is running.' });
+});
+
 server.get('/api/notes', (req, res) => {
     db('notes')
         .then(notes => {
