@@ -12,10 +12,14 @@ server.use(cors());
 
 const port = process.env.PORT || 9000;
 
-// Checking to see if server works
 server.get("/", (req, res) => {
-  res.status(200).json({ message: `Up and running on port: ${port}` });
+  res.send(`Api running on port: ${port}`);
 });
+
+// Checking to see if server works
+// server.get("/", (req, res) => {
+//   res.status(200).json({ message: `Up and running on port: ${port}` });
+// });
 
 // // Grab the data from the notes table
 
