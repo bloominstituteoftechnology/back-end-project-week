@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const jwtKey = require('../_secrets/keys').jwtKey;
+const jwtKey = process.env.JWT_SECRET;
 
 module.exports = {
     authenticate,
@@ -23,23 +23,12 @@ function authenticate(req, res, next) {
         });
     }
 }
-
-// function generateToken(user) {
-//     const jwtPayload = {
-//         ...user,
-//     };
-//     const jwtOptions = {
-//         expiresIn: '1h',
-//     };
-
-//     return jwt.sign(jwtPayload, jwtKey, jwtOptions)
-// };
 function generateToken(user) {
     const payload = {
         subject: user.id,
         username: user.username,
     }
-    const secret = process.env.JWT_SECRET;
+    const secret = jwtKey;
     const options = {
         expiresIn: '1hr'
     }
