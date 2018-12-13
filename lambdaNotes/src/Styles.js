@@ -270,7 +270,7 @@ export const LoginInput = styled.input`
 
   :-webkit-autofill {
     -webkit-text-fill-color: black;
-    -webkit-box-shadow: 0 0 0 100px white inset;
+    box-shadow: 0 0 0 100px white inset;
   }
 `;
 
@@ -395,7 +395,7 @@ export const SearchInput = styled.input`
 
   :-webkit-autofill {
     -webkit-text-fill-color: black;
-    -webkit-box-shadow: 0 0 0 100px white inset;
+    box-shadow: 0 0 0 100px white inset;
   }
 `;
 

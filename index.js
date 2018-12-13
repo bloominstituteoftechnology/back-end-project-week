@@ -24,7 +24,9 @@ server.use(passport.session());
 
 require('./routes/authRoutes.js')(server);
 require('./routes/billingRoutes.js')(server);
+
 console.log(process.env.NODE_ENV);
+
 if (process.env.NODE_ENV === 'production') {
   // Express will serve up production assets
   // like our main.js file, or main.css file!
