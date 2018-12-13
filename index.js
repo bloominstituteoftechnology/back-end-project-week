@@ -1,6 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const db = require('./data/dbConfig.js');
 
@@ -9,6 +12,66 @@ const server = express();
 server.use(express.json());
 server.use(cors());
 server.use(helmet());
+
+const generateToken = user => {
+    const payload = {
+        userId: user.id,
+        username: user.username,
+    };
+    const secret = process.env.SECRET;
+    const options = {
+        expiresIn: '1d',
+    };
+    return jwt.sign(payload, secret, options);
+};
+
+const protected = (req, res, next) => {
+    const token = req.headers.authorization;
+
+    if (token) {
+        jwt.verify(token, process.env.SECRET, (err, decodedToken) => {
+            if (err) {
+                res.status(401).json({ message: 'Invalid token.' });
+            } else {
+                req.decodedToken = decodedToken;
+                next();
+            };
+        });
+    };
+};
+
+server.post('/api/users/register', (req, res) => {
+    const creds = req.body;
+    const hash = bcrypt.hashSync(creds.password, 14);
+    creds.password = hash;
+    db('users')
+        .insert(creds)
+        .then(ids => {
+            const token = generateToken(creds);
+            res.status(201).json({ ids, token });
+        })
+        .catch(err => {
+            res.status(500).json({ error: 'There was an error registering the user.', err });
+        });
+});
+
+server.post('/api/users/login', (req, res) => {
+    const creds = req.body;
+    db('users')
+        .where({ username: creds.username })
+        .first()
+        .then(user => {
+            if (user && bcrypt.compareSync(creds.password, user.password)) {
+                const token = generateToken(user);
+                res.status(200).json({ message: `Welcome ${user.username}!`, token });
+            } else {
+                res.status(401).json({ message: 'Wrong username or password' });
+            };
+        })
+        .catch(err => {
+            res.status(500).json({ error: 'There was an error loggin in.', err });
+        });
+});
 
 server.get('/', (req, res) => {
     res.status(200).json({ message: 'Server is running.' });
