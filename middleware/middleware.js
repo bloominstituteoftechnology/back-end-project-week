@@ -3,8 +3,7 @@ const jwt = require("jsonwebtoken");
 
 module.exports = {
   generateToken,
-  protected,
-  allowCrossDomain
+  protected
 };
 
 function generateToken(user) {

@@ -7,7 +7,7 @@ const authRoute = express.Router();
 authRoute.use(express.json());
 
 //register a new user
-authRoute.post("/api/register", allowCrossDomain, (req, res) => {
+authRoute.post("/api/register", (req, res) => {
   const creds = req.body;
   console.log("creds");
   const hash = bcrypt.hashSync(creds.password, 10);
@@ -24,7 +24,7 @@ authRoute.post("/api/register", allowCrossDomain, (req, res) => {
 });
 
 //user login
-authRoute.post("/api/login", allowCrossDomain, (req, res) => {
+authRoute.post("/api/login", (req, res) => {
   const creds = req.body;
   db("users")
     .where({ username: creds.username })
