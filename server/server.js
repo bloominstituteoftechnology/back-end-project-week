@@ -14,7 +14,6 @@ server.use(cors());
 
 server.get('/api/notes', [protect],(req,res) => {
     const decoded = jwt.verify(req.headers.authorization, process.env.SECRET)
-    console.log(decoded.subject)
     db.getNotes(decoded.subject)
     .then(notes => {
         res.status(200).json(notes);
@@ -59,7 +58,7 @@ function generateToken(user) {
     };
     const secret = process.env.SECRET;
     const options = {
-      expiresIn: '5m',
+      expiresIn: '20m',
     };
     return jwt.sign(payload, secret, options);
 }
