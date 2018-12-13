@@ -18,6 +18,7 @@ server.get('/note/get/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const note = await db('notes')
+      .returning('*')
       .where('notes.id', '=', id)
       .first();
 
@@ -35,7 +36,9 @@ server.post('/note/create', async (req, res, next) => {
   }
   const note = req.body;
   try {
-    const notes = await db('notes').insert(note);
+    const notes = await db('notes')
+      .returning('id')
+      .insert(note);
     return res.status(200).json({ notes });
   } catch (err) {
     next();
