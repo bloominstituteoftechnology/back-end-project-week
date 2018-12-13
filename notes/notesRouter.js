@@ -41,7 +41,6 @@ async function getNoteById(req, res) {
 }
 
 async function createNote(req, res) {
-    const newNote = req.body;
     const {id, username, roles} = req.decodedToken;
     
     if (!newNote.title || !newNote.textBody) {
@@ -49,9 +48,10 @@ async function createNote(req, res) {
         return;
     }
     
+    const newNote = {...req.body, userId: id};
     console.log('newNote', newNote);
 
-    const note = await db('notes').returning('noteId').insert({...newNote, userId: id});
+    const note = await db('notes').returning('noteId').insert(newNote);
     console.log(note);
 
     res.status(201).json({success: note[0]})
