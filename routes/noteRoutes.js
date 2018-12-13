@@ -20,6 +20,17 @@ route.get("/api/notes", protected, (req, res) => {
     });
 });
 
+//get a single note
+route.get("/api/notes/:id", protected, (req, res) => {
+  db("notes")
+    .then(note => {
+      res.status(200).json(note);
+    })
+    .catch(err => {
+      res.status(500).json({ message: "The lists could not be received", err });
+    });
+});
+
 //edit an existing note
 route.put("/api/notes/:id", protected, (req, res) => {
   const { noteTitle, noteBody } = req.body;
