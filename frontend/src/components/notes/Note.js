@@ -97,9 +97,9 @@ class Note extends React.Component {
 							<StyledCard className="card-text">
 								<p>{props.textBody}</p>
 							</StyledCard>
-							<styledTimeCont>
-								<p>{props.created_at}</p>
-							</styledTimeCont>
+							<StyledTimeCont>
+								<p>Posted: {props.created_at}</p>
+							</StyledTimeCont>
 						</StyledCardContainer>
 					</div>
 				</div>
@@ -110,9 +110,18 @@ class Note extends React.Component {
 
 export default withStyles(styles)(Note);
 
-export const styledTimeCont = styled.div`
+export const StyledTimeCont = styled.div`
 	font-size: 12px;
 	font-style: cursive;
+	display: flex;
+	width: 100%;
+	justify-content: flex-end;
+	align-items: flex-end;
+
+	p {
+		font-style: italic;
+		font-weight: 12px;
+	}
 `;
 
 export const StyledIconContainer = styled.div`
@@ -125,7 +134,7 @@ export const StyledIconContainer = styled.div`
 `;
 
 export const StyledCard = styled.div`
-	max-height: 90%;
+	height: 74%;
 	overflow: hidden;
 	text-overflow: ellipsis;
 `;

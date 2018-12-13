@@ -30,11 +30,14 @@ export function handleChange(e) {
 
 ///// filter search
 export function filterSearch() {
-	this.getAllNotes();
+	// this.getAllNotes();
 	const { notes, searchTitle } = this.state;
-	return searchTitle
-		? notes.filter((note) => note.title.toLowerCase().indexOf(searchTitle.toLowerCase()) > -1)
-		: notes;
+	if (searchTitle.length !== 0) {
+		const newNotes = notes.filter((note) => note.title.toLowerCase().indexOf(searchTitle.toLowerCase()) > -1);
+		this.setState({ notes: newNotes });
+	} else {
+		this.setState({ ...notes });
+	}
 }
 
 ///// add a new note

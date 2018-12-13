@@ -12,6 +12,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import UpIcon from '@material-ui/icons/KeyboardArrowUp';
 import green from '@material-ui/core/colors/green';
 import TextField from '@material-ui/core/TextField';
+import Card from '@material-ui/core/Card';
 
 import { Consumer } from '../store/index';
 
@@ -32,16 +33,11 @@ TabContainer.propTypes = {
 
 const styles = (theme) => ({
 	root: {
-		// backgroundColor: theme.palette.background.paper,
-		width: '500px',
+		backgroundColor: theme.palette.background.paper,
+		// width: '50%',
 		display: 'flex',
 		minHeight: 200,
 		marginBottom: '10px'
-	},
-	fab: {
-		position: 'absolute',
-		bottom: theme.spacing.unit * 15,
-		right: theme.spacing.unit * 2
 	},
 	title: {
 		marginLeft: '25px',
@@ -97,69 +93,63 @@ class FloatingActionButtonZoom extends React.Component {
 					const { addNote, handleChange, title, textBody } = value;
 					return (
 						<div className={classes.root}>
-							<AppBar position="static" color="default">
+							<Card position="relative" color="default">
 								<h4 className={classes.title}>Create a note</h4>
 
-								<SwipeableViews
-									axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-									index={this.state.value}
-									onChangeIndex={this.handleChangeIndex}
-								>
-									<TabContainer dir={theme.direction}>
-										<form
-											onSubmit={addNote}
-											className={classes.container}
-											noValidate
-											autoComplete="off"
-											required
-										>
-											<TextField
-												id="standard-required"
-												type="text"
-												className="form-control form-control-lg"
-												label="Give It A Title..."
-												name="title"
-												margin="normal"
-												value={title}
-												onChange={handleChange}
-											/>
-											<TextField
-												id="standard-required"
-												type="text"
-												className="form-control form-control-lg"
-												label="What's On Your Mind..."
-												name="textBody"
-												margin="normal"
-												value={textBody}
-												onChange={handleChange}
-											/>
-											{fabs.map((fab, index) => (
-												<Zoom
-													key={fab.color}
-													in={this.state.value === index}
-													timeout={transitionDuration}
-													style={{
-														transitionDelay: `${this.state.value === index
-															? transitionDuration.exit
-															: 0}ms`
-													}}
-													unmountOnExit
+								<TabContainer dir={theme.direction}>
+									<form
+										onSubmit={addNote}
+										className={classes.container}
+										noValidate
+										autoComplete="off"
+										required
+									>
+										<TextField
+											id="standard-required"
+											type="text"
+											className="form-control form-control-lg"
+											label="Give It A Title..."
+											name="title"
+											margin="normal"
+											value={title}
+											onChange={handleChange}
+										/>
+										<TextField
+											id="standard-required"
+											type="text"
+											className="form-control form-control-lg"
+											label="What's On Your Mind..."
+											name="textBody"
+											margin="normal"
+											value={textBody}
+											onChange={handleChange}
+										/>
+										{fabs.map((fab, index) => (
+											<Zoom
+												key={fab.color}
+												in={this.state.value === index}
+												timeout={transitionDuration}
+												style={{
+													transitionDelay: `${this.state.value === index
+														? transitionDuration.exit
+														: 0}ms`
+												}}
+												unmountOnExit
+											>
+												<Button
+													position="static"
+													variant="fab"
+													className={fab.className}
+													color={fab.color}
+													type="submit"
 												>
-													<Button
-														position="static"
-														variant="fab"
-														className={fab.className}
-														color={fab.color}
-														type="submit"
-													>
-														{fab.icon}
-													</Button>
-												</Zoom>
-											))}
-										</form>
-									</TabContainer>
-								</SwipeableViews>
-							</AppBar>
+													{fab.icon}
+												</Button>
+											</Zoom>
+										))}
+									</form>
+								</TabContainer>
+							</Card>
 						</div>
 					);
 				}}
