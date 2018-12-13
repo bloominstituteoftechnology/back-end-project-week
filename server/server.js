@@ -13,6 +13,8 @@ server.use(express.json())
 server.use(cors());
 
 server.get('/api/notes', [protect],(req,res) => {
+    const decoded = jwt.verify(req.headers.authorization, process.env.SECRET)
+    console.log(decoded)
     db.getNotes()
     .then(notes => {
         res.status(200).json(notes);
@@ -51,19 +53,14 @@ server.post('/api/users/register', (req, res) => {
 })
 
 function generateToken(user) {
-    console.log(user)
     const payload = {
       subject: user.id,
       username: user.username
     };
-    console.log(process.env.SECRET)
     const secret = process.env.SECRET;
-    console.log(secret)
     const options = {
       expiresIn: '5m',
     };
-    console.log(options)
-  
     return jwt.sign(payload, secret, options);
 }
 
@@ -72,8 +69,6 @@ server.post('/api/users/login', (req, res) => {
     userdb.login(userCred)
     .then(user => {
         if(user && bcrypt.compareSync(userCred.password, user[0].password)) {
-            console.log(user[0].id);
-            console.log(user[0].username)
             const token = generateToken(user[0]);
             console.log(token)
             res.status(200).json(token) //WE REACH THIS
