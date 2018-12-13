@@ -36,7 +36,7 @@ class AddNote extends React.Component {
       content: this.state.content,
       id: this.state.id
     };
-    Axios.post("/addNote", newNote)
+    axios.post("/addNote", newNote)
       .then(response => {
         console.log(response.data);
         newNote.id = response.data.id;
