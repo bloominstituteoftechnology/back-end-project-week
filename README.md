@@ -1,3 +1,19 @@
+# Trello board for this project:
+
+https://trello.com/b/uXg6FHtF/lambda-notes-backend-adam-mckenney
+
+# Link to front end project repo:
+
+https://github.com/DaftBeowulf/front-end-project-week
+
+# Link to heroku-deployed server for backend:
+
+https://fsw14-lambda-notes.herokuapp.com/
+
+# Link to netlify-deployed frontend:
+
+https://confident-heisenberg-b35ad1.netlify.com/
+
 # Back End Project Week
 
 This week you will build a backend for a note taking app called "Lambda Notes".
