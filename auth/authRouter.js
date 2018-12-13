@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('../data/config.js');
 
-const { authenticate, generateToken } = require('./middlewares');
+const { generateToken } = require('./middlewares');
 
 
 
