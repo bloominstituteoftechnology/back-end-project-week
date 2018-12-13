@@ -50,15 +50,18 @@ server.post('/api/users/register', (req, res) => {
 })
 
 function generateToken(user) {
+    console.log(user)
     const payload = {
       subject: user.id,
       username: user.username
     };
-  
+    console.log(payload)
     const secret = process.env.SECRET;
+    console.log(secret)
     const options = {
       expiresIn: '5m',
     };
+    console.log(options)
   
     return jwt.sign(payload, secret, options);
 }
