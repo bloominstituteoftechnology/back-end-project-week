@@ -67,11 +67,11 @@ server.post('/api/users/login', (req, res) => {
     let userCred = req.body;
     userdb.login(userCred)
     .then(user => {
-        console.log(user[0])
         if(user && bcrypt.compareSync(userCred.password, user[0].password)) {
-            console.log('hey')
+            console.log(user[0].id);
+            console.log(user[0].username)
             const token = generateToken(user[0]);
-            console.log('heyo')
+            console.log(token)
             res.status(200).json(token) //WE REACH THIS
             
         } else {
