@@ -53,17 +53,21 @@ function login(req, res) {
         });
 };
 
-// GET ALL NOTES
-
 function getNotes(req, res) {
+    const id = req.decoded.subject;
+    console.log(id);
     db('notes')
+        .where({ users_id : id })
         .then(notes => {
+            console.log(notes);
             res.status(200).json(notes)
         })
         .catch(err => {
             res.status(500).json(err)
         })
-};
+
+}
+
 
 // GET ONE NOTE
 
