@@ -21,6 +21,16 @@ server.get('/api/notes', [protect],(req,res) => {
     })
 })
 
+server.get('/api/users', (req,res) => {
+    db.getUsers()
+    .then(users => {
+        res.status(200).json(users);
+    })
+    .catch(err => {
+        res.status(500).json(err);
+    })
+})
+
 server.post('/api/users/register', (req, res) => {
     let userCred = req.body;
     const hash = bcrypt.hashSync(userCred.password, 8);
