@@ -9,6 +9,7 @@ authRoute.use(express.json());
 //register a new user
 authRoute.post("/api/register", (req, res) => {
   const creds = req.body;
+  console.log("creds");
   const hash = bcrypt.hashSync(creds.password, 10);
   creds.password = hash;
   db("users")
@@ -16,9 +17,10 @@ authRoute.post("/api/register", (req, res) => {
     .insert(creds)
     .then(ids => {
       console.log("id");
+
       res.status(201).json(ids);
     })
-    .catch(err => json({ message: "error adding user to the DB", err }));
+    .catch(err => res.json({ message: "error adding user to the DB", err }));
 });
 
 //user login
