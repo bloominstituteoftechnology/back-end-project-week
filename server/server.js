@@ -37,7 +37,11 @@ server.post('/api/users/register', (req, res) => {
     userCred.password = hash;
     userdb.register(userCred)
     .then(id => {
-        const token = generateToken(userCred)
+        const payload = {
+            id: id,
+            username: userCred.username
+        }
+        const token = generateToken(payload)
         res.status(201).json(token)
     })
     .catch(err => {
@@ -68,7 +72,8 @@ server.post('/api/users/login', (req, res) => {
         if(user && bcrypt.compareSync(userCred.password, user.password)) {
             console.log('hey')
             const token = generateToken(user);
-            res.status(200).json(token)
+            console.log('heyo')
+            res.status(200).json(token) //WE REACH THIS
             
         } else {
             res.status(401).json({message: 'Invalid information'})
