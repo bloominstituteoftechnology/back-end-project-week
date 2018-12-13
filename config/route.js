@@ -52,9 +52,6 @@ route.post("/", async (req, res) => {
 route.put("/:id", async (req, res) => {
   const { id } = req.params;
   const { title, textBody } = req.body;
-  if (!title || !textBody) {
-    return sendErr(res, 400, "must include title and text body");
-  }
   if (title.length > 128 || textBody.length > 500) {
     return sendErr(res, 400, "Content too long.");
   }
