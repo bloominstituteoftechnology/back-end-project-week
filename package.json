@@ -1,0 +1,35 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Chiboba/back-end-project-week.git",
+  "author": "Chiboba <briangfelix@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest --watch --verbose"
+  },
+  "keywords": [
+    "example",
+    "heroku"
+  ],
+  "engines": {
+    "node": "11.3.0",
+    "yarn": "1.12.3"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "jest": "^23.6.0",
+    "jsonwebtoken": "^8.4.0",
+    "knex": "^0.16.2",
+    "pg": "^7.7.1",
+    "sqlite3": "^4.0.4",
+    "supertest": "^3.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.7"
+  }
+}
