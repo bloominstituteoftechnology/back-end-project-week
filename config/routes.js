@@ -21,6 +21,7 @@ function register(req, res) {
     creds.password = hash;
     db('users')
         .where({ username: creds.username })
+        .returning('id')
         .insert(creds)
         .then(user => {
             console.log(creds);
