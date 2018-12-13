@@ -10,7 +10,7 @@ server.use(helmet());
 server.use(express.json());
 server.use(cors());
 
-const port = 9000;
+const port = process.env.PORT || 9000;
 
 // Checking to see if server works
 server.get("/", (req, res) => {
