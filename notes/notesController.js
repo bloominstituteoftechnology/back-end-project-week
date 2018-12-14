@@ -44,8 +44,9 @@ const notesControllers = {
   createNote(req, res, next) {
  
     const newNote = req.body;
+    
 
-console.log('Create Note  newNote = ', newNote);
+  console.log('Create Note  req.body = ', req.body);
 
     db("notes")
       .insert(newNote)
