@@ -164,4 +164,9 @@ server.delete('/api/notes/:noteId', (req, res) => {
         });
 });
 
+const path = require('path');
+server.get('*', (req, res)=>{
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+});
+
 server.listen(port, () => console.log(`\n\nServer is running on port: ${port} \n\n`));
