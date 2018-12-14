@@ -32,9 +32,10 @@ route.get("/api/notes/:id", protected, (req, res) => {
       res.status(500).json({ message: "The lists could not be received", err });
     });
 });
+Ada;
 
 //edit an existing note
-route.put("/api/notes/:id", protected, (req, res) => {
+route.put("/api/notes/:id", (req, res) => {
   const { noteTitle, noteBody } = req.body;
   const { id } = req.params;
   db("notes")
@@ -71,7 +72,7 @@ route.post("/api/notes", protected, (req, res) => {
     });
 });
 
-route.delete("/api/notes/:id", protected, (req, res) => {
+route.delete("/api/notes/:id", (req, res) => {
   const { id } = req.params;
   db("notes")
     .where({ id: id })
