@@ -10,7 +10,7 @@ server.use(cors());
 server.use(helmet());
 
 server.get('/', async (req, res) => {
-  const notes = await db('notes');
+  const notes = await db('notes').orderBy('id', 'desc');
   res.status(200).json({ notes });
 });
 
