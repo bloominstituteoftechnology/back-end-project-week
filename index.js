@@ -9,7 +9,7 @@ const db = require('./data/dbConfig.js');
 
 const server = express();
 
-const port = process.env.PORT || 3500;
+const port = process.env.PORT || 80;
 
 server.use(express.json());
 server.use(cors());
