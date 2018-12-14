@@ -244,19 +244,21 @@ export const LoginH1 = styled.h1`
   font-size: 40px;
   text-align: center;
   font-weight: bold;
-  margin-top: 150px;
-  padding-top: 20px;
+  width: 30%;
   color: black;
   text-decoration-line: underline;
+  padding-bottom: 33px;
 `;
 
 export const LoginContainer = styled.div`
   background-color: rgba(128, 128, 128, 0.8);
-  width: 43.89%;
-  height: 350px;
+  width: 50%;
+  height: 450px;
   color: white;
-
-  /* margin-left: 27%; */
+  display: flex;
+  justify-content: center;
+    align-items: center;
+    flex-direction: column;
 `;
 
 export const LambdaH1 = styled.div`
@@ -264,15 +266,8 @@ export const LambdaH1 = styled.div`
   color: black;
   font-weight: bold;
   font-size: 55px;
-  margin-top: 118px;
-  margin-bottom: -131px;
-  width: 443px;
-  margin-left: 8%;
+  width: 25%;
   font-family: Verdana;
-
-  /* backup plan */
-  /* margin-top: 100px;
-  margin-left: 35%; */
 `;
 
 export const ExportBtn = styled.div`
@@ -329,22 +324,19 @@ export const Credits = styled.div`
 `;
 
 export const LoginBackground = styled.div`
-  background-image: url(https://lambdaschool.com/static/images/herogirl.png);
-  background-size: auto;
-  background-position: 127% 0%;
-  background-repeat: no-repeat;
-  height: 97vh;
-  overflow: hidden;
-
-  /* backup plan image */
-  /* background-image: url(https://images.pexels.com/photos/269448/pexels-photo-269448.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260);
+  background-image: url(https://images.pexels.com/photos/269448/pexels-photo-269448.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260);
   background-size: cover;
   background-position: 50% -120px;
   height: 97vh;
-  width: 99vw;
+  width: 100%;
+  margin: 0 auto;
   background-repeat: no-repeat;
   overflow: hidden;
-  border: 1.5px solid black; */
+  border: 1.5px solid black;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const SearchInput = styled.input`
@@ -362,13 +354,11 @@ export const SearchInput = styled.input`
 `;
 
 export const LoginGoogle = styled.div`
-  width: 43%;
-  height: 18%;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-image: url(${googleImg});
-  cursor: pointer;
-  text-align: center;
-  margin-left: 27%;
+width: 240px;
+height: 53px;
+background-size: contain;
+background-image: url(${googleImg});
+background-repeat: no-repeat;
+cursor: pointer;
 `;
 

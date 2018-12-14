@@ -10,12 +10,12 @@ import {
 const Login = props => {
   return (
     <LoginBackground>
-      <LambdaH1>Lambda Notes</LambdaH1>
       <LoginContainer>
+        <LambdaH1>Lambda Notes</LambdaH1>
         <LoginH1>Login</LoginH1>
-      <a href="/auth/google">
+          <a href="/auth/google">
         <LoginGoogle />
-      </a>
+          </a>
       </LoginContainer>
     </LoginBackground>
   );
