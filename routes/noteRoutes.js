@@ -32,7 +32,6 @@ route.get("/api/notes/:id", protected, (req, res) => {
       res.status(500).json({ message: "The lists could not be received", err });
     });
 });
-Ada;
 
 //edit an existing note
 route.put("/api/notes/:id", (req, res) => {
