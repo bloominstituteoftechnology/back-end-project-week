@@ -1,3 +1,9 @@
+const knex = require('knex');
+
+const knexConfig = require('./knexfile');
+
+const db = knex(knexConfig.development);
+
 const server = require('./server.js');
 
 server.listen(3333, () => 
@@ -27,8 +33,10 @@ server.get('/api/notes', (req, res) => {
   server.get('/api/notes/:id', (req, res) => {
   
     const { id } = req.params;
+    const { note }= req.body;
   
-    db.select('id').from('notes')
+    db('notes')
+    .where({id: id})
     .then(note => {
         res.status(200).json(note);
     })
@@ -54,24 +62,19 @@ server.get('/api/notes', (req, res) => {
   //Edit a Note
   server.put('/api/notes/:id', (req, res) => {
     const { id } = req.params;
-    const { title } = req.body;
+    const { title, contents } = req.body;
   
     db('notes')
-      .where({id: id})
+    .where({id: id})
+    .update(req.body)
     .then(note => {
-        if (note) {
-            res.status(200);
-        } else if (note.title.length === 0){
-            res.status(400).json({ errorMessage: "Please provide the title of the note you'd like to remove." })
-        } else {
-            res.status(404).json({ message: "A note with the specified ID does not exist." })
-        }
+            res.status(200).json({ message: 'Note has been updated.'});
     })
     .catch(err => {
         res.json(500).json({ error: "This note could not be modified." })
     })
   })
-  
+
   // Delete a Note
   server.delete('/api/notes/:id', (req, res) => {
     const { id } = req.params;
@@ -81,13 +84,13 @@ server.get('/api/notes', (req, res) => {
       .del()
       .then(note => {
           if (note) {    
-              res.status(200).json(note);
+              res.status(200).json({message: 'Note deleted.'});
           } else {
               res.status(404).json({ message: "The note with the specified ID does not exist." })
           }
       })
           .catch(err => {
-          res.status(500).json({message: "The requested note could not be removed"});
+          res.status(500).json({message: "Unable to delete note."});
       })
   });
   
