@@ -121,7 +121,7 @@ server.put('/api/notes/:noteId', (req, res) => {
         count
       });
     })
-    .catch(err => res.status(500).json(err));
+    .catch(err => res.status(500).json('Id not found', err));
 });
 
 server.delete('/api/notes/:noteId', (req, res) => {
@@ -139,7 +139,7 @@ server.delete('/api/notes/:noteId', (req, res) => {
         count
       });
     })
-    .catch(err => res.status(500).json(err));
+    .catch(err => res.status(500).json('Error Deleting',err));
 });
 
 module.exports = server;
