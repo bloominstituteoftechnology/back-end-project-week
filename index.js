@@ -15,6 +15,8 @@ server.use(express.json());
 server.use(cors());
 server.use(helmet());
 
+server.use( express.static( `${__dirname}/../build` ) );
+
 const generateToken = user => {
     const payload = {
         userId: user.id,
