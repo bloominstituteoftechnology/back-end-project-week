@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/shawnantonucci/back-end-project-week#readme",
   "dependencies": {
+    "@pusher/chatkit-server": "^1.0.4",
     "body-parser": "^1.18.3",
     "cookie-session": "^2.0.0-beta.3",
     "cors": "^2.8.5",

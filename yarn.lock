@@ -26,6 +26,23 @@
     core-js "^2.5.7"
     regenerator-runtime "^0.11.1"
 
+"@pusher/chatkit-server@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@pusher/chatkit-server/-/chatkit-server-1.0.4.tgz#7a71980edae031b52b2033c8b2d4d09c3d6b176f"
+  integrity sha512-71J2bpB7BG+ACWPAOJxdXrOMrOQ/BZxJmES0vbomghWmBTtVzx9a1jX5bVs3jh9R2Y2cwkJf2VFXuUMul3FSGA==
+  dependencies:
+    "@pusher/platform-node" "^0.15.1"
+    jsonwebtoken "^8.3.0"
+
+"@pusher/platform-node@^0.15.1":
+  version "0.15.2"
+  resolved "https://registry.yarnpkg.com/@pusher/platform-node/-/platform-node-0.15.2.tgz#5879b461fbe1ef525d012374d3702c35e26c8088"
+  integrity sha512-ZypRRj5KnzwZ5JTG+Y7r/rLxq5qC6z/0Ko6idya8zZzThjk2nJJ+D/Hlc677s15GDGB+aBMNv5Xfl+heBVR5Uw==
+  dependencies:
+    extend "^2.0.1"
+    jsonwebtoken "^8.3.0"
+    request "^2.88.0"
+
 abab@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.0.tgz#aba0ab4c5eee2d4c79d3487d85450fb2376ebb0f"
@@ -1266,6 +1283,11 @@ extend-shallow@^3.0.0, extend-shallow@^3.0.2:
   dependencies:
     assign-symbols "^1.0.0"
     is-extendable "^1.0.1"
+
+extend@^2.0.1:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/extend/-/extend-2.0.2.tgz#1b74985400171b85554894459c978de6ef453ab7"
+  integrity sha512-AgFD4VU+lVLP6vjnlNfF7OeInLTyeyckCNPEsuxz1vi786UuK/nk6ynPuhn/h+Ju9++TQyr5EpLRI14fc1QtTQ==
 
 extend@^3.0.0, extend@~3.0.2:
   version "3.0.2"
@@ -2629,7 +2651,7 @@ json5@^0.5.1:
   resolved "https://registry.yarnpkg.com/json5/-/json5-0.5.1.tgz#1eade7acc012034ad84e2396767ead9fa5495821"
   integrity sha1-Hq3nrMASA0rYTiOWdn6tn6VJWCE=
 
-jsonwebtoken@^8.4.0:
+jsonwebtoken@^8.3.0, jsonwebtoken@^8.4.0:
   version "8.4.0"
   resolved "https://registry.yarnpkg.com/jsonwebtoken/-/jsonwebtoken-8.4.0.tgz#8757f7b4cb7440d86d5e2f3becefa70536c8e46a"
   integrity sha512-coyXjRTCy0pw5WYBpMvWOMN+Kjaik2MwTUIq9cna/W7NpO9E+iYbumZONAz3hcr+tXFJECoQVrtmIoC3Oz0gvg==
@@ -3999,7 +4021,7 @@ request-promise-native@^1.0.5:
     stealthy-require "^1.1.0"
     tough-cookie ">=2.3.3"
 
-request@^2.87.0:
+request@^2.87.0, request@^2.88.0:
   version "2.88.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.88.0.tgz#9c2fca4f7d35b592efe57c7f0a55e81052124fef"
   integrity sha512-NAqBSrijGLZdM0WZNsInLJpkJokL72XYjUpnB0iwsRgxh7dB6COrHnTBNwN0E+lHDAJzu7kLAkDeY08z2/A0hg==

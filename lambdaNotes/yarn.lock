@@ -844,6 +844,19 @@
     universal-user-agent "^2.0.0"
     url-template "^2.0.8"
 
+"@pusher/chatkit-client@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@pusher/chatkit-client/-/chatkit-client-1.2.1.tgz#92aaf00900ff1dc3c0dfab2fd9157308cac9b8a2"
+  integrity sha512-TFYreI7wAKTDTccp+c25mZ1cC67qpt6RbsaOQQQsA6gT1YDmi0oxllaNxzkyO7WrPzHWYvPbdkTrj1oTSN6srQ==
+  dependencies:
+    "@pusher/platform" "^0.15.5"
+    ramda "^0.25.0"
+
+"@pusher/platform@^0.15.5":
+  version "0.15.5"
+  resolved "https://registry.yarnpkg.com/@pusher/platform/-/platform-0.15.5.tgz#f8dc6f7f38ca4b12369e30ed599bf70e6100da68"
+  integrity sha512-a+pB4gUEUc/t6iToniu+z3UoH5KcbF/6HUtTrCbStC5LzSydgTigYmpdKVoTUwElW9aZ/A4L9zmZdgX98mW6zQ==
+
 "@svgr/core@^2.4.1":
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/@svgr/core/-/core-2.4.1.tgz#03a407c28c4a1d84305ae95021e8eabfda8fa731"
@@ -7449,6 +7462,11 @@ raf@3.4.0:
   resolved "https://registry.yarnpkg.com/raf/-/raf-3.4.0.tgz#a28876881b4bc2ca9117d4138163ddb80f781575"
   dependencies:
     performance-now "^2.1.0"
+
+ramda@^0.25.0:
+  version "0.25.0"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.25.0.tgz#8fdf68231cffa90bc2f9460390a0cb74a29b29a9"
+  integrity sha512-GXpfrYVPwx3K7RQ6aYT8KPS8XViSXUVJT1ONhoKPE9VAleW42YE+U+8VEyGWt41EnEQW7gwecYJriTI0pKoecQ==
 
 random-item@^1.0.0:
   version "1.0.0"

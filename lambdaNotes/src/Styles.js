@@ -2,6 +2,10 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import googleImg from "./images/google-sign-in.png";
 
+export const ChatingScreen = styled.div`
+  margin-left: 20%;
+`;
+
 export const Container = styled.div`
   width: 100%;
   background-color: #f2f1f2;
@@ -257,8 +261,8 @@ export const LoginContainer = styled.div`
   color: white;
   display: flex;
   justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  align-items: center;
+  flex-direction: column;
 `;
 
 export const LambdaH1 = styled.div`
@@ -354,11 +358,10 @@ export const SearchInput = styled.input`
 `;
 
 export const LoginGoogle = styled.div`
-width: 240px;
-height: 53px;
-background-size: contain;
-background-image: url(${googleImg});
-background-repeat: no-repeat;
-cursor: pointer;
+  width: 240px;
+  height: 53px;
+  background-size: contain;
+  background-image: url(${googleImg});
+  background-repeat: no-repeat;
+  cursor: pointer;
 `;
-

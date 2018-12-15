@@ -1,5 +1,8 @@
 import React from "react";
 import axios from "axios";
+import ChatScreen from "../components/ChatScreen";
+import UsernameForm from "../components/UsernameForm";
+
 import {
   LeftBar,
   StyledLink,
@@ -8,13 +11,16 @@ import {
   CardList,
   TitleH1,
   ExportBtn,
-  SignOut
+  SignOut,
+  ChatingScreen,
+  UsernameFormStyled
 } from "../Styles";
 
 import NoteCard from "./NoteCard";
 import Payments from "./Payments";
 
-const url = process.env.NODE_ENV === "development" ? "http://localhost:5000" : "";
+const url =
+  process.env.NODE_ENV === "development" ? "http://localhost:5000" : "";
 
 class NotesList extends React.Component {
   constructor(props) {
@@ -22,8 +28,28 @@ class NotesList extends React.Component {
     this.state = {
       data: [],
       credits: 0,
-      filteredNotes: []
+      filteredNotes: [],
+      currentUsername: "",
+      currentScreen: "WhatIsYourUsernameScreen"
     };
+    this.onUsernameSubmitted = this.onUsernameSubmitted.bind(this);
+  }
+
+  onUsernameSubmitted(username) {
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ username })
+    })
+      .then(response => {
+        this.setState({
+          currentUsername: username,
+          currentScreen: "ChatScreen"
+        });
+      })
+      .catch(error => console.error("error", error));
   }
 
   componentDidMount() {
@@ -68,6 +94,13 @@ class NotesList extends React.Component {
   };
 
   render() {
+    // if (this.state.currentScreen === "WhatIsYourUsernameScreen") {
+    //   return <UsernameForm onSubmit={this.onUsernameSubmitted} />;
+    // }
+    // if (this.state.currentScreen === "ChatScreen") {
+    //   return <ChatingScreen currentUsername={this.state.currentUsername} />;
+    // }
+
     return (
       <div>
         <LeftBar>
@@ -82,8 +115,8 @@ class NotesList extends React.Component {
           >
             Export
           </ExportBtn>
-          <Payments handlePayment={this.getCredits}/>
-          <div style={{ margin: '10px 0' }}>Credits: {this.state.credits}</div>
+          <Payments handlePayment={this.getCredits} />
+          <div style={{ margin: "10px 0" }}>Credits: {this.state.credits}</div>
         </LeftBar>
         <CardList>
           <NotesH2>Your Notes:</NotesH2>
@@ -99,6 +132,9 @@ class NotesList extends React.Component {
               />
             ))}
           </ContainCards>
+          <ChatingScreen>
+            {this.state.currentUsername != '' ? <ChatScreen currentUsername={this.state.currentUsername}/> : <UsernameForm onSubmit={this.onUsernameSubmitted}/> }
+          </ChatingScreen>
         </CardList>
       </div>
     );

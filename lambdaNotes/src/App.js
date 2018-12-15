@@ -11,7 +11,7 @@ class App extends React.Component {
   }
 
   render() {
-    return <NotesPage signOut={this.props.signOut}/>;
+    return <NotesPage signOut={this.props.signOut} />;
   }
 }
 
