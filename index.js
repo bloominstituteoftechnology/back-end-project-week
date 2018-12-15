@@ -7,10 +7,11 @@ const knex = require("knex");
 const app = new express();
 const dbConfig = require("./knexfile");
 const db = knex(dbConfig.development);
+const server = require('./server.js');
 app.use(express.json());
 app.use(helmet());
 app.use(cors());
-
+app.use("/", routes);
     
 app.use(express.json());
 app.use(bodyParser.json());
