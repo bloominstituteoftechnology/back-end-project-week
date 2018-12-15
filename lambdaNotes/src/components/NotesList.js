@@ -36,7 +36,7 @@ class NotesList extends React.Component {
   }
 
   onUsernameSubmitted(username) {
-    fetch("http://localhost:5000/users", {
+    fetch(`${url}/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
