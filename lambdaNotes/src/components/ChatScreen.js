@@ -5,6 +5,9 @@ import SendMessageForm from "../components/SendMessageForm";
 import TypingIndicator from "../components/TypingIndicator";
 import WhosOnlineList from "../components/WhosOnlineList";
 
+const url =
+  process.env.NODE_ENV === "development" ? "http://localhost:5000" : "";
+
 class ChatScreen extends Component {
   constructor(props) {
     super(props);
@@ -12,7 +15,7 @@ class ChatScreen extends Component {
       currentUser: {},
       currentRoom: {},
       messages: [],
-      usersWhoAreTyping: [],
+      usersWhoAreTyping: []
     };
     this.sendMessage = this.sendMessage.bind(this);
     this.sendTypingEvent = this.sendTypingEvent.bind(this);
@@ -36,7 +39,7 @@ class ChatScreen extends Component {
       instanceLocator: "v1:us1:21d00c5d-26c3-4fc6-bbd7-d04636ec1a01",
       userId: this.props.currentUsername,
       tokenProvider: new Chatkit.TokenProvider({
-        url: "http://localhost:5000/authenticate"
+        url: `${url}/authenticate`
       })
     });
 
