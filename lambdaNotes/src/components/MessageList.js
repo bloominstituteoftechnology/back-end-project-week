@@ -1,6 +1,20 @@
 import React, { Component } from "react";
+import ReactDom from 'react-dom';
 
 class MessagesList extends Component {
+
+  componentWillUpdate() {
+    const node = ReactDom.findDOMNode(this)
+    this.shouldScrollToBottom = node.scrollTop + node.clientHeight >= node.scrollHeight
+  }
+
+  componentDidUpdate() {
+    if(this.shouldScrollToBottom) {
+      const node = ReactDom.findDOMNode(this)
+      node.scrollTop = node.scrollHeight
+    }
+  }
+
   render() {
     const styles = {
       container: {

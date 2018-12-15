@@ -77,6 +77,7 @@ class ChatScreen extends Component {
         this.setState({ currentRoom });
       })
       .catch(error => console.error("error", error));
+      
   }
 
   render() {

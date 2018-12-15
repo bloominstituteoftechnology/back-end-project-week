@@ -4,7 +4,7 @@ class UsernameForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: ""
+      username: "",
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -27,9 +27,10 @@ class UsernameForm extends Component {
           <form onSubmit={this.onSubmit}>
             <input
               type="text"
-              placeholder="Your full name"
+              placeholder="Your Username"
               onChange={this.onChange}
-            />
+              value={this.state.username}
+              />
             <input type="submit" />
           </form>
         </div>

@@ -12,8 +12,7 @@ import {
   TitleH1,
   ExportBtn,
   SignOut,
-  ChatingScreen,
-  UsernameFormStyled
+  ChatingScreen
 } from "../Styles";
 
 import NoteCard from "./NoteCard";
@@ -30,7 +29,7 @@ class NotesList extends React.Component {
       credits: 0,
       filteredNotes: [],
       currentUsername: "",
-      currentScreen: "WhatIsYourUsernameScreen"
+      currentScreen: false
     };
     this.onUsernameSubmitted = this.onUsernameSubmitted.bind(this);
   }
@@ -46,13 +45,17 @@ class NotesList extends React.Component {
       .then(response => {
         this.setState({
           currentUsername: username,
-          currentScreen: "ChatScreen"
+          currentScreen: true
         });
       })
       .catch(error => console.error("error", error));
   }
 
   componentDidMount() {
+    if(this.state.currentScreen === "ChatScreen") {
+      
+    }
+
     axios
       .get(`${url}/notes`)
       .then(response => this.setState({ data: response.data }))
@@ -133,7 +136,7 @@ class NotesList extends React.Component {
             ))}
           </ContainCards>
           <ChatingScreen>
-            {this.state.currentUsername != '' ? <ChatScreen currentUsername={this.state.currentUsername}/> : <UsernameForm onSubmit={this.onUsernameSubmitted}/> }
+            {this.state.currentScreen === true ? <ChatScreen currentUsername={this.state.currentUsername} /> : <UsernameForm onSubmit={this.onUsernameSubmitted}/> }
           </ChatingScreen>
         </CardList>
       </div>
