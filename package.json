@@ -1,0 +1,26 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/sean-one/back-end-project-week.git",
+  "author": "sean-one <basement365@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "jest": "^23.6.0",
+    "knex": "^0.16.2",
+    "pg": "^7.7.1",
+    "sqlite3": "^4.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.7",
+    "supertest": "^3.3.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon",
+    "test": "jest --watch --verbose"
+  }
+}
