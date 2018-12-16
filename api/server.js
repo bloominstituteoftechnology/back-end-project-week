@@ -13,7 +13,7 @@ server.get('/', async (req, res) => {
 
 server.get('/api/notes', async (req, res) => {
     const notes = await db('notes');
-    res.status(200).json(notes);
+    res.status(200).json({notes});
 })
 
 server.get('/api/notes/:id', async (req, res) => {
