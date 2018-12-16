@@ -1,69 +1,90 @@
 const express = require('express');
-const knex = require('knex');
-const knexConfig = require('../knexfile');
-const db = knex(knexConfig.development);
+const db = require('../data/helpers/notesHelpers');
 const router = express.Router();
 
 
 //gets all notes
-router.get('/', (req, res) => {
-  db('notes')
-  .then(notes => res.status(200).json(notes))
-  .catch(error => res.status(500).json({message: 'an error occured while retrieving data', error}))
-})
+router.get('/',  async (req, res) => {
+  try {
+      const notes = await db.getAll();
+      res.status(200).json(notes)
+  } 
+  catch (err) {
+      res.status(500).json(err);
+  }
+});
 
-//gets a note by it's id
-router.get('/:id', (req, res) => {
-  const { id } = req.params;
+//gets notes by id
+router.get('/get/:id', async (req, res) => {
+  const {id} = req.params;
+  try {
+      const note = await db.getById(id);
+      if (!note) {
+          res.status(404).json({message: "note does not exist"})
+      } 
+      else {
+          res.status(200).json(note)
+      }
+  } 
+  catch (err) {
+      res.status(500).json(err);
+  }
+});
 
-  db('notes')
-    .where({id: id})
-    .then(note => res.status(200).json(note))
-    .catch(error => res.status(500).json({message: 'an error occured while retrieving your note'. error}))
-})
 
 //adds a new note
-router.post('/', (req, res) => {
-  const note = req.body;
-   db('notes')
-    .insert(note)
-    .returning('id')
-    .then( id => {
-      res.status(201).json(id)
-    })
-    .catch(error => {
-      res.status(500).json({message: 'Error adding note', error})
-    })
+router.post('/create', async (req, res) => {
+  const {title, content} = req.body;
+  try {
+      if (!title || !content) {
+          res.status(422).json({message: "title and/or textBody is missing"});
+      } 
+      else {
+          let response = await db.insert(req.body)
+          res.status(201).json(response)
+      }
+  } 
+  catch (err) {
+      res.status(500).json(err)
+  }
 })
-module.exports = router;
 
-//updates a note
-router.put('/:id', (req, res) => {
-  const changes = req.body;
-  const { id } = req.params;
 
-  db('notes')
-    .where({id: id})
-    .update(changes)
-    .then(count => {
-      res.status(201).json(count)
-    })
-    .catch(error => {
-      res.status(500).json({ message: 'error updated your note', error})
-    })
+//edits a note
+router.put('/edit/:id', (req,res) => {
+  const {title, content} = req.body;
+  const {id} = req.params;
+  if (!title || !content) {
+      res.status(422).json({message: "title and/or textBody is missing"});
+  } 
+  
+      db.getById(id)
+      .then(note => {
+          if (note) {
+              db.update(id, req.body)
+              .then(note => res.status(201).json(note))
+          }
+      })
+      .catch(err => res.status(404).json({message:"note does not exist"}));
+
 })
+
 
 //deletes a note
-router.delete('/:id', (req, res) => {
-  const { id } = req.params;
-
-  db('notes')
-    .where({id: id})
-    .del()
-    .then(count => {
-      res.status(201).json(count)
-    })
-    .catch(error => {
-      res.status(500).json({message: 'error deleting note', error})
-    })
+router.delete('/delete/:id', async (req, res) => {
+  const {id} = req.params;
+  try {
+      const note = await db.getById(id);
+      if (!note) {
+          res.status(404).json({message: "note does not exist"})
+      } else {
+          const removal = await db.remove(id);
+          res.status(200).json(removal)
+      }
+  } 
+  catch (err) {
+      res.status(500).json(err);
+  }
 })
+
+module.exports = router;
