@@ -1,0 +1,33 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "Trello URL https://trello.com/invite/b/E65DypIu/4e10c29433894c103eff2f6fb7a02974/lambda-notesbackend-melinda-yeager",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mindysueasaurus/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mindysueasaurus/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/Mindysueasaurus/back-end-project-week#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "helmet": "^3.15.0",
+    "knex": "^0.16.2",
+    "pg": "^7.7.1",
+    "sqlite3": "^4.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.7"
+  }
+}
