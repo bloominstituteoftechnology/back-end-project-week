@@ -1,8 +1,8 @@
 exports.seed = function(knex, Promise) {
   return knex('notes').insert([
-    {noteId: 0, title: 'this is a note title 1', textBody: 'this is the note text body 1', user: 0},
-    {noteId: 1, title: 'this is a note title 2', textBody: 'this is the note text body 2', user: 0},
-    {noteId: 2, title: 'this is a note title 3', textBody: 'this is the note text body 3', user: 0},
-    {noteId: 3, title: 'this is a note title 4', textBody: 'this is the note text body 4', user: 0},
+    {id: 0, title: 'this is a note title 1', textBody: 'this is the note text body 1', user_id: 0},
+    {id: 1, title: 'this is a note title 2', textBody: 'this is the note text body 2', user_id: 0},
+    {id: 2, title: 'this is a note title 3', textBody: 'this is the note text body 3', user_id: 0},
+    {id: 3, title: 'this is a note title 4', textBody: 'this is the note text body 4', user_id: 0},
   ]);
 };

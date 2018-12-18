@@ -19,18 +19,18 @@ async function getAllNotes(req, res) {
     // res.status(200).json({aliveAt: '/note/get/all'})
     const {id, username, roles} = req.decodedToken;
 
-    const notes = await db('notes').where('user', '=', id);
+    const notes = await db('notes').where('user_id', '=', id);
     res.status(200).json(notes);
 }
 
 async function getNoteById(req, res) {
     const id = req.params.id;
-    const user = req.decodedToken.id;
+    const userId = req.decodedToken.id;
 
     // const note = await db('notes').where('id' , '=', id).first();
 
     const note = await db('notes')
-        .whereIn(['noteId', 'user'], [[id, user]])
+        .whereIn(['id', 'user_id'], [[id, userId]])
         .first();
     
     if (!note) {
@@ -42,9 +42,8 @@ async function getNoteById(req, res) {
 
 async function createNote(req, res) {
     const id = req.decodedToken.id;
-    console.log('req.decodedToken', req.decodedToken);
 
-    const newNote = {...req.body, user: id};
+    const newNote = {...req.body, user_id: id};
     console.log('newNote', newNote);
     
     if (!newNote.title || !newNote.textBody) {
@@ -52,16 +51,16 @@ async function createNote(req, res) {
         return;
     }
 
-    const note = await db('notes').returning('noteId').insert(newNote);
-    console.log(note);
+    const noteId = await db('notes').returning('id').insert(newNote);
+    console.log(noteId);
 
-    res.status(201).json({success: note[0]})
+    res.status(201).json({success: true, noteId})
 }
 
 async function editNote(req, res) {
     const id = req.params.id;
     const newData = req.body;
-    const user = req.decodedToken.id;
+    const userId = req.decodedToken.id;
 
     if (!newData && !newData.title && !newData.textBody && !newData.tags) {
         res.status(422).json({error: "Note Title or Note TextBody is required"});
@@ -69,12 +68,12 @@ async function editNote(req, res) {
     }
 
     const updatedNote = await db('notes')
-        .whereIn(['noteId', 'user'], [[id, user]])
+        .whereIn(['id', 'user_id'], [[id, userId]])
         .update({...newData});
     
     console.log(updatedNote);
     if (updatedNote > 0) {
-        const note = await db('notes').where('noteId', '=', id).first();
+        const note = await db('notes').where('id', '=', id).first();
         res.status(201).json(note);
         return
     } else {
@@ -85,11 +84,11 @@ async function editNote(req, res) {
 
 async function deleteNote(req, res) {
     const id = req.params.id;
-    const user = req.decodedToken.id;
+    const userId = req.decodedToken.id;
 
     
     await db('notes')
-        .whereIn(['noteId', 'user'], [[id, user]])
+        .whereIn(['id', 'user_id'], [[id, userId]])
         .del();
 
     res.status(201).json({success: true});

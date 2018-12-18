@@ -43,14 +43,15 @@ async function register(req, res) {
             res.status(422).json({message: 'username and password both required'});
             return;
         }
+
         creds.password = bcrypt.hashSync(creds.password, 8);
         
         console.log('creds', creds);
-        const idArray = await db('users').returning('userId').insert(creds);
+        const idArray = await db('users').returning('id').insert(creds);
         console.log('idArray', idArray);
 
         const newId = idArray[0];
-        const newUser = await db('users').where('userId', '=', newId).first();
+        const newUser = await db('users').where('id', '=', newId).first();
         const token = generateToken(newUser);
         res.status(200).json({message: 'success', token})
 
