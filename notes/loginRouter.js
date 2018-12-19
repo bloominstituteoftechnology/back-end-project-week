@@ -18,7 +18,7 @@ router.get('/logintest', (req, res) => {
 router.post('/login', (req, res) => {
   const { username, password } = req.body;
   knex('users')
-    .select('hash')
+    .select('hash', 'id')
     .where('username', '=', username)
     .first()
     .then(({ hash }) => {
@@ -27,7 +27,13 @@ router.post('/login', (req, res) => {
     .then(verdict => {
       if (verdict) {
         const token = jwt.sign({ username }, secret, { expiresIn: '24h' });
-        res.status(200).json({ username, token });
+        knex('users')
+          .select('id')
+          .where('username', '=', username)
+          .first()
+          .then(({ id }) => {
+            res.status(200).json({ id, token });
+          });
       } else {
         res.status(406).json({ message: 'System could not log user in.' });
       }

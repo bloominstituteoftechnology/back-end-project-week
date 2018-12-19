@@ -16,7 +16,7 @@ router.post('/register', (req, res) => {
     .hash(password, 12)
     .then(hash => knex('users').insert({ username, hash }))
     .then(id => {
-      res.status(200).json(username);
+      res.status(200).json(id);
     })
     .catch(err => {
       console.log('An error occurred', err);
