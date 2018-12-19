@@ -7,6 +7,11 @@ exports.up = function(knex, Promise) {
       .notNullable()
       .unique();
     tbl.string('textBody', 255).notNullable();
+    tbl
+      .integer('user_id')
+      .unsigned()
+      .references('id')
+      .inTable('users');
   });
 };
 

@@ -19,6 +19,22 @@ router.get('/notes/all/', async (req, res) => {
   }
 });
 
+router.get('/notes/allTest/', async (req, res) => {
+
+  const { username, password } = req.body;
+
+  try {
+
+    const notes = await db.getAllById
+
+    console.log('the notes are... ', notes);
+    res.status(200).json(notes);
+  } catch (error) {
+    console.log('the error is... ', error);
+    res.status(500).json({ error: 'There was an error while getting the notes. The error is ', error });
+  }
+});
+
 router.post('/notes/create', async (req, res) => {
   const NoteData = req.body;
   console.log(req.body);

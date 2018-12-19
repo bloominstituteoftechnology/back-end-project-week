@@ -27,7 +27,7 @@ router.post('/login', (req, res) => {
     .then(verdict => {
       if (verdict) {
         const token = jwt.sign({ username }, secret, { expiresIn: '24h' });
-        res.status(200).json(token);
+        res.status(200).json({ username, token });
       } else {
         res.status(406).json({ message: 'System could not log user in.' });
       }

@@ -5,7 +5,8 @@ module.exports = {
   update,
   remove,
   getAll,
-  findByTitle
+  findByTitle,
+  getAllById
 };
 
 async function insert(note) {
@@ -18,6 +19,10 @@ async function insert(note) {
 
 async function getAll() {
   return db['notes'];
+}
+
+async function getAllById(id) {
+  return db['notes'].where({ user_id: Number(id) }).select('id', 'title', 'textBody');
 }
 
 async function findByTitle(id) {
