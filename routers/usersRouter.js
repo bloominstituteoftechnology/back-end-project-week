@@ -125,10 +125,11 @@ router.post('/register', (req, res) => {
 router.post('/login', (req, res) => {
     const creds = req.body;
     creds.username = creds.username.toLowerCase();
+    console.log('creds', creds);
 
     usersDb.getUserByUsername(creds.username)
         .then(user => {
-            console.log(user);
+            console.log('user', user);
             if (user && bcrypt.compareSync(creds.password, user.password)) {
                 const token = generateToken(user);
                 res.status(200).json({ code: 12, message: 'Successful login', token });
