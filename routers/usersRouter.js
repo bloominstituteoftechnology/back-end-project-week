@@ -138,6 +138,7 @@ router.post('/login', (req, res) => {
             }
         })
         .catch(err => {
+            console.log('server err', err);
             res.status(500).json({ code: 3, message: 'Error occurred during login' });
         });
 });
