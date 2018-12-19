@@ -5,6 +5,7 @@ const cors = require('cors');
 
 const notesRouter = require('../routers/notesRouter.js');
 const usersRouter = require('../routers/usersRouter.js');
+const authRouter = require('../routers/authenticateRouter.js');
 
 module.exports = server => {
     server.use(express.json());
@@ -14,4 +15,5 @@ module.exports = server => {
 
     server.use('/api/notes', notesRouter);
     server.use('/api/users', usersRouter);
+    server.user('/api', authRouter);
 };

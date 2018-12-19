@@ -10,6 +10,7 @@ const notesDb = require('../data/helpers/notesHelper.js');
 const logoutDb = require('../data/helpers/logoutHelper.js');
 
 const protected = require('../middleware/protected.js');
+const userIdVerify = require('../middleware/userIdVerification.js');
 
 const router = express.Router();
 
@@ -77,7 +78,7 @@ router.get('/:id', (req, res) => {
 });
 
 // [GET] /api/users/:id/notes
-router.get('/:id/notes', protected, async (req, res) => {
+router.get('/:id/notes', protected, userIdVerify, async (req, res) => {
     const user_id = req.params.id;
     try {
         const notes = await notesDb.getNotes(user_id);
@@ -125,11 +126,9 @@ router.post('/register', (req, res) => {
 router.post('/login', (req, res) => {
     const creds = req.body;
     creds.username = creds.username.toLowerCase();
-    console.log('creds', creds);
 
     usersDb.getUserByUsername(creds.username)
         .then(user => {
-            console.log('user', user);
             if (user && bcrypt.compareSync(creds.password, user.password)) {
                 const token = generateToken(user);
                 res.status(200).json({ code: 12, message: 'Successful login', token });
@@ -138,7 +137,6 @@ router.post('/login', (req, res) => {
             }
         })
         .catch(err => {
-            console.log('server err', err);
             res.status(500).json({ code: 3, message: 'Error occurred during login' });
         });
 });
