@@ -15,5 +15,5 @@ module.exports = server => {
 
     server.use('/api/notes', notesRouter);
     server.use('/api/users', usersRouter);
-    server.user('/api', authRouter);
+    server.use('/api', authRouter);
 };
