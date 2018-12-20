@@ -20,9 +20,10 @@ router.get('/notes/all/', async (req, res) => {
 });
 
 router.get('/notes/allTest/', async (req, res) => {
-  const id = localStorage.getItem('user_id');
+  
 
   try {
+    const id = localStorage.getItem('user_id');
     const notes = await knex('notes').getAllById(id);
 
     console.log('the notes are... ', notes);
