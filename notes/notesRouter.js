@@ -19,8 +19,12 @@ router.get('/notes/all/', async (req, res) => {
   }
 });
 
+
+
 router.get('/notes/allTest/', async (req, res) => {
+  const id = localStorage.getItem('user_id');
   
+  console.log('the id is... ', id);
 
   try {
     const id = localStorage.getItem('user_id');
