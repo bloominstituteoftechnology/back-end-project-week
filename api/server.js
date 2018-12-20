@@ -4,6 +4,10 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const db = require('../notes/notesModel');
 
+const notesRouter = require('../notes/notesRouter.js');
+const registerRouter = require('../notes/registerRouter.js');
+const loginRouter = require('../notes/loginRouter.js');
+
 var cors = require('cors');
 
 // Set up a whitelist and check against it:
@@ -47,10 +51,6 @@ server.use(function(req, res, next) {
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
-
-const notesRouter = require('../notes/notesRouter.js');
-const registerRouter = require('../notes/registerRouter.js');
-const loginRouter = require('../notes/loginRouter.js');
 
 //sanity check endpoint
 server.get('/', (req, res) => {
