@@ -22,6 +22,7 @@ router.post('/login', (req, res) => {
     .where('username', '=', username)
     .first()
     .then(({ hash }) => {
+      console.log('Is the hash here...', hash);
       return bcrypt.compare(password, hash);
     })
     .then(verdict => {
@@ -32,6 +33,7 @@ router.post('/login', (req, res) => {
           .where('username', '=', username)
           .first()
           .then(({ id }) => {
+            console.log('Is the verdict here...', verdict);
             res.status(200).json({ id, token });
           });
       } else {
