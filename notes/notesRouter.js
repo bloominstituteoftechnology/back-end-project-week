@@ -19,11 +19,9 @@ router.get('/notes/all/', async (req, res) => {
   }
 });
 
-
-
 router.get('/notes/allTest/', async (req, res) => {
   const id = localStorage.getItem('user_id');
-  
+
   console.log('the id is... ', id);
 
   try {
@@ -33,6 +31,9 @@ router.get('/notes/allTest/', async (req, res) => {
     console.log('the notes are... ', notes);
     res.status(200).json(notes);
   } catch (error) {
+    const id = localStorage.getItem('user_id');
+
+    console.log('the id is... ', id);
     console.log('the error is... ', error);
     res.status(500).json({ error: 'There was an error while getting the notes. The error is ', error });
   }
