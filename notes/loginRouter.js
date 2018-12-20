@@ -29,7 +29,7 @@ router.post('/login', (req, res) => {
       if (verdict) {
         const token = jwt.sign({ username }, secret, { expiresIn: '24h' });
         knex('users')
-          .selecttoken('id')
+          .select('id')
           .where('username', '=', username)
           .first()
           .then(({ id }) => {
