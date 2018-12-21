@@ -29,7 +29,7 @@ router.get('/notes/all/', async (req, res, next) => {
   }
 });
 
-router.get('/notes/allTest/', async (req, res, next) => {
+router.get('/notes/allTest/', async function(req, res, next) {
   const id = localStorage.getItem('user_id');
 
   console.log('the id is... ', id);
