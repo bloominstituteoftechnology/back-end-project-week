@@ -4,10 +4,6 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const db = require('../notes/notesModel');
 
-const notesRouter = require('../notes/notesRouter.js');
-const registerRouter = require('../notes/registerRouter.js');
-const loginRouter = require('../notes/loginRouter.js');
-
 var cors = require('cors');
 
 // Set up a whitelist and check against it:
@@ -29,6 +25,10 @@ const server = express();
 server.use(express.json());
 server.use(morgan('dev'));
 server.use(cors());
+
+const notesRouter = require('../notes/notesRouter.js');
+const registerRouter = require('../notes/registerRouter.js');
+const loginRouter = require('../notes/loginRouter.js');
 
 // function authenticate(req, res, next) {
 //   const { authentication: token } = req.headers;
