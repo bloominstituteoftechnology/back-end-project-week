@@ -2,9 +2,17 @@ const express = require('express');
 const morgan = require('morgan');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const db = require('../notes/notesModel');
 
+const server = express();
+const db = require('../notes/notesModel');
 var cors = require('cors');
+
+// server.use(bodyParser.urlencoded({extended: true}))
+// server.use(bodyParser.json())
+
+server.get('/endpoint', function(req, res, next) {
+  res.json({ msg: 'This is CORS-enabled for all origins!' });
+});
 
 // Set up a whitelist and check against it:
 // var whitelist = ['https://ielvisd.github.io', 'localhost:9001'];
@@ -20,15 +28,10 @@ var cors = require('cors');
 
 // Then pass them to cors:
 // Then use it before your routes are set up:
-const server = express();
 
 server.use(express.json());
 server.use(morgan('dev'));
 server.use(cors());
-
-const notesRouter = require('../notes/notesRouter.js');
-const registerRouter = require('../notes/registerRouter.js');
-const loginRouter = require('../notes/loginRouter.js');
 
 // function authenticate(req, res, next) {
 //   const { authentication: token } = req.headers;
@@ -47,10 +50,14 @@ const loginRouter = require('../notes/loginRouter.js');
 //Enable Cross Origin Requests Might make this limited to my own Domain if it works
 server.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  // res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
+
+const notesRouter = require('../notes/notesRouter.js');
+const registerRouter = require('../notes/registerRouter.js');
+const loginRouter = require('../notes/loginRouter.js');
 
 //sanity check endpoint
 server.get('/', (req, res) => {
