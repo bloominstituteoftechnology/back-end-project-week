@@ -21,7 +21,10 @@ router.get('/notes/all/', async (req, res, next) => {
 
 router.get('/notes/allTest/', async (req, res) => {
   try {
-    const notes = await knex('notes').getAllById(id);
+    const id = req.body;
+    const notes = await knex('notes')
+      .where({ user_id: Number(id) })
+      .select('id', 'title', 'textBody');
 
     console.log('the notes are... ', notes);
     res.status(200).json(notes);
