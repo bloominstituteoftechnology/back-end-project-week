@@ -14,11 +14,11 @@ router.use(function(req, res, next) {
 });
 
 // Notes endpoints
-router.get('/notes/', (req, res) => {
+router.get('/notes/', (req, res, next) => {
   res.status(200).send('Server Listens and Obeys or WTFDoes it???');
 });
 
-router.get('/notes/all/', async (req, res) => {
+router.get('/notes/all/', async (req, res, next) => {
   try {
     const notes = await knex('notes');
     console.log('the notes are... ', notes);
@@ -29,7 +29,7 @@ router.get('/notes/all/', async (req, res) => {
   }
 });
 
-router.get('/notes/allTest/', async (req, res) => {
+router.get('/notes/allTest/', async (req, res, next) => {
   const id = localStorage.getItem('user_id');
 
   console.log('the id is... ', id);
@@ -49,7 +49,7 @@ router.get('/notes/allTest/', async (req, res) => {
   }
 });
 
-router.post('/notes/create', async (req, res) => {
+router.post('/notes/create', async (req, res, next) => {
   const NoteData = req.body;
   console.log(req.body);
   if (!NoteData.title || !NoteData.textBody) {
@@ -67,7 +67,7 @@ router.post('/notes/create', async (req, res) => {
   }
 });
 
-router.delete('/notes/delete/:noteId', async (req, res) => {
+router.delete('/notes/delete/:noteId', async (req, res, next) => {
   const noteId = req.params.noteId;
 
   try {
@@ -85,7 +85,7 @@ router.delete('/notes/delete/:noteId', async (req, res) => {
   }
 });
 
-router.put('/notes/edit/:noteId', async (req, res) => {
+router.put('/notes/edit/:noteId', async (req, res, next) => {
   const changes = req.body;
   const { noteId } = req.params;
 
