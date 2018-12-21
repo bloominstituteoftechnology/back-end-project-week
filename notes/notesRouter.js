@@ -2,18 +2,6 @@ const express = require('express');
 const router = express.Router();
 const db = require('./notesModel');
 const knex = require('../data/dbConfig.js');
-// var cors = require('cors');
-
-// router.use(cors());
-
-// router.use(function(req, res, next) {
-//   res.header('Access-Control-Allow-Origin', '*');
-//   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-//   next();
-// });
-
-// router.all('*', cors());
 
 // Notes endpoints
 router.get('/notes/', (req, res, next) => {
@@ -31,30 +19,19 @@ router.get('/notes/all/', async (req, res, next) => {
   }
 });
 
-// from origin 'http://localhost:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
-
 router.get('/notes/allTest/', async (req, res) => {
-  const id = localStorage.getItem('user_id');
-
-  console.log('the id is... ', id);
-
   try {
-    const id = localStorage.getItem('user_id');
     const notes = await knex('notes').getAllById(id);
 
     console.log('the notes are... ', notes);
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.status(200).json(notes);
   } catch (error) {
-    const id = localStorage.getItem('user_id');
-
-    console.log('the id is... ', id);
     console.log('the error is... ', error);
     res.status(500).json({ error: 'There was an error while getting the notes. The error is ', error });
   }
 });
 
-router.post('/notes/create', async (req, res, next) => {
+router.post('/notes/create', async (req, res) => {
   const NoteData = req.body;
   console.log(req.body);
   if (!NoteData.title || !NoteData.textBody) {
