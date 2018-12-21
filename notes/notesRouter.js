@@ -6,12 +6,12 @@ const knex = require('../data/dbConfig.js');
 
 // router.use(cors());
 
-// router.use(function(req, res, next) {
-//   res.header('Access-Control-Allow-Origin', '*');
-//   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-//   next();
-// });
+router.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
 
 // router.all('*', cors());
 
@@ -31,7 +31,7 @@ router.get('/notes/all/', async (req, res, next) => {
   }
 });
 
-router.get('/notes/allTest/', async function(req, res, next) {
+router.get('/notes/allTest/', async (req, res) {
   const id = localStorage.getItem('user_id');
 
   console.log('the id is... ', id);
