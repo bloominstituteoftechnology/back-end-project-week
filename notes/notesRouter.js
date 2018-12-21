@@ -31,6 +31,8 @@ router.get('/notes/all/', async (req, res, next) => {
   }
 });
 
+// from origin 'http://localhost:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+
 router.get('/notes/allTest/', async (req, res) => {
   const id = localStorage.getItem('user_id');
 
