@@ -20,9 +20,9 @@ router.get('/notes/allTest/:userId', async (req, res) => {
   const { userId } = req.params.userId;
 
   try {
-    const notes = await knex('notes')
-      .where({ user_id: Number(userId) })
-      .select('title', 'textBody');
+    const notes = await knex('notes');
+    // .where({ user_id: Number(userId) })
+    // .select('title', 'textBody');
 
     console.log('the notes are... ', notes);
     res.status(200).json(notes);
