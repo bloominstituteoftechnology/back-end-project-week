@@ -17,13 +17,15 @@ router.get('/notes/:userId', (req, res) => {
 
 // https://gimme-the-notes-server.herokuapp.com/notes/allTest/4
 router.get('/notes/allTest/:userId', async (req, res) => {
-  const { userId } = req.params.userId;
+  const userId = req.params.userId;
 
   try {
-    const notes = await knex('notes');
-    // .where({ user_id: Number(userId) })
-    // .select('title', 'textBody');
-
+    const notes = await knex('notes')
+      .where({
+        user_id: userId
+      })
+      .select('title', 'textBody');
+    console.log('the userID is... ', userId);
     console.log('the notes are... ', notes);
     res.status(200).json(notes);
   } catch (error) {
