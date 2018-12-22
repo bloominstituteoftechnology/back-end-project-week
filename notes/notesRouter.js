@@ -24,7 +24,7 @@ router.get('/notes/allTest/:userId', async (req, res) => {
       .where({
         user_id: userId
       })
-      .select('title', 'textBody');
+      .select('title', 'textBody', 'id');
     console.log('the userID is... ', userId);
     console.log('the notes are... ', notes);
     res.status(200).json(notes);
