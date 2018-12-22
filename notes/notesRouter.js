@@ -19,11 +19,12 @@ router.get('/notes/all/', async (req, res, next) => {
   }
 });
 
-router.get('/notes/allTest/', async (req, res) => {
+router.get('/notes/allTest/:userId', async (req, res) => {
+  const userId = req.params.id;
+  
   try {
-    const id = req.body;
     const notes = await knex('notes')
-      .where({ user_id: Number(id) })
+      .where({ user_id: Number(userId) })
       .select('id', 'title', 'textBody');
 
     console.log('the notes are... ', notes);
