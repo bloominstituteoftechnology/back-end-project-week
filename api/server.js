@@ -68,7 +68,7 @@ server.post('/login', loginRouter);
 //Notes Endpoints/Methods
 server.get('/notes', notesRouter);
 server.get('/notes/all', notesRouter);
-server.get('/notes/allTest', notesRouter);
+server.get('/notes/allTest/:userId', notesRouter);
 server.post('/notes/create', notesRouter);
 server.delete('/notes/delete/:noteId', notesRouter);
 server.put('/notes/edit/:noteId', notesRouter);

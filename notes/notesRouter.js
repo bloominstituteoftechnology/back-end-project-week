@@ -1,16 +1,29 @@
 const express = require('express');
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 const db = require('./notesModel');
 const knex = require('../data/dbConfig.js');
 
 // Notes endpoints
-router.get('/notes/', (req, res, next) => {
-  res.status(200).send('Server Listens and Obeys or WTFDoes it???');
+router.get('/notes/', (req, res) => {
+  res.status(200).send('Notes Router is Server up Test?!');
 });
 
-router.get('/notes/all/', async (req, res, next) => {
+router.get('/notes/:userId', (req, res) => {
+  console.log(req.params.userId);
+  console.log(req.params);
+  const { userId } = req.params.userId;
+  res.status(200).send('USR ROUTING WORKING? ');
+});
+
+// https://gimme-the-notes-server.herokuapp.com/notes/allTest/4
+router.get('/notes/allTest/:userId', async (req, res) => {
+  const { userId } = req.params.userId;
+
   try {
-    const notes = await knex('notes');
+    const notes = await knex('notes')
+      .where({ user_id: Number(userId) })
+      .select('title', 'textBody');
+
     console.log('the notes are... ', notes);
     res.status(200).json(notes);
   } catch (error) {
@@ -19,14 +32,9 @@ router.get('/notes/all/', async (req, res, next) => {
   }
 });
 
-router.get('/notes/allTest/:userId', async (req, res) => {
-  const userId = req.params.id;
-  
+router.get('/notes/all/', async (req, res, next) => {
   try {
-    const notes = await knex('notes')
-      .where({ user_id: Number(userId) })
-      .select('id', 'title', 'textBody');
-
+    const notes = await knex('notes');
     console.log('the notes are... ', notes);
     res.status(200).json(notes);
   } catch (error) {
