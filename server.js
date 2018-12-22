@@ -2,11 +2,44 @@ const express = require('express');
 const cors = require('cors');
 const db = require('./database/dbConfig.js');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const jwtKey = require('./keys').jwtKey;
 
 const server = express();
 
 server.use(express.json());
 server.use(cors());
+
+function authenticate(req, res, next) {
+    const token = req.get('Authorization');
+    console.log(token)
+    if (token) {
+        jwt.verify(token, jwtKey, (err, decoded) => {
+        console.log(err)
+        console.log(decoded)
+        if (err){
+            return res.status(401).json(err);
+        }else{
+            req.decoded = decoded;
+            next();
+        }
+        });
+    } else {
+        return res.status(401).json({error: 'No token provided, must be set on the Authorization Header',});
+    }
+}
+function generateToken(user) {
+    console.log(user)
+    const payload = {
+        subject: user.id,
+        username: user.username
+    };
+    const options = {
+        expiresIn: '1h',
+    }
+    return jwt.sign(payload, secret, options);
+}
+
 // /Endpoint
 server.get('/', (req,res) => {
     res.status(200).json({Server : "Running"})
@@ -101,7 +134,8 @@ server.post('/note/login', (req,res) => {
                 res.status(204).json({message : "No user found with provided data"})
             }
             else if(user && bcrypt.compareSync(creds.password, user.password)){
-                res.status(200).send("logged in")
+                const token = generateToken(user)
+                res.status(200).json({Token : token})
             }
         })
         .catch(err => { res.status(500).json(err)});
