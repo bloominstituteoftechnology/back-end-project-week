@@ -17,6 +17,9 @@
   "bugs": {
     "url": "https://github.com/Josephus-P/back-end-project-week/issues"
   },
+  "engines": {
+    "node": "8.14.0"
+  },
   "homepage": "https://github.com/Josephus-P/back-end-project-week#readme",
   "devDependencies": {
     "nodemon": "^1.18.4"
