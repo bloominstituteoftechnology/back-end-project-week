@@ -18,7 +18,8 @@
     "url": "https://github.com/Josephus-P/back-end-project-week/issues"
   },
   "engines": {
-    "node": "8.14.0"
+    "node": "8.14.0",
+    "yarn": "1.12.3"
   },
   "homepage": "https://github.com/Josephus-P/back-end-project-week#readme",
   "devDependencies": {
