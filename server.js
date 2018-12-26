@@ -40,6 +40,7 @@ server.post('/api/notes', (req, res) => {
     .insert(note)
     .into('notes')
     .then(response => {
+      console.log(response);
       console.log(response[0]);
       res
         .status(201)
