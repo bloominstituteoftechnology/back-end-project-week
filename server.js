@@ -8,7 +8,7 @@ server.use(express.json());
 server.use(cors());
 
 server.get('/', (req, res) => {
-  res.send(`API running on port: ${port}`);
+  res.send(`Notes API running on port: ${port}`);
 });
 
 server.get('/api/notes', (req, res) => {
@@ -40,6 +40,7 @@ server.post('/api/notes', (req, res) => {
     .insert(note)
     .into('notes')
     .then(response => {
+      console.log(response[0]);
       res
         .status(201)
         .json({ id: response[0], message: 'New note successfully created' });
