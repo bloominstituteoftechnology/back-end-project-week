@@ -40,11 +40,9 @@ server.post('/api/notes', (req, res) => {
     .insert(note, ['id'])
     .into('notes')
     .then(response => {
-      console.log(response);
-      console.log(response[0]);
       res
         .status(201)
-        .json({ id: response[0], message: 'New note successfully created' });
+        .json({ id: response[0].id, message: 'New note successfully created' });
     })
     .catch(err => {
       res.status(500).json({ message: 'Error creating note' });
