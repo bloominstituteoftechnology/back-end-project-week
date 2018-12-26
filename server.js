@@ -37,7 +37,7 @@ server.post('/api/notes', (req, res) => {
   const note = req.body;
 
   knex
-    .insert(note)
+    .insert(note, ['id'])
     .into('notes')
     .then(response => {
       console.log(response);
