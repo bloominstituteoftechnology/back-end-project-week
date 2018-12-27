@@ -66,9 +66,9 @@ server.get('/api/notes', (req, res) => {
   
     db('notes')
     .where({id: id})
-    .update(req.body)
+    .update({ title, contents })
     .then(note => {
-            res.status(200).json({ message: 'Note has been updated.'});
+            return res.status(200).json({ message: 'Note has been updated.'});
     })
     .catch(err => {
         res.json(500).json({ error: "This note could not be modified." })
