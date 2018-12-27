@@ -11,7 +11,7 @@ const server = express();
 
 server.use(helmet());
 server.use(express.json());
-server.use(cors({origin: 'http://localhost:3000'})); //app is running on port 3000
+server.use(cors({origin: 'https://lambda-note-taking-app.herokuapp.com'})); 
 
 
 
