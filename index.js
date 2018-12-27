@@ -32,8 +32,9 @@ server.post("/api/notes", (req, res) => {
   db()
     .insert({ title, content })
     .into("notes")
-    .then(response => {
-      res.status(201).json({ title, content });
+    .then(
+      response => {
+      res.status(201).json(response.data);
     })
     .catch(err => {
       res.status(500).json(err);
