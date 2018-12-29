@@ -3,20 +3,20 @@ import NavBar from './binder/NavBar';
 import { Route, Switch } from "react-router-dom";
 import NotesList from './binder/NotesList';
 import NoteView from './binder/NoteView';
-import Edit from './binder/Edit';
+//import Edit from './binder/Edit';
 import Delete from './binder/Delete';
 
 
-//import Create from './binder/Create';
+import Create from './binder/Create';
 import { connect } from 'react-redux';
-import { getData } from '../actions/notesActions';
+import  { fetchData }  from '../actions/index';
 
 import './App.css';
 
 
 class App extends Component {
   componentDidMount() {
-    this.props.getData();
+    this.props.fetchData();
   };
   render() {
     return (      
@@ -31,8 +31,8 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={NotesList} />
               <Route exact path="/notes/:id" component={NoteView} />
-              {/* <Route path="/create" component={Create} />*/}
-              <Route exact path="/notes/:id/edit" component={Edit} />
+              <Route path="/create" component={Create} />
+              {/* <Route exact path="/notes/:id/edit" component={Edit} /> */}
               <Route exact path="/notes/:id/delete" component={Delete} />
 
             </Switch> 
@@ -47,4 +47,4 @@ const mapStateToProps = state => {
   return state;
 };
 
-export default connect(mapStateToProps, { getData })(App);
+export default connect(mapStateToProps, { fetchData })(App);

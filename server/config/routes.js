@@ -25,14 +25,21 @@ function getAllNotes (req, res) {
 
 {/*===== POST CREATE note =====*/}
 function createNote (req, res) {
+    console.log('myREQ.BODY:',req.body);
      const { title, content } = req.body;
      if (!title) {
-         return res.status(400).json(['ERROR-dataShape:', {title: 'REQUIRED', content: 'OPTIONAL'}]).end();
+         return res.status(400).json(['ERROR-dataShape:', {title: 'REQUIRED', content: 'OPTIONAL'}, req]).end();
      };
      const newNote = { title, content };
      db('notes')
         .insert(newNote).then(response => {
-            res.status(201).json(`created! id:${response}`);
+            res.status(201).json(
+                {
+                    id: response[0],
+                    title: title,
+                    content: content
+                }
+            );
         }).catch(err => {
             res.status(500).json(err);
         });

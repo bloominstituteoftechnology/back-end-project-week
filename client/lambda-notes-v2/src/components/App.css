@@ -124,13 +124,21 @@ Border color used throughout: #979797
 .form{
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 .form-input-title{
   width: 25vw;
 }
-.form-input-body{
+.form-input-content{
   height: 50vh;
+  width: contain;
+  min-width: contain;
   display: flex;
-  align-self: center;
+  flex-direction: row;
+
 }
-.button-form{}
+.hey{
+  width: 15vw;
+  background: #2BC1C4 ;
+
+}

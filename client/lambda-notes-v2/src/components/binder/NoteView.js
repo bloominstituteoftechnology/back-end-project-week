@@ -6,14 +6,19 @@ import { Link } from 'react-router-dom';
 class NoteView extends Component {
 
     render() {
-        const id = this.props.match.params.id;
+        let id = this.props.match.params.id;
+        //10 is the 'radix' base number for math, w/ js. Always 10.
+        id = parseInt(id,10);
         let title;
         let content;
-        this.props.notes.map((note) => {            
-            if (note.id == id) {
+        this.props.notes.map((note) => {
+            // if (note.id == id) {
+            if (note.id === id) {
                 title = note.title;
                 content = note.content;
             }
+            //return not needed, from react warning
+            return (title && content);
         });
         
         return(

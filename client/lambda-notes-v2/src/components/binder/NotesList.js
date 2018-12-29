@@ -24,7 +24,7 @@ class NotesList extends Component {
 
                             );
                         })}
-                    </div>
+                    </div> 
                 </div>
             </React.Fragment>
         );
