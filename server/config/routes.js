@@ -17,22 +17,26 @@ function test (req, res) {
 {/*===== GET ALL notes =====*/}
 function getAllNotes (req, res) {
     db('notes').then(response => {
+        console.log('getAllNotes: 200 OK');
         res.status(200).json(response);
     }).catch(err => {
+        console.log('getAllNotes: 500 SERVER ERROR');
         res.status(500).json(err);
     });
 };
 
 {/*===== POST CREATE note =====*/}
 function createNote (req, res) {
-    console.log('myREQ.BODY:',req.body);
+    // console.log('myREQ.BODY:',req.body);
      const { title, content } = req.body;
      if (!title) {
+         console.log('createNote: 400 BAD REQUEST');
          return res.status(400).json(['ERROR-dataShape:', {title: 'REQUIRED', content: 'OPTIONAL'}, req]).end();
      };
      const newNote = { title, content };
      db('notes')
         .insert(newNote).then(response => {
+            console.log('createNote: 201 CREATED');
             res.status(201).json(
                 {
                     id: response[0],
@@ -41,6 +45,7 @@ function createNote (req, res) {
                 }
             );
         }).catch(err => {
+            console.log('createNote: 500 SERVER ERROR')
             res.status(500).json(err);
         });
 };
@@ -50,10 +55,13 @@ function getNoteById (req, res) {
     const { id } = req.params;
     db('notes').where({id:id}).then(response => {
         if (response.length === 0) {
+            console.log('getNoteById: 404 NOT FOUND');
             return res.status(404).json(`ERROR: id:${id} not found!`).end();
         };
+        console.log('getNoteById: 200 OK');
         res.status(200).json(response[0]);      
     }).catch(err => {
+        console.log('getNoteById: 500 SERVER ERROR');
         res.status(500).json(err);
     });
 };
