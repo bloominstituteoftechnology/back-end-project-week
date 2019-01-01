@@ -7,7 +7,8 @@ exports.seed = function(knex, Promise) {
       return knex('notes').insert([
         { title: 'macaroons', textBody: 'vanilla, rose, red velvet 🍪' },
         { title: 'ice cream 🍨', textBody: 'strawberry 🍓' },
-        { title: 'flan', textBody: 'caramel 🍮' }
+        { title: 'flan', textBody: 'caramel 🍮' },
+        { title: 'creme brulee', textBody: '🍮🍮🍮'}
       ]);
     });
 };
