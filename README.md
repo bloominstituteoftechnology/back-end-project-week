@@ -1,5 +1,13 @@
 # Back End Project Week
 
+https://trello.com/b/qhOhxXDk/lambda-notesbackend-sumayyah
+
+https://github.com/LambdaSchool/front-end-project-week/pull/317
+
+https://sumi-notes.netlify.com/
+
+https://suminotes-api.herokuapp.com/
+
 This week you will build a backend for a note taking app called "Lambda Notes".
 
 You are to treat this week as if you are working at a company and the instructor is your client. The _Project Managers_ are acting as your company's project managers (duh!) and will be your main support throughout the week.
