@@ -29,7 +29,7 @@ function register(req, res) {
   const hash = bCrypt.hashSync(newUser.password, 3);
   newUser.password = hash;
   newUser.username = newUser.username.toLowerCase();
-  notesControllers
+  usersControllers
     .registerNewUser(newUser)
     .then((id) => {
       const userId = id[0];
@@ -44,7 +44,7 @@ function register(req, res) {
 }
 function login(req, res) {
   const loggedIn = req.body;
-  notesControllers
+  usersControllers
     .logInUser(loggedIn)
     .then((user) => {
       const currentUser = user[0];
