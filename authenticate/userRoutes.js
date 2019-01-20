@@ -44,6 +44,7 @@ function register(req, res) {
 }
 function login(req, res) {
   const loggedIn = req.body;
+  loggedIn.username = loggedIn.username.toLowerCase();
   usersControllers
     .logInUser(loggedIn)
     .then((user) => {
