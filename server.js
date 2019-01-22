@@ -9,13 +9,7 @@ const secret = 'supersecretsauce';
 
 const server = express();
 
-// const allowedOrigins = ['http://localhost:3000', 'https://cocky-ride-fcf8cb.netlify.com'];
-// let origin = req.headers.origin;
-// if(allowedOrigins.indexOf(origin) < 0) origin = null;
-
-server.use(cors({ origin: ['http://localhost:3000', 'https://pony-ride-fcf8cb.netlify.com'] , credentials: true }));
-// server.use(cors({ origin: 'http://localhost:3000' , credentials: true }));
-// server.use(cors({ origin: 'https://note-taker.netlify.com' , credentials: true }));
+server.use(cors({ origin: ['http://localhost:3000', 'https://note-taker.netlify.com'] , credentials: true }));
 server.use(express.json());
 
 function restricted(req, res, next) {
