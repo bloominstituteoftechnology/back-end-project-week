@@ -9,6 +9,7 @@ module.exports = {
     },
     useNullAsDefault: true,
   },
+  // jdk
 
   staging: {
     client: 'postgresql',
