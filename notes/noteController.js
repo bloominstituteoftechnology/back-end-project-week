@@ -27,6 +27,8 @@ router.route('/create/:id')
 router.route('/get/all')
     .get((req, res) => {
         const { _id } = req.query;
+        console.log("req.query: ", req.query);
+        console.log("_id: ", _id);
         User.findById(_id)
             .populate('notes')
             .then(currentUser => res.json(currentUser.notes))
