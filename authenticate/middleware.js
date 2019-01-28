@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const secret = 'I see dead people.';
+const secret = process.env.SECRET;
 const Joi = require('joi');
 
 function authenticate(req, res, next) {
