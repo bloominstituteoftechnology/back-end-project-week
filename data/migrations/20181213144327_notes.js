@@ -4,12 +4,6 @@ exports.up = function(knex) {
 
     notes.string("title", 128).notNullable();
     notes.string("textBody", 228).notNullable();
-    notes
-      .integer("userId")
-      .unsigned()
-      .notNullable()
-      .references("id")
-      .inTable("users");
   });
 };
 
