@@ -1,9 +1,9 @@
 const express = require("express");
 const db = require("../../data/helpers/notesDb.js");
 const router = express.Router();
-const { authenticate } = require("../middleware/authMidware");
+// const { authenticate } = require("../middleware/authMidware");
 
-router.get("/", authenticate, (req, res) => {
+router.get("/", (req, res) => {
   db.find()
     .then(notes => {
       res.status(200).json(notes);
@@ -11,7 +11,7 @@ router.get("/", authenticate, (req, res) => {
     .catch(err => res.status(500).json(err.message));
 });
 
-router.get("/:id", authenticate, (req, res) => {
+router.get("/:id", (req, res) => {
   const { id } = req.params;
   db.find(id)
     .then(note => {
@@ -28,7 +28,7 @@ router.get("/:id", authenticate, (req, res) => {
     });
 });
 
-router.post("/", authenticate, async (req, res) => {
+router.post("/", async (req, res) => {
   if (!req.body.title || !req.body.textBody) {
     return res
       .status(400)
@@ -49,7 +49,7 @@ router.post("/", authenticate, async (req, res) => {
   }
 });
 
-router.delete("/:id", authenticate, async (req, res) => {
+router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     let note = await db.find(id);
@@ -70,7 +70,7 @@ router.delete("/:id", authenticate, async (req, res) => {
 });
 
 //updates the note and returns the updated array of notes
-router.put("/:id", authenticate, async (req, res) => {
+router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const { title, textBody } = req.body;
   const note = { title, textBody };
