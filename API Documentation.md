@@ -4,7 +4,7 @@ This file is a documentation of how to use this API.
 
 2. Each note has following properties  
     properties : id, title, textBody, created_at and updated_at.
-   A simple entry of a note is as below
+   A sample entry of a note is as below
    {
    "id": 5,
    "title": "client add note",
