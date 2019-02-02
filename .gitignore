@@ -1,1 +1,7 @@
 .DS_Store
+node_modules
+.env
+_secrets
+\_secrets
+keys.js
+_secrets\keys.js
