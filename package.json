@@ -1,0 +1,28 @@
+{
+  "name": "back-end-project-week",
+  "version": "0.0.1",
+  "description": "Develop a backend to support the Lambda Notes front-end app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": "https://github.com/cpdis/back-end-project-week.git",
+  "author": "Colin Dismuke <colin.dismuke@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bcrypt": "^3.0.4",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "helmet": "^3.15.0",
+    "jsonwebtoken": "^8.4.0",
+    "knex": "^0.16.3",
+    "pg": "^7.8.0",
+    "sqlite3": "^4.0.6"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
