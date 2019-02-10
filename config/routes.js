@@ -98,4 +98,26 @@ function editNote(req, res) {
         .catch(err => {
             res.status(500).json({ message: "Error editing note." }, err);
         });
-} 
+}
+
+/**
+ * DELETE NOTE ENDPOINT
+ *
+ * Delete an existing note.
+ *
+ * @param {Object} req - Information returned from HTTP request
+ * @param {Object} res - HTTP response
+ */
+function deleteNote(req, res) {
+    const { id } = req.params;
+
+    db("notes")
+        .where({ id })
+        .del()
+        .then(count => {
+            res.status(200).json(`${count} note was deleted from the database.`);
+        })
+        .catch(err => {
+            res.status(500).json({ message: "Error deleting note." }, err);
+        });
+}
