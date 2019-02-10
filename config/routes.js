@@ -7,7 +7,19 @@ const { autheticate, generateToken } = require("../auth/authenticate");
 
 const PORT = process.env.PORT || 3000;
 
-module.exports = server => { };
+module.exports = server => {
+    // MVP endpoints
+    server.get("/api/notes", getNotes);
+    server.get("/api/notes/:id", getNotesById);
+    server.post("/api/create", createNote);
+    server.put("/api/edit/:id", editNote);
+    server.delete("/api/delete/:id", deleteNote);
+    server.get("/", helloWorld);
+
+    // Authentication
+    server.post("/api/register", register);
+    server.post("/api/login", login);
+};
 
 // MVP Endpoints
 
