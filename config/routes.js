@@ -188,3 +188,7 @@ function login(req, res) {
             res.status(500).json({ err });
         });
 }
+
+function helloWorld(req, res) {
+    res.send(`API running on port: ${PORT}`);
+}
