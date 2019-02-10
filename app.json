@@ -1,0 +1,31 @@
+{
+  "addons": [
+    "algoliasearch",
+    "heroku-postgresql"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "env": {
+    "ALGOLIASEARCH_API_KEY": {
+      "required": true
+    },
+    "ALGOLIASEARCH_API_KEY_SEARCH": {
+      "required": true
+    },
+    "ALGOLIASEARCH_APPLICATION_ID": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "name": "back-end-project-week",
+  "scripts": {
+  },
+  "stack": "heroku-18"
+}
