@@ -202,5 +202,5 @@ function login(req, res) {
 }
 
 function helloWorld(req, res) {
-    res.send(`API running on port: ${PORT}`);
+    res.send(`Hello there 👋 this is Colin Dismuke's API for the Lambda Notes backend project running on port: ${PORT}`);
 }

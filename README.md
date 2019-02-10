@@ -37,6 +37,7 @@ Lambda Notes utilizes [Heroku](https://www.heroku.com/) and [Netlify](https://ww
   - Passing properties to the component allows for more flexibility
 
 #### Backend
+[![Heroku](https://heroku-badge.herokuapp.com/?app=onedrousdev&style=flat)](https://onedrousdev.herokuapp.com)
 
 [https://onedrousdev.herokuapp.com/](https://onedrousdev.herokuapp.com/)
 
@@ -73,7 +74,7 @@ Lambda Notes utilizes [Heroku](https://www.heroku.com/) and [Netlify](https://ww
 | Method | Endpoint            | Request               | Response                      |
 | ------ | ------------------- | --------------------- | ----------------------------- |
 | GET    | /users/profile      |                       | Object of logged in user      |
-| GET    | /users/subscription | email\                | Object with subscription type |
+| GET    | /users/subscription | email                 | Object with subscription type |
 | GET    | /payment            |                       | Array of invoice objects      |
 | POST   | /payment            | userId, stripeCharges | Invoice                       |
 | GET    | /notes              |                       | Array of notes                |
