@@ -1,71 +1,98 @@
-# Back End Project Week
+# Lambda Notes
 
-This week you will build a backend for a note taking app called "Lambda Notes".
+**_A blockchain enabled note taking platform_**
 
-You are to treat this week as if you are working at a company and the instructor is your client. The _Project Managers_ are acting as your company's project managers (duh!) and will be your main support throughout the week.
+Lambda Notes utilizes [Blockstacks's](https://blockstack.org/) innovative technology which allows developers to build dApps (decentralized apps) and users to access them throught the Blockstack browser. With Blockstack, the data generated in an app is owned by the user and privacy, security, and freedom are maintained. Blockstack provides key tools and infrastructure for enabling decentralized storage and decentralized authentication and identity. After logging in using Blockstack's identity verificatiion, the user's notes are stored in decentralized multi-player Gaia storage.
 
-The main objective of this week is to develop a backend to support the LambdaNotes app you built during the Front End project week, connect the two projects together, and add some additional features. You will use `Node.js`, `Express` and any other technologies you have learned to complete this assignment.
+## Team
 
-## Git Commits
+### Developers
 
-You are required to showcase progress with at least 4 commits a day. This will let your project manager know where you are and if you need help. This also allows the client to get progress reports from the company in a real world setting. This also protects you from losing your work if your computer fails.
+- [Colin Dismuke](https://github.com/cpdis)
 
-## Trello Set Up
+## Tech Stack
 
-- Use your existing Trello account from the Front End Project, or create a new one.
-- Create a new board called "Lambda Notes(Backend) - {Your Name}".
-- Create lists titled `Backlog`,`To do`, `Blocked`, `In Progress`, and `Done`.
-- Fill in the `To do` list with the MVP features listed below.
-- Fill in the `backlog` list with all the extra features listed below.
-- Share your board with the project manager that has been assigned to you. If you have not been assigned yet, reach out to your Section Lead for guidance.
-- Add your Trello URL to your project's README.md file. Commit the change, push it to your repository & submit a pull request.
+Lambda Notes utilizes [Heroku](https://www.heroku.com/) and [Netlify](https://www.netlify.com/) for deployment, and is built in full stack JavaScript with a [React.js](https://reactjs.org/) frontend, a [Node.js](https://nodejs.org/en/) and [Express.js](https://expressjs.com/) backend, Blockstack's [Gaia](https://github.com/blockstack/gaia/blob/master/README.md) high-performance decentralized storage system is used to store notes in production, and a [SQLite3](https://www.sqlite.org/index.html) database in development.
 
-## Backend MVP Features:
+### Rationale
 
-We recommend that you finish all the MVP features before trying to deploy.
+#### Frontend
+[![Netlify Status](https://api.netlify.com/api/v1/badges/773ad9f7-c5d1-4ac5-8c28-01e19711fa12/deploy-status)](https://app.netlify.com/sites/lambdanotesdev/deploys)
 
-- Add data persistenc using a Relational Database. We suggest you start with `SQLite3`.
-- Create a Web API for the React application you built in the front-end project week.
-- Build endpoints for each of the following features:
-  - Display a list of notes.
-  - Create a note with a _title_ and _content_.
-  - View an existing note.
-  - Edit an existing note.
-  - Delete an existing note.
-  - Modify your front-end so that it uses your newly created Web API.
+[https://lambdanotesdev.netlify.com](https://lambdanotesdev.netlify.com)
 
-Upon your first commit, please submit a Pull Request and add _both_ the **Trello Set Up** and **Backend MVP Features** Task lists to your first Pull Request comment.
+- React
 
----
+  - Blazing fast rendering with the virtual DOM
+  - Robust developer tools for debugging
+  - Component based structure maximizes reusablity and makes codebase more maintainable
+  - Unidirectional data flow increases app performance and makes debugging easier
+  - API friendly library works seamlessly with and is extendable across numerous frameworks to leverage advanced UI development
 
-**Once you have completed the "Minimum Viable Product" requirements, message your project manager for approval**. If approved, you may continue to deploy and work on the Extra Features. Please add the Extra Features you implement to the list you added to the comment on your first PR.
+- Styled Components
+  - Scopes styles to a component to avoid style leaks
+  - Linters will show unused components so they can be removed
+  - Source order independence eliminates the need to import files in a certain order
+  - Compose new styles from existing components
+  - Passing properties to the component allows for more flexibility
 
-## Deployment
+#### Backend
 
-After your PM certifies that all MVP features are complente, it's time to work on deploying it online for the world to see. We recommend you deploy your server to [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction), and your front end to [netlify](https://www.netlify.com/blog/2016/09/29/a-step-by-step-guide-deploying-on-netlify/). Both services provide free tiers and easy to use interfaces.
+[https://onedrousdev.herokuapp.com/](https://onedrousdev.herokuapp.com/)
 
-Additionally, it is recommended that you keep your front end and backend codebases in separate GitHub repositories. This helps with deploying, since the different parts of your application will be deployed on different platforms.
+- Node.js
 
-## Extra Features:
+  - Utilizes Google's V8 JS engine which is lightening fast, highly performant, and more scalable
+  - Event loop allows non-blocking I/O operations which enhances speed of code execution
+  - Integrates seamlessly with microservices architecture
+  - Fullstack JS allows JS developers to work on both client and server sides potentially increasing productivity and saving money for startups
 
-Once your MVP has been approved, you have been given a feature list that the client would love to have completed. Your goal would be to finish MVP as soon as you can and get working the list of extra features.
+- Express
 
-- Setup Auto-Deploy on Heroku
-- Provide documentation for how to interface with your api.
-- Add pagination for long lists of notes.
-- Create and display tags that can be added to notes and stored in the Database.
-- Allow users to clone notes.
-- Search functionality.
-- Create a Registration Page that allows users to create accounts for your app and sign in with email/password.
-- Allow users to sign in with a third party service (google, facebook, github, club penguin, etc...)
-- Allow users to create Lists and assign notes to a list.
-- Allow users to attach images to notes.
-- Allow multiple users to collaborate on notes.
-- Add Unit and Integration Tests.
+  - Includes numerous routing features and separate handlers for HTTP methods
+  - Serves static files such as images and CSS / JS files
+  - Integrates seamlessly with many popular template engine and NPM module plugins
 
-## Super Duper Extra Credit Bonus Features
+## API
 
-- Add a payment form integrating with _Stripe_ that allows Users to buy a _"Premium"_ version of Lambda Notes.
-- Gate your favorite feature behind the _premium_ paywall
+### Third Party API
 
-You will notice that this repository does not have any starter code. This is on purpose. You are to start from scratch using any files you have built throughout your time here at Lambda School as reference.
+- [Gaia](https://github.com/blockstack/gaia)
+
+  - Blockstack applications use the Gaia storage system to store data on behalf of a user. When the user logs in to an application, the authentication process gives the application the URL of a Gaia hub, which performs writes on behalf of that user. The Gaia hub authenticates writes to a location by requiring a valid authentication token, generated by a private key authorized to write at that location.
+
+- [Stripe](https://stripe.com/docs/api)
+
+  - Users can pay for the premium version of the serbvice. Stripe verifies and charges their credit card.
+
+- [Blockstack](https://github.com/blockstack/blockstack.js/blob/master/src/auth/README.md)
+  - Users can sign up/log in using Blockstack's bearer token-based authentication system.
+
+### API Endpoints
+
+| Method | Endpoint            | Request               | Response                      |
+| ------ | ------------------- | --------------------- | ----------------------------- |
+| GET    | /users/profile      |                       | Object of logged in user      |
+| GET    | /users/subscription | email\                | Object with subscription type |
+| GET    | /payment            |                       | Array of invoice objects      |
+| POST   | /payment            | userId, stripeCharges | Invoice                       |
+| GET    | /notes              |                       | Array of notes                |
+| GET    | /notes/:id          |                       | Single note                   |
+| POST   | /create             |                       | Create note object            |
+| PUT    | /edit/:id           |                       | Edit existing note object     |
+| DELETE | /delete/:id/        |                       | Delete an existing note       |
+| GET    | /auth/logout        |                       | 200 on successful logout      |
+
+## Security
+
+### Authentication & Authorization
+
+#### Blockstack
+
+Blockstack Authentication provides single sign on and authentication without third parties or remote servers. Blockstack Authentication is a bearer token-based authentication system. From an app user's perspective, it functions similar to legacy third-party authentication techniques that they're familiar with. For an app developer, the flow is a bit different from the typical client-server flow of centralized sign in services (e.g., OAuth). Rather, with Blockstack, the authentication flow happens entirely client-side.
+
+### Payments
+
+#### Stripe & Credits
+
+Stripe is used to securely verify user credit cards and payments. After a user submits a payment, if it is successful, Stripe will send back a response the the payment is valid as well as an invoice that is saved to the database. Once this is complete, the user can access the premium features.
