@@ -121,3 +121,41 @@ function deleteNote(req, res) {
             res.status(500).json({ message: "Error deleting note." }, err);
         });
 }
+
+// Authentication endpoints
+
+/**
+ * REGISTER ENDPOINT
+ *
+ * Creates a user using the information sent inside the body of the request.
+ * The password is hashed using bcrypt before saving the user to the database.
+ *
+ * @param {Object} req - Information returned from HTTP request
+ * @param {Object} res - HTTP response
+ */
+
+function register(req, res) {
+    // Save login credentials from body of request
+    const credentials = req.body;
+
+    // Hash password using bcrypt
+    const hash = bcrypt.hashSync(credentials.password, 15);
+    credentials.password = hash;
+
+    db("users")
+        .insert(credentials)
+        .then(ids => {
+            const id = ids[0];
+
+            db("users")
+                .where({ id })
+                .first()
+                .then(user => {
+                    const token = generateToken(user);
+                    res.status(201).json({ id: user.id, token });
+                })
+                .catch(err => {
+                    res.status(500).json(err);
+                });
+        });
+}
