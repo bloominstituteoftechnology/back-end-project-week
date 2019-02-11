@@ -23,11 +23,8 @@ function generateToken(user) {
 
 server.post('/api/register', (req, res) => {
   const creds = req.body;
-
   const hash = bcrypt.hashSync(creds.password, 9);
-
   creds.password = hash;
-
   db('users').returning('id').insert(creds).then(id => {
     res.status(201).json(id);
   }).catch(err => res.status(420).json(err));
