@@ -1,3 +1,8 @@
+## TRELLO BOARD:
+
+https://trello.com/invite/b/6h7iDQjV/0e2f4c8a6b773dc66542bd78cc57bf82/lambda-notesbackend-pascale-pierre
+
+
 # Back End Project Week
 
 This week you will build a backend for a note taking app called "Lambda Notes".
