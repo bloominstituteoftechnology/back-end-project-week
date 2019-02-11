@@ -1,6 +1,6 @@
 {
   "name": "back-end-project-week",
-  "version": "1.0.0",
+  "version": "1.13.0",
   "main": "index.js",
   "repository": "https://github.com/jalvarez2020/back-end-project-week.git",
   "author": "Javier Alavrez <javieralvarez82@live.com>",
@@ -20,4 +20,3 @@
     "nodemon": "^1.18.10"
   }
 }
-git 
