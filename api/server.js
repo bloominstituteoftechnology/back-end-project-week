@@ -63,7 +63,7 @@ server.get('/api/users', (req, res) => {
 
 server.get('/', (req, res) => {
   res.status(200).json({
-    api: "Up and Running"
+    api: "API ROOT"
   })
 });
 
