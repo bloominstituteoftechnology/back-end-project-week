@@ -24,7 +24,7 @@ function generateToken(user) {
 server.post('/api/register', (req, res) => {
   const creds = req.body;
 
-  const hash = bcrypt.hashSync(creds.password, 10);
+  const hash = bcrypt.hashSync(creds.password, 9);
 
   creds.password = hash;
 
@@ -121,7 +121,7 @@ server.put('/api/notes/:noteId', (req, res) => {
         count
       });
     })
-    .catch(err => res.status(500).json('Id not found', err));
+    .catch(err => res.status(500).json(err));
 });
 
 server.delete('/api/notes/:noteId', (req, res) => {
@@ -139,7 +139,7 @@ server.delete('/api/notes/:noteId', (req, res) => {
         count
       });
     })
-    .catch(err => res.status(500).json('Error Deleting',err));
+    .catch(err => res.status(500).json(err));
 });
 
 module.exports = server;
