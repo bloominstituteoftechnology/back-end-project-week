@@ -36,7 +36,7 @@ server.post('/notes', (req, res) => {
     })
 })
 
-// GET notes by ID
+// GET note by ID
 server.get('/notes/:id', (req, res) => {
     const {id} = req.params;
     db('notes').where('id', id)
@@ -44,7 +44,21 @@ server.get('/notes/:id', (req, res) => {
         res.json(rows)
     })
     .catch(err => {
-        res.status(500).json({err: "Failed to find specific NOTE with ID"});
+        res.status(500).json({err: "Failed to find specific NOTE by ID"});
+    })
+})
+
+//EDIT existing note
+server.put('/notes/:id', (req, res) => {
+    const {id} = req.params;
+    const note = req.body;
+
+    db('notes').where('id', id).update(note)
+    .then(rowCount => {
+        res.status(200).json(rowCount)
+    })
+    .catch(err => {
+        res.status(500).json({err: "Failed to Update specific NOTE"});
     })
 })
 
