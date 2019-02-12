@@ -36,6 +36,18 @@ server.post('/notes', (req, res) => {
     })
 })
 
+// GET notes by ID
+server.get('/notes/:id', (req, res) => {
+    const {id} = req.params;
+    db('notes').where('id', id)
+    .then(rows => {
+        res.json(rows)
+    })
+    .catch(err => {
+        res.status(500).json({err: "Failed to find specific NOTE with ID"});
+    })
+})
+
 server.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
 })
