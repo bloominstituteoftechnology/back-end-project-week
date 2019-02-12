@@ -10,6 +10,8 @@ import ExpandedNote from './ExpandedNote/ExpendedNote';
 import {Route} from 'react-router-dom';
 import styled from 'styled-components'
 
+import axios from 'axios';
+
 const Container = styled.div`
   max-width:1024px;
   width:100%;
@@ -20,16 +22,28 @@ class App extends Component {
     notes : []
   }
 
-  
+  fetchNotes = () =>{
+    axios 
+      .get('http://localhost:3100/notes')
+        .then(response =>{
+          this.setState(() =>({notes: response.data}));
+        })
+
+  }
+
+  componentDidMount(){
+    this.fetchNotes();
+  }
+
   render() {
     return (
       
       <Container >
         <NavBar/>
-        <Route exact path = '/' render = {(props) => < NotesList {...props}/>}/>
+        <Route exact path = '/' render = {(props) => < NotesList {...props} notes = {this.state.notes}/>}/>
         <Route exact path = '/create' render = {(props) => < CreateNote {...props}/>}/>
         <Route exact path = '/edit' render = {(props) => < EditNote {...props}/>}/>
-        <Route exact path = '/note/:id' render = {(props) => < ExpandedNote {...props}/>}/>
+        <Route exact path = '/notes/:id' render = {(props) => < ExpandedNote {...props}/>}/>
       </Container>
     );
   }
