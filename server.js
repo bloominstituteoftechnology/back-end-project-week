@@ -36,7 +36,7 @@ server.post('/notes', (req, res) =>{
     if(newNote.title && newNote.content){
         db('notes').insert(newNote)
         .then(ids =>{
-            res.status(201).json(ids)
+            res.status(201).json({message: `New note created with id : ${ids}`})
         })
         .catch(() =>{
             res.status(500).json({message: 'Could not add new note'})
@@ -52,7 +52,7 @@ server.delete('/notes/:id', (req, res) =>{
     const {id} = req.params;
     db('notes').where('id', id).del()
         .then(rowCount =>{
-            res.status(200).json(rowCount)
+            res.status(200).json({message: `Successfully deleted. Number of items deleted: ${rowCount}`})
         })
         .catch(() =>{
             res.status(500).json({message: 'Could not delete note with specified id'})
@@ -60,6 +60,17 @@ server.delete('/notes/:id', (req, res) =>{
 })
 
 //Put request
+server.put('/notes/:id', (req, res) =>{
+    const {id} = req.params;
+    const noteBody = req.body;
+    db('notes').where('id', id).update(noteBody)
+        .then(rowCount =>{
+            res.status(201).json({message: `Note successfully updated. Number of items updated: ${rowCount}`})
+        })
+        .catch(() =>{
+            res.status(500).json({message: 'Sorry, could not update note'})
+        })
+})
 
 
 server.listen(port, () =>{
