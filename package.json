@@ -1,0 +1,20 @@
+{
+  "name": "backendproject",
+  "version": "1.0.0",
+  "description": "Back End Project",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest --watch --verbose"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "jest": "^24.1.0",
+    "knex": "^0.16.3",
+    "sqlite3": "^4.0.6",
+    "supertest": "^3.4.2"
+  }
+}
