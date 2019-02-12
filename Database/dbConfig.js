@@ -3,6 +3,12 @@ const knexConfig = require('../knexfile');
 const db = knex(knexConfig.development);
 
 
+
+get = () => {
+    return db('notes');
+}
+
+
 insert = (note) => {
     return db('notes').insert(note)
 }
@@ -14,6 +20,7 @@ findByTitle = (title) => {
 
 
 module.exports ={
+    get,
     insert,
     findByTitle,
 }
