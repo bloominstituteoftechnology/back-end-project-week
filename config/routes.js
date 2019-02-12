@@ -1,8 +1,15 @@
 
+const notesDB = require('../database/helpers/noteDb');
+
 module.exports = server => {
-    server.get('/', helloWorld);
+    server.get('/', getAllNotes);
 }
 
-const helloWorld = (req, res) => {
-    res.status(200).json({ message: 'Hello world' });
+const getAllNotes = async (req, res) => {
+    try {
+        const notes = await notesDB.get();
+        res.status(200).send(notes);
+    } catch(e) {
+        res.status.send(e);
+    }
 }
