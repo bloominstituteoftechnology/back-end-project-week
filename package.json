@@ -1,0 +1,26 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meganfontenot/back-end-project-week.git"
+  },
+  "author": "Megan Fontenot",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4",
+    "knex": "^0.16.3",
+    "nodemon": "^1.18.10",
+    "sqlite3": "^4.0.6"
+  },
+  "description": "",
+  "bugs": {
+    "url": "https://github.com/meganfontenot/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/meganfontenot/back-end-project-week#readme",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
