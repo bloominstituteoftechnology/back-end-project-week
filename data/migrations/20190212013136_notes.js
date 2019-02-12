@@ -6,10 +6,10 @@ exports.up = function(knex, Promise) {
         .string('title', 128)
         .notNullable()
         .unique();
-        notes.string('textBody', 128).notNullable();
-        notes.string('tags').notNullable();
-        notes.integer('_id').unsigned().notNullable();
-        
+        notes.string('textBody', 255).notNullable();
+        notes.string('tags');
+        notes.integer('_id').unsigned();
+        notes.string('image', 255);
         notes.integer('users_id').unsigned();
         notes.foreign('users_id').references('id').on('users');
 

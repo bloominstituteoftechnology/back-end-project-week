@@ -4,14 +4,14 @@ const cors = require('cors');
 const db = require('./data/dbConfig');
 const parser = express.json();
 const server = express();
-//const PORT = 5050;
+
 const logger = require('morgan');
 const helmet = require('helmet');
 //const bcrypt = require('bcryptjs')
 //const session = require('express-session')
-//const listsRouter = require('./routers/listsRouter');
+const listsRouter = require('./routers/listsRouter');
 const notesRouter = require('./routers/notesRouter');
-//const usersRouter = require('./routers/usersRouter')
+const usersRouter = require('./routers/usersRouter')
 //const server = require('./api/server.js');
 server.use(express.json());
 server.use(cors({}));
@@ -19,8 +19,8 @@ server.use(parser);
 server.use(logger('tiny'));
 server.use(helmet());
 server.use('/api/notes', notesRouter);
-//server.use('/api/lists', listsRouter);
-//server.use('/api/users', usersRouter);
+server.use('/api/lists', listsRouter);
+server.use('/api/users', usersRouter);
 /* server.use(session({
     name: 'notsession', // default is connect.sid
     secret: 'nobody tosses a dwarf!',

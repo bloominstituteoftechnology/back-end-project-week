@@ -8,9 +8,9 @@ const sendUserError = (status, msg, res) => {
         .json({ Error: msg });
 };
 
-/************************************ PROJECTS SECTION ***********************************/
+/************************************ NOTES SECTION ***********************************/
 
-/********* Get Projects *************/
+/********* Get Notes *************/
 router.get('/', (req, res) => {
     notes.get()
         .then((notes) => {
@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
         });
 });
 
-/********* Get Single Project *************/
+/********* Get Single Note *************/
 router.get('/:id', (req, res) => {
     const { id } = req.params
     notes.get(id)
@@ -44,7 +44,7 @@ router.get('/:id', (req, res) => {
 });
 
 
-/************* Delete Project *************/
+/************* Delete Note *************/
 router.delete('/:id', (req, res) => {
     const { id } = req.params
 
@@ -67,7 +67,7 @@ router.delete('/:id', (req, res) => {
     }
 });
 
-/********* Update Project *************/
+/********* Update Note *************/
 router.put('/:id', (req, res) => {
     const { id } = req.params
     const newNote = req.body
@@ -109,9 +109,10 @@ router.put('/:id', (req, res) => {
     }
 })
 
-/********* Create New Project *************/
+/********* Create New Note *************/
 router.post('/', (req, res) => {
     const note = req.body;
+    console.log("note:", note)
     if (note.title) {
         notes.insert(note)
             .then(note => {
