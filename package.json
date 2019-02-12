@@ -15,7 +15,7 @@
   },
   "scripts": {
     "server": "nodemon",
-     "start": "test"
+    "start": "test"
   },
   "devDependencies": {
     "nodemon": "^1.18.10",
