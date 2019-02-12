@@ -7,6 +7,7 @@ module.exports = {
     connection: {
       filename: './data/notes_dev.sqlite3'
     },
+    useNullAsDefault: true,
     migrations: {
       directory: "./data/migrations"
     },
@@ -20,6 +21,7 @@ module.exports = {
     connection: {
       filename: './data/test.sqlite3'
     },
+    useNullAsDefault: true,
     migrations: {
       directory: './data/migrations',
     },
