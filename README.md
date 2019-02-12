@@ -12,7 +12,7 @@ You are required to showcase progress with at least 4 commits a day. This will l
 
 ## Trello Set Up
 
-- Use your existing Trello account from the Front End Project, or create a new one.
+-[x] Use your existing Trello account from the Front End Project, or create a new one.
 - Create a new board called "Lambda Notes(Backend) - {Your Name}".
 - Create lists titled `Backlog`,`To do`, `Blocked`, `In Progress`, and `Done`.
 - Fill in the `To do` list with the MVP features listed below.
