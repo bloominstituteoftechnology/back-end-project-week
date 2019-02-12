@@ -11,11 +11,19 @@ describe('The route handlers', () => {
             await db.seed.run();
         });
 
+        const body = {title: 'Coding is fun', description: 'Diandra made me do TDD. SOS', user_id: 3}
+
         it('responds with 201 if body is correct', async () => {
-            const body = {title: 'Coding is fun', description: 'Diandra made me do TDD. SOS', user_id: 3}
             const response = await request(server).post('/').send(body);
 
             expect(response.status).toBe(201);
+            db('notes').truncate();
+        });
+
+        it('responds with the new note id', async () => {
+            const response = await request(server).post('/').send(body);
+
+            expect(response.body[0]).toBeGreaterThan(0);
             db('notes').truncate();
         });
     });
