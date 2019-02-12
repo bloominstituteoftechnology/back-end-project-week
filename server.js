@@ -9,8 +9,8 @@ server.use(express.json());
 
 
 //Get request for all notes
-server.get('/', async(req,res) =>{
-    const notes = await db('games');
+server.get('/notes', async(req,res) =>{
+    const notes = await db('notes');
     try{
         res.status(200).json(notes);
     }catch(err){
@@ -19,9 +19,9 @@ server.get('/', async(req,res) =>{
 });
 
 //Get request for note by id
-server.get('/:id' , (req, res) =>{
+server.get('/notes/:id' , (req, res) =>{
     const {id} = req.params;
-    db('games').where('id', id)
+    db('notes').where('id', id)
         .then(rows =>{
             res.status(200).json(rows);
         })
