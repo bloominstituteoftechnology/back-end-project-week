@@ -14,10 +14,11 @@
     "sqlite3": "^4.0.6"
   },
   "scripts": {
-    "server": "nodemon"
+    "server": "nodemon",
+     "start": "test"
   },
   "devDependencies": {
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.18.10",
+    "supertest": "^3.4.2"
   }
 }
-git 
