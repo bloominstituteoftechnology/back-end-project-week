@@ -2,8 +2,8 @@
 exports.up = function(knex, Promise) {
     return knex.schema.createTable('notes', table => {
         table.increments();
-        table.string('Title').notNullable();
-        table.text('Content');
+        table.string('title').notNullable();
+        table.text('content');
     });
 };
 
