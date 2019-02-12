@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 // App requires:
-
+const notes = require('../data/helpers/noteModel');
 
 /* ---------- Endpoints: ---------- */
 

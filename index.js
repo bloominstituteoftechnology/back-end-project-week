@@ -7,6 +7,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 
 // Route requires:
+const noteRouter = require('./routes/Notes');
 
 // Server:
 const server = express();
@@ -23,7 +24,7 @@ server.use(
 
 
 /* ---------- Routes: ---------- */
-
+server.use('/note', noteRouter);
 
 
 /* ---------- Listener: ---------- */
