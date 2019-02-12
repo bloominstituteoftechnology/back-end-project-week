@@ -29,15 +29,15 @@ You are required to showcase progress with at least 4 commits a day. This will l
 
 We recommend that you finish all the MVP features before trying to deploy.
 
-- Add data persistenc using a Relational Database. We suggest you start with `SQLite3`.
-- Create a Web API for the React application you built in the front-end project week.
-- Build endpoints for each of the following features:
-  - Display a list of notes.
-  - Create a note with a _title_ and _content_.
-  - View an existing note.
-  - Edit an existing note.
-  - Delete an existing note.
-  - Modify your front-end so that it uses your newly created Web API.
+- [ ] Add data persistenc using a Relational Database. We suggest you start with `SQLite3`.
+- [ ] Create a Web API for the React application you built in the front-end project week.
+- [ ] Build endpoints for each of the following features:
+  - [ ] Display a list of notes.
+  - [ ] Create a note with a _title_ and _content_.
+  - [ ] View an existing note.
+  - [ ] Edit an existing note.
+  - [ ] Delete an existing note.
+  - [ ] Modify your front-end so that it uses your newly created Web API.
 
 Upon your first commit, please submit a Pull Request and add _both_ the **Trello Set Up** and **Backend MVP Features** Task lists to your first Pull Request comment.
 
@@ -55,22 +55,22 @@ Additionally, it is recommended that you keep your front end and backend codebas
 
 Once your MVP has been approved, you have been given a feature list that the client would love to have completed. Your goal would be to finish MVP as soon as you can and get working the list of extra features.
 
-- Setup Auto-Deploy on Heroku
-- Provide documentation for how to interface with your api.
-- Add pagination for long lists of notes.
-- Create and display tags that can be added to notes and stored in the Database.
-- Allow users to clone notes.
-- Search functionality.
-- Create a Registration Page that allows users to create accounts for your app and sign in with email/password.
-- Allow users to sign in with a third party service (google, facebook, github, club penguin, etc...)
-- Allow users to create Lists and assign notes to a list.
-- Allow users to attach images to notes.
-- Allow multiple users to collaborate on notes.
-- Add Unit and Integration Tests.
+- [ ] Setup Auto-Deploy on Heroku
+- [ ] Provide documentation for how to interface with your api.
+- [ ] Add pagination for long lists of notes.
+- [ ] Create and display tags that can be added to notes and stored in the Database.
+- [ ] Allow users to clone notes.
+- [ ] Search functionality.
+- [ ] Create a Registration Page that allows users to create accounts for your app and sign in with email/password.
+- [ ] Allow users to sign in with a third party service (google, facebook, github, club penguin, etc...)
+- [ ] Allow users to create Lists and assign notes to a list.
+- [ ] Allow users to attach images to notes.
+- [ ] Allow multiple users to collaborate on notes.
+- [ ] Add Unit and Integration Tests.
 
 ## Super Duper Extra Credit Bonus Features
 
-- Add a payment form integrating with _Stripe_ that allows Users to buy a _"Premium"_ version of Lambda Notes.
-- Gate your favorite feature behind the _premium_ paywall
+- [ ] Add a payment form integrating with _Stripe_ that allows Users to buy a _"Premium"_ version of Lambda Notes.
+- [ ] Gate your favorite feature behind the _premium_ paywall
 
 You will notice that this repository does not have any starter code. This is on purpose. You are to start from scratch using any files you have built throughout your time here at Lambda School as reference.
