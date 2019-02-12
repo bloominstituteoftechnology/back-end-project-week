@@ -5,7 +5,7 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex('notes').insert([
-        {title: 'Hope this note works', noteBody: 'this is a new note test'},
+        { title: 'Test title', note:'Note from thighland' },
       ]);
     });
 };
