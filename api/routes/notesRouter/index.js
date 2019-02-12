@@ -43,8 +43,16 @@ ROUTER.put("/:notesID", async (req, res) => {
   const edittedNote = await DB.getNoteById(id);
   if (count) {
     res.status(202).json({ note: edittedNote });
-  }
+  } else res.status(500).json({ error: "Note not editted, try again later." });
 });
 // DELETE /api/notes/:notesID
-ROUTER.delete("/:notesID", (req, res) => {});
+ROUTER.delete("/:notesID", async (req, res) => {
+  const id = req.params.notesID;
+  const deletedNote = await DB.getNoteById(id);
+  const count = await DB.deleteNote(id);
+
+  if (count) {
+    res.status(202).json(deletedNote);
+  } else res.status(500).json({ error: "Note not deleted, please try again." });
+});
 module.exports = ROUTER;
