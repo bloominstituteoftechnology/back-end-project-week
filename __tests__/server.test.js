@@ -49,4 +49,14 @@ describe('The route handlers', () => {
             expect(typeof response.body).toBe('object');
         });
     });
+
+    describe('Delete /', () => {
+        it('responds with 200', async () => {
+            const params = 1;
+            const response = await request(server).delete('/').send(body);
+
+            expect(response.status).toBe(201);
+            db('notes').truncate();
+        });
+    });
 });
