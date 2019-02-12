@@ -58,7 +58,7 @@ describe('The route handlers', () => {
 
         it('responds with 200', async () => {
             const params = 1;
-            const response = await request(server).delete('/').send(body);
+            const response = await request(server).delete('/').send(params);
 
             expect(response.status).toBe(201);
             db('notes').truncate();
@@ -66,12 +66,17 @@ describe('The route handlers', () => {
 
         it('responds with the number of records removed', async () => {
             const params = 1;
-            const response = await request(server).delete('/').send(body);
+            const response = await request(server).delete('/').send(params);
 
             expect(response.body[0]).toBe(1);
             db('notes').truncate();
         });
 
-        
+        it('responds with 401 when params have missing data', async () => {
+            const params = undefined;
+            const response = await request(server).delete('/').send(params);
+
+            expect(response.status).toBe(401);
+        });
     });
 });
