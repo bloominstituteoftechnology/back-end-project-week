@@ -1,4 +1,5 @@
 const express = require('express');
+require('dotenv').config()
 const server = express();
 const PORT = process.env.port || 5000;
 const helmet = require('helmet');
