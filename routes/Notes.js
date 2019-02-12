@@ -34,7 +34,26 @@ router.get( '/get/:id', (req, res) => {
 });
 
 // POST new note: /note/create
+router.post( '/create', (req, res) => {
+  const newNote = req.body;
+  
+  // CHANGE-THIS: Need to get logged in user's id and add it here.
+  newNote.userId = 1;
 
+  // Check for empty required title & body:
+  if( newNote.title && newNote.textBody ) {
+    notes.insert(newNote)
+      .then( (noteId) => {
+        res.json(noteId);
+      })
+      .catch( (err) => {
+        res.status(500).json({ error: "Could not post new note." });
+      });
+    // end-notes
+  } else {
+    res.status(400).json({ error: "Please provide title and body of the note." });
+  }
+});
 
 // PUT edits single note: /note/edit/id
 
