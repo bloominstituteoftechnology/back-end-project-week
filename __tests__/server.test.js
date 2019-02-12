@@ -9,5 +9,11 @@ describe('The route handlers', () => {
 
             expect(response.status).toBe(200);
         });
+
+        it('responds with an object', async () => {
+            const response = await request(server).get('/');
+
+            expect(typeof response.body).toBe('object');
+        });
     });
 });
