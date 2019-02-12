@@ -1,3 +1,5 @@
+**TRELLO URL** https://trello.com/b/45qy3Rg9/lambda-notesbackend-christopher-ferrell
+
 # Back End Project Week
 
 This week you will build a backend for a note taking app called "Lambda Notes".
