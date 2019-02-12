@@ -1,0 +1,24 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "Lambda Notes(Back end)",
+  "main": "index.js",
+  "scripts": {
+      "server": "nodemon index.js"
+  },
+  "repository": "https://github.com/vy3191/back-end-project-week.git",
+  "author": "vy3191 <venkyafhs@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.16.4",
+    "helmet": "^3.15.1",
+    "jsonwebtoken": "^8.4.0",
+    "knex": "^0.16.3",
+    "morgan": "^1.9.1",
+    "sqlite3": "^4.0.6"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
