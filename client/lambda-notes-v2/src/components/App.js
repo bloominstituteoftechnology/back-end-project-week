@@ -3,8 +3,8 @@ import NavBar from './binder/NavBar';
 import { Route, Switch } from "react-router-dom";
 import NotesList from './binder/NotesList';
 import NoteView from './binder/NoteView';
-//import Edit from './binder/Edit';
-import Delete from './binder/Delete';
+// import Delete from './binder/Delete';
+import Edit from './binder/Edit';
 
 
 import Create from './binder/Create';
@@ -32,9 +32,8 @@ class App extends Component {
               <Route exact path="/" component={NotesList} />
               <Route exact path="/notes/:id" component={NoteView} />
               <Route exact path="/create" component={Create} />
-              {/* <Route exact path="/notes/:id/edit" component={Edit} /> */}
-              <Route exact path="/notes/:id/delete" component={Delete} />
-
+              {/* <Route exact path="/notes/:id/delete" component={Delete} /> */}
+              <Route exact path="/notes/:id/edit" component={Edit} />
             </Switch> 
           </div>         
         </div>  

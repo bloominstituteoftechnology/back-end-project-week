@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {deleteNote} from '../../actions';
-import {fetchData} from '../../actions';
+import {deleteNote, fetchData} from '../../actions';
 import '../App.css';
 
 
 class NoteView extends Component {
     // constructor() {
     //     super()
-    // }
-    
+    // }    
     // componentWillUnmount() {
     //     this.props.fetchData();
     // }
@@ -22,7 +20,6 @@ class NoteView extends Component {
         let title;
         let content;
         this.props.notes.map((note) => {
-            // if (note.id == id) {
             if (note.id === id) {
                 title = note.title;
                 content = note.content;
@@ -35,16 +32,12 @@ class NoteView extends Component {
             <div>
                 <nav>
                     <Link to={`/notes/${id}/edit`}>edit</Link>
-                    {/* <button onClick={this.props.deleteNote(id)}> */}
-                    {/* <button onClick={this.handleClickDelete}>
-                        delete
-                    </button> */}
-                    {/* <a href={this.handleClickDelete}>delete</a> */}
-                    {/* <Link to={`/notes/${id}/delete`}>delete</Link> */}
                     <a href='' onClick={this.handleClickDelete}>delete</a>
                 </nav>
                 <div>
+                    <h3 className='form-section-heading'>Title:</h3>
                     <h2 className="page-title">{title}</h2>
+                    <h3 className='form-section-heading'>Notes:</h3>
                     <p>{content}</p>
                 </div>
             </div>

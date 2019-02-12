@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-// import {saveNewNoteToServer} from '../../actions/index';
 import { connect } from 'react-redux';
 import { addData } from '../../actions/index';
 // import { withRouter } from 'react-router-dom';
@@ -18,6 +17,7 @@ class Create extends Component{
                 <h2 className="page-title">Create Note:</h2>
 
                 <form action="" className="form">
+                    <h3 className='form-section-heading'>Title:</h3>
                     <input
                         className="form-input-title"
                         name="title" 
@@ -26,6 +26,7 @@ class Create extends Component{
                         type="text" 
                         onChange={this.handleInputChange}
                     />
+                    <h3 className='form-section-heading'>Notes:</h3>
                     <input
                         className="form-input-content"
                         name="content" 
@@ -49,26 +50,15 @@ class Create extends Component{
             "title": this.state.title,
             "content": this.state.content
         };
-        console.log('props', this.props)
+        // console.log('props', this.props)
         this.props.addData(newNote);
-        console.log('here', this.state);
+        // console.log('here', this.state);
 
-    }//end of submit
+    }
 
 };
 const mapStateToProps = state => {
     return state;
-  };
-  
-  export default connect(mapStateToProps, { addData })(Create);
-//   export default connect(mapStateToProps, { addData })(Create);
-  
+};
 
-// const mapStateToProps = state => {
-//     console.log('state:',state);
-//     return{
-//         addData: state.addData
-//     }
-// }
-
-// export default connect(mapStateToProps)(Create);
+export default connect(mapStateToProps, { addData })(Create);

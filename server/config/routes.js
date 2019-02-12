@@ -69,27 +69,59 @@ function getNoteById (req, res) {
 {/*===== PUT EDIT note =====*/}
 function editNote (req, res) {
     const { id } = req.params;
-    const { title, content } = req.body;
+    const { title, content, index } = req.body;
     if (!title && !content) {
+        console.log(`editNote - 418 bad request - id:${id}`);
         return res.status(418).json('ERROR: bad request from user').end();
     };
-    db('notes').where({id:id}).then(response => {
-        if (response.length === 0) {
-            return res.status(404).json(`ERROR: id:${id} not found!`).end();
-        };
-        const userInput = { title, content };
-
-        db('notes').where({id:id}).update(userInput).then(response => {
-            if (response === 1) {
-            res.status(200).json(`SUCCESS!: id:${id} updated`);
-            } else {
-                return res.status(501).json(`ERROR: ${response} records changed`).end();
+    db('notes').where({id:id})
+        .then(response => {
+            if (response.length === 0) {
+                console.log(`editNote - 404 not found - id:${id}`);
+                return res.status(404).json(`ERROR: id:${id} not found!`).end();
             };
-        });
-    }).catch(err => {
-        res.status(500).json(err);
-    });  
+
+            const userInput = { title, content };
+            db('notes').where({id:id})
+                .update(userInput)
+                    .then(response => {
+                        if (response === 1) {
+                            console.log(`editNote - 200 OK - id:${id}`);
+
+                            const makeCustomResponse = async() => {
+                                
+                                const getSavedRow = await db.select().from('notes').where({id:id}).then((row) => {
+                                    return row[0]
+                                }).catch(err => {
+                                    console.log(err);
+                                    res.status(205).json({
+                                        message: 'Refresh page. Edit saved, unable to send back updated data.', error: err}).end();
+                                    });
+
+
+                                await res.status(200).json({
+                                    message: `SUCCESS! - updated`,
+                                    id: id,
+                                    savedRow: getSavedRow,
+                                    userSentIndex: index,
+                                    dbResponseCode: response    
+                                    }
+                                );
+                            }
+                            makeCustomResponse();
+
+                        } else {
+                            console.log(`editNote - 501 error - id:${id}`);
+                            return res.status(501).json(`ERROR: ${response} records changed`).end();
+                        };
+                });
+        })
+        .catch(err => {
+            console.log(`editNote - 500 error - id:${id}`);
+            res.status(500).json(err);
+        });  
 };
+
 
 {/*===== DELETE note =====*/}
 function deleteNote (req, res) {

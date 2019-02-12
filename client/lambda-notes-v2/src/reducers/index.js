@@ -14,7 +14,8 @@ import {
     ADD_RETURNED,
     DELETE_CALLED,
     DELETE_RETURNED,
-    // ADD_ETGOHOME
+    EDIT_CALLED,
+    EDIT_RETURNED,
 } from '../actions/index';
 
 
@@ -27,6 +28,8 @@ const initialState = {
     deletingData: false,
     deleteCalled: false,
     deleteReturned: false,
+    editCalled: false,
+    editReturned: false,
     etGoHome: false,
     error: null
 }
@@ -74,16 +77,27 @@ export const fetchReducer = (state = initialState, action) => {
                 addingData: false,
             }
 /**/
+
         case DELETE_CALLED:
             return {...state, deleteCalled: true}
-        // case DELETE_RETURNED:
-        //     return {...state, deleteCalled: false, deleteReturned: true}        
         case DELETE_RETURNED:
             let updatedNotes = state.notes.filter(note => {
                 return note.id !== action.payload.deletedId;
             });
             console.log('notes updated');
-            return {...state, notes: updatedNotes, deleteCalled: false, deleteReturned: true}        
+            return {...state, notes: updatedNotes, deleteReturned: true}   
+            
+        
+        case EDIT_CALLED:
+            return{...state, editCalled: true}
+        case EDIT_RETURNED:
+            let updatedEditNotes = [...state.notes];
+
+            action.payload.dbResponseCode === 1  && state.notes[action.payload.userSentIndex].id === parseInt(action.payload.id, 10) ?
+            updatedEditNotes.splice(action.payload.userSentIndex, 1, action.payload.savedRow) :
+            window.location.reload();
+
+            return{...state, notes: updatedEditNotes, editReturned: true}
 
 
         case SERVER_ERROR:
