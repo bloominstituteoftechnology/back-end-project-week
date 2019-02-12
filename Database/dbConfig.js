@@ -1,10 +1,10 @@
 const knex = require('knex');
-const knexConfig = require('../knexfile');
+const knexConfig = require('../knexfile.js');
 const db = knex(knexConfig.development);
 
 
 
-get = () => {
+getNotes = () => {
     return db('notes');
 }
 
@@ -20,7 +20,7 @@ findByTitle = (title) => {
 
 
 module.exports ={
-    get,
+    getNotes,
     insert,
     findByTitle,
 }

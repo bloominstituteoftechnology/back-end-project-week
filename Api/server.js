@@ -8,9 +8,8 @@ server.use(express.json());
 
 
 
-module.exports = {
-    server,
-}
+module.exports = { server }
+
 
 
 
