@@ -51,6 +51,11 @@ describe('The route handlers', () => {
     });
 
     describe('Delete /', () => {
+        afterEach(async () => {
+            await db('notes').truncate();
+            await db.seed.run();
+        });
+
         it('responds with 200', async () => {
             const params = 1;
             const response = await request(server).delete('/').send(body);
@@ -58,5 +63,15 @@ describe('The route handlers', () => {
             expect(response.status).toBe(201);
             db('notes').truncate();
         });
+
+        it('responds with the number of records removed', async () => {
+            const params = 1;
+            const response = await request(server).delete('/').send(body);
+
+            expect(response.body[0]).toBe(1);
+            db('notes').truncate();
+        });
+
+        
     });
 });
