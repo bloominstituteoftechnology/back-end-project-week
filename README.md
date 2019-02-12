@@ -1,3 +1,6 @@
+Trello Invite: https://trello.com/invite/b/9qBRROzn/e8cab377ae87c38657b409fdcb71b205/lambda-notesbackend-jen-k
+Trello Link: https://trello.com/b/9qBRROzn
+
 # Back End Project Week
 
 This week you will build a backend for a note taking app called "Lambda Notes".
