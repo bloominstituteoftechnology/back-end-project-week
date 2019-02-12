@@ -18,7 +18,7 @@ You are required to showcase progress with at least 4 commits a day. This will l
 - Fill in the `To do` list with the MVP features listed below.
 - Fill in the `backlog` list with all the extra features listed below.
 - Share your board with the project manager that has been assigned to you. If you have not been assigned yet, reach out to your Section Lead for guidance.
-- Add your Trello URL to your project's README.md file. Commit the change, push it to your repository & submit a pull request.
+- Add your Trello URL to your project's README.md file. Commit the change, push it to your repository & submit a pull request: https://trello.com/b/DpPeRCiz/lambda-notesbackend-angelina-la-salle
 
 ## Backend MVP Features:
 
