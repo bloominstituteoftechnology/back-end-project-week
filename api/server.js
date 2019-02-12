@@ -37,7 +37,8 @@ server.post('/api/notes', (req, res) => {
         db('notes').insert(body).then(id => {
           res.status(201).json(id) 
         })
-        .catch( error => { res.status(400).json({error: "Unable to post note"})})
+        .catch( error => { res.status(400).json({error: "Unable to post note"})
+        })
     }    
 })
 
@@ -48,6 +49,17 @@ server.delete('/api/notes/:id', (req, res) => {
     })
     .catch( error => { res.status(400).json({ error: "We were unable to delete the user"})
   })
+})
+
+server.put('/api/notes/:id', (req, res) => {
+    const {id} = req.params
+    const body = req.body
+    db('notes').where({id}).insert(body)
+      .then( content => {
+          res.status(201).json(content)
+      })
+      .catch( error => { res.status(400).json({ error: "there was an error deleting the user"})
+    })
 })
 
 module.exports = {
