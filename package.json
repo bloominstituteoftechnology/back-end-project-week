@@ -1,0 +1,19 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/mglittleton/back-end-project-week.git",
+  "author": "mglittleton <michaelglittleton@gmail.com>",
+  "scripts": {
+    "server": "nodemon"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "knex": "^0.16.3",
+    "sqlite3": "^4.0.6"
+  }
+}
