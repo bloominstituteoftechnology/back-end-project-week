@@ -24,7 +24,7 @@ You are required to showcase progress with at least 4 commits a day. This will l
 
 We recommend that you finish all the MVP features before trying to deploy.
 
-- Add data persistenc using a Relational Database. We suggest you start with `SQLite3`.
+- Add data persistence using a Relational Database. We suggest you start with `SQLite3`.
 - Create a Web API for the React application you built in the front-end project week.
 - Build endpoints for each of the following features:
   - Display a list of notes.
@@ -42,7 +42,7 @@ Upon your first commit, please submit a Pull Request and add _both_ the **Trello
 
 ## Deployment
 
-After your PM certifies that all MVP features are complente, it's time to work on deploying it online for the world to see. We recommend you deploy your server to [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction), and your front end to [netlify](https://www.netlify.com/blog/2016/09/29/a-step-by-step-guide-deploying-on-netlify/). Both services provide free tiers and easy to use interfaces.
+After your PM certifies that all MVP features are completed, it's time to work on deploying it online for the world to see. We recommend you deploy your server to [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction), and your front end to [netlify](https://www.netlify.com/blog/2016/09/29/a-step-by-step-guide-deploying-on-netlify/). Both services provide free tiers and easy to use interfaces.
 
 Additionally, it is recommended that you keep your front end and backend codebases in separate GitHub repositories. This helps with deploying, since the different parts of your application will be deployed on different platforms.
 
