@@ -95,13 +95,18 @@ function editNote (req, res) {
 function deleteNote (req, res) {
     const { id } = req.params;
     db('notes').where({id:id}).then(response => {
+        const deletedId = response[0].id;
         if (response.length === 0) {
-            return res.status(404).json(`ERROR: id:${id} not found!`).end();
+            console.log('deleteNote: 404 NOT FOUND id:', id);
+            throw new Error('id not found');
+            // return res.status(404).json(`ERROR: id:${id} not found!`).end();
         };
         db('notes').where({id:id}).del().then(response => {
-            res.status(202).json(`SUCCESS!: deleted ${response} record (id:${id})`);
+            console.log(`deleteNote: 202 deleted id:${id}`);
+            // res.status(202).json(`SUCCESS!: deleted ${response} record (id:${id})`);
+            res.status(202).json({deletedId:deletedId});
         })
-    }).catch(err => {
-        res.status(500).json(err);
+    }).catch(err => {        
+        res.status(404).json(err);
     }); 
 };

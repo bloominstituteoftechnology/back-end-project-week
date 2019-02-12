@@ -31,7 +31,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={NotesList} />
               <Route exact path="/notes/:id" component={NoteView} />
-              <Route path="/create" component={Create} />
+              <Route exact path="/create" component={Create} />
               {/* <Route exact path="/notes/:id/edit" component={Edit} /> */}
               <Route exact path="/notes/:id/delete" component={Delete} />
 

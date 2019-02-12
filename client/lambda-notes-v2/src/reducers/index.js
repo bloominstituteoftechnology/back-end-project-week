@@ -12,6 +12,8 @@ import {
     SERVER_ERROR,
     ADD_CALLED,
     ADD_RETURNED,
+    DELETE_CALLED,
+    DELETE_RETURNED,
     // ADD_ETGOHOME
 } from '../actions/index';
 
@@ -23,6 +25,8 @@ const initialState = {
     addingData: false,
     updatingData: false,
     deletingData: false,
+    deleteCalled: false,
+    deleteReturned: false,
     etGoHome: false,
     error: null
 }
@@ -70,6 +74,17 @@ export const fetchReducer = (state = initialState, action) => {
                 addingData: false,
             }
 /**/
+        case DELETE_CALLED:
+            return {...state, deleteCalled: true}
+        // case DELETE_RETURNED:
+        //     return {...state, deleteCalled: false, deleteReturned: true}        
+        case DELETE_RETURNED:
+            let updatedNotes = state.notes.filter(note => {
+                return note.id !== action.payload.deletedId;
+            });
+            console.log('notes updated');
+            return {...state, notes: updatedNotes, deleteCalled: false, deleteReturned: true}        
+
 
         case SERVER_ERROR:
             return { ...state, error: action.payload }

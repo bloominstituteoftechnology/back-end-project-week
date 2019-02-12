@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 // import {saveNewNoteToServer} from '../../actions/index';
 import { connect } from 'react-redux';
 import { addData } from '../../actions/index';
+// import { withRouter } from 'react-router-dom';
 
 class Create extends Component{
     constructor() {
@@ -50,6 +51,8 @@ class Create extends Component{
         };
         console.log('props', this.props)
         this.props.addData(newNote);
+        console.log('here', this.state);
+
     }//end of submit
 
 };
@@ -58,6 +61,7 @@ const mapStateToProps = state => {
   };
   
   export default connect(mapStateToProps, { addData })(Create);
+//   export default connect(mapStateToProps, { addData })(Create);
   
 
 // const mapStateToProps = state => {
