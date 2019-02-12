@@ -23,6 +23,19 @@ server.get('/notes', (req, res) => {
     })
 });
 
+server.post('/notes', (req, res) => {
+    const note = req.body;
+    console.log('note info', note)
+    db('notes').insert(note)
+    .then(ids => {
+        res.status(201).json(ids);
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(500).json({err: "Failed to insert note"});
+    })
+})
+
 server.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
 })
