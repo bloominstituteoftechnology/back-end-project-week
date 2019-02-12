@@ -1,0 +1,23 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon",
+    "test": "jest -- watch --verbose"
+  },
+  "repository": "https://github.com/CBMR/back-end-project-week.git",
+  "author": "Abdiel Fernandez <fernandezabdiel@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "knex": "^0.16.3",
+    "sqlite3": "^4.0.6"
+  },
+  "devDependencies": {
+    "jest": "^24.1.0",
+    "nodemon": "^1.18.10",
+    "supertest": "^3.4.2"
+  }
+}
