@@ -6,6 +6,10 @@ const server = express();
 const db = knex(dbConfig.development);
 const PORT = 3000;
 
+// CORS stuff
+const cors = require('cors')
+server.use(cors())
+
 server.use(express.json());  //body parser middleware
 
 server.get('/', (req , res) => {
