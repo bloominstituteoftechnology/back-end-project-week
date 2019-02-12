@@ -62,6 +62,18 @@ server.put('/notes/:id', (req, res) => {
     })
 })
 
+//DELETE existing note
+server.delete('/notes/:id', (req, res) => {
+    const {id} = req.params;
+    db('notes').where('id', id).del()
+    .then(rowCount => {
+        res.status(201).json(rowCount)
+    })
+    .catch(err => {
+        res.status(500).json({err: "Failed to delete Note"})
+    })
+})
+
 server.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
 })
