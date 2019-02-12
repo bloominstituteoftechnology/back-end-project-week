@@ -16,11 +16,22 @@ router.get( '/get/all', (req, res) => {
     .catch( (err) => {
       res.status(500).json({ error: "Note information could not be retrieved." });
     })
-  // end-note
+  // end-notes
 });
 
 // GET single note: /note/get/id
+router.get( '/get/:id', (req, res) => {
+  const { id } = req.params;
 
+  notes.get(id)
+    .then( (note) => {
+      res.json(note);
+    })
+    .catch( (err) => {
+      res.status(500).json({ error: `Note ${id} could not be found.` });
+    });
+  // end-notes
+});
 
 // POST new note: /note/create
 
