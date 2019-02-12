@@ -38,7 +38,7 @@ describe('Checking the GET endpoint for /api/notes', () => {
 * It should send us back the ID of the created object.
 * It should respond with server code 422 (unprocessable entity) when it receives a malformed object from body.
 */
-describe('Checking the POST endpoints for /api/notes', () => {
+describe('Checking the POST endpoint for /api/notes', () => {
     it('Sends back server status code 201', async () => {
         const body = {
             title: 'Testing note #1',
@@ -73,5 +73,28 @@ describe('Checking the POST endpoints for /api/notes', () => {
         const response = await request(server).post('/api/notes').send(body);
         // This will respond with server status code 422 anytime we send a malformed note object.
         expect(response.status).toBe(422);
+    });
+});
+
+/*
+* Testing block for the delete endpoint for /api/notes
+* It should send status 200 when completed.
+* It should respond with a JSON object
+***I want to test this in code. I think it sends back a number of items deleted. Not the ID but I want to code it to send back the ID.
+* It should respond with the ID of the object deleted. 
+* It should send status 404 when an ID cannot be found
+*/
+describe('Checking the delete endpoint for /api/notes', () => {
+    it('Responds with server status 200.', async () => {
+        // Feed the delete some data.
+        const body = {
+            title: 'Testing note #1',
+            content: 'This is a note created during testing. It will auto truncate after each test.'
+        }
+        await request(server).post(body);
+
+        const response = await request(server).delete('/api/notes/1');
+        // Expect this to be status code 200
+        expect(response.status).toBe(200);
     });
 });

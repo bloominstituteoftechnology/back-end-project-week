@@ -27,4 +27,8 @@ server.post('/api/notes', async (req, res) => {
     }
 });
 
+server.delete('/api/notes/:id', async (req, res) => {
+    
+});
+
 module.exports = server;
