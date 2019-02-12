@@ -16,8 +16,7 @@
     "sqlite3": "^4.0.6"
   },
   "scripts": {
-    "server": "nodemon",
-    "start": "test"
+    "server": "nodemon start"
   },
   "devDependencies": {
     "nodemon": "^1.18.10",
