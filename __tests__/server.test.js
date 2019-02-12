@@ -11,9 +11,8 @@ describe('The route handlers', () => {
             await db.seed.run();
         });
 
-        const body = {title: 'Coding is fun', description: 'Diandra made me do TDD. SOS', user_id: 3}
-
         it('responds with 201 if body is correct', async () => {
+            const body = {title: 'Coding is fun', description: 'Diandra made me do TDD. SOS', user_id: 3}
             const response = await request(server).post('/').send(body);
 
             expect(response.status).toBe(201);
@@ -21,9 +20,18 @@ describe('The route handlers', () => {
         });
 
         it('responds with the new note id', async () => {
+            const body = {title: 'Coding is fun', description: 'Diandra made me do TDD. SOS', user_id: 3}
             const response = await request(server).post('/').send(body);
 
             expect(response.body[0]).toBeGreaterThan(0);
+            db('notes').truncate();
+        });
+
+        it('responds with 401 when body is missing data', async () => {
+            const body = { }
+            const response = await request(server).post('/').send(body);
+
+            expect(response.status).toBe(401);
             db('notes').truncate();
         });
     });
