@@ -4,7 +4,7 @@ const DB = require("../../../data/helpers/notes");
 const ROUTER = express.Router();
 
 // GET /api/notes/all
-ROUTER.get("/", async (req, res) => {
+ROUTER.get("/all", async (req, res) => {
   const notes = await DB.getAllNotes();
   return notes
     ? res.json(notes)
@@ -20,7 +20,7 @@ ROUTER.get("/:notesID", async (req, res) => {
     : res.status(404).json({ error: "no note found by that id" });
 });
 // POST /api/notes/
-ROUTER.post("/", async (req, res) => {
+ROUTER.post("/create", async (req, res) => {
   const { newNote } = req.body;
   // check if title and textBody are present
   if (newNote.title && newNote.textBody) {
