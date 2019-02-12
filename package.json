@@ -1,0 +1,13 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/jbrock1981/back-end-project-week.git",
+  "author": "jbrock1981 <jbrock1981@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4",
+    "knex": "^0.16.3",
+    "sqlite3": "^4.0.6"
+  }
+}
