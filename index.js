@@ -8,7 +8,9 @@ const PORT = 3000;
 
 server.use(express.json());  //body parser middleware
 
-
+server.get('/', (req , res) => {
+    res.status(200).json({api: "Lambda Notes Backend!"})
+})
 
 server.get('/notes', (req, res) => {
     db('notes')
