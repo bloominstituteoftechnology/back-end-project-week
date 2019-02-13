@@ -4,5 +4,17 @@
   "main": "index.js",
   "repository": "https://github.com/ericwhitcomb/back-end-project-week.git",
   "author": "Eric Whitcomb <eric.whitcomb@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "knex": "^0.16.3",
+    "sqlite3": "^4.0.6"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "jest": "^24.1.0",
+    "nodemon": "^1.18.10",
+    "supertest": "^3.4.2"
+  }
 }
