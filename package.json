@@ -1,0 +1,8 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ericwhitcomb/back-end-project-week.git",
+  "author": "Eric Whitcomb <eric.whitcomb@gmail.com>",
+  "license": "MIT"
+}
