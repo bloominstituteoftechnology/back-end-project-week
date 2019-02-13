@@ -42,6 +42,19 @@ router.post('/api/notes', (req,res) => {
         });
 });
 
+router.delete('/api/notes/:id', (req,res) => {
+      const {id} = req.params;
+      if(!id) res.status(400).json({msg: `There not note ID`});
+      db.remove(id)
+        .then(noteId => {
+           if(!noteId) res.status(404).json({msg:`There is no note with this ID# ${id}`});
+           res.status(200).json({msg:`Successfully deleted the note with id ${id}`});
+        })
+        .catch(err => {
+           res.status(500).json({msg:`Something went wrong..cannot delete at this time`});
+        });
+});
+
 
 
 
