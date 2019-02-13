@@ -13,7 +13,10 @@ const listsRouter = require('./routers/listsRouter');
 const notesRouter = require('./routers/notesRouter');
 const usersRouter = require('./routers/usersRouter')
 //const server = require('./api/server.js');
+cors = require('./helpers/cors');
 server.use(cors());
+
+//app.use(cors());
 server.use(express.json());
 server.use(parser);
 server.use(logger('tiny'));
