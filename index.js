@@ -39,6 +39,15 @@ server.post("/notes/create", (req, res) => {
     });
 });
 
+server.delete('/notes/delete/:id', (req,res) => {
+  const {id} = req.params;
+  db.deleteNote(id).then(count => {
+    res.json(count)
+  }).catch(err => {
+    res.status(500).send(err)
+  })
+})
+
 server.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
 });
