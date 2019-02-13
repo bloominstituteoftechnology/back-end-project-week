@@ -2,7 +2,7 @@ const PORT = 5566;
 const express = require('express');
 const knex = require('knex');
 
-const dbConfig = require('../knexfile');
+const dbConfig = require('./knexfile')
 
 const server = express();
 const db = knex(dbConfig.development);
@@ -14,16 +14,19 @@ server.get('/', (req, res) => {
 
 server.post('/notes', (req, res) => {
     const note = req.body;
-    db('notes_table').insert(note)
+    db('notes2').insert(note)
     .then(ids => {
+      console.log(`hi`)
+      console.log(note)
       res.status(201).json(ids);
     })
     .catch(err => {
-      res.status(500).json({err: 'Failed to insert note'});
+      res.status(500).json({err});
     });
   });
 
 server.get('/notes/', (req, res) => {
+    console.log(`test in the notes get`)
     db('notes')
     .then(rows => res.json(rows))
     .catch(err => {res.status(500).json({message: `Unable to find notes`})})
