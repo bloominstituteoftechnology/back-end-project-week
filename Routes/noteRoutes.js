@@ -96,12 +96,12 @@ router.delete('/:id', (req, res) => {
             } else {
                 res
                     .status(404)
-                    .json({ error: "The bear with the specified ID does not exist." })
+                    .json({ error: "The note with the specified ID does not exist." })
             }
         }).catch(err => {
             res
                 .status(500)
-                .json({ error: "The bear could not be removed" })
+                .json({ error: "The note could not be removed" })
         })
 });
 
