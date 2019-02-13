@@ -12,10 +12,8 @@ import styled from 'styled-components'
 
 import axios from 'axios';
 
-const Container = styled.div`
-  max-width:1024px;
-  width:100%;
-`
+
+
 
 class App extends Component {
   state = {
@@ -38,13 +36,13 @@ class App extends Component {
   render() {
     return (
       
-      <Container >
+      <div className = 'App'>
         <NavBar/>
         <Route exact path = '/' render = {(props) => < NotesList {...props} notes = {this.state.notes}/>}/>
         <Route exact path = '/create' render = {(props) => < CreateNote {...props}/>}/>
         <Route exact path = '/edit' render = {(props) => < EditNote {...props}/>}/>
         <Route exact path = '/notes/:id' render = {(props) => < ExpandedNote {...props}/>}/>
-      </Container>
+      </div>
     );
   }
 }

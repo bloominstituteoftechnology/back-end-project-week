@@ -1,0 +1,37 @@
+.nav-container{
+    width: 29%;
+    background-color:black;
+    font-family: 'Raleway', sans-serif;
+    
+    
+}
+  
+  .module-button {
+    background: rgb(20, 20, 20);
+    color: white;
+    height: 75px;
+    border-radius:5px;
+    border: 2px solid white;
+    width:75%;
+    display:flex;
+    margin:20px auto;
+  }
+  .nav-header{
+    color:white;
+    margin:20px;
+    font-size:48px;
+    letter-spacing: 10px;
+    margin-bottom:40px;
+    text-align:center;
+  }
+  .nav-button-text{
+    letter-spacing: 6px;
+    font-size:24px;
+      width:50%;
+      margin: 0 auto;
+      padding-top:10px;
+      text-align:center;
+  }
+  .first{
+      padding-top:20px;
+  }

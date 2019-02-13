@@ -1,0 +1,24 @@
+.note-container{
+    color:white;
+    background: rgb(20, 20, 20);
+    border:2px solid white;
+    border-radius:5px;
+    padding: 20px;
+    margin:20px;
+}
+.note-sub-container{
+    width:80%;
+    text-align:center;
+    margin:0 auto;
+
+}
+.note-header{
+    font-size:24px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+
+}
+.note-content{
+    font-size:18px;
+    letter-spacing: 3px;
+}
