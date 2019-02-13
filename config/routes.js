@@ -28,6 +28,7 @@ function getNotes(req, res) {
       res.status(500).json({ message: "No Notes for you!" }, err);
     });
 }
+
 /**
 * GET NOTES BY ID ENDPOINT
 *
@@ -53,3 +54,45 @@ function getNotesById(req, res) {
         res.status(500).json({ message: "Could not get note.", err });
       });
 } 
+
+/**
+* CREATE NOTE ENDPOINT
+*
+* Create a note with title and content.
+*
+* @param {Object} req - Information returned from HTTP request
+* @param {Object} res - HTTP response
+*/
+function createNote(req, res) {
+  const note = req.body;
+    db.insert(note)
+      .into("notes")
+      .then(note => {
+          res.status(201).json(note);
+      })
+      .catch(err => {
+        res.status(500).json({ message: "Error creating a new note.", err });
+      });
+}
+
+/**
+* EDIT NOTE ENDPOINT
+*
+* Edit an existing note.
+*
+* @param {Object} req - Information returned from HTTP request
+* @param {Object} res - HTTP response
+*/
+function editNote(req, res) {
+  const updates = req.body;
+  const { id } = req.params;
+    db("notes")
+      .where({ id })
+      .update(updates)
+      .then(count => {
+          res.status(200).json(`${count} note in the database was updated.`);
+      })
+      .catch(err => {
+        res.status(500).json({ message: "Error editing note." }, err);
+      });
+}  
