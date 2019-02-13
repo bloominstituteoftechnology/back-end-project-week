@@ -75,6 +75,15 @@ describe('The route handlers', () => {
             expect(typeof response.body).toBe('object');
             db('notes').truncate();
         });
+
+        it('responds with 401 if body is missing data', async () => {
+            const body = { }
+
+            const response = await request(server).put('/3').send(body);
+
+            expect(response.status).toBe(401);
+            db('notes').truncate();
+        });
     });
 
     describe('Delete /:id', () => {
