@@ -19,14 +19,25 @@ server.get("/notes", (req, res) => {
 
 server.get("/notes/:id", (req, res) => {
   const { id } = req.params;
-  db.getNotes(id).then(note => {
-    res.json(note)
-  }).catch(err => {
-    res.status(500).send(err)
-  })
+  db.getNotes(id)
+    .then(note => {
+      res.json(note);
+    })
+    .catch(err => {
+      res.status(500).send(err);
+    });
 });
 
-
+server.post("/notes/create", (req, res) => {
+  const note = req.body;
+  db.addNote(note)
+    .then(ids => {
+      res.status(201).json(ids[0])
+    })
+    .catch(err => {
+      res.status(500).send(err);
+    });
+});
 
 server.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
