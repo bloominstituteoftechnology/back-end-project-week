@@ -22,7 +22,7 @@ const addNote = async (req, res) => {
 const getAllNotes = async (req, res) => {
     try {
         const notes = await notesDB.get();
-        res.status(200).send(notes);
+        res.send(notes);
     } catch(e) {
         res.status.send(e);
     }
@@ -33,9 +33,9 @@ const updateNote = async(req, res) => {
     const newNote = req.body;
     newNote.id = id;
 
-    if(note.title && note.description && note.user_id) {
-        const updated = await notesDB.update(id, newNote);
-        res.status(200).json(updated);
+    if(newNote.title && newNote.description && newNote.user_id) {
+        const updated = await notesDB.update(newNote.id, newNote);
+        res.json(updated);
     } else {
         res.status(401).json({ message: 'The note is missing data' });
     }
