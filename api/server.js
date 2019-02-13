@@ -54,7 +54,7 @@ server.delete('/api/notes/:id', (req, res) => {
 server.put('/api/notes/:id', (req, res) => {
     const {id} = req.params
     const body = req.body
-    db('notes').where({id}).insert(body)
+    db('notes').where({id}).update(body)
       .then( content => {
           res.status(201).json(content)
       })
