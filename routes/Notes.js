@@ -81,7 +81,16 @@ router.put( '/edit/:id', (req, res) => {
 });
 
 // DELETE single note: /note/delete/id
+router.delete( '/delete/:id', (req, res) => {
+  const { id } = req.params;
 
+  notes.remove( id )
+    .then( res.json({ success: "Note successfully deleted" }) )
+    .catch( (err) => {
+      res.status(500).json({ error: "Could not delete note." });
+    });
+  // end-notes
+});
 
 
 /* ---------- Export ---------- */
