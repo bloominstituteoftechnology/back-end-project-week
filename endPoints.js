@@ -18,3 +18,4 @@ endpoint.get('/get/all', (req, res) => {
         })
 });
 
+module.exports = endpoint;
