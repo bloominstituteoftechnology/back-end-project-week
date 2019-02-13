@@ -1,0 +1,90 @@
+.edit-note-container{
+    background:linear-gradient(to bottom, #0e1133,rgb(210, 177, 184));
+    width:71%;
+    font-family: 'Raleway', sans-serif;
+}
+.edit-sub-container{
+    width:80%;
+    margin:80px auto;
+}
+
+.edit-header{
+    color:white;
+    font-size: 36px;
+    text-transform: uppercase;
+    letter-spacing: 7px;
+    margin-top:60px;
+    text-align:center;
+}
+
+.form{
+    display:flex;
+    flex-direction:column;
+    
+}
+.title-input{
+   
+    margin: 40px 0px 40px 0px;
+    height:40px;
+
+}
+.content-input{
+    height:160px;
+   
+}
+input[type=text]{
+    background-color:#1F1F1F;
+    color:#746478;
+    font-family: 'Raleway', sans-serif;
+    text-transform: uppercase;
+    font-size:16px;
+    letter-spacing:4px;
+    border-radius:5px;
+    border-color: white;
+    border-style:solid;
+    font-weight:bold;
+}
+::-webkit-input-placeholder {
+    color: #6F6175;
+    text-align:center;
+    
+  }
+  ::-moz-placeholder {
+    color: #6F6175;
+    text-align:center;
+    
+  }
+  :-ms-input-placeholder {
+    color: #6F6175;
+    text-align:center;
+    
+  }
+  ::placeholder {
+    color: #6F6175;
+    text-align:center;
+    
+  }
+
+  .submit-button{
+      width:40%;
+      margin:40px auto;
+      text-align:center;
+      background: rgb(31, 31, 31);
+      color: white;
+      height: 75px;
+      border-radius:5px;
+      border: 2px solid white;
+ }
+ .button-text{
+    letter-spacing: 6px;
+    font-size:24px;
+      width:50%;
+      margin: 0 auto;
+      padding-top:10px;
+      text-align:center;
+      font-weight:bold;
+ }
+  .nav-link{
+    text-decoration:underline;
+    text-decoration-color: #4A415C;
+}
