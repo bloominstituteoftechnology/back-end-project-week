@@ -40,11 +40,26 @@ server.get('/notes/:id', (req, res) => {
 });
 
 server.put('/notes/:id', (req, res) => {
+    const crayon = req.body;
+    const {id} = req.params;
 
+    db('notes2').where('id', id)
+    .then(rowCount => {
+        res.json(rowCount)
+    }).catch(err => {
+        res.status(500).json({message: `Unable to put that note`})
+    })
 });
 
 server.delete('/notes/:id', (req, res) => {
-
+    const {id} = req.params;
+    db('notes2').where('id', id).del()
+    .then(rowCount => {
+        const success = `Successfully deleted note with id ${id}`
+        res.status(201).json(success)
+    }).catch(err => {
+        res.status(500).json({err: 'Failed to delete note'})
+    })
 });
 
 server.listen(PORT, () => {
