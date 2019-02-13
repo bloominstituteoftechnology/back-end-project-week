@@ -5,6 +5,7 @@ exports.up = function (knex, Promise) {
     users.string('name').notNullable();
     users.string('email').notNullable();
     users.string('username').notNullable().unique();
+    users.string('role').notNullable();
   })
 };
 

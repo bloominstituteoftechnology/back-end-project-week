@@ -9,10 +9,11 @@ exports.up = function(knex, Promise) {
     posts.string('category');
     posts.string('userId').notNullable().references('id').inTable('users')
     posts.boolean('completed');
-    posts.boolean('private');
   })
 };
 
 exports.down = function(knex, Promise) {
  return knex.schema.dropTableIfExists('posts'); 
 };
+
+
