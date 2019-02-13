@@ -15,11 +15,11 @@ module.exports = {
 
     insert: function(note) {
         return db('notes').insert(note)
-            .then( ([id]) => get(id))
+            // .then( ([id]) => get(id))
     }
 
     update: function(id, changes) {
         return db('notes').where('id', id).update(changes)
-            .then(notes)
+            // .then(notes)
     }
 }
