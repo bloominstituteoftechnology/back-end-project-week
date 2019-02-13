@@ -1,10 +1,10 @@
 
 exports.up = function(knex, Promise) {
- return knex.schema.createTable('notes', table => {
+ return knex.schema.createTable('users', table => {
   table.increments()
-  table.string('title')
+  table.string('username')
        .notNullable()
-  table.text('body', mediumtext)
+  table.text('password')
        .notNullable()
  })
 };
