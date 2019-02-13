@@ -5,7 +5,7 @@ import NavBar from './NavBar/NavBar';
 import CreateNote from './CreateNote/CreateNote';
 import EditNote from './EditNote/EditNote';
 import NotesList from './NotesList/NotesList';
-import ExpandedNote from './ExpandedNote/ExpendedNote';
+import ExpandedNote from './ExpandedNote/ExpandedNote';
 
 import {Route} from 'react-router-dom';
 import styled from 'styled-components'
