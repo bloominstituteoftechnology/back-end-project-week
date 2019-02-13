@@ -16,11 +16,11 @@ module.exports = {
     return db('notes').insert(note);
   },
 
-  update: (id, newNote) => {
+  update: function(id, newNote) {
     // Edit note and return new note.
     return db('notes').where('noteId', id)
       .update(newNote)
-      .then( ([id]) => this.get(id) );
+      .then( (count) => (count > 0 ? this.get(id) : null) );
   },
 
   remove: (id) => {
