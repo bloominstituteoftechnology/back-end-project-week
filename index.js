@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const cors = require('cors');
+//const cors = require('cors');
 const db = require('./data/dbConfig');
 const parser = express.json();
 const server = express();
@@ -13,7 +13,7 @@ const listsRouter = require('./routers/listsRouter');
 const notesRouter = require('./routers/notesRouter');
 const usersRouter = require('./routers/usersRouter')
 //const server = require('./api/server.js');
-cors = require('./helpers/cors');
+const cors = require('./data/helpers/cors');
 server.use(cors());
 
 //app.use(cors());
