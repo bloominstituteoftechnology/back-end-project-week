@@ -10,3 +10,11 @@ Order:
 - A stretch goal I'd really like to get to is just redoing the entire Front-End to make React less of a scary concept, but we'll... wait and see about that.
 
 - Not sure how I ended up with two `node_modules`. :/
+
+**2/13/19**
+
+Ended up last night, improbably, with two `node modules` and two `package.json` files, which caused a bunch of errors. I tried to fix these with a new migration, which has the annoying effect that I now have to use `notes2` as my db home, which is frustrating and not DRY. 
+
+More broadly, I'm kind of annoyed that I'm not better at debugging yet -- PM had a lot of good suggestions for getting to the bottom of my weird file-hierarchy problem from yesterday, but I wish I'd known about/thought to try those before throwing my arms up and asking for his help. I _guess_ this comes with time?
+
+That aside, I'm pleased to have a CRUD app up and running. Sort of not looking forward to having to dive in and refactor old code. Really tempted to just build the damn thing from the beginning. Will ask PM his thoughts.
