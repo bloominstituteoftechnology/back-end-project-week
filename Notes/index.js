@@ -30,7 +30,13 @@ server.get('/notes/', (req, res) => {
 });
 
 server.get('/notes/:id', (req, res) => {
-
+    const {id} = req.params;
+    db('notes2').where('id', id)
+    .then(rows => {
+        res.json(rows)
+    }).catch(err => {
+        res.status(500).json({message: `Unable to find that note`})
+    })
 });
 
 server.put('/notes/:id', (req, res) => {
