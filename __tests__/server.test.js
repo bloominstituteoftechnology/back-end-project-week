@@ -76,7 +76,7 @@ describe('The route handlers', () => {
             const params = undefined;
             const response = await request(server).delete('/').send(params);
 
-            expect(response.status).toBe(401);
+            expect(response.status).toBe(404);
         });
     });
 });

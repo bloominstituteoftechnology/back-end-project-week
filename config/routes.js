@@ -30,10 +30,6 @@ const addNote = async (req, res) => {
 const deleteNote = async (req, res) => {
     const { id } = req.params;
     
-    try {
-        const deleted = await notesDB.remove(id);
-        res.status(200).json(deleted);
-    } catch(e) {
-        res.status.send(e);
-    }
+    const deleted = await notesDB.remove(id);
+    res.status(200).json(deleted);
 };
