@@ -55,6 +55,27 @@ router.delete('/api/notes/:id', (req,res) => {
         });
 });
 
+router.put('/api/notes/:id', (req,res) => {
+     const {id} = req.params;
+     const note = req.body;
+      if(!note.title) res.status(400).json({msg:`The title is missing`});
+      if(!note.content) res.status(400).json({msg:`The note content is missing`});
+      if(!id) res.status(400).json({msg:`Note ID is missing`});
+      if(!note) res.status(400).json({msg:`Please use a valid note..it is missing`});
+
+      db.update(id, note)
+        .then( count => {
+           if(!count) res.status(404).json({msg:`Invalid note ID`});
+           db.getById(id)
+             .then( note => {
+                res.status(201).json(note);
+             })
+             .catch(err => {
+                res.status(500).json({msg:`Failed to update at this time`});
+             })
+        })
+
+})
 
 
 
