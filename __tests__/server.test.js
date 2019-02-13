@@ -50,7 +50,24 @@ describe('The route handlers', () => {
         });
     });
 
-    describe('Delete /', () => {
+    describe('Put /:id', () => {
+        afterEach(async () => {
+            await db('notes').truncate();
+            await db.seed.run();
+        });
+
+        it('responds with 200', async () => {
+            const body = {title: 'Coding is fun', description: 'Diandra made me do TDD. SOS', user_id: 3};
+            body.id = 3;
+
+            const response = await request(server).put('/3').send(body);
+
+            expect(response.status).toBe(200);
+            db('notes').truncate();
+        });
+    });
+
+    describe('Delete /:id', () => {
         afterEach(async () => {
             await db('notes').truncate();
             await db.seed.run();
@@ -70,7 +87,7 @@ describe('The route handlers', () => {
             db('notes').truncate();
         });
 
-        it('responds with 401 when params have missing data', async () => {
+        it('responds with 404 when params have missing data', async () => {
             const params = undefined;
             const response = await request(server).delete('/').send(params);
 
