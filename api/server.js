@@ -3,12 +3,15 @@ const noteRoutes = require('../Routes/noteRoutes');
 const server = express();
 const logger = require('morgan');
 const helmet = require('helmet');
+const cors = require('cors');
 
+server.disable("etag");
 server.use(express.json());
 server.use(helmet());
+server.use(cors());
 server.use(logger('dev'))
-server.disable("etag");
 
-server.use('', noteRoutes);
+
+server.use('/api/notes', noteRoutes);
 
 module.exports = server;

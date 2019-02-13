@@ -1,4 +1,4 @@
-const db = require('../data/dbConfig.js');
+const db = require('../dbConfig');
 
 getNotes = () => {
     return db('notes')
@@ -18,11 +18,24 @@ getNote = (id) => {
         .where('notes.id', id)
 
 };
+deleteNote = (id) => {
+    return db('notes')
+        .where('notes.id', id)
+        .del()
 
+};
+updateNote = (id, note) => {
+    return db('notes')
+        .where('notes.id', id)
+        .update(note)
+
+};
 
 
 module.exports = {
     getNotes,
     addNote,
-    getNote
+    getNote,
+    deleteNote,
+    updateNote
 }

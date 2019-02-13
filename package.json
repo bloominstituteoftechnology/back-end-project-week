@@ -10,6 +10,7 @@
   "author": "Dewayne87 <dewaynelindsay87@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "helmet": "^3.15.1",
