@@ -1,7 +1,7 @@
 {
   "name": "back-end-project-week",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "repository": "https://github.com/ericwhitcomb/back-end-project-week.git",
   "author": "Eric Whitcomb <eric.whitcomb@gmail.com>",
   "license": "MIT",
@@ -18,7 +18,7 @@
     "supertest": "^3.4.2"
   },
 	"scripts": {
-		"server": "nodemon index.js",
+		"server": "nodemon server.js",
 		"test": "cross-env DB_ENV=test jest --watch --verbose"
 	},
 	"jest": {
