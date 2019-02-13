@@ -2,11 +2,15 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "description": "Backend Project",
-  "main": "index.js",
+  "main": "server.js",
   "repository": "https://github.com/atonymartin20/back-end-project-week.git",
   "author": "Alex Martin <atonymartin20@yahoo.com>",
   "homepage": "https://github.com/LambdaSchool/Sprint-Challenge--Testing#readme",
   "license": "MIT",
+  "scripts": {
+		"test": "cross-env DB_ENV=testing jest --watch --verbose",
+		"start": "nodemon server.js"
+	},
   "dependencies": {
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
