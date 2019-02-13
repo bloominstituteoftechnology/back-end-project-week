@@ -1,5 +1,6 @@
+require('dotenv').config();
 const {server} = require('./Api/server');
-const PORT = 5000;
+const port = process.env.PORT || 5000;
 
 server.get('/api/notes', (req, res) => {
     res.status(200)
@@ -7,6 +8,6 @@ server.get('/api/notes', (req, res) => {
  })
 
 
-server.listen(PORT, () => {
-    console.log(`Server listening on ${PORT}`);
+server.listen(port, () => {
+    console.log(`Server listening on ${port}`);
 })
