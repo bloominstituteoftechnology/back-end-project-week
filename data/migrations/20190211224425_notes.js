@@ -5,6 +5,7 @@ exports.up = function(knex, Promise) {
 
     table.string('title', 255).notNullable();
     table.string('content', 10000).notNullable();
+    table.boolean('completed').notNullable()
     table.timestamp('time_posted', true).defaultTo(knex.fn.now());
   })
 };
