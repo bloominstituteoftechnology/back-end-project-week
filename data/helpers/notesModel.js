@@ -10,7 +10,8 @@ function getNotes() {
 
 function getById(id) {
    return db('notes')
-           .where('id', id);
+           .where('id', id)
+           .first();
 }
 
 function remove(id) {
