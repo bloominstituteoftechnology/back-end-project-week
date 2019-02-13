@@ -1,12 +1,21 @@
+const cl = console.log;
 const express = require("express");
-const knex = require("knex");
 
-const dbConfig = require("./knexfile");
-const db = knex(dbConfig.development);
+const db = require("./middleware/helpers");
 const PORT = 4700;
 const server = express();
 
 server.use(express.json());
+
+server.get("/notes", (req, res) => {
+  db.getNotes()
+    .then(notes => {
+      res.json(notes);
+    })
+    .catch(err => {
+      res.status(500).send(err);
+    });
+});
 
 server.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
