@@ -1,43 +1,39 @@
 // Update with your config settings.
-
+localdbConnector = {
+  client: 'localhost',
+  database: 'notes',
+  user: 'jbrock',
+  password: 'Letmein'
+}
+const dbConnector = process.env.DATABASE_URL || localdbConnector;
 module.exports = {
 
   development: {
     client: 'sqlite3',
     connection: {
       filename: './dev.sqlite3'
-    }
-  },
-
-  staging: {
-    client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
     },
-    pool: {
-      min: 2,
-      max: 10
-    },
+    useNullAsDefault: true,
     migrations: {
-      tableName: 'knex_migrations'
+      directory: './data/Migrations'
+    },
+    seeds: {
+      directory: './data/Seeds'
     }
   },
-
   production: {
     client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
-    },
+    connection: dbConnector,
     pool: {
       min: 2,
       max: 10
     },
     migrations: {
-      tableName: 'knex_migrations'
+      tableName: 'knex_migrations',
+      directory: './data/Migrations'
+    },
+    seeds: {
+      directory: './data/Seeds'
     }
   }
 
