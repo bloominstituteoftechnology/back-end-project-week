@@ -12,5 +12,9 @@ server.get('/', (req,res)=>{
   res.json({server: "is running"});
 })
 
+//Import & Use Router
+const notesRoutes = require('../routers/notesRouter');
+server.use('/api/notes', notesRoutes);
+
 
 module.exports = server;
