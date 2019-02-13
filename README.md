@@ -8,7 +8,7 @@ The main objective of this week is to develop a backend to support the LambdaNot
 
 ## Git Commits
 
-You are required to showcase progress with at least 4 commits a day. This will let your project manager know where you are and if you need help. This also allows the client to get progress reports from the company in a real world setting. This also protects you from losing your work if your computer fails.
+You are required to showcase progress with at least 4 commits a day. This will let your project manager know where you are and if you need help. This also allows the client to get progress reports from the company in a real world setting. This also protects you from losing your work if your computer fails..
 
 ## Trello Set Up
 

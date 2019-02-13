@@ -1,9 +1,10 @@
 const express = require("express");
 const server = express();
+const db=[];
 server.use(express.json());
 
 server.get("/notes", (req, res) => {
-    
+    res.status(200).json(db)
   });
 
 server.get("/notes/:id", (req, res) => {

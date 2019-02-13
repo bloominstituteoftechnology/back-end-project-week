@@ -6,4 +6,13 @@ describe("server.js", () => {
       expect(true).toBeTruthy();
     })
 
+
+
+describe("GET /notes", () =>{
+    it("returns 200 status", async () =>{
+        const response = await request(server).get("/notes");
+        expect(response.status).toEqual(200);
+    })
+})
+
 })
