@@ -20,6 +20,8 @@ ID: *PK
 
 Owner: UserName as Foreign Key: 
 
+content: string (not Nullable)
+
 DateCreated: Check On Formatting
 
 Completed: Boolean 
