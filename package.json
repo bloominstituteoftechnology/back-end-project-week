@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "test": "cross-env DB_ENV=testing jest --watch --verbose"
   },
   "repository": "git@github.com:cferrell2/back-end-project-week.git",
   "author": "cferrell2 <cferrell12182@gmail.com>",
@@ -15,6 +16,11 @@
     "sqlite3": "^4.0.6"
   },
   "devDependencies": {
-    "nodemon": "^1.18.10"
+    "jest": "^24.1.0",
+    "nodemon": "^1.18.10",
+    "supertest": "^3.4.2"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
