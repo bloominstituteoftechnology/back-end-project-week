@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.json({notes: "true"});
+    res.json({notes: []});
 });
 
 module.exports = router;

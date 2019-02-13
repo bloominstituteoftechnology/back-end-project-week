@@ -1,7 +1,7 @@
 const request = require('supertest');
-const app = require('../app');
+const app = require('../../app');
 
-describe('Notes API', () => {
+describe('Root API', () => {
 
     test('responds with 200', async () => {
         const response = await request(app).get("/api");
