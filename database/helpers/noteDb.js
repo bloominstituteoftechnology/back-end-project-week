@@ -7,5 +7,9 @@ module.exports = {
 
     add: function(note) {
         return db('notes').insert(note);
+    },
+
+    remove: function(id) {
+        return db('notes').where('id', id).del();
     }
 }
