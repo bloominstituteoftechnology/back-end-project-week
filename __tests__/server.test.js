@@ -66,15 +66,15 @@ describe('The route handlers', () => {
             db('notes').truncate();
         });
 
-        // it('responds with an object', async () => {
-        //     const body = {title: 'Coding is fun', description: 'Diandra made me do TDD. SOS', user_id: 3};
-        //     body.id = 3;
+        it('responds with an object', async () => {
+            const body = {title: 'Coding is fun', description: 'Diandra made me do TDD. SOS', user_id: 3};
+            body.id = 3;
 
-        //     const response = await request(server).put('/3').send(body);
+            const response = await request(server).put('/3').send(body);
 
-        //     expect(typeof response.body).toBe('object');
-        //     db('notes').truncate();
-        // });
+            expect(typeof response.body).toBe('object');
+            db('notes').truncate();
+        });
 
         it('responds with 401 if body is missing data', async () => {
             const body = { }
