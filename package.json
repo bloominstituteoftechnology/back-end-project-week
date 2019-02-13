@@ -16,5 +16,12 @@
     "jest": "^24.1.0",
     "nodemon": "^1.18.10",
     "supertest": "^3.4.2"
-  }
+  },
+	"scripts": {
+		"server": "nodemon index.js",
+		"test": "cross-env DB_ENV=test jest --watch --verbose"
+	},
+	"jest": {
+		"testEnvironment": "node"
+	}
 }
