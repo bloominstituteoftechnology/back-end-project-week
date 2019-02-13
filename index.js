@@ -13,9 +13,9 @@ const listsRouter = require('./routers/listsRouter');
 const notesRouter = require('./routers/notesRouter');
 const usersRouter = require('./routers/usersRouter')
 //const server = require('./api/server.js');
-//const cors = require('./data/helpers/cors');
-//server.use(cors());
-//"cors": "^2.8.5",
+const cors = require('./data/helpers/cors');
+server.use(cors());
+
 //app.use(cors());
 server.use(express.json());
 server.use(parser);
