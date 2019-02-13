@@ -9,11 +9,15 @@ const app = express();
 app.use(express.json());
 
 app.get("/api/notes", (req, res) => {
-
+    db("notes").then(notes => {
+        res.status(200).json(notes);
+    }).catch(error => {
+        res.status(500).json({ error: "Error retrieving notes", info: error })
+    });
 });
 
 app.post("/api/notes", (req, res) => {
-
+    
 });
 
 app.get("/api/notes/:id", (req, res) => {
