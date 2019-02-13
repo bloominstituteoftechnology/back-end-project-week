@@ -16,8 +16,6 @@ server.post('/notes', (req, res) => {
     const note = req.body;
     db('notes2').insert(note)
     .then(ids => {
-      console.log(`hi`)
-      console.log(note)
       res.status(201).json(ids);
     })
     .catch(err => {
@@ -26,8 +24,7 @@ server.post('/notes', (req, res) => {
   });
 
 server.get('/notes/', (req, res) => {
-    console.log(`test in the notes get`)
-    db('notes')
+    db('notes2')
     .then(rows => res.json(rows))
     .catch(err => {res.status(500).json({message: `Unable to find notes`})})
 });
