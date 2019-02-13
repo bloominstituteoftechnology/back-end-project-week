@@ -1,9 +1,9 @@
 .note-container{
     color:white;
-    background: rgb(20, 20, 20);
+    background: rgb(31, 31, 31);
     border:2px solid white;
     border-radius:5px;
-    padding: 20px;
+    padding-bottom: 20px;
     margin:20px;
 }
 .note-sub-container{
@@ -16,6 +16,10 @@
     font-size:24px;
     letter-spacing: 6px;
     text-transform: uppercase;
+    cursor:pointer;
+    text-decoration:underline;
+    text-decoration-color: #4A415C;
+    color:white;
 
 }
 .note-content{

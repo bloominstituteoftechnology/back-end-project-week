@@ -7,7 +7,7 @@
 }
   
   .module-button {
-    background: rgb(20, 20, 20);
+    background: rgb(31, 31, 31);
     color: white;
     height: 75px;
     border-radius:5px;
@@ -15,6 +15,7 @@
     width:75%;
     display:flex;
     margin:20px auto;
+    cursor:pointer;
   }
   .nav-header{
     color:white;
@@ -34,4 +35,9 @@
   }
   .first{
       padding-top:20px;
+  }
+ 
+  .nav-link{
+      text-decoration:underline;
+      text-decoration-color: #4A415C;
   }

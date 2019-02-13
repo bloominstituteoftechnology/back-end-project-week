@@ -8,16 +8,18 @@ const NavBar = () =>{
             <h1 className = 'nav-header'>LAMBDA NOTES</h1>
             <div className = 'nav-button-container'>
                 <div className = 'module-border-wrap'>
-                    <div className = 'module-button'>
-                       
-                        <h4 className = 'nav-button-text first'>NOTES</h4>
-                    </div>
+                    <NavLink className = 'nav-link' exact to = '/'>
+                        <div className = 'module-button'>
+                            <h4 className = 'nav-button-text first'>NOTES</h4>
+                        </div>
+                    </NavLink>       
                 </div>
                 <div className = 'module-border-wrap'>
-                    <div className = 'module-button'>
-                       
-                        <h4 className = 'nav-button-text'>CREATE NOTE</h4>
-                    </div>
+                    <NavLink className = 'nav-link' exact to = '/create'>
+                        <div className = 'module-button'>
+                            <h4 className = 'nav-button-text'>CREATE NOTE</h4>
+                        </div>
+                    </NavLink>    
                 </div>
             </div>
         </div>
