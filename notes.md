@@ -8,3 +8,5 @@ Order:
 - Basically, need to have a lil CRUD app for your notes that you can play with in Postman.
 - From there, I _think_ it'll just be swapping out the URLS in the Front-End Project Week repo to be my new `localhost` stuff?
 - A stretch goal I'd really like to get to is just redoing the entire Front-End to make React less of a scary concept, but we'll... wait and see about that.
+
+- Not sure how I ended up with two `node_modules`. :/
