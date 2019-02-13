@@ -7,7 +7,7 @@ exports.up = function(knex, Promise) {
     posts.string('lastModified').string();
     posts.string('dueDate');
     posts.string('category');
-    posts.string('owner').notNullable().references('username').inTable('users')
+    posts.string('userId').notNullable().references('id').inTable('users')
     posts.boolean('completed');
     posts.boolean('private');
   })
