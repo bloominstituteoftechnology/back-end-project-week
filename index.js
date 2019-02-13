@@ -48,11 +48,32 @@ server.get('/api/notes/:id', (req, res) => {
 });
 
 server.put('/api/notes/:id', (req, res) => {
+    const { id } = req.params;
+    const noteEdit = req.body;
 
+    if (noteEdit.title && noteEdit.body) {
+        db('notes').where('id', id).update(noteEdit)
+            .then(note => {
+                res.status(200).json('Note has successfully edited!');
+            })
+            .catch(err => {
+                res.status(500).json({ message: 'Failure to edit note' });
+            })
+    } else {
+        res.status(400).json({ message: 'Missing title or body' })
+    };
 });
 
 server.delete('/api/notes/:id', (req, res) => {
+    const { id } = req.params;
 
+    db('notes').where('id', id).del()
+        .then(note => {
+            res.status(201).json('Note has been deleted');
+        })
+        .catch(err => {
+            res.status(500).json({ message: 'Failed to delete note' });
+        })
 });
 
 server.listen(PORT, () => {
