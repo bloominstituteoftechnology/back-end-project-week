@@ -2,10 +2,10 @@
 const notesDB = require('../database/helpers/noteDb');
 
 module.exports = server => {
-    server.get('/', getAllNotes);
-    server.post('/', addNote);
-    server.put('/:id', updateNote);
-    server.delete('/:id', deleteNote);
+    server.get('/note/get/all', getAllNotes);
+    server.post('/note/create', addNote);
+    server.put('/note/edit/:id', updateNote);
+    server.delete('note/delete/:id', deleteNote);
 }
 
 const addNote = async (req, res) => {
