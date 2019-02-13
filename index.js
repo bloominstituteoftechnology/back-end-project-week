@@ -1,7 +1,9 @@
+require("dotenv").config();
+
 const { server } = require("./api/server.js");
 
-const port = 4400;
+const PORT = process.env.PORT || 3500;
 
-server.listen(port, () => {
-    console.log(`\n=== Server listening on port ${port} ===\n`);
+server.listen(PORT, () => {
+  console.log(`\n=== Server listening on port ${PORT} ===\n`);
 });
