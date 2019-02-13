@@ -21,7 +21,6 @@ async function getById(id) {
 }
 
 async function deleteNote(id) {
-    console.log(`delete note id: ${id}`)
     return db('notes').where('id', id).del();
 }
 

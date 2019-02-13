@@ -13,6 +13,22 @@ server.get('/api/notes', async (req, res) => {
     res.status(200).json(notes);
 });
 
+server.get('/api/notes/:id', async (req, res) => {
+    const {id} = req.params;
+    try {
+        const note = await db.getById(id);
+        if (note[0].title && note[0].content) {
+            res.status(200).json(note);
+        }
+        else {
+            //res.status(404).json({errorMessage: `No note found with id: ${id}.`});
+        }
+    }
+    catch(error) {
+        res.status(404).json({errorMessage: `No note found with id: ${id}.`});
+    }
+});
+
 server.post('/api/notes', async (req, res) => {
     const note = req.body;
     // The note api expects both the title and content keys to be on the note object.
@@ -34,8 +50,7 @@ server.put('/api/notes', async (req, res) => {
 });
 
 server.delete('/api/notes/:id', async (req, res) => {
-    const id = req.params.id;
-    console.log(`id: ${id}`)
+    const {id} = req.params;
     const deletedId = await db.deleteNote(id)
     res.status(200).json(deletedId);
 });
