@@ -1,10 +1,12 @@
 const express = require('express');
+const cors = require('cors');
 
 const db = require('../data/helpers');
 
 const server = express();
 
 server.use(express.json());
+server.use(cors());
 
 server.get('/api/notes', async (req, res) => {
     const notes = await db.getAll();
@@ -27,8 +29,15 @@ server.post('/api/notes', async (req, res) => {
     }
 });
 
+server.put('/api/notes', async (req, res) => {
+
+});
+
 server.delete('/api/notes/:id', async (req, res) => {
-    
+    const id = req.params.id;
+    console.log(`id: ${id}`)
+    const deletedId = await db.deleteNote(id)
+    res.status(200).json(deletedId);
 });
 
 module.exports = server;

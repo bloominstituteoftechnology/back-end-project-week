@@ -86,13 +86,6 @@ describe('Checking the POST endpoint for /api/notes', () => {
 */
 describe('Checking the delete endpoint for /api/notes', () => {
     it('Responds with server status 200.', async () => {
-        // Feed the delete some data.
-        const body = {
-            title: 'Testing note #1',
-            content: 'This is a note created during testing. It will auto truncate after each test.'
-        }
-        await request(server).post(body);
-
         const response = await request(server).delete('/api/notes/1');
         // Expect this to be status code 200
         expect(response.status).toBe(200);

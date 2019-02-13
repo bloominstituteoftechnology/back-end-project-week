@@ -12,6 +12,7 @@
     "sqlite": "^3.0.1"
   },
   "devDependencies": {
+    "cors": "^2.8.5",
     "nodemon": "^1.18.10",
     "supertest": "^3.4.2"
   },
