@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "server": "nodemon index.js",
-    "test": "cross-env DB_ENV=testing jest --watch --verbose"
+    "test": "cross-env DB_ENV=testing jest --watch --verbose",
+    "start": "node index.js"
   },
   "repository": "https://github.com/willieino/back-end-project-week.git",
   "author": "<willieino@hotmail.com>",
