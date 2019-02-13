@@ -37,8 +37,8 @@ server.get('/api/notes', (req, res) => {
 
 server.get('/api/notes/:id', (req, res) => {
     const { id } = req.params;
-    console.log(req.params);
-    db('notes').where('id', id)
+
+    db('notes').where({ id })
         .then(note => {
             res.status(200).json(note);
         })
@@ -52,7 +52,7 @@ server.put('/api/notes/:id', (req, res) => {
     const noteEdit = req.body;
 
     if (noteEdit.title && noteEdit.body) {
-        db('notes').where('id', id).update(noteEdit)
+        db('notes').where({ id }).update(noteEdit)
             .then(note => {
                 res.status(200).json('Note has successfully edited!');
             })
@@ -67,7 +67,7 @@ server.put('/api/notes/:id', (req, res) => {
 server.delete('/api/notes/:id', (req, res) => {
     const { id } = req.params;
 
-    db('notes').where('id', id).del()
+    db('notes').where({ id }).del()
         .then(note => {
             res.status(201).json('Note has been deleted');
         })
