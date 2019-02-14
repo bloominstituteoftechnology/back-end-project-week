@@ -1,5 +1,3 @@
-// Update with your config settings.
-
 module.exports = {
 
   development: {
@@ -22,10 +20,10 @@ module.exports = {
     },
     useNullAsDefault: true,
     migrations: {
-      directory: './data/migrations/testing',
+      directory: './data/migrations',
     },
     seeds: {
-      directory: './data/seeds/testing',
+      directory: './data/seeds',
     },
   },
 
