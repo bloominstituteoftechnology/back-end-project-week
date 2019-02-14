@@ -1,12 +1,14 @@
 const cl = console.log;
 const express = require("express");
+// const cors = require('cors')
 const cors = require('./middleware/cors')
+
 
 const db = require("./middleware/helpers");
 const PORT = 4700;
 const server = express();
 
-server.use(express.json(), cors());
+server.use(express.json(), cors);
 
 server.get("/notes", (req, res) => {
   db.getNotes()
