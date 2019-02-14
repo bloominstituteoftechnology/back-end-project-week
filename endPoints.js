@@ -4,7 +4,7 @@ const db = require('./data/dbConfig');
 
 const endpoint = express.Router();
 
-endpoint.get('/notes/all', (req, res) => {
+endpoint.get('/all', (req, res) => {
     db('notes')
         .then(notes => {
             res
@@ -18,10 +18,10 @@ endpoint.get('/notes/all', (req, res) => {
         })
 });
 
-endpoint.get('/notes/:id', (req, res) => {
+endpoint.get('/:id', (req, res) => {
     const { id } = req.params;
-    db
-        .where(id)
+    db('notes')
+        .where({ id: Number(id) })
         .then(note => {
             if (note) {
                 res
