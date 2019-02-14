@@ -4,7 +4,11 @@ const db=[];
 server.use(express.json());
 
 server.get("/notes", (req, res) => {
-    res.status(200).json(db)
+  db('notes').then(id => {
+    res.status(200).json(id); 
+  })
+  .catch(err => { res.status(500).json({err: "there was an error"})
+})
   });
 
 server.get("/notes/:id", (req, res) => {
