@@ -16,17 +16,17 @@ module.exports = {
     }
   },
 
-  production: {
-    client: 'postgresql',
-    connection: process.env.DATABASE_URL,
-    migrations: {
-      directory: './data/migrations'
-    },
-    seeds: {
-      directory: './data/seeds/'
-    },
-    useNullAsDefault: true
-  }
+  // production: {
+  //   client: 'postgresql',
+  //   connection: process.env.DATABASE_URL,
+  //   migrations: {
+  //     directory: './data/migrations'
+  //   },
+  //   seeds: {
+  //     directory: './data/seeds/'
+  //   },
+  //   useNullAsDefault: true
+  // }
 
 };
 
