@@ -51,7 +51,7 @@ function getNotesById(req, res) {
         }
       })
       .catch(err => {
-        res.status(500).json({ message: "Could not get note.", err });
+        res.status(500).json({ message: "Nope!", err });
       });
 } 
 
@@ -71,7 +71,7 @@ function createNote(req, res) {
           res.status(201).json(note);
       })
       .catch(err => {
-        res.status(500).json({ message: "Error creating a new note.", err });
+        res.status(500).json({ message: "You did something wrong.", err });
       });
 }
 
@@ -96,3 +96,24 @@ function editNote(req, res) {
         res.status(500).json({ message: "Error editing note." }, err);
       });
 }  
+
+/**
+* DELETE NOTE ENDPOINT
+*
+* Delete an existing note.
+*
+* @param {Object} req - Information returned from HTTP request
+* @param {Object} res - HTTP response
+*/
+function deleteNote(req, res) {
+  const { id } = req.params;
+    db("notes")
+      .where({ id })
+      .del()
+      .then(count => {
+        res.status(200).json(`${count} Your note was deleted.`);
+      })
+      .catch(err => {
+        res.status(500).json({ message: "Error deleting note. Please try again." }, err);
+    });
+} 
