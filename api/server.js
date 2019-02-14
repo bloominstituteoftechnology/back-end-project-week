@@ -9,6 +9,6 @@ const middleware = [logger('dev'), express.json(), helmet(), cors()]
 server.disable("etag");
 server.use('/', middleware)
 
-server.use('/api/notes', noteRoutes);
+server.use('/notes', noteRoutes);
 
 module.exports = server;

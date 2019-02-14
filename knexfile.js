@@ -6,11 +6,6 @@ module.exports = {
       filename: './data/lambdaNotes.sqlite3'
     },
     useNullAsDefault: true,
-    pool: {
-      afterCreate: (conn, done) => {
-        conn.run('PRAGMA foreign_keys = ON', done);
-      },
-    },
     migrations: {
       directory: './data/migrations'
     },
@@ -24,11 +19,6 @@ module.exports = {
       filename: './data/testNotes.db3',
     },
     useNullAsDefault: true,
-    pool: {
-      afterCreate: (conn, done) => {
-        conn.run('PRAGMA foreign_keys = ON', done);
-      },
-    },
     migrations: {
       directory: './data/migrations',
     },
