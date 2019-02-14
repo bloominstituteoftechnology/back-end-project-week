@@ -16,7 +16,7 @@ router.post('/', (req, res) => {
   .catch((err) => {
    res
     .status(500)
-    .json({error: "Error registering user."})
+    .json({error: err})
   })
 })
 
