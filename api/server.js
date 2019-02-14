@@ -63,6 +63,21 @@ server.post("/api/notes", (req, res) => {
   }
 });
 
+server.put("/api/notes/:id", (req, res) => {
+  const updates = req.body;
+    const { id } = req.params;
+
+    db("notes")
+        .where({ id })
+        .update(updates)
+        .then(count => {
+            res.status(200).json(`${count} note in the database was updated.`);
+        })
+        .catch(err => {
+            res.status(500).json({ message: "Error editing note." }, err);
+        });
+}),
+
 module.exports = {
   server
 };
