@@ -17,7 +17,8 @@
     "supertest": "^3.4.2"
   },
   "scripts": {
-    "start": "nodemon",
+    "start": "node index.js",
+    "server": "nodemon",
     "test": "jest --watch --verbose"
   }
 }
