@@ -33,8 +33,8 @@ server.get('/api/notes', (req, res) =>{
 })
 
 server.post('/api/notes',(req, res) =>{
-  const cohort= req.body
-  db('notes').insert(cohort)
+  const note= req.body
+  db('notes').insert(note)
   .then(id =>{
     res
     .status(201).json({msg:`id ${id} created`})
