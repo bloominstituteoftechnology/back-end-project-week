@@ -20,9 +20,9 @@ module.exports = {
     const options = {
       expiresIn: "1h",
       jwtid: uuid(),
-      role: user.role,
       id: user.id
     };
     return jwt.sign(payload, secret, options);
-  }
+  },
+
 }

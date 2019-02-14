@@ -1,32 +1,31 @@
 const db = require('../dbConfig');
-const dbPosts = db('posts');
 
 module.exports = {
 
   getPostsByUserName: (username) => {
-    let query = dbPosts;
+    let query = db('posts');
     return query
       .where(username, 'username')
   },
 
   getPostsByID: (id) => {
-    return dbPosts
+    return db('posts')
       .where(id, 'id')
   },
 
   insertPost: (post) => {
-    return dbPosts
+    return db('posts')
       .insert(post)
-      .then(ids => ({ id: ids[0] }));
+      
   },
 
   updatePost: (id, post) => {
-    return dbPosts
+    return db('posts')
       .where('id', id)
       .update(post)
   },
   deletePost: (id) => {
-    return dbPosts
+    return db('posts')
       .where('id', id)
       .del();
   }

@@ -1,4 +1,3 @@
-const knex = require('knex');
 const db = require('../dbConfig');
 
 module.exports = {
@@ -9,6 +8,6 @@ module.exports = {
     return db('users').where('username', username).first();
   },
   findByID: (id) => {
-    return select('id','username','role').from('users').where('id', id).first();
+    return db('users').where('id', id).first();
   }
 }
