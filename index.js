@@ -19,7 +19,7 @@ server.post('/api/notes', (req, res) => {
      .catch(err => {message: err});
 })
 
-server.put('/api/notes/:id', (req, res) => {
+server.get('/api/notes/:id', (req, res) => {
     const id = req.params.id;
     db.findById(id).then(noteId => {
         res.status(302).json(noteId);
@@ -34,6 +34,16 @@ server.delete('/api/notes/:id', (req, res) => {
     })
     .catch(err => {message: err})
 })
+
+server.put('/api/notes/:id', (req, res) => {
+    const id = req.params.id;
+    const note = req.body;
+    db.updateNote(id, note).then(updateNote => {
+        res.status(201).json({message: `note with id${id} has been updated`})
+    })
+    .catch(err => {message: err})
+})
+    
 
 
 

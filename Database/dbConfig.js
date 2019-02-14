@@ -21,11 +21,16 @@ removeNote = (id) => {
     return db('notes').where('id', id).del();
 }
 
+updateNote = (id, note) => {
+    return db('notes').where('id', id,).update(note);
+}
+
 
 
 module.exports ={
     getNotes,
     insert,
     findById,
-    removeNote
+    removeNote,
+    updateNote
 }
