@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-		"test": "jest --watch --verbose",
-		"start": "nodemon index.js"
-
-	},
+    "test": "jest --watch --verbose",
+    "start": "nodemon index.js"
+  },
   "repository": "https://github.com/mmeitl/back-end-project-week.git",
   "author": "Matthew Meitl <darksamus6@gmail.com>",
   "license": "MIT",
@@ -19,6 +18,7 @@
     "express": "^4.16.4",
     "knex": "^0.16.3",
     "morgan": "^1.9.1",
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.18.10",
+    "sqlite3": "^4.0.6"
   }
 }
