@@ -10,7 +10,7 @@ getNotes = () => {
 
 
 insert = (note) => {
-    return db('notes').insert(note)
+    return db('notes').insert(note);
 }
 
 findByTitle = (title) => {
