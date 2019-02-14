@@ -1,10 +1,10 @@
 const db = require('../dbConfig.js');
 
-const create = (note) => {
+const insert = (note) => {
 
 };
 
-const read = (id) => {
+const get = (id) => {
 
 };
 
@@ -12,10 +12,10 @@ const update = (id, changes) => {
 
 };
 
-const del = (id) => {
+const remove = (id) => {
 
 };
 
 module.exports = {
-    create, read, update, del
+    insert, get, update, remove
 }
