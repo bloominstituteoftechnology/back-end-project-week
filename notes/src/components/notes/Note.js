@@ -34,8 +34,7 @@ const NoteText = styled.div`
 
 const Container = {
   display: "flex",
-  justifyContent: "right",
-  
+  justifyContent: "right"
 };
 
 const Update = {
@@ -46,37 +45,29 @@ const Update = {
   fontFamily: "Helvetica",
   fontWeight: "light",
   fontSize: "13px",
-  color: 'black'
+  color: "black"
 };
 
 const Title = {
-
   fontFamily: "Helvetica",
   fontWeight: "bolder",
   fontSize: "20px",
-  padding: '10px',
-  paddingLeft: '24px',
-  paddingTop: '40px'
-
+  padding: "10px",
+  paddingLeft: "24px",
+  paddingTop: "40px"
 };
 
 const Text = {
-
   fontFamily: "Helvetica",
   fontWeight: "light",
   fontSize: "10px",
-  paddingTop: '10px'
-  
+  paddingTop: "10px"
 };
 
 const Card = {
-  marginBottom:' 800px',
-  marginLeft:' 40px'
+  marginBottom: " 800px",
+  marginLeft: " 40px"
 };
-
-
-
-
 
 class Note extends Component {
   constructor(props) {
@@ -112,18 +103,16 @@ class Note extends Component {
     return (
       <>
         <div>
-          < div style={Card}>
-          <NoteTitle style={Title} >{this.state.note.title}</NoteTitle>
-          <NoteText style={Text} >{this.state.note.content}</NoteText>
+          <div style={Card}>
+            <NoteTitle style={Title}>{this.state.note.title}</NoteTitle>
+            <NoteText style={Text}>{this.state.note.content}</NoteText>
           </div>
           <DeleteModal
             show={this.state.isOpen}
             onClose={this.toggleModal}
             key={this.state.note.id}
-            note_id={this.state.note.id}
-          >
-          
-          </DeleteModal>
+            note={this.state.note.id}
+          />
         </div>
         <div style={Container}>
           <Link
@@ -133,7 +122,9 @@ class Note extends Component {
             <p style={Update}>edit</p>
           </Link>
 
-          <p style={Update} onClick={this.toggleModal}>delete</p>
+          <p style={Update} onClick={this.toggleModal}>
+            delete
+          </p>
         </div>
       </>
     );

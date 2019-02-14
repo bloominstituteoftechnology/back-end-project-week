@@ -53,7 +53,7 @@ class NoteList extends Component {
     axios
       .get("http://localhost:5000/")
       .then(response => {
-        this.setState(() => ({ notes: response.data }, console.log(response.data)));
+        this.setState(() => ({ notes: response.data }),()=>{console.log(response.data)} );
       })
       .catch(error => {
         console.error("Server Error", error);

@@ -52,13 +52,15 @@ const NoteCard = props => {
       >
         <TextH>{props.note.title}</TextH>
 
-        <Text><LinesEllipsis
-          text={props.note.content}
-          maxLine="6"
-          ellipsis="..."
-          trimRight
-          basedOn="letters"
-        /></Text>
+        <Text>
+          <LinesEllipsis
+            text={props.note.content}
+            maxLine="6"
+            ellipsis="..."
+            trimRight
+            basedOn="letters"
+          />
+        </Text>
       </Link>
     </Notes>
   );

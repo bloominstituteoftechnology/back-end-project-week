@@ -54,23 +54,19 @@ const Form = styled.div`
 `;
 
 const ButtonNoStyle = {
-  background: 'none',
-	color: 'inherit',
-	border: 'none',
-	padding: 0,
-	font: 'inherit',
-	cursor: 'pointer',
-	outline: 'inherit'
-}
-
-const Card = {
-
-  marginBottom:' 500px',
-  marginLeft:' 40px'
+  background: "none",
+  color: "inherit",
+  border: "none",
+  padding: 0,
+  font: "inherit",
+  cursor: "pointer",
+  outline: "inherit"
 };
 
-
-
+const Card = {
+  marginBottom: " 500px",
+  marginLeft: " 40px"
+};
 
 class CreateNote extends Component {
   constructor(props) {
@@ -88,7 +84,7 @@ class CreateNote extends Component {
       content: this.state.content
     };
     axios
-      .post("https://fe-notes.herokuapp.com/note/create", note)
+      .post("http://localhost:5000/create", note)
       .then(response => {
         this.setState(
           {
@@ -113,10 +109,8 @@ class CreateNote extends Component {
 
   render() {
     return (
-      <form  style={Card} onSubmit={this.addNote}>
-        <Title>
-         Create New Note:
-        </Title>
+      <form style={Card} onSubmit={this.addNote}>
+        <Title>Create New Note:</Title>
         <Form>
           {" "}
           <input
@@ -129,19 +123,24 @@ class CreateNote extends Component {
           />
         </Form>
         <Form>
-        <textarea
-          rows="8"
-          cols="80"
-          type="text"
-          name="content"
-          id="content"
-          value={this.state.content}
-          onChange={this.handleChange}
-          placeholder="Note Content"
-        />
-         </Form>
+          <textarea
+            rows="8"
+            cols="80"
+            type="text"
+            name="content"
+            id="content"
+            value={this.state.content}
+            onChange={this.handleChange}
+            placeholder="Note Content"
+          />
+        </Form>
 
-      <Button> <button style={ButtonNoStyle} type="submit">Create</button></Button>
+        <Button>
+          {" "}
+          <button style={ButtonNoStyle} type="submit">
+            Create
+          </button>
+        </Button>
       </form>
     );
   }
