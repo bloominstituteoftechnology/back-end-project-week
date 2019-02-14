@@ -32,5 +32,5 @@ async function update(id, changes) {
   return db('notes')
     .where('id', id)
     .update(changes)
-    .then(count => (count > 0 ? this.get(id): null));
+    .then(count => (count > 0 ? this.findById(id): null));
 }

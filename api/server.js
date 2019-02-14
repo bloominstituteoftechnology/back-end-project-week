@@ -43,7 +43,7 @@ server.get('/note/get/:id', async (req, res) => {
     try {
       const { id } = req.params;
       const note = await notes.findById(id);
-      console.log(note);
+
       if (note.length > 0) {
         res.status(200).json(note)
       } else {
@@ -59,6 +59,18 @@ server.get('/note/get/:id', async (req, res) => {
 // Edit an existing note
 server.put('/note/edit/:id', async (req, res) => {
   try {
+    const noteChanges = req.body;
+    const { id } = req.params;
+    const note = await notes.findById(id);
+    console.log(id);
+
+    if (noteChanges.title && noteChanges.textBody) {
+      const array = await notes.update(id, noteChanges);
+      console.log(array[0]);
+      res.status(200).json(array[0]);
+    } else {
+      res.status(422).json({ error: "Body missing info" });
+    }
 
   } catch (err) {
     res.status(500).json({ error: 'Database go boom' });
