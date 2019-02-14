@@ -24,3 +24,8 @@ That aside, I'm pleased to have a CRUD app up and running. Sort of not looking f
 Talked to PM -- he wants me to make sure my Heroku stuff is working before redoing the front end from the ground up. Didn't ask him about timelines, but generally speaking, I think my Auth sprint (sucessfully wiring up my backend to my front end) plus successful Heroku deployment should _functionally_ count for like, 90% of the work of the back end sprint. 
 
 Feeling pretty good, about to do the Heroku tutorial.
+
+-- 
+
+Feeling... less good, but ultimately accomplished. It took a ton of syntax debugging to get the `process.env.PORT` working. I successfully identified the _cause_ of my non-functioning Heroku deployment, but it took an awful long time for me to figure out what to do in order to make it functional. Still feeling ok about it, though, especially given how far I am toward MVP features.
+
