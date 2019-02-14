@@ -1,6 +1,6 @@
 module.exports = {
 
-  development: {
+  production: {
     client: 'sqlite3',
     connection: {
       filename: './data/lambdaNotes.sqlite3'
