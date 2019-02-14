@@ -2,7 +2,7 @@
 
 **_A blockchain enabled note taking platform_**
 
-Lambda Notes utilizes [Blockstacks's](https://blockstack.org/) innovative technology which allows developers to build dApps (decentralized apps) and users to access them throught the Blockstack browser. With Blockstack, the data generated in an app is owned by the user and privacy, security, and freedom are maintained. Blockstack provides key tools and infrastructure for enabling decentralized storage and decentralized authentication and identity. After logging in using Blockstack's identity verificatiion, the user's notes are stored in decentralized multi-player Gaia storage.
+Lambda Notes utilizes [Blockstacks'](https://blockstack.org/) innovative technology which allows developers to build dApps (decentralized apps) and users to access them throught the Blockstack browser. With Blockstack, the data generated in an app is owned by the user and privacy, security, and freedom are maintained. Blockstack provides key tools and infrastructure for enabling decentralized storage and decentralized authentication and identity. After logging in using Blockstack's identity verificatiion, the user's notes are stored in decentralized multi-player Gaia storage.
 
 ## Team
 
@@ -12,14 +12,15 @@ Lambda Notes utilizes [Blockstacks's](https://blockstack.org/) innovative techno
 
 ## Tech Stack
 
-Lambda Notes utilizes [Heroku](https://www.heroku.com/) and [Netlify](https://www.netlify.com/) for deployment, and is built in full stack JavaScript with a [React.js](https://reactjs.org/) frontend, a [Node.js](https://nodejs.org/en/) and [Express.js](https://expressjs.com/) backend, Blockstack's [Gaia](https://github.com/blockstack/gaia/blob/master/README.md) high-performance decentralized storage system is used to store notes in production, and a [SQLite3](https://www.sqlite.org/index.html) database in development.
+Lambda Notes utilizes [Heroku](https://www.heroku.com/) and [Netlify](https://www.netlify.com/) for deployment, and is built in full stack JavaScript with a [React.js](https://reactjs.org/)/[Redux](https://redux.js.org/) frontend, a [Node.js](https://nodejs.org/en/) and [Express.js](https://expressjs.com/) backend, Blockstack's [Gaia](https://github.com/blockstack/gaia/blob/master/README.md) high-performance decentralized storage system is used to store notes in production, and a [SQLite3](https://www.sqlite.org/index.html) database in development.
 
 ### Rationale
 
 #### Frontend
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/773ad9f7-c5d1-4ac5-8c28-01e19711fa12/deploy-status)](https://app.netlify.com/sites/lambdanotesdev/deploys)
 
-[https://lambdanotesdev.netlify.com](https://lambdanotesdev.netlify.com)
+[https://lambdanotes.app/](https://lambdanotes.app/)
 
 - React
 
@@ -29,7 +30,14 @@ Lambda Notes utilizes [Heroku](https://www.heroku.com/) and [Netlify](https://ww
   - Unidirectional data flow increases app performance and makes debugging easier
   - API friendly library works seamlessly with and is extendable across numerous frameworks to leverage advanced UI development
 
-- Styled Components
+- Redux
+
+  - State is always predictable and immutable.
+  - Redux is strict about organization, therefore easier to maintain.
+  - The of pure reducer functions makes logic easier to test.
+  - Centralized state makes it possible to implement things like logging changes in data or persisting data through page refreshes.
+
+* Styled Components
   - Scopes styles to a component to avoid style leaks
   - Linters will show unused components so they can be removed
   - Source order independence eliminates the need to import files in a certain order
@@ -37,6 +45,7 @@ Lambda Notes utilizes [Heroku](https://www.heroku.com/) and [Netlify](https://ww
   - Passing properties to the component allows for more flexibility
 
 #### Backend
+
 [![Heroku](https://heroku-badge.herokuapp.com/?app=onedrousdev&style=flat)](https://onedrousdev.herokuapp.com)
 
 [https://onedrousdev.herokuapp.com/](https://onedrousdev.herokuapp.com/)
