@@ -38,6 +38,24 @@ endpoint.get('/:id', (req, res) => {
                 .status(500)
                 .json(error);
         }) 
+});
+
+endpoint.post('/new', async (req, res) => {
+    const note = req.body;
+    db.insert(note)
+        .into('notes')
+        .then(note => {
+            res
+                .status(201)
+                .json(note);
+        })
+        .catch(err => {
+            res
+                .status(500)
+                .json({ message: 'could not add note' });
+        })
+        
+
 })
 
 module.exports = endpoint;
