@@ -3,6 +3,8 @@ const {server} = require('./Api/server');
 const db = require('./Database/dbConfig');
 const port = process.env.PORT || 5000;
 
+//gets notes
+
 server.get('/api/notes', (req, res) => {
     db.getNotes().then( notes => {
         res.status(200).json(notes);
@@ -10,6 +12,8 @@ server.get('/api/notes', (req, res) => {
     .catch(err => {message: err});
     
  })
+
+ //posts new notes
 
 server.post('/api/notes', (req, res) => {
     const note = req.body
@@ -19,6 +23,8 @@ server.post('/api/notes', (req, res) => {
      .catch(err => {message: err});
 })
 
+//gets a note by id
+
 server.get('/api/notes/:id', (req, res) => {
     const id = req.params.id;
     db.findById(id).then(noteId => {
@@ -27,6 +33,8 @@ server.get('/api/notes/:id', (req, res) => {
     .catch(err => {message: err})
 })
 
+//deletes note by id
+
 server.delete('/api/notes/:id', (req, res) => {
     const id = req.params.id;
     db.removeNote(id).then(removedNote => {
@@ -34,6 +42,8 @@ server.delete('/api/notes/:id', (req, res) => {
     })
     .catch(err => {message: err})
 })
+
+// updates existing note
 
 server.put('/api/notes/:id', (req, res) => {
     const id = req.params.id;
