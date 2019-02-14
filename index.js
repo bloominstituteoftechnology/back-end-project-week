@@ -1,4 +1,7 @@
 const express = require('express');
+const cors = require('cors');
+const morgan = require('morgan');
+const helmet = require('helmet');
 const knex = require('knex');
 const dbConfig = require('./knexfile.js');
 const db = knex(dbConfig.development);
@@ -6,6 +9,10 @@ const db = knex(dbConfig.development);
 const server = express();
 
 server.use(express.json());
+server.use(cors());
+server.use(morgan());
+server.use(helmet());
+
 
 const PORT = 2200;
 
