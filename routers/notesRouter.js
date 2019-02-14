@@ -6,9 +6,19 @@ const express = require('express');
 const router = express.Router();
 
 //Create Route Handlers
+//GET Route Handler
 router.get('/', (req, res) =>{
-  res.json({msg: "router working!!"})
+  notesDb.getNotes()
+  .then(notes =>{
+    console.log(notes)
+    res.status(200).json(notes)
+  })
+  .catch(err =>{
+    res.status(500).json({error: 'Unable to retrieve notes'})
+  })
 })
+
+
 
 
 //Export Router
