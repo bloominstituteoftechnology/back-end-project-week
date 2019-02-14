@@ -1,11 +1,12 @@
 const cl = console.log;
 const express = require("express");
+const cors = require('cors')
 
 const db = require("./middleware/helpers");
 const PORT = 4700;
 const server = express();
 
-server.use(express.json());
+server.use(express.json(), cors());
 
 server.get("/notes", (req, res) => {
   db.getNotes()
@@ -53,9 +54,12 @@ server.delete("/notes/delete/:id", (req, res) => {
 server.put('/notes/edit/:id', (req, res) => {
   const {id} = req.params;
   const note = req.body;
+  cl(1)
   db.editNote(id, note).then(count => {
+    cl(2)
     if (count) {
       db.getNotes(id).then(note => {
+        cl(3)
         res.json(note)
       }).catch(err => {
         res.status(500).send(err)
