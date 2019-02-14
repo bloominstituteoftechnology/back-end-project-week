@@ -1,5 +1,6 @@
 const express = require("express");
 const server = express();
+const knex = require("knex")
 const dbConfig = require('./knexfile')
 const db = knex(dbConfig.development); 
 server.use(express.json());
@@ -38,10 +39,10 @@ server.post("/notes", (req, res) => {
 server.put("/notes/:id", (req, res) => {
 
   const {id} = req.params
-  const {body} = req.body
+  const  body = req.body
   db('notes').where({id}).update(body)
-    .then( post => {
-        res.status(201).json(post)
+    .then( content => {
+        res.status(201).json(content)
     })
     .catch(err => { res.status(500).json({err: "there was an error"})
   })
