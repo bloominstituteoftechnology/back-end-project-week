@@ -12,13 +12,18 @@ module.exports = {
 
             return Promise.all(promises).then(function (results) {
                 let [note, tags] = results;
+
                 note.tags = tags;
 
                 return note;
             });
         }
 
-        return query.then(notes => {
+        return query.then(async notes => {
+            for (let note of notes) {
+                note.tags = await this.getTags(note.id);
+            }
+
             return notes;
         });
     },
@@ -28,17 +33,28 @@ module.exports = {
             .then(tags => tags.map(t => t.title));
     },
     insert: async function (note) {
-        await this.insertTag(note.tags);
+        let tags;
+        if (note.tags) {
+            tags = note.tags;
+            delete note.tags;
+        }
 
-        delete note.tags;
-
-        return db('notes')
+        const noteId = await db('notes')
             .insert(note)
-            .then(([id]) => this.get(id));
+            .then(async ([id]) => id);
+
+        if (tags) {
+            for (let tag of tags) {
+                await this.insertTag({ title: tag, note_id: noteId });
+            }
+        }
+
+        return this.get(noteId);
+
     },
-    insertTag: function (noteId, tags) {
+    insertTag: function (tag) {
         return db('tags')
-            .insert(tags.map(t => ({ title: t, note_id: noteId })))
+            .insert(tag)
             .then(([id]) => this.get(id));
     },
     update: async function (id, changes) {
