@@ -4,8 +4,6 @@ exports.up = function(knex) {
 
     posts.string('title', 255).notNullable();
     posts.text('contents').notNullable();
-    // posts.text('tags').notNullable();
-
     posts.timestamps(true, true);
   });
 };
