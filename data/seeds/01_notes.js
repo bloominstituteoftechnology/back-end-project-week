@@ -5,9 +5,9 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex('notes').insert([
-        {title: 'title ONE', textBody: 'ONE text text text'},
-        {title: 'title TWO', textBody: 'TWO text text text'},
-        {title: 'title THREE', textBody: 'THREE text text text'}
+        {title: 'ONE', textBody: 'ONE text text text'},
+        {title: 'TWO', textBody: 'TWO text text text'},
+        {title: 'ELEVEN', textBody: 'ELEVEN text text text'}
       ]);
     });
 };
