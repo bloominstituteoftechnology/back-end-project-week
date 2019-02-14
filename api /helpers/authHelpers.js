@@ -9,6 +9,6 @@ module.exports = {
     return db('users').where('username', username).first();
   },
   findByID: (id) => {
-    return db('users').where('id', id).first();
+    return select('id','username','role').from('users').where('id', id).first();
   }
 }
