@@ -51,30 +51,30 @@ class NoteList extends Component {
   }
   componentDidMount() {
     axios
-      .get("https://fe-notes.herokuapp.com/note/get/all")
+      .get("http://localhost:5000/")
       .then(response => {
-        this.setState(() => ({ notes: response.data }));
+        this.setState(() => ({ notes: response.data }, console.log(response.data)));
       })
       .catch(error => {
         console.error("Server Error", error);
       });
   }
-  render() {
+  render()
+   {
     return (
       <div className ="notes">
       <Title>Your Notes:</Title>
         <NoteView>
-      
-        
         {this.state.notes.length < 1 ? (
           <div>No Notes</div>
         ) : (
-          this.state.notes.map(note => <NoteCard key={note._id} note={note} />)
+          this.state.notes.map(note => <NoteCard key={note.id} note={note} />)
         )}
       </NoteView>
       </div>
     );
   }
 }
+
 
 export default NoteList;

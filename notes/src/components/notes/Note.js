@@ -3,7 +3,6 @@ import Moment from "react-moment";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import DeleteModal from "./DeleteModal";
-
 import styled from "styled-components";
 
 const NoteTitle = styled.div`
@@ -115,20 +114,20 @@ class Note extends Component {
         <div>
           < div style={Card}>
           <NoteTitle style={Title} >{this.state.note.title}</NoteTitle>
-          <NoteText style={Text} >{this.state.note.textBody}</NoteText>
+          <NoteText style={Text} >{this.state.note.content}</NoteText>
           </div>
           <DeleteModal
             show={this.state.isOpen}
             onClose={this.toggleModal}
-            key={this.state.note._id}
-            note_id={this.state.note._id}
+            key={this.state.note.id}
+            note_id={this.state.note.id}
           >
           
           </DeleteModal>
         </div>
         <div style={Container}>
           <Link
-            to={`/edit/${this.state.note._id}`}
+            to={`/edit/${this.state.note.id}`}
             style={{ textDecoration: "none" }}
           >
             <p style={Update}>edit</p>

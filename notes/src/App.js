@@ -36,7 +36,7 @@ class App extends Component {
         <Navbar />
         <Switch>
           <Route exact path="/" component={Dashboard} />
-          <Route path="/notes/" component={NoteList} />
+          <Route path="/notes" component={NoteList} />
           <Route
             path="/note/:id"
             render={props => {

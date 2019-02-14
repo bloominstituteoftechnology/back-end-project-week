@@ -77,7 +77,7 @@ class CreateNote extends Component {
     super(props);
     this.state = {
       title: "",
-      textBody: ""
+      content: ""
     };
   }
   ß;
@@ -85,7 +85,7 @@ class CreateNote extends Component {
     event.preventDefault();
     const note = {
       title: this.state.title,
-      textBody: this.state.textBody
+      content: this.state.content
     };
     axios
       .post("https://fe-notes.herokuapp.com/note/create", note)
@@ -103,7 +103,7 @@ class CreateNote extends Component {
 
     this.setState({
       title: "",
-      textBody: ""
+      content: ""
     });
   };
 
@@ -133,9 +133,9 @@ class CreateNote extends Component {
           rows="8"
           cols="80"
           type="text"
-          name="textBody"
-          id="textBody"
-          value={this.state.textBody}
+          name="content"
+          id="content"
+          value={this.state.content}
           onChange={this.handleChange}
           placeholder="Note Content"
         />

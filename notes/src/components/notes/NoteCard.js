@@ -46,14 +46,14 @@ const NoteCard = props => {
   return (
     <Notes>
       <Link
-        to={`/note/${props.note._id}`}
+        to={`/note/${props.note.id}`}
         className="note"
         style={{ textDecoration: "none" }}
       >
         <TextH>{props.note.title}</TextH>
 
         <Text><LinesEllipsis
-          text={props.note.textBody}
+          text={props.note.content}
           maxLine="6"
           ellipsis="..."
           trimRight
