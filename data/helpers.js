@@ -25,5 +25,6 @@ async function deleteNote(id) {
 }
 
 async function editNote(id, note) {
-    return db('notes').where('id', id).update({note})
+    console.log(`id: ${id}`)
+    return db('notes').where('id', id).update({title: note.title, content: note.content})
 }

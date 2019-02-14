@@ -20,11 +20,8 @@ server.get('/api/notes/:id', async (req, res) => {
         if (note[0].title && note[0].content) {
             res.status(200).json(note);
         }
-        else {
-            //res.status(404).json({errorMessage: `No note found with id: ${id}.`});
-        }
     }
-    catch(error) {
+    catch {
         res.status(404).json({errorMessage: `No note found with id: ${id}.`});
     }
 });
@@ -45,14 +42,41 @@ server.post('/api/notes', async (req, res) => {
     }
 });
 
-server.put('/api/notes', async (req, res) => {
-
+server.put('/api/notes/:id', async (req, res) => {
+    const {id} = req.params;
+    const note = req.body;
+    console.log(note.title);
+    if (note.title && note.content) {
+        try {
+            const updatedId = await db.editNote(id, note);
+            console.log(updatedId);
+            res.status(200).json(updatedId);
+        }
+        catch(error) {
+            console.log(error);
+            res.status(404).json({errorMessage: `No note found with id: ${id}.`});
+        }
+    }
+    else {
+        res.status(422).json(
+            {errorMessage: 'This endpoint expects both a title and content in the note object.', 
+            received: note }
+        );
+    }
 });
 
 server.delete('/api/notes/:id', async (req, res) => {
     const {id} = req.params;
-    const deletedId = await db.deleteNote(id)
-    res.status(200).json(deletedId);
+    try {
+        const deletedId = await db.deleteNote(id)
+        if (deletedId !== 0)
+            res.status(200).json(deletedId);
+        else 
+            res.status(404).json({errorMessage: `No note found with id: ${id}.`});
+    }
+    catch {
+        res.status(404).json({errorMessage: `No note found with id: ${id}.`});
+    }
 });
 
 module.exports = server;
