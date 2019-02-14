@@ -36,7 +36,7 @@ server.post('/api/notes', (req, res) => {
 server.get('/api/notes', (req, res) => {
     db.find()
         .then(notes => {
-            if(notes) {
+            if(notes.length > 0) {
                 res.json(notes)
             } else {
                 res.json({ message: "There are currently no notes"})
@@ -52,10 +52,11 @@ server.get('/api/notes/:id', (req, res) => {
     const { id } = req.params;
     db.findById(id)
         .then(note => {
-            if(note) {
+            if(note.length === 1) {
                 res.json(note);
             } else {
-                res.status(404)
+                res
+                    .status(404)
                     .json({ message: 'The note with the specified ID does not exist' })
             }
         })
