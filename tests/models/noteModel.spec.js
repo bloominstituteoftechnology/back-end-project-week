@@ -13,44 +13,62 @@ describe('The Note Model', () => {
             db('notes').truncate();
         });
 
-        test("throws MissingParam when note object not present", () => {
-            noteModel.insert();
-            expect(e.name).toBe('MissingParam')
-            expect(e.message).toBe('note object');
+        test("throws MissingParam when note object not present", async () => {
+            try {
+                await noteModel.insert();
+            } catch (e) {
+                expect(e.name).toBe('MissingParam');
+                expect(e.message).toBe('note object');
+            }
         });
 
-        test("throws TypeError when note is not object", () => {
-            noteModel.insert('Not object');
-            expect(e.name).toBe('TypeError')
-            expect(e.message).toBe('note is not an object');
+        test("throws TypeError when note is not object", async () => {
+            try {
+                await noteModel.insert('Not object');
+            } catch (e) {
+                expect(e.name).toBe('TypeError');
+                expect(e.message).toBe('note is not an object');
+            }
         });
 
-        test("throws MissingKey when 'title' key not present in note object", () => {
-            noteModel.insert({ content: "Content" });
-            expect(e.name).toBe('MissingKey')
-            expect(e.message).toBe('title');
+        test("throws MissingKey when 'title' key not present in note object", async () => {
+            try {
+                await noteModel.insert({ content: "Content" });
+            } catch (e) {
+                expect(e.name).toBe('MissingKey');
+                expect(e.message).toBe('title');
+            }
         });
 
-        test("throws MissingKey when 'content' key not present in note object", () => {
-            noteModel.insert({ title: "Title" });
-            expect(e.name).toBe('MissingKey')
-            expect(e.message).toBe('content');
+        test("throws MissingKey when 'content' key not present in note object", async () => {
+            try {
+                await noteModel.insert({ title: "Title" });
+            } catch (e) {
+                expect(e.name).toBe('MissingKey');
+                expect(e.message).toBe('content');
+            }
         });
 
-        test("throws TypeError when 'title' value is not string", () => {
-            noteModel.insert({ title: 0, content: "Content" });
-            expect(e.name).toBe('TypeError')
-            expect(e.message).toBe("'title' value must be string");
+        test("throws TypeError when 'title' value is not string", async () => {
+            try {
+                await noteModel.insert({ title: 0, content: "Content" });
+            } catch (e) {
+                expect(e.name).toBe('TypeError');
+                expect(e.message).toBe("'title' value must be string");
+            }
         });
 
-        test("throws TypeError when 'content' value is not string", () => {
-            noteModel.insert({ title: "Title", content: 0 });
-            expect(e.name).toBe('TypeError')
-            expect(e.message).toBe("'content' value must be string");
+        test("throws TypeError when 'content' value is not string", async () => {
+            try {
+                await noteModel.insert({ title: "Title", content: 0 });
+            } catch (e) {
+                expect(e.name).toBe('TypeError');
+                expect(e.message).toBe("'content' value must be string");
+            }
         });
 
-        test('returns new note object with id', () => {
-            const note = noteModel.insert({ title: 'Title', content: 'Content' });
+        test('returns new note object with id', async () => {
+            const note = await noteModel.insert({ title: 'Title', content: 'Content' });
             expect(note).toEqual({ id: 1, title: 'Title', content: 'Content' });
         });
 
@@ -96,10 +114,13 @@ describe('The Note Model', () => {
             db('notes').truncate();
         });
 
-        test('throws InvalidID on invalid id', () => {
-            noteModel.get(1);
-            expect(e.name).toBe('InvalidID');
-            expect(e.message).toBe('id does not exist');
+        test('throws InvalidID on invalid id', async () => {
+            try {
+                await noteModel.get(1);
+            } catch (e) {
+                expect(e.name).toBe('InvalidID');
+                expect(e.message).toBe('id does not exist');
+            }
         });
 
         test('returns note object by id', () => {
@@ -122,13 +143,13 @@ describe('The Note Model', () => {
 
         test("throws MissingParam when note object not present", () => {
             noteModel.update();
-            expect(e.name).toBe('MissingParam')
+            expect(e.name).toBe('MissingParam');
             expect(e.message).toBe('note object');
         });
 
         test("throws TypeError when note is not object", () => {
             noteModel.update('Not object');
-            expect(e.name).toBe('TypeError')
+            expect(e.name).toBe('TypeError');
             expect(e.message).toBe('note is not an object');
         });
 
@@ -148,14 +169,14 @@ describe('The Note Model', () => {
         test("throws TypeError when 'title' value is not string", () => {
             noteModel.insert({ title: "Title", content: "Content" });
             noteModel.update({ title: 0 });
-            expect(e.name).toBe('TypeError')
+            expect(e.name).toBe('TypeError');
             expect(e.message).toBe("'title' value must be string");
         });
 
         test("throws TypeError when 'content' value is not string", () => {
             noteModel.insert({ title: "Title", content: "Content" });
             noteModel.update({ content: 0 });
-            expect(e.name).toBe('TypeError')
+            expect(e.name).toBe('TypeError');
             expect(e.message).toBe("'content' value must be string");
         });
 
