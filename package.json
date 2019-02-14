@@ -8,14 +8,16 @@
   "homepage": "https://github.com/LambdaSchool/Sprint-Challenge--Testing#readme",
   "license": "MIT",
   "scripts": {
-		"test": "cross-env DB_ENV=testing jest --watch --verbose",
-		"start": "nodemon server.js"
-	},
+    "test": "cross-env DB_ENV=testing jest --watch --verbose",
+    "start": "nodemon index.js"
+  },
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "helmet": "^3.15.1",
     "knex": "^0.16.3",
+    "loader": "^2.1.1",
     "morgan": "^1.9.1",
     "sqlite3": "^4.0.6"
   },
@@ -26,6 +28,6 @@
     "supertest": "^3.4.2"
   },
   "jest": {
-		"testEnvironment": "node"
-	}
+    "testEnvironment": "node"
+  }
 }
