@@ -10,11 +10,11 @@ const PORT = process.env.PORT || 5566;
 
 server.use(express.json());
 
-server.get('/', (req, res) => {
+server.get('https://cryptic-brook-42672.herokuapp.com/', (req, res) => {
     res.send(`Welcome in the og repo!`)
 })
 
-server.post('/notes', (req, res) => {
+server.post('https://cryptic-brook-42672.herokuapp.com/notes', (req, res) => {
     const note = req.body;
     db('notes2').insert(note)
     .then(ids => {
@@ -25,7 +25,7 @@ server.post('/notes', (req, res) => {
     });
   });
 
-server.get('/notes/', (req, res) => {
+server.get('https://cryptic-brook-42672.herokuapp.com/notes', (req, res) => {
     db('notes2')
     .then(rows => res.json(rows))
     .catch(err => {res.status(500).json({message: `Unable to find notes`})})
@@ -41,8 +41,8 @@ server.get('/notes/:id', (req, res) => {
     })
 });
 
-server.put('/notes/:id', (req, res) => {
-    const crayon = req.body;
+server.put('https://cryptic-brook-42672.herokuapp.com/notes/:id', (req, res) => {
+    const note = req.body;
     const {id} = req.params;
 
     db('notes2').where('id', id)
@@ -53,9 +53,9 @@ server.put('/notes/:id', (req, res) => {
     })
 });
 
-server.delete('/notes/:id', (req, res) => {
+server.delete('https://cryptic-brook-42672.herokuapp.com/notes/:id', (req, res) => {
     const {id} = req.params;
-    db('notes2').where('id', id).del()
+    db('notes2').where('id', id).truncate()
     .then(rowCount => {
         const success = `Successfully deleted note with id ${id}`
         res.status(201).json(success)
