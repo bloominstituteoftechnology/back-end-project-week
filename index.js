@@ -11,10 +11,10 @@ server.use(
  express.json(),
 )
 
-// server.use('/api/login', user-routes)
-// server.use('/api/register', user-router)
+// server.use('/api/login', login-route)
+// server.use('/api/register', register-route)
 // server.use('/api/notes', note-routes)
-
+// server.use('/api/logout', logout-router)
 
 server.listen(port, () => {
  console.log(`Server is now running live on ${port}`)
