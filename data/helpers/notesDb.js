@@ -5,6 +5,11 @@ const notesDb = require('../dbConfig.js');
 module.exports = {
   getNotes: function(){
     return notesDb('notes');
-  }
+  },
+
+  getNotesById: function(id){
+    return notesDb('notes')
+    .where('id', id);
+  },
 }
 

@@ -18,6 +18,22 @@ router.get('/', (req, res) =>{
   })
 })
 
+router.get('/:id', (req, res)=>{
+  const id = req.params.id;
+
+  notesDb.getNotesById(id)
+  .then(note =>{
+    if(note){
+      res.status(200).json(note);
+    }else{
+      res.status(404).json({error: 'The specified note does not exist'})
+    }
+  })
+  .catch(err =>{
+    res.status(500).json({error: 'Unable to retrieve note'})
+  })
+})
+
 
 
 
