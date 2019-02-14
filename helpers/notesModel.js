@@ -1,3 +1,5 @@
+
+//Notes CRUD model
 const db = require('../config/dbConfig')
 
 
@@ -6,27 +8,25 @@ module.exports = {
  fetchAll: () => {
         return db('notes')
     },
- fetchById: (id) => {
+ fetchNote: (id) => {
         return db('notes')
-            .where('id', id)
+            .where({ id })
             .first()
     },
 
- addNote: (note) => {
+ add:  (note) => {
         return db('notes')
             .insert(note)
-            .then(([id]) => this.fetchById(id))
     },
 
- editNote: (id, note) => {
+ update: (id, note) => {
         return db('notes')
-            .where('id', id)
+            .where({ id })
             .update(note)
-            .then(count => (count > 0 ? this.fetchById(id) : null))
     },
- deleteNote: (id) => {
+ remove: (id) => {
         return db('notes')
-            .where('id', id)
+            .where({ id })
             .del()
     }
 
