@@ -1,9 +1,12 @@
 const express = require('express')
 const notes = require('../notes/notesModel')
+const cors = require('cors')
+const moment = require('moment')
 
 const server = express()
 
 server.use(express.json())
+server.use(cors())
 
 server.get('/notes', async (req, res) => {
   try {
@@ -17,7 +20,10 @@ server.get('/notes', async (req, res) => {
 server.get('/note/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    const note = await notes.getNoteByID(id)
+    let note = await notes.getNoteByID(id)
+    note = note[0];
+    const local = moment.utc(note.time_posted).local().format('YYYY-MM-DD hh:mm:ss a')
+    note = {...note, time_posted: local}
     res.status(200).json(note)
   } catch (error) {
     res.status(500).json({failure: 'unable to get the note'})
@@ -32,7 +38,7 @@ server.post('/note/create', async (req, res) => {
       await notes.createNote(req.body)
       res.status(201).json({success: "the note has been added"})
     } catch (error) {
-      res.status(500).json({failure: "unable to create the server"})
+      res.status(500).json({failure: "unable to create the note"})
     }
   } else {
     res.status(422).json({failure: "please add the title or the content"})
