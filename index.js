@@ -6,7 +6,7 @@ const app = express();
 
 app
     .use(bodyParser.json())
-    .use('/notes', notes)
+    .use('/notes', notes);
 
 
 app.listen(5000);
