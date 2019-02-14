@@ -18,7 +18,7 @@ endpoint.get('/notes/all', (req, res) => {
         })
 });
 
-endpoint.get('/:id', (req, res) => {
+endpoint.get('/notes/:id', (req, res) => {
     const { id } = req.params;
     db
         .where(id)
