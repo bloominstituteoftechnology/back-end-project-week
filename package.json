@@ -5,6 +5,7 @@
   "repository": "https://github.com/mglittleton/back-end-project-week.git",
   "author": "mglittleton <michaelglittleton@gmail.com>",
   "scripts": {
+    "start": "node index.js",
     "server": "nodemon"
   },
   "license": "MIT",
