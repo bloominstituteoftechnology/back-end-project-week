@@ -13,7 +13,7 @@ addNote = (note) => {
         )
 };
 
-getNote = (id) => {
+getOneNote = (id) => {
     return db('notes')
         .where('notes.id', id)
 
@@ -35,7 +35,7 @@ updateNote = (id, note) => {
 module.exports = {
     getNotes,
     addNote,
-    getNote,
+    getOneNote,
     deleteNote,
     updateNote
 }

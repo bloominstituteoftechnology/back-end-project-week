@@ -4,13 +4,10 @@ const server = express();
 const logger = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
+const middleware = [logger('dev'), express.json(), helmet(), cors()]
 
 server.disable("etag");
-server.use(express.json());
-server.use(helmet());
-server.use(cors());
-server.use(logger('dev'))
-
+server.use('/', middleware)
 
 server.use('/api/notes', noteRoutes);
 
