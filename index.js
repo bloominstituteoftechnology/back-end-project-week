@@ -1,4 +1,3 @@
-const PORT = 5566;
 const express = require('express');
 const knex = require('knex');
 
@@ -6,10 +5,12 @@ const dbConfig = require('./knexfile')
 
 const server = express();
 const db = knex(dbConfig.development);
+const PORT = process.env.PORT || 5566;
+
 server.use(express.json());
 
 server.get('/', (req, res) => {
-    res.send(`Welcome!`)
+    res.send(`Welcome in the og repo!`)
 })
 
 server.post('/notes', (req, res) => {
@@ -62,6 +63,6 @@ server.delete('/notes/:id', (req, res) => {
     })
 });
 
-server.listen(PORT, () => {
+server.listen(process.env.PORT, () => {
     console.log(`Server is alive, alert, and enthusiastic on port ${PORT}`)
 })
