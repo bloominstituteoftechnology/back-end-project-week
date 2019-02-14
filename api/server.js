@@ -65,19 +65,30 @@ server.post("/api/notes", (req, res) => {
 
 server.put("/api/notes/:id", (req, res) => {
   const updates = req.body;
-    const { id } = req.params;
+  const { id } = req.params;
 
-    db("notes")
-        .where({ id })
-        .update(updates)
-        .then(count => {
-            res.status(200).json(`${count} note in the database was updated.`);
-        })
-        .catch(err => {
-            res.status(500).json({ message: "Error editing note." }, err);
-        });
+  db("notes")
+    .where({ id })
+    .update(updates)
+    .then(count => {
+      res.status(200).json(`${count} note in the database was updated.`);
+    })
+    .catch(err => {
+      res.status(500).json({ message: "Error editing note." }, err);
+    });
 }),
-
-module.exports = {
-  server
-};
+server.delete("/api/notes/:id", (req, res) => {
+   const { id } = req.params;
+  db("notes")
+    .where('id', id)
+    .del()
+    .then(count => {
+      res.status(201).json(`${count} note was deleted from the database.`);
+    })
+    .catch(err => {
+      res.status(500).json({ message: "Error deleting note." }, err);
+    });
+}),
+  module.exports = {
+    server
+  };
