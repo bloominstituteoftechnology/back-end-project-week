@@ -1,29 +1,22 @@
 const db = require('../dbConfig.js');
 
-const get = (id) => {
+const get = async (id) => {
     if (id) {
-    return db('notes').where('id', id)
-        .then(([note]) => {
-            return note;
-        })
+        const note = await db('notes').where('id', id);
+        if (note.length) {
+            return note[0];
+        } else {
+            const e = new Error("id does not exist");
+            e.name = "InvalidID";
+            throw e;
+        }
     }
-    // let query = db('notes as n');
-
-    // if (id) {
-    //     query = query.where('n.id', id).first();
-    // }
-
-    // return query;
-
-    //   return db('notes').where('id', id)
-    //   .then(([note]) => {
-    //       if (note) return note;
-    //       else throw new Error('Invalid: id does not exist');
-    //   })
-
+    
+    const notes = await db('notes');
+    return notes;
 };
 
-const insert = (note) => {
+const insert = async (note) => {
 
     // check for missing note object
     if (typeof note === 'undefined') {
@@ -63,10 +56,9 @@ const insert = (note) => {
         throw e;
     }
 
-    db('notes').insert(note)
-        .then(([id]) => {
-            return get(id);
-        });
+    const ids = await db('notes').insert(note);
+    const n = await get(ids[0]);
+    return n;
 };
 
 const update = (id, changes) => {

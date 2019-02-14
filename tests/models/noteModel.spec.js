@@ -5,12 +5,12 @@ describe('The Note Model', () => {
 
     describe('Insert Note', () => {
 
-        beforeEach(() => {
-            db('notes').truncate();
+        beforeEach(async () => {
+            await db('notes').truncate();
         });
 
-        afterAll(() => {
-            db('notes').truncate();
+        afterAll(async () => {
+            await db('notes').truncate();
         });
 
         test("throws MissingParam when note object not present", async () => {
@@ -76,20 +76,20 @@ describe('The Note Model', () => {
 
     describe('Get All Notes', () => {
 
-        beforeEach(() => {
-            db('notes').truncate();
+        beforeEach(async () => {
+            await db('notes').truncate();
         });
 
-        afterAll(() => {
-            db('notes').truncate();
+        afterAll(async () => {
+            await db('notes').truncate();
         });
 
-        test('returns array of all notes', () => {
-            noteModel.insert({ title: 'Title 1', content: 'Content 1' });
-            noteModel.insert({ title: 'Title 2', content: 'Content 2' });
-            noteModel.insert({ title: 'Title 3', content: 'Content 3' });
+        test('returns array of all notes', async () => {
+            await noteModel.insert({ title: 'Title 1', content: 'Content 1' });
+            await noteModel.insert({ title: 'Title 2', content: 'Content 2' });
+            await noteModel.insert({ title: 'Title 3', content: 'Content 3' });
 
-            const notes = noteModel.get();
+            const notes = await noteModel.get();
             expect(notes).toEqual([
                 { id: 1, title: 'Title 1', content: 'Content 1' },
                 { id: 2, title: 'Title 2', content: 'Content 2' },
@@ -97,8 +97,8 @@ describe('The Note Model', () => {
             ]);
         });
 
-        test('returns empty array', () => {
-            const notes = noteModel.get();
+        test('returns empty array', async () => {
+            const notes = await noteModel.get();
             expect(notes).toEqual([]);
         });
 
@@ -106,12 +106,12 @@ describe('The Note Model', () => {
 
     describe('Get Note by ID', () => {
 
-        beforeEach(() => {
-            db('notes').truncate();
+        beforeEach(async () => {
+            await db('notes').truncate();
         });
 
-        afterAll(() => {
-            db('notes').truncate();
+        afterAll(async () => {
+            await db('notes').truncate();
         });
 
         test('throws InvalidID on invalid id', async () => {
@@ -123,22 +123,25 @@ describe('The Note Model', () => {
             }
         });
 
-        test('returns note object by id', () => {
-            noteModel.insert({ title: "Title", content: "Content" });
-            const note = noteModel.get(1);
-            expect(note).toEqual({ id: 1, title: "Title", content: "Content" });
+        test('returns note object by id', async () => {
+            try {
+                await noteModel.insert({ title: "Title", content: "Content" });
+                const note = await noteModel.get(1);
+            } catch (e) {
+                expect(note).toEqual({ id: 1, title: "Title", content: "Content" });
+            }
         });
 
     });
 
     describe('Update Note', () => {
 
-        beforeEach(() => {
-            db('notes').truncate();
+        beforeEach(async () => {
+            await db('notes').truncate();
         });
 
-        afterAll(() => {
-            db('notes').truncate();
+        afterAll(async () => {
+            await db('notes').truncate();
         });
 
         test("throws MissingParam when note object not present", () => {
