@@ -2,9 +2,13 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
   "repository": "https://github.com/FreeKeyBoy/back-end-project-week.git",
   "author": "Freekeyboy <jjhutton81@gmail.com>",
   "license": "MIT",
+  
   "dependencies": {
     "axios": "^0.18.0",
     "bcrypt": "^3.0.4",
