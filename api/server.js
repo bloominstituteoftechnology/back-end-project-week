@@ -17,6 +17,15 @@ server.get("/note/all", async (req, res) => {
    res.status(200).json(rows);
 });
 
+//get by id
+server.get(`/note/:id`, async (req, res) => {
+   const id = req.params;
+   const response = await notes.findById(id);
+
+   res.status(200).json(response);
+});
+
+//create new note
 server.post("/note/create", async (req, res) => {
    const note = req.body
    if(note.title && note.contents){
