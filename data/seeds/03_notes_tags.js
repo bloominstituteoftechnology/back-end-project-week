@@ -6,8 +6,10 @@ exports.seed = function(knex, Promise) {
       // Inserts seed entries
       return knex('notes_tags').insert([
         {notes_id: 1, tags_id: 1},
-        {notes_id: 2, tags_id: 2},
-        {notes_id: 3, tags_id: 3}
+        {notes_id: 1, tags_id: 2},
+        {notes_id: 2, tags_id: 3},
+        {notes_id: 3, tags_id: 3},
+        {notes_id: 3, tags_id: 4}
       ]);
     });
 };

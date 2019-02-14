@@ -5,9 +5,9 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex('notes').insert([
-        {title: 'ONE', textBody: 'ONE text text text'},
-        {title: 'TWO', textBody: 'TWO text text text'},
-        {title: 'ELEVEN', textBody: 'ELEVEN text text text'}
+        {title: 'Accountant Meeting', textBody: 'Discuss end of year taxes'},
+        {title: 'Oscar Party', textBody: 'Buy snacks, drinks and order pizza'},
+        {title: 'Karaoke Night', textBody: 'No more Oasis songs for wife'}
       ]);
     });
 };

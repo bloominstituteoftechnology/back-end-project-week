@@ -5,9 +5,10 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex('tags').insert([
-        {tagTitle: 'single'},
-        {tagTitle: 'single'},
-        {tagTitle: 'double'}
+        {tagTitle: 'finances'},
+        {tagTitle: 'work'},
+        {tagTitle: 'family'},
+        {tagTitle: 'hobbies'}
       ]);
     });
 };
