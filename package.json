@@ -10,9 +10,8 @@
     "express": "^4.16.4",
     "knex": "^0.16.3",
     "node": "^11.9.0",
-    "sqlite3": "^4.0.6",
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.18.10",
+    "sqlite3": "^4.0.6"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
