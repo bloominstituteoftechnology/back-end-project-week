@@ -3,16 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node"
+    "start": "node index.js"
   },
   "license": "MIT",
   "dependencies": {
     "express": "^4.16.4",
     "knex": "^0.16.3",
     "node": "^11.9.0",
-    "sqlite3": "^4.0.6"
+    "sqlite3": "^4.0.6",
+    "nodemon": "^1.18.10"
   },
   "devDependencies": {
-    "nodemon": "^1.18.10"
   }
 }

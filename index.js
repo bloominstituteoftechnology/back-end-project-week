@@ -7,6 +7,7 @@ const server = express();
 const db = knex(dbConfig.development);
 const PORT = process.env.PORT || 5566;
 
+
 server.use(express.json());
 
 server.get('/', (req, res) => {
@@ -63,6 +64,6 @@ server.delete('/notes/:id', (req, res) => {
     })
 });
 
-server.listen(process.env.PORT, () => {
+server.listen(process.env.PORT , () => {
     console.log(`Server is alive, alert, and enthusiastic on port ${PORT}`)
 })
