@@ -1,6 +1,9 @@
 {
   "name": "back-end-project-week",
   "version": "1.0.0",
+  "engines": {
+    "node": "10.11.0"
+  },
   "main": "index.js",
   "repository": "https://github.com/fivegoblins/back-end-project-week.git",
   "author": "Alexandra <alexswartz9753@gmail.com>",
