@@ -24,7 +24,7 @@ describe('server /api/notes', () =>{
     })
   })
 
-  describe('GET /api/notes/:id', () =>{
+  describe.skip('GET /api/notes/:id', () =>{
     it('should return status code 200', async ()=>{
       const id = 1;
       const response = await request(server).get(`/api/notes/${id}`);
@@ -43,6 +43,24 @@ describe('server /api/notes', () =>{
     })
   })
   
+  describe('POST /api/notes', () =>{
+    it('should return status code 201', async ()=>{
+      const note = {title: 'Test 3', content: 'test note 3'};
+      const response = await request(server).post(`/api/notes`).send(note);
+      expect(response.status).toBe(201);
+    })
+    it('should return JSON format', async ()=>{
+      const note = {title: 'Test 4', content: 'test note 4'};
+      const response = await request(server).post(`/api/notes`).send(note);
+      expect(response.type).toBe('application/json');
+    })
+    it('should return the id of the new note', async () =>{
+      const note = {title: 'Test 5', content: 'test note 5'};
+      const response = await request(server).post(`/api/notes`).send(note);
+      const expected = JSON.parse(response.text);
+      expect(response.body).toEqual(expected);
+    })
+  })
 
 
 })
