@@ -6,6 +6,7 @@ import NoteView from './Components/Views/NoteView';
 import NotesView from './Components/Views/NotesView';
 import CreateNoteView from './Components/Views/CreateNoteView';
 import EditNoteView from './Components/Views/EditNoteView';
+import './server.js';
 
 class App extends Component {
 	render() {
