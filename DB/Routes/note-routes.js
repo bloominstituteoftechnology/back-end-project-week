@@ -4,15 +4,15 @@ const noteDB = require('../DB-Functions/Note-Functions')
 
 
 router.get('/', (req, res) => {
- noteDB('notes')
+ noteDB.pull()
   .then()
   .catch(() => {
    
   })
 })
 
-router.get('/', (req, res) => {
- noteDB('notes')
+router.get('/:id', (req, res) => {
+ noteDB.pullById()
   .then()
   .catch(() => {
    
@@ -20,23 +20,23 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
- noteDB('notes')
+ noteDB.place()
   .then()
   .catch(() => {
    
   })
 })
 
-router.put('/', (req, res) => {
- noteDB('notes')
+router.put('/:id', (req, res) => {
+ noteDB.alter()
   .then()
   .catch(() => {
    
   })
 })
 
-router.delete('/', (req, res) => {
- noteDB('notes')
+router.delete('/:id', (req, res) => {
+ noteDB.clear()
   .then()
   .catch(() => {
    

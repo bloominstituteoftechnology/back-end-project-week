@@ -4,22 +4,29 @@ const DB = knex(config.development)
 
 module.exports = {
  pull: () => {
-
+  return DB('notes')
  },
 
- pullById: () => {
-
+ pullById: (id) => {
+  return DB('notes')
+           .where({id: id})
  },
 
- place: () => {
-
+ place: (note) => {
+  return DB('notes')
+           .insert(note)
+           .then((ids) => ({id: ids[0]}))
  },
 
- alter: () => {
-
+ alter: (id, note) => {
+  return DB('notes')
+           .where({id: id})
+           .update(note)
  },
 
- clear: () => {
-  
+ clear: (id) => {
+  return DB('notes')
+           .where({id: id})
+           .del()
  }
 }
