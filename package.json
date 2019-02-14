@@ -4,7 +4,8 @@
   "description": "Trello Link: https://trello.com/b/OX4kMOli/project-week-backend",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,14 @@
   "bugs": {
     "url": "https://github.com/kybak/back-end-project-week/issues"
   },
-  "homepage": "https://github.com/kybak/back-end-project-week#readme"
+  "homepage": "https://github.com/kybak/back-end-project-week#readme",
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+"express": "^4.16.4",
+"knex": "^0.16.3",
+"sqlite3": "^4.0.6"
+  }
 }
