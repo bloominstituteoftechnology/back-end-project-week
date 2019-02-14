@@ -1,13 +1,2 @@
-// Add database handling
-const sqlite = require("sqlite3");
-const express = require("express");
-const server = express();
-
-// Connect to database
-const CONNECTION = sqlite.createConnection({
-	host: "localhost",
-	user: "dev",
-	password: "password123",
-	database: "lambdaNotes.db"
-});
-
+const sqlite3 = require('sqlite3').verbose();
+let db = new sqlite3.Database(':memory:');
