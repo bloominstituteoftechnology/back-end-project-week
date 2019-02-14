@@ -19,7 +19,7 @@ server.get("/note/all", async (req, res) => {
 
 server.post("/note/create", async (req, res) => {
    const note = req.body
-   if(note.title && note.content){
+   if(note.title && note.contents){
       const ids = await notes.insert(note);
       res.status(201).json(ids)
    } else {

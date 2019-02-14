@@ -53,33 +53,64 @@ describe("the route handlers", () => {
             }]);
       });
    });
-   describe("post /create", () => {
+   describe("get /note/:id", () => {
+      it("responds with 200 when id exists", async () => {
+         const id = 1;
+         const response = await request(server).get(`/note/${id}`);
+         expect(response.status).toBe(200);
+      });
+      it("responds with json", async () => {
+         const id = 1;
+         const response = await request(server).get(`/note/${id}`);
+
+         expect(response.type).toMatch(/json/i);
+      });
+      it("sends the correct response", async () => {
+         const id = 1;
+         const response = await request(server).get(`/note/${id}`);
+
+         expect(response.body).toEqual([{
+            "author": "Lambda School",
+            "contents": "This is lambda!",
+            "id": 1,
+            "title": "Welcome",
+         }]);
+      })
+   });
+   describe.skip("post /note/create", () => {
       it("response with 201 when body is correct", async () => {
-         db("notes").truncate();
          const body = {
             title: "Welcome",
-            content: "welcome to lambda school"
+            contents: "welcome to lambda school"
          };
          const response = await request(server).post("/note/create").send(body);
 
          expect(response.status).toBe(201);
+         async () => {
+            await db("notes").truncate();
+         }
       });
       it("responds with 422 when body is missing", async () => {
-         db("notes").truncate();
          const body = {};
          const response = await request(server).post("/note/create").send(body);
 
          expect(response.type).toMatch(/json/i);
          expect(response.status).toBe(422);
+         async () => {
+            await db("notes").truncate();
+         }
       });
       it("response with array containing new id", async () => {
          const body = {
             title: "Welcome",
-            content: "welcome to lambda school"
+            contents: "welcome to lambda school"
          };
          const response = await request(server).post("/note/create").send(body);
 
          expect(response.body.length).toBe(1);
+         async () => {
+            await db("notes").truncate();
+         }
       })
    });
 });
