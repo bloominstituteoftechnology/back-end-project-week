@@ -13,8 +13,12 @@ insert = (note) => {
     return db('notes').insert(note);
 }
 
-findByTitle = (title) => {
-    return db('notes').where('title', title).first()
+findById = (id) => {
+    return db('notes').where('id', id).first();
+}
+
+removeNote = (id) => {
+    return db('notes').where('id', id).del();
 }
 
 
@@ -22,5 +26,6 @@ findByTitle = (title) => {
 module.exports ={
     getNotes,
     insert,
-    findByTitle,
+    findById,
+    removeNote
 }
