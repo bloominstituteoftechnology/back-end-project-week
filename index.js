@@ -1,8 +1,10 @@
 const express = require('express');
 const server = express();
 const db = require('./data/dbHelpers');
+const cors = require('cors');
 
 server.use(express.json());
+server.use(cors());
 
 const PORT = 5050
 

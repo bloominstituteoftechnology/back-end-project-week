@@ -9,6 +9,7 @@
   "author": "Phinehas <kohler.nai@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "knex": "^0.16.3",
     "sqlite3": "^4.0.6"
