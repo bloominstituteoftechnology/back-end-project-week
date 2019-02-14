@@ -4,8 +4,11 @@ const bcrypt = require('bcryptjs')
 const userDB = require('../DB-Functions/User-Functions')
 
 router.post('/', (req, res) => {
- userDB.register()
-  .then()
+ const user = req.body
+ userDB.register(user)
+  .then(() => {
+   
+  })
   .catch((err) => {
    
   })
