@@ -54,4 +54,22 @@ module.exports = {
             .where('id', id)
             .del();
     },
+
+    findByUsername: function (username) {
+        return db('users').where('username', username).first();
+    },
+
+    findById: function (id) {
+        return db('users').where('id', id).first();
+    },
+
+    findUsers: function () {
+        return db('users').select('id', 'username');
+    },
+
+    find: function () {
+        return db('users').select('id', 'username');
+    }
+
 };
+

@@ -1,12 +1,36 @@
 const express = require('express');
 const router = express.Router();
 const users = require('../data/helpers/usersModel')
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken');
 
 const sendUserError = (status, msg, res) => {
     res
         .status(status)
         .json({ Error: msg });
 };
+
+function protect(req, res, next) {
+    const token = req.headers.authorization;
+  
+    jwt.verify(token, secret, (err, decodedToken) => {
+      if (err) {
+        res.status(401).json({ message: 'Invalid token'}); 
+      } else {
+        next();
+      }
+    });
+  }
+  //************************************************** */
+  function generateToken(user) {
+    const payload = {
+      username: user.username,
+    };
+    const options = {
+      expiresIn: '1h'
+    };
+    return jwt.sign(payload, secret, options);
+  }
 
 /************************************ USERS SECTION ***********************************/
 
@@ -43,7 +67,57 @@ router.get('/:id', (req, res) => {
         });
 });
 
+/************* Register User *************/
+router.post('/register', (req, res) => {
+    const user = req.body; 
+    console.log("user:", user)
+    user.password = bcrypt.hashSync(user.password, 10);
+    users.insert(user)
+    .then(ids => {
+     users.findById(ids[0])
+     // users.get(ids[0])
+      .then(user => {
+        const token = generateToken(user)
+        res.status(201).json({id: user.id, token});
+      });
+    })
+    .catch(err => {
+      res.status(500).send(err);
+    });
+  }); 
+/************* Login User *************/
+router.post('/login', (req, res) => {
+    const creds = req.body;
+    users.findByUsername(creds.username)
+    .then(user => {
+        // username valid   hash from client == hash from db
+      if (user && bcrypt.compareSync(creds.password, user.password)) {
+        const token = generateToken(user)
+        // redirect
+        res.json({ id: user.id, token });
+      } else {
+        // we send back info that allows the front end 
+        // to display a new error message
+        res.status(404).json({err: "invalid username or password"});
+      }
+    })
+    .catch(err => {
+      res.status(500).send(err);
+    });
+  });
 
+  //*************************************************** */
+  router.post('/logout', (req, res) => {
+    req.session.destroy(err => {
+      if (err) {
+        res.status(500).send('failed to logout');
+      } else {
+        res.send('logout successful');
+      }
+    });
+  });
+  //*************************************************************** */
+  
 /************* Delete User *************/
 router.delete('/:id', (req, res) => {
     const { id } = req.params
