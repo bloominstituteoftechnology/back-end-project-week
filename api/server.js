@@ -11,10 +11,20 @@ server.get("/", async (req, res) => {
 });
 
 //request to see all notes
-server.get("/notes/all", async (req, res) => {
+server.get("/note/all", async (req, res) => {
    const rows = await notes.getAll();
 
    res.status(200).json(rows);
+});
+
+server.post("/note/create", async (req, res) => {
+   const note = req.body
+   if(note.title && note.content){
+      const ids = await notes.insert(note);
+      res.status(201).json(ids)
+   } else {
+      res.status(422).json({error: "please provide note title and content"});
+   }
 });
 
 
