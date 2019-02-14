@@ -53,4 +53,33 @@ describe("the route handlers", () => {
             }]);
       });
    });
+   describe("post /create", async () => {
+      it("response with 201 when body is correct", () => {
+         db("notes").truncate();
+         const body = {
+            title: "Welcome",
+            content: "welcome to lambda school"
+         };
+         const response = await request(server).post("/create").send(body);
+
+         expect(response.status).toBe(201);
+      });
+      it("responds with 422 when body is missing", async () => {
+         db("notes").truncate();
+         const body {};
+         const response = await request(server).post("/create").send(body);
+
+         expect(response.type).toMatch(/json/i);
+         expect(response.status).toBe(422);
+      });
+      it("response with array containing new id", async () => {
+         const body = {
+            title: "Welcome",
+            content: "welcome to lambda school"
+         };
+         const response = await request(server).post("/create").send(body);
+
+         expect(response.body.length).toBe(1);
+      })
+   });
 });
