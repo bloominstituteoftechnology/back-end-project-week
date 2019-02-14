@@ -4,16 +4,13 @@ const db = require('../server/helpers/postHelpers');
 
 router.get('/:username', (req,res) => {
   const {username} = req.params;
+  console.log(username);
   db.getPostsByUserName(username)
   .then(posts => {
-    if (posts.length){
-      res.status(201).json(posts)
-    } else {
-      res.status(404).json({error:'no posts found'})
-    }
+   res.json(posts)
   })
-  .catch(err => res.send('there was an issue with your request'))
-});
+  .catch(err => res.json({message: err}))
+})
 
 router.post('/newpost', (req,res) => {
   const post = req.body;
@@ -30,7 +27,7 @@ router.put('/update/:id', (req,res) => {
   .catch(err => res.send(err))
 });
 
-router.delete('/delete/:id', (req,res) => {
+router.delete('/:id', (req,res) => {
   const {id} = req.params;
   db.deletePost(id)
   .then(count => {

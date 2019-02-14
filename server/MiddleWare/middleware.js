@@ -15,12 +15,12 @@ module.exports = {
   },
   newToken: (user) => {
     const payload = {
-      username: user.username
+      username: user.username,
+      userId: user.id
     };
     const options = {
       expiresIn: "1h",
       jwtid: uuid(),
-      id: user.id
     };
     return jwt.sign(payload, secret, options);
   },

@@ -11,16 +11,19 @@ router.post('/signup', (req, res) => {
   db.insertUser(user)
     .then(ids => {
       const id = ids[0];
-      console.log(id);
       db.findByID(id)
         .then(user => {
           const token = (newToken(user));
           res.status(200).json({ id: user.id, token });
         })
         .catch(err => {
-          res.send(err)
+          console.log("error", err);
+          res.status(500).json({ error: 'Something went wrong' })
         })
     })
+    .catch(err => {
+      res.status(500).send(err);
+    });
 });
 
 router.post('/login', (req, res) => {

@@ -3,20 +3,18 @@ const db = require('../dbConfig');
 module.exports = {
 
   getPostsByUserName: (username) => {
-    let query = db('posts');
-    return query
-      .where(username, 'username')
+    return db('posts').where('username', username)
   },
 
   getPostsByID: (id) => {
     return db('posts')
-      .where(id, 'id')
+      .where('id', id)
   },
 
   insertPost: (post) => {
     return db('posts')
       .insert(post)
-      
+
   },
 
   updatePost: (id, post) => {
@@ -24,6 +22,7 @@ module.exports = {
       .where('id', id)
       .update(post)
   },
+
   deletePost: (id) => {
     return db('posts')
       .where('id', id)

@@ -13,8 +13,8 @@ server.use(
   morgan('tiny'),
   cors()
 )
-server.use(('/api/users', authRouter))
-server.use('/api/posts', postRouter)
+server.use('/api/users',authRouter)
+server.use('/api/posts',postRouter)
 
 server.get('/', (req,res) => {
   res.send('server is up')

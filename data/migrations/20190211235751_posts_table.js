@@ -8,6 +8,7 @@ exports.up = function(knex, Promise) {
     posts.string('dueDate');
     posts.string('category');
     posts.string('userId').notNullable().references('id').inTable('users')
+    posts.string('username').references('username').inTable('users')
     posts.boolean('completed');
   })
 };
