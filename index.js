@@ -86,3 +86,6 @@ server.delete('/api/notes/:id', (req, res) => {
 server.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`)
 });
+
+// Currently refactoring front end project to work with back end. Revisited some old class videos but still having trouble. May have to ask PM for help. 
+// Will work on refactoring / cleaning up code once app is deployed
