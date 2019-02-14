@@ -21,9 +21,10 @@
     "react-testing-library": "^5.7.0",
     "sqlite3": "^4.0.6",
     "supertest": "^3.4.2"
+    
   },
   "devDependencies": {
-    "jest": "^24.1.0",
+    
     "jest-dom": "^3.1.1"
   }
   

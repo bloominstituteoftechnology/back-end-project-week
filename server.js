@@ -2,7 +2,7 @@ const express = require('express');
 const server = express();
 const middleware = require('./middleware');
 const db = require('./dbConfig');
-const port = 3000;
+const port = 3100;
 
 middleware(server);
 server.use(express.json());
