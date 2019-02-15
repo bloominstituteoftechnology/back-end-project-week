@@ -91,4 +91,52 @@ server.get("/tags/:id", (req, res) => {
     });
 });
 
+server.post("/notes", (req, res) => {
+  const note = req.body;
+
+  if (!note.title || typeof note.title !== "string" || note.title === "") {
+    res.status(400).json({error: "title must be included and must be a string"})
+  } else if (!note.content || typeof note.content !== "string" || note.content === "") {
+    res.status(400).json({error: "content must be included and must be a string"})
+  } else {
+    notes
+    .insert(note)
+    .then(id => {
+      res.status(201).json({added: {...note, id: id}})
+    })
+    .catch(err => {
+      res.status(500).json({error: "trouble adding note"})
+    })
+  }
+})
+
+server.post("/tags", (req, res) => {
+  const tag = req.body;
+
+  if(!tag.note_id || typeof tag.note_id !== "number") {
+    res.status(400).json({error: "note_id must be included and must be a number"});
+  } else {
+    notes
+    .fetch(tag.note_id)
+    .then(notes => {
+      if(notes[0]) {
+        if(!tag.tag || typeof tag.tag !== "string" || tag.tag === "") {
+          res.status(400).json({error: "tag must be included and mustt be a string"})
+        } else {
+          tags
+          .insert(tag)
+          .then(id => {
+            res.status(201).json({added: {...tag, id: id}})
+          })
+        }
+      } else {
+        res.status(404).json({error: "note_id does not match an existing note"})
+      }
+    })
+    .catch(err => {
+      res.status(500).json({message: "trouble adding tag", error: err})
+    })
+  }
+})
+
 module.exports = server;
