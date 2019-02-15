@@ -2,11 +2,13 @@ const express = require("express");
 const knex = require('knex');
 const knexConfig = require('./knexfile.js');
 const db = knex(knexConfig.development);
+const cors = require("cors");
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.get("/api/notes", (req, res) => {
     db("notes").then(notes => {
