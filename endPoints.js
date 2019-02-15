@@ -84,7 +84,25 @@ endpoint.put('/edit/:id', (req, res) => {
 });
 
 endpoint.delete('/delete/:id', (req, res) => {
-
-})
+    db('notes')
+        .where({ id: req.params.id })
+        .del()
+        .then(count => {
+            if (count) {
+                res
+                    .status(204)
+                    .json({ message: 'note deleted' });
+            } else {
+                res
+                    .status(404)
+                    .json({ message: 'unable to locate note' });
+            }
+        })
+        .catch(err => {
+            res
+                .status(500)
+                .json({ message: 'could not delete note' });
+        })
+});
 
 module.exports = endpoint;
