@@ -18,6 +18,12 @@ module.exports = {
     .then(ids =>{
       return {id: ids[0]};
     })
+  },
+
+  updateNote: function(id, note){
+    return notesDb('notes')
+    .where('id', Number(id))
+    .update(note)
   }
 }
 

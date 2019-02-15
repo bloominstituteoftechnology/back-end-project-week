@@ -6,7 +6,7 @@ const request = require('supertest');
 
 describe('server /api/notes', () =>{
 
-  describe('GET /api/notes', () => {
+  describe.skip('GET /api/notes', () => {
     it('should return status code 200', async ()=>{
       const response = await request(server).get('/api/notes');
       expect(response.status).toBe(200);
@@ -24,7 +24,7 @@ describe('server /api/notes', () =>{
     })
   })
 
-  describe('GET /api/notes/:id', () =>{
+  describe.skip('GET /api/notes/:id', () =>{
     it('should return status code 200', async ()=>{
       const id = 1;
       const response = await request(server).get(`/api/notes/${id}`);
@@ -43,7 +43,7 @@ describe('server /api/notes', () =>{
     })
   })
   
-  describe('POST /api/notes', () =>{
+  describe.skip('POST /api/notes', () =>{
     it('should return status code 201', async ()=>{
       const note = {title: 'Test 3', content: 'test note 3'};
       const response = await request(server).post(`/api/notes`).send(note);
@@ -84,7 +84,7 @@ describe('server /api/notes', () =>{
     })
   })
 
-  describe('DELETE /api/notes/:id', () =>{
+  describe.skip('DELETE /api/notes/:id', () =>{
     it('should return status code 200', async ()=>{
       const id = 5;
       const response = await request(server).get(`/api/notes/${id}`);
