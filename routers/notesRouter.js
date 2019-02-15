@@ -56,7 +56,7 @@ router.put('/:id', (req, res) =>{
     if(count){
       notesDb.getNotesById(id)
       .then(note =>{
-        res.status(200).json(note)
+        res.status(200).json(note[0])
       })
     }else {
       //note doesn't exist
@@ -69,7 +69,7 @@ router.put('/:id', (req, res) =>{
 })
 
 //DELETE Route Handler
-router.delete('/', (req, res) =>{
+router.delete('/:id', (req, res) =>{
   const id = req.params.id;
 
   notesDb.getNotesById(id)
@@ -77,7 +77,7 @@ router.delete('/', (req, res) =>{
     if(note){
       notesDb.deleteNote(id)
       .then(count =>{
-        res.status(200).json(note);
+        res.status(200).json(note[0]);
       })
     }else{
       //note doesn't exist
