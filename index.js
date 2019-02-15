@@ -17,7 +17,7 @@ const PORT = process.env.DATABASE_URL || 4000;
 
 server.use(helmet());
 server.use(express.json());
-server.use(cors());
+server.use(cors);
 
 
 server.post('/api/notes', (req, res)=>{
