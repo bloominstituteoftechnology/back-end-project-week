@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../helpers/notesModel');
 
+//Get all notes.
 router.get('/api/notes', (req,res) => {
        db.getNotes()
          .then(notes => {
@@ -12,6 +13,7 @@ router.get('/api/notes', (req,res) => {
          })
 });
 
+//Get the note by a given id if it exists.
 router.get('/api/notes/:id', (req,res) => {
        const {id} = req.params;
        db.getById(id)
@@ -25,10 +27,12 @@ router.get('/api/notes/:id', (req,res) => {
      
 });
 
+//Create a new note.
 router.post('/api/notes', (req,res) => {
       const note = req.body;
       const title = note.title;
       const content = note.content;
+      console.log('note from front end', note);
       if(!title) res.status(400).json({msg: `The title is missing`});
       if(!content) res.status(400).json({msg: `Content is missing`});
     
@@ -41,7 +45,7 @@ router.post('/api/notes', (req,res) => {
            res.status(500).json({msg:`Failed to add note at this time`});
         });
 });
-
+//Deleting the existing note.
 router.delete('/api/notes/:id', (req,res) => {
       const {id} = req.params;
       if(!id) res.status(400).json({msg: `There not note ID`});
@@ -54,7 +58,7 @@ router.delete('/api/notes/:id', (req,res) => {
            res.status(500).json({msg:`Something went wrong..cannot delete at this time`});
         });
 });
-
+// Edit or update the existing note.
 router.put('/api/notes/:id', (req,res) => {
      const {id} = req.params;
      const note = req.body;
