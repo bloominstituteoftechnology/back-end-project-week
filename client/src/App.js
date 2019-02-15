@@ -17,23 +17,25 @@ class App extends Component {
     };
 
     getNotes = () => {
-        axios.get("https://fe-notes.herokuapp.com/note/get/all")
+        axios.get("http://localhost:3001/api/notes")
         .then(response => {
             console.log(response.data);
             this.setState({
                 notes: response.data
             });
+        }).catch(error => {
+            console.log(error);
         });
     };
 
     handleAddNote = (note, id) => {
         if (id === "Add") {
-            axios.post("https://fe-notes.herokuapp.com/note/create", {
+            axios.post("http://localhost:3001/api/notes", {
                 title: note.title,
                 textBody: note.textBody
             }).then(this.getNotes);
         } else {
-            axios.put(`https://fe-notes.herokuapp.com/note/edit/${id}`, {
+            axios.put(`http://localhost:3001/api/notes/${id}`, {
                 title: note.title,
                 textBody: note.textBody
             }).then(this.getNotes);
@@ -41,7 +43,7 @@ class App extends Component {
     };
 
     handleDeleteNote = id => {
-        axios.delete(`https://fe-notes.herokuapp.com/note/delete/${id}`)
+        axios.delete(`http://localhost:3001/api/notes/${id}`)
             .then(this.getNotes);
 
         document.getElementById("delete-modal").classList.toggle("hidden");
