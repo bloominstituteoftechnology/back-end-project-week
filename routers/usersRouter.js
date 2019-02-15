@@ -70,14 +70,17 @@ router.get('/:id', (req, res) => {
 });
 
 /************* Register User *************/
-router.post('/', (req, res) => {
+router.post('/register', (req, res) => {
     const user = req.body; 
     console.log("user:", user)
-   // user.password = bcrypt.hashSync(user.password, 10);
+   user.password = bcrypt.hashSync(user.password, 10);
     users.insert(user)
     .then(user => {
-        res.status(201)
-            .json(user)
+        const token = generateToken(user)
+       res.status(201).json({id: user.id, token});
+       
+       // res.status(201)
+        //    .json(user)
     
     //.then(ids => {
     // users.findById(ids[0])
@@ -190,26 +193,6 @@ router.put('/:id', (req, res) => {
     }
 })
 
-/********* Create New User *************/
-/* router.post('/', (req, res) => {
-    const user = req.body;
-    if (user.username || user.password) {
-        users.insert(user)
-            .then(user => {
-                res.status(201)
-                    .json(user)
-            })
-            .catch(err => {
-                res
-                    .status(500)
-                    .json({ message: "failed to insert user in db" })
-            });
-    } else {
-        res
-            .status(400)
-            .json({ message: "missing username and/or password." })
-    }
-}); */
 
 /************* Get Single Project's Actions *************/
 /* router.get('/actions/:id', (req, res) => {
