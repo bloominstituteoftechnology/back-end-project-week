@@ -21,7 +21,7 @@ server.get("/note/all", async (req, res) => {
 server.get(`/note/:id`, async (req, res) => {
    const {id} = req.params;
    const response = await notes.findById(id);
-   res.status(200).json(response);
+   response.length > 0 ? res.status(200).json(response) : res.status(404).json({err: "id does not exist"})
 });
 
 //create new note

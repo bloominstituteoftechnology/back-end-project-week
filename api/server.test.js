@@ -3,7 +3,7 @@ const server = require("./server.js");
 const db = require("../data/dbConfig.js");
 
 describe("the route handlers", () => {
-   describe("get /", () => {
+   describe.skip("get /", () => {
       it("responds with 200", async () => {
          const response = await request(server).get("/");
 
@@ -20,7 +20,7 @@ describe("the route handlers", () => {
          expect(response.body).toEqual({api: "running"});
       });
    });
-   describe("get /notes/all", () => {
+   describe.skip("get /notes/all", () => {
       it("responds with 200", async () => {
          const response = await request(server).get("/note/all");
 
@@ -58,11 +58,6 @@ describe("the route handlers", () => {
          const id = 1;
          const response = await request(server).get(`/note/${id}`);
          expect(response.status).toBe(200);
-      });
-      it("responds with json", async () => {
-         const id = 1;
-         const response = await request(server).get(`/note/${id}`);
-
          expect(response.type).toMatch(/json/i);
       });
       it("sends the correct response", async () => {
@@ -75,6 +70,12 @@ describe("the route handlers", () => {
             "id": 1,
             "title": "Welcome",
          }]);
+      })
+      it("response with 404 if id does not exist", async () => {
+         const id = 5;
+         const response = await request(server).get(`/note/${id}`);
+         expect(response.status).toBe(404);
+         expect(response.type).toMatch(/json/i);
       })
    });
    describe.skip("post /note/create", () => {
@@ -111,6 +112,46 @@ describe("the route handlers", () => {
          async () => {
             await db("notes").truncate();
          }
+      });
+   });
+   describe("put edit/:id", () => {
+      it("responds with 200 when id exists", async () => {
+         const id = 1;
+         const body = {
+            title: "Changing a note",
+            contents: "this note has changed",
+            author: "me!"
+         }
+         const response = await request(server).put(`/edit/${id}`, body);
+         expect(response.status).toBe(200);
+         expect(response.type).toMatch(/json/i);
+      });
+      it("sends the correct response", async () => {
+         const id = 1;
+         const body = {
+            title: "Changing a note",
+            contents: "this note has changed",
+            author: "me!"
+         }
+         const response = await request(server).put(`/edit/${id}`, body);
+
+         expect(response.body).toEqual([{
+            "title": "Changing a note",
+            "contents": "this note has changed",
+            "author": "me!",
+            "id": 1
+         }]);
       })
+      it("response with 404 if id does not exist", async () => {
+         const id = 5;
+         const body = {
+            title: "Changing a note",
+            contents: "this note has changed",
+            author: "me!"
+         }
+         const response = await request(server).put(`/edit/${id}`, body);
+         expect(response.status).toBe(404);
+         expect(response.type).toMatch(/json/i);
+      });
    });
 });
