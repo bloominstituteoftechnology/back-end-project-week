@@ -17,7 +17,7 @@ app.get("/api/notes", (req, res) => {
 });
 
 app.post("/api/notes", (req, res) => {
-    if(req.body && req.body.title && req.body.content && typeof req.body.title === "string" && typeof req.body.content === "string") {
+    if (req.body && req.body.title && req.body.content && typeof req.body.title === "string" && typeof req.body.content === "string") {
         db("notes").insert(req.body).then(ids => {
             res.status(201).json(ids[0]);
         }).catch(error => {
@@ -29,7 +29,15 @@ app.post("/api/notes", (req, res) => {
 });
 
 app.get("/api/notes/:id", (req, res) => {
-
+    db("notes").where({ id: req.params.id }).then(notes => {
+        if (notes.length != 0) {
+            res.status(200).json(notes[0]);
+        } else {
+            res.status(404).json({ error: "Note not found" });
+        }
+    }).catch(error => {
+        res.status(500).json({ error: "Error retrieving note", info: error });
+    });
 });
 
 app.put("/api/notes/:id", (req, res) => {
