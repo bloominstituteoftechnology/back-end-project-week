@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon"
+    "server": "nodemon",
+    "start": "node index.js"
   },
   "repository": "https://github.com/hraya/back-end-project-week.git",
   "author": "hraya <hraya@lssu.edu>",
