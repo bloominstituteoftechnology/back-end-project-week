@@ -43,7 +43,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.post("/", authenticate, (req, res) => requestOptions => {
+router.post("/:id", authenticate, (req, res) => requestOptions => {
   const tag = req.body;
   const note_id = req.params.id;
 
