@@ -45,23 +45,24 @@ router.get("/:id", (req, res) => {
 
 router.post("/", authenticate, (req, res) => requestOptions => {
   const tag = req.body;
+  const note_id = req.params.id;
 
-  if (!tag.note_id || typeof tag.note_id !== "number") {
+  if (!note_id || typeof note_id !== "number") {
     res
       .status(400)
       .json({ error: "note_id must be included and must be a number" });
   } else {
     notes
-      .fetch(tag.note_id)
+      .fetch(note_id)
       .then(notes => {
         if (notes[0]) {
           if (!tag.tag || typeof tag.tag !== "string" || tag.tag === "") {
             res
               .status(400)
-              .json({ error: "tag must be included and mustt be a string" });
+              .json({ error: "tag must be included and must be a string" });
           } else {
-            tags.insert(tag).then(ids => {
-              res.status(201).json({ added: { ...tag, id: ids[0] } });
+            tags.insert(tag, note_id).then(ids => {
+              res.status(201).json({ added: { ...tag, note_id: note_id, id: ids[0] } });
             });
           }
         } else {
