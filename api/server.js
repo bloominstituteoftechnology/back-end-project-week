@@ -19,9 +19,8 @@ server.get("/note/all", async (req, res) => {
 
 //get by id
 server.get(`/note/:id`, async (req, res) => {
-   const id = req.params;
+   const {id} = req.params;
    const response = await notes.findById(id);
-
    res.status(200).json(response);
 });
 

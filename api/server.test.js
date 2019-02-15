@@ -53,7 +53,7 @@ describe("the route handlers", () => {
             }]);
       });
    });
-   describe("get /note/:id", () => {
+   describe.skip("get /note/:id", () => {
       it("responds with 200 when id exists", async () => {
          const id = 1;
          const response = await request(server).get(`/note/${id}`);
