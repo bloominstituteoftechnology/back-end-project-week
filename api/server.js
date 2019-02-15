@@ -176,4 +176,50 @@ server.put("/notes/:id", (req, res) => {
     );
 })
 
+server.delete("/notes/:id", async (req, res) => {
+  const { id } = req.params;
+  const deleted = await notes.fetch(id);
+
+  notes
+    .fetch(id)
+    .then(note => {
+      if (note[0]) {
+        notes
+          .remove(id)
+          .then(rows => res.status(201).json(deleted))
+          .catch(err =>
+            res.status(500).json({ error: "trouble deleting note" })
+          );
+      } else {
+        res.status(404).json({ error: "note does not exist" });
+      }
+    })
+    .catch(err =>
+      res.status(500).json({ error: "trouble retrieving note to be deleted" })
+    );
+});
+
+server.delete("/tags/:id", async (req, res) => {
+  const { id } = req.params;
+  const deleted = await tags.fetch(id);
+
+  tags
+    .fetch(id)
+    .then(tag => {
+      if (tag[0]) {
+        tags
+          .remove(id)
+          .then(rows => res.status(201).json(deleted))
+          .catch(err =>
+            res.status(500).json({ error: "trouble deleting tag" })
+          );
+      } else {
+        res.status(404).json({ error: "tag does not exist" });
+      }
+    })
+    .catch(err =>
+      res.status(500).json({ error: "trouble retrieving tag to be deleted" })
+    );
+});
+
 module.exports = server;
