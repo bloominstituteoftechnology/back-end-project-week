@@ -22,8 +22,6 @@ server.get('/note/:id', async (req, res) => {
   try {
     let note = await notes.getNoteByID(id)
     note = note[0];
-    const local = moment.utc(note.time_posted).local().format('YYYY-MM-DD hh:mm:ss a')
-    note = {...note, time_posted: local}
     res.status(200).json(note)
   } catch (error) {
     res.status(500).json({failure: 'unable to get the note'})
@@ -35,7 +33,8 @@ server.post('/note/create', async (req, res) => {
 
   if(title && content) {
     try {
-      await notes.createNote(req.body)
+      const time = moment().format('YYYY-MM-DD hh:mm:ss a')
+      await notes.createNote({time_posted: time, ...req.body})
       res.status(201).json({success: "the note has been added"})
     } catch (error) {
       res.status(500).json({failure: "unable to create the note"})
@@ -51,7 +50,8 @@ server.put('/note/:id/edit', async (req, res) => {
 
   if (title && content ) {
     try {
-      await notes.updateNote(id, req.body)
+      const time = moment().format('YYYY-MM-DD hh:mm:ss a')
+      await notes.updateNote(id, {time_updated: time, ...req.body})
       res.status(201).json({success: "the note has been updated"})
     } catch (error) {
       res.status(500).json({failure: 'unable to update the note'})
