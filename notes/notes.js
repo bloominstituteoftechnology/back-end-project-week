@@ -19,8 +19,8 @@ async function findById(id) {
 async function insert(note){
    return db("notes").insert(note);
 }
-async function update(id){
-   return null;
+async function update(id, note){
+   return db("notes").where("id", id).update(note);
 }
 async function remove(id){
    return null;

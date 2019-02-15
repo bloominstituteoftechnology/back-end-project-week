@@ -115,15 +115,16 @@ describe("the route handlers", () => {
       });
    });
    describe("put edit/:id", () => {
-      it("responds with 200 when id exists", async () => {
+      it("responds with 201 when note updated", async () => {
          const id = 1;
          const body = {
             title: "Changing a note",
             contents: "this note has changed",
             author: "me!"
          }
-         const response = await request(server).put(`/edit/${id}`, body);
-         expect(response.status).toBe(200);
+         const response = await request(server).put(`/edit/${id}`).send(body);
+
+         expect(response.status).toBe(201);
          expect(response.type).toMatch(/json/i);
       });
       it("sends the correct response", async () => {
@@ -133,14 +134,9 @@ describe("the route handlers", () => {
             contents: "this note has changed",
             author: "me!"
          }
-         const response = await request(server).put(`/edit/${id}`, body);
+         const response = await request(server).put(`/edit/${id}`).send(body);
 
-         expect(response.body).toEqual([{
-            "title": "Changing a note",
-            "contents": "this note has changed",
-            "author": "me!",
-            "id": 1
-         }]);
+         expect(response.body).toEqual(1);
       })
       it("response with 404 if id does not exist", async () => {
          const id = 5;
@@ -149,7 +145,7 @@ describe("the route handlers", () => {
             contents: "this note has changed",
             author: "me!"
          }
-         const response = await request(server).put(`/edit/${id}`, body);
+         const response = await request(server).put(`/edit/${id}`).send(body);
          expect(response.status).toBe(404);
          expect(response.type).toMatch(/json/i);
       });

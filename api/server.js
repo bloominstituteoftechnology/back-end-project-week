@@ -18,7 +18,7 @@ server.get("/note/all", async (req, res) => {
 });
 
 //get by id
-server.get(`/note/:id`, async (req, res) => {
+server.get("/note/:id", async (req, res) => {
    const {id} = req.params;
    const response = await notes.findById(id);
    response.length > 0 ? res.status(200).json(response) : res.status(404).json({err: "id does not exist"})
@@ -35,5 +35,13 @@ server.post("/note/create", async (req, res) => {
    }
 });
 
+//edit note by id
+server.put("/edit/:id", async (req, res) => {
+   const {id} = req.params;
+   const note = req.body;
+   const response = await notes.update(id, note);
+   console.log(response)
+   response === 1 ? res.status(201).json(response) : res.status(404).json({err: "id does not exist"})
+});
 
 module.exports = server;
