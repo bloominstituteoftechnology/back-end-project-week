@@ -13,7 +13,7 @@ const db = require('./database/dbConfig.js')
 
 
 const server = express();
-const PORT = process.env.DATABASE_URL || 4000;
+const PORT = process.env.PORT || 4000;
 
 server.use(helmet());
 server.use(express.json());
