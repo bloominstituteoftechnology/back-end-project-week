@@ -13,7 +13,10 @@ server.use(morgan("dev"));
 server.use(cors());
 server.use(express.json());
 
-server.use("/api/notes", notesRouter);
-server.use("/api/tags", tagsRouter);
+server.use("/notes", notesRouter);
+server.use("/tags", tagsRouter);
+server.get("/", (req, res) => {
+  res.json({message: "welcome to Angelina La Salle's back end project week API"})
+})
 
 module.exports = server;
