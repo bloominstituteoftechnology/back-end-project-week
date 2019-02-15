@@ -53,9 +53,6 @@ server.put('/api/notes/:id', (req, res) => {
     })
     .catch(err => {message: err})
 })
-    
-
-
 
 
 server.listen(port, () => {
