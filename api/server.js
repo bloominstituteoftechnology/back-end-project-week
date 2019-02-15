@@ -16,5 +16,4 @@ server.use(express.json());
 server.use("/api/notes", notesRouter);
 server.use("/api/tags", tagsRouter);
 
-
 module.exports = server;

@@ -6,9 +6,9 @@
     "server": "nodemon index.js",
     "test": "cross-env DB_ENV=testing jest --watch --verbose"
   },
-	"jest": {
-		"testEnvironment": "node"
-	},
+  "jest": {
+    "testEnvironment": "node"
+  },
   "repository": "https://github.com/alasalle/back-end-project-week.git",
   "author": "alasalle <angela.lasalle91@gmail.com>",
   "license": "MIT",
