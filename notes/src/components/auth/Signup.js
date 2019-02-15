@@ -23,17 +23,25 @@ class Signup extends Component {
           <h2>Sign Up</h2>
           <input
             type="text"
-            name="firstName"
-            id="firstName"
-            value={this.state.firstName}
+            name="username"
+            id="username"
+            value={this.state.username}
+            onChange={this.handleChange}
+            placeholder="username"
+          />
+          <input
+            type="text"
+            name="first"
+            id="first"
+            value={this.state.first}
             onChange={this.handleChange}
             placeholder="first name"
           />
           <input
             type="text"
-            name="lastName"
-            id="lastName"
-            value={this.state.lastName}
+            name="last"
+            id="last"
+            value={this.state.last}
             onChange={this.handleChange}
             placeholder="last name"
           />

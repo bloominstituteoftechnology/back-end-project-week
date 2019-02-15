@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { Alert } from 'reactstrap';
+import { Alert } from "reactstrap";
 
 const Modal = styled.div`
   display: block;
@@ -17,7 +17,6 @@ const Modal = styled.div`
   margin: -200px 0 0 -200px;
   background: white;
   box-shadow: 0 0 60px 10px rgba(0, 0, 0, 0.1);
-  
 `;
 
 const ModalOverlay = styled.div`
@@ -57,7 +56,6 @@ const ButtonOne = styled.div`
   border-style: solid;
   border-color: #979797;
   border-width: 0.5px;
- 
 `;
 
 const ButtonTwo = styled.div`
@@ -71,8 +69,8 @@ const ButtonTwo = styled.div`
   text-decoration: none;
   margin-bottom: 20px;
   margin-top: 6px;
-  margin-right:10px;
-  margin-left:20px;
+  margin-right: 10px;
+  margin-left: 20px;
 
   width: 140px;
   font-family: "Helvetica", "Arial", sans-serif;
@@ -101,29 +99,28 @@ const ModalText = {
 const ButtonContainer = {
   display: "flex",
   justifyContent: "center",
-  marginTop: '30px'
+  marginTop: "30px"
 };
 
 class DeleteModal extends Component {
   constructor(props) {
     super(props);
 
-    console.log("test", this.props.note_id);
+    console.log("test", this.props.note);
   }
 
   deleteNote = event => {
     event.preventDefault();
     axios
-      .delete(
-        `https://fe-notes.herokuapp.com/note/delete/${this.props.note_id}`
-      )
+      .delete(`http://localhost:5000/delete/${this.props.note}`)
       .then(response => {
-        console.log("Success!");
+        console.log("Success!, note deleted");
       })
       .catch(error => {
         console.error("Server Error", error);
       });
   };
+  
   render() {
     if (!this.props.show) {
       return null;

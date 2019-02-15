@@ -93,7 +93,7 @@ class Note extends Component {
   }
   getNote = id => {
     axios
-      .get(`https://fe-notes.herokuapp.com/note/get/${id}`)
+      .get(`http://localhost:5000/note/${id}`)
       .then(response => {
         this.setState({ note: response.data });
       })

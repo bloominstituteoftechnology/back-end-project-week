@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Title = styled.div`
   text-decoration: none;
@@ -53,38 +53,36 @@ const Form = styled.div`
 `;
 
 const ButtonNoStyle = {
-  background: 'none',
-	color: 'inherit',
-	border: 'none',
-	padding: 0,
-	font: 'inherit',
-	cursor: 'pointer',
-	outline: 'inherit'
-}
-const Card = {
-
-  marginBottom:' 500px',
-  marginLeft:' 40px'
+  background: "none",
+  color: "inherit",
+  border: "none",
+  padding: 0,
+  font: "inherit",
+  cursor: "pointer",
+  outline: "inherit"
 };
-
-
+const Card = {
+  marginBottom: " 500px",
+  marginLeft: " 40px"
+};
 
 class EditNote extends Component {
   constructor(props) {
     super(props);
     this.state = {
       title: "",
-      textBody: "",
+      content: "",
       note: []
     };
-  }ß
+  }
+  ß;
   componentDidMount() {
     this.getNote(this.props.match.params.id);
   }
 
   getNote = id => {
     axios
-      .get(`https://fe-notes.herokuapp.com/note/get/${id}`)
+      .get(`http://localhost:5000/note/${id}`)
       .then(response => {
         this.setState({ note: response.data });
       })
@@ -95,11 +93,11 @@ class EditNote extends Component {
     event.preventDefault();
     const notes = {
       title: this.state.title,
-      textBody: this.state.textBody,
+      content: this.state.textBody,
       id: this.props.match.params.id
     };
     axios
-      .put(`https://fe-notes.herokuapp.com/note/edit/${notes.id}`, notes)
+      .put(`http://localhost:5000/edit/${notes.id}`, notes)
       .then(response => {
         this.setState(
           {
@@ -119,29 +117,38 @@ class EditNote extends Component {
 
   render() {
     return (
-      <div  style={Card} >
+      <div style={Card}>
         <form onSubmit={this.editNote}>
-        <Title>Edit Note</Title>
-         <Form><input
-            type="text"
-            name="title"
-            id="title"
-            value={this.state.title}
-            onChange={this.handleChange}
-            placeholder={this.state.note.title}
-          />
-          </Form> 
-          <Form>  <textarea
-            rows="8"
-            cols="80"
-            type="text"
-            name="textBody"
-            id="textBody"
-            value={this.state.textBody}
-            onChange={this.handleChange}
-            placeholder={this.state.note.textBody}
-          /></Form> 
-          <Button> <button style={ButtonNoStyle} type="submit">Update</button></Button>
+          <Title>Edit Note</Title>
+          <Form>
+            <input
+              type="text"
+              name="title"
+              id="title"
+              value={this.state.title}
+              onChange={this.handleChange}
+              placeholder={this.state.note.title}
+            />
+          </Form>
+          <Form>
+            {" "}
+            <textarea
+              rows="8"
+              cols="80"
+              type="text"
+              name="content"
+              id="content"
+              value={this.state.content}
+              onChange={this.handleChange}
+              placeholder={this.state.note.content}
+            />
+          </Form>
+          <Button>
+            {" "}
+            <button style={ButtonNoStyle} type="submit">
+              Update
+            </button>
+          </Button>
         </form>
       </div>
     );
