@@ -4,7 +4,7 @@ const db = require('./data/dbConfig');
 
 const endpoint = express.Router();
 
-endpoint.get('/all', (req, res) => {
+endpoint.get('/get/all', (req, res) => {
     db('notes')
         .then(notes => {
             res
@@ -40,7 +40,7 @@ endpoint.get('/:id', (req, res) => {
         }) 
 });
 
-endpoint.post('/new', async (req, res) => {
+endpoint.post('/create', async (req, res) => {
     const note = req.body;
     db.insert(note)
         .into('notes')
@@ -54,7 +54,36 @@ endpoint.post('/new', async (req, res) => {
                 .status(500)
                 .json({ message: 'could not add note' });
         })
-        
+});
+
+endpoint.put('/edit/:id', (req, res) => {
+    db('notes')
+        .where({ id: req.params.id })
+        .update(req.body)
+        .then(count => {
+            if (count) {
+                db('notes')
+                    .where({ id: req.params.id })
+                    .first()
+                    .then(note => {
+                        res
+                            .status(200)
+                            .json(note);
+                    })
+            } else {
+                res
+                    .status(500)
+                    .json({ message: 'could not edit note'});
+            }
+        })
+        .catch(err => {
+            res
+                .status(404)
+                .json({ message: 'could not save edit' });
+        })
+});
+
+endpoint.delete('/delete/:id', (req, res) => {
 
 })
 
