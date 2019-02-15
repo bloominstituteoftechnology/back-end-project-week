@@ -132,69 +132,69 @@ function deleteNote(req, res) {
 
 // Authentication endpoints
 
-// /**
-// * REGISTER ENDPOINT
-// *
-// * Creates a user using the information sent inside the body of the request.
-// * The password is hashed using bcrypt before saving the user to the database.
-// *
-// * @param {Object} req - Information returned from HTTP request
-// * @param {Object} res - HTTP response
-// */
-// function register(req, res) {
-//   // Save login credentials from body of request
-//   const credentials = req.body;
+/**
+* REGISTER ENDPOINT
+*
+* Creates a user using the information sent inside the body of the request.
+* The password is hashed using bcrypt before saving the user to the database.
+*
+* @param {Object} req - Information returned from HTTP request
+* @param {Object} res - HTTP response
+*/
+function register(req, res) {
+  // Save login credentials from body of request
+  const credentials = req.body;
 
-//   // Hash password using bcrypt
-//   const hash = bcrypt.hashSync(credentials.password, 15);
-//   credentials.password = hash;
+  // Hash password using bcrypt
+  const hash = bcrypt.hashSync(credentials.password, 15);
+  credentials.password = hash;
 
-//   db("users")
-//     .insert(credentials)
-//     .then(ids => {
-//       const id = ids[0];
+  db("users")
+    .insert(credentials)
+    .then(ids => {
+      const id = ids[0];
 
-//       db("users")
-//         .where({ id })
-//         .first()
-//         .then(user => {
-//           const token = generateToken(user);
-//           res.status(201).json({ id: user.id, token });
-//         })
-//         .catch(err => {
-//           res.status(500).json(err);
-//         });
-//     });
-// } 	 
+      db("users")
+        .where({ id })
+        .first()
+        .then(user => {
+          const token = generateToken(user);
+          res.status(201).json({ id: user.id, token });
+        })
+        .catch(err => {
+          res.status(500).json(err);
+        });
+    });
+} 	 
 
-// /**
-// * LOGIN ENDPOINT
-// *
-// * Use the credentials sent inside the body to authenticate the user.
-// *
-// * @param {Object} req - Information returned from HTTP request
-// * @param {Object} res - HTTP response
-// */
+/**
+* LOGIN ENDPOINT
+*
+* Use the credentials sent inside the body to authenticate the user.
+*
+* @param {Object} req - Information returned from HTTP request
+* @param {Object} res - HTTP response
+*/
 
-// function login(req, res) {
-//   const credentials = req.body;
+function login(req, res) {
+  const credentials = req.body;
 
-//   db("users")
-//     .where({ userame: credentials.username })
-//     .first()
-//     .then(user => {
-//       if (user && bcrypt.compareSync(credentials.password, user.password)) {
-//         const token = generateToken(user);
+  db("users")
+    .where({ userame: credentials.username })
+    .first()
+    .then(user => {
+      if (user && bcrypt.compareSync(credentials.password, user.password)) {
+        const token = generateToken(user);
 
-//         res.status(200).json({ message: "Logged in.", token });
-//         } else {
-//           res.status(401).json({ message: "Not now! Come back after my coffee!" });
-//         }
-//     })
-//     .catch(err => {
-//       res.status(500).json({ err });
-//     });
-// } 	 
+        res.status(200).json({ message: "Logged in.", token });
+        } else {
+          res.status(401).json({ message: "Not now! Come back after my coffee!" });
+        }
+    })
+    .catch(err => {
+      res.status(500).json({ err });
+    });
+} 	 
 
 function helloWorld(req, res) {
   res.send(`API running on port: ${PORT}`);
