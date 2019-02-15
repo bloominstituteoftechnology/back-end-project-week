@@ -11,13 +11,14 @@ const server = express();
 server.use(express.json(), cors);
 
 server.get("/notes", (req, res) => {
-  db.getNotes()
-    .then(notes => {
-      res.json(notes);
-    })
-    .catch(err => {
-      res.status(500).send(err);
-    });
+  // db.getNotes()
+  //   .then(notes => {
+  //     res.json(notes);
+  //   })
+  //   .catch(err => {
+  //     res.status(500).send(err);
+  //   });
+  res.json({"hello": "World"})
 });
 
 server.get("/notes/:id", (req, res) => {
