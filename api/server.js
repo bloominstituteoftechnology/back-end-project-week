@@ -7,10 +7,12 @@ const server = express();
 
 const dbConfig = require('../knexfile')
 const db = knex(dbConfig.development)
+const configRoutes = require('../Config/Routes')
+
+
 
 server.use(express.json(), helmet(), cors())
-
-
+configRoutes(server)
 
 server.get('/api/notes', (req, res) => { 
   db('notes').then( notes => {

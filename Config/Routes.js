@@ -1,11 +1,19 @@
 const axios = 'axios'
-const { authenticate, tokenGenerator, } = require ('../auth/authenticate')
+const { authenticate, tokenGenerator} = require('../Auth/authenticate')
 const bcrypt = require('bcryptjs')
 const knex = require('knex')
 const dbConfig = require('../knexfile.js')
 const db = knex(dbConfig.development)
 
-function register(req, res) {
+
+module.exports = server => {
+        server.post('/api/register', register),
+        server.post('/api/login', login),
+        server.get('/api/home', authenticate, accessPage)
+    }
+
+
+function register (req, res) {
     const creds = req.body
     const hash = bcrypt.hashSync(creds.password, 4)
     creds.password = hash
@@ -19,13 +27,13 @@ function register(req, res) {
                 res.status(201).json({user, token})
             })
       })
-      .catch(err => { res.status(400).json({err: "Unable to login user. Please try again"})
+      .catch(err => { res.status(400).json({err: "Unable to register user. Please try again"})
     })
 }
 
 function login(req, res) {
     const creds = req.body
-    db('users').where({username: creds.username}).first()
+    db('login').where({username: creds.username}).first()
     .then(user => {
         if(user && bcrypt.compareSync(creds.password, user.password)){
             const token = tokenGenerator(user)
@@ -50,8 +58,4 @@ function accessPage(req, res) {
     })
 }
 
-module.exports = server => {
-    server.post('/api/register', register),
-    server.post('/api/login', login),
-    server.get('/api/home', authenticate, accessPage)
-}
+
