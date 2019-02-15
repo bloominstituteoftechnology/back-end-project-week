@@ -1,7 +1,7 @@
 const cl = console.log;
 const express = require("express");
-const cors = require('cors')
-// const cors = require('./middleware/cors')
+// const cors = require('cors')
+const cors = require('./middleware/cors')
 
 
 const db = require("./middleware/helpers");
@@ -15,14 +15,13 @@ server.get('/', (req, res) => {
 })
 
 server.get("/notes", (req, res) => {
-  // db.getNotes()
-  //   .then(notes => {
-  //     res.json(notes);
-  //   })
-  //   .catch(err => {
-  //     res.status(500).send(err);
-  //   });
-  res.json({"hello": "World"})
+  db.getNotes()
+    .then(notes => {
+      res.json(notes);
+    })
+    .catch(err => {
+      res.status(500).send(err);
+    });
 });
 
 server.get("/notes/:id", (req, res) => {
