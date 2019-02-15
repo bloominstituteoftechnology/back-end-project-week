@@ -1,6 +1,6 @@
 const express = require('express');
 const knex = require('knex');
-
+const cors = require('cors');
 const dbConfig = require('./knexfile')
 
 const server = express();
@@ -8,6 +8,7 @@ const db = knex(dbConfig.development);
 const PORT = process.env.PORT || 5566;
 
 
+server.use(cors());
 server.use(express.json());
 
 server.get('https://cryptic-brook-42672.herokuapp.com/', (req, res) => {
