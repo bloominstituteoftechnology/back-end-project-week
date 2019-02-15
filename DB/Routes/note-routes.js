@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.router()
 const noteDB = require('../DB-Functions/Note-Functions')
-
+const MW = require('../MW-Functions/middleware')
 
 router.get('/', (req, res) => {
  noteDB.pull()
@@ -29,7 +29,7 @@ router.get('/:id', (req, res) => {
   })
 })
 
-router.post('/', (req, res) => {
+router.post('/', MW.note_check, (req, res) => {
  const id = req.params
  const note = req.body
  noteDB.place(id, note)
@@ -43,7 +43,7 @@ router.post('/', (req, res) => {
   })
 })
 
-router.put('/:id', (req, res) => {
+router.put('/:id', MW.note_check, (req, res) => {
  const id = req.params
  const note = req.body
  noteDB.alter(id, note)
@@ -62,7 +62,7 @@ router.delete('/:id', (req, res) => {
  const id = req.params
  noteDB.clear(id)
   .then(() => {
-   
+
   })
   .catch((err) => {
    res
