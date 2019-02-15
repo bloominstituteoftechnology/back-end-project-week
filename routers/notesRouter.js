@@ -18,6 +18,7 @@ router.get('/', (req, res) =>{
   })
 })
 
+//GET by Id
 router.get('/:id', (req, res)=>{
   const id = req.params.id;
 
@@ -31,6 +32,18 @@ router.get('/:id', (req, res)=>{
   })
   .catch(err =>{
     res.status(500).json({error: 'Unable to retrieve note'})
+  })
+})
+
+//POST Route Handler
+router.post('/', (req, res) =>{
+  const note = req.body;
+  notesDb.addNote(note)
+  .then(id =>{
+    res.status(201).json(id);    
+  })
+  .catch(err =>{
+    res.status(500).json({error: 'Unable to add note'});
   })
 })
 

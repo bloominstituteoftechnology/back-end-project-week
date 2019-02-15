@@ -11,5 +11,13 @@ module.exports = {
     return notesDb('notes')
     .where('id', id);
   },
+
+  addNote: function(note){
+    return notesDb('notes')
+    .insert(note)
+    .then(ids =>{
+      return {id: ids[0]};
+    })
+  }
 }
 
