@@ -1,25 +1,28 @@
 const express = require("express")
 const router = express.Router();
-const db = require('../helpers/postsHelpers');
+const postDb = require('../helpers/postsHelpers');
 
 //endpoints
 
 //POST
 router.post('/posts', (req, res) => {
     const { title, contents, tags } = req.body;
-    const newPost = { title, contents, tags };
+    const newPost = { title, contents };
+    const postTags = tags;
     //return new post after posting
     const findPost = idInfo =>
-        db.findById(idInfo.id)
+        postDb.findById(idInfo.id)
             .then(post => {
                 res.status(201)
                     .json(post)
             })
     //posting new post
     if (title && contents) {
-        db.insert(newPost)
-            .then(idInfo => {
-                findPost(idInfo)
+        postDb.insert(newPost)
+            .then(postId => {
+                // console.log(postTags);
+                postDb.insertTags(postId[0], postTags);
+                res.json(postId);
             })
             .catch(err => {
                 res.status(500)
@@ -34,7 +37,7 @@ router.post('/posts', (req, res) => {
 
 //GET all posts
 router.get('/posts', (req, res) => {
-    db.find()
+    postDb.find()
         .then(posts => {
             res.json(posts);
         })
@@ -47,9 +50,9 @@ router.get('/posts', (req, res) => {
 //GET one post
 router.get('/posts/:id', (req, res) => {
     const { id } = req.params;
-    db.findById(id)
+    postDb.findById(id)
         .then(post => {
-            if (post.length > 0) {
+            if (post) {
                 res.json(post);
             }
             else {
@@ -71,14 +74,14 @@ router.put('/posts/:id', (req, res) => {
     const updatedPost = { title, contents }
     //return updated post after updating
     const findPost = id =>
-        db.findById(id)
+        postDb.findById(id)
             .then(post => {
                 res.status(200)
                     .json(post)
             })
     //updating
     if (title && contents) {
-        db.update(id, updatedPost)
+        postDb.update(id, updatedPost)
             .then(count => {
                 if (count) { findPost(id) }
                 else {
@@ -90,7 +93,7 @@ router.put('/posts/:id', (req, res) => {
                 res.status(500)
                     .json({ error: "The post information could not be modified." })
             })
-    } 
+    }
     else {
         res.status(400)
             .json({ errorMessage: "Please provide title and contents for the post." })
@@ -100,10 +103,10 @@ router.put('/posts/:id', (req, res) => {
 //DELETE
 router.delete('/posts/:id', (req, res) => {
     const { id } = req.params;
-    db.remove(id)
+    postDb.remove(id)
         .then(count => {
             if (count) {
-                res.json({ message: "Post succesfully deleted."});
+                res.json({ message: "Post succesfully deleted." });
             }
             else {
                 res.status(404)

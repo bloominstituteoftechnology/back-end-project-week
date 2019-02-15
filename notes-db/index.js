@@ -19,7 +19,7 @@ server.use(cors());
 
 //routers
 server.use('/api/', postsRouter);
-// server.use('/api/', tagsRouter);
+server.use('/api/', tagsRouter);
 
 //listening
 server.listen(PORT, () => {

@@ -14,7 +14,8 @@ function find() {
 }
 
 function findById(id) {
-    return db('tags').where({ id: Number(id) });
+    return db('tags')
+    .where({ id: Number(id) })
 }
 
 function insert(tag) {
