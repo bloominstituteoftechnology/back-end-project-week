@@ -1,4 +1,4 @@
-import React from 'react';
+ import React from 'react';
 import axios from 'axios';
 import { Button, Modal, ModalBody, ModalFooter } from 'reactstrap';
 
@@ -19,9 +19,10 @@ class NoteView extends React.Component {
       componentDidMount() {
         const id = Number(this.props.match.params.id);
         this.fetchNote(id);
+    
       }
     //gets api based off of matching id's
-      fetchNote =  id => {
+      fetchNote= id => {
         axios
           .get(`https://safe-tor-44897.herokuapp.com/api/notes/${id}`)
           .then(response => {
@@ -31,6 +32,7 @@ class NoteView extends React.Component {
           })
           .catch(error => console.log(error));
       };
+    
     
 //puts new note to the api
       editNote = () => {
@@ -103,7 +105,7 @@ class NoteView extends React.Component {
           window.location.reload();
           
       }
-
+;
 
 
       render() {
