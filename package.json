@@ -1,7 +1,7 @@
 {
   "name": "back-end-project-week",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "server": "nodemon index.js",
     "test": "cross-env DB_ENV=testing jest --watch --verbose"
