@@ -10,8 +10,9 @@ class EditNote extends Component {
 
     componentDidMount() {
         if (this.props.type === "Edit") {
-            let id = this.props.match.params.id;
-            let note = this.props.notes.find(note => note._id === id); //pick out note that corresponds to ID in URL
+            let id = parseInt(this.props.match.params.id);
+            let note = this.props.notes.find(note => note.id === id); //pick out note that corresponds to ID in URL
+            console.log(note);
     
             this.setState({ //set note to state
                 note: note,
@@ -19,7 +20,7 @@ class EditNote extends Component {
             }, () => { //set initial values for title and text
                 this.setState({
                     newTitle: this.state.note.title,
-                    newText: this.state.note.text
+                    newText: this.state.note.content
                 });
             });
         }
@@ -47,7 +48,7 @@ class EditNote extends Component {
                         <h3 className="subtitle-font title">{this.props.type} Note:</h3>
                         <form onSubmit={this.handleSubmit}>
                             <input className="title-input" onChange={this.handleChangeValue} name="newTitle" type="text" placeholder="Note Title" defaultValue={this.state.note ? this.state.note.title : ""}></input><br></br>
-                            <textarea className="text-input"  onChange={this.handleChangeValue} name="newText" placeholder="Note Content" defaultValue={this.state.note ? this.state.note.textBody : ""}></textarea><br></br>
+                            <textarea className="text-input"  onChange={this.handleChangeValue} name="newText" placeholder="Note Content" defaultValue={this.state.note ? this.state.note.content : ""}></textarea><br></br>
                             <input className="button" type="submit" value={this.props.type === "Edit" ? "Update" : "Add"}></input>
                         </form>
                     </div>
