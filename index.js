@@ -40,7 +40,19 @@ server.post('/notes', (req, res) => {
     })
 })
 
-// Regular Get ALL notes_tags
+server.get('/tags', (req, res) => {
+    db('tags')
+    .then(rows => {
+        res.json(rows)
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(500).json({err: 'Failed to retrieve Tags'})
+    })
+})
+
+///////// many to many AND joins table ////////////
+// Regular Get ALL notes_tags (does NOT show tagTitle)
 server.get('/notes_tags', (req, res) => {
     db('notes_tags')
     .then(rows => {
@@ -52,9 +64,18 @@ server.get('/notes_tags', (req, res) => {
     })
 })
 
-// JOINS notes_tags
+// JOINS notes_tags (SHOWS tagTitle)
 server.get('/notes_tags_joins', (req , res) => {
     db('notes_tags').leftJoin('tags', 'tags_id', 'tags.id')
+    .then(tagInfo => {
+        res.send(tagInfo)
+    })
+    .catch(err => console.log(err))
+})
+
+// JOINS notes_tags (SHOWS title & textBody)
+server.get('/notes_tags_joins_two', (req , res) => {
+    db('notes_tags').leftJoin('notes', 'notes_id', 'notes.id')
     .then(tagInfo => {
         res.send(tagInfo)
     })
@@ -97,6 +118,16 @@ server.delete('/notes/:id', (req, res) => {
     .catch(err => {
         res.status(500).json({err: "Failed to delete Note"})
     })
+})
+
+
+///// Experiment
+server.get('/notes_ex', (req , res) => {
+    db('notes').leftJoin('tags', 'notes_id', 'notes.id')
+    .then(noteInfo => {
+        res.send(noteInfo)
+    })
+    .catch(err => console.log(err))
 })
 
 server.listen(PORT, () => {
