@@ -31,9 +31,14 @@ Feeling... less good, but ultimately accomplished. It took a ton of syntax debug
 
 --
 
+**2/14**
+
 So close!
 
 ![screenshot](https://i.imgur.com/P9BMqcM.jpg)
 
 So, in my old `front-end` project, I have the notes from the Heroku deployment `console.log`'ing. That's huge, if I do say so myself -- it means that Heroku is talking to my old front end. All I have left is to refactor some front-end code. My bet is that I call it something different (`noteTitle` versus `note_title` is my guess) and my front-end doesn't know what to render.
 
+![another screenshot](https://i.imgur.com/Wa2B4sI.png)
+
+Success! The formatting is terrible because I wrote lacklustre code back in October. Exceptionally proud of this. (And yep, it was because of the classNames...)
