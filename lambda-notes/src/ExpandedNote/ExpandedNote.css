@@ -4,3 +4,57 @@
     font-family: 'Raleway', sans-serif;
    
 }
+.expanded-note-edit-container{
+    width:30%;
+    float:right;
+    display:flex;
+    justify-content:space-around;
+    margin:30px;
+    font-size:1.8rem;
+    letter-spacing: .3rem;
+    font-weight:bolder;
+    color:white;
+    text-decoration:none;
+    text-decoration-color: white;
+    padding-right:2.5%;
+}
+.edit-link{
+    text-decoration:none;
+    color:white;
+}
+.expanded-note-sub-container{
+    width:80%;
+    margin:120px auto;
+    background-color:rgb(20, 20, 20);
+    border-radius:5px;
+    border:2px solid white;
+    min-height: 80vh;
+}
+.expanded-note-sub-sub-container{
+    width:80%;
+    margin:0px auto;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-around;
+    padding:20px 0% 40px 0%;
+}
+.expanded-title-header{
+    color:white;
+    font-size: 2.8rem;
+    text-transform: uppercase;
+    letter-spacing: .6rem;
+   font-weight:bolder;
+    text-align:center;
+    text-decoration:underline;
+    text-decoration-color: #4A415C;
+    padding-bottom:20px;
+    margin-top:40px;
+}
+.expanded-content{
+    color:white;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    letter-spacing: .5rem;
+   font-weight:bold;
+    text-align:center;
+}

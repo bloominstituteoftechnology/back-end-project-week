@@ -71,22 +71,17 @@ input[type=text]{
       width:40%;
       margin:40px auto;
       text-align:center;
-      background: rgb(31, 31, 31);
+     
       color: white;
       height: 75px;
-      border-radius:5px;
-      border: 2px solid white;
+      
  }
  .button-text{
-    letter-spacing: 6px;
-    font-size:24px;
+    letter-spacing: .5rem;
+    font-size:2.4rem;
       width:50%;
       margin: 0 auto;
       padding-top:10px;
       text-align:center;
-      font-weight:bold;
+      font-weight:bolder;
  }
-  .nav-link{
-    text-decoration:underline;
-    text-decoration-color: #4A415C;
-}

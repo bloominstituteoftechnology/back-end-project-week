@@ -10,9 +10,9 @@
 
 .edit-header{
     color:white;
-    font-size: 36px;
+    font-size: 3.6rem;
     text-transform: uppercase;
-    letter-spacing: 7px;
+    letter-spacing: .7rem;
     margin-top:60px;
     text-align:center;
 }
@@ -24,7 +24,7 @@
 }
 .title-input{
    
-    margin: 40px 0px 40px 0px;
+    margin: 40px 0%;
     height:40px;
 
 }
@@ -37,8 +37,8 @@ input[type=text]{
     color:#746478;
     font-family: 'Raleway', sans-serif;
     text-transform: uppercase;
-    font-size:16px;
-    letter-spacing:4px;
+    font-size:1.6rem;
+    letter-spacing:.4rem;
     border-radius:5px;
     border-color: white;
     border-style:solid;
@@ -65,26 +65,4 @@ input[type=text]{
     
   }
 
-  .submit-button{
-      width:40%;
-      margin:40px auto;
-      text-align:center;
-      background: rgb(31, 31, 31);
-      color: white;
-      height: 75px;
-      border-radius:5px;
-      border: 2px solid white;
- }
- .button-text{
-    letter-spacing: 6px;
-    font-size:24px;
-      width:50%;
-      margin: 0 auto;
-      padding-top:10px;
-      text-align:center;
-      font-weight:bold;
- }
-  .nav-link{
-    text-decoration:underline;
-    text-decoration-color: #4A415C;
-}
+ 

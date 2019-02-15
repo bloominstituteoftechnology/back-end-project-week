@@ -25,9 +25,7 @@ class CreateNote extends React.Component{
                         />
                         <NavLink  className = 'nav-link' exact to = '/' >
                             <div className = 'submit-button'>
-                                <div className = 'button-text'>
-                                    SUBMIT NOTE
-                                </div>
+                                <div className = 'button-text'>SUBMIT</div>
                             </div>    
                         </NavLink>    
                     </form>

@@ -6,38 +6,37 @@
     
 }
   
-  .module-button {
-    background: rgb(31, 31, 31);
-    color: white;
-    height: 75px;
-    border-radius:5px;
-    border: 2px solid white;
-    width:75%;
-    display:flex;
-    margin:20px auto;
-    cursor:pointer;
-  }
   .nav-header{
     color:white;
     margin:20px;
-    font-size:48px;
-    letter-spacing: 10px;
+    font-size:4rem;
+    letter-spacing: 1.1rem;
     margin-bottom:40px;
     text-align:center;
   }
   .nav-button-text{
-    letter-spacing: 6px;
-    font-size:24px;
+    letter-spacing: 0.6rem;
+    font-size:2.8rem;
+    font-weight:bold;
       width:50%;
       margin: 0 auto;
       padding-top:10px;
       text-align:center;
+      cursor:pointer;
+      text-decoration:none;
+   
   }
   .first{
       padding-top:20px;
   }
- 
   .nav-link{
-      text-decoration:underline;
-      text-decoration-color: #4A415C;
+    text-decoration:none;
+    font-weight:bold;
+    text-align:center;
+    color: white;
+    height: 75px;
+   
+    width:75%;
+    display:flex;
+    margin:20px auto;
   }
