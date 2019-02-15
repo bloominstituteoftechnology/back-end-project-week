@@ -7,7 +7,6 @@ class NoteDetail extends React.Component {
     this.state = {
       id: "",
       tags: [],
-      tag: "",
       title: "",
       contents: "",
       created_at: "",
@@ -22,13 +21,14 @@ class NoteDetail extends React.Component {
         `http://localhost:4000/api/posts/${this.props.match.params.id}`
       )
       .then(response => {
+        console.log(response);
         this.setState({
-          id: response.data[0].id,
-          title: response.data[0].title,
-          contents: response.data[0].contents,
-          tags: response.data[0].tags,
-          created_at: response.data[0].created_at,
-          updated_at: response.data[0].updated_at
+          id: response.data.id,
+          title: response.data.title,
+          contents: response.data.contents,
+          tags: response.data.tags,
+          created_at: response.data.created_at,
+          updated_at: response.data.updated_at
         });
       })
       .catch(err => console.log(err.response));
@@ -83,7 +83,7 @@ class NoteDetail extends React.Component {
           <container className="tags-container">
             <form className="tags-form" onSubmit={this.props.handleSubmitTag}>
               <div className="tags">
-                {this.props.tags.map(tag => {
+                {this.state.tags.map(tag => {
                   return <p className="tag">{tag}</p>
                 })}
               </div>

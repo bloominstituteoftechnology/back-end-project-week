@@ -22,7 +22,10 @@ router.post('/posts', (req, res) => {
             .then(postId => {
                 // console.log(postTags);
                 postDb.insertTags(postId[0], postTags);
-                res.json(postId);
+                postDb.findById(postId[0])
+                    .then(post => {
+                        res.json(post);
+                    })
             })
             .catch(err => {
                 res.status(500)

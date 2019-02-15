@@ -29,10 +29,10 @@ function findById(id) {
   const promises = [query, getPostTags(id)]; // [ posts, tags ]
   return Promise
     .all(promises)
-    .then(function (results) {
-      let [posts, tags] = results;
+    .then((res) => {
+      let [posts, tags] = res;
       let post = posts[0];
-      post.tags = tags.map(tags => tags.tag);
+      post.tags = tags.map(x => x.tag);
       return post;
     });
 }

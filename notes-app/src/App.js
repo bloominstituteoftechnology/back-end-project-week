@@ -13,7 +13,6 @@ class App extends Component {
     this.state = {
       notes: [],
       tags: [],
-      tag:'',
       title: "",
       contents: "",
       _id:""
@@ -89,7 +88,6 @@ class App extends Component {
                 {...props}
                 notes={this.state.notes}
                 tags={this.state.tags}
-                tag={this.state.tag}
                 title={this.state.title}
                 contents={this.state.contents}
                 _id={this.state._id}
@@ -111,8 +109,7 @@ class App extends Component {
                 {...props}
                 notes={this.state.notes}
                 fetchNotes={this.fetchNotes}
-                tags={this.state.tags}
-                tag={this.state.tag}
+                // tags={this.state.tags}
                 handleInput={this.handleInput}
                 handleSubmitTag={this.handleSubmitTag}
               />
