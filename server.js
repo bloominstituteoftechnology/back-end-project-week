@@ -41,7 +41,23 @@ app.get("/api/notes/:id", (req, res) => {
 });
 
 app.put("/api/notes/:id", (req, res) => {
-
+    db("notes").where({ id: req.params.id }).then(notes => {
+        if (notes.length) {
+            if (req.body && req.body.title && req.body.content && typeof req.body.title === "string" && typeof req.body.content === "string") {
+                db("notes").where({ id: req.params.id }).update(req.body).then(edited => {
+                    res.status(200).json(edited);
+                }).catch(error => {
+                    res.status(500).json({ error: "Error updating note", info: error });
+                });
+            } else {
+                res.status(422).json({ error: "Malformed note data" });
+            }
+        } else {
+            res.status(404).json({ error: "Note not found" });
+        }
+    }).catch(error => {
+        res.status(500).json({ error: "Error retrieving note", info: error });
+    });
 });
 
 app.delete("/api/notes/:id", (req, res) => {
