@@ -3,7 +3,9 @@ const router = express.Router();
 const users = require('../data/helpers/usersModel')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
-
+const secret = 'shhhthisissecret';
+const cors = require('../data/helpers/cors');
+router.use(cors());
 const sendUserError = (status, msg, res) => {
     res
         .status(status)
@@ -68,18 +70,23 @@ router.get('/:id', (req, res) => {
 });
 
 /************* Register User *************/
-router.post('/register', (req, res) => {
+router.post('/', (req, res) => {
     const user = req.body; 
     console.log("user:", user)
-    user.password = bcrypt.hashSync(user.password, 10);
+   // user.password = bcrypt.hashSync(user.password, 10);
     users.insert(user)
-    .then(ids => {
-     users.findById(ids[0])
-     // users.get(ids[0])
-      .then(user => {
-        const token = generateToken(user)
-        res.status(201).json({id: user.id, token});
-      });
+    .then(user => {
+        res.status(201)
+            .json(user)
+    
+    //.then(ids => {
+    // users.findById(ids[0])
+    //  users.get(ids[0])
+    //  .then(user => {
+      //  const token = generateToken(user)
+       // res.status(201).json({id: user.id, token});
+     //   res.status(201).json({id: user.id});
+     // });
     })
     .catch(err => {
       res.status(500).send(err);
@@ -184,7 +191,7 @@ router.put('/:id', (req, res) => {
 })
 
 /********* Create New User *************/
-router.post('/', (req, res) => {
+/* router.post('/', (req, res) => {
     const user = req.body;
     if (user.username || user.password) {
         users.insert(user)
@@ -202,7 +209,7 @@ router.post('/', (req, res) => {
             .status(400)
             .json({ message: "missing username and/or password." })
     }
-});
+}); */
 
 /************* Get Single Project's Actions *************/
 /* router.get('/actions/:id', (req, res) => {
