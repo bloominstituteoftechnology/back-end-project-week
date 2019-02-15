@@ -5,41 +5,69 @@ const noteDB = require('../DB-Functions/Note-Functions')
 
 router.get('/', (req, res) => {
  noteDB.pull()
-  .then()
-  .catch(() => {
-   
+  .then(() => {
+
+  })
+  .catch((err) => {
+   res
+    .status(500)
+    .json({error: "Error pulling notes from DB.", err: err})
   })
 })
 
 router.get('/:id', (req, res) => {
- noteDB.pullById()
-  .then()
-  .catch(() => {
-   
+ const id = req.params 
+ noteDB.pullById(id)
+  .then((note) => {
+   res
+    .json(note)
+  })
+  .catch((err) => {
+   res
+    .status(500)
+    .json({error: "Error pulling note from DB.", err: err})
   })
 })
 
 router.post('/', (req, res) => {
- noteDB.place()
-  .then()
-  .catch(() => {
-   
+ const id = req.params
+ const note = req.body
+ noteDB.place(id, note)
+  .then(() => {
+
+  })
+  .catch((err) => {
+   res
+    .status(500)
+    .json({error: "Error placing note in DB.", err: err})
   })
 })
 
 router.put('/:id', (req, res) => {
- noteDB.alter()
-  .then()
-  .catch(() => {
-   
+ const id = req.params
+ const note = req.body
+ noteDB.alter(id, note)
+  .then(() => {
+   res
+    .status(201)
+  })
+  .catch((err) => {
+   res
+    .status(500)
+    .json({error: "Error altering note in DB.", err: err})
   })
 })
 
 router.delete('/:id', (req, res) => {
- noteDB.clear()
-  .then()
-  .catch(() => {
+ const id = req.params
+ noteDB.clear(id)
+  .then(() => {
    
+  })
+  .catch((err) => {
+   res
+    .status(500)
+    .json({error: "Error clearing note from DB.", err: err})
   })
 })
 
