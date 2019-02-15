@@ -4,7 +4,7 @@ const db = require('../../data/dbConfig');
 
 describe('Notes API', () => {
 
-    describe('POST /notes', () => {
+    describe('POST /api/notes', () => {
 
         beforeEach(async () => {
             await db('notes').truncate();
@@ -15,26 +15,26 @@ describe('Notes API', () => {
         });
 
         test('responds with 201', async () => {
-            const body = { name: "Broncos", location: "Denver" };
-            const response = await request(server).post('/api/teams').send(body);
+            const body = { title: "Title", content: "Content" };
+            const response = await request(server).post('/api/notes').send(body);
             expect(response.status).toBe(201);
         });
 
         test('responds with json', async () => {
-            const body = { name: "Broncos", location: "Denver" };
-            const response = await request(server).post('/api/teams').send(body);
+            const body = { title: "Title", content: "Content" };
+            const response = await request(server).post('/api/notes').send(body);
             expect(response.type).toMatch(/json/i);
         });
 
         test('responds with id of new team', async () => {
-            const body = { name: "Broncos", location: "Denver" };
-            const response = await request(server).post('/api/teams').send(body);
+            const body = { title: "Title", content: "Content" };
+            const response = await request(server).post('/api/notes').send(body);
             expect(response.body).toEqual({id: 1});
         });
 
         test('responds with 400', async () => {
             const body = {};
-            const response = await request(server).post('/api/teams').send(body);
+            const response = await request(server).post('/api/notes').send(body);
             expect(response.status).toBe(400);
         });
 
@@ -42,7 +42,15 @@ describe('Notes API', () => {
 
     });
 
-    describe('GET /notes', () => {
+    describe('GET /api/notes', () => {
+
+        beforeEach(async () => {
+            await db('notes').truncate();
+        });
+
+        afterAll(async () => {
+            await db('notes').truncate();
+        });
 
         test('responds with 200', async () => {
             const response = await request(app).get("/api/notes");
@@ -64,19 +72,19 @@ describe('Notes API', () => {
 
     });
 
-    describe('GET /notes/<id>', () => {
+    describe('GET /api/notes/<id>', () => {
 
 
 
     });
 
-    describe('PUT /notes/<id>', () => {
+    describe('PUT /api/notes/<id>', () => {
 
         
 
     });
 
-    describe('DELETE /notes/<id>', () => {
+    describe('DELETE /api/notes/<id>', () => {
 
         
 
