@@ -101,8 +101,8 @@ server.post("/notes", (req, res) => {
   } else {
     notes
     .insert(note)
-    .then(id => {
-      res.status(201).json({added: {...note, id: id}})
+    .then(ids => {
+      res.status(201).json({added: {...note, id: ids[0]}})
     })
     .catch(err => {
       res.status(500).json({error: "trouble adding note"})
@@ -125,8 +125,8 @@ server.post("/tags", (req, res) => {
         } else {
           tags
           .insert(tag)
-          .then(id => {
-            res.status(201).json({added: {...tag, id: id}})
+          .then(ids => {
+            res.status(201).json({added: {...tag, id: ids[0]}})
           })
         }
       } else {
@@ -137,6 +137,43 @@ server.post("/tags", (req, res) => {
       res.status(500).json({message: "trouble adding tag", error: err})
     })
   }
+})
+
+server.put("/notes/:id", (req, res) => {
+  const newNote = req.body;
+  const { id } = req.params;
+  notes
+    .fetch(id)
+    .then(response => {
+      if (response[0]) {
+        if (!newNote.title || typeof newNote.title !== "string" || newNote.title === "") {
+          res.status(400).json({ error: "title is required and must be a string" });
+        } else if (!newNote.content || typeof newNote.content !== "string" || newNote.content === "") {
+          res.status(400).json({ error: "content is required and must be a string" });
+        } else {
+          notes
+            .update(id, newNote)
+            .then(rows => {
+              notes
+                .fetch(id)
+                .then(resp => res.status(201).json(resp))
+                .catch(err =>
+                  res
+                    .status(500)
+                    .json({ error: "trouble retrieving updated note" })
+                );
+            })
+            .catch(err =>
+              res.status(500).json({ error: "trouble updating note" })
+            );
+        }
+      } else {
+        res.status(404).json({ error: "note does not exist" });
+      }
+    })
+    .catch(err =>
+      res.status(500).json({ error: "trouble retrieving note to update" })
+    );
 })
 
 module.exports = server;
