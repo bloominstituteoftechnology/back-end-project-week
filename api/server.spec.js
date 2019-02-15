@@ -80,8 +80,7 @@ describe('Checking the POST endpoint for /api/notes', () => {
 * Testing block for the delete endpoint for /api/notes
 * It should send status 200 when completed.
 * It should respond with a JSON object
-***I want to test this in code. I think it sends back a number of items deleted. Not the ID but I want to code it to send back the ID.
-* It should respond with the ID of the object deleted. 
+* It should respond with the ID of the object deleted. I may need to use REGEX here.
 * It should send status 404 when an ID cannot be found
 */
 describe('Checking the delete endpoint for /api/notes', () => {
@@ -90,5 +89,13 @@ describe('Checking the delete endpoint for /api/notes', () => {
         const response = await request(server).delete('/api/notes/1');
         // Expect this to be status code 200
         expect(response.status).toBe(200);
+    });
+    it('Responds with a JSON object.', async () => {
+        const response = await request(server).delete('/api/notes/200');
+        expect(response.type).toMatch(/json/i);
+    });
+    it('Responds with server status 404 when an entry with the ID cannot be found.', async () => {
+        const response = await request(server).delete('/api/notes/54');
+        expect(response.status).toBe(404);
     });
 });

@@ -72,9 +72,9 @@ server.put('/api/notes/:id', async (req, res) => {
 server.delete('/api/notes/:id', async (req, res) => {
     const {id} = req.params;
     try {
-        const deletedId = await db.deleteNote(id)
-        if (deletedId !== 0)
-            res.status(200).json(deletedId);
+        const recordsDeleted = await db.deleteNote(id)
+        if (recordsDeleted !== 0)
+            res.status(200).json(`Deleted ${recordsDeleted} records with the id of : ${id}`);
         else 
             res.status(404).json({errorMessage: `No note found with id: ${id}.`});
     }
