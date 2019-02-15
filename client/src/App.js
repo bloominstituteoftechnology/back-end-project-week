@@ -32,12 +32,12 @@ class App extends Component {
         if (id === "Add") {
             axios.post("http://localhost:3001/api/notes", {
                 title: note.title,
-                textBody: note.textBody
+                content: note.textBody
             }).then(this.getNotes);
         } else {
             axios.put(`http://localhost:3001/api/notes/${id}`, {
                 title: note.title,
-                textBody: note.textBody
+                content: note.textBody
             }).then(this.getNotes);
         }
     };

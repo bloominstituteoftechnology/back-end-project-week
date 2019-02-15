@@ -8,8 +8,8 @@ class ViewNote extends Component {
     };
 
     componentDidMount() {
-        let id = this.props.match.params.id;
-        let note = this.props.notes.find(note => note._id === id); //pick out note that corresponds to ID in URL
+        let id = parseInt(this.props.match.params.id);
+        let note = this.props.notes.find(note => note.id === id); //pick out note that corresponds to ID in URL
 
         this.setState({ //set note to state
             note: note,
@@ -48,7 +48,7 @@ class ViewNote extends Component {
                                 <a className="link-font" href="##" onClick={this.handleModal}>delete</a>
                             </div>
                             <h3 className="subtitle-font title">{this.state.note.title}</h3>
-                            <p className="view-note-body-font">{this.state.note.textBody}</p>
+                            <p className="view-note-body-font">{this.state.note.content}</p>
                         </div>
                     </div>
                 ) : "Note not found."}
