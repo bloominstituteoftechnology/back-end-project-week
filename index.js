@@ -121,7 +121,7 @@ server.delete('/notes/:id', (req, res) => {
 })
 
 
-///// Experiment
+///// Experiment - - render tags on frontend
 server.get('/notes_ex', (req , res) => {
     db('notes').leftJoin('tags', 'notes_id', 'notes.id')
     .then(noteInfo => {
