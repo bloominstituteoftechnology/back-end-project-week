@@ -150,20 +150,20 @@ describe("the route handlers", () => {
          expect(response.type).toMatch(/json/i);
       });
    });
-   describe("delete /delete/:id", () => {
+   describe.skip("delete /delete/:id", () => {
       it("responds with 200 when id exists", async () => {
-         const id = 3;
+         const id = 2;
          const response = await request(server).delete(`/delete/${id}`);
          expect(response.status).toBe(200);
          expect(response.type).toMatch(/json/i);
       });
-      it.skip("sends the correct response", async () => {
+      it("sends the correct response", async () => {
          const id = 3;
          const response = await request(server).delete(`/delete/${id}`);
 
          expect(response.body).toEqual(1);
       })
-      it.skip("response with 404 if id does not exist", async () => {
+      it("response with 404 if id does not exist", async () => {
          const id = 5;
          const response = await request(server).delete(`/delete/${id}`);
          expect(response.status).toBe(404);
