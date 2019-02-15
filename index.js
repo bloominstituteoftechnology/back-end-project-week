@@ -10,6 +10,10 @@ const server = express();
 
 server.use(express.json(), cors);
 
+server.get('/', (req, res) => {
+  res.json("blah")
+})
+
 server.get("/notes", (req, res) => {
   // db.getNotes()
   //   .then(notes => {
