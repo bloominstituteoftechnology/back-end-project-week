@@ -114,7 +114,7 @@ describe("the route handlers", () => {
          }
       });
    });
-   describe("put edit/:id", () => {
+   describe.skip("put edit/:id", () => {
       it("responds with 201 when note updated", async () => {
          const id = 1;
          const body = {
@@ -149,5 +149,25 @@ describe("the route handlers", () => {
          expect(response.status).toBe(404);
          expect(response.type).toMatch(/json/i);
       });
+   });
+   describe("delete /delete/:id", () => {
+      it("responds with 200 when id exists", async () => {
+         const id = 3;
+         const response = await request(server).delete(`/delete/${id}`);
+         expect(response.status).toBe(200);
+         expect(response.type).toMatch(/json/i);
+      });
+      it.skip("sends the correct response", async () => {
+         const id = 3;
+         const response = await request(server).delete(`/delete/${id}`);
+
+         expect(response.body).toEqual(1);
+      })
+      it.skip("response with 404 if id does not exist", async () => {
+         const id = 5;
+         const response = await request(server).delete(`/delete/${id}`);
+         expect(response.status).toBe(404);
+         expect(response.type).toMatch(/json/i);
+      })
    });
 });

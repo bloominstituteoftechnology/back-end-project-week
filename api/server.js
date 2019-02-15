@@ -40,8 +40,9 @@ server.put("/edit/:id", async (req, res) => {
    const {id} = req.params;
    const note = req.body;
    const response = await notes.update(id, note);
-   console.log(response)
    response === 1 ? res.status(201).json(response) : res.status(404).json({err: "id does not exist"})
 });
+
+//delete note by id
 
 module.exports = server;

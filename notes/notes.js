@@ -23,5 +23,5 @@ async function update(id, note){
    return db("notes").where("id", id).update(note);
 }
 async function remove(id){
-   return null;
+   return db("notes").where("id", id).del();
 }
