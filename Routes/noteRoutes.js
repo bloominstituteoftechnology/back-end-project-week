@@ -22,18 +22,17 @@ router.post('/', (req, res) => {
         })
 })
 router.get('/', (req, res) => {
-    res.json({message:'hello world'})
-    // notesHelper.getNotes()
-    //     .then(notes => {
-    //         res
-    //             .status(200)
-    //             .json(notes);
-    //     })
-    //     .catch(err => {
-    //         res
-    //             .status(500)
-    //             .json({ error: err })
-    //     })
+    notesHelper.getNotes()
+        .then(notes => {
+            res
+                .status(200)
+                .json(notes);
+        })
+        .catch(err => {
+            res
+                .status(500)
+                .json({ error: err })
+        })
 })
 router.get('/:id', (req, res) => {
     const { id } = req.params;
