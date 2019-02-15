@@ -29,3 +29,11 @@ Feeling pretty good, about to do the Heroku tutorial.
 
 Feeling... less good, but ultimately accomplished. It took a ton of syntax debugging to get the `process.env.PORT` working. I successfully identified the _cause_ of my non-functioning Heroku deployment, but it took an awful long time for me to figure out what to do in order to make it functional. Still feeling ok about it, though, especially given how far I am toward MVP features.
 
+--
+
+So close!
+
+![screenshot](https://i.imgur.com/P9BMqcM.jpg)
+
+So, in my old `front-end` project, I have the notes from the Heroku deployment `console.log`'ing. That's huge, if I do say so myself -- it means that Heroku is talking to my old front end. All I have left is to refactor some front-end code. My bet is that I call it something different (`noteTitle` versus `note_title` is my guess) and my front-end doesn't know what to render.
+
