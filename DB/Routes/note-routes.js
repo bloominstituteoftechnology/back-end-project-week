@@ -1,12 +1,15 @@
 const express = require('express')
 const router = express.router()
+
 const noteDB = require('../DB-Functions/Note-Functions')
-const MW = require('../MW-Functions/middleware')
+const { note_check } = require('../MW-Functions/middleware')
+
 
 router.get('/', (req, res) => {
  noteDB.pull()
-  .then(() => {
-
+  .then((notes) => {
+   res
+    .json(notes)
   })
   .catch((err) => {
    res
@@ -29,12 +32,13 @@ router.get('/:id', (req, res) => {
   })
 })
 
-router.post('/', MW.note_check, (req, res) => {
+router.post('/', note_check, (req, res) => {
  const id = req.params
  const note = req.body
  noteDB.place(id, note)
   .then(() => {
-
+   res
+    .status(201)
   })
   .catch((err) => {
    res
@@ -43,13 +47,14 @@ router.post('/', MW.note_check, (req, res) => {
   })
 })
 
-router.put('/:id', MW.note_check, (req, res) => {
+router.put('/:id', note_check, (req, res) => {
  const id = req.params
  const note = req.body
  noteDB.alter(id, note)
   .then(() => {
    res
     .status(201)
+    .json({message: "Successfully altered note in DB.", id: id})
   })
   .catch((err) => {
    res
@@ -61,8 +66,9 @@ router.put('/:id', MW.note_check, (req, res) => {
 router.delete('/:id', (req, res) => {
  const id = req.params
  noteDB.clear(id)
-  .then(() => {
-
+  .then((ids) => {
+   res
+    .json({message: "Successfully cleared note from DB.",id: id})
   })
   .catch((err) => {
    res

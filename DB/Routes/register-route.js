@@ -1,7 +1,22 @@
+require('dotenv').config()
 const express = require('express')
 const router = express.router()
 const bcrypt = require('bcryptjs')
 const userDB = require('../DB-Functions/User-Functions')
+
+const makeToken = () => {
+ const payload = {
+
+ },
+
+ const secret ;
+
+ const options = {
+
+ },
+
+ return jwt.sign(payload, secret, options)
+}
 
 router.post('/', (req, res) => {
  const user = req.body
