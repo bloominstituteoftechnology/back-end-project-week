@@ -40,6 +40,27 @@ server.post('/notes', (req, res) => {
     })
 })
 
+// Regular Get ALL notes_tags
+server.get('/notes_tags', (req, res) => {
+    db('notes_tags')
+    .then(rows => {
+        res.json(rows)
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(500).json({err: "Failed to retrieve all entries from Notes_Tags table"})
+    })
+})
+
+// JOINS notes_tags
+server.get('/notes_tags_joins', (req , res) => {
+    db('notes_tags').leftJoin('tags', 'tags_id', 'tags.id')
+    .then(tagInfo => {
+        res.send(tagInfo)
+    })
+    .catch(err => console.log(err))
+})
+
 // GET note by ID
 server.get('/notes/:id', (req, res) => {
     const {id} = req.params;
