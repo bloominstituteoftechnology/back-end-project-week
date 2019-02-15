@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "server":"nodemon index.js",
+    "server": "nodemon index.js",
     "test": "cross-env DB_ENV=testing jest --watch --verbose"
   },
   "repository": "https://github.com/Dewayne87/back-end-project-week.git",
@@ -17,6 +17,7 @@
     "helmet": "^3.15.1",
     "knex": "^0.16.3",
     "morgan": "^1.9.1",
+    "pg": "^7.8.0",
     "sqlite3": "^4.0.6"
   },
   "devDependencies": {
