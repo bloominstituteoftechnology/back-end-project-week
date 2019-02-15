@@ -1,11 +1,11 @@
 const cl = console.log;
 const express = require("express");
-// const cors = require('cors')
-const cors = require('./middleware/cors')
+const cors = require('cors')
+// const cors = require('./middleware/cors')
 
 
 const db = require("./middleware/helpers");
-const PORT = 4700;
+const PORT = process.env.PORT || 4700;
 const server = express();
 
 server.use(express.json(), cors);
