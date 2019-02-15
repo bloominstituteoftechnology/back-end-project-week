@@ -9,7 +9,7 @@ module.exports = {
 
   getNotesById: function(id){
     return notesDb('notes')
-    .where('id', id);
+    .where('id', Number(id));
   },
 
   addNote: function(note){
@@ -24,6 +24,12 @@ module.exports = {
     return notesDb('notes')
     .where('id', Number(id))
     .update(note)
+  },
+
+  deleteNote: function(id){
+    return notesDb('notes')
+    .where('id', Number(id))
+    .del();
   }
 }
 

@@ -10,7 +10,6 @@ const router = express.Router();
 router.get('/', (req, res) =>{
   notesDb.getNotes()
   .then(notes =>{
-    console.log(notes)
     res.status(200).json(notes)
   })
   .catch(err =>{
@@ -67,6 +66,28 @@ router.put('/:id', (req, res) =>{
   .catch(err =>{
     res.status(500).json({error: 'Unable to edit the specified note'})
   })
+})
+
+//DELETE Route Handler
+router.delete('/', (req, res) =>{
+  const id = req.params.id;
+
+  notesDb.getNotesById(id)
+  .then(note =>{
+    if(note){
+      notesDb.deleteNote(id)
+      .then(count =>{
+        res.status(200).json(note);
+      })
+    }else{
+      //note doesn't exist
+      res.status(404).json({error: 'The note with the specified id does not exist'});
+    }
+  })
+  .catch(err =>{
+    res.status(500).json({error: 'Unable to delete the note'});
+  })
+
 })
 
 
