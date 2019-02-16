@@ -72,6 +72,6 @@ router.put('/edit/:id', (req, res) => {
             .catch(err => {
                 res.status(500).json({ error: "Can not update this note" })
             })
-    }
+
 })
 module.exports = router;
