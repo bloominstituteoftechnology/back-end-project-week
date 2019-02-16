@@ -3,6 +3,26 @@ const DB = require("../../../data/helpers/notes");
 
 const ROUTER = express.Router();
 
+// MIDDLEWARE
+function protected(req, res, next) {
+  const token = req.headers.authorization;
+
+  if (token) {
+    jwt.verify(token, process.env.SECRET, (err, decodedToken) => {
+      if (err) {
+        res.status(401).json({ error: "Invalid Token" });
+      } else {
+        req.decodedToken = decodedToken;
+        next();
+      }
+    });
+  } else {
+    res.status(401).json({ error: "Validation failed" });
+  }
+}
+
+// END MIDDLEWARE
+
 // GET /api/notes/all
 ROUTER.get("/all", async (req, res) => {
   const notes = await DB.getAllNotes();
@@ -20,7 +40,7 @@ ROUTER.get("/:notesID", async (req, res) => {
     : res.status(404).json({ error: "no note found by that id" });
 });
 // POST /api/notes/
-ROUTER.post("/create", async (req, res) => {
+ROUTER.post("/create", protected, async (req, res) => {
   const { newNote } = req.body;
   // check if title and textBody are present
   if (newNote.title && newNote.textBody) {
@@ -35,7 +55,7 @@ ROUTER.post("/create", async (req, res) => {
       .json({ error: "note not created, title and body required" });
 });
 // UPDATE /api/notes/:notesID
-ROUTER.put("/:notesID", async (req, res) => {
+ROUTER.put("/:notesID", protected, async (req, res) => {
   const id = req.params.notesID;
   const { note } = req.body;
   const newNote = Object.assign({}, note, { id: id });
@@ -46,7 +66,7 @@ ROUTER.put("/:notesID", async (req, res) => {
   } else res.status(500).json({ error: "Note not editted, try again later." });
 });
 // DELETE /api/notes/:notesID
-ROUTER.delete("/:notesID", async (req, res) => {
+ROUTER.delete("/:notesID", protected, async (req, res) => {
   const id = req.params.notesID;
   const deletedNote = await DB.getNoteById(id);
   const count = await DB.deleteNote(id);

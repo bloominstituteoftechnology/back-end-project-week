@@ -35,7 +35,7 @@ router.post("/register", (req, res) => {
         }
       })
       .catch(err => {
-        res.status(500).json({
+        res.status(422).json({
           error: "Please check your connection and register again."
         });
       });
