@@ -64,7 +64,7 @@ router.get("/:id/tags", (req, res) => {
     });
 });
 
-router.post("/", (req, res) => {
+router.post("/", authenticate, (req, res) => requestOptions => {
   const note = req.body;
 
   if (!note.title || typeof note.title !== "string" || note.title === "") {
@@ -91,7 +91,7 @@ router.post("/", (req, res) => {
   }
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", authenticate, (req, res) => requestOptions => {
   const newNote = req.body;
   const { id } = req.params;
   notes
@@ -142,8 +142,8 @@ router.put("/:id", (req, res) => {
 
 router.delete(
   "/:id",
-  
-  async (req, res) => {
+  authenticate,
+  async (req, res) => async requestOptions => {
     const { id } = req.params;
     const deleted = await notes.fetch(id);
 

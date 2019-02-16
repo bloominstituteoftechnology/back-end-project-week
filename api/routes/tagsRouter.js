@@ -43,7 +43,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.post("/:id", (req, res) => {
+router.post("/", authenticate, (req, res) => requestOptions => {
   const tag = req.body;
   const note_id = req.params.id;
 
@@ -79,8 +79,8 @@ router.post("/:id", (req, res) => {
 
 router.delete(
   "/:id",
-  
-  async (req, res) => {
+  authenticate,
+  async (req, res) => async requestOptions => {
     const { id } = req.params;
     const deleted = await tags.fetch(id);
 
