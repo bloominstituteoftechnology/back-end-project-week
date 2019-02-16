@@ -11,13 +11,29 @@ class ExpandedNote extends React.Component{
             note: []
         }
     }
+    componentDidMount(){
+        const id = this.props.match.params.id;
+        this.fetchNote(id);
+    }
+    fetchNote = id => {
+        axios
+        .get(`http://localhost:3100/notes/${id}`)
+        .then(response => {
+            console.log(response);
+            this.setState(() => ({ 
+                note : response.data[0],
+             }))
+        })
+        .catch(err => {
+            console.error('Trouble fetching data',err)
+        })
+    }
+    
 
    
   
     render(){
-        let note = this.props.notes.find(
-            note => `${note.id}` === this.props.match.params.id
-          );
+      
         return(
             
             <div className = 'expanded-note-container'>
@@ -27,8 +43,8 @@ class ExpandedNote extends React.Component{
                 </div>
                 <div className = 'expanded-note-sub-container'>
                     <div className = 'expanded-note-sub-sub-container'>    
-                        <h2 className = 'expanded-title-header'>{note.title}</h2>
-                        <div className = 'expanded-content'>{note.content}</div>
+                        <h2 className = 'expanded-title-header'>{this.state.note.title}</h2>
+                        <div className = 'expanded-content'>{this.state.note.content}</div>
                     </div>    
                 </div>
             </div>

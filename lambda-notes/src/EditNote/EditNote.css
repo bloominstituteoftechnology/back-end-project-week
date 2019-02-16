@@ -33,7 +33,7 @@
    
 }
 input[type=text]{
-    background-color:#1F1F1F;
+    background-color:rgb(20, 20, 20);
     color:#746478;
     font-family: 'Raleway', sans-serif;
     text-transform: uppercase;
