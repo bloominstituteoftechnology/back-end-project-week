@@ -61,7 +61,7 @@ server.put('/api/notes/:id', (req, res) => {
     if (noteEdit.title && noteEdit.body) {
         db('notes').where({ id }).update(noteEdit)
             .then(note => {
-                res.status(200).json('Note has successfully edited!');
+                res.status(200).json('Note has been successfully edited!');
             })
             .catch(err => {
                 res.status(500).json({ message: 'Failure to edit note' });
@@ -87,5 +87,4 @@ server.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`)
 });
 
-// Currently refactoring front end project to work with back end. Revisited some old class videos but still having trouble. May have to ask PM for help. 
-// Will work on refactoring / cleaning up code once app is deployed
+// Refactoring front end is almost complete, some more errors have come up. Still trying to work them out
