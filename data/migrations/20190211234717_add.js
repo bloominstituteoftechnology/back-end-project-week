@@ -15,5 +15,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  knex.schema.dropTableIfExists("tagNote");
+  return knex.schema.dropTableIfExists("tagNote");
 };

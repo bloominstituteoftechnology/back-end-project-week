@@ -3,6 +3,11 @@ exports.up = function(knex, Promise) {
     table.increments();
     table.string("title").notNullable();
     table.string("textBody", 2000);
+    table.integer("user_id").notNullable();
+    table
+      .foreign("user_id")
+      .references("id")
+      .on("users");
   });
 };
 
