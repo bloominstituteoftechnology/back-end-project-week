@@ -6,7 +6,7 @@ router.post('/', (req, res) => {
 });
 
 router.get('/', (req, res) => {
-    res.json({notes: []});
+    
 });
 
 router.get('/:id', (req, res) => {
