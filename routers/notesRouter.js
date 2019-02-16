@@ -24,7 +24,7 @@ router.get('/:id', (req, res)=>{
   notesDb.getNotesById(id)
   .then(note =>{
     if(note){
-      res.status(200).json(note);
+      res.status(200).json(note[0]);
     }else{
       res.status(404).json({error: 'The specified note does not exist'})
     }
