@@ -1,7 +1,6 @@
 const express = require('express')
 const notes = require('../notes/notesModel')
 const cors = require('cors')
-const moment = require('moment')
 
 const server = express()
 
@@ -33,8 +32,7 @@ server.post('/note/create', async (req, res) => {
 
   if(title && content) {
     try {
-      const time = moment().format('YYYY-MM-DD hh:mm:ss a')
-      await notes.createNote({time_posted: time, ...req.body})
+      await notes.createNote(req.body)
       res.status(201).json({success: "the note has been added"})
     } catch (error) {
       res.status(500).json({failure: "unable to create the note"})
@@ -50,8 +48,7 @@ server.put('/note/:id/edit', async (req, res) => {
 
   if (title && content ) {
     try {
-      const time = moment().format('YYYY-MM-DD hh:mm:ss a')
-      await notes.updateNote(id, {time_updated: time, ...req.body})
+      await notes.updateNote(id, req.body)
       res.status(201).json({success: "the note has been updated"})
     } catch (error) {
       res.status(500).json({failure: 'unable to update the note'})
