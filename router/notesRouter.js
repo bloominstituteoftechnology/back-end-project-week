@@ -62,7 +62,7 @@ router.delete('/delete/:id', (req, res) => {
 router.put('/edit/:id', (req, res) => {
     const { id } = req.params
     const { updatedNote } = req.body;
-
+    if (updateNote.length > 128) {
         notes.update(id, req.body).then(count => {
             count ? notes.fetchNote(id).then(note => {
                 res.json(note)
@@ -72,6 +72,8 @@ router.put('/edit/:id', (req, res) => {
             .catch(err => {
                 res.status(500).json({ error: "Can not update this note" })
             })
-
+    } else {
+        res.status(400).json({error: "Can not edit note. Title or Description is greater than 128 characters"})
+    }
 })
 module.exports = router;
