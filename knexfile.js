@@ -1,7 +1,8 @@
+const DATABASE_URL = process.env.DATABASE_URL
 module.exports = {
   client: 'pg',
   debug: true,
-  connection: DB_URL,
+  connection: DATABASE_URL,
   migrations:  {
     directory: './data/migrations',
   },
