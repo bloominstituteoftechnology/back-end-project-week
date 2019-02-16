@@ -8,6 +8,9 @@
   "scripts": {
     "start": "nodemon index.js"
   },
+  "engines": {
+    "yarn": "1.x"
+  },
   "devDependencies": {
     "cross-env": "^5.2.0",
     "nodemon": "^1.18.10"
