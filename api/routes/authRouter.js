@@ -16,7 +16,7 @@ const generateToken = user => {
   };
   const options = {
     expiresIn: "1d",
-    jwtid: `${user.id}`
+    jwtid: 12345
   };
   return jwt.sign(payload, secret, options);
 };
