@@ -1,5 +1,5 @@
 // Update with your config settings.
-require('dotenv').config('');
+require('dotenv').config('/.env');
 
 module.exports = {
 
@@ -44,3 +44,4 @@ module.exports = {
   }
 
 };
+console.log(process.env.DATABASE_URL)
