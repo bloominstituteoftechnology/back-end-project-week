@@ -44,32 +44,32 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/:id", (req, res) => {
-  const tag = req.body;
-  const note_id = req.params.id;
+  const tag = req.body.newTag;
+  const note_id = req.body.id;
 
-  if (!note_id || typeof note_id !== "number") {
-    res
-      .status(400)
-      .json({ error: "note_id must be included and must be a number" });
-  } else {
-    notes
-      .fetch(note_id)
-      .then(notes => {
-        if (notes[0]) {
-          if (!tag.tag || typeof tag.tag !== "string" || tag.tag === "") {
-            res
-              .status(400)
-              .json({ error: "tag must be included and must be a string" });
-          } else {
+  // if (!note_id || typeof note_id !== "number") {
+  //   res
+  //     .status(400)
+  //     .json({ error: "note_id must be included and must be a number" });
+  // } else {
+  //   notes
+  //     .fetch(note_id)
+  //     .then(notes => {
+  //       if (notes[0]) {
+  //         if (!tag.tag || typeof tag.tag !== "string" || tag.tag === "") {
+  //           res
+  //             .status(400)
+  //             .json({ error: "tag must be included and must be a string" });
+  //         } else {
             tags.insert(tag, note_id).then(ids => {
               res.status(201).json({ added: { ...tag, note_id: note_id, id: ids[0] } });
             });
-          }
-        } else {
-          res
-            .status(404)
-            .json({ error: "note_id does not match an existing note" });
-        }
+        //   }
+        // } else {
+        //   res
+        //     .status(404)
+        //     .json({ error: "note_id does not match an existing note" });
+        // }
       })
       .catch(err => {
         res.status(500).json({ message: "trouble adding tag", error: err });
