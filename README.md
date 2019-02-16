@@ -2,6 +2,106 @@
 
 https://trello.com/b/b8qHU2sU/lambda-notesbackend-william-yturralde
 
+# API Documentation:
+Lambda api notes
+this is a student api project written for Lambda School by **William Yturralde, WebPt2**
+
+Access Methods
+Table of Contents
+
+    get /api/notes/1
+    delete /api/notes/2
+    get /api/notes
+    post /api/notes
+
+##get /api/notes/1
+
+(apiNotes1Get)
+
+**Return type:**
+
+String
+
+**Produces:**
+
+This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
+
+    application/json; charset=utf-8
+
+Responses:
+
+200
+
+##delete /api/notes/2
+
+(apiNotes2Delete)
+
+**Return type:**
+
+String
+
+**Produces:**
+
+This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
+
+    application/json; charset=utf-8
+
+**Responses:**
+
+200
+
+##get /api/notes
+
+(apiNotesGet)
+
+**Return type:**
+
+String
+
+**Produces:**
+
+This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
+
+    application/json; charset=utf-8
+
+**Responses:**
+
+200
+
+##post /api/notes
+
+(apiNotesPost)
+
+**Consumes:**
+
+This API call consumes the following media types via the Content-Type request header:
+
+    application/json
+
+**Request body:**
+
+body body (optional)
+
+Body Parameter —
+
+**Return type:**
+
+String
+
+**Produces:**
+
+This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
+
+    application/json; charset=utf-8
+
+Responses:
+
+201
+
+
+
+
+
 # Back End Project Week
 
 This week you will build a backend for a note taking app called "Lambda Notes".
