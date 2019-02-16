@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const notes = require("../data/helpers/helpers.js");
+const notes = require("../data/helpers/note_helpers.js");
 
 //request to see all notes
 router.get("/all", async (req, res) => {
