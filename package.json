@@ -6,7 +6,8 @@
   "author": "iepoch <staclem@live.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js",
+    "server": "nodemon"
   },
   "engines": {
     "yarn": "1.x"
