@@ -8,7 +8,7 @@ const db = require("./middleware/helpers");
 const PORT = process.env.PORT || 4700;
 const server = express();
 
-server.use(express.json(), cors());
+server.use(express.json(), cors);
 
 server.get('/', (req, res) => {
   res.json("blah")
