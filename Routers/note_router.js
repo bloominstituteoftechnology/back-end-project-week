@@ -4,9 +4,7 @@ const notes = require("../data/helpers/note_helpers.js");
 
 //request to see all notes
 router.get("/all", async (req, res) => {
-   console.log("route running");
    const rows = await notes.getAll();
-   console.log(rows);
    res.status(200).json(rows);
 });
 
