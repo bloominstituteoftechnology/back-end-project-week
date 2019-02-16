@@ -4,6 +4,9 @@ module.exports = {
     get: function(id) {
         if(id) {
             return db('notes').where('id',id)
+            .then(notes => {
+                return notes[0]
+            })
         }
         else {
             return db('notes')

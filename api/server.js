@@ -11,6 +11,7 @@ server.use(helmet());
 server.use(morgan('dev'));
 server.use('/api/notes', notesRouter);
 
+
 server.get('/', async (req, res) => {
     res.status(200).json({ api: 'Backend up and running.'})
 });
