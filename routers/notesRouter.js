@@ -1,14 +1,25 @@
 const express = require('express');
 const router = express.Router();
 const notes = require('../data/helpers/notesModel')
-
+const secret = 'shhhthisissecret';
+const jwt = require('jsonwebtoken');
 const sendUserError = (status, msg, res) => {
     res
         .status(status)
         .json({ Error: msg });
 };
 
-
+function protect(req, res, next) {
+    const token = req.headers.authorization;
+  
+    jwt.verify(token, secret, (err, decodedToken) => {
+      if (err) {
+        res.status(401).json({ message: 'Invalid token'}); 
+      } else {
+        next();
+      }
+    });
+  }
 
 /************************************ NOTES SECTION ***********************************/
 

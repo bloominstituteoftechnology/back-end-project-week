@@ -1,3 +1,4 @@
+const cors = require('./data/helpers/cors');
 require('dotenv').config();
 const express = require('express');
 //const cors = require('cors');
@@ -13,8 +14,7 @@ const listsRouter = require('./routers/listsRouter');
 const notesRouter = require('./routers/notesRouter');
 const usersRouter = require('./routers/usersRouter');
 const secret = 'shhhthisissecret';
-//const server = require('./api/server.js');
-const cors = require('./data/helpers/cors');
+//server.use(cors({}));
 server.use(cors());
 
 //app.use(cors());

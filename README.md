@@ -73,3 +73,58 @@ Once your MVP has been approved, you have been given a feature list that the cli
 - Gate your favorite feature behind the _premium_ paywall
 
 You will notice that this repository does not have any starter code. This is on purpose. You are to start from scratch using any files you have built throughout your time here at Lambda School as reference.
+
+## API Documentation:
+Lambda api notes
+this is a student api project written for Lambda School
+
+Access
+Methods
+[ Jump to Models ]
+Table of Contents
+Default
+
+    get /api/notes/1
+    delete /api/notes/3
+    get /api/notes
+
+Default
+
+## get /api/notes/1
+
+(apiNotes1Get)
+Return type: String
+Produces
+This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
+
+    application/json; charset=utf-8
+
+Responses: 200
+
+## delete /api/notes/3
+
+(apiNotes3Delete)
+
+Return type: String
+Produces
+This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
+
+    application/json; charset=utf-8
+
+Responses: 200
+
+## get /api/notes
+
+(apiNotesGet)
+
+Return type: String
+Produces:
+This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
+
+    application/json; charset=utf-8
+
+Responses: 200
+
+Models
+[ Jump to Methods ]
+Table of Contents
