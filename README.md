@@ -14,7 +14,7 @@ Table of Contents
     get /api/notes
     post /api/notes
 
-##get /api/notes/1
+## get /api/notes/1
 
 (apiNotes1Get)
 
@@ -32,7 +32,7 @@ Responses:
 
 200
 
-##delete /api/notes/2
+## delete /api/notes/2
 
 (apiNotes2Delete)
 
@@ -50,7 +50,7 @@ This API call produces the following media types according to the Accept request
 
 200
 
-##get /api/notes
+## get /api/notes
 
 (apiNotesGet)
 
@@ -68,7 +68,7 @@ This API call produces the following media types according to the Accept request
 
 200
 
-##post /api/notes
+## post /api/notes
 
 (apiNotesPost)
 
