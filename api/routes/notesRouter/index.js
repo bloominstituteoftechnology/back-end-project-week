@@ -35,7 +35,7 @@ ROUTER.post("/create", async (req, res) => {
       .json({ error: "note not created, title and body required" });
 });
 // UPDATE /api/notes/:notesID
-ROUTER.put("/:notesID", async (req, res) => {
+ROUTER.put("/:notesID/edit", async (req, res) => {
   const id = req.params.notesID;
   const { note } = req.body;
   const newNote = Object.assign({}, note, { id: id });
