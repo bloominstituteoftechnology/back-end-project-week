@@ -27,6 +27,7 @@ server.get('/notes', (req, res) => {
     })
 });
 
+/// Normal Post Notes (without Tags)
 server.post('/notes', (req, res) => {
     const note = req.body;
     console.log('note info', note)
@@ -129,6 +130,59 @@ server.get('/notes_ex', (req , res) => {
     })
     .catch(err => console.log(err))
 })
+
+/// Experiment - Post Notes WITH Tags
+// server.post('/notes', (req, res) => {
+//     const note = req.body;
+//     const tags = req.body.tags;
+
+//     delete note.tags;
+
+//     console.log('note info', note)
+//     console.log('tag info', tags)
+
+//     db.insertNoteTag(note, tag)
+//         .then(note => res.status(201).json(note))
+//         .catch(err => {
+//             console.log(err)
+//             res.status(500).json({error: "There was an error saving note to the database"});
+//         });
+// })
+
+// NEED TO BE ADDED TO DB HELPERS
+// insertNote: async function (note) {
+//         return db('notes').insert(note)
+// }
+
+// insertTag: async function (tags) {
+//     let tagIds = []
+
+//     for (let tag of tags) {
+//         const tagId = await db('tags').insert(tag)
+//         tagIds.push(tagId)
+//     }
+
+//     return tagIds
+// }
+
+
+// insertNoteTag: function (note, tags) {
+//     const promises = [this.insertNote(note), this.insertTags(tags)]
+
+//     return Promise.all(promises).then(async (results) => {
+//         let [noteId, tagIds] = results
+
+//         for (let tagId of tagIds) {
+//         await db('noteTags').insert({ tagId, noteId })
+//         }
+
+//         return this.get(noteId)
+//     })
+// }
+
+
+
+
 
 server.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
