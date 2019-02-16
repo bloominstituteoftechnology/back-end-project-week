@@ -1,4 +1,5 @@
-const db = require('../data/dbConfig.js');
+//helper methods for note API calls
+const db = require("../dbConfig.js");
 
 module.exports = {
    getAll,
