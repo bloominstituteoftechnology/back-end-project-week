@@ -14,13 +14,19 @@ module.exports = {
     },
 
     insert: function(note) {
-        return db('notes').insert(note)
-            // .then( ([id]) => get(id))
+        if(note.title && note.content) {
+            return db('notes').insert(note)
+        }
+        else {
+            return 'Please enter a note with a proper title and content.'
+        }
     },
 
     update: function(id, changes) {
         return db('notes').where('id', id).update(changes)
-            // .then(notes)
+            .then(notes => {
+                return notes[0]
+            })
     },
 
     remove: function(id) {
