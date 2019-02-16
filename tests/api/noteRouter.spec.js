@@ -124,86 +124,92 @@ describe('Notes API', () => {
 
     });
 
-    // describe('PUT /api/notes/<id>', () => {
+    describe('PUT /api/notes/<id>', () => {
 
-    //     beforeEach(async () => {
-    //         await db('notes').truncate();
-    //     });
+        beforeEach(async () => {
+            await db('notes').truncate();
+        });
 
-    //     afterAll(async () => {
-    //         await db('notes').truncate();
-    //     });
+        afterAll(async () => {
+            await db('notes').truncate();
+        });
 
-    //     test('responds with 200', async () => {
-    //         const body = { title: "Ttle", content: "Cntent" };
-    //         const note = await request(app).post('/api/notes').send(body);
-    //         body = { title: 'Title', content: 'Content' };
-    //         const response = await request(app).put(`/api/notes/${note.id}`).send(body);
-    //         expect(response.status).toBe(200);
-    //     });
+        test('responds with 200', async () => {
+            let body = { title: "Ttle", content: "Cntent" };
+            let response = await request(app).post('/api/notes').send(body);
+            const note = response.body;
+            body = { title: 'Title', content: 'Content' };
+            response = await request(app).put(`/api/notes/${note.id}`).send(body);
+            expect(response.status).toBe(200);
+        });
 
-    //     test('responds with json', async () => {
-    //         const body = { title: 'Ttle', content: 'Cntent' };
-    //         const note = await request(app).post('/api/notes').send(body);
-    //         body = { title: 'Title', content: 'Content' };
-    //         const response = await request(app).put(`/api/notes/${note.id}`).send(body);
-    //         expect(response.type).toMatch(/json/i);
-    //     });
+        test('responds with json', async () => {
+            let body = { title: 'Ttle', content: 'Cntent' };
+            let response = await request(app).post('/api/notes').send(body);
+            const note = response.body;
+            body = { title: 'Title', content: 'Content' };
+            response = await request(app).put(`/api/notes/${note.id}`).send(body);
+            expect(response.type).toMatch(/json/i);
+        });
 
-    //     test('responds with updated note object', async () => {
-    //         const body = { title: 'Ttle', content: 'Cntent' };
-    //         const note = await request(app).post('/api/notes').send(body);
-    //         body = { title: 'Title', content: 'Content' };
-    //         const response = await request(app).put(`/api/notes/${note.id}`).send(body);
-    //         expect(response.body).toEqual({ id: 1, title: 'Title', content: 'Content' });
-    //     });
+        test('responds with updated note object', async () => {
+            let body = { title: 'Ttle', content: 'Cntent' };
+            let response = await request(app).post('/api/notes').send(body);
+            const note = response.body;
+            body = { title: 'Title', content: 'Content' };
+            response = await request(app).put(`/api/notes/${note.id}`).send(body);
+            expect(response.body).toEqual({ id: 1, title: 'Title', content: 'Content' });
+        });
 
-    //     test('responds with 404 on invalid id', async () => {
-    //         const id = 1;
-    //         const body = { title: 'Title', content: 'Content' };
-    //         const response = await request(app).put(`/api/notes/${id}`).send(body);
-    //         expect(response.status).toBe(404);
-    //     });
+        test('responds with 404 on invalid id', async () => {
+            const id = 1;
+            const body = { title: 'Title', content: 'Content' };
+            const response = await request(app).put(`/api/notes/${id}`).send(body);
+            expect(response.status).toBe(404);
+        });
 
-    // });
+    });
 
-    // describe('DELETE /api/notes/<id>', () => {
+    describe('DELETE /api/notes/<id>', () => {
 
-    //     beforeEach(async () => {
-    //         await db('notes').truncate();
-    //     });
+        beforeEach(async () => {
+            await db('notes').truncate();
+        });
 
-    //     afterAll(async () => {
-    //         await db('notes').truncate();
-    //     });
+        afterAll(async () => {
+            await db('notes').truncate();
+        });
 
-    //     test('responds with 200', async () => {
-    //         const body = { title: "Title", content: "Content" };
-    //         const note = await request(app).post('/api/notes').send(body);
-    //         const response = await request(app).delete(`/api/notes/${id}`);
-    //         expect(response.status).toBe(200);
-    //     });
+        test('responds with 200', async () => {
+            const body = { title: "Title", content: "Content" };
+            let response = await request(app).post('/api/notes').send(body);
+            const note = response.body;
+            response = await request(app).delete(`/api/notes/${note.id}`);
+            expect(response.status).toBe(200);
+        });
 
-    //     test('responds with json', async () => {
-    //         const body = { title: "Title", content: "Content" };
-    //         const note = await request(app).post('/api/notes').send(body);
-    //         const response = await request(app).delete(`/api/notes/${id}`);
-    //         expect(response.type).toMatch(/json/i);
-    //     });
+        test('responds with json', async () => {
+            const body = { title: "Title", content: "Content" };
+            let response = await request(app).post('/api/notes').send(body);
+            const note = response.body;
+            response = await request(app).delete(`/api/notes/${note.id}`);
+            expect(response.type).toMatch(/json/i);
+        });
 
-    //     test('responds with count of 1 record deleted', async () => {
-    //         const body = { title: "Title", content: "Content" };
-    //         const note = await request(app).post('/api/notes').send(body);
-    //         const response = await request(app).delete(`/api/notes/${id}`);
-    //         expect(response.body).toEqual({ count: 1 });
-    //     });
+        test('responds with count of 1 record deleted', async () => {
+            const body = { title: "Title", content: "Content" };
+            let response = await request(app).post('/api/notes').send(body);
+            const note = response.body;
+            response = await request(app).delete(`/api/notes/${note.id}`);
+            expect(response.body).toEqual({ count: 1 });
+        });
 
-    //     test('responds with 404 on invalid id', async () => {
-    //         const id = 1;
-    //         const response = await request(app).delete(`/api/notes/${id}`);
-    //         expect(response.status).toBe(404);
-    //     });
+        test('responds with 404 on invalid id', async () => {
+            const id = 1;
+            const response = await request(app).delete(`/api/notes/${id}`);
+            expect(response.status).toBe(404);
+        });
 
-    // });
+    });
 
 });

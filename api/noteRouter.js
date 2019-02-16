@@ -18,7 +18,6 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-        console.log(req.params.id);
         const note = await noteModel.get(req.params.id);
         res.status(200).json(note);
     } catch (e) {
@@ -27,11 +26,22 @@ router.get('/:id', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
+    try {
+        const note = await noteModel.update(req.params.id, req.body);
+        res.status(200).json(note);
+    } catch (e) {
+        res.status(404).json({error: "Invalid id"});
+    }
 
 });
 
 router.delete('/:id', async (req, res) => {
-
+    try {
+        const count = await noteModel.remove(req.params.id);
+        res.status(200).json({ count });
+    } catch (e) {
+        res.status(404).json({error: "Invalid id"});
+    }
 });
 
 module.exports = router;
