@@ -4,7 +4,8 @@
   "description": "Lambda Notes(Back end)",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon index.js"
+    "server": "nodemon index.js",
+    "test": 'cross-env DB_ENV=testing jest --watch --verbose'
   },
   "repository": "https://github.com/vy3191/back-end-project-week.git",
   "author": "vy3191 <venkyafhs@gmail.com>",
@@ -20,6 +21,7 @@
     "sqlite3": "^4.0.6"
   },
   "devDependencies": {
+    "dotenv": "^6.2.0",
     "nodemon": "^1.18.10"
   }
 }
