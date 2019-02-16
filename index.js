@@ -17,7 +17,7 @@ const notesRouter = require('./Router/notes_router');
 
 //endpoints
 server.use('/api/notes',notesRouter);
-server.use('/api/authenticate',authenticationRouter);
+server.use('/api/notes/authenticate',authenticationRouter);
 
 //listen
 const PORT = process.env.API_PORT || 5000;
