@@ -3,7 +3,8 @@ require('dotenv').config();
 const express  = require('express');
 const helmet   = require('helmet');
 const morgan   = require('morgan')
-const cors     = require('cors')
+const cors     = require('cors');
+const { authenticate } = require('./auth/authenticate.js');
 
 const server = express();
 server.use(cors(`http://localhost:${process.env.API_PORT}`))
