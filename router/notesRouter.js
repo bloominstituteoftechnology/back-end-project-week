@@ -64,18 +64,17 @@ router.put('/edit/:id', (req, res) => {
     const { updatedNote } = req.body;
 
     if (updatedNote < 128) {
-        notes.update(id, req.body).then(count => {
+        notes.update(id, updatedNote).then(count => {
             count ? notes.fetchNote(id).then(note => {
                 res.json(note)
             })
-                : res.status(404).json({error: "The id you are looking for is not found"})
+                : res.status(404).json({ error: "The id you are looking for is not found" })
         })
             .catch(err => {
-                res.status(500).json({error: "Can not update this note"})
+                res.status(500).json({ error: "Can not update this note" })
             })
     } else {
-        res.status(400).json({error: " Please provide, title or text body"})
+        res.status(400).json({ error: " Please provide, title or text body" })
     }
 })
-
 module.exports = router;
