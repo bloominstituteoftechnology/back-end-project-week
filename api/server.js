@@ -31,11 +31,13 @@ server.get('/api/notes/:id', async (req, res) => {
 });
 
 server.post('/api/notes', async (req, res) => {
-    const note = req.body;
+    let note = req.body;
     // The note api expects both the title and content keys to be on the note object.
+    console.log(note.tags);
     if (note.title && note.content) {
         const ids = await db.insert(note);
         // We send back the ID of the newly created note.
+        console.log(ids);
         res.status(201).json({id: ids[0]});
     }
     else {
@@ -49,7 +51,6 @@ server.post('/api/notes', async (req, res) => {
 server.put('/api/notes/:id', async (req, res) => {
     const {id} = req.params;
     const note = req.body;
-    console.log(note.title);
     if (note.title && note.content) {
         try {
             const updatedId = await db.editNote(id, note);

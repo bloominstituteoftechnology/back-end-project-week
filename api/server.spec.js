@@ -5,6 +5,7 @@ const db = require('../data/dbConfig');
 
 afterEach(async () => {
     await db('notes').truncate();
+    await db('tags').truncate();
 })
 
 /*
@@ -42,7 +43,8 @@ describe('Checking the POST endpoint for /api/notes', () => {
     it('Sends back server status code 201', async () => {
         const body = {
             title: 'Testing note #1',
-            content: 'This is a note created during testing. It will auto truncate after each test.'
+            content: 'This is a note created during testing. It will auto truncate after each test.',
+            tags: ['Testing', 'Stuff', 'And', 'Things']
         }
         const response = await request(server).post('/api/notes').send(body);
         // This responds with server status code 201
