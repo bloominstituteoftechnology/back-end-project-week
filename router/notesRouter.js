@@ -62,7 +62,7 @@ router.delete('/delete/:id', (req, res) => {
 router.put('/edit/:id', (req, res) => {
     const { id } = req.params
     const { updatedNote } = req.body;
-    if (req.body.length > 128) {
+    if (req.body.length > 256) {
         notes.update(id, req.body).then(count => {
             count ? notes.fetchNote(id).then(note => {
                 res.json(note)
