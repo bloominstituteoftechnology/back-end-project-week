@@ -1,7 +1,6 @@
-const cors = require('./data/helpers/cors');
+const cors = require('cors');
 require('dotenv').config();
 const express = require('express');
-//const cors = require('cors');
 const db = require('./data/dbConfig');
 const parser = express.json();
 const server = express();
@@ -14,10 +13,8 @@ const listsRouter = require('./routers/listsRouter');
 const notesRouter = require('./routers/notesRouter');
 const usersRouter = require('./routers/usersRouter');
 const secret = 'shhhthisissecret';
-//server.use(cors({}));
-server.use(cors());
 
-//app.use(cors());
+server.use(cors());
 server.use(express.json());
 server.use(parser);
 server.use(logger('tiny'));
@@ -27,7 +24,7 @@ server.use('/api/lists', listsRouter);
 server.use('/api/users', usersRouter);
 
 
-/* function protect(req, res, next) {
+ function protect(req, res, next) {
   const token = req.headers.authorization;
 
   jwt.verify(token, secret, (err, decodedToken) => {
@@ -37,9 +34,9 @@ server.use('/api/users', usersRouter);
       next();
     }
   });
-} */
+} 
 //************************************************** */
-/* function generateToken(user) {
+ function generateToken(user) {
   const payload = {
     username: user.username,
   };
@@ -48,7 +45,7 @@ server.use('/api/users', usersRouter);
   };
   return jwt.sign(payload, secret, options);
 }
- */
+ 
 
 /* server.use(session({
     name: 'notsession', // default is connect.sid

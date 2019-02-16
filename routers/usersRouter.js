@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const users = require('../data/helpers/usersModel')
-//const bcrypt = require('bcryptjs')
-//const jwt = require('jsonwebtoken');
-//const secret = 'shhhthisissecret';
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken');
+const secret = 'shhhthisissecret';
 //const cors = require('../data/helpers/cors');
 //router.use(cors());
 

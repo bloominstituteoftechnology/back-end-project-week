@@ -123,7 +123,7 @@ router.put('/:id', (req, res) => {
 })
 
 /********* Create New Note *************/
-router.post('/', (req, res) => {
+router.post('/', (req, res, next) => {
     const note = req.body;
     console.log("note:", note)
     if (note.title) {

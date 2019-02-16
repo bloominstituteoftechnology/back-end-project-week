@@ -93,35 +93,9 @@ Table of Contents
 ## get /api/notes/1
 
 (apiNotes1Get)
-Return type: **String**
 
-Produces:
-
-This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
-
-    application/json; charset=utf-8
-
-Responses: 200
-
-## delete /api/notes/3
-
-(apiNotes3Delete)
-
-Return type: **String**
-
-Produces:
-
-This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
-
-    application/json; charset=utf-8
-
-Responses: 200
-
-## get /api/notes
-
-(apiNotesGet)
-
-**Return type:** String
+**Return type:** 
+String
 
 **Produces:**
 
@@ -129,7 +103,40 @@ This API call produces the following media types according to the Accept request
 
     application/json; charset=utf-8
 
-Responses: 200
+**Responses:** 
+200
+
+## delete /api/notes/3
+
+(apiNotes3Delete)
+
+**Return type:** 
+String
+
+**Produces:**
+
+This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
+
+    application/json; charset=utf-8
+
+**Responses:** 
+200
+
+## get /api/notes
+
+(apiNotesGet)
+
+**Return type:** 
+String
+
+**Produces:**
+
+This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
+
+    application/json; charset=utf-8
+
+**Responses:** 
+200
 
 Models
 
