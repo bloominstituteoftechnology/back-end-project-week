@@ -43,7 +43,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.post("/", (req, res) => {
+router.post("/:id", (req, res) => {
   const tag = req.body;
   const note_id = req.params.id;
 
