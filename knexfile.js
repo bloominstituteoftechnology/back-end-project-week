@@ -1,4 +1,5 @@
 // Update with your config settings.
+require('dotenv').config('/.env');
 
 module.exports = {
 
@@ -33,7 +34,6 @@ module.exports = {
   production: {
     client: 'pg',
     connection: process.env.DATABASE_URL,
-    searchPath: 'knex,public',
     migrations: {
       directory: './data/migrations',
       tableName: 'knex_migrations'
