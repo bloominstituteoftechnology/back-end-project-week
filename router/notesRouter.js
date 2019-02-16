@@ -59,7 +59,7 @@ router.delete('/delete/:id', (req, res) => {
 
 
 //Updating a note and checking if that note is too long
-outer.put('/edit/:id', (req, res) => {
+router.put('/edit/:id', (req, res) => {
     const { id } = req.params
     const { updatedNote } = req.body;
 
@@ -77,4 +77,5 @@ outer.put('/edit/:id', (req, res) => {
         res.status(400).json({error: " Please provide, title or text body"})
     }
 })
+
 module.exports = router;
