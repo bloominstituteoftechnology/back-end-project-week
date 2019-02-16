@@ -8,8 +8,6 @@ const cors     = require('cors')
 
 const db       = require('./data/dbConfig.js')
 
-const PORT   = process.env.API_PORT;
-
 const server = express();
 server.use(express.json()); 
 server.use(cors('localhost:5050'))
@@ -93,6 +91,8 @@ server.put('/api/notes/:id',(req, res) => {
 })
 
 //listen
+const PORT = process.env.API_PORT || 5000;
+
 server.listen(PORT, () =>{
   console.log(`\n=== Web API Listening on http://localhost:${PORT} ===\n`);
 })
