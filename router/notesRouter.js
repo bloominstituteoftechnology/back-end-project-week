@@ -63,7 +63,7 @@ router.put('/edit/:id', (req, res) => {
     const { id } = req.params
     const { updatedNote } = req.body;
 
-        notes.update(id, updatedNote).then(count => {
+        notes.update(id, req.body).then(count => {
             count ? notes.fetchNote(id).then(note => {
                 res.json(note)
             })
