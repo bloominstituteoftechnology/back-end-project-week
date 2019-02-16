@@ -63,7 +63,6 @@ router.put('/edit/:id', (req, res) => {
     const { id } = req.params
     const { updatedNote } = req.body;
 
-    if (updatedNote < 128) {
         notes.update(id, updatedNote).then(count => {
             count ? notes.fetchNote(id).then(note => {
                 res.json(note)
@@ -73,8 +72,6 @@ router.put('/edit/:id', (req, res) => {
             .catch(err => {
                 res.status(500).json({ error: "Can not update this note" })
             })
-    } else {
-        res.status(400).json({ error: " Please provide, title or text body" })
     }
 })
 module.exports = router;
