@@ -1,10 +1,11 @@
 const express = require('express');
 const db      = require('../data/dbConfig.js');
+const { authenticate } = require('../auth/authenticate.js');
 
 const parser = express.json();
 const router = express.Router();
 
-router.use(parser)
+router.use(parser,authenticate)
 
 router.get('/', (req, res) =>{
   db('notes')
