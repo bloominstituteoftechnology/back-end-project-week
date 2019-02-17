@@ -7,7 +7,7 @@ const cors     = require('cors');
 // const { authenticate } = require('./auth/authenticate.js');
 
 const server = express();
-server.use(cors(`http://localhost:${process.env.API_PORT}`))
+server.use(cors(`http://localhost:${process.env.PORT}`))
 server.use(
             helmet(),
             morgan('dev'),
