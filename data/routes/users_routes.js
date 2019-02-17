@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const db = require('../helpers/userModel.js');
-const {protected, newToken, checkUser} = require('../middleware/user_middleware');
+const {protected, newToken, checkUser, checkLogin} = require('../middleware/user_middleware');
 
 router.post('/api/register',checkUser, (req,res) => {
       const user = req.body;
@@ -21,6 +21,24 @@ router.post('/api/register',checkUser, (req,res) => {
             });
         })
        
+});
+
+router.post('/api/login', checkLogin, (req,res) => {
+      const user = req.body;
+      const submittedPassword = user.password;
+      db.findByUsername(user.username)
+        .then( user => {
+            if(!user) res.status(401).json({Message:`There is no user with ${user.username}`});
+            if(user && bcrypt.compareSync(submittedPassword, user.password)) {
+                 const token = newToken(user);
+                 res.status(200).json({token:token,id:user.id})
+            } else {
+                 res.status(401).json({Msg:`Invalid user or Invalid password`});
+            }          
+        })
+        .catch(err => {
+                res.status(500).json({Message:`Failed to login at this time`});
+        })
 });
 
 module.exports = router;

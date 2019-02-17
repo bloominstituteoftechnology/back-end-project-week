@@ -40,6 +40,17 @@ const checkUser = (req,res,next) => {
            next();
 };
 
+const checkLogin = (req,res,next) => {
+      const user = req.body;
+      if(!user.username) res.status(400).json({Message:`username is required`});
+      if(!user.password) res.status(400).json({Message: `Password is required`});
+      if(user.password<6) res.status(400).json({Message:`Password must be at lease 7 characters`});
+      next();
+}
+
 module.exports = {
-   newToken, protected,checkUser
+   newToken, 
+   protected,
+   checkUser,
+   checkLogin
 } 
