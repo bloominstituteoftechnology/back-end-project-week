@@ -9,10 +9,38 @@ this is a student api project written for Lambda School by **William Yturralde, 
 Access Methods
 Table of Contents
 
-    get /api/notes/1
-    delete /api/notes/2
     get /api/notes
+    get /api/notes/1
+    delete /api/notes/1
     post /api/notes
+
+
+## get /api/notes
+
+(apiNotesGet)
+
+**Return type:**
+
+String
+
+**Produces:**
+
+This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
+
+    application/json; charset=utf-8
+
+The return is an array of user Notes objects. Each Note contains:
+
+    title: string
+    textBody: string
+    tags: string
+    _id: legacy id numeric
+    image: string
+    user_id: numeric foreign key
+
+**Responses:**
+
+200
 
 ## get /api/notes/1
 
@@ -28,11 +56,13 @@ This API call produces the following media types according to the Accept request
 
     application/json; charset=utf-8
 
-Responses:
+The return is a single Note object.
+
+**Responses:**
 
 200
 
-## delete /api/notes/2
+## delete /api/notes/1
 
 (apiNotes2Delete)
 
@@ -50,23 +80,6 @@ This API call produces the following media types according to the Accept request
 
 200
 
-## get /api/notes
-
-(apiNotesGet)
-
-**Return type:**
-
-String
-
-**Produces:**
-
-This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
-
-    application/json; charset=utf-8
-
-**Responses:**
-
-200
 
 ## post /api/notes
 
