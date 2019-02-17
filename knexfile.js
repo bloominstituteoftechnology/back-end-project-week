@@ -1,13 +1,32 @@
-const DATABASE_URL = process.env.DATABASE_URL
+// Update with your config settings.
 module.exports = {
-  client: 'pg',
-  debug: true,
-  connection: DATABASE_URL,
-  migrations:  {
-    directory: './data/migrations',
+  development: {
+    client: 'sqlite3',
+    connection: {
+      filename: './data/notes.db3',
+    },
+    useNullAsDefault:true,
+    migrations: {
+        directory: './data/migrations',
+    },
+    seeds: {
+      directory: './data/seeds',
+    }
   },
-  seeds: {
-    directory: './data/seeds'
-  },
-  ssl: true,
-}
+
+  testing: {
+    client: 'sqlite3',
+    connection: {
+       filename: './data/test.db3'
+    },
+    useNullAsDefault:true,
+    migrations: {
+      directory: './data/migrations'
+    },
+    seeds: {
+      directory: './data/seeds'
+    }
+  }
+
+};
+
