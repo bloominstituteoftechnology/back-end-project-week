@@ -26,6 +26,10 @@ function update(id, user) {
           .update(user);
 }
 
+function findByUsername(username) {
+   return db('users').where('username', username).first();
+};
+
 function checkIfUserExists(user) {
    return db('users').where({
       username:user.username
@@ -33,5 +37,11 @@ function checkIfUserExists(user) {
 }
 
 module.exports = {
-  insert, getUsers, getById, remove, update, checkIfUserExists
+      insert,
+      getUsers, 
+      getById,
+      remove, 
+      update,
+      checkIfUserExists,
+      findByUsername
 }

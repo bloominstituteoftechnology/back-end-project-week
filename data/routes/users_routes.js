@@ -20,9 +20,7 @@ router.post('/api/register',checkUser, (req,res) => {
                 res.status(500).json({Msg:`Unable to add new user...already registered??`});
             });
         })
-        .catch(err => {
-              res.status(500).jsaon({Message: `Check..if you have already registered`});
-        })
+       
 });
 
 module.exports = router;

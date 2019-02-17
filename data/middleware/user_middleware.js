@@ -28,9 +28,18 @@ const checkUser = (req,res,next) => {
    if(!user.username) res.status(400).json({Message:`username is required`});
    if(!user.password) res.status(400).json({Message: `Password is required`});
    if(user.password.length<6) res.status(400).json({Message:`Password must be at least 7 characters`});
-   next();
-}
+   database.findByUsername(user.username)
+           .then( dbUser => {
+              if(dbUser) {
+                 res.status(401).json({msg:`user ${dbUser.username} already Registered`})
+              }
+           })
+           .catch(err => {
+                 res.status(500).json({msg:`Something went wrong`});
+           });
+           next();
+};
 
 module.exports = {
    newToken, protected,checkUser
-}
+} 
