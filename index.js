@@ -15,8 +15,8 @@ server.get('/', (req, res) => {
 })
 
 server.post('/signin', (req, res) => {
-  const user = req.body
-  db.login(user).then(user => {
+  const creds = req.body
+  db.login(creds).then(user => {
     // if (user && bcrypt.compareSync(creds.password, user.password)) {
     //   const token = generateToken(user);
     //   res.json({ message: `Welcome ${user.username}`, token });

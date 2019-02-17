@@ -24,8 +24,8 @@ module.exports = {
       return db('notes').where('id', id).update(note)
   },
 
-  login: (req, res) => {
-    const creds = req.body;
+  login: (creds) => {
+    console.log("creds", creds)
     return db('users').where('username', creds.username).first()
       // .then(user => {
       //   // if (user && bcrypt.compareSync(creds.password, user.password)) {
