@@ -24,9 +24,9 @@ async function createNote(note) {
     .then(ids => ({ id: ids[0] }));
 }
 
-async function editNote(note) {
+async function editNote(note, id) {
   return DB("notes")
-    .where("id", note.id)
+    .where("id", id)
     .update(note);
 }
 

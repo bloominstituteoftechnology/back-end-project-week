@@ -35,11 +35,15 @@ ROUTER.post("/create", async (req, res) => {
       .json({ error: "note not created, title and body required" });
 });
 // UPDATE /api/notes/:notesID
-ROUTER.put("/:notesID", async (req, res) => {
+ROUTER.put("/:notesID/edit", async (req, res) => {
   const id = req.params.notesID;
-  const { note } = req.body;
-  const newNote = Object.assign({}, note, { id: id });
-  const count = await DB.editNote(newNote);
+  const note = req.body;
+  console.log(req.body, "note");
+  const newNote = {
+    title: note.title,
+    textBody: note.textBody
+  };
+  const count = await DB.editNote(newNote, id);
   const edittedNote = await DB.getNoteById(id);
   if (count) {
     res.status(202).json({ note: edittedNote });
