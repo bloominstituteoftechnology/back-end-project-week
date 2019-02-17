@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const bcryptjs = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 const db = require('../dbConfig');
-const {protected, newToken} = require('../middleware/user_middleware');
+const { protected, newToken} = require('../middleware/user_middleware');
 
 router.post('/api/register', (req,res) => {
       const user = req.body;
@@ -25,3 +25,5 @@ router.post('/api/register', (req,res) => {
             })
         });
 });
+
+module.exports = router;
