@@ -14,6 +14,25 @@ server.get('/', (req, res) => {
   res.json("blah")
 })
 
+server.post('/signin', (req, res) => {
+  const user = req.body
+  db.login(user).then(user => {
+    // if (user && bcrypt.compareSync(creds.password, user.password)) {
+    //   const token = generateToken(user);
+    //   res.json({ message: `Welcome ${user.username}`, token });
+    // } else {
+    //   res.status(401).send("Shove off, faker!")
+    // }
+    if (user && creds.password === user.password) {
+        res.json({ message: `Welcome ${user.username}` });
+      } else {
+        res.status(401).send("Shove off, faker!")
+      }
+  }).catch(err => {
+    res.status(500).send(err)
+  })
+})
+
 server.get("/notes", (req, res) => {
   db.getNotes()
     .then(notes => {
