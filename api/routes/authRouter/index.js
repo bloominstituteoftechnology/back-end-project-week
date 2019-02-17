@@ -21,7 +21,7 @@ function generateToken(user) {
 // END MIDDLEWARE
 
 router.post("/register", (req, res) => {
-  const { user } = req.body;
+  const user = req.body;
 
   if (user.name && user.password && user.email) {
     const pass = bcrypt.hashSync(user.password, 12);
@@ -46,7 +46,7 @@ router.post("/login", (req, res) => {
   const { user } = req.body;
   const email = user.email;
   const password = user.password;
-  console.log(req);
+
   DB.loginUser(email)
     .then(dbUser => {
       if (dbUser) {
