@@ -43,12 +43,12 @@ class NoteList extends Component {
     super(props);
     this.state = {
       notes: [],
-      search: "Search Notes"
+      search: ""
     };
   }
   updateSearch(event) {
-    this.setState({search: event.target.value})
-  };
+    this.setState({ search: event.target.value });
+  }
 
   componentDidMount() {
     axios
@@ -67,19 +67,26 @@ class NoteList extends Component {
   }
 
   render() {
+    let filteredNotes = this.state.notes.filter(note => {
+      return note.title.toLowerCase().indexOf(
+        this.state.search.toLowerCase()) !== -1;
+    });
+
     return (
       <div className="notes">
+        <p>Search Notes</p>
         <input
           type="text"
           value={this.state.search}
           onChange={this.updateSearch.bind(this)}
         />
         <Title>Your Notes:</Title>
+
         <NoteView>
           {this.state.notes.length < 1 ? (
             <div>No Notes</div>
           ) : (
-            this.state.notes.map(note => <NoteCard key={note.id} note={note} />)
+            filteredNotes.map(note => <NoteCard key={note.id} note={note} />)
           )}
         </NoteView>
       </div>
