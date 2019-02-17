@@ -33,15 +33,16 @@ class App extends Component {
   }
 
   updateNote = (updatedNote) =>{
-    const index = this.state.notes.findIndex(note => note.id === updatedNote.id);
+    console.log(updatedNote.title);
     axios
-      .put(`http://localhost:3100/notes/${updatedNote.id}`, updatedNote)
+      .put(`http://localhost:3100/notes/${updatedNote.note.id}`, {title: updatedNote.title, content: updatedNote.content})
         .then(response =>{
           this.fetchNotes()
         })
         .catch(() =>{
           console.log('Sorry, failecd to update note')
         })
+    
   }
 
   createNote = (newNote) =>{
@@ -64,6 +65,7 @@ class App extends Component {
         .catch(() =>{
           console.log('Could not delete note with specified id')
         })
+        
   }
 
   render() {
@@ -72,9 +74,9 @@ class App extends Component {
       <div className = 'App'>
         <NavBar/>
         <Route exact path = '/' render = {(props) => < NotesList {...props} notes = {this.state.notes}/>}/>
-        <Route exact path = '/create' render = {(props) => < CreateNote {...props} notes = {this.state.notes}/>}/>
-        <Route exact path = '/edit' render = {(props) => < EditNote {...props} notes = {this.state.notes} updateNote = {this.updateNote}/>}/>
-        <Route exact path = '/notes/:id' render = {(props) => < ExpandedNote {...props} notes = {this.state.notes} fetchNote = {this.fetchNoteById}/>}/>
+        <Route exact path = '/create' render = {(props) => < CreateNote {...props} notes = {this.state.notes} createNote = {this.createNote}/>}/>
+        <Route exact path = '/edit/:id' render = {(props) => < EditNote {...props} notes = {this.state.notes} updateNote = {this.updateNote}/>}/>
+        <Route exact path = '/notes/:id' render = {(props) => < ExpandedNote {...props} notes = {this.state.notes} deleteNote = {this.deleteNote} fetchNote = {this.fetchNoteById}/>}/>
       </div>
     );
   }

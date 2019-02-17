@@ -5,10 +5,19 @@ import axios from 'axios';
 
 
 class EditNote extends React.Component{
-    state = {
-        
-        title: '',
-        content: ''
+   constructor(){
+       super()
+       this.state = {
+           note: [],
+            title: '',
+           content: ''
+       }
+   }
+
+    
+ 
+    inputHandler = event =>{
+        this.setState({[event.target.name]: event.target.value})
     }
 
     componentDidMount(){
@@ -19,31 +28,28 @@ class EditNote extends React.Component{
         axios
         .get(`http://localhost:3100/notes/${id}`)
         .then(response => {
-            
+            console.log(response);
             this.setState(() => ({ 
-                note: response.data[0]
+                note : response.data[0],
              }))
         })
         .catch(err => {
             console.error('Trouble fetching data',err)
         })
     }
-    inputHandler = event =>{
-        event.preventDefault();
-        this.setState({[event.target.name]: event.target.value})
-    }
 
-    submitHandler = event =>{
-        event.preventDefault();
-        this.props.updateNote({
-            
-            title: this.state.title,
-            content: this.state.content
-        });
+    submitHandler = (event) =>{
+        event.preventDefault()
+        this.props.updateNote(this.state)
         this.setState({
-
+            title: '',
+            content : '',
         })
+        this.props.history.push('/');
     }
+    
+
+ 
    
 
 
@@ -53,7 +59,7 @@ class EditNote extends React.Component{
             <div className = 'edit-note-container'>
                 <div className = 'edit-sub-container'>
                     <h1 className = 'edit-header'>Edit Note</h1>
-                    <form onSubmit = {this.submitHandler} className = 'form'>
+                    <form  className = 'form'>
                         <input 
                             className = 'title-input'
                             type = 'text'
@@ -72,7 +78,7 @@ class EditNote extends React.Component{
                             onChange = {this.inputHandler}
                         />
                         <NavLink  className = 'nav-link' exact to = '/' >
-                            <div className = 'submit-button'>
+                            <div type = 'submit' onClick = {this.submitHandler} className = 'submit-button'>
                                 <div className = 'button-text'>
                                     SUBMIT
                                 </div>

@@ -6,6 +6,7 @@
     padding-bottom: 20px;
     margin:10px;
     width:26%;
+    word-wrap: break-word;
 }
 .note-sub-container{
     width:80%;

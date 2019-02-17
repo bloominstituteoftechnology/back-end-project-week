@@ -58,3 +58,63 @@
    font-weight:bold;
     text-align:center;
 }
+.expanded-delete{
+    position:fixed;
+    width:75%;
+    height:100vh;
+    background-color:rgba(192, 162, 171, 0.966);
+    display:flex;
+    margin:0px auto;
+    
+}
+.closed-delete{
+    display:none;
+}
+.delete-prompt-window{
+    margin:27.5vh 17.5%; 
+    border-radius:4px;
+    background-color:rgb(20, 20, 20);
+    width:60%;
+    border: 4px solid white;
+    height:50vh;
+}
+.delete-question{
+    color:white;
+    font-size:2.8rem;
+    font-family: 'Raleway', sans-serif;
+    letter-spacing: 0.6rem;
+    text-transform: uppercase;
+    margin:10vh auto;
+    text-align:center;
+    font-weight: bolder;
+}
+.delete-button-container{
+    width:80%;
+    display:flex;
+    justify-content: space-around;
+    color:white;
+    margin: 20vh auto;
+    padding-right:5px;
+}
+
+.yes-button, .no-button{
+    font-family: 'Raleway', sans-serif;
+    font-size:2rem;
+    letter-spacing: .4rem;
+    font-weight: bolder;
+    width:35%;
+    height:50px;
+    border: 2px solid white;
+    border-radius:5px;
+    text-align: center;
+    padding-top:20px;
+    cursor: pointer;
+}
+
+.no-button{
+    background-color:rgb(151, 111, 121);
+}
+
+.yes-button{
+    background-color: rgb(68, 65, 93);
+}
