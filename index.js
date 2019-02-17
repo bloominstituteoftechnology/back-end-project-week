@@ -21,7 +21,7 @@ server.use('/api/notes',notesRouter);
 server.use('/api/authenticate',authenticationRouter);
 
 //listen
-const PORT = process.env.API_PORT || 5000;
-server.listen(PORT, () =>{
-  console.log(`\n=== Web API Listening on http://localhost:${PORT} ===\n`);
+const port = process.env.PORT || 5000;
+server.listen(port, () =>{
+  console.log(`\n=== Web API Listening on http://localhost:${port} ===\n`);
 })
