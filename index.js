@@ -3,96 +3,25 @@ require('dotenv').config();
 const express  = require('express');
 const helmet   = require('helmet');
 const morgan   = require('morgan')
-const cors     = require('cors')
-
-
-const db       = require('./data/dbConfig.js')
+const cors     = require('cors');
+const { authenticate } = require('./auth/authenticate.js');
 
 const server = express();
-server.use(express.json()); 
-server.use(cors('localhost:5050'))
+server.use(cors(`http://localhost:${process.env.API_PORT}`))
 server.use(
             helmet(),
             morgan('dev'),
           );
 
+const authenticationRouter = require('./Router/authentication');
+const notesRouter = require('./Router/notes_router');
+
 //endpoints
-
-server.get('/api/notes', (req, res) =>{
-  db('notes')
-  .then(notes =>{
-    res.json(notes)
-  })
-  .catch(err =>{
-    res
-    .status(500)
-    .json({message:'unable to retrieve information'})
-  })
-})
-
-server.post('/api/notes',(req, res) =>{
-  const note= req.body
-  db('notes').insert(note)
-  .then(id =>{
-    res
-    .status(201).json({msg:`id ${id} created`})
-  })
-  .catch(err =>{
-    res
-    .status(500)
-    .json({message:'unable to save information to database'})
-  })
-})
-
-server.get('/api/notes/:id',(req, res) =>{
-  const { id } = req.params
-  db('notes').where('id', id)
-  .then(note =>{
-    res.json(note)
-  })
-  .catch(err =>{
-    res
-    .status(500)
-    .json({message:'unable to retrieve specified id '})
-  })
-})
-
-server.delete('/api/notes/:id',(req, res) =>{
-  const { id } = req.params
-  db('notes')
-  .where('id',id)
-  .del()
-  .then(rowCount =>{
-    res
-    .status(201)
-    .json(rowCount)
-  })
-  .catch(err =>{
-    res
-    .status(500)
-    .json({message:'unable to delete specified id '})
-  })
-})
-
-server.put('/api/notes/:id',(req, res) => {
-  const { id } = req.params
-  const note = req.body
-  db('notes')
-  .where('id', id)
-  .update(note)
-  .then(rowCount=>{
-    res.json(rowCount)
-  })
-  .catch(err =>{
-    res
-    .status(500)
-    .json({message:'unable to modify specified id'})
-  })
-})
+server.use('/api/notes',notesRouter);
+server.use('/api/notes/authenticate',authenticationRouter);
 
 //listen
 const PORT = process.env.API_PORT || 5000;
-
 server.listen(PORT, () =>{
   console.log(`\n=== Web API Listening on http://localhost:${PORT} ===\n`);
 })
