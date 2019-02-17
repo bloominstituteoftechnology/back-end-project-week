@@ -1,5 +1,8 @@
 const jwt = require('jsonwebtoken');
 const uuid = require('uuid/v1');
+const database = require('../helpers/userModel');
+
+
 require('dotenv').config();
 
 const JWTKey = process.env.JWT_SECRET || 'we are what we think';
@@ -20,6 +23,14 @@ function protected(req,res,next) {
    });
 };
 
+const checkUser = (req,res,next) => {
+   const user = req.body
+   if(!user.username) res.status(400).json({Message:`username is required`});
+   if(!user.password) res.status(400).json({Message: `Password is required`});
+   if(user.password.length<6) res.status(400).json({Message:`Password must be at least 7 characters`});
+   next();
+}
+
 module.exports = {
-   newToken, protected
+   newToken, protected,checkUser
 }
