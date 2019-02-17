@@ -16,8 +16,11 @@ server.get('/', (req , res) => {
     res.status(200).json({api: "Lambda Notes Backend!"})
 })
 
-server.get('/notes', (req, res) => {
-    db('notes')
+// DB HELPERS IMPORT
+const dbHelpers = require('./data/db_helpers');
+
+server.get('/notes', (req , res) => {
+    dbHelpers.getNotes()
     .then(rows => {
         res.json(rows)
     })
@@ -25,7 +28,19 @@ server.get('/notes', (req, res) => {
         console.log(err)
         res.status(500).json({err: 'Failed to retrieve Notes'})
     })
-});
+})
+
+// GET Request PRIOR to DB HELPERS
+// server.get('/notes', (req, res) => {
+//     db('notes')
+//     .then(rows => {
+//         res.json(rows)
+//     })
+//     .catch(err => {
+//         console.log(err)
+//         res.status(500).json({err: 'Failed to retrieve Notes'})
+//     })
+// });
 
 /// Normal Post Notes (without Tags)
 server.post('/notes', (req, res) => {
