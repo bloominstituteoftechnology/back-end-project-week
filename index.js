@@ -7,11 +7,9 @@ const knex = require("knex");
 const app = new express();
 const dbConfig = require("./knexfile");
 const db = knex(dbConfig.development);
-const server = require('./server.js');
 app.use(express.json());
 app.use(helmet());
 app.use(cors());
-app.use("/", routes);
     
 app.use(express.json());
 app.use(bodyParser.json());
@@ -31,6 +29,20 @@ app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
 app.use("/api/lists", listRouter);
 app.use(require("./middleware/index").errorHandler);
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+  
+  app.get('/', function(req, res, next) {
+    // Handle the get for this route
+  });
+  
+  app.post('/', function(req, res, next) {
+   // Handle the post for this route
+  });
 
 app.listen(process.env.PORT || 5500)
 
