@@ -12,7 +12,7 @@ server.use(cors());
 server.use(express.json());
 
 server.get('https://cryptic-brook-42672.herokuapp.com/', (req, res) => {
-    res.send(`Welcome in the og repo! \o/`)
+    res.send(`Welcome in the og repo! \o/ \o/`)
 })
 
 server.post('https://cryptic-brook-42672.herokuapp.com/notes', (req, res) => {
