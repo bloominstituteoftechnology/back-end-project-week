@@ -19,8 +19,9 @@ server.get('/', (req , res) => {
 // DB HELPERS IMPORT
 const dbHelpers = require('./data/db_helpers');
 
+// GET - dbHelpers - JOINS Notes & Tags
 server.get('/notes', (req , res) => {
-    dbHelpers.getNotes()
+    dbHelpers.getNotes()  // Helper function
     .then(rows => {
         res.json(rows)
     })
@@ -30,7 +31,7 @@ server.get('/notes', (req , res) => {
     })
 })
 
-// GET Request PRIOR to DB HELPERS
+// GET Request - notes-  PRIOR to DB HELPERS
 // server.get('/notes', (req, res) => {
 //     db('notes')
 //     .then(rows => {
@@ -56,8 +57,9 @@ server.post('/notes', (req, res) => {
     })
 })
 
+
 server.get('/tags', (req, res) => {
-    db('tags')
+    dbHelpers.getTags()   //helper function
     .then(rows => {
         res.json(rows)
     })
@@ -67,10 +69,22 @@ server.get('/tags', (req, res) => {
     })
 })
 
+// GET Request - tags - PRIOR to DB Helpers
+// server.get('/tags', (req, res) => {
+//     db('tags')
+//     .then(rows => {
+//         res.json(rows)
+//     })
+//     .catch(err => {
+//         console.log(err)
+//         res.status(500).json({err: 'Failed to retrieve Tags'})
+//     })
+// })
+
 ///////// many to many AND joins table ////////////
 // Regular Get ALL notes_tags (does NOT show tagTitle)
 server.get('/notes_tags', (req, res) => {
-    db('notes_tags')
+    dbHelpers.getNotesTags()
     .then(rows => {
         res.json(rows)
     })
@@ -98,10 +112,10 @@ server.get('/notes_tags_joins_two', (req , res) => {
     .catch(err => console.log(err))
 })
 
-// GET note by ID
+// GET note by ID w db Helpers
 server.get('/notes/:id', (req, res) => {
     const {id} = req.params;
-    db('notes').where('id', id)
+    dbHelpers.getNotesById(id)  // db helpers
     .then(rows => {
         res.json(rows)
     })
@@ -109,6 +123,19 @@ server.get('/notes/:id', (req, res) => {
         res.status(500).json({err: "Failed to find specific NOTE by ID"});
     })
 })
+
+// GET note by ID PRIOR to db Helpers
+// server.get('/notes/:id', (req, res) => {
+//     const {id} = req.params;
+//     db('notes').where('id', id)
+//     .then(rows => {
+//         res.json(rows)
+//     })
+//     .catch(err => {
+//         res.status(500).json({err: "Failed to find specific NOTE by ID"});
+//     })
+// })
+
 
 //EDIT existing note
 server.put('/notes/:id', (req, res) => {
@@ -138,13 +165,22 @@ server.delete('/notes/:id', (req, res) => {
 
 
 ///// Experiment - - render tags on frontend
-server.get('/notes_ex', (req , res) => {
-    db('notes').leftJoin('tags', 'notes_id', 'notes.id')
-    .then(noteInfo => {
-        res.send(noteInfo)
-    })
-    .catch(err => console.log(err))
-})
+// server.get('/notes_ex', (req , res) => {
+//     dbHelpers.getNotes()
+//     .then(noteInfo => {
+//         res.send(noteInfo)
+//     })
+//     .catch(err => console.log(err))
+// })
+
+// JOINS Table prior to DB Helpers
+// server.get('/notes_ex', (req , res) => {
+//     db('notes').leftJoin('tags', 'notes_id', 'notes.id')
+//     .then(noteInfo => {
+//         res.send(noteInfo)
+//     })
+//     .catch(err => console.log(err))
+// })
 
 /// Experiment - Post Notes WITH Tags
 // server.post('/notes', (req, res) => {
