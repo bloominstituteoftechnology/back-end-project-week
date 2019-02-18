@@ -2,7 +2,7 @@ const express = require('express');
 const server = express();
 const middleware = require('./middleware');
 const db = require('./dbConfig');
-const port = 3100;
+const PORT = 3100;
 
 middleware(server);
 server.use(express.json());
@@ -73,7 +73,7 @@ server.put('/notes/:id', (req, res) =>{
 })
 
 
-server.listen(port, () =>{
+server.listen(PORT, () =>{
     console.log(`Server is up and running on port ${port}`)
 });
 
