@@ -26,13 +26,14 @@ function update(id, user) {
           .update(user);
 }
 
-function findByUsername(username) {
-   return db('users').where('username', username).first();
+function findByEmail(email) {
+   return db('users').where('email', email).first();
+   // console.log(`Working now`);
 };
 
 function checkIfUserExists(user) {
    return db('users').where({
-      username:user.username
+      email:user.email
     }).select('id');
 }
 
@@ -43,5 +44,5 @@ module.exports = {
       remove, 
       update,
       checkIfUserExists,
-      findByUsername
+      findByEmail
 }

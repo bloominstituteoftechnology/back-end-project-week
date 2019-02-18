@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../helpers/notesModel');
+const {protected} = require('../middleware/user_middleware.js');
 
 //Get all notes.
 router.get('/api/notes', (req,res) => {
-       db.getNotes()
+      db.getNotes()
          .then(notes => {
            res.status(200).json(notes)
          })
