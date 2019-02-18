@@ -1,46 +1,48 @@
 const knex = require("knex");
 
+const cl = console.log
 const dbConfig = require("../knexfile");
 const db = knex(dbConfig.development);
 
 module.exports = {
-  getNotes: id => {
+  getNotes: (activeUser, id) => {
     if (id) {
       return db("notes")
         .where("id", id)
         .first();
-    } else return db("notes");
+    } else return db("notes").where("user_id", activeUser);
   },
 
   addNote: note => {
-    return db('notes').insert(note)
+    return db("notes").insert(note);
   },
 
-  deleteNote: (id) => {
-      return db('notes').where('id', id).del()
+  deleteNote: id => {
+    return db("notes")
+      .where("id", id)
+      .del();
   },
 
   editNote: (id, note) => {
-      return db('notes').where('id', id).update(note)
+    return db("notes")
+      .where("id", id)
+      .update(note);
   },
 
-  login: (creds) => {
-    console.log("creds", creds)
-    return db('users').where('username', creds.username).first()
-      // .then(user => {
-      //   // if (user && bcrypt.compareSync(creds.password, user.password)) {
-      //   //   const token = generateToken(user);
-      //   //   res.json({ message: `Welcome ${user.username}`, token });
-      //   // } else {
-      //   //   res.status(401).send("Shove off, faker!")
-      //   // }
-      //   if (user && creds.password === user.password) {
-      //       res.json({ message: `Welcome ${user.username}` });
-      //     } else {
-      //       res.status(401).send("Shove off, faker!")
-      //     }
-      // }).catch(err => {
-      //   res.status(500).send(err)
-      // })
+  login: creds => {
+    return db("users")
+      .where("username", creds.username)
+      .first();
+  },
+
+  addUser: creds => {
+    return db("users")
+      .insert(creds)
+  },
+
+  findUserByID: id => {
+    return db("users")
+      .where("id", id)
+      .first();
   }
 };
