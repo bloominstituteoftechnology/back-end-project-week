@@ -1,19 +1,21 @@
 require('dotenv').config()
 const express = require('express')
-const router = express.router()
+const router = express.Router()
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 const userDB = require('../DB-Functions/User-Functions')
 
-const makeToken = () => {
+const makeToken = (user) => {
  const payload = {
+  user: user
+ }
 
- },
-
- const secret ;
+ const secret = process.env.JWT_SEC
 
  const options = {
-
- },
+  expiresIn: "8h",
+  jwtid: ""
+ }
 
  return jwt.sign(payload, secret, options)
 }

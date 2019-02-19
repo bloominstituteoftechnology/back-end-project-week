@@ -1,8 +1,8 @@
 const express = require('express')
-const router = express.router()
+const router = express.Router()
 
 const noteDB = require('../DB-Functions/Note-Functions')
-const { note_check } = require('../MW-Functions/middleware')
+const note_check = require('../MW-Functions/middleware')
 
 
 router.get('/', (req, res) => {
@@ -32,7 +32,7 @@ router.get('/:id', (req, res) => {
   })
 })
 
-router.post('/', note_check, (req, res) => {
+router.post('/', note_check.note_check, (req, res) => {
  const id = req.params
  const note = req.body
  noteDB.place(id, note)
@@ -47,7 +47,7 @@ router.post('/', note_check, (req, res) => {
   })
 })
 
-router.put('/:id', note_check, (req, res) => {
+router.put('/:id', note_check.note_check, (req, res) => {
  const id = req.params
  const note = req.body
  noteDB.alter(id, note)
