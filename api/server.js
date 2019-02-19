@@ -15,4 +15,8 @@ SERVER.use(express.json(), cors(), helmet(), logger("dev"));
 SERVER.use("/api/notes", notesRouter);
 SERVER.use("/api/auth", authRouter);
 
+SERVER.get("/", (req, res) => {
+  res.send("Server Active");
+});
+
 module.exports = SERVER;
