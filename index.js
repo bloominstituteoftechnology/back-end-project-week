@@ -44,18 +44,18 @@ server.get('/notes', (req , res) => {
 // });
 
 /// Normal Post Notes (without Tags)
-server.post('/notes', (req, res) => {
-    const note = req.body;
-    console.log('note info', note)
-    db('notes').insert(note)
-    .then(ids => {
-        res.status(201).json(ids);
-    })
-    .catch(err => {
-        console.log(err)
-        res.status(500).json({err: "Failed to insert note"});
-    })
-})
+// server.post('/notes', (req, res) => {
+//     const note = req.body;
+//     console.log('note info', note)
+//     db('notes').insert(note)
+//     .then(ids => {
+//         res.status(201).json(ids);
+//     })
+//     .catch(err => {
+//         console.log(err)
+//         res.status(500).json({err: "Failed to insert note"});
+//     })
+// })
 
 
 server.get('/tags', (req, res) => {
@@ -124,6 +124,17 @@ server.get('/notes/:id', (req, res) => {
     })
 })
 
+server.get('/tags/:id', (req , res) => {
+    const {id} = req.params;
+    dbHelpers.getTagById(id)
+    .then(rows => {
+        res.json(rows)
+    })
+    .catch(err => {
+        res.status(500).json({err: "Failed to find specific Tag"})
+    })
+})
+
 // GET note by ID PRIOR to db Helpers
 // server.get('/notes/:id', (req, res) => {
 //     const {id} = req.params;
@@ -183,22 +194,23 @@ server.delete('/notes/:id', (req, res) => {
 // })
 
 /// Experiment - Post Notes WITH Tags
-// server.post('/notes', (req, res) => {
-//     const note = req.body;
-//     const tags = req.body.tags;
+server.post('/notes', (req, res) => {
+    const note = req.body;
+    const tags = req.body.tags;
 
-//     delete note.tags;
+    delete note.tags;
 
-//     console.log('note info', note)
-//     console.log('tag info', tags)
+    console.log('note info', note)
+    console.log('tag info', tags)
 
-//     db.insertNoteTag(note, tag)
-//         .then(note => res.status(201).json(note))
-//         .catch(err => {
-//             console.log(err)
-//             res.status(500).json({error: "There was an error saving note to the database"});
-//         });
-// })
+    //db.insertNoteTag(note, tag)
+    dbHelpers.insertNoteTag(note, tags)
+        .then(note => res.status(201).json(note))
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({error: "There was an error saving note to the database"});
+        });
+})
 
 // NEED TO BE ADDED TO DB HELPERS
 // insertNote: async function (note) {
