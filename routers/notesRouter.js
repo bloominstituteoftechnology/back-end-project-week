@@ -37,10 +37,8 @@ router.get('/:id', (req, res)=>{
 //POST Route Handler
 router.post('/', (req, res) =>{
   const note = req.body;
-  console.log(note);
   notesDb.addNote(note)
   .then(id =>{
-    console.log(id);
     res.status(201).json(id);    
   })
   .catch(err =>{

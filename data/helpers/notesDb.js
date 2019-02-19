@@ -14,7 +14,7 @@ module.exports = {
 
   addNote: function(note){
     return notesDb('notes')
-    .insert(note)
+    .insert(note, 'id')
     .then(ids =>{
       return {id: ids[0]};
     })
