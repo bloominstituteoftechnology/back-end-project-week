@@ -1,8 +1,6 @@
-DROP TABLE IF EXISTS notes;
-
-CREATE TABLE notes (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	title TEXT NOT NULL,
-	'text' TEXT NOT NULL
-
+drop table if exists notes;
+create table notes(
+	id integer primary key autoincrement,
+	title text not null,
+	'text' text not null
 );

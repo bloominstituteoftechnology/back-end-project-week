@@ -10,7 +10,7 @@ app.config.from_object(__name__) # Load config
 # Load in default
 app.config.update(
     DATABASE = os.path.join(app.root_path, "flaskr.db"),
-    SECRET_KEY = b'_5#y2L"F4Q8z\n\xec/',
+    SECRET_KEY = '_5#y2L"F4Q8z\n\xec/',
     USERNAME = "Admin",
     PASSWORD = "Default"
 )
@@ -56,6 +56,7 @@ def close_db(error):
 
 # Route for "home"
 @app.route('/')
+@app.route('/api')
 def show_notes():
     db = get_db()
     cur = db.execute('select title, text from notes order by id desc')
@@ -63,19 +64,19 @@ def show_notes():
     return render_template("show_notes.html", notes=notes)
 
 # Route for adding notes
-@app.route('/add', methods=['POST'])
+@app.route('/api/add', methods=['POST'])
 def add_note():
     if not session.get('logged_in'):
         abort(401)
     db = get_db()
-    db.execute('insert into notes (title, text) values (?, ?)',
+    db.execute('INSERT INTO notes (title, text) VALUES (?, ?)',
             [request.form['title'], request.form['text']])
     db.commit()
     flash("New note was succesfully posted")
     return redirect(url_for('show_notes'))
 
-# Login & Logout
-@app.route('/login', methods=['GET','POST'])
+# Login
+@app.route('/api/login', methods=['GET','POST'])
 def login():
 	error = None
 	if request.method == 'POST':
@@ -84,14 +85,28 @@ def login():
 		elif request.form['password'] != app.config['PASSWORD']:
 			error = "Bad Password"
 		else:
-			sesion['logged_in'] = True
+			session['logged_in'] = True
 			flash("Successfully Logged In")
 			return redirect(url_for('show_notes'))
 	return render_template('login.html', error=error)
-	
-@app.route('/logout')
+
+# Logout
+@app.route('/api/logout')
 def logout():
-	sesion.pop('logged_in', None)
+	session.pop('logged_in', None)
 	flash("Logged Out")
 	return redirect(url_for('show_notes'))
+
+# Display Profiles
+@app.route('/api/<username>')
+def show_profile(username):
+	flash("User Profile")
+	return redirect(url_for('show_notes'))
+
+# Test
+@app.route('/api/test')
+def show_test():
+	flash("TEST")
+	return "<h1> TEST </h1>"
+	
 		
