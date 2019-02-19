@@ -3,10 +3,8 @@
 module.exports = {
 
   development: {
-    client: 'sqlite3',
-    connection: {
-      filename: './data/notes.sqlite3'
-    },
+    client: 'pg',
+    connection: 'postgres://cferrell2:meuamor1@localhost/lambdanotes',
     useNullAsDefault: true,
     migrations: {
       directory: './data/migrations'
