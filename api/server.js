@@ -1,10 +1,12 @@
 const express = require('express');
 
+const cors = require('cors');
+
 const notes = require('../notes/notesModel.js');
 
 const server = express();
 
-server.use(express.json());
+server.use(express.json(), cors());
 
 
 // Display a list of notes
