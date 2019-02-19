@@ -2,7 +2,7 @@ const express = require('express');
 const server = express();
 const middleware = require('./middleware');
 const db = require('./dbConfig');
-const port = process.env.PORT || 3100;
+const PORT = process.env.PORT || 3100;
 
 middleware(server);
 server.use(express.json());
@@ -73,11 +73,11 @@ server.put('/notes/:id', (req, res) =>{
 })
 
 
-server.listen(port, () =>{
-    console.log(`Server is up and running on port ${port}`)
+server.listen(PORT, () =>{
+    console.log(`Server is up and running on port ${PORT}`)
 });
 
 module.exports = {
-    server,
-    port
+    server
+    
 }
