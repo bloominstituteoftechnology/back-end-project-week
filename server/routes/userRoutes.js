@@ -30,7 +30,7 @@ router.post('/register', async (req, res) => {
   try {
     const {first_name, last_name, username, password} = user;
 
-    if(first_name, last_name, username, password) {
+    if(first_name && last_name && username && password) {
       let id = await users.addUser(user)
       id = id[0]
       const token = generateToken(user, id)
