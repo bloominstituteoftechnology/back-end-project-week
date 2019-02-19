@@ -5,21 +5,6 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const userDB = require('../DB-Functions/User-Functions')
 
-const makeToken = (user) => {
- const payload = {
-  user: user
- }
-
- const secret = process.env.JWT_SEC
-
- const options = {
-  expiresIn: "8h",
-  jwtid: ""
- }
-
- return jwt.sign(payload, secret, options)
-}
-
 router.post('/', (req, res) => {
  const user = req.body
  const pw_hash = bcrypt.hashSync(user.password, 16)
