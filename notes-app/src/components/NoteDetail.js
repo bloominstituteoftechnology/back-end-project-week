@@ -21,7 +21,6 @@ class NoteDetail extends React.Component {
         `http://localhost:4000/api/posts/${this.props.match.params.id}`
       )
       .then(response => {
-        console.log(response);
         this.setState({
           id: response.data.id,
           title: response.data.title,
@@ -80,7 +79,7 @@ class NoteDetail extends React.Component {
     return (
       <div className="note-detail">
         <header className="body-header">
-          <container className="tags-container">
+          <div className="tags-container">
             <form className="tags-form" onSubmit={this.props.handleSubmitTag}>
               <div className="tags">
                 {this.state.tags.map(tag => {
@@ -108,7 +107,7 @@ class NoteDetail extends React.Component {
                 delete
           </button>
             </div>
-          </container>
+          </div>
           <div className="timeStamp">
             <p>Created: {this.state.created_at}</p>
             <p>Updated: {this.state.updated_at}</p>

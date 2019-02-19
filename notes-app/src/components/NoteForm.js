@@ -3,7 +3,7 @@ import React from "react";
 const NoteForm = props => {
   const handleClick = () => {
     const newNote = {
-      tags: props.tags,
+      tags: props.newTags,
       title: props.title,
       contents: props.contents
     };
@@ -15,10 +15,10 @@ const NoteForm = props => {
     <div>
       <div className="note-form">
         <header className="body-header">
-          <container className="tags-container">
+          <div className="tags-container">
             <form className="tags-form" onSubmit={props.handleSubmitTag}>
               <div className="tags">
-                {props.tags.map(tag => {
+                {props.newTags.map(tag => {
                   return <p className="tag" key={tag}>{tag}</p>
                 })}
               </div>
@@ -35,7 +35,7 @@ const NoteForm = props => {
             <div className="btn-container">
               <button onClick={handleClick}>Save</button>
             </div>
-          </container>
+          </div>
         </header>
         <hr></hr>
         <input

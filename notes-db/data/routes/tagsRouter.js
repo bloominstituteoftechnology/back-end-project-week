@@ -28,7 +28,7 @@ router.post('/tags', (req, res) => {
     }
     else {
         res.status(400)
-            .json({ errorMessage: "Please provide title and contents for the post." })
+            .json({ errorMessage: "Please provide tag." })
     }
 })
 
@@ -41,7 +41,7 @@ router.get('/tags', (req, res) => {
         .catch(err => {
             res
                 .status(500)
-                .json({ error: "The posts information could not be retrieved." })
+                .json({ error: "The tags information could not be retrieved." })
         })
 })
 //GET one tag
@@ -54,13 +54,13 @@ router.get('/tags/:id', (req, res) => {
             }
             else {
                 res.status(404)
-                    .json({ message: "The post with the specified ID does not exist." })
+                    .json({ message: "The tag with the specified ID does not exist." })
             }
         })
         .catch(err => {
             res
                 .status(500)
-                .json({ message: "failed to get post" })
+                .json({ message: "failed to get tag" })
         })
 });
 
@@ -70,16 +70,16 @@ router.delete('/tags/:id', (req, res) => {
     db.remove(id)
         .then(count => {
             if (count) {
-                res.json({ message: "Post succesfully deleted."});
+                res.json({ message: "Tag succesfully deleted." });
             }
             else {
                 res.status(404)
-                    .json({ message: "The post with the specified ID does not exist." })
+                    .json({ message: "The tag with the specified ID does not exist." })
             }
         })
         .catch(err => {
             res.status(500)
-                .json({ error: "The post could not be removed" })
+                .json({ error: "The tag could not be removed" })
         })
 })
 
