@@ -28,14 +28,14 @@ You are required to showcase progress with at least 4 commits a day. This will l
 We recommend that you finish all the MVP features before trying to deploy.
 
 - [x] Add data persistenc using a Relational Database. We suggest you start with `SQLite3`.
-- [x]Create a Web API for the React application you built in the front-end project week.
+- [x] Create a Web API for the React application you built in the front-end project week.
 - [x] Build endpoints for each of the following features:
-  -  [x] Display a list of notes.
+  - [x] Display a list of notes.
   - [x] Create a note with a _title_ and _content_.
   - [x] View an existing note.
   - [x] Edit an existing note.
   - [x] Delete an existing note.
-  - [x]Modify your front-end so that it uses your newly created Web API.
+  - [x] Modify your front-end so that it uses your newly created Web API.
 
 Upon your first commit, please submit a Pull Request and add _both_ the **Trello Set Up** and **Backend MVP Features** Task lists to your first Pull Request comment.
 
@@ -45,7 +45,7 @@ Upon your first commit, please submit a Pull Request and add _both_ the **Trello
 
 ## Deployment
 
-After your PM certifies that all MVP features are complente, it's time to work on deploying it online for the world to see. We recommend you deploy your server to [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction), and your front end to [netlify](https://www.netlify.com/blog/2016/09/29/a-step-by-step-guide-deploying-on-netlify/). Both services provide free tiers and easy to use interfaces.
+After your PM certifies that all MVP features are complete, it's time to work on deploying it online for the world to see. We recommend you deploy your server to [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction), and your front end to [netlify](https://www.netlify.com/blog/2016/09/29/a-step-by-step-guide-deploying-on-netlify/). Both services provide free tiers and easy to use interfaces.
 
 Additionally, it is recommended that you keep your front end and backend codebases in separate GitHub repositories. This helps with deploying, since the different parts of your application will be deployed on different platforms.
 
@@ -64,7 +64,7 @@ Once your MVP has been approved, you have been given a feature list that the cli
 - [ ] Allow users to create Lists and assign notes to a list.
 - [ ] Allow users to attach images to notes.
 - [ ] Allow multiple users to collaborate on notes.
-- [ ] Add Unit and Integration Tests.
+- [x] Add Unit and Integration Tests.
 
 ## Super Duper Extra Credit Bonus Features
 
