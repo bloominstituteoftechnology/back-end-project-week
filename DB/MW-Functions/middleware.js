@@ -1,7 +1,11 @@
 const bcrypt = require("bcryptjs")
+const express = require('express')
 
 module.exports = {
- note_check: (req, res, next) => {
+ note_check: function (req, res, next) {
+  const id = req.params
+ 
+  const note = req.body 
   if (id && note.title && note.body) {
    next()
   }
@@ -12,7 +16,7 @@ module.exports = {
   }
  },
 
- pw_check: (req, res, next) => {
+ pw_check: function (req, res, next) {
   if (users.length && bcrypt.compareSync(req.user.password, users[0].password)) {
    next()
   }

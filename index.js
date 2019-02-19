@@ -16,11 +16,11 @@ server.use(
 )
 
 // Register Routes
-server.post('/api/register', register_route)
+// server.post('/api/register', register_route)
 // Login Routes
-server.post('/api/login', login_route)
+// server.post('/api/login', login_route)
 //Logout Routes
-server.post('/api/logout', logout_route)
+// server.post('/api/logout', logout_route)
 // Note Routes
 server.get('/api/notes', note_routes)
 server.get('/api/notes', note_routes)

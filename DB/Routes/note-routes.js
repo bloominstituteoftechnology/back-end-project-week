@@ -32,10 +32,10 @@ router.get('/:id', (req, res) => {
   })
 })
 
-router.post('/', note_check.note_check, (req, res) => {
+router.post('/', (req, res) => {
  const id = req.params
- const note = req.body
- noteDB.place(id, note)
+ const {title, body } = req.body
+ noteDB.place(id, {title, body})
   .then(() => {
    res
     .status(201)
@@ -47,7 +47,7 @@ router.post('/', note_check.note_check, (req, res) => {
   })
 })
 
-router.put('/:id', note_check.note_check, (req, res) => {
+router.put('/:id', (req, res) => {
  const id = req.params
  const note = req.body
  noteDB.alter(id, note)
