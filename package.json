@@ -16,6 +16,7 @@
     "morgan": "^1.9.1",
     "node": "^11.10.0",
     "nodemon": "^1.18.10",
+    "npm": "^6.8.0",
     "react-scripts": "^2.1.5",
     "react-testing-library": "^5.7.0",
     "sqlite3": "^4.0.6",

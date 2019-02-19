@@ -1,0 +1,40 @@
+{
+  "name": "is-cidr",
+  "version": "3.0.0",
+  "description": "Check if a string is an IP address in CIDR notation",
+  "author": "silverwind <me@silverwind.io>",
+  "contributors": [
+    "Felipe Apostol <flipjs.io@gmail.com> (http://flipjs.io/)"
+  ],
+  "repository": "silverwind/is-cidr",
+  "license": "BSD-2-Clause",
+  "scripts": {
+    "test": "make test"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "cidr",
+    "regex",
+    "notation",
+    "cidr notation",
+    "prefix",
+    "prefixes",
+    "ip",
+    "ip address",
+    "network"
+  ],
+  "dependencies": {
+    "cidr-regex": "^2.0.10"
+  },
+  "devDependencies": {
+    "eslint": "^5.7.0",
+    "eslint-config-silverwind": "^2.0.9",
+    "updates": "^4.5.2",
+    "ver": "^3.0.0"
+  }
+}
