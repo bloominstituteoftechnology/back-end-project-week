@@ -2,10 +2,12 @@
 	"name": "node-express",
 	"version": "1.0.0",
 	"description": "Lab for Introduction to Node.js and Express",
-	"private": true,
+	"engines": {
+		"node": "10.x"
+	},
 	"main": "index.js",
 	"scripts": {
-		"start": "nodemon index.js"
+		"start": "node index.js"
 	},
 	"license": "ISC",
 	"dependencies": {
@@ -18,5 +20,14 @@
 	},
 	"devDependencies": {
 		"nodemon": "^1.18.10"
-	}
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://git.heroku.com/sheltered-atoll-41824.git"
+	},
+	"keywords": [
+		"node",
+		"heroku",
+		"express"
+	]
 }
