@@ -6,19 +6,19 @@ module.exports = {
     getById,
     deleteNote,
     editNote,
+    reset,
 };
 
 async function getAll() {
     let notes = await db('notes');
     let tags = await db('tags');
-    console.log(tags);
     if (tags !== undefined) {
         tags.map(tag => {
             for (let i = 0; i < notes.length; i++) {
                 if (tag.note_id === notes[i].id) {
                     notes[i] = Object.assign({}, 
                         notes[i], 
-                        {"tags": {id: tag.id, note_id: tag.note_id, tags: JSON.parse(tag.tags)}});
+                        {"tags": JSON.parse(tag.tags)});
                 }
             }
         })
@@ -61,6 +61,13 @@ async function deleteNote(id) {
 }
 
 async function editNote(id, note) {
-    console.log(`id: ${id}`)
-    return db('notes').where('id', id).update({title: note.title, content: note.content})
+    const noteChanged = await db('notes').where('id', id).update({title: note.title, content: note.content})
+    await db('tags').where('note_id', id).update({tags: JSON.stringify(note.tags)});
+    return noteChanged;
+}
+
+async function reset() {
+    await db('notes').truncate();
+    await db('tags').truncate();
+    return 1;
 }

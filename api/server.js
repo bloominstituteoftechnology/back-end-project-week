@@ -17,6 +17,13 @@ server.get('/api/notes', async (req, res) => {
     res.status(200).json(notes);
 });
 
+/* Delete Me Before Final */
+server.get('/api/reset', async (req, res) => {
+    if(db.reset()) {
+        res.status(200).json({message: 'Database reset.'});
+    }
+});
+
 server.get('/api/notes/:id', async (req, res) => {
     const {id} = req.params;
     try {
@@ -33,7 +40,6 @@ server.get('/api/notes/:id', async (req, res) => {
 server.post('/api/notes', async (req, res) => {
     let note = req.body;
     // The note api expects both the title and content keys to be on the note object.
-    console.log(note.tags);
     if (note.title && note.content) {
         const ids = await db.insert(note);
         // We send back the ID of the newly created note.
