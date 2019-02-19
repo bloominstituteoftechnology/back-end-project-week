@@ -87,4 +87,4 @@ server.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`)
 });
 
-// Refactoring front end is almost complete, some more errors have come up. Still trying to work them out
+// Front end is now working with back end with complete functionality!
