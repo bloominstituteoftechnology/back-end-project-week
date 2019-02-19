@@ -46,13 +46,13 @@ describe('post to /notes', () => {
         }
         const response = await request(server).post('/').send(body);
 
-        expect(response.body).toEqual([5]);
+        expect(response.body).toEqual({ "id": 5 });
 
     })
 })
 describe('retrieve single note', () => {
     it('responds with single note', async () => {
-        const response = await request(server).get('/5');
+        const response = await request(server).get('/4');
         expect(typeof response.body).toBe('object');
 
 

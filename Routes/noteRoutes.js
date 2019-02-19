@@ -38,7 +38,7 @@ router.get('/:id', (req, res) => {
     const { id } = req.params;
     notesHelper.getOneNote(id)
         .then(note => {
-            if (note) {
+            if (note.length) {
                 res
                     .status(200)
                     .json(note);
