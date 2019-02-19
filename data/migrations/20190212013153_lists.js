@@ -2,7 +2,8 @@
 exports.up = function(knex, Promise) {
     return knex.schema.createTable('lists', lists => {
         lists.increments('id');
-        lists.string('list', 128).notNullable();
+        lists.string('list', 255).notNullable();
+        lists.string('listTitle', 128).notNullable();
         lists.integer('notes_id').unsigned();
         lists.foreign('notes_id').references('id').on('notes');
         lists.integer('users_id').unsigned();

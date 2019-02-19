@@ -112,7 +112,8 @@ router.put('/:id', (req, res) => {
 /********* Create New List *************/
 router.post('/', (req, res) => {
     const list = req.body;
-    if (list.list) {
+   console.log("list:", list)
+    if (list.listTitle) {
         lists.insert(list)
             .then(list => {
                 res.status(201)
@@ -126,7 +127,7 @@ router.post('/', (req, res) => {
     } else {
         res
             .status(400)
-            .json({ message: "missing list." })
+            .json({ message: "missing list Title." })
     }
 });
 
