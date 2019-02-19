@@ -7,11 +7,11 @@ module.exports = {
         return db('lists')
     },
 
-    get: function (id) {
+    get: async function (id) {
         let query = db('lists');
 
         if (id) {
-            query.where('lists.id', id).first();
+           await query.where('lists.id', id).first();
             return query;
             // const promises = [query, this.getProjectActions(id)]; // [ projects, actions ]
 
