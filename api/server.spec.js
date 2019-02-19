@@ -1,5 +1,6 @@
 const request = require('supertest');
 const server = require('./server.js');
+require('events').EventEmitter.defaultMaxListeners = 0;
 
 describe('Server check', () => {
     it('responds with 200', async () => {

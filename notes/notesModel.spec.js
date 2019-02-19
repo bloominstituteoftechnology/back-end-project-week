@@ -1,5 +1,6 @@
 const notesModel = require('./notesModel.js');
 const db = require('../data/dbConfig.js');
+const request = require('supertest')
 
 beforeEach( () => {
     return db.migrate.rollback()
@@ -19,7 +20,7 @@ describe('the notes Model', () => {
             expect(notesList.length).toBe(3)
         });
 
-        it('Should fetch and individual game by ID', async () => {
+        it('Should fetch an individual game by ID', async () => {
             const grabNote = await notesModel.get(1)
             expect(grabNote.title).toBe('note1')
         });

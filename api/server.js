@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const notesRouter = require('../routers/notesRouter/notesRouter.js');
 const server = express();
+require('events').EventEmitter.defaultMaxListeners = 0;
 
 server.use(express.json());
 server.use(cors());
