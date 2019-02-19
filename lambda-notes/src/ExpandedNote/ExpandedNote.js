@@ -18,7 +18,7 @@ class ExpandedNote extends React.Component{
     }
     fetchNote = id => {
         axios
-        .get(`https://chillington-notes-app.herokuapp.com/notes/${id}`)
+        .get(`https://chillington-notes-app.herokuapp.com/${id}`)
         .then(response => {
             console.log(response);
             this.setState(() => ({ 

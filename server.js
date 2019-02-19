@@ -9,7 +9,7 @@ server.use(express.json());
 
 
 //Get request for all notes
-server.get('/notes', async(req,res) =>{
+server.get('/', async(req,res) =>{
     const notes = await db('notes');
     try{
         res.status(200).json(notes);
@@ -19,7 +19,7 @@ server.get('/notes', async(req,res) =>{
 });
 
 //Get request for note by id
-server.get('/notes/:id' , (req, res) =>{
+server.get('/:id' , (req, res) =>{
     const {id} = req.params;
     db('notes').where('id', id)
         .then(rows =>{
@@ -31,7 +31,7 @@ server.get('/notes/:id' , (req, res) =>{
 });
 
 //Post request for creating note
-server.post('/notes', (req, res) =>{
+server.post('/', (req, res) =>{
     const newNote = req.body;
     if(newNote.title && newNote.content){
         db('notes').insert(newNote)
@@ -48,7 +48,7 @@ server.post('/notes', (req, res) =>{
 })
 
 //Delete request
-server.delete('/notes/:id', (req, res) =>{
+server.delete('/:id', (req, res) =>{
     const {id} = req.params;
     db('notes').where('id', id).del()
         .then(rowCount =>{
@@ -60,7 +60,7 @@ server.delete('/notes/:id', (req, res) =>{
 })
 
 //Put request
-server.put('/notes/:id', (req, res) =>{
+server.put('/:id', (req, res) =>{
     const {id} = req.params;
     const noteBody = req.body;
     db('notes').where('id', id).update(noteBody)

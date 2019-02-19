@@ -23,7 +23,7 @@ class App extends Component {
 
   fetchNotes = () =>{
     axios 
-      .get('https://chillington-notes-app.herokuapp.com/notes')
+      .get('https://chillington-notes-app.herokuapp.com/')
         .then(response =>{
           this.setState(() =>({notes: response.data}));
         })
@@ -36,7 +36,7 @@ class App extends Component {
   updateNote = (updatedNote) =>{
     console.log(updatedNote.title);
     axios
-      .put(`https://chillington-notes-app.herokuapp.com/notes/${updatedNote.note.id}`, {title: updatedNote.title, content: updatedNote.content})
+      .put(`https://chillington-notes-app.herokuapp.com/${updatedNote.note.id}`, {title: updatedNote.title, content: updatedNote.content})
         .then(response =>{
           this.fetchNotes()
         })
@@ -48,7 +48,7 @@ class App extends Component {
 
   createNote = (newNote) =>{
     axios
-      .post('https://chillington-notes-app.herokuapp.com/notes', newNote)
+      .post('https://chillington-notes-app.herokuapp.com/', newNote)
         .then(response =>{
           this.fetchNotes()
         })
@@ -59,7 +59,7 @@ class App extends Component {
 
   deleteNote = (id) =>{
     axios 
-      .delete(`https://chillington-notes-app.herokuapp.com/notes/${id}`)
+      .delete(`https://chillington-notes-app.herokuapp.com/${id}`)
         .then(response =>{
           this.fetchNotes()
         })
