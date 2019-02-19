@@ -24,8 +24,8 @@ function protect(req, res, next) {
 /************************************ NOTES SECTION ***********************************/
 
 /********* Get Notes *************/
-router.get('/', (req, res) => {
-    notes.get()
+router.get('/', async (req, res) => {
+    await notes.get()
         .then((notes) => {
             res.json(notes);
         })

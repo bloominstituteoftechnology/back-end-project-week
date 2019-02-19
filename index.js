@@ -46,17 +46,5 @@ server.use('/api/users', usersRouter);
   return jwt.sign(payload, secret, options);
 }
  
-
-/* server.use(session({
-    name: 'notsession', // default is connect.sid
-    secret: 'nobody tosses a dwarf!',
-    cookie: {
-      maxAge: 1 * 24 * 60 * 60 * 1000
-    }, // 1 day in milliseconds
-    httpOnly: true, // don't let JS code access cookies. Browser extensions run JS code on your browser!
-    resave: false,
-    saveUninitialized: false,
-  })) */
-
 const port = process.env.PORT || 5000;
 server.listen(port, () => console.log(`\n** server up on port ${port} **\n`));

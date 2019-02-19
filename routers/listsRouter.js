@@ -11,8 +11,8 @@ const sendUserError = (status, msg, res) => {
 /************************************ LISTS SECTION ***********************************/
 
 /********* Get Lists *************/
-router.get('/', (req, res) => {
-    lists.get()
+router.get('/', async (req, res) => {
+    await lists.get()
         .then((list) => {
             res.json(list);
         })
@@ -68,7 +68,7 @@ router.delete('/:id', (req, res) => {
 });
 
 /********* Update List *************/
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
     const { id } = req.params
     const newList = req.body
 
@@ -110,11 +110,11 @@ router.put('/:id', (req, res) => {
 })
 
 /********* Create New List *************/
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     const list = req.body;
-   console.log("list:", list)
+   //console.log("list:", list)
     if (list.listTitle) {
-        lists.insert(list)
+        await lists.insert(list)
             .then(list => {
                 res.status(201)
                     .json(list)

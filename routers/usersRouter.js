@@ -4,8 +4,7 @@ const users = require('../data/helpers/usersModel')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 const secret = 'shhhthisissecret';
-//const cors = require('../data/helpers/cors');
-//router.use(cors());
+
 
 const sendUserError = (status, msg, res) => {
     res

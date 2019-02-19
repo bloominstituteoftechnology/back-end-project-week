@@ -1,10 +1,9 @@
 const db = require('../dbConfig.js');
-//const mappers = require('./mappers');
 
 module.exports = {
 
 
-    get: function () {
+    get: async function () {
         return db('lists')
     },
 
@@ -36,7 +35,7 @@ module.exports = {
          .then(actions => actions.map(action => mappers.actionToBody(action)));
      }, */
 
-    insert: function (list) {
+    insert: async function (list) {
         return db('lists')
             .insert(list)
             .then(([id]) => this.get(id));
