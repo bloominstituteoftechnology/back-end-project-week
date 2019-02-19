@@ -57,7 +57,7 @@ const insert = async (note) => {
         throw e;
     }
 
-    const ids = await db('notes').insert(note);
+    const ids = await db('notes').insert(note, 'id');
     const n = await get(ids[0]);
     return n;
 };
