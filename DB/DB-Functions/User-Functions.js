@@ -12,7 +12,6 @@ module.exports = {
  login: (user) => {
   return DB('users')
            .where('username', user.username)
-           .then((ids) => ({id: ids[0]}))
  },
 
  logout: () => {
