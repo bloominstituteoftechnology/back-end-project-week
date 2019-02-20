@@ -21,6 +21,11 @@ server.use(cors());
 server.use('/api/', postsRouter);
 server.use('/api/', tagsRouter);
 
+server.get('/', (req, res) =>
+    res.send(`Hi! This is Louis Li's Lambda Notes API! Direct to '/api/posts' to view the posts and '/api/tags' to view the tags`)
+    );
+
+
 //listening
 server.listen(process.env.PORT || PORT, () => {
     console.log(`server is now up and running on ${PORT}`)
