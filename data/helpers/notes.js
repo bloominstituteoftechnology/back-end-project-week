@@ -71,24 +71,14 @@ async function getTagsAndNotes(id) {
 }
 
 function createTagsAndNotes(note, tags) {
-  if (tags) {
-    const promises = [this.createNote(note), this.createTag(tags)];
+  const promises = [this.createNote(note), this.createTag(tags)];
 
-    return Promise.all(promises).then(async results => {
-      const tag_ids = results[1];
-      const note_id = results[0].id;
-      for (let tag_id in tag_ids) {
-        await DB("notesAndTags").insert({ note_id, tag_id: tag_ids[tag_id] });
-      }
-      return this.getTagsAndNotes(note_id);
-    });
-  } else {
-    return DB("notes")
-      .insert({ ...note })
-      .then(id => {
-        return DB("notes")
-          .where("id", id[0])
-          .first();
-      });
-  }
+  return Promise.all(promises).then(async results => {
+    const tag_ids = results[1];
+    const note_id = results[0].id;
+    for (let tag_id in tag_ids) {
+      await DB("notesAndTags").insert({ note_id, tag_id: tag_ids[tag_id] });
+    }
+    return this.getTagsAndNotes(note_id);
+  });
 }
