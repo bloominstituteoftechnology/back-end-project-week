@@ -11,7 +11,7 @@ const tagsRouter = require("../api/routes/tagsRouter");
 
 server.use(helmet());
 server.use(morgan("dev"));
-server.use(cors("*"));
+server.use(cors());
 server.use(express.json());
 
 server.use("/notes", notesRouter);
