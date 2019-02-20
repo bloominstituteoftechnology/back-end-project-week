@@ -19,62 +19,36 @@ server.get('/', (req , res) => {
 // DB HELPERS IMPORT
 const dbHelpers = require('./data/db_helpers');
 
-// GET - dbHelpers - JOINS Notes & Tags
+// Regular GET NOTES -- works.
 server.get('/notes', (req , res) => {
-    dbHelpers.getNotes()  // Helper function
+    dbHelpers.getNotes()
     .then(rows => {
         res.json(rows)
     })
     .catch(err => {
         console.log(err)
-        res.status(500).json({err: 'Failed to retrieve Notes'})
+        res.status(500).json({err: 'Failed to get Notes'})
     })
 })
 
 
 
-server.get('/tags', (req, res) => {
-    dbHelpers.getTags()   //helper function
-    .then(rows => {
-        res.json(rows)
-    })
-    .catch(err => {
-        console.log(err)
-        res.status(500).json({err: 'Failed to retrieve Tags'})
-    })
-})
 
 
 ///////// many to many AND joins table ////////////
 // Regular Get ALL notes_tags (does NOT show tagTitle)
-server.get('/notes_tags', (req, res) => {
-    dbHelpers.getNotesTags()
-    .then(rows => {
-        res.json(rows)
-    })
-    .catch(err => {
-        console.log(err)
-        res.status(500).json({err: "Failed to retrieve all entries from Notes_Tags table"})
-    })
-})
+// server.get('/notes_tags', (req, res) => {
+//     dbHelpers.getNotesTags()
+//     .then(rows => {
+//         res.json(rows)
+//     })
+//     .catch(err => {
+//         console.log(err)
+//         res.status(500).json({err: "Failed to retrieve all entries from Notes_Tags table"})
+//     })
+// })
 
-// JOINS notes_tags (SHOWS tagTitle)
-server.get('/notes_tags_joins', (req , res) => {
-    db('notes_tags').leftJoin('tags', 'tags_id', 'tags.id')
-    .then(tagInfo => {
-        res.send(tagInfo)
-    })
-    .catch(err => console.log(err))
-})
 
-// JOINS notes_tags (SHOWS title & textBody)
-server.get('/notes_tags_joins_two', (req , res) => {
-    db('notes_tags').leftJoin('notes', 'notes_id', 'notes.id')
-    .then(tagInfo => {
-        res.send(tagInfo)
-    })
-    .catch(err => console.log(err))
-})
 
 // GET note by ID w db Helpers
 server.get('/notes/:id', (req, res) => {
@@ -88,16 +62,6 @@ server.get('/notes/:id', (req, res) => {
     })
 })
 
-server.get('/tags/:id', (req , res) => {
-    const {id} = req.params;
-    dbHelpers.getTagById(id)
-    .then(rows => {
-        res.json(rows)
-    })
-    .catch(err => {
-        res.status(500).json({err: "Failed to find specific Tag"})
-    })
-})
 
 
 
@@ -127,25 +91,39 @@ server.delete('/notes/:id', (req, res) => {
     })
 })
 
+///Experiement - just post NOTES, then Tags, then Post Notes_Tags
+server.post('/notes', (req , res) => {
+    const note = req.body;
+    dbHelpers.insertNote(note)
+    .then(note => res.status(201).json(note))
+    .catch(err => {
+        console.log(err)
+        res.status(500).json({error: "Error posting individual NOTE to the database"})
+    })
+})
+
+
+
+
 
 /// Experiment - Post Notes WITH Tags
-server.post('/notes', (req, res) => {
-    const note = req.body;
-    const tags = req.body.tags;
+// server.post('/notes', (req, res) => {
+//     const note = req.body;
+//     const tag = req.body.tag;
 
-    delete note.tags;
+//     delete note.tag;
 
-    console.log('note info', note)
-    console.log('tag info', tags)
+//     console.log('note info', note)
+//     console.log('tag info', tag)
 
-    //db.insertNoteTag(note, tag)
-    dbHelpers.insertNoteTag(note, tags)
-        .then(note => res.status(201).json(note))
-        .catch(err => {
-            console.log(err)
-            res.status(500).json({error: "There was an error saving note to the database"});
-        });
-})
+//     //db.insertNoteTag(note, tag)
+//     dbHelpers.insertNoteTag(note, tag)
+//         .then(note => res.status(201).json(note))
+//         .catch(err => {
+//             console.log(err)
+//             res.status(500).json({error: "There was an error saving note to the database"});
+//         });
+// })
 
 
 server.listen(PORT, () => {
