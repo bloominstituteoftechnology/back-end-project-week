@@ -53,6 +53,20 @@ describe('the route handlers', () => {
       await db('notes').truncate();
     });
 
+    it(`responds with 404 when ID isn't available`, async () => {
+      const response = await request(server).get('/note/view/1');
+
+      expect(response.status).toBe(404);
+    })
+
+    it('responds with 200 when ID exists', async () => {
+      const body = { title: 'FakeNote', textBody: 'FakeBody' };
+      const postResponse = await request(server).post('/note/create').send(body);
+      const response = await request(server).get('/note/view/1');
+
+      expect(response.status).toBe(200);
+    })
+
   })
 
   describe('PUT /note/edit/:id', () => {
@@ -60,6 +74,15 @@ describe('the route handlers', () => {
     afterEach(async () => {
       await db('notes').truncate();
     });
+
+    it('responds with 200 when successfully updated', async () => {
+      const body = { title: 'FakeNote', textBody: 'FakeBody' };
+      const updatedBody = { title: 'UpdatedNote', textBody: 'UpdatedBody' };
+      const postResponse = await request(server).post('/note/create').send(body);
+      const updatedResponse = await request(server).put('/note/edit/1').send(updatedBody);
+
+      expect(updatedResponse.status).toBe(200);
+    })
 
   })
 
