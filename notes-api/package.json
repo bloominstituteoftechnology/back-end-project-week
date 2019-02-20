@@ -21,10 +21,6 @@
 	"devDependencies": {
 		"nodemon": "^1.18.10"
 	},
-	"repository": {
-		"type": "git",
-		"url": "https://git.heroku.com/evening-basin-31012.git"
-	},
 	"keywords": [
 		"node",
 		"heroku",
