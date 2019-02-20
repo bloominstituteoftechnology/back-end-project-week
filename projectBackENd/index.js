@@ -10,5 +10,5 @@ Middleware(server);
 
 
 server.listen( PORT, ()=>{
-    console.log(`\n ***  -LAMBDA NOTES SERVER -  Listening on http://localhost:${PORT} ***\n`)
+    console.log(`\n //***  -LAMBDA NOTES SERVER -  Listening on http://localhost:${PORT} ***//\n`)
 })
