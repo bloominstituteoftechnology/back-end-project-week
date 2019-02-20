@@ -16,7 +16,7 @@ ROUTER.get("/:notesID", async (req, res) => {
   const tagsAndNotes = await DB.getTagsAndNotes(id);
   const note = await DB.getNoteById(id);
 
-  return tagsAndNotes.id ? res.json(tagsAndNotes) : res.json(note);
+  return tagsAndNotes[0].tags ? res.json(tagsAndNotes) : res.json(note);
 });
 // POST /api/notes/
 ROUTER.post("/create", async (req, res) => {
