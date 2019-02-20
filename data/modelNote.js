@@ -15,7 +15,19 @@ module.exports={
 		return db('notes')
 			.where({ id: noteId })
 			.then(note => note);
-	},
+    },
+    getNotes:function(){
+        return db.select('*').from('notes')
+    },
+    editNote:function(modifiedNote){
+        return db('notes')
+		.where({ id: modifiedNote.id })
+		.update(modifiedNote)
+		.then(numberUpdated => numberUpdated)
+    },
+    deleteNote:function(NoteId){
+        return db('notes').where({id:NoteId.id})
+        .delete()
+        .then(numDeleted=>numDeleted)      
+    }
 };
-
-
