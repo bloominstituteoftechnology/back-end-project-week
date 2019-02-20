@@ -5,7 +5,8 @@ module.exports = {
   getNoteById,
   createNote,
   editNote,
-  deleteNote
+  deleteNote,
+  getTagsAndNotes
 };
 
 async function getAllNotes() {
@@ -34,4 +35,18 @@ async function deleteNote(id) {
   return DB("notes")
     .where("id", id)
     .del();
+}
+
+async function getTagsAndNotes(id) {
+  return DB("notes as n")
+    .select(
+      "n.id",
+      "n.textBody",
+      "n.title",
+      DB.raw("GROUP_CONCAT(t.tagName) as tags")
+    )
+    .innerJoin("notesAndTags as nt", "n.id", "nt.note_id")
+    .innerJoin("tags as t", "t.id", "nt.tag_id")
+    .where("n.id", id)
+    .limit(50);
 }
