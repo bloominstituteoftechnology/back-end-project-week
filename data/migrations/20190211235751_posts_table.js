@@ -3,6 +3,7 @@ exports.up = function(knex, Promise) {
   return knex.schema.createTable('posts', posts => {
     posts.increments();
     posts.string('title').notNullable();
+    posts.string('details');
     posts.string('dateCreated').notNullable();
     posts.string('lastModified');
     posts.string('dueDate');

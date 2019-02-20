@@ -6,9 +6,9 @@ module.exports = {
     return db('posts').where('username', username)
   },
 
-  getPostsByID: (id) => {
+  getPostByID: (id) => {
     return db('posts')
-      .where('id', id)
+      .where('id',id)
   },
 
   insertPost: (post) => {
