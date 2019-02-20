@@ -1,14 +1,20 @@
 const express = require('express'),
-    bodyParser = require('body-parser'),
-    notes = require('./api/notes'),
-    cors = require('cors')
+  bodyParser = require('body-parser'),
+  notes = require('./api/notes'),
+  cookieParser = require('cookie-parser'),
+  cors = require('cors'),
+  users = require('./api/users'),
+  auth = require('./api/auth'),
+  { validateJwt } = require('./api/middleware/jwt')
 
-const app = express();
+const app = express()
 
 app
-    .use(cors())
-    .use(bodyParser.json())
-    .use('/notes', notes);
+  .use(cors())
+  .use(cookieParser())
+  .use(bodyParser.json())
+  .use('/notes', notes)
+  .use('/users', validateJwt, users)
+  .use('/auth', auth)
 
-
-app.listen(8080);
+app.listen(8080)
