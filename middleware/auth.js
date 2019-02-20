@@ -2,8 +2,8 @@ const fs = require('fs'),
   jwt = require('jsonwebtoken');
 
 
-const privateKey = fs.readFileSync(__dirname + '/../../rsa/private.key', 'utf8');
-const publicKey = fs.readFileSync(__dirname + '/../../rsa/public.key', 'utf8');
+const privateKey = fs.readFileSync(__dirname + '/../private.key', 'utf8');
+const publicKey = fs.readFileSync(__dirname + '/../public.key', 'utf8');
 
 module.exports = {
   generateJwt: function (req, res, next) {

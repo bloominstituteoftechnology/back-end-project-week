@@ -5,7 +5,7 @@ const express = require('express'),
   cors = require('cors'),
   users = require('./api/users'),
   auth = require('./api/auth'),
-  { validateJwt } = require('./api/middleware/jwt')
+  { validateJwt } = require('./middleware/auth')
 
 const app = express()
 
