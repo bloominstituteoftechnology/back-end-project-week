@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const db = require('../helpers/userModel.js');
-const {protected, newToken, checkUser, checkLogin} = require('../middleware/user_middleware');
+const { newToken, checkUser, checkLogin} = require('../middleware/user_middleware');
 
 router.post('/api/register',checkUser, (req,res) => {
       const user = req.body;

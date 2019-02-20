@@ -16,13 +16,19 @@ function newToken(user) {
 function protected(req,res,next) {
    const token = req.headers.authorization;
    console.log(token);
-   if(!token) res.status(401).json({msg:`No token provided`});
-   jwt.verify(token, JWTKey, (err,decodedToken) => {
-      if(err) res.status(401).json({msg:`Invalid token`});
-      req.email = decodedToken.email;
-      console.log(`From protected middleware`, decodedToken``);
-      next();
-   });
+   if(token) {
+         jwt.verify(token, JWTKey, (err,decodedToken) => {
+            console.log(`protected`,decodedToken);
+         if(err) {
+            res.status(401).json({msg:`You cannot pass!! not decoded`});
+         }
+         // req.email = decodedToken.email;
+         // console.log(`From protected middleware`, decodedToken``);
+         next();
+      });
+      } else {
+         res.status(401).json({msg:`No token provided, so you cannot pass`});
+     } 
 };
 
 const checkUser = (req,res,next) => {
