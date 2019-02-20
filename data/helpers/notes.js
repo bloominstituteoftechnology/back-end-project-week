@@ -71,14 +71,24 @@ async function getTagsAndNotes(id) {
 }
 
 function createTagsAndNotes(note, tags) {
-  const promises = [this.createNote(note), this.createTag(tags)];
+  if (tags) {
+    const promises = [this.createNote(note), this.createTag(tags)];
 
-  return Promise.all(promises).then(async results => {
-    const tag_ids = results[1];
-    const note_id = results[0].id;
-    for (let tag_id in tag_ids) {
-      await DB("notesAndTags").insert({ note_id, tag_id: tag_ids[tag_id] });
-    }
-    return this.getTagsAndNotes(note_id);
-  });
+    return Promise.all(promises)
+      .then(async results => {
+        const tag_ids = results[1];
+        const note_id = results[0].id;
+        for (let tag_id in tag_ids) {
+          await DB("notesAndTags").insert({ note_id, tag_id: tag_ids[tag_id] });
+        }
+        return this.getTagsAndNotes(note_id);
+      })
+      .catch(err => {
+        res.status(501).json({ error: err });
+      });
+  } else {
+    return this.createNote(note)
+      .then(id => res.json(this.getNoteById(id)))
+      .catch(err => res.status(500).json({ error: err }));
+  }
 }
