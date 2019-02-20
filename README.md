@@ -1,5 +1,9 @@
 Trello Link: https://trello.com/b/mj76sFkf/lambda-notesbackend-louis-li
 
+Heroku: https://dashboard.heroku.com/apps/stark-refuge-65834
+
+Netlify: https://quirky-haibt-9c03e3.netlify.com/
+
 
 # Back End Project Week
 
