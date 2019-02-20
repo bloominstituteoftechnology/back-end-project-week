@@ -41,15 +41,15 @@ server.post('/note/create', async (req, res) => {
 })
 
 // View an existing note
-server.get('/note/get/:id', async (req, res) => {
+server.get('/note/view/:id', async (req, res) => {
     try {
       const { id } = req.params;
       const note = await notes.findById(id);
 
       if (note.length > 0) {
-        res.status(200).json(note)
+        res.status(200).json(note);
       } else {
-        res.status(404).json({ error: `Note doesn't exist` })
+        res.status(404).json({ error: `Note doesn't exist` });
       }
 
   } catch (err) {
