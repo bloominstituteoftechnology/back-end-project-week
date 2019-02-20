@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "Lab for Introduction to Node.js and Express",
 	"engines": {
-		"node": "11.2.0"
+		"node": "11.10.0"
 	},
 	"main": "index.js",
 	"scripts": {
@@ -15,6 +15,7 @@
 		"express": "^4.16.4",
 		"knex": "^0.16.3",
 		"morgan": "^1.9.1",
+		"node": "^11.10.0",
 		"router-express": "^1.5.2",
 		"sqlite3": "^4.0.6"
 	},
