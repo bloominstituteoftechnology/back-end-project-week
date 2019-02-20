@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "Lab for Introduction to Node.js and Express",
 	"engines": {
-		"node": "10.x"
+		"node": "11.2.0"
 	},
 	"main": "index.js",
 	"scripts": {
