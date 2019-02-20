@@ -15,13 +15,13 @@ server.use(
  express.json(),
 )
 
-// Register Routes
-// Login Routes
-//Logout Routes
-// Note Routes
+// Register Routes (confirmed working.)
 server.use('/api/register', register_route)
+//Logout Routes (untested)
 server.use('/api/logout', logout_route)
+// Login Routes (untested)
 server.use('/api/login', login_route)
+// Note Routes (confirmed working)
 server.use('/api/notes', note_routes)
 server.use('/api/notes', note_routes)
 server.use('/api/notes', note_routes)

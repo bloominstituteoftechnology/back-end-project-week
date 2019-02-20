@@ -3,6 +3,7 @@ const router = express.Router()
 const bcrypt = require ('bcryptjs')
 const pw_check = require('../MW-Functions/middleware')
 const userDB = require('../DB-Functions/User-Functions')
+
 const makeToken = (user) => {
  const payload = {
   user: user

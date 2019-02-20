@@ -5,15 +5,15 @@ const bcrypt = require('bcryptjs')
 const userDB = require('../DB-Functions/User-Functions')
 
 router.post('/', (req, res) => {
+ // confirmed working.
  const user = req.body
  const pw_hash = bcrypt.hashSync(user.password, 16)
  user.password = pw_hash 
  userDB.register(user)
- console.log('here')
   .then((ids) => {
    res
     .status(201)
-    .json({message: "You have successfully registered an account."}, {id: ids[0]})
+    .json({message: "You have successfully registered an account.", id: ids[0]})
   })
   .catch((err) => {
    res

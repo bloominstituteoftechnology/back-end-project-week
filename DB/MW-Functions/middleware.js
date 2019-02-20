@@ -1,15 +1,10 @@
 const bcrypt = require("bcryptjs")
-const express = require('express')
 
-// This potentially needs refactoring,
-// so that these middleware functions
-// can be used in the necessary routes.
+// note_check confirmed working, testing pw_check next.
 module.exports = {
  note_check: function note_check (req, res, next) {
-  const id = req.params
- 
   const note = req.body 
-  if (id && note.title && note.body) {
+  if (note.title && note.body) {
    next()
   }
   else {
