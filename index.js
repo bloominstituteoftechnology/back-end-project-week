@@ -22,6 +22,6 @@ server.use('/api/', postsRouter);
 server.use('/api/', tagsRouter);
 
 //listening
-server.listen(PORT, () => {
+server.listen(process.env.PORT || PORT, () => {
     console.log(`server is now up and running on ${PORT}`)
 })
