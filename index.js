@@ -33,23 +33,6 @@ server.get('/notes', (req , res) => {
 
 
 
-
-
-///////// many to many AND joins table ////////////
-// Regular Get ALL notes_tags (does NOT show tagTitle)
-// server.get('/notes_tags', (req, res) => {
-//     dbHelpers.getNotesTags()
-//     .then(rows => {
-//         res.json(rows)
-//     })
-//     .catch(err => {
-//         console.log(err)
-//         res.status(500).json({err: "Failed to retrieve all entries from Notes_Tags table"})
-//     })
-// })
-
-
-
 // GET note by ID w db Helpers
 server.get('/notes/:id', (req, res) => {
     const {id} = req.params;
@@ -62,7 +45,16 @@ server.get('/notes/:id', (req, res) => {
     })
 })
 
-
+///POST notes
+server.post('/notes', (req , res) => {
+    const note = req.body;
+    dbHelpers.insertNote(note)
+    .then(note => res.status(201).json(note))
+    .catch(err => {
+        console.log(err)
+        res.status(500).json({error: "Error posting individual NOTE to the database"})
+    })
+})
 
 
 //EDIT existing note
@@ -91,16 +83,7 @@ server.delete('/notes/:id', (req, res) => {
     })
 })
 
-///Experiement - just post NOTES, then Tags, then Post Notes_Tags
-server.post('/notes', (req , res) => {
-    const note = req.body;
-    dbHelpers.insertNote(note)
-    .then(note => res.status(201).json(note))
-    .catch(err => {
-        console.log(err)
-        res.status(500).json({error: "Error posting individual NOTE to the database"})
-    })
-})
+
 
 
 
