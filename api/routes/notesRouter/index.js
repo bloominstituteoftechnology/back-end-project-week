@@ -25,7 +25,13 @@ ROUTER.post("/create", async (req, res) => {
   // check if title and textBody are present
 
   if (newNote.title && newNote.textBody) {
-    if (tags) {
+    if (!tags) {
+      const createdNote = await DB.createNote(newNote);
+      const note = await DB.getNoteById(createdNote.id);
+      return createdNote
+        ? res.json(note)
+        : res.status(500).json({ error: "recreate your note and try again." });
+    } else {
       const createdNote = await DB.createTagsAndNotes(newNote, tags);
       // handle outcome of createdNote
       return createdNote
@@ -33,12 +39,6 @@ ROUTER.post("/create", async (req, res) => {
         : res
             .status(500)
             .json({ error: "note and tags not created, try again." });
-    } else {
-      const createdNote = await DB.createNote(newNote);
-      const note = await DB.getNoteById(createdNote.id);
-      return createdNote
-        ? res.json(note)
-        : res.status(500).json({ error: "recreate your note and try again." });
     }
   } else
     res
