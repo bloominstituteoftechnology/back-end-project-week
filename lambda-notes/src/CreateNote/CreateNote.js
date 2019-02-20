@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../CreateNote/CreateNote.css';
+import  './CreateNote.css';
 import {NavLink} from 'react-router-dom';
 
 class CreateNote extends React.Component{

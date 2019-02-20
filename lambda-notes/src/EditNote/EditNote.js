@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
-import styles from '../EditNote/EditNote.css';
+import './EditNote.css';
 import axios from 'axios';
 
 

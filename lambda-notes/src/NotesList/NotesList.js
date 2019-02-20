@@ -1,6 +1,6 @@
 import React from 'react';
 import Note from '../Note/Note';
-import styles from '../NotesList/NotesList.css'
+import './NotesList.css'
 
 class NotesList extends React.Component{
    constructor(){

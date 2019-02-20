@@ -1,5 +1,5 @@
 import React from 'react';
-import '../Note/Note.css';
+import './Note.css';
 import {NavLink} from 'react-router-dom';
 
 const Note = (props) =>{

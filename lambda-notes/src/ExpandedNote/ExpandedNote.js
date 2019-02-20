@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import styles from '../ExpandedNote/ExpandedNote.css'
+import './ExpandedNote.css'
 
 
 class ExpandedNote extends React.Component{
