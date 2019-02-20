@@ -6,7 +6,9 @@ module.exports = {
   createNote,
   editNote,
   deleteNote,
-  getTagsAndNotes
+  getTagsAndNotes,
+  createTagsAndNotes,
+  createTag
 };
 
 async function getAllNotes() {
@@ -36,6 +38,24 @@ async function deleteNote(id) {
     .where("id", id)
     .del();
 }
+async function createTag(tags) {
+  let tag_ids = [];
+
+  for (let tag in tags) {
+    const tag_id = await DB("tags")
+      .select()
+      .where("tags.tagName", tags[tag])
+      .first()
+      .then(existingTag => {
+        console.log(existingTag);
+        if (!existingTag) {
+          return DB("tags").insert({ tagName: tags[tag] });
+        } else return [existingTag.id];
+      });
+    tag_ids.push(tag_id[0]);
+  }
+  return tag_ids;
+}
 
 async function getTagsAndNotes(id) {
   return DB("notes as n")
@@ -49,4 +69,17 @@ async function getTagsAndNotes(id) {
     .innerJoin("tags as t", "t.id", "nt.tag_id")
     .where("n.id", id)
     .limit(50);
+}
+
+function createTagsAndNotes(note, tags) {
+  const promises = [this.createNote(note), this.createTag(tags)];
+
+  return Promise.all(promises).then(async results => {
+    const tag_ids = results[1];
+    const note_id = results[0].id;
+    for (let tag_id in tag_ids) {
+      await DB("notesAndTags").insert({ note_id, tag_id: tag_ids[tag_id] });
+    }
+    return this.getTagsAndNotes(note_id);
+  });
 }

@@ -21,10 +21,10 @@ ROUTER.get("/:notesID", async (req, res) => {
 });
 // POST /api/notes/
 ROUTER.post("/create", async (req, res) => {
-  const { newNote } = req.body;
+  const { newNote, tags } = req.body;
   // check if title and textBody are present
   if (newNote.title && newNote.textBody) {
-    const createdNote = await DB.createNote(newNote);
+    const createdNote = await DB.createTagsAndNotes(newNote, tags);
     // handle outcome of createdNote
     return createdNote
       ? res.json(createdNote)
