@@ -1,9 +1,9 @@
-const localpostgres = {
-  host: "",
-  database: "",
-  user: "",
-  password: ""
-};
+// const localpostgres = {
+//   host: "localhost",
+//   database: "pgNotes",
+//   user: "Mr.Stegall",
+//   password: "angela91"
+// };
 
 const dbConnection = process.env.DATABASE_URL || localpostgres;
 
@@ -38,10 +38,6 @@ module.exports = {
   production: {
     client: "pg",
     connection: dbConnection,
-    pool: {
-      min: 2,
-      max: 10
-    },
     migrations: {
       directory: "./data/migrations"
     },
