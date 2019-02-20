@@ -31,31 +31,6 @@ server.get('/notes', (req , res) => {
     })
 })
 
-// GET Request - notes-  PRIOR to DB HELPERS
-// server.get('/notes', (req, res) => {
-//     db('notes')
-//     .then(rows => {
-//         res.json(rows)
-//     })
-//     .catch(err => {
-//         console.log(err)
-//         res.status(500).json({err: 'Failed to retrieve Notes'})
-//     })
-// });
-
-/// Normal Post Notes (without Tags)
-// server.post('/notes', (req, res) => {
-//     const note = req.body;
-//     console.log('note info', note)
-//     db('notes').insert(note)
-//     .then(ids => {
-//         res.status(201).json(ids);
-//     })
-//     .catch(err => {
-//         console.log(err)
-//         res.status(500).json({err: "Failed to insert note"});
-//     })
-// })
 
 
 server.get('/tags', (req, res) => {
@@ -69,17 +44,6 @@ server.get('/tags', (req, res) => {
     })
 })
 
-// GET Request - tags - PRIOR to DB Helpers
-// server.get('/tags', (req, res) => {
-//     db('tags')
-//     .then(rows => {
-//         res.json(rows)
-//     })
-//     .catch(err => {
-//         console.log(err)
-//         res.status(500).json({err: 'Failed to retrieve Tags'})
-//     })
-// })
 
 ///////// many to many AND joins table ////////////
 // Regular Get ALL notes_tags (does NOT show tagTitle)
@@ -135,17 +99,6 @@ server.get('/tags/:id', (req , res) => {
     })
 })
 
-// GET note by ID PRIOR to db Helpers
-// server.get('/notes/:id', (req, res) => {
-//     const {id} = req.params;
-//     db('notes').where('id', id)
-//     .then(rows => {
-//         res.json(rows)
-//     })
-//     .catch(err => {
-//         res.status(500).json({err: "Failed to find specific NOTE by ID"});
-//     })
-// })
 
 
 //EDIT existing note
@@ -175,24 +128,6 @@ server.delete('/notes/:id', (req, res) => {
 })
 
 
-///// Experiment - - render tags on frontend
-// server.get('/notes_ex', (req , res) => {
-//     dbHelpers.getNotes()
-//     .then(noteInfo => {
-//         res.send(noteInfo)
-//     })
-//     .catch(err => console.log(err))
-// })
-
-// JOINS Table prior to DB Helpers
-// server.get('/notes_ex', (req , res) => {
-//     db('notes').leftJoin('tags', 'notes_id', 'notes.id')
-//     .then(noteInfo => {
-//         res.send(noteInfo)
-//     })
-//     .catch(err => console.log(err))
-// })
-
 /// Experiment - Post Notes WITH Tags
 server.post('/notes', (req, res) => {
     const note = req.body;
@@ -211,40 +146,6 @@ server.post('/notes', (req, res) => {
             res.status(500).json({error: "There was an error saving note to the database"});
         });
 })
-
-// NEED TO BE ADDED TO DB HELPERS
-// insertNote: async function (note) {
-//         return db('notes').insert(note)
-// }
-
-// insertTag: async function (tags) {
-//     let tagIds = []
-
-//     for (let tag of tags) {
-//         const tagId = await db('tags').insert(tag)
-//         tagIds.push(tagId)
-//     }
-
-//     return tagIds
-// }
-
-
-// insertNoteTag: function (note, tags) {
-//     const promises = [this.insertNote(note), this.insertTags(tags)]
-
-//     return Promise.all(promises).then(async (results) => {
-//         let [noteId, tagIds] = results
-
-//         for (let tagId of tagIds) {
-//         await db('noteTags').insert({ tagId, noteId })
-//         }
-
-//         return this.get(noteId)
-//     })
-// }
-
-
-
 
 
 server.listen(PORT, () => {

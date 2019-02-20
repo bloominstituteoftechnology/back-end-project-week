@@ -35,10 +35,10 @@ module.exports = {
         return db('notes').insert(note)
     },
     
+
     insertTag: function (tags) {
         console.log(typeof tags)
-        return db('tags').insert({tags})
-       
+        return db('tags').insert({tags: JSON.stringify(tags)})
     },
 
     insertNoteTag: function (note, tags) {
