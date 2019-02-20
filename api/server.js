@@ -66,7 +66,6 @@ server.put('/note/edit/:id', async (req, res) => {
 
     if (noteChanges.title && noteChanges.textBody) {
       const array = await notes.update(id, noteChanges);
-      console.log(array[0]);
       res.status(200).json(array[0]);
     } else {
       res.status(422).json({ error: "Body missing info" });
