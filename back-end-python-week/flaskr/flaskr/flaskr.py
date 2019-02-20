@@ -75,6 +75,16 @@ def add_note():
     flash("New note was succesfully posted")
     return redirect(url_for('show_notes'))
 
+# Route for delete
+@app.route('/api/delete', methods=['POST'])
+def delete_note():
+	if not session.get('logged_in'):
+		abort(401)
+	db = get_db()
+	db.execute('DELETE FROM notes WHERE id = ?',(id,))
+	db.commit()
+	return redirect(url_for("show_notes.html"))
+
 # Login
 @app.route('/api/login', methods=['GET','POST'])
 def login():
