@@ -5,7 +5,7 @@
 //   password: "angela91"
 // };
 
-const dbConnection = process.env.DATABASE_URL || localpostgres;
+// const dbConnection = process.env.DATABASE_URL || localpostgres;
 
 module.exports = {
   development: {
@@ -37,7 +37,7 @@ module.exports = {
 
   production: {
     client: "pg",
-    connection: dbConnection,
+    connection: 'postgres://localhost/pgNotes',
     migrations: {
       directory: "./data/migrations"
     },
