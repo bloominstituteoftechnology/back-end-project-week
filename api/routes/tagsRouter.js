@@ -47,7 +47,7 @@ router.post("/:id", (req, res) => {
   const tag = req.body;
   const {id} = req.params;
 
-  if (!note_id || typeof note_id !== "number") {
+  if (!id || typeof id !== "number") {
     res
       .status(400)
       .json({ error: "note_id must be included and must be a number" });
