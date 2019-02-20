@@ -4,9 +4,9 @@ exports.up = function(knex, Promise) {
   table.increments()
   table.string('title')
        .notNullable()
-  table.text('body', mediumtext)
+  table.text('body', 'mediumtext')
   table.integer('user_id')
-       .signed()
+       .unsigned()
        .references('id')
        .on('users')
 

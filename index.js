@@ -1,7 +1,7 @@
 const express = require('express')
 const helmet = require('helmet')
 const logger = require('morgan')
-const port = process.env.port || 3945
+const port = 3945
 
 const login_route = require('./DB/Routes/login-route')
 const logout_route = require('./DB/Routes/logout-route') 
@@ -16,7 +16,7 @@ server.use(
 )
 
 // Register Routes
-// server.post('/api/register', register_route)
+server.post('/api/register', register_route)
 // Login Routes
 // server.post('/api/login', login_route)
 //Logout Routes

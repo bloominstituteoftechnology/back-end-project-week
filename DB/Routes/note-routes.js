@@ -1,9 +1,8 @@
 const express = require('express')
 const router = express.Router()
-
 const noteDB = require('../DB-Functions/Note-Functions')
 const note_check = require('../MW-Functions/middleware')
-
+const auth = require('../auth/user-auth')
 
 router.get('/', (req, res) => {
  noteDB.pull()
@@ -33,14 +32,14 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/', (req, res) => {
- const id = req.params
- const {title, body } = req.body
- noteDB.place(id, {title, body})
+ const note = req.body
+ noteDB.place(note)
   .then(() => {
    res
     .status(201)
   })
   .catch((err) => {
+   console.log(err)
    res
     .status(500)
     .json({error: "Error placing note in DB.", err: err})
@@ -68,7 +67,7 @@ router.delete('/:id', (req, res) => {
  noteDB.clear(id)
   .then((ids) => {
    res
-    .json({message: "Successfully cleared note from DB.",id: id})
+    .json({message: "Successfully cleared note from DB.",id: ids[0]})
   })
   .catch((err) => {
    res
@@ -77,4 +76,4 @@ router.delete('/:id', (req, res) => {
   })
 })
 
-module.exports.router
+module.exports = router

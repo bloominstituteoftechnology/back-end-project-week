@@ -1,8 +1,11 @@
 const bcrypt = require("bcryptjs")
 const express = require('express')
 
+// This potentially needs refactoring,
+// so that these middleware functions
+// can be used in the necessary routes.
 module.exports = {
- note_check: function (req, res, next) {
+ note_check: function note_check (req, res, next) {
   const id = req.params
  
   const note = req.body 
@@ -16,7 +19,7 @@ module.exports = {
   }
  },
 
- pw_check: function (req, res, next) {
+ pw_check: function pw_check (req, res, next) {
   if (users.length && bcrypt.compareSync(req.user.password, users[0].password)) {
    next()
   }

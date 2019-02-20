@@ -3,7 +3,7 @@ const config = require('../../knexfile')
 const DB = knex(config.development)
 
 module.exports = {
- register: () => {
+ register: (user) => {
   return DB('users')
            .insert(user)
            .then(ids => ({id: ids[0]}))

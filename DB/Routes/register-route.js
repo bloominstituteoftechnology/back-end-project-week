@@ -2,7 +2,6 @@ require('dotenv').config()
 const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
 const userDB = require('../DB-Functions/User-Functions')
 
 router.post('/', (req, res) => {
@@ -10,6 +9,7 @@ router.post('/', (req, res) => {
  const pw_hash = bcrypt.hashSync(user.password, 16)
  user.password = pw_hash 
  userDB.register(user)
+ console.log('here')
   .then((ids) => {
    res
     .status(201)
@@ -22,4 +22,4 @@ router.post('/', (req, res) => {
   })
 })
 
-module.exports.router
+module.exports = router
