@@ -25,10 +25,10 @@ server.post('/api/notes', (req, res) => {
 
 //gets a note by id
 
-server.get('/api/notes/:id', (req, res) => {
+server.get('/api/note/:id', (req, res) => {
     const id = req.params.id;
-    db.findById(id).then(noteId => {
-        res.status(302).json(noteId);
+    db.findById(id).then(response => {
+        res.status(201).json(response);
     })
     .catch(err => {message: err})
 })
