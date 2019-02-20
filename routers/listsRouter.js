@@ -11,8 +11,8 @@ const sendUserError = (status, msg, res) => {
 /************************************ LISTS SECTION ***********************************/
 
 /********* Get Lists *************/
-router.get('/', async (req, res) => {
-    await lists.get()
+router.get('/',  (req, res) => {
+     lists.get()
         .then((list) => {
             res.json(list);
         })
@@ -24,9 +24,9 @@ router.get('/', async (req, res) => {
 });
 
 /********* Get Single List *************/
-router.get('/:id', async (req, res) => {
+router.get('/:id',  (req, res) => {
     const { id } = req.params
-  await lists.get(id)
+   lists.get(id)
         .then(list => {
             if (list) {
                 res.json(list);
