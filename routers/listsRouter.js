@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
 /********* Get Single List *************/
 router.get('/:id', async (req, res) => {
     const { id } = req.params
-   await lists.get(id)
+  await lists.get(id)
         .then(list => {
             if (list) {
                 res.json(list);
