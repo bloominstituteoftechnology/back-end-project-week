@@ -10,8 +10,8 @@ module.exports = {
   fetchTagsByNote: note_id => {
     return db("tags").where("note_id", note_id);
   },
-  insert: (tag, id) => {
-    return db("tags").insert({tag: tag.tag, note_id: id});
+  insert: (newTag, id) => {
+    return db("tags").insert({tag: newTag.tag, note_id: id});
   },
   update: (id, tag) => {
     return db("tags")

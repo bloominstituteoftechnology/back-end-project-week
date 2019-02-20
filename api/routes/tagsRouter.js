@@ -44,8 +44,8 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/:id", (req, res) => {
-  const tag = req.body.newTag;
-  const note_id = req.body.id;
+  const tag = req.body;
+  const {id} = req.params;
 
   if (!note_id || typeof note_id !== "number") {
     res
@@ -53,7 +53,7 @@ router.post("/:id", (req, res) => {
       .json({ error: "note_id must be included and must be a number" });
   } else {
     notes
-      .fetch(note_id)
+      .fetch(id)
       .then(notes => {
         if (notes[0]) {
           if (!tag.tag || typeof tag.tag !== "string" || tag.tag === "") {
@@ -61,8 +61,8 @@ router.post("/:id", (req, res) => {
               .status(400)
               .json({ error: "tag must be included and must be a string" });
           } else {
-            tags.insert(tag, note_id).then(ids => {
-              res.status(201).json({ added: { tag: tag.tag, note_id: note_id, id: ids[0] } });
+            tags.insert(tag, id).then(ids => {
+              res.status(201).json({ added: { tag: tag.tag, note_id: id, id: ids[0] } });
             });
           }
         } else {
