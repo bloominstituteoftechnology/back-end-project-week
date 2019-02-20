@@ -47,7 +47,6 @@ async function createTag(tags) {
       .where("tags.tagName", tags[tag])
       .first()
       .then(existingTag => {
-        console.log(existingTag);
         if (!existingTag) {
           return DB("tags").insert({ tagName: tags[tag] });
         } else return [existingTag.id];
@@ -72,14 +71,24 @@ async function getTagsAndNotes(id) {
 }
 
 function createTagsAndNotes(note, tags) {
-  const promises = [this.createNote(note), this.createTag(tags)];
+  if (tags) {
+    const promises = [this.createNote(note), this.createTag(tags)];
 
-  return Promise.all(promises).then(async results => {
-    const tag_ids = results[1];
-    const note_id = results[0].id;
-    for (let tag_id in tag_ids) {
-      await DB("notesAndTags").insert({ note_id, tag_id: tag_ids[tag_id] });
-    }
-    return this.getTagsAndNotes(note_id);
-  });
+    return Promise.all(promises).then(async results => {
+      const tag_ids = results[1];
+      const note_id = results[0].id;
+      for (let tag_id in tag_ids) {
+        await DB("notesAndTags").insert({ note_id, tag_id: tag_ids[tag_id] });
+      }
+      return this.getTagsAndNotes(note_id);
+    });
+  } else {
+    return DB("notes")
+      .insert({ ...note })
+      .then(id => {
+        return DB("notes")
+          .where("id", id[0])
+          .first();
+      });
+  }
 }
