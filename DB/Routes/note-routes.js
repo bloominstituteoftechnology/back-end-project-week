@@ -4,7 +4,9 @@ const noteDB = require('../DB-Functions/Note-Functions')
 const note_check = require('../MW-Functions/middleware')
 const auth = require('../auth/user-auth')
 
+
 router.get('/', (req, res) => {
+ // confirmed working.
  noteDB.pull()
   .then((notes) => {
    res
@@ -18,11 +20,12 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:id', (req, res) => {
- const id = req.params 
+ // confirmed working.
+ const { id }  = req.params 
  noteDB.pullById(id)
   .then((note) => {
    res
-    .json(note)
+    .json(note[0])
   })
   .catch((err) => {
    res
@@ -32,11 +35,13 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+// confirmed working.
  const note = req.body
  noteDB.place(note)
   .then(() => {
    res
     .status(201)
+    .json(note)
   })
   .catch((err) => {
    console.log(err)
@@ -47,7 +52,8 @@ router.post('/', (req, res) => {
 })
 
 router.put('/:id', (req, res) => {
- const id = req.params
+// confirmed working.
+ const { id }  = req.params
  const note = req.body
  noteDB.alter(id, note)
   .then(() => {

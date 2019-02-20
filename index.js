@@ -16,17 +16,17 @@ server.use(
 )
 
 // Register Routes
-server.post('/api/register', register_route)
 // Login Routes
-// server.post('/api/login', login_route)
 //Logout Routes
-// server.post('/api/logout', logout_route)
 // Note Routes
-server.get('/api/notes', note_routes)
-server.get('/api/notes', note_routes)
-server.post('/api/notes', note_routes)
-server.put('/api/notes', note_routes)
-server.delete('/api/notes', note_routes)
+server.use('/api/register', register_route)
+server.use('/api/logout', logout_route)
+server.use('/api/login', login_route)
+server.use('/api/notes', note_routes)
+server.use('/api/notes', note_routes)
+server.use('/api/notes', note_routes)
+server.use('/api/notes', note_routes)
+server.use('/api/notes', note_routes)
 
 server.listen(port, () => {
  console.log(`Server is now running live on ${port}`)
