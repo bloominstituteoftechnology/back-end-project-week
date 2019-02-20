@@ -12,12 +12,12 @@ ROUTER.get("/all", async (req, res) => {
 });
 // GET /api/notes/:notesID
 ROUTER.get("/:notesID", async (req, res) => {
-  const { notesID } = req.params;
+  const id = req.params.notesID;
+  const tagsAndNotes = await DB.getTagsAndNotes(id);
 
-  const note = await DB.getNoteById(notesID);
-  return note
-    ? res.json(note)
-    : res.status(404).json({ error: "no note found by that id" });
+  return tagsAndNotes
+    ? res.json(tagsAndNotes)
+    : res.status(500).json({ error: "no notes with this id" });
 });
 // POST /api/notes/
 ROUTER.post("/create", async (req, res) => {
