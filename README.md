@@ -48,7 +48,7 @@ The return is an array of user Notes objects. Each Note contains:
 
 200
 
-## get /api/notes/1
+## get /api/notes/{id}
 
 (apiNotes1Get)
 
@@ -68,7 +68,7 @@ The return is a single Note object.
 
 200
 
-## delete /api/notes/1
+## delete /api/notes/{id}
 
 (apiNotes2Delete)
 
@@ -113,7 +113,7 @@ This API call produces the following media types according to the Accept request
 
     application/json; charset=utf-8
 
-Responses:
+**Responses:**
 
 201
 
@@ -152,7 +152,7 @@ The return is an array of user List objects. Each List contains:
 
 200
 
-## get /api/lists/1
+## get /api/lists/{id}
 
 (apiLists1Get)
 
@@ -172,7 +172,7 @@ The return is a single List object.
 
 200
 
-## delete /api/lists/1
+## delete /api/lists/{id}
 
 (apiLists2Delete)
 
@@ -217,7 +217,7 @@ This API call produces the following media types according to the Accept request
 
     application/json; charset=utf-8
 
-Responses:
+**Responses:**
 
 201
 
@@ -245,16 +245,16 @@ This API call produces the following media types according to the Accept request
 
     application/json; charset=utf-8
 
-The return is an array of user  objects. Each user contains:
+    The return is an array of user  objects. Each user contains:
 
-    email:    string    users email address
-    password: string    encrypted password
+        email:    string    users email address
+        password: string    encrypted password
     
 **Responses:**
 
 200
 
-## get /api/users/1
+## get /api/users/{id}
 
 (apiUsers1Get)
 
@@ -274,7 +274,7 @@ The return is a single List object.
 
 200
 
-## delete /api/users/1
+## delete /api/users/{id}
 
 (apiUsers2Delete)
 
@@ -318,7 +318,7 @@ This API call produces the following media types according to the Accept request
 
     application/json; charset=utf-8
 
-Responses:
+**Responses:**
 
 201
 
