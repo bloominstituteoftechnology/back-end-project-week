@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "server": "nodemon",
+    
     "heroku-postbuild": "cd frontend && npm install && npm run build"
   }
 }
