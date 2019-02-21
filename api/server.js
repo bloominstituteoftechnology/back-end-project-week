@@ -14,9 +14,6 @@ const configRoutes = require('../Config/Routes')
 server.use(express.json(), helmet(), cors())
 configRoutes(server)
 
-server.get('/', (req, res) => {
-    res.send('Time To Celebrate!');
-  });
 
 server.get('/api/notes', (req, res) => { 
   db('notes').then( notes => {
