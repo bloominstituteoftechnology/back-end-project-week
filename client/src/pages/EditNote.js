@@ -52,7 +52,7 @@ class EditNote extends Component {
                             <input className="button" type="submit" value={this.props.type === "Edit" ? "Update" : "Add"}></input>
                         </form>
                     </div>
-                ) : "Note note found."}
+                ) : "Note not found."}
             </div>
         );
     };
