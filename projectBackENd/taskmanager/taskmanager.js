@@ -5,7 +5,7 @@ const db = knex(knexConfing.development);
 const tbl = 'NoteTable';
 
 
-// GET ALL NOTES ROUTEHANDLER
+// GET ALL NOTES HANDLER
 
 const getAllNotes =(req,res)=>{
     db(tbl).then(notes =>{
@@ -18,7 +18,7 @@ const getAllNotes =(req,res)=>{
         .catch(err =>{res.status(500).json(err)})
 }
 
-// GET A NOTE ROUTEHANDLER
+// GET A NOTE HANDLER
 
 const getNotebyId  =(req,res)=>{
     const {id} = req.params
@@ -36,6 +36,24 @@ const getNotebyId  =(req,res)=>{
 }
 
 
+// CREATE A NOTE HANDLER
+
+const CreateNewNote  = (req,res)=>{
+    const newNote = req.body;
+    console.log(newNote);
+    if(newNote.title && newNote.textBody){
+        db(tbl)
+        .insert(newNote)
+        .then(id => {
+                res.status(200).json(`Success, new note created with id :${id}`)
+            })
+        .catch(err =>{res.status(500).json(err)})
+    }
+    
+        else{
+            res.status(450).json({errorMessage :'Hoops, all fields are required'})
+        }
+}
 
 /*
 // ****Easiest route pre-test****
@@ -61,7 +79,7 @@ const getNotebyId  =(req,res)=>{
 module.exports = {
     getNotebyId,      
     getAllNotes,      
-    //CreateNewNote,     
+    CreateNewNote,     
     //DestroyNote,       
     //UpdateNote         
     
