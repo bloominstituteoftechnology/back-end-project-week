@@ -5,7 +5,7 @@ const { note_check } = require('../MW-Functions/middleware')
 const auth = require('../auth/user-auth')
 
 
-router.get('/', auth, (req, res) => {
+router.get('/', (req, res) => {
  // confirmed working.
  noteDB.pull()
   .then((notes) => {
