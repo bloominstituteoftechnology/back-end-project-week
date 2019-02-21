@@ -123,7 +123,7 @@ server.post('/login', (req, res) => {
 
 
 // Regular GET NOTES -- works.
-server.get('/notes', (req , res) => {
+server.get('/notes', protect, (req , res) => {
     dbHelpers.getNotes()
     .then(rows => {
         res.json(rows)
