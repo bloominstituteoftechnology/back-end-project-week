@@ -20,14 +20,14 @@ function protected(req,res,next) {
          jwt.verify(token, JWTKey, (err,decodedToken) => {
             console.log(`protected`,decodedToken);
          if(err) {
-            res.status(401).json({msg:`You cannot pass!! not decoded`});
+            res.status(403).json({msg:`You cannot pass!! not decoded`});
          }
          // req.email = decodedToken.email;
          // console.log(`From protected middleware`, decodedToken``);
          next();
       });
       } else {
-         res.status(401).json({msg:`No token provided, so you cannot pass`});
+         res.status(403).json({msg:`No token provided, so you cannot pass`});
      } 
 };
 
