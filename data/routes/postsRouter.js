@@ -23,7 +23,7 @@ router.post('/posts', (req, res) => {
         postDb.insert(newPost)
             .then(postId => {
                 postDb.insertTags(postId[0], postTags);
-                findPost(postId[0])
+                findPost(postId[0]);
             })
             .catch(err => {
                 res.status(500)
@@ -102,6 +102,9 @@ router.put('/posts/:id', async (req, res) => {
                         .then(count => {
                             if (count) {
                                 postDb.insertTags(id, updatedTags);
+                                // findPost(id)
+                                ;
+
                             }
                         });
                 }
