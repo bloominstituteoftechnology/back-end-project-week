@@ -51,7 +51,7 @@ router.post('/', note_check, (req, res) => {
   })
 })
 
-router.put('/:id', (req, res) => {
+router.put('/:id', note_check, (req, res) => {
 // confirmed working.
  const { id }  = req.params
  const note = req.body
@@ -71,16 +71,21 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
  // confirmed working.
  const { id }  = req.params
- noteDB.clear(id)
-  .then((ids) => {
-   res
-    .json({message: "Successfully cleared note from DB.",id: ids[0]})
-  })
-  .catch((err) => {
-   res
-    .status(500)
-    .json({error: "Error clearing note from DB.", err: err})
-  })
-})
+ // try {
+  while (id && id >= 0) {
+    noteDB.clear(id)
+     .then((ids) => {
+      res
+       .json({message: "Successfully cleared note from DB.",id: ids[0]})
+     })
+     .catch((err) => {
+      res
+       .status(500)
+       .json({error: "Error clearing note from DB.", err: err})
+     })
+  
+  }
+ }
+)
 
 module.exports = router
