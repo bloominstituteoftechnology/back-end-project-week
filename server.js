@@ -3,6 +3,7 @@ const knex = require('knex');
 const knexConfig = require('./knexfile.js');
 const db = knex(knexConfig.development);
 const cors = require("cors");
+const path = require("path");
 
 const PORT = process.env.PORT || 3001;
 
@@ -77,6 +78,10 @@ app.delete("/api/notes/:id", (req, res) => {
         res.status(500).json({ error: "Error retrieving note", info: error });
     });
 });
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build/index.html'));
+})
 
 app.listen(PORT, () => {
     console.log("Server listening on Port " +PORT);
