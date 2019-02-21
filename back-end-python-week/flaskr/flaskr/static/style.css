@@ -7,9 +7,34 @@ h2	{ font-size: 1.2em; }
 .page	{ margin: 2em auto; width 35em; border: 5px solid #ccc;
 	  padding: 0.8em; background: lightgrey; }
 
-.notes		{ list-style: none; margin: 0; padding: 0; }
-.notes li	{ margin: 0.8em 1.2em; }
-.notes li h2	{ margin-left: -1em; }
+.notes	{ 
+	display:flex;
+	flex-direction:row;
+	flex-wrap:wrap;
+	justify-content:space-evenly;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.notes li	{ 
+				margin: 0.8em 1.2em; 
+				border:5px solid darkgrey;
+				max-width:550px;
+				padding:10px;
+}
+
+.notes button {
+	height:30px;
+	background:darkgrey;
+	color:light-grey;
+}
+
+.notes button:hover {
+	color:white;
+}
+
+.notes-body	{ border:5px solid #ccc; }
+
 .add-note	{ font-size: 0.9em; border-bottom: 1px solid #ccc; }
 .add-note dl	{ font-weight: bold; }
 .metanav	{ text-align: right; font-size: 0.8em; padding: 0.3em;

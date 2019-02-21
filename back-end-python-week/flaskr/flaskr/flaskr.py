@@ -72,18 +72,19 @@ def add_note():
     db.execute('INSERT INTO notes (title, text) VALUES (?, ?)',
             [request.form['title'], request.form['text']])
     db.commit()
-    flash("New note was succesfully posted")
+    flash("Note successfully")
+    error = "lel"
     return redirect(url_for('show_notes'))
 
 # Route for delete
-@app.route('/api/delete', methods=['POST'])
-def delete_note():
+@app.route('/api/delete/<int:id>', methods=['DELETE'])
+def delete_note(id):
 	if not session.get('logged_in'):
 		abort(401)
 	db = get_db()
-	db.execute('DELETE FROM notes WHERE id = ?',(id,))
+	db.execute('DELETE FROM notes WHERE id = ?',request.form['id'])
 	db.commit()
-	return redirect(url_for("show_notes.html"))
+	return redirect(url_for("show_notes.html",notes=notes))
 
 # Login
 @app.route('/api/login', methods=['GET','POST'])

@@ -11,11 +11,13 @@
 			</dl>
 		</form>
 	{% endif %}
-	<ul class=entries>
-	{% for note in notes %}
-		<li><h2>{{ note.title }}</h2>{{ note.text|safe }}</li>
-	{% else %}
-		<li><em>No Notes!!!</em></li>
-	{% endfor %}
-	</ul>
+	<div class="notes-body">
+		<ul class=notes>
+		{% for note in notes %}
+			<li><button>Edit</button><h2>{{ note.title }}</h2>{{ note.text|safe }}</li>
+		{% else %}
+			<li><em>No Notes!!!</em></li>
+		{% endfor %}
+		</ul>
+	</div>
 {% endblock %}
