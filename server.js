@@ -11,6 +11,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.use(express.static("./client/build"));
+
 app.get("/api/notes", (req, res) => {
     db("notes").then(notes => {
         res.status(200).json(notes);
