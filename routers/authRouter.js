@@ -29,14 +29,13 @@ router.post('/signup', (req, res) => {
 
 router.post('/login', (req, res) => {
   const creds = req.body;
+  const username= creds.username
   db.findByUsername(creds.username)
     .then(user => {
       if (user && bcrypt.compareSync(creds.password, user.password)) {
         const token = newToken(user);
-        res.status(200).json({ id: user.id, token });
-      } else {
-        res.status(401).json({ error: 'Cannot Login' })
-      }
+        res.status(200).json({ username: username, token });
+      } 
     })
     .catch(err => res.send(`${err}`));
 });

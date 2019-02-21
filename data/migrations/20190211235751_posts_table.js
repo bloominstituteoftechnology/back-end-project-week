@@ -4,11 +4,11 @@ exports.up = function(knex, Promise) {
     posts.increments();
     posts.string('title').notNullable();
     posts.string('details');
-    posts.string('dateCreated').notNullable();
+    posts.string('dateCreated');
     posts.string('lastModified');
     posts.string('dueDate');
     posts.string('category');
-    posts.string('userId').notNullable().references('id').inTable('users')
+    posts.string('userId').references('id').inTable('users')
     posts.string('username').references('username').inTable('users')
     posts.boolean('completed');
   })
