@@ -36,8 +36,12 @@ module.exports = {
   },
 
   production: {
-    client: "pg",
-    connection: 'postgres://localhost/pgNotes',
+    client: 'postgresql',
+    connection: {
+      database: 'postgres://icmveonkwqjdmk:2b75738b9a60d7904542b802fb7cf0e1016aa94dc99ffcb21b838b01c8796c44@ec2-54-204-41-109.compute-1.amazonaws.com:5432/da0c07gtdf3c6o',
+      user:     'username',
+      password: 'password'
+    },
     migrations: {
       directory: "./data/migrations"
     },
