@@ -1,0 +1,30 @@
+{
+	"name": "node-express",
+	"version": "1.0.0",
+	"description": "Lab for Introduction to Node.js and Express",
+	"engines": {
+		"node": "11.10.0"
+	},
+	"main": "index.js",
+	"scripts": {
+		"start": "nodemon index.js"
+	},
+	"license": "ISC",
+	"dependencies": {
+		"cors": "^2.8.5",
+		"express": "^4.16.4",
+		"knex": "^0.16.3",
+		"morgan": "^1.9.1",
+		"node": "^11.10.0",
+		"router-express": "^1.5.2",
+		"sqlite3": "^4.0.6"
+	},
+	"devDependencies": {
+		"nodemon": "^1.18.10"
+	},
+	"keywords": [
+		"node",
+		"heroku",
+		"express"
+	]
+}
