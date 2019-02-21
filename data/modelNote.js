@@ -19,14 +19,14 @@ module.exports={
     getNotes:function(){
         return db.select('*').from('notes')
     },
-    editNote:function(modifiedNote){
+    editNote:function(modifiedNote,idPassed){
         return db('notes')
-		.where({ id: modifiedNote.id })
+		.where({ id: idPassed })
 		.update(modifiedNote)
 		.then(numberUpdated => numberUpdated)
     },
     deleteNote:function(NoteId){
-        return db('notes').where({id:NoteId.id})
+        return db('notes').where({id:NoteId})
         .delete()
         .then(numDeleted=>numDeleted)      
     }
