@@ -17,6 +17,7 @@ server.get("/notes", (req, res) => {
     });
 });
 
+
 server.get("/notes/:id", (req, res) => {
   const { id } = req.params;
   db.getNotes(id).then(note => {
