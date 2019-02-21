@@ -21,9 +21,9 @@ const getAllNotes =(req,res)=>{
 // GET A NOTE HANDLER
 
 const getNotebyId  =(req,res)=>{
-    const {id} = req.params
+    const {_id} = req.params
     db(tbl)
-    .where({id})
+    .where({_id})
     .then(note => {
         if(note.length !== 0){
             res.status(200).json(note)
@@ -38,13 +38,13 @@ const getNotebyId  =(req,res)=>{
 
 // CREATE A NOTE HANDLER
 
-const CreateNewNote  = (req,res)=>{
+const CreateNewNote  = (req,res)=> {
     const newNote = req.body;
     if(newNote.title && newNote.textBody){
         db(tbl)
         .insert(newNote)
-        .then(id => {
-                res.status(200).json(`Success, new note created with id :${id}`)
+        .then(_id => {
+                res.status(200).json(`Success, new note created with id :${_id}`)
             })
         .catch(err =>{res.status(500).json(err)})
     }
@@ -60,17 +60,17 @@ const CreateNewNote  = (req,res)=>{
 
 const UpdateNote  = (req,res)=>{
     const eDITNote = req.body;
-    const {id} = req.params
+    const {_id} = req.params
     if(eDITNote.title && eDITNote.textBody){
         db(tbl)
-        .where({id})
+        .where({_id})
         .then(note => {
             if(note.length !== 0){
                 db(tbl)
-                .where({id})
+                .where({_id})
                 .update(eDITNote)
                 .then(note => {
-                        res.status(200).json(`Success,${note} note updated with id :${id}`)
+                        res.status(200).json(`Success,${note} note updated with id :${_id}`)
                     })
                 .catch(err =>{res.status(500).json(err)})
             }
@@ -87,16 +87,16 @@ const UpdateNote  = (req,res)=>{
 // GET A NOTE HANDLER
 
 const DestroyNote  =(req,res)=>{
-    const {id} = req.params
+    const {_id} = req.params
     db(tbl)
-    .where({id})
+    .where({_id})
     .then(note => {
         console.log(note)
         if(note.length !== 0){
             db(tbl)
-            .where({id}).del()
+            .where({_id}).del()
             .then(count =>{
-                res.status(200).json(`Success,${count} note deleted with id :${id}`)
+                res.status(200).json(`Success,${count} note deleted with id :${_id}`)
                     })
                
                

@@ -9,15 +9,15 @@ const TaskManager = require('../taskmanager/taskmanager');
 RouterNote.get('/get/all',TaskManager.getAllNotes);
 
 // ## GET A NOTE
-RouterNote.get('/get/:id',TaskManager.getNotebyId);
+RouterNote.get('/get/:_id',TaskManager.getNotebyId);
 
 // ## CREATE A NOTE/create
 RouterNote.post('/create',TaskManager.CreateNewNote);
 
 // ## EDIT A NOTE
-RouterNote.put('/edit/:id',TaskManager.UpdateNote);
+RouterNote.put('/edit/:_id',TaskManager.UpdateNote);
 
 // ## DELETE A NOTE
-RouterNote.delete('/delete/:id',TaskManager.DestroyNote);
+RouterNote.delete('/delete/:_id',TaskManager.DestroyNote);
 
 module.exports = RouterNote;
