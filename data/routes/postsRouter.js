@@ -9,23 +9,21 @@ router.post('/posts', (req, res) => {
     const { title, contents, tags } = req.body;
     const newPost = { title, contents };
     const postTags = tags;
+
     //return new post after posting
-    const findPost = idInfo =>
-        postDb.findById(idInfo.id)
+    const findPost = id =>
+        postDb.findById(id)
             .then(post => {
                 res.status(201)
                     .json(post)
             })
+
     //posting new post
     if (title && contents) {
         postDb.insert(newPost)
             .then(postId => {
-                // console.log(postTags);
                 postDb.insertTags(postId[0], postTags);
-                postDb.findById(postId[0])
-                    .then(post => {
-                        res.json(post);
-                    })
+                findPost(postId[0])
             })
             .catch(err => {
                 res.status(500)
@@ -71,22 +69,42 @@ router.get('/posts/:id', (req, res) => {
 });
 
 //PUT
-router.put('/posts/:id', (req, res) => {
+router.put('/posts/:id', async (req, res) => {
     const { id } = req.params;
-    const { title, contents } = req.body;
-    const updatedPost = { title, contents }
+    const { title, contents, tags } = req.body;
+    const updatedPost = { title, contents };
+    const updatedTags = tags;
+
     //return updated post after updating
     const findPost = id =>
         postDb.findById(id)
             .then(post => {
-                res.status(200)
+                res.status(201)
                     .json(post)
             })
+
+    //delete all old tags before updating
+    const deleteOldTags = id => {
+        postDb.deleteTags(id)
+            .then(count => {
+                console.log(count);
+            })
+    }
+    //
+
     //updating
     if (title && contents) {
         postDb.update(id, updatedPost)
             .then(count => {
-                if (count) { findPost(id) }
+                if (count) {
+                    // deleteOldTags(id);
+                    postDb.deleteTags(id)
+                        .then(count => {
+                            if (count) {
+                                postDb.insertTags(id, updatedTags);
+                            }
+                        });
+                }
                 else {
                     res.status(404)
                         .json({ message: "The post with the specified ID does not exist." })
@@ -101,6 +119,9 @@ router.put('/posts/:id', (req, res) => {
         res.status(400)
             .json({ errorMessage: "Please provide title and contents for the post." })
     }
+    
+    //cannot get the most updated tags
+    await findPost(id);
 })
 
 //DELETE

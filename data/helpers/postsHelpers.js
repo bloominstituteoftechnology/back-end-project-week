@@ -8,7 +8,8 @@ module.exports = {
   insert,
   update,
   remove,
-  insertTags
+  insertTags,
+  deleteTags,
 };
 
 function find() {
@@ -37,27 +38,38 @@ function findById(id) {
     });
 }
 
+function deleteTags(postId) {
+  return db('posttags')
+    .where('postId', Number(postId))
+    .del()
+}
+
 function insertTags(postId, tags) {
   const tagsArr = tags.map(x => {
     return { tag: x };
   })
-  // console.log(tagsArr);
   tagsArr.map(tag => {
     return db('tags')
-      .insert(tag)
-      .then(tagIds => {
-        // console.log(tagIds);
-        insertPostTags(postId, tagIds[0]);
+      .where('tag', tag.tag)
+      .then(tags => {
+        if (tags.length === 0) {
+          db('tags').insert(tag)
+            .then(tagIds => {
+              insertPostTags(postId, tagIds[0]);
+            })
+        } else {
+          insertPostTags(postId, tags[0].id)
+        }
       })
   })
 }
 
 function insertPostTags(postId, tagId) {
   const postTag = { postId, tagId };
-  // console.log(postTag);
-  return db('posttags')
+  db('posttags')
     .insert(postTag)
-    .then(ids => ({ id: ids[0] }))
+    .then(ids => { id: ids[0] }
+    )
 }
 
 function insert(post) {
@@ -69,7 +81,7 @@ function insert(post) {
 function update(id, post) {
   return db('posts')
     .where('id', Number(id))
-    .update(post);
+    .update(post)
 }
 
 function remove(id) {

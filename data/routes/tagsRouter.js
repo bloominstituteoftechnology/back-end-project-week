@@ -7,7 +7,7 @@ const db = require('../helpers/tagsHelpers');
 //POST
 router.post('/tags', (req, res) => {
     const { tag } = req.body;
-    const newTag = { tag, postId };
+    const newTag = { tag };
     //return new tag after posting
     const findTag = idInfo =>
         db.findById(idInfo.id)
