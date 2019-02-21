@@ -23,7 +23,7 @@ const getAllNotes =(req,res)=>{
 const getNotebyId  =(req,res)=>{
     const {id} = req.params
     db(tbl)
-    .where({ id })
+    .where({id})
     .then(note => {
         if(note.length !== 0){
             res.status(200).json(note)
