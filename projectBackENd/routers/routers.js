@@ -18,6 +18,6 @@ RouterNote.post('/create',TaskManager.CreateNewNote);
 RouterNote.put('/edit/:id',TaskManager.UpdateNote);
 
 // ## DELETE A NOTE
-//RouterNote.get('/delete/:id',TaskManager.DestroyNote);
+RouterNote.delete('/delete/:id',TaskManager.DestroyNote);
 
 module.exports = RouterNote;

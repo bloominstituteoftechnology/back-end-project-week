@@ -82,6 +82,31 @@ const UpdateNote  = (req,res)=>{
             res.status(450).json({errorMessage :'Hoops, all fields are required'})
         }
 }
+
+
+// GET A NOTE HANDLER
+
+const DestroyNote  =(req,res)=>{
+    const {id} = req.params
+    db(tbl)
+    .where({id})
+    .then(note => {
+        console.log(note)
+        if(note.length !== 0){
+            db(tbl)
+            .where({id}).del()
+            .then(count =>{
+                res.status(200).json(`Success,${count} note deleted with id :${id}`)
+                    })
+               
+               
+        }
+        else{
+            res.status(404).json({errorMessage :'HOOOPS NOT FOUND !!!'})
+        }
+        
+    }) .catch(err =>{res.status(500).json(err)}) 
+}
 /*
 // ****Easiest route pre-test****
  const notes = [
@@ -107,7 +132,7 @@ module.exports = {
     getNotebyId,      
     getAllNotes,      
     CreateNewNote,     
-    //DestroyNote,       
+    DestroyNote,       
     UpdateNote         
     
   }
