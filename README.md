@@ -6,7 +6,8 @@ https://trello.com/b/b8qHU2sU/lambda-notesbackend-william-yturralde
 Lambda api notes
 this is a student api project written for Lambda School by **William Yturralde, WebPt2**
 
-Access Methods
+Access
+
 Table of Contents
 
     get /api/notes
@@ -112,6 +113,29 @@ Responses:
 201
 
 
+#Methods
+
+**Note API:**
+
+    create          `POST`        
+
+    get             `GET`
+
+    delete          `DELETE`
+
+    update          `PUT`
+
+
+                            
+
+
+
+
+batchUpdate 	POST /v1/documents/{documentId}:batchUpdate
+Applies one or more updates to the document.
+create 	POST /v1/documents
+Creates a blank document using the title given in the request.
+get 	GET /v1/documents/{documentId}
 
 
 

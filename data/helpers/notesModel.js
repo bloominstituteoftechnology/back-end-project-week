@@ -10,7 +10,7 @@ module.exports = {
     get: async function (id) {
         let query =  db('notes');
         if (id) {
-            query.where('notes.id', id).first();
+         query.where('notes.id', id).first();
             return query;
         }
         return db('notes')
