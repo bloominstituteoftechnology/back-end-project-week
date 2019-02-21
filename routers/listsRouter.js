@@ -11,8 +11,8 @@ const sendUserError = (status, msg, res) => {
 /************************************ LISTS SECTION ***********************************/
 
 /********* Get Lists *************/
-router.get('/',  (req, res) => {
-     lists.get()
+router.get('/', async (req, res) => {
+  await  lists.get()
         .then((list) => {
             res.json(list);
         })
@@ -24,9 +24,9 @@ router.get('/',  (req, res) => {
 });
 
 /********* Get Single List *************/
-router.get('/:id',  (req, res) => {
+router.get('/:id', async (req, res) => {
     const { id } = req.params
-   lists.get(id)
+ await  lists.get(id)
         .then(list => {
             if (list) {
                 res.json(list);
@@ -45,11 +45,11 @@ router.get('/:id',  (req, res) => {
 
 
 /************* Delete List *************/
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
     const { id } = req.params
 
     if (id) {
-        lists.remove(id)
+    await  lists.remove(id)
             .then(list => {
                 if (list) {
                     res.json({ message: "The list was successfully deleted" });
@@ -79,7 +79,7 @@ router.put('/:id', async (req, res) => {
     } else {
        
         if (newList) {
-            lists.update(id, newList)
+       await     lists.update(id, newList)
                 .then(list => {
                    
                         

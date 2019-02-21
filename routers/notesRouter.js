@@ -37,9 +37,9 @@ router.get('/', async (req, res) => {
 });
 
 /********* Get Single Note *************/
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
     const { id } = req.params
-    notes.get(id)
+  await notes.get(id)
         .then(note => {
             if (note) {
                 res.json(note);
