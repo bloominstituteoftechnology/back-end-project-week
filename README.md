@@ -10,10 +10,15 @@ Access
 
 Table of Contents
 
-    get /api/notes
-    get /api/notes/1
-    delete /api/notes/1
-    post /api/notes
+# Methods
+
+## Note API:
+
+    get         GET         /api/notes          used to retrieve all notes
+    get         GET         /api/notes/{id}     used to retrieve a single note
+    delete      DELETE      /api/notes/{id}     used to delete a single note
+    create      POST        /api/notes          used to create a new note
+    put         UPDATE      /api/notes/{id}     used to update an existing note
 
 
 ## get /api/notes
@@ -113,29 +118,218 @@ Responses:
 201
 
 
-#Methods
+# List API:
 
-**Note API:**
-
-    create          `POST`        
-
-    get             `GET`
-
-    delete          `DELETE`
-
-    update          `PUT`
+    get         GET         /api/lists          used to retrieve all lists
+    get         GET         /api/lists/{id}     used to retrieve a single list
+    delete      DELETE      /api/lists/{id}     used to delete a single list
+    create      POST        /api/lists          used to create a new list
+    put         UPDATE      /api/lists/{id}     used to update an existing list
 
 
-                            
+## get /api/lists
+
+(apiListsGet)
+
+**Return type:**
+
+String
+
+**Produces:**
+
+This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
+
+    application/json; charset=utf-8
+
+The return is an array of user List objects. Each List contains:
+
+    list: json/string   must be parsed to return to an array containing the id's of the linked Notes
+    listTitle: string
+    users_id: integer   foreign key linked to the user that created the list
+    notes_id: integer   foreign key legacy no longer used
+    
+**Responses:**
+
+200
+
+## get /api/lists/1
+
+(apiLists1Get)
+
+**Return type:**
+
+String
+
+**Produces:**
+
+This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
+
+    application/json; charset=utf-8
+
+The return is a single List object.
+
+**Responses:**
+
+200
+
+## delete /api/lists/1
+
+(apiLists2Delete)
+
+**Return type:**
+
+String
+
+**Produces:**
+
+This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
+
+    application/json; charset=utf-8
+
+**Responses:**
+
+200
+
+
+## post /api/lists
+
+(apiListsPost)
+
+**Consumes:**
+
+This API call consumes the following media types via the Content-Type request header:
+
+    application/json
+
+**Request body:**
+
+body body (optional)
+
+Body Parameter —
+
+**Return type:**
+
+String
+
+**Produces:**
+
+This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
+
+    application/json; charset=utf-8
+
+Responses:
+
+201
+
+
+# User API:
+
+    get         GET         /api/users          used to retrieve all users
+    get         GET         /api/users/{id}     used to retrieve a single user
+    delete      DELETE      /api/users/{id}     used to delete a single user
+    create      POST        /api/users          used to create a new user
+    put         UPDATE      /api/users/{id}     used to update an existing user
+
+
+## get /api/users
+
+(apiUsersGet)
+
+**Return type:**
+
+String
+
+**Produces:**
+
+This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
+
+    application/json; charset=utf-8
+
+The return is an array of user  objects. Each user contains:
+
+    email:    string    users email address
+    password: string    encrypted password
+    
+**Responses:**
+
+200
+
+## get /api/users/1
+
+(apiUsers1Get)
+
+**Return type:**
+
+String
+
+**Produces:**
+
+This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
+
+    application/json; charset=utf-8
+
+The return is a single List object.
+
+**Responses:**
+
+200
+
+## delete /api/users/1
+
+(apiUsers2Delete)
+
+**Return type:**
+
+String
+
+**Produces:**
+
+This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
+
+    application/json; charset=utf-8
+
+**Responses:**
+
+200
+
+## post /api/users
+
+(apiUsersPost)
+
+**Consumes:**
+
+This API call consumes the following media types via the Content-Type request header:
+
+    application/json
+
+**Request body:**
+
+body body (optional)
+
+Body Parameter —
+
+**Return type:**
+
+String
+
+**Produces:**
+
+This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
+
+    application/json; charset=utf-8
+
+Responses:
+
+201
 
 
 
 
-batchUpdate 	POST /v1/documents/{documentId}:batchUpdate
-Applies one or more updates to the document.
-create 	POST /v1/documents
-Creates a blank document using the title given in the request.
-get 	GET /v1/documents/{documentId}
+
+
+
+
+
 
 
 
@@ -211,72 +405,3 @@ Once your MVP has been approved, you have been given a feature list that the cli
 
 You will notice that this repository does not have any starter code. This is on purpose. You are to start from scratch using any files you have built throughout your time here at Lambda School as reference.
 
-# API Documentation:
-Lambda api notes
-this is a student api project written for Lambda School
-
-Access 
-Methods
-[ Jump to Models ]
-
-Table of Contents
-
-
-    get /api/notes/1
-    delete /api/notes/3
-    get /api/notes
-
-
-## get /api/notes/1
-
-(apiNotes1Get)
-
-**Return type:** 
-String
-
-**Produces:**
-
-This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
-
-    application/json; charset=utf-8
-
-**Responses:** 
-200
-
-## delete /api/notes/3
-
-(apiNotes3Delete)
-
-**Return type:** 
-String
-
-**Produces:**
-
-This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
-
-    application/json; charset=utf-8
-
-**Responses:** 
-200
-
-## get /api/notes
-
-(apiNotesGet)
-
-**Return type:** 
-String
-
-**Produces:**
-
-This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
-
-    application/json; charset=utf-8
-
-**Responses:** 
-200
-
-Models
-
-[ Jump to Methods ]
-
-Table of Contents
