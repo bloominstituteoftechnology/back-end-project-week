@@ -17,7 +17,7 @@ class App extends Component {
     };
 
     getNotes = () => {
-        axios.get("http://localhost:3001/api/notes")
+        axios.get("https://afternoon-reaches-71447.herokuapp.com/api/notes")
         .then(response => {
             console.log(response.data);
             this.setState({
@@ -30,12 +30,12 @@ class App extends Component {
 
     handleAddNote = (note, id) => {
         if (id === "Add") {
-            axios.post("http://localhost:3001/api/notes", {
+            axios.post("https://afternoon-reaches-71447.herokuapp.com/api/notes", {
                 title: note.title,
                 content: note.textBody
             }).then(this.getNotes);
         } else {
-            axios.put(`http://localhost:3001/api/notes/${id}`, {
+            axios.put(`https://afternoon-reaches-71447.herokuapp.com/api/notes/${id}`, {
                 title: note.title,
                 content: note.textBody
             }).then(this.getNotes);
@@ -43,7 +43,7 @@ class App extends Component {
     };
 
     handleDeleteNote = id => {
-        axios.delete(`http://localhost:3001/api/notes/${id}`)
+        axios.delete(`https://afternoon-reaches-71447.herokuapp.com/api/notes/${id}`)
             .then(this.getNotes);
 
         document.getElementById("delete-modal").classList.toggle("hidden");
