@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "server": "nodemon index.js",
+    "start": "node index.js",
     "test": "cross-env DB_ENV=testing jest --watch --verbose"
   },
   "repository": "git@github.com:cferrell2/back-end-project-week.git",

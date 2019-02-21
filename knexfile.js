@@ -41,20 +41,20 @@ module.exports = {
     }
   },
   
-  // production: {
-  //   client: 'pg',   
-  //   connection: dbConnection,   //an object or a string
-  //   pool: {
-  //     min: 2,
-  //     max: 10
-  //   },
-  //   migrations: {
-  //     directory: './data/migrations'
-  //   },
-  //   seeds: {
-  //     directory: './data/seeds'
-  //   }
-  // }
+  production: {
+    client: 'pg',   
+    connection: dbConnection,   //an object or a string
+    pool: {
+      min: 2,
+      max: 10
+    },
+    migrations: {
+      directory: './data/migrations'
+    },
+    seeds: {
+      directory: './data/seeds'
+    }
+  }
   // staging: {
   //   client: 'postgresql',
   //   connection: {
