@@ -14,7 +14,7 @@ const configRoutes = require('../Config/Routes')
 server.use(express.json(), helmet(), cors())
 configRoutes(server)
 
-server.get('/', (req, res) => {
+server.get('/api', (req, res) => {
     res.send('Time To Celebrate!');
   });
 
