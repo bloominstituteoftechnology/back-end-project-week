@@ -21,8 +21,6 @@
     "nodemon": "^1.18.10"
   },
   "scripts": {
-    "start": "node index.js",
-    
-    "heroku-postbuild": "cd frontend && npm install && npm run build"
+    "start": "node index.js"
   }
 }
