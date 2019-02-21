@@ -9,7 +9,7 @@ const TaskManager = require('../taskmanager/taskmanager');
 RouterNote.get('/get/all',TaskManager.getAllNotes);
 
 // ## GET A NOTE
-//RouterNote.get('/get/:id',TaskManager.getNotebyId);
+RouterNote.get('/get/:id',TaskManager.getNotebyId);
 
 // ## CREATE A NOTE/create
 //RouterNote.get('/create',TaskManager.CreateNewNote);

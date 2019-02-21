@@ -14,13 +14,26 @@ const getAllNotes =(req,res)=>{
         }
         else{
             res.status(405).json({errorMessage : 'No note yet stored in the Database'})
-        }
-        
-    }).catch(err =>{
-        res.status(500).json(err)
-    })
+        }})
+        .catch(err =>{res.status(500).json(err)})
 }
 
+// GET A NOTE ROUTEHANDLER
+
+const getNotebyId  =(req,res)=>{
+    const {id} = req.params
+    db(tbl)
+    .where({ id })
+    .then(note => {
+        if(note.length !== 0){
+            res.status(200).json(note)
+        }
+        else{
+            res.status(404).json({errorMessage :'HOOOPS NOT FOUND !!!'})
+        }
+        
+    }).catch(err =>{res.status(500).json(err)})
+}
 
 
 
@@ -46,7 +59,7 @@ const getAllNotes =(req,res)=>{
 */
 
 module.exports = {
-    //getNotebyId,      
+    getNotebyId,      
     getAllNotes,      
     //CreateNewNote,     
     //DestroyNote,       
