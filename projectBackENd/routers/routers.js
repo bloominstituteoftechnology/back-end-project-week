@@ -15,7 +15,7 @@ RouterNote.get('/get/:id',TaskManager.getNotebyId);
 RouterNote.post('/create',TaskManager.CreateNewNote);
 
 // ## EDIT A NOTE
-//RouterNote.get('/edit/:id',TaskManager.UpdateNote);
+RouterNote.put('/edit/:id',TaskManager.UpdateNote);
 
 // ## DELETE A NOTE
 //RouterNote.get('/delete/:id',TaskManager.DestroyNote);

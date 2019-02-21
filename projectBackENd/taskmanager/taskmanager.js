@@ -40,7 +40,6 @@ const getNotebyId  =(req,res)=>{
 
 const CreateNewNote  = (req,res)=>{
     const newNote = req.body;
-    console.log(newNote);
     if(newNote.title && newNote.textBody){
         db(tbl)
         .insert(newNote)
@@ -55,6 +54,34 @@ const CreateNewNote  = (req,res)=>{
         }
 }
 
+
+
+// EDIT OR UPDATE A NOTE HANDLER
+
+const UpdateNote  = (req,res)=>{
+    const eDITNote = req.body;
+    const {id} = req.params
+    if(eDITNote.title && eDITNote.textBody){
+        db(tbl)
+        .where({id})
+        .then(note => {
+            if(note.length !== 0){
+                db(tbl)
+                .where({id})
+                .update(eDITNote)
+                .then(note => {
+                        res.status(200).json(`Success,${note} note updated with id :${id}`)
+                    })
+                .catch(err =>{res.status(500).json(err)})
+            }
+            else{
+                res.status(404).json({errorMessage :'HOOOPS NOT FOUND !!!'})
+            }})}
+    
+        else{
+            res.status(450).json({errorMessage :'Hoops, all fields are required'})
+        }
+}
 /*
 // ****Easiest route pre-test****
  const notes = [
@@ -81,6 +108,6 @@ module.exports = {
     getAllNotes,      
     CreateNewNote,     
     //DestroyNote,       
-    //UpdateNote         
+    UpdateNote         
     
   }
