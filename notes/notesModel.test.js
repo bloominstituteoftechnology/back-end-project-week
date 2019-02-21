@@ -36,6 +36,14 @@ describe('the notes model', () => {
     await notes.remove(1);
     expect(ids.length).toBe(1);
     expect(ids[0]).toBe(1);
+  })
 
+  it('should update a note', async () => {
+    const ids = await notes.insert({ title: 'fake', textBody: 'note' });
+    expect(ids.length).toBe(1);
+    expect(ids[0]).toBe(1);
+
+    const updatedResponse = await notes.update(1, { title: 'fakeUpdate', textBody: 'noteUpdate' });
+    expect(updatedResponse[0]).toEqual({ id: 1, title: 'fakeUpdate', textBody: 'noteUpdate' });
   })
 })
