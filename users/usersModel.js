@@ -3,10 +3,7 @@ const db = require('../data/dbConfig.js');
 module.exports = {
     get: function(id) {
         if(id) {
-            return db('users').where('id', id)
-            .then(users => {
-                return users[0]
-            })
+            return db('users').where('id', id).first()
         }
         else {
             return db('users').select('id', 'username')

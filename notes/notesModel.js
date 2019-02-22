@@ -3,10 +3,7 @@ const db = require('../data/dbConfig.js');
 module.exports = {
     get: function(id) {
         if(id) {
-            return db('notes').where('id',id)
-            .then(notes => {
-                return notes[0]
-            })
+            return db('notes').where('id',id).first()
         }
         else {
             return db('notes')
