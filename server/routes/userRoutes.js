@@ -32,7 +32,7 @@ router.post('/register', async (req, res) => {
       await users.addUser(user)
       let generatedUser = await users.getUser(username) 
       const token = generateToken(generatedUser)
-      res.status(201).json(token, user.id)
+      res.status(201).json(token)
     } else {
       res.status(422).json({ErrMessage: 'please make sure all the fields are filled'})
     }
@@ -49,8 +49,7 @@ router.post('/login', async (req, res) => {
       const user = await users.getUser(userCreds.username)
       if (user[0] && bcrypt.compareSync(userCreds.password, user[0].password)) {
         token = generateToken(user)
-        const send = {token, user}
-        res.status(200).json(send)
+        res.status(200).json(token)
       } else {
         res.status(422).json({ErrMessage: 'incorrect username or password'})
       }
