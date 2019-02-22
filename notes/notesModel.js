@@ -1,7 +1,7 @@
 const db = require('../data/dbConfig');
 
-const getAllNotes = (username) => {
-  return db('notes').where('username', username)
+const getAllNotes = (id) => {
+  return db('notes').where('user_id', id)
 }
 
 const getNoteByID = (id) => {
