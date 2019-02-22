@@ -9,7 +9,7 @@ module.exports = {
             })
         }
         else {
-            return db('users')
+            return db('users').select('id', 'username')
         }
     },
 
@@ -29,6 +29,10 @@ module.exports = {
             })
     },
 
+    findByUsername: (username) => {
+        return db('users').where('username', username);
+    },
+    
     remove: function(id) {
         return db('users').where('id', id).del()
     }

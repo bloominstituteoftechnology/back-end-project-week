@@ -12,7 +12,7 @@ server.use(cors());
 server.use(helmet());
 server.use(morgan('dev'));
 server.use('/api/notes', notesRouter);
-server.use('/api/users', usersRouter);
+server.use('/api', usersRouter);
 
 
 server.get('/', async (req, res) => {
