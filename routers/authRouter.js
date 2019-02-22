@@ -11,16 +11,14 @@ router.post('/signup', (req, res) => {
   var username = user.username
   db.insertUser(user)
     .then(insertedUsersId => {
-      console.log('\n\n\n\n\n')
-      console.log(insertedUsersId[0])
-      console.log('\n\n\n\n\n')
-      db.findByID(insertedUsersId)
+      db.findByID(insertedUsersId[0])
         .then(user => {
           console.log('\n\n\n\n\n')
           console.log(user)
           console.log('\n\n\n\n\n')
           // const token = (newToken(user));
           // res.status(200).json({ id: user.id, username:username,token:token});
+          res.send({ user })
         })
         .catch(err => {
           console.log("error", err);
@@ -31,7 +29,6 @@ router.post('/signup', (req, res) => {
       res.status(500).send(err);
     });
 });
-
 router.post('/login', (req, res) => {
   const creds = req.body;
   const username = creds.username
