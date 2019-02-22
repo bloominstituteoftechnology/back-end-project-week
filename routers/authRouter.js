@@ -12,7 +12,7 @@ router.post('/signup', (req, res) => {
   db.insertUser(user)
     .then(insertedUsersId => {
       console.log('\n\n\n\n\n')
-      console.log(insertedUsersId)
+      console.log(insertedUsersId[0])
       console.log('\n\n\n\n\n')
       db.findByID(insertedUsersId)
         .then(user => {
@@ -31,7 +31,6 @@ router.post('/signup', (req, res) => {
       res.status(500).send(err);
     });
 });
-
 
 router.post('/login', (req, res) => {
   const creds = req.body;
