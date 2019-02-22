@@ -3,19 +3,32 @@ const db = require('../dbConfig.js')
 
 module.exports = {
   get: function (id, opts) {
+    console.log(opts);
     let query = db('notes as n')
       .select('n.id', 'n.textBody', 'n.title', db.raw('GROUP_CONCAT(t.title) as tags'))
       .innerJoin('noteTags as nt', 'n.id', 'nt.note_id')
       .innerJoin('tags as t', 't.id', 'nt.tag_id')
       .groupBy('n.id')
-      .limit(50)
-      .offset(opts.page * opts.pageSize)
 
     if (id) {
-      return query.where('n.id', id).first().then(note => ({ ...note, tags: note.tags.split(',') }))
+      return query
+          .where('n.id', id)
+          .first()
+          .then(note => {
+            if (note) {
+              return {...note, tags: note.tags.split(',')}
+            } else {
+              return []
+            }
+          })
     }
 
-    return query.then(notes => notes.map(n => ({ ...n, tags: n.tags.split(',') })))
+    return query
+        .offset(opts.page * opts.pageSize)
+        .limit(opts.pageSize)
+        .then(notes => {
+          return notes.map(n => ({ ...n, tags: n.tags.split(',') }))
+        })
   },
   getTags: function (noteId) {
     return db('tags')
