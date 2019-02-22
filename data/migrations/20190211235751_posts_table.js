@@ -8,8 +8,8 @@ exports.up = function(knex, Promise) {
     posts.string('lastModified');
     posts.string('dueDate');
     posts.string('category');
-    posts.string('userId').references('id').inTable('users')
-    posts.string('username').references('username').inTable('users')
+    posts.string('userId');
+    posts.string('username');
     posts.boolean('completed');
   })
 };
