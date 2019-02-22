@@ -12,10 +12,8 @@ module.exports = {
   },
 
   insertPost: (post) => {
-    return db('posts')
-      .insert(post)
-
-  },
+    return db('posts').returning('id').where('id',id)
+},
 
   updatePost: (id, post) => {
     return db('posts')
