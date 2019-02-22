@@ -17,11 +17,6 @@ router.post('/signup', (req, res) => {
       console.log('\n\n\n\n\n')
       res.send({ user })
     })
-    .catch(err => {
-      console.log('\n\n\n\n\n')
-      console.log(err)
-      console.log('\n\n\n\n\n')
-    })
       const id = ids[0];
       db.findByID(id)
         .then(user => {
