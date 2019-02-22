@@ -9,12 +9,19 @@ router.post('/signup', (req, res) => {
   const hashedPass = bcrypt.hashSync(user.password, 12)
   user.password = hashedPass;
   var username = user.username
-  console.log('\n\n\n\n\n')
-  console.log({ db: db.insertUser(user) })
-  console.log('\n\n\n\n\n')
-  res.send({ user })
-  //   .then(ids => {
-  //     console.log(ids)
+
+  db.insertUser(user)
+    .then(response => {
+      console.log('\n\n\n\n\n')
+      console.log(response)
+      console.log('\n\n\n\n\n')
+      res.send({ user })
+    })
+    .catch(err => {
+      console.log('\n\n\n\n\n')
+      console.log(err)
+      console.log('\n\n\n\n\n')
+    })
   //     const id = ids[0];
   //     db.findByID(id)
   //       .then(user => {
