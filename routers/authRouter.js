@@ -11,6 +11,9 @@ router.post('/signup', (req, res) => {
   var username = user.username
   db.insertUser(user)
     .then(insertedUsersId => {
+      console.log('\n\n\n\n\n')
+      console.log(insertedUsersId)
+      console.log('\n\n\n\n\n')
       db.findByID(insertedUsersId)
         .then(user => {
           console.log('\n\n\n\n\n')
