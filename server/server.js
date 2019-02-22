@@ -14,7 +14,6 @@ server.use(cors())
 
 function protected(req, res, next) {
   const token = req.headers.authorization
-  console.log(token)
   if (token) {
     jwt.verify(token, secret, (err, decodedToken) => {
       if(err) {
