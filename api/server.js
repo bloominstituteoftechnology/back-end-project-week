@@ -19,7 +19,7 @@ server.get('/', (req, res) => {
     res.status(200).send("Success!")
 })
 
-server.get('/notes', (req, res) => { 
+server.get('/api/notes', (req, res) => { 
   db('notes').then( notes => {
       res.status(200).json(notes)
   })
@@ -27,7 +27,7 @@ server.get('/notes', (req, res) => {
   })
 })
 
-server.get('/notes/:id', (req, res) => {
+server.get('/api/notes/:id', (req, res) => {
     const {id} = req.params
     db('notes').where({id}).then(content => {
         res.status(200).json(content)
@@ -36,7 +36,7 @@ server.get('/notes/:id', (req, res) => {
   })
 })
 
-server.post('/notes', (req, res) => { 
+server.post('/api/notes', (req, res) => { 
     const body = req.body
     if(!body.textBody || !body.title){
         res.status(401).send("Missing a title or the text-body ")
@@ -49,7 +49,7 @@ server.post('/notes', (req, res) => {
     }    
 })
 
-server.delete('/notes/:id', (req, res) => {
+server.delete('/api/notes/:id', (req, res) => {
     const {id} = req.params
     db('notes').where({id}).del().then( ids => {
         res.status(200).json(ids)
@@ -58,7 +58,7 @@ server.delete('/notes/:id', (req, res) => {
   })
 })
 
-server.put('/notes/:id', (req, res) => {
+server.put('/api/notes/:id', (req, res) => {
     const {id} = req.params
     const body = req.body
     db('notes').where({id}).update(body)
