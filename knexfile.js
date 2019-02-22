@@ -9,12 +9,12 @@ module.exports = {
       filename: './dev.sqlite3'
     },
     migrations: {
-      directory:__dirname + './data/migrations',
+      directory: './data/migrations',
       tableName: 'dbmigrations'
     },
     useNullAsDefault: true,
     seeds:{
-      directory:__dirname +'./data/seeds'}
+      directory:'./data/seeds'}
   },
 
   staging: {
