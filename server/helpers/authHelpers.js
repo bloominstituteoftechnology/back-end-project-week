@@ -8,6 +8,6 @@ module.exports = {
     return db('users').where('username', username).first();
   },
   findByID: (id) => {
-    return db('users').returning('id').where('id', id).first();
+    return db('users').where('id', id).first();
   }
 }
