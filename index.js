@@ -4,19 +4,20 @@ const server = express();
 const cors = require('cors');
 const PORT = process.env.PORT
 const helmet = require('helmet');
-const bodyparser = require('body-parser');
 const morgan = require('morgan');
 const authRouter = require('./routers/authRouter')
 const postRouter = require('./routers/postRouter');
+const bodyParser = require('body-parser');
+
 
 
 server.use(
-  express.json(),
-  bodyparser(),
   morgan('tiny'),
   helmet(),
   cors()
 )
+server.use(bodyParser.urlencoded({ extended: true }));
+server.use(bodyParser.json());
 server.use('/api/users',authRouter)
 server.use('/api/posts',postRouter)
 
