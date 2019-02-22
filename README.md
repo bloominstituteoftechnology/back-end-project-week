@@ -1,3 +1,6 @@
+# Trello Link
+For project manager: [Trello Board](https://trello.com/invite/b/QzTVlEh6/331fec94dbae24b3382e3242e407c801/lambda-notes-backend-kyran-mccann)
+
 # Back End Project Week
 
 This week you will build a backend for a note taking app called "Lambda Notes".
