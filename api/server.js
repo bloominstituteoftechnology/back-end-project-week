@@ -7,7 +7,7 @@ const morgan = require("morgan");
 
 const notesRouter = require("../api/routes/notesRouter");
 const tagsRouter = require("../api/routes/tagsRouter");
-// const authRouter = require("../api/routes/authRouter");
+const authRouter = require("../api/routes/authRouter");
 
 server.use(helmet());
 server.use(morgan("dev"));
