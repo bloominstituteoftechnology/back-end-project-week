@@ -2,12 +2,12 @@ const express = require('express');
 
 const router = express.Router()
 
-const notes = require('../notes/notesModel')
+const notes = require('../../notes/notesModel')
 
-router.get('/notes', async (req, res) => {
-  const {username} = req.params;
+router.get('/', async (req, res) => {
   try {
-    const allNotes = await notes.getAllNotes(username)
+    const token = req.headers.authorization
+    const allNotes = await notes.getAllNotes(token.id)
     res.status(200).json(allNotes)  
   } catch (error) {
     res.status(500).json({failure: 'unable to get all the notes'})
