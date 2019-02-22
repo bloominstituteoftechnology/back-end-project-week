@@ -34,7 +34,7 @@ router.get('/:id', (req, res) => {
   })
 })
 
-router.post('/', note_check, (req, res) => {
+router.post('/', (req, res) => {
 // confirmed working.
  const note = req.body
  noteDB.place(note)
@@ -51,10 +51,11 @@ router.post('/', note_check, (req, res) => {
   })
 })
 
-router.put('/:id', note_check, (req, res) => {
+router.put('/edit/:id', (req, res) => {
 // confirmed working.
  const { id }  = req.params
  const note = req.body
+ console.log(note)
  noteDB.alter(id, note)
   .then(() => {
    res
@@ -70,9 +71,7 @@ router.put('/:id', note_check, (req, res) => {
 
 router.delete('/:id', (req, res) => {
  // confirmed working.
- const { id }  = req.params
- // try {
-  while (id && id >= 0) {
+ const { id } = req.params
     noteDB.clear(id)
      .then((ids) => {
       res
@@ -85,7 +84,6 @@ router.delete('/:id', (req, res) => {
      })
   
   }
- }
 )
 
 module.exports = router

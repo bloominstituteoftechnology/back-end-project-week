@@ -25,10 +25,6 @@ server.use('/api/logout', logout_route)
 server.use('/api/login', login_route)
 // Note Routes (confirmed working)
 server.use('/api/notes', note_routes)
-server.use('/api/notes', note_routes)
-server.use('/api/notes', note_routes)
-server.use('/api/notes', note_routes)
-server.use('/api/notes', note_routes)
 
 server.listen(port, () => {
  console.log(`Server is now running live on ${port}`)
