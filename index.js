@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const authRouter = require('./routers/authRouter')
 const postRouter = require('./routers/postRouter');
+require('dotenv').config();
 
 
 
