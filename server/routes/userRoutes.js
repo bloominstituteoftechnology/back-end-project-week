@@ -65,7 +65,7 @@ router.get('/user', async (req, res) => {
   const {username} = req.body
 
   const user = await users.getUser(username)
-  res.status(200).json(user.id)
+  res.status(200).json(user[0].id)
 })
 
 module.exports = router
