@@ -1,12 +1,12 @@
 // Update with your config settings.
 require("dotenv").config();
-localdbConnector = {
-  client: 'localhost',
-  database: 'notes',
-  user: 'jbrock',
-  password: 'Letmein'
-}
-const dbConnector = process.env.DATABASE_URL || localdbConnector;
+// localdbConnector = {
+//   client: 'localhost',
+//   database: 'notes',
+//   user: 'jbrock',
+//   password: 'Letmein'
+// }
+//const dbConnector = process.env.DATABASE_URL || localdbConnector;
 module.exports = {
 
   development: {
@@ -23,8 +23,11 @@ module.exports = {
     }
   },
   production: {
-    client: 'postgresql',
-    connection: dbConnector,
+    client: 'sqlite3',
+    useNullAsDefault: true,
+    connection: {
+      filename: './data/notes.sqlite3'
+    },
     pool: {
       min: 2,
       max: 10
