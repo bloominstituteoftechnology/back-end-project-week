@@ -1,7 +1,7 @@
 
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('posts', posts => {
-    posts.increments('id');
+    posts.increments('id').primary();
     posts.string('title').notNullable();
     posts.string('details');
     posts.string('dateCreated');
