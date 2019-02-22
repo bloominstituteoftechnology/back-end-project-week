@@ -10,9 +10,9 @@ module.exports = {
   generateToken
 };
 
-function generateToken(user) {
+function generateToken(username) {
   const payload = {
-      username: user.username,
+      username,
   };
 
   const options = {
