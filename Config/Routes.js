@@ -51,11 +51,11 @@ function accessPage(req, res) {
   const requestOptions = {
       headers: { accept: 'application/json' }
   }
-  axios.get('http://localhost:5566/api/notes', requestOptions)
-    .then(response => {
-        res.status(200).json(response.data.results)
-    })
-    .catch(err => { res.status(400).json({err: "there was an error fetching the notes"})
-    })
+// axios.get('http://localhost:5566/api/notes', requestOptions)
+//   .then(response => {
+//       res.status(200).json(response.data.results)
+//   })
+//   .catch(err => { res.status(400).json({err: "there was an error fetching the notes"})
+//   })
 }
 
