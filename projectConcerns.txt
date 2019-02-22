@@ -2,6 +2,8 @@ Back-end-Project Updates:
 [x] Debugged issue Front End Project not utilizing Actions Properly.
 [x] Debugged Front End All notes not appearing with in List View.
 [x] Debugged issue with single note displaying in Note View.
-[] Debugging Edit Note text not displaying.
-[] Debugging Create Note not adding note.
- 
+[x] Debugging Edit Note text not displaying as placeholder text.
+[x] Debugging Create Note not adding note.
+[x] Debug issue when clicking on single note and then clicking on view note app crashes.
+[] Debug PUT, Edited note not updating with new content. 
+[] Work on delete note. 

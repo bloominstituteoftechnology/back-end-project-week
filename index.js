@@ -35,7 +35,7 @@ server.get('/api/note/:id', (req, res) => {
 
 //deletes note by id
 
-server.delete('/api/notes/:id', (req, res) => {
+server.delete('/api/note/delete/:id', (req, res) => {
     const id = req.params.id;
     db.removeNote(id).then(removedNote => {
         res.status(200).json({message: `note with id${id} has been removed`});
@@ -45,7 +45,7 @@ server.delete('/api/notes/:id', (req, res) => {
 
 // updates existing note
 
-server.put('/api/notes/:id', (req, res) => {
+server.put('/api/note/edit/:id', (req, res) => {
     const id = req.params.id;
     const note = req.body;
     db.updateNote(id, note).then(updateNote => {
