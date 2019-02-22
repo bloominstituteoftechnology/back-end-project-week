@@ -62,9 +62,9 @@ router.post('/login', async (req, res) => {
 })
 
 router.get('/user', async (req, res) => {
-  const userData = req.body
+  const {username} = req.body
 
-  const user = await users.getUser(userData.username)
+  const user = await users.getUser(username)
   res.status(200).json(user.id)
 })
 
