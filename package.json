@@ -5,8 +5,8 @@
   "repository": "https://github.com/mtrew2015/back-end-project-week.git",
   "license": "MIT",
   "scripts": {
-    "server": "nodemon",
-    "start": "node index.js"
+    "server":"nodemon",
+    "start":"node index.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
