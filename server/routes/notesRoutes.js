@@ -1,10 +1,27 @@
 const express = require('express');
+const jwt = require('jsonwebtoken')
 
 const router = express.Router()
 
 const notes = require('../../notes/notesModel')
 
-router.get('/', async (req, res) => {
+function protected(req, res, next) {
+  const token = req.headers.authorization
+  if (token) {
+    jwt.verify(token, secret, (err, decodedToken) => {
+      if(err) {
+        res.status(401).json({errMessage: "invalid token"})
+      } else {
+        next()
+      }
+    })
+  } else {
+    res.status(401).json({errMessage: "no token attached"})
+  }
+}
+
+
+router.get('/', protected(), async (req, res) => {
   try {
     const userId = req.headers.userID
     const allNotes = await notes.getAllNotes(userId)
@@ -14,7 +31,7 @@ router.get('/', async (req, res) => {
   }
 })
 
-router.get('/note/:id', async (req, res) => {
+router.get('/note/:id', protected, async (req, res) => {
   const { id } = req.params;
   try {
     let note = await notes.getNoteByID(id)
@@ -25,7 +42,7 @@ router.get('/note/:id', async (req, res) => {
   }
 })
 
-router.post('/note/create', async (req, res) => {
+router.post('/note/create', protected(), async (req, res) => {
   const {title, content} = req.body
 
   if(title && content) {
@@ -40,7 +57,7 @@ router.post('/note/create', async (req, res) => {
   }
 })
 
-router.put('/note/:id/edit', async (req, res) => {
+router.put('/note/:id/edit', protected(), async (req, res) => {
   const { id } = req.params
   const { title, content } = req.body
 
@@ -56,7 +73,7 @@ router.put('/note/:id/edit', async (req, res) => {
   }
 })
 
-router.delete('/note/:id/delete', async (req, res) => {
+router.delete('/note/:id/delete', protected(), async (req, res) => {
   const { id } = req.params
 
   try {
