@@ -122,8 +122,8 @@ server.post('/login', (req, res) => {
 // PROTECTED ROUTES HERE
 
 
-// Regular GET NOTES -- works.
-server.get('/notes', protect, (req , res) => {
+// Regular GET NOTES -- works (now Protected Routes)
+server.get('/notes', (req , res) => {
     dbHelpers.getNotes()
     .then(rows => {
         res.json(rows)
