@@ -24,8 +24,7 @@
     "uuid": "^3.3.2"
   },
   "engines":{
-    "node": "11.7.0",
-    "yarn":"1.13.0" 
+    "node": "11.7.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.10"
