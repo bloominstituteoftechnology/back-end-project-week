@@ -6,9 +6,9 @@ const router = express.Router();
 
 const { authenticate } = require("../../auth/authenticate");
 
-const requestOptions = {
-  headers: { accept: "application/json" }
-};
+// const requestOptions = {
+//   headers: { accept: "application/json" }
+// };
 
 router.get("/", (req, res) => {
   notes
@@ -64,7 +64,7 @@ router.get("/:id/tags", (req, res) => {
     });
 });
 
-router.post("/", (req, res) => {
+router.post("/", authenticate, (req, res) => {
   const note = req.body;
 
   if (!note.title || typeof note.title !== "string" || note.title === "") {
@@ -91,7 +91,7 @@ router.post("/", (req, res) => {
   }
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", authenticate, (req, res) => {
   const newNote = req.body;
   const { id } = req.params;
   notes
@@ -141,7 +141,7 @@ router.put("/:id", (req, res) => {
 });
 
 router.delete(
-  "/:id",
+  "/:id", authenticate,
   async (req, res) => {
     const { id } = req.params;
     const deleted = await notes.fetch(id);

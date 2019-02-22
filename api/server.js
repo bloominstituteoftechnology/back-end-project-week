@@ -16,7 +16,7 @@ server.use(express.json());
 
 server.use("/notes", notesRouter);
 server.use("/tags", tagsRouter);
-// server.use("/auth", authRouter);
+server.use("/auth", authRouter);
 server.get("/", (req, res) => {
   res.json({message: "welcome to Angelina La Salle's back end project week API"})
 })

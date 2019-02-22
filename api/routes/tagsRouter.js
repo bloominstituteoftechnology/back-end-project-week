@@ -6,9 +6,9 @@ const router = express.Router();
 
 const { authenticate } = require("../../auth/authenticate");
 
-const requestOptions = {
-  headers: { accept: "application/json" }
-};
+// const requestOptions = {
+//   headers: { accept: "application/json" }
+// };
 
 router.get("/", (req, res) => {
   tags
@@ -43,7 +43,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.post("/:id", (req, res) => {
+router.post("/:id", authenticate, (req, res) => {
   const {tag} = req.body;
   const {id} = req.params;
 
@@ -94,6 +94,7 @@ router.post("/:id", (req, res) => {
 
 router.delete(
   "/:id",
+  authenticate,
   async (req, res) => {
     const { id } = req.params;
     const deleted = await tags.fetch(id);
