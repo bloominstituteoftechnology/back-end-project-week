@@ -10,7 +10,7 @@ server.use(express.json())
 server.use(cors())
 
 
-server.use('/notes', notesRouter)
+server.use('/notes/:id', notesRouter)
 
 server.use('/users', userRouter)
 

@@ -22,7 +22,7 @@ function protected(req, res, next) {
 }
 
 
-router.get('/:id', protected, async (req, res) => {
+router.get('/', protected, async (req, res) => {
   console.log(req.params)
   const {id} = req.params
   console.log(id)
