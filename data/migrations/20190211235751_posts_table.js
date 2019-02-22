@@ -5,7 +5,6 @@ exports.up = function(knex, Promise) {
     posts.string('title').notNullable();
     posts.string('details');
     posts.string('dateCreated');
-    posts.string('dueDate');
     posts.string('category');
     posts.string('userId');
     posts.string('username');
