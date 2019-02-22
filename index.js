@@ -16,7 +16,7 @@ server.use(
   helmet(),
   cors()
 )
-server.use(bodyParser.urlencoded({ extended: true }));
+server.use(bodyParser.urlencoded({extended:true}));
 server.use(bodyParser.json());
 server.use('/api/users',authRouter)
 server.use('/api/posts',postRouter)
