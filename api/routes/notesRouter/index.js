@@ -63,7 +63,7 @@ ROUTER.put("/:notesID/edit", async (req, res) => {
 ROUTER.delete("/:notesID", async (req, res) => {
   const id = req.params.notesID;
   const deletedNote = await DB.getNoteById(id);
-  const count = await DB.deleteNote(id);
+  const count = await DB.deleteTagsAndNote(id);
 
   if (count) {
     res.status(202).json(deletedNote);

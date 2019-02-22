@@ -6,6 +6,8 @@ module.exports = {
   createNote,
   editNote,
   deleteNote,
+  deleteTagsAndNote,
+  deleteTagsByNoteId,
   getTagsAndNotes,
   createTagsAndNotes,
   createTag
@@ -55,6 +57,11 @@ async function createTag(tags) {
   }
   return tag_ids;
 }
+async function deleteTagsByNoteId(id) {
+  return DB("notesAndTags")
+    .where("note_id", id)
+    .del();
+}
 
 async function getTagsAndNotes(id) {
   return DB("notes as n")
@@ -92,4 +99,16 @@ function createTagsAndNotes(note, tags) {
       .then(id => res.json(this.getNoteById(id)))
       .catch(err => res.status(500).json({ error: err }));
   }
+}
+
+function deleteTagsAndNote(note_id) {
+  const promises = [this.deleteNote(note_id), this.deleteTagsByNoteId(note_id)];
+
+  return Promise.all(promises)
+    .then(async results => {
+      return true;
+    })
+    .catch(err => {
+      return false;
+    });
 }
