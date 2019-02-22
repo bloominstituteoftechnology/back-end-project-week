@@ -2,6 +2,10 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "main": "index.js",
+ "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js"
+  },
   "repository": "https://github.com/rlmclaughlin/back-end-project-week.git",
   "author": "rlmclaughlin <rlmclaughlin@yahoo.com>",
   "license": "MIT",
@@ -19,9 +23,5 @@
   },
   "devDependencies": {
     "nodemon": "^1.18.10"
-  },
-  "scripts": {
-    "start": "node index.js",
-    "server": "nodemon"
   }
 }
