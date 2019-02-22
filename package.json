@@ -5,11 +5,12 @@
   "repository": "https://github.com/mtrew2015/back-end-project-week.git",
   "license": "MIT",
   "scripts": {
-    "server":"nodemon",
-    "start":"node index.js"
+    "server": "nodemon",
+    "start": "node index.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
@@ -23,7 +24,7 @@
     "sqlite3": "^4.0.6",
     "uuid": "^3.3.2"
   },
-  "engines":{
+  "engines": {
     "node": "11.7.0"
   },
   "devDependencies": {

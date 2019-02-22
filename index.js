@@ -4,6 +4,7 @@ const server = express();
 const cors = require('cors');
 const PORT = process.env.PORT
 const helmet = require('helmet');
+const bodyparser = require('body-parser');
 const morgan = require('morgan');
 const authRouter = require('./routers/authRouter')
 const postRouter = require('./routers/postRouter');
@@ -11,6 +12,7 @@ const postRouter = require('./routers/postRouter');
 
 server.use(
   express.json(),
+  bodyparser(),
   morgan('tiny'),
   helmet(),
   cors()
