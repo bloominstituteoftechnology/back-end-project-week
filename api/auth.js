@@ -6,7 +6,6 @@ const express = require('express'),
 
 router
   .post('/register', generateJwt, async function (req, res) {
-    console.log(req.body);
     const { user_name, email, password, name } = req.body;
     const saltRounds = 10;
 

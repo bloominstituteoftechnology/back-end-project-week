@@ -13,6 +13,7 @@ module.exports = {
     return query.select('email', 'user_name');
   },
   insert: function (user) {
+    // TODO check if user with email and user_name exists first
     return db('users')
       .insert(user)
       .then(([id]) => this.get(id));

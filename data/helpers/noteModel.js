@@ -2,13 +2,14 @@ const db = require('../dbConfig.js')
 // const mappers = require('./mappers');
 
 module.exports = {
-  get: function (id) {
+  get: function (id, opts) {
     let query = db('notes as n')
       .select('n.id', 'n.textBody', 'n.title', db.raw('GROUP_CONCAT(t.title) as tags'))
       .innerJoin('noteTags as nt', 'n.id', 'nt.note_id')
       .innerJoin('tags as t', 't.id', 'nt.tag_id')
       .groupBy('n.id')
       .limit(50)
+      .offset(opts.page * opts.pageSize)
 
     if (id) {
       return query.where('n.id', id).first().then(note => ({ ...note, tags: note.tags.split(',') }))
