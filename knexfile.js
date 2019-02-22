@@ -1,6 +1,7 @@
-// Update with your config settings.
-require(dotenv).config()
-const dbConnection=process.env.DATABASE_URL || localPg
+const pg = require('pg')
+pg.defaults.ssl = true
+
+
 module.exports = {
 
   development: {
@@ -9,11 +10,12 @@ module.exports = {
       filename: './dev.sqlite3'
     },
     migrations: {
-      directory:'./data/migrations',
+      directory:__dirname + './data/migrations',
       tableName: 'dbmigrations'
     },
     useNullAsDefault: true,
-    seeds:{directory: './data/seeds'}
+    seeds:{
+      directory:__dirname +'./data/seeds'}
   },
 
   staging: {
@@ -33,8 +35,8 @@ module.exports = {
   },
 
   production: {
-    client: 'postgresql',
-    connection: dbConnection,
+    client: pg,
+    connection: 'postgres://tzqredbemqcfwd:034ce9a63bfe5c6edf4cf768e7254d220ceb72748dd0edc0e4d5f0c3e966e608@ec2-54-83-44-4.compute-1.amazonaws.com:5432/d7uugijmmsfknm',
     pool: {
       min: 2,
       max: 10
