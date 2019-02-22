@@ -10,11 +10,8 @@ router.post('/signup', (req, res) => {
   user.password = hashedPass;
   var username = user.username
   db.insertUser(user)
-  console.log(user)
-  console.log(db)
     .then(ids => {
       const id = ids[0];
-      console.log(id);
       db.findByID(id)
         .then(user => {
           const token = (newToken(user));
