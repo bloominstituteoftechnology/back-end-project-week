@@ -11,11 +11,12 @@ router.post('/signup', (req, res) => {
   var username = user.username
   db.insertUser(user)
     .then(ids => {
+      console.log(ids)
       const id = ids[0];
       db.findByID(id)
         .then(user => {
           const token = (newToken(user));
-          res.status(200).json({ id: user.id, username:username,token:token});
+          res.status(200).json({ id: user.id, username: username, token: token });
         })
         .catch(err => {
           console.log("error", err);
