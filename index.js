@@ -12,6 +12,7 @@ const postRouter = require('./routers/postRouter');
 server.use(
   express.json(),
   morgan('tiny'),
+  helmet(),
   cors()
 )
 server.use('/api/users',authRouter)
