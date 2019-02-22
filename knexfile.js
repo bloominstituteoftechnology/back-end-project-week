@@ -12,7 +12,7 @@ module.exports = {
           directory: './data/seeds',
        },
     },
-    development: {
+    production: {
         client: 'sqlite3',
         connection: {
            filename: './data/notes.db',
