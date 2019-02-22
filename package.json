@@ -23,6 +23,10 @@
     "sqlite3": "^4.0.6",
     "uuid": "^3.3.2"
   },
+  "engines":{
+    "node": "11.7.0",
+    "yarn":"1.13.0" 
+  },
   "devDependencies": {
     "nodemon": "^1.18.10"
   }
