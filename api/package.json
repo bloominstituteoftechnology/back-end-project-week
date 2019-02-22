@@ -2,23 +2,29 @@
   "name": "backendproject",
   "version": "1.0.0",
   "description": "Back End Project",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "test": "jest --watch --verbose",
-    "start": "nodemon server.js"
+    "start": "nodemon index.js"
   },
   "jest": {
     "testEnvironment": "node"
   },
   "dependencies": {
+    "auth0-js": "^9.10.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",
+    "express-jwt": "^5.3.1",
     "express-session": "^1.15.6",
     "helmet": "^3.15.1",
-    "jest": "^24.1.0",
+    "jwks-rsa": "^1.4.0",
+    "jwt-decode": "^2.2.0",
     "knex": "^0.16.3",
-    "sqlite3": "^4.0.6",
+    "sqlite3": "^4.0.6"
+  },
+  "devDependencies": {
+    "jest": "^24.1.0",
     "supertest": "^3.4.2"
   }
 }

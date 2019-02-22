@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import NoteCard from "./NoteCard";
 import axios from "axios";
-
+import { connect } from "react-redux";
+import { getNotes } from "../../store/actions/noteActions";
 import styled from "styled-components";
 
 const NoteView = styled.div`
@@ -46,30 +47,23 @@ class NoteList extends Component {
       search: ""
     };
   }
+
   updateSearch(event) {
     this.setState({ search: event.target.value });
   }
-
   componentDidMount() {
-    axios
-      .get("http://localhost:5000/")
-      .then(response => {
-        this.setState(
-          () => ({ notes: response.data }),
-          () => {
-            console.log(response.data);
-          }
-        );
-      })
-      .catch(error => {
-        console.error("Server Error", error);
-      });
+    // call our action
+    this.props.getNotes()
+    
   }
 
   render() {
-    let filteredNotes = this.state.notes.filter(note => {
-      return note.title.toLowerCase().indexOf(
-        this.state.search.toLowerCase()) !== -1;
+    const { notes } = this.props;
+    console.log(notes);
+    let filteredNotes = notes.filter(note => {
+      return (
+        note.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+      );
     });
 
     return (
@@ -83,7 +77,7 @@ class NoteList extends Component {
         <Title>Your Notes:</Title>
 
         <NoteView>
-          {this.state.notes.length < 1 ? (
+          {notes.length < 1 ? (
             <div>No Notes</div>
           ) : (
             filteredNotes.map(note => <NoteCard key={note.id} note={note} />)
@@ -94,4 +88,10 @@ class NoteList extends Component {
   }
 }
 
-export default NoteList;
+const mapStateToProps = state => {
+  return {
+    notes: state.note.notes
+  };
+};
+
+export default connect(mapStateToProps, {getNotes})(NoteList);

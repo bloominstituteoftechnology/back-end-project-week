@@ -109,6 +109,7 @@ class EditNote extends Component {
       .catch(error => {
         console.error("Server Error", error);
       });
+      this.props.history.push('/notes')
   };
 
   handleChange = e => {

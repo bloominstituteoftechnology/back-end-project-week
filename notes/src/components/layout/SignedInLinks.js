@@ -50,7 +50,7 @@ const SignedInLinks = () => {
     <ul>
        
       <li>
-        <NavLink to="/">
+        <NavLink to="/notes">
           <Button>View Your Notes</Button>{" "}
         </NavLink>
       </li>

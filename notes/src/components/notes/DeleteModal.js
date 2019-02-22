@@ -116,6 +116,10 @@ class DeleteModal extends Component {
       .then(response => {
         console.log("Success!, note deleted");
       })
+      .then( this.props.onClose)
+      .then( this.history.push('/'))
+      
+     
       .catch(error => {
         console.error("Server Error", error);
       });

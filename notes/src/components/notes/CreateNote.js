@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import  { connect } from 'react-redux';
+import { createNote } from '../../store/actions/noteActions'
 
 const Title = styled.div`
   text-decoration: none;
@@ -79,29 +81,31 @@ class CreateNote extends Component {
   ß;
   addNote = event => {
     event.preventDefault();
-    const note = {
-      title: this.state.title,
-      content: this.state.content
-    };
-    axios
-      .post("http://localhost:5000/create", note)
-      .then(response => {
-        this.setState(
-          {
-            note: response.data
-          },
-          () => console.log(this.state)
-        );
-      })
-      .catch(error => {
-        console.error("Server Error", error);
-      });
+    this.props.createNote(this.state)
+  }
+  //   const note = {
+  //     title: this.state.title,
+  //     content: this.state.content
+  //   };
+  //   axios
+  //     .post("http://localhost:5000/create", note)
+  //     .then(response => {
+  //       this.setState(
+  //         {
+  //           note: response.data
+  //         },
+  //         () => console.log(this.state)
+  //       );
+  //     })
+  //     .catch(error => {
+  //       console.error("Server Error", error);
+  //     });
 
-    this.setState({
-      title: "",
-      content: ""
-    });
-  };
+  //   this.setState({
+  //     title: "",
+  //     content: ""
+  //   });
+  // };
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -109,7 +113,7 @@ class CreateNote extends Component {
 
   render() {
     return (
-      <form style={Card} onSubmit={this.addNote}>
+      <form style={Card} onSubmit={ this.addNote}>
         <Title>Create New Note:</Title>
         <Form>
           {" "}
@@ -145,5 +149,10 @@ class CreateNote extends Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch) => {
+  return{
+    createNote: (note) => dispatch(createNote(note))
+  }
+}
 
-export default CreateNote;
+export default connect(null, mapDispatchToProps) (CreateNote);
