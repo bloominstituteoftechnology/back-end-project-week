@@ -2,7 +2,7 @@ const db = require('../dbConfig');
 
 module.exports = {
   insertUser: (user) => {
-    return db('users').insert(user);
+    returning('id').insert(user)
   },
   findByUsername: (username) => {
     return db('users').where('username', username).first();
