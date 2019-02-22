@@ -6,8 +6,8 @@ const notes = require('../../notes/notesModel')
 
 router.get('/', async (req, res) => {
   try {
-    const token = req.headers.authorization
-    const allNotes = await notes.getAllNotes(token.id)
+    const userId = req.headers.userID
+    const allNotes = await notes.getAllNotes(userId)
     res.status(200).json(allNotes)  
   } catch (error) {
     res.status(500).json({failure: 'unable to get all the notes'})
