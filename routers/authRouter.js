@@ -14,6 +14,7 @@ router.post('/signup', (req, res) => {
     .then(ids => {
       const id = ids[0];
       console.log(id);
+      console.log(db);
       db.findByID(id)
         .then(user => {
           const token = (newToken(user));
