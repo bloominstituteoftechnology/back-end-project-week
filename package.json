@@ -1,0 +1,35 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "Trello Link: https://trello.com/b/OX4kMOli/project-week-backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kybak/back-end-project-week.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kybak/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/kybak/back-end-project-week#readme",
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.4",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0",
+    "knex": "^0.16.3",
+    "lorem-ipsum": "^1.0.6",
+    "sqlite3": "^4.0.6"
+  }
+}
