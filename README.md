@@ -6,14 +6,6 @@
 
 **_A light-weight note taking application_**
 
-Lambda Notes utilizes [Blockstacks'](https://blockstack.org/) innovative technology which allows developers to build dApps (decentralized apps) and users to access them throught the Blockstack browser. With Blockstack, the data generated in an app is owned by the user and privacy, security, and freedom are maintained. Blockstack provides key tools and infrastructure for enabling decentralized storage and decentralized authentication and identity. After logging in using Blockstack's identity verificatiion, the user's notes are stored in decentralized multi-player Gaia storage.
-
-## Team
-
-### Developers
-
-- [Colin Dismuke](https://github.com/cpdis)
-
 ## Tech Stack
 
 Lambda Notes utilizes [Heroku](https://www.heroku.com/) and [Netlify](https://www.netlify.com/) for deployment, and is built in full stack JavaScript with a [React.js](https://reactjs.org/)/[Redux](https://redux.js.org/) frontend, a [Node.js](https://nodejs.org/en/) and [Express.js](https://expressjs.com/) backend, [PostgreSQL](https://www.postgresql.org/) is used to store notes in production, and a [SQLite3](https://www.sqlite.org/index.html) database in development.
