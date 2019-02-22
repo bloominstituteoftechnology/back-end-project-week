@@ -1,12 +1,9 @@
-
-
-
 module.exports = {
 
   development: {
     client: 'sqlite3',
     connection: {
-      filename: './dev.sqlite3' +'?ssl=true'
+      filename: './dev.sqlite3'
     },
     migrations: {
       directory: './data/migrations',
