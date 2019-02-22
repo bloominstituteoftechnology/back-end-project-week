@@ -1,6 +1,9 @@
 {
   "name": "back-end-project-week",
   "version": "1.0.0",
+  "engines": {
+    "node": "11.4.0"
+  },
   "main": "index.js",
   "repository": "https://github.com/jbrock1981/back-end-project-week.git",
   "author": "jbrock1981 <jbrock1981@gmail.com>",
