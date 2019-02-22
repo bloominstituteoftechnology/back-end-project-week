@@ -12,7 +12,7 @@ module.exports = {
   },
 
   insertPost: (post) => {
-    return db('posts').returning('id')
+    return db('posts').insert(post).returning('id')
 },
 
   updatePost: (id, post) => {
