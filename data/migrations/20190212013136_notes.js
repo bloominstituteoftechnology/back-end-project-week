@@ -4,8 +4,7 @@ exports.up = function(knex, Promise) {
         notes.increments('id');
         notes
         .string('title', 128)
-        .notNullable()
-        .unique();
+        .notNullable();
         notes.string('textBody', 255).notNullable();
         notes.string('tags');
         notes.integer('_id').unsigned();
