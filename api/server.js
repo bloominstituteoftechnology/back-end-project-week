@@ -15,6 +15,10 @@ server.use(express.json(), helmet(), cors())
 configRoutes(server)
 
 
+server.get('/', (req, res) => {
+    res.status(200).send("Success!")
+})
+
 server.get('/api/notes', (req, res) => { 
   db('notes').then( notes => {
       res.status(200).json(notes)
