@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken')
 const router = express.Router()
 
 const notes = require('../../notes/notesModel')
+const secret = process.env.SECRET ||'the-future-is-unknown'
 
 function protected(req, res, next) {
   const token = req.headers.authorization
