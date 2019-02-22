@@ -1,71 +1,87 @@
-# Back End Project Week
+<p align="center">
+  <a href="https://lambdanotes.app">
+    <img alt="Lambda Notes" src="./assets/logo.png" width="120" />
+  </a>
+</p>
 
-This week you will build a backend for a note taking app called "Lambda Notes".
+**_A light-weight note taking application_**
 
-You are to treat this week as if you are working at a company and the instructor is your client. The _Project Managers_ are acting as your company's project managers (duh!) and will be your main support throughout the week.
+## Tech Stack
 
-The main objective of this week is to develop a backend to support the LambdaNotes app you built during the Front End project week, connect the two projects together, and add some additional features. You will use `Node.js`, `Express` and any other technologies you have learned to complete this assignment.
+Lambda Notes utilizes [Heroku](https://www.heroku.com/) and [Netlify](https://www.netlify.com/) for deployment, and is built in full stack JavaScript with a [React.js](https://reactjs.org/)/[Redux](https://redux.js.org/) frontend, a [Node.js](https://nodejs.org/en/) and [Express.js](https://expressjs.com/) backend, [PostgreSQL](https://www.postgresql.org/) is used to store notes in production, and a [SQLite3](https://www.sqlite.org/index.html) database in development.
 
-## Git Commits
+#### Frontend
 
-You are required to showcase progress with at least 4 commits a day. This will let your project manager know where you are and if you need help. This also allows the client to get progress reports from the company in a real world setting. This also protects you from losing your work if your computer fails.
+[![Netlify Status](https://api.netlify.com/api/v1/badges/773ad9f7-c5d1-4ac5-8c28-01e19711fa12/deploy-status)](https://app.netlify.com/sites/lambdanotesdev/deploys)
 
-## Trello Set Up
+[https://lambdanotes.app/](https://lambdanotes.app/)
 
-- Use your existing Trello account from the Front End Project, or create a new one.
-- Create a new board called "Lambda Notes(Backend) - {Your Name}".
-- Create lists titled `Backlog`,`To do`, `Blocked`, `In Progress`, and `Done`.
-- Fill in the `To do` list with the MVP features listed below.
-- Fill in the `backlog` list with all the extra features listed below.
-- Share your board with the project manager that has been assigned to you. If you have not been assigned yet, reach out to your Section Lead for guidance.
-- Add your Trello URL to your project's README.md file. Commit the change, push it to your repository & submit a pull request.
+- React
 
-## Backend MVP Features:
+  - Blazing fast rendering with the virtual DOM
+  - Robust developer tools for debugging
+  - Component based structure maximizes reusablity and makes codebase more maintainable
+  - Unidirectional data flow increases app performance and makes debugging easier
+  - API friendly library works seamlessly with and is extendable across numerous frameworks to leverage advanced UI development
 
-We recommend that you finish all the MVP features before trying to deploy.
+- Redux
 
-- Add data persistenc using a Relational Database. We suggest you start with `SQLite3`.
-- Create a Web API for the React application you built in the front-end project week.
-- Build endpoints for each of the following features:
-  - Display a list of notes.
-  - Create a note with a _title_ and _content_.
-  - View an existing note.
-  - Edit an existing note.
-  - Delete an existing note.
-  - Modify your front-end so that it uses your newly created Web API.
+  - State is always predictable and immutable.
+  - Redux is strict about organization, therefore easier to maintain.
+  - The of pure reducer functions makes logic easier to test.
+  - Centralized state makes it possible to implement things like logging changes in data or persisting data through page refreshes.
 
-Upon your first commit, please submit a Pull Request and add _both_ the **Trello Set Up** and **Backend MVP Features** Task lists to your first Pull Request comment.
+- Firebase Authentication
 
----
+  - Makes building secure authentication systems easy, while improving the sign-in and onboarding experience for end users.
+  - End-to-end identity solution that supports email and password accounts, phone auth, and Google, Twitter, Facebook, and GitHub login, and more.
+  - Provides a customizable, open source, drop-in auth solution that handles the UI flows for signing in users.
+  - Applies Google's internal expertise of managing one of the largest account databases in the world.
 
-**Once you have completed the "Minimum Viable Product" requirements, message your project manager for approval**. If approved, you may continue to deploy and work on the Extra Features. Please add the Extra Features you implement to the list you added to the comment on your first PR.
+- Styled Components
+  - Scopes styles to a component to avoid style leaks
+  - Linters will show unused components so they can be removed
+  - Source order independence eliminates the need to import files in a certain order
+  - Compose new styles from existing components
+  - Passing properties to the component allows for more flexibility
 
-## Deployment
+#### Backend
 
-After your PM certifies that all MVP features are complente, it's time to work on deploying it online for the world to see. We recommend you deploy your server to [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction), and your front end to [netlify](https://www.netlify.com/blog/2016/09/29/a-step-by-step-guide-deploying-on-netlify/). Both services provide free tiers and easy to use interfaces.
+[![Heroku](https://heroku-badge.herokuapp.com/?app=onedrousdev&style=flat)](https://onedrousdev.herokuapp.com)
 
-Additionally, it is recommended that you keep your front end and backend codebases in separate GitHub repositories. This helps with deploying, since the different parts of your application will be deployed on different platforms.
+[https://onedrousdev.herokuapp.com/](https://onedrousdev.herokuapp.com/)
 
-## Extra Features:
+- Node.js
 
-Once your MVP has been approved, you have been given a feature list that the client would love to have completed. Your goal would be to finish MVP as soon as you can and get working the list of extra features.
+  - Utilizes Google's V8 JS engine which is lightening fast, highly performant, and more scalable
+  - Event loop allows non-blocking I/O operations which enhances speed of code execution
+  - Integrates seamlessly with microservices architecture
+  - Fullstack JS allows JS developers to work on both client and server sides potentially increasing productivity and saving money for startups
 
-- Setup Auto-Deploy on Heroku
-- Provide documentation for how to interface with your api.
-- Add pagination for long lists of notes.
-- Create and display tags that can be added to notes and stored in the Database.
-- Allow users to clone notes.
-- Search functionality.
-- Create a Registration Page that allows users to create accounts for your app and sign in with email/password.
-- Allow users to sign in with a third party service (google, facebook, github, club penguin, etc...)
-- Allow users to create Lists and assign notes to a list.
-- Allow users to attach images to notes.
-- Allow multiple users to collaborate on notes.
-- Add Unit and Integration Tests.
+- Express
 
-## Super Duper Extra Credit Bonus Features
+  - Includes numerous routing features and separate handlers for HTTP methods
+  - Serves static files such as images and CSS / JS files
+  - Integrates seamlessly with many popular template engine and NPM module plugins
 
-- Add a payment form integrating with _Stripe_ that allows Users to buy a _"Premium"_ version of Lambda Notes.
-- Gate your favorite feature behind the _premium_ paywall
+## API
 
-You will notice that this repository does not have any starter code. This is on purpose. You are to start from scratch using any files you have built throughout your time here at Lambda School as reference.
+### API Endpoints
+
+| Method | Endpoint     | Request | Response                  |
+| ------ | ------------ | ------- | ------------------------- |
+| GET    | /notes       |         | Array of notes            |
+| GET    | /notes/:id   |         | Single note               |
+| POST   | /create      |         | Create note object        |
+| PUT    | /edit/:id    |         | Edit existing note object |
+| DELETE | /delete/:id/ |         | Delete an existing note   |
+
+## Security
+
+### Authentication & Authorization
+
+#### Firebase
+
+Firebase Authentication provides backend services, easy-to-use SDKs, and ready-made UI libraries to authenticate users to your app. It supports authentication using passwords, phone numbers, popular federated identity providers like Google, Facebook and Twitter, and more.
+
+Firebase Authentication integrates tightly with other Firebase services, and it leverages industry standards like OAuth 2.0 and OpenID Connect
