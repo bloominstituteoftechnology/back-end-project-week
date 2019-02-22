@@ -30,7 +30,7 @@ async function insert(note) {
     let tagsPromise = undefined;
 
     const notePromise = new Promise((resolve, reject) => {
-        const noteIds = db('notes').insert({title: note.title, content: note.title})
+        const noteIds = db('notes').insert({title: note.title, content: note.content})
         resolve(noteIds);
         reject(noteIds);
     });
@@ -44,6 +44,7 @@ async function insert(note) {
                 reject(tagsId);
             });
         })
+    
         return {noteId: await notePromise, tagsId: await tagsPromise};
     }
 

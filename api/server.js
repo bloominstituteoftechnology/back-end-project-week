@@ -43,7 +43,6 @@ server.post('/api/notes', async (req, res) => {
     if (note.title && note.content) {
         const ids = await db.insert(note);
         // We send back the ID of the newly created note.
-        console.log(ids);
         res.status(201).json({id: ids[0]});
     }
     else {
@@ -60,11 +59,9 @@ server.put('/api/notes/:id', async (req, res) => {
     if (note.title && note.content) {
         try {
             const updatedId = await db.editNote(id, note);
-            console.log(updatedId);
             res.status(200).json(updatedId);
         }
         catch(error) {
-            console.log(error);
             res.status(404).json({errorMessage: `No note found with id: ${id}.`});
         }
     }
