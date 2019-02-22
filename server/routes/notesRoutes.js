@@ -22,10 +22,12 @@ function protected(req, res, next) {
 }
 
 
-router.get('/', protected, async (req, res) => {
+router.get('/:id', protected, async (req, res) => {
+  console.log(req.params)
+  const {id} = req.params
+  console.log(id)
   try {
-    const userId = req.headers.userID
-    const allNotes = await notes.getAllNotes(userId)
+    const allNotes = await notes.getAllNotes(id)
     res.status(200).json(allNotes)  
   } catch (error) {
     res.status(500).json({failure: 'unable to get all the notes'})
