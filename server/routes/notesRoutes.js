@@ -22,7 +22,7 @@ function protected(req, res, next) {
 }
 
 
-router.get('/', protected, async (req, res) => {
+router.get('/notes/:id', protected, async (req, res) => {
   console.log(req.params)
   const {id} = req.params
   console.log(id)
@@ -34,7 +34,7 @@ router.get('/', protected, async (req, res) => {
   }
 })
 
-router.get('/note/:id', protected, async (req, res) => {
+router.get('notes/:id/note/:id', protected, async (req, res) => {
   const { id } = req.params;
   try {
     let note = await notes.getNoteByID(id)
@@ -45,7 +45,7 @@ router.get('/note/:id', protected, async (req, res) => {
   }
 })
 
-router.post('/note/create', protected, async (req, res) => {
+router.post('notes/:id/note/create', protected, async (req, res) => {
   const {title, content} = req.body
 
   if(title && content) {
@@ -60,7 +60,7 @@ router.post('/note/create', protected, async (req, res) => {
   }
 })
 
-router.put('/note/:id/edit', protected, async (req, res) => {
+router.put('notes/:id/note/:id/edit', protected, async (req, res) => {
   const { id } = req.params
   const { title, content } = req.body
 
@@ -76,7 +76,7 @@ router.put('/note/:id/edit', protected, async (req, res) => {
   }
 })
 
-router.delete('/note/:id/delete', protected, async (req, res) => {
+router.delete('notes/:id/note/:id/delete', protected, async (req, res) => {
   const { id } = req.params
 
   try {

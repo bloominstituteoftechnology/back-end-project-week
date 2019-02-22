@@ -11,7 +11,7 @@ const userRouter = require('./routes/userRoutes')
 
 
 
-server.use('/notes/:id', notesRouter)
+server.use('/', notesRouter)
 
 server.use('/users', userRouter)
 
