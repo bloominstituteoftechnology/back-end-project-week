@@ -9,7 +9,7 @@ exports.up = function(knex, Promise) {
         notes.string('textBody', 255).notNullable();
         notes.string('tags');
         notes.integer('_id').unsigned();
-        notes.string('image', 255);
+        notes.string('pictures', 255);
         notes.integer('users_id').unsigned();
         notes.foreign('users_id').references('id').on('users');
 
