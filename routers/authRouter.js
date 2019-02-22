@@ -9,23 +9,26 @@ router.post('/signup', (req, res) => {
   const hashedPass = bcrypt.hashSync(user.password, 12)
   user.password = hashedPass;
   var username = user.username
-  db.insertUser(user)
-    .then(ids => {
-      console.log(ids)
-      const id = ids[0];
-      db.findByID(id)
-        .then(user => {
-          const token = (newToken(user));
-          res.status(200).json({ id: user.id, username: username, token: token });
-        })
-        .catch(err => {
-          console.log("error", err);
-          res.status(500).json({ error: 'Something went wrong' })
-        })
-    })
-    .catch(err => {
-      res.status(500).send(err);
-    });
+  console.log('\n\n\n\n\n')
+  console.log({ db: db.insertUser(user) })
+  console.log('\n\n\n\n\n')
+  res.send({ user })
+  //   .then(ids => {
+  //     console.log(ids)
+  //     const id = ids[0];
+  //     db.findByID(id)
+  //       .then(user => {
+  //         const token = (newToken(user));
+  //         res.status(200).json({ id: user.id, username:username,token:token});
+  //       })
+  //       .catch(err => {
+  //         console.log("error", err);
+  //         res.status(500).json({ error: 'Something went wrong' })
+  //       })
+  //   })
+  //   .catch(err => {
+  //     res.status(500).send(err);
+  //   });
 });
 
 router.post('/login', (req, res) => {
