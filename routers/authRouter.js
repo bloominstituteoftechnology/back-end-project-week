@@ -16,16 +16,16 @@ router.post('/signup', (req, res) => {
       console.log('\n\n\n\n\n')
       res.send({ user })
     })
-    //   const id = ids[0];
-    //   db.findByID(id)
-    //     .then(user => {
-    //       const token = (newToken(user));
-    //       res.status(200).json({ id: user.id, username:username,token:token});
-    //     })
-    //     .catch(err => {
-    //       console.log("error", err);
-    //       res.status(500).json({ error: 'Something went wrong' })
-    //     })
+      const id = ids[0];
+      db.findByID(id)
+        .then(user => {
+          const token = (newToken(user));
+          res.status(200).json({ id: user.id, username:username,token:token});
+        })
+        .catch(err => {
+          console.log("error", err);
+          res.status(500).json({ error: 'Something went wrong' })
+        })
     .catch(err => {
       res.status(500).send(err);
     });
