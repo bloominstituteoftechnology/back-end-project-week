@@ -10,6 +10,7 @@ exports.up = function(knex, Promise) {
         notes.string('tags');
         notes.integer('_id').unsigned();
         notes.string('pictures', 255);
+        notes.string('pictureDataURLs', 255);
         notes.integer('users_id').unsigned();
         notes.foreign('users_id').references('id').on('users');
 
