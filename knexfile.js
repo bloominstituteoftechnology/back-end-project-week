@@ -44,9 +44,7 @@ module.exports = {
       directory: './data/migrations',
       tableName: 'dbmigrations'
     },
-    seeds: {
-      directory: + './data/seeds'
-    }
+    
   }
 
 };
