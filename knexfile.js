@@ -28,10 +28,6 @@ module.exports = {
     connection: {
       filename: './data/notes.sqlite3'
     },
-    pool: {
-      min: 2,
-      max: 10
-    },
     migrations: {
       tableName: 'knex_migrations',
       directory: './data/Migrations'
