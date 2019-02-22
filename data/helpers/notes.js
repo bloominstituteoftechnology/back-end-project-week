@@ -67,6 +67,7 @@ async function getTagsAndNotes(id) {
     .innerJoin("notesAndTags as nt", "n.id", "nt.note_id")
     .innerJoin("tags as t", "t.id", "nt.tag_id")
     .where("n.id", id)
+    .first()
     .limit(50);
 }
 
