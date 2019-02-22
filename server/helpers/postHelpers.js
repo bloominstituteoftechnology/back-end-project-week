@@ -3,7 +3,7 @@ const db = require('../dbConfig');
 module.exports = {
 
   getPostsByUserName: (username) => {
-    return db('posts').where('username', username)
+    return db.select().table('posts').where('username',username)
   },
 
   getPostByID: (id) => {
