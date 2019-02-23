@@ -7,7 +7,7 @@
 
 // const dbConnection = process.env.DATABASE_URL || localpostgres;
 
-require('dotenv').config('/.env');
+require('dotenv').config();
 
 module.exports = {
   development: {
