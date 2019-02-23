@@ -11,11 +11,5 @@ module.exports = {
        seeds: {
           directory: './data/seeds',
        },
-    },
-    production: {
-        client: 'sqlite3',
-        connection: {
-           filename: './data/notes.db',
-        }
     }
 }

@@ -10,7 +10,6 @@ const db = knex(dbConfig.development)
 const configRoutes = require('../Config/Routes')
 
 
-
 server.use(express.json(), helmet(), cors())
 configRoutes(server)
 
