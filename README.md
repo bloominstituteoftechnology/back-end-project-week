@@ -2,11 +2,13 @@
 
 https://trello.com/b/IeOy1pGI/back-end-project-week
 
-**_A blockchain enabled note taking platform_**
+## Netlify
 
-Lambda Notes utilizes [Blockstacks's](https://blockstack.org/) 
-innovative technology which allows developers to build dApps
-(decentralized apps) and users to access them throught the Blockstack browser. With Blockstack, the data generated in an app is owned by the user and privacy, security, and freedom are maintained. Blockstack provides key tools and infrastructure for enabling decentralized storage and decentralized authentication and identity. After logging in using Blockstack's identity verificatiion, the user's notes are stored in decentralized multi-player Gaia storage.
+https://5c717a8e9c6a81e5e411eeb8--eloquent-mayer-b3e420.netlify.com/
+
+## Heroku
+
+https://dashboard.heroku.com/apps/beplambdanotes
 
 ## Team
 
