@@ -22,7 +22,7 @@ const secret =
 //   return jwt.sign(payload, secret, options);
 // };
 
-router.post("/register", () => {
+router.post("/register", (req, res) => {
   const user = req.body;
 
   if (
