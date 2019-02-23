@@ -2,9 +2,11 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +18,20 @@
   "bugs": {
     "url": "https://github.com/belzy/back-end-project-week/issues"
   },
-  "homepage": "https://github.com/belzy/back-end-project-week#readme"
+  "homepage": "https://github.com/belzy/back-end-project-week#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "helmet": "^3.15.1",
+    "jsonwebtoken": "^8.5.0",
+    "knex": "^0.16.3",
+    "shortid": "^2.2.14",
+    "sqlite3": "^4.0.6"
+  },
+  "devDependencies": {
+    "chalk": "^2.4.2",
+    "nodemon": "^1.18.10"
+  }
 }
