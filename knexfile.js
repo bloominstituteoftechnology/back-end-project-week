@@ -1,4 +1,5 @@
 var pg = require('pg');
+const dbConnection = process.env.DATABASE_URL 
 
 module.exports = {
 
@@ -34,7 +35,7 @@ module.exports = {
 
   production: {
     client:'pg',
-    connection: 'postgres://hmizbiqjgkyucy:9829613e1f3841cd456033ac59fdc8a194e9952d9caf4b9d1291f72696f3be11@ec2-54-243-128-95.compute-1.amazonaws.com:5432/d4g1jqp77fl7sa',
+    connection:dbConnection, 
     pool: {
       min: 2,
       max: 10

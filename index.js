@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const pg = require('pg');
 const server = express();
 const cors = require('cors');
 const PORT = process.env.PORT
