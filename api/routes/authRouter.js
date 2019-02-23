@@ -62,7 +62,7 @@ router.post("/register", (req, res) => {
                 .first()
                 .then(response => {
                     const token = generateToken(response);
-                    res.status(201).json({ id: user.id, token });
+                    res.status(201).json(token);
                 })
                 .catch(err => {
                     res.status(500).json(err);
@@ -100,7 +100,7 @@ router.post("/login", (req, res) => {
             if (user && bcrypt.compareSync(credentials.password, user.password)) {
                 const token = generateToken(user);
 
-                res.status(200).json({ message: "Logged in!", token });
+                res.status(200).json(token);
             } else {
                 res.status(401).json({ message: "Incorrect Login Information!" });
             }
