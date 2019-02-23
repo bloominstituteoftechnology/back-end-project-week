@@ -24,7 +24,7 @@ const jwtKey =
 
 function generateToken(user) {
     const payload = {
-        usernanme: user.usernanme
+        username: user.usernanme
     };
 
     const options = {

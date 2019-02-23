@@ -23,7 +23,7 @@ const secret =
 // };
 
 router.post("/register", (req, res) => {
-  const user = req.body;
+  let user = req.body;
 
   if (
     !user.username ||
@@ -49,7 +49,7 @@ router.post("/register", (req, res) => {
     
 
     // Hash password using bcrypt
-    const hash = bcrypt.hashSync(user.password, 15);
+    const hash = bcrypt.hashSync(user.password, 10);
     user.password = hash;
 
     db("users")
