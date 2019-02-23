@@ -3,8 +3,10 @@ const server = express();
 const db = require('./data/dbHelpers');
 const cors = require('cors');
 
+
 server.use(express.json());
 server.use(cors());
+
 
 const PORT = 5050
 
@@ -77,9 +79,11 @@ server.put('/api/notes/:id', (req, res) => {
     if(note.title && note.note) {
         db.update(id, note)
             .then(updatedNote => {
+                console.log(updatedNote)
                 if(updatedNote) {
                     db.findById(id)
                         .then(note => {
+                            
                             res.json(note);
                         })
                 } else {
@@ -104,6 +108,7 @@ server.put('/api/notes/:id', (req, res) => {
 
 server.delete('/api/notes/:id', (req, res) => {
     const { id } = req.params;
+    console.log(id);
     db.remove(id)
         .then(count => {
             if(count) {

@@ -28,7 +28,7 @@ module.exports = {
 
     remove: (id) => {
         return db('notes')
-            .where('id', Number(id))
-            .truncate();
+            .where('id', id)
+            .del();
     }
 }
