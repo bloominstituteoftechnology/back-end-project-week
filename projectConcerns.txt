@@ -5,5 +5,7 @@ Back-end-Project Updates:
 [x] Debugging Edit Note text not displaying as placeholder text.
 [x] Debugging Create Note not adding note.
 [x] Debug issue when clicking on single note and then clicking on view note app crashes.
-[] Debug PUT, Edited note not updating with new content. 
-[] Work on delete note. 
+[x] Debug PUT, Edited note not updating with new content. 
+[x] Work on delete note.
+[] Debug issue with returning to ListView from any other view except.
+[] Debug Nav static when scrolling does not resize properly with different screen sizing.

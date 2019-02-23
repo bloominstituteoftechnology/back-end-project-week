@@ -28,7 +28,7 @@ server.post('/api/notes', (req, res) => {
 server.get('/api/note/:id', (req, res) => {
     const id = req.params.id;
     db.findById(id).then(response => {
-        res.status(201).json(response);
+        res.status(200).json(response);
     })
     .catch(err => {message: err})
 })
