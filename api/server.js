@@ -8,6 +8,8 @@ const server = express();
 
 server.use(express.json(), cors());
 
+//test change
+
 
 // Display a list of notes
 server.get('/note/get/all', async (req, res) => {
