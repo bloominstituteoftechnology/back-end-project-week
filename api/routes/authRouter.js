@@ -7,9 +7,9 @@ const { generateToken } = require("../../auth/authenticate");
 
 const router = express.Router();
 
-// const secret =
-//   process.env.JWT_SECRET ||
-//   "add a .env file to root of project with the JWT_SECRET variable";
+const secret =
+  process.env.JWT_SECRET ||
+  "add a .env file to root of project with the JWT_SECRET variable";
 
 // const generateToken = user => {
 //   const payload = {
@@ -49,7 +49,7 @@ router.post("/register", () => {
     
 
     // Hash password using bcrypt
-    const hash = bcrypt.hashSync(user.password, 14);
+    const hash = bcrypt.hashSync(user.password, 15);
     user.password = hash;
 
     db("users")
@@ -62,7 +62,7 @@ router.post("/register", () => {
                 .first()
                 .then(response => {
                     const token = generateToken(response);
-                    res.status(201).json({ user: user.username, id: user.id, token });
+                    res.status(201).json({ id: user.id, token });
                 })
                 .catch(err => {
                     res.status(500).json(err);
@@ -100,7 +100,7 @@ router.post("/login", (req, res) => {
             if (user && bcrypt.compareSync(credentials.password, user.password)) {
                 const token = generateToken(user);
 
-                res.status(200).json({ message: "Logged in!", user: user.username, id: user.id, token });
+                res.status(200).json({ message: "Logged in!", token });
             } else {
                 res.status(401).json({ message: "Incorrect Login Information!" });
             }
@@ -121,4 +121,4 @@ router.post("/logout", (req, res) => {
   });
 });
 
-// module.exports = router;
+module.exports = router;
