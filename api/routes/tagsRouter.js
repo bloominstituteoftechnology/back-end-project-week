@@ -4,7 +4,7 @@ const tags = require("../../notes/tagsModel");
 const express = require("express");
 const router = express.Router();
 
-const { authenticate } = require("../../auth/authenticate");
+// const { authenticate } = require("../../auth/authenticate");
 
 // const requestOptions = {
 //   headers: { accept: "application/json" }
