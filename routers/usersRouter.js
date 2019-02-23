@@ -136,7 +136,9 @@ router.post('/login', (req, res) => {
     });
   });
   //*************************************************************** */
-  
+  //233777818153977      api key
+ // 3ghgLXV6_MI7YGayNDI1kPtJHF0    secret
+// CLOUDINARY_URL=cloudinary://233777818153977:3ghgLXV6_MI7YGayNDI1kPtJHF0@i-no-software     env variable
 /************* Delete User *************/
 router.delete('/:id', (req, res) => {
     const { id } = req.params

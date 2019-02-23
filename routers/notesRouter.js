@@ -144,6 +144,28 @@ router.post('/', (req, res, next) => {
     }
 });
 
+
+/********* Create New Image Upload *************/
+router.post('/images', (req, res, next) => {
+    const picture = req.body;
+    console.log("picture:", picture)
+    if (picture) {
+        notes.insert(picture)
+            .then(picture => {
+                res.status(201)
+                    .json(picture)
+            })
+            .catch(err => {
+                res
+                    .status(500)
+                    .json({ message: "failed to insert note in db" })
+            });
+    } else {
+        res
+            .status(400)
+            .json({ message: "missing title." })
+    }
+});
 /************* Get Single Project's Actions *************/
 /* router.get('/actions/:id', (req, res) => {
     const { id } = req.params;
