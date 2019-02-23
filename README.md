@@ -12,27 +12,30 @@ You are required to showcase progress with at least 4 commits a day. This will l
 
 ## Trello Set Up
 
-- Use your existing Trello account from the Front End Project, or create a new one.
-- Create a new board called "Lambda Notes(Backend) - {Your Name}".
-- Create lists titled `Backlog`,`To do`, `Blocked`, `In Progress`, and `Done`.
-- Fill in the `To do` list with the MVP features listed below.
-- Fill in the `backlog` list with all the extra features listed below.
-- Share your board with the project manager that has been assigned to you. If you have not been assigned yet, reach out to your Section Lead for guidance.
-- Add your Trello URL to your project's README.md file. Commit the change, push it to your repository & submit a pull request.
+- [x] Use your existing Trello account from the Front End Project, or create a new one.
+- [x] Create a new board called "Lambda Notes(Backend) - {Your Name}".
+- [x] Create lists titled `Backlog`,`To do`, `Blocked`, `In Progress`, and `Done`.
+- [x] Fill in the `To do` list with the MVP features listed below.
+- [x] Fill in the `backlog` list with all the extra features listed below.
+- [x] Share your board with the project manager that has been assigned to you. If you have not been assigned yet, reach out to your Section Lead for guidance.
+- [x] Add your Trello URL to your project's README.md file. Commit the change, push it to your repository & submit a pull request.
+
+# TRELLO Link https://trello.com/b/asuOOvBa/lambda-notesbackend-alex-martin
+# FRONTEND GITHUB Link https://github.com/atonymartin20/front-end-project-week
 
 ## Backend MVP Features:
 
 We recommend that you finish all the MVP features before trying to deploy.
 
-- Add data persistenc using a Relational Database. We suggest you start with `SQLite3`.
-- Create a Web API for the React application you built in the front-end project week.
-- Build endpoints for each of the following features:
-  - Display a list of notes.
-  - Create a note with a _title_ and _content_.
-  - View an existing note.
-  - Edit an existing note.
-  - Delete an existing note.
-  - Modify your front-end so that it uses your newly created Web API.
+- [x] Add data persistenc using a Relational Database. We suggest you start with `SQLite3`.
+- [x] Create a Web API for the React application you built in the front-end project week.
+- [x] Build endpoints for each of the following features:
+  - [x] Display a list of notes.
+  - [x] Create a note with a _title_ and _content_.
+  - [x] View an existing note.
+  - [x] Edit an existing note.
+  - [x] Delete an existing note.
+  - [x] Modify your front-end so that it uses your newly created Web API.
 
 Upon your first commit, please submit a Pull Request and add _both_ the **Trello Set Up** and **Backend MVP Features** Task lists to your first Pull Request comment.
 
@@ -42,7 +45,7 @@ Upon your first commit, please submit a Pull Request and add _both_ the **Trello
 
 ## Deployment
 
-After your PM certifies that all MVP features are complente, it's time to work on deploying it online for the world to see. We recommend you deploy your server to [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction), and your front end to [netlify](https://www.netlify.com/blog/2016/09/29/a-step-by-step-guide-deploying-on-netlify/). Both services provide free tiers and easy to use interfaces.
+After your PM certifies that all MVP features are complete, it's time to work on deploying it online for the world to see. We recommend you deploy your server to [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction), and your front end to [netlify](https://www.netlify.com/blog/2016/09/29/a-step-by-step-guide-deploying-on-netlify/). Both services provide free tiers and easy to use interfaces.
 
 Additionally, it is recommended that you keep your front end and backend codebases in separate GitHub repositories. This helps with deploying, since the different parts of your application will be deployed on different platforms.
 
@@ -50,18 +53,18 @@ Additionally, it is recommended that you keep your front end and backend codebas
 
 Once your MVP has been approved, you have been given a feature list that the client would love to have completed. Your goal would be to finish MVP as soon as you can and get working the list of extra features.
 
-- Setup Auto-Deploy on Heroku
-- Provide documentation for how to interface with your api.
-- Add pagination for long lists of notes.
-- Create and display tags that can be added to notes and stored in the Database.
-- Allow users to clone notes.
-- Search functionality.
-- Create a Registration Page that allows users to create accounts for your app and sign in with email/password.
-- Allow users to sign in with a third party service (google, facebook, github, club penguin, etc...)
-- Allow users to create Lists and assign notes to a list.
-- Allow users to attach images to notes.
-- Allow multiple users to collaborate on notes.
-- Add Unit and Integration Tests.
+- [ ] Setup Auto-Deploy on Heroku
+- [ ] Provide documentation for how to interface with your api.
+- [ ] Add pagination for long lists of notes.
+- [ ] Create and display tags that can be added to notes and stored in the Database.
+- [ ] Allow users to clone notes.
+- [ ] Search functionality.
+- [x] Create a Registration Page that allows users to create accounts for your app and sign in with email/password.
+- [ ] Allow users to sign in with a third party service (google, facebook, github, club penguin, etc...)
+- [ ] Allow users to create Lists and assign notes to a list.
+- [ ] Allow users to attach images to notes.
+- [ ] Allow multiple users to collaborate on notes.
+- [x] Add Unit and Integration Tests.
 
 ## Super Duper Extra Credit Bonus Features
 
