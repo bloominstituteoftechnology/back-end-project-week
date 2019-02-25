@@ -15,9 +15,7 @@ module.exports = {
         }
         return db('notes')
     },
-
-   
-   
+ 
     insert: function (note) {
         return db('notes')
             .insert(note)
@@ -38,29 +36,4 @@ module.exports = {
     }
 
 };
-   /*  async function get(list) {
-        let notesPromise = undefined;
-        const listsPromise = new Promise((resolve, reject) => {   
-            const query = db('lists') 
-            console.log("query", query); 
-            resolve(query);    
-            reject(query);    
-        });
-         
-        if (lists.list) {   
-            listsPromise.then(success => {    
-                notesPromise = new Promise((resolve, reject) => {     
-                    const listsId = success[0];    
-                    console.log("listsId", listsId);
-                    const noteId = db('notes').get;    
-                    resolve(noteId);   
-                    reject(noteId);    
-                });     
-            })     
-            return {noteId: await notePromise, listsId: await listsPromise};    
-        }          
-        else {    
-            return await listsPromise    
-        }    
-     } */
-
+  
