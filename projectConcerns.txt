@@ -1,0 +1,11 @@
+Back-end-Project Updates:
+[x] Debugged issue Front End Project not utilizing Actions Properly.
+[x] Debugged Front End All notes not appearing with in List View.
+[x] Debugged issue with single note displaying in Note View.
+[x] Debugging Edit Note text not displaying as placeholder text.
+[x] Debugging Create Note not adding note.
+[x] Debug issue when clicking on single note and then clicking on view note app crashes.
+[x] Debug PUT, Edited note not updating with new content. 
+[x] Debug  delete note.
+[] Debug issue with returning to ListView from any other view except.
+[x] Debug Nav static when scrolling does not resize properly with different screen sizing.
