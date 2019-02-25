@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node-dev index.js"
+    "start": "node",
+    "server": "node-dev index.js"
   },
   "repository": "https://github.com/LorenzoEvans/back-end-project-week.git",
   "author": "Lorenzo Evans <lorenzo.evans94@gmail.com>",
