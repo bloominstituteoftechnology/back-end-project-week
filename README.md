@@ -2,6 +2,17 @@
 
 https://trello.com/b/b8qHU2sU/lambda-notesbackend-william-yturralde
 
+# Heroku Server:
+
+https://frontend-william.herokuapp.com/
+
+# Netlify Front End:
+
+https://admiring-varahamihira-b3efb4.netlify.com/
+
+
+
+
 # API Documentation:
 Lambda api notes
 this is a student api project written for Lambda School by **William Yturralde, WebPt2**
@@ -41,7 +52,8 @@ The return is an array of user Notes objects. Each Note contains:
     textBody: string
     tags: string
     _id: legacy id numeric
-    image: string
+    pictures: string
+    pictureDataURLs: string
     user_id: numeric foreign key
 
 **Responses:**
@@ -224,11 +236,14 @@ This API call produces the following media types according to the Accept request
 
 # User API:
 
-    get         GET         /api/users          used to retrieve all users
-    get         GET         /api/users/{id}     used to retrieve a single user
-    delete      DELETE      /api/users/{id}     used to delete a single user
-    create      POST        /api/users          used to create a new user
-    put         UPDATE      /api/users/{id}     used to update an existing user
+    get         GET         /api/users              used to retrieve all users
+    get         GET         /api/users/{id}         used to retrieve a single user
+    delete      DELETE      /api/users/{id}         used to delete a single user
+    create      POST        /api/users              used to create a new user
+    register    POST        /api/users/register     used to register a new user
+    login       POST        /api/users/login        used to login a registered user
+    logout      POST        /api/users/logout       used to logout
+    put         UPDATE      /api/users/{id}         used to update an existing user
 
 
 ## get /api/users
@@ -322,12 +337,61 @@ This API call produces the following media types according to the Accept request
 
 201
 
+## post /api/users/register
+
+**Return type:**
+
+String, JWT Token
+
+**Produces:**
+
+This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
+
+    application/json; charset=utf-8
+
+The return is a single List object.
+
+**Responses:**
+
+201
 
 
+## post /api/users/login
+
+**Return type:**
+
+String, JWT Token
+
+**Produces:**
+
+This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
+
+    application/json; charset=utf-8
+
+The return is a single List object.
+
+**Responses:**
+
+201
+
+## post /api/users/logout
 
 
+**Return type:**
 
+String
 
+**Produces:**
+
+This API call produces the following media types according to the Accept request header; the media type will be conveyed by the Content-Type response header.
+
+    application/json; charset=utf-8
+
+The return is a single List object.
+
+**Responses:**
+
+201
 
 
 
