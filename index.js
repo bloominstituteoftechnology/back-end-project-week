@@ -57,4 +57,4 @@ server.put('/api/note/edit/:id', (req, res) => {
 
 server.listen(port, () => {
     console.log(`Server listening on ${port}`);
-})
+}) 
