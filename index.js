@@ -2,7 +2,7 @@ const express = require('express')
 const helmet = require('helmet')
 const logger = require('morgan')
 const cors = require('cors')
-const port = process.env.port || 3945
+const port = process.env.PORT || 3945
 
 const login_route = require('./DB/Routes/login-route')
 const logout_route = require('./DB/Routes/logout-route') 
