@@ -39,7 +39,7 @@ class NewNote extends React.Component {
                         <h4 className='notes-title'>Create New Note:</h4>
                         <input className='note-title-input' name='NoteTitle' placeholder='Note Title' onChange={this.handleInputChange}></input>
                         <textarea className='note-content-input' name='NoteContent' placeholder='Note Content' onChange={this.handleInputChange}></textarea>
-                        <button>Save</button>
+                        <button onClick={this.addNoteHandler}>Save</button>
                     </form>
                 </div>
             </div>

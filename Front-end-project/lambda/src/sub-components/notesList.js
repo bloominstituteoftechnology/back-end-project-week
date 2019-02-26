@@ -8,6 +8,8 @@ class NotesList extends React.Component {
             search: '',
         }
     }
+
+
     updateSearch = e => {
         this.setState({search: e.target.value}) 
     }
@@ -53,18 +55,11 @@ class NotesList extends React.Component {
     //     // console.log('drop complete!');
     // }
     render() {
-        let filteredNotes = this.props.notesList.filter((eachContact) => {
-            return (
-                eachContact.title.toLowerCase().indexOf(this.state.search) !== -1
-            )
-        });
-        //potentially delete blank notes here
-        //let moreFilteredNotes = filteredNotes.filter((eachFilteredNote) => {
-            //return (
-                //eachFilteredNote.title && eachFilteredNote.textBody !== ''
-            //)
-        //})
-        //change the .map(eachNote) if needed..
+        // let filteredNotes = this.props.notesList.filter((eachContact) => {
+        //     return (
+        //         eachContact.title.toLowerCase().indexOf(this.state.search) !== -1
+        //     )
+        // });
         return (
             <div className='list-view'>
                 <div className='notes-sidebar'>
@@ -75,12 +70,12 @@ class NotesList extends React.Component {
                 <div className='notes-section' onDragOver={this.onDragOver} onDrop={this.onDrop} >
                     <h3 className='notes-title'>Your Notes:</h3>
                     <input className='notes-search' placeholder='Search' onChange={this.updateSearch}></input>
-                    {filteredNotes.map((eachNote) => {
+                    {this.props.notesList.map((eachNote) => {
                         return (
-                            <NavLink to={`/note/${eachNote._id}`} key={eachNote._id} id={eachNote._id} className='navlink' exact activeClassName='navlink-selected' onDragStart={(e) => this.onDragStart(e, eachNote._id, eachNote.title, eachNote.textBody, eachNote)} onDrop={(e) => this.onDrop(e, eachNote._id)} draggable >
+                            <NavLink to={`note/${eachNote.id}`} key={eachNote.id} id={eachNote.id} className='navlink' exact activeClassName='navlink-selected' onDragStart={(e) => this.onDragStart(e, eachNote._id, eachNote.title, eachNote.textBody, eachNote)} onDrop={(e) => this.onDrop(e, eachNote._id)} draggable >
                                     <div className='each-note' onClick={this.props.pageReload} draggable='false' >
-                                        <h4 className='each-note-title'>{eachNote.title}</h4>
-                                        <p>{eachNote.textBody}</p>
+                                        <h4 className='each-note-title'>{eachNote.noteTitle}</h4>
+                                        <p>{eachNote.noteBody}</p>
                                     </div>
                             </NavLink>
                         )

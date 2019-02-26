@@ -12,7 +12,7 @@ export const loadNotesAction = () => {
     return dispatch => {
         dispatch({ type: LOADING_NOTES });
         axios
-            .get('https://fe-notes.herokuapp.com/note/get/all')
+            .get('http://localhost:5656/api/notes')
             .then(response => {
                 console.log(response);
                 dispatch({
@@ -33,10 +33,9 @@ export const addNoteAction = (titleValue, textValue) => {
     return dispatch => {
         dispatch({ type: ADDING_NOTES });
         axios
-            .post('https://fe-notes.herokuapp.com/note/create', {
-                tags: [],
-                textBody: textValue,
-                title: titleValue,
+            .post('http://localhost:5656/api/notes', {
+                noteBody: textValue,
+                noteTitle: titleValue,
             })
             .then(response => {
                 console.log(response);
