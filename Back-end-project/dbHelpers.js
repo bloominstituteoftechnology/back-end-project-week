@@ -12,7 +12,7 @@ module.exports = {
     },
 
     view: (specificNote) => {
-        return db('Notes').where('Notes-Title', specificNote)
+        return db('Notes').where('note-title', specificNote)
     },
 
     edit: (specificNote) => {

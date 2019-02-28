@@ -57,10 +57,9 @@ export const updateNoteAction = (titleValue, textValue, idValue) => {
     return dispatch => {
         dispatch({ type: UPDATING_NOTES });
         axios
-            .put(`https://fe-notes.herokuapp.com/note/edit/${idValue}`, {
-                tags: [],
-                textBody: textValue,
-                title: titleValue,
+            .put(`http://localhost:5656/api/notes/${idValue}`, {
+                noteBody: textValue,
+                noteTitle: titleValue,
             })
             .then(response => {
                 console.log(response);
@@ -82,7 +81,7 @@ export const deleteNoteAction = (idValue) => {
     return dispatch => {
         dispatch({ type: DELETING_NOTES });
         axios
-            .delete(`https://fe-notes.herokuapp.com/note/delete/${idValue}`)
+            .delete(`http://localhost:5656/api/notes/${idValue}`)
             .then(response => {
                 console.log(response);
                 dispatch({

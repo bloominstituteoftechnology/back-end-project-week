@@ -18,11 +18,11 @@ class UpdateNote extends React.Component {
     }
     componentDidMount() {
         axios
-            .get(`https://fe-notes.herokuapp.com/note/get/${this.props.match.params.id}`)
+            .get(`http://localhost:5656/api/notes/${this.props.match.params.id}`)
             .then(response => {
                 console.log(response);
                 this.setState({
-                    note: response.data,
+                    note: response.data[0],
                 })
             })
             .catch(error => {

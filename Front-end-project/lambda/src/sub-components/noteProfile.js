@@ -18,11 +18,11 @@ class NoteProfile extends React.Component {
 
     componentDidMount() {
         axios
-            .get(`https://fe-notes.herokuapp.com/note/get/${this.props.match.params.id}`)
+            .get(`http://localhost:5656/api/notes/${this.props.match.params.id}`)
             .then(response => {
-                console.log(response);
+                console.log(response.data[0]);
                 this.setState({
-                    note: response.data,
+                    note: response.data[0],
                 })
             })
             .catch(error => {
@@ -103,8 +103,8 @@ class NoteProfile extends React.Component {
                                 <span onClick={this.openDeleteModal}><u>delete</u></span>
                             </div>
                         </div>
-                        <h4 className='specific-note-title'>{this.state.note.title}</h4>
-                        <p className='specific-note-textbody'>{this.state.note.textBody}</p>
+                        <h4 className='specific-note-title'>{this.state.note.noteTitle}</h4>
+                        <p className='specific-note-textbody'>{this.state.note.noteBody}</p>
                     </div>
                 </div>
        
