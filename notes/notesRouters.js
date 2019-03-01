@@ -1,8 +1,8 @@
-const express = require("express");
-const notesDb = require("./notesDataModel");
+const express = require('express');
+const notesDb = require('./notesDataModel');
 const router = express.Router();
 
-router.get("/", (req, res) => {
+router.get('/', (req, res) => {
   notesDb
     .findAll()
     .then(notes => {
@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
           let tagsArr = note.tags;
 
           console.log(tagsArr);
-          note.tags = tagsArr.split(",");
+          note.tags = tagsArr.split(',');
         }
       });
       res.status(200).json(notes);
@@ -23,7 +23,7 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/:id", (req, res) => {
+router.get('/:id', (req, res) => {
   const { id } = req.params;
   console.log(id);
   notesDb
@@ -33,7 +33,7 @@ router.get("/:id", (req, res) => {
         note.tags = [];
       } else {
         let tagsArr = note.tags;
-        note.tags = tagsArr.split(",");
+        note.tags = tagsArr.split(',');
       }
 
       console.log(note);
@@ -44,10 +44,11 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.post("/", (req, res) => {
+router.post('/', (req, res) => {
   const { title, textBody, tags } = req.body;
+  const checkTags = tags ? tags : null;
   notesDb
-    .addNotes({ title, textBody, tags })
+    .addNotes({ title, textBody, checkTags })
     .then(() => {
       notesDb
         .findAll()
@@ -59,7 +60,7 @@ router.post("/", (req, res) => {
               let tagsArr = note.tags;
 
               console.log(tagsArr);
-              note.tags = tagsArr.split(",");
+              note.tags = tagsArr.split(',');
             }
           });
           res.json(notes);
@@ -69,8 +70,8 @@ router.post("/", (req, res) => {
     .catch(err => res.json(err));
 });
 
-router.put("/:id", (req, res) => {
-  const { title, textBody,tags } = req.body;
+router.put('/:id', (req, res) => {
+  const { title, textBody, tags } = req.body;
   const { id } = req.params;
   notesDb.editNote(id, { title, textBody, tags }).then(() => {
     notesDb.findAll().then(notes => {
@@ -81,7 +82,7 @@ router.put("/:id", (req, res) => {
           let tagsArr = note.tags;
 
           console.log(tagsArr);
-          note.tags = tagsArr.split(",");
+          note.tags = tagsArr.split(',');
         }
       });
       res.json(notes);
@@ -89,7 +90,7 @@ router.put("/:id", (req, res) => {
   });
 });
 
-router.delete("/:id", (req, res) => {
+router.delete('/:id', (req, res) => {
   const { id } = req.params;
   notesDb.deleteNote(id).then(() => {
     notesDb.findAll().then(notes => {
@@ -100,7 +101,7 @@ router.delete("/:id", (req, res) => {
           let tagsArr = note.tags;
 
           console.log(tagsArr);
-          note.tags = tagsArr.split(",");
+          note.tags = tagsArr.split(',');
         }
       });
       res.json(notes);
