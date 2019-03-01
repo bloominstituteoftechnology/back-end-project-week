@@ -38,7 +38,7 @@ router
             next(err);
         }
     })
-    router
+router
     .route('/:id')
     .put(async (req, res, next) => {
         const {
