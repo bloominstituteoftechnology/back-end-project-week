@@ -64,6 +64,8 @@ module.exports = {
     },
     seeds: {
       directory: './notes/data/seeds'
-    }
+    },
+    ,
+    useNullasDefault: true
   }
 };
