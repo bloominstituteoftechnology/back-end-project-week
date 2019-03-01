@@ -38,6 +38,8 @@ router
             next(err);
         }
     })
+    router
+    .route('/:id')
     .put(async (req, res, next) => {
         const {
             id
@@ -47,7 +49,7 @@ router
             const count = await helper.updateNote(id, note);
             count > 0 ?
                 res.status(200).json({
-                    title, content
+                   note
                 }) :
                 next({
                     statusCode: 404
