@@ -47,7 +47,7 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   const { title, textBody, tags } = req.body;
   notesDb
-    .addNotes({ title, textBody, tags })
+    .addNotes({ title, textBody })
     .then(() => {
       notesDb
         .findAll()
