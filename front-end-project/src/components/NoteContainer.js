@@ -26,7 +26,7 @@ class NoteContainer extends Component {
   createNewNote = note => {
     //note.id = this.state.notes.length + 1;
     console.log(note)
-    axios.post('http://localhost:9000/api/notes', note).then(notes => {
+    axios.post('https://lamdanotesezra.herokuapp.com/api/notes', note).then(notes => {
       console.log(notes.data);
       this.setState({
         notes: notes.data,
@@ -36,7 +36,7 @@ class NoteContainer extends Component {
   };
   updateNote = newNote => {
     console.log(newNote)
-    axios.put(`http://localhost:9000/api/notes/${newNote._id}`, newNote).then(notes => {
+    axios.put(`https://lamdanotesezra.herokuapp.com/api/notes/${newNote._id}`, newNote).then(notes => {
       this.setState({
         notes: notes.data,
         backupNotes: notes.data
@@ -44,7 +44,7 @@ class NoteContainer extends Component {
     })    
   };
   deleteNote = id => {
-    axios.delete(`http://localhost:9000/api/notes/${id}`).then(notes => {
+    axios.delete(`https://lamdanotesezra.herokuapp.com/api/notes/${id}`).then(notes => {
       this.setState({
         notes: notes.data,
         backupNotes: notes.data
@@ -180,7 +180,7 @@ class NoteContainer extends Component {
       backupNotes: backupNotes
     });
     axios
-      .get("http://localhost:9000/api/notes")
+      .get("https://lamdanotesezra.herokuapp.com/api/notes")
       .then(res => {
         console.log(res);
         this.setState({
