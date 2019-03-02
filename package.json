@@ -11,6 +11,9 @@
   "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": "10.4.1"
+  },
   "devDependencies": {
     "nodemon": "1.18.4"
   },

@@ -35,11 +35,7 @@ server.post("/notes", (req, res) => {
     const note = req.body; 
     const {title} = req.body; 
     const {content} = req.body; 
-<<<<<<< HEAD
-    if(!title && !content){
-=======
     if(!title & !content){
->>>>>>> 4de05bd1d0bba44b89d5e9a14ad88062f9082f9b
         res
             .status(400)
             .json({errorMessage: "note needs a title and content"});
@@ -58,7 +54,7 @@ server.delete('/notes/:id', (req, res) => {
     .where({id})
     .del()
     .then(count => {
-        res.status(200).json(count); 
+        res.status(200).json(count);
     })
     .catch(err => {
         res.status(500).json(err);
