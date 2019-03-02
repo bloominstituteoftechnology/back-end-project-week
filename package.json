@@ -14,9 +14,6 @@
   "engines": {
     "node": "10.4.1"
   },
-  "devDependencies": {
-    "nodemon": "1.18.4"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1", 
     "start": "nodemon index.js"
