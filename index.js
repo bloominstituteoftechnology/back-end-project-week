@@ -35,7 +35,11 @@ server.post("/notes", (req, res) => {
     const note = req.body; 
     const {title} = req.body; 
     const {content} = req.body; 
+<<<<<<< HEAD
     if(!title && !content){
+=======
+    if(!title & !content){
+>>>>>>> 4de05bd1d0bba44b89d5e9a14ad88062f9082f9b
         res
             .status(400)
             .json({errorMessage: "note needs a title and content"});
