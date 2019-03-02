@@ -77,6 +77,6 @@ server.put("/notes/:id", (req, res) => {
 });
 
 const port = 3001; 
-server.listen(port, function(){
+server.listen(process.env.PORT||port, function(){
     console.log("\n=== WEB API LISTENING 3001 ===\n")
 })
