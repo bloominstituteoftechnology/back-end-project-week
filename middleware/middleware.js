@@ -24,6 +24,8 @@ module.exports = (server) =>{
         morgan('dev'),
        
     );
+   
+    server.use('/note', RouterForNoteApp);
     server.use(function(req, res, next){
       res.status(404);
     
@@ -43,7 +45,6 @@ module.exports = (server) =>{
       res.type('txt').send('Not found');
     });
     server.set('etag', false) ;
-    server.use('/note', RouterForNoteApp)
     
     
 }
