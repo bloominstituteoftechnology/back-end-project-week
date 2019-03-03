@@ -1,9 +1,15 @@
-// **CONNECTION TO OUR DB***
+// **CONNECTION TO OUR DB (production)***
+const dbEngine = process.env.DB || 'development';
+// add DB to point to production on heroku
+const config = require('../knexfile.js')[dbEngine];
+const db= require('knex')(config);
+
+/*// **CONNECTION TO OUR DB development***
 const knex = require('knex');
 const knexConfing = require('../knexfile.js');
 const db = knex(knexConfing.development);
 const tbl = 'NoteTable';
-
+*/
 
 // GET ALL NOTES HANDLER
 
