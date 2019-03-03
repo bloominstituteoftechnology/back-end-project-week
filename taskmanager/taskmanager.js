@@ -1,8 +1,11 @@
 // **CONNECTION TO OUR DB (production)***
+const knex = require('knex');
 const dbEngine = process.env.DB || 'development';
 // add DB to point to production on heroku
 const config = require('../knexfile.js')[dbEngine];
-const db= require('knex')(config);
+//const db= require('knex')(config);
+const tbl = 'NoteTable';
+const db= knex(config);
 
 /*// **CONNECTION TO OUR DB development***
 const knex = require('knex');
