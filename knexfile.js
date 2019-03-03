@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+// for local postgress db config
 const localPg = {
   host:'localhost',
   database :'db',
@@ -25,7 +26,7 @@ module.exports = {
 },
 production: {
   client: 'pg',
-  connection:  dbconnection,
+  connection:  dbConnection,
   pool:{
     min:2,
     max:10,
