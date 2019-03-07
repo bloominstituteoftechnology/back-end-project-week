@@ -9,7 +9,7 @@ const dbConfig = require("./knexfile");
 const db = knex(dbConfig.development);
 app.use(express.json());
 app.use(helmet());
-app.use(cors());
+app.use(cors({ origin: process.env.CORSORIGIN }));
     
 app.use(express.json());
 app.use(bodyParser.json());
