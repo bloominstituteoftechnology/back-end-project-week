@@ -25,6 +25,7 @@ module.exports = {
   },
   production: {
     client: "pg",
+    debug: true,
     connection: {
       database: "dcpi14lbs8cu46",
       user: "fnnrnqxshkodxc",
