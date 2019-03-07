@@ -54,7 +54,7 @@ app.post("/", function(req, res, next) {
 });
 const port=process.env.PORT || 5500;
 app.listen(port, ()=>{
-  console.log("App is running" + port);
+  console.log("App is running", port)
 });
 
 module.exports = app;
