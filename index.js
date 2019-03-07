@@ -18,7 +18,7 @@ const corsOptions = {
   credentials: true,
   origin: "https://csillagnotes.netlify.com"
 };
-server.use(cors(corsOptions)); 
+app.use(cors(corsOptions)); 
 
 if (process.env.ENV === "production") app.use(morgan("combined"));
 else app.use(morgan("dev"));
