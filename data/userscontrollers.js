@@ -1,12 +1,12 @@
-const db = require('../dbConfig/db');
+const db = require("../dbConfig/db");
 
 module.exports = {
   registerNewUser,
-  logInUser,
+  logInUser
 };
 function registerNewUser(newUser) {
-  return db('users').returning('id').insert(newUser);
+  return db("users").returning("id").insert(newUser);
 }
 function logInUser(loggedIn) {
-  return db('users').where({ username: loggedIn.username });
+  return db("users").where({ username: loggedIn.username });
 }

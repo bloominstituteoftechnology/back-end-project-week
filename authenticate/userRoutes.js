@@ -1,26 +1,27 @@
-const bCrypt = require('bcryptjs');
-const axios = require('axios');
-const usersControllers = require('../data/userscontrollers');
+const bCrypt = require("bcryptjs");
+const axios = require("axios");
+const usersControllers = require("../data/userscontrollers");
 const {
   authenticate,
   secret,
   jwt,
-  validateNewUserCred,
-} = require('./middleware.js');
+  validateNewUserCred
+} = require("./middleware.js");
 
-module.exports = (server) => {
-  server.post('/api/register', validateNewUserCred, register);
-  server.post('/api/login', login);
-  server.get('/api/notes', authenticate, getNotes);
+module.exports = server => {
+  server.post("/api/register", validateNewUserCred, register);
+  server.post("/api/login", login);
+  server.get("/api/notes", authenticate, getNotes);
 };
-generateToken = (user) => {
+generateToken = user => {
   const payload = {
-    username: user.username,
+    username: user.username
   };
   const options = {
-    expiresIn: '24h',
-    subject: user.id.toString(),
+    expiresIn: "24h",
+    subject: user.id.toString()
   };
+
   return jwt.sign(payload, secret, options);
 };
 
@@ -31,23 +32,23 @@ function register(req, res) {
   newUser.username = newUser.username.toLowerCase();
   usersControllers
     .registerNewUser(newUser)
-    .then((id) => {
+    .then(id => {
       const userId = id[0];
       const token = generateToken({ username: newUser.username, id: userId });
-      const responseObj = {
+      let responseObj = {
         token: token,
-        user_id: userId,
+        user_id: userId
       };
       res.status(201).json(responseObj);
     })
-    .catch((err) => res.status(500).json(err));
+    .catch(err => res.status(409).json(err));
 }
 function login(req, res) {
   const loggedIn = req.body;
   loggedIn.username = loggedIn.username.toLowerCase();
   usersControllers
     .logInUser(loggedIn)
-    .then((user) => {
+    .then(user => {
       const currentUser = user[0];
       if (
         loggedIn &&
@@ -56,22 +57,22 @@ function login(req, res) {
         const token = generateToken(currentUser);
         const responseObj = {
           token: token,
-          user_id: currentUser.id,
+          user_id: currentUser.id
         };
         res.status(200).json(responseObj);
       } else {
-        res.status(401).json({ message: 'Invalid Credentials' });
+        res.status(400).json({ message: "Invalid Credentials" });
       }
     })
-    .catch((err) => res.status(500).json(err));
+    .catch(err => res.status(500).json(err));
 }
 function getNotes(req, res) {
   axios
     .get(`https://notes-lambda.herokuapp.com/note/get/all/${req.headers.id}`)
-    .then((response) => {
+    .then(response => {
       res.status(200).json(response.data);
     })
-    .catch((err) =>
-      res.status(500).json({ message: 'Error fetching notes.', error: err })
+    .catch(err =>
+      res.status(401).json({ message: "Error fetching notes.", error: err })
     );
 }
