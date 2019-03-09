@@ -87,11 +87,11 @@ router.put('/:id', protected, async (req, res) => {
             const currentNote = await notesDb.getNote(noteId);
             if (currentNote.length) {
                 const finalized = Object.assign({}, currentNote[0], validUpdates);
-                if(!isEquivalent(currentNote[0], finalized)) {
+                if (!isEquivalent(currentNote[0], finalized)) {
                     finalized.updated_at = knex.fn.now();
 
                     const recordsUpdated = await notesDb.updateNote(noteId, finalized);
-                    if(recordsUpdated) {
+                    if (recordsUpdated) {
                         res.status(200).json({ code: 6, message: 'Successfully updated note' });
                     }
                 } else {
@@ -103,8 +103,8 @@ router.put('/:id', protected, async (req, res) => {
         } else {
             res.status(400).json({ code: 5, message: 'Request formatted incorrectly' });
         }
-    } catch(error) {
-        res.status(500).json({ code: 3, message: 'Error updating note'});
+    } catch (error) {
+        res.status(500).json({ code: 3, message: 'Error updating note' });
     }
 });
 

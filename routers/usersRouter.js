@@ -41,7 +41,7 @@ router.post('/availableUsername', async (req, res) => {
     try {
         const result = await usersDb.availableUsername(username);
         res.status(200).send(result);
-    } catch(err) {
+    } catch (err) {
         res.status(500).json({ code: 3, message: 'Error registering user' });
     }
 });
@@ -77,9 +77,9 @@ router.get('/:id', (req, res) => {
         })
 });
 
-// [GET] /api/users/:id/notes
-router.get('/:id/notes', protected, userIdVerify, async (req, res) => {
-    const user_id = req.params.id;
+// [GET] /api/users/:token/notes
+router.get('/:token/notes', protected, userIdVerify, async (req, res) => {
+    const user_id = req.id;
     try {
         const notes = await notesDb.getNotes(user_id);
 
@@ -111,7 +111,7 @@ router.post('/register', (req, res) => {
                     if (err.code === "23505") {
                         res.status(409).json({ code: 10, message: 'Username already exists' });
                     } else {
-                        res.status(500).json({ code: 3, message: 'Error registering new user'});
+                        res.status(500).json({ code: 3, message: 'Error registering new user' });
                     }
                 })
         } else {
