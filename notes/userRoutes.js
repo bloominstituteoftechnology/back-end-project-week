@@ -2,6 +2,7 @@ const notesControllers = require("../data/notescontrollers");
 const express = require("express");
 const router = express.Router();
 const { authenticate } = require("../authenticate/middleware");
+router.use(authenticate);
 
 router.get("/get/all/:user_id", (req, res) => {
   const id = req.params.user_id;
@@ -10,7 +11,7 @@ router.get("/get/all/:user_id", (req, res) => {
     .then(notes => res.status(200).json(notes))
     .catch(err => res.status(500).json(err));
 });
-router.get("/get/:id", authenticate, (req, res) => {
+router.get("/get/:id", (req, res) => {
   const id = req.params.id;
   notesControllers
     .getNoteByNoteId(id)
@@ -24,7 +25,7 @@ router.get("/get/:id", authenticate, (req, res) => {
     )
     .catch(err => res.status(500).json(err));
 });
-router.post("/create", authenticate, (req, res) => {
+router.post("/create", (req, res) => {
   const newNote = req.body;
   if (newNote.title && newNote.textBody) {
     notesControllers
@@ -35,7 +36,7 @@ router.post("/create", authenticate, (req, res) => {
     res.status(400).json({ err: "Missing field(s)" });
   }
 });
-router.delete("/delete/:id", authenticate, (req, res) => {
+router.delete("/delete/:id", (req, res) => {
   const id = req.params.id;
   notesControllers
     .deleteNoteByNoteId(id)
@@ -47,7 +48,7 @@ router.delete("/delete/:id", authenticate, (req, res) => {
     )
     .catch(err => res.status(500).json(err));
 });
-router.put("/edit/:id", authenticate, (req, res) => {
+router.put("/edit/:id", (req, res) => {
   const id = req.params.id;
   const updatedNote = req.body;
   if (updatedNote.title && updatedNote.textBody) {

@@ -1,17 +1,10 @@
 const bCrypt = require("bcryptjs");
-const axios = require("axios");
 const usersControllers = require("../data/userscontrollers");
-const {
-  authenticate,
-  secret,
-  jwt,
-  validateNewUserCred
-} = require("./middleware.js");
+const { secret, jwt, validateNewUserCred } = require("./middleware.js");
 
 module.exports = server => {
   server.post("/api/register", validateNewUserCred, register);
   server.post("/api/login", login);
-  server.get("/api/notes", authenticate, getNotes);
 };
 generateToken = user => {
   const payload = {
@@ -65,14 +58,4 @@ function login(req, res) {
       }
     })
     .catch(err => res.status(500).json(err));
-}
-function getNotes(req, res) {
-  axios
-    .get(`https://notes-lambda.herokuapp.com/note/get/all/${req.headers.id}`)
-    .then(response => {
-      res.status(200).json(response.data);
-    })
-    .catch(err =>
-      res.status(401).json({ message: "Error fetching notes.", error: err })
-    );
 }
