@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 const { authenticate } = require("../authenticate/middleware");
 
-router.get("/get/all/:user_id", authenticate, (req, res) => {
+router.get("/get/all/:user_id", (req, res) => {
   const id = req.params.user_id;
   notesControllers
     .getAllNotesByUserId(id)
