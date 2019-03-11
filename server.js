@@ -155,4 +155,5 @@ server.post('/note/register',(req, res) =>{
 })
 
 
-module.exports = server;
+module.exports = {
+server,};
