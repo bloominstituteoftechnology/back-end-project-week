@@ -10,6 +10,8 @@ const server = express();
 server.use(express.json());
 server.use(cors());
 
+const port = process.env.PORT || 9000;
+
 function authenticate(req, res, next) {
     const token = req.get('Authorization');
     console.log(token)
@@ -42,7 +44,7 @@ function generateToken(user) {
 
 // /Endpoint
 server.get('/', (req,res) => {
-    res.status(200).json({Server : "Running"})
+    res.send(`running on port : ${port}`);
 })
 //  GET  note/get/all
 server.get('/note/get/all',(req,res)=>{
