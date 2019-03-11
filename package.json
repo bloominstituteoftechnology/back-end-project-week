@@ -8,6 +8,7 @@
     "jsonwebtoken": "^8.4.0",
     "knex": "^0.16.2",
     "node": "^11.4.0",
+    "pg": "^7.8.2",
     "sqlite3": "^4.0.4"
   },
   "devDependencies": {
