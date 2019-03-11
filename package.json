@@ -15,7 +15,7 @@
   },
   "scripts": {
     "server": "nodemon",
-    "start": "node"
+    "start": "node index.js"
   },
   "name": "back-end-project-week",
   "version": "1.0.0",
