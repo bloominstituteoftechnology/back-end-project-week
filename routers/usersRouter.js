@@ -142,8 +142,9 @@ router.post('/login', (req, res) => {
 });
 
 // [POST] /api/users/:id/newNote
-router.post('/:token/newNote', protected, userIdVerify, (req, res) => {
+router.post('/newNote', protected, userIdVerify, (req, res) => {
     const user_id = req.id;
+    console.log(user_id);
     const newNote = req.body;
     let valid = true;
 
