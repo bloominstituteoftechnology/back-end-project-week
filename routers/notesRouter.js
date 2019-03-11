@@ -3,6 +3,7 @@ const express = require('express');
 const notesDb = require('../data/helpers/notesHelper.js');
 
 const protected = require('../middleware/protected.js');
+const userIdVerify = require('../middleware/userIdVerification.js');
 
 const router = express.Router();
 
@@ -26,7 +27,7 @@ router.get('', protected, (req, res) => {
 
 // [GET] /api/notes/:id
 // get note by note id
-router.get('/:id', protected, (req, res) => {
+router.get('/:id', protected, userIdVerify, (req, res) => {
     const noteId = req.params.id;
     notesDb.getNote(noteId)
         .then(note => {
