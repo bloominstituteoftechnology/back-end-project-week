@@ -56,6 +56,7 @@ server.get('/restricted/notes/:id', (req, res) => {
     const { uid } = req
     const { id } = req.params
     notes.getByNote(id, uid)
+    .then(note => res.status(200).json(note))
     .catch(err => res.status(500).json(err))
 })
 
