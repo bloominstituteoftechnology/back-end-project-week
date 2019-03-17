@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
         table.increments()
         table.string('title', 255).notNullable()
         table.text('content').notNullable()
+        table.string('uid').notNullable()
     })
 };
 
