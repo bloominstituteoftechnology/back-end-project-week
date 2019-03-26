@@ -36,7 +36,6 @@ router.get('/api/notes/:id', (req,res) => {
 
 //Create a new note.
 router.post('/api/notes',
-       protected,
       (req,res) => {
       const note = req.body;
       const title = note.title;
