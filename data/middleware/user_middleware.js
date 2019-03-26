@@ -18,7 +18,7 @@ function protected(req,res,next) {
    console.log(token);
    if(token) {
          jwt.verify(token, JWTKey, (err,decodedToken) => {
-            console.log(`protected`,decodedToken);
+            console.log(`jwt protected`,decodedToken);
          if(err) {
             res.status(403).json({msg:`You cannot pass!! not decoded`});
          }

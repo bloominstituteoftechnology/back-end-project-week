@@ -4,7 +4,9 @@ const db = require('../helpers/notesModel');
 const {protected} = require('../middleware/user_middleware.js');
 
 //Get all notes.
-router.get('/api/notes', protected, (req,res) => {
+router.get('/api/notes',
+      protected,
+      (req,res) => {
       db.getNotes()
          .then(notes => {
             if(notes) {
@@ -33,7 +35,9 @@ router.get('/api/notes/:id', (req,res) => {
 });
 
 //Create a new note.
-router.post('/api/notes', (req,res) => {
+router.post('/api/notes',
+       protected,
+      (req,res) => {
       const note = req.body;
       const title = note.title;
       const content = note.content;
