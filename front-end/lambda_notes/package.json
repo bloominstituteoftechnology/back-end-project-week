@@ -18,5 +18,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "homepage": "https://fron12.github.io/lambda-notes"
+  "homepage": "https://fron12.github.io/back-end-project-week/"
 }
