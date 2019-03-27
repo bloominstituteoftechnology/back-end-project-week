@@ -2,7 +2,10 @@ const notes = require('../data/notesModel.js')
 const express = require('express')
 const server = express()
 const cors = require('cors')
-server.use(cors())
+var corsOptions = {
+    origin: 'https://lola-notes-server.herokuapp.com'
+}
+server.use(cors(corsOptions))
 server.use(express.json())
 
 
