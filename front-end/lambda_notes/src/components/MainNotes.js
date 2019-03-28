@@ -7,7 +7,8 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import './index.css';
 import axios from  'axios';
 
-const url = 'http://localhost:3300/api/notes';
+// const url = 'http://localhost:3300/api/notes';
+const url = "https://secure-anchorage-19968.herokuapp.com/api/notes"
 
 class MainNotes extends Component {
     constructor() {
