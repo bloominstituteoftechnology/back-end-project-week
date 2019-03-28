@@ -3,7 +3,7 @@ const cors = require('cors');
 // const bcrypt = require('bcryptjs');
 // const jwt = require('jsonwebtoken');
 
-const db = require('./db/dbconfig.js');
+const db = require('./db/dbConfig.js');
 
 const server = express();
 
