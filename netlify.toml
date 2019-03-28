@@ -1,3 +1,0 @@
-[build]
-base="back-end-project-week/front-end/lambda_notes"
-publish="back-end-project-week/front-end/lambda_notes/build"
