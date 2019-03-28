@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './index.css'
 
+const url = "https://secure-anchorage-19968.herokuapp.com/api/notes"
+
 export default class NoteView extends Component {
     constructor(props) {
         super(props);
@@ -19,7 +21,7 @@ export default class NoteView extends Component {
 
     componentDidMount() {
         axios
-            .get(`http://localhost:3300/api/notes/${this.props.match.params.id}`)
+            .get(`${url}/${this.props.match.params.id}`)
             .then( res => {
                 console.log(res.data[0])
                 this.setState({ dummyNotes: res.data[0] })
@@ -32,7 +34,7 @@ export default class NoteView extends Component {
     delete = e => {
         console.log('params.id:', this.props.match.params.id)
         axios
-            .delete(`http://localhost:3300/api/notes/${this.props.match.params.id}`)
+            .delete(`${url}/${this.props.match.params.id}`)
             .then(res => console.log('res.data:', res.data))
             .catch(err => {
                 console.log('Error:', err);

@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './index.css'
 
+const url = "https://secure-anchorage-19968.herokuapp.com/api/notes"
+
 class editNote extends Component {
     constructor(props) {
         super(props);
@@ -30,7 +32,7 @@ class editNote extends Component {
     handleSubmit = e => {
         e.preventDefault();
         axios
-            .put(`http://localhost:3300/api/notes/${this.props.match.params.id}`, {
+            .put(`${url}/${this.props.match.params.id}`, {
                 title: this.state.title,
                 body: this.state.body
             })
