@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import './index.css'
 
 const url = "https://secure-anchorage-19968.herokuapp.com/api/notes"

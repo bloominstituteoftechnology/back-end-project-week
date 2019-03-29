@@ -1,0 +1,4 @@
+[build]
+    base="front-end/lambda_notes"
+    publish="front-end/lambda_notes/build"
+    command="npm run build"

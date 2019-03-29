@@ -40,7 +40,7 @@ export default class NoteView extends Component {
                 console.log('Error:', err);
             })
         window.location.reload();
-        this.props.history.push('/');
+        // this.props.history.push('/');
     }
 
     render() {
