@@ -93,10 +93,20 @@ server.post("/api/login", (req, res) => {
     .then(user => {
       if (user && bcrypt.compareSync(creds.password, user.password)) {
         const token = generateToken(user);
-        res.status(200).json({
-          message: 'welcome!',
-          token,
-        });
+        db("notes")
+            .where({user_id: user.id})
+            .then(notes => {
+              return notes;
+            })
+            .then(notes => {
+              res.status(200).json({
+                message: 'welcome!',
+                token,
+                notes,
+              })
+            }
+            )
+            .catch(err => res.status(500).json({error: err}))
       } else {
         res.status(401).json({
           message: 'you shall not pass!!'
