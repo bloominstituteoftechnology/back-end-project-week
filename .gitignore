@@ -1,3 +1,6 @@
+Routes/files
 .DS_Store
 node_modules
 .env
+config/keys.js
+
