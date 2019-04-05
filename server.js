@@ -14,14 +14,16 @@ server.use(express.json());
 server.use(morgan('dev'));
 
 server.use(helmet());
+server.use(cors());
 
-server.use(function(req, res, next) {
+
+/*server.use(function(req, res, next) {
    res.header("Access-Control-Allow-Origin", "https://fervent-borg-1591ca.netlify.com");
    res.header("Access-Control-Allow-Credentials", true);
    res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST, OPTIONS');
    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
    next();
-});
+});*/
 
 
 server.get('/', (req,res) => {
