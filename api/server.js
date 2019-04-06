@@ -54,7 +54,7 @@ server.post("/api/register", (req, res) => {
     .then(ids => {
       db("notes")
         .insert({
-          title: `Welcome to Lambda Notes, ${creds.username}`,
+          title: `Welcome to Paper Notes, ${creds.username}`,
           content: "I hope you enjoy using this site.",
           user_id: ids[0]
         })
