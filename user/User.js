@@ -1,17 +1,17 @@
-const mongoose = require('mongoose')
-const bcrypt = require('bcrypt')
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const ObjectID = mongoose.Schema.Types.ObjectId;
 
 const passwordLength = 4;
 const SALT_ROUNDS = 11;
 
-const checkPasswordLength = password => password.length >= passwordLength
+const checkPasswordLength = password => password.length >= passwordLength;
 
 const userSchema = new mongoose.Schema({
   name: {
-    type: String,    
-    required: true,    
+    type: String,
+    required: true
   },
   username: {
     type: String,
@@ -30,24 +30,22 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  notes: [{type: ObjectID, ref: 'Note'}]
-})
-
-
-userSchema.pre('save', function(next){
-    bcrypt.hash(this.password, SALT_ROUNDS, (err, hash) => {
-        if (err) {
-            next(err)
-        } 
-        this.password = hash;
-
-        next();
-    });
+  notes: [{ type: ObjectID, ref: "Note" }]
 });
 
+userSchema.pre("save", function(next) {
+  bcrypt.hash(this.password, SALT_ROUNDS, (err, hash) => {
+    if (err) {
+      next(err);
+    }
+    this.password = hash;
+
+    next();
+  });
+});
 
 userSchema.methods.validatePassword = function(passwordGuess) {
-  return bcrypt.compare(passwordGuess, this.password)
-}
+  return bcrypt.compare(passwordGuess, this.password);
+};
 
-module.exports = mongoose.model('User', userSchema)
+module.exports = mongoose.model("User", userSchema);
