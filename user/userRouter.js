@@ -28,8 +28,8 @@ router.get("/", (req, res) => {
     });
 });
 router.post("/contact", (req, res) => {
-    const newContact = { name, email, message } = req.body;  
-  Contact.create(newContact)
+    const { name, email, message } = req.body;  
+  Contact.create(req.body)
     .then(contact => {
       res.status(201).json(contact);
     })
