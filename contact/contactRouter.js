@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 router.post((req, res) => {
     const { name, email, message } = req.body;
     const newContact = new Contact ({
-        _id: new mongoose.Schema.Types.ObjectId(),
+        _id: new mongoose.Types.ObjectId(),
         name,
         email,
         message

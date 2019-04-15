@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 // contact form, so am using notes app's backend for that functionality.
 
 const contactSchema = new mongoose.Schema({    
-  _id: new mongoose.Schema.Types.ObjectId,
+  _id: mongoose.Schema.Types.ObjectId,
   name: {
     type: String,
     required: true
