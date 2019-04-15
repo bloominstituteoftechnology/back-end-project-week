@@ -30,7 +30,7 @@ module.exports = function(server) {
   //   server.use('/api/notes', restricted);
   server.use("/api/notes", noteRoutes);
   server.use("/api/users", userRoutes);
-  server.use("/api/contacts", contactRoutes);
+  //server.use("/api/contacts", contactRoutes);
 };
 
 // const noteRoutes = require('../note/noteRouter')
