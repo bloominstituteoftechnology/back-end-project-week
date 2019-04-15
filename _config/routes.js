@@ -1,6 +1,5 @@
 const noteRoutes = require("../note/noteRouter");
 const userRoutes = require("../user/userRouter");
-//const contactRoutes = require("../contact/contactRouter");
 const jwt = require("jsonwebtoken");
 //const wala = require('../wala');
 
@@ -30,7 +29,6 @@ module.exports = function(server) {
   //   server.use('/api/notes', restricted);
   server.use("/api/notes", noteRoutes);
   server.use("/api/users", userRoutes);
- //server.use("/api/contacts", contactRoutes);
 };
 
 // const noteRoutes = require('../note/noteRouter')

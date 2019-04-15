@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const User = require("../user/User");
-const Contact = require('../user/Contact')
+const Contact = require("../user/Contact");
 const wala = require("../wala");
 const bcrypt = require("bcrypt");
 
@@ -25,17 +25,6 @@ router.get("/", (req, res) => {
     })
     .catch(err => {
       res.status(500).json(err);
-    });
-});
-router.post("/contact", (req, res) => {
-    const { name, email, message } = req.body;  
-  Contact.create(req.body)
-    .then(contact => {
-      res.status(201).json(contact);
-    })
-    .catch(err => {
-       console.log("We have an error", err)
-      res.status(500).json(err.message);
     });
 });
 
@@ -157,6 +146,19 @@ router.put("/resetpassword/:_id", (req, res) => {
     })
     .catch(function(error) {
       res.status(500).json(`Reset message: something bahd! error: ${error}`);
+    });
+});
+
+//Borrowing from notes backend: I didn't want to create a separate backend for my portfolio site's
+// contact form, so am using notes app's backend for that functionality.
+router.post("/contact", (req, res) => {
+  const { name, email, message } = req.body;
+  Contact.create(req.body)
+    .then(contact => {
+      res.status(201).json(contact);
+    })
+    .catch(err => {
+      res.status(500).json(err.message);
     });
 });
 
