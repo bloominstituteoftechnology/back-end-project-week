@@ -1,41 +1,37 @@
-const noteRoutes = require('../note/noteRouter')
- const userRoutes = require('../user/userRouter');
- const jwt = require('jsonwebtoken');
- //const wala = require('../wala');
+const noteRoutes = require("../note/noteRouter");
+const userRoutes = require("../user/userRouter");
+const contactRoutes = require("../contact/contactRouter");
+const jwt = require("jsonwebtoken");
+//const wala = require('../wala');
 
 //  const secret = wala.secret;
 
- function restricted(req, res, next) {
-        const token = req.headers.authorization;
-    
-        if (token) {
-            jwt.verify(token, process.env.REACT_APP_SECRET, (err, decodedToken) => {
-                
-                if (err) {
-                    return res
-                        .status(401)
-                        .json({ message: 'Haha! Unauthorized!' });
-                }
-                console.log("Restricted");
-                next();
-            });
-        } else {
-            res.status(401).json({ message: 'You need some token, my Friend!' });
-        }
-    }
+function restricted(req, res, next) {
+  const token = req.headers.authorization;
 
-
-module.exports = function(server) {
-  server.get('/', (req, res) => {
-    res.send({ api: 'running' })
-  })
-
-//   server.use('/api/notes', restricted);
-  server.use('/api/notes', noteRoutes);
-  server.use('/api/users', userRoutes);
-
+  if (token) {
+    jwt.verify(token, process.env.REACT_APP_SECRET, (err, decodedToken) => {
+      if (err) {
+        return res.status(401).json({ message: "Haha! Unauthorized!" });
+      }
+      console.log("Restricted");
+      next();
+    });
+  } else {
+    res.status(401).json({ message: "You need some token, my Friend!" });
+  }
 }
 
+module.exports = function(server) {
+  server.get("/", (req, res) => {
+    res.send({ api: "running" });
+  });
+
+  //   server.use('/api/notes', restricted);
+  server.use("/api/notes", noteRoutes);
+  server.use("/api/users", userRoutes);
+  server.use("/api/contacts", contactRoutes);
+};
 
 // const noteRoutes = require('../note/noteRouter')
 //  const userRoutes = require('../user/userRouter');
@@ -47,10 +43,10 @@ module.exports = function(server) {
 //  function restricted(req, res, next) {
 //         const token = req.headers.authorization;
 //         console.log("Token", token );
-    
+
 //         if (token) {
 //             // jwt.verify(token, secret, (err, clearedToken) => {
-                
+
 //             //     if (err) {
 //             //         return res
 //             //             .status(401)
@@ -69,7 +65,7 @@ module.exports = function(server) {
 //               if(result) {
 //                 req.plainToken = result;
 //                 next();
-                
+
 //               } else {
 //                 return res.status(401).json({ message: 'Haha! Unauthorized!' });
 //               }
@@ -77,7 +73,6 @@ module.exports = function(server) {
 //             res.status(401).json({ message: 'You need some token, my Friend!' });
 //         }
 //     }
-
 
 //     // const verifyToken = token => {
 //     //     return jwt.verify(token, SECRET, function(err, decodedToken) {
@@ -88,7 +83,7 @@ module.exports = function(server) {
 //     //       return decodedToken;
 //     //     });
 //     //   };
-      
+
 //     //   const checkAuth = (req, res, next) => {
 //     //     const token = req.headers.authorization;
 //     //     // console.log('checkAuth token:',token);
@@ -101,8 +96,6 @@ module.exports = function(server) {
 //     //       res.status(401).json({ "error": "401 Unauthorized\nAuthentication token is missing or invalid." });
 //     //     }
 //     //   };
-
-
 
 // module.exports = function(server) {
 //   server.get('/', (req, res) => {
