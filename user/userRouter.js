@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const User = require("../user/User");
+const Contact = require('../contact/Contact')
 const wala = require("../wala");
 const bcrypt = require("bcrypt");
 
@@ -24,6 +25,17 @@ router.get("/", (req, res) => {
     })
     .catch(err => {
       res.status(500).json(err);
+    });
+});
+router.post("/contact", (req, res) => {
+    const newContact = { name, email, message } = req.body;  
+  Contact.create(newContact)
+    .then(contact => {
+      res.status(201).json(contact);
+    })
+    .catch(err => {
+       console.log("We have an error", err)
+      res.status(500).json(err.message);
     });
 });
 

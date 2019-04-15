@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const Note = require('./Note')
 
+
 router
   .route('/')
   .get((req, res) => {
