@@ -24,7 +24,7 @@ router.get('/', (req,res) => {
         })
 
         .catch(error => {
-        res.status(500).json({error: "Failed to retrieve notes"});
+        res.status(500).json({error: error.message});
         })
 });
 
@@ -46,7 +46,7 @@ router.get('/:id', (req,res)=>{
         })
 
         .catch(error => {
-        res.status(500).json({error: "Failed to retrieve the note."});
+        res.status(500).json({error: error.message});
         })
 });
 
@@ -62,7 +62,7 @@ router.get('/search/:search', (req, res) => {
         })
 
         .catch(error => {
-        res.status(500).json({error: "Failed to retrieve the notes."});
+        res.status(500).json({error: error.message});
         })
 
 
@@ -100,7 +100,7 @@ router.post('/', upload.single('file'),(req,res)=> {
         })
 
         .catch(error => {
-        res.status(500).json({error: "Failed to save note to the database" });
+        res.status(500).json({error: error.message });
         })
 
         }
@@ -133,7 +133,7 @@ router.put('/:id', (req, res) => {
         })
 
         .catch(error => {
-        res.status(500).json({error: "Failed to update the note"});
+        res.status(500).json({error: error.message});
         })
 
         }
@@ -150,7 +150,7 @@ router.delete('/:id', (req, res) => {
         })
 
         .catch(error => {
-        res.status(500).json({error: "Failed to delete note"});
+        res.status(500).json({error: error.message});
         })
 
 });
