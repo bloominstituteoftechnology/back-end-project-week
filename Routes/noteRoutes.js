@@ -7,15 +7,12 @@ const fs = require('fs');
 const cloudinary = require('cloudinary');
 
 
-if (process.env.ENVIRONMENT != 'production') {
-  require('dotenv').config();
-}
 
-cloudinary.config({
+/*cloudinary.config({
   cloud_name:process.env.cloud_name,
   api_key:process.env.api_key,
   api_secret:process.env.api_secret
-});
+});*/
 
 
 
@@ -73,7 +70,7 @@ router.get('/search/:search', (req, res) => {
 
 
 router.post('/', upload.single('file'),(req,res)=> {
-	console.log(req.body);
+	//console.log(req.body);
 
         const title = req.body.title;
         const content = req.body.content;
