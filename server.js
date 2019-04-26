@@ -3,10 +3,15 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const db = require('./data/helpers/notesDb');
 const cors = require('cors');
-require('dotenv').load();
 const server = express();
 const userRoutes = require('./Routes/userRoutes');
 const noteRoutes = require('./Routes/noteRoutes');
+
+
+if (process.env.ENVIRONMENT == 'development') { 
+  require('dotenv').config(); 
+}
+
 
 server.use(express.json());
 server.use(morgan('dev'));

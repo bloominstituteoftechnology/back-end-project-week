@@ -1,23 +1,21 @@
 // Update with your config settings.
-require('dotenv').config();
+if (process.env.ENVIRONMENT != 'production') {
+  require('dotenv').config();
+}
 
-const localPg = {
-  host: 'localhost',
-  database: 'lambda',
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-};
-
-const dbConnection = process.env.DATABASE_URL || localPg;
+const dbConnection = process.env.DATABASE_URL || 'development';
 
 module.exports = {
 
   development: {
-    client: 'sqlite3',
+    client: 'pg',
     connection: {
-      filename: './data/notes.db'
-    },
-    useNullAsDefault: true,
+      host: 'localhost',
+      user: process.env.USER,     
+      password: process.env.PASSOWRD,
+      database: process.env.DATABASE,
+      charset: 'utf8',
+    },	  
     migrations: {
       directory: './data/migrations',
       tableName: 'dbmigrations',	  

@@ -6,6 +6,13 @@ const upload = multer({ dest: __dirname + '/files/' });
 const fs = require('fs');
 const cloudinary = require('cloudinary');
 
+cloudinary.config({
+  cloud_name:process.env.CLOUD_NAME,
+  api_key:process.env.CLOUDINARY_API_KEY,
+  api_secret:process.env.CLOUDINARY_API_SECRET
+});
+
+
 
 router.get('/', (req,res) => {
         const request = db.get();
@@ -61,19 +68,19 @@ router.get('/search/:search', (req, res) => {
 
 
 router.post('/', upload.single('file'),(req,res)=> {
-	console.log(req.file);
+	console.log(req.body);
 
         const title = req.body.title;
         const content = req.body.content;
 	let imgUrl="";
 
 	cloudinary.uploader.upload(req.file.path,(result) =>{ 
-		console.log(result);
+		//console.log(result);
 		imgUrl = result.secure_url;
 	}).then(() =>{
 	
 
-	console.log(imgUrl);
+	//console.log(imgUrl);
 	const image=imgUrl;	
         const note = {title, content, image};
 
