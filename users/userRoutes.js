@@ -3,7 +3,11 @@ const jwt = require('jsonwebtoken');
 const User = require('./User');
 const Note = require('../notes/Note');
 require('dotenv').config();
-const secret = process.env.secret;
+const {
+  DEV_MONGO_SECRET,
+  PROD_MONGO_SECRET
+} = process.env
+const secret = DEV_MONGO_SECRET || PROD_MONGO_SECRET
 let decoded;
 
 function restricted(req, res, next) {
