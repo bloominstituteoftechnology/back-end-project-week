@@ -3,6 +3,7 @@ const db = require('./config/db')
 const setupMiddleware = require('./config/middleware')
 const setupRoutes = require('./config/routes')
 const server = express()
+
 const { SERVER_PORT } = process.env
 const port = SERVER_PORT || 5000
 

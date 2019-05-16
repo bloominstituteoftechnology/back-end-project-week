@@ -1,5 +1,5 @@
-const authRoutes = require('../auth/authRoutes')
-const userRoutes = require('../users/userRoutes')
+const authRoutes = require('../auth/routes')
+const userRoutes = require('../users/routes')
 
 module.exports = function (server) {
   server.get('/', function (req, res) {
@@ -9,4 +9,3 @@ module.exports = function (server) {
   server.use('/api/auth', authRoutes)
   server.use('/api/users/', userRoutes)
 }
-
