@@ -18,6 +18,8 @@ function validate(req, res, next) {
   const signup = req.path === '/signup' ? true : false
   const login = req.path === '/login' ? true : false
 
+  console.log(signup, login)
+
   const {
     firstname,
     lastname,
@@ -52,6 +54,8 @@ function validate(req, res, next) {
     msg: {}
   }
 
+  console.log('email ', email.length)
+
   if (firstname && signup) {
     if (firstname.length > 30) errorObj.msg['firstnameError'] = errors['firstname'][0]
   } else if (!firstname && signup) errorObj.msg['firstnameError'] = errors['firstname'][1]
@@ -59,8 +63,8 @@ function validate(req, res, next) {
   if (lastname && signup) {
     if (lastname.length > 30) errorObj.msg['lastnameError'] = errors['lastname'][0]
   } else if (!lastname && signup) errorObj.msg['lastnameError'] = errors['lastname'][1]
-  
-  if (email && signup || login) {
+
+  if (email && (signup || login)) {
     const regex = /^[a-zA-Z0-9.!#$%&’*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
     const regexResult = regex.test(email)
     const lowercase = email.toLowerCase() === email
@@ -68,12 +72,12 @@ function validate(req, res, next) {
     if (!regexResult) errorObj.msg['emailError'] = errors['email'][0]
     else if (email.length > 30) errorObj.msg['emailError'] = errors['email'][1]
     else if (!lowercase) errorObj.msg['emailError'] = errors['email'][2]
-  } else if (!email && signup || login) errorObj.msg['emailError'] = errors['email'][3]
+  } else if (!email && (signup || login)) errorObj.msg['emailError'] = errors['email'][3]
 
-  if (password && signup || login) {
+  if (password && (signup || login)) {
     if (password.length < 8) errorObj.msg['passwordError'] = errors['password'][0]
     else if (password.length > 30) errorObj.msg['passwordError'] = errors['password'][1]
-  } else if (!password && signup || login) errorObj.msg['passwordError'] = errors['password'][2]
+  } else if (!password && (signup || login)) errorObj.msg['passwordError'] = errors['password'][2]
 
   const numOfKeys = Object.keys(errorObj.msg).length > 0
 

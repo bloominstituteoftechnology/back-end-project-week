@@ -63,7 +63,9 @@ router.post('/login', validate, (req, res) => {
           } else {
             res
             .status(401)
-            .send('Invalid credentials. Try again.')
+            .send({
+              'invalid': 'Invalid credentials. Try again.'
+            })
           }
         })
         .catch(() => {
@@ -74,7 +76,9 @@ router.post('/login', validate, (req, res) => {
       } else {
         res
         .status(401)
-        .send('Invalid credentials. Try again.')
+        .send({
+          'invalid': 'Invalid credentials. Try again.'
+        })
       }
     })
     .catch(() => {
