@@ -14,7 +14,10 @@ function generateToken(user) {
   return jwt.sign(payload, secret, options)
 }
 
-function validate(req, res) {
+function validate(req, res, next) {
+  const signup = req.path === '/signup' ? true : false
+  const login = req.path === '/login' ? true : false
+
   const {
     firstname,
     lastname,
@@ -23,7 +26,7 @@ function validate(req, res) {
   } = req.body
 
   const errors = {
-    'firsname': [
+    'firstname': [
       'The first name field may only contain a maximum of 30 characters.',
       'The first name field is required.'
     ],
@@ -49,15 +52,15 @@ function validate(req, res) {
     msg: {}
   }
 
-  if (fistname) {
+  if (firstname && signup) {
     if (firstname.length > 30) errorObj.msg['firstnameError'] = errors['firstname'][0]
-  } else errorObj.msg['firstnameError'] = errors['firstname'][1]
+  } else if (!firstname && signup) errorObj.msg['firstnameError'] = errors['firstname'][1]
 
-  if (lastname) {
+  if (lastname && signup) {
     if (lastname.length > 30) errorObj.msg['lastnameError'] = errors['lastname'][0]
-  } else errorObj.msg['lastnameError'] = errors['lastname'][1]
+  } else if (!lastname && signup) errorObj.msg['lastnameError'] = errors['lastname'][1]
   
-  if (email) {
+  if (email && signup || login) {
     const regex = /^[a-zA-Z0-9.!#$%&’*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
     const regexResult = regex.test(email)
     const lowercase = email.toLowerCase() === email
@@ -65,18 +68,25 @@ function validate(req, res) {
     if (!regexResult) errorObj.msg['emailError'] = errors['email'][0]
     else if (email.length > 30) errorObj.msg['emailError'] = errors['email'][1]
     else if (!lowercase) errorObj.msg['emailError'] = errors['email'][2]
-  } else errorObj.msg['emailError'] = errors['email'][3]
+  } else if (!email && signup || login) errorObj.msg['emailError'] = errors['email'][3]
 
-  if (password) {
+  if (password && signup || login) {
     if (password.length < 8) errorObj.msg['passwordError'] = errors['password'][0]
     else if (password.length > 30) errorObj.msg['passwordError'] = errors['password'][1]
-  } else errorObj.msg['passwordError'] = errors['password'][2]
+  } else if (!password && signup || login) errorObj.msg['passwordError'] = errors['password'][2]
 
   const numOfKeys = Object.keys(errorObj.msg).length > 0
 
-  if (numOfKeys) return res
-    .status(errorObj.status)
-    .send(errorObj.errorMsg)
+  if (numOfKeys) {
+    const {
+      status,
+      msg
+    } = errorObj
+  
+    return res
+      .status(status)
+      .send(msg)
+  }
 
   return next()
 }
