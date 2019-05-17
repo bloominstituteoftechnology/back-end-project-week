@@ -18,8 +18,6 @@ function validate(req, res, next) {
   const signup = req.path === '/signup' ? true : false
   const login = req.path === '/login' ? true : false
 
-  console.log(signup, login)
-
   const {
     firstname,
     lastname,
@@ -53,8 +51,6 @@ function validate(req, res, next) {
     status: 400,
     msg: {}
   }
-
-  console.log('email ', email.length)
 
   if (firstname && signup) {
     if (firstname.length > 30) errorObj.msg['firstnameError'] = errors['firstname'][0]
