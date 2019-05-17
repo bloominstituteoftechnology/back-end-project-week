@@ -41,13 +41,14 @@
 .navbar a {
     background: #00BBBC;
     color: white;
+    border-radius: 3px;
     text-decoration: none;
     font-weight: bold;
     width: 90%;
-    font-size: 20px;
-    /* padding: 10px; */
+    font-size: 15px;
     justify-content: space-around;
     margin: 15px;
+    padding: 4px;
 }
 
 .navbar .buttons {
