@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
-const ObjectId = mongoose.Schema.Types.ObjectId
 const bcrypt = require('bcrypt')
+
+const { ObjectId } = mongoose.Schema.Types
 
 const Users = new mongoose.Schema({
   firstname: {
@@ -34,11 +35,26 @@ const Users = new mongoose.Schema({
   },
   notes: [{
     type: ObjectId,
-    ref: 'Note'
+    ref: 'Notes'
   }]
+},
+{
+  toObject: {
+    transform: function (doc, ret) {
+      ret.id = ret._id
+      delete ret._id;
+    }
+  },
+  toJSON: {
+    transform: function (doc, ret) {
+      ret.id = ret._id
+      delete ret._id;
+    }
+  }
 })
 
 Users.pre('save', function (next) {
+  console.log('save test')
   return bcrypt
     .hash(this.password, 10)
     .then(hash => {
@@ -54,4 +70,4 @@ Users.methods.validatePassword = function (passwordGuess) {
   return bcrypt.compare(passwordGuess, this.password)
 }
 
-module.exports = mongoose.model('User', Users, 'users')
+module.exports = mongoose.model('Users', Users)

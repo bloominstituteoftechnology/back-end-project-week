@@ -1,240 +1,188 @@
-require('dotenv').config();
-
 const router = require('express').Router()
-const jwt = require('jsonwebtoken')
 
 const usersDB = require('./schema')
 const notesDB = require('../notes/schema')
 
+const middleware = require('./middleware')
+
 const {
-  DEV_MONGO_SECRET,
-  PROD_MONGO_SECRET
-} = process.env
+  authenticate,
+  validate } = middleware
 
-const secret = DEV_MONGO_SECRET || PROD_MONGO_SECRET
-
-let decoded
-
-function restricted(req, res, next) {
-  const token = req.headers.authorization
-
-  if (token) {
-    jwt.verify(token, secret, (error, decodeURIComponent) => {
-      if (error) {
-        return res
-          .status(401)
-          .json('You must login to create, edit and view notes.')   
-      }
-    
-      decoded = jwt.verify(token, secret)
-      next()
-    })  
-  } else res
-    .status(401)
-    .json('You must login to create, edit and view notes.')
-}
-
-function errorReturn(error, msg) {
-  const fields = ['title', 'text']
-
-  for (let key in error) {
-    for (let field = 0; field < fields.length; field++) {
-      if (key === fields[field]) {
-        return {
-          path: key,
-          status: 400,
-          message: error[key].message
-        }
-      }
-    }
-  }
-
-  return {
-    path: null,
-    status: 500,
-    message: msg
-  }
-}
-
-router.get('/:userId/notes/', restricted, (req, res) => {
-  const { userId } = req.params
+router.get('/:id/notes', authenticate, (req, res) => {
+  const { id } = req.params
 
   usersDB
-    .findById(userId)
-    .populate('notes', '_id title text')
-    .then(user => {
-      if (user === null) return res
-        .status(404)
-        .json('The requested resource was not found.')
-      else if (user.username !== decoded.name) return res
-        .status(404)
-        .json('The requested resource was not found.')
-      else res
-        .status(200)
-        .json({
-          id: user._id,
-          username: user.username,
-          notes: user.notes
-        })
-    })
-    .catch(() => res
-      .status(500)
-      .json('An internal server error occurred while retrieving notes from the database.'))
+  .findById(id)
+  .populate('notes', 'id title text')
+  .then(user => {
+    const {
+      id,
+      notes } = user
+
+    if (!user) return res
+      .status(404)
+      .json('The requested resource was not found.')
+    else res
+      .status(200)
+      .json({
+        id,
+        notes
+      })
+  })
+  .catch(() => res
+    .status(500)
+    .json('An internal server error occurred while retrieving notes from the database.'))
 })
 
-router.get('/:userId/notes/:noteId', restricted, (req, res) => {
-  const { userId, noteId } = req.params
+router.get('/:id/note/:noteId', authenticate, (req, res) => {
+  const {
+    id,
+    noteId } = req.params
 
   usersDB
-    .findOne({ _id: userId, notes: noteId })
-    .then(user => {
-      if (user === null) return res
-        .status(404)
-        .json('The requested resource was not found.')
-      else if (user.username !== decoded.name) return res
-        .status(404)
-        .json('The requested resource was not found.')
-      else notesDB
-        .findById(noteId)
-        .then(note => {
-          if (note === null) return res
-            .status(404)
-            .json('The requested resource was not found.')
-          else res
-            .status(200)
-            .json({
-              id: note._id,
-              title: note.title,
-              text: note.text
-            })
-        })
-        .catch(() => res
-          .status(500)
-          .json('An internal server error occurred while retrieving a note from the database.'))
-    })
-    .catch(() => res
-      .status(500)
-      .json('An internal server error occurred while retrieving a note from the database.'))
-})
-
-router.post('/:userId/notes/', restricted, (req, res) => {
-  const { userId } = req.params
-  const { title, text } = req.body
-  
-  usersDB.findById(userId)
-    .then(user => {
-      if (user === null) return res
-        .status(404)
-        .json('The requested resource was not found.')
-      else if (user.username !== decoded.name) return res
-        .status(404)
-        .json('The reqested resource was not found.')
-      else notesDB
-        .create({
+  .findOne({
+    $and: [
+      { _id: id },
+      { notes: noteId }
+    ]
+  })
+  .then(user => {
+    if (!user) return res
+      .status(404)
+      .json('The requested resource was not found.')
+    else notesDB
+      .findById(noteId)
+      .then(note => {
+        const {
+          _id,
           title,
           text
-        })
-        .then(note => {
-          usersDB.findByIdAndUpdate(userId,
-            {
-              $push: 
-              { notes: note._id }
-            },
-            {
-              new: true,
-              runValidators: true
-            })
-          .populate('notes', '_id title text')
-            .then(user => {
-              res
-              .status(201)
-              .json({
-                id: user._id,
-                username: user.username,
-                notes: user.notes
-              })
-            })
-            .catch(() => {
-              return res
-                .status(500)
-                .json('An internal server error occurred while adding a note to the database.')
-            })
-        })
-        .catch(() => {
-          const errorReceived = errorReturn(error.errors, 'An internal server error occurred while adding a note to the database.')
-          res.status(errorReceived.status).json([errorReceived.path, errorReceived.message])
-        })
-    })
-    .catch(() => {
-      res
-      .status(500)
-      .json('An internal server error occurred while adding a note to the database.')
-    })
+        } = note
+
+        if (!note) return res
+          .status(404)
+          .json('The requested resource was not found.')
+        else res
+          .status(200)
+          .json({
+            id: _id,
+            title,
+            text
+          })
+      })
+      .catch(() => res
+        .status(500)
+        .json('An internal server error occurred while retrieving a note from the database.'))
+  })
+  .catch(err => res
+    .status(500)
+    .json('An internal server error occurred while retrieving a note from the database. 2'))
 })
 
-router.put('/:userId/notes/:noteId', restricted, (req, res) => {
-  const { userId, noteId } = req.params
-  const { title, text } = req.body
+router.post('/:id/notes', authenticate, validate, (req, res) => {
+  const { id } = req.params
+  const {
+    title,
+    text } = req.body
   
-  usersDB.findById(userId)
-    .then(user => {
-      if (user === null) return res
-        .status(404)
-        .json('The requested resource was not found.')
-      else if (user.username !== decoded.name) return res
-        .status(404)
-        .json('The requested resource was not found.')
-      else usersDB
-        .findOne({ _id: userId, notes: noteId })
-        .then(user => {
-          if (user === null) return res
-            .status(404)
-            .json('The requested resource was not found.')
-          else notesDB
-            .findByIdAndUpdate(noteId,
-              {
-                title,
-                text
-              },
-              {
-                new: true,
-                runValidators: true
-              })
-            .then(note => res
-              .status(200)
-              .json({
-                title: note.title,
-                text: note.text
-              }))
-            .catch(error => {
-              let errorReceived = errorReturn(error.errors, 'An internal server error occurred while modifying a note from the database.')
-              res
-              .status(errorReceived.status)
-              .json([errorReceived.path, errorReceived.message])
-            })
+  usersDB
+  .findById(id)
+  .then(user => {
+    if (!user) return res
+      .status(404)
+      .json('The requested resource was not found.')
+    else notesDB
+      .create({
+        title,
+        text
+      })
+      .then(note => {
+        const { _id: noteId } = note
+          
+        usersDB
+        .findOneAndUpdate(id,
+        { $push: { notes: noteId }}, 
+        {
+          new: true,
+          runValidators: true,
+          useFindAndModify: false
+        })
+        .then(() => {
+          res
+          .status(201)
+          .json({ id: noteId })
         })
         .catch(() => res
           .status(500)
-          .json('An internal server error occurred while modifying a note from the database.'))
-    })
-    .catch(() => res
-      .status(500)
-      .json('An internal server error occurred while modifying a note from the database.'))
+          .json('An internal server error occurred while adding a note to the database.'))
+      })
+      .catch(() => res
+        .status(500)
+        .json('An internal server error occurred while adding a note to the database.'))
+  })
+  .catch(() => res
+    .status(500)
+    .json('An internal server error occurred while adding a note to the database.'))
 })
 
-router.delete('/:userId/notes/:noteId', restricted, (req, res) => {
-  const { userId, noteId } = req.params
+router.put('/:id/notes/:noteId', authenticate, (req, res) => {
+  const {
+    id,
+    noteId } = req.params
+  const {
+    title,
+    text } = req.body
   
-  usersDB.findById(userId)
-    .then(user => {
-      if (user === null) return res
-        .status(404)
-        .json('The requested resource was not found.')
-      else if (user.username !== decoded.name) res
-        .status(404)
-        .json('The requested resource was not found.')
-      else notesDB.findByIdAndRemove(noteId)
-        .then(note => {
+  usersDB
+  .findOne({
+    _id: id,
+    notes: noteId
+  })
+  .then(user => {
+    if (!user) return res
+      .status(404)
+      .json('The requested resource was not found.')
+    else notesDB
+      .findByIdAndUpdate(noteId,
+      {
+        title,
+        text
+      },
+      {
+        new: true,
+        runValidators: true
+      })
+      .then(note => {
+        const { _id } = note
+
+        res
+        .status(200)
+        .json({ id: _id })
+      })
+      .catch(() => res
+        .status(500)
+        .json('An internal server error occurred while modifying a note from the database.'))
+  })
+  .catch(() => res
+    .status(500)
+    .json('An internal server error occurred while modifying a note from the database.'))
+})
+
+router.delete('/:id/notes/:noteId', authenticate, (req, res) => {
+  const {
+    id,
+    noteId } = req.params
+  
+  usersDB.findById(id)
+  .then(user => {
+    if (!user) return res
+      .status(404)
+      .json('The requested resource was not found.')
+    else notesDB
+      .findByIdAndRemove(noteId)
+      .then(note => {
+          console.log()
           if (note.n === 0) return res
             .status(404)
             .json('The reqested resource was not found.')
@@ -250,7 +198,7 @@ router.delete('/:userId/notes/:noteId', restricted, (req, res) => {
                 runValidators: true
               })
             .then(user => {
-              if (user === null) return res
+              if (!user) return res
                 .status(404)
                 .json('The requested resource was not found.')
               else return res

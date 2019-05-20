@@ -7,5 +7,5 @@ module.exports = function (server) {
   })
 
   server.use('/api/auth', authRoutes)
-  server.use('/api/users/', userRoutes)
+  server.use('/api/users', userRoutes)
 }

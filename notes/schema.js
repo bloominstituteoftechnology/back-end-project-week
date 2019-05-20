@@ -9,6 +9,20 @@ const Notes = new mongoose.Schema({
     type: String,
     maxlength: [1000, 'The note text may only contain a maximum of 1000 characters.']
   }
+},
+{
+  toObject: {
+    transform: function (doc, ret) {
+      ret.id = ret._id
+      delete ret._id;
+    }
+  },
+  toJSON: {
+    transform: function (doc, ret) {
+      ret.id = ret._id
+      delete ret._id;
+    }
+  }
 })
 
-module.exports = mongoose.model('Notes', Notes, 'notes')
+module.exports = mongoose.model('Notes', Notes)
