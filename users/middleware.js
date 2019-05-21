@@ -13,11 +13,11 @@ function authenticate(req, res, next) {
   const TOKEN = req.headers.authorization
   const USER_ID = req.params.id
 
-  if (TOKEN) {
+  if (TOKEN && USER_ID) {
     JWT.verify(TOKEN, SECRET, err => {
       if (err) return res
         .status(401)
-        .json('You must login to create, edit and view notes.')
+        .json('An error occurred while verifying your token.')
       
       const DECODED = JWT.verify(TOKEN, SECRET)
       const { id } = DECODED
@@ -25,11 +25,11 @@ function authenticate(req, res, next) {
       if (id === USER_ID) next()
       else return res
         .status(401)
-        .json('You must login to create, edit and view notes.')
+        .json('You must provide a valid id and token to create, edit and view your notes.')
     })  
   } else res
     .status(401)
-    .json('You must login to create, edit and view notes.')
+    .json('You must provide a valid id and token to create, edit and view your notes.')
 }
 
 function validate(req, res, next) {

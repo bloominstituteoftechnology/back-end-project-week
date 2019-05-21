@@ -19,16 +19,13 @@ router.get('/:id/notes', authenticate, (req, res) => {
     const {
       id,
       notes } = user
-
-    if (!user) return res
-      .status(404)
-      .json('The requested resource was not found.')
-    else res
-      .status(200)
-      .json({
-        id,
-        notes
-      })
+      
+    res
+    .status(200)
+    .json({
+      id,
+      notes
+    })
   })
   .catch(() => res
     .status(500)
@@ -47,37 +44,35 @@ router.get('/:id/note/:noteId', authenticate, (req, res) => {
       { notes: noteId }
     ]
   })
+  .populate('notes', 'id title text')
   .then(user => {
     if (!user) return res
       .status(404)
-      .json('The requested resource was not found.')
+      .json('You must provide a valid id and note id to retrieve a note.')
     else notesDB
       .findById(noteId)
       .then(note => {
         const {
-          _id,
+          id,
           title,
           text
         } = note
-
-        if (!note) return res
-          .status(404)
-          .json('The requested resource was not found.')
-        else res
-          .status(200)
-          .json({
-            id: _id,
-            title,
-            text
-          })
+        
+        res
+        .status(200)
+        .json({
+          id,
+          title,
+          text
+        })
       })
       .catch(() => res
         .status(500)
         .json('An internal server error occurred while retrieving a note from the database.'))
   })
-  .catch(err => res
+  .catch(() => res
     .status(500)
-    .json('An internal server error occurred while retrieving a note from the database. 2'))
+    .json('An internal server error occurred while retrieving a note from the database.'))
 })
 
 router.post('/:id/notes', authenticate, validate, (req, res) => {
@@ -98,10 +93,11 @@ router.post('/:id/notes', authenticate, validate, (req, res) => {
         text
       })
       .then(note => {
-        const { _id: noteId } = note
+        const { id: noteId } = note
           
         usersDB
-        .findOneAndUpdate(id,
+        .findOneAndUpdate(
+        { _id: id},
         { $push: { notes: noteId }}, 
         {
           new: true,
@@ -126,7 +122,7 @@ router.post('/:id/notes', authenticate, validate, (req, res) => {
     .json('An internal server error occurred while adding a note to the database.'))
 })
 
-router.put('/:id/notes/:noteId', authenticate, (req, res) => {
+router.put('/:id/note/:noteId', authenticate, (req, res) => {
   const {
     id,
     noteId } = req.params
@@ -154,11 +150,18 @@ router.put('/:id/notes/:noteId', authenticate, (req, res) => {
         runValidators: true
       })
       .then(note => {
-        const { _id } = note
+        const {
+          _id: id,
+          title,
+          text } = note
 
         res
         .status(200)
-        .json({ id: _id })
+        .json({
+          id,
+          title,
+          text
+        })
       })
       .catch(() => res
         .status(500)
@@ -182,7 +185,6 @@ router.delete('/:id/notes/:noteId', authenticate, (req, res) => {
     else notesDB
       .findByIdAndRemove(noteId)
       .then(note => {
-          console.log()
           if (note.n === 0) return res
             .status(404)
             .json('The reqested resource was not found.')
