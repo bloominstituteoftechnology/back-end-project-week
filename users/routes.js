@@ -50,7 +50,7 @@ router.get('/:id/note/:noteId', authenticate, (req, res) => {
   .then(user => {
     if (!user) return res
       .status(404)
-      .json('You must provide a valid user id and note id to retrieve a note.')
+      .json('You must provide a valid note id to retrieve a note.')
     else notesDB
       .findById(noteId)
       .then(note => {
@@ -150,7 +150,7 @@ router.put('/:id/note/:noteId', authenticate, validate, (req, res) => {
   .then(user => {
     if (!user) return res
       .status(404)
-      .json('You must provide a valid user id and note id to update a note.')
+      .json('You must provide a valid note id to update a note.')
     else notesDB
       .findOneAndUpdate(
       { _id: noteId},
@@ -192,52 +192,48 @@ router.put('/:id/note/:noteId', authenticate, validate, (req, res) => {
     }))
 })
 
-router.delete('/:id/notes/:noteId', authenticate, (req, res) => {
+router.delete('/:id/note/:noteId', authenticate, (req, res) => {
   const {
     id,
     noteId } = req.params
   
-  usersDB.findById(id)
-  .then(user => {
-    if (!user) return res
+  notesDB
+  .findOneAndDelete({ _id: noteId })
+  .then(note => {
+    if (!note) res
       .status(404)
-      .json('The requested resource was not found.')
-    else notesDB
-      .findByIdAndRemove(noteId)
-      .then(note => {
-          if (note.n === 0) return res
-            .status(404)
-            .json('The reqested resource was not found.')
-          else usersDB
-            .findByIdAndUpdate(userId,
-              {
-                $pull: {
-                  notes: noteId
-                }
-              },
-              {
-                new: true,
-                runValidators: true
-              })
-            .then(user => {
-              if (!user) return res
-                .status(404)
-                .json('The requested resource was not found.')
-              else return res
-                .status(200)
-                .json('The note was succesfully deleted.')
-            })
-            .catch(() => res
-              .status(500)
-              .json('An internal server error occurred while deleting a note from the database.'))             
-        })
-        .catch(() => res
-          .status(500)
-          .json('An internal server error occurred while deleting a note from the database.'))
-    })
-    .catch(() => res
-      .status(500)
-      .json('An internal server error occurred while deleting a note from the database.'))
+      .json('You must provide a valid note id to delete a note.')
+    else usersDB
+      .findOneAndUpdate(
+      { _id: id},
+      {
+        $pull: {
+          notes: noteId
+        }
+      },
+      {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+      })
+      .then(() => {
+        res
+        .status(200)
+        .json('The note was succesfully deleted.')
+      })
+      .catch(err => res
+        .status(500)
+        .json({
+          msg1: 'An internal server error occurred while deleting a note from the database.',
+          msg2: err.message
+        }))             
+  })
+  .catch(err => res
+    .status(500)
+    .json({
+      msg1: 'An internal server error occurred while deleting a note from the database.',
+      msg2: err.message
+    }))
 })
 
 module.exports = router
