@@ -44,7 +44,6 @@ router.get('/:id/note/:noteId', authenticate, (req, res) => {
       { notes: noteId }
     ]
   })
-  .populate('notes', 'id title text')
   .then(user => {
     if (!user) return res
       .status(404)
