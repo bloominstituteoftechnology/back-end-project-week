@@ -25,11 +25,11 @@ function authenticate(req, res, next) {
       if (id === USER_ID) next()
       else return res
         .status(401)
-        .json('You must provide a valid id and token to create, edit and view your notes.')
+        .json('You must provide a valid user id and token to create, edit and view your notes.')
     })  
   } else res
     .status(401)
-    .json('You must provide a valid id and token to create, edit and view your notes.')
+    .json('You must provide a valid user id and token to create, edit and view your notes.')
 }
 
 function validate(req, res, next) {

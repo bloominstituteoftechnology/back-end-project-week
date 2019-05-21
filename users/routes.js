@@ -27,9 +27,12 @@ router.get('/:id/notes', authenticate, (req, res) => {
       notes
     })
   })
-  .catch(() => res
+  .catch(err => res
     .status(500)
-    .json('An internal server error occurred while retrieving notes from the database.'))
+    .json({
+      msg1: 'An internal server error occurred while retrieving notes from the database.',
+      msg2: err.message
+    }))
 })
 
 router.get('/:id/note/:noteId', authenticate, (req, res) => {
@@ -47,7 +50,7 @@ router.get('/:id/note/:noteId', authenticate, (req, res) => {
   .then(user => {
     if (!user) return res
       .status(404)
-      .json('You must provide a valid id and note id to retrieve a note.')
+      .json('You must provide a valid user id and note id to retrieve a note.')
     else notesDB
       .findById(noteId)
       .then(note => {
@@ -65,13 +68,19 @@ router.get('/:id/note/:noteId', authenticate, (req, res) => {
           text
         })
       })
-      .catch(() => res
+      .catch(err => res
         .status(500)
-        .json('An internal server error occurred while retrieving a note from the database.'))
+        .json({
+          msg1: 'An internal server error occurred while retrieving a note from the database.',
+          msg2: err.message
+        }))
   })
-  .catch(() => res
+  .catch(err => res
     .status(500)
-    .json('An internal server error occurred while retrieving a note from the database.'))
+    .json({
+      msg1: 'An internal server error occurred while retrieving a note from the database.',
+      msg2: err.message
+    }))
 })
 
 router.post('/:id/notes', authenticate, validate, (req, res) => {
@@ -86,7 +95,11 @@ router.post('/:id/notes', authenticate, validate, (req, res) => {
     text
   })
   .then(note => {
-    const { id: noteId } = note
+    const { 
+      id: noteId,
+      title,
+      text
+    } = note
           
     usersDB
     .findOneAndUpdate(
@@ -100,18 +113,28 @@ router.post('/:id/notes', authenticate, validate, (req, res) => {
     .then(() => {
       res
       .status(201)
-      .json({ id: noteId })
+      .json({
+        id: noteId,
+        title,
+        text
+       })
     })
-    .catch(() => res
+    .catch(err => res
       .status(500)
-      .json('An internal server error occurred while adding a note to the database.'))
+      .json({
+        msg1: 'An internal server error occurred while adding a note to the database.',
+        msg2: err.message
+      }))
   })
-  .catch(() => res
+  .catch(err => res
     .status(500)
-    .json('An internal server error occurred while adding a note to the database.'))
+    .json({
+      msg1: 'An internal server error occurred while adding a note to the database.',
+      msg2: err.message
+    }))
 })
 
-router.put('/:id/note/:noteId', authenticate, (req, res) => {
+router.put('/:id/note/:noteId', authenticate, validate, (req, res) => {
   const {
     id,
     noteId } = req.params
@@ -127,7 +150,7 @@ router.put('/:id/note/:noteId', authenticate, (req, res) => {
   .then(user => {
     if (!user) return res
       .status(404)
-      .json('The requested resource was not found.')
+      .json('You must provide a valid user id and note id to update a note.')
     else notesDB
       .findByIdAndUpdate(noteId,
       {
@@ -140,7 +163,7 @@ router.put('/:id/note/:noteId', authenticate, (req, res) => {
       })
       .then(note => {
         const {
-          _id: id,
+          id,
           title,
           text } = note
 
@@ -152,13 +175,19 @@ router.put('/:id/note/:noteId', authenticate, (req, res) => {
           text
         })
       })
-      .catch(() => res
+      .catch(err => res
         .status(500)
-        .json('An internal server error occurred while modifying a note from the database.'))
+        .json({
+          msg1: 'An internal server error occurred while updating a note from the database.',
+          msg2: err.message
+        }))
   })
-  .catch(() => res
+  .catch(err => res
     .status(500)
-    .json('An internal server error occurred while modifying a note from the database.'))
+    .json({
+      msg1: 'An internal server error occurred while updating a note from the database.',
+      msg2: err.message
+    }))
 })
 
 router.delete('/:id/notes/:noteId', authenticate, (req, res) => {
