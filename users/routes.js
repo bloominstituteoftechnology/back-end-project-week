@@ -80,41 +80,31 @@ router.post('/:id/notes', authenticate, validate, (req, res) => {
     title,
     text } = req.body
   
-  usersDB
-  .findById(id)
-  .then(user => {
-    if (!user) return res
-      .status(404)
-      .json('The requested resource was not found.')
-    else notesDB
-      .create({
-        title,
-        text
-      })
-      .then(note => {
-        const { id: noteId } = note
+  notesDB
+  .create({
+    title,
+    text
+  })
+  .then(note => {
+    const { id: noteId } = note
           
-        usersDB
-        .findOneAndUpdate(
-        { _id: id},
-        { $push: { notes: noteId }}, 
-        {
-          new: true,
-          runValidators: true,
-          useFindAndModify: false
-        })
-        .then(() => {
-          res
-          .status(201)
-          .json({ id: noteId })
-        })
-        .catch(() => res
-          .status(500)
-          .json('An internal server error occurred while adding a note to the database.'))
-      })
-      .catch(() => res
-        .status(500)
-        .json('An internal server error occurred while adding a note to the database.'))
+    usersDB
+    .findOneAndUpdate(
+    { _id: id},
+    { $push: { notes: noteId }}, 
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false
+    })
+    .then(() => {
+      res
+      .status(201)
+      .json({ id: noteId })
+    })
+    .catch(() => res
+      .status(500)
+      .json('An internal server error occurred while adding a note to the database.'))
   })
   .catch(() => res
     .status(500)
