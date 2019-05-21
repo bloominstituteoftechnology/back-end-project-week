@@ -152,14 +152,16 @@ router.put('/:id/note/:noteId', authenticate, validate, (req, res) => {
       .status(404)
       .json('You must provide a valid user id and note id to update a note.')
     else notesDB
-      .findByIdAndUpdate(noteId,
+      .findOneAndUpdate(
+      { _id: noteId},
       {
         title,
         text
       },
       {
         new: true,
-        runValidators: true
+        runValidators: true,
+        useFindAndModify: false
       })
       .then(note => {
         const {
