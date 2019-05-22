@@ -1,31 +1,30 @@
 require('dotenv').config()
 
-const jwt = require('jsonwebtoken')
+const JWT = require('jsonwebtoken')
 
 const {
   DEV_MONGO_SECRET,
   PROD_MONGO_SECRET } = process.env
 
-const secret = DEV_MONGO_SECRET || PROD_MONGO_SECRET
+const SECRET = DEV_MONGO_SECRET || PROD_MONGO_SECRET
 
-function generateToken(user) {
-  const options = {}
-  const payload = { id: user._id }
-  return jwt.sign(payload, secret, options)
+function generateToken(id) {
+  const OPTIONS = {}
+  const PAYLOAD = { id }
+  return JWT.sign(PAYLOAD, SECRET, OPTIONS)
 }
 
 function validate(req, res, next) {
-  const signup = req.path === '/signup' ? true : false
-  const login = req.path === '/login' ? true : false
+  const SIGN_UP = req.path === '/signup' ? true : false
+  const LOG_IN = req.path === '/login' ? true : false
 
   const {
     firstname,
     lastname,
     email,
-    password
-  } = req.body
+    password } = req.body
 
-  const errors = {
+  const ERRORS = {
     'firstname': [
       'The first name field is required.',
       'The first name field may only contain a maximum of 30 characters.',
@@ -47,41 +46,40 @@ function validate(req, res, next) {
     ]
   }
 
-  const errorObj = {
+  const ERROR_OBJ = {
     status: 400,
     msg: {}
   }
 
-  if (firstname && signup) {
-    if (firstname.length > 30) errorObj.msg['firstnameError'] = errors['firstname'][1]
-  } else if (!firstname && signup) errorObj.msg['firstnameError'] = errors['firstname'][0]
+  if (firstname && SIGN_UP) {
+    if (firstname.length > 30) ERROR_OBJ.msg['firstnameError'] = ERRORS['firstname'][1]
+  } else if (!firstname && SIGN_UP) ERROR_OBJ.msg['firstnameError'] = ERRORS['firstname'][0]
 
-  if (lastname && signup) {
-    if (lastname.length > 30) errorObj.msg['lastnameError'] = errors['lastname'][1]
-  } else if (!lastname && signup) errorObj.msg['lastnameError'] = errors['lastname'][0]
+  if (lastname && SIGN_UP) {
+    if (lastname.length > 30) ERROR_OBJ.msg['lastnameError'] = ERRORS['lastname'][1]
+  } else if (!lastname && SIGN_UP) ERROR_OBJ.msg['lastnameError'] = ERRORS['lastname'][0]
 
-  if (email && (signup || login)) {
-    const regex = /^[a-zA-Z0-9.!#$%&’*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-    const regexResult = regex.test(email)
-    const lowercase = email.toLowerCase() === email
+  if (email && (SIGN_UP || LOG_IN)) {
+    const REGEX = /^[a-zA-Z0-9.!#$%&’*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+    const REGEX_RESULT = REGEX.test(email)
+    const LOWERCASE = email.toLowerCase() === email
 
-    if (!regexResult) errorObj.msg['emailError'] = errors['email'][1]
-    else if (email.length > 30) errorObj.msg['emailError'] = errors['email'][2]
-    else if (!lowercase) errorObj.msg['emailError'] = errors['email'][3]
-  } else if (!email && (signup || login)) errorObj.msg['emailError'] = errors['email'][0]
+    if (!REGEX_RESULT) ERROR_OBJ.msg['emailError'] = ERRORS['email'][1]
+    else if (email.length > 30) ERROR_OBJ.msg['emailError'] = ERRORS['email'][2]
+    else if (!LOWERCASE) ERROR_OBJ.msg['emailError'] = ERRORS['email'][3]
+  } else if (!email && (SIGN_UP || LOG_IN)) ERROR_OBJ.msg['emailError'] = ERRORS['email'][0]
 
-  if (password && (signup || login)) {
-    if (password.length < 8) errorObj.msg['passwordError'] = errors['password'][1]
-    else if (password.length > 30) errorObj.msg['passwordError'] = errors['password'][2]
-  } else if (!password && (signup || login)) errorObj.msg['passwordError'] = errors['password'][0]
+  if (password && (SIGN_UP || LOG_IN)) {
+    if (password.length < 8) ERROR_OBJ.msg['passwordError'] = ERRORS['password'][1]
+    else if (password.length > 30) ERROR_OBJ.msg['passwordError'] = ERRORS['password'][2]
+  } else if (!password && (SIGN_UP || LOG_IN)) ERROR_OBJ.msg['passwordError'] = ERRORS['password'][0]
 
-  const numOfKeys = Object.keys(errorObj.msg).length > 0
+  const NUM_OF_KEYS = Object.keys(ERROR_OBJ.msg).length > 0
 
-  if (numOfKeys) {
+  if (NUM_OF_KEYS) {
     const {
       status,
-      msg
-    } = errorObj
+      msg } = ERROR_OBJ
   
     return res
       .status(status)

@@ -1,9 +1,9 @@
-const mongoose = require('mongoose')
-const bcrypt = require('bcrypt')
+const MONGOOSE = require('mongoose')
+const BCRYPT = require('bcrypt')
 
-const { ObjectId } = mongoose.Schema.Types
+const { ObjectId } = MONGOOSE.Schema.Types
 
-const Users = new mongoose.Schema({
+const Users = new MONGOOSE.Schema({
   firstname: {
     type: String,
     required: [true, 'The first name field is required.'],
@@ -21,9 +21,7 @@ const Users = new mongoose.Schema({
     maxlength: [30, 'The email field may only contain a maximum of 30 characters.'],
     lowercase: [true, 'The email field may only contain lowercase characters.'],
     validate: {
-      validator: function(email) {
-        return /^[a-zA-Z0-9.!#$%&’*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)
-      },
+      validator: email => /^[a-zA-Z0-9.!#$%&’*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email),
       message: 'Invalid email.'
     }
   },
@@ -40,34 +38,33 @@ const Users = new mongoose.Schema({
 },
 {
   toObject: {
-    transform: function (doc, ret) {
+    transform: (doc, ret) => {
       ret.id = ret._id
       delete ret._id;
     }
   },
   toJSON: {
-    transform: function (doc, ret) {
+    transform: (doc, ret) => {
       ret.id = ret._id
       delete ret._id;
     }
   }
 })
 
-Users.pre('save', function (next) {
-  console.log('save test')
-  return bcrypt
+Users.pre('save', function(next) {
+  return BCRYPT
     .hash(this.password, 10)
     .then(hash => {
       this.password = hash
-      return next()
+      next()
     })
-    .catch(error => {
-      return next(error)
+    .catch(err => {
+      next(err)
     })
 })
 
-Users.methods.validatePassword = function (passwordGuess) {
-  return bcrypt.compare(passwordGuess, this.password)
+Users.methods.validatePassword = function(passwordGuess) {
+  return BCRYPT.compare(passwordGuess, this.password)
 }
 
-module.exports = mongoose.model('Users', Users)
+module.exports = MONGOOSE.model('Users', Users)

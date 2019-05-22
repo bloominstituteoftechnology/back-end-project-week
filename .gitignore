@@ -4,6 +4,6 @@
 
 node_modules/
 
-.vscode
+.vscode/
 
 yarn-error.log

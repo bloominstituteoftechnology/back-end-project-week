@@ -1,28 +1,28 @@
-const mongoose = require('mongoose')
+const MONGOOSE = require('mongoose')
 
-const Notes = new mongoose.Schema({
+const Notes = new MONGOOSE.Schema({
   title: {
     type: String,
-    maxlength: [30, 'The note title may only contain a maximum of 30 characters.']
+    maxlength: [30, 'The title field may only contain a maximum of 30 characters.']
   },
   text: {
     type: String,
-    maxlength: [1000, 'The note text may only contain a maximum of 1000 characters.']
+    maxlength: [1000, 'The text field may only contain a maximum of 1000 characters.']
   }
 },
 {
   toObject: {
-    transform: function (doc, ret) {
+    transform: (doc, ret) => {
       ret.id = ret._id
       delete ret._id;
     }
   },
   toJSON: {
-    transform: function (doc, ret) {
+    transform: (doc, ret) => {
       ret.id = ret._id
       delete ret._id;
     }
   }
 })
 
-module.exports = mongoose.model('Notes', Notes)
+module.exports = MONGOOSE.model('Notes', Notes)

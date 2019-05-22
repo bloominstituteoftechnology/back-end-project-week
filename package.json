@@ -2,7 +2,7 @@
   "name": "back-end-project-week",
   "version": "1.0.0",
   "description": "Back-End Server",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js"

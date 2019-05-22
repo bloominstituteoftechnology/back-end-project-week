@@ -1,85 +1,95 @@
-const router = require('express').Router()
-const usersDB = require('../users/schema')
+const ROUTER = require('express').Router()
+const USERS_DB = require('../users/schema')
 
-const middleware = require('./middleware')
+const MIDDLEWARE = require('./middleware')
 
-const { generateToken, validate } = middleware
+const {
+  generateToken,
+  validate } = MIDDLEWARE
 
-router.post('/signup', validate, (req, res) => {
+ROUTER.post('/signup', validate, (req, res) => {
   const {
     firstname,
     lastname,
     email,
-    password
-  } = req.body
+    password } = req.body
   
-  usersDB.findOne({ email })
+  USERS_DB
+  .findOne({ email })
   .then(user => {
-    if (user) {
-      res
+    if (user) res
       .status(400)
       .send({ 'emailError': 'This email is already associated to an existing account.' })
-    } else {
-      usersDB
+    else {
+      USERS_DB
       .create({
         firstname,
         lastname,
         email,
         password
       })
-      .then(() => {
-        res.status(201)
-        .send('The user account was successfullly created.')
-      })
-      .catch(() => {
+      .then(() => res
+        .status(201)
+        .send('The user account was successfullly created.'))
+      .catch(err =>
         res
         .status(500)
-        .send('An internal server error occurred while signing up for an account.')
-      })
+        .send({
+          msg1: 'An internal server error occurred while signing up for an account.',
+          msg2: err.message
+        }))
     }
   })
-  .catch(() => {
-    res
+  .catch(err => res
     .status(500)
-    .send('An internal server error occurred while signing up for an account.')
-  })
+    .send({
+      msg1: 'An internal server error occurred while signing up for an account.',
+      msg2: err.message
+    }))
 })
 
-router.post('/login', validate, (req, res) => {
+ROUTER.post('/login', validate, (req, res) => {
   const {
     email,
     password } = req.body
 
-  usersDB.findOne({ email })
+  USERS_DB
+  .findOne({ email })
   .then(user => {
     if (user) {
-      const { _id } = user
+      const { id } = user
       user
       .validatePassword(password)
       .then(passwordsMatch => {
         if (passwordsMatch) {
-          const token = generateToken(user)
+          const TOKEN = generateToken(id)
           
           res
           .status(200)
           .send({
-            id: _id,
-            token
+            id,
+            token: TOKEN
           })
         } else res
           .status(401)
           .send({ 'invalid': 'Invalid credentials. Try again.' })
       })
-      .catch(() => res
+      .catch(err => res
         .status(500)
-        .send('An internal server error occured while logging in.'))
+        .send({
+          msg1: 'An internal server error occured while logging in.',
+          msg2: err.message
+        }))
     } else res
       .status(401)
       .send({ 'invalid': 'Invalid credentials. Try again.' })
   })
-  .catch(() => res
+  .catch(err => res
     .status(500)
-    .send('An internal server error occured while logging in.'))
+    .send({
+      msg1: 'An internal server error occured while logging in.',
+      msg2: err.message
+    }))
 })
 
-module.exports = router 
+module.exports = ROUTER 

@@ -4,8 +4,7 @@ const JWT = require('jsonwebtoken')
 
 const {
   DEV_MONGO_SECRET,
-  PROD_MONGO_SECRET
-} = process.env
+  PROD_MONGO_SECRET } = process.env
 
 const SECRET = DEV_MONGO_SECRET || PROD_MONGO_SECRET
 
@@ -13,62 +12,60 @@ function authenticate(req, res, next) {
   const TOKEN = req.headers.authorization
   const USER_ID = req.params.id
 
-  if (TOKEN && USER_ID) {
+  if (TOKEN) {
     JWT.verify(TOKEN, SECRET, err => {
       if (err) return res
         .status(401)
-        .json('An error occurred while verifying your token.')
+        .json('You must provide a valid token to create, edit and view your notes.')
       
       const DECODED = JWT.verify(TOKEN, SECRET)
       const { id } = DECODED
 
       if (id === USER_ID) next()
-      else return res
+      else res
         .status(401)
-        .json('You must provide a valid user id and token to create, edit and view your notes.')
+        .json('You must provide a valid user id to create, edit and view your notes.')
     })  
   } else res
     .status(401)
-    .json('You must provide a valid user id and token to create, edit and view your notes.')
+    .json('You must provide a valid token to create, edit and view your notes.')
 }
 
 function validate(req, res, next) {
   const {
     title,
-    text
-  } = req.body
+    text } = req.body
 
-  const errors = {
+  const ERRORS = {
     'title': [
       'The title field is required.',
-      'The title may only contain a maximum of 30 characters.'
+      'The title field may only contain a maximum of 30 characters.'
     ],
     'text': [
       'The text field is required.',
-      'The text may only contain a maximum of 1000 characters.'
+      'The text field may only contain a maximum of 1000 characters.'
     ]
   }
 
-  const errorObj = {
+  const ERROR_OBJ = {
     status: 400,
     msg: {}
   }
 
   if (title) {
-    if (title.length > 30) errorObj.msg['titleError'] = errors['title'][1]
-  } else if (!title) errorObj.msg['titleError'] = errors['title'][0]
+    if (title.length > 30) ERROR_OBJ.msg['titleError'] = ERRORS['title'][1]
+  } else if (!title) ERROR_OBJ.msg['titleError'] = ERRORS['title'][0]
 
   if (text) {
-    if (text.length > 1000) errorObj.msg['textError'] = errors['text'][1]
-  } else if (!text) errorObj.msg['textError'] = errors['text'][0]
+    if (text.length > 1000) ERROR_OBJ.msg['textError'] = ERRORS['text'][1]
+  } else if (!text) ERROR_OBJ.msg['textError'] = ERRORS['text'][0]
 
-  const numOfKeys = Object.keys(errorObj.msg).length > 0
+  const NUM_OF_KEYS = Object.keys(ERROR_OBJ.msg).length > 0
 
-  if (numOfKeys) {
+  if (NUM_OF_KEYS) {
     const {
       status,
-      msg
-    } = errorObj
+      msg } = ERROR_OBJ
   
     return res
       .status(status)

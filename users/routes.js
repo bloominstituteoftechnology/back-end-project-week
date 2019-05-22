@@ -1,18 +1,18 @@
-const router = require('express').Router()
+const ROUTER = require('express').Router()
 
-const usersDB = require('./schema')
-const notesDB = require('../notes/schema')
+const USERS_DB = require('./schema')
+const NOTES_DB = require('../notes/schema')
 
-const middleware = require('./middleware')
+const MIDDLEWARE = require('./middleware')
 
 const {
   authenticate,
-  validate } = middleware
+  validate } = MIDDLEWARE
 
-router.get('/:id/notes', authenticate, (req, res) => {
+ROUTER.get('/:id/notes', authenticate, (req, res) => {
   const { id } = req.params
 
-  usersDB
+  USERS_DB
   .findById(id)
   .populate('notes', 'id title text')
   .then(user => {
@@ -35,12 +35,12 @@ router.get('/:id/notes', authenticate, (req, res) => {
     }))
 })
 
-router.get('/:id/note/:noteId', authenticate, (req, res) => {
+ROUTER.get('/:id/note/:noteId', authenticate, (req, res) => {
   const {
     id,
     noteId } = req.params
 
-  usersDB
+  USERS_DB
   .findOne({
     $and: [
       { _id: id },
@@ -51,14 +51,13 @@ router.get('/:id/note/:noteId', authenticate, (req, res) => {
     if (!user) return res
       .status(404)
       .json('You must provide a valid note id to retrieve a note.')
-    else notesDB
+    else NOTES_DB
       .findById(noteId)
       .then(note => {
         const {
           id,
           title,
-          text
-        } = note
+          text } = note
         
         res
         .status(200)
@@ -83,13 +82,13 @@ router.get('/:id/note/:noteId', authenticate, (req, res) => {
     }))
 })
 
-router.post('/:id/notes', authenticate, validate, (req, res) => {
+ROUTER.post('/:id/notes', authenticate, validate, (req, res) => {
   const { id } = req.params
   const {
     title,
     text } = req.body
   
-  notesDB
+  NOTES_DB
   .create({
     title,
     text
@@ -98,10 +97,9 @@ router.post('/:id/notes', authenticate, validate, (req, res) => {
     const { 
       id: noteId,
       title,
-      text
-    } = note
+      text } = note
           
-    usersDB
+    USERS_DB
     .findOneAndUpdate(
     { _id: id},
     { $push: { notes: noteId }}, 
@@ -134,15 +132,16 @@ router.post('/:id/notes', authenticate, validate, (req, res) => {
     }))
 })
 
-router.put('/:id/note/:noteId', authenticate, validate, (req, res) => {
+ROUTER.put('/:id/note/:noteId', authenticate, validate, (req, res) => {
   const {
     id,
     noteId } = req.params
+  
   const {
     title,
     text } = req.body
   
-  usersDB
+  USERS_DB
   .findOne({
     _id: id,
     notes: noteId
@@ -151,9 +150,9 @@ router.put('/:id/note/:noteId', authenticate, validate, (req, res) => {
     if (!user) return res
       .status(404)
       .json('You must provide a valid note id to update a note.')
-    else notesDB
+    else NOTES_DB
       .findOneAndUpdate(
-      { _id: noteId},
+      { _id: noteId },
       {
         title,
         text
@@ -192,25 +191,21 @@ router.put('/:id/note/:noteId', authenticate, validate, (req, res) => {
     }))
 })
 
-router.delete('/:id/note/:noteId', authenticate, (req, res) => {
+ROUTER.delete('/:id/note/:noteId', authenticate, (req, res) => {
   const {
     id,
     noteId } = req.params
   
-  notesDB
+  NOTES_DB
   .findOneAndDelete({ _id: noteId })
   .then(note => {
     if (!note) res
       .status(404)
       .json('You must provide a valid note id to delete a note.')
-    else usersDB
+    else USERS_DB
       .findOneAndUpdate(
       { _id: id},
-      {
-        $pull: {
-          notes: noteId
-        }
-      },
+      { $pull: { notes: noteId }},
       {
         new: true,
         runValidators: true,
@@ -236,4 +231,4 @@ router.delete('/:id/note/:noteId', authenticate, (req, res) => {
     }))
 })
 
-module.exports = router
+module.exports = ROUTER
