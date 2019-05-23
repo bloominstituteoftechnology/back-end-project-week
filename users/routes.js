@@ -18,12 +18,16 @@ ROUTER.get('/:id/notes', authenticate, (req, res) => {
   .then(user => {
     const {
       id,
+      firstname,
+      lastname,
       notes } = user
       
     res
     .status(200)
     .json({
       id,
+      firstname,
+      lastname,
       notes
     })
   })
