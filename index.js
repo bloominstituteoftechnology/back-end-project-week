@@ -4,8 +4,7 @@ const MIDDLEWARE = require('./config/middleware')
 const ROUTES = require('./config/routes')
 const SERVER = EXPRESS()
 
-const { SERVER_PORT } = process.env
-const PORT = SERVER_PORT || 5000
+const PORT = process.env.PORT || 21310 
 
 MIDDLEWARE(SERVER)
 ROUTES(SERVER)
