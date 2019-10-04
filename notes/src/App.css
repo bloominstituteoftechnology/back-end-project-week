@@ -18,21 +18,25 @@ width: 1024px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
+    width: 1000px;
   }
   .li{
-    width: 250px;
+    width: 275px;
     height: 300px;
     border: 1px skyblue;
     border-radius: 5px;
     background-color: salmon;
     transition: .7s;
+    list-style-type: none;
+    padding: 10px 10px 10px 10px;
+    margin-bottom: 0px;
   }
-  .li:hover{
+  /* .li:hover{
     width: 265px;
     height: 315px;
 
-  }
+  } */
 
 
   .sidecontainer{
@@ -118,10 +122,31 @@ background-color: lightgreen;
 border: 1px;
 border-radius: 15px;
 transition-duration: .7s;
+margin-left: 15px;
+display: flex;
+flex-direction: column;
+
+justify-content: center;
+align-items: center;
 }
-.Addnote:hover{
+
+.title {
+  margin-bottom: 10px;
+  
+}
+.title input {
+  outline: none;
+  border: none;
+}
+/* .Addnote:hover{
   width: 350px;
   height: 350px;
+} */
+.content textarea{
+  border: none;
+  outline: none;
+  height: 65px;
+  
 }
 
 .addy{
@@ -167,4 +192,9 @@ transition-duration: .7s;
 
 .addfield2:onClick{
   width: 300px;
+}
+
+.addbutton {
+  display: flex;
+  justify-content: center;
 }

@@ -34,7 +34,7 @@ class Singlenote extends Component {
                     <div className='editor'>
                  
              <div className="Addnote">
-                <h1> Add a Note!</h1>
+                <h1> Edit Note</h1>
                 <form onSubmit={this.editHandler}>
 
                 <div className='title'>
