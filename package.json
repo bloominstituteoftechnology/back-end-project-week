@@ -14,22 +14,22 @@
   "author": "alasalle <angela.lasalle91@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
-    "dotenv": "^6.2.0",
+    "dotenv": "^8.1.0",
     "express": "^4.16.4",
     "helmet": "^3.15.1",
     "jsonwebtoken": "^8.4.0",
-    "knex": "^0.16.3",
+    "knex": "^0.19.5",
     "morgan": "^1.9.1",
     "pg": "^7.8.0",
     "sqlite3": "^4.0.6"
   },
   "devDependencies": {
-    "cross-env": "^5.2.0",
+    "cross-env": "^6.0.3",
     "jest": "^24.1.0",
     "nodemon": "^1.18.10",
-    "supertest": "^3.4.2"
+    "supertest": "^4.0.2"
   }
 }
