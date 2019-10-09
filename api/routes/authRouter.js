@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 const db = require("../../data/dbConfig");
+const users = require("../../users/usersModel")
 const { generateToken } = require("../../auth/authenticate");
 
 const router = express.Router();
@@ -23,8 +24,8 @@ const secret =
 // };
 
 router.post("/register", (req, res) => {
-  let user = req.body;
-
+  let user = req.body
+  console.log({user: user})
   if (
     !user.username ||
     typeof user.username !== "string" ||
@@ -57,17 +58,16 @@ router.post("/register", (req, res) => {
         .then(ids => {
             const id = ids[0];
 
-            db("users")
-                .where(id, "id")
-                .first()
-                .then(response => {
-                    const token = generateToken(response);
-                    res.status(201).json(token);
-                })
-                .catch(err => {
-                    res.status(500).json(err);
-                });
-        });
+            return users
+            .fetchByUserName(user.username)
+        })
+        .then(response => {
+          const token = generateToken(response);
+          res.status(201).json(token);
+      })
+      .catch(err => {
+          res.status(500).json(err);
+      });
   }
 });
 
@@ -91,14 +91,15 @@ router.post("/login", (req, res) => {
       .status(400)
       .json({ error: "password must be included and must be a string" });
   } else {
-    const credentials = req.body;
+    
 
-    db("users")
-        .where({ userame: credentials.username })
+    return users
+        .fetchByUserName(user.username)
         .first()
-        .then(user => {
-            if (user && bcrypt.compareSync(credentials.password, user.password)) {
-                const token = generateToken(user);
+        .then(response => {
+          console.log({user: user, response: response})
+            if (response && bcrypt.compareSync(user.password, response.password)) {
+                const token = generateToken(response);
 
                 res.status(200).json(token);
             } else {
@@ -119,6 +120,21 @@ router.post("/logout", (req, res) => {
       res.send("logout successful");
     }
   });
+});
+
+router.get("/", (req, res) => {
+  users
+    .fetch()
+    .then(users => {
+      users[0]
+        ? res.status(200).json(users)
+        : res
+            .status(400)
+            .json({ error: "there are currently no users in our directory" });
+    })
+    .catch(err => {
+      res.status(500).json({ error: "could not retrieve users" });
+    });
 });
 
 module.exports = router;
