@@ -7,7 +7,7 @@ const router = express.Router();
 const { authenticate } = require("../../auth/authenticate");
 
 // const requestOptions = {
-//   headers: { 
+//   headers: {
 //     accept: "application/json" }
 // };
 
@@ -141,30 +141,27 @@ router.put("/:id", (req, res) => {
     );
 });
 
-router.delete(
-  "/:id",
-  async (req, res) => {
-    const { id } = req.params;
-    const deleted = await notes.fetch(id);
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  const deleted = await notes.fetch(id);
 
-    notes
-      .fetch(id)
-      .then(note => {
-        if (note[0]) {
-          notes
-            .remove(id)
-            .then(rows => res.status(201).json(deleted))
-            .catch(err =>
-              res.status(500).json({ error: "trouble deleting note" })
-            );
-        } else {
-          res.status(404).json({ error: "note does not exist" });
-        }
-      })
-      .catch(err =>
-        res.status(500).json({ error: "trouble retrieving note to be deleted" })
-      );
-  }
-);
+  notes
+    .fetch(id)
+    .then(note => {
+      if (note[0]) {
+        notes
+          .remove(id)
+          .then(rows => res.status(201).json(deleted))
+          .catch(err =>
+            res.status(500).json({ error: "trouble deleting note" })
+          );
+      } else {
+        res.status(404).json({ error: "note does not exist" });
+      }
+    })
+    .catch(err =>
+      res.status(500).json({ error: "trouble retrieving note to be deleted" })
+    );
+});
 
 module.exports = router;

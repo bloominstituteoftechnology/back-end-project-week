@@ -2,7 +2,7 @@ const db = require("../data/dbConfig.js");
 
 module.exports = {
   fetch: () => {
-    return db("users")
+    return db("users");
   },
   insert: user => {
     return db("users").insert(user);

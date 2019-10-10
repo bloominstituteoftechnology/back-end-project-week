@@ -18,7 +18,11 @@ server.use("/notes", notesRouter);
 server.use("/tags", tagsRouter);
 server.use("/auth", authRouter);
 server.get("/", (req, res) => {
-  res.status(200).json({message: "welcome to Angelina La Salle's back end project week API"})
-})
+  res
+    .status(200)
+    .json({
+      message: "welcome to Angelina La Salle's back end project week API"
+    });
+});
 
 module.exports = server;
