@@ -117,7 +117,7 @@ router.post("/logout", (req, res) => {
     if (err) {
       res.status(500).send("failed to logout");
     } else {
-      res.send("logout successful");
+      res.status(200).send("logout successful");
     }
   });
 });
