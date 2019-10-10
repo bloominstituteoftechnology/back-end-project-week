@@ -8,21 +8,6 @@ const { generateToken } = require("../../auth/authenticate");
 
 const router = express.Router();
 
-const secret =
-  process.env.JWT_SECRET ||
-  "add a .env file to root of project with the JWT_SECRET variable";
-
-// const generateToken = user => {
-//   const payload = {
-//     username: user.username
-//   };
-//   const options = {
-//     expiresIn: "1d",
-//     jwtid: 12345
-//   };
-//   return jwt.sign(payload, secret, options);
-// };
-
 router.post("/register", (req, res) => {
   let user = req.body;
   console.log({ user: user });
