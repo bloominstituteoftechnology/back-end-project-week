@@ -5,10 +5,15 @@
   "scripts": {
     "server": "nodemon index.js",
     "start": "node index.js",
-    "test": "cross-env DB_ENV=testing jest --watch --verbose"
+    "test": "cross-env DB_ENV=testing jest --watch --verbose --testTimeout=10000",
+    "migrate:reset": "npx knex migrate:rollback --all --env testing && npx knex migrate:latest --env testing && npx knex seed:run --env testing",
+    "pretest": "cross-env DB_ENV=testing yarn migrate:reset"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   },
   "repository": "https://github.com/alasalle/back-end-project-week.git",
   "author": "alasalle <angela.lasalle91@gmail.com>",
