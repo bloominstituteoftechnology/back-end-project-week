@@ -95,6 +95,7 @@ router.post("/login", (req, res) => {
 });
 
 router.post("/logout", (req, res) => {
+    console.log("IS THIS HITTING????")
       localStorage.removeItem("jwt")
       res.status(200).send("logout successful");
 });
