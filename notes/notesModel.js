@@ -8,6 +8,10 @@ module.exports = {
     }
     return query;
   },
+  fetchByUsername: username => {
+    const query = db("notes")
+    return query.where("user", username)
+  },
   insert: note => {
     return db("notes").insert(note);
   },

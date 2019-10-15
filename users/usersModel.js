@@ -8,6 +8,6 @@ module.exports = {
     return db("users").insert(user);
   },
   fetchByUserName: username => {
-    return db("users").where("username", username);
+    return db("users").where("username", username).first();
   }
 };

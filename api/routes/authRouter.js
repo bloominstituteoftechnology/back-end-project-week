@@ -4,6 +4,8 @@ const bcrypt = require("bcryptjs");
 
 const db = require("../../data/dbConfig");
 const users = require("../../users/usersModel");
+const notes = require("../../notes/notesModel");
+const tags = require("../../notes/tagsModel");
 const { generateToken } = require("../../auth/authenticate");
 
 const router = express.Router();
@@ -115,6 +117,46 @@ router.get("/", (req, res) => {
     .catch(err => {
       res.status(500).json({ error: "could not retrieve users" });
     });
+});
+
+router.get("/:username", (req, res) => {
+  const { username } = req.params;
+  users.fetchByUserName(username).then(user => {
+    user
+      ? res.status(200).json(user)
+      : res.status(400).json({ error: "could not retrieve user" });
+  });
+});
+
+router.get("/:username/notes", (req, res) => {
+  const { username } = req.params;
+  notes.fetchByUsername(username).then(notes => {
+    notes[0]
+      ? res.status(200).json(notes)
+      : res.status(400).json({ error: "could not retrieve user notes" });
+  });
+});
+
+router.get("/:username/tags", (req, res) => {
+  const { username } = req.params;
+  const tagsArray = [];
+  notes.fetchByUsername(username).then(notes => {
+    notes[0]
+      ? notes
+          .forEach(note => {
+            return tags.fetchTagsByNote(note.id);
+          })
+          .then(tags => {
+            tags[0]
+            ? tags.forEach(tag => {
+              tagsArray.push(tag);
+            }).then(() => {
+              res.status(200).json(tagArray)
+            })
+            : res.status(200).json({ error: "User notes have no tags" });
+          })
+      : res.status(200).json({ error: "User has no notes" });
+  });
 });
 
 module.exports = router;
