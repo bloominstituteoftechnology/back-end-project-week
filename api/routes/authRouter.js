@@ -95,13 +95,8 @@ router.post("/login", (req, res) => {
 });
 
 router.post("/logout", (req, res) => {
-  req.session.destroy(err => {
-    if (err) {
-      res.status(500).send("failed to logout");
-    } else {
+      localStorage.removeItem("jwt")
       res.status(200).send("logout successful");
-    }
-  });
 });
 
 router.get("/", (req, res) => {

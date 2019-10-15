@@ -24,7 +24,7 @@ function authenticate(req, res, next) {
 
 function generateToken(user) {
   const payload = {
-    username: user.usernanme
+    username: user.username
   };
 
   const options = {
