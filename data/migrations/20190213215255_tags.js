@@ -8,7 +8,8 @@ exports.up = function(knex, Promise) {
     table
       .foreign("note_id")
       .references("id")
-      .on("notes");
+      .on("notes")
+      .onDelete('CASCADE');
     table.string("tag").notNullable();
   });
 };
