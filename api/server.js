@@ -6,7 +6,7 @@ const knex = require("knex");
 const bcrypt = require('bcryptjs');
 
 const knexConfig = require("../knexfile");
-const db = knex(knexConfig.development);
+const db = process.env.NODE_ENV ? knex(knexConfig.production) : knex(knexConfig.development);
 const noteRouter = require("../notes/noteRouter");
 const userRouter = require("../users/userRouter");
 const { authenticate, generateToken } = require('../middleware.js');
