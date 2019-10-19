@@ -50,7 +50,7 @@ server.post("/api/register", (req, res) => {
   creds.password = hash;
 
   db("users")
-    .insert(creds)
+    .insert(creds, 'user_id')
     .then(ids => {
       db("notes")
         .insert({
