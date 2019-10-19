@@ -4,7 +4,7 @@ How to use this API
 
 GET /: sanity check, ensures the API is online. Returns { "api": "running" }.
 
-GET api/users: returns all usernames and encrypted passwords
+GET api/users: returns all usernames and encrypted passwords, other than the seeded users which are set to "pass"
 
 POST api/register: must have both a username and password. Creates a new user and returns a welcome message.
 
