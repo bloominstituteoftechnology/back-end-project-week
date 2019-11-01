@@ -6,7 +6,8 @@ const knex = require("knex");
 const bcrypt = require('bcryptjs');
 
 const knexConfig = require("../knexfile");
-const db = process.env.NODE_ENV ? knex(knexConfig.production) : knex(knexConfig.development);
+// const db = process.env.NODE_ENV ? knex(knexConfig.production) : knex(knexConfig.development);
+const db = knex(knexConfig.production);
 const noteRouter = require("../notes/noteRouter");
 const userRouter = require("../users/userRouter");
 const { authenticate, generateToken } = require('../middleware.js');
@@ -32,7 +33,8 @@ server.use("/api/notes", noteRouter);
 server.use("/api/users", userRouter);
 
 server.post("/api/register", (req, res) => {
-  const creds = req.body;
+  const { creds, notes } = req.body;
+  let userId;
 
   if (!creds.username) {
     return res.status(400).json({
@@ -58,20 +60,34 @@ server.post("/api/register", (req, res) => {
           content: "I hope you enjoy using this site.",
           user_id: ids[0]
         })
-        .then(id => res.status(200).json({
-          message: `welcome, user number ${id[0]}`
-        }))
+        .then(id => {
+          userId = id[0];
+          const token = generateToken({ id: userId, username: creds.username })
+          res.status(200).json({ message: `welcome, user number ${id[0]}`, token })
+      })
         .catch(err => console.log(err))
       res.status(201).json({
         message: "welcome",
         ids
       })
     })
-    .catch(err => res.status(401).json(err))
+    .then(() => {
+      for (let note of notes) {
+        db("notes")
+          .insert({ title: note.title, content: note.content, user_id: userId })
+          .then(id => res.status(200).json(id))
+          .catch(err => res.status(500).json({error: err}))
+      }
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(401).json(err)
+    })
 })
 
 server.post("/api/login", (req, res) => {
-  const creds = req.body;
+  const { creds, notes } = req.body;
+  let userId;
 
   if (!creds.username) {
     return res.status(400).json({
@@ -91,6 +107,7 @@ server.post("/api/login", (req, res) => {
     })
     .first()
     .then(user => {
+      userId = user.id;
       if (user && bcrypt.compareSync(creds.password, user.password)) {
         const token = generateToken(user);
         db("notes")
@@ -111,6 +128,14 @@ server.post("/api/login", (req, res) => {
         res.status(401).json({
           message: 'you shall not pass!!'
         });
+      }
+    })
+    .then(() => {
+      for (let note of notes) {
+        db("notes")
+          .insert({ title: note.title, content: note.content, user_id: userId })
+          .then(id => res.status(200).json(id))
+          .catch(err => res.status(500).json({error: err}))
       }
     })
     .catch(err => res.json(err));
