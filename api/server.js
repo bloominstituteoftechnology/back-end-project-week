@@ -33,8 +33,7 @@ server.use("/api/notes", noteRouter);
 server.use("/api/users", userRouter);
 
 server.post("/api/register", (req, res) => {
-  const { creds, notes } = req.body;
-  let userId;
+  const { creds } = req.body;
 
   if (!creds.username) {
     return res.status(400).json({
@@ -61,23 +60,13 @@ server.post("/api/register", (req, res) => {
           user_id: ids[0]
         })
         .then(id => {
-          userId = id[0];
-          const token = generateToken({ id: userId, username: creds.username })
-          res.status(200).json({ message: `welcome, user number ${id[0]}`, token })
+          res.status(200).json({ message: `welcome, user number ${id[0]}` })
       })
         .catch(err => console.log(err))
       res.status(201).json({
         message: "welcome",
         ids
       })
-    })
-    .then(() => {
-      for (let note of notes) {
-        db("notes")
-          .insert({ title: note.title, content: note.content, user_id: userId })
-          .then(id => res.status(200).json(id))
-          .catch(err => res.status(500).json({error: err}))
-      }
     })
     .catch(err => {
       console.log(err)
