@@ -121,6 +121,9 @@ server.post("/api/login", (req, res) => {
     })
     .then(() => {
       for (let note of notes) {
+        if (note.title === "Thanks for using Paper Notes!") {
+          continue;
+        }
         db("notes")
           .insert({ title: note.title, content: note.content, user_id: userId })
           .then(id => res.status(200).json(id))
