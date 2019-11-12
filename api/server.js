@@ -62,10 +62,6 @@ server.post("/api/register", (req, res) => {
           res.status(200).json({ message: `welcome, user number ${id[0]}` })
       })
         .catch(err => console.log(err))
-      res.status(201).json({
-        message: "welcome",
-        ids
-      })
     })
     .catch(err => {
       console.log(err)

@@ -116,7 +116,6 @@ router.delete("/:id", authenticate, (req, res) => {
                     })
                     .del()
                     .then(count => {
-                        console.log(count);
                         count ?
                             res.status(200).json(count) :
                             res.status(400).json({
