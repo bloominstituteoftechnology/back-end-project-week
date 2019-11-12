@@ -1,1 +1,5 @@
 .DS_Store
+node_modules
+_secrets
+nameless-cliffs-24621
+.env
