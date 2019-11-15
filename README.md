@@ -1,10 +1,5 @@
-# Back End Project Week
-
-This week you will build a backend for a note taking app called "Lambda Notes".
-
-You are to treat this week as if you are working at a company and the instructor is your client.
-
-You will use `Node.js`, `Express` and any other technologies you have learned to complete this assignment.
+## Lambda Notes
+The following is a list of items that you will need to accomplish to demonstrate mastery over your 4th Lambda School Unit
 
 ## Trello Set Up
 
