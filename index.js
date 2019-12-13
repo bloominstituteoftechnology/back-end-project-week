@@ -14,7 +14,7 @@ server.use(morgan());
 server.use(helmet());
 
 
-const PORT = 2200;
+const PORT = process.env.PORT || 2200;
 
 server.post('/api/notes', (req, res) => {
     const newNote = req.body;
