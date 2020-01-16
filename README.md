@@ -10,15 +10,16 @@ The following is a list of items that you will need to accomplish to demonstrate
 - Fill in the `backlog` list with all the extra features listed below.
 - Share your board with the project manager that has been assigned to you. If you have not been assigned yet, reach out to your Section Lead for guidance.
 - Add your Trello URL to your project's README.md file. Commit the change, push it to your repository & submit a pull request.
+  -Trello link: https://trello.com/invite/b/0fPYGxLq/a6fb34739c87a26ecb4c0840d79b0b8a/lambda-notes-ryan-walker
 
 ## Backend MVP Features:
 
 We recommend that you finish all the MVP features before trying to deploy.
 
-- Add data persistenc using a Relational Database. We suggest you start with `SQLite3`.
+- [x] Add data persistenc using a Relational Database. We suggest you start with `SQLite3`.
 - Create a Web API for the React application you built in the front-end project week.
 - Build endpoints for each of the following features:
-  - Display a list of notes.
+  - [x] Display a list of notes.
   - Create a note with a _title_ and _content_.
   - View an existing note.
   - Edit an existing note.
