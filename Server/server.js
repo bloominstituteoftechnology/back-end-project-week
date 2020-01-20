@@ -9,5 +9,5 @@ server.use(cors());
 server.use(express.json());
 server.use('/api', apiRoutes);
 
-const port = 8000;
+const port = 5000;
 server.listen(port, () => console.log(`\n=== API running on ${port} ===\n`));
