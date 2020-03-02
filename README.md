@@ -10,6 +10,7 @@ The following is a list of items that you will need to accomplish to demonstrate
 - Fill in the `backlog` list with all the extra features listed below.
 - Share your board with the project manager that has been assigned to you. If you have not been assigned yet, reach out to your Section Lead for guidance.
 - Add your Trello URL to your project's README.md file. Commit the change, push it to your repository & submit a pull request.
+    https://trello.com/b/XivGAUeb/lambda-notesbackend-jonathan-brock
 
 ## Backend MVP Features:
 
