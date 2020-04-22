@@ -1,0 +1,40 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon index.js",
+    "start": "node index.js",
+    "test": "cross-env DB_ENV=testing jest --watch --verbose --testTimeout=10000",
+    "migrate:reset": "npx knex migrate:rollback --all --env testing && npx knex migrate:latest --env testing && npx knex seed:run --env testing",
+    "pretest": "cross-env DB_ENV=testing yarn migrate:reset"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  },
+  "repository": "https://github.com/alasalle/back-end-project-week.git",
+  "author": "alasalle <angela.lasalle91@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.1.0",
+    "express": "^4.16.4",
+    "helmet": "^3.15.1",
+    "jsonwebtoken": "^8.4.0",
+    "knex": "^0.19.5",
+    "morgan": "^1.9.1",
+    "pg": "^7.8.0",
+    "sqlite3": "^4.0.6"
+  },
+  "devDependencies": {
+    "cross-env": "^6.0.3",
+    "jest": "^24.1.0",
+    "nodemon": "^1.18.10",
+    "supertest": "^4.0.2"
+  }
+}
