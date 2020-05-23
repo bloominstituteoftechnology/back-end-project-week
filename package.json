@@ -22,13 +22,13 @@
     "nodemon": "^1.17.5"
   },
   "dependencies": {
-    "bcrypt": "^2.0.1",
+    "bcrypt": "^4.0.1",
     "cors": "^2.8.4",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
-    "helmet": "^3.12.1",
+    "helmet": "^3.22.0",
     "jsonwebtoken": "^8.3.0",
-    "mongoose": "^5.1.6",
-    "morgan": "^1.9.0"
+    "mongoose": "^5.9.15",
+    "morgan": "^1.10.0"
   }
 }
