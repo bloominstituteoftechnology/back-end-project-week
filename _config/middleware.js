@@ -3,7 +3,7 @@ const morgan = require('morgan')
 const helmet = require('helmet')
 const cors = require('cors')
 
-const frontEndPort = 'condescending-fermi-c0580d.netlify.app'
+const frontEndPort = 'my-notes.app'
 
 module.exports = function(server) {
   server.use(helmet())
