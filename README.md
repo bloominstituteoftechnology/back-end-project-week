@@ -1,5 +1,5 @@
 ## Lambda Notes
-The following is a list of items that you will need to accomplish to demonstrate mastery over your 4th Lambda School Unit
+The following is a list of items that you will need to accomplish to demonstrate mastery over your 4th Lambda School Unit.
 
 ## Backend MVP Features:
 
