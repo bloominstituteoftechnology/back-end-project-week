@@ -1,50 +1,310 @@
-## Lambda Notes
-The following is a list of items that you will need to accomplish to demonstrate mastery over your 4th Lambda School Unit.
+# Notes App v1.0.0
 
-## Backend MVP Features:
+- [Auth](#auth) - [Logs an User In](#logs-an-user-in) - [Registers a New User](#registers-a-new-user)
+- [Notes](#notes) - [Deletes note based on provided Id](#deletes-note-based-on-provided-id) - [Returns all notes](#returns-all-notes) - [Add New note](#add-new-class) - [Updated note with provided Id](#updated-note-with-provided-id)
+- [Users](#users) - [Updates the Current Logged In User](#updates-the-current-logged-in-user) - [Deletes the Current Logged In User](#deletes-the-current-logged-in-user) - [Retrieve all notes that the Current User is testing for](#retrieve-all-categories-that-the-current-user-is-testing-for)
 
-We recommend that you finish all the MVP features before trying to deploy.
+# Auth
 
-- Add data persistence using a Relational Database. We suggest you start with `SQLite3`.
-- Create a Web API for the kind of React application you would have built in Unit 2 and 3.
-- Build endpoints for each of the following features:
-  - Display a list of notes.
-  - Create a note with a _title_ and _content_.
-  - View an existing note.
-  - Edit an existing note.
-  - Delete an existing note.
+## Logs an User In
 
-Upon your first commit, please submit a Pull Request and add _both_ the **Trello Set Up** and **Backend MVP Features** Task lists to your first Pull Request comment.
+<p>Logs an User In</p>
 
----
+    POST /api/auth/login
 
-**Once you have completed the "Minimum Viable Product" requirements, message Edd for approval**. If approved, you may continue to deploy and work on the Extra Features. Please add the Extra Features you implement to the list you added to the comment on your first PR.
+### Parameters
 
-## Deployment
+| Name     | Type   | Description                 |
+| -------- | ------ | --------------------------- |
+| username | String | <p>Username of the User</p> |
+| password | String | <p>Password of the User</p> |
 
-We recommend you deploy your server to [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction).
+### Success Response
 
-Additionally, it is recommended that you keep your front end and backend codebases in separate GitHub repositories. This helps with deploying, since the different parts of your application will be deployed on different platforms.
+Success-Response:
 
-## Extra Features:
+```
+{
+    "message": "Welcome Jason!",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjozLCJ1c2VybmFtZSI6ImtyeXN0YWwiLCJpYXQiOjE1ODU2OTE3ODUsImV4cCI6MTU4NjI5NjU4NX0.sTeWMY38y_zqW_NfI0Ae8sTQFjskStOPHJ4wNrre9m0"
+}
+```
 
-Once your MVP has been approved, you have been given a feature list that the client would love to have completed. Your goal would be to finish MVP as soon as you can and get working the list of extra features.
+### Error Response
 
-- Setup Auto-Deploy on Heroku
-- Provide documentation for how to interface with your API.
-- Create and display tags that can be added to notes and stored in the Database.
-- Allow users to clone notes.
-- Search functionality.
-- Create a Registration Page that allows users to create accounts for your app and sign in with email/password.
-- Allow users to sign in with a third party service (google, facebook, github, club penguin, etc...)
-- Allow users to create Lists and assign notes to a list.
-- Allow users to attach images to notes.
-- Allow multiple users to collaborate on notes.
-- Add Unit and Integration Tests.
+Username-Not-Found-Response
 
-## Super Duper Extra Credit Bonus Features
+```
+{
+     "message": "Invalid Credentials"
+}
+```
 
-- Add a payment form integrating with _Stripe_ that allows Users to buy a _"Premium"_ version of Lambda Notes.
-- Gate your favorite feature behind the _premium_ paywall
+Incorrect-Password
 
-You will notice that this repository does not have any starter code. This is on purpose. You are to start from scratch using any files you have built throughout your time here at Lambda School as reference.
+```
+{
+     "message": "Invalid Credentials"
+}
+```
+
+## Registers a New User
+
+<p>Registers a New User</p>
+
+    POST /api/auth/register
+
+### Parameters
+
+| Name     | Type   | Description                                      |
+| -------- | ------ | ------------------------------------------------ |
+| username | String | <p>The New Users username \*Required</p>         |
+| password | String | <p>The New Users password \*Required</p>         |
+| role     | String | <p>The Users Role: admin, client, instructor</p> |
+
+### Success Response
+
+Success-Response:
+
+```
+{
+    "saved": {
+        "id": 3,
+        "username": "jason",
+        "password": "$2a$10$nN1MqJAPV8a/jinHdYz2ee5yL39zIKlRcYv7RAiy/pcpF6oQ.d5jy",
+        "role": "admin"
+    }
+}
+```
+
+# Categories
+
+## Deletes Category based on provided Id
+
+    DELETE /api/categories/:id
+
+### Parameters
+
+| Name | Type    | Description                        |
+| ---- | ------- | ---------------------------------- |
+| id   | integer | <p>The ID is passed in the URL</p> |
+
+## Returns all categories
+
+    GET /api/categories
+
+### Success Response
+
+Success-Response:
+
+```
+{
+        "note_id": 1,
+        "note_front": "A",
+        "note_back": "a",
+        "category_id": 1,
+        "category_name": "Alphabet",
+        "category_description": "The letters A-Z uppercase and lowercase"
+    },
+    ...
+```
+
+### Error Response
+
+Unauthorized-Response:
+
+```
+{
+    "message": "No credentials provided"
+}
+```
+
+### Success Response
+
+Success-Response:
+
+```
+{
+        "id": 1,
+        "name": "Alphabet",
+        "frontCard": "A",
+        "backCard": "a"
+    },
+    ...
+```
+
+### Error Response
+
+Unauthorized-Response:
+
+```
+{
+    "message": "No credentials provided"
+}
+```
+
+# notes
+
+## Deletes notes based on provided Id
+
+    DELETE /api/notes/:id
+
+### Parameters
+
+| Name | Type    | Description                        |
+| ---- | ------- | ---------------------------------- |
+| id   | integer | <p>The ID is passed in the URL</p> |
+
+## Returns all notes
+
+    GET /api/notes
+
+### Success Response
+
+Success-Response:
+
+```
+[
+ {
+    "id": 1,
+    "frontCard": "A",
+    "backCard": "a",
+    "category_id": 1
+}
+...
+]
+```
+
+### Error Response
+
+Unauthorized-Response:
+
+```
+{
+    "message": "No credentials provided"
+}
+```
+
+## Add New Class
+
+    POST /api/notes
+
+### Parameters
+
+| Name        | Type    | Description                                 |
+| ----------- | ------- | ------------------------------------------- |
+| frontCard   | String  | <p>Front of card information \*Required</p> | Back of card information |
+| backCard    | String  | <p>The Id of the Instructor</p>             |
+| category_id | Integer | <p>The Id of the Category \*Required</p>    |  |
+|             |
+
+### Success Response
+
+Success-Response:
+
+```
+{
+    "id": 1,
+    "frontCard": "A",
+    "backCard": "a",
+    "category_id": 1
+}
+```
+
+### Error Response
+
+Unauthorized-Response:
+
+```
+{
+    "message": "No credentials provided"
+}
+```
+
+## Updated Class with provided Id
+
+    PUT /api/notes/:id
+
+### Parameters
+
+| Name    | Type   | Description                     |
+| ------- | ------ | ------------------------------- |
+| title   | String | <p>Title of note \*Required</p> | Back of card information |
+| content | String | <p>Content of note</p>          |
+
+### Success Response
+
+Success-Response:
+
+### Error Response
+
+Unauthorized-Response:
+
+```
+{
+    "message": "No credentials provided"
+}
+```
+
+# User
+
+## Updates the Current Logged In User
+
+<p>Updates the current logged in user</p>
+
+    PUT /api/user
+
+### Parameters
+
+| Name     | Type   | Description                                      |
+| -------- | ------ | ------------------------------------------------ |
+| username | String | <p>The Users username</p>                        |
+| password | String | <p>The Users password</p>                        |
+| role     | String | <p>The Users Role, admin, instructor, client</p> |
+
+### Success Response
+
+Success-Response:
+
+```
+{
+ "id": 3,
+ "username": "don",
+ "password": ,
+ "role": "client"
+}
+```
+
+### Error Response
+
+Unauthorized-Response:
+
+```
+{
+    "message": "No credentials provided"
+}
+```
+
+## Deletes the Current Logged In User
+
+<p>Deletes the current logged in user</p>
+
+    DELETE /api/user
+
+### Success Response
+
+Success-Response:
+
+```
+1
+```
+
+### Error Response
+
+Unauthorized-Response:
+
+```
+{
+    "message": "No credentials provided"
+}
+```
