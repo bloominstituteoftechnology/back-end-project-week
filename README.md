@@ -56,11 +56,10 @@ Incorrect-Password
 
 ### Parameters
 
-| Name     | Type   | Description                                      |
-| -------- | ------ | ------------------------------------------------ |
-| username | String | <p>The New Users username \*Required</p>         |
-| password | String | <p>The New Users password \*Required</p>         |
-| role     | String | <p>The Users Role: admin, client, instructor</p> |
+| Name     | Type   | Description                              |
+| -------- | ------ | ---------------------------------------- |
+| username | String | <p>The New Users username \*Required</p> |
+| password | String | <p>The New Users password \*Required</p> |
 
 ### Success Response
 
@@ -77,177 +76,6 @@ Success-Response:
 }
 ```
 
-# Categories
-
-## Deletes Category based on provided Id
-
-    DELETE /api/categories/:id
-
-### Parameters
-
-| Name | Type    | Description                        |
-| ---- | ------- | ---------------------------------- |
-| id   | integer | <p>The ID is passed in the URL</p> |
-
-## Returns all categories
-
-    GET /api/categories
-
-### Success Response
-
-Success-Response:
-
-```
-{
-        "note_id": 1,
-        "note_front": "A",
-        "note_back": "a",
-        "category_id": 1,
-        "category_name": "Alphabet",
-        "category_description": "The letters A-Z uppercase and lowercase"
-    },
-    ...
-```
-
-### Error Response
-
-Unauthorized-Response:
-
-```
-{
-    "message": "No credentials provided"
-}
-```
-
-### Success Response
-
-Success-Response:
-
-```
-{
-        "id": 1,
-        "name": "Alphabet",
-        "frontCard": "A",
-        "backCard": "a"
-    },
-    ...
-```
-
-### Error Response
-
-Unauthorized-Response:
-
-```
-{
-    "message": "No credentials provided"
-}
-```
-
-# notes
-
-## Deletes notes based on provided Id
-
-    DELETE /api/notes/:id
-
-### Parameters
-
-| Name | Type    | Description                        |
-| ---- | ------- | ---------------------------------- |
-| id   | integer | <p>The ID is passed in the URL</p> |
-
-## Returns all notes
-
-    GET /api/notes
-
-### Success Response
-
-Success-Response:
-
-```
-[
- {
-    "id": 1,
-    "frontCard": "A",
-    "backCard": "a",
-    "category_id": 1
-}
-...
-]
-```
-
-### Error Response
-
-Unauthorized-Response:
-
-```
-{
-    "message": "No credentials provided"
-}
-```
-
-## Add New Class
-
-    POST /api/notes
-
-### Parameters
-
-| Name        | Type    | Description                                 |
-| ----------- | ------- | ------------------------------------------- |
-| frontCard   | String  | <p>Front of card information \*Required</p> | Back of card information |
-| backCard    | String  | <p>The Id of the Instructor</p>             |
-| category_id | Integer | <p>The Id of the Category \*Required</p>    |  |
-|             |
-
-### Success Response
-
-Success-Response:
-
-```
-{
-    "id": 1,
-    "frontCard": "A",
-    "backCard": "a",
-    "category_id": 1
-}
-```
-
-### Error Response
-
-Unauthorized-Response:
-
-```
-{
-    "message": "No credentials provided"
-}
-```
-
-## Updated Class with provided Id
-
-    PUT /api/notes/:id
-
-### Parameters
-
-| Name    | Type   | Description                     |
-| ------- | ------ | ------------------------------- |
-| title   | String | <p>Title of note \*Required</p> | Back of card information |
-| content | String | <p>Content of note</p>          |
-
-### Success Response
-
-Success-Response:
-
-### Error Response
-
-Unauthorized-Response:
-
-```
-{
-    "message": "No credentials provided"
-}
-```
-
-# User
-
 ## Updates the Current Logged In User
 
 <p>Updates the current logged in user</p>
@@ -256,11 +84,10 @@ Unauthorized-Response:
 
 ### Parameters
 
-| Name     | Type   | Description                                      |
-| -------- | ------ | ------------------------------------------------ |
-| username | String | <p>The Users username</p>                        |
-| password | String | <p>The Users password</p>                        |
-| role     | String | <p>The Users Role, admin, instructor, client</p> |
+| Name     | Type   | Description               |
+| -------- | ------ | ------------------------- |
+| username | String | <p>The Users username</p> |
+| password | String | <p>The Users password</p> |
 
 ### Success Response
 
@@ -269,7 +96,7 @@ Success-Response:
 ```
 {
  "id": 3,
- "username": "don",
+ "username": "jason",
  "password": ,
  "role": "client"
 }
@@ -298,6 +125,70 @@ Success-Response:
 ```
 1
 ```
+
+### Error Response
+
+Unauthorized-Response:
+
+```
+{
+    "message": "No credentials provided"
+}
+```
+
+# Notes
+
+## Deletes Notes based on provided Id
+
+    DELETE /api/notes/:id
+
+### Parameters
+
+| Name | Type    | Description                        |
+| ---- | ------- | ---------------------------------- |
+| id   | integer | <p>The ID is passed in the URL</p> |
+
+## Returns all notes
+
+    GET /api/notes
+
+### Success Response
+
+Success-Response:
+
+```
+{
+        "id": 1,
+        "title": "Note Title",
+        "content": "This is your note",
+    },
+    ...
+```
+
+### Error Response
+
+Unauthorized-Response:
+
+```
+{
+    "message": "No credentials provided"
+}
+```
+
+## Updated Note with provided Id
+
+    PUT /api/notes/:id
+
+### Parameters
+
+| Name    | Type   | Description                     |
+| ------- | ------ | ------------------------------- |
+| title   | String | <p>Title of note \*Required</p> |
+| content | String | <p>Content of note</p>          |
+
+### Success Response
+
+Success-Response:
 
 ### Error Response
 
