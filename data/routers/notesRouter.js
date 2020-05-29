@@ -54,7 +54,7 @@ router.put('/:id', (req, res) => {
     Notes.update(req.params.id, req.body)
       .then((note) => {
         if (note) {          
-              res.status(200).json(note);
+              res.status(200).json({ message: 'The note has been updated' });
         } else {
           res.status(404).json({ message: "The note with the specified ID does not exist." });
         }
