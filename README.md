@@ -1,14 +1,14 @@
 # Notes App v1.0.0
 
 - [Auth](#auth) - [Logs an User In](#logs-an-user-in) - [Registers a New User](#registers-a-new-user)
-- [Notes](#notes) - [Deletes note based on provided Id](#deletes-note-based-on-provided-id) - [Returns all notes](#returns-all-notes) - [Add New note](#add-new-class) - [Updated note with provided Id](#updated-note-with-provided-id)
-- [Users](#users) - [Updates the Current Logged In User](#updates-the-current-logged-in-user) - [Deletes the Current Logged In User](#deletes-the-current-logged-in-user) - [Retrieve all notes that the Current User is testing for](#retrieve-all-categories-that-the-current-user-is-testing-for)
+- [Users](#users) - [Updates the Current Logged In User](#updates-the-current-logged-in-user) - [Deletes the Current Logged In User](#deletes-the-current-logged-in-user)
+- [Notes](#notes) - [Deletes note based on provided Id](#deletes-note-based-on-provided-id) - [Returns all notes](#returns-all-notes) - [Add New note](#add-new-note) - [Updated note with provided Id](#updated-note-with-provided-id)
 
 # Auth
 
-## Logs an User In
+## Logs a User In
 
-<p>Logs an User In</p>
+<p>Logs a User In</p>
 
     POST /api/auth/login
 
@@ -75,6 +75,8 @@ Success-Response:
     }
 }
 ```
+
+# Users
 
 ## Updates the Current Logged In User
 
