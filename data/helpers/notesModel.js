@@ -42,17 +42,29 @@ function getById(id) {
     .first();
 }
 
-function insert(note) {
-  return db("notes")
-    .insert(note, "id")
-    .then(([id]) => get(id));
+// function insert(note) {
+//   return db("notes")
+//     .insert(note, "id")
+//     .then(([id]) => get(id));
+// }
+
+async function insert(note) {
+  const [id] = await db('notes').insert(note);
+
+  return getById(id);
 }
 
+// function update(id, changes) {
+//   return db("notes")
+//     .where("id", id)
+//     .update(changes)
+//     .then(count => (count > 0 ? get(id) : null));
+// }
+
 function update(id, changes) {
-  return db("notes")
-    .where("id", id)
-    .update(changes)
-    .then(count => (count > 0 ? get(id) : null));
+  return db('notes')
+    .where({ id })
+    .update(changes, '*');
 }
 
 function remove(id) {

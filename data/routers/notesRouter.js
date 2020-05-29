@@ -24,13 +24,13 @@ router.get('/', (req, res) => {
 //   });
 // });
   
-// router.post('/', (req, res) => {    
-//     Notes.insert(req.body)
-//     .then(note => {res.status(201).json(note);})    
-//     .catch(() => {
-//       res.status(500).json({ message: 'Error adding note to the database' })
-//     })
-// });
+router.post('/', (req, res) => {    
+    Notes.insert(req.body)
+    .then(note => {res.status(201).json(note);})    
+    .catch(() => {
+      res.status(500).json({ message: 'Error adding note to the database' })
+    })
+});
 
 router.get('/:id', (req, res) => {
   Notes.getById(req.params.id)
