@@ -14,22 +14,40 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/:id', (req, res) => {
-    Notes.get(req.params.id)
-  .then((note) => {
-    res.status(200).json(note);
-  })
-  .catch((err) => {
-    res.status(500).json({ message: 'Error finding notes' });
-  });
-});
+// router.get('/:id', (req, res) => {
+//     Notes.get(req.body)
+//   .then((note) => {
+//     res.status(200).json(note);
+//   })
+//   .catch((err) => {
+//     res.status(500).json({ message: 'Error finding notes' });
+//   });
+// });
   
-router.post('/', (req, res) => {    
-    Notes.insert(req.body)
-    .then(note => {res.status(201).json(note);})    
-    .catch(() => {
-      res.status(500).json({ message: 'Error adding note to the database' })
-    })
+// router.post('/', (req, res) => {    
+//     Notes.insert(req.body)
+//     .then(note => {res.status(201).json(note);})    
+//     .catch(() => {
+//       res.status(500).json({ message: 'Error adding note to the database' })
+//     })
+// });
+
+router.get('/:id', (req, res) => {
+  Notes.getById(req.params.id)
+  .then(note => {
+    if (note) {
+      res.status(200).json(note);
+    } else {
+      res.status(404).json({ message: 'Note not found' });
+    }
+  })
+  .catch(error => {
+    // log error to server
+    console.log(error);
+    res.status(500).json({
+      message: 'Error retrieving the note',
+    });
+  });
 });
 
 router.put('/:id', (req, res) => {
@@ -65,21 +83,21 @@ router.delete('/:id', (req, res) => {
       });
   });
 
-// router.get('/:id/actions', (req, res) => {    
-//     Notes.getProjectActions(req.params.id)
-//       .then((action) => {
-//         if (action) {
-//           res.status(200).json(action);
-//         } else {
-//           res.status(404).json({ message: "Action not found" });
-//         }
-//       })
-//       .catch((error) => {      
-//         console.log(error);
-//         res.status(500).json({
-//           message: "Error retrieving the action",
-//         });
-//       });
-// });
+router.get('/:id/actions', (req, res) => {    
+    Notes.getNoteActions(req.params.id)
+      .then((action) => {
+        if (action) {
+          res.status(200).json(action);
+        } else {
+          res.status(404).json({ message: "Action not found" });
+        }
+      })
+      .catch((error) => {      
+        console.log(error);
+        res.status(500).json({
+          message: "Error retrieving the action",
+        });
+      });
+});
 
 module.exports = router;

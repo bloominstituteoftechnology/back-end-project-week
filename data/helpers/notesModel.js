@@ -3,6 +3,7 @@ const mappers = require("./mappers");
 
 module.exports = {
   get,
+  getById,
   insert,
   update,
   remove,
@@ -33,6 +34,12 @@ function get(id) {
       return notes.map(note => mappers.noteToBody(note));
     });
   }
+}
+
+function getById(id) {
+  return db('notes')
+    .where({ id })
+    .first();
 }
 
 function insert(note) {
