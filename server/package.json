@@ -1,0 +1,24 @@
+{
+	"name": "Video-Game-Reviews",
+	"version": "1.0.0",
+	"main": "index.js",
+	"repository": "https://github.com/PatrickTheCodeGuy/Video-Game-Reviews.git",
+	"author": "PatrickTheCodeGuy <patrick.jthompson93@gmail.com>",
+	"license": "MIT",
+	"scripts": {
+		"start": "nodemon index.js"
+	},
+	"dependencies": {
+		"axios": "^0.18.0",
+		"bcryptjs": "^2.4.3",
+		"cors": "^2.8.4",
+		"express": "^4.16.4",
+		"helmet": "^3.14.0",
+		"jsonwebtoken": "^8.3.0",
+		"knex": "^0.15.2",
+		"sqlite3": "^4.0.3"
+	},
+	"devDependencies": {
+		"nodemon": "^1.18.5"
+	}
+}
