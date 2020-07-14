@@ -1,0 +1,28 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "",
+    "heroku-postbuild": "cd client && npm i && npm run-script build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/shannonhealy/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shannonhealy/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/shannonhealy/back-end-project-week#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "knex": "^0.16.3",
+    "sqlite3": "^4.0.6"
+  }
+}
