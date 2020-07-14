@@ -1,0 +1,45 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "back end project",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest --watch --verbose",
+    "start": "node server.js"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeffyjkang/back-end-project-week.git"
+  },
+  "author": "jeff kang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeffyjkang/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/jeffyjkang/back-end-project-week#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "helmet": "^3.13.0",
+    "jsonwebtoken": "^8.3.0",
+    "knex": "^0.15.2",
+    "morgan": "^1.9.0",
+    "npm": "^6.4.0",
+    "script": "^0.1.4",
+    "sqlite3": "^4.0.2",
+    "start": "^5.1.0"
+  },
+  "devDependencies": {
+    "jest": "^23.5.0",
+    "nodemon": "^1.18.3",
+    "supertest": "^3.1.0"
+  },
+  "engines": {
+    "node": "8.11.1"
+  }
+}
