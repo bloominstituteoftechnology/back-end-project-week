@@ -1,0 +1,16 @@
+{
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.0",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.4"
+  },
+  "engines": {
+    "node": "10.4.1"
+  },
+  "name": "johnstodoapp",
+  "version": "0.0.1"
+}
