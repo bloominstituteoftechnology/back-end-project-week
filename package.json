@@ -1,0 +1,24 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "Backend of L-Notes",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": "https://github.com/Twistedkidd22/back-end-project-week.git",
+  "author": "<joshtietz11@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^3.0.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
+    "knex": "^0.15.2",
+    "nodemon": "^1.18.3",
+    "script": "^0.1.4",
+    "sqlite3": "^4.0.2",
+    "start": "^5.1.0"
+  }
+}

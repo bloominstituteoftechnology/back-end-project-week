@@ -1,0 +1,2 @@
+/// single require
+require('./noop');
