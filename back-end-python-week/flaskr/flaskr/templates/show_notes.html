@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block body %}
+	{% if session.logged_in %}
+		<form action="{{ url_for('add_note') }}" method=post class=add-entry>
+			<dl>
+				<dt>Title:
+				<dd><input type=text size=30 name=title>
+				<dt>Text:
+				<dd><textarea name=text rows=5 cols=40></textarea>
+				<dd><input type=submit value=Share>
+			</dl>
+		</form>
+	{% endif %}
+	<div class="notes-body">
+		<ul class=notes>
+		{% for note in notes %}
+			<li><button>Edit</button><h2>{{ note.title }}</h2>{{ note.text|safe }}</li>
+		{% else %}
+			<li><em>No Notes!!!</em></li>
+		{% endfor %}
+		</ul>
+	</div>
+{% endblock %}
