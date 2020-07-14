@@ -1,0 +1,5 @@
+__UI_Ideas__
+
+* three.js grid: https://codepen.io/i2801/pen/waQPQj
+* three.js weave/image slider https://codepen.io/kenjiSpecial/pen/EaVxdx
+* 

@@ -1,0 +1,5 @@
+1. id
+2. timestamp
+3. note title
+4. note content
+5. mark for deletion
