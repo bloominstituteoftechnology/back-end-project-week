@@ -1,0 +1,30 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ekm79/back-end-project-week.git",
+  "author": "Erin Meredith <ekmeredith@att.net>",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "jest --watch --verbose"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "helmet": "^3.13.0",
+    "jest": "^23.5.0",
+    "jsonwebtoken": "^8.3.0",
+    "knex": "^0.15.2",
+    "node": "^11.10.0",
+    "nodemon": "^1.18.3",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "react-tag-input": "^5.1.2",
+    "sqlite": "^2.9.2",
+    "supertest": "^3.1.0"
+  }
+}
