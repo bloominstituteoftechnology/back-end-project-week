@@ -1,0 +1,120 @@
+.expanded-note-container{
+    background:linear-gradient(to bottom, #0e1133,rgb(210, 177, 184));
+    width:71%;
+    font-family: 'Raleway', sans-serif;
+   
+}
+.expanded-note-edit-container{
+    width:30%;
+    float:right;
+    display:flex;
+    justify-content:space-around;
+    margin:30px;
+    font-size:1.8rem;
+    letter-spacing: .3rem;
+    font-weight:bolder;
+    color:white;
+    text-decoration:none;
+    text-decoration-color: white;
+    padding-right:2.5%;
+}
+.edit-link{
+    text-decoration:none;
+    color:white;
+}
+.expanded-note-sub-container{
+    width:80%;
+    margin:120px auto;
+    background-color:rgb(20, 20, 20);
+    border-radius:5px;
+    border:2px solid white;
+    min-height: 80vh;
+}
+.expanded-note-sub-sub-container{
+    width:80%;
+    margin:0px auto;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-around;
+    padding:20px 0% 40px 0%;
+}
+.expanded-title-header{
+    color:white;
+    font-size: 2.8rem;
+    text-transform: uppercase;
+    letter-spacing: .6rem;
+   font-weight:bolder;
+    text-align:center;
+    text-decoration:underline;
+    text-decoration-color: #4A415C;
+    padding-bottom:20px;
+    margin-top:40px;
+}
+.expanded-content{
+    color:white;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    letter-spacing: .5rem;
+   font-weight:bold;
+    text-align:center;
+}
+.expanded-delete{
+    position:fixed;
+    width:75%;
+    height:100vh;
+    background-color:rgba(192, 162, 171, 0.966);
+    display:flex;
+    margin:0px auto;
+    
+}
+.closed-delete{
+    display:none;
+}
+.delete-prompt-window{
+    margin:27.5vh 17.5%; 
+    border-radius:4px;
+    background-color:rgb(20, 20, 20);
+    width:60%;
+    border: 4px solid white;
+    height:50vh;
+}
+.delete-question{
+    color:white;
+    font-size:2.8rem;
+    font-family: 'Raleway', sans-serif;
+    letter-spacing: 0.6rem;
+    text-transform: uppercase;
+    margin:10vh auto;
+    text-align:center;
+    font-weight: bolder;
+}
+.delete-button-container{
+    width:80%;
+    display:flex;
+    justify-content: space-around;
+    color:white;
+    margin: 20vh auto;
+    padding-right:5px;
+}
+
+.yes-button, .no-button{
+    font-family: 'Raleway', sans-serif;
+    font-size:2rem;
+    letter-spacing: .4rem;
+    font-weight: bolder;
+    width:35%;
+    height:50px;
+    border: 2px solid white;
+    border-radius:5px;
+    text-align: center;
+    padding-top:20px;
+    cursor: pointer;
+}
+
+.no-button{
+    background-color:rgb(151, 111, 121);
+}
+
+.yes-button{
+    background-color: rgb(68, 65, 93);
+}

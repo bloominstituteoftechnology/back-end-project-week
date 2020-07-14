@@ -1,0 +1,68 @@
+.edit-note-container{
+    background:linear-gradient(to bottom, #0e1133,rgb(210, 177, 184));
+    width:71%;
+    font-family: 'Raleway', sans-serif;
+}
+.edit-sub-container{
+    width:80%;
+    margin:80px auto;
+}
+
+.edit-header{
+    color:white;
+    font-size: 3.6rem;
+    text-transform: uppercase;
+    letter-spacing: .7rem;
+    margin-top:60px;
+    text-align:center;
+}
+
+.form{
+    display:flex;
+    flex-direction:column;
+    
+}
+.title-input{
+   
+    margin: 40px 0%;
+    height:40px;
+
+}
+.content-input{
+    height:160px;
+   
+}
+input[type=text]{
+    background-color:rgb(20, 20, 20);
+    color:#746478;
+    font-family: 'Raleway', sans-serif;
+    text-transform: uppercase;
+    font-size:1.6rem;
+    letter-spacing:.4rem;
+    border-radius:5px;
+    border-color: white;
+    border-style:solid;
+    font-weight:bold;
+}
+::-webkit-input-placeholder {
+    color: #6F6175;
+    text-align:center;
+    
+  }
+  ::-moz-placeholder {
+    color: #6F6175;
+    text-align:center;
+    
+  }
+  :-ms-input-placeholder {
+    color: #6F6175;
+    text-align:center;
+    
+  }
+  ::placeholder {
+    color: #6F6175;
+    text-align:center;
+    
+  }
+
+ 
