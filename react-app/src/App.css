@@ -1,0 +1,47 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 10s linear;
+  height: 30px;
+  margin: 20px; 
+  margin-top: 40px; 
+}
+
+.App-header {
+  display: flex;
+  justify-content: center;
+  height: 120px;
+  padding: 20px;
+  color:  black;
+  text-shadow: 3px 5px gray; 
+ font-weight: bolder; 
+}
+
+.App-title {
+  font-size: 3.5em;
+  margin: 20px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif; 
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.loginForm {
+  width: 600px;
+  height: 100px;
+  border: 2px solid black;
+  padding-top: 55px;
+  margin: 10px auto;
+  margin-bottom: 10px;
+  background: lightgray;
+  box-shadow: 3px 5px;
+  font-weight: bolder;
+}
