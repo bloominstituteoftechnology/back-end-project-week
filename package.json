@@ -1,0 +1,38 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/tristenneu/back-end-project-week.git",
+  "license": "MIT",
+  "engines": {
+    "node": "8.11.4",
+    "yarn": "1.9.4"
+  },
+  "scripts": {
+    "test": "jest --watch --verbose",
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "heroku-postbuild": "yarn install --production"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.4",
+    "helmet": "^3.14.0",
+    "jsonwebtoken": "^8.3.0",
+    "knex": "^0.15.2",
+    "pg": "^7.6.0",
+    "sqlite3": "^4.0.3"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.5",
+    "supertest": "^3.3.0"
+  },
+  "jest": {
+		"testEnvironment": "node",
+		"watchPathIgnorePatterns": [
+			"<rootDir>/jest.json"
+		]
+	}
+}
