@@ -1,6 +1,9 @@
 ## Lambda Notes
 The following is a list of items that you will need to accomplish to demonstrate mastery over your 4th Lambda School Unit.
 
+## Trello URL:
+https://trello.com/b/bWJgucPo/lambda-notesbackend-il-ho-kim
+
 ## Backend MVP Features:
 
 We recommend that you finish all the MVP features before trying to deploy.
