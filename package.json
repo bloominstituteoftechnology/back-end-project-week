@@ -1,0 +1,31 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "This week you will be building a backend for a note taking app called \"Lambda Notes.\"",
+  "main": "server.js",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "cors": "^2.8.4",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.1",
+    "mongodb": "^3.0.7",
+    "mongoose": "^5.0.16",
+    "nodemon": "^1.17.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mjd02/back-end-project-week.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mjd02/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/mjd02/back-end-project-week#readme"
+}
