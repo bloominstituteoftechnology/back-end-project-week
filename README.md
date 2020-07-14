@@ -35,7 +35,7 @@ Once your MVP has been approved, you have been given a feature list that the cli
 - Create and display tags that can be added to notes and stored in the Database.
 - Allow users to clone notes.
 - Search functionality.
-- Create a Registration Page that allows users to create accounts for your app and sign in with email/password.
+- Create a Registration Page that allows users to create acdcounts for your app and sign in with email/password.
 - Allow users to sign in with a third party service (google, facebook, github, club penguin, etc...)
 - Allow users to create Lists and assign notes to a list.
 - Allow users to attach images to notes.
@@ -44,7 +44,7 @@ Once your MVP has been approved, you have been given a feature list that the cli
 
 ## Super Duper Extra Credit Bonus Features
 
-- Add a payment form integrating with _Stripe_ that allows Users to buy a _"Premium"_ version of Lambda Notes.
+- Add a payment form  integrating with _Stripe_ that allows Users to buy a _"Premium"_ version of Lambda Notes.
 - Gate your favorite feature behind the _premium_ paywall
 
-You will notice that this repository does not have any starter code. This is on purpose. You are to start from scratch using any files you have built throughout your time here at Lambda School as reference.
+You will notice that this repository fdoes not have any starter code. This is on purpose. You are to start from scratch using any files you have built throughout your time here at Lambda School as reference.

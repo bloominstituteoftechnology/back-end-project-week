@@ -1,0 +1,20 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": "https://github.com/travis-russell/back-end-project-week.git",
+  "author": "travis-russell <russell.travis@yahoo.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cors": "^2.8.4",
+    "express": "^4.16.4",
+    "helmet": "^3.14.0",
+    "knex": "^0.15.2",
+    "sqlite3": "^4.0.3"
+  },
+  "devDependencies": {}
+}
