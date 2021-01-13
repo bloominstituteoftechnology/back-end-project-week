@@ -18,6 +18,14 @@ exports.seed = function(knex, Promise) {
               title: 'Note 3',
               content:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi quos ducimus dolores est sit delectus rem consequatur obcaecati facere doloremque aspernatur corporis animi accusamus nulla corrupti sed, perferendis culpa. Doloremque.',
           },
+          {
+            title: 'Note 4',
+            content:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi quos ducimus dolores est sit delectus rem consequatur obcaecati facere doloremque aspernatur corporis animi accusamus nulla corrupti sed, perferendis culpa. Doloremque.',
+          },
+          {
+            title: 'Note 5',
+            content:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi quos ducimus dolores est sit delectus rem consequatur obcaecati facere doloremque aspernatur corporis animi accusamus nulla corrupti sed, perferendis culpa. Doloremque.',
+          },
         ]);
      });
 };

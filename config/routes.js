@@ -6,7 +6,7 @@ const db = require('../database/dbConfig.js');
 
 module.exports = server => {
     server.get('/', serverRunning);
-    server.get('/api/notes',/* authenticate, */ getNotes); //Display a list of notes.
+    server.get('/api/notes', getNotes); //Display a list of notes.
     server.get('/api/notes/:id', viewSingleNote);//View an existing note.
     server.post('/api/notes', createNote) //Create a note with a title and content
     server.put('/api/notes/:id', updateNote);//Edit an existing note.
@@ -15,7 +15,6 @@ module.exports = server => {
     server.post('/api/register', register);
     server.post('/api/login', login);
 }
-
 
 //======= FUNCTION TO SEE SERVER RUNNING ON BASIC ROUTE '/' ========
 function serverRunning(req, res) {
@@ -26,7 +25,7 @@ function serverRunning(req, res) {
 function getNotes(req, res) {
     db('notes')
             .then(notes => {
-                res.status(200).json(notes);   
+                res.status(200).json(notes); 
              })
             .catch(error => {
                 response.status(500).json({error : 'The notes data could not be retrieved'})
@@ -39,7 +38,10 @@ function viewSingleNote(req, res) {
     db('notes')
              .where({id : req.params.id})
              .then(note => {
-                    res.status(200).json(note); 
+                if(note.length < 1) {
+                    res.status(500).json({error : 'Note not present for given id'})
+                } else res.status(200).json(note); 
+                
               })
              .catch(error => {
                     res.status(500).json({error : 'The data could not be retrieved'})
@@ -69,7 +71,7 @@ function deleteNote(req, res) {
              .delete(req.params.id)
              .then(count => {
                 count ? res.status(200).json({ message: "note successfully deleted." })
-                      : res.status(404).json({ message: "The project with the specified ID does not exist."})
+                      : res.status(404).json({ message: "The note with the specified ID does not exist."})
               })
              .catch(error => {
                     res.status(500).json({message : 'error deleting user'})
@@ -86,11 +88,11 @@ const updateNote = (req, res) => {
                     if(count) {
                         res.status(200).json(count);
                     } else {
-                        res.status(404).json({ message: "The project with the specified ID does not exist." })
+                        res.status(404).json({ message: "The note with the specified ID does not exist." })
                     }
               })
              .catch(error => {
-                    res.status(500).json({ error: "The project information could not be modified." })
+                    res.status(500).json({ error: "The note information could not be modified." })
               })
     } else {
           res.status(422).json({error : "Need correct data..."})
@@ -101,6 +103,7 @@ const updateNote = (req, res) => {
 //======= FUNCTION TO SEE REGISTER NEW USERE '/api/register' ========
 function register(req, res) {
     // implement user registration
+    console.log("req.body  : ", req.body);
     const credentials = req.body;
     
     const hash = bcrypt.hashSync(credentials.password, 6);
@@ -122,7 +125,7 @@ function login(req, res) {
           .then(user => {
               if(user && bcrypt.compareSync(credentials.password, user.password)) {
                     const token = generateToken(user);
-                    res.status(200).json({message : "Logged In", token});
+                    res.status(200).send({message : "Logged In", token});
               } else {
                     res.status(401).json({message : "Invalid username or password.."})
               }

@@ -4,9 +4,9 @@
   "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon",
+    "run": "nodemon index.js",
     "test": "jest --watch --verbose",
-    "start" : "node index.js"
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -27,7 +27,8 @@
     "jest": "^23.6.0",
     "jsonwebtoken": "^8.4.0",
     "knex": "^0.16.2",
-    "sqlite3": "^4.0.4",
+    "morgan": "^1.9.1",
+    "sqlite3": "^4.1.1",
     "supertest": "^3.3.0"
   },
   "devDependencies": {
