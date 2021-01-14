@@ -16,7 +16,10 @@ server.get('/', (req, res) => {
 // const configRoutes = require('./config/routes')
 // configRoutes(server)
 
-var notes = require('./routes/notes.js')
+const users = require('./routes/users.js')
+server.use('/api/users', users)
+
+const notes = require('./routes/notes.js')
 server.use('/api/notes', notes)
 
 module.exports = server;
