@@ -25,6 +25,8 @@ function generateToken(user) {
 //authenticate Function TO CHECK LOGGED-IN USER...
 function authenticate(req, res, next) {
   const token = req.get('Authorization');
+  console.log(token, "\n", jwtKey)
+
 
   if (token) {
     jwt.verify(token, jwtKey, (err, decoded) => {

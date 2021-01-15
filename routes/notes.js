@@ -9,7 +9,7 @@ const { authenticate } = require('./../config/middlewares.js')
 const db = require('../database/dbConfig.js')
 
 /***** NOTES GET *****/
-router.get('/', authenticate,  (req, res) => {
+router.get('/', (req, res) => {
     db('notes')
             .then(notes => {
                 res.status(200).json(notes); 
@@ -36,6 +36,8 @@ router.get('/:id', (req, res) => {
     
 /***** CREATE NOTE-  POST *****/
 router.post('/', (req, res) => {
+    console.log("CREATE ************************* ")
+    console.log("CREATE NOTE  : ", req.body)
     if(req.body.title && req.body.content) {
             db('notes')
                     .insert(req.body)

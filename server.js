@@ -22,4 +22,5 @@ server.use('/api/users', users)
 const notes = require('./routes/notes.js')
 server.use('/api/notes', notes)
 
+
 module.exports = server;
