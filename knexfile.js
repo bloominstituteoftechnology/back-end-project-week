@@ -1,7 +1,14 @@
 // Update with your config settings.
 require('dotenv').config();
 
-const dbConnection = process.env.DATABASE_URL;
+// const localPg = {
+//   host: process.env.HOST,
+//   database: process.env.DB_NAME,
+//   user: process.env.DB_USER,
+//   password: process.env.DB_PASS
+// };
+
+const dbConnection = process.env.DATABASEURI;
 
 module.exports = {
   development: {
