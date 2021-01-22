@@ -1,14 +1,15 @@
 // Update with your config settings.
 require('dotenv').config();
 
+const pg = require('pg');
+pg.defaults.ssl = true;
+
 // const localPg = {
 //   host: process.env.HOST,
 //   database: process.env.DB_NAME,
 //   user: process.env.DB_USER,
 //   password: process.env.DB_PASS
 // };
-
-const dbConnection = process.env.DATABASEURI;
 
 module.exports = {
   development: {
@@ -32,7 +33,10 @@ module.exports = {
 
   production: {
     client: 'pg',
-    connection: dbConnection,
+    connection: process.env.DATABASEURI,
+    ssl: {
+      rejectUnauthorized: false
+    },
     migrations: {
         directory: './database/migrations',
         tableName: 'dbmigrations',

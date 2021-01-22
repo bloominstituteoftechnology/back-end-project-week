@@ -7,6 +7,10 @@ const { authenticate } = require('./../config/middlewares.js')
 
 
 const db = require('../database/dbConfig.js')
+console.log( db.VERSION)
+console.log( db.schema  )
+//console.log( db.select  )
+
 
 /***** NOTES GET *****/
 router.get('/', (req, res) => {
