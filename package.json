@@ -1,0 +1,39 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "description": "This week you will build a backend for a note taking app called \"Lambda Notes\".",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watch --verbose",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lajawanti/back-end-project-week.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lajawanti/back-end-project-week/issues"
+  },
+  "homepage": "https://github.com/lajawanti/back-end-project-week#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.16.4",
+    "helmet": "^3.15.0",
+    "jest": "^23.6.0",
+    "jsonwebtoken": "^8.4.0",
+    "knex": "^0.16.2",
+    "morgan": "^1.9.1",
+    "pg": "^8.5.1",
+    "sqlite3": "^4.1.1",
+    "supertest": "^3.3.0",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.7"
+  }
+}
