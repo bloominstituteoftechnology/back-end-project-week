@@ -33,7 +33,7 @@ module.exports = {
   },
   production: {
     client: 'pg',
-    connection: process.env.DATABASE_URL,
+    connection: process.env.HEROKU_POSTGRESQL_ROSE_URL,
     ssl: { rejectUnauthorized: false },
     pool: {
       min: 2, 
