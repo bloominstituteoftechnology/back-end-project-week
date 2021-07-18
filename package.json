@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/iepoch/back-end-project-week.git",
-  "author": "iepoch <staclem@live.com>",
+  "author": "iepoch <steaclem@gmail.com>",
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
@@ -25,6 +25,6 @@
     "logger": "^0.0.1",
     "morgan": "^1.9.1",
     "pg": "^7.8.0",
-    "sqlite3": "^4.0.6"
+    "sqlite3": "^5.0.2"
   }
 }
