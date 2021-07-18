@@ -1,5 +1,6 @@
+// Update with your config settings.
+require('dotenv').config();
 
-require('dotenv').config({path: '.env'});
 module.exports = {
 
   development: {
@@ -31,13 +32,10 @@ module.exports = {
     }
   },
   production: {
-    client: 'postgresql',
-    connection: process.env.DATBASE_URL,
-    // ssl: { rejectUnauthorized: false },
-    pool: {
-      min: 2, 
-      max: 10
-    },
+    client: 'pg',
+    useNullAsDefault: true,
+    connection: process.env.DATABASE_URL,
+     ssl: { rejectUnauthorized: false },
     migrations: {
 
       directory:  './data/migrations',
