@@ -1,0 +1,30 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/iepoch/back-end-project-week.git",
+  "author": "iepoch <steaclem@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon"
+  },
+  "engines": {
+    "yarn": "1.x"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "nodemon": "^1.18.10"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "knex": "^0.95.7",
+    "logger": "^0.0.1",
+    "morgan": "^1.10.0",
+    "pg": "^8.6.0",
+    "sqlite3": "^5.0.2"
+  }
+}
