@@ -1,4 +1,4 @@
-// Update with your config settings.
+
 require('dotenv').config({path: '.env'});
 module.exports = {
 
@@ -33,7 +33,7 @@ module.exports = {
   production: {
     client: 'postgresql',
     connection: process.env.HEROKU_POSTGRESQL_ROSE_URL,
-    ssl: { rejectUnauthorized: false },
+    // ssl: { rejectUnauthorized: false },
     pool: {
       min: 2, 
       max: 10
